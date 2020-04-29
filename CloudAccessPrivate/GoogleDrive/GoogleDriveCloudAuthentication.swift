@@ -94,6 +94,10 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
                     
                     return reject(CloudAuthenticationError.authenticationFailed)
                 }
+                //MARK: Debug for Mocking the Google Drive Cloud Auth
+                let authResponse = authState.lastAuthorizationResponse
+                let tokenResponse = authState.lastTokenResponse
+                
                 fulfill(authState)
             })
         }

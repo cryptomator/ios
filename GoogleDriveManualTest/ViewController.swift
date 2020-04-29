@@ -8,12 +8,15 @@
 
 import UIKit
 import CloudAccessPrivate
+import CryptomatorCloudAccess
 import Promises
+import Foundation
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         let authentication = GoogleDriveCloudAuthentication()
         authentication.isAuthenticated().then{ authenticated in
             if authenticated{
@@ -21,13 +24,87 @@ class ViewController: UIViewController {
             } else {
                 return authentication.authenticate(from: self)
             }
-        }.then{
+        }/*.then{ () -> Promise<Void> in
             print("authenticated")
+            return self.fetchItemList(with: authentication)
+        }*/
+        /*.then{ () -> Promise<Void> in
+            return self.deleteItem(with: authentication)
+        }*/
+        /*.then{
+            return self.createFolder(with: authentication)
+        }*/
+        /*.then{
+            return self.renameWithMoveItem(with: authentication)
+        }*/
+        /*.then{
+            return self.realMoveItem(with: authentication)
+        }*/
+        .then{
+            return self.realMoveItemWithRename(with: authentication)
         }.catch{ error in
             print("error: \(error)")
         }
     }
-
-
+    
+    private func fetchItemList(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        var startTime = CFAbsoluteTimeGetCurrent()
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/", isDirectory: true)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.fetchItemList(forFolderAt: testURL, withPageToken: nil).then{ cloudItemList in
+            let timeElapsed = CFAbsoluteTimeGetCurrent() - startTime
+            print("Time elapsed for fetchFileList: \(timeElapsed) s.")
+            print("fetched cloudItemList")
+            for item in cloudItemList.items{
+                print("item: \(item.name)")
+            }
+            return Promise(())
+        }
+    }
+    
+    private func deleteItem(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/FolderToDelete/", isDirectory: true)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.deleteItem(at: testURL)
+    }
+    
+    private func createFolder(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/FolderToCreate/", isDirectory: true)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.createFolder(at: testURL)
+    }
+    
+    private func renameWithMoveItem(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/Folder1/test.txt", isDirectory: false)
+        let newTestURL = URL(fileURLWithPath: "/Test/Folder1/testRenamed.txt", isDirectory: false)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.moveItem(from: testURL, to: newTestURL)
+    }
+    
+    private func realMoveItem(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/Folder1/testRenamed.txt", isDirectory: false)
+        let newTestURL = URL(fileURLWithPath: "/Test/Folder2/testRenamed.txt", isDirectory: false)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.moveItem(from: testURL, to: newTestURL)
+    }
+    
+    private func realMoveItemWithRename(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let testURL = URL(fileURLWithPath: "/Test/Folder2/testRenamed.txt", isDirectory: false)
+        let newTestURL = URL(fileURLWithPath: "/Test/Folder1/test.txt", isDirectory: false)
+        print(testURL.absoluteString)
+        print(testURL.hasDirectoryPath)
+        return provider.moveItem(from: testURL, to: newTestURL)
+    }
 }
 
