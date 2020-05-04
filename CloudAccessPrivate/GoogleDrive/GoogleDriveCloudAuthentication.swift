@@ -13,10 +13,10 @@ import AppAuth
 import GTMAppAuth
 import GoogleAPIClientForREST
 public class GoogleDriveCloudAuthentication: CloudAuthentication {
-    private let clientId = ""
-    private let redirectURL = URL(string: "")
+    let clientId = ""
+    let redirectURL = URL(string: "")
     private let keychainItemName = "GoogleDriveAuth"
-    private let scopes = [kGTLRAuthScopeDrive]
+    let scopes = [kGTLRAuthScopeDrive]
     private static var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public var authorization: GTMAppAuthFetcherAuthorization?
     
@@ -94,10 +94,6 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
                     
                     return reject(CloudAuthenticationError.authenticationFailed)
                 }
-                //MARK: Debug for Mocking the Google Drive Cloud Auth
-                let authResponse = authState.lastAuthorizationResponse
-                let tokenResponse = authState.lastTokenResponse
-                
                 fulfill(authState)
             })
         }

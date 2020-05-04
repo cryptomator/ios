@@ -13,9 +13,12 @@ import GoogleAPIClientForREST
 
 public class GoogleDriveCloudProvider: CloudProvider {
     
+    
+    
     private let authentication: GoogleDriveCloudAuthentication
     private let rootFolderId = "root"
     private let folderMimeType = "application/vnd.google-apps.folder"
+    private let unknownMimeType = "application/octet-stream"
     private lazy var driveService : GTLRDriveService = {
        var driveService = GTLRDriveService()
         driveService.authorizer = self.authentication.authorization
@@ -33,8 +36,13 @@ public class GoogleDriveCloudProvider: CloudProvider {
     
     
     public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-        //MARK: Implement function
-        fatalError("not implemented yet")
+        return resolvePath(for: remoteURL).then(fetchGTLRDriveFile).then{ file -> CloudItemMetadata in
+            guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
+                throw CloudProviderError.itemNotFound //MARK: Discuss Error
+            }
+            let itemType = self.getCloudItemType(forMimeType: mimeType)
+            return CloudItemMetadata(name: name, size: file.size, remoteURL: remoteURL, lastModifiedDate: lastModifiedDate, itemType: itemType)
+        }
     }
     
     public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
@@ -50,33 +58,32 @@ public class GoogleDriveCloudProvider: CloudProvider {
     public func createBackgroundDownloadTask(for file: CloudFile, with delegate: URLSessionTaskDelegate) -> Promise<URLSessionDownloadTask> {
         //MARK: Discuss if this DownloadTask should be authorized later and not directly. (For example if the download is pending for a long time the token could have expired).
         //MARK: Test current Implementation manually
-        return resolvePath(for: file.metadata.remoteURL).then{ identifier -> Promise<NSMutableURLRequest> in
+        return resolvePath(for: file.metadata.remoteURL).then{ identifier -> Promise<URLRequest> in
             let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
-            let request = self.driveService.request(for: query)
-            return Promise(request)
-        }.then{ request in
+            return self.createAuthorizedRequest(for: query)
+        }.then{ request -> URLSessionDownloadTask in
             let config = URLSessionConfiguration.background(withIdentifier: "GoogleDriveDownload-\(file.metadata.remoteURL.absoluteString)")
             //MARK: Add here the correct containerIdentifier
             //config.sharedContainerIdentifier = ""
             let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
             let downloadTask = session.downloadTask(with: request as URLRequest)
-            return Promise<URLSessionDownloadTask>{ fulfill, reject in
-                self.driveService.authorizer?.authorizeRequest?(request, completionHandler: { error in
-                    guard error == nil else{
-                        return reject(error!) //MARK: Maybe add here better Error Handling -> CloudAuthErrors..
-                    }
-                    fulfill(downloadTask)
-                })
-            }
+            return downloadTask
         }
         
         
     }
     
-    public func createBackgroundUploadTask(for file: CloudFile, with delegate: URLSessionTaskDelegate) -> Promise<URLSessionUploadTask> {
-        //MARK: Implement function
-        fatalError("not implemented yet")
-        
+    public func createBackgroundUploadTask(for file: CloudFile, isUpdate: Bool, with delegate: URLSessionTaskDelegate) -> Promise<URLSessionUploadTask> {
+        return createUploadQuery(for: file, isUpdate: isUpdate).then{ query in
+            return self.createAuthorizedRequest(for: query)
+        }.then{ request -> URLSessionUploadTask in
+            let config = URLSessionConfiguration.background(withIdentifier: "GoogleDriveUpload-\(file.metadata.remoteURL.absoluteString)")
+            //MARK: Add here the correct containerIdentifier
+            //config.sharedContainerIdentifier = ""
+            let session = URLSession(configuration: config, delegate: delegate, delegateQueue: nil)
+            let uploadTask = session.uploadTask(with: request, fromFile: file.localURL)
+            return uploadTask
+        }
     }
     
     public func createFolder(at remoteURL: URL) -> Promise<Void> {
@@ -109,7 +116,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
                 let _ = try await(self.resolvePath(for: newRemoteURL))
                 reject(CloudProviderError.itemAlreadyExists)
             } catch CloudProviderError.itemNotFound {
-                print("here")
                 let itemIdentifier = try await(self.resolvePath(for: oldRemoteURL))
                 
                 let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: itemIdentifier, uploadParameters: nil)
@@ -232,6 +238,24 @@ public class GoogleDriveCloudProvider: CloudProvider {
         }
     }
     
+    private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String) -> Promise<GTLRDrive_File> {
+        let query = GTLRDriveQuery_FilesGet.query(withFileId: itemIdentifier)
+        query.fields = "modifiedTime, size, mimeType"
+        return Promise<GTLRDrive_File>{ fulfill, reject in
+            self.executeQuery(query) { result in
+                switch result{
+                case .success(let file as GTLRDrive_File):
+                    fulfill(file)
+                case .success(_):
+                    //MARK: or change to an error but if this case occur there is a serious problem with the underlying sdk
+                    fatalError("GTLRDriveQuery_FilesGet returned no GTLRDrive_File")
+                case .failure(let error):
+                    reject(error)
+                }
+            }
+        }
+    }
+    
     //MARK: Helper
     
     /**
@@ -325,5 +349,51 @@ public class GoogleDriveCloudProvider: CloudProvider {
             fulfill(parentIdentifier)
         }
     }
+    
+    private func createUploadQuery(for file: CloudFile, isUpdate: Bool) -> Promise<GTLRDriveQuery> {
+        if isUpdate{
+            return createUploadQuery(forExisting: file)
+        } else {
+            return createUploadQuery(forNew: file)
+        }
+    }
+    
+    private func createUploadQuery(forExisting file: CloudFile) -> Promise<GTLRDriveQuery> {
+        return resolvePath(for: file.metadata.remoteURL).then{ identifier -> GTLRDriveQuery in
+            let metadata = GTLRDrive_File()
+            metadata.name = file.metadata.name
+            let uploadParameters = GTLRUploadParameters(fileURL: file.localURL, mimeType: self.unknownMimeType)
+            let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: identifier, uploadParameters: uploadParameters)
+            return query
+        }
+    }
+    
+    private func createUploadQuery(forNew file: CloudFile) -> Promise<GTLRDriveQuery> {
+        return Promise<GTLRDriveQuery>(on: .global()){ fulfill, reject in
+            do{
+                let _ = try await(self.resolvePath(for: file.metadata.remoteURL))
+                reject(CloudProviderError.itemAlreadyExists)
+            } catch CloudProviderError.itemNotFound {
+                let metadata = GTLRDrive_File()
+                metadata.name = file.metadata.name
+                let uploadParameters = GTLRUploadParameters(fileURL: file.localURL, mimeType: self.unknownMimeType)
+                let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
+                fulfill(query)
+            }
+        }
+    }
+    
+    private func createAuthorizedRequest(for query: GTLRDriveQuery) -> Promise<URLRequest> {
+        let request = driveService.request(for: query)
+        return Promise<URLRequest>{ fulfill, reject in
+            self.authentication.authorization?.authorizeRequest(request, completionHandler: { error in
+                guard error == nil else{
+                    return reject(error!) //MARK: Maybe add here better Error Handling -> CloudAuthErrors..
+                }
+                fulfill(request as URLRequest)
+            })
+        }
+    }
+    
     
 }

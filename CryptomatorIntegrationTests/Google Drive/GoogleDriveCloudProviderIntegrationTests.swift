@@ -7,7 +7,9 @@
 //
 
 import XCTest
-
+import CloudAccessPrivate
+import CryptomatorCloudAccess
+import Promises
 class GoogleDriveCloudProviderIntegrationTests: XCTestCase {
 
     override func setUpWithError() throws {
@@ -18,10 +20,43 @@ class GoogleDriveCloudProviderIntegrationTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    /**
+        It is necessary to call another function than canAuthorize, because it returns true as soon as any refreshToken is set and does not check it online for correctness before.
+     */
+    func testAuthenticationWorksWithoutViewController() throws {
+        let authentication = MockGoogleDriveCloudAuthentication()
+        let refreshToken = "ADD THE REFRESH TOKEN VIA ENV VARIABLE"
+        let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
+        authentication.authenticate(withRefreshToken: refreshToken as NSString).then{
+            authentication.authorization?.authorizeRequest(nil, completionHandler: { (error) in
+                XCTAssertNil(error)
+                expectation.fulfill()
+            })
+        }.catch{ error in
+            XCTFail(error.localizedDescription)
+        }
+        wait(for: [expectation], timeout: 10.0)
     }
+    
+    func testFetchItemList() throws {
+        let authentication = MockGoogleDriveCloudAuthentication()
+        let refreshToken = "ADD THE REFRESH TOKEN VIA ENV VARIABLE"
+        let testURL = URL(fileURLWithPath: "/iOS-IntegrationsTest/smallFolder/", isDirectory: true)
+        let expectation = XCTestExpectation(description: "fetchItemList")
+        authentication.authenticate(withRefreshToken: refreshToken as NSString).then{ () -> Promise<CloudItemList> in
+            let provider = GoogleDriveCloudProvider(with: authentication)
+            return provider.fetchItemList(forFolderAt: testURL, withPageToken: nil)
+        }.then{ cloudItemList in
+            XCTFail("Function not implemented") //MARK: Discuss Integration Test Structure
+            
+            expectation.fulfill()
+        }.catch{ error in
+            XCTFail(error.localizedDescription)
+        }
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.

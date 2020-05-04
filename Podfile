@@ -3,7 +3,7 @@ inhibit_all_warnings!
 use_frameworks! :linkage => :static
 
 def own_pods
-	pod 'CryptomatorCloudAccess', '0.1.0-alpha.6'
+	pod 'CryptomatorCloudAccess', '0.1.0-alpha.7'
 end
 
 def networking_pods

@@ -5,7 +5,7 @@ PODS:
     - AppAuth/ExternalUserAgent (= 1.3.0)
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
-  - CryptomatorCloudAccess (0.1.0-alpha.6):
+  - CryptomatorCloudAccess (0.1.0-alpha.7):
     - PromisesSwift (~> 1.2)
   - GoogleAPIClientForREST/Core (1.3.11):
     - GTMSessionFetcher (>= 1.1.7)
@@ -30,7 +30,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 5.1)
-  - CryptomatorCloudAccess (= 0.1.0-alpha.6)
+  - CryptomatorCloudAccess (= 0.1.0-alpha.7)
   - GoogleAPIClientForREST/Drive (~> 1.3.0)
   - GoogleSignIn (~> 5.0)
   - GTMAppAuth (~> 1.0.0)
@@ -50,7 +50,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 9d5c5f602928e512395b30950c5984eca840093c
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
-  CryptomatorCloudAccess: 96f1eaa6def036c359163553834abcfd052408f5
+  CryptomatorCloudAccess: dbd5a532265ff46cad7285308544e8605d98db38
   GoogleAPIClientForREST: 0f19a8280dfe6471f76016645d26eb5dae305101
   GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
@@ -58,6 +58,6 @@ SPEC CHECKSUMS:
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
 
-PODFILE CHECKSUM: bdc11a4cce1c581e0511f44000c711adbb2ee5b2
+PODFILE CHECKSUM: d7d7f4f3e0e53275c60d2289616b68890731d5bf
 
 COCOAPODS: 1.9.1

@@ -11,8 +11,19 @@ import CloudAccessPrivate
 import CryptomatorCloudAccess
 import Promises
 import Foundation
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTaskDelegate {
+    
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
+        print("filedownloaded to: \(location.path)")
+    }
+    
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?)
+    {
+        if task is URLSessionUploadTask{
+            print("upload finished")
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -40,8 +51,13 @@ class ViewController: UIViewController {
         /*.then{
             return self.realMoveItem(with: authentication)
         }*/
-        .then{
+        /*.then{
             return self.realMoveItemWithRename(with: authentication)
+        }*/
+        /* .then{
+                return authentication.deauthenticate()
+        }*/.then{
+            return self.startDownload(with: authentication)
         }.catch{ error in
             print("error: \(error)")
         }
@@ -106,5 +122,17 @@ class ViewController: UIViewController {
         print(testURL.hasDirectoryPath)
         return provider.moveItem(from: testURL, to: newTestURL)
     }
+    
+    private func startDownload(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+        let provider = GoogleDriveCloudProvider(with: authentication)
+        let localURL = URL(fileURLWithPath: "testRenamed.txt", isDirectory: false) //MARK: Do not care atm
+        let remoteURL = URL(fileURLWithPath: "/Test/Folder1/test.txt", isDirectory: false)
+        let metadata = CloudItemMetadata(name: "test.txt", size: nil, remoteURL: remoteURL, lastModifiedDate: Date(), itemType: .file)
+        let file = CloudFile(localURL: localURL, metadata: metadata)
+        return provider.createBackgroundDownloadTask(for: file, with: self).then{ task in
+            task.resume()
+        }
+    }
+    
 }
 
