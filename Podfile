@@ -3,14 +3,14 @@ inhibit_all_warnings!
 use_frameworks! :linkage => :static
 
 def own_pods
-	pod 'CryptomatorCloudAccess', '0.1.0-alpha.7'
+	pod 'CryptomatorCloudAccess', '0.1.0-alpha.9'
 end
 
 def networking_pods
 	pod 'GTMAppAuth', '~> 1.0.0'
 	pod 'GoogleAPIClientForREST/Drive', '~> 1.3.0'
-	pod 'GoogleSignIn', '~> 5.0'
-	pod 'Alamofire', '~> 5.1'
+	pod 'GRDB.swift'
+	pod 'GoogleSignIn', '~> 5.0'	
 end
 
 target "Cryptomator" do

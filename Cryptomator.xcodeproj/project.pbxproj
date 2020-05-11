@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */; };
+		4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */; };
+		4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */; };
+		4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */; };
+		4A44EC0E2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */; };
+		4A44EC1024696B3200950BBF /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0F24696B3200950BBF /* TestError.swift */; };
 		4A5E5B6A2453121400BD6298 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4A5E5B712453121400BD6298 /* CloudAccessPrivateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E5B702453121400BD6298 /* CloudAccessPrivateTests.swift */; };
 		4A5E5B732453121400BD6298 /* CloudAccessPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -113,6 +118,11 @@
 		0A9BE498F16796657BDFA4C3 /* Pods-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
 		1112426AF7167FC95ED9D1F4 /* Pods-Cryptomator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.debug.xcconfig"; sourceTree = "<group>"; };
 		4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
+		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
+		4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCachedIdentifier.swift; sourceTree = "<group>"; };
+		4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManager.swift; sourceTree = "<group>"; };
+		4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManagerTests.swift; sourceTree = "<group>"; };
+		4A44EC0F24696B3200950BBF /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		4A5E5B2C2453119100BD6298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A5E5B302453119100BD6298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4A5E5B332453119100BD6298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -232,6 +242,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		4A44EC0824695CCD00950BBF /* Google Drive */ = {
+			isa = PBXGroup;
+			children = (
+				4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */,
+				4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */,
+			);
+			path = "Google Drive";
+			sourceTree = "<group>";
+		};
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
@@ -311,6 +330,8 @@
 			children = (
 				4A5E5B702453121400BD6298 /* CloudAccessPrivateTests.swift */,
 				4A5E5B722453121400BD6298 /* Info.plist */,
+				4A44EC0824695CCD00950BBF /* Google Drive */,
+				4A44EC0F24696B3200950BBF /* TestError.swift */,
 			);
 			path = CloudAccessPrivateTests;
 			sourceTree = "<group>";
@@ -321,6 +342,8 @@
 				4A5E5B7F24532E6F00BD6298 /* GoogleDriveCloudProvider.swift */,
 				4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */,
 				4AE97DA22457162200452814 /* GoogleDriveError.swift */,
+				4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */,
+				4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */,
 			);
 			path = GoogleDrive;
 			sourceTree = "<group>";
@@ -424,7 +447,7 @@
 				4A5E5B5D2453121400BD6298 /* Sources */,
 				4A5E5B5E2453121400BD6298 /* Frameworks */,
 				4A5E5B5F2453121400BD6298 /* Resources */,
-				00027C77209296F4F9DE1C47 /* [CP] Copy Pods Resources */,
+				6690EBA064803A77D4BF2741 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -666,7 +689,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		00027C77209296F4F9DE1C47 /* [CP] Copy Pods Resources */ = {
+		6690EBA064803A77D4BF2741 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -736,6 +759,8 @@
 			files = (
 				4A5E5B8024532E6F00BD6298 /* GoogleDriveCloudProvider.swift in Sources */,
 				4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */,
+				4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */,
+				4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */,
 				4A317EEA2453329100E43746 /* GoogleDriveCloudAuthentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,7 +769,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A44EC0E2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift in Sources */,
+				4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */,
 				4A5E5B712453121400BD6298 /* CloudAccessPrivateTests.swift in Sources */,
+				4A44EC1024696B3200950BBF /* TestError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
