@@ -13,10 +13,6 @@ def networking_pods
 	pod 'GoogleSignIn', '~> 5.0'	
 end
 
-target "Cryptomator" do
-	own_pods
-end
-
 target "CloudAccessPrivate" do
 	own_pods
 	networking_pods	

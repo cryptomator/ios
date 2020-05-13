@@ -41,7 +41,6 @@
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
 		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
 		62BFC255DB264C9F77FFE15E /* Pods_CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA159B7E6DE9E160C739D236 /* Pods_CloudAccessPrivate.framework */; };
-		C22E46C85FCB7AA11575F574 /* Pods_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3E3101DCC2B6AED4C2548E2 /* Pods_Cryptomator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,7 +115,6 @@
 
 /* Begin PBXFileReference section */
 		0A9BE498F16796657BDFA4C3 /* Pods-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
-		1112426AF7167FC95ED9D1F4 /* Pods-Cryptomator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.debug.xcconfig"; sourceTree = "<group>"; };
 		4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
 		4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCachedIdentifier.swift; sourceTree = "<group>"; };
@@ -169,9 +167,7 @@
 		4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
 		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A9E678F4FA3C6465C9DDD3D0 /* Pods-CloudAccessPrivate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.release.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.release.xcconfig"; sourceTree = "<group>"; };
-		B3E3101DCC2B6AED4C2548E2 /* Pods_Cryptomator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptomator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA159B7E6DE9E160C739D236 /* Pods_CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D4F7C0AC28AE2AEF737B0A9E /* Pods-Cryptomator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.release.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +208,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */,
-				C22E46C85FCB7AA11575F574 /* Pods_Cryptomator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +232,6 @@
 			isa = PBXGroup;
 			children = (
 				CA159B7E6DE9E160C739D236 /* Pods_CloudAccessPrivate.framework */,
-				B3E3101DCC2B6AED4C2548E2 /* Pods_Cryptomator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -418,8 +412,6 @@
 			children = (
 				0A9BE498F16796657BDFA4C3 /* Pods-CloudAccessPrivate.debug.xcconfig */,
 				A9E678F4FA3C6465C9DDD3D0 /* Pods-CloudAccessPrivate.release.xcconfig */,
-				1112426AF7167FC95ED9D1F4 /* Pods-Cryptomator.debug.xcconfig */,
-				D4F7C0AC28AE2AEF737B0A9E /* Pods-Cryptomator.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -517,7 +509,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AE97DCF24572E4A00452814 /* Build configuration list for PBXNativeTarget "Cryptomator" */;
 			buildPhases = (
-				D39EFD7F3E3505B2D53AC123 /* [CP] Check Pods Manifest.lock */,
 				4AE97DA424572E4900452814 /* Sources */,
 				4AE97DA524572E4900452814 /* Frameworks */,
 				4AE97DA624572E4900452814 /* Resources */,
@@ -722,28 +713,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-CloudAccessPrivate-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D39EFD7F3E3505B2D53AC123 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Cryptomator-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1193,7 +1162,6 @@
 		};
 		4AE97DD024572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1112426AF7167FC95ED9D1F4 /* Pods-Cryptomator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1212,7 +1180,6 @@
 		};
 		4AE97DD124572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D4F7C0AC28AE2AEF737B0A9E /* Pods-Cryptomator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

@@ -7,27 +7,42 @@
 //
 
 import XCTest
-
+@testable import CloudAccessPrivate
 class GoogleDriveCloudProviderTests: XCTestCase {
 
+    var provider: GoogleDriveCloudProvider!
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        let authentication = GoogleDriveCloudAuthentication()
+        provider = GoogleDriveCloudProvider(with: authentication)
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testOnlyItemNameChangedWorksWithFolders() throws {
+        let oldRemoteURL = URL(fileURLWithPath: "/AAAAAA/BBBBBBB/", isDirectory: true)
+        let newRemoteURLOnlyFolderNameChanged = URL(fileURLWithPath: "/AAAAAA/CCCCCCC/", isDirectory: true)
+        XCTAssertTrue(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLOnlyFolderNameChanged))
+        
+        let newRemoteURLPathChanged = URL(fileURLWithPath: "/DDDDDDD/BBBBBBB/", isDirectory: true)
+        XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathChanged))
+        
+        let newRemoteURLPathAndFolderNameChanged = URL(fileURLWithPath: "/DDDDDDD/CCCCCCC/", isDirectory: true)
+        XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathAndFolderNameChanged))
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testOnlyItemNameChangedWorksWithFiles() throws {
+        let oldRemoteURL = URL(fileURLWithPath: "/AAAAAA/test.txt", isDirectory: false)
+        let newRemoteURLOnlyFileNameChanged = URL(fileURLWithPath: "/AAAAAA/renamedTest.txt", isDirectory: false)
+        XCTAssertTrue(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLOnlyFileNameChanged))
+        
+        let newRemoteURLPathChanged = URL(fileURLWithPath: "/DDDDDDD/BBBBBBB/test.txt", isDirectory: false)
+        XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathChanged))
+        
+        let newRemoteURLPathAndFileNameChanged = URL(fileURLWithPath: "/DDDDDDD/CCCCCCC/renamedAgainTest.txt", isDirectory: true)
+        XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathAndFileNameChanged))
     }
+    
 
 }

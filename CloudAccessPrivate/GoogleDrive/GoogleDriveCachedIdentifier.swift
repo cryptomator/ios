@@ -19,7 +19,7 @@ class GoogleDriveCachedIdentifier: Record {
     
     required init(row: Row) {
         self.itemIdentifier = row[Columns.itemIdentifier]
-        self.remoteURL = URL(fileURLWithPath: row[Columns.remoteURL])
+        self.remoteURL = URL(string: row[Columns.remoteURL])!
         super.init()
     }
     
@@ -29,7 +29,7 @@ class GoogleDriveCachedIdentifier: Record {
     
     override func encode(to container: inout PersistenceContainer) {
         container[Columns.itemIdentifier] = itemIdentifier
-        container[Columns.remoteURL] = remoteURL.path
+        container[Columns.remoteURL] = remoteURL.absoluteString
     }
     
     init(itemIdentifier: String, remoteURL: URL) {

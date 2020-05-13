@@ -29,16 +29,20 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
         // Do any additional setup after loading the view.
         
         let authentication = GoogleDriveCloudAuthentication()
+        let provider = GoogleDriveCloudProvider(with: authentication)
         authentication.isAuthenticated().then{ authenticated in
             if authenticated{
                 return Promise(())
             } else {
                 return authentication.authenticate(from: self)
             }
-        }/*.then{ () -> Promise<Void> in
+        }.then{ () -> Promise<Void> in
             print("authenticated")
-            return self.fetchItemList(with: authentication)
-        }*/
+            return self.fetchItemList(with: provider)
+        }.then{ () -> Promise<Void> in
+            print("authenticated")
+            return self.fetchItemList(with: provider)
+        }
         /*.then{ () -> Promise<Void> in
             return self.deleteItem(with: authentication)
         }*/
@@ -56,16 +60,16 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
         }*/
         /* .then{
                 return authentication.deauthenticate()
-        }*/.then{
+        }*//*.then{
             return self.startDownload(with: authentication)
-        }.catch{ error in
+        }*/.catch{ error in
             print("error: \(error)")
         }
     }
     
-    private func fetchItemList(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
+    private func fetchItemList(with provider: CloudProvider) -> Promise<Void> {
         var startTime = CFAbsoluteTimeGetCurrent()
-        let provider = GoogleDriveCloudProvider(with: authentication)
+        
         let testURL = URL(fileURLWithPath: "/Test/", isDirectory: true)
         print(testURL.absoluteString)
         print(testURL.hasDirectoryPath)
@@ -123,16 +127,7 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
         return provider.moveItem(from: testURL, to: newTestURL)
     }
     
-    private func startDownload(with authentication: GoogleDriveCloudAuthentication) -> Promise<Void> {
-        let provider = GoogleDriveCloudProvider(with: authentication)
-        let localURL = URL(fileURLWithPath: "testRenamed.txt", isDirectory: false) //MARK: Do not care atm
-        let remoteURL = URL(fileURLWithPath: "/Test/Folder1/test.txt", isDirectory: false)
-        let metadata = CloudItemMetadata(name: "test.txt", size: nil, remoteURL: remoteURL, lastModifiedDate: Date(), itemType: .file)
-        let file = CloudFile(localURL: localURL, metadata: metadata)
-        return provider.createBackgroundDownloadTask(for: file, with: self).then{ task in
-            task.resume()
-        }
-    }
+    
     
 }
 

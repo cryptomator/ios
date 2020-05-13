@@ -21,6 +21,7 @@ class GoogleDriveCloudIdentifierCacheManager {
                     table.primaryKey(["remoteURL"])
                 }
             }
+            try cacheIdentifier("root", for: URL(fileURLWithPath: "/"))
         } catch {
             return nil
         }
@@ -28,7 +29,7 @@ class GoogleDriveCloudIdentifierCacheManager {
     
     func cacheIdentifier(_ identifier: String, for remoteURL: URL) throws {
         try inMemoryDB.write{ db in
-            if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL" : remoteURL.path]){
+            if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL" : remoteURL.absoluteString]){
                 cachedIdentifier.itemIdentifier = identifier
                 try cachedIdentifier.updateChanges(db)
             } else {
@@ -40,8 +41,16 @@ class GoogleDriveCloudIdentifierCacheManager {
     
     func getIdentifier(for remoteURL: URL) -> String? {
         try? inMemoryDB.read{ db in
-            let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL" : remoteURL.path])
+            let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL" : remoteURL.absoluteString])
             return cachedIdentifier?.itemIdentifier
+        }
+    }
+    
+    func uncacheIdentifier(for remoteURL: URL) throws {
+        try inMemoryDB.write{ db in
+            if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL" : remoteURL.absoluteString]) {
+                try cachedIdentifier.delete(db)
+            }
         }
     }
 }
