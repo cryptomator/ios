@@ -84,7 +84,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
     }
     
     public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-        print("fetchItemList for remoteURL: \(remoteURL.absoluteString)")
         precondition(remoteURL.hasDirectoryPath)
         return self.resolvePath(for: remoteURL).then{ identifier in
             return self.fetchGTLRDriveFileList(forIdentifier: identifier, withPageToken: pageToken)
@@ -198,7 +197,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
         workaround: https://stackoverflow.com/a/47282129/1759462
      */
     private func getFirstIdentifier(forItemWithName itemName: String, inFolderWithId: String) -> Promise<String> {
-        print("getFirstIdentifier forItemWithName: \(itemName) inFolderWithId: \(inFolderWithId)")
         let query = GTLRDriveQuery_FilesList.query()
         query.q = "'\(inFolderWithId)' in parents and name contains '\(itemName)' and trashed = false"
         query.fields = "files(id, name)"
@@ -288,7 +286,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
                             reject(error)
                         }
                     }
-                    print("fetcherError:\(error.localizedDescription)")
                     reject(error)
                 } else {
                     fulfill(())
