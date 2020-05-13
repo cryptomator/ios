@@ -78,16 +78,13 @@ public class GoogleDriveCloudProvider: CloudProvider {
     }
     
     public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-        return resolvePath(for: remoteURL).then(fetchGTLRDriveFile).then{ file -> CloudItemMetadata in
-            guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
-                throw CloudProviderError.itemNotFound //MARK: Discuss Error
-            }
-            let itemType = self.getCloudItemType(forMimeType: mimeType)
-            return CloudItemMetadata(name: name, size: file.size, remoteURL: remoteURL, lastModifiedDate: lastModifiedDate, itemType: itemType)
+        return resolvePath(for: remoteURL).then{ identifier in
+            return self.fetchItemMetadata(forItemIdentifier: identifier, at: remoteURL)
         }
     }
     
     public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+        print("fetchItemList for remoteURL: \(remoteURL.absoluteString)")
         precondition(remoteURL.hasDirectoryPath)
         return self.resolvePath(for: remoteURL).then{ identifier in
             return self.fetchGTLRDriveFileList(forIdentifier: identifier, withPageToken: pageToken)
@@ -97,24 +94,28 @@ public class GoogleDriveCloudProvider: CloudProvider {
         }
     }
     
-    public func downloadFile(_ file: CloudFile) -> Promise<CloudFile> {
-        return resolvePath(for: file.metadata.remoteURL).then{ identifier in
-            return self.downloadFile(file, withIdentifier: identifier)
-        }.then{ () -> CloudFile in
-            return file
+    public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<CloudItemMetadata> {
+        return resolvePath(for: remoteURL).then{ identifier in
+            return all(
+                self.fetchItemMetadata(forItemIdentifier: identifier, at: remoteURL),
+                self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL)
+                )
+        }.then{ metadata, _ in
+            return metadata
         }
     }
        
-    public func uploadFile(_ file: CloudFile, isUpdate: Bool) -> Promise<CloudItemMetadata> {
-        return createUploadQuery(for: file, isUpdate: isUpdate).then{ query in
+    public func uploadFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool) -> Promise<CloudItemMetadata> {
+        return createQuery(upload: localURL, to: remoteURL, isUpdate: isUpdate).then{ query in
             return self.executeQuery(query)
         }.then{ result -> CloudItemMetadata in
             if let uploadedFile = result as? GTLRDrive_File {
-                guard let identifier = uploadedFile.identifier, let name = uploadedFile.name, let lastModifiedDate = uploadedFile.modifiedTime?.date else {
+                guard let identifier = uploadedFile.identifier, let name = uploadedFile.name, let lastModifiedDate = uploadedFile.modifiedTime?.date, let mimeType = uploadedFile.mimeType else {
                     throw CloudProviderError.uploadFileFailed
                 }
-                try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: file.metadata.remoteURL)
-                let metadata = CloudItemMetadata(name: name, size: uploadedFile.size, remoteURL: file.metadata.remoteURL, lastModifiedDate: lastModifiedDate, itemType: file.metadata.itemType)
+                try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: remoteURL)
+                let itemType = self.getCloudItemType(forMimeType: mimeType)
+                let metadata = CloudItemMetadata(name: name, size: uploadedFile.size, remoteURL: remoteURL, lastModifiedDate: lastModifiedDate, itemType: itemType)
                 return metadata
             } else {
                 throw GoogleDriveError.unexpectedResultType
@@ -258,11 +259,21 @@ public class GoogleDriveCloudProvider: CloudProvider {
         }
     }
     
-    private func downloadFile(_ file: CloudFile, withIdentifier identifier: String) -> Promise<Void> {
+    private func fetchItemMetadata(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<CloudItemMetadata> {
+        return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier).then{ file -> CloudItemMetadata in
+            guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
+                throw CloudProviderError.itemNotFound //MARK: Discuss Error
+            }
+            let itemType = self.getCloudItemType(forMimeType: mimeType)
+            return CloudItemMetadata(name: name, size: file.size, remoteURL: remoteURL, lastModifiedDate: lastModifiedDate, itemType: itemType)
+        }
+    }
+    
+    private func downloadFile(withIdentifier identifier: String, from remoteURL: URL, to localURL: URL) -> Promise<Void> {
         let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
         let request = self.driveService.request(for: query)
         let fetcher = driveService.fetcherService.fetcher(with: request as URLRequest)
-        fetcher.destinationFileURL = file.localURL
+        fetcher.destinationFileURL = localURL
         runningFetchers.append(fetcher)
         return Promise<Void>{ fulfill, reject in
             fetcher.beginFetch { (data, error) in
@@ -271,7 +282,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
                 if let error = error as NSError?{
                     if error.domain == kGTMSessionFetcherStatusDomain && error.code == self.fileNotFoundError{
                         do{
-                            try self.cloudIdentifierCache?.uncacheIdentifier(for: file.metadata.remoteURL)
+                            try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
                             reject(CloudProviderError.itemNotFound)
                         } catch {
                             reject(error)
@@ -390,33 +401,34 @@ public class GoogleDriveCloudProvider: CloudProvider {
         }
     }
     
-    private func createUploadQuery(for file: CloudFile, isUpdate: Bool) -> Promise<GTLRDriveQuery> {
+    private func createQuery(upload localURL: URL, to remoteURL: URL, isUpdate: Bool) -> Promise<GTLRDriveQuery> {
         if isUpdate{
-            return createUploadQuery(forExisting: file)
+            return createQuery(upload: localURL, to: remoteURL)
         } else {
-            return createUploadQuery(forNew: file)
+            return createQueryForNewFileInCloud(upload: localURL, to: remoteURL)
         }
     }
     
-    private func createUploadQuery(forExisting file: CloudFile) -> Promise<GTLRDriveQuery> {
-        return resolvePath(for: file.metadata.remoteURL).then{ identifier -> GTLRDriveQuery in
+    private func createQuery(upload localURL: URL, to remoteURL: URL) -> Promise<GTLRDriveQuery> {
+        return resolvePath(for: remoteURL).then{ identifier -> GTLRDriveQuery in
             let metadata = GTLRDrive_File()
-            metadata.name = file.metadata.name
-            let uploadParameters = GTLRUploadParameters(fileURL: file.localURL, mimeType: self.unknownMimeType)
+            metadata.name = remoteURL.lastPathComponent
+            let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: self.unknownMimeType)
             let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: identifier, uploadParameters: uploadParameters)
             return query
         }
     }
     
-    private func createUploadQuery(forNew file: CloudFile) -> Promise<GTLRDriveQuery> {
+    //MARK: Change function name
+    private func createQueryForNewFileInCloud(upload localURL: URL, to remoteURL: URL) -> Promise<GTLRDriveQuery> {
         return Promise<GTLRDriveQuery>(on: .global()){ fulfill, reject in
             do{
-                let _ = try await(self.resolvePath(for: file.metadata.remoteURL))
+                let _ = try await(self.resolvePath(for: remoteURL))
                 reject(CloudProviderError.itemAlreadyExists)
             } catch CloudProviderError.itemNotFound {
                 let metadata = GTLRDrive_File()
-                metadata.name = file.metadata.name
-                let uploadParameters = GTLRUploadParameters(fileURL: file.localURL, mimeType: self.unknownMimeType)
+                metadata.name = remoteURL.lastPathComponent
+                let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: self.unknownMimeType)
                 let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
                 fulfill(query)
             }

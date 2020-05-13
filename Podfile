@@ -3,7 +3,7 @@ inhibit_all_warnings!
 use_frameworks! :linkage => :static
 
 def own_pods
-	pod 'CryptomatorCloudAccess', '0.1.0-alpha.9'
+	pod 'CryptomatorCloudAccess', :git => 'https://github.com/cryptomator/cloud-access-swift.git', :branch => 'develop', commit: 'HEAD'
 end
 
 def networking_pods

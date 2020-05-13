@@ -13,6 +13,16 @@
 		4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */; };
 		4A44EC0E2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */; };
 		4A44EC1024696B3200950BBF /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0F24696B3200950BBF /* TestError.swift */; };
+		4A44EC1A246BE8E900950BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC19246BE8E900950BBF /* AppDelegate.swift */; };
+		4A44EC1C246BE8E900950BBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC1B246BE8E900950BBF /* SceneDelegate.swift */; };
+		4A44EC1E246BE8E900950BBF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC1D246BE8E900950BBF /* ViewController.swift */; };
+		4A44EC21246BE8E900950BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC1F246BE8E900950BBF /* Main.storyboard */; };
+		4A44EC23246BE8EC00950BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC22246BE8EC00950BBF /* Assets.xcassets */; };
+		4A44EC26246BE8EC00950BBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC24246BE8EC00950BBF /* LaunchScreen.storyboard */; };
+		4A44EC2B246BEB9700950BBF /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
+		4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A44EC33246C29FC00950BBF /* SupportedCloudProviderForIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC32246C29FC00950BBF /* SupportedCloudProviderForIntegrationTests.swift */; };
+		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
 		4A5E5B6A2453121400BD6298 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4A5E5B712453121400BD6298 /* CloudAccessPrivateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E5B702453121400BD6298 /* CloudAccessPrivateTests.swift */; };
 		4A5E5B732453121400BD6298 /* CloudAccessPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,6 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A44EC2D246BEB9700950BBF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A5E5B602453121400BD6298;
+			remoteInfo = CloudAccessPrivate;
+		};
 		4A5E5B6B2453121400BD6298 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
@@ -89,6 +106,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4A44EC2F246BEB9700950BBF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4ADA0B40245732AC005B9743 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -121,6 +149,16 @@
 		4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManager.swift; sourceTree = "<group>"; };
 		4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManagerTests.swift; sourceTree = "<group>"; };
 		4A44EC0F24696B3200950BBF /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleDriveCryptoDecoratorManualTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A44EC19246BE8E900950BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4A44EC1B246BE8E900950BBF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4A44EC1D246BE8E900950BBF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4A44EC20246BE8E900950BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4A44EC22246BE8EC00950BBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4A44EC25246BE8EC00950BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4A44EC27246BE8EC00950BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A44EC32246C29FC00950BBF /* SupportedCloudProviderForIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedCloudProviderForIntegrationTests.swift; sourceTree = "<group>"; };
+		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
 		4A5E5B2C2453119100BD6298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A5E5B302453119100BD6298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4A5E5B332453119100BD6298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -171,6 +209,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A44EC14246BE8E900950BBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A44EC2B246BEB9700950BBF /* CloudAccessPrivate.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A5E5B5E2453121400BD6298 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -245,6 +291,20 @@
 			path = "Google Drive";
 			sourceTree = "<group>";
 		};
+		4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */ = {
+			isa = PBXGroup;
+			children = (
+				4A44EC19246BE8E900950BBF /* AppDelegate.swift */,
+				4A44EC1B246BE8E900950BBF /* SceneDelegate.swift */,
+				4A44EC1D246BE8E900950BBF /* ViewController.swift */,
+				4A44EC1F246BE8E900950BBF /* Main.storyboard */,
+				4A44EC22246BE8EC00950BBF /* Assets.xcassets */,
+				4A44EC24246BE8EC00950BBF /* LaunchScreen.storyboard */,
+				4A44EC27246BE8EC00950BBF /* Info.plist */,
+			);
+			path = GoogleDriveCryptoDecoratorManualTest;
+			sourceTree = "<group>";
+		};
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +318,7 @@
 				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
 				4ADA0B7A24578B04005B9743 /* GoogleDriveManualTest */,
 				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
+				4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				A50D43C6290E92F8531394CB /* Pods */,
 				181D35BED2D35C507C4C1017 /* Frameworks */,
@@ -274,6 +335,7 @@
 				4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */,
 				4ADA0B7924578B04005B9743 /* GoogleDriveManualTest.app */,
 				4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */,
+				4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,6 +408,8 @@
 			isa = PBXGroup;
 			children = (
 				4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTests.swift */,
+				4A44EC32246C29FC00950BBF /* SupportedCloudProviderForIntegrationTests.swift */,
+				4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */,
 				4A60E8032459D04D00FD7F0E /* Google Drive */,
 				4A60E7FA2459C6F500FD7F0E /* Info.plist */,
 			);
@@ -430,6 +494,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4A44EC16246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A44EC28246BE8EC00950BBF /* Build configuration list for PBXNativeTarget "GoogleDriveCryptoDecoratorManualTest" */;
+			buildPhases = (
+				4A44EC13246BE8E900950BBF /* Sources */,
+				4A44EC14246BE8E900950BBF /* Frameworks */,
+				4A44EC15246BE8E900950BBF /* Resources */,
+				4A44EC2F246BEB9700950BBF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A44EC2E246BEB9700950BBF /* PBXTargetDependency */,
+			);
+			name = GoogleDriveCryptoDecoratorManualTest;
+			productName = GoogleDriveCryptoDecoratorManualTest;
+			productReference = 4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4A5E5B602453121400BD6298 /* CloudAccessPrivate */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A5E5B782453121400BD6298 /* Build configuration list for PBXNativeTarget "CloudAccessPrivate" */;
@@ -570,6 +653,9 @@
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Skymatic GmbH";
 				TargetAttributes = {
+					4A44EC16246BE8E900950BBF = {
+						CreatedOnToolsVersion = 11.4.1;
+					};
 					4A5E5B602453121400BD6298 = {
 						CreatedOnToolsVersion = 11.4;
 						LastSwiftMigration = 1140;
@@ -617,11 +703,22 @@
 				4A5E5B682453121400BD6298 /* CloudAccessPrivateTests */,
 				4ADA0B7824578B04005B9743 /* GoogleDriveManualTest */,
 				4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */,
+				4A44EC16246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A44EC15246BE8E900950BBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A44EC26246BE8EC00950BBF /* LaunchScreen.storyboard in Resources */,
+				4A44EC23246BE8EC00950BBF /* Assets.xcassets in Resources */,
+				4A44EC21246BE8E900950BBF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A5E5B5F2453121400BD6298 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -722,6 +819,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A44EC13246BE8E900950BBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A44EC1E246BE8E900950BBF /* ViewController.swift in Sources */,
+				4A44EC1A246BE8E900950BBF /* AppDelegate.swift in Sources */,
+				4A44EC1C246BE8E900950BBF /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A5E5B5D2453121400BD6298 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -749,6 +856,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A44EC33246C29FC00950BBF /* SupportedCloudProviderForIntegrationTests.swift in Sources */,
+				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTests.swift in Sources */,
 				4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */,
 				4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */,
@@ -794,6 +903,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A44EC2E246BEB9700950BBF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
+			targetProxy = 4A44EC2D246BEB9700950BBF /* PBXContainerItemProxy */;
+		};
 		4A5E5B6C2453121400BD6298 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
@@ -828,6 +942,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4A44EC1F246BE8E900950BBF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A44EC20246BE8E900950BBF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4A44EC24246BE8EC00950BBF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A44EC25246BE8EC00950BBF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
 		4A5E5B322453119100BD6298 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -879,6 +1009,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4A44EC29246BE8EC00950BBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4A44EC2A246BE8EC00950BBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		4A5E5B512453119200BD6298 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1279,6 +1443,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A44EC28246BE8EC00950BBF /* Build configuration list for PBXNativeTarget "GoogleDriveCryptoDecoratorManualTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A44EC29246BE8EC00950BBF /* Debug */,
+				4A44EC2A246BE8EC00950BBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4A5E5B242453119100BD6298 /* Build configuration list for PBXProject "Cryptomator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

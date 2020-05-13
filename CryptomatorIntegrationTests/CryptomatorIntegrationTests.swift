@@ -7,11 +7,27 @@
 //
 
 import XCTest
+import CryptomatorCloudAccess
+import CloudAccessPrivate
 
 class CryptomatorIntegrationTests: XCTestCase {
 
+    var provider: CloudProvider!
+    var authentication: CloudAuthentication!
+    let providerToTest: SupportedCloudProviderForIntegrationTests
+    
+    init(with providerToTest: SupportedCloudProviderForIntegrationTests) {
+        self.providerToTest = providerToTest
+    }
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        switch providerToTest {
+        case .GoogleDrive:
+            authentication = MockGoogleDriveCloudAuthentication()
+            provider = GoogleDriveCloudProvider(with: authentication)
+        default:
+            throw IntegrationTestError.providerNotSupported
+        }
     }
 
     override func tearDownWithError() throws {
