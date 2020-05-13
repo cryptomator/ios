@@ -10,7 +10,7 @@ import XCTest
 import CryptomatorCloudAccess
 import CloudAccessPrivate
 
-class CryptomatorIntegrationTests: XCTestCase {
+class CryptomatorIntegrationTestInterface: XCTestCase {
 
     var provider: CloudProvider!
     var authentication: CloudAuthentication!
@@ -29,7 +29,11 @@ class CryptomatorIntegrationTests: XCTestCase {
             throw IntegrationTestError.providerNotSupported
         }
     }
-
+    
+    override class func defaultTestSuite() -> XCTestSuite {
+        return XCTestSuite(name: "InterfaceTests Excluded")
+    }
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
