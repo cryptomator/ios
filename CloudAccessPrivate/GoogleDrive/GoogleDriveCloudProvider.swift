@@ -197,6 +197,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
         workaround: https://stackoverflow.com/a/47282129/1759462
      */
     private func getFirstIdentifier(forItemWithName itemName: String, inFolderWithId: String) -> Promise<String> {
+        print("getFirstIdentifier forItemWithName: \(itemName) inFolderWithId: \(inFolderWithId)")
         let query = GTLRDriveQuery_FilesList.query()
         query.q = "'\(inFolderWithId)' in parents and name contains '\(itemName)' and trashed = false"
         query.fields = "files(id, name)"
@@ -247,7 +248,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
     
     private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String) -> Promise<GTLRDrive_File> {
         let query = GTLRDriveQuery_FilesGet.query(withFileId: itemIdentifier)
-        query.fields = "modifiedTime, size, mimeType"
+        query.fields = "name, modifiedTime, size, mimeType"
         return executeQuery(query).then{ result -> GTLRDrive_File in
             if let file = result as? GTLRDrive_File{
                 return file
@@ -260,7 +261,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
     private func downloadFile(_ file: CloudFile, withIdentifier identifier: String) -> Promise<Void> {
         let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
         let request = self.driveService.request(for: query)
-        let fetcher = GTMSessionFetcher(request: request as URLRequest)
+        let fetcher = driveService.fetcherService.fetcher(with: request as URLRequest)
         fetcher.destinationFileURL = file.localURL
         runningFetchers.append(fetcher)
         return Promise<Void>{ fulfill, reject in
@@ -276,6 +277,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
                             reject(error)
                         }
                     }
+                    print("fetcherError:\(error.localizedDescription)")
                     reject(error)
                 } else {
                     fulfill(())
