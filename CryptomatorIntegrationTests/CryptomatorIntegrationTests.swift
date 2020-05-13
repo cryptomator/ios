@@ -6,48 +6,46 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import XCTest
-import CryptomatorCloudAccess
 import CloudAccessPrivate
+import CryptomatorCloudAccess
+import XCTest
 
 class CryptomatorIntegrationTestInterface: XCTestCase {
+	var provider: CloudProvider!
+	var authentication: CloudAuthentication!
+	let providerToTest: SupportedCloudProviderForIntegrationTests
 
-    var provider: CloudProvider!
-    var authentication: CloudAuthentication!
-    let providerToTest: SupportedCloudProviderForIntegrationTests
-    
-    init(with providerToTest: SupportedCloudProviderForIntegrationTests) {
-        self.providerToTest = providerToTest
-    }
-    
-    override func setUpWithError() throws {
-        switch providerToTest {
-        case .GoogleDrive:
-            authentication = MockGoogleDriveCloudAuthentication()
-            provider = GoogleDriveCloudProvider(with: authentication)
-        default:
-            throw IntegrationTestError.providerNotSupported
-        }
-    }
-    
-    override class func defaultTestSuite() -> XCTestSuite {
-        return XCTestSuite(name: "InterfaceTests Excluded")
-    }
-    
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+	init(with providerToTest: SupportedCloudProviderForIntegrationTests) {
+		self.providerToTest = providerToTest
+	}
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+	override func setUpWithError() throws {
+		switch providerToTest {
+		case .GoogleDrive:
+			authentication = MockGoogleDriveCloudAuthentication()
+			provider = GoogleDriveCloudProvider(with: authentication)
+		default:
+			throw IntegrationTestError.providerNotSupported
+		}
+	}
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+	override class func defaultTestSuite() -> XCTestSuite {
+		XCTestSuite(name: "InterfaceTests Excluded")
+	}
 
+	override func tearDownWithError() throws {
+		// Put teardown code here. This method is called after the invocation of each test method in the class.
+	}
+
+	func testExample() throws {
+		// This is an example of a functional test case.
+		// Use XCTAssert and related functions to verify your tests produce the correct results.
+	}
+
+	func testPerformanceExample() throws {
+		// This is an example of a performance test case.
+		measure {
+			// Put the code you want to measure the time of here.
+		}
+	}
 }

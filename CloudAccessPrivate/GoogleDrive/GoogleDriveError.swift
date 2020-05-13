@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public enum GoogleDriveError: Error{
-    case noIdentifierFound
-    case unexpectedResultType
+public enum GoogleDriveError: Error {
+	case noIdentifierFound
+	case unexpectedResultType
 }

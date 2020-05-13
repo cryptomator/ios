@@ -8,6 +8,6 @@
 
 import Foundation
 enum TestError: Error {
-    case runtimeError(String)
-    case invalidArgumentError(String)
+	case runtimeError(String)
+	case invalidArgumentError(String)
 }

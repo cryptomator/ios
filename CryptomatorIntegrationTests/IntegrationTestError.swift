@@ -7,6 +7,6 @@
 //
 
 import Foundation
-enum IntegrationTestError: Error{
-    case providerNotSupported
+enum IntegrationTestError: Error {
+	case providerNotSupported
 }
