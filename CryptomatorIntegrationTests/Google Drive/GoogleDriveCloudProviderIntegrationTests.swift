@@ -10,6 +10,7 @@ import CloudAccessPrivate
 import CryptomatorCloudAccess
 import Promises
 import XCTest
+
 class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	override func setUpWithError() throws {
 		guard let refreshToken = ProcessInfo.processInfo.environment["GOOGLE_DRIVE_REFRESH_TOKEN"] else {
@@ -26,7 +27,7 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 	}
 
 	override class var defaultTestSuite: XCTestSuite {
-		XCTestSuite(forTestCaseClass: GoogleDriveCloudProviderIntegrationTests.self)
+		return XCTestSuite(forTestCaseClass: GoogleDriveCloudProviderIntegrationTests.self)
 	}
 
 	/**

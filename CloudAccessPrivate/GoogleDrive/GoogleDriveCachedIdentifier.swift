@@ -35,6 +35,6 @@ class GoogleDriveCachedIdentifier: Record {
 	}
 
 	override class var databaseTableName: String {
-		"googleDriveCachedIdentifiers"
+		return "googleDriveCachedIdentifiers"
 	}
 }

@@ -308,8 +308,8 @@
 				4A5E5B4D2453119200BD6298 /* CryptomatorUITests */,
 				4A5E5B622453121400BD6298 /* CloudAccessPrivate */,
 				4A5E5B6F2453121400BD6298 /* CloudAccessPrivateTests */,
-				4ADA0B7A24578B04005B9743 /* GoogleDriveManualTest */,
 				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
+				4ADA0B7A24578B04005B9743 /* GoogleDriveManualTest */,
 				4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				A50D43C6290E92F8531394CB /* Pods */,
@@ -673,8 +673,8 @@
 				4AE97DC724572E4A00452814 /* CryptomatorUITests */,
 				4A5E5B602453121400BD6298 /* CloudAccessPrivate */,
 				4A5E5B682453121400BD6298 /* CloudAccessPrivateTests */,
-				4ADA0B7824578B04005B9743 /* GoogleDriveManualTest */,
 				4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */,
+				4ADA0B7824578B04005B9743 /* GoogleDriveManualTest */,
 				4A44EC16246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 			);
 		};

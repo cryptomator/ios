@@ -14,3 +14,4 @@
 # rules
 
 --enable isEmpty
+--disable redundantReturn

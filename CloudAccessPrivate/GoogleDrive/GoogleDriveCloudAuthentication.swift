@@ -12,6 +12,7 @@ import Foundation
 import GoogleAPIClientForREST
 import GTMAppAuth
 import Promises
+
 public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	let clientId = ""
 	let redirectURL = URL(string: "")
@@ -25,8 +26,8 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	}
 
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
-		createAuthorizationServiceForGoogle().then { configuration in
-			self.getAuthState(for: configuration, with: viewController)
+		return createAuthorizationServiceForGoogle().then { configuration in
+			return self.getAuthState(for: configuration, with: viewController)
 		}.then { authState in
 			let authorization = GTMAppAuthFetcherAuthorization(authState: authState)
 			self.authorization = authorization

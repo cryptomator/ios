@@ -11,6 +11,7 @@ import CryptomatorCloudAccess
 import Foundation
 import Promises
 import UIKit
+
 class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTaskDelegate {
 	func urlSession(_: URLSession, downloadTask _: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		print("filedownloaded to: \(location.path)")

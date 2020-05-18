@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+
 class GoogleDriveCloudIdentifierCacheManager {
 	private let inMemoryDB: DatabaseQueue
 

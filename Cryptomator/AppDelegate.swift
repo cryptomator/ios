@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
-		true
+		return true
 	}
 
 	func applicationWillResignActive(_: UIApplication) {
@@ -40,6 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(_: UIApplication, open _: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-		true
+		return true
 	}
 }

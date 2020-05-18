@@ -6,11 +6,12 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-@testable import AppAuth
-@testable import CloudAccessPrivate
 import Foundation
 import GTMAppAuth
 import Promises
+@testable import AppAuth
+@testable import CloudAccessPrivate
+
 class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthentication {
 	private let refreshToken: String
 

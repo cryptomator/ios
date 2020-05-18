@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum IntegrationTestError: Error {
 	case providerNotSupported
 	case environmentVariableNotSet

@@ -11,6 +11,7 @@ import CryptomatorCloudAccess
 import CryptomatorCryptoLib
 import Promises
 import UIKit
+
 class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -20,7 +21,7 @@ class ViewController: UIViewController {
 		let documentsURL = getDocumentsDirectory()
 		let masterKeyLocalURL = documentsURL.appendingPathComponent("masterkey.cryptomator")
 		authentication.authenticate(from: self).then {
-			provider.downloadFile(from: masterKeyRemoteURL, to: masterKeyLocalURL)
+			return provider.downloadFile(from: masterKeyRemoteURL, to: masterKeyLocalURL)
 		}.then { _ -> Promise<CloudItemList> in
 			print("masterKey: \(masterKeyLocalURL.path)")
 			let masterKey = try Masterkey.createFromMasterkeyFile(file: masterKeyLocalURL, password: "testtest")
