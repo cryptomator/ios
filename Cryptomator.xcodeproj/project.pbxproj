@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		12F6F07F9C3E40AD3B32F8A1 /* Pods_MainApp_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D226F9B90083FB0D4CAE41BD /* Pods_MainApp_Cryptomator.framework */; };
 		2206051EFA8E7BE8B5F50CE8 /* Pods_CryptomatorIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A1FE81EFBC46AF0507C3388 /* Pods_CryptomatorIntegrationTests.framework */; };
+		37A13C394450F91860969BBE /* Pods_CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B2EED150426135BD0E5A24F /* Pods_CloudAccessPrivate.framework */; };
 		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */; };
 		4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */; };
 		4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */; };
@@ -43,7 +43,7 @@
 		4ADA0B8D24578BB0005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B8E24578BB0005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DA22457162200452814 /* GoogleDriveError.swift */; };
-		B8A5399A90BDC41FBD109100 /* Pods_MainApp_CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF70B40595B09D6C3FB1AC96 /* Pods_MainApp_CloudAccessPrivate.framework */; };
+		6EB7F9C80F3416440129058E /* Pods_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B803288599ADDBE1A960EB /* Pods_Cryptomator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,8 +138,10 @@
 		005A08063F90B0188476852E /* Pods-Cryptomator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.debug.xcconfig"; sourceTree = "<group>"; };
 		0A9BE498F16796657BDFA4C3 /* Pods-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
 		0F613D821458887C2A9D7E1C /* Pods-Cryptomator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.release.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.release.xcconfig"; sourceTree = "<group>"; };
+		1B2EED150426135BD0E5A24F /* Pods_CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		27AB7B263C955CD43B3E0890 /* Pods-CryptomatorIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
 		34B3A66F69DA43E6F6D79163 /* Pods-MainApp-CloudAccessPrivate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainApp-CloudAccessPrivate.release.xcconfig"; path = "Target Support Files/Pods-MainApp-CloudAccessPrivate/Pods-MainApp-CloudAccessPrivate.release.xcconfig"; sourceTree = "<group>"; };
+		49B803288599ADDBE1A960EB /* Pods_Cryptomator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptomator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
 		4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCachedIdentifier.swift; sourceTree = "<group>"; };
@@ -195,8 +197,6 @@
 		B14D2E0F42CC64F9A7206CB2 /* Pods-MainApp-Cryptomator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainApp-Cryptomator.debug.xcconfig"; path = "Target Support Files/Pods-MainApp-Cryptomator/Pods-MainApp-Cryptomator.debug.xcconfig"; sourceTree = "<group>"; };
 		B230025FD84812923627EBD5 /* Pods-MainApp-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainApp-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-MainApp-CloudAccessPrivate/Pods-MainApp-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
 		B523B30D5CA8BEB7C2971CC2 /* Pods-MainApp-Cryptomator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MainApp-Cryptomator.release.xcconfig"; path = "Target Support Files/Pods-MainApp-Cryptomator/Pods-MainApp-Cryptomator.release.xcconfig"; sourceTree = "<group>"; };
-		D226F9B90083FB0D4CAE41BD /* Pods_MainApp_Cryptomator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MainApp_Cryptomator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		FF70B40595B09D6C3FB1AC96 /* Pods_MainApp_CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MainApp_CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,7 +212,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8A5399A90BDC41FBD109100 /* Pods_MainApp_CloudAccessPrivate.framework in Frameworks */,
+				37A13C394450F91860969BBE /* Pods_CloudAccessPrivate.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -246,7 +246,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */,
-				12F6F07F9C3E40AD3B32F8A1 /* Pods_MainApp_Cryptomator.framework in Frameworks */,
+				6EB7F9C80F3416440129058E /* Pods_Cryptomator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -271,8 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				9A1FE81EFBC46AF0507C3388 /* Pods_CryptomatorIntegrationTests.framework */,
-				FF70B40595B09D6C3FB1AC96 /* Pods_MainApp_CloudAccessPrivate.framework */,
-				D226F9B90083FB0D4CAE41BD /* Pods_MainApp_Cryptomator.framework */,
+				1B2EED150426135BD0E5A24F /* Pods_CloudAccessPrivate.framework */,
+				49B803288599ADDBE1A960EB /* Pods_Cryptomator.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -526,6 +526,7 @@
 				4A60E7F22459C6F500FD7F0E /* Sources */,
 				4A60E7F32459C6F500FD7F0E /* Frameworks */,
 				4A60E7F42459C6F500FD7F0E /* Resources */,
+				77DEB8664C15A8280B1290C2 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -566,6 +567,7 @@
 				4AE97DA624572E4900452814 /* Resources */,
 				4ADA0B40245732AC005B9743 /* Embed Frameworks */,
 				74987489246C726D00CE641A /* Lint With SwiftFormat */,
+				4A44EC3A246EE92800950BBF /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -744,6 +746,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A44EC3A246EE92800950BBF /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Here\"\n\n";
+		};
 		5CE2D33688D540B9628FFD69 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -772,15 +791,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MainApp-CloudAccessPrivate/Pods-MainApp-CloudAccessPrivate-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-MainApp-CloudAccessPrivate/Pods-MainApp-CloudAccessPrivate-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MainApp-CloudAccessPrivate/Pods-MainApp-CloudAccessPrivate-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
@@ -801,6 +820,23 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
+		77DEB8664C15A8280B1290C2 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		78A02A19E21A4981E199F035 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -816,7 +852,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MainApp-CloudAccessPrivate-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-CloudAccessPrivate-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -838,7 +874,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-MainApp-Cryptomator-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Cryptomator-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1166,7 +1202,7 @@
 		};
 		4A5E5B792453121400BD6298 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B230025FD84812923627EBD5 /* Pods-MainApp-CloudAccessPrivate.debug.xcconfig */;
+			baseConfigurationReference = 0A9BE498F16796657BDFA4C3 /* Pods-CloudAccessPrivate.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1197,7 +1233,7 @@
 		};
 		4A5E5B7A2453121400BD6298 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 34B3A66F69DA43E6F6D79163 /* Pods-MainApp-CloudAccessPrivate.release.xcconfig */;
+			baseConfigurationReference = A9E678F4FA3C6465C9DDD3D0 /* Pods-CloudAccessPrivate.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1335,7 +1371,7 @@
 		};
 		4AE97DD024572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B14D2E0F42CC64F9A7206CB2 /* Pods-MainApp-Cryptomator.debug.xcconfig */;
+			baseConfigurationReference = 005A08063F90B0188476852E /* Pods-Cryptomator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1354,7 +1390,7 @@
 		};
 		4AE97DD124572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B523B30D5CA8BEB7C2971CC2 /* Pods-MainApp-Cryptomator.release.xcconfig */;
+			baseConfigurationReference = 0F613D821458887C2A9D7E1C /* Pods-Cryptomator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

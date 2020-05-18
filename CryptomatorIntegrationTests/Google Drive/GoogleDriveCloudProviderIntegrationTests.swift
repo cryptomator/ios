@@ -12,9 +12,13 @@ import Promises
 import XCTest
 class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	override func setUpWithError() throws {
-		let auth = MockGoogleDriveCloudAuthentication()
+		guard let refreshToken = ProcessInfo.processInfo.environment["GOOGLE_DRIVE_REFRESH_TOKEN"] else {
+			throw IntegrationTestError.environmentVariableNotSet
+		}
+		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: refreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
+		super.rootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTests/plain/", isDirectory: true)
 	}
 
 	override func tearDownWithError() throws {
@@ -31,18 +35,17 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 
 	// MARK: Move test to other File
 
-	func testAuthenticationWorksWithoutViewController() throws {
-		let authentication = MockGoogleDriveCloudAuthentication()
-		let refreshToken = "ADD THE REFRESH TOKEN VIA ENV VARIABLE"
-		let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
-		authentication.authenticate(withRefreshToken: refreshToken as NSString).then {
-			authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
-				XCTAssertNil(error)
-				expectation.fulfill()
-            })
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}
-		wait(for: [expectation], timeout: 10.0)
-	}
+	/*
+	 func testAuthenticationWorksWithoutViewController() throws {
+	 	let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
+	 	authentication.authenticate().then {
+	 		authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
+	 			XCTAssertNil(error)
+	 			expectation.fulfill()
+	 })
+	 	}.catch { error in
+	 		XCTFail(error.localizedDescription)
+	 	}
+	 	wait(for: [expectation], timeout: 10.0)
+	 }*/
 }

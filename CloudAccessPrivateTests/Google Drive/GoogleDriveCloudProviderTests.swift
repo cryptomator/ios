@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import XCTest
 @testable import CloudAccessPrivate
+import XCTest
 class GoogleDriveCloudProviderTests: XCTestCase {
 	var provider: GoogleDriveCloudProvider!
 	override func setUpWithError() throws {

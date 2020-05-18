@@ -6,9 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+@testable import CloudAccessPrivate
 import Foundation
 import XCTest
-@testable import CloudAccessPrivate
 
 class GoogleDriveCloudIdentifierCacheManagerTests: XCTestCase {
 	var cachedCloudIdentifierManager: GoogleDriveCloudIdentifierCacheManager!

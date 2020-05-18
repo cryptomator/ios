@@ -197,7 +197,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private func getFirstIdentifier(forItemWithName itemName: String, inFolderWithId: String) -> Promise<String> {
 		let query = GTLRDriveQuery_FilesList.query()
 		query.q = "'\(inFolderWithId)' in parents and name contains '\(itemName)' and trashed = false"
-		query.fields = "files(id, name)"
+		query.fields = "files(id, name, mimeType)"
 		return executeQuery(query).then { result -> String in
 			if let fileList = result as? GTLRDrive_FileList {
 				for file in fileList.files ?? [GTLRDrive_File]() {

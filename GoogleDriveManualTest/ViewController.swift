@@ -28,6 +28,7 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 
 		let authentication = GoogleDriveCloudAuthentication()
 		let provider = GoogleDriveCloudProvider(with: authentication)
+		let test = URL(fileURLWithPath: "/Test/", isDirectory: true)
 		authentication.isAuthenticated().then { authenticated in
 			if authenticated {
 				return Promise(())
@@ -40,6 +41,10 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 		}.then { () -> Promise<Void> in
 			print("authenticated")
 			return self.fetchItemList(with: provider)
+		}.then {
+			provider.fetchItemMetadata(at: test)
+		}.then { metadata in
+			print(metadata.name)
 		}
 		/* .then{ () -> Promise<Void> in
 		     return self.deleteItem(with: authentication)

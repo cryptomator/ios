@@ -1,3 +1,7 @@
+# Credentials for IntegrationTest
+**/Credentials.swift
+**/env-vars.sh
+
 # macOS
 .DS_Store
 
