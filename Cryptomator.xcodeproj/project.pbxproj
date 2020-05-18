@@ -500,6 +500,7 @@
 				4A5E5B5E2453121400BD6298 /* Frameworks */,
 				4A5E5B5F2453121400BD6298 /* Resources */,
 				6690EBA064803A77D4BF2741 /* [CP] Copy Pods Resources */,
+				74C934952472C33700AE15E4 /* Lint With SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -816,6 +817,24 @@
 			showEnvVarsInLog = 0;
 		};
 		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Lint With SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		74C934952472C33700AE15E4 /* Lint With SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
