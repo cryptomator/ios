@@ -43,6 +43,14 @@
 		4ADA0B8D24578BB0005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B8E24578BB0005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DA22457162200452814 /* GoogleDriveError.swift */; };
+		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
+		4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAC24572E4900452814 /* SceneDelegate.swift */; };
+		4AE97DAF24572E4900452814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAE24572E4900452814 /* ViewController.swift */; };
+		4AE97DB224572E4900452814 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB024572E4900452814 /* Main.storyboard */; };
+		4AE97DB424572E4A00452814 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
+		4AE97DB724572E4A00452814 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
+		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
+		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
 		6EB7F9C80F3416440129058E /* Pods_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49B803288599ADDBE1A960EB /* Pods_Cryptomator.framework */; };
 /* End PBXBuildFile section */
 
@@ -157,16 +165,6 @@
 		4A44EC25246BE8EC00950BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A44EC27246BE8EC00950BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
-		4A5E5B2C2453119100BD6298 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4A5E5B302453119100BD6298 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4A5E5B332453119100BD6298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4A5E5B352453119200BD6298 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4A5E5B382453119200BD6298 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		4A5E5B3A2453119200BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A5E5B432453119200BD6298 /* CryptomatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorTests.swift; sourceTree = "<group>"; };
-		4A5E5B452453119200BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A5E5B4E2453119200BD6298 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
-		4A5E5B502453119200BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudAccessPrivate.h; sourceTree = "<group>"; };
 		4A5E5B642453121400BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -189,8 +187,19 @@
 		4ADA0B8924578B05005B9743 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AE97DA22457162200452814 /* GoogleDriveError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveError.swift; sourceTree = "<group>"; };
 		4AE97DA824572E4900452814 /* Cryptomator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptomator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AE97DAA24572E4900452814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4AE97DAC24572E4900452814 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		4AE97DAE24572E4900452814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4AE97DB124572E4900452814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4AE97DB324572E4A00452814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4AE97DB624572E4A00452814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4AE97DB824572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AE97DC124572E4A00452814 /* CryptomatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorTests.swift; sourceTree = "<group>"; };
+		4AE97DC324572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
+		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7EDF81C6AC91B7CC9CFFE18B /* Pods-CryptomatorIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9A1FE81EFBC46AF0507C3388 /* Pods_CryptomatorIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptomatorIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9E678F4FA3C6465C9DDD3D0 /* Pods-CloudAccessPrivate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.release.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.release.xcconfig"; sourceTree = "<group>"; };
@@ -303,9 +312,9 @@
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
-				4A5E5B2B2453119100BD6298 /* Cryptomator */,
-				4A5E5B422453119200BD6298 /* CryptomatorTests */,
-				4A5E5B4D2453119200BD6298 /* CryptomatorUITests */,
+				4AE97DA924572E4900452814 /* Cryptomator */,
+				4AE97DC024572E4A00452814 /* CryptomatorTests */,
+				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
 				4A5E5B622453121400BD6298 /* CloudAccessPrivate */,
 				4A5E5B6F2453121400BD6298 /* CloudAccessPrivateTests */,
 				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
@@ -330,37 +339,6 @@
 				4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4A5E5B2B2453119100BD6298 /* Cryptomator */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E5B3A2453119200BD6298 /* Info.plist */,
-				4A5E5B2C2453119100BD6298 /* AppDelegate.swift */,
-				4A5E5B302453119100BD6298 /* ViewController.swift */,
-				4A5E5B352453119200BD6298 /* Assets.xcassets */,
-				4A5E5B372453119200BD6298 /* LaunchScreen.storyboard */,
-				4A5E5B322453119100BD6298 /* Main.storyboard */,
-			);
-			path = Cryptomator;
-			sourceTree = "<group>";
-		};
-		4A5E5B422453119200BD6298 /* CryptomatorTests */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E5B452453119200BD6298 /* Info.plist */,
-				4A5E5B432453119200BD6298 /* CryptomatorTests.swift */,
-			);
-			path = CryptomatorTests;
-			sourceTree = "<group>";
-		};
-		4A5E5B4D2453119200BD6298 /* CryptomatorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E5B502453119200BD6298 /* Info.plist */,
-				4A5E5B4E2453119200BD6298 /* CryptomatorUITests.swift */,
-			);
-			path = CryptomatorUITests;
 			sourceTree = "<group>";
 		};
 		4A5E5B622453121400BD6298 /* CloudAccessPrivate */ = {
@@ -428,6 +406,38 @@
 				4ADA0B8924578B05005B9743 /* Info.plist */,
 			);
 			path = GoogleDriveManualTest;
+			sourceTree = "<group>";
+		};
+		4AE97DA924572E4900452814 /* Cryptomator */ = {
+			isa = PBXGroup;
+			children = (
+				4AE97DB824572E4A00452814 /* Info.plist */,
+				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
+				4AE97DAC24572E4900452814 /* SceneDelegate.swift */,
+				4AE97DAE24572E4900452814 /* ViewController.swift */,
+				4AE97DB324572E4A00452814 /* Assets.xcassets */,
+				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
+				4AE97DB024572E4900452814 /* Main.storyboard */,
+			);
+			path = Cryptomator;
+			sourceTree = "<group>";
+		};
+		4AE97DC024572E4A00452814 /* CryptomatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				4AE97DC324572E4A00452814 /* Info.plist */,
+				4AE97DC124572E4A00452814 /* CryptomatorTests.swift */,
+			);
+			path = CryptomatorTests;
+			sourceTree = "<group>";
+		};
+		4AE97DCB24572E4A00452814 /* CryptomatorUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4AE97DCE24572E4A00452814 /* Info.plist */,
+				4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */,
+			);
+			path = CryptomatorUITests;
 			sourceTree = "<group>";
 		};
 		A50D43C6290E92F8531394CB /* Pods */ = {
@@ -695,6 +705,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE97DB724572E4A00452814 /* LaunchScreen.storyboard in Resources */,
+				4AE97DB424572E4A00452814 /* Assets.xcassets in Resources */,
+				4AE97DB224572E4900452814 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -942,6 +955,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
+				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
+				4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,6 +965,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -956,6 +973,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1017,22 +1035,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		4A5E5B322453119100BD6298 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4A5E5B332453119100BD6298 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		4A5E5B372453119200BD6298 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4A5E5B382453119200BD6298 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
 		4ADA0B8124578B05005B9743 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1045,6 +1047,22 @@
 			isa = PBXVariantGroup;
 			children = (
 				4ADA0B8724578B05005B9743 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		4AE97DB024572E4900452814 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4AE97DB124572E4900452814 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4AE97DB624572E4A00452814 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -1410,6 +1428,7 @@
 		4AE97DD324572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorTests/Info.plist;
@@ -1430,6 +1449,7 @@
 		4AE97DD424572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorTests/Info.plist;
@@ -1450,6 +1470,7 @@
 		4AE97DD624572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1468,6 +1489,7 @@
 		4AE97DD724572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
