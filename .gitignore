@@ -1,4 +1,6 @@
-# Credentials for IntegrationTest
+# Secrets
+.cloud-access-secrets.sh
+CloudAccessPrivate/CloudAccessSecrets.swift
 **/Credentials.swift
 **/env-vars.sh
 

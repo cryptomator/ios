@@ -50,6 +50,7 @@
 		4AE97DB724572E4A00452814 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
 		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
+		7461F8C4247420F7009D42FF /* CloudAccessSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */; };
 		BA2F12B9EA4B3EB94919AB41 /* Pods_CryptomatorIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EEB5C8CCBF8CEBE8FA06EE6D /* Pods_CryptomatorIntegrationTests.framework */; };
 		EEBEB47CC5D3E69AC7F8AEA2 /* Pods_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B404430CAC019699521741 /* Pods_Cryptomator.framework */; };
 /* End PBXBuildFile section */
@@ -195,6 +196,7 @@
 		4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
 		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E0A8B3DA9420D242AF4A3AF /* Pods-CryptomatorIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccessSecrets.swift; sourceTree = "<group>"; };
 		A0B404430CAC019699521741 /* Pods_Cryptomator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptomator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8ECA8199CDD2BC6AA0F7EA8 /* Pods-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
 		CC7A431295EAA593E546E83D /* Pods_CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -332,6 +334,7 @@
 			children = (
 				4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */,
 				4A5E5B642453121400BD6298 /* Info.plist */,
+				7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */,
 				4A5E5B8124532E7300BD6298 /* GoogleDrive */,
 			);
 			path = CloudAccessPrivate;
@@ -488,6 +491,7 @@
 			buildPhases = (
 				74DB8D32560C3D592F1F15F2 /* [CP] Check Pods Manifest.lock */,
 				4A5E5B5C2453121400BD6298 /* Headers */,
+				7461F8C2247420A8009D42FF /* Create CloudAccessSecrets */,
 				4A5E5B5D2453121400BD6298 /* Sources */,
 				4A5E5B5E2453121400BD6298 /* Frameworks */,
 				4A5E5B5F2453121400BD6298 /* Resources */,
@@ -813,6 +817,27 @@
 			shellPath = /bin/sh;
 			shellScript = "echo \"Here\"\n\n";
 		};
+		7461F8C2247420A8009D42FF /* Create CloudAccessSecrets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"./.cloud-access-secrets.sh",
+				"./create-cloud-access-secrets-file.sh",
+			);
+			name = "Create CloudAccessSecrets";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				./CloudAccessPrivate/CloudAccessSecrets.swift,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-cloud-access-secrets-file.sh\n";
+		};
 		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -923,6 +948,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A5E5B8024532E6F00BD6298 /* GoogleDriveCloudProvider.swift in Sources */,
+				7461F8C4247420F7009D42FF /* CloudAccessSecrets.swift in Sources */,
 				4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */,
 				4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */,
 				4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */,

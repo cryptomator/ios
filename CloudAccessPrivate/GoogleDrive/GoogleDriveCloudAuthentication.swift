@@ -14,8 +14,6 @@ import GTMAppAuth
 import Promises
 
 public class GoogleDriveCloudAuthentication: CloudAuthentication {
-	let clientId = ""
-	let redirectURL = URL(string: "")
 	private let keychainItemName = "GoogleDriveAuth"
 	let scopes = [kGTLRAuthScopeDrive]
 	private static var currentAuthorizationFlow: OIDExternalUserAgentSession?
@@ -77,7 +75,7 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	}
 
 	private func getAuthState(for configuration: OIDServiceConfiguration, with presentingViewController: UIViewController) -> Promise<OIDAuthState> {
-		let request = OIDAuthorizationRequest(configuration: configuration, clientId: clientId, scopes: scopes, redirectURL: redirectURL!, responseType: OIDResponseTypeCode, additionalParameters: nil)
+		let request = OIDAuthorizationRequest(configuration: configuration, clientId: CloudAccessSecrets.googleDriveClientId, scopes: scopes, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, responseType: OIDResponseTypeCode, additionalParameters: nil)
 
 		return Promise<OIDAuthState> { fulfill, reject in
 			GoogleDriveCloudAuthentication.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { authState, error in
