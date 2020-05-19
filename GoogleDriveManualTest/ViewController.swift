@@ -13,6 +13,7 @@ import Promises
 import UIKit
 
 class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTaskDelegate {
+	var observation: NSKeyValueObservation?
 	func urlSession(_: URLSession, downloadTask _: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
 		print("filedownloaded to: \(location.path)")
 	}
@@ -29,7 +30,18 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 
 		let authentication = GoogleDriveCloudAuthentication()
 		let provider = GoogleDriveCloudProvider(with: authentication)
+		let documentsURL = getDocumentsDirectory()
+		let downloadLocalUrl = documentsURL.appendingPathComponent("test.txt")
+		let remoteURL = URL(fileURLWithPath: "/Test/Folder1/test.txt", isDirectory: false)
 		let test = URL(fileURLWithPath: "/Test/", isDirectory: true)
+		let progress = Progress()
+		print(progress)
+		observation = progress.observe(\.fractionCompleted) { progress, _ in
+			print("progress: ", progress.fractionCompleted)
+		}
+		_ = progress.observe(\.totalUnitCount) { _, _ in
+			print("totalUnitCount: ", progress.totalUnitCount)
+		}
 		authentication.isAuthenticated().then { authenticated in
 			if authenticated {
 				return Promise(())
@@ -43,9 +55,17 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 			print("authenticated")
 			return self.fetchItemList(with: provider)
 		}.then {
-			provider.fetchItemMetadata(at: test)
+			provider.downloadFile(from: remoteURL, to: downloadLocalUrl, progress: progress)
+		}.then {
+			provider.downloadFile(from: remoteURL, to: downloadLocalUrl, progress: progress)
 		}.then { metadata in
-			print(metadata.name)
+			print("Metadata Name: \(metadata.name)")
+			do {
+				let content = try String(contentsOf: downloadLocalUrl, encoding: .utf8)
+				print(content)
+			} catch {
+				print(error)
+			}
 		}
 		/* .then{ () -> Promise<Void> in
 		     return self.deleteItem(with: authentication)
@@ -69,6 +89,10 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 		 } */ .catch { error in
 			print("error: \(error)")
 		}
+	}
+
+	deinit {
+		observation?.invalidate()
 	}
 
 	private func fetchItemList(with provider: CloudProvider) -> Promise<Void> {
@@ -129,5 +153,10 @@ class ViewController: UIViewController, URLSessionDownloadDelegate, URLSessionTa
 		print(testURL.absoluteString)
 		print(testURL.hasDirectoryPath)
 		return provider.moveItem(from: testURL, to: newTestURL)
+	}
+
+	func getDocumentsDirectory() -> URL {
+		let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+		return paths[0]
 	}
 }

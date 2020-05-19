@@ -11,4 +11,6 @@ import Foundation
 public enum GoogleDriveError: Error {
 	case noIdentifierFound
 	case unexpectedResultType
+	case receivedIncompleteMetadata
+	case unexpectedError
 }

@@ -3,7 +3,7 @@ inhibit_all_warnings!
 use_frameworks! :linkage => :static
 
 def networking
-	pod 'GRDB.swift'
+	pod 'GRDB.swift', '~> 4.14'
 	pod 'GTMAppAuth', '~> 1.0.0'
 	pod 'GoogleAPIClientForREST/Drive', '~> 1.3.0'
 	pod 'GoogleSignIn', '~> 5.0'

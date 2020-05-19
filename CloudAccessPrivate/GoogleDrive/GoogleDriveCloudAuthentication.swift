@@ -27,7 +27,7 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
 		return createAuthorizationServiceForGoogle().then { configuration in
-			return self.getAuthState(for: configuration, with: viewController)
+			self.getAuthState(for: configuration, with: viewController)
 		}.then { authState in
 			let authorization = GTMAppAuthFetcherAuthorization(authState: authState)
 			self.authorization = authorization
@@ -69,7 +69,7 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 					return reject(error!)
 				}
 				guard let configuration = configuration else {
-					return reject(CloudAuthenticationError.authenticationFailed)
+					return reject(GoogleDriveError.unexpectedError) // MARK: This should never occur
 				}
 				fulfill(configuration)
 			}
@@ -90,7 +90,7 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 						return reject(error)
 					}
 
-					return reject(CloudAuthenticationError.authenticationFailed)
+					return reject(GoogleDriveError.unexpectedError) // MARK: This should never occur
 				}
 				fulfill(authState)
             })
