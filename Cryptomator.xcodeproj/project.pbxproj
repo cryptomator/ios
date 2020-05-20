@@ -1349,7 +1349,6 @@
 		4A5E5B7D2453121400BD6298 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CloudAccessPrivateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1368,7 +1367,6 @@
 		4A5E5B7E2453121400BD6298 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CloudAccessPrivateTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
