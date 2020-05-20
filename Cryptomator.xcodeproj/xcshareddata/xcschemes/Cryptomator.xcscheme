@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A5E5B602453121400BD6298"
-               BuildableName = "CloudAccessPrivate.framework"
-               BlueprintName = "CloudAccessPrivate"
-               ReferencedContainer = "container:Cryptomator.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A5E5B682453121400BD6298"
-               BuildableName = "CloudAccessPrivateTests.xctest"
-               BlueprintName = "CloudAccessPrivateTests"
+               BlueprintIdentifier = "4AE97DA724572E4900452814"
+               BuildableName = "Cryptomator.app"
+               BlueprintName = "Cryptomator"
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -46,9 +32,19 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A5E5B682453121400BD6298"
-               BuildableName = "CloudAccessPrivateTests.xctest"
-               BlueprintName = "CloudAccessPrivateTests"
+               BlueprintIdentifier = "4AE97DBC24572E4A00452814"
+               BuildableName = "CryptomatorTests.xctest"
+               BlueprintName = "CryptomatorTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4AE97DC724572E4A00452814"
+               BuildableName = "CryptomatorUITests.xctest"
+               BlueprintName = "CryptomatorUITests"
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -64,6 +60,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4AE97DA724572E4900452814"
+            BuildableName = "Cryptomator.app"
+            BlueprintName = "Cryptomator"
+            ReferencedContainer = "container:Cryptomator.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -71,15 +77,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4A5E5B602453121400BD6298"
-            BuildableName = "CloudAccessPrivate.framework"
-            BlueprintName = "CloudAccessPrivate"
+            BlueprintIdentifier = "4AE97DA724572E4900452814"
+            BuildableName = "Cryptomator.app"
+            BlueprintName = "Cryptomator"
             ReferencedContainer = "container:Cryptomator.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
