@@ -1,8 +1,8 @@
 # Secrets
 .cloud-access-secrets.sh
 CloudAccessPrivate/CloudAccessSecrets.swift
-**/Credentials.swift
-**/env-vars.sh
+.integration-test-secrets.sh
+CryptomatorIntegrationTests/IntegrationTestSecrets.swift
 
 # macOS
 .DS_Store

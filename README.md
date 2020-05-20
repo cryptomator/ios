@@ -22,6 +22,15 @@ export GOOGLE_DRIVE_REDIRECT_URL=...
 
 If you are building via a CI system, set these secret environment variables accordingly.
 
+#### Integration Testing
+
+If you are running integration tests, you have to set those secrets as well. The file is called `.integration-test-secrets.sh`, also put it in the root directory. Contents are:
+
+```sh
+#!/bin/sh
+export GOOGLE_DRIVE_REFRESH_TOKEN=...
+```
+
 ## Contributing
 
 Install [SwiftFormat](https://github.com/nicklockwood/SwiftFormat/) if you haven't already.

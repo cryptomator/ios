@@ -13,10 +13,7 @@ import XCTest
 
 class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	override func setUpWithError() throws {
-		guard let refreshToken = ProcessInfo.processInfo.environment["GOOGLE_DRIVE_REFRESH_TOKEN"] else {
-			throw IntegrationTestError.environmentVariableNotSet
-		}
-		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: refreshToken)
+		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
 		super.rootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTests/plain/", isDirectory: true)
