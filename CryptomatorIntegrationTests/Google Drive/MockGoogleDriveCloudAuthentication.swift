@@ -12,7 +12,7 @@ import Promises
 @testable import AppAuth
 @testable import CloudAccessPrivate
 
-class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthentication {
+class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthentication, MockCloudAuthentication {
 	private let refreshToken: String
 
 	init(withRefreshToken refreshToken: String) {

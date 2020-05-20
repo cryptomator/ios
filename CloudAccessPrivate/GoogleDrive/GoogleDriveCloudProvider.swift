@@ -282,7 +282,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private func fetchItemMetadata(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<CloudItemMetadata> {
 		return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier).then { file -> CloudItemMetadata in
 			guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
-				throw CloudProviderError.itemNotFound // MARK: Discuss Error
+				throw GoogleDriveError.receivedIncompleteMetadata
 			}
 			let itemType = self.getCloudItemType(forMimeType: mimeType)
 			return CloudItemMetadata(name: name, remoteURL: remoteURL, itemType: itemType, lastModifiedDate: lastModifiedDate, size: file.size?.intValue)
@@ -301,9 +301,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		runningFetchers.append(fetcher)
 		return Promise<Void> { fulfill, reject in
 			fetcher.beginFetch { _, error in
-
-				// MARK: race condition
-
 				self.runningFetchers.removeAll { $0 == fetcher }
 				if let error = error as NSError? {
 					if error.domain == kGTMSessionFetcherStatusDomain {
@@ -334,16 +331,12 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private func executeQuery(_ query: GTLRDriveQuery) -> Promise<Any> {
 		return Promise<Any> { fulfill, reject in
 			let ticket = self.driveService.executeQuery(query) { ticket, result, error in
-
-				// MARK: race condition
-
 				self.runningTickets.removeAll { $0 == ticket }
-
 				if let error = error as NSError? {
 					if error.domain == NSURLErrorDomain, error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorCannotConnectToHost || error.code == NSURLErrorNetworkConnectionLost || error.code == NSURLErrorDNSLookupFailed || error.code == NSURLErrorResourceUnavailable || error.code == NSURLErrorInternationalRoamingOff {
 						return reject(CloudProviderError.noInternetConnection)
 					}
-					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeInvalidCredentials {
+					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeInvalidCredentials || error.code == self.googleDriveErrorCodeForbidden {
 						return reject(CloudProviderError.unauthorized)
 					}
 					return reject(error)
@@ -353,9 +346,6 @@ public class GoogleDriveCloudProvider: CloudProvider {
 				}
 				fulfill(())
 			}
-
-			// MARK: race condition
-
 			self.runningTickets.append(ticket)
 		}
 	}

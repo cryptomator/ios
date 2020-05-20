@@ -16,7 +16,7 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
-		super.rootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTests/plain/", isDirectory: true)
+		super.rootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	}
 
 	override func tearDownWithError() throws {
