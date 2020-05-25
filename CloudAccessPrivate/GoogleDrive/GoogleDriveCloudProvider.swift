@@ -123,6 +123,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 				progress?.totalUnitCount = Int64(totalBytesExpectedToUpload)
 				progress?.completedUnitCount = Int64(totalBytesUploaded)
 			}
+			query.fields = "id, name, modifiedTime, mimeType"
 			return self.executeQuery(query)
 		}.then { result -> CloudItemMetadata in
 			if let uploadedFile = result as? GTLRDrive_File {

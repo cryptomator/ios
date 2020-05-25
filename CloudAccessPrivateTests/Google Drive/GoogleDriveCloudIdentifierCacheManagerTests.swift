@@ -25,7 +25,7 @@ class GoogleDriveCloudIdentifierCacheManagerTests: XCTestCase {
 
 	func testRootIdentifierIsCachedAtStart() throws {
 		let rootURL = URL(fileURLWithPath: "/")
-		let rootIdentifier = try cachedCloudIdentifierManager.getIdentifier(for: rootURL)
+		let rootIdentifier = cachedCloudIdentifierManager.getIdentifier(for: rootURL)
 		XCTAssertNotNil(rootIdentifier)
 		XCTAssertEqual("root", rootIdentifier)
 	}

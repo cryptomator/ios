@@ -12,38 +12,35 @@ import Promises
 import XCTest
 
 class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
+	static var setUpErrorForGoogleDrive: Error?
+	override class var setUpError: Error? {
+		get {
+			return setUpErrorForGoogleDrive
+		}
+		set {
+			setUpErrorForGoogleDrive = newValue
+		}
+	}
+
+	override class func setUp() {
+		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
+		let provider = GoogleDriveCloudProvider(with: auth)
+		let remoteURL = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
+		setUpForIntegrationTest(at: provider, with: auth, remoteRootURLForIntegrationTest: remoteURL)
+	}
+
 	override func setUpWithError() throws {
+		if let error = GoogleDriveCloudProviderIntegrationTests.setUpError {
+			throw error
+		}
 		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
-		super.rootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
+		super.remoteRootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
-	}
+	
 
 	override class var defaultTestSuite: XCTestSuite {
 		return XCTestSuite(forTestCaseClass: GoogleDriveCloudProviderIntegrationTests.self)
 	}
-
-	/**
-	    It is necessary to call another function than canAuthorize, because it returns true as soon as any refreshToken is set and does not check it online for correctness before.
-	 */
-
-	// MARK: Move test to other File
-
-	/*
-	 func testAuthenticationWorksWithoutViewController() throws {
-	 	let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
-	 	authentication.authenticate().then {
-	 		authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
-	 			XCTAssertNil(error)
-	 			expectation.fulfill()
-	 })
-	 	}.catch { error in
-	 		XCTFail(error.localizedDescription)
-	 	}
-	 	wait(for: [expectation], timeout: 10.0)
-	 }*/
 }
