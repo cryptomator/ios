@@ -22,11 +22,19 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 		}
 	}
 
-	override class func setUp() {
-		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-		let provider = GoogleDriveCloudProvider(with: auth)
-		let remoteURL = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
-		setUpForIntegrationTest(at: provider, with: auth, remoteRootURLForIntegrationTest: remoteURL)
+	static let setUpAuthenticationForGoogleDrive = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
+	static let setUpProviderForGoogleDrive = GoogleDriveCloudProvider(with: setUpAuthenticationForGoogleDrive)
+	override class var setUpAuthentication: MockCloudAuthentication {
+		return setUpAuthenticationForGoogleDrive
+	}
+
+	override class var setUpProvider: CloudProvider {
+		return setUpProviderForGoogleDrive
+	}
+
+	static let remoteRootURLForIntegrationTestAtGoogleDrive = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
+	override class var remoteRootURLForIntegrationTest: URL {
+		return remoteRootURLForIntegrationTestAtGoogleDrive
 	}
 
 	override func setUpWithError() throws {
@@ -38,7 +46,6 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 		super.provider = GoogleDriveCloudProvider(with: auth)
 		super.remoteRootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	}
-	
 
 	override class var defaultTestSuite: XCTestSuite {
 		return XCTestSuite(forTestCaseClass: GoogleDriveCloudProviderIntegrationTests.self)

@@ -13,6 +13,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	var authentication: MockCloudAuthentication!
 	var provider: CloudProvider!
 	var remoteRootURLForIntegrationTest: URL!
+	class var setUpProvider: CloudProvider {
+		fatalError("Not implemented")
+	}
+
+	class var setUpAuthentication: MockCloudAuthentication {
+		fatalError("Not implemented")
+	}
+
+	class var remoteRootURLForIntegrationTest: URL {
+		fatalError("Not implemented")
+	}
 
 	// MARK: Dirty Hack to notify about error in one time setup
 
@@ -23,8 +34,8 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		set {}
 	}
 
-	class func setUpForIntegrationTest(at provider: CloudProvider, with authentication: MockCloudAuthentication, remoteRootURLForIntegrationTest: URL) {
-		let setUpPromise = setUpForIntegrationTest(at: provider, authentication: authentication, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
+	override class func setUp() {
+		let setUpPromise = setUpForIntegrationTest(at: setUpProvider, authentication: setUpAuthentication, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
 
 		// MARK: use waitForPromises as expectations are not available here. Therefore we can't catch the error from the promise above. And we need to check for an error later
 
@@ -97,6 +108,8 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			try FileManager.default.removeItem(at: currentTestTempDirectory)
 		}
 	}
+
+	override class func tearDown() {}
 
 	private class func createTestFileURLs(in folderURL: URL, filename: String = "test", fileExtension: String = "txt", amount: Int = 5) -> [URL] {
 		precondition(folderURL.hasDirectoryPath)
