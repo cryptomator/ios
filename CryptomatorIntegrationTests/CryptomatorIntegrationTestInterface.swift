@@ -109,7 +109,10 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		}
 	}
 
-	override class func tearDown() {}
+	override class func tearDown() {
+		_ = setUpProvider.deleteItem(at: remoteRootURLForIntegrationTest)
+		_ = waitForPromises(timeout: 60.0)
+	}
 
 	private class func createTestFileURLs(in folderURL: URL, filename: String = "test", fileExtension: String = "txt", amount: Int = 5) -> [URL] {
 		precondition(folderURL.hasDirectoryPath)
@@ -308,7 +311,6 @@ extension CloudItemMetadata: Comparable {
 
 extension CloudProvider {
 	func deleteIfExists(at remoteURL: URL) -> Promise<Void> {
-		print("delete: \(remoteURL)")
 		return Promise(on: .global()) { fulfill, reject in
 			do {
 				try await(self.deleteItem(at: remoteURL))
@@ -327,7 +329,6 @@ extension CloudProvider {
 		urls.append(remoteURL)
 		return Promise(on: .global()) { fulfill, reject in
 			for url in urls {
-				print("URL: \(url)")
 				do {
 					try (await(self.createFolder(at: url)))
 				} catch {
