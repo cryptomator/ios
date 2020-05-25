@@ -43,7 +43,6 @@ extension URL {
 		var url = self
 		while url.pathComponents.count > startIndex {
 			url = url.deletingLastPathComponent()
-			print("URL: \(url) count: \(url.pathComponents.count)")
 			subURLs.append(url)
 		}
 		subURLs.reverse()

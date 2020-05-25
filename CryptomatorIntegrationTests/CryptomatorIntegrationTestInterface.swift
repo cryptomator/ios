@@ -48,8 +48,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		}
 	}
 
-	// MARK: Change function name
-
 	/**
 	 Initial setup for the integration tests
 
@@ -267,12 +265,12 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	}
 
 	func testFetchItemListFailWithItemNotFoundWhenFolderDoesNotExists() throws {
-		let expectation = XCTestExpectation(description: "fetchItemListFailWithItemNotFoundWhenFolderDoesNotExists")
+		let expectation = XCTestExpectation(description: "fetchItemList fail with CloudProviderError.itemNotFound when the folder does not exists")
 		let nonexistentFolderURL = remoteRootURLForIntegrationTest.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
 		authentication.authenticate().then {
 			self.provider.fetchItemList(forFolderAt: nonexistentFolderURL, withPageToken: nil)
 		}.then { _ in
-			XCTFail("Promise should not fulfill for nonexistent Folder")
+			XCTFail("fetchItemList fulfilled for nonexistent Folder")
 		}.catch { error in
 			if case CloudProviderError.itemNotFound = error {
 				expectation.fulfill()
@@ -285,7 +283,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 	func testUnauthorizedFetchItemListFailWithCloudProviderErrorUnauthorized() throws {
 		let folderURL = remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/", isDirectory: true)
-		let expectation = XCTestExpectation(description: "unauthorizedFetchItemListFailWithCloudProviderErrorUnauthorized")
+		let expectation = XCTestExpectation(description: "unauthorized fetchItemList fail with CloudProviderError.unauthorized")
 		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil).then { _ in
 			XCTFail("fetchItemList fulfilled without authentication")
 		}.catch { error in
@@ -296,6 +294,124 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			}
 		}
 		wait(for: [expectation], timeout: 60.0)
+	}
+
+	func testDownloadFile() throws {
+		let filename = "test 0.txt"
+		let expectedFileContent = "testContent"
+
+		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let expectedMetadata = CloudItemMetadata(name: filename, remoteURL: remoteFileURL, itemType: .file, lastModifiedDate: nil, size: nil)
+
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
+		let expectation = XCTestExpectation(description: "downloadFile")
+		authentication.authenticate().then {
+			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
+		}.then { actualMetadata in
+			XCTAssertEqual(expectedMetadata, actualMetadata)
+			let actualFileContent = try String(contentsOf: localFileURL)
+			XCTAssertEqual(expectedFileContent, actualFileContent)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
+	}
+
+	func testDownloadFileInSubFolder() throws {
+		let filename = "test 0.txt"
+		let expectedFileContent = "File inside Folder Content"
+
+		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/test 0.txt", isDirectory: false)
+		let expectedMetadata = CloudItemMetadata(name: filename, remoteURL: remoteFileURL, itemType: .file, lastModifiedDate: nil, size: nil)
+
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
+		let expectation = XCTestExpectation(description: "downloadFile")
+		authentication.authenticate().then {
+			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
+		}.then { actualMetadata in
+			XCTAssertEqual(expectedMetadata, actualMetadata)
+			let actualFileContent = try String(contentsOf: localFileURL)
+			XCTAssertEqual(expectedFileContent, actualFileContent)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
+	}
+
+	func testDownloadFileFailWithItemNotFoundWhenFileNotExistAtCloudProvider() throws {
+		let filename = "thisFileMustNotExist.txt"
+
+		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
+		let expectation = XCTestExpectation(description: "downloadFile fail with CloudProviderError.itemNotFound")
+		authentication.authenticate().then {
+			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
+		}.then { _ in
+			XCTFail("downloadFile fulfilled although the file does not exist at the cloud provider")
+		}.catch { error in
+			if case CloudProviderError.itemNotFound = error {
+				expectation.fulfill()
+			} else {
+				XCTFail(error.localizedDescription)
+			}
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
+	}
+
+	func testDownloadFileFailWithItemAlreadyExsitsWhenFileExistsLocally() throws {
+		let filename = "test 0.txt"
+		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
+		let emptyFileContent = ""
+		try emptyFileContent.write(to: localFileURL, atomically: true, encoding: .utf8)
+		let expectation = XCTestExpectation(description: "downloadFile fail with CloudProviderError.itemAlreadyExists")
+		authentication.authenticate().then {
+			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
+		}.then { _ in
+			XCTFail("downloadFile fulfilled although the file does already exists locally")
+		}.catch { error in
+			if case CloudProviderError.itemAlreadyExists = error {
+				expectation.fulfill()
+			} else {
+				XCTFail(error.localizedDescription)
+			}
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
+	}
+	
+	func testUnauthorizedDownloadFileFailWithCloudProviderErrorUnauthorized() throws {
+		let filename = "test 0.txt"
+		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
+		let expectation = XCTestExpectation(description: "unauthorized downloadFile fail with CloudProviderError.unauthorized")
+		provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil).then { _ in
+			XCTFail("downloadFile fulfilled without authentication")
+		}.catch { error in
+			if case CloudProviderError.unauthorized = error {
+				expectation.fulfill()
+			} else {
+				XCTFail(error.localizedDescription)
+			}
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
 }
 
