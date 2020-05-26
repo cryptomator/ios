@@ -8,6 +8,7 @@
 --importgrouping testable-bottom
 --indent tab
 --self init-only
+--stripunusedargs closure-only
 --swiftversion 5.1
 --tabwidth 4
 
