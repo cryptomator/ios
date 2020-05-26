@@ -13,7 +13,7 @@ import XCTest
 
 class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	static var setUpErrorForGoogleDrive: Error?
-	override class var setUpError: Error? {
+	override class var classSetUpError: Error? {
 		get {
 			return setUpErrorForGoogleDrive
 		}
@@ -38,9 +38,7 @@ class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterf
 	}
 
 	override func setUpWithError() throws {
-		if let error = GoogleDriveCloudProviderIntegrationTests.setUpError {
-			throw error
-		}
+		try super.setUpWithError()
 		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
