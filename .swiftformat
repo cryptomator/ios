@@ -15,4 +15,4 @@
 # rules
 
 --enable isEmpty
---disable redundantReturn
+--disable redundantReturn,trailingClosures
