@@ -88,7 +88,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
 		precondition(remoteURL.hasDirectoryPath)
 		return resolvePath(for: remoteURL).then { identifier in
-			self.fetchGTLRDriveFileList(forIdentifier: identifier, withPageToken: pageToken)
+			self.fetchGTLRDriveFileList(forFolderAt: remoteURL, withIdentifier: identifier, withPageToken: pageToken)
 		}.then { fileList in
 			let cloudItemList = try self.convertGTLRDriveFileListToCloudItemList(fileList, forFolderAt: remoteURL)
 			return Promise(cloudItemList)
@@ -152,12 +152,16 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			} catch CloudProviderError.itemNotFound {
 				_ = try await(self.createFolder(at: remoteURL, withParentIdentifier: parentIdentifier))
 				fulfill(())
+			} catch CloudProviderError.itemTypeMismatch {
+				reject(CloudProviderError.itemAlreadyExists)
 			}
 		}
 	}
 
 	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		return resolvePath(for: remoteURL).then(deleteItem)
+		return resolvePath(for: remoteURL).then { identifier in
+			self.deleteItem(withIdentifier: identifier, at: remoteURL)
+		}
 	}
 
 	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
@@ -167,6 +171,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 
 		return Promise<GTLRDriveQuery>(on: .global()) { fulfill, reject in
 			do {
+				_ = try await(self.resolveParentPath(for: newRemoteURL))
 				_ = try await(self.resolvePath(for: newRemoteURL))
 				reject(CloudProviderError.itemAlreadyExists)
 			} catch CloudProviderError.itemNotFound {
@@ -182,12 +187,20 @@ public class GoogleDriveCloudProvider: CloudProvider {
 					query.addParents = newParentIdentifier
 					query.removeParents = oldParentIdentifier
 				}
+				query.fields = "id, modifiedTime"
 				fulfill(query)
 			}
-		}.then(executeQuery).then { result -> Void in
-			guard result is Void else {
+		}.then { query in
+			self.executeQuery(query, remoteURL: oldRemoteURL)
+		}.then { result -> Void in
+			guard let file = result as? GTLRDrive_File else {
 				throw GoogleDriveError.unexpectedResultType
 			}
+			guard let identifier = file.identifier else {
+				throw GoogleDriveError.receivedIncompleteMetadata
+			}
+			try self.cloudIdentifierCache?.uncacheIdentifier(for: oldRemoteURL)
+			try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: newRemoteURL)
 			return
 		}
 	}
@@ -243,23 +256,24 @@ public class GoogleDriveCloudProvider: CloudProvider {
 
 	// MARK: Operations with Google Drive Item Identifier
 
-	private func deleteItem(withIdentifier identifier: String) -> Promise<Void> {
+	private func deleteItem(withIdentifier identifier: String, at remoteURL: URL) -> Promise<Void> {
 		let query = GTLRDriveQuery_FilesDelete.query(withFileId: identifier)
 		return executeQuery(query).then { result -> Void in
 			guard result is Void else {
 				throw GoogleDriveError.unexpectedResultType
 			}
+			try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
 			return
 		}
 	}
 
-	private func fetchGTLRDriveFileList(forIdentifier identifier: String, withPageToken pageToken: String?) -> Promise<GTLRDrive_FileList> {
+	private func fetchGTLRDriveFileList(forFolderAt remoteURL: URL, withIdentifier identifier: String, withPageToken pageToken: String?) -> Promise<GTLRDrive_FileList> {
 		let query = GTLRDriveQuery_FilesList.query()
 		query.q = "'\(identifier)' in parents and trashed = false"
 		query.pageSize = 1000
 		query.pageToken = pageToken
 		query.fields = "nextPageToken, files(id,mimeType,modifiedTime,name,size)"
-		return executeQuery(query).then { result -> GTLRDrive_FileList in
+		return executeQuery(query, remoteURL: remoteURL).then { result -> GTLRDrive_FileList in
 			if let fileList = result as? GTLRDrive_FileList {
 				return fileList
 			} else {
@@ -268,10 +282,10 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String) -> Promise<GTLRDrive_File> {
+	private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<GTLRDrive_File> {
 		let query = GTLRDriveQuery_FilesGet.query(withFileId: itemIdentifier)
 		query.fields = "name, modifiedTime, size, mimeType"
-		return executeQuery(query).then { result -> GTLRDrive_File in
+		return executeQuery(query, remoteURL: remoteURL).then { result -> GTLRDrive_File in
 			if let file = result as? GTLRDrive_File {
 				return file
 			} else {
@@ -281,7 +295,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	}
 
 	private func fetchItemMetadata(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier).then { file -> CloudItemMetadata in
+		return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier, at: remoteURL).then { file -> CloudItemMetadata in
 			guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
 				throw GoogleDriveError.receivedIncompleteMetadata
 			}
@@ -329,7 +343,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	/**
 	 A wrapper for the GTLRDriveQuery with Promises.
 	 */
-	private func executeQuery(_ query: GTLRDriveQuery) -> Promise<Any> {
+	private func executeQuery(_ query: GTLRDriveQuery, remoteURL: URL? = nil) -> Promise<Any> {
 		return Promise<Any> { fulfill, reject in
 			let ticket = self.driveService.executeQuery(query) { ticket, result, error in
 				self.runningTickets.removeAll { $0 == ticket }
@@ -339,6 +353,16 @@ public class GoogleDriveCloudProvider: CloudProvider {
 					}
 					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeInvalidCredentials || error.code == self.googleDriveErrorCodeForbidden {
 						return reject(CloudProviderError.unauthorized)
+					}
+					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeFileNotFound {
+						if let remoteURL = remoteURL {
+							do {
+								try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
+							} catch {
+								reject(error)
+							}
+						}
+						return reject(CloudProviderError.itemNotFound)
 					}
 					return reject(error)
 				}
