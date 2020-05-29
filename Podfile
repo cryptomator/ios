@@ -7,6 +7,7 @@ def networking
 	pod 'GTMAppAuth', '~> 1.0.0'
 	pod 'GoogleAPIClientForREST/Drive', '~> 1.3.0'
 	pod 'GoogleSignIn', '~> 5.0'
+	pod 'SwiftyDropbox', '~> 5.1.0'
 end
 
 #OwnPods
