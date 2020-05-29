@@ -113,8 +113,13 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	public func uploadFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
 		precondition(!localURL.hasDirectoryPath)
 		precondition(!remoteURL.hasDirectoryPath)
-		if !FileManager.default.fileExists(atPath: localURL.path) {
+		var isDirectory: ObjCBool = false
+		let fileExists = FileManager.default.fileExists(atPath: localURL.path, isDirectory: &isDirectory)
+		if !fileExists {
 			return Promise(CloudProviderError.itemNotFound)
+		}
+		if isDirectory.boolValue {
+			return Promise(CloudProviderError.itemTypeMismatch)
 		}
 		return resolveParentPath(for: remoteURL).then { parentIdentfier in
 			self.createFileUploadQuery(from: localURL, to: remoteURL, parentIdentifier: parentIdentfier, isUpdate: isUpdate)
