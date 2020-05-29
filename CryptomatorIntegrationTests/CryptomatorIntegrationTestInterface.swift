@@ -109,7 +109,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToMoveURL = remoteFolderForMoveItemsURL.appendingPathComponent("FolderToMove", isDirectory: true)
 
 		return authentication.authenticate().then {
-			setUpProvider.deleteIfExists(at: remoteRootURLForIntegrationTest)
+			setUpProvider.deleteItemIfExists(at: remoteRootURLForIntegrationTest)
 		}.then {
 			setUpProvider.createFolderWithIntermediates(for: remoteRootURLForIntegrationTest)
 		}.then {
@@ -747,7 +747,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.deleteItem(at: itemToDeleteURL)
 		}.then {
-			self.provider.checkForItemExistence(at: itemToDeleteURL, type: .file)
+			self.provider.checkForItemExistence(at: itemToDeleteURL)
 		}.then { fileExists in
 			guard !fileExists else {
 				XCTFail("File still exists in the cloud")
@@ -766,7 +766,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.deleteItem(at: itemToDeleteURL)
 		}.then {
-			self.provider.checkForItemExistence(at: itemToDeleteURL, type: .folder)
+			self.provider.checkForItemExistence(at: itemToDeleteURL)
 		}.then { folderExists in
 			guard !folderExists else {
 				XCTFail("Folder still exists in the cloud")
@@ -830,7 +830,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		wait(for: [expectation], timeout: 60.0)
 		let checkExpectation = XCTestExpectation(description: "deleteItem did not delete the folder with the same name because we wanted to delete a file")
 		let remoteFolderURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FolderForItemTypeMissmatch", isDirectory: true)
-		provider.checkForItemExistence(at: remoteFolderURL, type: .folder).then { folderExists in
+		provider.checkForItemExistence(at: remoteFolderURL).then { folderExists in
 			guard folderExists else {
 				XCTFail("deleteItem deleted the folder with the same name, although we wanted to delete a file")
 				return
@@ -857,7 +857,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		wait(for: [expectation], timeout: 30.0)
 		let checkExpectation = XCTestExpectation(description: "deleteItem did not delete the file with the same name because we wanted to delete a folder")
 		let remoteFileURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FileForItemTypeMissmatch", isDirectory: false)
-		provider.checkForItemExistence(at: remoteFileURL, type: .file).then { fileExists in
+		provider.checkForItemExistence(at: remoteFileURL).then { fileExists in
 			guard fileExists else {
 				XCTFail("deleteItem deleted the file with the same name, although we wanted to delete a folder")
 				return
@@ -894,7 +894,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.moveItem(from: remoteFileToRenameURL, to: newRemoteFileToRenameURL)
 		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0, type: .file) })
+			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
 		}.then { itemsExist in
 			let oldItemExist = itemsExist[0]
 			let newItemExist = itemsExist[1]
@@ -917,7 +917,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.moveItem(from: remoteFolderToRenameURL, to: newRemoteFolderToRenameURL)
 		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0, type: .folder) })
+			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
 		}.then { itemsExist in
 			let oldItemExist = itemsExist[0]
 			let newItemExist = itemsExist[1]
@@ -940,7 +940,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
 		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0, type: .file) })
+			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
 		}.then { itemsExist in
 			let oldItemExist = itemsExist[0]
 			let newItemExist = itemsExist[1]
@@ -963,7 +963,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		authentication.authenticate().then {
 			self.provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
 		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0, type: .folder) })
+			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
 		}.then { itemsExist in
 			let oldItemExist = itemsExist[0]
 			let newItemExist = itemsExist[1]
@@ -1150,20 +1150,6 @@ extension CloudItemMetadata: Comparable {
 }
 
 extension CloudProvider {
-	func deleteIfExists(at remoteURL: URL) -> Promise<Void> {
-		return Promise(on: .global()) { fulfill, reject in
-			do {
-				try await(self.deleteItem(at: remoteURL))
-			} catch {
-				guard case CloudProviderError.itemNotFound = error else {
-					reject(error)
-					return
-				}
-			}
-			fulfill(())
-		}
-	}
-
 	func createFolderWithIntermediates(for remoteURL: URL) -> Promise<Void> {
 		var urls = remoteURL.getPartialURLs(startIndex: 2)
 		urls.append(remoteURL)
@@ -1179,20 +1165,6 @@ extension CloudProvider {
 				}
 			}
 			fulfill(())
-		}
-	}
-
-	func checkForItemExistence(at remoteURL: URL, type: CloudItemType) -> Promise<Bool> {
-		return Promise(on: .global()) { fulfill, _ in
-			do {
-				let metadata = try await(self.fetchItemMetadata(at: remoteURL))
-				if metadata.itemType != type {
-					throw CloudProviderError.itemTypeMismatch
-				}
-				fulfill(true)
-			} catch CloudProviderError.itemNotFound {
-				fulfill(false)
-			}
 		}
 	}
 }

@@ -5,9 +5,14 @@ PODS:
   - AppAuth/Core (1.3.0)
   - AppAuth/ExternalUserAgent (1.3.0)
   - CryptomatorCloudAccess (0.0.1-snapshot):
-    - CryptomatorCryptoLib (~> 0.2)
-    - GRDB.swift (~> 4.14)
-    - PromisesSwift (~> 1.2)
+    - CryptomatorCloudAccess/Core (= 0.0.1-snapshot)
+    - CryptomatorCloudAccess/VaultFormat7 (= 0.0.1-snapshot)
+  - CryptomatorCloudAccess/Core (0.0.1-snapshot):
+    - PromisesSwift (~> 1.2.0)
+  - CryptomatorCloudAccess/VaultFormat7 (0.0.1-snapshot):
+    - CryptomatorCloudAccess/Core
+    - CryptomatorCryptoLib (~> 0.3.0)
+    - GRDB.swift (~> 4.14.0)
   - CryptomatorCryptoLib (0.3.0):
     - CryptoSwift (~> 1.3)
     - SwiftBase32 (~> 0.8)
@@ -66,12 +71,12 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   CryptomatorCloudAccess:
-    :commit: c11842d9872df887af77ba8519cb2f6b47d2d9d4
+    :commit: 61fc0d37814b4bc145c7625b5d6fac4281e1b567
     :git: https://github.com/cryptomator/cloud-access-swift.git
 
 SPEC CHECKSUMS:
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
-  CryptomatorCloudAccess: 5270e0212a947c785e5b277dfb53c0e54135e4e8
+  CryptomatorCloudAccess: 4b3629032247d2fa5627244cb961b5e2d21bc878
   CryptomatorCryptoLib: c46b1a6da39d8f73c6a908b917f1b5b9391bfa8a
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
   GoogleAPIClientForREST: 0f19a8280dfe6471f76016645d26eb5dae305101
