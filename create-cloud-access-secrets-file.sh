@@ -13,5 +13,7 @@ import Foundation
 struct CloudAccessSecrets {
 	static let googleDriveClientId = "${GOOGLE_DRIVE_CLIENT_ID}"
 	static let googleDriveRedirectURL = URL(string: "${GOOGLE_DRIVE_REDIRECT_URL}")
+
+	static let dropboxAppKey = "${DROPBOX_APP_KEY}"
 }
 EOM
