@@ -1,5 +1,4 @@
 PODS:
-  - Alamofire (4.8.2)
   - AppAuth (1.3.0):
     - AppAuth/Core (= 1.3.0)
     - AppAuth/ExternalUserAgent (= 1.3.0)
@@ -38,12 +37,11 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - GTMSessionFetcher/Full (1.4.0):
     - GTMSessionFetcher/Core (= 1.4.0)
+  - ObjectiveDropboxOfficial (4.0.0)
   - PromisesObjC (1.2.8)
   - PromisesSwift (1.2.8):
     - PromisesObjC (= 1.2.8)
   - SwiftBase32 (0.8.0)
-  - SwiftyDropbox (5.1.0):
-    - Alamofire (~> 4.8.2)
 
 DEPENDENCIES:
   - CryptomatorCloudAccess (from `https://github.com/cryptomator/cloud-access-swift.git`, commit `HEAD`, branch `develop`)
@@ -51,11 +49,10 @@ DEPENDENCIES:
   - GoogleSignIn (~> 5.0)
   - GRDB.swift (~> 4.14)
   - GTMAppAuth (~> 1.0.0)
-  - SwiftyDropbox (~> 5.1.0)
+  - ObjectiveDropboxOfficial (~> 4.0)
 
 SPEC REPOS:
   trunk:
-    - Alamofire
     - AppAuth
     - CryptomatorCryptoLib
     - CryptoSwift
@@ -64,10 +61,10 @@ SPEC REPOS:
     - GRDB.swift
     - GTMAppAuth
     - GTMSessionFetcher
+    - ObjectiveDropboxOfficial
     - PromisesObjC
     - PromisesSwift
     - SwiftBase32
-    - SwiftyDropbox
 
 EXTERNAL SOURCES:
   CryptomatorCloudAccess:
@@ -81,7 +78,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/cryptomator/cloud-access-swift.git
 
 SPEC CHECKSUMS:
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
   AppAuth: 73574f3013a1e65b9601a3ddc8b3158cce68c09d
   CryptomatorCloudAccess: 4b3629032247d2fa5627244cb961b5e2d21bc878
   CryptomatorCryptoLib: c46b1a6da39d8f73c6a908b917f1b5b9391bfa8a
@@ -91,11 +87,11 @@ SPEC CHECKSUMS:
   GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
   GTMAppAuth: 4deac854479704f348309e7b66189e604cf5e01e
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  ObjectiveDropboxOfficial: 4482e13f7494132a9b6c700755189b1b70d9629e
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   PromisesSwift: 37bad6f4daddb02f7c9c531efe91e8b21c13ee2f
   SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
-  SwiftyDropbox: 7ca4961e0340c62c8d6d1ece91d67badfe4c0380
 
-PODFILE CHECKSUM: 56434a403949b34be5e81dca9d560ed245cbb8fd
+PODFILE CHECKSUM: 6c8262e180d9d7f387f548ccc6ce3f4f70f74edc
 
 COCOAPODS: 1.9.1
