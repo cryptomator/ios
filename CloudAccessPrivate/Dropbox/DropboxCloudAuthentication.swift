@@ -8,21 +8,51 @@
 
 import CryptomatorCloudAccess
 import Foundation
+import ObjectiveDropboxOfficial
 import Promises
 class DropboxCloudAuthentication: CloudAuthentication {
-	func authenticate(from _: UIViewController) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	init() {
+		// MARK: Add sharedContainerIdentifier
+
+		let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
+		DBClientsManager.setup(withTransport: config)
+	}
+
+	func authenticate(from viewController: UIViewController) -> Promise<Void> {
+		return isAuthenticated().then { isAuthenticated in
+			if isAuthenticated {
+				return Promise(())
+			}
+			DBClientsManager.authorize(fromController: .shared, controller: viewController) { url in
+				UIApplication.shared.open(url, options: [:], completionHandler: nil)
+			}
+			return Promise(())
+		}
 	}
 
 	func isAuthenticated() -> Promise<Bool> {
-		return Promise(CloudProviderError.noInternetConnection)
+		return Promise(DBClientsManager.authorizedClient()?.isAuthorized() ?? false)
 	}
 
 	func getUsername() -> Promise<String> {
-		return Promise(CloudProviderError.noInternetConnection)
+		let client = DBClientsManager.authorizedClient()
+		return Promise<String>(on: .global()) { fulfill, reject in
+			client?.usersRoutes.getCurrentAccount().setResponseBlock { result, _, networkError in
+				if let error = networkError?.nsError {
+					reject(error)
+					return
+				}
+				guard let result = result else {
+					reject(DropboxError.unexpectedError)
+					return
+				}
+				fulfill(result.name.displayName)
+			}
+		}
 	}
 
 	func deauthenticate() -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+		DBClientsManager.unlinkAndResetClients()
+		return Promise(())
 	}
 }
