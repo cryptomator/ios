@@ -23,6 +23,7 @@ public class DropboxCloudAuthentication: CloudAuthentication {
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
 		return isAuthenticated().then { isAuthenticated in
 			if isAuthenticated {
+				self.authorizedClient = DBClientsManager.authorizedClient()
 				return Promise(())
 			}
 
