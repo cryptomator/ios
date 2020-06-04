@@ -10,31 +10,36 @@ import CryptomatorCloudAccess
 import Foundation
 import ObjectiveDropboxOfficial
 import Promises
-class DropboxCloudAuthentication: CloudAuthentication {
-	init() {
+public class DropboxCloudAuthentication: CloudAuthentication {
+	public static var pendingAuthentication: Promise<Void>?
+	public init() {
 		// MARK: Add sharedContainerIdentifier
 
 		let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
 		DBClientsManager.setup(withTransport: config)
 	}
 
-	func authenticate(from viewController: UIViewController) -> Promise<Void> {
+	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
 		return isAuthenticated().then { isAuthenticated in
 			if isAuthenticated {
 				return Promise(())
 			}
+
+			DropboxCloudAuthentication.pendingAuthentication?.reject(CloudAuthenticationError.authenticationFailed)
+			let pendingAuthentication = Promise<Void>.pending()
+			DropboxCloudAuthentication.pendingAuthentication = pendingAuthentication
 			DBClientsManager.authorize(fromController: .shared, controller: viewController) { url in
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
-			return Promise(())
+			return pendingAuthentication
 		}
 	}
 
-	func isAuthenticated() -> Promise<Bool> {
+	public func isAuthenticated() -> Promise<Bool> {
 		return Promise(DBClientsManager.authorizedClient()?.isAuthorized() ?? false)
 	}
 
-	func getUsername() -> Promise<String> {
+	public func getUsername() -> Promise<String> {
 		let client = DBClientsManager.authorizedClient()
 		return Promise<String>(on: .global()) { fulfill, reject in
 			client?.usersRoutes.getCurrentAccount().setResponseBlock { result, _, networkError in
@@ -43,7 +48,7 @@ class DropboxCloudAuthentication: CloudAuthentication {
 					return
 				}
 				guard let result = result else {
-					reject(DropboxError.unexpectedError)
+					reject(CloudAuthenticationError.noUsername)
 					return
 				}
 				fulfill(result.name.displayName)
@@ -51,7 +56,7 @@ class DropboxCloudAuthentication: CloudAuthentication {
 		}
 	}
 
-	func deauthenticate() -> Promise<Void> {
+	public func deauthenticate() -> Promise<Void> {
 		DBClientsManager.unlinkAndResetClients()
 		return Promise(())
 	}
