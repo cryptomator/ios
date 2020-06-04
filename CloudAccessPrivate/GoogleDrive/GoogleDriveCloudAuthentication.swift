@@ -16,7 +16,7 @@ import Promises
 public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	private let keychainItemName = "GoogleDriveAuth"
 	let scopes = [kGTLRAuthScopeDrive]
-	private static var currentAuthorizationFlow: OIDExternalUserAgentSession?
+	public static var currentAuthorizationFlow: OIDExternalUserAgentSession?
 	public var authorization: GTMAppAuthFetcherAuthorization?
 
 	public init() {
