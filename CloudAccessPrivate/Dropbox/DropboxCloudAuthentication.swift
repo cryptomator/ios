@@ -12,6 +12,7 @@ import ObjectiveDropboxOfficial
 import Promises
 public class DropboxCloudAuthentication: CloudAuthentication {
 	public static var pendingAuthentication: Promise<Void>?
+	var authorizedClient: DBUserClient?
 	public init() {
 		// MARK: Add sharedContainerIdentifier
 
@@ -31,7 +32,9 @@ public class DropboxCloudAuthentication: CloudAuthentication {
 			DBClientsManager.authorize(fromController: .shared, controller: viewController) { url in
 				UIApplication.shared.open(url, options: [:], completionHandler: nil)
 			}
-			return pendingAuthentication
+			return pendingAuthentication.then {
+				self.authorizedClient = DBClientsManager.authorizedClient()
+			}
 		}
 	}
 
