@@ -6,7 +6,7 @@ def networking
 	pod 'GRDB.swift', '~> 4.14'
 	pod 'GTMAppAuth', '~> 1.0.0'
 	pod 'GoogleAPIClientForREST/Drive', '~> 1.3.0'
-	pod 'GoogleSignIn', '~> 5.0'
+	pod 'AppAuth/ExternalUserAgent', '~> 1.0'
 	pod 'ObjectiveDropboxOfficial', '~> 4.0'
 end
 
@@ -23,5 +23,3 @@ target "Cryptomator" do
 		inherit! :search_paths
 	end
 end
-
-
