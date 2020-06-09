@@ -12,12 +12,16 @@ import ObjectiveDropboxOfficial
 import Promises
 public class DropboxCloudAuthentication: CloudAuthentication {
 	public static var pendingAuthentication: Promise<Void>?
-	var authorizedClient: DBUserClient?
+	public var authorizedClient: DBUserClient?
+
+	/**
+	 Add DBClientsManager.setup(..) to the AppDelegate
+	 */
 	public init() {
 		// MARK: Add sharedContainerIdentifier
 
-		let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
-		DBClientsManager.setup(withTransport: config)
+		// let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
+//		DBClientsManager.setup(withTransport: config)
 	}
 
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {

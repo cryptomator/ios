@@ -171,7 +171,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 		let localFileToDeleteURL = localCurrentTestTempDirectory.appendPathComponents(from: remoteFileToDeleteURL)
 		let localFileForItemTypeMismatchURL = localCurrentTestTempDirectory.appendPathComponents(from: remoteFileForItemTypeMismatchURL)
-		let emptyTestContent = ""
+		let emptyTestContent = "AAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBABABABABABBABABABBABABABABABAB"
 
 		do {
 			try emptyTestContent.write(to: localFileToDeleteURL, atomically: true, encoding: .utf8)
@@ -202,7 +202,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolders = [remoteFolderToRenameURL, remoteFolderToMoveURL, remoteMoveItemsInThisFolderURL, remoteFolderForItemTypeMismatchURL, remoteFolderForItemAlreadyExistsURL, remoteFolderForParentFolderDoesNotExist]
 		let remoteFiles = [remoteFileToMoveURL, remoteFileToRenameURL, remoteFileForItemTypeMismatchURL, remoteFileForItemItemAlreadyExistsURL, remoteFileForParentFolderDoesNotExist]
 
-		let emptyTestContent = ""
+		let emptyTestContent = "AAAAAAAAAAAAAAAAAAAAAAAAAABBBBBBABABABABABBABABABBABABABABABAB"
 
 		do {
 			for remoteFile in remoteFiles {

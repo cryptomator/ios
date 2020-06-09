@@ -34,6 +34,9 @@
 		4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */; };
 		4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */; };
 		4A837C4E248790BB00223222 /* DropboxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C4D248790BB00223222 /* DropboxError.swift */; };
+		4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */; };
+		4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */; };
+		4A837C7B248ABBD300223222 /* MockDropboxAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C7A248ABBD300223222 /* MockDropboxAuthenticationTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -183,6 +186,9 @@
 		4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A837C4D248790BB00223222 /* DropboxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxError.swift; sourceTree = "<group>"; };
+		4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCloudAuthentication.swift; sourceTree = "<group>"; };
+		4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		4A837C7A248ABBD300223222 /* MockDropboxAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ADA0B7924578B04005B9743 /* GoogleDriveManualTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleDriveManualTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADA0B7B24578B05005B9743 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -395,6 +401,7 @@
 				4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */,
 				4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */,
 				74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */,
+				4A837C772489950100223222 /* Dropbox */,
 				4A60E8032459D04D00FD7F0E /* Google Drive */,
 				4A37374C247524A2008EDCA9 /* MockCloudAuthentication.swift */,
 				4A07092A247BC11D005ED18E /* Extensions */,
@@ -410,6 +417,16 @@
 				4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */,
 			);
 			path = "Google Drive";
+			sourceTree = "<group>";
+		};
+		4A837C772489950100223222 /* Dropbox */ = {
+			isa = PBXGroup;
+			children = (
+				4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */,
+				4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */,
+				4A837C7A248ABBD300223222 /* MockDropboxAuthenticationTests.swift */,
+			);
+			path = Dropbox;
 			sourceTree = "<group>";
 		};
 		4ADA0B7A24578B04005B9743 /* GoogleDriveManualTest */ = {
@@ -537,7 +554,6 @@
 				4A5E5B5E2453121400BD6298 /* Frameworks */,
 				4A5E5B5F2453121400BD6298 /* Resources */,
 				74C934952472C33700AE15E4 /* Lint With SwiftFormat */,
-				F25C8F2EF8307DBD91DB360A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -575,7 +591,6 @@
 				4A60E7F22459C6F500FD7F0E /* Sources */,
 				4A60E7F32459C6F500FD7F0E /* Frameworks */,
 				4A60E7F42459C6F500FD7F0E /* Resources */,
-				C1B8E8AB0538E0D7B0C5B1A8 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -670,7 +685,7 @@
 		4A5E5B212453119100BD6298 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1150;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Skymatic GmbH";
 				TargetAttributes = {
@@ -959,40 +974,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if [ -f ./.integration-test-secrets.sh ]; then\n  source ./.integration-test-secrets.sh\nelse\n  echo \"warning: .integration-test-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-integration-test-secrets-file.sh\n";
 		};
-		C1B8E8AB0538E0D7B0C5B1A8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F25C8F2EF8307DBD91DB360A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1038,12 +1019,15 @@
 			files = (
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
+				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
 				4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */,
 				4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */,
 				4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */,
+				4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */,
 				4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */,
 				74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */,
+				4A837C7B248ABBD300223222 /* MockDropboxAuthenticationTests.swift in Sources */,
 				4A37374D247524A2008EDCA9 /* MockCloudAuthentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1182,6 +1166,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1199,6 +1184,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1425,6 +1411,7 @@
 			baseConfigurationReference = 6E0A8B3DA9420D242AF4A3AF /* Pods-CryptomatorIntegrationTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1443,6 +1430,7 @@
 			baseConfigurationReference = CF8B753596B7FE16E40BA922 /* Pods-CryptomatorIntegrationTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1461,6 +1449,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = GoogleDriveManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1478,6 +1467,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = GoogleDriveManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

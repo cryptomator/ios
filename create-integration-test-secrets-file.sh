@@ -12,5 +12,6 @@ import Foundation
 
 struct IntegrationTestSecrets {
 	static let googleDriveRefreshToken = "${GOOGLE_DRIVE_REFRESH_TOKEN}"
+	static let dropboxAccessToken = "${DROPBOX_ACCESS_TOKEN}"
 }
 EOM

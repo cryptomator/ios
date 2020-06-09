@@ -19,7 +19,7 @@ end
 
 target "Cryptomator" do
 	target "CryptomatorIntegrationTests" do
-		networking
+		#networking
 		inherit! :search_paths
 	end
 end
