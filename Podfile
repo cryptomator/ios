@@ -15,6 +15,9 @@ pod 'CryptomatorCloudAccess', :git => 'https://github.com/cryptomator/cloud-acce
 
 target "CloudAccessPrivate" do
 	networking
+	target "CloudAccessPrivateTests" do
+	        inherit! :search_paths
+	end
 end
 
 target "Cryptomator" do

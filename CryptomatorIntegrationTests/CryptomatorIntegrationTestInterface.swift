@@ -674,6 +674,38 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 	// MARK: uploadFile Tests
 
+	func testUploadFileWithUpdateOverwriteExistingFile() throws {
+		let tempDirectory = FileManager.default.temporaryDirectory
+		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
+		let localFileURL = uniqueTempFolderURL.appendingPathComponent("overwriteFile.txt", isDirectory: false)
+		let localDownloadedFileURL = uniqueTempFolderURL.appendingPathComponent("downloadedFile.txt", isDirectory: false)
+		let testContent = "Start content"
+		try testContent.write(to: localFileURL, atomically: true, encoding: .utf8)
+		let overwrittenContent = "Overwritten content"
+		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("FileToOverwrite.txt", isDirectory: false)
+		let expectation = XCTestExpectation(description: "uploadFile fail overwrites file with update")
+		authentication.authenticate().then {
+			self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: false, progress: nil)
+		}.then { _ -> Promise<CloudItemMetadata> in
+			try overwrittenContent.write(to: localFileURL, atomically: true, encoding: .utf8)
+			return self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: true, progress: nil)
+		}.then { _ in
+			self.provider.downloadFile(from: remoteURL, to: localDownloadedFileURL, progress: nil)
+		}.then { _ in
+			self.provider.deleteItem(at: remoteURL)
+		}.then {
+			let downloadedContent = try String(contentsOf: localDownloadedFileURL)
+			XCTAssertEqual(overwrittenContent, downloadedContent)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
+		try FileManager.default.removeItem(at: uniqueTempFolderURL)
+	}
+
 	func testUploadFileFailWithItemNotFoundWhenLocalFileDoesNotExist() throws {
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)

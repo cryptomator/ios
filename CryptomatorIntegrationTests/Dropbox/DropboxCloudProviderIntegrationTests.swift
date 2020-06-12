@@ -7,10 +7,11 @@
 //
 
 import CryptomatorCloudAccess
-import ObjectiveDropboxOfficial
+
 import Promises
 import XCTest
 @testable import CloudAccessPrivate
+@testable import ObjectiveDropboxOfficial
 
 class DropboxCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	static var setUpErrorForDropbox: Error?
@@ -40,7 +41,6 @@ class DropboxCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface 
 
 	override class func setUp() {
 		DBClientsManager.setup(withAppKey: CloudAccessSecrets.dropboxAppKey)
-		DBGlobalErrorResponseHandler.registerNetworkErrorResponseBlock(DropboxCloudProvider.networkErrorResponse)
 		super.setUp()
 	}
 

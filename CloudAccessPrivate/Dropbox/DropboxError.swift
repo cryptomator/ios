@@ -14,6 +14,7 @@ public enum DropboxError: Error {
 	case unexpectedMetadataType
 	case getMetadataError
 	case deleteFileError
+	case listFolderError
 	case asyncPollError
 
 	case internalServerError
