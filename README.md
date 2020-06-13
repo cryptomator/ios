@@ -30,6 +30,7 @@ If you are running integration tests, you have to set those secrets as well. The
 ```sh
 #!/bin/sh
 export GOOGLE_DRIVE_REFRESH_TOKEN=...
+export DROPBOX_ACCESS_TOKEN=...
 ```
 
 ## Contributing
