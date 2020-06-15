@@ -49,8 +49,17 @@ public class DropboxCloudProvider: CloudProvider {
 		})
 	}
 
-	public func downloadFile(from _: URL, to _: URL, progress _: Progress?) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
+		precondition(remoteURL.isFileURL)
+		precondition(localURL.isFileURL)
+		precondition(!remoteURL.hasDirectoryPath)
+		precondition(!localURL.hasDirectoryPath)
+		guard let authorizedClient = authentication.authorizedClient else {
+			return Promise(CloudProviderError.unauthorized)
+		}
+		return retryWithExponentialBackoff({
+			self.downloadFile(from: remoteURL, to: localURL, progress: progress, with: authorizedClient)
+		})
 	}
 
 	/**
@@ -174,7 +183,7 @@ public class DropboxCloudProvider: CloudProvider {
 			task.setResponseBlock { metadata, routeError, networkError in
 				self.runningTasks.removeAll { $0 == task }
 				if let routeError = routeError {
-					if routeError.tag == DBFILESGetMetadataErrorTag.path, routeError.path.tag == DBFILESLookupErrorTag.notFound {
+					if routeError.isPath(), routeError.path.isNotFound() {
 						reject(CloudProviderError.itemNotFound)
 						return
 					}
@@ -289,6 +298,38 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
+	private func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?, with client: DBUserClient) -> Promise<Void> {
+		let task = client.filesRoutes.downloadUrl(remoteURL.path, overwrite: false, destination: localURL)
+		task.setProgressBlock { _, totalBytesWritten, totalBytesExpectedToWrite in
+			progress?.totalUnitCount = totalBytesExpectedToWrite
+			progress?.completedUnitCount = totalBytesWritten
+		}
+		return Promise<Void> { fulfill, reject in
+			self.runningTasks.append(task)
+			task.setResponseBlock { _, routeError, requestError, _ in
+				self.runningTasks.removeAll { $0 == task }
+				if let routeError = routeError {
+					if routeError.isPath(), routeError.path.isNotFound() {
+						reject(CloudProviderError.itemNotFound)
+						return
+					}
+				}
+				if let requestError = requestError {
+					if requestError.isClientError() {
+						let clientError = requestError.asClientError().nsError
+						if case CocoaError.fileWriteFileExists = clientError {
+							reject(CloudProviderError.itemAlreadyExists)
+							return
+						}
+					}
+					reject(self.convertRequestErrorToDropboxError(requestError))
+					return
+				}
+				fulfill(())
+			}
+		}
+	}
+
 	private func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
 		assert(oldRemoteURL.isFileURL)
 		assert(newRemoteURL.isFileURL)
@@ -299,6 +340,18 @@ public class DropboxCloudProvider: CloudProvider {
 	}
 
 	private func moveItemAfterParentCheck(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+		assert(oldRemoteURL.isFileURL)
+		assert(newRemoteURL.isFileURL)
+		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
+		return fetchItemMetadata(at: oldRemoteURL).then { metadata in
+			guard self.getItemType(for: oldRemoteURL) == metadata.itemType else {
+				return Promise(CloudProviderError.itemTypeMismatch)
+			}
+			return self.moveItemAfterParentAndTypeCheck(from: oldRemoteURL, to: newRemoteURL, with: client)
+		}
+	}
+
+	private func moveItemAfterParentAndTypeCheck(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
 		assert(oldRemoteURL.isFileURL)
 		assert(newRemoteURL.isFileURL)
 		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
