@@ -169,27 +169,17 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		let metadata = GTLRDrive_File()
 		metadata.name = newRemoteURL.lastPathComponent
 
-		return Promise<GTLRDriveQuery>(on: .global()) { fulfill, reject in
-			do {
-				_ = try await(self.resolveParentPath(for: newRemoteURL))
-				_ = try await(self.resolvePath(for: newRemoteURL))
-				reject(CloudProviderError.itemAlreadyExists)
-			} catch CloudProviderError.itemNotFound {
-				let itemIdentifier = try await(self.resolvePath(for: oldRemoteURL))
-
-				let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: itemIdentifier, uploadParameters: nil)
-				if !self.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURL) {
-					let newParentRemoteURL = newRemoteURL.deletingLastPathComponent()
-					let newParentIdentifier = try await(self.resolvePath(for: newParentRemoteURL))
-
-					let oldParentRemoteURL = oldRemoteURL.deletingLastPathComponent()
-					let oldParentIdentifier = try await(self.resolvePath(for: oldParentRemoteURL))
-					query.addParents = newParentIdentifier
-					query.removeParents = oldParentIdentifier
-				}
-				query.fields = "id, modifiedTime"
-				fulfill(query)
+		return resolveParentPath(for: newRemoteURL).then { _ in
+			self.checkForItemExistence(at: newRemoteURL)
+		}.then { itemExists -> Void in
+			if itemExists {
+				throw CloudProviderError.itemAlreadyExists
 			}
+		}.then {
+			self.resolvePath(for: oldRemoteURL)
+		}.then { itemIdentifier -> Promise<GTLRDriveQuery_FilesUpdate> in
+			let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: itemIdentifier, uploadParameters: nil)
+			return self.modificateQueryForMoveItem(query, from: oldRemoteURL, to: newRemoteURL)
 		}.then { query in
 			self.executeQuery(query, remoteURL: oldRemoteURL)
 		}.then { result -> Void in
@@ -203,6 +193,20 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: newRemoteURL)
 			return
 		}
+	}
+
+	private func modificateQueryForMoveItem(_ query: GTLRDriveQuery_FilesUpdate, from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<GTLRDriveQuery_FilesUpdate> {
+		query.fields = "id, modifiedTime"
+		if !onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURL) {
+			let oldParentRemoteURL = oldRemoteURL.deletingLastPathComponent()
+			let newParentRemoteURL = newRemoteURL.deletingLastPathComponent()
+			return all(resolvePath(for: oldParentRemoteURL), resolvePath(for: newParentRemoteURL)).then { oldParentIdentifier, newParentIdentifier -> GTLRDriveQuery_FilesUpdate in
+				query.addParents = newParentIdentifier
+				query.removeParents = oldParentIdentifier
+				return query
+			}
+		}
+		return Promise(query)
 	}
 
 	/**
