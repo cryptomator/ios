@@ -10,13 +10,12 @@ def networking
 	pod 'ObjectiveDropboxOfficial', '~> 4.0'
 end
 
-#OwnPods
-pod 'CryptomatorCloudAccess', :git => 'https://github.com/cryptomator/cloud-access-swift.git', :branch => 'develop', commit: 'HEAD'
+pod 'CryptomatorCloudAccess', '~> 0.1.0'
 
 target "CloudAccessPrivate" do
 	networking
 	target "CloudAccessPrivateTests" do
-	        inherit! :search_paths
+		inherit! :search_paths
 	end
 end
 
