@@ -136,7 +136,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteRootFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, isUpdate: false, progress: nil) }).then { _ in
+		return all(remoteRootFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
 			setUpProvider.createFolder(at: remoteTestFolderURL)
 		}
 	}
@@ -155,7 +155,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteTestFolderFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, isUpdate: false, progress: nil) }).then { _ in
+		return all(remoteTestFolderFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
 			setUpProvider.createFolder(at: remoteEmptySubFolderURL)
 		}.then {
 			setUpProvider.createFolder(at: remoteFolderForDeleteItemsURL)
@@ -179,8 +179,8 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return setUpProvider.uploadFile(from: localFileToDeleteURL, to: remoteFileToDeleteURL, isUpdate: false, progress: nil).then { _ in
-			setUpProvider.uploadFile(from: localFileForItemTypeMismatchURL, to: remoteFileForItemTypeMismatchURL, isUpdate: false, progress: nil)
+		return setUpProvider.uploadFile(from: localFileToDeleteURL, to: remoteFileToDeleteURL, replaceExisting: false, progress: nil).then { _ in
+			setUpProvider.uploadFile(from: localFileForItemTypeMismatchURL, to: remoteFileForItemTypeMismatchURL, replaceExisting: false, progress: nil)
 		}.then { _ in
 			setUpProvider.createFolder(at: remoteFolderToDeleteURL)
 		}.then {
@@ -212,7 +212,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteFiles.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, isUpdate: false, progress: nil) }).then { _ in
+		return all(remoteFiles.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
 			all(remoteFolders.map { setUpProvider.createFolder(at: $0) })
 		}
 	}
@@ -527,7 +527,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let expectedFileContent = CryptomatorIntegrationTestInterface.testContentForFilesInRoot
 
 		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
-		let expectedMetadata = CloudItemMetadata(name: filename, remoteURL: remoteFileURL, itemType: .file, lastModifiedDate: nil, size: nil)
 
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -536,8 +535,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let expectation = XCTestExpectation(description: "downloadFile")
 		authentication.authenticate().then {
 			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
-		}.then { actualMetadata in
-			XCTAssertEqual(expectedMetadata, actualMetadata)
+		}.then {
 			let actualFileContent = try String(contentsOf: localFileURL)
 			XCTAssertEqual(expectedFileContent, actualFileContent)
 		}.catch { error in
@@ -554,7 +552,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let expectedFileContent = CryptomatorIntegrationTestInterface.testContentForFilesInTestFolder
 
 		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/test 0.txt", isDirectory: false)
-		let expectedMetadata = CloudItemMetadata(name: filename, remoteURL: remoteFileURL, itemType: .file, lastModifiedDate: nil, size: nil)
 
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -563,8 +560,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let expectation = XCTestExpectation(description: "downloadFile")
 		authentication.authenticate().then {
 			self.provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil)
-		}.then { actualMetadata in
-			XCTAssertEqual(expectedMetadata, actualMetadata)
+		}.then {
 			let actualFileContent = try String(contentsOf: localFileURL)
 			XCTAssertEqual(expectedFileContent, actualFileContent)
 		}.catch { error in
@@ -686,10 +682,10 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("FileToOverwrite.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail overwrites file with update")
 		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: false, progress: nil)
+			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false, progress: nil)
 		}.then { _ -> Promise<CloudItemMetadata> in
 			try overwrittenContent.write(to: localFileURL, atomically: true, encoding: .utf8)
-			return self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: true, progress: nil)
+			return self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: true, progress: nil)
 		}.then { _ in
 			self.provider.downloadFile(from: remoteURL, to: localDownloadedFileURL, progress: nil)
 		}.then { _ in
@@ -713,7 +709,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("nonExistentFile.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.itemNotFound when localFile does not exists")
 		authentication.authenticate().then {
-			self.provider.uploadFile(from: nonExistentLocalFileURL, to: remoteURL, isUpdate: false, progress: nil)
+			self.provider.uploadFile(from: nonExistentLocalFileURL, to: remoteURL, replaceExisting: false, progress: nil)
 		}.then { _ in
 			XCTFail("uploadFile fulfilled although the file to be uploaded does not exist locally")
 		}.catch { error in
@@ -739,7 +735,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.itemNotFound when remoteFile already exists and !isUpdate")
 
 		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: false, progress: nil)
+			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false, progress: nil)
 		}.then { _ in
 			XCTFail("uploadFile fulfilled although the remote file already exists and !isUpdate")
 		}.catch { error in
@@ -765,7 +761,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteURL = remoteNonExistenFolderURL.appendingPathComponent("test 0.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.parentFolderDoesNotExist when the parent folder in the remote URL does not exist")
 		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: false, progress: nil)
+			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false, progress: nil)
 		}.then { _ in
 			XCTFail("uploadFile fulfilled although the parent folder of the remoteURL does not exist")
 		}.catch { error in
@@ -789,7 +785,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 		let expectation = XCTestExpectation(description: "downloadFile fails with CloudProviderError.itemTypeMismatch")
 		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteFileURL, isUpdate: false, progress: nil)
+			self.provider.uploadFile(from: localFileURL, to: remoteFileURL, replaceExisting: false, progress: nil)
 		}.then { _ in
 			XCTFail("uploadFile fulfilled although the file does not exist")
 		}.catch { error in
@@ -814,7 +810,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteTestFolderURL.appendingPathComponent("test 5.txt", isDirectory: false)
 
 		let expectation = XCTestExpectation(description: "unauthorized uploadFile fail with CloudProviderError.unauthorized")
-		provider.uploadFile(from: localFileURL, to: remoteURL, isUpdate: false, progress: nil).then { _ in
+		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false, progress: nil).then { _ in
 			XCTFail("uploadFile fulfilled without authentication")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {

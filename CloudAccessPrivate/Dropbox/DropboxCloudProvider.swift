@@ -49,14 +49,14 @@ public class DropboxCloudProvider: CloudProvider {
 		})
 	}
 
-	public func downloadFile(from _: URL, to _: URL, progress _: Progress?) -> Promise<CloudItemMetadata> {
+	public func downloadFile(from _: URL, to _: URL, progress _: Progress?) -> Promise<Void> {
 		return Promise(CloudProviderError.noInternetConnection)
 	}
 
 	/**
 	 - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
 	 */
-	public func uploadFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL && remoteURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
@@ -76,9 +76,9 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 		let fileSize = attributes[FileAttributeKey.size] as? Int ?? 157_286_400
 		if fileSize >= 157_286_400 {
-			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, isUpdate: isUpdate, progress: progress, with: authorizedClient) })
+			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, replaceExisting: replaceExisting, progress: progress, with: authorizedClient) })
 		} else {
-			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, isUpdate: isUpdate, progress: progress, with: authorizedClient) })
+			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, replaceExisting: replaceExisting, progress: progress, with: authorizedClient) })
 		}
 	}
 
@@ -410,9 +410,9 @@ public class DropboxCloudProvider: CloudProvider {
 	}
 
 	// Upload File
-	private func uploadBigFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func uploadBigFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return ensureParentFolderExists(for: remoteURL).then {
-			self.batchUploadSingleFile(from: localURL, to: remoteURL, isUpdate: isUpdate, progress: progress, with: client)
+			self.batchUploadSingleFile(from: localURL, to: remoteURL, isUpdate: replaceExisting, progress: progress, with: client)
 		}
 	}
 
@@ -472,9 +472,9 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return ensureParentFolderExists(for: remoteURL).then {
-			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, isUpdate: isUpdate, progress: progress, with: client)
+			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, isUpdate: replaceExisting, progress: progress, with: client)
 		}
 	}
 

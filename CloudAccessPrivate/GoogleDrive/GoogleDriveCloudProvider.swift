@@ -95,22 +95,17 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<CloudItemMetadata> {
+	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
 		precondition(!remoteURL.hasDirectoryPath)
 		if FileManager.default.fileExists(atPath: localURL.path) {
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
 		return resolvePath(for: remoteURL).then { identifier in
-			all(
-				self.fetchItemMetadata(forItemIdentifier: identifier, at: remoteURL),
-				self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL, progress: progress)
-			)
-		}.then { metadata, _ in
-			metadata
+			self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL, progress: progress)
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
 		precondition(!localURL.hasDirectoryPath)
 		precondition(!remoteURL.hasDirectoryPath)
 		var isDirectory: ObjCBool = false
@@ -122,7 +117,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
 		return resolveParentPath(for: remoteURL).then { parentIdentfier in
-			self.createFileUploadQuery(from: localURL, to: remoteURL, parentIdentifier: parentIdentfier, isUpdate: isUpdate)
+			self.createFileUploadQuery(from: localURL, to: remoteURL, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
 		}.then { query -> Promise<Any> in
 			query.executionParameters.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
 				progress?.totalUnitCount = Int64(totalBytesExpectedToUpload)
@@ -470,39 +465,34 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func createFileUploadQuery(from localURL: URL, to remoteURL: URL, parentIdentifier: String, isUpdate: Bool) -> Promise<GTLRDriveQuery> {
-		return Promise<GTLRDriveQuery>(on: .global()) { fulfill, reject in
-			let metadata = GTLRDrive_File()
-			metadata.name = remoteURL.lastPathComponent
-			let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: self.unknownMimeType)
+	private func createFileUploadQuery(from localURL: URL, to remoteURL: URL, parentIdentifier: String, replaceExisting: Bool) -> Promise<GTLRDriveQuery> {
+		let metadata = GTLRDrive_File()
+		metadata.name = remoteURL.lastPathComponent
+		let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: unknownMimeType)
 
-			do {
-				let identifier = try await(self.resolvePath(for: remoteURL))
-				if !isUpdate {
-					reject(CloudProviderError.itemAlreadyExists)
-					return
-				}
-				let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: identifier, uploadParameters: uploadParameters)
-				fulfill(query)
-			} catch CloudProviderError.itemNotFound {
-				metadata.parents = [parentIdentifier]
-
-				let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
-				fulfill(query)
+		return resolvePath(for: remoteURL).then { identifier -> Promise<GTLRDriveQuery> in
+			if !replaceExisting {
+				return Promise(CloudProviderError.itemAlreadyExists)
 			}
+			let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: identifier, uploadParameters: uploadParameters)
+			return Promise(query)
+		}.recover { error -> GTLRDriveQuery in
+			guard case CloudProviderError.itemNotFound = error else {
+				throw error
+			}
+			metadata.parents = [parentIdentifier]
+			let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: uploadParameters)
+			return query
 		}
 	}
 
 	private func resolveParentPath(for remoteURL: URL) -> Promise<String> {
 		let parentRemoteURL = remoteURL.deletingLastPathComponent()
-		return Promise<String> { fulfill, reject in
-			self.resolvePath(for: parentRemoteURL).then { parentIdentifier in
-				fulfill(parentIdentifier)
-			}.catch { error in
-				if case CloudProviderError.itemNotFound = error {
-					return reject(CloudProviderError.parentFolderDoesNotExist)
-				}
-				reject(error)
+		return resolvePath(for: parentRemoteURL).recover { error -> String in
+			if case CloudProviderError.itemNotFound = error {
+				throw CloudProviderError.parentFolderDoesNotExist
+			} else {
+				throw error
 			}
 		}
 	}
