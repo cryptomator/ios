@@ -15,6 +15,10 @@ public class DropboxCloudProvider: CloudProvider {
 	private var runningTasks: [DBTask]
 	private var runningBatchUploadTasks: [DBBatchUploadTask]
 	private var debugUploadCount = 0
+	private let shouldRetryForError: (Error) -> Bool = { error in
+		return (error as? DropboxError) == .tooManyWriteOperations || (error as? DropboxError) == .internalServerError || (error as? DropboxError) == .rateLimitError
+	}
+
 	public init(with authentication: DropboxCloudAuthentication) {
 		self.authentication = authentication
 		self.runningTasks = [DBTask]()
@@ -37,29 +41,29 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 		return retryWithExponentialBackoff({
 			self.fetchItemMetadata(at: remoteURL, with: authorizedClient)
-		})
+		}, condition: shouldRetryForError)
 	}
 
 	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+		precondition(remoteURL.isFileURL)
+		precondition(remoteURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
 			self.fetchItemList(at: remoteURL, with: authorizedClient)
-		})
+		}, condition: shouldRetryForError)
 	}
 
 	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		precondition(localURL.isFileURL)
-		precondition(!remoteURL.hasDirectoryPath)
-		precondition(!localURL.hasDirectoryPath)
+		precondition(remoteURL.isFileURL && localURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
 			self.downloadFile(from: remoteURL, to: localURL, progress: progress, with: authorizedClient)
-		})
+		}, condition: shouldRetryForError)
 	}
 
 	/**
@@ -83,98 +87,46 @@ public class DropboxCloudProvider: CloudProvider {
 		guard localItemType == .file else {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
+		let mode = replaceExisting ? DBFILESWriteMode(overwrite: ()) : nil
 		let fileSize = attributes[FileAttributeKey.size] as? Int ?? 157_286_400
 		if fileSize >= 157_286_400 {
-			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, replaceExisting: replaceExisting, progress: progress, with: authorizedClient) })
+			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: authorizedClient) }, condition: shouldRetryForError)
 		} else {
-			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, replaceExisting: replaceExisting, progress: progress, with: authorizedClient) })
+			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: authorizedClient) }, condition: shouldRetryForError)
 		}
-	}
-
-	private func retryCondition(error: Error) -> Bool {
-		return (error as? DropboxError) == .tooManyWriteOperations || (error as? DropboxError) == .internalServerError || (error as? DropboxError) == .rateLimitError
 	}
 
 	public func createFolder(at remoteURL: URL) -> Promise<Void> {
+		precondition(remoteURL.isFileURL)
 		precondition(remoteURL.hasDirectoryPath)
-
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.createFolderAfterParentCheck(at: remoteURL)
-		}
-	}
-
-	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		guard let authorizedClient = authentication.authorizedClient else {
-			return Promise(CloudProviderError.unauthorized)
-		}
-		return Promise<Void> { fulfill, reject in
-			authorizedClient.filesRoutes.delete_V2(remoteURL.path).setResponseBlock { result, routeError, networkError in
-				if let routeError = routeError {
-					if routeError.isPathLookup(), routeError.pathLookup.isNotFound() {
-						reject(CloudProviderError.itemNotFound)
-						return
-					}
-
-					reject(DropboxError.deleteFileError)
-					return
-				}
-				if let networkError = networkError {
-					reject(self.convertRequestErrorToDropboxError(networkError))
-					return
-				}
-				guard result != nil else {
-					reject(DropboxError.unexpectedError)
-					return
-				}
-				fulfill(())
-			}
-		}
-	}
-
-	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
-		guard let authorizedClient = authentication.authorizedClient else {
-			return Promise(CloudProviderError.unauthorized)
-		}
-		return retryWithExponentialBackoff({ self.moveItem(from: oldRemoteURL, to: newRemoteURL, with: authorizedClient) })
-	}
-
-	/**
-	 This function may only be called if a check has been performed to see if the parent folder exists, because the dropbox SDK always creates the intermediate folders.
-	 */
-	private func createFolderAfterParentCheck(at remoteURL: URL) -> Promise<Void> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.createFolderAfterParentCheck(at: remoteURL, with: authorizedClient)
-		})
+			self.createFolder(at: remoteURL, with: authorizedClient)
+		}, condition: shouldRetryForError)
 	}
 
-	private func createFolderAfterParentCheck(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		let task = client.filesRoutes.createFolderV2(remoteURL.path)
-		return Promise<Void> { fulfill, reject in
-			self.runningTasks.append(task)
-			task.setResponseBlock { result, routeError, networkError in
-				self.runningTasks.removeAll { $0 == task }
-				if let routeError = routeError {
-					if routeError.tag == DBFILESCreateFolderErrorTag.path, routeError.path.tag == DBFILESWriteErrorTag.conflict {
-						reject(CloudProviderError.itemAlreadyExists)
-						return
-					}
-					reject(DropboxError.createFolderError)
-				}
-				if let networkError = networkError {
-					reject(self.convertRequestErrorToDropboxError(networkError))
-					return
-				}
-				guard result != nil else {
-					reject(DropboxError.unexpectedError)
-					return
-				}
-				fulfill(())
-			}
+	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
+		precondition(remoteURL.isFileURL)
+		guard let authorizedClient = authentication.authorizedClient else {
+			return Promise(CloudProviderError.unauthorized)
 		}
+		return retryWithExponentialBackoff({
+			self.deleteItem(at: remoteURL, with: authorizedClient)
+		}, condition: shouldRetryForError)
 	}
+
+	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
+		precondition(oldRemoteURL.isFileURL && newRemoteURL.isFileURL)
+		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
+		guard let authorizedClient = authentication.authorizedClient else {
+			return Promise(CloudProviderError.unauthorized)
+		}
+		return retryWithExponentialBackoff({ self.moveItem(from: oldRemoteURL, to: newRemoteURL, with: authorizedClient) }, condition: shouldRetryForError)
+	}
+
+	// fetchItemMetadata
 
 	private func fetchItemMetadata(at remoteURL: URL, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return Promise<CloudItemMetadata> { fulfill, reject in
@@ -212,6 +164,8 @@ public class DropboxCloudProvider: CloudProvider {
 			}
 		}
 	}
+
+	// fetchItemList
 
 	private func fetchItemList(at remoteURL: URL, withPageToken pageToken: String?, with client: DBUserClient) -> Promise<CloudItemList> {
 		if let pageToken = pageToken {
@@ -298,6 +252,8 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
+	// downloadFile
+
 	private func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?, with client: DBUserClient) -> Promise<Void> {
 		let task = client.filesRoutes.downloadUrl(remoteURL.path, overwrite: false, destination: localURL)
 		task.setProgressBlock { _, totalBytesWritten, totalBytesExpectedToWrite in
@@ -330,6 +286,187 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
+	// uploadFile
+
+	private func uploadBigFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		return ensureParentFolderExists(for: remoteURL).then {
+			self.batchUploadSingleFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: client)
+		}
+	}
+
+	private func batchUploadSingleFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		let commitInfo = DBFILESCommitInfo(path: remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true)
+		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
+			progress?.totalUnitCount = totalBytesExpectedToUpload
+			progress?.completedUnitCount = totalBytesUploaded
+		}
+		return Promise<CloudItemMetadata> { fulfill, reject in
+			var task: DBBatchUploadTask!
+			task = client.filesRoutes.batchUploadFiles([localURL: commitInfo], queue: nil, progressBlock: uploadProgress) {
+				fileUrlsToBatchResultEntries, finishBatchRouteError, finishBatchRequestError, fileUrlsToRequestErrors in
+				self.runningBatchUploadTasks.removeAll { $0 == task }
+				guard let result = fileUrlsToBatchResultEntries?[localURL] else {
+					if !fileUrlsToRequestErrors.isEmpty {
+						guard let requestError = fileUrlsToRequestErrors[localURL] else {
+							reject(DropboxError.unexpectedError)
+							return
+						}
+						reject(self.convertRequestErrorToDropboxError(requestError))
+						return
+					}
+					if finishBatchRouteError != nil {
+						reject(DropboxError.asyncPollError)
+						return
+					}
+					if let finishBatchRequestError = finishBatchRequestError {
+						reject(self.convertRequestErrorToDropboxError(finishBatchRequestError))
+						return
+					}
+					reject(DropboxError.uploadFileError)
+					return
+				}
+				if result.isSuccess() {
+					let fileMetadata = result.success
+					let itemMetadata = self.createCloudItemMetadata(from: fileMetadata, parentRemoteURL: remoteURL.deletingLastPathComponent())
+					fulfill(itemMetadata)
+					return
+				}
+				if result.isFailure() {
+					let failure = result.failure
+					if failure.isTooManyWriteOperations() {
+						reject(DropboxError.tooManyWriteOperations)
+						return
+					}
+					if failure.isPath(), failure.path.isConflict() {
+						reject(CloudProviderError.itemAlreadyExists)
+						return
+					}
+					reject(DropboxError.uploadFileError)
+				} else {
+					reject(DropboxError.unexpectedResult)
+				}
+			}
+			self.runningBatchUploadTasks.append(task)
+		}
+	}
+
+	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		return ensureParentFolderExists(for: remoteURL).then {
+			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, mode: mode, progress: progress, with: client)
+		}
+	}
+
+	private func uploadFileAfterParentCheck(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		let task = client.filesRoutes.uploadUrl(remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true, inputUrl: localURL.path)
+		runningTasks.append(task)
+		return Promise<CloudItemMetadata> { fulfill, reject in
+			task.setResponseBlock { result, routeError, networkError in
+				self.runningTasks.removeAll { $0 == task }
+				guard let result = result else {
+					if let routeError = routeError {
+						if routeError.isPath() {
+							if routeError.path.reason.isTooManyWriteOperations() {
+								reject(DropboxError.tooManyWriteOperations)
+								return
+							}
+							if routeError.path.reason.isConflict() {
+								reject(CloudProviderError.itemAlreadyExists)
+								return
+							}
+						}
+					}
+					if let networkError = networkError {
+						reject(self.convertRequestErrorToDropboxError(networkError))
+						return
+					}
+					reject(DropboxError.unexpectedError)
+					return
+				}
+
+				let metadata = self.createCloudItemMetadata(from: result, parentRemoteURL: remoteURL.deletingLastPathComponent())
+				fulfill(metadata)
+			}
+		}
+	}
+
+	// createFolder
+
+	private func createFolder(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+		return ensureParentFolderExists(for: remoteURL).then {
+			self.createFolderAfterParentCheck(at: remoteURL, with: client)
+		}
+	}
+
+	/**
+	 This function may only be called if a check has been performed to see if the parent folder exists, because the dropbox SDK always creates the intermediate folders.
+	 */
+	private func createFolderAfterParentCheck(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+		let task = client.filesRoutes.createFolderV2(remoteURL.path)
+		return Promise<Void> { fulfill, reject in
+			self.runningTasks.append(task)
+			task.setResponseBlock { result, routeError, networkError in
+				self.runningTasks.removeAll { $0 == task }
+				if let routeError = routeError {
+					if routeError.tag == DBFILESCreateFolderErrorTag.path, routeError.path.tag == DBFILESWriteErrorTag.conflict {
+						reject(CloudProviderError.itemAlreadyExists)
+						return
+					}
+					reject(DropboxError.createFolderError)
+				}
+				if let networkError = networkError {
+					reject(self.convertRequestErrorToDropboxError(networkError))
+					return
+				}
+				guard result != nil else {
+					reject(DropboxError.unexpectedError)
+					return
+				}
+				fulfill(())
+			}
+		}
+	}
+
+	// Delete Item
+
+	private func deleteItem(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+		return fetchItemMetadata(at: remoteURL).then { metadata in
+			guard self.getItemType(for: remoteURL) == metadata.itemType else {
+				return Promise(CloudProviderError.itemTypeMismatch)
+			}
+			return self.deleteItemAfterTypeCheck(from: remoteURL, with: client)
+		}
+	}
+
+	private func deleteItemAfterTypeCheck(from remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+		return Promise<Void> { fulfill, reject in
+			let task = client.filesRoutes.delete_V2(remoteURL.path)
+			self.runningTasks.append(task)
+			task.setResponseBlock { result, routeError, networkError in
+				self.runningTasks.removeAll { $0 == task }
+				if let routeError = routeError {
+					if routeError.isPathLookup(), routeError.pathLookup.isNotFound() {
+						reject(CloudProviderError.itemNotFound)
+						return
+					}
+
+					reject(DropboxError.deleteFileError)
+					return
+				}
+				if let networkError = networkError {
+					reject(self.convertRequestErrorToDropboxError(networkError))
+					return
+				}
+				guard result != nil else {
+					reject(DropboxError.unexpectedError)
+					return
+				}
+				fulfill(())
+			}
+		}
+	}
+
+	// Move Item
+
 	private func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
 		assert(oldRemoteURL.isFileURL)
 		assert(newRemoteURL.isFileURL)
@@ -359,6 +496,7 @@ public class DropboxCloudProvider: CloudProvider {
 			let task = client.filesRoutes.moveV2(oldRemoteURL.path, toPath: newRemoteURL.path)
 			self.runningTasks.append(task)
 			task.setResponseBlock { _, routeError, networkError in
+				self.runningTasks.removeAll { $0 == task }
 				if let routeError = routeError {
 					if routeError.isFromLookup(), routeError.fromLookup.isNotFound() {
 						reject(CloudProviderError.itemNotFound)
@@ -462,109 +600,7 @@ public class DropboxCloudProvider: CloudProvider {
 		return CloudItemList(items: items)
 	}
 
-	// Upload File
-	private func uploadBigFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.batchUploadSingleFile(from: localURL, to: remoteURL, isUpdate: replaceExisting, progress: progress, with: client)
-		}
-	}
-
-	private func batchUploadSingleFile(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		let commitInfo = DBFILESCommitInfo(path: remoteURL.path, mode: isUpdate ? DBFILESWriteMode(overwrite: ()) : DBFILESWriteMode(add: ()), autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true)
-		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
-			progress?.totalUnitCount = totalBytesExpectedToUpload
-			progress?.completedUnitCount = totalBytesUploaded
-		}
-		return Promise<CloudItemMetadata> { fulfill, reject in
-			var task: DBBatchUploadTask!
-			task = client.filesRoutes.batchUploadFiles([localURL: commitInfo], queue: nil, progressBlock: uploadProgress) {
-				fileUrlsToBatchResultEntries, finishBatchRouteError, finishBatchRequestError, fileUrlsToRequestErrors in
-				self.runningBatchUploadTasks.removeAll { $0 == task }
-				guard let result = fileUrlsToBatchResultEntries?[localURL] else {
-					if !fileUrlsToRequestErrors.isEmpty {
-						guard let requestError = fileUrlsToRequestErrors[localURL] else {
-							reject(DropboxError.unexpectedError)
-							return
-						}
-						reject(self.convertRequestErrorToDropboxError(requestError))
-						return
-					}
-					if finishBatchRouteError != nil {
-						reject(DropboxError.asyncPollError)
-						return
-					}
-					if let finishBatchRequestError = finishBatchRequestError {
-						reject(self.convertRequestErrorToDropboxError(finishBatchRequestError))
-						return
-					}
-					reject(DropboxError.uploadFileError)
-					return
-				}
-				if result.isSuccess() {
-					let fileMetadata = result.success
-					let itemMetadata = self.createCloudItemMetadata(from: fileMetadata, parentRemoteURL: remoteURL.deletingLastPathComponent())
-					fulfill(itemMetadata)
-					return
-				}
-				if result.isFailure() {
-					let failure = result.failure
-					if failure.isTooManyWriteOperations() {
-						reject(DropboxError.tooManyWriteOperations)
-						return
-					}
-					if failure.isPath(), failure.path.isConflict() {
-						reject(CloudProviderError.itemAlreadyExists)
-						return
-					}
-					reject(DropboxError.uploadFileError)
-				} else {
-					reject(DropboxError.unexpectedResult)
-				}
-			}
-			self.runningBatchUploadTasks.append(task)
-		}
-	}
-
-	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, isUpdate: replaceExisting, progress: progress, with: client)
-		}
-	}
-
-	private func uploadFileAfterParentCheck(from localURL: URL, to remoteURL: URL, isUpdate: Bool, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		let task = client.filesRoutes.uploadUrl(remoteURL.path, inputUrl: localURL.path)
-		runningTasks.append(task)
-		return Promise<CloudItemMetadata> { fulfill, reject in
-			task.setResponseBlock { result, routeError, networkError in
-				self.runningTasks.removeAll { $0 == task }
-				guard let result = result else {
-					if let routeError = routeError {
-						if routeError.isPath() {
-							if routeError.path.reason.isTooManyWriteOperations() {
-								reject(DropboxError.tooManyWriteOperations)
-								return
-							}
-							if routeError.path.reason.isConflict() {
-								reject(CloudProviderError.itemAlreadyExists)
-								return
-							}
-						}
-					}
-					if let networkError = networkError {
-						reject(self.convertRequestErrorToDropboxError(networkError))
-						return
-					}
-					reject(DropboxError.unexpectedError)
-					return
-				}
-
-				let metadata = self.createCloudItemMetadata(from: result, parentRemoteURL: remoteURL.deletingLastPathComponent())
-				fulfill(metadata)
-			}
-		}
-	}
-
-	func retryWithExponentialBackoff<Value>(_ work: @escaping () throws -> Promise<Value>) -> Promise<Value> {
+	func retryWithExponentialBackoff<Value>(_ work: @escaping () throws -> Promise<Value>, condition: (Error) -> Bool) -> Promise<Value> {
 		let queue = DispatchQueue(label: "retryWithExponentialBackoff-Dropbox", qos: .userInitiated)
 		let attempts = 5
 		let exponentialBackoffBase: UInt = 2
@@ -574,7 +610,7 @@ public class DropboxCloudProvider: CloudProvider {
 			attempts: attempts,
 			delay: 0.01,
 			condition: { remainingAttempts, error in
-				let condition = self.retryCondition(error: error)
+				let condition = self.shouldRetryForError(error)
 				if condition {
 					let retryCount = attempts - remainingAttempts
 					let sleepTime = pow(Double(exponentialBackoffBase), Double(retryCount)) * exponentialBackoffScale
