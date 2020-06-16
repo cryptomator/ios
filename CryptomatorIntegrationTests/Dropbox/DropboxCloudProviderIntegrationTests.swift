@@ -13,7 +13,7 @@ import XCTest
 @testable import CloudAccessPrivate
 @testable import ObjectiveDropboxOfficial
 
-class DropboxCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
+class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 	static var setUpErrorForDropbox: Error?
 	override class var classSetUpError: Error? {
 		get {

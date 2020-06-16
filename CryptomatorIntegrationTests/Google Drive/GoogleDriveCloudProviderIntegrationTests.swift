@@ -11,7 +11,7 @@ import CryptomatorCloudAccess
 import Promises
 import XCTest
 
-class GoogleDriveCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
+class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 	static var setUpErrorForGoogleDrive: Error?
 	override class var classSetUpError: Error? {
 		get {

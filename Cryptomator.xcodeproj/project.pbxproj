@@ -27,6 +27,7 @@
 		4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
 		4A5811C62490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */; };
+		4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */; };
 		4A5E5B6A2453121400BD6298 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4A5E5B732453121400BD6298 /* CloudAccessPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4A5E5B8024532E6F00BD6298 /* GoogleDriveCloudProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E5B7F24532E6F00BD6298 /* GoogleDriveCloudProvider.swift */; };
@@ -177,6 +178,7 @@
 		4A44EC27246BE8EC00950BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
 		4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxExponentialBackOffTests.swift; sourceTree = "<group>"; };
+		4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestWithAuthentication.swift; sourceTree = "<group>"; };
 		4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudAccessPrivate.h; sourceTree = "<group>"; };
 		4A5E5B642453121400BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 			children = (
 				4A60E7FA2459C6F500FD7F0E /* Info.plist */,
 				4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */,
+				4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */,
 				4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */,
 				74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */,
 				4A837C772489950100223222 /* Dropbox */,
@@ -1061,6 +1064,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
+				4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
