@@ -14,8 +14,7 @@ public class DropboxCloudProvider: CloudProvider {
 	let authentication: DropboxCloudAuthentication
 	private var runningTasks: [DBTask]
 	private var runningBatchUploadTasks: [DBBatchUploadTask]
-	private var debugUploadCount = 0
-	private let shouldRetryForError: (Error) -> Bool = { error in
+	let shouldRetryForError: (Error) -> Bool = { error in
 		return (error as? DropboxError) == .tooManyWriteOperations || (error as? DropboxError) == .internalServerError || (error as? DropboxError) == .rateLimitError
 	}
 
@@ -549,12 +548,9 @@ public class DropboxCloudProvider: CloudProvider {
 		if parentRemoteURL == URL(fileURLWithPath: "/", isDirectory: true) {
 			return Promise(())
 		}
-		return Promise<Void>(on: .global()) { fulfill, reject in
-			do {
-				_ = try await(self.fetchItemMetadata(at: parentRemoteURL))
-				fulfill(())
-			} catch CloudProviderError.itemNotFound {
-				reject(CloudProviderError.parentFolderDoesNotExist)
+		return checkForItemExistence(at: parentRemoteURL).then { itemExists -> Void in
+			guard itemExists else {
+				throw CloudProviderError.parentFolderDoesNotExist
 			}
 		}
 	}
