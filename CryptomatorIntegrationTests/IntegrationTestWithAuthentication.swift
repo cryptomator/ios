@@ -10,9 +10,8 @@ import CryptomatorCloudAccess
 import XCTest
 @testable import Promises
 class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
-	
 	func testFetchItemMetadataFailWithUnauthorizedWhenNotAuthorized() throws {
-		let fileURL = remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: false)
+		let fileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFile")
 		provider.fetchItemMetadata(at: fileURL).then { _ in
 			XCTFail("fetchItemMetadata fulfilled without authentication")
@@ -28,7 +27,7 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 	}
 
 	func testFetchItemListFailWithUnauthorizedWhenNotAuthorized() throws {
-		let folderURL = remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/", isDirectory: true)
+		let folderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "unauthorized fetchItemList fail with CloudProviderError.unauthorized")
 		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil).then { _ in
 			XCTFail("fetchItemList fulfilled without authentication")
@@ -42,10 +41,10 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		}
 		wait(for: [expectation], timeout: 60.0)
 	}
-	
+
 	func testDownloadFileFailWithUnauthorizedWhenNotAuthorized() throws {
 		let filename = "test 0.txt"
-		let remoteFileURL = remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let remoteFileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
@@ -104,8 +103,8 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		}
 		wait(for: [expectation], timeout: 60.0)
 	}
-	
-    func testDeleteItemFailWithUnauthorizedWhenNotAuthorized() throws {
+
+	func testDeleteItemFailWithUnauthorizedWhenNotAuthorized() throws {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("unauthorizedFolder/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "unauthorized deleteItem fail with CloudProviderError.unauthorized")
 		provider.deleteItem(at: remoteURL).then { _ in
@@ -137,5 +136,4 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		}
 		wait(for: [expectation], timeout: 60.0)
 	}
-
 }

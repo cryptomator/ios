@@ -34,9 +34,9 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 		return setUpProviderForDropbox
 	}
 
-	static let remoteRootURLForIntegrationTestAtGoogleDrive = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
+	static let remoteRootURLForIntegrationTestAtDropbox = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	override class var remoteRootURLForIntegrationTest: URL {
-		return remoteRootURLForIntegrationTestAtGoogleDrive
+		return remoteRootURLForIntegrationTestAtDropbox
 	}
 
 	override class func setUp() {
@@ -49,7 +49,6 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 		let auth = MockDropboxCloudAuthentication()
 		super.authentication = auth
 		super.provider = DropboxCloudProvider(with: auth)
-		super.remoteRootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {

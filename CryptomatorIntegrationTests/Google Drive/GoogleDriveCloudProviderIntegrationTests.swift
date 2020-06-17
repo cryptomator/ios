@@ -42,7 +42,6 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
 		super.authentication = auth
 		super.provider = GoogleDriveCloudProvider(with: auth)
-		super.remoteRootURLForIntegrationTest = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {

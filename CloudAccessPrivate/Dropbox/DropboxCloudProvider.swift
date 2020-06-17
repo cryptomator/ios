@@ -11,7 +11,7 @@ import Foundation
 import ObjectiveDropboxOfficial
 import Promises
 public class DropboxCloudProvider: CloudProvider {
-	let authentication: DropboxCloudAuthentication
+	private let authentication: DropboxCloudAuthentication
 	private var runningTasks: [DBTask]
 	private var runningBatchUploadTasks: [DBBatchUploadTask]
 	let shouldRetryForError: (Error) -> Bool = { error in
@@ -66,7 +66,8 @@ public class DropboxCloudProvider: CloudProvider {
 	}
 
 	/**
-	 - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
+	  Dropbox recommends uploading files over 150mb with a batchUpload.
+	   - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
 	 */
 	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL && remoteURL.isFileURL)
@@ -95,6 +96,9 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
+	/**
+	 - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
+	 */
 	public func createFolder(at remoteURL: URL) -> Promise<Void> {
 		precondition(remoteURL.isFileURL)
 		precondition(remoteURL.hasDirectoryPath)
@@ -106,6 +110,9 @@ public class DropboxCloudProvider: CloudProvider {
 		}, condition: shouldRetryForError)
 	}
 
+	/**
+	 - warning: This function is not atomic, as the metadata must be retrieved first to ensure that there is no itemTypeMismatch.
+	 */
 	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
 		precondition(remoteURL.isFileURL)
 		guard let authorizedClient = authentication.authorizedClient else {
@@ -116,6 +123,9 @@ public class DropboxCloudProvider: CloudProvider {
 		}, condition: shouldRetryForError)
 	}
 
+	/**
+	 - warning: This function is not atomic, as the metadata of the oldRemoteURL must first be retrieved to ensure that there is no itemTypeMismatch. In addition, the parentFolder of the newRemoteURL must be checked, otherwise Dropbox will automatically create the intermediate folders.
+	 */
 	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
 		precondition(oldRemoteURL.isFileURL && newRemoteURL.isFileURL)
 		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
@@ -447,7 +457,6 @@ public class DropboxCloudProvider: CloudProvider {
 						reject(CloudProviderError.itemNotFound)
 						return
 					}
-
 					reject(DropboxError.deleteFileError)
 					return
 				}
@@ -470,16 +479,7 @@ public class DropboxCloudProvider: CloudProvider {
 		assert(oldRemoteURL.isFileURL)
 		assert(newRemoteURL.isFileURL)
 		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		return ensureParentFolderExists(for: newRemoteURL).then {
-			self.moveItemAfterParentCheck(from: oldRemoteURL, to: newRemoteURL, with: client)
-		}
-	}
-
-	private func moveItemAfterParentCheck(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		assert(oldRemoteURL.isFileURL)
-		assert(newRemoteURL.isFileURL)
-		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		return fetchItemMetadata(at: oldRemoteURL).then { metadata in
+		return all(ensureParentFolderExists(for: newRemoteURL), fetchItemMetadata(at: oldRemoteURL)).then { _, metadata in
 			guard self.getItemType(for: oldRemoteURL) == metadata.itemType else {
 				return Promise(CloudProviderError.itemTypeMismatch)
 			}
@@ -630,11 +630,12 @@ public class DropboxCloudProvider: CloudProvider {
 		guard let type = fileAttributeType else {
 			return CloudItemType.unknown
 		}
-		if type == FileAttributeType.typeDirectory {
+		switch type {
+		case .typeDirectory:
 			return CloudItemType.folder
-		} else if type == FileAttributeType.typeRegular {
+		case .typeRegular:
 			return CloudItemType.file
-		} else {
+		default:
 			return CloudItemType.unknown
 		}
 	}
