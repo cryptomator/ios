@@ -24,4 +24,7 @@ target "Cryptomator" do
 		#networking
 		inherit! :search_paths
 	end
+	target "File Provider Extension" do
+		inherit! :search_paths
+	end
 end
