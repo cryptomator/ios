@@ -18,7 +18,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	static var remoteFolderForDeleteItemsURL: URL!
 	static let testContentForFilesInRoot = "testContent"
 	static let testContentForFilesInTestFolder = "File inside Folder Content"
-	class var setUpProvider: CloudProvider {
+	class var setUpProvider: CloudProvider? {
 		fatalError("Not implemented")
 	}
 
@@ -46,7 +46,11 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	}
 
 	override class func setUp() {
-		let setUpPromise = setUpForIntegrationTest(at: setUpProvider, authentication: setUpAuthentication, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
+		guard let provider = setUpProvider else {
+			classSetUpError = IntegrationTestError.cloudProviderInitError
+			return
+		}
+		let setUpPromise = setUpForIntegrationTest(at: provider, authentication: setUpAuthentication, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
 
 		// MARK: use waitForPromises as expectations are not available here. Therefore we can't catch the error from the promise above. And we need to check for an error later
 
@@ -96,7 +100,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	 └─ test 4.txt
 	 ````
 	 */
-	class func setUpForIntegrationTest(at _: CloudProvider, authentication: MockCloudAuthentication, remoteRootURLForIntegrationTest: URL) -> Promise<Void> {
+	class func setUpForIntegrationTest(at provider: CloudProvider, authentication: MockCloudAuthentication, remoteRootURLForIntegrationTest: URL) -> Promise<Void> {
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let currentTestTempDirectory = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
@@ -108,23 +112,23 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToMoveURL = remoteFolderForMoveItemsURL.appendingPathComponent("FolderToMove", isDirectory: true)
 
 		return authentication.authenticate().then {
-			setUpProvider.deleteItemIfExists(at: remoteRootURLForIntegrationTest)
+			provider.deleteItemIfExists(at: remoteRootURLForIntegrationTest)
 		}.then {
-			setUpProvider.createFolderWithIntermediates(for: remoteRootURLForIntegrationTest)
+			provider.createFolderWithIntermediates(for: remoteRootURLForIntegrationTest)
 		}.then {
-			createRootFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory)
+			createRootFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
 		}.then {
-			createTestFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory)
+			createTestFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
 		}.then {
-			createFolderForDeleteItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToDeleteURL: remoteFolderToDeleteURL)
+			createFolderForDeleteItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToDeleteURL: remoteFolderToDeleteURL, with: provider)
 		}.then {
-			createFolderForMoveItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToMoveURL: remoteFolderToMoveURL)
+			createFolderForMoveItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToMoveURL: remoteFolderToMoveURL, with: provider)
 		}.then { _ in
 			try FileManager.default.removeItem(at: currentTestTempDirectory)
 		}
 	}
 
-	private class func createRootFolderContent(localCurrentTestTempDirectory: URL) -> Promise<Void> {
+	private class func createRootFolderContent(localCurrentTestTempDirectory: URL, with provider: CloudProvider) -> Promise<Void> {
 		let remoteRootFileURLs = createTestFileURLs(in: remoteRootURLForIntegrationTest)
 		let localTestFolderURL = localCurrentTestTempDirectory.appendPathComponents(from: remoteTestFolderURL)
 		do {
@@ -135,12 +139,12 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteRootFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
-			setUpProvider.createFolder(at: remoteTestFolderURL)
+		return all(remoteRootFileURLs.map { provider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
+			provider.createFolder(at: remoteTestFolderURL)
 		}
 	}
 
-	private class func createTestFolderContent(localCurrentTestTempDirectory: URL) -> Promise<Void> {
+	private class func createTestFolderContent(localCurrentTestTempDirectory: URL, with provider: CloudProvider) -> Promise<Void> {
 		let remoteTestFolderFileURLs = createTestFileURLs(in: remoteTestFolderURL)
 
 		let localFolderToDeleteURL = localCurrentTestTempDirectory.appendPathComponents(from: remoteFolderForDeleteItemsURL)
@@ -154,16 +158,16 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteTestFolderFileURLs.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
-			setUpProvider.createFolder(at: remoteEmptySubFolderURL)
+		return all(remoteTestFolderFileURLs.map { provider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
+			provider.createFolder(at: remoteEmptySubFolderURL)
 		}.then {
-			setUpProvider.createFolder(at: remoteFolderForDeleteItemsURL)
+			provider.createFolder(at: remoteFolderForDeleteItemsURL)
 		}.then {
-			setUpProvider.createFolder(at: remoteFolderForMoveItemsURL)
+			provider.createFolder(at: remoteFolderForMoveItemsURL)
 		}
 	}
 
-	private class func createFolderForDeleteItemsContent(localCurrentTestTempDirectory: URL, remoteFolderToDeleteURL: URL) -> Promise<Void> {
+	private class func createFolderForDeleteItemsContent(localCurrentTestTempDirectory: URL, remoteFolderToDeleteURL: URL, with provider: CloudProvider) -> Promise<Void> {
 		let remoteFileToDeleteURL = remoteFolderForDeleteItemsURL.appendingPathComponent("FileToDelete", isDirectory: false)
 		let remoteFileForItemTypeMismatchURL = remoteFolderForDeleteItemsURL.appendingPathComponent("FileForItemTypeMismatch", isDirectory: false)
 		let remoteFolderForItemTypeMismatchURL = remoteFolderForDeleteItemsURL.appendingPathComponent("FolderForItemTypeMismatch", isDirectory: true)
@@ -178,16 +182,16 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return setUpProvider.uploadFile(from: localFileToDeleteURL, to: remoteFileToDeleteURL, replaceExisting: false, progress: nil).then { _ in
-			setUpProvider.uploadFile(from: localFileForItemTypeMismatchURL, to: remoteFileForItemTypeMismatchURL, replaceExisting: false, progress: nil)
+		return provider.uploadFile(from: localFileToDeleteURL, to: remoteFileToDeleteURL, replaceExisting: false, progress: nil).then { _ in
+			provider.uploadFile(from: localFileForItemTypeMismatchURL, to: remoteFileForItemTypeMismatchURL, replaceExisting: false, progress: nil)
 		}.then { _ in
-			setUpProvider.createFolder(at: remoteFolderToDeleteURL)
+			provider.createFolder(at: remoteFolderToDeleteURL)
 		}.then {
-			setUpProvider.createFolder(at: remoteFolderForItemTypeMismatchURL)
+			provider.createFolder(at: remoteFolderForItemTypeMismatchURL)
 		}
 	}
 
-	private class func createFolderForMoveItemsContent(localCurrentTestTempDirectory: URL, remoteFolderToMoveURL: URL) -> Promise<Void> {
+	private class func createFolderForMoveItemsContent(localCurrentTestTempDirectory: URL, remoteFolderToMoveURL: URL, with provider: CloudProvider) -> Promise<Void> {
 		let remoteMoveItemsInThisFolderURL = remoteFolderForMoveItemsURL.appendingPathComponent("MoveItemsInThisFolder", isDirectory: true)
 		let remoteFileToMoveURL = remoteFolderForMoveItemsURL.appendingPathComponent("FileToMove", isDirectory: false)
 		let remoteFileToRenameURL = remoteFolderForMoveItemsURL.appendingPathComponent("FileToRename", isDirectory: false)
@@ -211,13 +215,13 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		} catch {
 			return Promise(error)
 		}
-		return all(remoteFiles.map { setUpProvider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
-			all(remoteFolders.map { setUpProvider.createFolder(at: $0) })
+		return all(remoteFiles.map { provider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: $0), to: $0, replaceExisting: false, progress: nil) }).then { _ in
+			all(remoteFolders.map { provider.createFolder(at: $0) })
 		}
 	}
 
 	override class func tearDown() {
-		_ = setUpProvider.deleteItem(at: remoteRootURLForIntegrationTest)
+		_ = setUpProvider?.deleteItem(at: remoteRootURLForIntegrationTest)
 		_ = waitForPromises(timeout: 60.0)
 	}
 
@@ -1202,6 +1206,9 @@ extension CloudItemMetadata: Comparable {
 
 extension CloudProvider {
 	func createFolderWithIntermediates(for remoteURL: URL) -> Promise<Void> {
+		guard remoteURL != URL(fileURLWithPath: "/", isDirectory: true) else {
+			return Promise(())
+		}
 		var urls = remoteURL.getPartialURLs(startIndex: 2)
 		urls.append(remoteURL)
 		return Promise(on: .global()) { fulfill, reject in
