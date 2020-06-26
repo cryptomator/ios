@@ -1,16 +1,19 @@
 PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
-  - CryptomatorCloudAccess (0.1.0):
-    - CryptomatorCloudAccess/Core (= 0.1.0)
-    - CryptomatorCloudAccess/VaultFormat7 (= 0.1.0)
-  - CryptomatorCloudAccess/Core (0.1.0):
+  - CryptomatorCloudAccess (0.3.0):
+    - CryptomatorCloudAccess/Core (= 0.3.0)
+    - CryptomatorCloudAccess/LocalFileSystem (= 0.3.0)
+    - CryptomatorCloudAccess/VaultFormat7 (= 0.3.0)
+  - CryptomatorCloudAccess/Core (0.3.0):
     - PromisesSwift (~> 1.2.0)
-  - CryptomatorCloudAccess/VaultFormat7 (0.1.0):
+  - CryptomatorCloudAccess/LocalFileSystem (0.3.0):
     - CryptomatorCloudAccess/Core
-    - CryptomatorCryptoLib (~> 0.4.0)
+  - CryptomatorCloudAccess/VaultFormat7 (0.3.0):
+    - CryptomatorCloudAccess/Core
+    - CryptomatorCryptoLib (~> 0.6.0)
     - GRDB.swift (~> 4.14.0)
-  - CryptomatorCryptoLib (0.4.0):
+  - CryptomatorCryptoLib (0.6.0):
     - CryptoSwift (~> 1.3.0)
     - SwiftBase32 (~> 0.8.0)
   - CryptoSwift (1.3.1)
@@ -38,9 +41,8 @@ PODS:
 
 DEPENDENCIES:
   - AppAuth/ExternalUserAgent (~> 1.0)
-  - CryptomatorCloudAccess (~> 0.1.0)
+  - CryptomatorCloudAccess (~> 0.3.0)
   - GoogleAPIClientForREST/Drive (~> 1.3.0)
-  - GRDB.swift (~> 4.14)
   - GTMAppAuth (~> 1.0.0)
   - ObjectiveDropboxOfficial (~> 4.0)
 
@@ -61,8 +63,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
-  CryptomatorCloudAccess: f96cd2955e999c91c7c067ac39f3b7e4ce39419f
-  CryptomatorCryptoLib: 2f6689d1448865173bc0ced7684c9521b89cafb9
+  CryptomatorCloudAccess: 4dc4d986b9a4e77f09d81cde968cf9efde864666
+  CryptomatorCryptoLib: eb38bd91699e59a7fc8531c25aa7ec68712c71c1
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
   GoogleAPIClientForREST: 0f19a8280dfe6471f76016645d26eb5dae305101
   GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
@@ -73,6 +75,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 991ad88e9851c45410d6697d1fe5df88fd3deb08
   SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
 
-PODFILE CHECKSUM: 0a75aa76e8ff3d66fc647bb3725bf1daaf28f446
+PODFILE CHECKSUM: e5c37f940d05850c13ecc1f7eabdc0d5fc4f17a5
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3
