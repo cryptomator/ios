@@ -6,9 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import Foundation
 import GRDB
-import CryptomatorCloudAccess
 
 struct ItemMetadata: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "metadata"

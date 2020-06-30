@@ -66,6 +66,31 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertEqual(itemMetadataForFolder, fetchedMetadataForFolder)
 	}
 
+	func testGetPlaceholderItems() throws {
+		let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
+		let remoteFileURL = URL(fileURLWithPath: "/Test File.txt", isDirectory: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
+		let remoteSecondFolderURL = URL(fileURLWithPath: "/SecondFolder/", isDirectory: true)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileURL.relativePath, isPlaceholderItem: true)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: true)
+		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteSecondFolderURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadatas([placeholderItemMetadataForFile, placeholderItemMetadataForFolder, itemMetadataForFolder])
+		let fetchedPlaceholderItems = try manager.getPlaceholderMetadata(for: rootURL.relativePath)
+		XCTAssertEqual([placeholderItemMetadataForFile, placeholderItemMetadataForFolder], fetchedPlaceholderItems)
+	}
+
+	func testGetPlaceholderItemsIsEmptyForNoPlaceholderItemsUnderParent() throws {
+		let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
+		let remoteFileURL = URL(fileURLWithPath: "/Test File.txt", isDirectory: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
+		let remoteSecondFolderURL = URL(fileURLWithPath: "/Test Folder/SecondFolder/", isDirectory: true)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Test File.txt", type: .file, size: 100, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileURL.relativePath, isPlaceholderItem: false)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, remoteParentPath: remoteFolderURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteSecondFolderURL.relativePath, isPlaceholderItem: true)
+		try manager.cacheMetadatas([placeholderItemMetadataForFile, placeholderItemMetadataForFolder, itemMetadataForFolder])
+		let fetchedPlaceholderItems = try manager.getPlaceholderMetadata(for: rootURL.relativePath)
+		XCTAssert(fetchedPlaceholderItems.isEmpty)
+	}
 
 }
 extension ItemMetadata: Comparable {

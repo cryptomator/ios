@@ -8,8 +8,8 @@
 
 import CloudAccessPrivate
 import CryptomatorCloudAccess
-import FileProvider
 import CryptomatorFileProvider
+import FileProvider
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
 	private var decorator: FileProviderDecorator?
@@ -19,21 +19,19 @@ class FileProviderExtension: NSFileProviderExtension {
 
 	override func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		// resolve the given identifier to a record in the model
-		throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
 		// TODO: implement the actual lookup
-		//return FileProviderItem()
 		// TODO: Change domain stuff, decorator init, etc.
 		guard let domain = self.domain else {
 			let identifier = NSFileProviderDomainIdentifier("testDomain")
 			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
-			NSFileProviderManager.add(testDomain) { (error) in
+			NSFileProviderManager.add(testDomain) { error in
 				if let error = error {
 					print("Domain Registration Error: \(error)")
 				}
 			}
 			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
 		}
-		if decorator == nil{
+		if decorator == nil {
 			decorator = try FileProviderDecorator(for: domain.identifier)
 		}
 		return try decorator!.getFileProviderItem(for: identifier)
@@ -47,20 +45,32 @@ class FileProviderExtension: NSFileProviderExtension {
 
 		// in this implementation, all paths are structured as <base storage directory>/<item identifier>/<item file name>
 		let manager = NSFileProviderManager.default
-		let perItemDirectory = manager.documentStorageURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
-
-		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
+//		let perItemDirectory = manager.documentStorageURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
+//
+//		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
+		let identifierURL = URL(fileURLWithPath: identifier.rawValue, isDirectory: item.typeIdentifier == "public.folder")
+		return manager.documentStorageURL.appendPathComponents(from: identifierURL)
 	}
 
 	override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
-		// resolve the given URL to a persistent identifier using a database
-		let pathComponents = url.pathComponents
+		/* Apple Template
+		 // resolve the given URL to a persistent identifier using a database
+		 let pathComponents = url.pathComponents
 
-		// exploit the fact that the path structure has been defined as
-		// <base storage directory>/<item identifier>/<item file name> above
-		assert(pathComponents.count > 2)
+		 // exploit the fact that the path structure has been defined as
+		 // <base storage directory>/<item identifier>/<item file name> above
+		 assert(pathComponents.count > 2)
 
-		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
+		 return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
+		 */
+		// TODO: Change Manager from default to domain
+		let manager = NSFileProviderManager.default
+		let path = url.path
+		let fileproviderStoragePath = manager.documentStorageURL.path
+		// TODO: Unit Test
+		let range = fileproviderStoragePath.startIndex ..< fileproviderStoragePath.endIndex
+		let identifier = path.replacingOccurrences(of: fileproviderStoragePath, with: "", options: String.CompareOptions(rawValue: 0), range: range)
+		return NSFileProviderItemIdentifier(identifier)
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
@@ -72,6 +82,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		do {
 			let fileProviderItem = try item(for: identifier)
 			let placeholderURL = NSFileProviderManager.placeholderURL(for: url)
+			try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 			try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: fileProviderItem)
 			completionHandler(nil)
 		} catch {
@@ -79,7 +90,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
-	override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
+	override func startProvidingItem(at _: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		// Should ensure that the actual file is in the position returned by URLForItemWithIdentifier:, then call the completion handler
 
 		/* TODO:
@@ -109,7 +120,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		completionHandler(NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:]))
 	}
 
-	override func itemChanged(at url: URL) {
+	override func itemChanged(at _: URL) {
 		// Called at some point after the file has changed; the provider may then trigger an upload
 
 		/* TODO:
@@ -156,35 +167,50 @@ class FileProviderExtension: NSFileProviderExtension {
 	// MARK: - Enumeration
 
 	override func enumerator(for containerItemIdentifier: NSFileProviderItemIdentifier) throws -> NSFileProviderEnumerator {
-		/*let maybeEnumerator: NSFileProviderEnumerator? = nil
-		if containerItemIdentifier == NSFileProviderItemIdentifier.rootContainer {
-			// TODO: instantiate an enumerator for the container root
-		} else if containerItemIdentifier == NSFileProviderItemIdentifier.workingSet {
-			// TODO: instantiate an enumerator for the working set
-		} else {
-			// TODO: determine if the item is a directory or a file
-			// - for a directory, instantiate an enumerator of its subitems
-			// - for a file, instantiate an enumerator that observes changes to the file
-		}
-		guard let enumerator = maybeEnumerator else {
-			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
-		}
-		return enumerator
-		*/
-		//TODO: Change error handling here
+		/* let maybeEnumerator: NSFileProviderEnumerator? = nil
+		 if containerItemIdentifier == NSFileProviderItemIdentifier.rootContainer {
+		 	// TODO: instantiate an enumerator for the container root
+		 } else if containerItemIdentifier == NSFileProviderItemIdentifier.workingSet {
+		 	// TODO: instantiate an enumerator for the working set
+		 } else {
+		 	// TODO: determine if the item is a directory or a file
+		 	// - for a directory, instantiate an enumerator of its subitems
+		 	// - for a file, instantiate an enumerator that observes changes to the file
+		 }
+		 guard let enumerator = maybeEnumerator else {
+		 	throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
+		 }
+		 return enumerator
+		 */
+		// TODO: Change error handling here
 		guard let domain = self.domain else {
 			let identifier = NSFileProviderDomainIdentifier("testDomain")
 			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
-			NSFileProviderManager.add(testDomain) { (error) in
+			NSFileProviderManager.add(testDomain) { error in
 				if let error = error {
 					print("Domain Registration Error: \(error)")
 				}
 			}
 			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
 		}
-		if decorator == nil{
+		if decorator == nil {
 			decorator = try FileProviderDecorator(for: domain.identifier)
 		}
+		print("enumerator containerIdentifier: \(containerItemIdentifier)")
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator!)
+	}
+}
+
+extension URL {
+	func appendPathComponents(from other: URL, startIndex: Int = 1) -> URL {
+		precondition(startIndex > 0)
+		precondition(hasDirectoryPath)
+		var result = self
+		let components = other.pathComponents
+		for i in startIndex ..< components.count {
+			let isDirectory = (i < components.count - 1 || other.hasDirectoryPath)
+			result.appendPathComponent(components[i], isDirectory: isDirectory)
+		}
+		return result
 	}
 }

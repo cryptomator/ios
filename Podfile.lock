@@ -43,6 +43,7 @@ DEPENDENCIES:
   - AppAuth/ExternalUserAgent (~> 1.0)
   - CryptomatorCloudAccess (~> 0.3.0)
   - GoogleAPIClientForREST/Drive (~> 1.3.0)
+  - GRDB.swift (~> 4.14)
   - GTMAppAuth (~> 1.0.0)
   - ObjectiveDropboxOfficial (~> 4.0)
 
@@ -75,6 +76,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 991ad88e9851c45410d6697d1fe5df88fd3deb08
   SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
 
-PODFILE CHECKSUM: e5c37f940d05850c13ecc1f7eabdc0d5fc4f17a5
+PODFILE CHECKSUM: 497be7b87bd1a361a17dc496280641f79aa1a5b9
 
 COCOAPODS: 1.9.3

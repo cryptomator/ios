@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
 import FileProvider
+import Foundation
 public struct FileProviderItemList {
 	public let items: [FileProviderItem]
 	public let nextPageToken: NSFileProviderPage?

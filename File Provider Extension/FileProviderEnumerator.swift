@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import FileProvider
 import CryptomatorFileProvider
+import FileProvider
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	var enumeratedItemIdentifier: NSFileProviderItemIdentifier
@@ -35,20 +35,19 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer about the items returned by the server (possibly multiple times)
 		 - inform the observer that you are finished with this page
 		 */
-		var numPage: String?
-		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage && page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage
-		{
-			numPage = String(data: page.rawValue, encoding: .utf8)!
+		var pageToken: String?
+		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
+			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
-		self.decorator.fetchItemList(for: enumeratedItemIdentifier, withPageToken: numPage).then{ itemList in
+		decorator.fetchItemList(for: enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
 			observer.didEnumerate(itemList.items)
 			observer.finishEnumerating(upTo: itemList.nextPageToken)
-		}.catch{ error in
+		}.catch { error in
 			observer.finishEnumeratingWithError(error)
 		}
 	}
 
-	func enumerateChanges(for observer: NSFileProviderChangeObserver, from anchor: NSFileProviderSyncAnchor) {
+	func enumerateChanges(for _: NSFileProviderChangeObserver, from _: NSFileProviderSyncAnchor) {
 		/* TODO:
 		 - query the server for updates since the passed-in sync anchor
 

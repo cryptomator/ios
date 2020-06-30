@@ -6,17 +6,17 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
-import GRDB
 import CryptomatorCloudAccess
 import FileProvider
+import Foundation
+import GRDB
 class MetadataManager {
 	private let metadataDB: DatabaseQueue
-	
-	init(for domainIdentifier: NSFileProviderDomainIdentifier) throws {
-		self.metadataDB = DatabaseQueue() //TODO: change to persistent DB with AppGroup and use Migrator to create DB
-		try metadataDB.write{ db in
-			try db.create(table: ItemMetadata.databaseTableName){ table in
+
+	init(for _: NSFileProviderDomainIdentifier) throws {
+		self.metadataDB = DatabaseQueue() // TODO: change to persistent DB with AppGroup and use Migrator to create DB
+		try metadataDB.write { db in
+			try db.create(table: ItemMetadata.databaseTableName) { table in
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
@@ -33,7 +33,7 @@ class MetadataManager {
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
-		try metadataDB.write{ db in
+		try metadataDB.write { db in
 			try metadata.save(db)
 		}
 	}
@@ -48,16 +48,18 @@ class MetadataManager {
 	}
 
 	func getCachedMetadata(for remotePath: String) throws -> ItemMetadata? {
-		let itemMetadata:ItemMetadata? = try metadataDB.read{ db in
-			return try ItemMetadata.fetchOne(db, key: ["remotePath" : remotePath])
+		let itemMetadata: ItemMetadata? = try metadataDB.read { db in
+			return try ItemMetadata.fetchOne(db, key: ["remotePath": remotePath])
 		}
 		return itemMetadata
 	}
 
-	
-
-	
+	func getPlaceholderMetadata(for remoteParentPath: String) throws -> [ItemMetadata] {
+		let itemMetadata: [ItemMetadata] = try metadataDB.read { db in
+			return try ItemMetadata
+				.filter(Column("remoteParentPath") == remoteParentPath && Column("isPlaceholderItem"))
+				.fetchAll(db)
+		}
+		return itemMetadata
+	}
 }
-
-
-
