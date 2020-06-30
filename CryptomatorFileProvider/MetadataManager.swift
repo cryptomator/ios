@@ -12,7 +12,7 @@ import Foundation
 import GRDB
 class MetadataManager {
 	private let metadataDB: DatabaseQueue
-
+	static let rootContainerId: Int64 = 1
 	init(for _: NSFileProviderDomainIdentifier) throws {
 		self.metadataDB = DatabaseQueue() // TODO: change to persistent DB with AppGroup and use Migrator to create DB
 		try metadataDB.write { db in
@@ -20,14 +20,14 @@ class MetadataManager {
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
-				table.column("remoteParentPath", .text).notNull()
+				table.column("parentId", .integer).notNull()
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .integer).notNull()
-				table.column("remotePath", .text).primaryKey(onConflict: .replace)
+				table.column("remotePath", .text).unique(onConflict: .replace)
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
 			}
 			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
-			let rootFolderMetadata = ItemMetadata(name: "Root", type: .folder, size: nil, remoteParentPath: rootURL.relativePath, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: false)
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: false)
 			try rootFolderMetadata.save(db)
 		}
 	}
@@ -54,10 +54,17 @@ class MetadataManager {
 		return itemMetadata
 	}
 
-	func getPlaceholderMetadata(for remoteParentPath: String) throws -> [ItemMetadata] {
+	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata? {
+		let itemMetadata: ItemMetadata? = try metadataDB.read { db in
+			return try ItemMetadata.fetchOne(db, key: identifier)
+		}
+		return itemMetadata
+	}
+
+	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try metadataDB.read { db in
 			return try ItemMetadata
-				.filter(Column("remoteParentPath") == remoteParentPath && Column("isPlaceholderItem"))
+				.filter(Column("parentId") == parentId && Column("isPlaceholderItem"))
 				.fetchAll(db)
 		}
 		return itemMetadata

@@ -19,12 +19,13 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
-		print("ItemName: \(filename) has Identifier: \(NSFileProviderItemIdentifier(metadata.remotePath))")
-		return NSFileProviderItemIdentifier(metadata.remotePath)
+
+		assert(metadata.id != nil)
+		return NSFileProviderItemIdentifier(String(metadata.id ?? -1)) //TODO: Change Optional Handling
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
-		return NSFileProviderItemIdentifier(metadata.remoteParentPath)
+		return NSFileProviderItemIdentifier(String(metadata.parentId))
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {

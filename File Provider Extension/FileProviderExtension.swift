@@ -45,32 +45,19 @@ class FileProviderExtension: NSFileProviderExtension {
 
 		// in this implementation, all paths are structured as <base storage directory>/<item identifier>/<item file name>
 		let manager = NSFileProviderManager.default
-//		let perItemDirectory = manager.documentStorageURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
-//
-//		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
-		let identifierURL = URL(fileURLWithPath: identifier.rawValue, isDirectory: item.typeIdentifier == "public.folder")
-		return manager.documentStorageURL.appendPathComponents(from: identifierURL)
+		let perItemDirectory = manager.documentStorageURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
 	}
 
 	override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
-		/* Apple Template
-		 // resolve the given URL to a persistent identifier using a database
-		 let pathComponents = url.pathComponents
+		// resolve the given URL to a persistent identifier using a database
+		let pathComponents = url.pathComponents
 
-		 // exploit the fact that the path structure has been defined as
-		 // <base storage directory>/<item identifier>/<item file name> above
-		 assert(pathComponents.count > 2)
+		// exploit the fact that the path structure has been defined as
+		// <base storage directory>/<item identifier>/<item file name> above
+		assert(pathComponents.count > 2)
 
-		 return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
-		 */
-		// TODO: Change Manager from default to domain
-		let manager = NSFileProviderManager.default
-		let path = url.path
-		let fileproviderStoragePath = manager.documentStorageURL.path
-		// TODO: Unit Test
-		let range = fileproviderStoragePath.startIndex ..< fileproviderStoragePath.endIndex
-		let identifier = path.replacingOccurrences(of: fileproviderStoragePath, with: "", options: String.CompareOptions(rawValue: 0), range: range)
-		return NSFileProviderItemIdentifier(identifier)
+		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
@@ -90,7 +77,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
-	override func startProvidingItem(at _: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
+	override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		// Should ensure that the actual file is in the position returned by URLForItemWithIdentifier:, then call the completion handler
 
 		/* TODO:
