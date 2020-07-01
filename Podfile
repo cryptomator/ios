@@ -10,7 +10,7 @@ def networking
 	pod 'ObjectiveDropboxOfficial', '~> 4.0'
 end
 
-pod 'CryptomatorCloudAccess', '~> 0.3.0'
+pod 'CryptomatorCloudAccess', '~> 0.4.0'
 
 target "CloudAccessPrivate" do
 	networking
@@ -29,6 +29,9 @@ target "Cryptomator" do
 	end
 	target "CryptomatorFileProvider" do
 		inherit! :search_paths
+		target "CryptomatorFileProviderTests" do
+			inherit! :search_paths
+		end
 	end
 end
 

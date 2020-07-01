@@ -6,13 +6,15 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
 class MetadataManagerTests: XCTestCase {
 	var manager: MetadataManager!
-	let domain = NSFileProviderDomainIdentifier("test")
+
 	override func setUpWithError() throws {
-		manager = try MetadataManager(for: domain)
+		let inMemoryDB = DatabaseQueue()
+		manager = try MetadataManager(with: inMemoryDB)
 	}
 
 	override func tearDownWithError() throws {

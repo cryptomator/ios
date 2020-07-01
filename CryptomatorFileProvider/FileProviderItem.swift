@@ -19,12 +19,17 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
-
 		assert(metadata.id != nil)
-		return NSFileProviderItemIdentifier(String(metadata.id ?? -1)) //TODO: Change Optional Handling
+		if metadata.id == MetadataManager.rootContainerId {
+			return .rootContainer
+		}
+		return NSFileProviderItemIdentifier(String(metadata.id ?? -1)) // TODO: Change Optional Handling
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
+		if metadata.parentId == MetadataManager.rootContainerId {
+			return .rootContainer
+		}
 		return NSFileProviderItemIdentifier(String(metadata.parentId))
 	}
 
@@ -48,5 +53,9 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 
 	public var documentSize: NSNumber? {
 		return metadata.size as NSNumber?
+	}
+
+	public var isDownloaded: Bool {
+		return metadata.statusCode == .isDownloaded
 	}
 }

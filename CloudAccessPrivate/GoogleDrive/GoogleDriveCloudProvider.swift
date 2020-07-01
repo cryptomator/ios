@@ -25,7 +25,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private let googleDriveErrorReasonUserRateLimitExceeded = "userRateLimitExceeded"
 	private let googleDriveErrorReasonRateLimitExceeded = "rateLimitExceeded"
 	private lazy var driveService: GTLRDriveService = {
-		var driveService = GTLRDriveService()
+		let driveService = GTLRDriveService()
 		driveService.authorizer = self.authentication.authorization
 		driveService.isRetryEnabled = true
 		driveService.retryBlock = { _, suggestedWillRetry, fetchError in
