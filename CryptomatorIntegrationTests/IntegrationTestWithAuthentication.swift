@@ -50,7 +50,7 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "unauthorized downloadFile fail with CloudProviderError.unauthorized")
-		provider.downloadFile(from: remoteFileURL, to: localFileURL, progress: nil).then { _ in
+		provider.downloadFile(from: remoteFileURL, to: localFileURL).then { _ in
 			XCTFail("downloadFile fulfilled without authentication")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {
@@ -74,7 +74,7 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteTestFolderURL.appendingPathComponent("test 5.txt", isDirectory: false)
 
 		let expectation = XCTestExpectation(description: "unauthorized uploadFile fail with CloudProviderError.unauthorized")
-		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false, progress: nil).then { _ in
+		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false).then { _ in
 			XCTFail("uploadFile fulfilled without authentication")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {
