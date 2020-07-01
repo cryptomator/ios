@@ -95,17 +95,17 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
+	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
 		precondition(!remoteURL.hasDirectoryPath)
 		if FileManager.default.fileExists(atPath: localURL.path) {
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
 		return resolvePath(for: remoteURL).then { identifier in
-			self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL, progress: progress)
+			self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL)
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
 		precondition(!localURL.hasDirectoryPath)
 		precondition(!remoteURL.hasDirectoryPath)
 		var isDirectory: ObjCBool = false
@@ -119,9 +119,10 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		return resolveParentPath(for: remoteURL).then { parentIdentfier in
 			self.createFileUploadQuery(from: localURL, to: remoteURL, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
 		}.then { query -> Promise<Any> in
+			let progress = Progress(totalUnitCount: -1)
 			query.executionParameters.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
-				progress?.totalUnitCount = Int64(totalBytesExpectedToUpload)
-				progress?.completedUnitCount = Int64(totalBytesUploaded)
+				progress.totalUnitCount = Int64(totalBytesExpectedToUpload)
+				progress.completedUnitCount = Int64(totalBytesUploaded)
 			}
 			query.fields = "id, name, modifiedTime, mimeType"
 			return self.executeQuery(query)
@@ -308,14 +309,15 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func downloadFile(withIdentifier identifier: String, from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
+	private func downloadFile(withIdentifier identifier: String, from remoteURL: URL, to localURL: URL) -> Promise<Void> {
 		let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
 		let request = driveService.request(for: query)
 		let fetcher = driveService.fetcherService.fetcher(with: request as URLRequest)
 		fetcher.destinationFileURL = localURL
+		let progress = Progress(totalUnitCount: -1)
 		fetcher.downloadProgressBlock = { _, totalBytesWritten, totalBytesExpectedToWrite in
-			progress?.totalUnitCount = totalBytesExpectedToWrite // Unnecessary to set several times
-			progress?.completedUnitCount = totalBytesWritten
+			progress.totalUnitCount = totalBytesExpectedToWrite // Unnecessary to set several times
+			progress.completedUnitCount = totalBytesWritten
 		}
 		runningFetchers.append(fetcher)
 		return Promise<Void> { fulfill, reject in

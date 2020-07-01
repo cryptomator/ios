@@ -17,6 +17,8 @@
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
 		4A2245D524A5E16300DBA437 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
+		4A30FD2B24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */; };
+		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
 		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */; };
 		4A37374D247524A2008EDCA9 /* MockCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A37374C247524A2008EDCA9 /* MockCloudAuthentication.swift */; };
 		4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */; };
@@ -57,6 +59,7 @@
 		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
 		4AA621EE249A6A8400A0BCBD /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -210,6 +213,8 @@
 		4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorFileProviderTests.swift; sourceTree = "<group>"; };
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
+		4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalFileSystemAuthentication.swift; sourceTree = "<group>"; };
+		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A37374C247524A2008EDCA9 /* MockCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
@@ -257,6 +262,7 @@
 		4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentActionViewController.swift; sourceTree = "<group>"; };
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
@@ -426,6 +432,22 @@
 			path = CryptomatorFileProviderTests;
 			sourceTree = "<group>";
 		};
+		4A30FD2E24A20D2A00E1576C /* CryptoDecorator */ = {
+			isa = PBXGroup;
+			children = (
+				4A30FD2F24A20D3A00E1576C /* VaultFormat7 */,
+			);
+			path = CryptoDecorator;
+			sourceTree = "<group>";
+		};
+		4A30FD2F24A20D3A00E1576C /* VaultFormat7 */ = {
+			isa = PBXGroup;
+			children = (
+				4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */,
+			);
+			path = VaultFormat7;
+			sourceTree = "<group>";
+		};
 		4A44EC0824695CCD00950BBF /* Google Drive */ = {
 			isa = PBXGroup;
 			children = (
@@ -537,7 +559,9 @@
 				4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */,
 				4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */,
 				4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */,
+				4A30FD2E24A20D2A00E1576C /* CryptoDecorator */,
 				74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */,
+				4A91CD7224A204F600946270 /* LocalFileSystem */,
 				4A837C772489950100223222 /* Dropbox */,
 				4A60E8032459D04D00FD7F0E /* Google Drive */,
 				4A37374C247524A2008EDCA9 /* MockCloudAuthentication.swift */,
@@ -610,6 +634,15 @@
 				4ADB471624A49CEC004DE115 /* ItemStatus.swift */,
 			);
 			path = CryptomatorFileProvider;
+			sourceTree = "<group>";
+		};
+		4A91CD7224A204F600946270 /* LocalFileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */,
+				4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */,
+			);
+			path = LocalFileSystem;
 			sourceTree = "<group>";
 		};
 		4AE554EC248158D70016E313 /* Dropbox */ = {
@@ -1411,6 +1444,7 @@
 			files = (
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
 				4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */,
+				4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
@@ -1419,8 +1453,10 @@
 				4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */,
 				4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */,
 				4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */,
+				4A30FD2B24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift in Sources */,
 				74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */,
 				4A837C7B248ABBD300223222 /* MockDropboxAuthenticationTests.swift in Sources */,
+				4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */,
 				4A37374D247524A2008EDCA9 /* MockCloudAuthentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -54,14 +54,14 @@ public class DropboxCloudProvider: CloudProvider {
 		}, condition: shouldRetryForError)
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?) -> Promise<Void> {
+	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
 		precondition(remoteURL.isFileURL && localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.downloadFile(from: remoteURL, to: localURL, progress: progress, with: authorizedClient)
+			self.downloadFile(from: remoteURL, to: localURL, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
@@ -69,7 +69,7 @@ public class DropboxCloudProvider: CloudProvider {
 	  Dropbox recommends uploading files over 150mb with a batchUpload.
 	   - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
 	 */
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool, progress: Progress?) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL && remoteURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
@@ -90,9 +90,9 @@ public class DropboxCloudProvider: CloudProvider {
 		let mode = replaceExisting ? DBFILESWriteMode(overwrite: ()) : nil
 		let fileSize = attributes[FileAttributeKey.size] as? Int ?? 157_286_400
 		if fileSize >= 157_286_400 {
-			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
 		} else {
-			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
 		}
 	}
 
@@ -263,11 +263,12 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// downloadFile
 
-	private func downloadFile(from remoteURL: URL, to localURL: URL, progress: Progress?, with client: DBUserClient) -> Promise<Void> {
+	private func downloadFile(from remoteURL: URL, to localURL: URL, with client: DBUserClient) -> Promise<Void> {
 		let task = client.filesRoutes.downloadUrl(remoteURL.path, overwrite: false, destination: localURL)
+		let progress = Progress(totalUnitCount: -1)
 		task.setProgressBlock { _, totalBytesWritten, totalBytesExpectedToWrite in
-			progress?.totalUnitCount = totalBytesExpectedToWrite
-			progress?.completedUnitCount = totalBytesWritten
+			progress.totalUnitCount = totalBytesExpectedToWrite
+			progress.completedUnitCount = totalBytesWritten
 		}
 		return Promise<Void> { fulfill, reject in
 			self.runningTasks.append(task)
@@ -297,17 +298,18 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// uploadFile
 
-	private func uploadBigFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func uploadBigFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return ensureParentFolderExists(for: remoteURL).then {
-			self.batchUploadSingleFile(from: localURL, to: remoteURL, mode: mode, progress: progress, with: client)
+			self.batchUploadSingleFile(from: localURL, to: remoteURL, mode: mode, with: client)
 		}
 	}
 
-	private func batchUploadSingleFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func batchUploadSingleFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		let commitInfo = DBFILESCommitInfo(path: remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true)
+		let progress = Progress(totalUnitCount: -1)
 		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
-			progress?.totalUnitCount = totalBytesExpectedToUpload
-			progress?.completedUnitCount = totalBytesUploaded
+			progress.totalUnitCount = totalBytesExpectedToUpload
+			progress.completedUnitCount = totalBytesUploaded
 		}
 		return Promise<CloudItemMetadata> { fulfill, reject in
 			var task: DBBatchUploadTask!
@@ -359,15 +361,21 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return ensureParentFolderExists(for: remoteURL).then {
-			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, mode: mode, progress: progress, with: client)
+			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, mode: mode, with: client)
 		}
 	}
 
-	private func uploadFileAfterParentCheck(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, progress: Progress?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func uploadFileAfterParentCheck(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		let task = client.filesRoutes.uploadUrl(remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true, inputUrl: localURL.path)
 		runningTasks.append(task)
+		let progress = Progress(totalUnitCount: -1)
+		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
+			progress.totalUnitCount = totalBytesExpectedToUpload
+			progress.completedUnitCount = totalBytesUploaded
+		}
+		task.setProgressBlock(uploadProgress)
 		return Promise<CloudItemMetadata> { fulfill, reject in
 			task.setResponseBlock { result, routeError, networkError in
 				self.runningTasks.removeAll { $0 == task }
