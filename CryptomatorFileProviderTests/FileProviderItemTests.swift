@@ -34,6 +34,6 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertEqual("test", item.filename)
 		XCTAssertEqual(100, item.documentSize)
 		XCTAssertTrue(item.isDownloaded)
-		XCTAssertEqual("public.text", item.typeIdentifier)
+		XCTAssertEqual("public.plain-text", item.typeIdentifier)
 	}
 }

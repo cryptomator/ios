@@ -9,10 +9,11 @@
 import CryptomatorCloudAccess
 import FileProvider
 import Foundation
+import MobileCoreServices
 public class FileProviderItem: NSObject, NSFileProviderItem {
 	// TODO: implement an initializer to create an item from your extension's backing model
 	// TODO: implement the accessors to return the values from your extension's backing model
-	private let metadata: ItemMetadata
+	let metadata: ItemMetadata
 
 	init(metadata: ItemMetadata) {
 		self.metadata = metadata
@@ -47,7 +48,16 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		case .folder:
 			return "public.folder"
 		default:
-			return "public.image"
+			let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: false)
+			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(
+				kUTTagClassFilenameExtension,
+				remoteURL.pathExtension as CFString,
+				nil
+				){
+				return typeIdentifier.takeRetainedValue() as String
+			} else {
+				return "public.file"
+			}
 		}
 	}
 
@@ -57,5 +67,33 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 
 	public var isDownloaded: Bool {
 		return metadata.statusCode == .isDownloaded
+	}
+
+	public var isDownloading: Bool {
+		return metadata.statusCode == .isDownloading
+	}
+
+	public var isUploading: Bool {
+		return metadata.statusCode == .isUploading
+	}
+
+	public var isUploaded: Bool {
+		return metadata.statusCode != .isUploading
+	}
+
+	public var contentModificationDate: Date? {
+		return metadata.lastModifiedDate
+	}
+
+	public var isTrashed: Bool {
+		return false
+	}
+
+	public var childItemCount: NSNumber? {
+		return nil
+	}
+
+	public var isMostRecentVersionDownloaded: Bool {
+		return true
 	}
 }

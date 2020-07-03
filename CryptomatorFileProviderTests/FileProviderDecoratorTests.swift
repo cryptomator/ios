@@ -8,8 +8,8 @@
 
 import CryptomatorCloudAccess
 import GRDB
-import XCTest
 import Promises
+import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorTests: XCTestCase {
 	var decorator: FileProviderDecorator!
@@ -66,19 +66,19 @@ class FileProviderDecoratorTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
-	func testLocalFileIsCurrentForNewerVersionInCloud() throws {
+	func testLocalFileIsCurrentForCloudLastModifiedDateIsNil() throws {
 		let expectation = XCTestExpectation()
-		let itemIdentifier = NSFileProviderItemIdentifier("3")
+		let mockedDecorator = decorator as? FileProviderDecoratorMock
+		mockedDecorator?.internalProvider.setLastModifiedDate(nil, for: URL(fileURLWithPath: "/File 1", isDirectory: false))
 		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then{ _ in
+		let itemIdentifier = NSFileProviderItemIdentifier("3")
+		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
 			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
-		}.then{ _ -> Promise<Bool> in
-			let mockedDecorator = self.decorator as? FileProviderDecoratorMock
-			mockedDecorator?.internalProvider.setLastModifiedDate(Date(timeIntervalSince1970: 100), for: URL(fileURLWithPath: "/File 1", isDirectory: false))
-			return self.decorator.localFileIsCurrent(with: itemIdentifier)
-		}.then{ result in
+		}.then { _ in
+			self.decorator.localFileIsCurrent(with: itemIdentifier)
+		}.then { result in
 			XCTAssertFalse(result)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -88,9 +88,67 @@ class FileProviderDecoratorTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	func testLocalFileIsCurrentForNewerVersionInCloud() throws {
+		let expectation = XCTestExpectation()
+		let itemIdentifier = NSFileProviderItemIdentifier("3")
+		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
+		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
+			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
+		}.then { _ -> Promise<Bool> in
+			let mockedDecorator = self.decorator as? FileProviderDecoratorMock
+			mockedDecorator?.internalProvider.setLastModifiedDate(Date(timeIntervalSince1970: 100), for: URL(fileURLWithPath: "/File 1", isDirectory: false))
+			return self.decorator.localFileIsCurrent(with: itemIdentifier)
+		}.then { result in
+			XCTAssertFalse(result)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
 
+	func testLocalFileIsCurrentForCloudLastModifiedDateIsEqual() throws {
+		let expectation = XCTestExpectation()
+		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
+		let itemIdentifier = NSFileProviderItemIdentifier("3")
+		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
+			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
+		}.then { _ in
+			self.decorator.localFileIsCurrent(with: itemIdentifier)
+		}.then { result in
+			XCTAssert(result)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
 
-
+	func testCreatePlaceholderItemForFile() throws {
+		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+		let actualFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
+		let expectedRemoteURL = URL(fileURLWithPath: "/FileNotYetUploaded", isDirectory: false)
+		XCTAssertEqual("2", actualFileProviderItem.itemIdentifier.rawValue)
+		XCTAssertEqual("FileNotYetUploaded", actualFileProviderItem.filename)
+		XCTAssertEqual("dyn.age8u", actualFileProviderItem.typeIdentifier)
+		XCTAssertEqual(0, actualFileProviderItem.documentSize)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, actualFileProviderItem.parentItemIdentifier)
+		XCTAssertNotNil(actualFileProviderItem.contentModificationDate)
+		XCTAssert(actualFileProviderItem.isUploading)
+		XCTAssertEqual(expectedRemoteURL.relativePath, actualFileProviderItem.metadata.remotePath)
+		XCTAssert(actualFileProviderItem.metadata.isPlaceholderItem)
+		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: actualFileProviderItem.metadata.id!)
+		XCTAssertNotNil(localLastModifiedDate)
+	}
 }
 
 extension FileProviderItem {

@@ -32,12 +32,12 @@ class CachedFileManager {
 	 } */
 	// TODO: use later a DB Pool.. dbQueue is only for demo as it supports in-memory DB
 	let dbQueue: DatabaseQueue
-	init(with dbQueue: DatabaseQueue) throws{
+	init(with dbQueue: DatabaseQueue) throws {
 		self.dbQueue = dbQueue
 		// TODO: Use Migrator to create DB
 		try dbQueue.write { db in
 			try db.create(table: CachedEntry.databaseTableName) { table in
-				table.column(CachedEntry.correspondingItemKey, .integer).primaryKey() //TODO: Add Reference to ItemMetadata Table in Migrator
+				table.column(CachedEntry.correspondingItemKey, .integer).primaryKey() // TODO: Add Reference to ItemMetadata Table in Migrator
 				table.column(CachedEntry.lastModifiedDateKey, .text)
 			}
 		}
@@ -53,9 +53,22 @@ class CachedFileManager {
 		return lastModifiedDateLocal == lastModifiedDateInCloud
 	}
 
+	func getLastModifiedDate(for identifier: Int64) throws -> Date? {
+		let fetchedEntry = try dbQueue.read { db in
+			return try CachedEntry.fetchOne(db, key: identifier)
+		}
+		return fetchedEntry?.lastModifiedDate
+	}
+
 	func cacheLocalFileInfo(for identifier: Int64, lastModifiedDate: Date?) throws {
 		try dbQueue.write { db in
 			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier).save(db)
+		}
+	}
+
+	func removeCachedEntry(for identifier: Int64) throws {
+		_ = try dbQueue.write { db in
+			try CachedEntry.deleteOne(db, key: identifier)
 		}
 	}
 }

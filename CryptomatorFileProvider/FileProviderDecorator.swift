@@ -29,6 +29,9 @@ public class FileProviderDecorator {
 		self.itemMetadataManager = try MetadataManager(with: inMemoryDB)
 		self.cachedFileManager = try CachedFileManager(with: inMemoryDB)
 		self.homeRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+
+		// MARK: Demo Content for FileProviderExtension
+
 		let emptyContent = ""
 		for i in 0 ... 5 {
 			try FileManager.default.createDirectory(at: homeRoot.appendingPathComponent("Folder \(i)", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
@@ -57,7 +60,6 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		print(type(of: provider))
 		return provider.fetchItemList(forFolderAt: remoteURL, withPageToken: pageToken).then { itemList -> FileProviderItemList in
 			var metadatas = [ItemMetadata]()
 			for cloudItem in itemList.items {
@@ -105,36 +107,6 @@ public class FileProviderDecorator {
 		return itemMetadata
 	}
 
-	/**
-	 - Precondition: The file associated with the ItemIdentifier (this can be an older version), is located at the local URL associated with the ItemIdentifier.
-	 */
-	/* func startProvidingLocalItem(for identifier: NSFileProviderItemIdentifier) -> Promise<Void>{
-	 	let metadata: ItemMetadata
-	 	do{
-	 		metadata = try getCachedMetadata(for: identifier)
-	 	} catch{
-	 		return Promise(error)
-	 	}
-	 	let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
-
-	 	/*
-	 	if fileIsCurrent {
-	 	 	callCompletion(nil)
-	 	 } else {
-	 	 	if localFileHasChanges {
-	 	 		// in this case, a version of the file is on disk, but we know of a more recent version
-	 	 		// we need to implement a strategy to resolve this conflict
-	 	 		moveLocalFileAside()
-	 	 		scheduleUploadOfLocalFile()
-	 	 		downloadRemoteFile()
-	 	 		callCompletion(downloadErrorOrNil)
-	 	 	} else {
-	 	 		downloadRemoteFile()
-	 	 		callCompletion(downloadErrorOrNil)
-	 	 	}
-	 	 }*/
-	 } */
-
 	public func localFileIsCurrent(with identifier: NSFileProviderItemIdentifier) -> Promise<Bool> {
 		let metadata: ItemMetadata
 		do {
@@ -163,13 +135,41 @@ public class FileProviderDecorator {
 			return Promise(error)
 		}
 		let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
-		return provider.downloadFile(from: remoteURL, to: localURL).then{
+		return provider.downloadFile(from: remoteURL, to: localURL).then {
 			try self.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, lastModifiedDate: metadata.lastModifiedDate)
 		}
 	}
 
 	func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
 		provider.fetchItemMetadata(at: remoteURL).then { _ in
+
+			// MARK: Discuss if fetchItem should cache every time
 		}
+	}
+
+	public func createPlaceholderItemForFile(for localURL: URL, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
+		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
+		let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
+		let size = attributes[FileAttributeKey.size] as? Int
+		let typeFile = attributes[FileAttributeKey.type] as? FileAttributeType
+		let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+		if typeFile == FileAttributeType.typeDirectory {
+			throw FileProviderDecoratorError.folderUploadNotSupported
+		}
+		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
+			throw FileProviderDecoratorError.parentFolderNotFound
+		}
+		let parentRemoteURL = URL(fileURLWithPath: parentItemMetadata.remotePath, isDirectory: true)
+		let remoteURL = parentRemoteURL.appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
+		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(placeholderMetadata)
+		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, lastModifiedDate: lastModifiedDate)
+		return FileProviderItem(metadata: placeholderMetadata)
+	}
+
+	public func removePlaceholderItem(with identifier: NSFileProviderItemIdentifier) throws {
+		let id = try convertFileProviderItemIdentifierToInt64(identifier)
+		try itemMetadataManager.removePlaceholderMetadata(with: id)
+		try cachedFileManager.removeCachedEntry(for: id)
 	}
 }

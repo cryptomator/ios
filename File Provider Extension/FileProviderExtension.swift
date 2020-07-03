@@ -12,7 +12,7 @@ import CryptomatorFileProvider
 import FileProvider
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
-	private var decorator: FileProviderDecorator?
+	var decorator: FileProviderDecorator?
 	override init() {
 		super.init()
 	}
@@ -21,19 +21,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		// resolve the given identifier to a record in the model
 		// TODO: implement the actual lookup
 		// TODO: Change domain stuff, decorator init, etc.
-		guard let domain = self.domain else {
-			let identifier = NSFileProviderDomainIdentifier("testDomain")
-			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
-			NSFileProviderManager.add(testDomain) { error in
-				if let error = error {
-					print("Domain Registration Error: \(error)")
-				}
-			}
-			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
-		}
-		if decorator == nil {
-			decorator = try FileProviderDecorator(for: domain.identifier)
-		}
+		try demoDomain()
 		return try decorator!.getFileProviderItem(for: identifier)
 	}
 
@@ -61,16 +49,17 @@ class FileProviderExtension: NSFileProviderExtension {
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
+		print("start provided Placeholder at: \(url)")
 		guard let identifier = persistentIdentifierForItem(at: url) else {
 			completionHandler(NSFileProviderError(.noSuchItem))
 			return
 		}
-
 		do {
 			let fileProviderItem = try item(for: identifier)
 			let placeholderURL = NSFileProviderManager.placeholderURL(for: url)
 			try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 			try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: fileProviderItem)
+			print("success provided Placeholder at: \(url)")
 			completionHandler(nil)
 		} catch {
 			completionHandler(error)
@@ -103,8 +92,40 @@ class FileProviderExtension: NSFileProviderExtension {
 		     }
 		 }
 		 */
-
-		completionHandler(NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:]))
+		do {
+			try demoDomain()
+		} catch {
+			completionHandler(error)
+			return
+		}
+		guard let identifier = persistentIdentifierForItem(at: url) else {
+			completionHandler(NSFileProviderError(.noSuchItem))
+			return
+		}
+		if !fileManager.fileExists(atPath: url.path) {
+			decorator!.downloadFile(with: identifier, to: url).then {
+				completionHandler(nil)
+			}.catch { error in
+				completionHandler(error)
+			}
+		} else {
+			decorator!.localFileIsCurrent(with: identifier).then { isCurrent in
+				if isCurrent {
+					completionHandler(nil)
+				} else {
+					// TODO: Implement the following Logic
+					// Move LocalFile in Tmp Folder
+					// Call import Document
+					// after completionHandler returned (immediately) delete localFile in tmp folder
+					self.decorator!.downloadFile(with: identifier, to: url).then {
+						completionHandler(nil)
+					}.catch { error in
+						completionHandler(error)
+					}
+				}
+			}
+		}
+		// completionHandler(NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:]))
 	}
 
 	override func itemChanged(at _: URL) {
@@ -176,6 +197,8 @@ class FileProviderExtension: NSFileProviderExtension {
 			NSFileProviderManager.add(testDomain) { error in
 				if let error = error {
 					print("Domain Registration Error: \(error)")
+				} else {
+					print("domain registered")
 				}
 			}
 			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
@@ -185,6 +208,22 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 		print("enumerator containerIdentifier: \(containerItemIdentifier)")
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator!)
+	}
+
+	func demoDomain() throws {
+		guard let domain = self.domain else {
+			let identifier = NSFileProviderDomainIdentifier("testDomain")
+			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
+			NSFileProviderManager.add(testDomain) { error in
+				if let error = error {
+					print("Domain Registration Error: \(error)")
+				}
+			}
+			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
+		}
+		if decorator == nil {
+			decorator = try FileProviderDecorator(for: domain.identifier)
+		}
 	}
 }
 

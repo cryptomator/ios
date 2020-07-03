@@ -17,6 +17,10 @@
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
 		4A2245D524A5E16300DBA437 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
+		4A237E3224ACE66A003CEB1F /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; };
+		4A237E3324ACE66A003CEB1F /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A237E3724ACE72E003CEB1F /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
+		4A237E3824ACE72E003CEB1F /* CryptomatorFileProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A30FD2B24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */; };
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
 		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthentication.swift */; };
@@ -53,14 +57,15 @@
 		4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */; };
 		4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */; };
 		4A837C7B248ABBD300223222 /* MockDropboxAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C7A248ABBD300223222 /* MockDropboxAuthenticationTests.swift */; };
+		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */; };
 		4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */; };
 		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
 		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
 		4AA621EE249A6A8400A0BCBD /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
+		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4ADB470624A39AA8004DE115 /* CryptomatorFileProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -92,6 +97,20 @@
 
 /* Begin PBXContainerItemProxy section */
 		4A2245D624A5E16300DBA437 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4ADB470124A39AA8004DE115;
+			remoteInfo = CryptomatorFileProvider;
+		};
+		4A237E3424ACE66A003CEB1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A5E5B602453121400BD6298;
+			remoteInfo = CloudAccessPrivate;
+		};
+		4A237E3924ACE72E003CEB1F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
@@ -164,6 +183,28 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		4A237E3624ACE66A003CEB1F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A237E3324ACE66A003CEB1F /* CloudAccessPrivate.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A237E3B24ACE72E003CEB1F /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4A237E3824ACE72E003CEB1F /* CryptomatorFileProvider.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A44EC2F246BEB9700950BBF /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +294,7 @@
 		4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A837C7A248ABBD300223222 /* MockDropboxAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxAuthenticationTests.swift; sourceTree = "<group>"; };
+		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "File Provider Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderExtension.swift; sourceTree = "<group>"; };
 		4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderEnumerator.swift; sourceTree = "<group>"; };
@@ -262,8 +304,8 @@
 		4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentActionViewController.swift; sourceTree = "<group>"; };
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
+		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
 		4ADB470524A39AA8004DE115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -363,6 +405,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A237E3724ACE72E003CEB1F /* CryptomatorFileProvider.framework in Frameworks */,
 				757C25C6F1BAD3A4487F951D /* Pods_File_Provider_Extension.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -378,6 +421,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A237E3224ACE66A003CEB1F /* CloudAccessPrivate.framework in Frameworks */,
 				478CC04D345BFC495EE4F617 /* Pods_CryptomatorFileProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -600,10 +644,20 @@
 			path = Dropbox;
 			sourceTree = "<group>";
 		};
+		4A91CD7224A204F600946270 /* LocalFileSystem */ = {
+			isa = PBXGroup;
+			children = (
+				4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */,
+				4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */,
+			);
+			path = LocalFileSystem;
+			sourceTree = "<group>";
+		};
 		4AA621D7249A6A8400A0BCBD /* File Provider Extension */ = {
 			isa = PBXGroup;
 			children = (
 				4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */,
+				4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */,
 				4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */,
 				4AA621DE249A6A8400A0BCBD /* Info.plist */,
 				4AA621DF249A6A8400A0BCBD /* File_Provider_Extension.entitlements */,
@@ -634,15 +688,6 @@
 				4ADB471624A49CEC004DE115 /* ItemStatus.swift */,
 			);
 			path = CryptomatorFileProvider;
-			sourceTree = "<group>";
-		};
-		4A91CD7224A204F600946270 /* LocalFileSystem */ = {
-			isa = PBXGroup;
-			children = (
-				4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */,
-				4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */,
-			);
-			path = LocalFileSystem;
 			sourceTree = "<group>";
 		};
 		4AE554EC248158D70016E313 /* Dropbox */ = {
@@ -862,10 +907,12 @@
 				4AA621D2249A6A8400A0BCBD /* Sources */,
 				4AA621D3249A6A8400A0BCBD /* Frameworks */,
 				4AA621D4249A6A8400A0BCBD /* Resources */,
+				4A237E3B24ACE72E003CEB1F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4A237E3A24ACE72E003CEB1F /* PBXTargetDependency */,
 			);
 			name = "File Provider Extension";
 			productName = "File Provider Extension";
@@ -898,10 +945,12 @@
 				4ADB46FE24A39AA8004DE115 /* Sources */,
 				4ADB46FF24A39AA8004DE115 /* Frameworks */,
 				4ADB470024A39AA8004DE115 /* Resources */,
+				4A237E3624ACE66A003CEB1F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4A237E3524ACE66A003CEB1F /* PBXTargetDependency */,
 			);
 			name = CryptomatorFileProvider;
 			productName = CryptomatorFileProvider;
@@ -1466,6 +1515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */,
+				4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */,
 				4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1526,6 +1576,17 @@
 			isa = PBXTargetDependency;
 			target = 4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */;
 			targetProxy = 4A2245D624A5E16300DBA437 /* PBXContainerItemProxy */;
+		};
+		4A237E3524ACE66A003CEB1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
+			targetProxy = 4A237E3424ACE66A003CEB1F /* PBXContainerItemProxy */;
+		};
+		4A237E3A24ACE72E003CEB1F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */;
+			targetProxy = 4A237E3924ACE72E003CEB1F /* PBXContainerItemProxy */;
 		};
 		4A44EC2E246BEB9700950BBF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

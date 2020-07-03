@@ -70,4 +70,10 @@ class MetadataManager {
 		}
 		return itemMetadata
 	}
+
+	func removePlaceholderMetadata(with identifier: Int64) throws {
+		_ = try dbQueue.write { db in
+			try ItemMetadata.deleteOne(db, key: identifier)
+		}
+	}
 }

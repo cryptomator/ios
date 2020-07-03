@@ -9,4 +9,7 @@
 import Foundation
 enum FileProviderDecoratorError: Error {
 	case unsupportedItemIdentifier
+	case folderUploadNotSupported
+	case parentFolderNotFound
+	case parentItemTypeMismatch
 }

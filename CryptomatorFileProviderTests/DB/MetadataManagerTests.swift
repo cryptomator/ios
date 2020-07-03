@@ -101,7 +101,7 @@ class MetadataManagerTests: XCTestCase {
 		try manager.cacheMetadatas([placeholderItemMetadataForFile, placeholderItemMetadataForFolder])
 		XCTAssertNotNil(placeholderItemMetadataForFile.id)
 		guard let testFolderId = placeholderItemMetadataForFolder.id else {
-			XCTFail("Test Folder Id is nil")
+			XCTFail("Test Folder ID is nil")
 			return
 		}
 		let itemMetadataForFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentId: testFolderId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteSecondFolderURL.relativePath, isPlaceholderItem: true)
