@@ -149,6 +149,18 @@ class FileProviderDecoratorTests: XCTestCase {
 		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: actualFileProviderItem.metadata.id!)
 		XCTAssertNotNil(localLastModifiedDate)
 	}
+
+	/*func testUploadFile() throws {
+		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
+
+		decorator.uploadFile(from: localURL, with: placeholderFileProviderItem.itemIdentifier).then{
+			
+		}
+	}*/
 }
 
 extension FileProviderItem {

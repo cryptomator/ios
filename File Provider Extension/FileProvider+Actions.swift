@@ -11,6 +11,7 @@ import FileProvider
 import Foundation
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		//return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		DispatchQueue.main.async {
 			autoreleasepool {
 				if !fileURL.startAccessingSecurityScopedResource() {
@@ -27,9 +28,11 @@ extension FileProviderExtension {
 				}
 				var fileManagerError: NSFileProviderError?
 				NSFileCoordinator().coordinate(readingItemAt: fileURL, options: .withoutChanges, error: nil) { _ in
-					// TODO: better error handling
+					// TODO: better error handling, createDirectory does not need Coordinator!
 					do {
+						try self.fileManager.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 						try self.fileManager.copyItem(at: fileURL, to: localURL)
+						print("copied item to: \(localURL)")
 					} catch {
 						fileManagerError = NSFileProviderError(.noSuchItem)
 					}

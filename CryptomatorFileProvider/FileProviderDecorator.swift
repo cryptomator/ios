@@ -35,7 +35,7 @@ public class FileProviderDecorator {
 		let emptyContent = ""
 		for i in 0 ... 5 {
 			try FileManager.default.createDirectory(at: homeRoot.appendingPathComponent("Folder \(i)", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-			try emptyContent.write(to: homeRoot.appendingPathComponent("File \(i)", isDirectory: false), atomically: true, encoding: .utf8)
+			try emptyContent.write(to: homeRoot.appendingPathComponent("File \(i).txt", isDirectory: false), atomically: true, encoding: .utf8)
 		}
 	}
 
@@ -171,5 +171,37 @@ public class FileProviderDecorator {
 		let id = try convertFileProviderItemIdentifierToInt64(identifier)
 		try itemMetadataManager.removePlaceholderMetadata(with: id)
 		try cachedFileManager.removeCachedEntry(for: id)
+	}
+
+	/**
+	- Precondition: `identifier.rawValue ` can be casted to a positive Int64 value
+	- Precondition: the metadata associated with the `identifier` is stored in the database
+	- Precondition: `localURL` must be a file URL
+	- Precondition: `localURL` must point to a file
+	- Postcondition: the `ItemMetadata` entry associated with the `identifier` has the statusCode: `ItemStatus.isUploading`
+	- Postcondition: the UploadTask was registered in the UploadQueue (specify that more precisely)
+	- Returns: Empty Promise. If the upload fails, promise is rejected with:
+		- `NSFileProviderError.noSuchItem` if the file does not exist at `localURL`
+		- `NSFileProviderError.noSuchItem` if the item metadata does not exist in the database
+		- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
+		- `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`
+		- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
+
+	*/
+	public func uploadFile(from localURL: URL, with identifier: NSFileProviderItemIdentifier) ->Promise<Void> {
+		precondition(localURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath)
+		let id: Int64
+		do{
+			id = try convertFileProviderItemIdentifierToInt64(identifier)
+
+		} catch {
+			return Promise(NSFileProviderError(.noSuchItem))
+		}
+		guard let metadata = try? itemMetadataManager.getCachedMetadata(for: id) else {
+			return Promise(NSFileProviderError(.noSuchItem))
+		}
+		
+
 	}
 }

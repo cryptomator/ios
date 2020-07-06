@@ -13,27 +13,46 @@ import FileProvider
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
 	var decorator: FileProviderDecorator?
+	var observation: NSKeyValueObservation?
+	var manager: NSFileProviderManager?
 	override init() {
 		super.init()
+		observation = observe(
+			\.self.domain,
+            options: [.old, .new]
+        ) { object, change in
+            print("domain changed from: \(change.oldValue!), updated to: \(change.newValue!)")
+			if let domain = self.domain {
+				self.decorator = try? FileProviderDecorator(for: domain.identifier)
+				self.manager = NSFileProviderManager(for: domain)
+			}
+        }
 	}
 
 	override func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		// resolve the given identifier to a record in the model
 		// TODO: implement the actual lookup
 		// TODO: Change domain stuff, decorator init, etc.
-		try demoDomain()
-		return try decorator!.getFileProviderItem(for: identifier)
+		guard let decorator = self.decorator else {
+			// no domain ==> no installed vault
+			// TODO: Change error Code here
+			throw NSFileProviderError(.notAuthenticated)
+		}
+		return try decorator.getFileProviderItem(for: identifier)
 	}
 
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
 		// resolve the given identifier to a file on disk
+
 		guard let item = try? item(for: identifier) else {
 			return nil
 		}
 
 		// in this implementation, all paths are structured as <base storage directory>/<item identifier>/<item file name>
-		let manager = NSFileProviderManager.default
-		let perItemDirectory = manager.documentStorageURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		let domainDocumentStorage = domain!.pathRelativeToDocumentStorage
+        let manager = NSFileProviderManager.default
+        let domainURL = manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
+		let perItemDirectory = domainURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
 		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
 	}
 
@@ -49,7 +68,6 @@ class FileProviderExtension: NSFileProviderExtension {
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
-		print("start provided Placeholder at: \(url)")
 		guard let identifier = persistentIdentifierForItem(at: url) else {
 			completionHandler(NSFileProviderError(.noSuchItem))
 			return
@@ -59,7 +77,6 @@ class FileProviderExtension: NSFileProviderExtension {
 			let placeholderURL = NSFileProviderManager.placeholderURL(for: url)
 			try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 			try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: fileProviderItem)
-			print("success provided Placeholder at: \(url)")
 			completionHandler(nil)
 		} catch {
 			completionHandler(error)
@@ -92,10 +109,10 @@ class FileProviderExtension: NSFileProviderExtension {
 		     }
 		 }
 		 */
-		do {
-			try demoDomain()
-		} catch {
-			completionHandler(error)
+		guard let decorator = self.decorator else {
+			// no domain ==> no installed vault
+			// TODO: Change error Code here
+			completionHandler(NSFileProviderError(.notAuthenticated))
 			return
 		}
 		guard let identifier = persistentIdentifierForItem(at: url) else {
@@ -103,13 +120,13 @@ class FileProviderExtension: NSFileProviderExtension {
 			return
 		}
 		if !fileManager.fileExists(atPath: url.path) {
-			decorator!.downloadFile(with: identifier, to: url).then {
+			decorator.downloadFile(with: identifier, to: url).then {
 				completionHandler(nil)
 			}.catch { error in
 				completionHandler(error)
 			}
 		} else {
-			decorator!.localFileIsCurrent(with: identifier).then { isCurrent in
+			decorator.localFileIsCurrent(with: identifier).then { isCurrent in
 				if isCurrent {
 					completionHandler(nil)
 				} else {
@@ -117,7 +134,7 @@ class FileProviderExtension: NSFileProviderExtension {
 					// Move LocalFile in Tmp Folder
 					// Call import Document
 					// after completionHandler returned (immediately) delete localFile in tmp folder
-					self.decorator!.downloadFile(with: identifier, to: url).then {
+					decorator.downloadFile(with: identifier, to: url).then {
 						completionHandler(nil)
 					}.catch { error in
 						completionHandler(error)
@@ -191,40 +208,30 @@ class FileProviderExtension: NSFileProviderExtension {
 		 return enumerator
 		 */
 		// TODO: Change error handling here
-		guard let domain = self.domain else {
-			let identifier = NSFileProviderDomainIdentifier("testDomain")
-			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
-			NSFileProviderManager.add(testDomain) { error in
-				if let error = error {
-					print("Domain Registration Error: \(error)")
-				} else {
-					print("domain registered")
-				}
-			}
-			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
+//		try demoDomain()
+		guard let decorator = self.decorator else {
+			// no domain ==> no installed vault
+			// TODO: Change error Code here
+			throw NSFileProviderError(.notAuthenticated)
 		}
-		if decorator == nil {
-			decorator = try FileProviderDecorator(for: domain.identifier)
-		}
-		print("enumerator containerIdentifier: \(containerItemIdentifier)")
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator!)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator)
 	}
 
-	func demoDomain() throws {
-		guard let domain = self.domain else {
-			let identifier = NSFileProviderDomainIdentifier("testDomain")
-			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "/Test/")
-			NSFileProviderManager.add(testDomain) { error in
-				if let error = error {
-					print("Domain Registration Error: \(error)")
-				}
-			}
-			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
-		}
-		if decorator == nil {
-			decorator = try FileProviderDecorator(for: domain.identifier)
-		}
-	}
+//	func demoDomain() throws {
+//		guard let domain = self.domain else {
+//			let identifier = NSFileProviderDomainIdentifier("testDomain")
+//			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "Test")
+//			NSFileProviderManager.add(testDomain) { error in
+//				if let error = error {
+//					print("Domain Registration Error: \(error)")
+//				}
+//			}
+//			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
+//		}
+//		if decorator == nil {
+//			decorator = try FileProviderDecorator(for: domain.identifier)
+//		}
+//	}
 }
 
 extension URL {
