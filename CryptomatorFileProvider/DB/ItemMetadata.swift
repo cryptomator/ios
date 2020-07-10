@@ -27,19 +27,29 @@ class ItemMetadata: Record {
 	let size: Int?
 	let parentId: Int64
 	let lastModifiedDate: Date?
-	let statusCode: ItemStatus
+	var statusCode: ItemStatus
 	let remotePath: String
-	let isPlaceholderItem: Bool
+	var isPlaceholderItem: Bool
+	static let idKey = "id"
+	static let nameKey = "name"
+	static let typeKey = "type"
+	static let sizeKey = "size"
+	static let parentIdKey = "parentId"
+	static let lastModifiedDateKey = "lastModifiedDate"
+	static let statusCodeKey = "statusCode"
+	static let remotePathKey = "remotePath"
+	static let isPlaceholderItemKey = "isPlaceholderItem"
+
 	required init(row: Row) {
-		self.id = row[Column.rowID]
-		self.name = row["name"]
-		self.type = row["type"]
-		self.size = row["size"]
-		self.parentId = row["parentId"]
-		self.lastModifiedDate = row["lastModifiedDate"]
-		self.statusCode = row["statusCode"]
-		self.remotePath = row["remotePath"]
-		self.isPlaceholderItem = row["isPlaceholderItem"]
+		self.id = row[ItemMetadata.idKey]
+		self.name = row[ItemMetadata.nameKey]
+		self.type = row[ItemMetadata.typeKey]
+		self.size = row[ItemMetadata.sizeKey]
+		self.parentId = row[ItemMetadata.parentIdKey]
+		self.lastModifiedDate = row[ItemMetadata.lastModifiedDateKey]
+		self.statusCode = row[ItemMetadata.statusCodeKey]
+		self.remotePath = row[ItemMetadata.remotePathKey]
+		self.isPlaceholderItem = row[ItemMetadata.isPlaceholderItemKey]
 		super.init(row: row)
 	}
 
@@ -61,15 +71,15 @@ class ItemMetadata: Record {
 	}
 
 	override func encode(to container: inout PersistenceContainer) {
-		container[Column.rowID] = id
-		container["name"] = name
-		container["type"] = type
-		container["size"] = size
-		container["parentId"] = parentId
-		container["lastModifiedDate"] = lastModifiedDate
-		container["statusCode"] = statusCode
-		container["remotePath"] = remotePath
-		container["isPlaceholderItem"] = isPlaceholderItem
+		container[ItemMetadata.idKey] = id
+		container[ItemMetadata.nameKey] = name
+		container[ItemMetadata.typeKey] = type
+		container[ItemMetadata.sizeKey] = size
+		container[ItemMetadata.parentIdKey] = parentId
+		container[ItemMetadata.lastModifiedDateKey] = lastModifiedDate
+		container[ItemMetadata.statusCodeKey] = statusCode
+		container[ItemMetadata.remotePathKey] = remotePath
+		container[ItemMetadata.isPlaceholderItemKey] = isPlaceholderItem
 	}
 }
 

@@ -27,6 +27,7 @@ class MetadataManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "TestFile", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
 		XCTAssertNil(itemMetadata.id)
 		try manager.cacheMetadata(itemMetadata)
+		XCTAssertNotNil(itemMetadata.id)
 		guard let fetchedMetadata = try manager.getCachedMetadata(for: remoteURL.relativePath) else {
 			XCTFail("ItemMetadata not cached properly")
 			return
@@ -110,6 +111,31 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertNotNil(itemMetadataForFolder.id)
 		let fetchedPlaceholderItems = try manager.getPlaceholderMetadata(for: MetadataManager.rootContainerId)
 		XCTAssert(fetchedPlaceholderItems.isEmpty)
+	}
+
+	func testOverwriteMetadata() throws {
+		let remoteURL = URL(fileURLWithPath: "/TestFolder/", isDirectory: true)
+
+		let itemMetadata = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadata)
+		guard let id = itemMetadata.id else {
+			XCTFail("Metadata has no id")
+			return
+		}
+		guard let fetchedItemMetadata = try manager.getCachedMetadata(for: id) else {
+			XCTFail("Metadata not stored correctly")
+			return
+		}
+		XCTAssertEqual(itemMetadata, fetchedItemMetadata)
+		let changedItemMetadataAtSameRemoteURL = ItemMetadata(name: "TestFolder", type: .folder, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadata(changedItemMetadataAtSameRemoteURL)
+
+		XCTAssertEqual(id, changedItemMetadataAtSameRemoteURL.id)
+		guard let fetchedChangedItemMetadata = try manager.getCachedMetadata(for: id) else {
+			XCTFail("Metadata not stored correctly")
+			return
+		}
+		XCTAssertEqual(changedItemMetadataAtSameRemoteURL, fetchedChangedItemMetadata)
 	}
 }
 

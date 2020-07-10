@@ -37,7 +37,7 @@ class CachedFileManager {
 		// TODO: Use Migrator to create DB
 		try dbQueue.write { db in
 			try db.create(table: CachedEntry.databaseTableName) { table in
-				table.column(CachedEntry.correspondingItemKey, .integer).primaryKey() // TODO: Add Reference to ItemMetadata Table in Migrator
+				table.column(CachedEntry.correspondingItemKey, .integer).primaryKey(onConflict: .replace).references(ItemMetadata.databaseTableName) // TODO: Add Reference to ItemMetadata Table in Migrator
 				table.column(CachedEntry.lastModifiedDateKey, .text)
 			}
 		}

@@ -18,13 +18,14 @@ class MetadataManager {
 		// TODO: Use Migrator to create DB
 		try dbQueue.write { db in
 			try db.create(table: ItemMetadata.databaseTableName) { table in
+				table.autoIncrementedPrimaryKey("id")
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
 				table.column("parentId", .integer).notNull()
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .integer).notNull()
-				table.column("remotePath", .text).unique(onConflict: .replace)
+				table.column("remotePath", .text).unique()
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
 			}
 			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
@@ -34,15 +35,32 @@ class MetadataManager {
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
-		try dbQueue.write { db in
-			try metadata.save(db)
+		if let cachedMetadata = try getCachedMetadata(for: metadata.remotePath) {
+			metadata.id = cachedMetadata.id
+			try updateMetadata(metadata)
+		} else {
+			try dbQueue.write { db in
+				try metadata.save(db)
+			}
 		}
 	}
 
+	func updateMetadata(_ metadata: ItemMetadata) throws {
+		try dbQueue.write { db in
+			try metadata.update(db)
+		}
+	}
+
+	// TODO: Optimize Code and/or DB Scheme
 	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws {
 		try dbQueue.inTransaction { db in
 			for metadata in metadatas {
-				try metadata.insert(db)
+				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["remotePath": metadata.remotePath]) {
+					metadata.id = cachedMetadata.id
+					try metadata.update(db)
+				} else {
+					try metadata.insert(db)
+				}
 			}
 			return .commit
 		}
@@ -71,9 +89,18 @@ class MetadataManager {
 		return itemMetadata
 	}
 
-	func removePlaceholderMetadata(with identifier: Int64) throws {
+	func removeItemMetadata(with identifier: Int64) throws {
 		_ = try dbQueue.write { db in
 			try ItemMetadata.deleteOne(db, key: identifier)
 		}
+	}
+
+	func cachePlaceholderMetadata(_ metadata: ItemMetadata) throws {
+		_ = try dbQueue.write { _ in
+		}
+	}
+
+	func resolveLocalNameCollision(for metadata: ItemMetadata) throws {
+		let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
 	}
 }

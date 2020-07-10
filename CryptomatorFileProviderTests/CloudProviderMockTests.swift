@@ -59,4 +59,78 @@ class CloudProviderMockTests: XCTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
+
+	func testUploadFileSimulatedErrors() {
+		let itemNotFoundExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemNotFound")
+		let provider = CloudProviderMock()
+		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
+		let remoteURLForItemNotFound = URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false)
+
+		provider.uploadFile(from: localURL, to: remoteURLForItemNotFound, replaceExisting: false).then { _ in
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.itemNotFound = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+		}.always {
+			itemNotFoundExpectation.fulfill()
+		}
+		wait(for: [itemNotFoundExpectation], timeout: 1.0)
+		let itemAlreadyExistsExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemAlreadyExists")
+		let remoteURLForItemAlreadyExists = URL(fileURLWithPath: "/itemAlreadyExists.txt", isDirectory: false)
+		provider.uploadFile(from: localURL, to: remoteURLForItemAlreadyExists, replaceExisting: false).then { _ in
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.itemAlreadyExists = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+		}.always {
+			itemAlreadyExistsExpectation.fulfill()
+		}
+		wait(for: [itemAlreadyExistsExpectation], timeout: 1.0)
+
+		let quotaInsufficientExpectation = XCTestExpectation(description: "provider throw CloudProviderError.quotaInsufficient")
+		let remoteURLForQuotaInsufficient = URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false)
+		provider.uploadFile(from: localURL, to: remoteURLForQuotaInsufficient, replaceExisting: false).then { _ in
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.quotaInsufficient = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+		}.always {
+			quotaInsufficientExpectation.fulfill()
+		}
+		wait(for: [quotaInsufficientExpectation], timeout: 1.0)
+
+		let noInternetConnectionExpectation = XCTestExpectation(description: "provider throw CloudProviderError.noInternetConnection")
+		let remoteURLForNoInternetConnection = URL(fileURLWithPath: "/noInternetConnection.txt", isDirectory: false)
+		provider.uploadFile(from: localURL, to: remoteURLForNoInternetConnection, replaceExisting: false).then { _ in
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.noInternetConnection = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+		}.always {
+			noInternetConnectionExpectation.fulfill()
+		}
+		wait(for: [noInternetConnectionExpectation], timeout: 1.0)
+
+		let unauthorizedExpectation = XCTestExpectation(description: "provider throw CloudProviderError.unauthorized")
+		let remoteURLForUnauthorized = URL(fileURLWithPath: "/unauthorized.txt", isDirectory: false)
+		provider.uploadFile(from: localURL, to: remoteURLForUnauthorized, replaceExisting: false).then { _ in
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case CloudProviderError.unauthorized = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+		}.always {
+			unauthorizedExpectation.fulfill()
+		}
+		wait(for: [unauthorizedExpectation], timeout: 1.0)
+	}
 }

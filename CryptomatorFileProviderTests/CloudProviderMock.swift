@@ -27,12 +27,12 @@ class CloudProviderMock: CloudProvider {
 		"/Directory 1",
 		"/Directory 1/Directory 2"
 	]
-	let files = [
-		"/File 1": "File 1 content".data(using: .utf8)!,
-		"/File 2": "File 2 content".data(using: .utf8)!,
-		"/File 3": "File 3 content".data(using: .utf8)!,
-		"/File 4": "File 4 content".data(using: .utf8)!,
-		"/Directory 1/File 5": "File 5 content".data(using: .utf8)!
+	var files: [String: Data?] = [
+		"/File 1": "File 1 content".data(using: .utf8),
+		"/File 2": "File 2 content".data(using: .utf8),
+		"/File 3": "File 3 content".data(using: .utf8),
+		"/File 4": "File 4 content".data(using: .utf8),
+		"/Directory 1/File 5": "File 5 content".data(using: .utf8)
 	]
 	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
 											 "/Directory 1/Directory 2": nil,
@@ -52,7 +52,7 @@ class CloudProviderMock: CloudProvider {
 		if folders.contains(remoteURL.relativePath) {
 			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .folder, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: 0))
 		} else if let data = files[remoteURL.relativePath] {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data.count))
+			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data!.count))
 		} else {
 			return Promise(CloudProviderError.itemNotFound)
 		}
@@ -82,7 +82,7 @@ class CloudProviderMock: CloudProvider {
 		precondition(!localURL.hasDirectoryPath)
 		if let data = files[remoteURL.relativePath] {
 			do {
-				try data.write(to: localURL, options: .withoutOverwriting)
+				try data!.write(to: localURL, options: .withoutOverwriting)
 			} catch {
 				return Promise(error)
 			}
@@ -93,6 +93,27 @@ class CloudProviderMock: CloudProvider {
 	}
 
 	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+		precondition(localURL.isFileURL)
+		precondition(remoteURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath)
+		precondition(!remoteURL.hasDirectoryPath)
+		switch remoteURL {
+		case URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false):
+			return Promise(CloudProviderError.itemNotFound)
+		case URL(fileURLWithPath: "/itemAlreadyExists.txt", isDirectory: false):
+			return Promise(CloudProviderError.itemAlreadyExists)
+		case URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false):
+			return Promise(CloudProviderError.quotaInsufficient)
+		case URL(fileURLWithPath: "/noInternetConnection.txt", isDirectory: false):
+			return Promise(CloudProviderError.noInternetConnection)
+		case URL(fileURLWithPath: "/unauthorized.txt", isDirectory: false):
+			return Promise(CloudProviderError.unauthorized)
+		default:
+			return normalUpload(from: localURL, to: remoteURL)
+		}
+	}
+
+	private func normalUpload(from localURL: URL, to remoteURL: URL) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL)
 		precondition(remoteURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)

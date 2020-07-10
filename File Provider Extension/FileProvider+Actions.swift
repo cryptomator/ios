@@ -11,7 +11,10 @@ import FileProvider
 import Foundation
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		//return completionHandler(nil, NSFileProviderError(.notAuthenticated))
+		print("importDocument called")
+		guard let decorator = self.decorator else {
+			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
+		}
 		DispatchQueue.main.async {
 			autoreleasepool {
 				if !fileURL.startAccessingSecurityScopedResource() {
@@ -19,8 +22,11 @@ extension FileProviderExtension {
 				}
 				let item: FileProviderItem
 				do {
-					item = try self.decorator!.createPlaceholderItemForFile(for: fileURL, in: parentItemIdentifier)
-				} catch {
+					item = try decorator.createPlaceholderItemForFile(for: fileURL, in: parentItemIdentifier)
+				} catch let error as NSError {
+					if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.filenameCollision.rawValue {
+						return completionHandler(nil, error)
+					}
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
 				}
 				guard let localURL = self.urlForItem(withPersistentIdentifier: item.itemIdentifier) else {
@@ -34,6 +40,7 @@ extension FileProviderExtension {
 						try self.fileManager.copyItem(at: fileURL, to: localURL)
 						print("copied item to: \(localURL)")
 					} catch {
+						print("got error in Coordinator: \(error)")
 						fileManagerError = NSFileProviderError(.noSuchItem)
 					}
 				}
@@ -47,11 +54,12 @@ extension FileProviderExtension {
 				completionHandler(item, nil)
 
 				// Network Stuff
-//				do{
-//					try decorator!.
-//				} catch{
-//
-//				}
+				decorator.uploadFile(with: localURL, identifier: item.itemIdentifier).then { _ in
+					// TODO: Signal Enumerator here
+					print("upload completed")
+				}.catch { error in
+					print("uploadFile error: \(error)")
+				}
 			}
 		}
 	}

@@ -19,15 +19,22 @@ public class FileProviderDecorator {
 		return internalProvider
 	}
 
+	private let uploadQueue: DispatchQueue
+	private let downloadQueue: DispatchQueue
+
 	let itemMetadataManager: MetadataManager
 	let cachedFileManager: CachedFileManager
+	let uploadTaskManager: UploadTaskManager
 	var homeRoot: URL
 	public init(for domainIdentifier: NSFileProviderDomainIdentifier) throws {
+		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
+		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		// TODO: Real SetUp with CryptoDecorator, PersistentDBPool, DBMigrator, etc.
 		self.internalProvider = LocalFileSystemProvider()
 		let inMemoryDB = DatabaseQueue()
 		self.itemMetadataManager = try MetadataManager(with: inMemoryDB)
 		self.cachedFileManager = try CachedFileManager(with: inMemoryDB)
+		self.uploadTaskManager = try UploadTaskManager(with: inMemoryDB)
 		self.homeRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
 		// MARK: Demo Content for FileProviderExtension
@@ -159,8 +166,17 @@ public class FileProviderDecorator {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
 			throw FileProviderDecoratorError.parentFolderNotFound
 		}
-		let parentRemoteURL = URL(fileURLWithPath: parentItemMetadata.remotePath, isDirectory: true)
+		// TODO: Remove homeRoot <-- only for demo purpose with LocalFileSystemProvider
+		var parentRemoteURL = URL(fileURLWithPath: parentItemMetadata.remotePath, isDirectory: true)
+		if parentIdentifier == .rootContainer {
+			parentRemoteURL = homeRoot
+		}
 		let remoteURL = parentRemoteURL.appendingPathComponent(localURL.lastPathComponent, isDirectory: false)
+
+		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: remoteURL.relativePath) {
+			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
+		}
+
 		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, lastModifiedDate: lastModifiedDate)
@@ -169,39 +185,106 @@ public class FileProviderDecorator {
 
 	public func removePlaceholderItem(with identifier: NSFileProviderItemIdentifier) throws {
 		let id = try convertFileProviderItemIdentifierToInt64(identifier)
-		try itemMetadataManager.removePlaceholderMetadata(with: id)
+		try itemMetadataManager.removeItemMetadata(with: id)
 		try cachedFileManager.removeCachedEntry(for: id)
 	}
 
-	/**
-	- Precondition: `identifier.rawValue ` can be casted to a positive Int64 value
-	- Precondition: the metadata associated with the `identifier` is stored in the database
-	- Precondition: `localURL` must be a file URL
-	- Precondition: `localURL` must point to a file
-	- Postcondition: the `ItemMetadata` entry associated with the `identifier` has the statusCode: `ItemStatus.isUploading`
-	- Postcondition: the UploadTask was registered in the UploadQueue (specify that more precisely)
-	- Returns: Empty Promise. If the upload fails, promise is rejected with:
-		- `NSFileProviderError.noSuchItem` if the file does not exist at `localURL`
-		- `NSFileProviderError.noSuchItem` if the item metadata does not exist in the database
-		- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
-		- `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`
-		- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
+	public func reportLocalUploadError(for identifier: NSFileProviderItemIdentifier) throws {
+		let id = try convertFileProviderItemIdentifierToInt64(identifier)
+	}
 
-	*/
-	public func uploadFile(from localURL: URL, with identifier: NSFileProviderItemIdentifier) ->Promise<Void> {
+	public func uploadFile(with localURL: URL, identifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
+		let itemMetadata: ItemMetadata
+		do {
+			itemMetadata = try registerFileInUploadQueue(with: localURL, identifier: identifier)
+		} catch {
+			return Promise(error)
+		}
+		return uploadFile(from: localURL, itemMetadata: itemMetadata).recover { error -> Promise<FileProviderItem> in
+			guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
+				return Promise(error)
+			}
+			// TODO: Cloud Filename Collision Handling
+
+			return self.uploadFile(from: localURL, itemMetadata: itemMetadata)
+		}
+	}
+
+	/**
+	  - Precondition: `identifier.rawValue ` can be casted to a positive Int64 value
+	  - Precondition: the metadata associated with the `identifier` is stored in the database
+	  - Precondition: `localURL` must be a file URL
+	  - Precondition: `localURL` must point to a file
+	  - Postcondition: the `ItemMetadata` entry associated with the `identifier` has the statusCode: `ItemStatus.isUploading`
+	  - Postcondition: a new UploadTask was registered for the ItemIdentifier.
+	  - Postcondition: in the local FileInfo table the entry for the passed identifier was updated to the local lastModifiedDate.
+	  - Returns: For convenience, returns the ItemMetadata for the file to upload.
+	  - throws: throws an NSFileProviderError.noSuchItem if the identifier could not be converted or no ItemMetadata exists for the identifier or an error occurs while writing to the database.
+	 */
+	func registerFileInUploadQueue(with localURL: URL, identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
 		let id: Int64
-		do{
+		do {
 			id = try convertFileProviderItemIdentifierToInt64(identifier)
-
 		} catch {
-			return Promise(NSFileProviderError(.noSuchItem))
+			throw NSFileProviderError(.noSuchItem)
 		}
 		guard let metadata = try? itemMetadataManager.getCachedMetadata(for: id) else {
-			return Promise(NSFileProviderError(.noSuchItem))
+			throw NSFileProviderError(.noSuchItem)
 		}
-		
+		metadata.statusCode = ItemStatus.isUploading
+		do {
+			try itemMetadataManager.updateMetadata(metadata)
+			try uploadTaskManager.addNewTask(for: id)
+			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
+			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+			try cachedFileManager.cacheLocalFileInfo(for: id, lastModifiedDate: lastModifiedDate)
+		} catch {
+			throw NSFileProviderError(.noSuchItem)
+		}
+		return metadata
+	}
 
+	/**
+	 - Postcondition: The file is stored under the `remoteURL` of the cloud provider.
+	 - Postcondition: itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false
+	 - Returns: Empty Promise. If the upload fails, promise is rejected with:
+	 	- `NSFileProviderError.noSuchItem` if the provider rejected the upload with `CloudProviderError.itemNotFound`
+	 	- `CloudProviderError.itemAlreadyExists` if the provider rejected the upload with `CloudProviderError.itemAlreadyExists`
+	 	- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
+	 	- `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`
+	 	- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
+	 */
+	func uploadFile(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
+		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: false)
+		print("uploadTo: \(remoteURL)")
+		return Promise<FileProviderItem>(on: uploadQueue) { fulfill, reject in
+			self.provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: !itemMetadata.isPlaceholderItem).then { _ in
+				itemMetadata.statusCode = .isUploaded
+				itemMetadata.isPlaceholderItem = false
+				try self.itemMetadataManager.updateMetadata(itemMetadata)
+				try self.uploadTaskManager.removeTask(for: itemMetadata.id!)
+				fulfill(FileProviderItem(metadata: itemMetadata))
+			}.catch { error in
+				itemMetadata.statusCode = .uploadError
+				let lastFailedUploadDate = Date()
+				switch error {
+				case CloudProviderError.itemNotFound:
+					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.noSuchItem.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
+				case CloudProviderError.quotaInsufficient:
+					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
+				case CloudProviderError.noInternetConnection:
+					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.serverUnreachable.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
+				case CloudProviderError.unauthorized:
+					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.notAuthenticated.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
+				default:
+					reject(error)
+				}
+				try? self.itemMetadataManager.updateMetadata(itemMetadata)
+				let uploadTask = try? self.uploadTaskManager.getTask(for: itemMetadata.id!)
+				fulfill(FileProviderItem(metadata: itemMetadata, uploadTask: uploadTask))
+			}
+		}
 	}
 }
