@@ -15,13 +15,16 @@ import XCTest
 class FileProviderDecoratorTests: XCTestCase {
 	var decorator: FileProviderDecorator!
 	var mockedProvider: CloudProviderMock!
+	var tmpDirectory: URL!
 	override func setUpWithError() throws {
 		mockedProvider = CloudProviderMock()
 		decorator = try FileProviderDecoratorMock(with: mockedProvider, for: NSFileProviderDomainIdentifier("test"))
+		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 	}
 
 	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		try FileManager.default.removeItem(at: tmpDirectory)
 	}
 
 	func testFolderEnumeration() throws {
@@ -102,8 +105,7 @@ class FileProviderDecoratorTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let mockedDecorator = decorator as? FileProviderDecoratorMock
 		mockedDecorator?.internalProvider.setLastModifiedDate(nil, for: URL(fileURLWithPath: "/File 1", isDirectory: false))
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
 		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
@@ -123,8 +125,7 @@ class FileProviderDecoratorTests: XCTestCase {
 	func testLocalFileIsCurrentForNewerVersionInCloud() throws {
 		let expectation = XCTestExpectation()
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
 		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
 			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
@@ -144,8 +145,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 	func testLocalFileIsCurrentForCloudLastModifiedDateIsEqual() throws {
 		let expectation = XCTestExpectation()
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
 		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
@@ -163,8 +163,6 @@ class FileProviderDecoratorTests: XCTestCase {
 	}
 
 	func testCreatePlaceholderItemForFile() throws {
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let actualFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
@@ -183,8 +181,6 @@ class FileProviderDecoratorTests: XCTestCase {
 	}
 
 	func skip_testCreatePlaceholderItemForFileWithNameCollision() throws {
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let expectedRemoteURL = URL(fileURLWithPath: "/FileNotYetUploaded.txt", isDirectory: false)
@@ -211,13 +207,13 @@ class FileProviderDecoratorTests: XCTestCase {
 	}
 
 	func testUploadFile() throws {
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		let itemMetadata = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
 		let expectation = XCTestExpectation()
+		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
+		mockedProvider.lastModifiedDate[itemMetadata.remotePath] = mockedCloudDate
 		decorator.uploadFile(from: localURL, itemMetadata: itemMetadata).then { _ in
 			XCTAssertEqual("TestContent".data(using: .utf8), self.mockedProvider.createdFiles["/FileToBeUploaded"])
 			guard let cachedItemMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
@@ -233,12 +229,14 @@ class FileProviderDecoratorTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: itemMetadata.id!)
+		XCTAssertNotNil(localLastModifiedDate)
+		XCTAssertEqual(mockedProvider.lastModifiedDate[itemMetadata.remotePath], localLastModifiedDate)
 	}
 
 	func testUploadFileFailIfProviderRejectWithItemNotFound() throws {
 		let expectation = XCTestExpectation()
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 
@@ -253,6 +251,13 @@ class FileProviderDecoratorTests: XCTestCase {
 			}
 			let expectedError = NSFileProviderError(.noSuchItem) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("The item has no corresponding UploadTask")
+				return
+			}
+			XCTAssertNotNil(uploadTask.lastFailedUploadDate)
+			XCTAssertEqual(NSFileProviderError.noSuchItem.rawValue, uploadTask.uploadErrorCode)
+			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -263,8 +268,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 	func testUploadFileFailIfProviderRejectWithQuotaInsufficient() throws {
 		let expectation = XCTestExpectation()
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("quotaInsufficient.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 
@@ -279,6 +283,13 @@ class FileProviderDecoratorTests: XCTestCase {
 			}
 			let expectedError = NSFileProviderError(.insufficientQuota) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("The item has no corresponding UploadTask")
+				return
+			}
+			XCTAssertNotNil(uploadTask.lastFailedUploadDate)
+			XCTAssertEqual(NSFileProviderError.insufficientQuota.rawValue, uploadTask.uploadErrorCode)
+			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -289,8 +300,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 	func testUploadFileFailIfProviderRejectWithNoInternetConnection() throws {
 		let expectation = XCTestExpectation()
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("noInternetConnection.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 
@@ -305,6 +315,13 @@ class FileProviderDecoratorTests: XCTestCase {
 			}
 			let expectedError = NSFileProviderError(.serverUnreachable) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("The item has no corresponding UploadTask")
+				return
+			}
+			XCTAssertNotNil(uploadTask.lastFailedUploadDate)
+			XCTAssertEqual(NSFileProviderError.serverUnreachable.rawValue, uploadTask.uploadErrorCode)
+			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -315,8 +332,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 	func testUploadFileFailIfProviderRejectWithUnauthorized() throws {
 		let expectation = XCTestExpectation()
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+
 		let localURL = tmpDirectory.appendingPathComponent("unauthorized.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 
@@ -331,6 +347,13 @@ class FileProviderDecoratorTests: XCTestCase {
 			}
 			let expectedError = NSFileProviderError(.notAuthenticated) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("The item has no corresponding UploadTask")
+				return
+			}
+			XCTAssertNotNil(uploadTask.lastFailedUploadDate)
+			XCTAssertEqual(NSFileProviderError.notAuthenticated.rawValue, uploadTask.uploadErrorCode)
+			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -339,9 +362,40 @@ class FileProviderDecoratorTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	func testUploadFileRejectIfProviderRejectWithItemAlreadyExists() throws {
+		let expectation = XCTestExpectation()
+
+		let localURL = tmpDirectory.appendingPathComponent("itemAlreadyExists.txt", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+
+		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
+		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
+		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { _ in
+			XCTFail("Promise was fulfilled although we expect an error")
+		}.catch { error in
+			guard case CloudProviderError.itemAlreadyExists = error else {
+				XCTFail("Promise was rejected with the wrong error")
+				return
+			}
+			guard let itemMetadata = try? self.decorator.itemMetadataManager.getCachedMetadata(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("ItemMetadata is missing in the DB")
+				return
+			}
+			XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+				XCTFail("UploadTask is missing in the DB")
+				return
+			}
+			XCTAssertNil(uploadTask.lastFailedUploadDate)
+			XCTAssertNil(uploadTask.uploadErrorCode)
+			XCTAssertNil(uploadTask.uploadErrorDomain)
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
+
 	func testRegisterInUploadQueue() throws {
-		let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
@@ -364,8 +418,48 @@ class FileProviderDecoratorTests: XCTestCase {
 		XCTAssertNil(uploadTask.lastFailedUploadDate)
 		XCTAssertNil(uploadTask.uploadErrorCode)
 		XCTAssertNil(uploadTask.uploadErrorDomain)
-
 		// TODO: Add localFileInfo Check
+	}
+
+	func testCloudFileNameCollisionHandling() throws {
+		let localURL = tmpDirectory.appendingPathComponent("itemAlreadyExists.txt", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+		let collisionFreeLocalURL = tmpDirectory.appendingPathComponent("itemAlreadyExists (AAAAA).txt", isDirectory: false)
+		let metadata = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer).metadata
+		guard let id = metadata.id else {
+			XCTFail("Metadata has no id")
+			return
+		}
+		try decorator.cloudFileNameCollisionHandling(for: localURL, with: collisionFreeLocalURL, itemMetadata: metadata)
+		XCTAssertEqual("itemAlreadyExists (AAAAA).txt", metadata.name)
+		XCTAssertEqual(id, metadata.id)
+		XCTAssertEqual(collisionFreeLocalURL.relativePath, metadata.remotePath)
+		XCTAssertFalse(FileManager.default.fileExists(atPath: localURL.path))
+		XCTAssert(FileManager.default.fileExists(atPath: collisionFreeLocalURL.path))
+	}
+
+	func testCollisionHandlingUpload() throws {
+		let expectation = XCTestExpectation()
+		let localURL = tmpDirectory.appendingPathComponent("itemAlreadyExists.txt", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
+		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
+		decorator.collisionHandlingUpload(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
+			XCTAssert(item.isUploaded)
+			XCTAssertFalse(item.isUploading)
+			XCTAssertNotEqual("itemAlreadyExists.txt", item.filename)
+			XCTAssertNil(item.uploadTask)
+			XCTAssertEqual(placeholderFileProviderItem.itemIdentifier, item.itemIdentifier)
+			XCTAssertNil(try self.decorator.uploadTaskManager.getTask(for: item.metadata.id!))
+			let parentFolder = localURL.deletingLastPathComponent()
+			// Ensure that the file with the collision hash was uploaded
+			XCTAssert(self.mockedProvider.createdFiles.keys.filter { $0.hasPrefix("\(parentFolder.path)/itemAlreadyExists (") && $0.hasSuffix(").txt") }.count == 1)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
 	}
 }
 

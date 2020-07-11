@@ -37,6 +37,9 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {
+		if metadata.statusCode == .isUploading {
+			return .allowsReading
+		}
 		return .allowsAll
 	}
 

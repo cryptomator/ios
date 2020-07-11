@@ -204,9 +204,34 @@ public class FileProviderDecorator {
 			guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
 				return Promise(error)
 			}
-			// TODO: Cloud Filename Collision Handling
+			return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
+		}
+	}
 
-			return self.uploadFile(from: localURL, itemMetadata: itemMetadata)
+	func cloudFileNameCollisionHandling(for localURL: URL, with collisionFreeLocalURL: URL, itemMetadata: ItemMetadata) throws {
+		let filename = collisionFreeLocalURL.lastPathComponent
+		itemMetadata.name = filename
+		itemMetadata.remotePath = collisionFreeLocalURL.relativePath
+		try FileManager.default.moveItem(at: localURL, to: collisionFreeLocalURL)
+		try itemMetadataManager.updateMetadata(itemMetadata)
+	}
+
+	func collisionHandlingUpload(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
+		let collisionFreeLocalURL = localURL.createCollisionURL()
+		do {
+			try cloudFileNameCollisionHandling(for: localURL, with: collisionFreeLocalURL, itemMetadata: itemMetadata)
+		} catch {
+			return Promise(error)
+		}
+
+		return uploadFile(from: collisionFreeLocalURL, itemMetadata: itemMetadata).recover { error -> FileProviderItem in
+			let errorToReport: NSError
+			if let cloudProviderError = error as? CloudProviderError {
+				errorToReport = self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
+			} else {
+				errorToReport = error as NSError
+			}
+			return self.reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
 		}
 	}
 
@@ -249,9 +274,9 @@ public class FileProviderDecorator {
 	/**
 	 - Postcondition: The file is stored under the `remoteURL` of the cloud provider.
 	 - Postcondition: itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false
-	 - Returns: Empty Promise. If the upload fails, promise is rejected with:
+	 - Postcondition: The associated CachedFileEntry contains the lastModifiedDate from the cloud.
+	 - Returns: Promise with FileProviderItem. If the upload fails with an error different to `CloudProviderError.itemAlreadyExists`  the Promise fulfills with a FileProviderItem, which contains a failed UploadTask to inform the FileProvider about the error. :
 	 	- `NSFileProviderError.noSuchItem` if the provider rejected the upload with `CloudProviderError.itemNotFound`
-	 	- `CloudProviderError.itemAlreadyExists` if the provider rejected the upload with `CloudProviderError.itemAlreadyExists`
 	 	- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
 	 	- `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`
 	 	- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
@@ -260,31 +285,58 @@ public class FileProviderDecorator {
 		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: false)
 		print("uploadTo: \(remoteURL)")
 		return Promise<FileProviderItem>(on: uploadQueue) { fulfill, reject in
-			self.provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: !itemMetadata.isPlaceholderItem).then { _ in
+			self.provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
+				itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
+				itemMetadata.size = cloudItemMetadata.size
 				try self.itemMetadataManager.updateMetadata(itemMetadata)
 				try self.uploadTaskManager.removeTask(for: itemMetadata.id!)
+				try self.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
 				fulfill(FileProviderItem(metadata: itemMetadata))
 			}.catch { error in
-				itemMetadata.statusCode = .uploadError
-				let lastFailedUploadDate = Date()
-				switch error {
-				case CloudProviderError.itemNotFound:
-					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.noSuchItem.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-				case CloudProviderError.quotaInsufficient:
-					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-				case CloudProviderError.noInternetConnection:
-					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.serverUnreachable.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-				case CloudProviderError.unauthorized:
-					try? self.uploadTaskManager.updateTask(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.notAuthenticated.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-				default:
-					reject(error)
+				let errorToReport: NSError
+				if let cloudProviderError = error as? CloudProviderError {
+					if cloudProviderError == .itemAlreadyExists {
+						reject(CloudProviderError.itemAlreadyExists)
+						return
+					}
+					errorToReport = self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
+				} else {
+					errorToReport = error as NSError
 				}
-				try? self.itemMetadataManager.updateMetadata(itemMetadata)
-				let uploadTask = try? self.uploadTaskManager.getTask(for: itemMetadata.id!)
-				fulfill(FileProviderItem(metadata: itemMetadata, uploadTask: uploadTask))
+				let item = self.reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
+				fulfill(item)
 			}
+		}
+	}
+
+	func reportErrorWithFileProviderItem(error: NSError, itemMetadata: ItemMetadata) -> FileProviderItem {
+		itemMetadata.statusCode = .uploadError
+		var uploadTask = try? uploadTaskManager.getTask(for: itemMetadata.id!)
+		try? uploadTaskManager.updateTask(&uploadTask, error: error)
+		try? itemMetadataManager.updateMetadata(itemMetadata)
+		return FileProviderItem(metadata: itemMetadata, uploadTask: uploadTask)
+	}
+
+	func mapCloudProviderErrorToNSFileProviderError(_ error: CloudProviderError) -> NSFileProviderError {
+		switch error {
+		case .itemAlreadyExists:
+			return NSFileProviderError(.filenameCollision)
+		case .itemNotFound:
+			return NSFileProviderError(.noSuchItem)
+		case .itemTypeMismatch:
+			return NSFileProviderError(.noSuchItem)
+		case .noInternetConnection:
+			return NSFileProviderError(.serverUnreachable)
+		case .pageTokenInvalid:
+			return NSFileProviderError(.pageExpired)
+		case .parentFolderDoesNotExist:
+			return NSFileProviderError(.noSuchItem)
+		case .quotaInsufficient:
+			return NSFileProviderError(.insufficientQuota)
+		case .unauthorized:
+			return NSFileProviderError(.notAuthenticated)
 		}
 	}
 }

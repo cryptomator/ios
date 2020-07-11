@@ -22,13 +22,13 @@ class ItemMetadata: Record {
 	}
 
 	var id: Int64?
-	let name: String
+	var name: String
 	let type: CloudItemType
-	let size: Int?
+	var size: Int?
 	let parentId: Int64
-	let lastModifiedDate: Date?
+	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
-	let remotePath: String
+	var remotePath: String
 	var isPlaceholderItem: Bool
 	static let idKey = "id"
 	static let nameKey = "name"

@@ -10,11 +10,6 @@ import MobileCoreServices
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderItemTests: XCTestCase {
-	override func setUpWithError() throws {}
-
-	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
-	}
 
 	func testRootItem() {
 		let remoteURL = URL(fileURLWithPath: "/", isDirectory: true)
@@ -67,5 +62,12 @@ class FileProviderItemTests: XCTestCase {
 		}
 		let expectedError = NSFileProviderError(.insufficientQuota) as NSError
 		XCTAssertTrue(expectedError.isEqual(actualError))
+	}
+
+	func testUploadingItemRestrictsCapabilityToRead() {
+		let remoteURL = URL(fileURLWithPath: "/test.txt", isDirectory: false)
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata)
+		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 }

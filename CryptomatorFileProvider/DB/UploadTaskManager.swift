@@ -60,6 +60,21 @@ class UploadTaskManager {
 		}
 	}
 
+	func updateTask(_ task: inout UploadTask?, error: NSError) throws {
+		_ = try dbQueue.write { db in
+			task?.lastFailedUploadDate = Date()
+			task?.uploadErrorCode = error.code
+			task?.uploadErrorDomain = error.domain
+			try task?.update(db)
+		}
+	}
+
+	func updateTask(_ task: UploadTask) throws {
+		_ = try dbQueue.write { db in
+			try task.update(db)
+		}
+	}
+
 	func removeTask(for identifier: Int64) throws {
 		_ = try dbQueue.write { db in
 			try UploadTask.deleteOne(db, key: identifier)

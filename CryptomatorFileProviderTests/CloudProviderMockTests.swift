@@ -32,11 +32,6 @@ class CloudProviderMockTests: XCTestCase {
 			XCTAssertEqual("File 2", cloudItemList.items[2].name)
 			XCTAssertEqual("File 3", cloudItemList.items[3].name)
 			XCTAssertEqual("File 4", cloudItemList.items[4].name)
-//			XCTAssertTrue(cloudItemList.items.contains(where: { $0.name == "Directory 1" }))
-//			XCTAssertTrue(cloudItemList.items.contains(where: { $0.name == "File 1" }))
-//			XCTAssertTrue(cloudItemList.items.contains(where: { $0.name == "File 2" }))
-//			XCTAssertTrue(cloudItemList.items.contains(where: { $0.name == "File 3" }))
-//			XCTAssertTrue(cloudItemList.items.contains(where: { $0.name == "File 4" }))
 		}.catch { error in
 			XCTFail("Error in promise: \(error)")
 		}.always {
@@ -45,13 +40,15 @@ class CloudProviderMockTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testFile1LastModifiedDate() {
-		let expectation = XCTestExpectation(description: "dir1FileContainsDirId")
+
+	func testUploadChangeLastModifiedDate() throws {
+		let expectation = XCTestExpectation()
 		let provider = CloudProviderMock()
-		let remoteURL = URL(fileURLWithPath: "/File 1", isDirectory: false)
-		provider.fetchItemMetadata(at: remoteURL).then { metadata in
-			XCTAssertEqual(.file, metadata.itemType)
-			XCTAssertEqual(Date(timeIntervalSince1970: 0), metadata.lastModifiedDate)
+		let remoteURL = URL(fileURLWithPath: "/New File", isDirectory: false)
+		let localURL = tmpDirURL.appendingPathComponent("/New File", isDirectory: false)
+		try "".write(to: localURL, atomically: true, encoding: .utf8)
+		provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: false).then{ _ in
+			XCTAssertNotNil(provider.lastModifiedDate[remoteURL.path])
 		}.catch { error in
 			XCTFail("Error in promise: \(error)")
 		}.always {

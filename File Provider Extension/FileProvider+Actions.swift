@@ -47,6 +47,7 @@ extension FileProviderExtension {
 
 				fileURL.stopAccessingSecurityScopedResource()
 				if let error = fileManagerError {
+					// TODO: Do not remove the PlaceholderItem, instead report the local error to the DB
 					try? self.decorator!.removePlaceholderItem(with: item.itemIdentifier) // we report already an error
 					completionHandler(nil, error)
 					return
