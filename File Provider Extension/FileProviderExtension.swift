@@ -23,8 +23,11 @@ class FileProviderExtension: NSFileProviderExtension {
 		) { _, change in
 			print("domain changed from: \(change.oldValue!), updated to: \(change.newValue!)")
 			if let domain = self.domain {
-				self.decorator = try? FileProviderDecorator(for: domain.identifier)
-				self.manager = NSFileProviderManager(for: domain)
+				guard let manager = NSFileProviderManager(for: domain) else {
+					return
+				}
+				self.decorator = try? FileProviderDecorator(for: domain, with: manager)
+				self.manager = manager
 			}
 		}
 	}
@@ -109,6 +112,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		     }
 		 }
 		 */
+		// TODO: Register DownloadTask
 		guard let decorator = self.decorator else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
@@ -130,11 +134,38 @@ class FileProviderExtension: NSFileProviderExtension {
 				if isCurrent {
 					completionHandler(nil)
 				} else {
+					// if localFileHasChanges DO:
 					// TODO: Implement the following Logic
 					// Move LocalFile in Tmp Folder
 					// Call import Document
 					// after completionHandler returned (immediately) delete localFile in tmp folder
-					decorator.downloadFile(with: identifier, to: url).then {
+					/* let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+					 let tmpLocalFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent, isDirectory: false).createCollisionURL()
+					 let conflictItem: NSFileProviderItem
+					 do {
+					 	try self.fileManager.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+					 	try self.fileManager.moveItem(at: url, to: tmpLocalFileURL)
+					 	conflictItem = try self.item(for: identifier)
+					 } catch {
+					 	completionHandler(error)
+					 	return
+					 }
+					 self.importDocument(at: tmpLocalFileURL, toParentItemIdentifier: conflictItem.parentItemIdentifier) { _, error in
+					 	guard error == nil else {
+					 		// TODO: Discuss what we do if this fails..
+					 		print(error)
+					 		return
+					 	}
+					 	try? self.fileManager.removeItem(at: tmpLocalFileURL)
+					 	decorator.downloadFile(with: identifier, to: url).then {
+					 		completionHandler(nil)
+					 	}.catch { error in
+					 		completionHandler(error)
+					 	}
+					 } */
+					let tmpDownloadURL = url.createCollisionURL()
+					decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
+						_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
 						completionHandler(nil)
 					}.catch { error in
 						completionHandler(error)

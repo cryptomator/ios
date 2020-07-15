@@ -85,6 +85,7 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertNil(itemMetadataForFolder.id)
 		try manager.cacheMetadatas([placeholderItemMetadataForFile, placeholderItemMetadataForFolder, itemMetadataForFolder])
 		let fetchedPlaceholderItems = try manager.getPlaceholderMetadata(for: MetadataManager.rootContainerId)
+		XCTAssertEqual(2, fetchedPlaceholderItems.count)
 		XCTAssertEqual([placeholderItemMetadataForFile, placeholderItemMetadataForFolder], fetchedPlaceholderItems)
 		XCTAssertNotNil(fetchedPlaceholderItems[0].id)
 		XCTAssertNotNil(fetchedPlaceholderItems[1].id)
@@ -137,6 +138,42 @@ class MetadataManagerTests: XCTestCase {
 		}
 		XCTAssertEqual(changedItemMetadataAtSameRemoteURL, fetchedChangedItemMetadata)
 	}
+
+	func testGetCachedMetadataInsideParentId() throws {
+		let remoteFileURL = URL(fileURLWithPath: "/Existing File.txt", isDirectory: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Existing Folder/", isDirectory: true)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileURL.relativePath, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: false)
+		XCTAssertNil(itemMetadataForFile.id)
+		XCTAssertNil(itemMetadataForFolder.id)
+		try manager.cacheMetadatas([itemMetadataForFile, itemMetadataForFolder])
+		XCTAssertNotNil(itemMetadataForFile.id)
+		XCTAssertNotNil(itemMetadataForFolder.id)
+		let cachedMetadata = try manager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
+		XCTAssertEqual(2, cachedMetadata.count)
+		XCTAssertFalse(cachedMetadata.contains { $0.id == MetadataManager.rootContainerId })
+		XCTAssert(cachedMetadata.contains { $0 == itemMetadataForFile })
+		XCTAssert(cachedMetadata.contains { $0 == itemMetadataForFolder })
+	}
+
+	func testFlagAllNonPlaceholderItemsAsCacheCleanupCandidates() throws {
+		let remotePlaceholderFileURL = URL(fileURLWithPath: "/Placeholder File.txt", isDirectory: false)
+		let remotePlaceholderFolderURL = URL(fileURLWithPath: "/Placeholder Folder/", isDirectory: true)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Placeholder File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remotePlaceholderFileURL.relativePath, isPlaceholderItem: true)
+		let placeholderItemMetadataForFolder = ItemMetadata(name: "Placeholder Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remotePlaceholderFolderURL.relativePath, isPlaceholderItem: true)
+		let remoteFileURL = URL(fileURLWithPath: "/Existing File.txt", isDirectory: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Existing Folder/", isDirectory: true)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileURL.relativePath, isPlaceholderItem: false)
+		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadatas([placeholderItemMetadataForFile, placeholderItemMetadataForFolder, itemMetadataForFile, itemMetadataForFolder])
+		try manager.flagAllItemsAsMaybeOutdated(insideParentId: MetadataManager.rootContainerId)
+		let cachedMetadata = try manager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
+		XCTAssertEqual(4, cachedMetadata.count)
+		XCTAssert(cachedMetadata.contains { $0.name == "Placeholder File.txt" && !$0.isMaybeOutdated })
+		XCTAssert(cachedMetadata.contains { $0.name == "Placeholder Folder" && !$0.isMaybeOutdated })
+		XCTAssert(cachedMetadata.contains { $0.name == "Existing File.txt" && $0.isMaybeOutdated })
+		XCTAssert(cachedMetadata.contains { $0.name == "Existing Folder" && $0.isMaybeOutdated })
+	}
 }
 
 extension ItemMetadata: Comparable {
@@ -145,6 +182,6 @@ extension ItemMetadata: Comparable {
 	}
 
 	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
-		return lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentId == rhs.parentId && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.remotePath == rhs.remotePath && lhs.isPlaceholderItem == rhs.isPlaceholderItem
+		return lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentId == rhs.parentId && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.remotePath == rhs.remotePath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated
 	}
 }

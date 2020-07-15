@@ -66,9 +66,13 @@ class CachedFileManager {
 		}
 	}
 
-	func removeCachedEntry(for identifier: Int64) throws {
-		_ = try dbQueue.write { db in
-			try CachedEntry.deleteOne(db, key: identifier)
+	/**
+	 - returns: `true` If an entry was really deleted. `false` If an entry did not exist.
+	 */
+	func removeCachedEntry(for identifier: Int64) throws -> Bool {
+		return try dbQueue.write { db in
+			let hasDeletedEntry = try CachedEntry.deleteOne(db, key: identifier)
+			return hasDeletedEntry
 		}
 	}
 }

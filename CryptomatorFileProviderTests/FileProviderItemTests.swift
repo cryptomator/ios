@@ -10,7 +10,6 @@ import MobileCoreServices
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderItemTests: XCTestCase {
-
 	func testRootItem() {
 		let remoteURL = URL(fileURLWithPath: "/", isDirectory: true)
 		let metadata = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)

@@ -47,7 +47,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		}
 	}
 
-	func enumerateChanges(for _: NSFileProviderChangeObserver, from _: NSFileProviderSyncAnchor) {
+	func enumerateChanges(for observer: NSFileProviderChangeObserver, from anchor: NSFileProviderSyncAnchor) {
 		/* TODO:
 		 - query the server for updates since the passed-in sync anchor
 
@@ -57,5 +57,48 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer about item deletions and updates (modifications + insertions)
 		 - inform the observer when you have finished enumerating up to a subsequent sync anchor
 		 */
+		let notificator = decorator.notificator
+
+		print("enumerate now changes for: \(enumeratedItemIdentifier)")
+		var itemsDelete = [NSFileProviderItemIdentifier]()
+		var itemsUpdate = [FileProviderItem]()
+
+		// Report the deleted items
+		//
+		if enumeratedItemIdentifier == .workingSet {
+			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteWorkingSetItemIdentifier {
+				itemsDelete.append(itemIdentifier)
+			}
+			notificator.fileProviderSignalDeleteWorkingSetItemIdentifier.removeAll()
+		} else {
+			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteContainerItemIdentifier {
+				itemsDelete.append(itemIdentifier)
+			}
+			notificator.fileProviderSignalDeleteContainerItemIdentifier.removeAll()
+		}
+
+		// Report the updated items
+		//
+		if enumeratedItemIdentifier == .workingSet {
+			for (_, item) in notificator.fileProviderSignalUpdateWorkingSetItem {
+				itemsUpdate.append(item)
+			}
+			notificator.fileProviderSignalUpdateWorkingSetItem.removeAll()
+		} else {
+			for (_, item) in notificator.fileProviderSignalUpdateContainerItem {
+				itemsUpdate.append(item)
+			}
+			notificator.fileProviderSignalUpdateContainerItem.removeAll()
+		}
+		observer.didDeleteItems(withIdentifiers: itemsDelete)
+		observer.didUpdate(itemsUpdate)
+
+		let data = "\(notificator.currentAnchor)".data(using: .utf8)
+		observer.finishEnumeratingChanges(upTo: NSFileProviderSyncAnchor(data!), moreComing: false)
+	}
+
+	func currentSyncAnchor(completionHandler: @escaping (NSFileProviderSyncAnchor?) -> Void) {
+		let data = "\(decorator.notificator.currentAnchor)".data(using: .utf8)
+		completionHandler(NSFileProviderSyncAnchor(data!))
 	}
 }

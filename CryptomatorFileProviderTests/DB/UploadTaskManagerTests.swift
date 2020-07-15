@@ -20,7 +20,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testCachedAndFetchEntry() throws {
-		try manager.addNewTask(for: MetadataManager.rootContainerId)
+		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
 		guard let fetchedUploadTask = try manager.getTask(for: MetadataManager.rootContainerId) else {
 			XCTFail("UploadTask not found")
 			return
@@ -32,7 +32,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testUpdateTask() throws {
-		try manager.addNewTask(for: MetadataManager.rootContainerId)
+		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let error = NSFileProviderError(.serverUnreachable)
 		try manager.updateTask(with: MetadataManager.rootContainerId, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
@@ -49,14 +49,14 @@ class UploadTaskManagerTests: XCTestCase {
 	func testUpdateNonExistentTaskFailsWithTaskNotFound() throws {
 		XCTAssertThrowsError(try manager.updateTask(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
 			guard case UploadTaskError.taskNotFound = error else {
-				XCTFail("Throws the wrong error")
+				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
 		}
 	}
 
 	func testDeleteCascadeWorks() throws {
-		try manager.addNewTask(for: MetadataManager.rootContainerId)
+		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
 		let taskBeforeRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNotNil(taskBeforeRemoval)
 		try itemManager.removeItemMetadata(with: MetadataManager.rootContainerId)

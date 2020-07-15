@@ -27,9 +27,10 @@ class MetadataManager {
 				table.column("statusCode", .integer).notNull()
 				table.column("remotePath", .text).unique()
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
+				table.column(ItemMetadata.isMaybeOutdatedKey, .boolean).notNull().defaults(to: false)
 			}
 			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: false)
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
 		}
 	}
@@ -83,24 +84,45 @@ class MetadataManager {
 	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbQueue.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("isPlaceholderItem"))
+				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != MetadataManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
+	}
+
+	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata] {
+		let itemMetadata: [ItemMetadata] = try dbQueue.read { db in
+			return try ItemMetadata
+				.filter(Column("parentId") == parentId && Column("id") != MetadataManager.rootContainerId)
+				.fetchAll(db)
+		}
+		return itemMetadata
+	}
+
+	// TODO: find a more meaningful name
+	func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws {
+		_ = try dbQueue.write { db in
+			try ItemMetadata
+				.filter(Column("parentId") == parentId && !Column("isPlaceholderItem"))
+				.fetchAll(db)
+				.forEach {
+					$0.isMaybeOutdated = true
+					try $0.save(db)
+				}
+		}
+	}
+
+	func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata] {
+		try dbQueue.read { db in
+			return try ItemMetadata
+				.filter(Column(ItemMetadata.parentIdKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
+				.fetchAll(db)
+		}
 	}
 
 	func removeItemMetadata(with identifier: Int64) throws {
 		_ = try dbQueue.write { db in
 			try ItemMetadata.deleteOne(db, key: identifier)
 		}
-	}
-
-	func cachePlaceholderMetadata(_ metadata: ItemMetadata) throws {
-		_ = try dbQueue.write { _ in
-		}
-	}
-
-	func resolveLocalNameCollision(for metadata: ItemMetadata) throws {
-		let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
 	}
 }

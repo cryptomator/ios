@@ -12,76 +12,7 @@ import GRDB
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
-class FileProviderDecoratorTests: XCTestCase {
-	var decorator: FileProviderDecorator!
-	var mockedProvider: CloudProviderMock!
-	var tmpDirectory: URL!
-	override func setUpWithError() throws {
-		mockedProvider = CloudProviderMock()
-		decorator = try FileProviderDecoratorMock(with: mockedProvider, for: NSFileProviderDomainIdentifier("test"))
-		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
-	}
-
-	override func tearDownWithError() throws {
-		try FileManager.default.removeItem(at: tmpDirectory)
-	}
-
-	func testFolderEnumeration() throws {
-		let expectation = XCTestExpectation(description: "Folder Enumeration")
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/Directory 1/", isDirectory: true).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 1", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 4", isDirectory: false).relativePath, isPlaceholderItem: false))]
-		let expectedSubFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 7, name: "Directory 2", type: .folder, size: 0, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/Directory 1/Directory 2", isDirectory: true).relativePath, isPlaceholderItem: false)),
-												  FileProviderItem(metadata: ItemMetadata(id: 8, name: "File 5", type: .file, size: 14, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/Directory 1/File 5", isDirectory: false).relativePath, isPlaceholderItem: false))]
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> FileProviderItem in
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			XCTAssertEqual(expectedRootFolderFileProviderItems, fileProviderItemList.items)
-			return fileProviderItemList.items[0]
-		}.then { folderFileProviderItem in
-			self.decorator.fetchItemList(for: folderFileProviderItem.itemIdentifier, withPageToken: nil)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(2, fileProviderItemList.items.count)
-			XCTAssertEqual(expectedSubFolderFileProviderItems, fileProviderItemList.items)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
-	}
-
-	func testFolderEnumerationSameFolderTwice() throws {
-		let expectation = XCTestExpectation(description: "Folder Enumeration")
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/Directory 1/", isDirectory: true).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 1", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-												   FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 4", isDirectory: false).relativePath, isPlaceholderItem: false))]
-		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/Directory 1/", isDirectory: true).relativePath, isPlaceholderItem: false)),
-														  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-														  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 3", isDirectory: false).relativePath, isPlaceholderItem: false)),
-														  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/File 4", isDirectory: false).relativePath, isPlaceholderItem: false)),
-														  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/NewFileFromCloud", isDirectory: false).relativePath, isPlaceholderItem: false))]
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			XCTAssertEqual(expectedRootFolderFileProviderItems, fileProviderItemList.items)
-			self.mockedProvider.files["/File 1"] = nil
-			self.mockedProvider.files["/NewFileFromCloud"] = "NewFileFromCloud content".data(using: .utf8)!
-			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
-		}.then { fileProviderItemList in
-			XCTAssertEqual(5, fileProviderItemList.items.count)
-			XCTAssertEqual(expectedChangedRootFolderFileProviderItems, fileProviderItemList.items)
-		}.catch { error in
-			XCTFail("Error in promise: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-	}
-
+class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 	func testLocalFileIsCurrentForUploadingFile() throws {
 		let expectation = XCTestExpectation()
 		let remoteURL = URL(fileURLWithPath: "/TestUploadFile", isDirectory: false)
@@ -98,7 +29,7 @@ class FileProviderDecoratorTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 2.0)
+		wait(for: [expectation], timeout: 1.0)
 	}
 
 	func testLocalFileIsCurrentForCloudLastModifiedDateIsNil() throws {
@@ -214,7 +145,7 @@ class FileProviderDecoratorTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		mockedProvider.lastModifiedDate[itemMetadata.remotePath] = mockedCloudDate
-		decorator.uploadFile(from: localURL, itemMetadata: itemMetadata).then { _ in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata).then { _ in
 			XCTAssertEqual("TestContent".data(using: .utf8), self.mockedProvider.createdFiles["/FileToBeUploaded"])
 			guard let cachedItemMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
 				XCTFail("No ItemMetadata found")
@@ -242,7 +173,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
-		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
 			XCTAssertFalse(item.isUploaded)
 			XCTAssertFalse(item.isUploading)
 			guard let actualError = item.uploadingError as NSError? else {
@@ -274,7 +205,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
-		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
 			XCTAssertFalse(item.isUploaded)
 			XCTAssertFalse(item.isUploading)
 			guard let actualError = item.uploadingError as NSError? else {
@@ -306,7 +237,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
-		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
 			XCTAssertFalse(item.isUploaded)
 			XCTAssertFalse(item.isUploading)
 			guard let actualError = item.uploadingError as NSError? else {
@@ -338,7 +269,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
-		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { item in
 			XCTAssertFalse(item.isUploaded)
 			XCTAssertFalse(item.isUploading)
 			guard let actualError = item.uploadingError as NSError? else {
@@ -370,7 +301,7 @@ class FileProviderDecoratorTests: XCTestCase {
 
 		let placeholderFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
 		_ = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
-		decorator.uploadFile(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { _ in
+		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: placeholderFileProviderItem.metadata).then { _ in
 			XCTFail("Promise was fulfilled although we expect an error")
 		}.catch { error in
 			guard case CloudProviderError.itemAlreadyExists = error else {
@@ -461,24 +392,59 @@ class FileProviderDecoratorTests: XCTestCase {
 		}
 		wait(for: [expectation], timeout: 2.0)
 	}
-}
 
-extension FileProviderItem {
-	override open func isEqual(_ object: Any?) -> Bool {
-		let other = object as? FileProviderItem
-		return filename == other?.filename && itemIdentifier == other?.itemIdentifier && parentItemIdentifier == other?.parentItemIdentifier && typeIdentifier == other?.typeIdentifier && capabilities == other?.capabilities && documentSize == other?.documentSize
+	func testDownloadFile() throws {
+		let expectation = XCTestExpectation()
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let remoteURL = URL(fileURLWithPath: "/File 1", isDirectory: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		let identifier = NSFileProviderItemIdentifier(String("3"))
+		decorator.downloadFile(with: identifier, to: localURL).then {
+			let localContent = try Data(contentsOf: localURL)
+			XCTAssertEqual(self.mockedProvider.files[remoteURL.path], localContent)
+			let lastModifiedDate = try self.decorator.cachedFileManager.getLastModifiedDate(for: 3)
+			XCTAssertNotNil(lastModifiedDate)
+			XCTAssertEqual(self.mockedProvider.lastModifiedDate[remoteURL.path], lastModifiedDate)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
 	}
-}
 
-private class FileProviderDecoratorMock: FileProviderDecorator {
-	let internalProvider: CloudProviderMock
-	override var provider: CloudProvider {
-		return internalProvider
+	func testRemoveItemFromCacheWithoutAnExistingLocalCachedFile() throws {
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: "/Testfile", isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		try decorator.removeItemFromCache(with: 2)
+		guard try decorator.itemMetadataManager.getCachedMetadata(for: 2) == nil else {
+			XCTFail("ItemMetadata entry still exists")
+			return
+		}
 	}
 
-	init(with provider: CloudProviderMock, for domainIdentifier: NSFileProviderDomainIdentifier) throws {
-		self.internalProvider = provider
-		try super.init(for: domainIdentifier)
-		self.homeRoot = URL(fileURLWithPath: "/", isDirectory: true)
+	func testRemoveItemFromCache() throws {
+		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: "/Testfile", isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+		let identifier = NSFileProviderItemIdentifier("2")
+		guard let localURLForItem = decorator.urlForItem(withPersistentIdentifier: identifier) else {
+			XCTFail("localURLForItem is nil")
+			return
+		}
+		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
+		let content = "TestLocalContent"
+		try content.write(to: localURLForItem, atomically: true, encoding: .utf8)
+		try decorator.removeItemFromCache(with: 2)
+		guard try decorator.itemMetadataManager.getCachedMetadata(for: 2) == nil else {
+			XCTFail("ItemMetadata entry still exists")
+			return
+		}
+		guard try decorator.cachedFileManager.getLastModifiedDate(for: 2) == nil else {
+			XCTFail("CachedFile entry still exists")
+			return
+		}
+		XCTAssertFalse(FileManager.default.fileExists(atPath: localURLForItem.path))
 	}
 }

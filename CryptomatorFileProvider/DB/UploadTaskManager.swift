@@ -34,9 +34,11 @@ class UploadTaskManager {
 		}
 	}
 
-	func addNewTask(for identifier: Int64) throws {
-		try dbQueue.write { db in
-			try UploadTask(correspondingItem: identifier, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil).save(db)
+	func createNewTask(for identifier: Int64) throws -> UploadTask {
+		return try dbQueue.write { db in
+			let task = UploadTask(correspondingItem: identifier, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+			try task.save(db)
+			return task
 		}
 	}
 
@@ -60,13 +62,25 @@ class UploadTaskManager {
 		}
 	}
 
-	func updateTask(_ task: inout UploadTask?, error: NSError) throws {
+	func updateTask(_ task: inout UploadTask, error: NSError) throws {
 		_ = try dbQueue.write { db in
-			task?.lastFailedUploadDate = Date()
-			task?.uploadErrorCode = error.code
-			task?.uploadErrorDomain = error.domain
-			try task?.update(db)
+			task.lastFailedUploadDate = Date()
+			task.uploadErrorCode = error.code
+			task.uploadErrorDomain = error.domain
+			try task.update(db)
 		}
+	}
+
+	func getCorrespondingTasks(ids: [Int64]) throws -> [UploadTask?] {
+		let uploadTasks: [UploadTask?] = try dbQueue.read { db in
+			var tasks = [UploadTask?]()
+			for id in ids {
+				let task = try UploadTask.fetchOne(db, key: id)
+				tasks.append(task)
+			}
+			return tasks
+		}
+		return uploadTasks
 	}
 
 	func updateTask(_ task: UploadTask) throws {

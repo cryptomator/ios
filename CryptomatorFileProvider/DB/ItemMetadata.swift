@@ -10,14 +10,14 @@ import CryptomatorCloudAccess
 import Foundation
 import GRDB
 
-class ItemMetadata: Record {
-	override class var databaseTableName: String {
+public class ItemMetadata: Record {
+	override public class var databaseTableName: String {
 		"metadata"
 	}
 
 //	static let databaseTableName = "metadata"
 //	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
-	override static var databaseSelection: [SQLSelectable] {
+	override public static var databaseSelection: [SQLSelectable] {
 		[AllColumns(), Column.rowID]
 	}
 
@@ -30,6 +30,7 @@ class ItemMetadata: Record {
 	var statusCode: ItemStatus
 	var remotePath: String
 	var isPlaceholderItem: Bool
+	var isMaybeOutdated: Bool
 	static let idKey = "id"
 	static let nameKey = "name"
 	static let typeKey = "type"
@@ -39,6 +40,7 @@ class ItemMetadata: Record {
 	static let statusCodeKey = "statusCode"
 	static let remotePathKey = "remotePath"
 	static let isPlaceholderItemKey = "isPlaceholderItem"
+	static let isMaybeOutdatedKey = "isMaybeOutdated"
 
 	required init(row: Row) {
 		self.id = row[ItemMetadata.idKey]
@@ -50,10 +52,11 @@ class ItemMetadata: Record {
 		self.statusCode = row[ItemMetadata.statusCodeKey]
 		self.remotePath = row[ItemMetadata.remotePathKey]
 		self.isPlaceholderItem = row[ItemMetadata.isPlaceholderItemKey]
+		self.isMaybeOutdated = row[ItemMetadata.isMaybeOutdatedKey]
 		super.init(row: row)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, remotePath: String, isPlaceholderItem: Bool) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, remotePath: String, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
 		self.id = id
 		self.name = name
 		self.type = type
@@ -63,14 +66,15 @@ class ItemMetadata: Record {
 		self.statusCode = statusCode
 		self.remotePath = remotePath
 		self.isPlaceholderItem = isPlaceholderItem
+		self.isMaybeOutdated = isCandidateForCacheCleanup
 		super.init()
 	}
 
-	override func didInsert(with rowID: Int64, for column: String?) {
+	override public func didInsert(with rowID: Int64, for column: String?) {
 		id = rowID
 	}
 
-	override func encode(to container: inout PersistenceContainer) {
+	override public func encode(to container: inout PersistenceContainer) {
 		container[ItemMetadata.idKey] = id
 		container[ItemMetadata.nameKey] = name
 		container[ItemMetadata.typeKey] = type
@@ -80,6 +84,7 @@ class ItemMetadata: Record {
 		container[ItemMetadata.statusCodeKey] = statusCode
 		container[ItemMetadata.remotePathKey] = remotePath
 		container[ItemMetadata.isPlaceholderItemKey] = isPlaceholderItem
+		container[ItemMetadata.isMaybeOutdatedKey] = isMaybeOutdated
 	}
 }
 
