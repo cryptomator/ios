@@ -18,6 +18,7 @@
 		4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */; };
 		4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */; };
 		4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */; };
+		4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */; };
 		4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245C824A4A6D000DBA437 /* FileProviderItemList.swift */; };
 		4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245CA24A4A70900DBA437 /* FileProviderItem.swift */; };
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
@@ -78,6 +79,8 @@
 		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
+		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
+		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -267,6 +270,7 @@
 		4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorFolderEnumerationTests.swift; sourceTree = "<group>"; };
 		4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorGetFileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorCreateFolderTests.swift; sourceTree = "<group>"; };
+		4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorErrorReportingForUserDrivenActions.swift; sourceTree = "<group>"; };
 		4A2245C824A4A6D000DBA437 /* FileProviderItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemList.swift; sourceTree = "<group>"; };
 		4A2245CA24A4A70900DBA437 /* FileProviderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItem.swift; sourceTree = "<group>"; };
 		4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorFileProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -331,6 +335,8 @@
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
+		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
+		4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDownloadTests.swift; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
@@ -492,11 +498,14 @@
 			isa = PBXGroup;
 			children = (
 				4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */,
+				4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */,
+				4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */,
 				4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */,
 				4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */,
 				4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */,
 				4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */,
 				4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */,
+				4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */,
 			);
 			path = FileProviderDecorator;
 			sourceTree = "<group>";
@@ -1493,12 +1502,15 @@
 				4A123EAC24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift in Sources */,
 				4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */,
 				4A123EAE24BF4776001D1CF7 /* FileProviderDecoratorMock.swift in Sources */,
+				4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */,
 				4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */,
+				4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */,
 				4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */,
 				4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */,
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */,
 				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */,
+				4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */,
 				4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */,
 				4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */,
 				4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */,

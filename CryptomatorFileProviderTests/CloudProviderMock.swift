@@ -130,8 +130,15 @@ class CloudProviderMock: CloudProvider {
 	public func createFolder(at remoteURL: URL) -> Promise<Void> {
 		precondition(remoteURL.isFileURL)
 		precondition(remoteURL.hasDirectoryPath)
-		createdFolders.append(remoteURL.relativePath)
-		return Promise(())
+		switch remoteURL {
+		case URL(fileURLWithPath: "/FolderAlreadyExists/", isDirectory: true):
+			return Promise(CloudProviderError.itemAlreadyExists)
+		case URL(fileURLWithPath: "/quotaInsufficient/", isDirectory: true):
+			return Promise(CloudProviderError.quotaInsufficient)
+		default:
+			createdFolders.append(remoteURL.relativePath)
+			return Promise(())
+		}
 	}
 
 	public func deleteItem(at remoteURL: URL) -> Promise<Void> {

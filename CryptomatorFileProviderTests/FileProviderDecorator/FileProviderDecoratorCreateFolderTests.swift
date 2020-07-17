@@ -16,7 +16,13 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 		XCTAssertFalse(placeholderItem.isUploaded)
 		XCTAssertEqual("public.folder", placeholderItem.typeIdentifier)
 		XCTAssert(placeholderItem.metadata.isPlaceholderItem)
-		// TODO: Check remotePath after deleted the Homeroot inside the decorator
+		XCTAssertEqual("/TestFolder", placeholderItem.metadata.remotePath)
+		XCTAssertNotNil(placeholderItem.metadata.id)
+		guard let fetchedMetadata = try decorator.itemMetadataManager.getCachedMetadata(for: placeholderItem.metadata.id!) else {
+			XCTFail("No Metadata in DB")
+			return
+		}
+		XCTAssertEqual(placeholderItem.metadata, fetchedMetadata)
 	}
 
 	func testCreatePlaceholderItemForFolderFailsIfParentDoesNotExist() throws {
@@ -29,6 +35,34 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 	}
 
 	// TODO: testCreatePlaceholderItemForFolderFailsWithLocalFilenameCollsion
+
+	func skip_testCreatePlaceholderItemForFolderFailsWithLocalFilenameCollsion() throws {
+		let remoteURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
+		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		XCTAssertThrowsError(try decorator.createPlaceholderItemForFolder(withName: "Test Folder", in: .rootContainer)) { error in
+			print(error)
+		}
+	}
+
+	func skip_testCreateTwoTimesSameFolder() throws {
+		let expectation = XCTestExpectation()
+		let placeholderItem = try decorator.createPlaceholderItemForFolder(withName: "Test Folder", in: .rootContainer)
+		decorator.createFolderInCloud(for: placeholderItem).then { item in
+			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
+			XCTAssertFalse(item.metadata.isPlaceholderItem)
+			XCTAssertEqual(1, self.mockedProvider.createdFolders.count)
+			XCTAssertEqual(item.metadata.remotePath, self.mockedProvider.createdFolders[0])
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+		XCTAssertThrowsError(try decorator.createPlaceholderItemForFolder(withName: "Test Folder", in: .rootContainer)) { error in
+			print(error)
+		}
+	}
 
 	func testCreateFolder() throws {
 		let expectation = XCTestExpectation()
@@ -46,5 +80,38 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// TODO: testCreateFolderErrorReporting
+	func testCreateFolderWithCloudCollision() throws {
+		let expectation = XCTestExpectation()
+		let placeholderItem = try decorator.createPlaceholderItemForFolder(withName: "FolderAlreadyExists", in: .rootContainer)
+		decorator.createFolderInCloud(for: placeholderItem).then { item in
+			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
+			XCTAssertFalse(item.metadata.isPlaceholderItem)
+			XCTAssertEqual(1, self.mockedProvider.createdFolders.count)
+			XCTAssertEqual(item.metadata.remotePath, self.mockedProvider.createdFolders[0])
+			XCTAssert(self.mockedProvider.createdFolders.filter { $0.hasPrefix("/FolderAlreadyExists (") && $0.hasSuffix(")") }.count == 1)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testCreateFolderErrorReporting() throws {
+		let expectation = XCTestExpectation()
+		let placeholderItem = try decorator.createPlaceholderItemForFolder(withName: "quotaInsufficient", in: .rootContainer)
+		decorator.createFolderInCloud(for: placeholderItem).then { item in
+			guard let error = item.error as NSError? else {
+				XCTFail("Item has no error")
+				return
+			}
+			XCTAssert(NSFileProviderError(.insufficientQuota)._nsError.isEqual(error))
+			XCTAssertEqual(ItemStatus.uploadError, item.metadata.statusCode)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
 }

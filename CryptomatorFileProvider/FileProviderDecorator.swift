@@ -17,6 +17,7 @@ public class FileProviderDecorator {
 	private let internalProvider: CloudProvider
 	var provider: CloudProvider {
 		return internalProvider
+//		return CloudProviderMock()
 	}
 
 	private let uploadQueue: DispatchQueue
@@ -90,7 +91,7 @@ public class FileProviderDecorator {
 			let uploadTasks = try self.uploadTaskManager.getCorrespondingTasks(ids: ids)
 			assert(metadatas.count == uploadTasks.count)
 			let items = metadatas.enumerated().map { index, metadata in
-				return FileProviderItem(metadata: metadata, uploadTask: uploadTasks[index])
+				return FileProviderItem(metadata: metadata, error: uploadTasks[index]?.error)
 			}
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
@@ -120,7 +121,7 @@ public class FileProviderDecorator {
 	public func getFileProviderItem(for identifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
 		let uploadTask = try uploadTaskManager.getTask(for: itemMetadata.id!)
-		return FileProviderItem(metadata: itemMetadata, uploadTask: uploadTask)
+		return FileProviderItem(metadata: itemMetadata, error: uploadTask?.error)
 	}
 
 	func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
@@ -177,7 +178,7 @@ public class FileProviderDecorator {
 		if typeFile == FileAttributeType.typeDirectory {
 			throw FileProviderDecoratorError.folderUploadNotSupported
 		}
-		let remoteURL = try getRemoteURLForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId)
+		let remoteURL = try getRemoteURLForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId, type: .file)
 		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, lastModifiedDate: lastModifiedDate)
@@ -186,13 +187,13 @@ public class FileProviderDecorator {
 
 	public func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
-		let remoteURL = try getRemoteURLForPlaceholderItem(withName: name, in: parentId)
+		let remoteURL = try getRemoteURLForPlaceholderItem(withName: name, in: parentId, type: .folder)
 		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentId: parentId, lastModifiedDate: nil, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata)
 	}
 
-	func getRemoteURLForPlaceholderItem(withName name: String, in parentId: Int64) throws -> URL {
+	func getRemoteURLForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> URL {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
 			throw FileProviderDecoratorError.parentFolderNotFound
 		}
@@ -201,10 +202,12 @@ public class FileProviderDecorator {
 		if parentId == MetadataManager.rootContainerId {
 			parentRemoteURL = homeRoot
 		}
-		let remoteURL = parentRemoteURL.appendingPathComponent(name, isDirectory: false)
+		let remoteURL = parentRemoteURL.appendingPathComponent(name, isDirectory: type == .folder)
 
 		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: remoteURL.relativePath) {
 			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
+//			DEBUG:
+//			throw CloudProviderError.noInternetConnection
 		}
 		return remoteURL
 	}
@@ -317,31 +320,51 @@ public class FileProviderDecorator {
 				try self.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
 				fulfill(FileProviderItem(metadata: itemMetadata))
 			}.catch { error in
-				let errorToReport: NSError
-				if let cloudProviderError = error as? CloudProviderError {
-					if cloudProviderError == .itemAlreadyExists {
-						reject(CloudProviderError.itemAlreadyExists)
-						return
-					}
-					errorToReport = self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
-				} else {
-					errorToReport = error as NSError
+				do {
+					let item = try self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata)
+					fulfill(item)
+				} catch {
+					reject(error)
 				}
-				print("Report now Error: \(errorToReport)")
-				let item = self.reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
-				fulfill(item)
 			}
 		}
 	}
 
+	/**
+	 - Precondition: `itemMetadata` is already stored in the db
+	 - Postcondition: `itemMetadata.statusCode` == .uploadError
+	 - Postcondition: If an UploadTask associated with the ItemMetadata exists, the error was passed to it and persisted in the DB.
+	 - returns: FileProviderItem from the passed `itemMetadata` and the passed `error`
+	 */
 	func reportErrorWithFileProviderItem(error: NSError, itemMetadata: ItemMetadata) -> FileProviderItem {
 		itemMetadata.statusCode = .uploadError
-		var uploadTask = try? uploadTaskManager.getTask(for: itemMetadata.id!)
-		if uploadTask != nil {
-			try? uploadTaskManager.updateTask(&uploadTask!, error: error)
+		if var uploadTask = try? uploadTaskManager.getTask(for: itemMetadata.id!) {
+			try? uploadTaskManager.updateTask(&uploadTask, error: error)
 		}
 		try? itemMetadataManager.updateMetadata(itemMetadata)
-		return FileProviderItem(metadata: itemMetadata, uploadTask: uploadTask)
+		return FileProviderItem(metadata: itemMetadata, error: error)
+	}
+
+	/**
+	 - Precondition: `itemMetadata` is already stored in the db
+	 - Postcondition: `itemMetadata.statusCode` == .uploadError
+	 - Postcondition: If an UploadTask associated with the ItemMetadata exists, the error was passed to it and persisted in the DB.
+	 - returns: FileProviderItem from the passed `itemMetadata` and the passed `error`.
+	 - throws:  If the passed `error` is  `CloudProviderError.itemAlreadyExists`
+	 */
+	func errorHandlingForUserDrivenActions(error: Error, itemMetadata: ItemMetadata) throws -> FileProviderItem {
+		let errorToReport: NSError
+		if let cloudProviderError = error as? CloudProviderError {
+			if cloudProviderError == .itemAlreadyExists {
+				throw CloudProviderError.itemAlreadyExists
+			}
+			errorToReport = mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
+
+		} else {
+			errorToReport = error as NSError
+		}
+		let item = reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
+		return item
 	}
 
 	func mapCloudProviderErrorToNSFileProviderError(_ error: CloudProviderError) -> NSFileProviderError {
@@ -406,164 +429,36 @@ public class FileProviderDecorator {
 		precondition(itemMetadata.id != nil)
 		precondition(itemMetadata.type == .folder)
 		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: true)
+		return createFolderInCloud(for: itemMetadata, at: remoteURL).recover { error -> Promise<FileProviderItem> in
+			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata) {
+				return Promise(item)
+			}
+			let collisionFreeRemoteURL = remoteURL.createCollisionURL()
+			do {
+				try self.cloudFolderNameCollisionHandling(with: collisionFreeRemoteURL, itemMetadata: itemMetadata)
+			} catch {
+				return Promise(error)
+			}
+			return self.createFolderInCloud(for: itemMetadata, at: collisionFreeRemoteURL)
+		}
+	}
+
+	func cloudFolderNameCollisionHandling(with collisionFreeRemoteURL: URL, itemMetadata: ItemMetadata) throws {
+		let folderName = collisionFreeRemoteURL.lastPathComponent
+		itemMetadata.name = folderName
+		itemMetadata.remotePath = collisionFreeRemoteURL.path
+		try itemMetadataManager.updateMetadata(itemMetadata)
+	}
+
+	func createFolderInCloud(for itemMetadata: ItemMetadata, at remoteURL: URL) -> Promise<FileProviderItem> {
+		assert(itemMetadata.isPlaceholderItem)
+		assert(itemMetadata.id != nil)
+		assert(itemMetadata.type == .folder)
 		return provider.createFolder(at: remoteURL).then { _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try self.itemMetadataManager.updateMetadata(itemMetadata)
 			return FileProviderItem(metadata: itemMetadata)
-		}.recover { error -> Promise<FileProviderItem> in
-			let errorToReport: NSError
-			if let cloudProviderError = error as? CloudProviderError {
-				errorToReport = self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
-			} else {
-				errorToReport = error as NSError
-			}
-			let item: FileProviderItem = self.reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
-			return Promise(item)
 		}
-	}
-}
-
-/**
- ```
- root
- ├─ Directory 1
- │  ├─ Directory 2
- │  └─ File 5
- ├─ File 1
- ├─ File 2
- ├─ File 3
- └─ File 4
- ```
- */
-private class CloudProviderMock: CloudProvider {
-	let folders: Set = [
-		"/Directory 1",
-		"/Directory 1/Directory 2"
-	]
-	var files: [String: Data?] = [
-		"/File 1": "File 1 content".data(using: .utf8),
-		"/File 2": "File 2 content".data(using: .utf8),
-		"/File 3": "File 3 content".data(using: .utf8),
-		"/File 4": "File 4 content".data(using: .utf8),
-		"/Directory 1/File 5": "File 5 content".data(using: .utf8)
-	]
-	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
-											 "/Directory 1/Directory 2": nil,
-											 "/File 1": Date(timeIntervalSince1970: 0),
-											 "/File 2": Date(timeIntervalSince1970: 0),
-											 "/File 3": Date(timeIntervalSince1970: 0),
-											 "/File 4": Date(timeIntervalSince1970: 0),
-											 "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
-
-	var createdFolders: [String] = []
-	var createdFiles: [String: Data] = [:]
-	var deleted: [String] = []
-	var moved: [String: String] = [:]
-
-	public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		precondition(remoteURL.isFileURL)
-		if folders.contains(remoteURL.relativePath) {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .folder, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: 0))
-		} else if let data = files[remoteURL.relativePath] {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data!.count))
-		} else {
-			return Promise(CloudProviderError.itemNotFound)
-		}
-	}
-
-	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken _: String?) -> Promise<CloudItemList> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
-		let parentPath = remoteURL.relativePath
-		let parentPathLvl = parentPath.components(separatedBy: "/").count - (parentPath.hasSuffix("/") ? 1 : 0)
-		let childDirs = folders.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
-		let childFiles = files.keys.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
-		let children = childDirs + childFiles
-		let metadataPromises = children.map { self.fetchItemMetadata(at: URL(fileURLWithPath: $0, isDirectory: childDirs.contains($0))) }
-		return all(metadataPromises).then { metadata -> CloudItemList in
-			let sortedMetadatas = metadata.sorted {
-				$0.name < $1.name
-			}
-			return CloudItemList(items: sortedMetadatas)
-		}
-	}
-
-	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		precondition(localURL.isFileURL)
-		precondition(!remoteURL.hasDirectoryPath)
-		precondition(!localURL.hasDirectoryPath)
-		if let data = files[remoteURL.relativePath] {
-			do {
-				try data!.write(to: localURL, options: .withoutOverwriting)
-			} catch {
-				return Promise(error)
-			}
-			return Promise(())
-		} else {
-			return Promise(CloudProviderError.itemNotFound)
-		}
-	}
-
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
-		precondition(localURL.isFileURL)
-		precondition(remoteURL.isFileURL)
-		precondition(!localURL.hasDirectoryPath)
-		precondition(!remoteURL.hasDirectoryPath)
-		return Promise(CloudProviderError.quotaInsufficient)
-		switch remoteURL {
-		case URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false):
-			return Promise(CloudProviderError.itemNotFound)
-		case URL(fileURLWithPath: "/itemAlreadyExists.txt", isDirectory: false):
-			return Promise(CloudProviderError.itemAlreadyExists)
-		case URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false):
-			return Promise(CloudProviderError.quotaInsufficient)
-		case URL(fileURLWithPath: "/noInternetConnection.txt", isDirectory: false):
-			return Promise(CloudProviderError.noInternetConnection)
-		case URL(fileURLWithPath: "/unauthorized.txt", isDirectory: false):
-			return Promise(CloudProviderError.unauthorized)
-		default:
-			return normalUpload(from: localURL, to: remoteURL)
-		}
-	}
-
-	private func normalUpload(from localURL: URL, to remoteURL: URL) -> Promise<CloudItemMetadata> {
-		precondition(localURL.isFileURL)
-		precondition(remoteURL.isFileURL)
-		precondition(!localURL.hasDirectoryPath)
-		precondition(!remoteURL.hasDirectoryPath)
-		do {
-			let data = try Data(contentsOf: localURL)
-			createdFiles[remoteURL.relativePath] = data
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data.count))
-		} catch {
-			return Promise(error)
-		}
-	}
-
-	public func createFolder(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
-		createdFolders.append(remoteURL.relativePath)
-		return Promise(())
-	}
-
-	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		deleted.append(remoteURL.relativePath)
-		return Promise(())
-	}
-
-	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
-		precondition(oldRemoteURL.isFileURL)
-		precondition(newRemoteURL.isFileURL)
-		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		moved[oldRemoteURL.relativePath] = newRemoteURL.relativePath
-		return Promise(())
-	}
-
-	public func setLastModifiedDate(_ date: Date?, for remoteURL: URL) {
-		lastModifiedDate[remoteURL.relativePath] = date
 	}
 }

@@ -48,7 +48,7 @@ class FileProviderItemTests: XCTestCase {
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let failedUploadTask = UploadTask(correspondingItem: 2, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-		let item = FileProviderItem(metadata: metadata, uploadTask: failedUploadTask)
+		let item = FileProviderItem(metadata: metadata, error: failedUploadTask.error)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)

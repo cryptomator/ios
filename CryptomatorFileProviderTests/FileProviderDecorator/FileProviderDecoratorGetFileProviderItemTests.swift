@@ -44,7 +44,6 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 		try decorator.uploadTaskManager.updateTask(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
 		let item = try decorator.getFileProviderItem(for: NSFileProviderItemIdentifier(String(id)))
 		XCTAssertEqual(itemMetadata, item.metadata)
-		XCTAssertNotNil(item.uploadTask)
 		XCTAssertNotNil(item.uploadingError)
 	}
 }

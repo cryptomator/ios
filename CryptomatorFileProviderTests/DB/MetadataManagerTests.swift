@@ -37,9 +37,9 @@ class MetadataManagerTests: XCTestCase {
 	}
 
 	func testCacheMetadataForFolder() throws {
-		let remoteURL = URL(fileURLWithPath: "/TestFolder/", isDirectory: true)
+		let remoteURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
 
-		let itemMetadata = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
 		XCTAssertNil(itemMetadata.id)
 		try manager.cacheMetadata(itemMetadata)
 		guard let fetchedMetadata = try manager.getCachedMetadata(for: remoteURL.relativePath) else {

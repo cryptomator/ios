@@ -19,6 +19,22 @@ struct UploadTask: Decodable, FetchableRecord, TableRecord {
 	var lastFailedUploadDate: Date?
 	var uploadErrorCode: Int?
 	var uploadErrorDomain: String?
+	var error: Error? {
+		guard let errorCode = uploadErrorCode, let errorDomain = uploadErrorDomain else {
+			return nil
+		}
+		switch errorDomain {
+		case NSFileProviderErrorDomain:
+			if let fileProviderErrorCode = NSFileProviderError.Code(rawValue: errorCode) {
+				return NSFileProviderError(fileProviderErrorCode)
+			}
+			return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
+		case NSCocoaErrorDomain:
+			return CocoaError(CocoaError.Code(rawValue: errorCode))
+		default:
+			return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
+		}
+	}
 }
 
 extension UploadTask: PersistableRecord {
