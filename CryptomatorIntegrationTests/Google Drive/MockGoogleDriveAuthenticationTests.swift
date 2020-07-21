@@ -15,14 +15,11 @@ class MockGoogleDriveAuthenticationTests: XCTestCase {
 	func testAuthenticationWorksWithoutViewController() throws {
 		let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
 		let authentication = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-		authentication.authenticate().then {
-			authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
-				XCTAssertNil(error)
-				expectation.fulfill()
-	 })
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}
+		authentication.authenticate()
+		authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
+			XCTAssertNil(error)
+			expectation.fulfill()
+		})
 		wait(for: [expectation], timeout: 60.0)
 	}
 }

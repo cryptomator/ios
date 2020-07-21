@@ -1,5 +1,5 @@
 //
-//  GoogleDriveCloudAuthentication.swift
+//  GoogleDriveCloudAuthenticator.swift
 //  CloudAccessPrivate
 //
 //  Created by Philipp Schmid on 24.04.20.
@@ -12,24 +12,35 @@ import Foundation
 import GoogleAPIClientForREST
 import GTMAppAuth
 import Promises
+public enum GoogleDriveAuthenticationError: Error {
+	case notAuthenticated
+	case noUsername
+	case userCanceled
+}
 
-public class GoogleDriveCloudAuthentication: CloudAuthentication {
+public class GoogleDriveCloudAuthenticator {
 	private let keychainItemName = "GoogleDriveAuth"
 	let scopes = [kGTLRAuthScopeDrive]
 	public static var currentAuthorizationFlow: OIDExternalUserAgentSession?
 	public var authorization: GTMAppAuthFetcherAuthorization?
-
+	let driveService: GTLRDriveService
 	public init() {
 		self.authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: keychainItemName)
+		self.driveService = GTLRDriveService()
+		driveService.authorizer = authorization
 	}
 
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
+		if authorization != nil {
+			return Promise(())
+		}
 		return createAuthorizationServiceForGoogle().then { configuration in
 			self.getAuthState(for: configuration, with: viewController)
 		}.then { authState in
 			let authorization = GTMAppAuthFetcherAuthorization(authState: authState)
 			self.authorization = authorization
 			GTMAppAuthFetcherAuthorization.save(authorization, toKeychainForName: self.keychainItemName)
+			self.driveService.authorizer = authorization
 			return Promise(())
 		}
 	}
@@ -44,10 +55,10 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	public func getUsername() -> Promise<String> {
 		isAuthenticated().then { authenticated in
 			if !authenticated {
-				return Promise(CloudAuthenticationError.notAuthenticated)
+				return Promise(GoogleDriveAuthenticationError.notAuthenticated)
 			}
 			guard let userEmail = self.authorization?.userEmail else {
-				return Promise(CloudAuthenticationError.noUsername)
+				return Promise(GoogleDriveAuthenticationError.noUsername)
 			}
 			return Promise(userEmail)
 		}
@@ -56,6 +67,7 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 	public func deauthenticate() -> Promise<Void> {
 		GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: keychainItemName)
 		authorization = nil
+		driveService.authorizer = nil
 		return Promise(())
 	}
 
@@ -78,12 +90,12 @@ public class GoogleDriveCloudAuthentication: CloudAuthentication {
 		let request = OIDAuthorizationRequest(configuration: configuration, clientId: CloudAccessSecrets.googleDriveClientId, scopes: scopes, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, responseType: OIDResponseTypeCode, additionalParameters: nil)
 
 		return Promise<OIDAuthState> { fulfill, reject in
-			GoogleDriveCloudAuthentication.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { authState, error in
+			GoogleDriveCloudAuthenticator.currentAuthorizationFlow = OIDAuthState.authState(byPresenting: request, presenting: presentingViewController, callback: { authState, error in
 				guard let authState = authState, error == nil else {
 					self.authorization = nil
 					if let error = error as NSError? {
 						if error.domain == OIDGeneralErrorDomain, error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue || error.code == OIDErrorCode.programCanceledAuthorizationFlow.rawValue {
-							return reject(CloudAuthenticationError.userCanceled)
+							return reject(GoogleDriveAuthenticationError.userCanceled)
 						}
 						return reject(error)
 					}

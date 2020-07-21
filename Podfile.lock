@@ -1,19 +1,22 @@
 PODS:
   - AppAuth/Core (1.4.0)
   - AppAuth/ExternalUserAgent (1.4.0)
-  - CryptomatorCloudAccess (0.4.0):
-    - CryptomatorCloudAccess/Core (= 0.4.0)
-    - CryptomatorCloudAccess/LocalFileSystem (= 0.4.0)
-    - CryptomatorCloudAccess/VaultFormat7 (= 0.4.0)
-  - CryptomatorCloudAccess/Core (0.4.0):
+  - CryptomatorCloudAccess (0.5.0):
+    - CryptomatorCloudAccess/Core (= 0.5.0)
+    - CryptomatorCloudAccess/LocalFileSystem (= 0.5.0)
+    - CryptomatorCloudAccess/VaultFormat7 (= 0.5.0)
+    - CryptomatorCloudAccess/WebDAV (= 0.5.0)
+  - CryptomatorCloudAccess/Core (0.5.0):
     - PromisesSwift (~> 1.2.0)
-  - CryptomatorCloudAccess/LocalFileSystem (0.4.0):
+  - CryptomatorCloudAccess/LocalFileSystem (0.5.0):
     - CryptomatorCloudAccess/Core
-  - CryptomatorCloudAccess/VaultFormat7 (0.4.0):
+  - CryptomatorCloudAccess/VaultFormat7 (0.5.0):
     - CryptomatorCloudAccess/Core
     - CryptomatorCryptoLib (~> 0.7.0)
     - GRDB.swift (~> 4.14.0)
-  - CryptomatorCryptoLib (0.7.1):
+  - CryptomatorCloudAccess/WebDAV (0.5.0):
+    - CryptomatorCloudAccess/Core
+  - CryptomatorCryptoLib (0.7.2):
     - CryptoSwift (~> 1.3.0)
     - SwiftBase32 (~> 0.8.0)
   - CryptoSwift (1.3.1)
@@ -41,7 +44,7 @@ PODS:
 
 DEPENDENCIES:
   - AppAuth/ExternalUserAgent (~> 1.0)
-  - CryptomatorCloudAccess (~> 0.4.0)
+  - CryptomatorCloudAccess (~> 0.5.0)
   - GoogleAPIClientForREST/Drive (~> 1.3.0)
   - GRDB.swift (~> 4.14)
   - GTMAppAuth (~> 1.0.0)
@@ -64,8 +67,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
-  CryptomatorCloudAccess: b900ab157d4ba9bed13468aade7b0758d8324805
-  CryptomatorCryptoLib: 07b2239f9368318d98770c18b581a2b489618e40
+  CryptomatorCloudAccess: 43cd389386b2c4a55f84c042d9b4f3b97907b0cc
+  CryptomatorCryptoLib: e52d034f5df5f8e73eebe1685dc663e54d3e6827
   CryptoSwift: f12f037f6d0fcd6d48c96db0071b653de64e6c4d
   GoogleAPIClientForREST: 0f19a8280dfe6471f76016645d26eb5dae305101
   GRDB.swift: 8cc3ab7c8b8b4ac1761deb8dca4b51c1c9d429f8
@@ -76,6 +79,6 @@ SPEC CHECKSUMS:
   PromisesSwift: 991ad88e9851c45410d6697d1fe5df88fd3deb08
   SwiftBase32: 723fd05e2fce776f2b98f26fe423bd20fa80e411
 
-PODFILE CHECKSUM: 451dd6550d5125e3b4b948e6cfcf381f6012c9dd
+PODFILE CHECKSUM: 5ba775e22eab70c9a1c4a4058f14aac35f07f8e6
 
 COCOAPODS: 1.9.3

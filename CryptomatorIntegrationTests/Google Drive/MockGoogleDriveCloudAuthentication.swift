@@ -12,14 +12,14 @@ import Promises
 @testable import AppAuth
 @testable import CloudAccessPrivate
 
-class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthentication, MockCloudAuthentication {
+class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthenticator {
 	private let refreshToken: String
 
 	init(withRefreshToken refreshToken: String) {
 		self.refreshToken = refreshToken
 	}
 
-	func authenticate() -> Promise<Void> {
+	func authenticate() {
 		let authorizationEndpoint = URL(string: "https://accounts.google.com/o/oauth2/v2/auth")!
 		let tokenEndPoint = URL(string: "https://oauth2.googleapis.com/token")!
 		let configuration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint, tokenEndpoint: tokenEndPoint)
@@ -32,6 +32,6 @@ class MockGoogleDriveCloudAuthentication: GoogleDriveCloudAuthentication, MockCl
 		let authState = OIDAuthState(authorizationResponse: authResponse, tokenResponse: tokenResponse)
 		let authorization = GTMAppAuthFetcherAuthorization(authState: authState)
 		self.authorization = authorization
-		return Promise(())
+		driveService.authorizer = authorization
 	}
 }

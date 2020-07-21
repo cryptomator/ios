@@ -14,7 +14,7 @@ import GTMSessionFetcher
 import Promises
 
 public class GoogleDriveCloudProvider: CloudProvider {
-	private let authentication: GoogleDriveCloudAuthentication
+	private let authentication: GoogleDriveCloudAuthenticator
 	private let rootFolderId = "root"
 	private let folderMimeType = "application/vnd.google-apps.folder"
 	private let unknownMimeType = "application/octet-stream"
@@ -24,9 +24,8 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private let googleDriveErrorDomainUsageLimits = "usageLimits"
 	private let googleDriveErrorReasonUserRateLimitExceeded = "userRateLimitExceeded"
 	private let googleDriveErrorReasonRateLimitExceeded = "rateLimitExceeded"
-	private lazy var driveService: GTLRDriveService = {
-		var driveService = GTLRDriveService()
-		driveService.authorizer = self.authentication.authorization
+	private var driveService: GTLRDriveService {
+		let driveService = authentication.driveService
 		driveService.isRetryEnabled = true
 		driveService.retryBlock = { _, suggestedWillRetry, fetchError in
 			if let fetchError = fetchError as NSError? {
@@ -57,13 +56,13 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			response(suggestedWillRetry)
 		}
 		return driveService
-	}()
+	}
 
 	private let cloudIdentifierCache: GoogleDriveCloudIdentifierCacheManager?
 	private var runningTickets: [GTLRServiceTicket]
 	private var runningFetchers: [GTMSessionFetcher]
 
-	public init(with authentication: GoogleDriveCloudAuthentication) {
+	public init(with authentication: GoogleDriveCloudAuthenticator) {
 		self.authentication = authentication
 		self.runningTickets = [GTLRServiceTicket]()
 		self.runningFetchers = [GTMSessionFetcher]()

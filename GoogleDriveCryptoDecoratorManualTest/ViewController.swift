@@ -15,7 +15,7 @@ import UIKit
 class ViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let authentication = GoogleDriveCloudAuthentication()
+		let authentication = GoogleDriveCloudAuthenticator()
 		let provider = GoogleDriveCloudProvider(with: authentication)
 		let masterKeyRemoteURL = URL(fileURLWithPath: "/Test/TestCryptomatorTresor/masterkey.cryptomator", isDirectory: false)
 		let documentsURL = getDocumentsDirectory()

@@ -22,11 +22,7 @@ class LocalFileSystemProviderIntegrationTests: CryptomatorIntegrationTestInterfa
 		}
 	}
 
-	static let setUpAuthenticationForLocalFileSystem = MockLocalFileSystemAuthentication()
 	static let setUpProviderForLocalFileSystem = LocalFileSystemProvider()
-	override class var setUpAuthentication: MockCloudAuthentication {
-		return setUpAuthenticationForLocalFileSystem
-	}
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForLocalFileSystem
@@ -46,8 +42,6 @@ class LocalFileSystemProviderIntegrationTests: CryptomatorIntegrationTestInterfa
 	override func setUpWithError() throws {
 		// This call is very important, otherwise errors from the IntegrationTest once setup will not be considered correctly.
 		try super.setUpWithError()
-		let auth = MockLocalFileSystemAuthentication()
-		super.authentication = auth
 		super.provider = LocalFileSystemProvider()
 	}
 

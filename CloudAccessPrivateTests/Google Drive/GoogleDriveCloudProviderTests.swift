@@ -12,7 +12,7 @@ import XCTest
 class GoogleDriveCloudProviderTests: XCTestCase {
 	var provider: GoogleDriveCloudProvider!
 	override func setUpWithError() throws {
-		let authentication = GoogleDriveCloudAuthentication()
+		let authentication = GoogleDriveCloudAuthenticator()
 		provider = GoogleDriveCloudProvider(with: authentication)
 	}
 

@@ -10,7 +10,6 @@ import CryptomatorCloudAccess
 import XCTest
 @testable import Promises
 class CryptomatorIntegrationTestInterface: XCTestCase {
-	var authentication: MockCloudAuthentication!
 	var provider: CloudProvider!
 	static var remoteTestFolderURL: URL!
 	static var remoteEmptySubFolderURL: URL!
@@ -19,10 +18,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	static let testContentForFilesInRoot = "testContent"
 	static let testContentForFilesInTestFolder = "File inside Folder Content"
 	class var setUpProvider: CloudProvider? {
-		fatalError("Not implemented")
-	}
-
-	class var setUpAuthentication: MockCloudAuthentication {
 		fatalError("Not implemented")
 	}
 
@@ -50,7 +45,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			classSetUpError = IntegrationTestError.cloudProviderInitError
 			return
 		}
-		let setUpPromise = setUpForIntegrationTest(at: provider, authentication: setUpAuthentication, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
+		let setUpPromise = setUpForIntegrationTest(at: provider, remoteRootURLForIntegrationTest: remoteRootURLForIntegrationTest)
 
 		// MARK: use waitForPromises as expectations are not available here. Therefore we can't catch the error from the promise above. And we need to check for an error later
 
@@ -100,7 +95,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	 └─ test 4.txt
 	 ````
 	 */
-	class func setUpForIntegrationTest(at provider: CloudProvider, authentication: MockCloudAuthentication, remoteRootURLForIntegrationTest: URL) -> Promise<Void> {
+	class func setUpForIntegrationTest(at provider: CloudProvider, remoteRootURLForIntegrationTest: URL) -> Promise<Void> {
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let currentTestTempDirectory = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 
@@ -111,21 +106,20 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToDeleteURL = remoteFolderForDeleteItemsURL.appendingPathComponent("FolderToDelete", isDirectory: true)
 		let remoteFolderToMoveURL = remoteFolderForMoveItemsURL.appendingPathComponent("FolderToMove", isDirectory: true)
 
-		return authentication.authenticate().then {
-			provider.deleteItemIfExists(at: remoteRootURLForIntegrationTest)
-		}.then {
-			provider.createFolderWithIntermediates(for: remoteRootURLForIntegrationTest)
-		}.then {
-			createRootFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
-		}.then {
-			createTestFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
-		}.then {
-			createFolderForDeleteItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToDeleteURL: remoteFolderToDeleteURL, with: provider)
-		}.then {
-			createFolderForMoveItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToMoveURL: remoteFolderToMoveURL, with: provider)
-		}.then { _ in
-			try FileManager.default.removeItem(at: currentTestTempDirectory)
-		}
+		return provider.deleteItemIfExists(at: remoteRootURLForIntegrationTest)
+			.then {
+				provider.createFolderWithIntermediates(for: remoteRootURLForIntegrationTest)
+			}.then {
+				createRootFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
+			}.then {
+				createTestFolderContent(localCurrentTestTempDirectory: currentTestTempDirectory, with: provider)
+			}.then {
+				createFolderForDeleteItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToDeleteURL: remoteFolderToDeleteURL, with: provider)
+			}.then {
+				createFolderForMoveItemsContent(localCurrentTestTempDirectory: currentTestTempDirectory, remoteFolderToMoveURL: remoteFolderToMoveURL, with: provider)
+			}.then { _ in
+				try FileManager.default.removeItem(at: currentTestTempDirectory)
+			}
 	}
 
 	private class func createRootFolderContent(localCurrentTestTempDirectory: URL, with provider: CloudProvider) -> Promise<Void> {
@@ -246,44 +240,40 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	func testFetchItemMetadataForFile() throws {
 		let fileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFile")
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: fileURL)
-		}.then { metadata in
-			XCTAssertEqual("test 0.txt", metadata.name)
-			XCTAssertEqual(fileURL, metadata.remoteURL)
-			XCTAssertEqual(CloudItemType.file, metadata.itemType)
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemMetadata(at: fileURL)
+			.then { metadata in
+				XCTAssertEqual("test 0.txt", metadata.name)
+				XCTAssertEqual(fileURL, metadata.remoteURL)
+				XCTAssertEqual(CloudItemType.file, metadata.itemType)
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataForFolder() throws {
 		let folderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFolder")
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: folderURL)
-		}.then { metadata in
-			XCTAssertEqual("testFolder", metadata.name)
-			XCTAssertEqual(folderURL, metadata.remoteURL)
-			XCTAssertEqual(CloudItemType.folder, metadata.itemType)
-			expectation.fulfill()
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemMetadata(at: folderURL)
+			.then { metadata in
+				XCTAssertEqual("testFolder", metadata.name)
+				XCTAssertEqual(folderURL, metadata.remoteURL)
+				XCTAssertEqual(CloudItemType.folder, metadata.itemType)
+				expectation.fulfill()
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataFailWithItemNotFoundWhenFileDoesNotExists() throws {
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForNonexistentFile")
 		let nonexistentFileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("thisFileMustNotExist.pdf", isDirectory: false)
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: nonexistentFileURL)
-		}.then { _ in
+		provider.fetchItemMetadata(at: nonexistentFileURL).then { _ in
 			XCTFail("Promise should not fulfill for nonexistent File")
 		}.catch { error in
 			guard case CloudProviderError.itemNotFound = error else {
@@ -299,87 +289,82 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	func testFetchItemMetadataFailWithItemNotFoundWhenFolderDoesNotExists() throws {
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForNonexistentFolder")
 		let nonexistentFolderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: nonexistentFolderURL)
-		}.then { _ in
-			XCTFail("Promise should not fulfill for nonexistent File")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail("Promise rejected but with the wrong error: \(error)")
-				return
+		provider.fetchItemMetadata(at: nonexistentFolderURL)
+			.then { _ in
+				XCTFail("Promise should not fulfill for nonexistent File")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail("Promise rejected but with the wrong error: \(error)")
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataForFileFromSubFolder() throws {
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFileFromSubFolder")
 		let fileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/test 0.txt", isDirectory: false)
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: fileURL)
-		}.then { metadata in
-			XCTAssertEqual("test 0.txt", metadata.name)
-			XCTAssertEqual(fileURL, metadata.remoteURL)
-			XCTAssertEqual(CloudItemType.file, metadata.itemType)
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemMetadata(at: fileURL)
+			.then { metadata in
+				XCTAssertEqual("test 0.txt", metadata.name)
+				XCTAssertEqual(fileURL, metadata.remoteURL)
+				XCTAssertEqual(CloudItemType.file, metadata.itemType)
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataForFolderFromSubFolder() throws {
 		let folderURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL!
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFolderFromSubFolder")
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: folderURL)
-		}.then { metadata in
-			XCTAssertEqual("Empty Sub Folder", metadata.name)
-			XCTAssertEqual(folderURL, metadata.remoteURL)
-			XCTAssertEqual(CloudItemType.folder, metadata.itemType)
-			expectation.fulfill()
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}
+		provider.fetchItemMetadata(at: folderURL)
+			.then { metadata in
+				XCTAssertEqual("Empty Sub Folder", metadata.name)
+				XCTAssertEqual(folderURL, metadata.remoteURL)
+				XCTAssertEqual(CloudItemType.folder, metadata.itemType)
+				expectation.fulfill()
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataFailWithItemTypeMismatchIfFileWithThisNameDoesNotExistsButAFolder() throws {
 		let fileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("testFolder", isDirectory: false)
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFile")
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: fileURL)
-		}.then { _ in
-			XCTFail("fetchItemMetadata fulfilled although the file does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.fetchItemMetadata(at: fileURL)
+			.then { _ in
+				XCTFail("fetchItemMetadata fulfilled although the file does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemMetadataFailWithItemTypeMismatchIfFolderWithThisNameDoesNotExistsButAFile() throws {
 		let folderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: true)
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFile")
-		authentication.authenticate().then {
-			self.provider.fetchItemMetadata(at: folderURL)
-		}.then { _ in
-			XCTFail("fetchItemMetadata fulfilled although the folder does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.fetchItemMetadata(at: folderURL)
+			.then { _ in
+				XCTFail("fetchItemMetadata fulfilled although the folder does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -396,17 +381,16 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			CloudItemMetadata(name: "test 4.txt", remoteURL: folderURL.appendingPathComponent("test 4.txt", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
 			CloudItemMetadata(name: "testFolder", remoteURL: CryptomatorIntegrationTestInterface.remoteTestFolderURL, itemType: .folder, lastModifiedDate: nil, size: nil)
 		]
-		authentication.authenticate().then {
-			self.provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
-		}.then { retrievedItemList in
-			let retrievedSortedItems = retrievedItemList.items.sorted()
-			XCTAssertNil(retrievedItemList.nextPageToken)
-			XCTAssertEqual(expectedItems, retrievedSortedItems)
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
+			.then { retrievedItemList in
+				let retrievedSortedItems = retrievedItemList.items.sorted()
+				XCTAssertNil(retrievedItemList.nextPageToken)
+				XCTAssertEqual(expectedItems, retrievedSortedItems)
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -423,17 +407,16 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			CloudItemMetadata(name: "test 3.txt", remoteURL: folderURL.appendingPathComponent("test 3.txt", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
 			CloudItemMetadata(name: "test 4.txt", remoteURL: folderURL.appendingPathComponent("test 4.txt", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil)
 		]
-		authentication.authenticate().then {
-			self.provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
-		}.then { retrievedItemList in
-			let retrievedSortedItems = retrievedItemList.items.sorted()
-			XCTAssertNil(retrievedItemList.nextPageToken)
-			XCTAssertEqual(expectedItems, retrievedSortedItems)
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
+			.then { retrievedItemList in
+				let retrievedSortedItems = retrievedItemList.items.sorted()
+				XCTAssertNil(retrievedItemList.nextPageToken)
+				XCTAssertEqual(expectedItems, retrievedSortedItems)
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -441,53 +424,50 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let folderURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL!
 		let expectation = XCTestExpectation(description: "fetchItemList in empty folder")
 		let expectedItems = [CloudItemMetadata]()
-		authentication.authenticate().then {
-			self.provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
-		}.then { retrievedItemList in
-			let retrievedSortedItems = retrievedItemList.items.sorted()
-			XCTAssertNil(retrievedItemList.nextPageToken)
-			XCTAssertEqual(expectedItems, retrievedSortedItems)
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
+		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
+			.then { retrievedItemList in
+				let retrievedSortedItems = retrievedItemList.items.sorted()
+				XCTAssertNil(retrievedItemList.nextPageToken)
+				XCTAssertEqual(expectedItems, retrievedSortedItems)
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemListFailWithItemNotFoundWhenFolderDoesNotExists() throws {
 		let expectation = XCTestExpectation(description: "fetchItemList fail with CloudProviderError.itemNotFound when the folder does not exists")
 		let nonexistentFolderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
-		authentication.authenticate().then {
-			self.provider.fetchItemList(forFolderAt: nonexistentFolderURL, withPageToken: nil)
-		}.then { _ in
-			XCTFail("fetchItemList fulfilled for nonexistent Folder")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail("Promise rejected but with the wrong error: \(error)")
-				return
+		provider.fetchItemList(forFolderAt: nonexistentFolderURL, withPageToken: nil)
+			.then { _ in
+				XCTFail("fetchItemList fulfilled for nonexistent Folder")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail("Promise rejected but with the wrong error: \(error)")
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testFetchItemListFailWithItemTypeMismatchIfFolderWithThisNameDoesNotExistsButAFile() throws {
 		let folderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: true)
 		let expectation = XCTestExpectation(description: "fetchItemList fails with CloudProviderError.itemTypeMismatch")
-		authentication.authenticate().then {
-			self.provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
-		}.then { _ in
-			XCTFail("fetchItemList fulfilled although the folder does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
+			.then { _ in
+				XCTFail("fetchItemList fulfilled although the folder does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -504,16 +484,15 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile")
-		authentication.authenticate().then {
-			self.provider.downloadFile(from: remoteFileURL, to: localFileURL)
-		}.then {
-			let actualFileContent = try String(contentsOf: localFileURL)
-			XCTAssertEqual(expectedFileContent, actualFileContent)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
+		provider.downloadFile(from: remoteFileURL, to: localFileURL)
+			.then {
+				let actualFileContent = try String(contentsOf: localFileURL)
+				XCTAssertEqual(expectedFileContent, actualFileContent)
+			}.catch { error in
+				XCTFail("Promise failed with error: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -529,16 +508,15 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile")
-		authentication.authenticate().then {
-			self.provider.downloadFile(from: remoteFileURL, to: localFileURL)
-		}.then {
-			let actualFileContent = try String(contentsOf: localFileURL)
-			XCTAssertEqual(expectedFileContent, actualFileContent)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
+		provider.downloadFile(from: remoteFileURL, to: localFileURL)
+			.then {
+				let actualFileContent = try String(contentsOf: localFileURL)
+				XCTAssertEqual(expectedFileContent, actualFileContent)
+			}.catch { error in
+				XCTFail("Promise failed with error: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -552,18 +530,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile fail with CloudProviderError.itemNotFound")
-		authentication.authenticate().then {
-			self.provider.downloadFile(from: remoteFileURL, to: localFileURL)
-		}.then { _ in
-			XCTFail("downloadFile fulfilled although the file does not exist at the cloud provider")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.downloadFile(from: remoteFileURL, to: localFileURL)
+			.then { _ in
+				XCTFail("downloadFile fulfilled although the file does not exist at the cloud provider")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -578,18 +555,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let emptyFileContent = ""
 		try emptyFileContent.write(to: localFileURL, atomically: true, encoding: .utf8)
 		let expectation = XCTestExpectation(description: "downloadFile fail with CloudProviderError.itemAlreadyExists")
-		authentication.authenticate().then {
-			self.provider.downloadFile(from: remoteFileURL, to: localFileURL)
-		}.then { _ in
-			XCTFail("downloadFile fulfilled although the file does already exists locally")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.downloadFile(from: remoteFileURL, to: localFileURL)
+			.then { _ in
+				XCTFail("downloadFile fulfilled although the file does already exists locally")
+			}.catch { error in
+				guard case CloudProviderError.itemAlreadyExists = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -601,18 +577,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent("testFolder", isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile fails with CloudProviderError.itemTypeMismatch")
-		authentication.authenticate().then {
-			self.provider.downloadFile(from: fileURL, to: localFileURL)
-		}.then { _ in
-			XCTFail("downloadFile fulfilled although the file does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.downloadFile(from: fileURL, to: localFileURL)
+			.then { _ in
+				XCTFail("downloadFile fulfilled although the file does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -630,23 +605,22 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let overwrittenContent = "Overwritten content"
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("FileToOverwrite.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail overwrites file with update")
-		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
-		}.then { _ -> Promise<CloudItemMetadata> in
-			try overwrittenContent.write(to: localFileURL, atomically: true, encoding: .utf8)
-			return self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: true)
-		}.then { _ in
-			self.provider.downloadFile(from: remoteURL, to: localDownloadedFileURL)
-		}.then { _ in
-			self.provider.deleteItem(at: remoteURL)
-		}.then {
-			let downloadedContent = try String(contentsOf: localDownloadedFileURL)
-			XCTAssertEqual(overwrittenContent, downloadedContent)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
+		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
+			.then { _ -> Promise<CloudItemMetadata> in
+				try overwrittenContent.write(to: localFileURL, atomically: true, encoding: .utf8)
+				return self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: true)
+			}.then { _ in
+				self.provider.downloadFile(from: remoteURL, to: localDownloadedFileURL)
+			}.then { _ in
+				self.provider.deleteItem(at: remoteURL)
+			}.then {
+				let downloadedContent = try String(contentsOf: localDownloadedFileURL)
+				XCTAssertEqual(overwrittenContent, downloadedContent)
+			}.catch { error in
+				XCTFail("Promise failed with error: \(error)")
+			}.always {
+				expectation.fulfill()
+			}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -657,18 +631,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let nonExistentLocalFileURL = uniqueTempFolderURL.appendingPathComponent("nonExistentFile.txt", isDirectory: false)
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("nonExistentFile.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.itemNotFound when localFile does not exists")
-		authentication.authenticate().then {
-			self.provider.uploadFile(from: nonExistentLocalFileURL, to: remoteURL, replaceExisting: false)
-		}.then { _ in
-			XCTFail("uploadFile fulfilled although the file to be uploaded does not exist locally")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.uploadFile(from: nonExistentLocalFileURL, to: remoteURL, replaceExisting: false)
+			.then { _ in
+				XCTFail("uploadFile fulfilled although the file to be uploaded does not exist locally")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -683,18 +656,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.itemNotFound when remoteFile already exists and !isUpdate")
 
-		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
-		}.then { _ in
-			XCTFail("uploadFile fulfilled although the remote file already exists and !isUpdate")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
+			.then { _ in
+				XCTFail("uploadFile fulfilled although the remote file already exists and !isUpdate")
+			}.catch { error in
+				guard case CloudProviderError.itemAlreadyExists = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -709,18 +681,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteNonExistenFolderURL = CryptomatorIntegrationTestInterface.remoteTestFolderURL.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
 		let remoteURL = remoteNonExistenFolderURL.appendingPathComponent("test 0.txt", isDirectory: false)
 		let expectation = XCTestExpectation(description: "uploadFile fail with CloudProviderError.parentFolderDoesNotExist when the parent folder in the remote URL does not exist")
-		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
-		}.then { _ in
-			XCTFail("uploadFile fulfilled although the parent folder of the remoteURL does not exist")
-		}.catch { error in
-			guard case CloudProviderError.parentFolderDoesNotExist = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
+			.then { _ in
+				XCTFail("uploadFile fulfilled although the parent folder of the remoteURL does not exist")
+			}.catch { error in
+				guard case CloudProviderError.parentFolderDoesNotExist = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -733,18 +704,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: localFileURL, withIntermediateDirectories: true, attributes: nil)
 
 		let expectation = XCTestExpectation(description: "downloadFile fails with CloudProviderError.itemTypeMismatch")
-		authentication.authenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteFileURL, replaceExisting: false)
-		}.then { _ in
-			XCTFail("uploadFile fulfilled although the file does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.uploadFile(from: localFileURL, to: remoteFileURL, replaceExisting: false)
+			.then { _ in
+				XCTFail("uploadFile fulfilled although the file does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -754,35 +724,33 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	func testCreateFolderFailWithItemAlreadyExistsWhenAFolderAlreadyExists() throws {
 		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL!
 		let expectation = XCTestExpectation(description: "createFolder fail with CloudProviderError.itemAlreadyExists when a folder already exists at the remoteURL")
-		authentication.authenticate().then {
-			self.provider.createFolder(at: remoteURL)
-		}.then { _ in
-			XCTFail("createFolder fulfilled although the folder of the remoteURL does already exist")
-		}.catch { error in
-			if case CloudProviderError.itemAlreadyExists = error {
-				expectation.fulfill()
-			} else {
-				XCTFail(error.localizedDescription)
+		provider.createFolder(at: remoteURL)
+			.then { _ in
+				XCTFail("createFolder fulfilled although the folder of the remoteURL does already exist")
+			}.catch { error in
+				if case CloudProviderError.itemAlreadyExists = error {
+					expectation.fulfill()
+				} else {
+					XCTFail(error.localizedDescription)
+				}
 			}
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testCreateFolderFailWithItemAlreadyExistsWhenAFileAlreadyExists() throws {
 		let remoteURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: true)
 		let expectation = XCTestExpectation(description: "createFolder fail with CloudProviderError.itemAlreadyExists when a folder already exists at the remoteURL")
-		authentication.authenticate().then {
-			self.provider.createFolder(at: remoteURL)
-		}.then { _ in
-			XCTFail("createFolder fulfilled although the file of the remoteURL does already exist")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.createFolder(at: remoteURL)
+			.then { _ in
+				XCTFail("createFolder fulfilled although the file of the remoteURL does already exist")
+			}.catch { error in
+				guard case CloudProviderError.itemAlreadyExists = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -790,18 +758,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let nonexistentFolderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("thisFolderMustNotExist-AAA/", isDirectory: true)
 		let remoteURL = nonexistentFolderURL.appendingPathComponent("folderToCreate/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "createFolder fail with CloudProviderError.itemAlreadyExists when a folder already exists at the remoteURL")
-		authentication.authenticate().then {
-			self.provider.createFolder(at: remoteURL)
-		}.then { _ in
-			XCTFail("createFolder fulfilled although the parent Folder of the remoteURL does not exist")
-		}.catch { error in
-			guard case CloudProviderError.parentFolderDoesNotExist = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.createFolder(at: remoteURL)
+			.then { _ in
+				XCTFail("createFolder fulfilled although the parent Folder of the remoteURL does not exist")
+			}.catch { error in
+				guard case CloudProviderError.parentFolderDoesNotExist = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -810,94 +777,89 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	func testDeleteItemCanDeleteExistingFile() throws {
 		let itemToDeleteURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FileToDelete", isDirectory: false)
 		let expectation = XCTestExpectation(description: "deleteItem can delete existing file")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: itemToDeleteURL)
-		}.then {
-			self.provider.checkForItemExistence(at: itemToDeleteURL)
-		}.then { fileExists in
-			guard !fileExists else {
-				XCTFail("File still exists in the cloud")
-				return
+		provider.deleteItem(at: itemToDeleteURL)
+			.then {
+				self.provider.checkForItemExistence(at: itemToDeleteURL)
+			}.then { fileExists in
+				guard !fileExists else {
+					XCTFail("File still exists in the cloud")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testDeleteItemCanDeleteExistingFolder() throws {
 		let itemToDeleteURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FolderToDelete", isDirectory: true)
 		let expectation = XCTestExpectation(description: "deleteItem can delete existing folder")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: itemToDeleteURL)
-		}.then {
-			self.provider.checkForItemExistence(at: itemToDeleteURL)
-		}.then { folderExists in
-			guard !folderExists else {
-				XCTFail("Folder still exists in the cloud")
-				return
+		provider.deleteItem(at: itemToDeleteURL)
+			.then {
+				self.provider.checkForItemExistence(at: itemToDeleteURL)
+			}.then { folderExists in
+				guard !folderExists else {
+					XCTFail("Folder still exists in the cloud")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testDeleteItemFailWithItemNotFoundIfFileDoesNotExist() throws {
 		let remoteNonExistentFileURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("thisFileMustNotExist", isDirectory: false)
 		let expectation = XCTestExpectation(description: "deleteItem fail with CloudProviderError.itemNotFound if the file to be deleted does not exist")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: remoteNonExistentFileURL)
-		}.then {
-			XCTFail("deleteItem fulfilled although the file to be deleted does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.deleteItem(at: remoteNonExistentFileURL)
+			.then {
+				XCTFail("deleteItem fulfilled although the file to be deleted does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testDeleteItemFailWithItemNotFoundIfFolderDoesNotExist() throws {
 		let remoteNonExistentFolderURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "deleteItem fail with CloudProviderError.itemNotFound if the folder to be deleted does not exist")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: remoteNonExistentFolderURL)
-		}.then {
-			XCTFail("deleteItem fulfilled although the folder to be deleted does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.deleteItem(at: remoteNonExistentFolderURL)
+			.then {
+				XCTFail("deleteItem fulfilled although the folder to be deleted does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
 	func testDeleteItemFailWithItemTypeMismatchIfFileWithThisNameDoesNotExistsButAFolder() throws {
 		let remoteNonExistentFileURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FolderForItemTypeMismatch", isDirectory: false)
 		let expectation = XCTestExpectation(description: "deleteItem fail with CloudProviderError.itemTypeMismatch ff the file to be deleted does not exist, but there is a folder in that location with the same name.")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: remoteNonExistentFileURL)
-		}.then {
-			XCTFail("deleteItem fulfilled although the file to be deleted does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.deleteItem(at: remoteNonExistentFileURL)
+			.then {
+				XCTFail("deleteItem fulfilled although the file to be deleted does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 		let checkExpectation = XCTestExpectation(description: "deleteItem did not delete the folder with the same name because we wanted to delete a file")
 		let remoteFolderURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FolderForItemTypeMismatch", isDirectory: true)
@@ -915,18 +877,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 	func testDeleteItemFailWithItemTypeMismatchIfFolderWithThisNameDoesNotExistsButAFile() throws {
 		let remoteNonExistentFolderURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FileForItemTypeMismatch", isDirectory: true)
 		let expectation = XCTestExpectation(description: "deleteItem fail with CloudProviderError.itemTypeMismatch if the folder to be deleted does not exist, but there is a file in that location with the same name.")
-		authentication.authenticate().then {
-			self.provider.deleteItem(at: remoteNonExistentFolderURL)
-		}.then {
-			XCTFail("deleteItem fulfilled although the folder to be deleted does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.deleteItem(at: remoteNonExistentFolderURL)
+			.then {
+				XCTFail("deleteItem fulfilled although the folder to be deleted does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 30.0)
 		let checkExpectation = XCTestExpectation(description: "deleteItem did not delete the file with the same name because we wanted to delete a folder")
 		let remoteFileURL = CryptomatorIntegrationTestInterface.remoteFolderForDeleteItemsURL.appendingPathComponent("FileForItemTypeMismatch", isDirectory: false)
@@ -950,22 +911,21 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let newRemoteFileToRenameURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("RenamedFile", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem works as rename for file")
 		let remoteURLs = [remoteFileToRenameURL, newRemoteFileToRenameURL]
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFileToRenameURL, to: newRemoteFileToRenameURL)
-		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
-		}.then { itemsExist in
-			let oldItemExist = itemsExist[0]
-			let newItemExist = itemsExist[1]
-			guard !oldItemExist, newItemExist else {
-				XCTFail("moveItem did not move the file correctly")
-				return
+		provider.moveItem(from: remoteFileToRenameURL, to: newRemoteFileToRenameURL)
+			.then {
+				all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
+			}.then { itemsExist in
+				let oldItemExist = itemsExist[0]
+				let newItemExist = itemsExist[1]
+				guard !oldItemExist, newItemExist else {
+					XCTFail("moveItem did not move the file correctly")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 20.0)
 	}
 
@@ -974,22 +934,21 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let newRemoteFolderToRenameURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("RenamedFolder", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem works as rename for folder")
 		let remoteURLs = [remoteFolderToRenameURL, newRemoteFolderToRenameURL]
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFolderToRenameURL, to: newRemoteFolderToRenameURL)
-		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
-		}.then { itemsExist in
-			let oldItemExist = itemsExist[0]
-			let newItemExist = itemsExist[1]
-			guard !oldItemExist, newItemExist else {
-				XCTFail("moveItem did not move the folder correctly")
-				return
+		provider.moveItem(from: remoteFolderToRenameURL, to: newRemoteFolderToRenameURL)
+			.then {
+				all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
+			}.then { itemsExist in
+				let oldItemExist = itemsExist[0]
+				let newItemExist = itemsExist[1]
+				guard !oldItemExist, newItemExist else {
+					XCTFail("moveItem did not move the folder correctly")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -998,22 +957,21 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("MoveItemsInThisFolder/renamedAndMovedFile", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem works for file")
 		let remoteURLs = [remoteFileToMoveURL, newRemoteFileToMoveURL]
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
-		}.then { itemsExist in
-			let oldItemExist = itemsExist[0]
-			let newItemExist = itemsExist[1]
-			guard !oldItemExist, newItemExist else {
-				XCTFail("moveItem did not move the file correctly")
-				return
+		provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
+			}.then { itemsExist in
+				let oldItemExist = itemsExist[0]
+				let newItemExist = itemsExist[1]
+				guard !oldItemExist, newItemExist else {
+					XCTFail("moveItem did not move the file correctly")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1022,22 +980,21 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("MoveItemsInThisFolder/renamedAndMovedFolder/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem works for folder")
 		let remoteURLs = [remoteFileToMoveURL, newRemoteFileToMoveURL]
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
-		}.then { itemsExist in
-			let oldItemExist = itemsExist[0]
-			let newItemExist = itemsExist[1]
-			guard !oldItemExist, newItemExist else {
-				XCTFail("moveItem did not move the folder correctly")
-				return
+		provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				all(remoteURLs.map { self.provider.checkForItemExistence(at: $0) })
+			}.then { itemsExist in
+				let oldItemExist = itemsExist[0]
+				let newItemExist = itemsExist[1]
+				guard !oldItemExist, newItemExist else {
+					XCTFail("moveItem did not move the folder correctly")
+					return
+				}
+			}.catch { error in
+				XCTFail(error.localizedDescription)
+			}.always {
+				expectation.fulfill()
 			}
-		}.catch { error in
-			XCTFail(error.localizedDescription)
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1045,18 +1002,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let nonExistentFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("thisFileMustNotExist.pdf", isDirectory: false)
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("MoveItemsInThisFolder/thisFileMustNotExistRenamed.pdf", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem fails with CloudProviderError.itemNotFound if the file to move does not exist")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: nonExistentFileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the file to be moved does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: nonExistentFileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the file to be moved does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1064,18 +1020,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let nonExistentFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("thisFolderMustNotExist/", isDirectory: true)
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("MoveItemsInThisFolder/thisFolderMustNotExistRenamed/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem fails with CloudProviderError.itemNotFound if the file to move does not exist")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: nonExistentFolderToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the file to be moved does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemNotFound = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: nonExistentFolderToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the file to be moved does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemNotFound = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1083,18 +1038,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let fileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FileForItemAlreadyExists", isDirectory: false)
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FileForItemTypeMismatch", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem fails with CloudProviderError.itemAlreadyExists if a file already exists at the target URL")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: fileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although a file already exists at the target URL")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: fileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although a file already exists at the target URL")
+			}.catch { error in
+				guard case CloudProviderError.itemAlreadyExists = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1102,18 +1056,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FolderForItemAlreadyExists", isDirectory: true)
 		let newRemoteFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FolderForItemTypeMismatch", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem fails with CloudProviderError.itemAlreadyExists if a folder already exists at the target URL")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFolderToMoveURL, to: newRemoteFolderToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although a folder already exists at the target URL")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: remoteFolderToMoveURL, to: newRemoteFolderToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although a folder already exists at the target URL")
+			}.catch { error in
+				guard case CloudProviderError.itemAlreadyExists = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 60.0)
 	}
 
@@ -1121,18 +1074,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteNonExistentFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FolderForItemTypeMismatch", isDirectory: false)
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FileForItemTypeMismatch-AAA", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem did not move the folder with the same name because we wanted to move a file")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteNonExistentFileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the file to be moved does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: remoteNonExistentFileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the file to be moved does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 30.0)
 	}
 
@@ -1140,18 +1092,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteNonExistentFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FileForItemTypeMismatch", isDirectory: true)
 		let newRemoteFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FolderForItemTypeMismatch-AAA", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem did not move the file with the same name because we wanted to move a folder")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteNonExistentFolderToMoveURL, to: newRemoteFolderToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the folder to be moved does not exist")
-		}.catch { error in
-			guard case CloudProviderError.itemTypeMismatch = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: remoteNonExistentFolderToMoveURL, to: newRemoteFolderToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the folder to be moved does not exist")
+			}.catch { error in
+				guard case CloudProviderError.itemTypeMismatch = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 30.0)
 	}
 
@@ -1159,18 +1110,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FileForParentFolderDoesNotExist", isDirectory: false)
 		let newRemoteFileToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("thisFolderMustNotExist/FileForParentFolderDoesNotExists", isDirectory: false)
 		let expectation = XCTestExpectation(description: "moveItem did not move the file because the parent folder does not exist at the target URL")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the parent folder of the target URL does not exist")
-		}.catch { error in
-			guard case CloudProviderError.parentFolderDoesNotExist = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: remoteFileToMoveURL, to: newRemoteFileToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the parent folder of the target URL does not exist")
+			}.catch { error in
+				guard case CloudProviderError.parentFolderDoesNotExist = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 30.0)
 	}
 
@@ -1178,18 +1128,17 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("FolderForParentFolderDoesNotExist/", isDirectory: true)
 		let newRemoteFolderToMoveURL = CryptomatorIntegrationTestInterface.remoteFolderForMoveItemsURL.appendingPathComponent("thisFolderMustNotExist/FolderForParentFolderDoesNotExist/", isDirectory: true)
 		let expectation = XCTestExpectation(description: "moveItem did not move the folder because the parent folder does not exist at the target URL")
-		authentication.authenticate().then {
-			self.provider.moveItem(from: remoteFolderToMoveURL, to: newRemoteFolderToMoveURL)
-		}.then {
-			XCTFail("moveItem fulfilled although the parent folder of the target URL does not exist")
-		}.catch { error in
-			guard case CloudProviderError.parentFolderDoesNotExist = error else {
-				XCTFail(error.localizedDescription)
-				return
+		provider.moveItem(from: remoteFolderToMoveURL, to: newRemoteFolderToMoveURL)
+			.then {
+				XCTFail("moveItem fulfilled although the parent folder of the target URL does not exist")
+			}.catch { error in
+				guard case CloudProviderError.parentFolderDoesNotExist = error else {
+					XCTFail(error.localizedDescription)
+					return
+				}
+			}.always {
+				expectation.fulfill()
 			}
-		}.always {
-			expectation.fulfill()
-		}
 		wait(for: [expectation], timeout: 30.0)
 	}
 }

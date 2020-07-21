@@ -10,9 +10,19 @@ import CryptomatorCloudAccess
 import Foundation
 import ObjectiveDropboxOfficial
 import Promises
-public class DropboxCloudAuthentication: CloudAuthentication {
+
+public enum DropboxAuthenticationError: Error {
+	case authenticationFailed
+	case noUsername
+}
+
+public class DropboxCloudAuthentication {
 	public static var pendingAuthentication: Promise<Void>?
 	public var authorizedClient: DBUserClient?
+	private static var firstTimeInit = true
+	public var isAuthenticated: Bool {
+		return DBClientsManager.authorizedClient()?.isAuthorized() ?? false
+	}
 
 	/**
 	 Add DBClientsManager.setup(..) to the AppDelegate
@@ -20,31 +30,28 @@ public class DropboxCloudAuthentication: CloudAuthentication {
 	public init() {
 		// MARK: Add sharedContainerIdentifier
 
-		// let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
-//		DBClientsManager.setup(withTransport: config)
-	}
-
-	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
-		return isAuthenticated().then { isAuthenticated in
-			if isAuthenticated {
-				self.authorizedClient = DBClientsManager.authorizedClient()
-				return Promise(())
-			}
-
-			DropboxCloudAuthentication.pendingAuthentication?.reject(CloudAuthenticationError.authenticationFailed)
-			let pendingAuthentication = Promise<Void>.pending()
-			DropboxCloudAuthentication.pendingAuthentication = pendingAuthentication
-			DBClientsManager.authorize(fromController: .shared, controller: viewController) { url in
-				UIApplication.shared.open(url, options: [:], completionHandler: nil)
-			}
-			return pendingAuthentication.then {
-				self.authorizedClient = DBClientsManager.authorizedClient()
-			}
+		if DropboxCloudAuthentication.firstTimeInit {
+			DropboxCloudAuthentication.firstTimeInit = false
+			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
+			DBClientsManager.setup(withTransport: config)
 		}
 	}
 
-	public func isAuthenticated() -> Promise<Bool> {
-		return Promise(DBClientsManager.authorizedClient()?.isAuthorized() ?? false)
+	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
+		if isAuthenticated {
+			authorizedClient = DBClientsManager.authorizedClient()
+			return Promise(())
+		}
+
+		DropboxCloudAuthentication.pendingAuthentication?.reject(DropboxAuthenticationError.authenticationFailed)
+		let pendingAuthentication = Promise<Void>.pending()
+		DropboxCloudAuthentication.pendingAuthentication = pendingAuthentication
+		DBClientsManager.authorize(fromController: .shared, controller: viewController) { url in
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		}
+		return pendingAuthentication.then {
+			self.authorizedClient = DBClientsManager.authorizedClient()
+		}
 	}
 
 	public func getUsername() -> Promise<String> {
@@ -56,7 +63,7 @@ public class DropboxCloudAuthentication: CloudAuthentication {
 					return
 				}
 				guard let result = result else {
-					reject(CloudAuthenticationError.noUsername)
+					reject(DropboxAuthenticationError.noUsername)
 					return
 				}
 				fulfill(result.name.displayName)
@@ -66,6 +73,7 @@ public class DropboxCloudAuthentication: CloudAuthentication {
 
 	public func deauthenticate() -> Promise<Void> {
 		DBClientsManager.unlinkAndResetClients()
+		authorizedClient = nil
 		return Promise(())
 	}
 }

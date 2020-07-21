@@ -21,26 +21,10 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: IntegrationTestW
 		}
 	}
 
-	static let setUpAuthenticationForLocalFileSystem = MockLocalFileSystemAuthentication()
-
 	private static let cloudProvider = LocalFileSystemProvider()
 	private static let vaultURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-	private static let cryptor = Cryptor(masterkey: Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7))
 
-	static let setUpProviderForVaultFormat7LocalFileSystem: VaultFormat7ShorteningProviderDecorator? = {
-		let cloudProvider = LocalFileSystemProvider()
-		do {
-			let crptorDecorator = try VaultFormat7ProviderDecorator(delegate: cloudProvider, vaultURL: vaultURL, cryptor: cryptor)
-			let provider = try VaultFormat7ShorteningProviderDecorator(delegate: crptorDecorator, vaultURL: vaultURL)
-			return provider
-		} catch {
-			return nil
-		}
-	}()
-
-	override class var setUpAuthentication: MockCloudAuthentication {
-		return setUpAuthenticationForLocalFileSystem
-	}
+	static var setUpProviderForVaultFormat7LocalFileSystem: VaultFormat7ProviderDecorator?
 
 	override class var setUpProvider: CloudProvider? {
 		return setUpProviderForVaultFormat7LocalFileSystem
@@ -53,17 +37,34 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: IntegrationTestW
 
 	override class func setUp() {
 		// TODO: SetUp Vault
+		let setUpPromise = VaultFormat7ProviderDecorator.createNew(delegate: cloudProvider, vaultURL: vaultURL, password: "IntegrationTest").then { decorator in
+			setUpProviderForVaultFormat7LocalFileSystem = decorator
+		}.catch { error in
+			print("VaultFormat7LocalFileSystemCloudProviderIntegrationTests setup error: \(error)")
+		}
+		guard waitForPromises(timeout: 60.0) else {
+			classSetUpError = IntegrationTestError.oneTimeSetUpTimeout
+			return
+		}
+		if let error = setUpPromise.error {
+			classSetUpError = error
+			return
+		}
 		super.setUp()
 	}
 
 	override func setUpWithError() throws {
+		let expectation = XCTestExpectation()
 		try super.setUpWithError()
-		let auth = MockLocalFileSystemAuthentication()
-		super.authentication = auth
 		let cloudProvider = LocalFileSystemProvider()
-		let crptorDecorator = try VaultFormat7ProviderDecorator(delegate: cloudProvider, vaultURL: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultURL, cryptor: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.cryptor)
-		let provider = try VaultFormat7ShorteningProviderDecorator(delegate: crptorDecorator, vaultURL: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultURL)
-		super.provider = provider
+		VaultFormat7ProviderDecorator.createFromExisting(delegate: cloudProvider, vaultURL: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultURL, password: "IntegrationTest").then { decorator in
+			super.provider = decorator
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {

@@ -10,20 +10,15 @@ import Foundation
 import ObjectiveDropboxOfficial
 import Promises
 @testable import CloudAccessPrivate
-class MockDropboxCloudAuthentication: DropboxCloudAuthentication, MockCloudAuthentication {
-	func authenticate() -> Promise<Void> {
-		return isAuthenticated().then { isAuthenticated in
-			if isAuthenticated {
-				self.authorizedClient = DBClientsManager.authorizedClient()
-				return Promise(())
-			}
-
+class MockDropboxCloudAuthentication: DropboxCloudAuthentication {
+	func authenticate() {
+		if isAuthenticated {
+			authorizedClient = DBClientsManager.authorizedClient()
+		} else {
 			// MARK: Check if we can get the backgroundSession Working in XCTest
 
 			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: true, sharedContainerIdentifier: nil)
-			self.authorizedClient = DBUserClient(accessToken: IntegrationTestSecrets.dropboxAccessToken, transport: config)
-
-			return Promise(())
+			authorizedClient = DBUserClient(accessToken: IntegrationTestSecrets.dropboxAccessToken, transport: config)
 		}
 	}
 }

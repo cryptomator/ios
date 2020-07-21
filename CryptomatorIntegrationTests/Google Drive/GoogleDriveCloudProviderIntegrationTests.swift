@@ -23,10 +23,7 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 	}
 
 	static let setUpAuthenticationForGoogleDrive = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-	static let setUpProviderForGoogleDrive = GoogleDriveCloudProvider(with: setUpAuthenticationForGoogleDrive)
-	override class var setUpAuthentication: MockCloudAuthentication {
-		return setUpAuthenticationForGoogleDrive
-	}
+	static var setUpProviderForGoogleDrive = GoogleDriveCloudProvider(with: setUpAuthenticationForGoogleDrive)
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForGoogleDrive
@@ -37,14 +34,24 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		return remoteRootURLForIntegrationTestAtGoogleDrive
 	}
 
+	let authentication = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
+
+	override class func setUp() {
+		setUpAuthenticationForGoogleDrive.authenticate()
+		super.setUp()
+	}
+
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		let auth = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-		super.authentication = auth
-		super.provider = GoogleDriveCloudProvider(with: auth)
+		authentication.authenticate()
+		super.provider = GoogleDriveCloudProvider(with: authentication)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {
 		return XCTestSuite(forTestCaseClass: GoogleDriveCloudProviderIntegrationTests.self)
+	}
+
+	override func deauthenticate() -> Promise<Void> {
+		return authentication.deauthenticate()
 	}
 }

@@ -26,32 +26,33 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 
 	static let setUpAuthenticationForDropbox = MockDropboxCloudAuthentication()
 	static let setUpProviderForDropbox = DropboxCloudProvider(with: setUpAuthenticationForDropbox)
-	override class var setUpAuthentication: MockCloudAuthentication {
-		return setUpAuthenticationForDropbox
-	}
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForDropbox
 	}
 
+	let authentication = MockDropboxCloudAuthentication()
 	static let remoteRootURLForIntegrationTestAtDropbox = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
 	override class var remoteRootURLForIntegrationTest: URL {
 		return remoteRootURLForIntegrationTestAtDropbox
 	}
 
 	override class func setUp() {
-		DBClientsManager.setup(withAppKey: CloudAccessSecrets.dropboxAppKey)
+		setUpAuthenticationForDropbox.authenticate()
 		super.setUp()
 	}
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		let auth = MockDropboxCloudAuthentication()
-		super.authentication = auth
-		super.provider = DropboxCloudProvider(with: auth)
+		authentication.authenticate()
+		super.provider = DropboxCloudProvider(with: authentication)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {
 		return XCTestSuite(forTestCaseClass: DropboxCloudProviderIntegrationTests.self)
+	}
+
+	override func deauthenticate() -> Promise<Void> {
+		return authentication.deauthenticate()
 	}
 }
