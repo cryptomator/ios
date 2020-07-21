@@ -11,7 +11,7 @@ import FileProvider
 import Foundation
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		print("importDocument called")
+		print("importDocument called: \(fileURL)")
 		guard let decorator = self.decorator else {
 			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		}

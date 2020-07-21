@@ -15,14 +15,15 @@ import Promises
 public class FileProviderDecorator {
 	// Needed to mock the class
 	private let internalProvider: CloudProvider
+//	private let mock = CloudProviderMock()
 	var provider: CloudProvider {
 		return internalProvider
-//		return CloudProviderMock()
+//		return mock
 	}
 
 	private let uploadQueue: DispatchQueue
 	private let downloadQueue: DispatchQueue
-
+	private let uploadSemaphore = DispatchSemaphore(value: 1)
 	let itemMetadataManager: MetadataManager
 	let cachedFileManager: CachedFileManager
 	let uploadTaskManager: UploadTaskManager
@@ -149,6 +150,11 @@ public class FileProviderDecorator {
 				return false
 			}
 			return try self.cachedFileManager.hasCurrentVersionLocal(for: metadata.id!, with: lastModifiedDateInCloud)
+		}.recover { error -> Bool in
+			if case CloudProviderError.noInternetConnection = error {
+				return true
+			}
+			return false
 		}
 	}
 
@@ -163,9 +169,26 @@ public class FileProviderDecorator {
 		var lastModifiedDate: Date?
 		return provider.fetchItemMetadata(at: remoteURL).then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
-			return self.provider.downloadFile(from: remoteURL, to: localURL)
+			let progress = Progress.discreteProgress(totalUnitCount: 1)
+			let task = FileProviderNetworkTask(with: progress)
+			self.manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(metadata.id!))) { error in
+			 	if let error = error {
+			 		print("Register Task Error: \(error)")
+			 	}
+			 }
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			return self.provider.downloadFile(from: remoteURL, to: localURL).then {
+				progress.resignCurrent()
+			}
 		}.then {
+			metadata.statusCode = .isDownloaded
+			try self.itemMetadataManager.updateMetadata(metadata)
 			try self.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, lastModifiedDate: lastModifiedDate)
+		}.recover { error -> Promise<Void> in
+			if let cloudProviderError = error as? CloudProviderError {
+				return Promise(self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError))
+			}
+			return Promise(error)
 		}
 	}
 
@@ -309,7 +332,17 @@ public class FileProviderDecorator {
 	func uploadFileWithoutRecover(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
 		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: false)
 		print("uploadTo: \(remoteURL)")
+		let progress = Progress.discreteProgress(totalUnitCount: 1)
+		let task = FileProviderNetworkTask(with: progress)
+		manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(itemMetadata.id!))) { error in
+			if let error = error {
+				print("Register Task Error: \(error)")
+			}
+		}
 		return Promise<FileProviderItem>(on: uploadQueue) { fulfill, reject in
+			self.uploadSemaphore.wait()
+			task.resume()
+			progress.becomeCurrent(withPendingUnitCount: 1)
 			self.provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
@@ -326,7 +359,11 @@ public class FileProviderDecorator {
 				} catch {
 					reject(error)
 				}
+			}.always {
+				self.uploadSemaphore.signal()
 			}
+
+			progress.resignCurrent()
 		}
 	}
 

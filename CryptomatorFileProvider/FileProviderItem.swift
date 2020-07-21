@@ -14,12 +14,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	// TODO: implement an initializer to create an item from your extension's backing model
 	// TODO: implement the accessors to return the values from your extension's backing model
 	let metadata: ItemMetadata
-//	let uploadTask: UploadTask?
 	let error: Error?
-//	init(metadata: ItemMetadata, uploadTask: UploadTask? = nil) {
-//		self.metadata = metadata
-//		self.uploadTask = uploadTask
-//	}
 
 	init(metadata: ItemMetadata, error: Error? = nil) {
 		self.metadata = metadata
@@ -107,25 +102,11 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var isMostRecentVersionDownloaded: Bool {
+		// TODO: Check via localCachedEntry
 		return true
 	}
 
 	public var uploadingError: Error? {
 		return error
-//		if let errorCode = uploadTask?.uploadErrorCode, let errorDomain = uploadTask?.uploadErrorDomain {
-//			switch errorDomain {
-//			case NSFileProviderErrorDomain:
-//				if let fileProviderErrorCode = NSFileProviderError.Code(rawValue: errorCode) {
-//					return NSFileProviderError(fileProviderErrorCode)
-//				}
-//				return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
-//			case NSCocoaErrorDomain:
-//				return CocoaError(CocoaError.Code(rawValue: errorCode))
-//			default:
-//				return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
-//			}
-//		} else {
-//			return nil
-//		}
 	}
 }

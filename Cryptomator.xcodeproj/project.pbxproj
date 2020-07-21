@@ -50,6 +50,7 @@
 		4A44EC2B246BEB9700950BBF /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
+		4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */; };
 		4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
 		4A5811C62490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */; };
@@ -81,6 +82,7 @@
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
 		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
+		4ACC10A424C1A55400042F8C /* FileProviderNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A324C1A55400042F8C /* FileProviderNetworkTask.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
 		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -299,6 +301,7 @@
 		4A44EC25246BE8EC00950BBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A44EC27246BE8EC00950BBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
+		4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
 		4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxExponentialBackOffTests.swift; sourceTree = "<group>"; };
@@ -337,6 +340,7 @@
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
 		4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDownloadTests.swift; sourceTree = "<group>"; };
+		4ACC10A324C1A55400042F8C /* FileProviderNetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNetworkTask.swift; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
@@ -741,6 +745,8 @@
 				4A2245CA24A4A70900DBA437 /* FileProviderItem.swift */,
 				4ADB471424A3AE7C004DE115 /* FileProviderDecoratorError.swift */,
 				4ADB471624A49CEC004DE115 /* ItemStatus.swift */,
+				4ACC10A324C1A55400042F8C /* FileProviderNetworkTask.swift */,
+				4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */,
 			);
 			path = CryptomatorFileProvider;
 			sourceTree = "<group>";
@@ -1600,6 +1606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2F373B24B5C0A400460FD3 /* UploadTask.swift in Sources */,
+				4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */,
 				4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */,
 				4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */,
 				4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */,
@@ -1608,6 +1615,7 @@
 				4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */,
 				4ADB471724A49CEC004DE115 /* ItemStatus.swift in Sources */,
 				4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */,
+				4ACC10A424C1A55400042F8C /* FileProviderNetworkTask.swift in Sources */,
 				4A2F373924B5C08E00460FD3 /* TaskError.swift in Sources */,
 				4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */,
 				4ADB471124A3A3EB004DE115 /* ItemMetadata.swift in Sources */,

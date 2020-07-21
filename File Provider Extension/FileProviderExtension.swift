@@ -21,7 +21,7 @@ class FileProviderExtension: NSFileProviderExtension {
 			\.domain,
 			options: [.old, .new]
 		) { _, change in
-			print("domain changed from: \(change.oldValue!), updated to: \(change.newValue!)")
+			print("domain changed from: \(change.oldValue), updated to: \(change.newValue)")
 			if let domain = self.domain {
 				guard let manager = NSFileProviderManager(for: domain) else {
 					return
@@ -123,6 +123,7 @@ class FileProviderExtension: NSFileProviderExtension {
 			completionHandler(NSFileProviderError(.noSuchItem))
 			return
 		}
+
 		if !fileManager.fileExists(atPath: url.path) {
 			decorator.downloadFile(with: identifier, to: url).then {
 				completionHandler(nil)
@@ -173,7 +174,6 @@ class FileProviderExtension: NSFileProviderExtension {
 				}
 			}
 		}
-		// completionHandler(NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:]))
 	}
 
 	override func itemChanged(at _: URL) {

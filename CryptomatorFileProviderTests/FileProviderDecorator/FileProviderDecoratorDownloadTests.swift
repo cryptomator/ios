@@ -104,11 +104,37 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 			let lastModifiedDate = try self.decorator.cachedFileManager.getLastModifiedDate(for: 3)
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.mockedProvider.lastModifiedDate[remoteURL.path], lastModifiedDate)
+			guard let fetchedMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: 3) else {
+				XCTFail("No ItemMetadata found")
+				return
+			}
+			XCTAssertEqual(ItemStatus.isDownloaded, fetchedMetadata.statusCode)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+	}
+
+	func testDownloadFileFailIfProviderRejectWithItemNotFound() throws {
+		let expectation = XCTestExpectation()
+		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
+		let remoteURL = URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "itemNotFound.txt", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		let identifier = NSFileProviderItemIdentifier(String("3"))
+		decorator.downloadFile(with: identifier, to: localURL).then {
+			XCTFail("Promise should not fulfill for nonexistent File")
+		}.catch { error in
+			let nsError = error as NSError
+			guard nsError.domain == NSFileProviderErrorDomain, nsError.code == NSFileProviderError.noSuchItem.rawValue else {
+				XCTFail("Promise rejected but with the wrong error: \(error)")
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
 	}
 }
