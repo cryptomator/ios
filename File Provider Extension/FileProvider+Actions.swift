@@ -90,4 +90,43 @@ extension FileProviderExtension {
 			print("uncatched createFolderInCloud error: \(error)")
 		}
 	}
+
+	override func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		guard let decorator = self.decorator else {
+			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
+		}
+		do {
+			let item = try decorator.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: nil, newName: itemName)
+			completionHandler(item, nil)
+		} catch {
+			return completionHandler(nil, error)
+		}
+
+		decorator.moveItemInCloud(withIdentifier: itemIdentifier).then { item in
+			let notificator = decorator.notificator
+			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+		}.catch { error in
+			print("uncatched moveItemInCloud error: \(error)")
+		}
+	}
+
+	override func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		guard let decorator = self.decorator else {
+			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
+		}
+		do {
+			let item = try decorator.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName)
+			completionHandler(item, nil)
+		} catch {
+			return completionHandler(nil, error)
+		}
+		decorator.moveItemInCloud(withIdentifier: itemIdentifier).then { item in
+			let notificator = decorator.notificator
+			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+		}.catch { error in
+			print("uncatched moveItemInCloud error: \(error)")
+		}
+	}
 }

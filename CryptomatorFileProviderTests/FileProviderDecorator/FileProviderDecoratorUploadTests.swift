@@ -270,23 +270,6 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		// TODO: Add localFileInfo Check
 	}
 
-	func testCloudFileNameCollisionHandling() throws {
-		let localURL = tmpDirectory.appendingPathComponent("itemAlreadyExists.txt", isDirectory: false)
-		try "".write(to: localURL, atomically: true, encoding: .utf8)
-		let collisionFreeLocalURL = tmpDirectory.appendingPathComponent("itemAlreadyExists (AAAAA).txt", isDirectory: false)
-		let metadata = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer).metadata
-		guard let id = metadata.id else {
-			XCTFail("Metadata has no id")
-			return
-		}
-		try decorator.cloudFileNameCollisionHandling(for: localURL, with: collisionFreeLocalURL, itemMetadata: metadata)
-		XCTAssertEqual("itemAlreadyExists (AAAAA).txt", metadata.name)
-		XCTAssertEqual(id, metadata.id)
-		XCTAssertEqual(collisionFreeLocalURL.relativePath, metadata.remotePath)
-		XCTAssertFalse(FileManager.default.fileExists(atPath: localURL.path))
-		XCTAssert(FileManager.default.fileExists(atPath: collisionFreeLocalURL.path))
-	}
-
 	func testCollisionHandlingUpload() throws {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("itemAlreadyExists.txt", isDirectory: false)
@@ -298,10 +281,11 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			XCTAssertFalse(item.isUploading)
 			XCTAssertNotEqual("itemAlreadyExists.txt", item.filename)
 			XCTAssertEqual(placeholderFileProviderItem.itemIdentifier, item.itemIdentifier)
+			XCTAssert(item.metadata.remotePath.hasPrefix("/itemAlreadyExists ("))
+			XCTAssert(item.metadata.remotePath.hasSuffix(").txt"))
 			XCTAssertNil(try self.decorator.uploadTaskManager.getTask(for: item.metadata.id!))
-			let parentFolder = localURL.deletingLastPathComponent()
 			// Ensure that the file with the collision hash was uploaded
-			XCTAssert(self.mockedProvider.createdFiles.keys.filter { $0.hasPrefix("\(parentFolder.path)/itemAlreadyExists (") && $0.hasSuffix(").txt") }.count == 1)
+			XCTAssert(self.mockedProvider.createdFiles.keys.filter { $0.hasPrefix("/itemAlreadyExists (") && $0.hasSuffix(").txt") && $0.count == 30 }.count == 1)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {

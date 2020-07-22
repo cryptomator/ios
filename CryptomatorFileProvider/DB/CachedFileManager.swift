@@ -10,7 +10,7 @@ import Foundation
 import GRDB
 
 private struct CachedEntry: Decodable, FetchableRecord, TableRecord {
-	static let databaseTableName = "entries"
+	static let databaseTableName = "cachedFiles"
 	static let lastModifiedDateKey = "lastModifiedDate"
 	static let correspondingItemKey = "correspondingItem"
 	let lastModifiedDate: Date?
@@ -25,22 +25,10 @@ extension CachedEntry: PersistableRecord {
 }
 
 class CachedFileManager {
-	/* let dbPool: DatabasePool
-
-	 init(with dbPool: DatabasePool) {
-	 	self.dbPool = dbPool
-	 } */
-	// TODO: use later a DB Pool.. dbQueue is only for demo as it supports in-memory DB
 	let dbQueue: DatabaseQueue
-	init(with dbQueue: DatabaseQueue) throws {
+
+	init(with dbQueue: DatabaseQueue) {
 		self.dbQueue = dbQueue
-		// TODO: Use Migrator to create DB
-		try dbQueue.write { db in
-			try db.create(table: CachedEntry.databaseTableName) { table in
-				table.column(CachedEntry.correspondingItemKey, .integer).primaryKey(onConflict: .replace).references(ItemMetadata.databaseTableName) // TODO: Add Reference to ItemMetadata Table in Migrator
-				table.column(CachedEntry.lastModifiedDateKey, .text)
-			}
-		}
 	}
 
 	func hasCurrentVersionLocal(for identifier: Int64, with lastModifiedDateInCloud: Date) throws -> Bool {

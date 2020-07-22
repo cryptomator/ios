@@ -151,8 +151,15 @@ class CloudProviderMock: CloudProvider {
 		precondition(oldRemoteURL.isFileURL)
 		precondition(newRemoteURL.isFileURL)
 		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		moved[oldRemoteURL.relativePath] = newRemoteURL.relativePath
-		return Promise(())
+		switch newRemoteURL {
+		case URL(fileURLWithPath: "/FileAlreadyExists.txt", isDirectory: false):
+			return Promise(CloudProviderError.itemAlreadyExists)
+		case URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false):
+			return Promise(CloudProviderError.quotaInsufficient)
+		default:
+			moved[oldRemoteURL.relativePath] = newRemoteURL.relativePath
+			return Promise(())
+		}
 	}
 
 	public func setLastModifiedDate(_ date: Date?, for remoteURL: URL) {

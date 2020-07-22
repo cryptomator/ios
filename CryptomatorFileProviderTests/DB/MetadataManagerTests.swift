@@ -11,14 +11,18 @@ import XCTest
 @testable import CryptomatorFileProvider
 class MetadataManagerTests: XCTestCase {
 	var manager: MetadataManager!
-
+	var tmpDirURL: URL!
 	override func setUpWithError() throws {
-		let inMemoryDB = DatabaseQueue()
-		manager = try MetadataManager(with: inMemoryDB)
+		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
+		let dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
+		manager = MetadataManager(with: dbQueue)
 	}
 
 	override func tearDownWithError() throws {
-		// Put teardown code here. This method is called after the invocation of each test method in the class.
+		manager = nil
+		try FileManager.default.removeItem(at: tmpDirURL)
 	}
 
 	func testCacheMetadataForFile() throws {

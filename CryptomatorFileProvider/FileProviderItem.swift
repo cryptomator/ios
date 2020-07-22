@@ -40,6 +40,9 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		if metadata.statusCode == .isUploading {
 			return .allowsReading
 		}
+		if metadata.statusCode == .uploadError {
+			return .allowsDeleting
+		}
 		return .allowsAll
 	}
 

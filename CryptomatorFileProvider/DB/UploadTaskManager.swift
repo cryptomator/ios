@@ -11,27 +11,9 @@ import Foundation
 import GRDB
 
 class UploadTaskManager {
-	/* let dbPool: DatabasePool
-
-	 init(with dbPool: DatabasePool) {
-	 	self.dbPool = dbPool
-	 } */
-	// TODO: use later a DB Pool.. dbQueue is only for demo as it supports in-memory DB
 	let dbQueue: DatabaseQueue
-	init(with dbQueue: DatabaseQueue) throws {
+	init(with dbQueue: DatabaseQueue) {
 		self.dbQueue = dbQueue
-		// TODO: Use Migrator to create DB
-		try dbQueue.write { db in
-			try db.create(table: UploadTask.databaseTableName) { table in
-				table.column(UploadTask.correspondingItemKey, .integer).primaryKey().references(ItemMetadata.databaseTableName, onDelete: .cascade) // TODO: Add Reference to ItemMetadata Table in Migrator
-				table.column(UploadTask.lastFailedUploadDateKey, .date)
-				table.column(UploadTask.uploadErrorCodeKey, .integer)
-				table.column(UploadTask.uploadErrorDomainKey, .text)
-
-				// TODO: Discuss if constraint is necessary
-				table.check(sql: "(\(UploadTask.lastFailedUploadDateKey) is NULL and \(UploadTask.uploadErrorCodeKey) is NULL and \(UploadTask.uploadErrorDomainKey) is NULL) OR (\(UploadTask.lastFailedUploadDateKey) is NOT NULL and \(UploadTask.uploadErrorCodeKey) is NOT NULL and \(UploadTask.uploadErrorDomainKey) is NOT NULL)")
-			}
-		}
 	}
 
 	func createNewTask(for identifier: Int64) throws -> UploadTask {
@@ -57,7 +39,7 @@ class UploadTaskManager {
 				task.uploadErrorDomain = uploadErrorDomain
 				try task.update(db)
 			} else {
-				throw UploadTaskError.taskNotFound
+				throw TaskError.taskNotFound
 			}
 		}
 	}

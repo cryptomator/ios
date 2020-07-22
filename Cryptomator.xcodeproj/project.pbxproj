@@ -62,6 +62,10 @@
 		4A60E7FB2459C6F500FD7F0E /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; };
 		4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */; };
 		4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */; };
+		4A717CD524C833890048E08F /* ReparentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD424C833890048E08F /* ReparentTask.swift */; };
+		4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD624C835270048E08F /* ReparentTaskManager.swift */; };
+		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
+		4A717CDB24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
 		4A797F9124AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */; };
 		4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */; };
@@ -79,6 +83,7 @@
 		4AA621EE249A6A8400A0BCBD /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */; };
+		4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
 		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
@@ -317,6 +322,10 @@
 		4A60E7FA2459C6F500FD7F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
+		4A717CD424C833890048E08F /* ReparentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTask.swift; sourceTree = "<group>"; };
+		4A717CD624C835270048E08F /* ReparentTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManager.swift; sourceTree = "<group>"; };
+		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
+		4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMoveItemTests.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTests.swift; sourceTree = "<group>"; };
 		4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManager.swift; sourceTree = "<group>"; };
@@ -337,6 +346,7 @@
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
+		4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
 		4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDownloadTests.swift; sourceTree = "<group>"; };
@@ -504,6 +514,7 @@
 				4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */,
 				4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */,
 				4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */,
+				4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */,
 				4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */,
 				4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */,
 				4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */,
@@ -686,7 +697,10 @@
 				4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */,
 				4A30A6D824B33568002CABEB /* UploadTaskManager.swift */,
 				4A2F373A24B5C0A400460FD3 /* UploadTask.swift */,
+				4A717CD424C833890048E08F /* ReparentTask.swift */,
+				4A717CD624C835270048E08F /* ReparentTaskManager.swift */,
 				4A2F373824B5C08E00460FD3 /* TaskError.swift */,
+				4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -798,6 +812,7 @@
 			children = (
 				4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */,
 				4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */,
+				4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -1516,6 +1531,8 @@
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */,
 				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */,
+				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
+				4A717CDB24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift in Sources */,
 				4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */,
 				4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */,
 				4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */,
@@ -1609,8 +1626,11 @@
 				4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */,
 				4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */,
 				4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */,
+				4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */,
 				4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */,
 				4ADB471324A3A5B9004DE115 /* MetadataManager.swift in Sources */,
+				4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */,
+				4A717CD524C833890048E08F /* ReparentTask.swift in Sources */,
 				4ADB471524A3AE7C004DE115 /* FileProviderDecoratorError.swift in Sources */,
 				4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */,
 				4ADB471724A49CEC004DE115 /* ItemStatus.swift in Sources */,

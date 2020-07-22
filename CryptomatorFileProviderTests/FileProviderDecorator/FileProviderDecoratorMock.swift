@@ -23,7 +23,8 @@ class FileProviderDecoratorMock: FileProviderDecorator {
 		self.internalProvider = provider
 		self.tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-		try super.init(for: domain, with: manager)
+		let dbPath = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
+		try super.init(for: domain, with: manager, dbPath: dbPath)
 		self.homeRoot = URL(fileURLWithPath: "/", isDirectory: true)
 	}
 

@@ -7,6 +7,6 @@
 //
 
 import Foundation
-enum UploadTaskError: Error {
+enum TaskError: Error {
 	case taskNotFound
 }

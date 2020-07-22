@@ -12,11 +12,20 @@ import XCTest
 @testable import CryptomatorFileProvider
 class UploadTaskManagerTests: XCTestCase {
 	var manager: UploadTaskManager!
-	var itemManager: MetadataManager!
+	var tmpDirURL: URL!
+	var dbQueue: DatabaseQueue!
 	override func setUpWithError() throws {
-		let inMemoryDB = DatabaseQueue()
-		itemManager = try MetadataManager(with: inMemoryDB)
-		manager = try UploadTaskManager(with: inMemoryDB)
+		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
+		dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
+		manager = UploadTaskManager(with: dbQueue)
+	}
+
+	override func tearDownWithError() throws {
+		manager = nil
+		dbQueue = nil
+		try FileManager.default.removeItem(at: tmpDirURL)
 	}
 
 	func testCachedAndFetchEntry() throws {
@@ -48,7 +57,7 @@ class UploadTaskManagerTests: XCTestCase {
 
 	func testUpdateNonExistentTaskFailsWithTaskNotFound() throws {
 		XCTAssertThrowsError(try manager.updateTask(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
-			guard case UploadTaskError.taskNotFound = error else {
+			guard case TaskError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
@@ -59,6 +68,7 @@ class UploadTaskManagerTests: XCTestCase {
 		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
 		let taskBeforeRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNotNil(taskBeforeRemoval)
+		let itemManager = MetadataManager(with: dbQueue)
 		try itemManager.removeItemMetadata(with: MetadataManager.rootContainerId)
 		let taskAfterRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNil(taskAfterRemoval)

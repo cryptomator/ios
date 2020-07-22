@@ -13,26 +13,8 @@ import GRDB
 class MetadataManager {
 	private let dbQueue: DatabaseQueue
 	static let rootContainerId: Int64 = 1
-	init(with dbQueue: DatabaseQueue) throws {
+	init(with dbQueue: DatabaseQueue) {
 		self.dbQueue = dbQueue
-		// TODO: Use Migrator to create DB
-		try dbQueue.write { db in
-			try db.create(table: ItemMetadata.databaseTableName) { table in
-				table.autoIncrementedPrimaryKey("id")
-				table.column("name", .text).notNull()
-				table.column("type", .text).notNull()
-				table.column("size", .integer)
-				table.column("parentId", .integer).notNull()
-				table.column("lastModifiedDate", .date)
-				table.column("statusCode", .integer).notNull()
-				table.column("remotePath", .text).unique()
-				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
-				table.column(ItemMetadata.isMaybeOutdatedKey, .boolean).notNull().defaults(to: false)
-			}
-			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: true)
-			try rootFolderMetadata.save(db)
-		}
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
@@ -123,6 +105,12 @@ class MetadataManager {
 	func removeItemMetadata(with identifier: Int64) throws {
 		_ = try dbQueue.write { db in
 			try ItemMetadata.deleteOne(db, key: identifier)
+		}
+	}
+
+	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
+		try dbQueue.read { db in
+			return try ItemMetadata.fetchAll(db, keys: ids)
 		}
 	}
 }

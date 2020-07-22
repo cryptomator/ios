@@ -25,7 +25,7 @@ public class ItemMetadata: Record {
 	var name: String
 	let type: CloudItemType
 	var size: Int?
-	let parentId: Int64
+	var parentId: Int64
 	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
 	var remotePath: String
