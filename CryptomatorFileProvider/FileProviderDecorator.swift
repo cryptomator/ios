@@ -84,7 +84,6 @@ public class FileProviderDecorator {
 			return Promise(error)
 		}
 		return provider.fetchItemList(forFolderAt: remoteURL, withPageToken: pageToken).then { itemList -> FileProviderItemList in
-			//TODO: Rewrite the whole function!
 			if pageToken == nil {
 				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: parentId)
 			}
@@ -96,14 +95,14 @@ public class FileProviderDecorator {
 			}
 			metadatas = try self.filterOutWaitingReparentTasks(parentId: parentId, for: metadatas)
 			try self.itemMetadataManager.cacheMetadatas(metadatas)
-			let reparentTasks = try self.reparentTaskManager.getTasksForItemsWhichAreSoon(in: parentId)
-			let reparentMetadata = try self.itemMetadataManager.getCachedMetadata(forIds: reparentTasks.map { $0.correspondingItem })
+			let reparentMetadata = try self.getReparentMetadata(for: parentId)
 			metadatas.append(contentsOf: reparentMetadata)
 			let placeholderMetadatas = try self.itemMetadataManager.getPlaceholderMetadata(for: parentId)
 			metadatas.append(contentsOf: placeholderMetadatas)
 			let ids = metadatas.map { return $0.id! }
 			let uploadTasks = try self.uploadTaskManager.getCorrespondingTasks(ids: ids)
 			assert(metadatas.count == uploadTasks.count)
+			try self.itemMetadataManager.synchronize(metadata: metadatas, with: uploadTasks)
 			let items = metadatas.enumerated().map { index, metadata in
 				return FileProviderItem(metadata: metadata, error: uploadTasks[index]?.error)
 			}
@@ -113,6 +112,12 @@ public class FileProviderDecorator {
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentId: parentId)
 			return FileProviderItemList(items: items, nextPageToken: nil)
 		}
+	}
+
+	func getReparentMetadata(for parentId: Int64) throws -> [ItemMetadata] {
+		let reparentTasks = try reparentTaskManager.getTasksForItemsWhichAreSoon(in: parentId)
+		let reparentMetadata = try itemMetadataManager.getCachedMetadata(forIds: reparentTasks.map { $0.correspondingItem })
+		return reparentMetadata
 	}
 
 	func filterOutWaitingReparentTasks(parentId: Int64, for itemMetadatas: [ItemMetadata]) throws -> [ItemMetadata] {
@@ -591,4 +596,6 @@ public class FileProviderDecorator {
 			return FileProviderItem(metadata: metadata)
 		}
 	}
+
+	func removeFolder(with metadata: ItemMetadata) {}
 }

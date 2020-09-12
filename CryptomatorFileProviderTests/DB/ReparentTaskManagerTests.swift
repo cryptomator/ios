@@ -50,4 +50,76 @@ class ReparentTaskManagerTests: XCTestCase {
 			}
 		}
 	}
+
+	func testGetTasksWithOldParentIdWithDirectoryChange() throws {
+		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let newRemoteURL = URL(fileURLWithPath: "/Foo/Bar.txt", isDirectory: false)
+		let oldParentId: Int64 = 2
+		let newParentId: Int64 = 3
+		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: newParentId)
+
+		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
+		XCTAssertEqual(1, retrievedTasks.count)
+		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
+		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
+		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
+		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
+	}
+
+	func testGetTasksWithOldParentIdOnlyRename() throws {
+		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let oldParentId: Int64 = 2
+		let newParentId = oldParentId
+		let newRemoteURL = URL(fileURLWithPath: "/Test2 - Only Renamed.txt", isDirectory: false)
+		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: oldParentId)
+		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
+		XCTAssertEqual(1, retrievedTasks.count)
+		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
+		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
+		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
+		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
+	}
+
+	func testGetTasksWithNewParentIdWithDirectoryChange() throws {
+		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let newRemoteURL = URL(fileURLWithPath: "/Foo/Bar.txt", isDirectory: false)
+		let oldParentId: Int64 = 2
+		let newParentId: Int64 = 3
+		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: newParentId)
+
+		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
+		XCTAssertEqual(1, retrievedTasks.count)
+		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
+		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
+		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
+		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
+	}
+
+	func testGetTasksWithNewParentIdOnlyRename() throws {
+		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let oldParentId: Int64 = 2
+		let newParentId = oldParentId
+		let newRemoteURL = URL(fileURLWithPath: "/Test2 - Only Renamed.txt", isDirectory: false)
+		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: oldParentId)
+		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
+		XCTAssertEqual(1, retrievedTasks.count)
+		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
+		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
+		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
+		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
+	}
+}
+
+extension ReparentTask: Equatable {
+	public static func == (lhs: ReparentTask, rhs: ReparentTask) -> Bool {
+		return lhs.correspondingItem == rhs.correspondingItem &&
+			lhs.oldRemoteURL == rhs.oldRemoteURL &&
+			lhs.newRemoteURL == rhs.newRemoteURL &&
+			lhs.oldParentId == rhs.oldParentId &&
+			lhs.newParentId == rhs.newParentId
+	}
 }

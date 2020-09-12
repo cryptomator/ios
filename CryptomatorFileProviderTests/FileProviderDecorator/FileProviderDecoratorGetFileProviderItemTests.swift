@@ -34,7 +34,7 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 	}
 
 	func testGetFileProviderItemWithUploadError() throws {
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/TestItem", isDirectory: false).relativePath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, remotePath: URL(fileURLWithPath: "/TestItem", isDirectory: false).relativePath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no ID")

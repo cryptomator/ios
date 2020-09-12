@@ -51,7 +51,6 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var typeIdentifier: String {
-		// TODO: Change this to real types
 		switch metadata.type {
 		case .folder:
 			return "public.folder"
@@ -110,6 +109,16 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var uploadingError: Error? {
+		if metadata.statusCode != .uploadError {
+			return nil
+		}
+		return error
+	}
+
+	public var downloadingError: Error? {
+		if metadata.statusCode != .downloadError {
+			return nil
+		}
 		return error
 	}
 }

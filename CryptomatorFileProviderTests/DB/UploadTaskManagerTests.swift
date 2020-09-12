@@ -73,4 +73,14 @@ class UploadTaskManagerTests: XCTestCase {
 		let taskAfterRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNil(taskAfterRemoval)
 	}
+
+	func testGetCorrespondingTasks() throws {
+		let savedTask = try manager.createNewTask(for: MetadataManager.rootContainerId)
+		let ids = [MetadataManager.rootContainerId + 1, MetadataManager.rootContainerId, MetadataManager.rootContainerId + 3]
+		let tasks = try manager.getCorrespondingTasks(ids: ids)
+		XCTAssertEqual(3, tasks.count)
+		XCTAssertNil(tasks[0])
+		XCTAssertNil(tasks[2])
+		XCTAssertEqual(savedTask.correspondingItem, tasks[1]?.correspondingItem)
+	}
 }

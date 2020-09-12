@@ -30,6 +30,7 @@ class DataBaseHelper {
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
 				table.column("isMaybeOutdated", .boolean).notNull().defaults(to: false)
 			}
+
 			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
 			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
@@ -44,12 +45,10 @@ class DataBaseHelper {
 				)
 				table.column("uploadErrorCode", .integer)
 				table.column("uploadErrorDomain", .text)
-
-				// TODO: Discuss if constraint is necessary
 				table.check(sql: "(lastFailedUploadDate is NULL and uploadErrorCode is NULL and uploadErrorDomain is NULL) OR (lastFailedUploadDate is NOT NULL and uploadErrorCode is NOT NULL and uploadErrorDomain is NOT NULL)")
 			}
 			try db.create(table: "reparentTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata", onDelete: .cascade)
 				table.column("oldRemoteURL", .text).notNull()
 				table.column("newRemoteURL", .text).notNull()
 				table.column("oldParentId", .integer).notNull()

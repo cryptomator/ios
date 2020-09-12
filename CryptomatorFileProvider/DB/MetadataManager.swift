@@ -113,4 +113,30 @@ class MetadataManager {
 			return try ItemMetadata.fetchAll(db, keys: ids)
 		}
 	}
+
+	func synchronize(metadata: [ItemMetadata], with tasks: [UploadTask?]) throws {
+		precondition(metadata.count == tasks.count)
+		try dbQueue.inTransaction { db in
+			for (index, task) in tasks.enumerated() {
+				if task?.error != nil {
+					let correspondingMetadata = metadata[index]
+					assert(correspondingMetadata.id == task?.correspondingItem)
+					correspondingMetadata.statusCode = .uploadError
+					try correspondingMetadata.save(db)
+				}
+			}
+			return .commit
+		}
+	}
+
+	/**
+	 Returns the items that have the item as parent because of its RemotePath. This also includes all subfolders including their items.
+	 */
+	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
+		precondition(parent.type == .folder)
+		return try dbQueue.read { db in
+			let request = ItemMetadata.filter(Column(ItemMetadata.remotePathKey).like("\(parent.remotePath)%"))
+			return try request.fetchAll(db)
+		}
+	}
 }

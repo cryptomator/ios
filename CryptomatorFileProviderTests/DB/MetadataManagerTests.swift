@@ -12,15 +12,18 @@ import XCTest
 class MetadataManagerTests: XCTestCase {
 	var manager: MetadataManager!
 	var tmpDirURL: URL!
+	var dbQueue: DatabaseQueue!
+
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		let dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
+		dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
 		manager = MetadataManager(with: dbQueue)
 	}
 
 	override func tearDownWithError() throws {
+		dbQueue = nil
 		manager = nil
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
@@ -177,6 +180,62 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssert(cachedMetadata.contains { $0.name == "Placeholder Folder" && !$0.isMaybeOutdated })
 		XCTAssert(cachedMetadata.contains { $0.name == "Existing File.txt" && $0.isMaybeOutdated })
 		XCTAssert(cachedMetadata.contains { $0.name == "Existing Folder" && $0.isMaybeOutdated })
+	}
+
+	func testSynchronizeWithTasks() throws {
+		let remotePlaceholderFileURL = URL(fileURLWithPath: "/Placeholder File.txt", isDirectory: false)
+		let placeholderItemMetadataForFile = ItemMetadata(name: "Placeholder File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remotePlaceholderFileURL.relativePath, isPlaceholderItem: true)
+		let remoteFileURL = URL(fileURLWithPath: "/Existing File.txt", isDirectory: false)
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileURL.relativePath, isPlaceholderItem: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Existing Folder/", isDirectory: true)
+		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: false)
+		let metadata = [placeholderItemMetadataForFile, itemMetadataForFile, itemMetadataForFolder]
+		try manager.cacheMetadatas(metadata)
+
+		let uploadTaskManager = UploadTaskManager(with: dbQueue)
+		var taskForPlaceholderItem = try uploadTaskManager.createNewTask(for: placeholderItemMetadataForFile.id!)
+		try uploadTaskManager.updateTask(&taskForPlaceholderItem, error: NSError(domain: "TestDomain", code: -1000, userInfo: nil))
+		var taskForExistingItem = try uploadTaskManager.createNewTask(for: itemMetadataForFile.id!)
+		try uploadTaskManager.updateTask(&taskForExistingItem, error: NSError(domain: "TestDomain", code: -1000, userInfo: nil))
+		let taskForExistingFolder = try uploadTaskManager.createNewTask(for: itemMetadataForFolder.id!)
+		try uploadTaskManager.updateTask(taskForPlaceholderItem)
+		try uploadTaskManager.updateTask(taskForExistingItem)
+
+		try manager.synchronize(metadata: metadata, with: [taskForPlaceholderItem, taskForExistingItem, taskForExistingFolder])
+		XCTAssertEqual(ItemStatus.uploadError, metadata[0].statusCode)
+		XCTAssertEqual(ItemStatus.uploadError, metadata[1].statusCode)
+		XCTAssertEqual(ItemStatus.isUploaded, metadata[2].statusCode)
+	}
+
+	func skip_testGetAllCachedMetadataInsideAFolder() throws {
+		let remoteFileInFolderURL = URL(fileURLWithPath: "/Test Folder/Test File.txt", isDirectory: false)
+		let remoteFileInSubFolderURL = URL(fileURLWithPath: "/Test Folder/SecondFolder/Test File.txt", isDirectory: false)
+		let remoteFolderURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
+		let secondRemoteFolderURL = URL(fileURLWithPath: "/Test Folder 1/", isDirectory: true)
+		let remoteSubFolderURL = URL(fileURLWithPath: "/Test Folder/SecondFolder/", isDirectory: true)
+
+		let itemMetadataForFolder = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFolderURL.relativePath, isPlaceholderItem: false)
+		let secondItemMetadataForFolder = ItemMetadata(name: "Test Folder 1", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: secondRemoteFolderURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadatas([itemMetadataForFolder, secondItemMetadataForFolder])
+		guard let folderId = itemMetadataForFolder.id else {
+			XCTFail("Folder has no ID")
+			return
+		}
+		let itemMetadataForFileInFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentId: folderId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileInFolderURL.relativePath, isPlaceholderItem: false)
+		let itemMetadataForSubFolder = ItemMetadata(name: "SecondFolder", type: .folder, size: nil, parentId: folderId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteSubFolderURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForSubFolder)
+		guard let subFolderId = itemMetadataForSubFolder.id else {
+			XCTFail("Folder has no ID")
+			return
+		}
+		let itemMetadataForFileInSubFolder = ItemMetadata(name: "Test File.txt", type: .file, size: 100, parentId: subFolderId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteFileInSubFolderURL.relativePath, isPlaceholderItem: false)
+		try manager.cacheMetadatas([itemMetadataForFileInFolder, itemMetadataForFileInSubFolder])
+		let cachedMetadata = try manager.getAllCachedMetadata(inside: itemMetadataForFolder)
+
+		XCTAssertEqual(3, cachedMetadata.count)
+		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == itemMetadataForFileInFolder.id! }))
+		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == subFolderId }))
+		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == itemMetadataForFileInSubFolder.id! }))
 	}
 }
 

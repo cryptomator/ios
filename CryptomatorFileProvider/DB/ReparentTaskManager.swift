@@ -39,25 +39,6 @@ class ReparentTaskManager {
 		}
 	}
 
-//	func getTasks(for oldRemoteURLs: [URL]) throws -> [ReparentTask?] {
-	// It would be better to use this function, but it does not return a Nil entry for a non-existent task and thus breaks the bijective relationship.
-//		let tasks:[ReparentTask?] = try dbQueue.read{ db in
-//			var keys = [[String: URL]]()
-//			oldRemoteURLs.forEach { oldRemoteURL in
-//				keys.append(["oldRemoteURL" : oldRemoteURL])
-//			}
-//			return try ReparentTask.fetchAll(db, keys: keys)
-//		}
-//		return tasks
-//		return try dbQueue.read{ db in
-//			var tasks = [ReparentTask?]()
-//			for oldRemoteURL in oldRemoteURLs {
-//				let task = try ReparentTask.fetchOne(db, key: ["oldRemoteURL" : oldRemoteURL])
-//				tasks.append(task)
-//			}
-//			return tasks
-//		}
-//	}
 	func getTasksForItemsWhichWere(in parentId: Int64) throws -> [ReparentTask] {
 		let tasks: [ReparentTask] = try dbQueue.read { db in
 			return try ReparentTask
