@@ -63,4 +63,13 @@ class CachedFileManager {
 			return hasDeletedEntry
 		}
 	}
+
+	func removeCachedFile(for identifier: Int64, at localURL: URL) throws {
+		return try dbQueue.write { db in
+			if let entry = try CachedEntry.fetchOne(db, key: identifier) {
+				try FileManager.default.removeItem(at: localURL)
+				try entry.delete(db)
+			}
+		}
+	}
 }

@@ -207,7 +207,7 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertEqual(ItemStatus.isUploaded, metadata[2].statusCode)
 	}
 
-	func skip_testGetAllCachedMetadataInsideAFolder() throws {
+	func testGetAllCachedMetadataInsideAFolder() throws {
 		let remoteFileInFolderURL = URL(fileURLWithPath: "/Test Folder/Test File.txt", isDirectory: false)
 		let remoteFileInSubFolderURL = URL(fileURLWithPath: "/Test Folder/SecondFolder/Test File.txt", isDirectory: false)
 		let remoteFolderURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)

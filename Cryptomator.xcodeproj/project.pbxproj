@@ -84,6 +84,10 @@
 		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */; };
 		4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */; };
+		4ABC08D3250D1BE700E3CEDC /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */; };
+		4ABC08D5250D1C6100E3CEDC /* DeletionTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */; };
+		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
+		4ABC08D9250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
 		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
@@ -347,6 +351,10 @@
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
 		4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
+		4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTask.swift; sourceTree = "<group>"; };
+		4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManager.swift; sourceTree = "<group>"; };
+		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
+		4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDeleteItemTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
 		4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDownloadTests.swift; sourceTree = "<group>"; };
@@ -515,6 +523,7 @@
 				4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */,
 				4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */,
 				4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */,
+				4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */,
 				4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */,
 				4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */,
 				4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */,
@@ -701,6 +710,8 @@
 				4A717CD624C835270048E08F /* ReparentTaskManager.swift */,
 				4A2F373824B5C08E00460FD3 /* TaskError.swift */,
 				4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */,
+				4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */,
+				4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -813,6 +824,7 @@
 				4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */,
 				4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */,
 				4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */,
+				4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -1524,10 +1536,12 @@
 				4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */,
 				4A123EAE24BF4776001D1CF7 /* FileProviderDecoratorMock.swift in Sources */,
 				4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */,
+				4ABC08D9250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift in Sources */,
 				4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */,
 				4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */,
 				4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */,
 				4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */,
+				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */,
 				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */,
@@ -1635,6 +1649,8 @@
 				4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */,
 				4ADB471724A49CEC004DE115 /* ItemStatus.swift in Sources */,
 				4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */,
+				4ABC08D3250D1BE700E3CEDC /* DeletionTask.swift in Sources */,
+				4ABC08D5250D1C6100E3CEDC /* DeletionTaskManager.swift in Sources */,
 				4ACC10A424C1A55400042F8C /* FileProviderNetworkTask.swift in Sources */,
 				4A2F373924B5C08E00460FD3 /* TaskError.swift in Sources */,
 				4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */,

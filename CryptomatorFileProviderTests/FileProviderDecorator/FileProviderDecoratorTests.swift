@@ -11,17 +11,17 @@ import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
-	func testRemoveItemFromCacheWithoutAnExistingLocalCachedFile() throws {
+	func testRemoveOutdatedItemFromCacheWithoutAnExistingLocalCachedFile() throws {
 		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: "/Testfile", isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
-		try decorator.removeItemFromCache(with: 2)
+		try decorator.removeItemFromCache(itemMetadata)
 		guard try decorator.itemMetadataManager.getCachedMetadata(for: 2) == nil else {
 			XCTFail("ItemMetadata entry still exists")
 			return
 		}
 	}
 
-	func testRemoveItemFromCache() throws {
+	func testRemoveOutdatedItemFromCache() throws {
 		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: "/Testfile", isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
@@ -33,7 +33,7 @@ class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"
 		try content.write(to: localURLForItem, atomically: true, encoding: .utf8)
-		try decorator.removeItemFromCache(with: 2)
+		try decorator.removeItemFromCache(itemMetadata)
 		guard try decorator.itemMetadataManager.getCachedMetadata(for: 2) == nil else {
 			XCTFail("ItemMetadata entry still exists")
 			return

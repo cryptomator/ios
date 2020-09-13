@@ -138,6 +138,16 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			return decorator.fetchItemList(for: .rootContainer, withPageToken: nextPageToken)
 		}.then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertNil(fileProviderItemList.nextPageToken)
+			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
+			let folderItem = cachedMetadata.first(where: { $0.name == "Folder" && $0.type == .folder })
+			guard let folderIdentifier = folderItem?.id else {
+				throw NSError(domain: "FileProviderDecoratorTestError", code: -100, userInfo: ["localizedDescription": "no Folder Id found!"])
+			}
+			return decorator.fetchItemList(for: NSFileProviderItemIdentifier("\(folderIdentifier)"), withPageToken: nil)
+		}.then { _ -> Promise<FileProviderItemList> in
+			let rootItem = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: "", isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+			let cachedMetadata = try decorator.itemMetadataManager.getAllCachedMetadata(inside: rootItem)
+			XCTAssertEqual(8, cachedMetadata.count)
 			paginatedMockedProvider.nextPageToken["0"] = nil
 			paginatedMockedProvider.pages["1"] = nil
 			return decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
@@ -172,6 +182,24 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			XCTAssertNotNil(renamedItem)
 			XCTAssertEqual(ItemStatus.isUploading, renamedItem?.metadata.statusCode)
 			XCTAssertEqual(newRemoteURL.path, renamedItem?.metadata.remotePath)
+		}.catch { error in
+			XCTFail("Error in promise: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testFolderEnumerationDidNotOverwriteDeletionTask() throws {
+		let expectation = XCTestExpectation()
+		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { itemList -> Promise<FileProviderItemList> in
+			let item = itemList.items[1]
+			XCTAssertEqual("File 1", item.filename)
+			_ = try self.decorator.deleteItemLocally(withIdentifier: item.itemIdentifier)
+			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+		}.then { fileProviderItemList in
+			XCTAssertEqual(4, fileProviderItemList.items.count)
+			XCTAssertFalse(fileProviderItemList.items.contains(where: { $0.filename == "File 1" }))
 		}.catch { error in
 			XCTFail("Error in promise: \(error)")
 		}.always {

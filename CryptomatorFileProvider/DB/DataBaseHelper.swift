@@ -25,7 +25,7 @@ class DataBaseHelper {
 				table.column("size", .integer)
 				table.column("parentId", .integer).references("metadata")
 				table.column("lastModifiedDate", .date)
-				table.column("statusCode", .integer).notNull()
+				table.column("statusCode", .text).notNull()
 				table.column("remotePath", .text).unique()
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
 				table.column("isMaybeOutdated", .boolean).notNull().defaults(to: false)
@@ -54,6 +54,26 @@ class DataBaseHelper {
 				table.column("oldParentId", .integer).notNull()
 				table.column("newParentId", .integer).notNull()
 			}
+			try db.create(table: "deletionTasks") { table in
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace)
+				table.column("remoteURL", .text)
+				table.column("parentId", .integer).notNull()
+			}
+
+			try db.execute(sql: """
+			CREATE TRIGGER synchronizeItemStatusLog
+			AFTER UPDATE OF statusCode ON metadata
+			WHEN new.lastModifiedDate IS NOT NULL AND new.statusCode != 'isDownloaded' AND new.statusCode != 'isUploading'
+			BEGIN
+				UPDATE metadata SET statusCode = 'isDownloaded'
+				WHERE id in (SELECT correspondingItem
+				FROM cachedFiles
+				WHERE correspondingItem = new.id
+				AND lastModifiedDate IS NOT NULL
+				AND lastModifiedDate = new.lastModifiedDate
+				);
+			END;
+			""")
 		}
 		try migrator.migrate(dbQueue)
 	}

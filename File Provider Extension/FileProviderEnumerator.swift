@@ -11,7 +11,7 @@ import FileProvider
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	var enumeratedItemIdentifier: NSFileProviderItemIdentifier
-	let decorator: FileProviderDecorator
+	weak var decorator: FileProviderDecorator?
 	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, decorator: FileProviderDecorator) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
 		self.decorator = decorator
@@ -39,7 +39,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
-		decorator.fetchItemList(for: enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
+		decorator?.fetchItemList(for: enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
 			observer.didEnumerate(itemList.items)
 			observer.finishEnumerating(upTo: itemList.nextPageToken)
 		}.catch { error in
@@ -57,7 +57,9 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer about item deletions and updates (modifications + insertions)
 		 - inform the observer when you have finished enumerating up to a subsequent sync anchor
 		 */
-		let notificator = decorator.notificator
+		guard let notificator = decorator?.notificator else {
+			return
+		}
 
 		print("enumerate now changes for: \(enumeratedItemIdentifier)")
 		var itemsDelete = [NSFileProviderItemIdentifier]()
@@ -98,6 +100,9 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	}
 
 	func currentSyncAnchor(completionHandler: @escaping (NSFileProviderSyncAnchor?) -> Void) {
+		guard let decorator = self.decorator else {
+			return
+		}
 		let data = "\(decorator.notificator.currentAnchor)".data(using: .utf8)
 		completionHandler(NSFileProviderSyncAnchor(data!))
 	}

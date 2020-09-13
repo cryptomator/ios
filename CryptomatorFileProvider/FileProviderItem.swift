@@ -43,7 +43,10 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		if metadata.statusCode == .uploadError {
 			return .allowsDeleting
 		}
-		return .allowsAll
+		if metadata.type == .folder {
+			return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
+		}
+		return [.allowsWriting, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
 	}
 
 	public var filename: String {

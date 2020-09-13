@@ -9,6 +9,7 @@
 import CryptomatorFileProvider
 import FileProvider
 import Foundation
+
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		print("importDocument called: \(fileURL)")
@@ -127,6 +128,21 @@ extension FileProviderExtension {
 			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
 			print("uncatched moveItemInCloud error: \(error)")
+		}
+	}
+
+	override func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
+		guard let decorator = self.decorator else {
+			return completionHandler(NSFileProviderError(.notAuthenticated))
+		}
+		do {
+			try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
+		} catch {
+			return completionHandler(error)
+		}
+		completionHandler(nil)
+		decorator.deleteItemInCloud(withIdentifier: itemIdentifier).catch { error in
+			print("deleteItemInCloud Error: \(error)")
 		}
 	}
 }

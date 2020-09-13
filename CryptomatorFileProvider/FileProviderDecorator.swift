@@ -12,6 +12,7 @@ import FileProvider
 import Foundation
 import GRDB
 import Promises
+
 public class FileProviderDecorator {
 	// Needed to mock the class
 	private let internalProvider: CloudProvider
@@ -28,6 +29,7 @@ public class FileProviderDecorator {
 	let cachedFileManager: CachedFileManager
 	let uploadTaskManager: UploadTaskManager
 	let reparentTaskManager: ReparentTaskManager
+	let deletionTaskManager: DeletionTaskManager
 	public let notificator: FileProviderNotificator
 	var homeRoot: URL
 	let domain: NSFileProviderDomain
@@ -44,6 +46,7 @@ public class FileProviderDecorator {
 		self.cachedFileManager = CachedFileManager(with: database)
 		self.uploadTaskManager = UploadTaskManager(with: database)
 		self.reparentTaskManager = try ReparentTaskManager(with: database)
+		self.deletionTaskManager = try DeletionTaskManager(with: database)
 		self.domain = domain
 		self.manager = manager
 
@@ -94,6 +97,7 @@ public class FileProviderDecorator {
 				metadatas.append(fileProviderItemMetadata)
 			}
 			metadatas = try self.filterOutWaitingReparentTasks(parentId: parentId, for: metadatas)
+			metadatas = try self.filterOutWaitingDeletionTasks(parentId: parentId, for: metadatas)
 			try self.itemMetadataManager.cacheMetadatas(metadatas)
 			let reparentMetadata = try self.getReparentMetadata(for: parentId)
 			metadatas.append(contentsOf: reparentMetadata)
@@ -124,6 +128,13 @@ public class FileProviderDecorator {
 		let runningReparentTasks = try reparentTaskManager.getTasksForItemsWhichWere(in: parentId)
 		return itemMetadatas.filter { element in
 			!runningReparentTasks.contains { $0.oldRemoteURL == URL(fileURLWithPath: element.remotePath, isDirectory: element.type == .folder) }
+		}
+	}
+
+	func filterOutWaitingDeletionTasks(parentId: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
+		let runningDeletionTasks = try deletionTaskManager.getTasksForItemsWhichWere(in: parentId)
+		return itemMetadata.filter { element in
+			!runningDeletionTasks.contains { $0.remoteURL == URL(fileURLWithPath: element.remotePath, isDirectory: element.type == .folder) }
 		}
 	}
 
@@ -474,20 +485,43 @@ public class FileProviderDecorator {
 	func cleanUpNoLongerInTheCloudExistingItems(insideParentId parentId: Int64) throws {
 		let outdatedItems = try itemMetadataManager.getMaybeOutdatedItems(insideParentId: parentId)
 		for outdatedItem in outdatedItems {
-			try removeItemFromCache(with: outdatedItem.id!)
+			try removeItemFromCache(outdatedItem)
 		}
 	}
 
-	func removeItemFromCache(with id: Int64) throws {
-		let identifier = NSFileProviderItemIdentifier(String(id))
+	func removeItemFromCache(_ item: ItemMetadata) throws {
+		if item.type == .folder {
+			try removeFolderFromCache(item)
+		} else if item.type == .file {
+			try removeFileFromCache(item)
+		}
+		try itemMetadataManager.removeItemMetadata(with: item.id!)
+	}
+
+	/**
+	 Deletes the folder from the cache and all items contained in the folder.
+	 This includes in particular all subfolders and their contents. Locally cached files contained in this folder are also removed from the device.
+	 - Precondition: The passed item is a folder
+	 */
+	func removeFolderFromCache(_ folder: ItemMetadata) throws {
+		assert(folder.type == .folder)
+		let innerItems = try itemMetadataManager.getAllCachedMetadata(inside: folder)
+		for item in innerItems {
+			if item.type == .file {
+				try removeFileFromCache(item)
+			}
+		}
+		let identifiers = innerItems.map({ $0.id! })
+		try itemMetadataManager.removeItemMetadata(identifiers)
+	}
+
+	func removeFileFromCache(_ file: ItemMetadata) throws {
+		assert(file.type == .file)
+		let identifier = NSFileProviderItemIdentifier(String(file.id!))
 		guard let url = urlForItem(withPersistentIdentifier: identifier) else {
 			throw NSFileProviderError(.noSuchItem)
 		}
-		let hasLocalItem = try cachedFileManager.removeCachedEntry(for: id)
-		if hasLocalItem {
-			try FileManager.default.removeItem(at: url)
-		}
-		try itemMetadataManager.removeItemMetadata(with: id)
+		try cachedFileManager.removeCachedFile(for: file.id!, at: url)
 	}
 
 	/**
@@ -597,5 +631,27 @@ public class FileProviderDecorator {
 		}
 	}
 
-	func removeFolder(with metadata: ItemMetadata) {}
+	public func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws {
+		let metadata: ItemMetadata
+		do {
+			metadata = try getCachedMetadata(for: itemIdentifier)
+		} catch {
+			return
+		}
+		try deletionTaskManager.createTask(for: metadata)
+		try removeItemFromCache(metadata)
+	}
+
+	public func deleteItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<Void> {
+		let deletionTask: DeletionTask
+		do {
+			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
+			deletionTask = try deletionTaskManager.getTask(for: id)
+		} catch {
+			return Promise(error)
+		}
+		return provider.deleteItem(at: deletionTask.remoteURL).always {
+			try? self.deletionTaskManager.removeTask(deletionTask) // MARK: Discuss if it is ok that we do not pass on an error when deleting the deletion task.
+		}
+	}
 }

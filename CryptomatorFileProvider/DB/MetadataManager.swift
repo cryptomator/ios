@@ -108,6 +108,12 @@ class MetadataManager {
 		}
 	}
 
+	func removeItemMetadata(_ identifiers: [Int64]) throws {
+		_ = try dbQueue.write { db in
+			try ItemMetadata.deleteAll(db, keys: identifiers)
+		}
+	}
+
 	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
 		try dbQueue.read { db in
 			return try ItemMetadata.fetchAll(db, keys: ids)
@@ -134,8 +140,15 @@ class MetadataManager {
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
+		// TODO: Small Hack until RemotePath is merged --> change later
+		let parentRemotePath: String
+		if parent.remotePath.last != "/" {
+			parentRemotePath = parent.remotePath + "/"
+		} else {
+			parentRemotePath = parent.remotePath
+		}
 		return try dbQueue.read { db in
-			let request = ItemMetadata.filter(Column(ItemMetadata.remotePathKey).like("\(parent.remotePath)%"))
+			let request = ItemMetadata.filter(Column(ItemMetadata.remotePathKey).like("\(parentRemotePath)_%"))
 			return try request.fetchAll(db)
 		}
 	}

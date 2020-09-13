@@ -26,7 +26,7 @@ class ReparentTaskManager {
 
 	func getTask(for id: Int64) throws -> ReparentTask {
 		try dbQueue.read { db in
-			guard let task = try ReparentTask.fetchOne(db) else {
+			guard let task = try ReparentTask.fetchOne(db, key: id) else {
 				throw TaskError.taskNotFound
 			}
 			return task
