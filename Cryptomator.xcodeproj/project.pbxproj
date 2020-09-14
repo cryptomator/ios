@@ -12,8 +12,6 @@
 		478CC04D345BFC495EE4F617 /* Pods_CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A756387938F63687EBAAC1 /* Pods_CryptomatorFileProvider.framework */; };
 		4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A070928247BC110005ED18E /* URL+Extensions.swift */; };
 		4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */; };
-<<<<<<< HEAD
-=======
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
 		4A123EAC24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */; };
 		4A123EAE24BF4776001D1CF7 /* FileProviderDecoratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */; };
@@ -35,7 +33,6 @@
 		4A2F373B24B5C0A400460FD3 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373A24B5C0A400460FD3 /* UploadTask.swift */; };
 		4A30A6D924B33568002CABEB /* UploadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30A6D824B33568002CABEB /* UploadTaskManager.swift */; };
 		4A30FD2B24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */; };
->>>>>>> feature/file-provider-extension
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
 		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthenticator.swift */; };
 		4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */; };
@@ -276,8 +273,6 @@
 		33A756387938F63687EBAAC1 /* Pods_CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A070928247BC110005ED18E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ExtensionsTests.swift"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
 		4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTestCase.swift; sourceTree = "<group>"; };
 		4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMock.swift; sourceTree = "<group>"; };
@@ -296,7 +291,6 @@
 		4A2F373A24B5C0A400460FD3 /* UploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
 		4A30A6D824B33568002CABEB /* UploadTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManager.swift; sourceTree = "<group>"; };
 		4A30FD2A24A20A6C00E1576C /* MockLocalFileSystemAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalFileSystemAuthentication.swift; sourceTree = "<group>"; };
->>>>>>> feature/file-provider-extension
 		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A317EE92453329100E43746 /* GoogleDriveCloudAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthenticator.swift; sourceTree = "<group>"; };
 		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
