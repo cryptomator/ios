@@ -6,13 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	func testDeleteItemLocally() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
@@ -21,14 +22,14 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			return
 		}
 		let deletionTask = try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)
-		XCTAssertEqual(remoteURL, deletionTask.remoteURL)
+		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
 		XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
 	}
 
 	func testDeleteItemLocallyWithCachedFile() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
@@ -47,18 +48,18 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			return
 		}
 		let deletionTask = try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)
-		XCTAssertEqual(remoteURL, deletionTask.remoteURL)
+		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
 		XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
 		XCTAssertFalse(FileManager.default.fileExists(atPath: localURLForItem.path))
 	}
 
 	func testDeleteItemLocallyWithFolder() throws {
-		let folderRemoteURL = URL(fileURLWithPath: "/Folder/", isDirectory: true)
-		let remoteURL = URL(fileURLWithPath: "/Folder/Test.txt", isDirectory: false)
-		let folderItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: folderRemoteURL.path, isPlaceholderItem: false)
+		let folderCloudPath = CloudPath("/Folder/")
+		let cloudPath = CloudPath("/Folder/Test.txt")
+		let folderItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(folderItemMetadata)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: folderItemMetadata.parentId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: folderItemMetadata.parentId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let folderIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemMetadata.id!))
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
@@ -81,7 +82,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			return
 		}
 		let folderDeletionTask = try decorator.deletionTaskManager.getTask(for: folderItemMetadata.id!)
-		XCTAssertEqual(folderRemoteURL, folderDeletionTask.remoteURL)
+		XCTAssertEqual(folderCloudPath, folderDeletionTask.cloudPath)
 		XCTAssertEqual(folderItemMetadata.id, folderDeletionTask.correspondingItem)
 		XCTAssertEqual(folderItemMetadata.parentId, folderDeletionTask.parentId)
 		XCTAssertThrowsError(try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)) { error in
@@ -94,16 +95,18 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	}
 
 	func testDeleteFileInCloud() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
-		XCTAssertEqual(0, mockedProvider.deleted.count)
+		XCTAssertEqual(0, mockedProvider.deletedFiles.count)
+		XCTAssertEqual(0, mockedProvider.deletedFolders.count)
 		let expectation = XCTestExpectation()
 		decorator.deleteItemInCloud(withIdentifier: itemIdentifier).then {
-			XCTAssertEqual(1, self.mockedProvider.deleted.count)
-			XCTAssertEqual(remoteURL.relativePath, self.mockedProvider.deleted[0])
+			XCTAssertEqual(1, self.mockedProvider.deletedFiles.count)
+			XCTAssertEqual(0, self.mockedProvider.deletedFolders.count)
+			XCTAssertEqual(cloudPath.path, self.mockedProvider.deletedFiles[0])
 			XCTAssertThrowsError(try self.decorator.deletionTaskManager.getTask(for: itemMetadata.id!)) { error in
 				guard case TaskError.taskNotFound = error else {
 					XCTFail("Throws the wrong error: \(error)")
@@ -119,8 +122,8 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	}
 
 	func testDeleteItemInCloudFailsWithoutDeletionTask() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let expectation = XCTestExpectation()

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import Foundation
 import GRDB
 class DataBaseHelper {
@@ -26,13 +27,13 @@ class DataBaseHelper {
 				table.column("parentId", .integer).references("metadata")
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .text).notNull()
-				table.column("remotePath", .text).unique()
+				table.column("cloudPath", .text).unique()
 				table.column("isPlaceholderItem", .boolean).notNull().defaults(to: false)
 				table.column("isMaybeOutdated", .boolean).notNull().defaults(to: false)
 			}
 
-			let rootURL = URL(fileURLWithPath: "/", isDirectory: true)
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: rootURL.relativePath, isPlaceholderItem: true)
+			let rootCloudPath = CloudPath("/")
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
 			try db.create(table: "cachedFiles") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
@@ -49,19 +50,20 @@ class DataBaseHelper {
 			}
 			try db.create(table: "reparentTasks") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata", onDelete: .cascade)
-				table.column("oldRemoteURL", .text).notNull()
-				table.column("newRemoteURL", .text).notNull()
+				table.column("sourceCloudPath", .text).notNull()
+				table.column("targetCloudPath", .text).notNull()
 				table.column("oldParentId", .integer).notNull()
 				table.column("newParentId", .integer).notNull()
 			}
 			try db.create(table: "deletionTasks") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace)
-				table.column("remoteURL", .text)
+				table.column("cloudPath", .text).notNull()
 				table.column("parentId", .integer).notNull()
+				table.column("itemType", .text).notNull()
 			}
 
 			try db.execute(sql: """
-			CREATE TRIGGER synchronizeItemStatusLog
+			CREATE TRIGGER synchronizeItemStatus
 			AFTER UPDATE OF statusCode ON metadata
 			WHEN new.lastModifiedDate IS NOT NULL AND new.statusCode != 'isDownloaded' AND new.statusCode != 'isUploading'
 			BEGIN

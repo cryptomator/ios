@@ -10,7 +10,7 @@ def networking
 	pod 'ObjectiveDropboxOfficial', '~> 4.0'
 end
 
-pod 'CryptomatorCloudAccess', '~> 0.5.0'
+pod 'CryptomatorCloudAccess', '~> 0.7.0'
 
 target "CloudAccessPrivate" do
 	networking

@@ -32,9 +32,9 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 	}
 
 	let authentication = MockDropboxCloudAuthentication()
-	static let remoteRootURLForIntegrationTestAtDropbox = URL(fileURLWithPath: "/iOS-IntegrationTest/plain/", isDirectory: true)
-	override class var remoteRootURLForIntegrationTest: URL {
-		return remoteRootURLForIntegrationTestAtDropbox
+	static let rootCloudPathForIntegrationTestAtDropbox = CloudPath("/iOS-IntegrationTest/plain/")
+	override class var rootCloudPathForIntegrationTest: CloudPath {
+		return rootCloudPathForIntegrationTestAtDropbox
 	}
 
 	override class func setUp() {

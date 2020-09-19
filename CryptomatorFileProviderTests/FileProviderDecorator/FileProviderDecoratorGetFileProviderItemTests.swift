@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCase {
@@ -23,7 +24,7 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 	}
 
 	func testGetFileProviderItem() throws {
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: URL(fileURLWithPath: "/TestItem", isDirectory: false).relativePath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no ID")
@@ -34,7 +35,7 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 	}
 
 	func testGetFileProviderItemWithUploadError() throws {
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, remotePath: URL(fileURLWithPath: "/TestItem", isDirectory: false).relativePath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no ID")

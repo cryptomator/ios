@@ -6,9 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import Foundation
 import GRDB
-
 class GoogleDriveCloudIdentifierCacheManager {
 	private let inMemoryDB: DatabaseQueue
 
@@ -18,38 +18,38 @@ class GoogleDriveCloudIdentifierCacheManager {
 			try inMemoryDB.write { db in
 				try db.create(table: GoogleDriveCachedIdentifier.databaseTableName) { table in
 					table.column("itemIdentifier", .text)
-					table.column("remoteURL", .text)
-					table.primaryKey(["remoteURL"])
+					table.column("cloudPath", .text).primaryKey()
 				}
 			}
-			try cacheIdentifier("root", for: URL(fileURLWithPath: "/"))
+			try cacheIdentifier("root", for: CloudPath("/"))
 		} catch {
 			return nil
 		}
 	}
 
-	func cacheIdentifier(_ identifier: String, for remoteURL: URL) throws {
+	func cacheIdentifier(_ identifier: String, for cloudPath: CloudPath) throws {
 		try inMemoryDB.write { db in
-			if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL": remoteURL.absoluteString]) {
-				cachedIdentifier.itemIdentifier = identifier
-				try cachedIdentifier.updateChanges(db)
+			if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["cloudPath": cloudPath]) {
+				var updatedCachedIdentifier = cachedIdentifier
+				updatedCachedIdentifier.itemIdentifier = identifier
+				try updatedCachedIdentifier.updateChanges(db, from: cachedIdentifier)
 			} else {
-				let newCachedIdentifier = GoogleDriveCachedIdentifier(itemIdentifier: identifier, remoteURL: remoteURL)
+				let newCachedIdentifier = GoogleDriveCachedIdentifier(itemIdentifier: identifier, cloudPath: cloudPath)
 				try newCachedIdentifier.insert(db)
 			}
 		}
 	}
 
-	func getIdentifier(for remoteURL: URL) -> String? {
+	func getIdentifier(for cloudPath: CloudPath) -> String? {
 		try? inMemoryDB.read { db in
-			let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL": remoteURL.absoluteString])
+			let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["cloudPath": cloudPath])
 			return cachedIdentifier?.itemIdentifier
 		}
 	}
 
-	func uncacheIdentifier(for remoteURL: URL) throws {
+	func uncacheIdentifier(for cloudPath: CloudPath) throws {
 		try inMemoryDB.write { db in
-			if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["remoteURL": remoteURL.absoluteString]) {
+			if let cachedIdentifier = try GoogleDriveCachedIdentifier.fetchOne(db, key: ["cloudPath": cloudPath]) {
 				try cachedIdentifier.delete(db)
 			}
 		}

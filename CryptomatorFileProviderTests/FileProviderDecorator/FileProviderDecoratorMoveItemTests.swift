@@ -6,13 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveItemLocallyOnlyNameChanged() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/RenamedTest.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/RenamedTest.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let newName = "RenamedTest.txt"
@@ -21,7 +22,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual(itemIdentifier, item.itemIdentifier)
 		XCTAssertEqual(ItemStatus.isUploading, item.metadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, item.metadata.remotePath)
+		XCTAssertEqual(targetCloudPath, item.metadata.cloudPath)
 		guard let fetchedItemMetadata = try decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
 			XCTFail("No Metadata in DB")
 			return
@@ -29,19 +30,19 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(newName, fetchedItemMetadata.name)
 		XCTAssertEqual(MetadataManager.rootContainerId, fetchedItemMetadata.parentId)
 		XCTAssertEqual(ItemStatus.isUploading, fetchedItemMetadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, fetchedItemMetadata.remotePath)
+		XCTAssertEqual(targetCloudPath, fetchedItemMetadata.cloudPath)
 		let reparenTask = try decorator.reparentTaskManager.getTask(for: itemMetadata.id!)
 		XCTAssertEqual(itemMetadata.id!, reparenTask.correspondingItem)
-		XCTAssertEqual(remoteURL, reparenTask.oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, reparenTask.newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, reparenTask.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, reparenTask.targetCloudPath)
 	}
 
 	func testMoveItemLocallyOnlyParentChanged() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Folder/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
-		let newParentRemoteURL = URL(fileURLWithPath: "/Folder/", isDirectory: true)
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: newParentRemoteURL.path, isPlaceholderItem: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Folder/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let targetParentCloudPath = CloudPath("/Folder/")
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -51,7 +52,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(parentItemIdentifier, item.parentItemIdentifier)
 		XCTAssertEqual(itemIdentifier, item.itemIdentifier)
 		XCTAssertEqual(ItemStatus.isUploading, item.metadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, item.metadata.remotePath)
+		XCTAssertEqual(targetCloudPath, item.metadata.cloudPath)
 		guard let fetchedItemMetadata = try decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
 			XCTFail("No Metadata in DB")
 			return
@@ -59,19 +60,19 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual("Test.txt", fetchedItemMetadata.name)
 		XCTAssertEqual(newParentItemMetadata.id, fetchedItemMetadata.parentId)
 		XCTAssertEqual(ItemStatus.isUploading, fetchedItemMetadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, fetchedItemMetadata.remotePath)
+		XCTAssertEqual(targetCloudPath, fetchedItemMetadata.cloudPath)
 		let reparenTask = try decorator.reparentTaskManager.getTask(for: itemMetadata.id!)
 		XCTAssertEqual(itemMetadata.id!, reparenTask.correspondingItem)
-		XCTAssertEqual(remoteURL, reparenTask.oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, reparenTask.newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, reparenTask.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, reparenTask.targetCloudPath)
 	}
 
 	func testMoveItemLocally() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Folder/RenamedTest.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
-		let newParentRemoteURL = URL(fileURLWithPath: "/Folder/", isDirectory: true)
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: newParentRemoteURL.path, isPlaceholderItem: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Folder/RenamedTest.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let targetParentCloudPath = CloudPath("/Folder/")
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -82,7 +83,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(parentItemIdentifier, item.parentItemIdentifier)
 		XCTAssertEqual(itemIdentifier, item.itemIdentifier)
 		XCTAssertEqual(ItemStatus.isUploading, item.metadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, item.metadata.remotePath)
+		XCTAssertEqual(targetCloudPath, item.metadata.cloudPath)
 		guard let fetchedItemMetadata = try decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
 			XCTFail("No Metadata in DB")
 			return
@@ -90,19 +91,19 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(newName, fetchedItemMetadata.name)
 		XCTAssertEqual(newParentItemMetadata.id, fetchedItemMetadata.parentId)
 		XCTAssertEqual(ItemStatus.isUploading, fetchedItemMetadata.statusCode)
-		XCTAssertEqual(newRemoteURL.path, fetchedItemMetadata.remotePath)
+		XCTAssertEqual(targetCloudPath, fetchedItemMetadata.cloudPath)
 		let reparenTask = try decorator.reparentTaskManager.getTask(for: itemMetadata.id!)
 		XCTAssertEqual(itemMetadata.id!, reparenTask.correspondingItem)
-		XCTAssertEqual(remoteURL, reparenTask.oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, reparenTask.newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, reparenTask.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, reparenTask.targetCloudPath)
 	}
 
-	func testMoveItemInCloud() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Folder/RenamedTest.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
-		let newParentRemoteURL = URL(fileURLWithPath: "/Folder/", isDirectory: true)
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: newParentRemoteURL.path, isPlaceholderItem: false)
+	func testMoveFileInCloud() throws {
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Folder/RenamedTest.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let targetParentCloudPath = CloudPath("/Folder/")
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -114,7 +115,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(newName, item.filename)
 			XCTAssertEqual(parentItemIdentifier, item.parentItemIdentifier)
 			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
-			XCTAssertEqual(self.mockedProvider.moved[remoteURL.path], newRemoteURL.path)
+			XCTAssertEqual(self.mockedProvider.movedFiles[sourceCloudPath.path], targetCloudPath.path)
 			XCTAssertThrowsError(try self.decorator.reparentTaskManager.getTask(for: itemMetadata.id!)) { error in
 				guard case TaskError.taskNotFound = error else {
 					XCTFail("Throws the wrong error: \(error)")
@@ -130,8 +131,8 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	}
 
 	func testMoveItemCloudItemNameCollisionHandling() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 
@@ -145,9 +146,9 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 			XCTAssertNotEqual("FileAlreadyExists.txt", item.filename)
 			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 			// Ensure that the file with the collision hash was moved
-			XCTAssert(self.mockedProvider.moved[remoteURL.path]?.hasPrefix("/FileAlreadyExists (") ?? false)
-			XCTAssert(self.mockedProvider.moved[remoteURL.path]?.hasSuffix(").txt") ?? false)
-			XCTAssertEqual(30, self.mockedProvider.moved[remoteURL.path]?.count)
+			XCTAssert(self.mockedProvider.movedFiles[cloudPath.path]?.hasPrefix("/FileAlreadyExists (") ?? false)
+			XCTAssert(self.mockedProvider.movedFiles[cloudPath.path]?.hasSuffix(").txt") ?? false)
+			XCTAssertEqual(30, self.mockedProvider.movedFiles[cloudPath.path]?.count)
 			XCTAssertThrowsError(try self.decorator.reparentTaskManager.getTask(for: itemMetadata.id!)) { error in
 				guard case TaskError.taskNotFound = error else {
 					XCTFail("Throws the wrong error: \(error)")
@@ -163,8 +164,8 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	}
 
 	func testMoveItemInCloudReportsErrorWithFileProviderItem() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test.txt")
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 

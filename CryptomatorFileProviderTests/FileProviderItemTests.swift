@@ -6,13 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import MobileCoreServices
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
-		let remoteURL = URL(fileURLWithPath: "/", isDirectory: true)
-		let metadata = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/")
+		let metadata = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
@@ -20,8 +21,8 @@ class FileProviderItemTests: XCTestCase {
 	}
 
 	func testFileItem() {
-		let remoteURL = URL(fileURLWithPath: "/test.txt", isDirectory: false)
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test.txt")
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
@@ -32,8 +33,8 @@ class FileProviderItemTests: XCTestCase {
 	}
 
 	func testFolderItem() {
-		let remoteURL = URL(fileURLWithPath: "/test Folder/", isDirectory: true)
-		let metadata = ItemMetadata(id: 2, name: "test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test Folder/")
+		let metadata = ItemMetadata(id: 2, name: "test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
@@ -44,8 +45,8 @@ class FileProviderItemTests: XCTestCase {
 	}
 
 	func testUploadError() {
-		let remoteURL = URL(fileURLWithPath: "/test.txt", isDirectory: false)
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test.txt")
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let failedUploadTask = UploadTask(correspondingItem: 2, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
 		let item = FileProviderItem(metadata: metadata, error: failedUploadTask.error)
@@ -64,8 +65,8 @@ class FileProviderItemTests: XCTestCase {
 	}
 
 	func testUploadingItemRestrictsCapabilityToRead() {
-		let remoteURL = URL(fileURLWithPath: "/test.txt", isDirectory: false)
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test.txt")
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}

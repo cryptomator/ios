@@ -13,14 +13,14 @@ import Promises
 class CloudProviderPaginationMock: CloudProviderMock {
 	var pages = [
 		"0": [
-			CloudItemMetadata(name: "a", remoteURL: URL(fileURLWithPath: "/a", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
-			CloudItemMetadata(name: "b", remoteURL: URL(fileURLWithPath: "/b", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil)
+			CloudItemMetadata(name: "a", cloudPath: CloudPath("/a"), itemType: .file, lastModifiedDate: nil, size: nil),
+			CloudItemMetadata(name: "b", cloudPath: CloudPath("/b"), itemType: .file, lastModifiedDate: nil, size: nil)
 		],
 		"1": [
-			CloudItemMetadata(name: "d", remoteURL: URL(fileURLWithPath: "/d", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
-			CloudItemMetadata(name: "e", remoteURL: URL(fileURLWithPath: "/e", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
-			CloudItemMetadata(name: "f", remoteURL: URL(fileURLWithPath: "/f", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
-			CloudItemMetadata(name: "Folder", remoteURL: URL(fileURLWithPath: "/Folder/", isDirectory: true), itemType: .folder, lastModifiedDate: nil, size: nil)
+			CloudItemMetadata(name: "d", cloudPath: CloudPath("/d"), itemType: .file, lastModifiedDate: nil, size: nil),
+			CloudItemMetadata(name: "e", cloudPath: CloudPath("/e"), itemType: .file, lastModifiedDate: nil, size: nil),
+			CloudItemMetadata(name: "f", cloudPath: CloudPath("/f"), itemType: .file, lastModifiedDate: nil, size: nil),
+			CloudItemMetadata(name: "Folder", cloudPath: CloudPath("/Folder/"), itemType: .folder, lastModifiedDate: nil, size: nil)
 		]
 	]
 	var nextPageToken = [
@@ -28,11 +28,11 @@ class CloudProviderPaginationMock: CloudProviderMock {
 	]
 
 	let folderItems: [CloudItemMetadata] = [
-		CloudItemMetadata(name: "a", remoteURL: URL(fileURLWithPath: "/Folder/a", isDirectory: false), itemType: .file, lastModifiedDate: nil, size: nil),
-		CloudItemMetadata(name: "b", remoteURL: URL(fileURLWithPath: "/Folder/b/", isDirectory: true), itemType: .folder, lastModifiedDate: nil, size: nil)
+		CloudItemMetadata(name: "a", cloudPath: CloudPath("/Folder/a"), itemType: .file, lastModifiedDate: nil, size: nil),
+		CloudItemMetadata(name: "b", cloudPath: CloudPath("/Folder/b/"), itemType: .folder, lastModifiedDate: nil, size: nil)
 	]
-	override func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-		if remoteURL == URL(fileURLWithPath: "/Folder/", isDirectory: true) {
+	override func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+		if cloudPath == CloudPath("/Folder/") {
 			return Promise(CloudItemList(items: folderItems, nextPageToken: nil))
 		}
 		switch pageToken {

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 
@@ -26,21 +27,21 @@ class ReparentTaskManagerTests: XCTestCase {
 	}
 
 	func testCreateAndGetTask() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Foo.txt", isDirectory: false)
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: 2, newParentId: 3)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Foo.txt")
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
 		let fetchedTask = try manager.getTask(for: 1)
 		XCTAssertEqual(1, fetchedTask.correspondingItem)
-		XCTAssertEqual(oldRemoteURL, fetchedTask.oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, fetchedTask.newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, fetchedTask.sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, fetchedTask.targetCloudPath)
 		XCTAssertEqual(2, fetchedTask.oldParentId)
 		XCTAssertEqual(3, fetchedTask.newParentId)
 	}
 
 	func testDeleteTask() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Foo.txt", isDirectory: false)
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: 2, newParentId: 3)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Foo.txt")
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
 		let task = try manager.getTask(for: 1)
 		try manager.removeTask(task)
 		XCTAssertThrowsError(try manager.getTask(for: 1)) { error in
@@ -52,63 +53,63 @@ class ReparentTaskManagerTests: XCTestCase {
 	}
 
 	func testGetTasksWithOldParentIdWithDirectoryChange() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Foo/Bar.txt", isDirectory: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 		let oldParentId: Int64 = 2
 		let newParentId: Int64 = 3
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: newParentId)
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
 
 		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
-		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, retrievedTasks[0].targetCloudPath)
 		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
 		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
 	}
 
 	func testGetTasksWithOldParentIdOnlyRename() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
 		let oldParentId: Int64 = 2
 		let newParentId = oldParentId
-		let newRemoteURL = URL(fileURLWithPath: "/Test2 - Only Renamed.txt", isDirectory: false)
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: oldParentId)
+		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
 		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
-		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, retrievedTasks[0].targetCloudPath)
 		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
 		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
 	}
 
 	func testGetTasksWithNewParentIdWithDirectoryChange() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
-		let newRemoteURL = URL(fileURLWithPath: "/Foo/Bar.txt", isDirectory: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
+		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 		let oldParentId: Int64 = 2
 		let newParentId: Int64 = 3
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: newParentId)
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
 
 		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
-		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, retrievedTasks[0].targetCloudPath)
 		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
 		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
 	}
 
 	func testGetTasksWithNewParentIdOnlyRename() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
+		let sourceCloudPath = CloudPath("/Test.txt")
 		let oldParentId: Int64 = 2
 		let newParentId = oldParentId
-		let newRemoteURL = URL(fileURLWithPath: "/Test2 - Only Renamed.txt", isDirectory: false)
-		try manager.createTask(for: 1, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: oldParentId)
+		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
+		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
 		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
-		XCTAssertEqual(oldRemoteURL, retrievedTasks[0].oldRemoteURL)
-		XCTAssertEqual(newRemoteURL, retrievedTasks[0].newRemoteURL)
+		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
+		XCTAssertEqual(targetCloudPath, retrievedTasks[0].targetCloudPath)
 		XCTAssertEqual(oldParentId, retrievedTasks[0].oldParentId)
 		XCTAssertEqual(newParentId, retrievedTasks[0].newParentId)
 	}
@@ -117,8 +118,8 @@ class ReparentTaskManagerTests: XCTestCase {
 extension ReparentTask: Equatable {
 	public static func == (lhs: ReparentTask, rhs: ReparentTask) -> Bool {
 		return lhs.correspondingItem == rhs.correspondingItem &&
-			lhs.oldRemoteURL == rhs.oldRemoteURL &&
-			lhs.newRemoteURL == rhs.newRemoteURL &&
+			lhs.sourceCloudPath == rhs.sourceCloudPath &&
+			lhs.targetCloudPath == rhs.targetCloudPath &&
 			lhs.oldParentId == rhs.oldParentId &&
 			lhs.newParentId == rhs.newParentId
 	}

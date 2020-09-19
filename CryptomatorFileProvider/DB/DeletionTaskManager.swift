@@ -20,8 +20,7 @@ class DeletionTaskManager {
 
 	func createTask(for item: ItemMetadata) throws {
 		_ = try dbQueue.write { db in
-			let remoteURL = URL(fileURLWithPath: item.remotePath, isDirectory: item.type == .folder)
-			try DeletionTask(correspondingItem: item.id!, remoteURL: remoteURL, parentId: item.parentId).save(db)
+			try DeletionTask(correspondingItem: item.id!, cloudPath: item.cloudPath, parentId: item.parentId, itemType: item.type).save(db)
 		}
 	}
 

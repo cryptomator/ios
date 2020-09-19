@@ -18,7 +18,7 @@ class MetadataManager {
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
-		if let cachedMetadata = try getCachedMetadata(for: metadata.remotePath) {
+		if let cachedMetadata = try getCachedMetadata(for: metadata.cloudPath) {
 			metadata.id = cachedMetadata.id
 			try updateMetadata(metadata)
 		} else {
@@ -38,7 +38,7 @@ class MetadataManager {
 	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws {
 		try dbQueue.inTransaction { db in
 			for metadata in metadatas {
-				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["remotePath": metadata.remotePath]) {
+				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["cloudPath": metadata.cloudPath]) {
 					metadata.id = cachedMetadata.id
 					try metadata.update(db)
 				} else {
@@ -49,9 +49,9 @@ class MetadataManager {
 		}
 	}
 
-	func getCachedMetadata(for remotePath: String) throws -> ItemMetadata? {
+	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try dbQueue.read { db in
-			return try ItemMetadata.fetchOne(db, key: ["remotePath": remotePath])
+			return try ItemMetadata.fetchOne(db, key: ["cloudPath": cloudPath])
 		}
 		return itemMetadata
 	}
@@ -140,15 +140,13 @@ class MetadataManager {
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
-		// TODO: Small Hack until RemotePath is merged --> change later
-		let parentRemotePath: String
-		if parent.remotePath.last != "/" {
-			parentRemotePath = parent.remotePath + "/"
-		} else {
-			parentRemotePath = parent.remotePath
-		}
 		return try dbQueue.read { db in
-			let request = ItemMetadata.filter(Column(ItemMetadata.remotePathKey).like("\(parentRemotePath)_%"))
+			let request: QueryInterfaceRequest<ItemMetadata>
+			if parent.id == MetadataManager.rootContainerId {
+				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != MetadataManager.rootContainerId)
+			} else {
+				request = ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).like("\(parent.cloudPath.path + "/")_%"))
+			}
 			return try request.fetchAll(db)
 		}
 	}

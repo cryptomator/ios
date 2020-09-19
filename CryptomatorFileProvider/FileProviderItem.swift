@@ -58,10 +58,9 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		case .folder:
 			return "public.folder"
 		default:
-			let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: false)
 			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(
 				kUTTagClassFilenameExtension,
-				remoteURL.pathExtension as CFString,
+				metadata.cloudPath.pathExtension as CFString,
 				nil
 			) {
 				return typeIdentifier.takeRetainedValue() as String

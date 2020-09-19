@@ -24,8 +24,8 @@ class CloudProviderMockTests: XCTestCase {
 	func testRootContainsFiles() {
 		let expectation = XCTestExpectation(description: "rootContainsFiles")
 		let provider = CloudProviderMock()
-		let url = URL(fileURLWithPath: "/", isDirectory: true)
-		provider.fetchItemList(forFolderAt: url, withPageToken: nil).then { cloudItemList in
+		let rootCloudPath = CloudPath("/")
+		provider.fetchItemList(forFolderAt: rootCloudPath, withPageToken: nil).then { cloudItemList in
 			XCTAssertEqual(5, cloudItemList.items.count)
 			XCTAssertEqual("Directory 1", cloudItemList.items[0].name)
 			XCTAssertEqual("File 1", cloudItemList.items[1].name)
@@ -43,8 +43,8 @@ class CloudProviderMockTests: XCTestCase {
 	func testFile1LastModifiedDate() {
 		let expectation = XCTestExpectation(description: "dir1FileContainsDirId")
 		let provider = CloudProviderMock()
-		let remoteURL = URL(fileURLWithPath: "/File 1", isDirectory: false)
-		provider.fetchItemMetadata(at: remoteURL).then { metadata in
+		let cloudPath = CloudPath("/File 1")
+		provider.fetchItemMetadata(at: cloudPath).then { metadata in
 			XCTAssertEqual(.file, metadata.itemType)
 			XCTAssertEqual(Date(timeIntervalSince1970: 0), metadata.lastModifiedDate)
 		}.catch { error in
@@ -59,9 +59,9 @@ class CloudProviderMockTests: XCTestCase {
 		let itemNotFoundExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemNotFound")
 		let provider = CloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
-		let remoteURLForItemNotFound = URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false)
+		let cloudPathForItemNotFound = CloudPath("/itemNotFound.txt")
 
-		provider.uploadFile(from: localURL, to: remoteURLForItemNotFound, replaceExisting: false).then { _ in
+		provider.uploadFile(from: localURL, to: cloudPathForItemNotFound, replaceExisting: false).then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.itemNotFound = error else {
@@ -73,8 +73,8 @@ class CloudProviderMockTests: XCTestCase {
 		}
 		wait(for: [itemNotFoundExpectation], timeout: 1.0)
 		let itemAlreadyExistsExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemAlreadyExists")
-		let remoteURLForItemAlreadyExists = URL(fileURLWithPath: "/itemAlreadyExists.txt", isDirectory: false)
-		provider.uploadFile(from: localURL, to: remoteURLForItemAlreadyExists, replaceExisting: false).then { _ in
+		let cloudPathForItemAlreadyExists = CloudPath("/itemAlreadyExists.txt")
+		provider.uploadFile(from: localURL, to: cloudPathForItemAlreadyExists, replaceExisting: false).then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.itemAlreadyExists = error else {
@@ -87,8 +87,8 @@ class CloudProviderMockTests: XCTestCase {
 		wait(for: [itemAlreadyExistsExpectation], timeout: 1.0)
 
 		let quotaInsufficientExpectation = XCTestExpectation(description: "provider throw CloudProviderError.quotaInsufficient")
-		let remoteURLForQuotaInsufficient = URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false)
-		provider.uploadFile(from: localURL, to: remoteURLForQuotaInsufficient, replaceExisting: false).then { _ in
+		let cloudPathForQuotaInsufficient = CloudPath("/quotaInsufficient.txt")
+		provider.uploadFile(from: localURL, to: cloudPathForQuotaInsufficient, replaceExisting: false).then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.quotaInsufficient = error else {
@@ -101,8 +101,8 @@ class CloudProviderMockTests: XCTestCase {
 		wait(for: [quotaInsufficientExpectation], timeout: 1.0)
 
 		let noInternetConnectionExpectation = XCTestExpectation(description: "provider throw CloudProviderError.noInternetConnection")
-		let remoteURLForNoInternetConnection = URL(fileURLWithPath: "/noInternetConnection.txt", isDirectory: false)
-		provider.uploadFile(from: localURL, to: remoteURLForNoInternetConnection, replaceExisting: false).then { _ in
+		let cloudPathForNoInternetConnection = CloudPath("/noInternetConnection.txt")
+		provider.uploadFile(from: localURL, to: cloudPathForNoInternetConnection, replaceExisting: false).then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.noInternetConnection = error else {
@@ -115,8 +115,8 @@ class CloudProviderMockTests: XCTestCase {
 		wait(for: [noInternetConnectionExpectation], timeout: 1.0)
 
 		let unauthorizedExpectation = XCTestExpectation(description: "provider throw CloudProviderError.unauthorized")
-		let remoteURLForUnauthorized = URL(fileURLWithPath: "/unauthorized.txt", isDirectory: false)
-		provider.uploadFile(from: localURL, to: remoteURLForUnauthorized, replaceExisting: false).then { _ in
+		let cloudPathForUnauthorized = CloudPath("/unauthorized.txt")
+		provider.uploadFile(from: localURL, to: cloudPathForUnauthorized, replaceExisting: false).then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {

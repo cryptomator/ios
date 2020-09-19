@@ -28,7 +28,7 @@ public class ItemMetadata: Record {
 	var parentId: Int64
 	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
-	var remotePath: String
+	var cloudPath: CloudPath
 	var isPlaceholderItem: Bool
 	var isMaybeOutdated: Bool
 	static let idKey = "id"
@@ -38,7 +38,7 @@ public class ItemMetadata: Record {
 	static let parentIdKey = "parentId"
 	static let lastModifiedDateKey = "lastModifiedDate"
 	static let statusCodeKey = "statusCode"
-	static let remotePathKey = "remotePath"
+	static let cloudPathKey = "cloudPath"
 	static let isPlaceholderItemKey = "isPlaceholderItem"
 	static let isMaybeOutdatedKey = "isMaybeOutdated"
 
@@ -50,13 +50,13 @@ public class ItemMetadata: Record {
 		self.parentId = row[ItemMetadata.parentIdKey]
 		self.lastModifiedDate = row[ItemMetadata.lastModifiedDateKey]
 		self.statusCode = row[ItemMetadata.statusCodeKey]
-		self.remotePath = row[ItemMetadata.remotePathKey]
+		self.cloudPath = row[ItemMetadata.cloudPathKey]
 		self.isPlaceholderItem = row[ItemMetadata.isPlaceholderItemKey]
 		self.isMaybeOutdated = row[ItemMetadata.isMaybeOutdatedKey]
 		super.init(row: row)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, remotePath: String, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
 		self.id = id
 		self.name = name
 		self.type = type
@@ -64,7 +64,7 @@ public class ItemMetadata: Record {
 		self.parentId = parentId
 		self.lastModifiedDate = lastModifiedDate
 		self.statusCode = statusCode
-		self.remotePath = remotePath
+		self.cloudPath = cloudPath
 		self.isPlaceholderItem = isPlaceholderItem
 		self.isMaybeOutdated = isCandidateForCacheCleanup
 		super.init()
@@ -82,7 +82,7 @@ public class ItemMetadata: Record {
 		container[ItemMetadata.parentIdKey] = parentId
 		container[ItemMetadata.lastModifiedDateKey] = lastModifiedDate
 		container[ItemMetadata.statusCodeKey] = statusCode
-		container[ItemMetadata.remotePathKey] = remotePath
+		container[ItemMetadata.cloudPathKey] = cloudPath
 		container[ItemMetadata.isPlaceholderItemKey] = isPlaceholderItem
 		container[ItemMetadata.isMaybeOutdatedKey] = isMaybeOutdated
 	}

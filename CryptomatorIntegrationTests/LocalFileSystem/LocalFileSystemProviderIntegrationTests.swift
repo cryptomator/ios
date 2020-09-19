@@ -22,27 +22,34 @@ class LocalFileSystemProviderIntegrationTests: CryptomatorIntegrationTestInterfa
 		}
 	}
 
-	static let setUpProviderForLocalFileSystem = LocalFileSystemProvider()
+	static let rootURLForIntegrationTestAtLocalFileSystem = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+	static let setUpProviderForLocalFileSystem = LocalFileSystemProvider(rootURL: rootURLForIntegrationTestAtLocalFileSystem)
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForLocalFileSystem
 	}
 
-	static let remoteRootURLForIntegrationTestAtLocalFileSystem = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-	override class var remoteRootURLForIntegrationTest: URL {
+	static let remoteRootURLForIntegrationTestAtLocalFileSystem = CloudPath("/IntegrationTest/")
+	override class var rootCloudPathForIntegrationTest: CloudPath {
 		return remoteRootURLForIntegrationTestAtLocalFileSystem
 	}
 
 	// If you do not need to initialize anything special once or before the IntegrationTest setup, you can ignore this function.
 	override class func setUp() {
 		// It is very important to call super.setUp(), otherwise the IntegrationTest will not be built correctly.
+		do {
+			try FileManager.default.createDirectory(at: rootURLForIntegrationTestAtLocalFileSystem, withIntermediateDirectories: true, attributes: nil)
+		} catch {
+			classSetUpError = error
+			return
+		}
 		super.setUp()
 	}
 
 	override func setUpWithError() throws {
 		// This call is very important, otherwise errors from the IntegrationTest once setup will not be considered correctly.
 		try super.setUpWithError()
-		super.provider = LocalFileSystemProvider()
+		super.provider = LocalFileSystemProvider(rootURL: LocalFileSystemProviderIntegrationTests.rootURLForIntegrationTestAtLocalFileSystem)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {

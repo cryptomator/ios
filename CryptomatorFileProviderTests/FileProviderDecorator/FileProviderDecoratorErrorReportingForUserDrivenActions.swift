@@ -12,8 +12,8 @@ import XCTest
 class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecoratorTestCase {
 	func testReportErrorWithFileProviderItemWithoutCorrespondingUploadTask() throws {
 		let lastModifiedDate = Date(timeIntervalSinceReferenceDate: 0)
-		let remoteURL = URL(fileURLWithPath: "/TestItem", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.path, isPlaceholderItem: true)
+		let cloudPath = CloudPath("/TestItem")
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let testError = NSError(domain: "TestDomain", code: -100, userInfo: nil)
 		let item = decorator.reportErrorWithFileProviderItem(error: testError, itemMetadata: itemMetadata)
@@ -29,15 +29,15 @@ class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecor
 		XCTAssertEqual(100, item.metadata.size)
 		XCTAssertEqual(MetadataManager.rootContainerId, item.metadata.parentId)
 		XCTAssertEqual(lastModifiedDate, item.metadata.lastModifiedDate)
-		XCTAssertEqual(remoteURL.path, item.metadata.remotePath)
+		XCTAssertEqual(cloudPath, item.metadata.cloudPath)
 		XCTAssert(item.metadata.isPlaceholderItem)
 		XCTAssertFalse(item.metadata.isMaybeOutdated)
 	}
 
 	func testReportErrorWithFileProviderItemWithCorrespondingUploadTask() throws {
 		let lastModifiedDate = Date(timeIntervalSinceReferenceDate: 0)
-		let remoteURL = URL(fileURLWithPath: "/TestItem", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.path, isPlaceholderItem: true)
+		let cloudPath = CloudPath("/TestItem")
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no id")
@@ -58,7 +58,7 @@ class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecor
 		XCTAssertEqual(100, item.metadata.size)
 		XCTAssertEqual(MetadataManager.rootContainerId, item.metadata.parentId)
 		XCTAssertEqual(lastModifiedDate, item.metadata.lastModifiedDate)
-		XCTAssertEqual(remoteURL.path, item.metadata.remotePath)
+		XCTAssertEqual(cloudPath, item.metadata.cloudPath)
 		XCTAssert(item.metadata.isPlaceholderItem)
 		XCTAssertFalse(item.metadata.isMaybeOutdated)
 
@@ -72,8 +72,8 @@ class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecor
 	}
 
 	func testItemAlreadyExistRejects() throws {
-		let remoteURL = URL(fileURLWithPath: "/TestItem", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, remotePath: remoteURL.path, isPlaceholderItem: true)
+		let cloudPath = CloudPath("/TestItem")
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		XCTAssertThrowsError(try decorator.errorHandlingForUserDrivenActions(error: CloudProviderError.itemAlreadyExists, itemMetadata: itemMetadata)) { error in
 			guard case CloudProviderError.itemAlreadyExists = error else {

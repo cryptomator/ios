@@ -15,7 +15,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let actualFileProviderItem = try decorator.createPlaceholderItemForFile(for: localURL, in: .rootContainer)
-		let expectedRemoteURL = URL(fileURLWithPath: "/FileNotYetUploaded.txt", isDirectory: false)
+		let expectedCloudPath = CloudPath("/FileNotYetUploaded.txt")
 		XCTAssertEqual("2", actualFileProviderItem.itemIdentifier.rawValue)
 		XCTAssertEqual("FileNotYetUploaded.txt", actualFileProviderItem.filename)
 		XCTAssertEqual("public.plain-text", actualFileProviderItem.typeIdentifier)
@@ -23,7 +23,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, actualFileProviderItem.parentItemIdentifier)
 		XCTAssertNotNil(actualFileProviderItem.contentModificationDate)
 		XCTAssert(actualFileProviderItem.isUploading)
-		XCTAssertEqual(expectedRemoteURL.relativePath, actualFileProviderItem.metadata.remotePath)
+		XCTAssertEqual(expectedCloudPath, actualFileProviderItem.metadata.cloudPath)
 		XCTAssert(actualFileProviderItem.metadata.isPlaceholderItem)
 		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: actualFileProviderItem.metadata.id!)
 		XCTAssertNotNil(localLastModifiedDate)
@@ -32,8 +32,8 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 	func skip_testCreatePlaceholderItemForFileWithNameCollision() throws {
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
-		let expectedRemoteURL = URL(fileURLWithPath: "/FileNotYetUploaded.txt", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: expectedRemoteURL.relativePath, isPlaceholderItem: false)
+		let expectedCloudPath = CloudPath("/FileNotYetUploaded.txt")
+		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: expectedCloudPath, isPlaceholderItem: false)
 		let expectation = XCTestExpectation()
 		DispatchQueue.main.async {
 			autoreleasepool {
@@ -62,7 +62,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		let itemMetadata = try decorator.registerFileInUploadQueue(with: localURL, identifier: placeholderFileProviderItem.itemIdentifier)
 		let expectation = XCTestExpectation()
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
-		mockedProvider.lastModifiedDate[itemMetadata.remotePath] = mockedCloudDate
+		mockedProvider.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
 		decorator.uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata).then { _ in
 			XCTAssertEqual("TestContent".data(using: .utf8), self.mockedProvider.createdFiles["/FileToBeUploaded"])
 			guard let cachedItemMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: itemMetadata.id!) else {
@@ -80,7 +80,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		wait(for: [expectation], timeout: 2.0)
 		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: itemMetadata.id!)
 		XCTAssertNotNil(localLastModifiedDate)
-		XCTAssertEqual(mockedProvider.lastModifiedDate[itemMetadata.remotePath], localLastModifiedDate)
+		XCTAssertEqual(mockedProvider.lastModifiedDate[itemMetadata.cloudPath.path], localLastModifiedDate)
 	}
 
 	func testUploadFileFailIfProviderRejectWithItemNotFound() throws {
@@ -281,8 +281,8 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			XCTAssertFalse(item.isUploading)
 			XCTAssertNotEqual("itemAlreadyExists.txt", item.filename)
 			XCTAssertEqual(placeholderFileProviderItem.itemIdentifier, item.itemIdentifier)
-			XCTAssert(item.metadata.remotePath.hasPrefix("/itemAlreadyExists ("))
-			XCTAssert(item.metadata.remotePath.hasSuffix(").txt"))
+			XCTAssert(item.metadata.cloudPath.path.hasPrefix("/itemAlreadyExists ("))
+			XCTAssert(item.metadata.cloudPath.path.hasSuffix(").txt"))
 			XCTAssertNil(try self.decorator.uploadTaskManager.getTask(for: item.metadata.id!))
 			// Ensure that the file with the collision hash was uploaded
 			XCTAssert(self.mockedProvider.createdFiles.keys.filter { $0.hasPrefix("/itemAlreadyExists (") && $0.hasSuffix(").txt") && $0.count == 30 }.count == 1)

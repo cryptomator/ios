@@ -24,9 +24,6 @@ public class DropboxCloudAuthentication {
 		return DBClientsManager.authorizedClient()?.isAuthorized() ?? false
 	}
 
-	/**
-	 Add DBClientsManager.setup(..) to the AppDelegate
-	 */
 	public init() {
 		// MARK: Add sharedContainerIdentifier
 

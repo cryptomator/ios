@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 
@@ -29,19 +30,19 @@ class DeletionTaskManagerTests: XCTestCase {
 	}
 
 	func testCreateAndGetTask() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test")
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
 		try manager.createTask(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: itemMetadata.id!)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.correspondingItem)
 		XCTAssertEqual(itemMetadata.parentId, fetchedTask.parentId)
-		XCTAssertEqual(remoteURL, fetchedTask.remoteURL)
+		XCTAssertEqual(cloudPath, fetchedTask.cloudPath)
 	}
 
 	func testRemoveTask() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test")
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
 		try manager.createTask(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: itemMetadata.id!)
@@ -55,25 +56,25 @@ class DeletionTaskManagerTests: XCTestCase {
 	}
 
 	func testGetTasksWhichWereIn() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test", isDirectory: false)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.relativePath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test")
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
 		try manager.createTask(for: itemMetadata)
-		let folderRemoteURL = URL(fileURLWithPath: "/Folder", isDirectory: true)
-		let folderMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: folderRemoteURL.relativePath, isPlaceholderItem: false)
+		let folderCloudPath = CloudPath("/Folder")
+		let folderMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(folderMetadata)
 		try manager.createTask(for: folderMetadata)
-		let subfolderRemoteURL = URL(fileURLWithPath: "/Folder/SubFolder/", isDirectory: true)
-		let subfolderMetadata = ItemMetadata(name: "SubFolder", type: .folder, size: nil, parentId: folderMetadata.id!, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: subfolderRemoteURL.relativePath, isPlaceholderItem: false)
+		let subfolderCloudPath = CloudPath("/Folder/SubFolder/")
+		let subfolderMetadata = ItemMetadata(name: "SubFolder", type: .folder, size: nil, parentId: folderMetadata.id!, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: subfolderCloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(subfolderMetadata)
 		try manager.createTask(for: subfolderMetadata)
-		let fileInsideFolderRemoteURL = URL(fileURLWithPath: "/Folder/FileInsideFolder", isDirectory: false)
-		let fileInsideFolderMetadata = ItemMetadata(name: "FileInsideFolder", type: .file, size: nil, parentId: folderMetadata.id!, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: fileInsideFolderRemoteURL.relativePath, isPlaceholderItem: false)
+		let fileInsideFolderCloudPath = CloudPath("/Folder/FileInsideFolder")
+		let fileInsideFolderMetadata = ItemMetadata(name: "FileInsideFolder", type: .file, size: nil, parentId: folderMetadata.id!, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileInsideFolderCloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(fileInsideFolderMetadata)
 		try manager.createTask(for: fileInsideFolderMetadata)
 		let fetchedTasks = try manager.getTasksForItemsWhichWere(in: folderMetadata.id!)
 		XCTAssertEqual(2, fetchedTasks.count)
-		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == fileInsideFolderMetadata.id && $0.remoteURL == fileInsideFolderRemoteURL }))
-		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == subfolderMetadata.id && $0.remoteURL == subfolderRemoteURL }))
+		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == fileInsideFolderMetadata.id && $0.cloudPath == fileInsideFolderCloudPath }))
+		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == subfolderMetadata.id && $0.cloudPath == subfolderCloudPath }))
 	}
 }

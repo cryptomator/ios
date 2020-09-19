@@ -6,22 +6,26 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import Foundation
 import GRDB
 struct DeletionTask: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "deletionTasks"
 	static let correspondingItemKey = "correspondingItem"
-	static let remoteURLKey = "remoteURL"
+	static let cloudPathKey = "cloudPath"
 	static let parentIdKey = "parentId"
+	static let itemTypeKey = "itemType"
 	let correspondingItem: Int64
-	let remoteURL: URL
+	let cloudPath: CloudPath
 	let parentId: Int64
+	let itemType: CloudItemType
 }
 
 extension DeletionTask: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
 		container[DeletionTask.correspondingItemKey] = correspondingItem
-		container[DeletionTask.remoteURLKey] = remoteURL
+		container[DeletionTask.cloudPathKey] = cloudPath
 		container[DeletionTask.parentIdKey] = parentId
+		container[DeletionTask.itemTypeKey] = itemType
 	}
 }

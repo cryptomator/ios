@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
@@ -16,7 +17,7 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 		XCTAssertFalse(placeholderItem.isUploaded)
 		XCTAssertEqual("public.folder", placeholderItem.typeIdentifier)
 		XCTAssert(placeholderItem.metadata.isPlaceholderItem)
-		XCTAssertEqual("/TestFolder", placeholderItem.metadata.remotePath)
+		XCTAssertEqual(CloudPath("/TestFolder"), placeholderItem.metadata.cloudPath)
 		XCTAssertNotNil(placeholderItem.metadata.id)
 		guard let fetchedMetadata = try decorator.itemMetadataManager.getCachedMetadata(for: placeholderItem.metadata.id!) else {
 			XCTFail("No Metadata in DB")
@@ -37,8 +38,8 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 	// TODO: testCreatePlaceholderItemForFolderFailsWithLocalFilenameCollsion
 
 	func skip_testCreatePlaceholderItemForFolderFailsWithLocalFilenameCollsion() throws {
-		let remoteURL = URL(fileURLWithPath: "/Test Folder/", isDirectory: true)
-		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, remotePath: remoteURL.path, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/Test Folder/")
+		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		XCTAssertThrowsError(try decorator.createPlaceholderItemForFolder(withName: "Test Folder", in: .rootContainer)) { error in
 			print(error)
@@ -52,7 +53,7 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
 			XCTAssertFalse(item.metadata.isPlaceholderItem)
 			XCTAssertEqual(1, self.mockedProvider.createdFolders.count)
-			XCTAssertEqual(item.metadata.remotePath, self.mockedProvider.createdFolders[0])
+			XCTAssertEqual(item.metadata.cloudPath.path, self.mockedProvider.createdFolders[0])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -71,7 +72,7 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
 			XCTAssertFalse(item.metadata.isPlaceholderItem)
 			XCTAssertEqual(1, self.mockedProvider.createdFolders.count)
-			XCTAssertEqual(item.metadata.remotePath, self.mockedProvider.createdFolders[0])
+			XCTAssertEqual(item.metadata.cloudPath.path, self.mockedProvider.createdFolders[0])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -87,7 +88,7 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, item.metadata.statusCode)
 			XCTAssertFalse(item.metadata.isPlaceholderItem)
 			XCTAssertEqual(1, self.mockedProvider.createdFolders.count)
-			XCTAssertEqual(item.metadata.remotePath, self.mockedProvider.createdFolders[0])
+			XCTAssertEqual(item.metadata.cloudPath.path, self.mockedProvider.createdFolders[0])
 			XCTAssert(self.mockedProvider.createdFolders.filter { $0.hasPrefix("/FolderAlreadyExists (") && $0.hasSuffix(")") }.count == 1)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")

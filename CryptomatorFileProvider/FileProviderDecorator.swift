@@ -31,15 +31,17 @@ public class FileProviderDecorator {
 	let reparentTaskManager: ReparentTaskManager
 	let deletionTaskManager: DeletionTaskManager
 	public let notificator: FileProviderNotificator
-	var homeRoot: URL
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
-
+	let demoRoot: URL
 	public init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		// TODO: Real SetUp with CryptoDecorator, PersistentDBQueue, DBMigrator, etc.
-		self.internalProvider = LocalFileSystemProvider()
+
+		self.demoRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: demoRoot, withIntermediateDirectories: true, attributes: nil)
+		self.internalProvider = LocalFileSystemProvider(rootURL: demoRoot)
 		let database = try DataBaseHelper.getDBMigratedQueue(at: dbPath.path)
 		self.notificator = FileProviderNotificator(manager: manager)
 		self.itemMetadataManager = MetadataManager(with: database)
@@ -52,41 +54,33 @@ public class FileProviderDecorator {
 
 		// MARK: Demo Content for FileProviderExtension
 
-		self.homeRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		let testContent = "Demo File Content"
 		for i in 0 ... 5 {
-			try FileManager.default.createDirectory(at: homeRoot.appendingPathComponent("Folder \(i)", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-			try testContent.write(to: homeRoot.appendingPathComponent("File \(i).txt", isDirectory: false), atomically: true, encoding: .utf8)
+			try FileManager.default.createDirectory(at: demoRoot.appendingPathComponent("Folder \(i)", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
+			try testContent.write(to: demoRoot.appendingPathComponent("File \(i).txt", isDirectory: false), atomically: true, encoding: .utf8)
 		}
 	}
 
 	// CleanUp Demo Content
 	deinit {
-		try? FileManager.default.removeItem(at: homeRoot)
+		try? FileManager.default.removeItem(at: demoRoot)
 	}
 
 	public func fetchItemList(for folderIdentifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
 		// TODO: Check for Internet Connection here
 
-		// let remoteURL = URL(fileURLWithPath: folderIdentifier.rawValue, isDirectory: true)
-
 		let parentId: Int64
-		let remoteURL: URL
+		let cloudPath: CloudPath
 		do {
 			parentId = try convertFileProviderItemIdentifierToInt64(folderIdentifier)
 			guard let metadata = try itemMetadataManager.getCachedMetadata(for: parentId) else {
 				return Promise(CloudProviderError.itemNotFound)
 			}
-			// TODO: Remove HomeDirectory later.. only for first Testing with Local
-			if folderIdentifier == .rootContainer || parentId == MetadataManager.rootContainerId {
-				remoteURL = homeRoot
-			} else {
-				remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: true)
-			}
+			cloudPath = metadata.cloudPath
 		} catch {
 			return Promise(error)
 		}
-		return provider.fetchItemList(forFolderAt: remoteURL, withPageToken: pageToken).then { itemList -> FileProviderItemList in
+		return provider.fetchItemList(forFolderAt: cloudPath, withPageToken: pageToken).then { itemList -> FileProviderItemList in
 			if pageToken == nil {
 				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: parentId)
 			}
@@ -127,19 +121,19 @@ public class FileProviderDecorator {
 	func filterOutWaitingReparentTasks(parentId: Int64, for itemMetadatas: [ItemMetadata]) throws -> [ItemMetadata] {
 		let runningReparentTasks = try reparentTaskManager.getTasksForItemsWhichWere(in: parentId)
 		return itemMetadatas.filter { element in
-			!runningReparentTasks.contains { $0.oldRemoteURL == URL(fileURLWithPath: element.remotePath, isDirectory: element.type == .folder) }
+			!runningReparentTasks.contains { $0.sourceCloudPath == element.cloudPath }
 		}
 	}
 
 	func filterOutWaitingDeletionTasks(parentId: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
 		let runningDeletionTasks = try deletionTaskManager.getTasksForItemsWhichWere(in: parentId)
 		return itemMetadata.filter { element in
-			!runningDeletionTasks.contains { $0.remoteURL == URL(fileURLWithPath: element.remotePath, isDirectory: element.type == .folder) }
+			!runningDeletionTasks.contains { $0.cloudPath == element.cloudPath }
 		}
 	}
 
 	func createItemMetadata(for item: CloudItemMetadata, withParentId parentId: Int64, isPlaceholderItem: Bool = false) -> ItemMetadata {
-		let metadata = ItemMetadata(name: item.name, type: item.itemType, size: item.size, parentId: parentId, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, remotePath: item.remoteURL.relativePath, isPlaceholderItem: isPlaceholderItem)
+		let metadata = ItemMetadata(name: item.name, type: item.itemType, size: item.size, parentId: parentId, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
 		return metadata
 	}
 
@@ -179,9 +173,10 @@ public class FileProviderDecorator {
 		if metadata.statusCode == .isUploading {
 			return Promise(true)
 		}
-		let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
 
-		return provider.fetchItemMetadata(at: remoteURL).then { cloudMetadata -> Bool in
+		let cloudPath = metadata.cloudPath
+
+		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Bool in
 			guard let lastModifiedDateInCloud = cloudMetadata.lastModifiedDate else {
 				return false
 			}
@@ -207,9 +202,9 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		let remoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
 		var lastModifiedDate: Date?
-		return provider.fetchItemMetadata(at: remoteURL).then { cloudMetadata -> Promise<Void> in
+		let cloudPath = metadata.cloudPath
+		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
 			let progress = Progress.discreteProgress(totalUnitCount: 1)
 			let task = FileProviderNetworkTask(with: progress)
@@ -219,7 +214,7 @@ public class FileProviderDecorator {
 				}
 			}
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			return self.provider.downloadFile(from: remoteURL, to: localURL).then {
+			return self.provider.downloadFile(from: cloudPath, to: localURL).then {
 				progress.resignCurrent()
 			}
 		}.then {
@@ -245,8 +240,8 @@ public class FileProviderDecorator {
 		if typeFile == FileAttributeType.typeDirectory {
 			throw FileProviderDecoratorError.folderUploadNotSupported
 		}
-		let remoteURL = try getRemoteURLForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId, type: .file)
-		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId, type: .file)
+		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, lastModifiedDate: lastModifiedDate)
 		return FileProviderItem(metadata: placeholderMetadata)
@@ -254,29 +249,26 @@ public class FileProviderDecorator {
 
 	public func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
-		let remoteURL = try getRemoteURLForPlaceholderItem(withName: name, in: parentId, type: .folder)
-		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentId: parentId, lastModifiedDate: nil, statusCode: .isUploading, remotePath: remoteURL.relativePath, isPlaceholderItem: true)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: .folder)
+		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentId: parentId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata)
 	}
 
-	func getRemoteURLForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> URL {
+	func getCloudPathForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> CloudPath {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
 			throw FileProviderDecoratorError.parentFolderNotFound
 		}
 		// TODO: Remove homeRoot <-- only for demo purpose with LocalFileSystemProvider
-		var parentRemoteURL = URL(fileURLWithPath: parentItemMetadata.remotePath, isDirectory: true)
-		if parentId == MetadataManager.rootContainerId {
-			parentRemoteURL = homeRoot
-		}
-		let remoteURL = parentRemoteURL.appendingPathComponent(name, isDirectory: type == .folder)
+		let parentCloudPath = parentItemMetadata.cloudPath
+		let cloudPath = parentCloudPath.appendingPathComponent(name)
 
-		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: remoteURL.relativePath) {
+		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: cloudPath) {
 			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
 //			DEBUG:
 //			throw CloudProviderError.noInternetConnection
 		}
-		return remoteURL
+		return cloudPath
 	}
 
 	// MARK: UploadFile
@@ -303,7 +295,7 @@ public class FileProviderDecorator {
 	func cloudFileNameCollisionHandling(for localURL: URL, with collisionFreeLocalURL: URL, itemMetadata: ItemMetadata) throws {
 		let filename = collisionFreeLocalURL.lastPathComponent
 		itemMetadata.name = filename
-		itemMetadata.remotePath = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: itemMetadata.type == .folder).deletingLastPathComponent().appendingPathComponent(filename, isDirectory: itemMetadata.type == .folder).path
+		itemMetadata.cloudPath = itemMetadata.cloudPath.deletingLastPathComponent().appendingPathComponent(filename)
 		try FileManager.default.moveItem(at: localURL, to: collisionFreeLocalURL)
 		try itemMetadataManager.updateMetadata(itemMetadata)
 	}
@@ -374,8 +366,8 @@ public class FileProviderDecorator {
 	 	- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
 	 */
 	func uploadFileWithoutRecover(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
-		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: false)
-		print("uploadTo: \(remoteURL)")
+		let cloudPath = itemMetadata.cloudPath
+		print("uploadTo: \(cloudPath)")
 		let progress = Progress.discreteProgress(totalUnitCount: 1)
 		let task = FileProviderNetworkTask(with: progress)
 		manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(itemMetadata.id!))) { error in
@@ -387,7 +379,7 @@ public class FileProviderDecorator {
 			self.uploadSemaphore.wait()
 			task.resume()
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			self.provider.uploadFile(from: localURL, to: remoteURL, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
+			self.provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
 				itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
@@ -532,32 +524,31 @@ public class FileProviderDecorator {
 		precondition(itemMetadata.isPlaceholderItem)
 		precondition(itemMetadata.id != nil)
 		precondition(itemMetadata.type == .folder)
-		let remoteURL = URL(fileURLWithPath: itemMetadata.remotePath, isDirectory: true)
-		return createFolderInCloud(for: itemMetadata, at: remoteURL).recover { error -> Promise<FileProviderItem> in
+		return createFolderInCloud(for: itemMetadata, at: itemMetadata.cloudPath).recover { error -> Promise<FileProviderItem> in
 			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata) {
 				return Promise(item)
 			}
-			let collisionFreeRemoteURL = remoteURL.createCollisionURL()
+			let collisionFreeCloudPath = itemMetadata.cloudPath.createCollisionCloudPath()
 			do {
-				try self.cloudFolderNameCollisionUpdate(with: collisionFreeRemoteURL, itemMetadata: itemMetadata)
+				try self.cloudFolderNameCollisionUpdate(with: collisionFreeCloudPath, itemMetadata: itemMetadata)
 			} catch {
 				return Promise(error)
 			}
-			return self.createFolderInCloud(for: itemMetadata, at: collisionFreeRemoteURL)
+			return self.createFolderInCloud(for: itemMetadata, at: collisionFreeCloudPath)
 		}
 	}
 
-	func cloudFolderNameCollisionUpdate(with collisionFreeRemoteURL: URL, itemMetadata: ItemMetadata) throws {
-		itemMetadata.name = collisionFreeRemoteURL.lastPathComponent
-		itemMetadata.remotePath = collisionFreeRemoteURL.path
+	func cloudFolderNameCollisionUpdate(with collisionFreeCloudPath: CloudPath, itemMetadata: ItemMetadata) throws {
+		itemMetadata.name = collisionFreeCloudPath.lastPathComponent
+		itemMetadata.cloudPath = collisionFreeCloudPath
 		try itemMetadataManager.updateMetadata(itemMetadata)
 	}
 
-	func createFolderInCloud(for itemMetadata: ItemMetadata, at remoteURL: URL) -> Promise<FileProviderItem> {
+	func createFolderInCloud(for itemMetadata: ItemMetadata, at cloudPath: CloudPath) -> Promise<FileProviderItem> {
 		assert(itemMetadata.isPlaceholderItem)
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
-		return provider.createFolder(at: remoteURL).then { _ -> FileProviderItem in
+		return provider.createFolder(at: cloudPath).then { _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try self.itemMetadataManager.updateMetadata(itemMetadata)
@@ -586,15 +577,15 @@ public class FileProviderDecorator {
 			name = metadata.name
 		}
 
-		let remoteURL = try getRemoteURLForPlaceholderItem(withName: name, in: parentId, type: metadata.type)
-		let oldRemoteURL = URL(fileURLWithPath: metadata.remotePath, isDirectory: metadata.type == .folder)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: metadata.type)
+		let oldCloudPath = metadata.cloudPath
 		let oldParentId = metadata.parentId
 		metadata.name = name
-		metadata.remotePath = remoteURL.path
+		metadata.cloudPath = cloudPath
 		metadata.parentId = parentId
 		metadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(metadata)
-		try reparentTaskManager.createTask(for: metadata.id!, oldRemoteURL: oldRemoteURL, newRemoteURL: remoteURL, oldParentId: oldParentId, newParentId: parentId)
+		try reparentTaskManager.createTask(for: metadata.id!, oldCloudPath: oldCloudPath, newCloudPath: cloudPath, oldParentId: oldParentId, newParentId: parentId)
 		return FileProviderItem(metadata: metadata)
 	}
 
@@ -607,27 +598,38 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		return moveItemInCloud(metadata: metadata, oldRemoteURL: reparentTask.oldRemoteURL, newRemoteURL: reparentTask.newRemoteURL).recover { error -> Promise<FileProviderItem> in
+		return moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: reparentTask.targetCloudPath).recover { error -> Promise<FileProviderItem> in
 			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: metadata) {
 				return Promise(item)
 			}
-			let collisionFreeRemoteURL = reparentTask.newRemoteURL.createCollisionURL()
+			let collisionFreeCloudPath = reparentTask.targetCloudPath.createCollisionCloudPath()
 			do {
-				try self.cloudFolderNameCollisionUpdate(with: collisionFreeRemoteURL, itemMetadata: metadata)
+				try self.cloudFolderNameCollisionUpdate(with: collisionFreeCloudPath, itemMetadata: metadata)
 			} catch {
 				return Promise(error)
 			}
-			return self.moveItemInCloud(metadata: metadata, oldRemoteURL: reparentTask.oldRemoteURL, newRemoteURL: collisionFreeRemoteURL)
+			return self.moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: collisionFreeCloudPath)
 		}.always {
 			try? self.reparentTaskManager.removeTask(reparentTask) // MARK: Discuss if it is ok that we do not pass on an error when deleting the reparent task.
 		}
 	}
 
-	func moveItemInCloud(metadata: ItemMetadata, oldRemoteURL: URL, newRemoteURL: URL) -> Promise<FileProviderItem> {
-		return provider.moveItem(from: oldRemoteURL, to: newRemoteURL).then { _ -> FileProviderItem in
+	func moveItemInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<FileProviderItem> {
+		return moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath).then { _ -> FileProviderItem in
 			metadata.statusCode = .isUploaded
 			try self.itemMetadataManager.cacheMetadata(metadata)
 			return FileProviderItem(metadata: metadata)
+		}
+	}
+
+	func moveFileOrFolderInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<Void> {
+		switch metadata.type {
+		case .file:
+			return provider.moveFile(from: sourceCloudPath, to: targetCloudPath)
+		case .folder:
+			return provider.moveFolder(from: sourceCloudPath, to: targetCloudPath)
+		default:
+			return Promise(FileProviderDecoratorError.unsupportedItemType)
 		}
 	}
 
@@ -650,8 +652,20 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		return provider.deleteItem(at: deletionTask.remoteURL).always {
+
+		return deleteItemInCloud(with: deletionTask).always {
 			try? self.deletionTaskManager.removeTask(deletionTask) // MARK: Discuss if it is ok that we do not pass on an error when deleting the deletion task.
+		}
+	}
+
+	func deleteItemInCloud(with deletionTask: DeletionTask) -> Promise<Void> {
+		switch deletionTask.itemType {
+		case .file:
+			return provider.deleteFile(at: deletionTask.cloudPath)
+		case .folder:
+			return provider.deleteFolder(at: deletionTask.cloudPath)
+		default:
+			return Promise(FileProviderDecoratorError.unsupportedItemType)
 		}
 	}
 }

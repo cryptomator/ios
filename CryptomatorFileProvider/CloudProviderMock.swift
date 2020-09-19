@@ -44,31 +44,29 @@ class CloudProviderMock: CloudProvider {
 
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]
-	var deleted: [String] = []
-	var moved: [String: String] = [:]
-	var timer: Timer?
-	public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		precondition(remoteURL.isFileURL)
-		if folders.contains(remoteURL.relativePath) {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .folder, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: 0))
-		} else if let data = files[remoteURL.relativePath] {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data!.count))
-		} else if let data = createdFiles[remoteURL.relativePath] {
-			return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: lastModifiedDate[remoteURL.relativePath] ?? nil, size: data.count))
+	var deletedFiles: [String] = []
+	var deletedFolders: [String] = []
+	var movedFiles: [String: String] = [:]
+	var movedFolders: [String: String] = [:]
+	public func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+		if folders.contains(cloudPath.path) {
+			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: 0))
+		} else if let data = files[cloudPath.path] {
+			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: data!.count))
+		} else if let data = createdFiles[cloudPath.path] {
+			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: data.count))
 		} else {
 			return Promise(CloudProviderError.itemNotFound)
 		}
 	}
 
-	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken _: String?) -> Promise<CloudItemList> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
-		let parentPath = remoteURL.relativePath
+	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken _: String?) -> Promise<CloudItemList> {
+		let parentPath = cloudPath.path
 		let parentPathLvl = parentPath.components(separatedBy: "/").count - (parentPath.hasSuffix("/") ? 1 : 0)
 		let childDirs = folders.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
 		let childFiles = files.keys.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
 		let children = childDirs + childFiles
-		let metadataPromises = children.map { self.fetchItemMetadata(at: URL(fileURLWithPath: $0, isDirectory: childDirs.contains($0))) }
+		let metadataPromises = children.map { self.fetchItemMetadata(at: CloudPath($0)) }
 		return all(metadataPromises).then { metadata -> CloudItemList in
 			let sortedMetadatas = metadata.sorted {
 				$0.name < $1.name
@@ -77,19 +75,17 @@ class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
+	public func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
 		precondition(localURL.isFileURL)
-		precondition(!remoteURL.hasDirectoryPath)
 		precondition(!localURL.hasDirectoryPath)
-		if let data = files[remoteURL.relativePath] {
+		if let data = files[cloudPath.path] {
 			do {
 				try data!.write(to: localURL, options: .withoutOverwriting)
 			} catch {
 				return Promise(error)
 			}
 			return Promise(())
-		} else if let data = createdFiles[remoteURL.relativePath] {
+		} else if let data = createdFiles[cloudPath.path] {
 			do {
 				try data.write(to: localURL, options: .withoutOverwriting)
 			} catch {
@@ -101,39 +97,35 @@ class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL)
-		precondition(remoteURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		precondition(!remoteURL.hasDirectoryPath)
-		switch remoteURL {
-		case URL(fileURLWithPath: "/itemNotFound.txt", isDirectory: false):
+		switch cloudPath {
+		case CloudPath("/itemNotFound.txt"):
 			return Promise(CloudProviderError.itemNotFound)
-		case URL(fileURLWithPath: "/itemAlreadyExists.txt", isDirectory: false):
+		case CloudPath("/itemAlreadyExists.txt"):
 			return Promise(CloudProviderError.itemAlreadyExists)
-		case URL(fileURLWithPath: "/quotaInsufficient.txt", isDirectory: false):
+		case CloudPath("/quotaInsufficient.txt"):
 			return Promise(CloudProviderError.quotaInsufficient)
-		case URL(fileURLWithPath: "/noInternetConnection.txt", isDirectory: false):
+		case CloudPath("/noInternetConnection.txt"):
 			return Promise(CloudProviderError.noInternetConnection)
-		case URL(fileURLWithPath: "/unauthorized.txt", isDirectory: false):
+		case CloudPath("/unauthorized.txt"):
 			return Promise(CloudProviderError.unauthorized)
 		default:
-			return normalUpload(from: localURL, to: remoteURL)
+			return normalUpload(from: localURL, to: cloudPath)
 		}
 	}
 
-	private func normalUpload(from localURL: URL, to remoteURL: URL) -> Promise<CloudItemMetadata> {
+	private func normalUpload(from localURL: URL, to cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL)
-		precondition(remoteURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		precondition(!remoteURL.hasDirectoryPath)
 		let progress = Progress(totalUnitCount: 5)
 		do {
 			let data = try Data(contentsOf: localURL)
-			createdFiles[remoteURL.relativePath] = data
+			createdFiles[cloudPath.path] = data
 
 			return mockedProgess(progress: progress).then {
-				return Promise(CloudItemMetadata(name: remoteURL.lastPathComponent, remoteURL: remoteURL, itemType: .file, lastModifiedDate: self.lastModifiedDate[remoteURL.relativePath] ?? nil, size: data.count))
+				return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: self.lastModifiedDate[cloudPath.path] ?? nil, size: data.count))
 			}
 
 		} catch {
@@ -152,31 +144,35 @@ class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func createFolder(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
-		switch remoteURL {
-		case URL(fileURLWithPath: "/FolderAlreadyExists/", isDirectory: true):
+	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
+		switch cloudPath {
+		case CloudPath("/FolderAlreadyExists/"):
 			return Promise(CloudProviderError.itemAlreadyExists)
-		case URL(fileURLWithPath: "/quotaInsufficient/", isDirectory: true):
+		case CloudPath("/quotaInsufficient/"):
 			return Promise(CloudProviderError.quotaInsufficient)
 		default:
-			createdFolders.append(remoteURL.relativePath)
+			createdFolders.append(cloudPath.path)
 			return Promise(())
 		}
 	}
 
-	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		deleted.append(remoteURL.relativePath)
+	public func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
+		deletedFiles.append(cloudPath.path)
 		return Promise(())
 	}
 
-	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
-		precondition(oldRemoteURL.isFileURL)
-		precondition(newRemoteURL.isFileURL)
-		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		moved[oldRemoteURL.relativePath] = newRemoteURL.relativePath
+	public func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
+		deletedFolders.append(cloudPath.path)
+		return Promise(())
+	}
+
+	public func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+		movedFiles[sourceCloudPath.path] = targetCloudPath.path
+		return Promise(())
+	}
+
+	public func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+		movedFolders[sourceCloudPath.path] = targetCloudPath.path
 		return Promise(())
 	}
 

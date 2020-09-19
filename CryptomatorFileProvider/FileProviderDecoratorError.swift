@@ -12,4 +12,5 @@ enum FileProviderDecoratorError: Error {
 	case folderUploadNotSupported
 	case parentFolderNotFound
 	case parentItemTypeMismatch
+	case unsupportedItemType
 }

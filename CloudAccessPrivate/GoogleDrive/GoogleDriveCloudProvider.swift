@@ -78,35 +78,35 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		return resolvePath(for: remoteURL).then { identifier in
-			self.fetchItemMetadata(forItemIdentifier: identifier, at: remoteURL)
+	public func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+		return resolvePath(forItemAt: cloudPath).then { identifier in
+			self.fetchItemMetadata(forItemIdentifier: identifier, at: cloudPath)
 		}
 	}
 
-	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-		precondition(remoteURL.hasDirectoryPath)
-		return resolvePath(for: remoteURL).then { identifier in
-			self.fetchGTLRDriveFileList(forFolderAt: remoteURL, withIdentifier: identifier, withPageToken: pageToken)
+	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+		return resolvePath(forFolderAt: cloudPath).then { identifier in
+			self.fetchGTLRDriveFileList(forFolderAt: cloudPath, withIdentifier: identifier, withPageToken: pageToken)
 		}.then { fileList in
-			let cloudItemList = try self.convertGTLRDriveFileListToCloudItemList(fileList, forFolderAt: remoteURL)
+			let cloudItemList = try self.convertGTLRDriveFileListToCloudItemList(fileList, forFolderAt: cloudPath)
 			return Promise(cloudItemList)
 		}
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
-		precondition(!remoteURL.hasDirectoryPath)
+	public func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+		precondition(localURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath)
 		if FileManager.default.fileExists(atPath: localURL.path) {
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		return resolvePath(for: remoteURL).then { identifier in
-			self.downloadFile(withIdentifier: identifier, from: remoteURL, to: localURL)
+		return resolvePath(forFileAt: cloudPath).then { identifier in
+			self.downloadFile(withIdentifier: identifier, from: cloudPath, to: localURL)
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
-		precondition(!remoteURL.hasDirectoryPath)
 		var isDirectory: ObjCBool = false
 		let fileExists = FileManager.default.fileExists(atPath: localURL.path, isDirectory: &isDirectory)
 		if !fileExists {
@@ -115,8 +115,8 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		if isDirectory.boolValue {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
-		return resolveParentPath(for: remoteURL).then { parentIdentfier in
-			self.createFileUploadQuery(from: localURL, to: remoteURL, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
+		return resolveParentPath(for: cloudPath).then { parentIdentfier in
+			self.createFileUploadQuery(from: localURL, to: cloudPath, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
 		}.then { query -> Promise<Any> in
 			let progress = Progress(totalUnitCount: -1)
 			query.executionParameters.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
@@ -130,9 +130,9 @@ public class GoogleDriveCloudProvider: CloudProvider {
 				guard let identifier = uploadedFile.identifier, let name = uploadedFile.name, let lastModifiedDate = uploadedFile.modifiedTime?.date, let mimeType = uploadedFile.mimeType else {
 					throw GoogleDriveError.receivedIncompleteMetadata
 				}
-				try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: remoteURL)
+				try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: cloudPath)
 				let itemType = self.getCloudItemType(forMimeType: mimeType)
-				let metadata = CloudItemMetadata(name: name, remoteURL: remoteURL, itemType: itemType, lastModifiedDate: lastModifiedDate, size: uploadedFile.size?.intValue)
+				let metadata = CloudItemMetadata(name: name, cloudPath: cloudPath, itemType: itemType, lastModifiedDate: lastModifiedDate, size: uploadedFile.size?.intValue)
 				return metadata
 			} else {
 				throw GoogleDriveError.unexpectedResultType
@@ -140,17 +140,15 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	public func createFolder(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.hasDirectoryPath)
-
-		let foldername = remoteURL.lastPathComponent
+	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
+		let foldername = cloudPath.lastPathComponent
 		return Promise<Void>(on: .global()) { fulfill, reject in
-			let parentIdentifier = try await(self.resolveParentPath(for: remoteURL))
+			let parentIdentifier = try await(self.resolveParentPath(for: cloudPath))
 			do {
 				_ = try await(self.getFirstIdentifier(forItemWithName: foldername, itemType: .folder, inFolderWithId: parentIdentifier))
 				reject(CloudProviderError.itemAlreadyExists)
 			} catch CloudProviderError.itemNotFound {
-				_ = try await(self.createFolder(at: remoteURL, withParentIdentifier: parentIdentifier))
+				_ = try await(self.createFolder(at: cloudPath, withParentIdentifier: parentIdentifier))
 				fulfill(())
 			} catch CloudProviderError.itemTypeMismatch {
 				reject(CloudProviderError.itemAlreadyExists)
@@ -158,49 +156,72 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		return resolvePath(for: remoteURL).then { identifier in
-			self.deleteItem(withIdentifier: identifier, at: remoteURL)
+	public func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
+		return resolvePath(forFileAt: cloudPath).then { identifier in
+			self.deleteItem(withIdentifier: identifier, at: cloudPath)
 		}
 	}
 
-	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
-		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		let metadata = GTLRDrive_File()
-		metadata.name = newRemoteURL.lastPathComponent
+	public func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
+		return resolvePath(forFolderAt: cloudPath).then { identifier in
+			self.deleteItem(withIdentifier: identifier, at: cloudPath)
+		}
+	}
 
-		return resolveParentPath(for: newRemoteURL).then { _ in
-			self.checkForItemExistence(at: newRemoteURL)
+	public func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+		return resolveParentPath(for: targetCloudPath).then { _ in
+			self.checkForItemExistence(at: targetCloudPath)
 		}.then { itemExists -> Void in
 			if itemExists {
 				throw CloudProviderError.itemAlreadyExists
 			}
 		}.then {
-			self.resolvePath(for: oldRemoteURL)
-		}.then { itemIdentifier -> Promise<GTLRDriveQuery_FilesUpdate> in
-			let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: itemIdentifier, uploadParameters: nil)
-			return self.modificateQueryForMoveItem(query, from: oldRemoteURL, to: newRemoteURL)
-		}.then { query in
-			self.executeQuery(query, remoteURL: oldRemoteURL)
-		}.then { result -> Void in
-			guard let file = result as? GTLRDrive_File else {
-				throw GoogleDriveError.unexpectedResultType
-			}
-			guard let identifier = file.identifier else {
-				throw GoogleDriveError.receivedIncompleteMetadata
-			}
-			try self.cloudIdentifierCache?.uncacheIdentifier(for: oldRemoteURL)
-			try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: newRemoteURL)
-			return
+			self.resolvePath(forFileAt: sourceCloudPath)
+		}.then { fileIdentifier in
+			self.moveItem(from: sourceCloudPath, to: targetCloudPath, withItemIdentifier: fileIdentifier)
 		}
 	}
 
-	private func modificateQueryForMoveItem(_ query: GTLRDriveQuery_FilesUpdate, from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<GTLRDriveQuery_FilesUpdate> {
+	public func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+		return resolveParentPath(for: targetCloudPath).then { _ in
+			self.checkForItemExistence(at: targetCloudPath)
+		}.then { itemExists -> Void in
+			if itemExists {
+				throw CloudProviderError.itemAlreadyExists
+			}
+		}.then {
+			self.resolvePath(forFolderAt: sourceCloudPath)
+		}.then { fileIdentifier in
+			self.moveItem(from: sourceCloudPath, to: targetCloudPath, withItemIdentifier: fileIdentifier)
+		}
+	}
+
+	private func moveItem(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath, withItemIdentifier itemIdentifier: String) -> Promise<Void> {
+		let metadata = GTLRDrive_File()
+		metadata.name = targetCloudPath.lastPathComponent
+		let query = GTLRDriveQuery_FilesUpdate.query(withObject: metadata, fileId: itemIdentifier, uploadParameters: nil)
+		return modificateQueryForMoveItem(query, from: sourceCloudPath, to: targetCloudPath)
+			.then { query in
+				self.executeQuery(query, cloudPath: sourceCloudPath)
+			}.then { result -> Void in
+				guard let file = result as? GTLRDrive_File else {
+					throw GoogleDriveError.unexpectedResultType
+				}
+				guard let identifier = file.identifier else {
+					throw GoogleDriveError.receivedIncompleteMetadata
+				}
+				try self.cloudIdentifierCache?.uncacheIdentifier(for: sourceCloudPath)
+				try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: targetCloudPath)
+				return
+			}
+	}
+
+	private func modificateQueryForMoveItem(_ query: GTLRDriveQuery_FilesUpdate, from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<GTLRDriveQuery_FilesUpdate> {
 		query.fields = "id, modifiedTime"
-		if !onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURL) {
-			let oldParentRemoteURL = oldRemoteURL.deletingLastPathComponent()
-			let newParentRemoteURL = newRemoteURL.deletingLastPathComponent()
-			return all(resolvePath(for: oldParentRemoteURL), resolvePath(for: newParentRemoteURL)).then { oldParentIdentifier, newParentIdentifier -> GTLRDriveQuery_FilesUpdate in
+		if !onlyItemNameChangedBetween(sourceCloudPath, and: targetCloudPath) {
+			let sourceParentCloudPath = sourceCloudPath.deletingLastPathComponent()
+			let targetParentCloudPath = targetCloudPath.deletingLastPathComponent()
+			return all(resolvePath(forFolderAt: sourceParentCloudPath), resolvePath(forFolderAt: targetParentCloudPath)).then { oldParentIdentifier, newParentIdentifier -> GTLRDriveQuery_FilesUpdate in
 				query.addParents = newParentIdentifier
 				query.removeParents = oldParentIdentifier
 				return query
@@ -209,27 +230,72 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		return Promise(query)
 	}
 
-	/**
-	 Resolve remote URL to Google Drive Item Identifier
-	 - Returns: ItemIdentifier on Google Drive, which belongs to the item to which the remoteURL points
-	 */
-	func resolvePath(for remoteURL: URL) -> Promise<String> {
-		var urlToCheckForCache = remoteURL
-		var cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
-		while cachedIdentifier == nil, !urlToCheckForCache.pathComponents.isEmpty {
-			urlToCheckForCache.deleteLastPathComponent()
-			cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
+	func resolvePath(forItemAt cloudPath: CloudPath) -> Promise<String> {
+		var pathToCheckForCache = cloudPath
+		var cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: pathToCheckForCache)
+		while cachedIdentifier == nil, !pathToCheckForCache.pathComponents.isEmpty {
+			pathToCheckForCache = pathToCheckForCache.deletingLastPathComponent()
+			cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: pathToCheckForCache)
 		}
-		if urlToCheckForCache != remoteURL {
-			return traverseThroughPath(from: urlToCheckForCache, to: remoteURL, withStartIdentifier: cachedIdentifier!)
+		if pathToCheckForCache != cloudPath {
+			let parentFolderPath = cloudPath.deletingLastPathComponent()
+			let itemName = cloudPath.lastPathComponent
+			if pathToCheckForCache != parentFolderPath {
+				return traverseThroughPathToFolder(from: pathToCheckForCache, to: parentFolderPath, withStartIdentifier: cachedIdentifier!).then { parentIdentifier in
+					self.getFirstIdentifier(forItemWithName: itemName, itemType: nil, inFolderWithId: parentIdentifier)
+				}.then { itemIdentifier in
+					try self.cloudIdentifierCache?.cacheIdentifier(itemIdentifier, for: cloudPath)
+				}
+			}
+			return getFirstIdentifier(forItemWithName: itemName, itemType: nil, inFolderWithId: cachedIdentifier!)
+				.then { itemIdentifier in
+					try self.cloudIdentifierCache?.cacheIdentifier(itemIdentifier, for: cloudPath)
+				}
 		}
 		return Promise(cachedIdentifier!)
 	}
 
 	/**
-	    workaround: https://stackoverflow.com/a/47282129/1759462
+	 Resolve cloudPath to Google Drive Item Identifier
+	 - Returns: ItemIdentifier on Google Drive, which belongs to the Folder to which the cloudPath points
 	 */
-	private func getFirstIdentifier(forItemWithName itemName: String, itemType: CloudItemType, inFolderWithId: String) -> Promise<String> {
+	func resolvePath(forFolderAt cloudPath: CloudPath) -> Promise<String> {
+		var urlToCheckForCache = cloudPath
+		var cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
+		while cachedIdentifier == nil, !urlToCheckForCache.pathComponents.isEmpty {
+			urlToCheckForCache = urlToCheckForCache.deletingLastPathComponent()
+			cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
+		}
+		if urlToCheckForCache != cloudPath {
+			return traverseThroughPathToFolder(from: urlToCheckForCache, to: cloudPath, withStartIdentifier: cachedIdentifier!)
+		}
+		return Promise(cachedIdentifier!)
+	}
+
+	/**
+	 Resolve cloudPath to Google Drive Item Identifier
+	 - Returns: ItemIdentifier on Google Drive, which belongs to the File to which the remoteURL points
+	 */
+	func resolvePath(forFileAt cloudPath: CloudPath) -> Promise<String> {
+		var urlToCheckForCache = cloudPath
+		var cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
+		while cachedIdentifier == nil, !urlToCheckForCache.pathComponents.isEmpty {
+			urlToCheckForCache = urlToCheckForCache.deletingLastPathComponent()
+			cachedIdentifier = cloudIdentifierCache?.getIdentifier(for: urlToCheckForCache)
+		}
+		if urlToCheckForCache != cloudPath {
+			return traverseThroughPathToFile(from: urlToCheckForCache, to: cloudPath, withStartIdentifier: cachedIdentifier!)
+		}
+		return Promise(cachedIdentifier!)
+	}
+
+	/**
+	 Searches the folder belonging to `inFolderWithId` for an item with the same name as `itemName`.
+	 This is necessary because Google Drive does not use normal paths, but only works with (parent-)identifiers.
+	 If an `itemType` is passed, only items with the respective type (folder / file) will be considered.
+	 workaround for cyrillic names: https://stackoverflow.com/a/47282129/1759462
+	    */
+	private func getFirstIdentifier(forItemWithName itemName: String, itemType: CloudItemType?, inFolderWithId: String) -> Promise<String> {
 		let query = GTLRDriveQuery_FilesList.query()
 		query.q = "'\(inFolderWithId)' in parents and name contains '\(itemName)' and trashed = false"
 		query.fields = "files(id, name, mimeType)"
@@ -238,14 +304,16 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			if let fileList = result as? GTLRDrive_FileList {
 				for file in fileList.files ?? [GTLRDrive_File]() {
 					if file.name == itemName {
-						if self.mimeTypeMatchCloudItemType(mimeType: file.mimeType, cloudItemType: itemType) {
-							guard let identifier = file.identifier else {
-								throw GoogleDriveError.noIdentifierFound
-							}
-							return identifier
-						} else {
-							hasFoundItemWithWrongType = true
+						guard let identifier = file.identifier else {
+							throw GoogleDriveError.noIdentifierFound
 						}
+						if let itemType = itemType {
+							if !self.mimeTypeMatchCloudItemType(mimeType: file.mimeType, cloudItemType: itemType) {
+								hasFoundItemWithWrongType = true
+								continue
+							}
+						}
+						return identifier
 					}
 				}
 				if hasFoundItemWithWrongType {
@@ -260,24 +328,24 @@ public class GoogleDriveCloudProvider: CloudProvider {
 
 	// MARK: Operations with Google Drive Item Identifier
 
-	private func deleteItem(withIdentifier identifier: String, at remoteURL: URL) -> Promise<Void> {
+	private func deleteItem(withIdentifier identifier: String, at cloudPath: CloudPath) -> Promise<Void> {
 		let query = GTLRDriveQuery_FilesDelete.query(withFileId: identifier)
 		return executeQuery(query).then { result -> Void in
 			guard result is Void else {
 				throw GoogleDriveError.unexpectedResultType
 			}
-			try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
+			try self.cloudIdentifierCache?.uncacheIdentifier(for: cloudPath)
 			return
 		}
 	}
 
-	private func fetchGTLRDriveFileList(forFolderAt remoteURL: URL, withIdentifier identifier: String, withPageToken pageToken: String?) -> Promise<GTLRDrive_FileList> {
+	private func fetchGTLRDriveFileList(forFolderAt cloudPath: CloudPath, withIdentifier identifier: String, withPageToken pageToken: String?) -> Promise<GTLRDrive_FileList> {
 		let query = GTLRDriveQuery_FilesList.query()
 		query.q = "'\(identifier)' in parents and trashed = false"
 		query.pageSize = 1000
 		query.pageToken = pageToken
 		query.fields = "nextPageToken, files(id,mimeType,modifiedTime,name,size)"
-		return executeQuery(query, remoteURL: remoteURL).then { result -> GTLRDrive_FileList in
+		return executeQuery(query, cloudPath: cloudPath).then { result -> GTLRDrive_FileList in
 			if let fileList = result as? GTLRDrive_FileList {
 				return fileList
 			} else {
@@ -286,10 +354,10 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<GTLRDrive_File> {
+	private func fetchGTLRDriveFile(forItemIdentifier itemIdentifier: String, at cloudPath: CloudPath) -> Promise<GTLRDrive_File> {
 		let query = GTLRDriveQuery_FilesGet.query(withFileId: itemIdentifier)
 		query.fields = "name, modifiedTime, size, mimeType"
-		return executeQuery(query, remoteURL: remoteURL).then { result -> GTLRDrive_File in
+		return executeQuery(query, cloudPath: cloudPath).then { result -> GTLRDrive_File in
 			if let file = result as? GTLRDrive_File {
 				return file
 			} else {
@@ -298,17 +366,17 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func fetchItemMetadata(forItemIdentifier itemIdentifier: String, at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier, at: remoteURL).then { file -> CloudItemMetadata in
+	private func fetchItemMetadata(forItemIdentifier itemIdentifier: String, at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+		return fetchGTLRDriveFile(forItemIdentifier: itemIdentifier, at: cloudPath).then { file -> CloudItemMetadata in
 			guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
 				throw GoogleDriveError.receivedIncompleteMetadata
 			}
 			let itemType = self.getCloudItemType(forMimeType: mimeType)
-			return CloudItemMetadata(name: name, remoteURL: remoteURL, itemType: itemType, lastModifiedDate: lastModifiedDate, size: file.size?.intValue)
+			return CloudItemMetadata(name: name, cloudPath: cloudPath, itemType: itemType, lastModifiedDate: lastModifiedDate, size: file.size?.intValue)
 		}
 	}
 
-	private func downloadFile(withIdentifier identifier: String, from remoteURL: URL, to localURL: URL) -> Promise<Void> {
+	private func downloadFile(withIdentifier identifier: String, from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
 		let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
 		let request = driveService.request(for: query)
 		let fetcher = driveService.fetcherService.fetcher(with: request as URLRequest)
@@ -326,7 +394,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 					if error.domain == kGTMSessionFetcherStatusDomain {
 						if error.code == self.googleDriveErrorCodeFileNotFound {
 							do {
-								try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
+								try self.cloudIdentifierCache?.uncacheIdentifier(for: cloudPath)
 								return reject(CloudProviderError.itemNotFound)
 							} catch {
 								return reject(error)
@@ -348,7 +416,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	/**
 	 A wrapper for the GTLRDriveQuery with Promises.
 	 */
-	private func executeQuery(_ query: GTLRDriveQuery, remoteURL: URL? = nil) -> Promise<Any> {
+	private func executeQuery(_ query: GTLRDriveQuery, cloudPath: CloudPath? = nil) -> Promise<Any> {
 		return Promise<Any> { fulfill, reject in
 			let ticket = self.driveService.executeQuery(query) { ticket, result, error in
 				self.runningTickets.removeAll { $0 == ticket }
@@ -360,9 +428,9 @@ public class GoogleDriveCloudProvider: CloudProvider {
 						return reject(CloudProviderError.unauthorized)
 					}
 					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeFileNotFound {
-						if let remoteURL = remoteURL {
+						if let cloudPath = cloudPath {
 							do {
-								try self.cloudIdentifierCache?.uncacheIdentifier(for: remoteURL)
+								try self.cloudIdentifierCache?.uncacheIdentifier(for: cloudPath)
 							} catch {
 								reject(error)
 							}
@@ -395,32 +463,30 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		return cloudItemTypeFromMimeType == cloudItemType
 	}
 
-	func convertGTLRDriveFileListToCloudItemList(_ fileList: GTLRDrive_FileList, forFolderAt remoteURL: URL) throws -> CloudItemList {
-		assert(remoteURL.hasDirectoryPath)
+	func convertGTLRDriveFileListToCloudItemList(_ fileList: GTLRDrive_FileList, forFolderAt cloudPath: CloudPath) throws -> CloudItemList {
 		var items = [CloudItemMetadata]()
 		try fileList.files?.forEach { file in
 			guard let name = file.name, let lastModifiedDate = file.modifiedTime?.date, let mimeType = file.mimeType else {
 				throw CloudProviderError.itemNotFound
 			}
 			let itemType = getCloudItemType(forMimeType: mimeType)
-			let remoteItemURL = remoteURL.appendingPathComponent(name, isDirectory: itemType == .folder)
-			let itemMetadata = CloudItemMetadata(name: name, remoteURL: remoteItemURL, itemType: itemType, lastModifiedDate: lastModifiedDate, size: file.size?.intValue)
+			let itemCloudPath = cloudPath.appendingPathComponent(name)
+			let itemMetadata = CloudItemMetadata(name: name, cloudPath: itemCloudPath, itemType: itemType, lastModifiedDate: lastModifiedDate, size: file.size?.intValue)
 			items.append(itemMetadata)
 		}
 		let cloudItemList = CloudItemList(items: items, nextPageToken: fileList.nextPageToken)
 		return cloudItemList
 	}
 
-	func onlyItemNameChangedBetween(oldRemoteURL: URL, and newRemoteURL: URL) -> Bool {
-		let oldRemoteURLWithoutItemName = oldRemoteURL.deletingLastPathComponent()
-		let newRemoteURLWithoutItemName = newRemoteURL.deletingLastPathComponent()
-		return oldRemoteURLWithoutItemName == newRemoteURLWithoutItemName
+	func onlyItemNameChangedBetween(_ lhs: CloudPath, and rhs: CloudPath) -> Bool {
+		let lhsWithoutItemName = lhs.deletingLastPathComponent()
+		let rhsWithoutItemName = rhs.deletingLastPathComponent()
+		return lhsWithoutItemName == rhsWithoutItemName
 	}
 
-	private func createFolder(at remoteURL: URL, withParentIdentifier parentIdentifier: String) -> Promise<Void> {
-		assert(remoteURL.hasDirectoryPath)
+	private func createFolder(at cloudPath: CloudPath, withParentIdentifier parentIdentifier: String) -> Promise<Void> {
 		let metadata = GTLRDrive_File()
-		metadata.name = remoteURL.lastPathComponent
+		metadata.name = cloudPath.lastPathComponent
 		metadata.parents = [parentIdentifier]
 		metadata.mimeType = folderMimeType
 		let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: nil)
@@ -429,53 +495,80 @@ public class GoogleDriveCloudProvider: CloudProvider {
 				guard let identifier = folder.identifier else {
 					throw GoogleDriveError.noIdentifierFound
 				}
-				try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: remoteURL)
+				try self.cloudIdentifierCache?.cacheIdentifier(identifier, for: cloudPath)
 			} else {
 				throw GoogleDriveError.unexpectedResultType
 			}
 		}
 	}
 
-	// MARK: Change the function name to something more appropriate
+	/**
+	 Traverses from the startCloudPath to the endCloudPath using the identifier that belongs to the startCloudPath
+	 This is necessary because Google Drive does not use normal paths, but only works with (parent-)identifiers.
+	 - Precondition: The `startCloudPath` points to a folder
+	 - Precondition: The `startCloudPath` is a real subURL of endCloudPath
+	 - Precondition: The `endCloudPath` points to a file
+	 - Postcondition: If the cloudIdentifierCache exists, the identifier corresponding to the `endCloudPath` is cached in the cloudIdentifierCache.
+	 - Parameter startCloudPath: The cloudPath of the folder from which the traversal is started
+	 - Parameter endCloudPath: The cloudPath of the item, which is the actual target and from which the identifier is returned at the end
+	 - Parameter startIdentifier: The identifier of the folder to which the `startCloudPath` points
+	 - returns: Promise is fulfilled with the identifier that belongs to the `endCloudPath`
+	 */
+	private func traverseThroughPathToFile(from startCloudPath: CloudPath, to endCloudPath: CloudPath, withStartIdentifier startIdentifier: String) -> Promise<String> {
+		assert(startCloudPath.pathComponents.count < endCloudPath.pathComponents.count)
+		let endCloudPathParentFolder = endCloudPath.deletingLastPathComponent()
+		let filename = endCloudPath.lastPathComponent
+		if startCloudPath != endCloudPathParentFolder {
+			return traverseThroughPathToFolder(from: startCloudPath, to: endCloudPathParentFolder, withStartIdentifier: startIdentifier).then { parentIdentifier in
+				return self.getFirstIdentifier(forItemWithName: filename, itemType: .file, inFolderWithId: parentIdentifier)
+			}.then { fileIdentifier -> String in
+				try self.cloudIdentifierCache?.cacheIdentifier(fileIdentifier, for: endCloudPath)
+				return fileIdentifier
+			}
+		}
+		return getFirstIdentifier(forItemWithName: filename, itemType: .file, inFolderWithId: startIdentifier)
+			.then { fileIdentifier -> String in
+				try self.cloudIdentifierCache?.cacheIdentifier(fileIdentifier, for: endCloudPath)
+				return fileIdentifier
+			}
+	}
 
 	/**
-	 Traverses from the start URL to the endRemoteURL using the identifier that belongs to the start URL
-	 - Precondition: The startRemoteURL points to a folder
-	 - Precondition: The startRemoteURL is a real subURL of endRemoteURL
-	 - Parameter startRemoteURL: The remoteURL of the folder from which the traversal is started
-	 - Parameter endRemoteURL: The remoteURL of the item, which is the actual target and from which the identifier is returned at the end
-	 - Parameter startIdentifier: The identifier of the folder to which the startRemoteURL points
+	 Traverses from the startCloudPath to the endCloudPath using the identifier that belongs to the startCloudPath
+	 This is necessary because Google Drive does not use normal paths, but only works with (parent-)identifiers.
+	 To save on future requests, every intermediate path is also cached.
+	 - Precondition: The `startCloudPath` points to a folder
+	 - Precondition: The `startCloudPath` is a real subURL of endCloudPath
+	 - Precondition: The `endCloudPath` points to a folder
+	 - Postcondition: If the cloudIdentifierCache exists, each identifier belonging to the respective intermediate path or `endCloudPath` was cached in the database.
+	 - Parameter startCloudPath: The cloudPath of the folder from which the traversal is started
+	 - Parameter endCloudPath: The cloudPath of the item, which is the actual target and from which the identifier is returned at the end
+	 - Parameter startIdentifier: The identifier of the folder to which the `startCloudPath` points
+	 - returns: Promise is fulfilled with the identifier that belongs to the `endCloudPath`
 	 */
-	private func traverseThroughPath(from startRemoteURL: URL, to endRemoteURL: URL, withStartIdentifier startIdentifier: String) -> Promise<String> {
-		assert(startRemoteURL.pathComponents.count < endRemoteURL.pathComponents.count)
-		assert(startRemoteURL.hasDirectoryPath)
-
-		let startIndex = startRemoteURL.pathComponents.count
-		let endIndex = endRemoteURL.pathComponents.count
-		var currentURL = startRemoteURL
+	private func traverseThroughPathToFolder(from startCloudPath: CloudPath, to endCloudPath: CloudPath, withStartIdentifier startIdentifier: String) -> Promise<String> {
+		assert(startCloudPath.pathComponents.count < endCloudPath.pathComponents.count)
+		let startIndex = startCloudPath.pathComponents.count
+		let endIndex = endCloudPath.pathComponents.count
+		var currentURL = startCloudPath
 		var parentIdentifier = startIdentifier
 		return Promise(on: .global()) { fulfill, _ in
 			for i in startIndex ..< endIndex {
-				let itemName = endRemoteURL.pathComponents[i]
-				let isDirectory = (endRemoteURL.hasDirectoryPath || (i < endIndex - 1))
-				currentURL.appendPathComponent(itemName, isDirectory: isDirectory)
-				if isDirectory {
-					parentIdentifier = try await(self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
-				} else {
-					parentIdentifier = try await(self.getFirstIdentifier(forItemWithName: itemName, itemType: .file, inFolderWithId: parentIdentifier))
-				}
+				let itemName = endCloudPath.pathComponents[i]
+				currentURL = currentURL.appendingPathComponent(itemName)
+				parentIdentifier = try await(self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
 				try self.cloudIdentifierCache?.cacheIdentifier(parentIdentifier, for: currentURL)
 			}
 			fulfill(parentIdentifier)
 		}
 	}
 
-	private func createFileUploadQuery(from localURL: URL, to remoteURL: URL, parentIdentifier: String, replaceExisting: Bool) -> Promise<GTLRDriveQuery> {
+	private func createFileUploadQuery(from localURL: URL, to cloudPath: CloudPath, parentIdentifier: String, replaceExisting: Bool) -> Promise<GTLRDriveQuery> {
 		let metadata = GTLRDrive_File()
-		metadata.name = remoteURL.lastPathComponent
+		metadata.name = cloudPath.lastPathComponent
 		let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: unknownMimeType)
 
-		return resolvePath(for: remoteURL).then { identifier -> Promise<GTLRDriveQuery> in
+		return resolvePath(forFileAt: cloudPath).then { identifier -> Promise<GTLRDriveQuery> in
 			if !replaceExisting {
 				return Promise(CloudProviderError.itemAlreadyExists)
 			}
@@ -491,9 +584,13 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 	}
 
-	private func resolveParentPath(for remoteURL: URL) -> Promise<String> {
-		let parentRemoteURL = remoteURL.deletingLastPathComponent()
-		return resolvePath(for: parentRemoteURL).recover { error -> String in
+	/**
+	 - Parameter cloudPath: The path for which the identifier of the parent folder is needed.
+	 - Returns: the identifier for the parent folder of the passed `cloudPath`. If the folder cannot be found, the promise is rejected with `CloudProviderError.parentFolderDoesNotExist`.
+	 */
+	private func resolveParentPath(for cloudPath: CloudPath) -> Promise<String> {
+		let parentCloudPath = cloudPath.deletingLastPathComponent()
+		return resolvePath(forFolderAt: parentCloudPath).recover { error -> String in
 			if case CloudProviderError.itemNotFound = error {
 				throw CloudProviderError.parentFolderDoesNotExist
 			} else {

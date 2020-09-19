@@ -33,35 +33,32 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	public func fetchItemMetadata(at remoteURL: URL) -> Promise<CloudItemMetadata> {
-		precondition(remoteURL.isFileURL)
+	public func fetchItemMetadata(at path: CloudPath) -> Promise<CloudItemMetadata> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.fetchItemMetadata(at: remoteURL, with: authorizedClient)
+			self.fetchItemMetadata(at: path, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
-	public func fetchItemList(forFolderAt remoteURL: URL, withPageToken pageToken: String?) -> Promise<CloudItemList> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
+	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.fetchItemList(at: remoteURL, with: authorizedClient)
+			self.fetchItemList(at: cloudPath, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
-	public func downloadFile(from remoteURL: URL, to localURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL && localURL.isFileURL)
-		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
+	public func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+		precondition(localURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.downloadFile(from: remoteURL, to: localURL, with: authorizedClient)
+			self.downloadFile(from: cloudPath, to: localURL, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
@@ -69,9 +66,9 @@ public class DropboxCloudProvider: CloudProvider {
 	  Dropbox recommends uploading files over 150mb with a batchUpload.
 	   - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
 	 */
-	public func uploadFile(from localURL: URL, to remoteURL: URL, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
-		precondition(localURL.isFileURL && remoteURL.isFileURL)
-		precondition(!localURL.hasDirectoryPath && !remoteURL.hasDirectoryPath)
+	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+		precondition(localURL.isFileURL)
+		precondition(!localURL.hasDirectoryPath)
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
@@ -90,56 +87,73 @@ public class DropboxCloudProvider: CloudProvider {
 		let mode = replaceExisting ? DBFILESWriteMode(overwrite: ()) : nil
 		let fileSize = attributes[FileAttributeKey.size] as? Int ?? 157_286_400
 		if fileSize >= 157_286_400 {
-			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: remoteURL, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
 		} else {
-			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: remoteURL, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
 		}
 	}
 
 	/**
 	 - warning: This function is not atomic, because the existence of the parent folder is checked first, otherwise Dropbox creates the missing folders automatically.
 	 */
-	public func createFolder(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
-		precondition(remoteURL.hasDirectoryPath)
+	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.createFolder(at: remoteURL, with: authorizedClient)
+			self.createFolder(at: cloudPath, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
 	/**
 	 - warning: This function is not atomic, as the metadata must be retrieved first to ensure that there is no itemTypeMismatch.
 	 */
-	public func deleteItem(at remoteURL: URL) -> Promise<Void> {
-		precondition(remoteURL.isFileURL)
+	public func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
 		return retryWithExponentialBackoff({
-			self.deleteItem(at: remoteURL, with: authorizedClient)
+			self.deleteFile(at: cloudPath, with: authorizedClient)
+		}, condition: shouldRetryForError)
+	}
+
+	/**
+	 - warning: This function is not atomic, as the metadata must be retrieved first to ensure that there is no itemTypeMismatch.
+	 */
+	public func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
+		guard let authorizedClient = authentication.authorizedClient else {
+			return Promise(CloudProviderError.unauthorized)
+		}
+		return retryWithExponentialBackoff({
+			self.deleteFolder(at: cloudPath, with: authorizedClient)
 		}, condition: shouldRetryForError)
 	}
 
 	/**
 	 - warning: This function is not atomic, as the metadata of the oldRemoteURL must first be retrieved to ensure that there is no itemTypeMismatch. In addition, the parentFolder of the newRemoteURL must be checked, otherwise Dropbox will automatically create the intermediate folders.
 	 */
-	public func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL) -> Promise<Void> {
-		precondition(oldRemoteURL.isFileURL && newRemoteURL.isFileURL)
-		precondition(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
+	public func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
 		guard let authorizedClient = authentication.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
-		return retryWithExponentialBackoff({ self.moveItem(from: oldRemoteURL, to: newRemoteURL, with: authorizedClient) }, condition: shouldRetryForError)
+		return retryWithExponentialBackoff({ self.moveFile(from: sourceCloudPath, to: targetCloudPath, with: authorizedClient) }, condition: shouldRetryForError)
+	}
+
+	/**
+	 - warning: This function is not atomic, as the metadata of the oldRemoteURL must first be retrieved to ensure that there is no itemTypeMismatch. In addition, the parentFolder of the newRemoteURL must be checked, otherwise Dropbox will automatically create the intermediate folders.
+	 */
+	public func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+		guard let authorizedClient = authentication.authorizedClient else {
+			return Promise(CloudProviderError.unauthorized)
+		}
+		return retryWithExponentialBackoff({ self.moveFolder(from: sourceCloudPath, to: targetCloudPath, with: authorizedClient) }, condition: shouldRetryForError)
 	}
 
 	// fetchItemMetadata
 
-	private func fetchItemMetadata(at remoteURL: URL, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+	private func fetchItemMetadata(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<CloudItemMetadata> {
 		return Promise<CloudItemMetadata> { fulfill, reject in
-			let task = client.filesRoutes.getMetadata(remoteURL.path)
+			let task = client.filesRoutes.getMetadata(cloudPath.path)
 			self.runningTasks.append(task)
 			task.setResponseBlock { metadata, routeError, networkError in
 				self.runningTasks.removeAll { $0 == task }
@@ -160,12 +174,8 @@ public class DropboxCloudProvider: CloudProvider {
 					return
 				}
 				do {
-					let parentRemoteURL = remoteURL.deletingLastPathComponent()
-					let itemMetadata = try self.createCloudItemMetadata(from: metadata, parentRemoteURL: parentRemoteURL)
-					guard itemMetadata.itemType == self.getItemType(for: remoteURL) else {
-						reject(CloudProviderError.itemTypeMismatch)
-						return
-					}
+					let parentCloudPath = cloudPath.deletingLastPathComponent()
+					let itemMetadata = try self.createCloudItemMetadata(from: metadata, parentCloudPath: parentCloudPath)
 					fulfill(itemMetadata)
 				} catch {
 					reject(error)
@@ -176,16 +186,16 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// fetchItemList
 
-	private func fetchItemList(at remoteURL: URL, withPageToken pageToken: String?, with client: DBUserClient) -> Promise<CloudItemList> {
+	private func fetchItemList(at cloudPath: CloudPath, withPageToken pageToken: String?, with client: DBUserClient) -> Promise<CloudItemList> {
 		if let pageToken = pageToken {
-			return fetchItemListContinue(at: remoteURL, withPageToken: pageToken, with: client)
+			return fetchItemListContinue(at: cloudPath, withPageToken: pageToken, with: client)
 		} else {
-			return fetchItemList(at: remoteURL, with: client)
+			return fetchItemList(at: cloudPath, with: client)
 		}
 	}
 
-	private func fetchItemList(at remoteURL: URL, with client: DBUserClient) -> Promise<CloudItemList> {
-		let task = client.filesRoutes.listFolder(remoteURL.path)
+	private func fetchItemList(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<CloudItemList> {
+		let task = client.filesRoutes.listFolder(cloudPath.path)
 		return Promise<CloudItemList> { fulfill, reject in
 			self.runningTasks.append(task)
 			task.setResponseBlock { result, routeError, networkError in
@@ -213,7 +223,7 @@ public class DropboxCloudProvider: CloudProvider {
 					return
 				}
 				do {
-					let itemList = try self.convertDBFILESListFolderResultToCloudItemList(result, forFolderAt: remoteURL)
+					let itemList = try self.convertDBFILESListFolderResultToCloudItemList(result, forFolderAt: cloudPath)
 					fulfill(itemList)
 				} catch {
 					reject(error)
@@ -222,9 +232,8 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	private func fetchItemListContinue(at remoteURL: URL, withPageToken pageToken: String, with client: DBUserClient) -> Promise<CloudItemList> {
+	private func fetchItemListContinue(at cloudPath: CloudPath, withPageToken pageToken: String, with client: DBUserClient) -> Promise<CloudItemList> {
 		let task = client.filesRoutes.listFolderContinue(pageToken)
-
 		return Promise<CloudItemList> { fulfill, reject in
 			self.runningTasks.append(task)
 			task.setResponseBlock { result, routeError, networkError in
@@ -252,7 +261,7 @@ public class DropboxCloudProvider: CloudProvider {
 					return
 				}
 				do {
-					let itemList = try self.convertDBFILESListFolderResultToCloudItemList(result, forFolderAt: remoteURL)
+					let itemList = try self.convertDBFILESListFolderResultToCloudItemList(result, forFolderAt: cloudPath)
 					fulfill(itemList)
 				} catch {
 					reject(error)
@@ -263,8 +272,8 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// downloadFile
 
-	private func downloadFile(from remoteURL: URL, to localURL: URL, with client: DBUserClient) -> Promise<Void> {
-		let task = client.filesRoutes.downloadUrl(remoteURL.path, overwrite: false, destination: localURL)
+	private func downloadFile(from cloudPath: CloudPath, to localURL: URL, with client: DBUserClient) -> Promise<Void> {
+		let task = client.filesRoutes.downloadUrl(cloudPath.path, overwrite: false, destination: localURL)
 		let progress = Progress(totalUnitCount: -1)
 		task.setProgressBlock { _, totalBytesWritten, totalBytesExpectedToWrite in
 			progress.totalUnitCount = totalBytesExpectedToWrite
@@ -298,14 +307,14 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// uploadFile
 
-	private func uploadBigFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.batchUploadSingleFile(from: localURL, to: remoteURL, mode: mode, with: client)
+	private func uploadBigFile(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		return ensureParentFolderExists(for: cloudPath).then {
+			self.batchUploadSingleFile(from: localURL, to: cloudPath, mode: mode, with: client)
 		}
 	}
 
-	private func batchUploadSingleFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		let commitInfo = DBFILESCommitInfo(path: remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true)
+	private func batchUploadSingleFile(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		let commitInfo = DBFILESCommitInfo(path: cloudPath.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true)
 		let progress = Progress(totalUnitCount: -1)
 		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
 			progress.totalUnitCount = totalBytesExpectedToUpload
@@ -338,7 +347,7 @@ public class DropboxCloudProvider: CloudProvider {
 				}
 				if result.isSuccess() {
 					let fileMetadata = result.success
-					let itemMetadata = self.createCloudItemMetadata(from: fileMetadata, parentRemoteURL: remoteURL.deletingLastPathComponent())
+					let itemMetadata = self.createCloudItemMetadata(from: fileMetadata, parentCloudPath: cloudPath.deletingLastPathComponent())
 					fulfill(itemMetadata)
 					return
 				}
@@ -361,14 +370,14 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	private func uploadSmallFile(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.uploadFileAfterParentCheck(from: localURL, to: remoteURL, mode: mode, with: client)
+	private func uploadSmallFile(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		return ensureParentFolderExists(for: cloudPath).then {
+			self.uploadFileAfterParentCheck(from: localURL, to: cloudPath, mode: mode, with: client)
 		}
 	}
 
-	private func uploadFileAfterParentCheck(from localURL: URL, to remoteURL: URL, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		let task = client.filesRoutes.uploadUrl(remoteURL.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true, inputUrl: localURL.path)
+	private func uploadFileAfterParentCheck(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		let task = client.filesRoutes.uploadUrl(cloudPath.path, mode: mode, autorename: nil, clientModified: nil, mute: nil, propertyGroups: nil, strictConflict: true, inputUrl: localURL.path)
 		runningTasks.append(task)
 		let progress = Progress(totalUnitCount: -1)
 		let uploadProgress: DBProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
@@ -400,7 +409,7 @@ public class DropboxCloudProvider: CloudProvider {
 					return
 				}
 
-				let metadata = self.createCloudItemMetadata(from: result, parentRemoteURL: remoteURL.deletingLastPathComponent())
+				let metadata = self.createCloudItemMetadata(from: result, parentCloudPath: cloudPath.deletingLastPathComponent())
 				fulfill(metadata)
 			}
 		}
@@ -408,17 +417,17 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// createFolder
 
-	private func createFolder(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		return ensureParentFolderExists(for: remoteURL).then {
-			self.createFolderAfterParentCheck(at: remoteURL, with: client)
+	private func createFolder(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		return ensureParentFolderExists(for: cloudPath).then {
+			self.createFolderAfterParentCheck(at: cloudPath, with: client)
 		}
 	}
 
 	/**
 	 This function may only be called if a check has been performed to see if the parent folder exists, because the dropbox SDK always creates the intermediate folders.
 	 */
-	private func createFolderAfterParentCheck(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		let task = client.filesRoutes.createFolderV2(remoteURL.path)
+	private func createFolderAfterParentCheck(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		let task = client.filesRoutes.createFolderV2(cloudPath.path)
 		return Promise<Void> { fulfill, reject in
 			self.runningTasks.append(task)
 			task.setResponseBlock { result, routeError, networkError in
@@ -445,18 +454,27 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// Delete Item
 
-	private func deleteItem(at remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		return fetchItemMetadata(at: remoteURL).then { metadata in
-			guard self.getItemType(for: remoteURL) == metadata.itemType else {
+	private func deleteFile(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		return fetchItemMetadata(at: cloudPath).then { metadata in
+			guard metadata.itemType == .file else {
 				return Promise(CloudProviderError.itemTypeMismatch)
 			}
-			return self.deleteItemAfterTypeCheck(from: remoteURL, with: client)
+			return self.deleteItemAfterTypeCheck(from: cloudPath, with: client)
 		}
 	}
 
-	private func deleteItemAfterTypeCheck(from remoteURL: URL, with client: DBUserClient) -> Promise<Void> {
+	private func deleteFolder(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		return fetchItemMetadata(at: cloudPath).then { metadata in
+			guard metadata.itemType == .folder else {
+				return Promise(CloudProviderError.itemTypeMismatch)
+			}
+			return self.deleteItemAfterTypeCheck(from: cloudPath, with: client)
+		}
+	}
+
+	private func deleteItemAfterTypeCheck(from cloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
 		return Promise<Void> { fulfill, reject in
-			let task = client.filesRoutes.delete_V2(remoteURL.path)
+			let task = client.filesRoutes.delete_V2(cloudPath.path)
 			self.runningTasks.append(task)
 			task.setResponseBlock { result, routeError, networkError in
 				self.runningTasks.removeAll { $0 == task }
@@ -482,25 +500,27 @@ public class DropboxCloudProvider: CloudProvider {
 	}
 
 	// Move Item
-
-	private func moveItem(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		assert(oldRemoteURL.isFileURL)
-		assert(newRemoteURL.isFileURL)
-		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
-		return all(ensureParentFolderExists(for: newRemoteURL), fetchItemMetadata(at: oldRemoteURL)).then { _, metadata in
-			guard self.getItemType(for: oldRemoteURL) == metadata.itemType else {
+	private func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		return all(ensureParentFolderExists(for: targetCloudPath), fetchItemMetadata(at: sourceCloudPath)).then { _, metadata in
+			guard metadata.itemType == .file else {
 				return Promise(CloudProviderError.itemTypeMismatch)
 			}
-			return self.moveItemAfterParentAndTypeCheck(from: oldRemoteURL, to: newRemoteURL, with: client)
+			return self.moveItemAfterParentAndTypeCheck(from: sourceCloudPath, to: targetCloudPath, with: client)
 		}
 	}
 
-	private func moveItemAfterParentAndTypeCheck(from oldRemoteURL: URL, to newRemoteURL: URL, with client: DBUserClient) -> Promise<Void> {
-		assert(oldRemoteURL.isFileURL)
-		assert(newRemoteURL.isFileURL)
-		assert(oldRemoteURL.hasDirectoryPath == newRemoteURL.hasDirectoryPath)
+	private func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
+		return all(ensureParentFolderExists(for: targetCloudPath), fetchItemMetadata(at: sourceCloudPath)).then { _, metadata in
+			guard metadata.itemType == .folder else {
+				return Promise(CloudProviderError.itemTypeMismatch)
+			}
+			return self.moveItemAfterParentAndTypeCheck(from: sourceCloudPath, to: targetCloudPath, with: client)
+		}
+	}
+
+	private func moveItemAfterParentAndTypeCheck(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath, with client: DBUserClient) -> Promise<Void> {
 		return Promise<Void> { fulfill, reject in
-			let task = client.filesRoutes.moveV2(oldRemoteURL.path, toPath: newRemoteURL.path)
+			let task = client.filesRoutes.moveV2(sourceCloudPath.path, toPath: targetCloudPath.path)
 			self.runningTasks.append(task)
 			task.setResponseBlock { _, routeError, networkError in
 				self.runningTasks.removeAll { $0 == task }
@@ -527,36 +547,30 @@ public class DropboxCloudProvider: CloudProvider {
 
 	// MARK: Helper
 
-	func createCloudItemMetadata(from metadata: DBFILESMetadata, parentRemoteURL: URL) throws -> CloudItemMetadata {
-		assert(parentRemoteURL.hasDirectoryPath)
-		assert(parentRemoteURL.isFileURL)
-
+	func createCloudItemMetadata(from metadata: DBFILESMetadata, parentCloudPath: CloudPath) throws -> CloudItemMetadata {
 		if metadata is DBFILESFolderMetadata {
 			let itemName = metadata.name
-			let remoteURL = parentRemoteURL.appendingPathComponent(itemName, isDirectory: true)
-			return CloudItemMetadata(name: itemName, remoteURL: remoteURL, itemType: .folder, lastModifiedDate: nil, size: nil)
+			let cloudPath = parentCloudPath.appendingPathComponent(itemName)
+			return CloudItemMetadata(name: itemName, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: nil, size: nil)
 		}
 		guard let fileMetadata = metadata as? DBFILESFileMetadata else {
 			throw DropboxError.unexpectedError
 		}
-		return createCloudItemMetadata(from: fileMetadata, parentRemoteURL: parentRemoteURL)
+		return createCloudItemMetadata(from: fileMetadata, parentCloudPath: parentCloudPath)
 	}
 
-	func createCloudItemMetadata(from metadata: DBFILESFileMetadata, parentRemoteURL: URL) -> CloudItemMetadata {
-		assert(parentRemoteURL.hasDirectoryPath)
-		assert(parentRemoteURL.isFileURL)
+	func createCloudItemMetadata(from metadata: DBFILESFileMetadata, parentCloudPath: CloudPath) -> CloudItemMetadata {
 		let itemName = metadata.name
-		let remoteURL = parentRemoteURL.appendingPathComponent(itemName, isDirectory: false)
-		return CloudItemMetadata(name: itemName, remoteURL: remoteURL, itemType: .file, lastModifiedDate: metadata.serverModified, size: metadata.size.intValue)
+		let cloudPath = parentCloudPath.appendingPathComponent(itemName)
+		return CloudItemMetadata(name: itemName, cloudPath: cloudPath, itemType: .file, lastModifiedDate: metadata.serverModified, size: metadata.size.intValue)
 	}
 
-	func ensureParentFolderExists(for remoteURL: URL) -> Promise<Void> {
-		assert(remoteURL.isFileURL)
-		let parentRemoteURL = remoteURL.deletingLastPathComponent()
-		if parentRemoteURL == URL(fileURLWithPath: "/", isDirectory: true) {
+	func ensureParentFolderExists(for cloudPath: CloudPath) -> Promise<Void> {
+		let parentCloudPath = cloudPath.deletingLastPathComponent()
+		if parentCloudPath == CloudPath("/") {
 			return Promise(())
 		}
-		return checkForItemExistence(at: parentRemoteURL).then { itemExists -> Void in
+		return checkForItemExistence(at: parentCloudPath).then { itemExists -> Void in
 			guard itemExists else {
 				throw CloudProviderError.parentFolderDoesNotExist
 			}
@@ -589,12 +603,10 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
-	func convertDBFILESListFolderResultToCloudItemList(_ folderResult: DBFILESListFolderResult, forFolderAt remoteURL: URL) throws -> CloudItemList {
-		assert(remoteURL.hasDirectoryPath)
-		assert(remoteURL.isFileURL)
+	func convertDBFILESListFolderResultToCloudItemList(_ folderResult: DBFILESListFolderResult, forFolderAt cloudPath: CloudPath) throws -> CloudItemList {
 		var items = [CloudItemMetadata]()
 		for item in folderResult.entries {
-			let metadata = try createCloudItemMetadata(from: item, parentRemoteURL: remoteURL)
+			let metadata = try createCloudItemMetadata(from: item, parentCloudPath: cloudPath)
 			items.append(metadata)
 		}
 
@@ -624,14 +636,6 @@ public class DropboxCloudProvider: CloudProvider {
 			},
 			work
 		)
-	}
-
-	func getItemType(for remoteURL: URL) -> CloudItemType {
-		precondition(remoteURL.isFileURL)
-		if remoteURL.hasDirectoryPath {
-			return .folder
-		}
-		return .file
 	}
 
 	func getItemType(from fileAttributeType: FileAttributeType?) -> CloudItemType {

@@ -6,9 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import Foundation
 import GRDB
-
 class ReparentTaskManager {
 	let dbQueue: DatabaseQueue
 	init(with dbQueue: DatabaseQueue) throws {
@@ -18,9 +18,9 @@ class ReparentTaskManager {
 		}
 	}
 
-	func createTask(for id: Int64, oldRemoteURL: URL, newRemoteURL: URL, oldParentId: Int64, newParentId: Int64) throws {
+	func createTask(for id: Int64, oldCloudPath: CloudPath, newCloudPath: CloudPath, oldParentId: Int64, newParentId: Int64) throws {
 		try dbQueue.write { db in
-			try ReparentTask(correspondingItem: id, oldRemoteURL: oldRemoteURL, newRemoteURL: newRemoteURL, oldParentId: oldParentId, newParentId: newParentId).save(db)
+			try ReparentTask(correspondingItem: id, sourceCloudPath: oldCloudPath, targetCloudPath: newCloudPath, oldParentId: oldParentId, newParentId: newParentId).save(db)
 		}
 	}
 

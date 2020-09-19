@@ -15,10 +15,10 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 	}
 
 	func testFetchItemMetadataFailWithUnauthorizedWhenNotAuthorized() throws {
-		let fileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("test 0.txt", isDirectory: false)
+		let fileCloudPath = type(of: self).rootCloudPathForIntegrationTest.appendingPathComponent("test 0.txt")
 		let expectation = XCTestExpectation(description: "fetchItemMetadataForFile")
 		deauthenticate().then {
-			self.provider.fetchItemMetadata(at: fileURL)
+			self.provider.fetchItemMetadata(at: fileCloudPath)
 		}.then { _ in
 			XCTFail("fetchItemMetadata fulfilled without authentication")
 		}.catch { error in
@@ -33,10 +33,10 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 	}
 
 	func testFetchItemListFailWithUnauthorizedWhenNotAuthorized() throws {
-		let folderURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent("testFolder/", isDirectory: true)
+		let folderCloudPath = type(of: self).rootCloudPathForIntegrationTest.appendingPathComponent("testFolder/")
 		let expectation = XCTestExpectation(description: "unauthorized fetchItemList fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.fetchItemList(forFolderAt: folderURL, withPageToken: nil)
+			self.provider.fetchItemList(forFolderAt: folderCloudPath, withPageToken: nil)
 		}.then { _ in
 			XCTFail("fetchItemList fulfilled without authentication")
 		}.catch { error in
@@ -52,14 +52,14 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 
 	func testDownloadFileFailWithUnauthorizedWhenNotAuthorized() throws {
 		let filename = "test 0.txt"
-		let remoteFileURL = type(of: self).remoteRootURLForIntegrationTest.appendingPathComponent(filename, isDirectory: false)
+		let fileCloudPath = type(of: self).rootCloudPathForIntegrationTest.appendingPathComponent(filename)
 		let tempDirectory = FileManager.default.temporaryDirectory
 		let uniqueTempFolderURL = tempDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "unauthorized downloadFile fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.downloadFile(from: remoteFileURL, to: localFileURL)
+			self.provider.downloadFile(from: fileCloudPath, to: localFileURL)
 		}.then { _ in
 			XCTFail("downloadFile fulfilled without authentication")
 		}.catch { error in
@@ -81,11 +81,11 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		let testContent = CryptomatorIntegrationTestInterface.testContentForFilesInTestFolder
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: true, attributes: nil)
 		try testContent.write(to: localFileURL, atomically: true, encoding: .utf8)
-		let remoteURL = CryptomatorIntegrationTestInterface.remoteTestFolderURL.appendingPathComponent("test 5.txt", isDirectory: false)
+		let fileCloudPath = CryptomatorIntegrationTestInterface.testFolderCloudPath.appendingPathComponent("test 5.txt")
 
 		let expectation = XCTestExpectation(description: "unauthorized uploadFile fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.uploadFile(from: localFileURL, to: remoteURL, replaceExisting: false)
+			self.provider.uploadFile(from: localFileURL, to: fileCloudPath, replaceExisting: false)
 		}.then { _ in
 			XCTFail("uploadFile fulfilled without authentication")
 		}.catch { error in
@@ -101,10 +101,10 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 	}
 
 	func testCreateFolderFailWithUnauthorizedWhenNotAuthorized() throws {
-		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("unauthorizedFolder/", isDirectory: true)
+		let folderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolder/")
 		let expectation = XCTestExpectation(description: "unauthorized createFolder fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.createFolder(at: remoteURL)
+			self.provider.createFolder(at: folderCloudPath)
 		}.then { _ in
 			XCTFail("createFolder fulfilled without authentication")
 		}.catch { error in
@@ -118,13 +118,13 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		wait(for: [expectation], timeout: 60.0)
 	}
 
-	func testDeleteItemFailWithUnauthorizedWhenNotAuthorized() throws {
-		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("unauthorizedFolder/", isDirectory: true)
-		let expectation = XCTestExpectation(description: "unauthorized deleteItem fail with CloudProviderError.unauthorized")
+	func testDeleteFileFailWithUnauthorizedWhenNotAuthorized() throws {
+		let folderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolder/")
+		let expectation = XCTestExpectation(description: "unauthorized deleteFile fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.deleteItem(at: remoteURL)
+			self.provider.deleteFile(at: folderCloudPath)
 		}.then { _ in
-			XCTFail("deleteItem fulfilled without authentication")
+			XCTFail("deleteFile fulfilled without authentication")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {
 				XCTFail(error.localizedDescription)
@@ -136,14 +136,51 @@ class IntegrationTestWithAuthentication: CryptomatorIntegrationTestInterface {
 		wait(for: [expectation], timeout: 60.0)
 	}
 
-	func testMoveItemFailWithUnauthorizedWhenNotAuthorized() throws {
-		let remoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("unauthorizedFolder/", isDirectory: true)
-		let newRemoteURL = CryptomatorIntegrationTestInterface.remoteEmptySubFolderURL.appendingPathComponent("unauthorizedFolderAA/", isDirectory: true)
-		let expectation = XCTestExpectation(description: "unauthorized moveItem fail with CloudProviderError.unauthorized")
+	func testDeleteFolderFailWithUnauthorizedWhenNotAuthorized() throws {
+		let folderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolder/")
+		let expectation = XCTestExpectation(description: "unauthorized deleteFolder fail with CloudProviderError.unauthorized")
 		deauthenticate().then {
-			self.provider.moveItem(from: remoteURL, to: newRemoteURL)
+			self.provider.deleteFolder(at: folderCloudPath)
 		}.then { _ in
-			XCTFail("moveItem fulfilled without authentication")
+			XCTFail("deleteFolder fulfilled without authentication")
+		}.catch { error in
+			guard case CloudProviderError.unauthorized = error else {
+				XCTFail(error.localizedDescription)
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
+	}
+
+	func testMoveFileFailWithUnauthorizedWhenNotAuthorized() throws {
+		let folderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolder/")
+		let newFolderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolderAA/")
+		let expectation = XCTestExpectation(description: "unauthorized moveFile fail with CloudProviderError.unauthorized")
+		deauthenticate().then {
+			self.provider.moveFile(from: folderCloudPath, to: newFolderCloudPath)
+		}.then { _ in
+			XCTFail("moveFile fulfilled without authentication")
+		}.catch { error in
+			guard case CloudProviderError.unauthorized = error else {
+				XCTFail(error.localizedDescription)
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 60.0)
+	}
+
+	func testMoveFolderFailWithUnauthorizedWhenNotAuthorized() throws {
+		let folderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolder/")
+		let newFolderCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("unauthorizedFolderAA/")
+		let expectation = XCTestExpectation(description: "unauthorized moveFolder fail with CloudProviderError.unauthorized")
+		deauthenticate().then {
+			self.provider.moveFolder(from: folderCloudPath, to: newFolderCloudPath)
+		}.then { _ in
+			XCTFail("moveFolder fulfilled without authentication")
 		}.catch { error in
 			guard case CloudProviderError.unauthorized = error else {
 				XCTFail(error.localizedDescription)
