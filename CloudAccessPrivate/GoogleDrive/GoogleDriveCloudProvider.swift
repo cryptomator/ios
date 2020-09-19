@@ -44,8 +44,9 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			return suggestedWillRetry
 		}
 
-		// MARK: Add configurationBlock with sharedContainerIdentifier
-
+		driveService.fetcherService.configurationBlock = {fetcher, configuration in
+			configuration.sharedContainerIdentifier = "group.com.skymatic.Cryptomator"
+		}
 		driveService.fetcherService.isRetryEnabled = true
 		driveService.fetcherService.retryBlock = { suggestedWillRetry, error, response in
 			if let error = error as NSError? {
@@ -386,6 +387,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			progress.totalUnitCount = totalBytesExpectedToWrite // Unnecessary to set several times
 			progress.completedUnitCount = totalBytesWritten
 		}
+		fetcher.useBackgroundSession = true
 		runningFetchers.append(fetcher)
 		return Promise<Void> { fulfill, reject in
 			fetcher.beginFetch { _, error in
@@ -567,7 +569,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		let metadata = GTLRDrive_File()
 		metadata.name = cloudPath.lastPathComponent
 		let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: unknownMimeType)
-
+		uploadParameters.useBackgroundSession = true
 		return resolvePath(forFileAt: cloudPath).then { identifier -> Promise<GTLRDriveQuery> in
 			if !replaceExisting {
 				return Promise(CloudProviderError.itemAlreadyExists)

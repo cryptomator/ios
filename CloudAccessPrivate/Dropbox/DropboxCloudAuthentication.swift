@@ -25,11 +25,9 @@ public class DropboxCloudAuthentication {
 	}
 
 	public init() {
-		// MARK: Add sharedContainerIdentifier
-
 		if DropboxCloudAuthentication.firstTimeInit {
 			DropboxCloudAuthentication.firstTimeInit = false
-			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: nil)
+			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: "group.com.skymatic.Cryptomator")
 			DBClientsManager.setup(withTransport: config)
 		}
 	}

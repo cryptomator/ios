@@ -209,6 +209,13 @@
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
 		};
+		4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AE97DA724572E4900452814;
+			remoteInfo = Cryptomator;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -988,6 +995,7 @@
 			);
 			dependencies = (
 				4A60E7FD2459C6F500FD7F0E /* PBXTargetDependency */,
+				4AFE6AEE2516278600A4A315 /* PBXTargetDependency */,
 			);
 			name = CryptomatorIntegrationTests;
 			productName = CryptomatorIntegrationTests;
@@ -1140,6 +1148,7 @@
 					};
 					4A60E7F52459C6F500FD7F0E = {
 						CreatedOnToolsVersion = 11.4.1;
+						TestTargetID = 4AE97DA724572E4900452814;
 					};
 					4AA621D5249A6A8400A0BCBD = {
 						CreatedOnToolsVersion = 11.5;
@@ -1758,6 +1767,11 @@
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4AE97DC924572E4A00452814 /* PBXContainerItemProxy */;
 		};
+		4AFE6AEE2516278600A4A315 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AE97DA724572E4900452814 /* Cryptomator */;
+			targetProxy = 4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2103,6 +2117,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Debug;
 		};
@@ -2122,6 +2137,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
 		};
