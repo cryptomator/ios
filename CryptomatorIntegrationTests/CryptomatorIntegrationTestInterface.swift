@@ -796,8 +796,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		wait(for: [expectation], timeout: 60.0)
 	}
 
-
-
 	func testDeleteItemFailWithItemNotFoundIfFolderDoesNotExist() throws {
 		let nonExistentFolderCloudPath = CryptomatorIntegrationTestInterface.folderForDeleteItemsCloudPath.appendingPathComponent("thisFolderMustNotExist/")
 		let expectation = XCTestExpectation(description: "deleteFolder fail with CloudProviderError.itemNotFound if the folder to be deleted does not exist")
@@ -942,8 +940,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		wait(for: [expectation], timeout: 60.0)
 	}
 
-
-
 	func testMoveFolder() throws {
 		let fileToMoveCloudPath = CryptomatorIntegrationTestInterface.folderForMoveItemsCloudPath.appendingPathComponent("FolderToMove/")
 		let newFileToMoveCloudPath = CryptomatorIntegrationTestInterface.folderForMoveItemsCloudPath.appendingPathComponent("MoveItemsInThisFolder/renamedAndMovedFolder/")
@@ -966,7 +962,6 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			}
 		wait(for: [expectation], timeout: 60.0)
 	}
-
 
 	func testMoveFolderFailWithItemNotFoundIfTheFolderToMoveDoesNotExist() throws {
 		let nonExistentFolderToMoveCloudPath = CryptomatorIntegrationTestInterface.folderForMoveItemsCloudPath.appendingPathComponent("thisFolderMustNotExist/")

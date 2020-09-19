@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import XCTest
 @testable import CloudAccessPrivate
 
@@ -21,26 +22,26 @@ class GoogleDriveCloudProviderTests: XCTestCase {
 	}
 
 	func testOnlyItemNameChangedWorksWithFolders() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/AAAAAA/BBBBBBB/", isDirectory: true)
-		let newRemoteURLOnlyFolderNameChanged = URL(fileURLWithPath: "/AAAAAA/CCCCCCC/", isDirectory: true)
-		XCTAssertTrue(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLOnlyFolderNameChanged))
+		let oldCloudPath = CloudPath("/AAAAAA/BBBBBBB/")
+		let newCloudPathOnlyFolderNameChanged = CloudPath("/AAAAAA/CCCCCCC/")
+		XCTAssertTrue(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathOnlyFolderNameChanged))
 
-		let newRemoteURLPathChanged = URL(fileURLWithPath: "/DDDDDDD/BBBBBBB/", isDirectory: true)
-		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathChanged))
+		let newCloudPathWithParentFolderChanged = CloudPath("/DDDDDDD/BBBBBBB/")
+		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathWithParentFolderChanged))
 
-		let newRemoteURLPathAndFolderNameChanged = URL(fileURLWithPath: "/DDDDDDD/CCCCCCC/", isDirectory: true)
-		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathAndFolderNameChanged))
+		let newCloudPathParentFolderAndFolderNameChanged = CloudPath("/DDDDDDD/CCCCCCC/")
+		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathParentFolderAndFolderNameChanged))
 	}
 
 	func testOnlyItemNameChangedWorksWithFiles() throws {
-		let oldRemoteURL = URL(fileURLWithPath: "/AAAAAA/test.txt", isDirectory: false)
-		let newRemoteURLOnlyFileNameChanged = URL(fileURLWithPath: "/AAAAAA/renamedTest.txt", isDirectory: false)
-		XCTAssertTrue(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLOnlyFileNameChanged))
+		let oldCloudPath = CloudPath("/AAAAAA/test.txt")
+		let newCloudPathOnlyFileNameChanged = CloudPath("/AAAAAA/renamedTest.txt")
+		XCTAssertTrue(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathOnlyFileNameChanged))
 
-		let newRemoteURLPathChanged = URL(fileURLWithPath: "/DDDDDDD/BBBBBBB/test.txt", isDirectory: false)
-		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathChanged))
+		let newCloudPathWithChangedPath = CloudPath("/DDDDDDD/BBBBBBB/test.txt")
+		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathWithChangedPath))
 
-		let newRemoteURLPathAndFileNameChanged = URL(fileURLWithPath: "/DDDDDDD/CCCCCCC/renamedAgainTest.txt", isDirectory: true)
-		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldRemoteURL: oldRemoteURL, and: newRemoteURLPathAndFileNameChanged))
+		let newCloudPathWithPathAndFileNameChanged = CloudPath("/DDDDDDD/CCCCCCC/renamedAgainTest.txt")
+		XCTAssertFalse(provider.onlyItemNameChangedBetween(oldCloudPath, and: newCloudPathWithPathAndFileNameChanged))
 	}
 }
