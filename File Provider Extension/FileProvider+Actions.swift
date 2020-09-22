@@ -18,9 +18,7 @@ extension FileProviderExtension {
 		}
 		DispatchQueue.main.async {
 			autoreleasepool {
-				if !fileURL.startAccessingSecurityScopedResource() {
-					return completionHandler(nil, NSFileProviderError(.noSuchItem))
-				}
+				let stopAccess = fileURL.startAccessingSecurityScopedResource()
 				let item: FileProviderItem
 				do {
 					item = try decorator.createPlaceholderItemForFile(for: fileURL, in: parentItemIdentifier)
@@ -44,8 +42,9 @@ extension FileProviderExtension {
 						fileManagerError = error as NSError
 					}
 				}
-
-				fileURL.stopAccessingSecurityScopedResource()
+				if stopAccess{
+					fileURL.stopAccessingSecurityScopedResource()
+				}
 				if let error = fileManagerError {
 					try? decorator.reportLocalUploadError(for: item.itemIdentifier, error: error) // we report already an error
 					completionHandler(nil, error)
