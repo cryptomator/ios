@@ -194,8 +194,13 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 	}
 
+	/**
+	Dropbox differs from the filesystem Hierarchy Standard and accepts instead of "/" only a "".
+	Therefore `cloudPath` must be checked for the root path and adjusted if necessary.
+	*/
 	private func fetchItemList(at cloudPath: CloudPath, with client: DBUserClient) -> Promise<CloudItemList> {
-		let task = client.filesRoutes.listFolder(cloudPath.path)
+		let cleanedPath = (cloudPath == CloudPath("/")) ? "" : cloudPath.path
+		let task = client.filesRoutes.listFolder(cleanedPath)
 		return Promise<CloudItemList> { fulfill, reject in
 			self.runningTasks.append(task)
 			task.setResponseBlock { result, routeError, networkError in
