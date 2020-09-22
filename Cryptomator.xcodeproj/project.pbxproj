@@ -348,6 +348,8 @@
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
 		4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+ExtensionTests.swift"; sourceTree = "<group>"; };
+		4A9FCB0B251A02A3002A8B41 /* File Provider ExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "File Provider ExtensionUI.entitlements"; sourceTree = "<group>"; };
+		4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cryptomator.entitlements; sourceTree = "<group>"; };
 		4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "File Provider Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderExtension.swift; sourceTree = "<group>"; };
 		4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderEnumerator.swift; sourceTree = "<group>"; };
@@ -762,6 +764,7 @@
 		4AA621E5249A6A8400A0BCBD /* File Provider ExtensionUI */ = {
 			isa = PBXGroup;
 			children = (
+				4A9FCB0B251A02A3002A8B41 /* File Provider ExtensionUI.entitlements */,
 				4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */,
 				4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
@@ -802,6 +805,7 @@
 		4AE97DA924572E4900452814 /* Cryptomator */ = {
 			isa = PBXGroup;
 			children = (
+				4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */,
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
 				4AE97DAC24572E4900452814 /* SceneDelegate.swift */,
@@ -2144,6 +2148,7 @@
 		4AA621F3249A6A8400A0BCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "File Provider ExtensionUI/File Provider ExtensionUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = "File Provider ExtensionUI/Info.plist";
@@ -2163,6 +2168,7 @@
 		4AA621F4249A6A8400A0BCBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "File Provider ExtensionUI/File Provider ExtensionUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = "File Provider ExtensionUI/Info.plist";
@@ -2283,6 +2289,7 @@
 			baseConfigurationReference = 0DB907107C6442B3AAE3E308 /* Pods-Cryptomator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
@@ -2302,6 +2309,7 @@
 			baseConfigurationReference = ED62DF07A9C39EAE5553BCC9 /* Pods-Cryptomator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
