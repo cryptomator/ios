@@ -2014,6 +2014,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A8ECA8199CDD2BC6AA0F7EA8 /* Pods-CloudAccessPrivate.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2044,6 +2045,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D6E6BE2DEA5F3BBF95792FC6 /* Pods-CloudAccessPrivate.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2231,6 +2233,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F222A0CC88874E2088D9DFE /* Pods-CryptomatorFileProvider.debug.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -2260,6 +2263,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FAAD1B276FE778A746B46C5E /* Pods-CryptomatorFileProvider.release.xcconfig */;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

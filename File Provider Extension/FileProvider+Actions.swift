@@ -42,7 +42,7 @@ extension FileProviderExtension {
 						fileManagerError = error as NSError
 					}
 				}
-				if stopAccess{
+				if stopAccess {
 					fileURL.stopAccessingSecurityScopedResource()
 				}
 				if let error = fileManagerError {

@@ -44,7 +44,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			return suggestedWillRetry
 		}
 
-		driveService.fetcherService.configurationBlock = {fetcher, configuration in
+		driveService.fetcherService.configurationBlock = { _, configuration in
 			configuration.sharedContainerIdentifier = "group.com.skymatic.Cryptomator"
 		}
 		driveService.fetcherService.isRetryEnabled = true
@@ -295,7 +295,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	 This is necessary because Google Drive does not use normal paths, but only works with (parent-)identifiers.
 	 If an `itemType` is passed, only items with the respective type (folder / file) will be considered.
 	 workaround for cyrillic names: https://stackoverflow.com/a/47282129/1759462
-	     */
+	      */
 	private func getFirstIdentifier(forItemWithName itemName: String, itemType: CloudItemType?, inFolderWithId: String) -> Promise<String> {
 		let query = GTLRDriveQuery_FilesList.query()
 		query.q = "'\(inFolderWithId)' in parents and name contains '\(itemName)' and trashed = false"

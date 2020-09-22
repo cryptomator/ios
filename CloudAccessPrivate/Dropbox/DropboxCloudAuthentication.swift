@@ -32,6 +32,7 @@ public class DropboxCloudAuthentication {
 		}
 	}
 
+	@available(iOSApplicationExtension, unavailable)
 	public func authenticate(from viewController: UIViewController) -> Promise<Void> {
 		if isAuthenticated {
 			authorizedClient = DBClientsManager.authorizedClient()
