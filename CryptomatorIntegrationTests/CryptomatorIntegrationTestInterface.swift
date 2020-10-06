@@ -106,7 +106,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let remoteFolderToDeleteURL = folderForDeleteItemsCloudPath.appendingPathComponent("FolderToDelete/")
 		let remoteFolderToMoveURL = folderForMoveItemsCloudPath.appendingPathComponent("FolderToMove/")
 
-		return provider.deleteFolderIfExists(at: rootCloudPathForIntegrationTest)
+		return provider.deleteFolderIfExisting(at: rootCloudPathForIntegrationTest)
 			.then {
 				provider.createFolderWithIntermediates(for: rootCloudPathForIntegrationTest)
 			}.then {

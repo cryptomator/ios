@@ -6,5 +6,9 @@
 	<array>
 		<string>group.com.skymatic.Cryptomator</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)de.skymatic.Cryptomator</string>
+	</array>
 </dict>
 </plist>

@@ -6,9 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import FileProvider
 import Foundation
 import GRDB
-
 struct UploadTask: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "uploadTasks"
 	static let correspondingItemKey = "correspondingItem"

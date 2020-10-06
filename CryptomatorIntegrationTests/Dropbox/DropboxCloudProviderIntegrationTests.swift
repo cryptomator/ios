@@ -10,7 +10,7 @@ import CryptomatorCloudAccess
 
 import Promises
 import XCTest
-@testable import CloudAccessPrivate
+@testable import CloudAccessPrivateCore
 @testable import ObjectiveDropboxOfficial
 
 class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
@@ -24,28 +24,27 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 		}
 	}
 
-	static let setUpAuthenticationForDropbox = MockDropboxCloudAuthentication()
-	static let setUpProviderForDropbox = DropboxCloudProvider(with: setUpAuthenticationForDropbox)
+	static let setUpDropboxCredential = MockDropboxCredential()
+	static let setUpProviderForDropbox = DropboxCloudProvider(with: setUpDropboxCredential)
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForDropbox
 	}
 
-	let authentication = MockDropboxCloudAuthentication()
+	let credential = MockDropboxCredential()
 	static let rootCloudPathForIntegrationTestAtDropbox = CloudPath("/iOS-IntegrationTest/plain/")
 	override class var rootCloudPathForIntegrationTest: CloudPath {
 		return rootCloudPathForIntegrationTestAtDropbox
 	}
 
 	override class func setUp() {
-		setUpAuthenticationForDropbox.authenticate()
 		super.setUp()
 	}
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		authentication.authenticate()
-		super.provider = DropboxCloudProvider(with: authentication)
+		credential.setAuthorizedClient()
+		super.provider = DropboxCloudProvider(with: credential)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {
@@ -53,6 +52,7 @@ class DropboxCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 	}
 
 	override func deauthenticate() -> Promise<Void> {
-		return authentication.deauthenticate()
+		credential.deauthenticate()
+		return Promise(())
 	}
 }

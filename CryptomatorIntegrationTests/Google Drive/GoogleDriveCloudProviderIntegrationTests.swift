@@ -7,6 +7,7 @@
 //
 
 import CloudAccessPrivate
+import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import Promises
 import XCTest
@@ -22,8 +23,9 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		}
 	}
 
-	static let setUpAuthenticationForGoogleDrive = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-	static var setUpProviderForGoogleDrive = GoogleDriveCloudProvider(with: setUpAuthenticationForGoogleDrive)
+	static let tokenUid = "IntegrationtTest"
+	static let setUpGoogleDriveCredential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: tokenUid)
+	static var setUpProviderForGoogleDrive = GoogleDriveCloudProvider(with: setUpGoogleDriveCredential)
 
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForGoogleDrive
@@ -34,17 +36,12 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		return rootCloudPathForIntegrationTestAtGoogleDrive
 	}
 
-	let authentication = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-
-	override class func setUp() {
-		setUpAuthenticationForGoogleDrive.authenticate()
-		super.setUp()
-	}
+	private var credential: GoogleDriveCredential!
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		authentication.authenticate()
-		super.provider = GoogleDriveCloudProvider(with: authentication)
+		credential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: GoogleDriveCloudProviderIntegrationTests.tokenUid)
+		super.provider = GoogleDriveCloudProvider(with: credential)
 	}
 
 	override class var defaultTestSuite: XCTestSuite {
@@ -52,6 +49,7 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 	}
 
 	override func deauthenticate() -> Promise<Void> {
-		return authentication.deauthenticate()
+		credential.deauthenticate()
+		return Promise(())
 	}
 }

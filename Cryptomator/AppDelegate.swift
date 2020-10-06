@@ -6,8 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CloudAccessPrivate
+import CloudAccessPrivateCore
+import ObjectiveDropboxOfficial
 import UIKit
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
@@ -39,7 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 	}
 
-	func application(_: UIApplication, open _: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+	func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+		if url.scheme == CloudAccessSecrets.dropboxURLScheme {
+			let canHandle = DBClientsManager.handleRedirectURL(url) { authResult in
+				guard let authResult = authResult else {
+					return
+				}
+				if authResult.isSuccess() {
+					let tokenUid = authResult.accessToken.uid
+					let credential = DropboxCredential(tokenUid: tokenUid)
+					DropboxCloudAuthenticator.pendingAuthentication?.fulfill(credential)
+				} else if authResult.isCancel() {
+					DropboxCloudAuthenticator.pendingAuthentication?.reject(DropboxAuthenticationError.userCanceled)
+				} else if authResult.isError() {
+					DropboxCloudAuthenticator.pendingAuthentication?.reject(authResult.nsError)
+				}
+			}
+			return canHandle
+		}
 		return true
 	}
 }

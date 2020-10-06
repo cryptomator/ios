@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4A44EC16246BE8E900950BBF"
-               BuildableName = "GoogleDriveCryptoDecoratorManualTest.app"
-               BlueprintName = "GoogleDriveCryptoDecoratorManualTest"
+               BlueprintIdentifier = "4ADB470124A39AA8004DE115"
+               BuildableName = "CryptomatorFileProvider.framework"
+               BlueprintName = "CryptomatorFileProvider"
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4A2245CF24A5E16300DBA437"
+               BuildableName = "CryptomatorFileProviderTests.xctest"
+               BlueprintName = "CryptomatorFileProviderTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -40,16 +50,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4A44EC16246BE8E900950BBF"
-            BuildableName = "GoogleDriveCryptoDecoratorManualTest.app"
-            BlueprintName = "GoogleDriveCryptoDecoratorManualTest"
-            ReferencedContainer = "container:Cryptomator.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -57,16 +57,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4A44EC16246BE8E900950BBF"
-            BuildableName = "GoogleDriveCryptoDecoratorManualTest.app"
-            BlueprintName = "GoogleDriveCryptoDecoratorManualTest"
+            BlueprintIdentifier = "4ADB470124A39AA8004DE115"
+            BuildableName = "CryptomatorFileProvider.framework"
+            BlueprintName = "CryptomatorFileProvider"
             ReferencedContainer = "container:Cryptomator.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

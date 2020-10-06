@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2E74AA9EB1F501303E0B4A8D /* Pods_CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC7A431295EAA593E546E83D /* Pods_CloudAccessPrivate.framework */; };
-		2F9513636059D82435DF106E /* Pods_CryptomatorFileProviderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF0C52936D8F4F36E825B66 /* Pods_CryptomatorFileProviderTests.framework */; };
-		478CC04D345BFC495EE4F617 /* Pods_CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33A756387938F63687EBAAC1 /* Pods_CryptomatorFileProvider.framework */; };
 		4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A070928247BC110005ED18E /* URL+Extensions.swift */; };
 		4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */; };
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
@@ -24,42 +21,26 @@
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
 		4A2245D524A5E16300DBA437 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
-		4A237E3224ACE66A003CEB1F /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; };
-		4A237E3324ACE66A003CEB1F /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		4A237E3724ACE72E003CEB1F /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
-		4A237E3824ACE72E003CEB1F /* CryptomatorFileProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A291DB4252373A9006295E6 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
+		4A291DB5252373A9006295E6 /* CryptomatorFileProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2F373924B5C08E00460FD3 /* TaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373824B5C08E00460FD3 /* TaskError.swift */; };
 		4A2F373B24B5C0A400460FD3 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373A24B5C0A400460FD3 /* UploadTask.swift */; };
 		4A30A6D924B33568002CABEB /* UploadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30A6D824B33568002CABEB /* UploadTaskManager.swift */; };
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
-		4A317EEA2453329100E43746 /* GoogleDriveCloudAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A317EE92453329100E43746 /* GoogleDriveCloudAuthenticator.swift */; };
-		4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */; };
-		4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */; };
-		4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */; };
-		4A44EC0E2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */; };
-		4A44EC1024696B3200950BBF /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC0F24696B3200950BBF /* TestError.swift */; };
 		4A44EC1A246BE8E900950BBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC19246BE8E900950BBF /* AppDelegate.swift */; };
 		4A44EC1C246BE8E900950BBF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC1B246BE8E900950BBF /* SceneDelegate.swift */; };
 		4A44EC1E246BE8E900950BBF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC1D246BE8E900950BBF /* ViewController.swift */; };
 		4A44EC21246BE8E900950BBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC1F246BE8E900950BBF /* Main.storyboard */; };
 		4A44EC23246BE8EC00950BBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC22246BE8EC00950BBF /* Assets.xcassets */; };
 		4A44EC26246BE8EC00950BBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A44EC24246BE8EC00950BBF /* LaunchScreen.storyboard */; };
-		4A44EC2B246BEB9700950BBF /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
-		4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
 		4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */; };
 		4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
-		4A5811C62490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */; };
 		4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */; };
-		4A5E5B6A2453121400BD6298 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
-		4A5E5B732453121400BD6298 /* CloudAccessPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A5E5B8024532E6F00BD6298 /* GoogleDriveCloudProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E5B7F24532E6F00BD6298 /* GoogleDriveCloudProvider.swift */; };
 		4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */; };
-		4A60E7FB2459C6F500FD7F0E /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; platformFilter = ios; };
 		4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */; };
-		4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */; };
 		4A717CD524C833890048E08F /* ReparentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD424C833890048E08F /* ReparentTask.swift */; };
 		4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD624C835270048E08F /* ReparentTaskManager.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
@@ -69,18 +50,17 @@
 		4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */; };
 		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
-		4A837C4E248790BB00223222 /* DropboxError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C4D248790BB00223222 /* DropboxError.swift */; };
-		4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */; };
+		4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCredential.swift */; };
 		4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */; };
 		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */; };
 		4A9BEBF32510AC8300294FE0 /* CloudPath+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */; };
+		4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */; };
+		4A9D3ED925272A4E000811B6 /* MockGoogleDriveAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D3ED825272A4E000811B6 /* MockGoogleDriveAuthenticator.swift */; };
 		4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */; };
 		4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */; };
 		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
 		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
-		4AA621EE249A6A8400A0BCBD /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */; };
 		4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */; };
 		4ABC08D3250D1BE700E3CEDC /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */; };
@@ -92,36 +72,27 @@
 		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
 		4ACC10A424C1A55400042F8C /* FileProviderNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A324C1A55400042F8C /* FileProviderNetworkTask.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
-		4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; };
-		4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4ADB470624A39AA8004DE115 /* CryptomatorFileProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = 4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4ADB470924A39AA8004DE115 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
-		4ADB470A24A39AA8004DE115 /* CryptomatorFileProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB470E24A39AB4004DE115 /* FileProviderDecorator.swift */; };
 		4ADB471124A3A3EB004DE115 /* ItemMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB471024A3A3EB004DE115 /* ItemMetadata.swift */; };
 		4ADB471324A3A5B9004DE115 /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB471224A3A5B9004DE115 /* MetadataManager.swift */; };
 		4ADB471524A3AE7C004DE115 /* FileProviderDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB471424A3AE7C004DE115 /* FileProviderDecoratorError.swift */; };
 		4ADB471724A49CEC004DE115 /* ItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADB471624A49CEC004DE115 /* ItemStatus.swift */; };
-		4AE554EB248158D30016E313 /* DropboxCloudProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE554EA248158D30016E313 /* DropboxCloudProvider.swift */; };
-		4AE554EE248159140016E313 /* DropboxCloudAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE554ED248159140016E313 /* DropboxCloudAuthentication.swift */; };
-		4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DA22457162200452814 /* GoogleDriveError.swift */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAC24572E4900452814 /* SceneDelegate.swift */; };
 		4AE97DAF24572E4900452814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAE24572E4900452814 /* ViewController.swift */; };
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
 		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
+		4AEE4672252633A30045DA9F /* CloudAccessPrivate in Frameworks */ = {isa = PBXBuildFile; productRef = 4AEE4671252633A30045DA9F /* CloudAccessPrivate */; };
+		4AEE468E25263B190045DA9F /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AEE468D25263B190045DA9F /* CloudAccessPrivateCore */; };
+		4AEE468F25263B2E0045DA9F /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE469225263B2E0045DA9F /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AFE6A9F2514A91A00A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6A9E2514A91A00A4A315 /* CloudPath+NameCollision.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
-		4AFE6ACB2515EE0300A4A315 /* CloudPath+DatabaseValueConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6ACA2515EE0300A4A315 /* CloudPath+DatabaseValueConvertible.swift */; };
-		7461F8C4247420F7009D42FF /* CloudAccessSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */; };
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		746815482475605E00038679 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB024572E4900452814 /* Main.storyboard */; };
 		74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */; };
-		757C25C6F1BAD3A4487F951D /* Pods_File_Provider_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82107394D0C8D602D190E0C9 /* Pods_File_Provider_Extension.framework */; };
-		D4FB18045AE959E6F85E5326 /* Pods_CryptomatorIntegrationTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 963E79BE64A617386E952FD4 /* Pods_CryptomatorIntegrationTests.framework */; };
-		D57184A81484026F2DD88004 /* Pods_CloudAccessPrivateTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DC6263C132FB5A3C5DA1D8E /* Pods_CloudAccessPrivateTests.framework */; };
-		EEBEB47CC5D3E69AC7F8AEA2 /* Pods_Cryptomator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A0B404430CAC019699521741 /* Pods_Cryptomator.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,63 +103,7 @@
 			remoteGlobalIDString = 4ADB470124A39AA8004DE115;
 			remoteInfo = CryptomatorFileProvider;
 		};
-		4A237E3424ACE66A003CEB1F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A5E5B602453121400BD6298;
-			remoteInfo = CloudAccessPrivate;
-		};
-		4A237E3924ACE72E003CEB1F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4ADB470124A39AA8004DE115;
-			remoteInfo = CryptomatorFileProvider;
-		};
-		4A44EC2D246BEB9700950BBF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A5E5B602453121400BD6298;
-			remoteInfo = CloudAccessPrivate;
-		};
-		4A5E5B6B2453121400BD6298 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A5E5B602453121400BD6298;
-			remoteInfo = CloudAccessPrivate;
-		};
-		4A60E7FC2459C6F500FD7F0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A5E5B602453121400BD6298;
-			remoteInfo = CloudAccessPrivate;
-		};
-		4AA621EC249A6A8400A0BCBD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4AA621E3249A6A8400A0BCBD;
-			remoteInfo = "File Provider ExtensionUI";
-		};
-		4AA621EF249A6A8400A0BCBD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4AA621D5249A6A8400A0BCBD;
-			remoteInfo = "File Provider Extension";
-		};
-		4ADA0B3E245732AC005B9743 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A5E5B602453121400BD6298;
-			remoteInfo = CloudAccessPrivate;
-		};
-		4ADB470724A39AA8004DE115 /* PBXContainerItemProxy */ = {
+		4A291DB6252373A9006295E6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
@@ -209,6 +124,20 @@
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
 		};
+		4AEE469025263B2E0045DA9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AA621D5249A6A8400A0BCBD;
+			remoteInfo = "File Provider Extension";
+		};
+		4AEE469325263B2E0045DA9F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AA621E3249A6A8400A0BCBD;
+			remoteInfo = "File Provider ExtensionUI";
+		};
 		4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
@@ -225,18 +154,17 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4A237E3324ACE66A003CEB1F /* CloudAccessPrivate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A237E3B24ACE72E003CEB1F /* Embed Frameworks */ = {
+		4A291DB8252373A9006295E6 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4A237E3824ACE72E003CEB1F /* CryptomatorFileProvider.framework in Embed Frameworks */,
+				4A291DB5252373A9006295E6 /* CryptomatorFileProvider.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,41 +175,35 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4A44EC2C246BEB9700950BBF /* CloudAccessPrivate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4AA621F8249A6A8400A0BCBD /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				4AA621EE249A6A8400A0BCBD /* File Provider ExtensionUI.appex in Embed App Extensions */,
-				4AA621F1249A6A8400A0BCBD /* File Provider Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4ADA0B40245732AC005B9743 /* Embed Frameworks */ = {
+		4A965F342523978B002D7CBC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				4ADB470A24A39AA8004DE115 /* CryptomatorFileProvider.framework in Embed Frameworks */,
-				4ADA0B3D245732AC005B9743 /* CloudAccessPrivate.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4AEE469525263B2E0045DA9F /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				4AEE468F25263B2E0045DA9F /* File Provider Extension.appex in Embed App Extensions */,
+				4AEE469225263B2E0045DA9F /* File Provider ExtensionUI.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0DB907107C6442B3AAE3E308 /* Pods-Cryptomator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.debug.xcconfig"; sourceTree = "<group>"; };
-		13A519750EA57DBE3C53BDDE /* Pods-Cryptomator-CryptomatorIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator-CryptomatorIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator-CryptomatorIntegrationTests/Pods-Cryptomator-CryptomatorIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
-		33A756387938F63687EBAAC1 /* Pods_CryptomatorFileProvider.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptomatorFileProvider.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A070928247BC110005ED18E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ExtensionsTests.swift"; sourceTree = "<group>"; };
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
@@ -302,12 +224,6 @@
 		4A2F373A24B5C0A400460FD3 /* UploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
 		4A30A6D824B33568002CABEB /* UploadTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManager.swift; sourceTree = "<group>"; };
 		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
-		4A317EE92453329100E43746 /* GoogleDriveCloudAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudAuthenticator.swift; sourceTree = "<group>"; };
-		4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderTests.swift; sourceTree = "<group>"; };
-		4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCachedIdentifier.swift; sourceTree = "<group>"; };
-		4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManager.swift; sourceTree = "<group>"; };
-		4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudIdentifierCacheManagerTests.swift; sourceTree = "<group>"; };
-		4A44EC0F24696B3200950BBF /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoogleDriveCryptoDecoratorManualTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A44EC19246BE8E900950BBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A44EC1B246BE8E900950BBF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -320,19 +236,11 @@
 		4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
-		4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxExponentialBackOffTests.swift; sourceTree = "<group>"; };
 		4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestWithAuthentication.swift; sourceTree = "<group>"; };
-		4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CloudAccessPrivate.h; sourceTree = "<group>"; };
-		4A5E5B642453121400BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A5E5B692453121400BD6298 /* CloudAccessPrivateTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CloudAccessPrivateTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A5E5B722453121400BD6298 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A5E5B7F24532E6F00BD6298 /* GoogleDriveCloudProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProvider.swift; sourceTree = "<group>"; };
 		4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorIntegrationTestInterface.swift; sourceTree = "<group>"; };
 		4A60E7FA2459C6F500FD7F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
-		4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveCloudAuthentication.swift; sourceTree = "<group>"; };
 		4A717CD424C833890048E08F /* ReparentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTask.swift; sourceTree = "<group>"; };
 		4A717CD624C835270048E08F /* ReparentTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManager.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
@@ -342,12 +250,13 @@
 		4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManager.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
-		4A837C4D248790BB00223222 /* DropboxError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxError.swift; sourceTree = "<group>"; };
-		4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCloudAuthentication.swift; sourceTree = "<group>"; };
+		4A837C75248994FD00223222 /* MockDropboxCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCredential.swift; sourceTree = "<group>"; };
 		4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
 		4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+ExtensionTests.swift"; sourceTree = "<group>"; };
+		4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxLoginViewController.swift; sourceTree = "<group>"; };
+		4A9D3ED825272A4E000811B6 /* MockGoogleDriveAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticator.swift; sourceTree = "<group>"; };
 		4A9FCB0B251A02A3002A8B41 /* File Provider ExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "File Provider ExtensionUI.entitlements"; sourceTree = "<group>"; };
 		4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cryptomator.entitlements; sourceTree = "<group>"; };
 		4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "File Provider Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -378,9 +287,6 @@
 		4ADB471224A3A5B9004DE115 /* MetadataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManager.swift; sourceTree = "<group>"; };
 		4ADB471424A3AE7C004DE115 /* FileProviderDecoratorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorError.swift; sourceTree = "<group>"; };
 		4ADB471624A49CEC004DE115 /* ItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStatus.swift; sourceTree = "<group>"; };
-		4AE554EA248158D30016E313 /* DropboxCloudProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProvider.swift; sourceTree = "<group>"; };
-		4AE554ED248159140016E313 /* DropboxCloudAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudAuthentication.swift; sourceTree = "<group>"; };
-		4AE97DA22457162200452814 /* GoogleDriveError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveError.swift; sourceTree = "<group>"; };
 		4AE97DA824572E4900452814 /* Cryptomator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptomator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DAA24572E4900452814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AE97DAC24572E4900452814 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -395,33 +301,10 @@
 		4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
 		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AEE4657252631CC0045DA9F /* CloudAccessPrivate */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CloudAccessPrivate; sourceTree = "<group>"; };
 		4AFE6A9E2514A91A00A4A315 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
 		4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
-		4AFE6ACA2515EE0300A4A315 /* CloudPath+DatabaseValueConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+DatabaseValueConvertible.swift"; sourceTree = "<group>"; };
-		50A43153E1AABE2EACE3A13C /* Pods-CryptomatorFileProviderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorFileProviderTests.release.xcconfig"; path = "Target Support Files/Pods-CryptomatorFileProviderTests/Pods-CryptomatorFileProviderTests.release.xcconfig"; sourceTree = "<group>"; };
-		5DC6263C132FB5A3C5DA1D8E /* Pods_CloudAccessPrivateTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudAccessPrivateTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E0A8B3DA9420D242AF4A3AF /* Pods-CryptomatorIntegrationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorIntegrationTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6F222A0CC88874E2088D9DFE /* Pods-CryptomatorFileProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorFileProvider.debug.xcconfig"; path = "Target Support Files/Pods-CryptomatorFileProvider/Pods-CryptomatorFileProvider.debug.xcconfig"; sourceTree = "<group>"; };
-		7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudAccessSecrets.swift; sourceTree = "<group>"; };
 		74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTestSecrets.swift; sourceTree = "<group>"; };
-		82107394D0C8D602D190E0C9 /* Pods_File_Provider_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_File_Provider_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8C52DE2C1166A3EE7997B374 /* Pods-CloudAccessPrivateTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivateTests.release.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivateTests/Pods-CloudAccessPrivateTests.release.xcconfig"; sourceTree = "<group>"; };
-		8DE95825FAA5DE20AF0C9674 /* Pods-Cryptomator-CryptomatorFileProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator-CryptomatorFileProvider.release.xcconfig"; path = "Target Support Files/Pods-Cryptomator-CryptomatorFileProvider/Pods-Cryptomator-CryptomatorFileProvider.release.xcconfig"; sourceTree = "<group>"; };
-		963E79BE64A617386E952FD4 /* Pods_CryptomatorIntegrationTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptomatorIntegrationTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A045D706ACE40447C48A0ED0 /* Pods-Cryptomator-CryptomatorFileProvider.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator-CryptomatorFileProvider.debug.xcconfig"; path = "Target Support Files/Pods-Cryptomator-CryptomatorFileProvider/Pods-Cryptomator-CryptomatorFileProvider.debug.xcconfig"; sourceTree = "<group>"; };
-		A0B404430CAC019699521741 /* Pods_Cryptomator.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cryptomator.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A8ECA8199CDD2BC6AA0F7EA8 /* Pods-CloudAccessPrivate.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.debug.xcconfig"; sourceTree = "<group>"; };
-		ACDAE565E464E542B244B8F2 /* Pods-CloudAccessPrivateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivateTests.debug.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivateTests/Pods-CloudAccessPrivateTests.debug.xcconfig"; sourceTree = "<group>"; };
-		B681E6B9A1396414EF465F4D /* Pods-CryptomatorFileProviderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorFileProviderTests.debug.xcconfig"; path = "Target Support Files/Pods-CryptomatorFileProviderTests/Pods-CryptomatorFileProviderTests.debug.xcconfig"; sourceTree = "<group>"; };
-		BAF0C52936D8F4F36E825B66 /* Pods_CryptomatorFileProviderTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CryptomatorFileProviderTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC2990A3F30AD912E942E9B3 /* Pods-File Provider Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-File Provider Extension.release.xcconfig"; path = "Target Support Files/Pods-File Provider Extension/Pods-File Provider Extension.release.xcconfig"; sourceTree = "<group>"; };
-		CB99A92E1127C3DA4292B8FF /* Pods-Cryptomator-CryptomatorIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator-CryptomatorIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-Cryptomator-CryptomatorIntegrationTests/Pods-Cryptomator-CryptomatorIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
-		CC7A431295EAA593E546E83D /* Pods_CloudAccessPrivate.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudAccessPrivate.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF8B753596B7FE16E40BA922 /* Pods-CryptomatorIntegrationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorIntegrationTests.release.xcconfig"; path = "Target Support Files/Pods-CryptomatorIntegrationTests/Pods-CryptomatorIntegrationTests.release.xcconfig"; sourceTree = "<group>"; };
-		D6E6BE2DEA5F3BBF95792FC6 /* Pods-CloudAccessPrivate.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudAccessPrivate.release.xcconfig"; path = "Target Support Files/Pods-CloudAccessPrivate/Pods-CloudAccessPrivate.release.xcconfig"; sourceTree = "<group>"; };
-		EA5FE1268BFDF59C8C92C610 /* Pods-File Provider Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-File Provider Extension.debug.xcconfig"; path = "Target Support Files/Pods-File Provider Extension/Pods-File Provider Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		ED62DF07A9C39EAE5553BCC9 /* Pods-Cryptomator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cryptomator.release.xcconfig"; path = "Target Support Files/Pods-Cryptomator/Pods-Cryptomator.release.xcconfig"; sourceTree = "<group>"; };
-		FAAD1B276FE778A746B46C5E /* Pods-CryptomatorFileProvider.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CryptomatorFileProvider.release.xcconfig"; path = "Target Support Files/Pods-CryptomatorFileProvider/Pods-CryptomatorFileProvider.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,7 +313,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A2245D524A5E16300DBA437 /* CryptomatorFileProvider.framework in Frameworks */,
-				2F9513636059D82435DF106E /* Pods_CryptomatorFileProviderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,24 +320,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A44EC2B246BEB9700950BBF /* CloudAccessPrivate.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A5E5B5E2453121400BD6298 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				2E74AA9EB1F501303E0B4A8D /* Pods_CloudAccessPrivate.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A5E5B662453121400BD6298 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A5E5B6A2453121400BD6298 /* CloudAccessPrivate.framework in Frameworks */,
-				D57184A81484026F2DD88004 /* Pods_CloudAccessPrivateTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,8 +327,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A60E7FB2459C6F500FD7F0E /* CloudAccessPrivate.framework in Frameworks */,
-				D4FB18045AE959E6F85E5326 /* Pods_CryptomatorIntegrationTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -472,8 +334,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A237E3724ACE72E003CEB1F /* CryptomatorFileProvider.framework in Frameworks */,
-				757C25C6F1BAD3A4487F951D /* Pods_File_Provider_Extension.framework in Frameworks */,
+				4A291DB4252373A9006295E6 /* CryptomatorFileProvider.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,8 +349,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A237E3224ACE66A003CEB1F /* CloudAccessPrivate.framework in Frameworks */,
-				478CC04D345BFC495EE4F617 /* Pods_CryptomatorFileProvider.framework in Frameworks */,
+				4AEE468E25263B190045DA9F /* CloudAccessPrivateCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,9 +357,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4ADB470924A39AA8004DE115 /* CryptomatorFileProvider.framework in Frameworks */,
-				4ADA0B3C245732AC005B9743 /* CloudAccessPrivate.framework in Frameworks */,
-				EEBEB47CC5D3E69AC7F8AEA2 /* Pods_Cryptomator.framework in Frameworks */,
+				4AEE4672252633A30045DA9F /* CloudAccessPrivate in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -582,15 +440,6 @@
 			path = VaultFormat7;
 			sourceTree = "<group>";
 		};
-		4A44EC0824695CCD00950BBF /* Google Drive */ = {
-			isa = PBXGroup;
-			children = (
-				4A44EC0D2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift */,
-				4A44EC0624695CC500950BBF /* GoogleDriveCloudProviderTests.swift */,
-			);
-			path = "Google Drive";
-			sourceTree = "<group>";
-		};
 		4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,39 +454,27 @@
 			path = GoogleDriveCryptoDecoratorManualTest;
 			sourceTree = "<group>";
 		};
-		4A5811C72490F311006F6DCB /* Dropbox */ = {
-			isa = PBXGroup;
-			children = (
-				4A5811C52490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift */,
-			);
-			path = Dropbox;
-			sourceTree = "<group>";
-		};
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
+				4AEE4657252631CC0045DA9F /* CloudAccessPrivate */,
 				4AE97DA924572E4900452814 /* Cryptomator */,
-				4AE97DC024572E4A00452814 /* CryptomatorTests */,
-				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
-				4A5E5B622453121400BD6298 /* CloudAccessPrivate */,
-				4A5E5B6F2453121400BD6298 /* CloudAccessPrivateTests */,
-				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
-				4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
-				4AA621D7249A6A8400A0BCBD /* File Provider Extension */,
-				4AA621E5249A6A8400A0BCBD /* File Provider ExtensionUI */,
 				4ADB470324A39AA8004DE115 /* CryptomatorFileProvider */,
 				4A2245D124A5E16300DBA437 /* CryptomatorFileProviderTests */,
+				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
+				4AE97DC024572E4A00452814 /* CryptomatorTests */,
+				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
+				4AA621D7249A6A8400A0BCBD /* File Provider Extension */,
+				4AA621E5249A6A8400A0BCBD /* File Provider ExtensionUI */,
+				4A828287252617D600A4EAD4 /* Frameworks */,
+				4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 				4A5E5B2A2453119100BD6298 /* Products */,
-				A50D43C6290E92F8531394CB /* Pods */,
-				DC826629CBC3BCE04C70485D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		4A5E5B2A2453119100BD6298 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */,
-				4A5E5B692453121400BD6298 /* CloudAccessPrivateTests.xctest */,
 				4AE97DA824572E4900452814 /* Cryptomator.app */,
 				4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */,
 				4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */,
@@ -649,42 +486,6 @@
 				4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4A5E5B622453121400BD6298 /* CloudAccessPrivate */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E5B632453121400BD6298 /* CloudAccessPrivate.h */,
-				4AFE6ACA2515EE0300A4A315 /* CloudPath+DatabaseValueConvertible.swift */,
-				4A5E5B642453121400BD6298 /* Info.plist */,
-				7461F8C3247420F7009D42FF /* CloudAccessSecrets.swift */,
-				4AE554EC248158D70016E313 /* Dropbox */,
-				4A5E5B8124532E7300BD6298 /* GoogleDrive */,
-			);
-			path = CloudAccessPrivate;
-			sourceTree = "<group>";
-		};
-		4A5E5B6F2453121400BD6298 /* CloudAccessPrivateTests */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E5B722453121400BD6298 /* Info.plist */,
-				4A44EC0F24696B3200950BBF /* TestError.swift */,
-				4A5811C72490F311006F6DCB /* Dropbox */,
-				4A44EC0824695CCD00950BBF /* Google Drive */,
-			);
-			path = CloudAccessPrivateTests;
-			sourceTree = "<group>";
-		};
-		4A5E5B8124532E7300BD6298 /* GoogleDrive */ = {
-			isa = PBXGroup;
-			children = (
-				4A44EC0924695D1000950BBF /* GoogleDriveCachedIdentifier.swift */,
-				4A317EE92453329100E43746 /* GoogleDriveCloudAuthenticator.swift */,
-				4A44EC0B2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift */,
-				4A5E5B7F24532E6F00BD6298 /* GoogleDriveCloudProvider.swift */,
-				4AE97DA22457162200452814 /* GoogleDriveError.swift */,
-			);
-			path = GoogleDrive;
 			sourceTree = "<group>";
 		};
 		4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */ = {
@@ -708,7 +509,7 @@
 			isa = PBXGroup;
 			children = (
 				4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */,
-				4A60E8042459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift */,
+				4A9D3ED825272A4E000811B6 /* MockGoogleDriveAuthenticator.swift */,
 				4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */,
 			);
 			path = "Google Drive";
@@ -732,10 +533,17 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		4A828287252617D600A4EAD4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		4A837C772489950100223222 /* Dropbox */ = {
 			isa = PBXGroup;
 			children = (
-				4A837C75248994FD00223222 /* MockDropboxCloudAuthentication.swift */,
+				4A837C75248994FD00223222 /* MockDropboxCredential.swift */,
 				4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */,
 			);
 			path = Dropbox;
@@ -792,16 +600,6 @@
 			path = CryptomatorFileProvider;
 			sourceTree = "<group>";
 		};
-		4AE554EC248158D70016E313 /* Dropbox */ = {
-			isa = PBXGroup;
-			children = (
-				4AE554EA248158D30016E313 /* DropboxCloudProvider.swift */,
-				4AE554ED248159140016E313 /* DropboxCloudAuthentication.swift */,
-				4A837C4D248790BB00223222 /* DropboxError.swift */,
-			);
-			path = Dropbox;
-			sourceTree = "<group>";
-		};
 		4AE97DA924572E4900452814 /* Cryptomator */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,6 +608,7 @@
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
 				4AE97DAC24572E4900452814 /* SceneDelegate.swift */,
 				4AE97DAE24572E4900452814 /* ViewController.swift */,
+				4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */,
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
 				4AE97DB024572E4900452814 /* Main.storyboard */,
@@ -846,56 +645,9 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
-		A50D43C6290E92F8531394CB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				A8ECA8199CDD2BC6AA0F7EA8 /* Pods-CloudAccessPrivate.debug.xcconfig */,
-				D6E6BE2DEA5F3BBF95792FC6 /* Pods-CloudAccessPrivate.release.xcconfig */,
-				0DB907107C6442B3AAE3E308 /* Pods-Cryptomator.debug.xcconfig */,
-				ED62DF07A9C39EAE5553BCC9 /* Pods-Cryptomator.release.xcconfig */,
-				6E0A8B3DA9420D242AF4A3AF /* Pods-CryptomatorIntegrationTests.debug.xcconfig */,
-				CF8B753596B7FE16E40BA922 /* Pods-CryptomatorIntegrationTests.release.xcconfig */,
-				13A519750EA57DBE3C53BDDE /* Pods-Cryptomator-CryptomatorIntegrationTests.debug.xcconfig */,
-				CB99A92E1127C3DA4292B8FF /* Pods-Cryptomator-CryptomatorIntegrationTests.release.xcconfig */,
-				ACDAE565E464E542B244B8F2 /* Pods-CloudAccessPrivateTests.debug.xcconfig */,
-				8C52DE2C1166A3EE7997B374 /* Pods-CloudAccessPrivateTests.release.xcconfig */,
-				EA5FE1268BFDF59C8C92C610 /* Pods-File Provider Extension.debug.xcconfig */,
-				BC2990A3F30AD912E942E9B3 /* Pods-File Provider Extension.release.xcconfig */,
-				6F222A0CC88874E2088D9DFE /* Pods-CryptomatorFileProvider.debug.xcconfig */,
-				FAAD1B276FE778A746B46C5E /* Pods-CryptomatorFileProvider.release.xcconfig */,
-				A045D706ACE40447C48A0ED0 /* Pods-Cryptomator-CryptomatorFileProvider.debug.xcconfig */,
-				8DE95825FAA5DE20AF0C9674 /* Pods-Cryptomator-CryptomatorFileProvider.release.xcconfig */,
-				B681E6B9A1396414EF465F4D /* Pods-CryptomatorFileProviderTests.debug.xcconfig */,
-				50A43153E1AABE2EACE3A13C /* Pods-CryptomatorFileProviderTests.release.xcconfig */,
-			);
-			path = Pods;
-			sourceTree = "<group>";
-		};
-		DC826629CBC3BCE04C70485D /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				CC7A431295EAA593E546E83D /* Pods_CloudAccessPrivate.framework */,
-				A0B404430CAC019699521741 /* Pods_Cryptomator.framework */,
-				963E79BE64A617386E952FD4 /* Pods_CryptomatorIntegrationTests.framework */,
-				5DC6263C132FB5A3C5DA1D8E /* Pods_CloudAccessPrivateTests.framework */,
-				82107394D0C8D602D190E0C9 /* Pods_File_Provider_Extension.framework */,
-				33A756387938F63687EBAAC1 /* Pods_CryptomatorFileProvider.framework */,
-				BAF0C52936D8F4F36E825B66 /* Pods_CryptomatorFileProviderTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		4A5E5B5C2453121400BD6298 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A5E5B732453121400BD6298 /* CloudAccessPrivate.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4ADB46FD24A39AA8004DE115 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -911,7 +663,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A2245D824A5E16300DBA437 /* Build configuration list for PBXNativeTarget "CryptomatorFileProviderTests" */;
 			buildPhases = (
-				D244F7CC13D1900D315B08A8 /* [CP] Check Pods Manifest.lock */,
 				4A2245CC24A5E16300DBA437 /* Sources */,
 				4A2245CD24A5E16300DBA437 /* Frameworks */,
 				4A2245CE24A5E16300DBA437 /* Resources */,
@@ -938,58 +689,16 @@
 			buildRules = (
 			);
 			dependencies = (
-				4A44EC2E246BEB9700950BBF /* PBXTargetDependency */,
 			);
 			name = GoogleDriveCryptoDecoratorManualTest;
 			productName = GoogleDriveCryptoDecoratorManualTest;
 			productReference = 4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4A5E5B602453121400BD6298 /* CloudAccessPrivate */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4A5E5B782453121400BD6298 /* Build configuration list for PBXNativeTarget "CloudAccessPrivate" */;
-			buildPhases = (
-				74DB8D32560C3D592F1F15F2 /* [CP] Check Pods Manifest.lock */,
-				4A5E5B5C2453121400BD6298 /* Headers */,
-				7461F8C2247420A8009D42FF /* Create CloudAccessSecrets */,
-				4A5E5B5D2453121400BD6298 /* Sources */,
-				4A5E5B5E2453121400BD6298 /* Frameworks */,
-				4A5E5B5F2453121400BD6298 /* Resources */,
-				74C934952472C33700AE15E4 /* Lint With SwiftFormat */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = CloudAccessPrivate;
-			productName = CloudAccessPrivate;
-			productReference = 4A5E5B612453121400BD6298 /* CloudAccessPrivate.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		4A5E5B682453121400BD6298 /* CloudAccessPrivateTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4A5E5B7C2453121400BD6298 /* Build configuration list for PBXNativeTarget "CloudAccessPrivateTests" */;
-			buildPhases = (
-				40834E73B13D634DDB9EB260 /* [CP] Check Pods Manifest.lock */,
-				4A5E5B652453121400BD6298 /* Sources */,
-				4A5E5B662453121400BD6298 /* Frameworks */,
-				4A5E5B672453121400BD6298 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4A5E5B6C2453121400BD6298 /* PBXTargetDependency */,
-			);
-			name = CloudAccessPrivateTests;
-			productName = CloudAccessPrivateTests;
-			productReference = 4A5E5B692453121400BD6298 /* CloudAccessPrivateTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A60E8002459C6F500FD7F0E /* Build configuration list for PBXNativeTarget "CryptomatorIntegrationTests" */;
 			buildPhases = (
-				291789BFB6FFD1D42A6F83C1 /* [CP] Check Pods Manifest.lock */,
 				74F57D6A2475118700AF951C /* Create IntegrationTestSecrets */,
 				4A60E7F22459C6F500FD7F0E /* Sources */,
 				4A60E7F32459C6F500FD7F0E /* Frameworks */,
@@ -998,10 +707,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				4A60E7FD2459C6F500FD7F0E /* PBXTargetDependency */,
 				4AFE6AEE2516278600A4A315 /* PBXTargetDependency */,
 			);
 			name = CryptomatorIntegrationTests;
+			packageProductDependencies = (
+			);
 			productName = CryptomatorIntegrationTests;
 			productReference = 4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -1010,16 +720,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AA621F5249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "File Provider Extension" */;
 			buildPhases = (
-				150EDD11456EACEBE8A4D561 /* [CP] Check Pods Manifest.lock */,
 				4AA621D2249A6A8400A0BCBD /* Sources */,
 				4AA621D3249A6A8400A0BCBD /* Frameworks */,
 				4AA621D4249A6A8400A0BCBD /* Resources */,
-				4A237E3B24ACE72E003CEB1F /* Embed Frameworks */,
+				4A291DB8252373A9006295E6 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4A237E3A24ACE72E003CEB1F /* PBXTargetDependency */,
+				4A291DB7252373A9006295E6 /* PBXTargetDependency */,
 			);
 			name = "File Provider Extension";
 			productName = "File Provider Extension";
@@ -1047,19 +756,21 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4ADB470D24A39AA8004DE115 /* Build configuration list for PBXNativeTarget "CryptomatorFileProvider" */;
 			buildPhases = (
-				85ADECA2428DCDB32D47A122 /* [CP] Check Pods Manifest.lock */,
 				4ADB46FD24A39AA8004DE115 /* Headers */,
 				4ADB46FE24A39AA8004DE115 /* Sources */,
 				4ADB46FF24A39AA8004DE115 /* Frameworks */,
 				4ADB470024A39AA8004DE115 /* Resources */,
 				4A237E3624ACE66A003CEB1F /* Embed Frameworks */,
+				4AF2534E251B883500CC6F6E /* Lint with SwiftFormat */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4A237E3524ACE66A003CEB1F /* PBXTargetDependency */,
 			);
 			name = CryptomatorFileProvider;
+			packageProductDependencies = (
+				4AEE468D25263B190045DA9F /* CloudAccessPrivateCore */,
+			);
 			productName = CryptomatorFileProvider;
 			productReference = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */;
 			productType = "com.apple.product-type.framework";
@@ -1068,24 +779,24 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AE97DCF24572E4A00452814 /* Build configuration list for PBXNativeTarget "Cryptomator" */;
 			buildPhases = (
-				23CB0EE1C896CD11741259DF /* [CP] Check Pods Manifest.lock */,
+				4A88F913252B473200423CB0 /* Create EnvironmentVariables */,
 				4AE97DA424572E4900452814 /* Sources */,
 				4AE97DA524572E4900452814 /* Frameworks */,
 				4AE97DA624572E4900452814 /* Resources */,
-				4ADA0B40245732AC005B9743 /* Embed Frameworks */,
 				74987489246C726D00CE641A /* Lint With SwiftFormat */,
-				4A44EC3A246EE92800950BBF /* ShellScript */,
-				4AA621F8249A6A8400A0BCBD /* Embed App Extensions */,
+				4A965F342523978B002D7CBC /* Embed Frameworks */,
+				4AEE469525263B2E0045DA9F /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4ADA0B3F245732AC005B9743 /* PBXTargetDependency */,
-				4AA621ED249A6A8400A0BCBD /* PBXTargetDependency */,
-				4AA621F0249A6A8400A0BCBD /* PBXTargetDependency */,
-				4ADB470824A39AA8004DE115 /* PBXTargetDependency */,
+				4AEE469125263B2E0045DA9F /* PBXTargetDependency */,
+				4AEE469425263B2E0045DA9F /* PBXTargetDependency */,
 			);
 			name = Cryptomator;
+			packageProductDependencies = (
+				4AEE4671252633A30045DA9F /* CloudAccessPrivate */,
+			);
 			productName = Cryptomator;
 			productReference = 4AE97DA824572E4900452814 /* Cryptomator.app */;
 			productType = "com.apple.product-type.application";
@@ -1132,8 +843,8 @@
 		4A5E5B212453119100BD6298 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1140;
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Skymatic GmbH";
 				TargetAttributes = {
 					4A2245CF24A5E16300DBA437 = {
@@ -1141,14 +852,6 @@
 					};
 					4A44EC16246BE8E900950BBF = {
 						CreatedOnToolsVersion = 11.4.1;
-					};
-					4A5E5B602453121400BD6298 = {
-						CreatedOnToolsVersion = 11.4;
-						LastSwiftMigration = 1150;
-					};
-					4A5E5B682453121400BD6298 = {
-						CreatedOnToolsVersion = 11.4;
-						TestTargetID = 4A5E5B282453119100BD6298;
 					};
 					4A60E7F52459C6F500FD7F0E = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -1186,6 +889,8 @@
 				Base,
 			);
 			mainGroup = 4A5E5B202453119100BD6298;
+			packageReferences = (
+			);
 			productRefGroup = 4A5E5B2A2453119100BD6298 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1193,8 +898,6 @@
 				4AE97DA724572E4900452814 /* Cryptomator */,
 				4AE97DBC24572E4A00452814 /* CryptomatorTests */,
 				4AE97DC724572E4A00452814 /* CryptomatorUITests */,
-				4A5E5B602453121400BD6298 /* CloudAccessPrivate */,
-				4A5E5B682453121400BD6298 /* CloudAccessPrivateTests */,
 				4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */,
 				4A44EC16246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 				4AA621D5249A6A8400A0BCBD /* File Provider Extension */,
@@ -1220,20 +923,6 @@
 				4A44EC26246BE8EC00950BBF /* LaunchScreen.storyboard in Resources */,
 				4A44EC23246BE8EC00950BBF /* Assets.xcassets in Resources */,
 				4A44EC21246BE8E900950BBF /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A5E5B5F2453121400BD6298 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A5E5B672453121400BD6298 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1293,112 +982,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		150EDD11456EACEBE8A4D561 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-File Provider Extension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		23CB0EE1C896CD11741259DF /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Cryptomator-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		291789BFB6FFD1D42A6F83C1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CryptomatorIntegrationTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		40834E73B13D634DDB9EB260 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CloudAccessPrivateTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A44EC3A246EE92800950BBF /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "echo \"Here\"\n\n";
-		};
-		7461F8C2247420A8009D42FF /* Create CloudAccessSecrets */ = {
+		4A88F913252B473200423CB0 /* Create EnvironmentVariables */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1407,17 +991,36 @@
 			);
 			inputPaths = (
 				"./.cloud-access-secrets.sh",
-				"./create-cloud-access-secrets-file.sh",
+				"./create-cryptomator-environment-variables.sh",
 			);
-			name = "Create CloudAccessSecrets";
+			name = "Create EnvironmentVariables";
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				./CloudAccessPrivate/CloudAccessSecrets.swift,
+				./CryptomatorEnvironmentVariables.h,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-cloud-access-secrets-file.sh\n";
+			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-cryptomator-environment-variables.sh\n";
+			showEnvVarsInLog = 0;
+		};
+		4AF2534E251B883500CC6F6E /* Lint with SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Lint with SwiftFormat";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1436,46 +1039,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
-		};
-		74C934952472C33700AE15E4 /* Lint With SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Lint With SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
-		};
-		74DB8D32560C3D592F1F15F2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CloudAccessPrivate-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 		74F57D6A2475118700AF951C /* Create IntegrationTestSecrets */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1497,50 +1060,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ -f ./.integration-test-secrets.sh ]; then\n  source ./.integration-test-secrets.sh\nelse\n  echo \"warning: .integration-test-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-integration-test-secrets-file.sh\n";
-		};
-		85ADECA2428DCDB32D47A122 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CryptomatorFileProvider-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D244F7CC13D1900D315B08A8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CryptomatorFileProviderTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1584,34 +1103,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A5E5B5D2453121400BD6298 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4AE554EE248159140016E313 /* DropboxCloudAuthentication.swift in Sources */,
-				4A5E5B8024532E6F00BD6298 /* GoogleDriveCloudProvider.swift in Sources */,
-				7461F8C4247420F7009D42FF /* CloudAccessSecrets.swift in Sources */,
-				4AE97DA32457162200452814 /* GoogleDriveError.swift in Sources */,
-				4A44EC0A24695D1000950BBF /* GoogleDriveCachedIdentifier.swift in Sources */,
-				4A44EC0C2469617000950BBF /* GoogleDriveCloudIdentifierCacheManager.swift in Sources */,
-				4A317EEA2453329100E43746 /* GoogleDriveCloudAuthenticator.swift in Sources */,
-				4AFE6ACB2515EE0300A4A315 /* CloudPath+DatabaseValueConvertible.swift in Sources */,
-				4A837C4E248790BB00223222 /* DropboxError.swift in Sources */,
-				4AE554EB248158D30016E313 /* DropboxCloudProvider.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A5E5B652453121400BD6298 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A44EC0E2469672500950BBF /* GoogleDriveCloudIdentifierCacheManagerTests.swift in Sources */,
-				4A44EC0724695CC500950BBF /* GoogleDriveCloudProviderTests.swift in Sources */,
-				4A44EC1024696B3200950BBF /* TestError.swift in Sources */,
-				4A5811C62490E9D8006F6DCB /* DropboxExponentialBackOffTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4A60E7F22459C6F500FD7F0E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1622,12 +1113,12 @@
 				4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */,
 				4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
+				4A9D3ED925272A4E000811B6 /* MockGoogleDriveAuthenticator.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
-				4A60E8052459D06B00FD7F0E /* MockGoogleDriveCloudAuthentication.swift in Sources */,
 				4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */,
 				4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */,
-				4A837C76248994FD00223222 /* MockDropboxCloudAuthentication.swift in Sources */,
+				4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */,
 				4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */,
 				74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */,
 				4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */,
@@ -1686,6 +1177,7 @@
 			files = (
 				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
+				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
 				4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1714,52 +1206,10 @@
 			target = 4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */;
 			targetProxy = 4A2245D624A5E16300DBA437 /* PBXContainerItemProxy */;
 		};
-		4A237E3524ACE66A003CEB1F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
-			targetProxy = 4A237E3424ACE66A003CEB1F /* PBXContainerItemProxy */;
-		};
-		4A237E3A24ACE72E003CEB1F /* PBXTargetDependency */ = {
+		4A291DB7252373A9006295E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */;
-			targetProxy = 4A237E3924ACE72E003CEB1F /* PBXContainerItemProxy */;
-		};
-		4A44EC2E246BEB9700950BBF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
-			targetProxy = 4A44EC2D246BEB9700950BBF /* PBXContainerItemProxy */;
-		};
-		4A5E5B6C2453121400BD6298 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
-			targetProxy = 4A5E5B6B2453121400BD6298 /* PBXContainerItemProxy */;
-		};
-		4A60E7FD2459C6F500FD7F0E /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			platformFilter = ios;
-			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
-			targetProxy = 4A60E7FC2459C6F500FD7F0E /* PBXContainerItemProxy */;
-		};
-		4AA621ED249A6A8400A0BCBD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4AA621E3249A6A8400A0BCBD /* File Provider ExtensionUI */;
-			targetProxy = 4AA621EC249A6A8400A0BCBD /* PBXContainerItemProxy */;
-		};
-		4AA621F0249A6A8400A0BCBD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4AA621D5249A6A8400A0BCBD /* File Provider Extension */;
-			targetProxy = 4AA621EF249A6A8400A0BCBD /* PBXContainerItemProxy */;
-		};
-		4ADA0B3F245732AC005B9743 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A5E5B602453121400BD6298 /* CloudAccessPrivate */;
-			targetProxy = 4ADA0B3E245732AC005B9743 /* PBXContainerItemProxy */;
-		};
-		4ADB470824A39AA8004DE115 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */;
-			targetProxy = 4ADB470724A39AA8004DE115 /* PBXContainerItemProxy */;
+			targetProxy = 4A291DB6252373A9006295E6 /* PBXContainerItemProxy */;
 		};
 		4AE97DBF24572E4A00452814 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1770,6 +1220,16 @@
 			isa = PBXTargetDependency;
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4AE97DC924572E4A00452814 /* PBXContainerItemProxy */;
+		};
+		4AEE469125263B2E0045DA9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AA621D5249A6A8400A0BCBD /* File Provider Extension */;
+			targetProxy = 4AEE469025263B2E0045DA9F /* PBXContainerItemProxy */;
+		};
+		4AEE469425263B2E0045DA9F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AA621E3249A6A8400A0BCBD /* File Provider ExtensionUI */;
+			targetProxy = 4AEE469325263B2E0045DA9F /* PBXContainerItemProxy */;
 		};
 		4AFE6AEE2516278600A4A315 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1824,7 +1284,6 @@
 /* Begin XCBuildConfiguration section */
 		4A2245D924A5E16300DBA437 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B681E6B9A1396414EF465F4D /* Pods-CryptomatorFileProviderTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorFileProviderTests/Info.plist;
@@ -1843,7 +1302,6 @@
 		};
 		4A2245DA24A5E16300DBA437 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50A43153E1AABE2EACE3A13C /* Pods-CryptomatorFileProviderTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CryptomatorFileProviderTests/Info.plist;
@@ -1922,6 +1380,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1936,10 +1395,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1982,6 +1438,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1994,6 +1451,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -2010,107 +1468,10 @@
 			};
 			name = Release;
 		};
-		4A5E5B792453121400BD6298 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A8ECA8199CDD2BC6AA0F7EA8 /* Pods-CloudAccessPrivate.debug.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CloudAccessPrivate/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CloudAccessPrivate;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		4A5E5B7A2453121400BD6298 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6E6BE2DEA5F3BBF95792FC6 /* Pods-CloudAccessPrivate.release.xcconfig */;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = CloudAccessPrivate/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CloudAccessPrivate;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SKIP_INSTALL = YES;
-				SUPPORTS_MACCATALYST = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Release;
-		};
-		4A5E5B7D2453121400BD6298 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = ACDAE565E464E542B244B8F2 /* Pods-CloudAccessPrivateTests.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CloudAccessPrivateTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CloudAccessPrivateTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		4A5E5B7E2453121400BD6298 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8C52DE2C1166A3EE7997B374 /* Pods-CloudAccessPrivateTests.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = CloudAccessPrivateTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CloudAccessPrivateTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 		4A60E7FE2459C6F500FD7F0E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6E0A8B3DA9420D242AF4A3AF /* Pods-CryptomatorIntegrationTests.debug.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
@@ -2129,8 +1490,8 @@
 		};
 		4A60E7FF2459C6F500FD7F0E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF8B753596B7FE16E40BA922 /* Pods-CryptomatorIntegrationTests.release.xcconfig */;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 42NMTS82GU;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
@@ -2189,7 +1550,6 @@
 		};
 		4AA621F6249A6A8400A0BCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EA5FE1268BFDF59C8C92C610 /* Pods-File Provider Extension.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "File Provider Extension/File_Provider_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -2210,7 +1570,6 @@
 		};
 		4AA621F7249A6A8400A0BCBD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BC2990A3F30AD912E942E9B3 /* Pods-File Provider Extension.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = "File Provider Extension/File_Provider_Extension.entitlements";
 				CODE_SIGN_STYLE = Automatic;
@@ -2231,7 +1590,6 @@
 		};
 		4ADB470B24A39AA8004DE115 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6F222A0CC88874E2088D9DFE /* Pods-CryptomatorFileProvider.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -2241,6 +1599,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
 				INFOPLIST_FILE = CryptomatorFileProvider/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2261,7 +1620,6 @@
 		};
 		4ADB470C24A39AA8004DE115 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FAAD1B276FE778A746B46C5E /* Pods-CryptomatorFileProvider.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -2271,6 +1629,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
 				INFOPLIST_FILE = CryptomatorFileProvider/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2290,13 +1649,14 @@
 		};
 		4AE97DD024572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0DB907107C6442B3AAE3E308 /* Pods-Cryptomator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
+				INFOPLIST_PREFIX_HEADER = ./CryptomatorEnvironmentVariables.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2310,13 +1670,14 @@
 		};
 		4AE97DD124572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = ED62DF07A9C39EAE5553BCC9 /* Pods-Cryptomator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
+				INFOPLIST_PREFIX_HEADER = ./CryptomatorEnvironmentVariables.h;
+				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -2432,24 +1793,6 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4A5E5B782453121400BD6298 /* Build configuration list for PBXNativeTarget "CloudAccessPrivate" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A5E5B792453121400BD6298 /* Debug */,
-				4A5E5B7A2453121400BD6298 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4A5E5B7C2453121400BD6298 /* Build configuration list for PBXNativeTarget "CloudAccessPrivateTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A5E5B7D2453121400BD6298 /* Debug */,
-				4A5E5B7E2453121400BD6298 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		4A60E8002459C6F500FD7F0E /* Build configuration list for PBXNativeTarget "CryptomatorIntegrationTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -2514,6 +1857,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4AEE4671252633A30045DA9F /* CloudAccessPrivate */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CloudAccessPrivate;
+		};
+		4AEE468D25263B190045DA9F /* CloudAccessPrivateCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CloudAccessPrivateCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4A5E5B212453119100BD6298 /* Project object */;
 }

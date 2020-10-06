@@ -1,6 +1,7 @@
 # Secrets
 .cloud-access-secrets.sh
-CloudAccessPrivate/CloudAccessSecrets.swift
+CryptomatorEnvironmentVariables.h
+CloudAccessPrivate/Sources/CloudAccessPrivateCore/CloudAccessSecrets.swift
 .integration-test-secrets.sh
 CryptomatorIntegrationTests/IntegrationTestSecrets.swift
 

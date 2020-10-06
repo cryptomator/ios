@@ -14,9 +14,8 @@ class MockGoogleDriveAuthenticationTests: XCTestCase {
 	 */
 	func testAuthenticationWorksWithoutViewController() throws {
 		let expectation = XCTestExpectation(description: "Google Authentication works without ViewController")
-		let authentication = MockGoogleDriveCloudAuthentication(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken)
-		authentication.authenticate()
-		authentication.authorization?.authorizeRequest(nil, completionHandler: { error in
+		let credential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: "GDriveCredentialTest")
+		credential.authorization?.authorizeRequest(nil, completionHandler: { error in
 			XCTAssertNil(error)
 			expectation.fulfill()
 		})
