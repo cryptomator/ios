@@ -15,6 +15,8 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
+      - name: Select Xcode 12.0
+        run: sudo xcode-select -switch /Applications/Xcode_12.app
       - name: Create CloudAccessSecrets
         run: ./create-cloud-access-secrets-file.sh
         env:
