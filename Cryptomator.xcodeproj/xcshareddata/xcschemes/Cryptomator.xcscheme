@@ -5,6 +5,15 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "cd $PROJECT_DIR&#10;if [ -f .cloud-access-secrets.sh ]; then&#10;  source .cloud-access-secrets.sh&#10;else&#10;  echo &quot;warning: .cloud-access-secrets.sh could not be found, please see README for instructions&quot;&#10;fi&#10;./create-cryptomator-environment-variables.sh&#10;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
       <BuildActionEntries>
          <BuildActionEntry
             buildForTesting = "YES"

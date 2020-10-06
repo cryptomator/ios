@@ -779,7 +779,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4AE97DCF24572E4A00452814 /* Build configuration list for PBXNativeTarget "Cryptomator" */;
 			buildPhases = (
-				4A88F913252B473200423CB0 /* Create EnvironmentVariables */,
 				4AE97DA424572E4900452814 /* Sources */,
 				4AE97DA524572E4900452814 /* Frameworks */,
 				4AE97DA624572E4900452814 /* Resources */,
@@ -982,28 +981,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4A88F913252B473200423CB0 /* Create EnvironmentVariables */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"./.cloud-access-secrets.sh",
-				"./create-cryptomator-environment-variables.sh",
-			);
-			name = "Create EnvironmentVariables";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				./CryptomatorEnvironmentVariables.h,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-cryptomator-environment-variables.sh\n";
-			showEnvVarsInLog = 0;
-		};
 		4AF2534E251B883500CC6F6E /* Lint with SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1655,7 +1632,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
-				INFOPLIST_PREFIX_HEADER = ./CryptomatorEnvironmentVariables.h;
+				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1676,7 +1653,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
-				INFOPLIST_PREFIX_HEADER = ./CryptomatorEnvironmentVariables.h;
+				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
