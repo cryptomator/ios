@@ -176,7 +176,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
-	override func itemChanged(at _: URL) {
+	override func itemChanged(at url: URL) {
 		// Called at some point after the file has changed; the provider may then trigger an upload
 
 		/* TODO:
@@ -185,6 +185,25 @@ class FileProviderExtension: NSFileProviderExtension {
 		 - create a fresh background NSURLSessionTask and schedule it to upload the current modifications
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
+
+		guard let decorator = self.decorator else {
+			// no domain ==> no installed vault
+			return
+		}
+		guard let itemIdentifier = persistentIdentifierForItem(at: url) else {
+			return
+		}
+		guard let metadata = try? decorator.registerFileInUploadQueue(with: url, identifier: itemIdentifier) else {
+			return
+		}
+
+		decorator.uploadFile(with: url, itemMetadata: metadata).then { item in
+			let notificator = decorator.notificator
+			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+		}.catch { error in
+			print("itemChanged Error: \(error)")
+		}
 	}
 
 	override func stopProvidingItem(at url: URL) {

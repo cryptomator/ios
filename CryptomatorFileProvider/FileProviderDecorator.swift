@@ -366,6 +366,7 @@ public class FileProviderDecorator {
 	 	- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
 	 */
 	func uploadFileWithoutRecover(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
+		precondition(itemMetadata.statusCode == .isUploading)
 		let cloudPath = itemMetadata.cloudPath
 		print("uploadTo: \(cloudPath)")
 		let progress = Progress.discreteProgress(totalUnitCount: 1)
