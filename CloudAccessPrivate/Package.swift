@@ -21,7 +21,7 @@ let package = Package(
 	],
 	dependencies: [
 		// Dependencies declare other packages that this package depends on.
-		.package(url: "https://github.com/google/GTMAppAuth.git", .revision("319b2371c69138665d8cbd7c6700ceccbb49e04f")),
+		.package(url: "https://github.com/google/GTMAppAuth.git", .upToNextMinor(from: "1.1.0")),
 		.package(url: "https://github.com/openid/AppAuth-iOS.git", .upToNextMinor(from: "1.4.0")),
 		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "0.9.1")),
 		.package(url: "https://github.com/phil1995/dropbox-sdk-obj-c.git", .branch("master")),
