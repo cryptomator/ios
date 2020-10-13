@@ -1027,26 +1027,3 @@ extension CloudItemMetadata: Comparable {
 		return lhs.name == rhs.name && lhs.cloudPath == rhs.cloudPath
 	}
 }
-
-extension CloudProvider {
-	func createFolderWithIntermediates(for cloudPath: CloudPath) -> Promise<Void> {
-		guard cloudPath != CloudPath("/") else {
-			return Promise(())
-		}
-		var cloudPaths = cloudPath.getPartialCloudPaths(startIndex: 2)
-		cloudPaths.append(cloudPath)
-		return Promise(on: .global()) { fulfill, reject in
-			for url in cloudPaths {
-				do {
-					try (await(self.createFolder(at: url)))
-				} catch {
-					guard case CloudProviderError.itemAlreadyExists = error else {
-						reject(error)
-						return
-					}
-				}
-			}
-			fulfill(())
-		}
-	}
-}
