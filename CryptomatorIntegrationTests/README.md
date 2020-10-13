@@ -9,6 +9,8 @@ This Integration Test tests the individual CloudProvider implementations against
 ## Template
 
 ```swift
+import CryptomatorCloudAccess
+import XCTest
 
 class CloudProviderNameCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 
@@ -29,10 +31,10 @@ class CloudProviderNameCloudProviderIntegrationTests: CryptomatorIntegrationTest
 		return setUpProviderForCloudProviderName
 	}
 	
-	static let remoteRootURLForIntegrationTestAtCloudProviderName = URL(fileURLWithPath: "/yourPath/", isDirectory: true)
+	static let rootCloudPathForIntegrationTestAtCloudProviderName = CloudPath("/yourPath/")
 
-	override class var remoteRootURLForIntegrationTest: URL {
-		return remoteRootURLForIntegrationTestAtCloudProviderName
+	override class var rootCloudPathForIntegrationTest: CloudPath {
+		return rootCloudPathForIntegrationTestAtCloudProviderName
 	}
 
 	//If you do not need to initialize anything special once or before the IntegrationTest setup, you can ignore this function.
@@ -65,8 +67,7 @@ The template from above can still be used. Additionally, the following function 
 class CloudProviderNameCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 
 	override func deauthenticate() -> Promise<Void>{
-		//Here the authentication object or client used by the cloud provider should be unauthenticated. 
-		//If the cloud provider does not support true unauthentication, the credentials should be invalidated.
+		//Invalidate or deauthenticate the credential or client used by the CloudProvider.
 	}
 
 }
