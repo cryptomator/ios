@@ -31,14 +31,17 @@ class CachedFileManager {
 		self.dbQueue = dbQueue
 	}
 
-	func hasCurrentVersionLocal(for identifier: Int64, with lastModifiedDateInCloud: Date) throws -> Bool {
+	func hasCurrentVersionLocal(for identifier: Int64, with lastModifiedDateInCloud: Date?) throws -> Bool {
+		guard let lastModifiedDateInCloud = lastModifiedDateInCloud else {
+			return false
+		}
 		let fetchedEntry = try dbQueue.read { db in
 			return try CachedEntry.fetchOne(db, key: identifier)
 		}
 		guard let cachedEntry = fetchedEntry, let lastModifiedDateLocal = cachedEntry.lastModifiedDate else {
 			return false
 		}
-		return lastModifiedDateLocal == lastModifiedDateInCloud
+		return Calendar(identifier: .gregorian).isDate(lastModifiedDateLocal, equalTo: lastModifiedDateInCloud, toGranularity: .second)
 	}
 
 	func getLastModifiedDate(for identifier: Int64) throws -> Date? {
@@ -51,16 +54,6 @@ class CachedFileManager {
 	func cacheLocalFileInfo(for identifier: Int64, lastModifiedDate: Date?) throws {
 		try dbQueue.write { db in
 			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier).save(db)
-		}
-	}
-
-	/**
-	 - returns: `true` If an entry was really deleted. `false` If an entry did not exist.
-	 */
-	func removeCachedEntry(for identifier: Int64) throws -> Bool {
-		return try dbQueue.write { db in
-			let hasDeletedEntry = try CachedEntry.deleteOne(db, key: identifier)
-			return hasDeletedEntry
 		}
 	}
 

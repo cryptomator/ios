@@ -100,9 +100,9 @@ public class FileProviderDecorator {
 			let ids = metadatas.map { return $0.id! }
 			let uploadTasks = try self.uploadTaskManager.getCorrespondingTasks(ids: ids)
 			assert(metadatas.count == uploadTasks.count)
-			try self.itemMetadataManager.synchronize(metadata: metadatas, with: uploadTasks)
-			let items = metadatas.enumerated().map { index, metadata in
-				return FileProviderItem(metadata: metadata, error: uploadTasks[index]?.error)
+			let items = try metadatas.enumerated().map { index, metadata -> FileProviderItem in
+				let newestVersionLocallyCached = try self.cachedFileManager.hasCurrentVersionLocal(for: metadata.id!, with: metadata.lastModifiedDate)
+				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, error: uploadTasks[index]?.error)
 			}
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
@@ -152,7 +152,8 @@ public class FileProviderDecorator {
 	public func getFileProviderItem(for identifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
 		let uploadTask = try uploadTaskManager.getTask(for: itemMetadata.id!)
-		return FileProviderItem(metadata: itemMetadata, error: uploadTask?.error)
+		let newestVersionLocallyCached = try cachedFileManager.hasCurrentVersionLocal(for: itemMetadata.id!, with: itemMetadata.lastModifiedDate)
+		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, error: uploadTask?.error)
 	}
 
 	func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
@@ -244,7 +245,7 @@ public class FileProviderDecorator {
 		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, lastModifiedDate: lastModifiedDate)
-		return FileProviderItem(metadata: placeholderMetadata)
+		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true)
 	}
 
 	public func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
@@ -252,7 +253,7 @@ public class FileProviderDecorator {
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: .folder)
 		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentId: parentId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
-		return FileProviderItem(metadata: placeholderMetadata)
+		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true)
 	}
 
 	func getCloudPathForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> CloudPath {
@@ -388,7 +389,7 @@ public class FileProviderDecorator {
 				try self.itemMetadataManager.updateMetadata(itemMetadata)
 				try self.uploadTaskManager.removeTask(for: itemMetadata.id!)
 				try self.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
-				fulfill(FileProviderItem(metadata: itemMetadata))
+				fulfill(FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true))
 			}.catch { error in
 				do {
 					let item = try self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata)
@@ -553,7 +554,7 @@ public class FileProviderDecorator {
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try self.itemMetadataManager.updateMetadata(itemMetadata)
-			return FileProviderItem(metadata: itemMetadata)
+			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true)
 		}
 	}
 
@@ -587,7 +588,8 @@ public class FileProviderDecorator {
 		metadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(metadata)
 		try reparentTaskManager.createTask(for: metadata.id!, oldCloudPath: oldCloudPath, newCloudPath: cloudPath, oldParentId: oldParentId, newParentId: parentId)
-		return FileProviderItem(metadata: metadata)
+		let newestVersionLocallyCached = try cachedFileManager.hasCurrentVersionLocal(for: metadata.id!, with: metadata.lastModifiedDate)
+		return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
 	}
 
 	public func moveItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
@@ -619,7 +621,8 @@ public class FileProviderDecorator {
 		return moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath).then { _ -> FileProviderItem in
 			metadata.statusCode = .isUploaded
 			try self.itemMetadataManager.cacheMetadata(metadata)
-			return FileProviderItem(metadata: metadata)
+			let newestVersionLocallyCached = try self.cachedFileManager.hasCurrentVersionLocal(for: metadata.id!, with: metadata.lastModifiedDate)
+			return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		}
 	}
 

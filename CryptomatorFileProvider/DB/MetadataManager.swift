@@ -40,6 +40,7 @@ class MetadataManager {
 			for metadata in metadatas {
 				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["cloudPath": metadata.cloudPath]) {
 					metadata.id = cachedMetadata.id
+					metadata.statusCode = cachedMetadata.statusCode
 					try metadata.update(db)
 				} else {
 					try metadata.insert(db)
@@ -117,21 +118,6 @@ class MetadataManager {
 	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
 		try dbQueue.read { db in
 			return try ItemMetadata.fetchAll(db, keys: ids)
-		}
-	}
-
-	func synchronize(metadata: [ItemMetadata], with tasks: [UploadTask?]) throws {
-		precondition(metadata.count == tasks.count)
-		try dbQueue.inTransaction { db in
-			for (index, task) in tasks.enumerated() {
-				if task?.error != nil {
-					let correspondingMetadata = metadata[index]
-					assert(correspondingMetadata.id == task?.correspondingItem)
-					correspondingMetadata.statusCode = .uploadError
-					try correspondingMetadata.save(db)
-				}
-			}
-			return .commit
 		}
 	}
 

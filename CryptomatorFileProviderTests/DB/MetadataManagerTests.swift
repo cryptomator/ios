@@ -183,31 +183,6 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssert(cachedMetadata.contains { $0.name == "Existing Folder" && $0.isMaybeOutdated })
 	}
 
-	func testSynchronizeWithTasks() throws {
-		let placeholderFileCloudPath = CloudPath("/Placeholder File.txt")
-		let placeholderItemMetadataForFile = ItemMetadata(name: "Placeholder File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: placeholderFileCloudPath, isPlaceholderItem: true)
-		let fileCloudPath = CloudPath("/Existing File.txt")
-		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
-		let folderCloudPath = CloudPath("/Existing Folder/")
-		let itemMetadataForFolder = ItemMetadata(name: "Existing Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
-		let metadata = [placeholderItemMetadataForFile, itemMetadataForFile, itemMetadataForFolder]
-		try manager.cacheMetadatas(metadata)
-
-		let uploadTaskManager = UploadTaskManager(with: dbQueue)
-		var taskForPlaceholderItem = try uploadTaskManager.createNewTask(for: placeholderItemMetadataForFile.id!)
-		try uploadTaskManager.updateTask(&taskForPlaceholderItem, error: NSError(domain: "TestDomain", code: -1000, userInfo: nil))
-		var taskForExistingItem = try uploadTaskManager.createNewTask(for: itemMetadataForFile.id!)
-		try uploadTaskManager.updateTask(&taskForExistingItem, error: NSError(domain: "TestDomain", code: -1000, userInfo: nil))
-		let taskForExistingFolder = try uploadTaskManager.createNewTask(for: itemMetadataForFolder.id!)
-		try uploadTaskManager.updateTask(taskForPlaceholderItem)
-		try uploadTaskManager.updateTask(taskForExistingItem)
-
-		try manager.synchronize(metadata: metadata, with: [taskForPlaceholderItem, taskForExistingItem, taskForExistingFolder])
-		XCTAssertEqual(ItemStatus.uploadError, metadata[0].statusCode)
-		XCTAssertEqual(ItemStatus.uploadError, metadata[1].statusCode)
-		XCTAssertEqual(ItemStatus.isUploaded, metadata[2].statusCode)
-	}
-
 	func testGetAllCachedMetadataInsideAFolder() throws {
 		let fileInFolderCloudPath = CloudPath("/Test Folder/Test File.txt")
 		let fileInSubFolderCloudPath = CloudPath("/Test Folder/SecondFolder/Test File.txt")

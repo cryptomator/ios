@@ -22,25 +22,31 @@ class FileProviderItemTests: XCTestCase {
 
 	func testFileItem() {
 		let cloudPath = CloudPath("/test.txt")
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)
 		XCTAssertEqual(100, item.documentSize)
-		XCTAssertTrue(item.isDownloaded)
+		XCTAssertTrue(item.isUploaded)
+		XCTAssertFalse(item.isUploading)
+		XCTAssertFalse(item.isDownloading)
+		XCTAssertFalse(item.isDownloaded)
 		XCTAssertEqual("public.plain-text", item.typeIdentifier)
 	}
 
 	func testFolderItem() {
 		let cloudPath = CloudPath("/test Folder/")
-		let metadata = ItemMetadata(id: 2, name: "test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test Folder", item.filename)
 		XCTAssertNil(item.documentSize)
-		XCTAssertTrue(item.isDownloaded)
+		XCTAssertTrue(item.isUploaded)
+		XCTAssertFalse(item.isUploading)
+		XCTAssertFalse(item.isDownloading)
+		XCTAssertFalse(item.isDownloaded)
 		XCTAssertEqual("public.folder", item.typeIdentifier)
 	}
 
@@ -69,5 +75,32 @@ class FileProviderItemTests: XCTestCase {
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
+	}
+
+	func testIsDownloadedOnlyForMostRecentVersion() {
+		let cloudPath = CloudPath("/test.txt")
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
+
+		let item = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false)
+		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
+		XCTAssertEqual("test.txt", item.filename)
+		XCTAssertEqual(100, item.documentSize)
+		XCTAssertTrue(item.isUploaded)
+		XCTAssertFalse(item.isUploading)
+		XCTAssertFalse(item.isDownloading)
+		XCTAssertFalse(item.isDownloaded)
+		XCTAssertEqual("public.plain-text", item.typeIdentifier)
+
+		let newestItem = FileProviderItem(metadata: metadata, newestVersionLocallyCached: true)
+		XCTAssertEqual(NSFileProviderItemIdentifier("2"), newestItem.itemIdentifier)
+		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, newestItem.parentItemIdentifier)
+		XCTAssertEqual("test.txt", newestItem.filename)
+		XCTAssertEqual(100, newestItem.documentSize)
+		XCTAssertTrue(newestItem.isUploaded)
+		XCTAssertFalse(newestItem.isUploading)
+		XCTAssertFalse(newestItem.isDownloading)
+		XCTAssertTrue(newestItem.isDownloaded)
+		XCTAssertEqual("public.plain-text", item.typeIdentifier)
 	}
 }

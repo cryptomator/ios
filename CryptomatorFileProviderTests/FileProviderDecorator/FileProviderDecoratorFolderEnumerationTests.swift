@@ -69,9 +69,16 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 	func testFolderEnumerationPreservesUploadError() throws {
 		let expectation = XCTestExpectation()
 
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ -> Promise<FileProviderItemList> in
+		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ -> Void in
 			var task = try self.decorator.uploadTaskManager.createNewTask(for: 3)
+			guard let metadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: 3) else {
+				XCTFail("No ItemMetadata for id found")
+				return
+			}
+			metadata.statusCode = .uploadError
+			try self.decorator.itemMetadataManager.updateMetadata(metadata)
 			try self.decorator.uploadTaskManager.updateTask(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
+		}.then {
 			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(5, fileProviderItemList.items.count)

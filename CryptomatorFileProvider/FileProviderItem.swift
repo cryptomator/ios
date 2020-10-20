@@ -15,10 +15,11 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	// TODO: implement the accessors to return the values from your extension's backing model
 	let metadata: ItemMetadata
 	let error: Error?
-
-	init(metadata: ItemMetadata, error: Error? = nil) {
+	let newestVersionLocallyCached: Bool
+	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, error: Error? = nil) {
 		self.metadata = metadata
 		self.error = error
+		self.newestVersionLocallyCached = newestVersionLocallyCached
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
@@ -75,7 +76,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var isDownloaded: Bool {
-		return metadata.statusCode == .isDownloaded
+		return metadata.statusCode == .isDownloaded && isMostRecentVersionDownloaded
 	}
 
 	public var isDownloading: Bool {
@@ -87,7 +88,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var isUploaded: Bool {
-		if metadata.statusCode == .uploadError {
+		if metadata.statusCode == .uploadError || metadata.isPlaceholderItem {
 			return false
 		}
 		return metadata.statusCode != .isUploading
@@ -106,8 +107,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var isMostRecentVersionDownloaded: Bool {
-		// TODO: Check via localCachedEntry
-		return true
+		return newestVersionLocallyCached
 	}
 
 	public var uploadingError: Error? {
