@@ -46,7 +46,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		}
 
 		driveService.fetcherService.configurationBlock = { _, configuration in
-			configuration.sharedContainerIdentifier = "group.com.skymatic.Cryptomator"
+			configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
 		}
 		driveService.fetcherService.isRetryEnabled = true
 		driveService.fetcherService.retryBlock = { suggestedWillRetry, error, response in

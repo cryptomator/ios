@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import Foundation
 import Promises
@@ -23,7 +24,7 @@ class WebDAVCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 		}
 	}
 
-	static let setUpClientForWebDAV = WebDAVClient(credential: IntegrationTestSecrets.webDAVCredential, sharedContainerIdentifier: "group.com.skymatic.Cryptomator")
+	static let setUpClientForWebDAV = WebDAVClient(credential: IntegrationTestSecrets.webDAVCredential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 	static let setUpProviderForWebDAV = WebDAVProvider(with: setUpClientForWebDAV)
 
 	override class var setUpProvider: CloudProvider {
@@ -38,14 +39,14 @@ class WebDAVCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		let client = WebDAVClient(credential: IntegrationTestSecrets.webDAVCredential, sharedContainerIdentifier: "group.com.skymatic.Cryptomator")
+		let client = WebDAVClient(credential: IntegrationTestSecrets.webDAVCredential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		super.provider = WebDAVProvider(with: client)
 	}
 
 	override func deauthenticate() -> Promise<Void> {
 		let correctCredential = IntegrationTestSecrets.webDAVCredential
 		let invalidCredential = WebDAVCredential(baseURL: correctCredential.baseURL, username: correctCredential.username, password: correctCredential.password + "Foo", allowedCertificate: correctCredential.allowedCertificate)
-		let client = WebDAVClient(credential: invalidCredential, sharedContainerIdentifier: "group.com.skymatic.Cryptomator")
+		let client = WebDAVClient(credential: invalidCredential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		super.provider = WebDAVProvider(with: client)
 		return Promise(())
 	}
