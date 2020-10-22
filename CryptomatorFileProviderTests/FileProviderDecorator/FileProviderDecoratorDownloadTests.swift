@@ -161,4 +161,35 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
+
+	func testHasPossibleVersioningConflictForItemWithFailedUploadAfterDownload() throws {
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		try decorator.itemMetadataManager.cacheMetadata(metadata)
+		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
+		let error = NSFileProviderError(.serverUnreachable)
+		try decorator.uploadTaskManager.updateTask(with: metadata.id!, lastFailedUploadDate: Date.distantFuture, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, lastModifiedDate: nil)
+		let item = FileProviderItem(metadata: metadata)
+		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
+		XCTAssertTrue(hasVersioningConflict)
+	}
+
+	func testHasPossibleVersioningConflictForUploadingItem() throws {
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		try decorator.itemMetadataManager.cacheMetadata(metadata)
+		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, lastModifiedDate: nil)
+		let item = FileProviderItem(metadata: metadata)
+		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
+		XCTAssertTrue(hasVersioningConflict)
+	}
+
+	func testHasNoVersioningConflictForItemWithoudPendingUploadTask() throws {
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		try decorator.itemMetadataManager.cacheMetadata(metadata)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, lastModifiedDate: nil)
+		let item = FileProviderItem(metadata: metadata)
+		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
+		XCTAssertFalse(hasVersioningConflict)
+	}
 }

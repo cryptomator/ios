@@ -140,36 +140,46 @@ class FileProviderExtension: NSFileProviderExtension {
 					// Move LocalFile in Tmp Folder
 					// Call import Document
 					// after completionHandler returned (immediately) delete localFile in tmp folder
-					/* let tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-					 let tmpLocalFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent, isDirectory: false).createCollisionURL()
-					 let conflictItem: NSFileProviderItem
-					 do {
-					 	try self.fileManager.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
-					 	try self.fileManager.moveItem(at: url, to: tmpLocalFileURL)
-					 	conflictItem = try self.item(for: identifier)
-					 } catch {
-					 	completionHandler(error)
-					 	return
-					 }
-					 self.importDocument(at: tmpLocalFileURL, toParentItemIdentifier: conflictItem.parentItemIdentifier) { _, error in
-					 	guard error == nil else {
-					 		// TODO: Discuss what we do if this fails..
-					 		print(error)
-					 		return
-					 	}
-					 	try? self.fileManager.removeItem(at: tmpLocalFileURL)
-					 	decorator.downloadFile(with: identifier, to: url).then {
-					 		completionHandler(nil)
-					 	}.catch { error in
-					 		completionHandler(error)
-					 	}
-					 } */
-					let tmpDownloadURL = url.createCollisionURL()
-					decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
-						_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
-						completionHandler(nil)
-					}.catch { error in
-						completionHandler(error)
+
+					if decorator.hasPossibleVersioningConflictForItem(withIdentifier: identifier) {
+						let tmpDirectory = self.fileManager.temporaryDirectory
+						let tmpFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent)
+						let parentIdentifier: NSFileProviderItemIdentifier
+						do {
+							try self.fileManager.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+							try self.fileManager.moveItem(at: url, to: tmpLocalFileURL)
+							parentIdentifier = try self.item(for: identifier).parentItemIdentifier
+						} catch {
+							completionHandler(error)
+							return
+						}
+						importDocument(at: tmpFileURL, toParentItemIdentifier: parentIdentifier) { _, error in
+							if let error = error {
+								completionHandler(error)
+								return
+							}
+							do {
+								try self.fileManager.removeItem(at: tmpFileURL)
+							} catch {
+								completionHandler(error)
+								return
+							}
+							let tmpDownloadURL = url.createCollisionURL()
+							decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
+								_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+								completionHandler(nil)
+							}.catch { error in
+								completionHandler(error)
+							}
+						}
+					} else {
+						let tmpDownloadURL = url.createCollisionURL()
+						decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
+							_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+							completionHandler(nil)
+						}.catch { error in
+							completionHandler(error)
+						}
 					}
 				}
 			}

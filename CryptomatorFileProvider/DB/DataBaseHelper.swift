@@ -38,6 +38,7 @@ class DataBaseHelper {
 			try db.create(table: "cachedFiles") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
 				table.column("lastModifiedDate", .text)
+				table.column("localLastModifiedDate", .date).notNull()
 			}
 			try db.create(table: "uploadTasks") { table in
 				table.column("correspondingItem", .integer).primaryKey().references("metadata", onDelete: .cascade) // TODO: Add Reference to ItemMetadata Table in Migrator
@@ -61,21 +62,6 @@ class DataBaseHelper {
 				table.column("parentId", .integer).notNull()
 				table.column("itemType", .text).notNull()
 			}
-
-			try db.execute(sql: """
-			CREATE TRIGGER synchronizeItemStatus
-			AFTER UPDATE OF statusCode ON metadata
-			WHEN new.lastModifiedDate IS NOT NULL AND new.statusCode != 'isDownloaded' AND new.statusCode != 'isUploading'
-			BEGIN
-				UPDATE metadata SET statusCode = 'isDownloaded'
-				WHERE id in (SELECT correspondingItem
-				FROM cachedFiles
-				WHERE correspondingItem = new.id
-				AND lastModifiedDate IS NOT NULL
-				AND lastModifiedDate = new.lastModifiedDate
-				);
-			END;
-			""")
 		}
 		try migrator.migrate(dbQueue)
 	}

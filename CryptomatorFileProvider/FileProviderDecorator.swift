@@ -327,6 +327,7 @@ public class FileProviderDecorator {
 	  - Precondition: `localURL` must point to a file
 	  - Postcondition: the `ItemMetadata` entry associated with the `identifier` has the statusCode: `ItemStatus.isUploading`
 	  - Postcondition: a new UploadTask was registered for the ItemIdentifier.
+	  - Postcondition:  if a previous UploadTask for the ItemIdentifier existed in the database, it was removed.
 	  - Postcondition: in the local FileInfo table the entry for the passed identifier was updated to the local lastModifiedDate.
 	  - Returns: For convenience, returns the ItemMetadata for the file to upload.
 	  - throws: throws an NSFileProviderError.noSuchItem if the identifier could not be converted or no ItemMetadata exists for the identifier or an error occurs while writing to the database.
@@ -348,6 +349,7 @@ public class FileProviderDecorator {
 			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
 			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
 			try itemMetadataManager.updateMetadata(metadata)
+			try uploadTaskManager.removeTask(for: id)
 			_ = try uploadTaskManager.createNewTask(for: id)
 			try cachedFileManager.cacheLocalFileInfo(for: id, lastModifiedDate: lastModifiedDate)
 		} catch {
@@ -671,5 +673,25 @@ public class FileProviderDecorator {
 		default:
 			return Promise(FileProviderDecoratorError.unsupportedItemType)
 		}
+	}
+
+	/**
+	 A possible version conflict between the local file and the file in the cloud can occur if the changes to the local file have not yet been synchronized to the cloud due to an upload error and the file in the cloud has also been changed.
+	 A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
+	 - Precondition: `itemIdentifier.rawValue ` can be casted to a positive Int64 value
+	 - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
+	    */
+	public func hasPossibleVersioningConflictForItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> Bool {
+		let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
+		guard let uploadTask = try uploadTaskManager.getTask(for: id) else {
+			return false
+		}
+		guard let localLastModifiedDate = try cachedFileManager.getLocalLastModifiedDate(for: id) else {
+			return false
+		}
+		guard let lastFailedUploadDate = uploadTask.lastFailedUploadDate else {
+			return true
+		}
+		return lastFailedUploadDate > localLastModifiedDate
 	}
 }

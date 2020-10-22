@@ -13,14 +13,17 @@ private struct CachedEntry: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "cachedFiles"
 	static let lastModifiedDateKey = "lastModifiedDate"
 	static let correspondingItemKey = "correspondingItem"
+	static let localLastModifiedDateKey = "localLastModifiedDate"
 	let lastModifiedDate: Date?
 	let correspondingItem: Int64
+	let localLastModifiedDate: Date
 }
 
 extension CachedEntry: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
 		container[CachedEntry.lastModifiedDateKey] = lastModifiedDate
 		container[CachedEntry.correspondingItemKey] = correspondingItem
+		container[CachedEntry.localLastModifiedDateKey] = localLastModifiedDate
 	}
 }
 
@@ -51,9 +54,16 @@ class CachedFileManager {
 		return fetchedEntry?.lastModifiedDate
 	}
 
+	func getLocalLastModifiedDate(for identifier: Int64) throws -> Date? {
+		let fetchedEntry = try dbQueue.read { db in
+			return try CachedEntry.fetchOne(db, key: identifier)
+		}
+		return fetchedEntry?.localLastModifiedDate
+	}
+
 	func cacheLocalFileInfo(for identifier: Int64, lastModifiedDate: Date?) throws {
 		try dbQueue.write { db in
-			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier).save(db)
+			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date()).save(db)
 		}
 	}
 
