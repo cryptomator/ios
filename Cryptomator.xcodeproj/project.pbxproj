@@ -1334,7 +1334,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.GoogleDriveCryptoDecoratorManualTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1352,7 +1352,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.GoogleDriveCryptoDecoratorManualTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1525,7 +1525,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.skymatic.Cryptomator.File-Provider-ExtensionUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-ExtensionUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1545,7 +1545,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.skymatic.Cryptomator.File-Provider-ExtensionUI";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-ExtensionUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1565,7 +1565,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.skymatic.Cryptomator.File-Provider-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1585,7 +1585,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.skymatic.Cryptomator.File-Provider-Extension";
+				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-Extension";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1612,7 +1612,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CryptomatorFileProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProvider;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1642,7 +1642,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.CryptomatorFileProvider;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProvider;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1666,7 +1666,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.Cryptomator;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.Cryptomator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1687,7 +1687,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.skymatic.Cryptomator;
+				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.Cryptomator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
