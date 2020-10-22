@@ -8,8 +8,9 @@
 
 import Foundation
 protocol CryptomatorKeychain {
-	static var service: String {get}
+	static var service: String { get }
 }
+
 extension CryptomatorKeychain {
 	static func queryWithDict(_ query: [String: AnyObject]) -> CFDictionary {
 		let bundleId = Bundle.main.bundleIdentifier ?? ""
