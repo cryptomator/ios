@@ -140,20 +140,26 @@ class FileProviderExtension: NSFileProviderExtension {
 					// Move LocalFile in Tmp Folder
 					// Call import Document
 					// after completionHandler returned (immediately) delete localFile in tmp folder
-
-					if decorator.hasPossibleVersioningConflictForItem(withIdentifier: identifier) {
+					let hasVersioningConflict: Bool
+					do {
+						hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: identifier)
+					} catch {
+						completionHandler(error)
+						return
+					}
+					if hasVersioningConflict {
 						let tmpDirectory = self.fileManager.temporaryDirectory
 						let tmpFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent)
 						let parentIdentifier: NSFileProviderItemIdentifier
 						do {
 							try self.fileManager.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
-							try self.fileManager.moveItem(at: url, to: tmpLocalFileURL)
+							try self.fileManager.moveItem(at: url, to: tmpFileURL)
 							parentIdentifier = try self.item(for: identifier).parentItemIdentifier
 						} catch {
 							completionHandler(error)
 							return
 						}
-						importDocument(at: tmpFileURL, toParentItemIdentifier: parentIdentifier) { _, error in
+						self.importDocument(at: tmpFileURL, toParentItemIdentifier: parentIdentifier) { _, error in
 							if let error = error {
 								completionHandler(error)
 								return

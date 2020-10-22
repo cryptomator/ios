@@ -680,7 +680,7 @@ public class FileProviderDecorator {
 	 A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
 	 - Precondition: `itemIdentifier.rawValue ` can be casted to a positive Int64 value
 	 - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
-	    */
+	     */
 	public func hasPossibleVersioningConflictForItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> Bool {
 		let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
 		guard let uploadTask = try uploadTaskManager.getTask(for: id) else {
