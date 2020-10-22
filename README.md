@@ -2,14 +2,6 @@
 
 ## Building
 
-### Install Dependencies
-
-Install [CocoaPods](https://cocoapods.org/) if you haven't already.
-
-```sh
-pod install
-```
-
 ### Create Secrets
 
 If you are building with Xcode, create a `.cloud-access-secrets.sh` file in the root directory. Its contents should look something like this:
