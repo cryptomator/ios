@@ -7,25 +7,29 @@
 //
 
 import Foundation
-protocol CryptomatorKeychain {
-	static var service: String { get }
-}
+class CryptomatorKeychain {
+	let service: String
+	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
+	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
 
-extension CryptomatorKeychain {
-	static func queryWithDict(_ query: [String: AnyObject]) -> CFDictionary {
+	init(service: String) {
+		self.service = service
+	}
+
+	func queryWithDict(_ query: [String: AnyObject]) -> CFDictionary {
 		let bundleId = Bundle.main.bundleIdentifier ?? ""
 		var queryDict = query
 
 		queryDict[kSecClass as String] = kSecClassGenericPassword
-		queryDict[kSecAttrService as String] = "\(bundleId).\(Self.service)" as AnyObject?
+		queryDict[kSecAttrService as String] = "\(bundleId).\(service)" as AnyObject?
 		queryDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
 //		queryDict[kSecAttrAccessGroup as String] = "<TEAMID>.de.skymatic.Cryptomator" as AnyObject
 
 		return queryDict as CFDictionary
 	}
 
-	static func set(_ key: String, value: Data) -> Bool {
-		let query = Self.queryWithDict([
+	func set(_ key: String, value: Data) -> Bool {
+		let query = queryWithDict([
 			kSecAttrAccount as String: key as AnyObject,
 			kSecValueData as String: value as AnyObject
 		])
@@ -34,8 +38,8 @@ extension CryptomatorKeychain {
 		return SecItemAdd(query, nil) == noErr
 	}
 
-	static func getAsData(_ key: String) -> Data? {
-		let query = Self.queryWithDict([
+	func getAsData(_ key: String) -> Data? {
+		let query = queryWithDict([
 			kSecAttrAccount as String: key as AnyObject,
 			kSecReturnData as String: kCFBooleanTrue,
 			kSecMatchLimit as String: kSecMatchLimitOne
@@ -51,8 +55,8 @@ extension CryptomatorKeychain {
 		return nil
 	}
 
-	static func delete(_ key: String) -> Bool {
-		let query = Self.queryWithDict([
+	func delete(_ key: String) -> Bool {
+		let query = queryWithDict([
 			kSecAttrAccount as String: key as AnyObject
 		])
 
