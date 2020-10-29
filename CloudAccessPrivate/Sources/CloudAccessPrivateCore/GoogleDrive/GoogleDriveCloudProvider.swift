@@ -16,49 +16,6 @@ import Promises
 
 public class GoogleDriveCloudProvider: CloudProvider {
 	private let credentials: GoogleDriveCredential
-	private let rootFolderId = "root"
-	private let folderMimeType = "application/vnd.google-apps.folder"
-	private let unknownMimeType = "application/octet-stream"
-	private let googleDriveErrorCodeFileNotFound = 404
-	private let googleDriveErrorCodeForbidden = 403
-	private let googleDriveErrorCodeInvalidCredentials = 401
-	private let googleDriveErrorDomainUsageLimits = "usageLimits"
-	private let googleDriveErrorReasonUserRateLimitExceeded = "userRateLimitExceeded"
-	private let googleDriveErrorReasonRateLimitExceeded = "rateLimitExceeded"
-	private var driveService: GTLRDriveService {
-		let driveService = credentials.driveService
-		driveService.isRetryEnabled = true
-		driveService.retryBlock = { _, suggestedWillRetry, fetchError in
-			if let fetchError = fetchError as NSError? {
-				if fetchError.domain == kGTMSessionFetcherStatusDomain || fetchError.code == self.googleDriveErrorCodeForbidden {
-					return suggestedWillRetry
-				}
-				guard let data = fetchError.userInfo["data"] as? Data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let error = json["error"] else {
-					return suggestedWillRetry
-				}
-				let googleDriveError = GTLRErrorObject(json: ["error": error])
-				guard let errorItem = googleDriveError.errors?.first else {
-					return suggestedWillRetry
-				}
-				return errorItem.domain == self.googleDriveErrorDomainUsageLimits && (errorItem.reason == self.googleDriveErrorReasonUserRateLimitExceeded || errorItem.reason == self.googleDriveErrorReasonRateLimitExceeded)
-			}
-			return suggestedWillRetry
-		}
-
-		driveService.fetcherService.configurationBlock = { _, configuration in
-			configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
-		}
-		driveService.fetcherService.isRetryEnabled = true
-		driveService.fetcherService.retryBlock = { suggestedWillRetry, error, response in
-			if let error = error as NSError? {
-				if error.domain == kGTMSessionFetcherStatusDomain, error.code == self.googleDriveErrorCodeForbidden {
-					return response(true)
-				}
-			}
-			response(suggestedWillRetry)
-		}
-		return driveService
-	}
 
 	private let cloudIdentifierCache: GoogleDriveCloudIdentifierCacheManager?
 	private var runningTickets: [GTLRServiceTicket]
@@ -380,29 +337,29 @@ public class GoogleDriveCloudProvider: CloudProvider {
 
 	private func downloadFile(withIdentifier identifier: String, from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
 		let query = GTLRDriveQuery_FilesGet.queryForMedia(withFileId: identifier)
-		let request = driveService.request(for: query)
-		let fetcher = driveService.fetcherService.fetcher(with: request as URLRequest)
+
+		let request = credentials.driveService.request(for: query)
+		let fetcher = credentials.driveService.fetcherService.fetcher(with: request as URLRequest)
 		fetcher.destinationFileURL = localURL
 		let progress = Progress(totalUnitCount: -1)
 		fetcher.downloadProgressBlock = { _, totalBytesWritten, totalBytesExpectedToWrite in
 			progress.totalUnitCount = totalBytesExpectedToWrite // Unnecessary to set several times
 			progress.completedUnitCount = totalBytesWritten
 		}
-		fetcher.useBackgroundSession = true
 		runningFetchers.append(fetcher)
 		return Promise<Void> { fulfill, reject in
 			fetcher.beginFetch { _, error in
 				self.runningFetchers.removeAll { $0 == fetcher }
 				if let error = error as NSError? {
 					if error.domain == kGTMSessionFetcherStatusDomain {
-						if error.code == self.googleDriveErrorCodeFileNotFound {
+						if error.code == GoogleDriveConstants.googleDriveErrorCodeFileNotFound {
 							do {
 								try self.cloudIdentifierCache?.uncacheIdentifier(for: cloudPath)
 								return reject(CloudProviderError.itemNotFound)
 							} catch {
 								return reject(error)
 							}
-						} else if error.code == self.googleDriveErrorCodeInvalidCredentials {
+						} else if error.code == GoogleDriveConstants.googleDriveErrorCodeInvalidCredentials {
 							return reject(CloudProviderError.unauthorized)
 						}
 					}
@@ -421,16 +378,16 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	 */
 	private func executeQuery(_ query: GTLRDriveQuery, cloudPath: CloudPath? = nil) -> Promise<Any> {
 		return Promise<Any> { fulfill, reject in
-			let ticket = self.driveService.executeQuery(query) { ticket, result, error in
+			let ticket = self.credentials.driveService.executeQuery(query) { ticket, result, error in
 				self.runningTickets.removeAll { $0 == ticket }
 				if let error = error as NSError? {
 					if error.domain == NSURLErrorDomain, error.code == NSURLErrorNotConnectedToInternet || error.code == NSURLErrorCannotConnectToHost || error.code == NSURLErrorNetworkConnectionLost || error.code == NSURLErrorDNSLookupFailed || error.code == NSURLErrorResourceUnavailable || error.code == NSURLErrorInternationalRoamingOff {
 						return reject(CloudProviderError.noInternetConnection)
 					}
-					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeInvalidCredentials || error.code == self.googleDriveErrorCodeForbidden {
+					if error.domain == kGTLRErrorObjectDomain, error.code == GoogleDriveConstants.googleDriveErrorCodeInvalidCredentials || error.code == GoogleDriveConstants.googleDriveErrorCodeForbidden {
 						return reject(CloudProviderError.unauthorized)
 					}
-					if error.domain == kGTLRErrorObjectDomain, error.code == self.googleDriveErrorCodeFileNotFound {
+					if error.domain == kGTLRErrorObjectDomain, error.code == GoogleDriveConstants.googleDriveErrorCodeFileNotFound {
 						if let cloudPath = cloudPath {
 							do {
 								try self.cloudIdentifierCache?.uncacheIdentifier(for: cloudPath)
@@ -452,7 +409,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	}
 
 	func getCloudItemType(forMimeType mimeType: String) -> CloudItemType {
-		if mimeType == folderMimeType {
+		if mimeType == GoogleDriveConstants.folderMimeType {
 			return .folder
 		}
 		return .file
@@ -491,7 +448,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		let metadata = GTLRDrive_File()
 		metadata.name = cloudPath.lastPathComponent
 		metadata.parents = [parentIdentifier]
-		metadata.mimeType = folderMimeType
+		metadata.mimeType = GoogleDriveConstants.folderMimeType
 		let query = GTLRDriveQuery_FilesCreate.query(withObject: metadata, uploadParameters: nil)
 		return executeQuery(query).then { result -> Void in
 			if let folder = result as? GTLRDrive_File {
@@ -569,8 +526,8 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	private func createFileUploadQuery(from localURL: URL, to cloudPath: CloudPath, parentIdentifier: String, replaceExisting: Bool) -> Promise<GTLRDriveQuery> {
 		let metadata = GTLRDrive_File()
 		metadata.name = cloudPath.lastPathComponent
-		let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: unknownMimeType)
-		uploadParameters.useBackgroundSession = true
+		let uploadParameters = GTLRUploadParameters(fileURL: localURL, mimeType: GoogleDriveConstants.unknownMimeType)
+//		uploadParameters.useBackgroundSession = true
 		return resolvePath(forFileAt: cloudPath).then { identifier -> Promise<GTLRDriveQuery> in
 			if !replaceExisting {
 				return Promise(CloudProviderError.itemAlreadyExists)

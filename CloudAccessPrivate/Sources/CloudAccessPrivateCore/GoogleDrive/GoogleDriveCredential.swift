@@ -20,6 +20,7 @@ public enum GoogleDriveCredentialError: Error {
 public class GoogleDriveCredential {
 	let keychainItemPrefix = "GoogleDriveAuth"
 	private let keychainItemName: String
+	let tokenUid: String
 	public var authorization: GTMAppAuthFetcherAuthorization?
 	public let driveService: GTLRDriveService
 	public var isAuthorized: Bool {
@@ -27,9 +28,44 @@ public class GoogleDriveCredential {
 	}
 
 	public init(with tokenUid: String) {
+		self.tokenUid = tokenUid
 		self.keychainItemName = keychainItemPrefix + "-" + tokenUid
 		self.authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: keychainItemName)
 		self.driveService = GTLRDriveService()
+		driveService.isRetryEnabled = true
+		driveService.retryBlock = { _, suggestedWillRetry, fetchError in
+			if let fetchError = fetchError as NSError? {
+				if fetchError.domain == kGTMSessionFetcherStatusDomain || fetchError.code == GoogleDriveConstants.googleDriveErrorCodeForbidden {
+					return suggestedWillRetry
+				}
+				guard let data = fetchError.userInfo["data"] as? Data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let error = json["error"] else {
+					return suggestedWillRetry
+				}
+				let googleDriveError = GTLRErrorObject(json: ["error": error])
+				guard let errorItem = googleDriveError.errors?.first else {
+					return suggestedWillRetry
+				}
+				return errorItem.domain == GoogleDriveConstants.googleDriveErrorDomainUsageLimits && (errorItem.reason == GoogleDriveConstants.googleDriveErrorReasonUserRateLimitExceeded || errorItem.reason == GoogleDriveConstants.googleDriveErrorReasonRateLimitExceeded)
+			}
+			return suggestedWillRetry
+		}
+		driveService.fetcherService.configurationBlock = { _, configuration in
+			configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
+		}
+		let configuration = URLSessionConfiguration.background(withIdentifier: "Crytomator-GoogleDriveSession-\(tokenUid)")
+		configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
+		driveService.fetcherService.configuration = configuration
+		driveService.fetcherService.isRetryEnabled = true
+		driveService.fetcherService.retryBlock = { suggestedWillRetry, error, response in
+			if let error = error as NSError? {
+				if error.domain == kGTMSessionFetcherStatusDomain, error.code == GoogleDriveConstants.googleDriveErrorCodeForbidden {
+					return response(true)
+				}
+			}
+			response(suggestedWillRetry)
+		}
+		driveService.fetcherService.unusedSessionTimeout = 0
+		driveService.fetcherService.reuseSession = true
 		driveService.authorizer = authorization
 	}
 
@@ -53,6 +89,7 @@ public class GoogleDriveCredential {
 
 	public func deauthenticate() {
 		GTMAppAuthFetcherAuthorization.removeFromKeychain(forName: keychainItemName)
+		driveService.fetcherService.resetSession()
 		authorization = nil
 		driveService.authorizer = nil
 	}
