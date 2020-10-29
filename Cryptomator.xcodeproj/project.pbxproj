@@ -23,6 +23,7 @@
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
 		4A291DB4252373A9006295E6 /* CryptomatorFileProvider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; };
 		4A291DB5252373A9006295E6 /* CryptomatorFileProvider.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		4A2AE808254AD4BD00BB9D2A /* DecoratorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2AE807254AD4BD00BB9D2A /* DecoratorManager.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2F373924B5C08E00460FD3 /* TaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373824B5C08E00460FD3 /* TaskError.swift */; };
 		4A2F373B24B5C0A400460FD3 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373A24B5C0A400460FD3 /* UploadTask.swift */; };
@@ -224,6 +225,7 @@
 		4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorFileProviderTests.swift; sourceTree = "<group>"; };
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
+		4A2AE807254AD4BD00BB9D2A /* DecoratorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorManager.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A2F373824B5C08E00460FD3 /* TaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskError.swift; sourceTree = "<group>"; };
 		4A2F373A24B5C0A400460FD3 /* UploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				4ADB470424A39AA8004DE115 /* CryptomatorFileProvider.h */,
 				4ADB470524A39AA8004DE115 /* Info.plist */,
 				4ADB470E24A39AB4004DE115 /* FileProviderDecorator.swift */,
+				4A2AE807254AD4BD00BB9D2A /* DecoratorManager.swift */,
 				4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */,
 				4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */,
 				4AFE6A9E2514A91A00A4A315 /* CloudPath+NameCollision.swift */,
@@ -1157,6 +1160,7 @@
 				4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */,
 				4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */,
 				4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */,
+				4A2AE808254AD4BD00BB9D2A /* DecoratorManager.swift in Sources */,
 				4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */,
 				4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */,
 				4ADB471324A3A5B9004DE115 /* MetadataManager.swift in Sources */,
@@ -1478,7 +1482,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 42NMTS82GU;
+				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1498,7 +1502,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 42NMTS82GU;
+				DEVELOPMENT_TEAM = FZ53285T8H;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -26,7 +26,7 @@ class FileProviderExtension: NSFileProviderExtension {
 					return
 				}
 				let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
-				self.decorator = try? FileProviderDecorator(for: domain, with: manager, dbPath: dbPath)
+				self.decorator = try? DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
 				self.manager = manager
 			}
 		}
