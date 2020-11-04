@@ -11,6 +11,7 @@ class CryptomatorKeychain {
 	let service: String
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
+	static let vault = CryptomatorKeychain(service: "cryptomatorVault")
 
 	init(service: String) {
 		self.service = service
