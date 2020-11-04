@@ -23,7 +23,7 @@ class CryptomatorKeychain {
 		queryDict[kSecClass as String] = kSecClassGenericPassword
 		queryDict[kSecAttrService as String] = "\(bundleId).\(service)" as AnyObject?
 		queryDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-//		queryDict[kSecAttrAccessGroup as String] = "<TEAMID>.de.skymatic.Cryptomator" as AnyObject
+		queryDict[kSecAttrAccessGroup as String] = "YZQJQUHA3L.com.setolabs.Cryptomator" as AnyObject
 
 		return queryDict as CFDictionary
 	}

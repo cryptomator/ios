@@ -8,5 +8,5 @@
 
 import Foundation
 public struct CryptomatorConstants {
-	public static let appGroupName = "group.de.skymatic.Cryptomator"
+	public static let appGroupName = "group.com.setolabs.Cryptomator"
 }

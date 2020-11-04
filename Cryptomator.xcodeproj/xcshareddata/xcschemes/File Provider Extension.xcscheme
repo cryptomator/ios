@@ -16,8 +16,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4AA621D5249A6A8400A0BCBD"
-               BuildableName = "File Provider Extension.appex"
-               BlueprintName = "File Provider Extension"
+               BuildableName = "FileProviderExtension.appex"
+               BlueprintName = "FileProviderExtension"
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>

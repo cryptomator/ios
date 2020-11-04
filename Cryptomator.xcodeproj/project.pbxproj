@@ -91,8 +91,8 @@
 		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
 		4AEE4672252633A30045DA9F /* CloudAccessPrivate in Frameworks */ = {isa = PBXBuildFile; productRef = 4AEE4671252633A30045DA9F /* CloudAccessPrivate */; };
 		4AEE468E25263B190045DA9F /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4AEE468D25263B190045DA9F /* CloudAccessPrivateCore */; };
-		4AEE468F25263B2E0045DA9F /* File Provider Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4AEE469225263B2E0045DA9F /* File Provider ExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AFE6A9F2514A91A00A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6A9E2514A91A00A4A315 /* CloudPath+NameCollision.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
@@ -201,8 +201,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4AEE468F25263B2E0045DA9F /* File Provider Extension.appex in Embed App Extensions */,
-				4AEE469225263B2E0045DA9F /* File Provider ExtensionUI.appex in Embed App Extensions */,
+				4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */,
+				4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,14 +265,14 @@
 		4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+ExtensionTests.swift"; sourceTree = "<group>"; };
 		4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxLoginViewController.swift; sourceTree = "<group>"; };
 		4A9D3ED825272A4E000811B6 /* MockGoogleDriveAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticator.swift; sourceTree = "<group>"; };
-		4A9FCB0B251A02A3002A8B41 /* File Provider ExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "File Provider ExtensionUI.entitlements"; sourceTree = "<group>"; };
+		4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtensionUI.entitlements; sourceTree = "<group>"; };
 		4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cryptomator.entitlements; sourceTree = "<group>"; };
-		4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "File Provider Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FileProviderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderExtension.swift; sourceTree = "<group>"; };
 		4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderEnumerator.swift; sourceTree = "<group>"; };
 		4AA621DE249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4AA621DF249A6A8400A0BCBD /* File_Provider_Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = File_Provider_Extension.entitlements; sourceTree = "<group>"; };
-		4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "File Provider ExtensionUI.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4AA621DF249A6A8400A0BCBD /* FileProviderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtension.entitlements; sourceTree = "<group>"; };
+		4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FileProviderExtensionUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentActionViewController.swift; sourceTree = "<group>"; };
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -478,8 +478,8 @@
 				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
 				4AE97DC024572E4A00452814 /* CryptomatorTests */,
 				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
-				4AA621D7249A6A8400A0BCBD /* File Provider Extension */,
-				4AA621E5249A6A8400A0BCBD /* File Provider ExtensionUI */,
+				4AA621D7249A6A8400A0BCBD /* FileProviderExtension */,
+				4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A44EC18246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
 				4A5E5B2A2453119100BD6298 /* Products */,
@@ -494,8 +494,8 @@
 				4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */,
 				4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */,
 				4A44EC17246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest.app */,
-				4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */,
-				4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */,
+				4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */,
+				4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */,
 				4ADB470224A39AA8004DE115 /* CryptomatorFileProvider.framework */,
 				4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */,
 			);
@@ -572,27 +572,27 @@
 			path = LocalFileSystem;
 			sourceTree = "<group>";
 		};
-		4AA621D7249A6A8400A0BCBD /* File Provider Extension */ = {
+		4AA621D7249A6A8400A0BCBD /* FileProviderExtension */ = {
 			isa = PBXGroup;
 			children = (
 				4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */,
 				4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */,
 				4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */,
 				4AA621DE249A6A8400A0BCBD /* Info.plist */,
-				4AA621DF249A6A8400A0BCBD /* File_Provider_Extension.entitlements */,
+				4AA621DF249A6A8400A0BCBD /* FileProviderExtension.entitlements */,
 			);
-			path = "File Provider Extension";
+			path = FileProviderExtension;
 			sourceTree = "<group>";
 		};
-		4AA621E5249A6A8400A0BCBD /* File Provider ExtensionUI */ = {
+		4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */ = {
 			isa = PBXGroup;
 			children = (
-				4A9FCB0B251A02A3002A8B41 /* File Provider ExtensionUI.entitlements */,
+				4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */,
 				4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */,
 				4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
 			);
-			path = "File Provider ExtensionUI";
+			path = FileProviderExtensionUI;
 			sourceTree = "<group>";
 		};
 		4ADB470324A39AA8004DE115 /* CryptomatorFileProvider */ = {
@@ -742,40 +742,42 @@
 			productReference = 4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4AA621D5249A6A8400A0BCBD /* File Provider Extension */ = {
+		4AA621D5249A6A8400A0BCBD /* FileProviderExtension */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4AA621F5249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "File Provider Extension" */;
+			buildConfigurationList = 4AA621F5249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "FileProviderExtension" */;
 			buildPhases = (
 				4AA621D2249A6A8400A0BCBD /* Sources */,
 				4AA621D3249A6A8400A0BCBD /* Frameworks */,
 				4AA621D4249A6A8400A0BCBD /* Resources */,
 				4A291DB8252373A9006295E6 /* Embed Frameworks */,
+				742595D82552EF5200A8A008 /* Set Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				4A291DB7252373A9006295E6 /* PBXTargetDependency */,
 			);
-			name = "File Provider Extension";
+			name = FileProviderExtension;
 			productName = "File Provider Extension";
-			productReference = 4AA621D6249A6A8400A0BCBD /* File Provider Extension.appex */;
+			productReference = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		4AA621E3249A6A8400A0BCBD /* File Provider ExtensionUI */ = {
+		4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4AA621F2249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "File Provider ExtensionUI" */;
+			buildConfigurationList = 4AA621F2249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "FileProviderExtensionUI" */;
 			buildPhases = (
 				4AA621E0249A6A8400A0BCBD /* Sources */,
 				4AA621E1249A6A8400A0BCBD /* Frameworks */,
 				4AA621E2249A6A8400A0BCBD /* Resources */,
+				742595D92552EFCB00A8A008 /* Set Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "File Provider ExtensionUI";
+			name = FileProviderExtensionUI;
 			productName = "File Provider ExtensionUI";
-			productReference = 4AA621E4249A6A8400A0BCBD /* File Provider ExtensionUI.appex */;
+			productReference = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */ = {
@@ -811,6 +813,7 @@
 				74987489246C726D00CE641A /* Lint With SwiftFormat */,
 				4A965F342523978B002D7CBC /* Embed Frameworks */,
 				4AEE469525263B2E0045DA9F /* Embed App Extensions */,
+				742595D72552EE0000A8A008 /* Set Build Number */,
 			);
 			buildRules = (
 			);
@@ -925,8 +928,8 @@
 				4AE97DC724572E4A00452814 /* CryptomatorUITests */,
 				4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */,
 				4A44EC16246BE8E900950BBF /* GoogleDriveCryptoDecoratorManualTest */,
-				4AA621D5249A6A8400A0BCBD /* File Provider Extension */,
-				4AA621E3249A6A8400A0BCBD /* File Provider ExtensionUI */,
+				4AA621D5249A6A8400A0BCBD /* FileProviderExtension */,
+				4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				4ADB470124A39AA8004DE115 /* CryptomatorFileProvider */,
 				4A2245CF24A5E16300DBA437 /* CryptomatorFileProviderTests */,
 			);
@@ -1024,6 +1027,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
+		742595D72552EE0000A8A008 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\nappBuild=`\"$git\" rev-list --count $branchName`\nif [ $CONFIGURATION = \"Debug\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+		742595D82552EF5200A8A008 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\nappBuild=`\"$git\" rev-list --count $branchName`\nif [ $CONFIGURATION = \"Debug\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
+		};
+		742595D92552EFCB00A8A008 /* Set Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Set Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "git=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\nappBuild=`\"$git\" rev-list --count $branchName`\nif [ $CONFIGURATION = \"Debug\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
 		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1232,12 +1289,12 @@
 		};
 		4AEE469125263B2E0045DA9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4AA621D5249A6A8400A0BCBD /* File Provider Extension */;
+			target = 4AA621D5249A6A8400A0BCBD /* FileProviderExtension */;
 			targetProxy = 4AEE469025263B2E0045DA9F /* PBXContainerItemProxy */;
 		};
 		4AEE469425263B2E0045DA9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 4AA621E3249A6A8400A0BCBD /* File Provider ExtensionUI */;
+			target = 4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */;
 			targetProxy = 4AEE469325263B2E0045DA9F /* PBXContainerItemProxy */;
 		};
 		4AFE6AEE2516278600A4A315 /* PBXTargetDependency */ = {
@@ -1294,7 +1351,10 @@
 		4A2245D924A5E16300DBA437 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorFileProviderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1302,8 +1362,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProviderTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorFileProviderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1312,7 +1374,10 @@
 		4A2245DA24A5E16300DBA437 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorFileProviderTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1320,8 +1385,10 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProviderTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorFileProviderTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1331,15 +1398,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.GoogleDriveCryptoDecoratorManualTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1349,15 +1417,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = GoogleDriveCryptoDecoratorManualTest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.GoogleDriveCryptoDecoratorManualTest;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.GoogleDriveCryptoDecoratorManualTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1481,16 +1550,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
@@ -1501,16 +1574,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorIntegrationTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorIntegrationTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
@@ -1520,17 +1597,21 @@
 		4AA621F3249A6A8400A0BCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "File Provider ExtensionUI/File Provider ExtensionUI.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
-				INFOPLIST_FILE = "File Provider ExtensionUI/Info.plist";
+				CODE_SIGN_ENTITLEMENTS = FileProviderExtensionUI/FileProviderExtensionUI.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				INFOPLIST_FILE = FileProviderExtensionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-ExtensionUI";
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator.FileProviderExtensionUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.setolabs.Cryptomator.FileProviderExtensionUI";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1540,17 +1621,21 @@
 		4AA621F4249A6A8400A0BCBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "File Provider ExtensionUI/File Provider ExtensionUI.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
-				INFOPLIST_FILE = "File Provider ExtensionUI/Info.plist";
+				CODE_SIGN_ENTITLEMENTS = FileProviderExtensionUI/FileProviderExtensionUI.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				INFOPLIST_FILE = FileProviderExtensionUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-ExtensionUI";
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator.FileProviderExtensionUI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.setolabs.Cryptomator.FileProviderExtensionUI";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1560,17 +1645,21 @@
 		4AA621F6249A6A8400A0BCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "File Provider Extension/File_Provider_Extension.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
-				INFOPLIST_FILE = "File Provider Extension/Info.plist";
+				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-Extension";
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator.FileProviderExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.setolabs.Cryptomator.FileProviderExtension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1580,17 +1669,21 @@
 		4AA621F7249A6A8400A0BCBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_ENTITLEMENTS = "File Provider Extension/File_Provider_Extension.entitlements";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
-				INFOPLIST_FILE = "File Provider Extension/Info.plist";
+				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				INFOPLIST_FILE = FileProviderExtension/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "de.skymatic.Cryptomator.File-Provider-Extension";
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator.FileProviderExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.setolabs.Cryptomator.FileProviderExtension";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1602,9 +1695,12 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1616,8 +1712,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProvider;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorFileProvider;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1632,9 +1731,12 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1646,8 +1748,11 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorFileProvider;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorFileProvider;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1661,8 +1766,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
 				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
@@ -1670,8 +1777,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.Cryptomator;
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.setolabs.Cryptomator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1682,8 +1791,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FZ53285T8H;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = AUTOMATIC;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
 				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
@@ -1691,8 +1802,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.Cryptomator;
+				MARKETING_VERSION = 1.6.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.Cryptomator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.setolabs.Cryptomator";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1702,15 +1815,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
@@ -1721,15 +1839,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
@@ -1739,15 +1862,20 @@
 		4AE97DD624572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Cryptomator;
@@ -1757,15 +1885,20 @@
 		4AE97DD724572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.skymatic.CryptomatorUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.setolabs.CryptomatorUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Cryptomator;
@@ -1811,7 +1944,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4AA621F2249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "File Provider ExtensionUI" */ = {
+		4AA621F2249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "FileProviderExtensionUI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4AA621F3249A6A8400A0BCBD /* Debug */,
@@ -1820,7 +1953,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4AA621F5249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "File Provider Extension" */ = {
+		4AA621F5249A6A8400A0BCBD /* Build configuration list for PBXNativeTarget "FileProviderExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4AA621F6249A6A8400A0BCBD /* Debug */,
