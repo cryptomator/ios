@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 import CloudAccessPrivate
-import XCTest
 import CloudAccessPrivateCore
+import XCTest
 @testable import CryptomatorCloudAccess
 @testable import CryptomatorCryptoLib
 @testable import Promises
@@ -38,7 +38,7 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: CryptomatorInteg
 
 	override class func setUp() {
 		// TODO: SetUp Vault
-		let setUpPromise = DecoratorFactory.createNewVault7(delegate: cloudProvider, vaultPath: vaultPath, password: "IntegrationTest").then { decorator in
+		let setUpPromise = DecoratorFactory.createNewVaultFormat7(delegate: cloudProvider, vaultPath: vaultPath, password: "IntegrationTest").then { decorator in
 			setUpProviderForVaultFormat7LocalFileSystem = decorator
 		}.catch { error in
 			print("VaultFormat7LocalFileSystemCloudProviderIntegrationTests setup error: \(error)")
@@ -59,7 +59,7 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: CryptomatorInteg
 		try super.setUpWithError()
 		try FileManager.default.createDirectory(atPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath.path, withIntermediateDirectories: true, attributes: nil)
 		let cloudProvider = LocalFileSystemProvider(rootURL: URL(fileURLWithPath: "/"))
-		DecoratorFactory.createFromExistingVault7(delegate: cloudProvider, vaultPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath, password: "IntegrationTest").then { decorator in
+		DecoratorFactory.createFromExistingVaultFormat7(delegate: cloudProvider, vaultPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath, password: "IntegrationTest").then { decorator in
 			super.provider = decorator
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
