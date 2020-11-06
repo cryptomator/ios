@@ -11,12 +11,12 @@
         }
       },
       {
-        "package": "SwiftBase32",
-        "repositoryURL": "https://github.com/cryptomator/Base32.git",
+        "package": "Base32",
+        "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
           "branch": null,
-          "revision": "aa919f98c6e884945385d76121a4a29ca48afc6f",
-          "version": "0.8.1"
+          "revision": "69fc95dd2e4229a2fd82e14d9358c23b0fd8cf74",
+          "version": "0.8.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/cryptomator/cryptolib-swift.git",
         "state": {
           "branch": null,
-          "revision": "60f944979ba9540cfae6b3153b162120f1e728c3",
-          "version": "0.9.2"
+          "revision": "dddb03020239e136124c8718e26eaa254eb3d2d8",
+          "version": "0.9.3"
         }
       },
       {
