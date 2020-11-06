@@ -1622,7 +1622,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtensionUI/FileProviderExtensionUI.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = AUTOMATIC;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
