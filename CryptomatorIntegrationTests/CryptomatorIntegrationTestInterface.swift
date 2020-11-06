@@ -1030,6 +1030,6 @@ extension CloudItemMetadata: Comparable {
 	}
 
 	public static func == (lhs: CloudItemMetadata, rhs: CloudItemMetadata) -> Bool {
-		return lhs.name == rhs.name && lhs.cloudPath == rhs.cloudPath
+		return lhs.name == rhs.name && lhs.cloudPath == rhs.cloudPath && lhs.itemType == rhs.itemType
 	}
 }
