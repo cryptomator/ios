@@ -1,6 +1,6 @@
 //
 //  FileProvider+Actions.swift
-//  File Provider Extension
+//  FileProviderExtension
 //
 //  Created by Philipp Schmid on 03.07.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.

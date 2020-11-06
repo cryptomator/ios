@@ -1,0 +1,2 @@
+git_url(ENV["SKYMATIC_MATCH_GIT_URL"])
+app_identifier(["com.setolabs.Cryptomator", "com.setolabs.Cryptomator.FileProviderExtension", "com.setolabs.Cryptomator.FileProviderExtensionUI"])
