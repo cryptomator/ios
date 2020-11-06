@@ -30,11 +30,11 @@ class CloudProviderNameCloudProviderIntegrationTests: CryptomatorIntegrationTest
 	override class var setUpProvider: CloudProvider {
 		return setUpProviderForCloudProviderName
 	}
-	
-	static let rootCloudPathForIntegrationTestAtCloudProviderName = CloudPath("/yourPath/")
+	//This is the folder in which all the files and folders required by the integration test are created and in which the individual tests are executed. This can also be the root folder.
+	static let folderWhereTheIntegrationTestFolderIsCreatedAtCloudProviderName = CloudPath("/yourPath/")
 
-	override class var rootCloudPathForIntegrationTest: CloudPath {
-		return rootCloudPathForIntegrationTestAtCloudProviderName
+	override class var folderWhereTheIntegrationTestFolderIsCreated: CloudPath {
+		return folderWhereTheIntegrationTestFolderIsCreatedAtCloudProviderName
 	}
 
 	//If you do not need to initialize anything special once or before the IntegrationTest setup, you can ignore this function.

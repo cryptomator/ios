@@ -29,9 +29,9 @@ class LocalFileSystemProviderIntegrationTests: CryptomatorIntegrationTestInterfa
 		return setUpProviderForLocalFileSystem
 	}
 
-	static let remoteRootURLForIntegrationTestAtLocalFileSystem = CloudPath("/IntegrationTest/")
-	override class var rootCloudPathForIntegrationTest: CloudPath {
-		return remoteRootURLForIntegrationTestAtLocalFileSystem
+	static let folderWhereTheIntegrationTestFolderIsCreatedAtLocalFileSystem = CloudPath("/IntegrationTest/")
+	override class var folderWhereTheIntegrationTestFolderIsCreated: CloudPath {
+		return folderWhereTheIntegrationTestFolderIsCreatedAtLocalFileSystem
 	}
 
 	// If you do not need to initialize anything special once or before the IntegrationTest setup, you can ignore this function.

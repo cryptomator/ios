@@ -78,7 +78,7 @@ public class VaultManager {
 			let cryptor = Cryptor(masterkey: masterkey)
 			let delegate = try providerManager.getProvider(with: delegateAccountUID)
 			let decorator = try VaultFormat7ProviderDecorator(delegate: delegate, vaultPath: vaultPath, cryptor: cryptor)
-			let rootDirPath = try getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
+			let rootDirPath = try VaultManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 			return delegate.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
 				let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 				try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
@@ -217,7 +217,7 @@ public class VaultManager {
 		CryptomatorKeychain.vault.set(vaultUID, value: encodedEntry)
 	}
 
-	func getRootDirectoryPath(for cryptor: Cryptor, vaultPath: CloudPath) throws -> CloudPath {
+	static func getRootDirectoryPath(for cryptor: Cryptor, vaultPath: CloudPath) throws -> CloudPath {
 		let digest = try cryptor.encryptDirId(Data())
 		let i = digest.index(digest.startIndex, offsetBy: 2)
 		return vaultPath.appendingPathComponent("d/\(digest[..<i])/\(digest[i...])")

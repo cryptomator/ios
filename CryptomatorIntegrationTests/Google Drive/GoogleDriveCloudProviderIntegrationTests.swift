@@ -31,9 +31,9 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		return setUpProviderForGoogleDrive
 	}
 
-	static let rootCloudPathForIntegrationTestAtGoogleDrive = CloudPath("/iOS-IntegrationTest/plain/")
-	override class var rootCloudPathForIntegrationTest: CloudPath {
-		return rootCloudPathForIntegrationTestAtGoogleDrive
+	static let folderWhereTheIntegrationTestFolderIsCreatedAtGoogleDrive = CloudPath("/iOS-IntegrationTest/plain/")
+	override class var folderWhereTheIntegrationTestFolderIsCreated: CloudPath {
+		return folderWhereTheIntegrationTestFolderIsCreatedAtGoogleDrive
 	}
 
 	private var credential: GoogleDriveCredential!

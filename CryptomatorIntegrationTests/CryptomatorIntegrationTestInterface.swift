@@ -21,8 +21,12 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		fatalError("Not implemented")
 	}
 
-	class var rootCloudPathForIntegrationTest: CloudPath {
+	class var folderWhereTheIntegrationTestFolderIsCreated: CloudPath {
 		fatalError("Not implemented")
+	}
+
+	static var rootCloudPathForIntegrationTest: CloudPath {
+		folderWhereTheIntegrationTestFolderIsCreated.appendingPathComponent("/IntegrationTest/")
 	}
 
 	// MARK: Dirty Hack to notify about error in one time setup

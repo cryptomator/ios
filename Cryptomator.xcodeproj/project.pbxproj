@@ -55,6 +55,7 @@
 		4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCredential.swift */; };
 		4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */; };
 		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
+		4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A93916525555C530072CEC7 /* DecoratorFactory.swift */; };
 		4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */; };
 		4A9BEBF32510AC8300294FE0 /* CloudPath+ExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */; };
 		4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */; };
@@ -261,6 +262,7 @@
 		4A837C75248994FD00223222 /* MockDropboxCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCredential.swift; sourceTree = "<group>"; };
 		4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		4A93916525555C530072CEC7 /* DecoratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorFactory.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
 		4A9BEBF22510AC8300294FE0 /* CloudPath+ExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+ExtensionTests.swift"; sourceTree = "<group>"; };
 		4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxLoginViewController.swift; sourceTree = "<group>"; };
@@ -442,6 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				4A30FD2F24A20D3A00E1576C /* VaultFormat7 */,
+				4A93916525555C530072CEC7 /* DecoratorFactory.swift */,
 			);
 			path = CryptoDecorator;
 			sourceTree = "<group>";
@@ -1172,6 +1175,7 @@
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
 				4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */,
 				4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */,
+				4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */,
 				4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
 				4AE3DD05253498AF00433096 /* WebDAVCloudProviderIntegrationTests.swift in Sources */,

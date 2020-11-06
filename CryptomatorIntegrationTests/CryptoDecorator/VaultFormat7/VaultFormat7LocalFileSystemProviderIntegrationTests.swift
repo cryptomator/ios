@@ -7,10 +7,11 @@
 //
 import CloudAccessPrivate
 import XCTest
+import CloudAccessPrivateCore
 @testable import CryptomatorCloudAccess
 @testable import CryptomatorCryptoLib
 @testable import Promises
-class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
+class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: CryptomatorIntegrationTestInterface {
 	static var setUpErrorForVaultFormat7LocalFileSystem: Error?
 	override class var classSetUpError: Error? {
 		get {
@@ -30,14 +31,14 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: IntegrationTestW
 		return setUpProviderForVaultFormat7LocalFileSystem
 	}
 
-	static let rootCloudPathForIntegrationTestAtVaultFormat7LocalFileSystem = CloudPath("/")
-	override class var rootCloudPathForIntegrationTest: CloudPath {
-		return rootCloudPathForIntegrationTestAtVaultFormat7LocalFileSystem
+	static let folderWhereTheIntegrationTestFolderIsCreatedAtVaultFormat7LocalFileSystem = CloudPath("/")
+	override class var folderWhereTheIntegrationTestFolderIsCreated: CloudPath {
+		return folderWhereTheIntegrationTestFolderIsCreatedAtVaultFormat7LocalFileSystem
 	}
 
 	override class func setUp() {
 		// TODO: SetUp Vault
-		let setUpPromise = VaultFormat7ProviderDecorator.createNew(delegate: cloudProvider, vaultPath: vaultPath, password: "IntegrationTest").then { decorator in
+		let setUpPromise = DecoratorFactory.createNewVault7(delegate: cloudProvider, vaultPath: vaultPath, password: "IntegrationTest").then { decorator in
 			setUpProviderForVaultFormat7LocalFileSystem = decorator
 		}.catch { error in
 			print("VaultFormat7LocalFileSystemCloudProviderIntegrationTests setup error: \(error)")
@@ -58,7 +59,7 @@ class VaultFormat7LocalFileSystemCloudProviderIntegrationTests: IntegrationTestW
 		try super.setUpWithError()
 		try FileManager.default.createDirectory(atPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath.path, withIntermediateDirectories: true, attributes: nil)
 		let cloudProvider = LocalFileSystemProvider(rootURL: URL(fileURLWithPath: "/"))
-		VaultFormat7ProviderDecorator.createFromExisting(delegate: cloudProvider, vaultPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath, password: "IntegrationTest").then { decorator in
+		DecoratorFactory.createFromExistingVault7(delegate: cloudProvider, vaultPath: VaultFormat7LocalFileSystemCloudProviderIntegrationTests.vaultPath, password: "IntegrationTest").then { decorator in
 			super.provider = decorator
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
