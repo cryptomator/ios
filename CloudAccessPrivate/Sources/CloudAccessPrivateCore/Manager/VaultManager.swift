@@ -209,6 +209,9 @@ public class VaultManager {
 		VaultManager.cachedDecorators[vaultUID] = nil
 	}
 
+	/**
+	- Postcondition: The masterkey is stored in the keychain with a ScryptCostParameter, which allows the usage in the FileProviderExtension (15mb Memory Limit). Additionally: storePasswordInKeychain <=> the password for the masterkey is also stored in the keychain.
+	*/
 	func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyDataForFileProvider = try masterkey.exportEncrypted(password: password, pepper: [UInt8](), scryptCostParam: VaultManager.scryptCostParamForFileProvider)
 		let keychainEntry = VaultKeychainEntry(masterkeyData: masterkeyDataForFileProvider, password: storePasswordInKeychain ? password : nil)
@@ -221,10 +224,6 @@ public class VaultManager {
 		let digest = try cryptor.encryptDirId(Data())
 		let i = digest.index(digest.startIndex, offsetBy: 2)
 		return vaultPath.appendingPathComponent("d/\(digest[..<i])/\(digest[i...])")
-	}
-
-	func createNewMasterkey() throws -> Masterkey {
-		return try Masterkey.createNew()
 	}
 
 	func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {

@@ -30,6 +30,7 @@
 		4A30A6D924B33568002CABEB /* UploadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30A6D824B33568002CABEB /* UploadTaskManager.swift */; };
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
+		4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */; };
 		4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */; };
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
 		4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */; };
@@ -218,6 +219,7 @@
 		4A30A6D824B33568002CABEB /* UploadTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManager.swift; sourceTree = "<group>"; };
 		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
+		4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
 		4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
 		4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
@@ -429,6 +431,15 @@
 			path = VaultFormat7;
 			sourceTree = "<group>";
 		};
+		4A47746B2556D7C000718D7F /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */,
+				4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +480,7 @@
 				4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */,
 				74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */,
 				4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */,
+				4A47746B2556D7C000718D7F /* Keychain */,
 				4A30FD2E24A20D2A00E1576C /* CryptoDecorator */,
 				4A837C772489950100223222 /* Dropbox */,
 				4A07092A247BC11D005ED18E /* Extensions */,
@@ -587,7 +599,6 @@
 			isa = PBXGroup;
 			children = (
 				4AE3DD04253498AF00433096 /* WebDAVCloudProviderIntegrationTests.swift */,
-				4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */,
 			);
 			path = WebDAV;
 			sourceTree = "<group>";
@@ -1101,6 +1112,7 @@
 				4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */,
 				4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */,
 				4AE3DD05253498AF00433096 /* WebDAVCloudProviderIntegrationTests.swift in Sources */,
+				4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */,
 				4AE3DD122534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift in Sources */,
 				4A9D3ED925272A4E000811B6 /* MockGoogleDriveAuthenticator.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,

@@ -24,10 +24,6 @@ class VaultManagerMock: VaultManager {
 		return
 	}
 
-	override func createNewMasterkey() throws -> Masterkey {
-		return Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
-	}
-
 	override func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {
 		return try masterkey.exportEncrypted(password: password, scryptCostParam: 2)
 	}
@@ -113,7 +109,7 @@ class VaultManagerTests: XCTestCase {
 			XCTFail("Could not convert manager to VaultManagerMock")
 			return
 		}
-		let masterkey = try managerMock.createNewMasterkey()
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
 		cloudProviderMock.filesToDownload[vaultPath.path] = try managerMock.exportMasterkey(masterkey, password: "pw")
 		let vaultUID = UUID().uuidString
 		manager.createFromExisting(withVaultID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: true).then { [self] in
