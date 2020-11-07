@@ -16,6 +16,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
+			// MARK: Handle error
+
+			print("dbURL is nil")
+			return false
+		}
+		do {
+			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
+			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
+		} catch {
+			// MARK: Handle error
+
+			print("Error while initializing the CryptomatorDatabase: \(error)")
+			return false
+		}
 		return true
 	}
 
