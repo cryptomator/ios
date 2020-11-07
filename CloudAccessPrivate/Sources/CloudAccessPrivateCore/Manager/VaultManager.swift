@@ -204,7 +204,7 @@ public class VaultManager {
 	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`.
 	 */
 	public func removeVault(withUID vaultUID: String) throws {
-		CryptomatorKeychain.vault.delete(vaultUID)
+		try CryptomatorKeychain.vault.delete(vaultUID)
 		try vaultAccountManager.removeAccount(with: vaultUID)
 		VaultManager.cachedDecorators[vaultUID] = nil
 	}
@@ -214,7 +214,7 @@ public class VaultManager {
 		let keychainEntry = VaultKeychainEntry(masterkeyData: masterkeyDataForFileProvider, password: storePasswordInKeychain ? password : nil)
 		let jsonEnccoder = JSONEncoder()
 		let encodedEntry = try jsonEnccoder.encode(keychainEntry)
-		CryptomatorKeychain.vault.set(vaultUID, value: encodedEntry)
+		try CryptomatorKeychain.vault.set(vaultUID, value: encodedEntry)
 	}
 
 	static func getRootDirectoryPath(for cryptor: Cryptor, vaultPath: CloudPath) throws -> CloudPath {

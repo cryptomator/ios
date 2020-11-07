@@ -7,6 +7,9 @@
 //
 
 import Foundation
+enum CryptomatorKeychainError: Error {
+	case unhandledError(status: OSStatus)
+}
 class CryptomatorKeychain {
 	let service: String
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
@@ -29,14 +32,16 @@ class CryptomatorKeychain {
 		return queryDict as CFDictionary
 	}
 
-	func set(_ key: String, value: Data) -> Bool {
+	func set(_ key: String, value: Data) throws {
 		let query = queryWithDict([
 			kSecAttrAccount as String: key as AnyObject,
 			kSecValueData as String: value as AnyObject
 		])
-
 		SecItemDelete(query)
-		return SecItemAdd(query, nil) == noErr
+		let status = SecItemAdd(query, nil)
+		guard status == noErr else {
+			throw CryptomatorKeychainError.unhandledError(status: status)
+		}
 	}
 
 	func getAsData(_ key: String) -> Data? {
@@ -56,11 +61,13 @@ class CryptomatorKeychain {
 		return nil
 	}
 
-	func delete(_ key: String) -> Bool {
+	func delete(_ key: String) throws {
 		let query = queryWithDict([
 			kSecAttrAccount as String: key as AnyObject
 		])
-
-		return SecItemDelete(query) == noErr
+		let status = SecItemDelete(query)
+		guard status == noErr else {
+			throw CryptomatorKeychainError.unhandledError(status: status)
+		}
 	}
 }

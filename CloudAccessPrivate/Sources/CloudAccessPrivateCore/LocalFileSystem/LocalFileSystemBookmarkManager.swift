@@ -15,12 +15,12 @@ public class LocalFileSystemBookmarkManager {
 		var isStale = false
 		let url = try URL(resolvingBookmarkData: bookmarkData, bookmarkDataIsStale: &isStale)
 		if isStale {
-			try _ = saveBookmarkForRootURL(url, for: accountUID)
+			try saveBookmarkForRootURL(url, for: accountUID)
 		}
 		return url
 	}
 
-	public static func saveBookmarkForRootURL(_ url: URL, for accountUID: String) throws -> Bool {
+	public static func saveBookmarkForRootURL(_ url: URL, for accountUID: String) throws {
 		let stopAccess = url.startAccessingSecurityScopedResource()
 		defer {
 			if stopAccess {
@@ -28,10 +28,10 @@ public class LocalFileSystemBookmarkManager {
 			}
 		}
 		let bookmarkData = try url.bookmarkData(options: .minimalBookmark, includingResourceValuesForKeys: nil, relativeTo: nil)
-		return CryptomatorKeychain.localFileSystem.set(accountUID, value: bookmarkData)
+		try CryptomatorKeychain.localFileSystem.set(accountUID, value: bookmarkData)
 	}
 
-	public static func removeBookmarkedRootURL(for accountUID: String) -> Bool {
-		return CryptomatorKeychain.localFileSystem.delete(accountUID)
+	public static func removeBookmarkedRootURL(for accountUID: String) throws{
+		try CryptomatorKeychain.localFileSystem.delete(accountUID)
 	}
 }

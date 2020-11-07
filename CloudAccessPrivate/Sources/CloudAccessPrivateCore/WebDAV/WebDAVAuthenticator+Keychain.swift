@@ -13,16 +13,14 @@ extension WebDAVAuthenticator {
 		return CryptomatorKeychain.webDAV.get(accountUID)
 	}
 
-	public static func saveCredentialToKeychain(_ credential: WebDAVCredential, with accountUID: String) -> Bool {
+	public static func saveCredentialToKeychain(_ credential: WebDAVCredential, with accountUID: String) throws {
 		let jsonEnccoder = JSONEncoder()
-		guard let encodedCredential = try? jsonEnccoder.encode(credential) else {
-			return false
-		}
-		return CryptomatorKeychain.webDAV.set(accountUID, value: encodedCredential)
+		let encodedCredential = try jsonEnccoder.encode(credential)
+		try CryptomatorKeychain.webDAV.set(accountUID, value: encodedCredential)
 	}
 
-	public static func removeCredentialFromKeychain(with accountUID: String) -> Bool {
-		return CryptomatorKeychain.webDAV.delete(accountUID)
+	public static func removeCredentialFromKeychain(with accountUID: String) throws {
+		try CryptomatorKeychain.webDAV.delete(accountUID)
 	}
 }
 
