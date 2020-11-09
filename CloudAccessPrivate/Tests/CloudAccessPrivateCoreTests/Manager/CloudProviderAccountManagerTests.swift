@@ -13,16 +13,24 @@ import XCTest
 
 class CloudProviderAccountManagerTests: XCTestCase {
 	var accountManager: CloudProviderAccountManager!
-
+	var tmpDir: URL!
+	
 	override func setUpWithError() throws {
-		let dbQueue = DatabaseQueue()
-		try dbQueue.write { db in
+		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
+		let dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
+		try dbPool.write { db in
 			try db.create(table: CloudProviderAccount.databaseTableName) { table in
 				table.column(CloudProviderAccount.accountUIDKey, .text).primaryKey()
 				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
 			}
 		}
-		accountManager = CloudProviderAccountManager(dbQueue: dbQueue)
+		accountManager = CloudProviderAccountManager(dbPool: dbPool)
+	}
+
+	override func tearDownWithError() throws {
+		accountManager = nil
+		try FileManager.default.removeItem(at: tmpDir)
 	}
 
 	func testSaveAccount() throws {

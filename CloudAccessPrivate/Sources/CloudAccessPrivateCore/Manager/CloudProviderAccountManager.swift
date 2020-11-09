@@ -30,14 +30,15 @@ public enum CloudProviderAccountError: Error {
 }
 
 public class CloudProviderAccountManager {
-	private let dbQueue: DatabaseQueue
+	public static let shared = CloudProviderAccountManager(dbPool: CryptomatorDatabase.shared.dbPool)
+	private let dbPool: DatabasePool
 
-	public init(dbQueue: DatabaseQueue) {
-		self.dbQueue = dbQueue
+	init(dbPool: DatabasePool) {
+		self.dbPool = dbPool
 	}
 
 	public func getCloudProviderType(for accountUID: String) throws -> CloudProviderType {
-		let cloudAccount = try dbQueue.read { db in
+		let cloudAccount = try dbPool.read { db in
 			return try CloudProviderAccount.fetchOne(db, key: accountUID)
 		}
 		guard let providerType = cloudAccount?.cloudProviderType else {
@@ -47,7 +48,7 @@ public class CloudProviderAccountManager {
 	}
 
 	public func getAllAccountUIDs(for type: CloudProviderType) throws -> [String] {
-		let accounts: [CloudProviderAccount] = try dbQueue.read { db in
+		let accounts: [CloudProviderAccount] = try dbPool.read { db in
 			return try CloudProviderAccount
 				.filter(Column("cloudProviderType") == type)
 				.fetchAll(db)
@@ -56,13 +57,13 @@ public class CloudProviderAccountManager {
 	}
 
 	public func saveNewAccount(_ account: CloudProviderAccount) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			try account.save(db)
 		}
 	}
 
 	public func removeAccount(with accountUID: String) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			guard try CloudProviderAccount.deleteOne(db, key: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}

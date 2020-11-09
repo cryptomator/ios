@@ -20,7 +20,7 @@ public class CryptomatorDatabase {
 		return sharedContainer?.appendingPathComponent("main.sqlite")
 	}
 
-	private let dbPool: DatabasePool
+	let dbPool: DatabasePool
 
 	public init(_ dbPool: DatabasePool) throws {
 		self.dbPool = dbPool

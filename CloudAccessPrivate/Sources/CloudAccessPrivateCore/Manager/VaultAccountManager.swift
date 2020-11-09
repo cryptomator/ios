@@ -31,20 +31,21 @@ extension VaultAccount: PersistableRecord {
 }
 
 public class VaultAccountManager {
-	private let dbQueue: DatabaseQueue
+	public static let shared = VaultAccountManager(dbPool: CryptomatorDatabase.shared.dbPool)
+	private let dbPool: DatabasePool
 
-	public init(dbQueue: DatabaseQueue) {
-		self.dbQueue = dbQueue
+	public init(dbPool: DatabasePool) {
+		self.dbPool = dbPool
 	}
 
 	public func saveNewAccount(_ account: VaultAccount) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			try account.save(db)
 		}
 	}
 
 	public func removeAccount(with accountUID: String) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			guard try VaultAccount.deleteOne(db, key: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
@@ -52,7 +53,7 @@ public class VaultAccountManager {
 	}
 
 	public func getAccount(with vaultUID: String) throws -> VaultAccount {
-		let fetchedAccount = try dbQueue.read { db in
+		let fetchedAccount = try dbPool.read { db in
 			return try VaultAccount.fetchOne(db, key: vaultUID)
 		}
 		guard let account = fetchedAccount else {
