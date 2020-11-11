@@ -10,9 +10,10 @@ import CryptomatorCloudAccess
 import Foundation
 public class CloudProviderManager {
 	static var cachedProvider = [String: CloudProvider]()
+	public static let shared = CloudProviderManager(accountManager: CloudProviderAccountManager.shared)
 	let accountManager: CloudProviderAccountManager
 
-	public init(accountManager: CloudProviderAccountManager) {
+	init(accountManager: CloudProviderAccountManager) {
 		self.accountManager = accountManager
 	}
 

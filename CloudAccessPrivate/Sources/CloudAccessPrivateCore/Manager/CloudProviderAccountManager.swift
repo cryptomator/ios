@@ -12,8 +12,13 @@ public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord {
 	public static let databaseTableName = "cloudProviderAccounts"
 	static let accountUIDKey = "accountUID"
 	static let cloudProviderTypeKey = "cloudProviderType"
-	let accountUID: String
+	public let accountUID: String
 	let cloudProviderType: CloudProviderType
+
+	public init(accountUID: String, cloudProviderType: CloudProviderType) {
+		self.accountUID = accountUID
+		self.cloudProviderType = cloudProviderType
+	}
 }
 
 extension CloudProviderAccount: PersistableRecord {

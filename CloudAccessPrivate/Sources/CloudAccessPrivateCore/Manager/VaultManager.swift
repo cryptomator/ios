@@ -51,12 +51,13 @@ struct VaultKeychainEntry: Codable {
 public class VaultManager {
 	static let scryptCostParamForFileProvider = 2 // MARK: Change CostParam!
 
+	public static let shared = VaultManager(providerManager: CloudProviderManager.shared, vaultAccountManager: VaultAccountManager.shared)
 	static let updateCheckInterval: TimeInterval = 3600
 	static var cachedDecorators = [String: CloudProvider]()
 	let providerManager: CloudProviderManager
 	let vaultAccountManager: VaultAccountManager
 
-	public init(providerManager: CloudProviderManager, vaultAccountManager: VaultAccountManager) {
+	init(providerManager: CloudProviderManager, vaultAccountManager: VaultAccountManager) {
 		self.providerManager = providerManager
 		self.vaultAccountManager = vaultAccountManager
 	}
@@ -170,12 +171,12 @@ public class VaultManager {
 	/**
 	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
 	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
-	 - Precondition: The masterkey file `masterkey.cryptomator` relative to `vaultPath` does exist in the cloud
+	 - Precondition: The masterkey file at `masterkeyPath` does exist in the cloud
 	 - Postcondition: The masterkey is stored in the keychain with a ScryptCostParameter, which allows the usage in the FileProviderExtension (15mb Memory Limit). Additionally: storePasswordInKeychain <=> the password for the masterkey is also stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and `vaultPath` are stored as VaultAccount in the database
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
 	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
 	 */
-	public func createFromExisting(withVaultID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	public func createFromExisting(withVaultID vaultUID: String, delegateAccountUID: String, masterkeyPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		do {
 			guard VaultManager.cachedDecorators[vaultUID] == nil else {
 				throw VaultManagerError.vaultAlreadyExists
@@ -183,8 +184,9 @@ public class VaultManager {
 			let delegate = try providerManager.getProvider(with: delegateAccountUID)
 			let tmpDirURL = FileManager.default.temporaryDirectory
 			let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-			return delegate.downloadFile(from: vaultPath, to: localMasterkeyURL).then {
+			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then {
 				let masterkey = try Masterkey.createFromMasterkeyFile(fileURL: localMasterkeyURL, password: password)
+				let vaultPath = masterkeyPath.deletingLastPathComponent()
 				_ = try self.createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID)
 				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: storePasswordInKeychain)
@@ -210,8 +212,8 @@ public class VaultManager {
 	}
 
 	/**
-	- Postcondition: The masterkey is stored in the keychain with a ScryptCostParameter, which allows the usage in the FileProviderExtension (15mb Memory Limit). Additionally: storePasswordInKeychain <=> the password for the masterkey is also stored in the keychain.
-	*/
+	 - Postcondition: The masterkey is stored in the keychain with a ScryptCostParameter, which allows the usage in the FileProviderExtension (15mb Memory Limit). Additionally: storePasswordInKeychain <=> the password for the masterkey is also stored in the keychain.
+	 */
 	func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyDataForFileProvider = try masterkey.exportEncrypted(password: password, pepper: [UInt8](), scryptCostParam: VaultManager.scryptCostParamForFileProvider)
 		let keychainEntry = VaultKeychainEntry(masterkeyData: masterkeyDataForFileProvider, password: storePasswordInKeychain ? password : nil)

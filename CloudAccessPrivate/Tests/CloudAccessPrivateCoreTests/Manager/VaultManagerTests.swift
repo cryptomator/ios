@@ -91,6 +91,10 @@ class VaultManagerTests: XCTestCase {
 			let masterkey = try Masterkey.createFromMasterkeyFile(jsonData: masterkeyData, password: "pw")
 
 			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
+			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+				XCTFail("VaultDecorator has wrong type")
+				return
+			}
 			let vaultAccount = try accountManager.getAccount(with: vaultUID)
 			XCTAssertEqual(vaultUID, vaultAccount.vaultUID)
 			XCTAssertEqual(delegateAccountUID, vaultAccount.delegateAccountUID)
@@ -115,15 +119,20 @@ class VaultManagerTests: XCTestCase {
 		try providerAccountManager.saveNewAccount(account)
 		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/ExistingVault/")
+		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		guard let managerMock = manager as? VaultManagerMock else {
 			XCTFail("Could not convert manager to VaultManagerMock")
 			return
 		}
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
-		cloudProviderMock.filesToDownload[vaultPath.path] = try managerMock.exportMasterkey(masterkey, password: "pw")
+		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, password: "pw")
 		let vaultUID = UUID().uuidString
-		manager.createFromExisting(withVaultID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: true).then { [self] in
+		manager.createFromExisting(withVaultID: vaultUID, delegateAccountUID: delegateAccountUID, masterkeyPath: masterkeyPath, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
+			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+				XCTFail("VaultDecorator has wrong type")
+				return
+			}
 			let vaultAccount = try accountManager.getAccount(with: vaultUID)
 			XCTAssertEqual(vaultUID, vaultAccount.vaultUID)
 			XCTAssertEqual(delegateAccountUID, vaultAccount.delegateAccountUID)
