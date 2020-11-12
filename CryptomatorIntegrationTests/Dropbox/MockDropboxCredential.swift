@@ -16,7 +16,7 @@ class MockDropboxCredential: DropboxCredential {
 	}
 
 	override func setAuthorizedClient() {
-		let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: nil)
 		authorizedClient = DBUserClient(accessToken: IntegrationTestSecrets.dropboxAccessToken, transport: config)
 	}
 
