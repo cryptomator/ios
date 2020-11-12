@@ -9,4 +9,5 @@
 import Foundation
 public struct CryptomatorConstants {
 	public static let appGroupName = "group.com.setolabs.Cryptomator"
+	public static let mainAppBundleId = "com.setolabs.Cryptomator"
 }

@@ -10,8 +10,10 @@ import Foundation
 enum CryptomatorKeychainError: Error {
 	case unhandledError(status: OSStatus)
 }
+
 class CryptomatorKeychain {
 	let service: String
+	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
 	static let vault = CryptomatorKeychain(service: "cryptomatorVault")
@@ -21,13 +23,11 @@ class CryptomatorKeychain {
 	}
 
 	func queryWithDict(_ query: [String: AnyObject]) -> CFDictionary {
-		let bundleId = Bundle.main.bundleIdentifier ?? ""
 		var queryDict = query
 
 		queryDict[kSecClass as String] = kSecClassGenericPassword
-		queryDict[kSecAttrService as String] = "\(bundleId).\(service)" as AnyObject?
+		queryDict[kSecAttrService as String] = "\(CryptomatorKeychain.bundleId).\(service)" as AnyObject?
 		queryDict[kSecAttrAccessible as String] = kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-		queryDict[kSecAttrAccessGroup as String] = "YZQJQUHA3L.com.setolabs.Cryptomator" as AnyObject
 
 		return queryDict as CFDictionary
 	}
