@@ -15,9 +15,12 @@ class VaultManagerKeychainTests: XCTestCase {
 	var accountManager: VaultAccountManager!
 	var providerManager: CloudProviderManager!
 	var providerAccountManager: CloudProviderAccountManager!
+	var tmpDir: URL!
 	override func setUpWithError() throws {
-		let dbQueue = DatabaseQueue()
-		try dbQueue.write { db in
+		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
+		let dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
+		try dbPool.write { db in
 			try db.create(table: CloudProviderAccount.databaseTableName) { table in
 				table.column(CloudProviderAccount.accountUIDKey, .text).primaryKey()
 				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
@@ -29,10 +32,14 @@ class VaultManagerKeychainTests: XCTestCase {
 				table.column(VaultAccount.lastUpToDateCheckKey, .date).notNull()
 			}
 		}
-		providerAccountManager = CloudProviderAccountManager(dbQueue: dbQueue)
+		providerAccountManager = CloudProviderAccountManager(dbPool: dbPool)
 		providerManager = CloudProviderManager(accountManager: providerAccountManager)
-		accountManager = VaultAccountManager(dbQueue: dbQueue)
+		accountManager = VaultAccountManager(dbPool: dbPool)
 		manager = VaultManager(providerManager: providerManager, vaultAccountManager: accountManager)
+	}
+
+	override func tearDownWithError() throws {
+		try FileManager.default.removeItem(at: tmpDir)
 	}
 
 	func testSaveFileProviderConformMasterkeyToKeychainNoPWStored() throws {
