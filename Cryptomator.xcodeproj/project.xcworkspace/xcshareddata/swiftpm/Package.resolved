@@ -50,8 +50,8 @@
         "package": "ObjectiveDropboxOfficial",
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
         "state": {
-          "branch": "master",
-          "revision": "294f053d12bbae327754cb4cba578a362ed9a6b2",
+          "branch": "main",
+          "revision": "375a67dd299548693527f15a3a3df14f44eff47d",
           "version": null
         }
       },

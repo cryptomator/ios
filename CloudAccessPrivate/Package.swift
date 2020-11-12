@@ -25,7 +25,7 @@ let package = Package(
 		.package(url: "https://github.com/google/GTMAppAuth.git", .upToNextMinor(from: "1.1.0")),
 		.package(url: "https://github.com/openid/AppAuth-iOS.git", .upToNextMinor(from: "1.4.0")),
 		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "0.9.1")),
-		.package(url: "https://github.com/phil1995/dropbox-sdk-obj-c.git", .branch("master")),
+		.package(url: "https://github.com/phil1995/dropbox-sdk-obj-c.git", .branch("main")),
 		.package(url: "https://github.com/google/google-api-objectivec-client-for-rest.git", .upToNextMinor(from: "1.4.3"))
 
 	],

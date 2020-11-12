@@ -12,7 +12,7 @@ public class DropboxClientSetup {
 	public static func oneTimeSetup() {
 		if firstTimeInit {
 			firstTimeInit = false
-			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+			let config = DBTransportDefaultConfig(appKey: CloudAccessSecrets.dropboxAppKey, appSecret: nil, userAgent: nil, asMemberId: nil, delegateQueue: nil, forceForegroundSession: false, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId)
 			DBClientsManager.setup(withTransport: config)
 		}
 	}
