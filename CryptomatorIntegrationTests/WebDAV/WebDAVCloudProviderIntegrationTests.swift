@@ -39,7 +39,7 @@ class WebDAVCloudProviderIntegrationTests: IntegrationTestWithAuthentication {
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		let client = WebDAVClient(credential: IntegrationTestSecrets.webDAVCredential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		let client = WebDAVCloudProviderIntegrationTests.setUpClientForWebDAV
 		super.provider = WebDAVProvider(with: client)
 	}
 

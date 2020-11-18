@@ -42,6 +42,7 @@
 		4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD624C835270048E08F /* ReparentTaskManager.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A717CDB24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */; };
+		4A75F83925656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
 		4A797F9124AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */; };
 		4A797F9324AC75DC007DDBE1 /* CachedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */; };
@@ -235,6 +236,7 @@
 		4A717CD624C835270048E08F /* ReparentTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManager.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMoveItemTests.swift; sourceTree = "<group>"; };
+		4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7DropboxIntegrationTests.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTests.swift; sourceTree = "<group>"; };
 		4A797F9224AC75DC007DDBE1 /* CachedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManager.swift; sourceTree = "<group>"; };
@@ -420,9 +422,9 @@
 		4A30FD2E24A20D2A00E1576C /* CryptoDecorator */ = {
 			isa = PBXGroup;
 			children = (
-				4A30FD2F24A20D3A00E1576C /* VaultFormat7 */,
 				4A93916525555C530072CEC7 /* DecoratorFactory.swift */,
 				4ACA06AF2555BB98008F83C1 /* VaultFormat6 */,
+				4A30FD2F24A20D3A00E1576C /* VaultFormat7 */,
 			);
 			path = CryptoDecorator;
 			sourceTree = "<group>";
@@ -431,6 +433,7 @@
 			isa = PBXGroup;
 			children = (
 				4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */,
+				4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */,
 			);
 			path = VaultFormat7;
 			sourceTree = "<group>";
@@ -1138,6 +1141,7 @@
 			files = (
 				4A9BEBF32510AC8300294FE0 /* CloudPath+ExtensionTests.swift in Sources */,
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
+				4A75F83925656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift in Sources */,
 				4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */,
 				4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */,
 				4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */,

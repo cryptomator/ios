@@ -43,6 +43,7 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 		credential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: "Single Test")
 		super.provider = GoogleDriveCloudProvider(with: credential)
 	}
+
 	override func tearDown() {
 		credential?.deauthenticate()
 	}

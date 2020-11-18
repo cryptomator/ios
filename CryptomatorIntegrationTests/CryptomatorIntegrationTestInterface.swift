@@ -215,7 +215,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		}
 		return all(cloudFiles.map { provider.uploadFile(from: localCurrentTestTempDirectory.appendPathComponents(from: URL(fileURLWithPath: $0.path)), to: CloudPath($0.path), replaceExisting: false) }).then { _ in
 			all(cloudFolders.map { provider.createFolder(at: $0) })
-		}.then{ _ in
+		}.then { _ in
 			return Promise(())
 		}
 	}
