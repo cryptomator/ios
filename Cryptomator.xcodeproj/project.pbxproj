@@ -60,6 +60,10 @@
 		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
 		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
 		4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */; };
+		4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */; };
+		4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */; };
+		4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */; };
+		4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */; };
 		4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */; };
 		4ABC08D3250D1BE700E3CEDC /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */; };
 		4ABC08D5250D1C6100E3CEDC /* DeletionTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */; };
@@ -82,7 +86,6 @@
 		4AE3DD202534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE3DD1F2534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift */; };
 		4AE564302541F17400D64237 /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
-		4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAC24572E4900452814 /* SceneDelegate.swift */; };
 		4AE97DAF24572E4900452814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAE24572E4900452814 /* ViewController.swift */; };
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
 		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
@@ -94,7 +97,6 @@
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
-		746815482475605E00038679 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB024572E4900452814 /* Main.storyboard */; };
 		74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */; };
 /* End PBXBuildFile section */
 
@@ -258,6 +260,10 @@
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8F0A924BC50BC002F58CA /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
+		4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBrowserViewController.swift; sourceTree = "<group>"; };
+		4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBrowserViewModel.swift; sourceTree = "<group>"; };
+		4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallViewController.swift; sourceTree = "<group>"; };
+		4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallerViewModel.swift; sourceTree = "<group>"; };
 		4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
 		4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTask.swift; sourceTree = "<group>"; };
 		4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManager.swift; sourceTree = "<group>"; };
@@ -283,9 +289,7 @@
 		4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVKeychainTests.swift; sourceTree = "<group>"; };
 		4AE97DA824572E4900452814 /* Cryptomator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptomator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DAA24572E4900452814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4AE97DAC24572E4900452814 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		4AE97DAE24572E4900452814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4AE97DB124572E4900452814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4AE97DB324572E4A00452814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AE97DB624572E4A00452814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4AE97DB824572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -566,6 +570,15 @@
 			path = FileProviderExtensionUI;
 			sourceTree = "<group>";
 		};
+		4AAA073D255B00900085AA4E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */,
+				4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		4ACA06AF2555BB98008F83C1 /* VaultFormat6 */ = {
 			isa = PBXGroup;
 			children = (
@@ -609,12 +622,13 @@
 				4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */,
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
-				4AE97DAC24572E4900452814 /* SceneDelegate.swift */,
-				4AE97DAE24572E4900452814 /* ViewController.swift */,
 				4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */,
+				4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */,
+				4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */,
+				4AE97DAE24572E4900452814 /* ViewController.swift */,
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
-				4AE97DB024572E4900452814 /* Main.storyboard */,
+				4AAA073D255B00900085AA4E /* ViewModel */,
 			);
 			path = Cryptomator;
 			sourceTree = "<group>";
@@ -711,6 +725,7 @@
 				4AA621D4249A6A8400A0BCBD /* Resources */,
 				4A291DB8252373A9006295E6 /* Embed Frameworks */,
 				742595D82552EF5200A8A008 /* Set Build Number */,
+				4AA0DCEE255C027900D530B4 /* Test */,
 			);
 			buildRules = (
 			);
@@ -935,7 +950,6 @@
 			files = (
 				746815472475605E00038679 /* LaunchScreen.storyboard in Resources */,
 				746815462475605E00038679 /* Assets.xcassets in Resources */,
-				746815482475605E00038679 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -956,6 +970,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4AA0DCEE255C027900D530B4 /* Test */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Test;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\necho $AppIdentifierPrefix\n";
+		};
 		4AF2534E251B883500CC6F6E /* Lint with SwiftFormat */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1181,9 +1213,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
+				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
+				4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
+				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
+				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
-				4AE97DAD24572E4900452814 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,14 +1285,6 @@
 				4AA621E9249A6A8400A0BCBD /* Base */,
 			);
 			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
-		4AE97DB024572E4900452814 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4AE97DB124572E4900452814 /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */ = {

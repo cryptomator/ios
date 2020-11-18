@@ -186,7 +186,7 @@ public class VaultManager {
 			let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then {
 				let masterkey = try Masterkey.createFromMasterkeyFile(fileURL: localMasterkeyURL, password: password)
-				let vaultPath = masterkeyPath.deletingLastPathComponent()
+				let vaultPath = self.getVaultPath(from: masterkeyPath)
 				_ = try self.createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID)
 				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: storePasswordInKeychain)
@@ -226,6 +226,11 @@ public class VaultManager {
 		let digest = try cryptor.encryptDirId(Data())
 		let i = digest.index(digest.startIndex, offsetBy: 2)
 		return vaultPath.appendingPathComponent("d/\(digest[..<i])/\(digest[i...])")
+	}
+
+	public func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath {
+		precondition(masterkeyPath.path.hasSuffix("masterkey.cryptomator"))
+		return masterkeyPath.deletingLastPathComponent()
 	}
 
 	func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {

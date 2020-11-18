@@ -31,6 +31,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("Error while initializing the CryptomatorDatabase: \(error)")
 			return false
 		}
+		window = UIWindow(frame: UIScreen.main.bounds)
+		let navigationController = UINavigationController(rootViewController: DropboxLoginViewController())
+		window?.rootViewController = navigationController
+		window?.makeKeyAndVisible()
 		return true
 	}
 
