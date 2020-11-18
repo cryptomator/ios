@@ -5,7 +5,7 @@
 //  Created by Philipp Schmid on 17.06.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
-
+import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import CryptomatorFileProvider
 import FileProvider
@@ -14,7 +14,26 @@ class FileProviderExtension: NSFileProviderExtension {
 	var decorator: FileProviderDecorator?
 	var observation: NSKeyValueObservation?
 	var manager: NSFileProviderManager?
+	static var databaseError: Error?
+	static var sharedDatabaseInitialized = false
 	override init() {
+		if !FileProviderExtension.sharedDatabaseInitialized {
+			if let dbURL = CryptomatorDatabase.sharedDBURL{
+				do {
+					let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
+					CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
+					FileProviderExtension.sharedDatabaseInitialized = true
+				} catch {
+					// MARK: Handle error
+					FileProviderExtension.databaseError = error
+					print("Error while initializing the CryptomatorDatabase: \(error)")
+				}
+			} else {
+				// MARK: Handle error
+				print("dbURL is nil")
+			}
+		}
+
 		super.init()
 		self.observation = observe(
 			\.domain,
@@ -274,26 +293,12 @@ class FileProviderExtension: NSFileProviderExtension {
 		 return enumerator
 		 */
 		// TODO: Change error handling here
-		try demoDomain()
 		guard let decorator = self.decorator else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
 			throw NSFileProviderError(.notAuthenticated)
 		}
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator)
-	}
-
-	func demoDomain() throws {
-		guard let domain = self.domain else {
-			let identifier = NSFileProviderDomainIdentifier("testDomain")
-			let testDomain = NSFileProviderDomain(identifier: identifier, displayName: "Test", pathRelativeToDocumentStorage: "Test")
-			NSFileProviderManager.add(testDomain) { error in
-				if let error = error {
-					print("Domain Registration Error: \(error)")
-				}
-			}
-			throw NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
-		}
 	}
 }
 

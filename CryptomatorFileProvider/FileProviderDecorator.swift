@@ -14,14 +14,6 @@ import GRDB
 import Promises
 
 public class FileProviderDecorator {
-	// Needed to mock the class
-	private let internalProvider: CloudProvider
-//	private let mock = CloudProviderMock()
-	var provider: CloudProvider {
-		return internalProvider
-//		return mock
-	}
-
 	private let uploadQueue: DispatchQueue
 	private let downloadQueue: DispatchQueue
 	private let uploadSemaphore = DispatchSemaphore(value: 1)
@@ -33,15 +25,13 @@ public class FileProviderDecorator {
 	public let notificator: FileProviderNotificator
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
-	let demoRoot: URL
+	let vaultUID: String
+
 	public init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		// TODO: Real SetUp with CryptoDecorator, PersistentDBQueue, DBMigrator, etc.
 
-		self.demoRoot = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: demoRoot, withIntermediateDirectories: true, attributes: nil)
-		self.internalProvider = LocalFileSystemProvider(rootURL: demoRoot)
 		let database = try DataBaseHelper.getDBMigratedQueue(at: dbPath.path)
 		self.notificator = FileProviderNotificator(manager: manager)
 		self.itemMetadataManager = MetadataManager(with: database)
@@ -51,19 +41,7 @@ public class FileProviderDecorator {
 		self.deletionTaskManager = try DeletionTaskManager(with: database)
 		self.domain = domain
 		self.manager = manager
-
-		// MARK: Demo Content for FileProviderExtension
-
-		let testContent = "Demo File Content"
-		for i in 0 ... 5 {
-			try FileManager.default.createDirectory(at: demoRoot.appendingPathComponent("Folder \(i)", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-			try testContent.write(to: demoRoot.appendingPathComponent("File \(i).txt", isDirectory: false), atomically: true, encoding: .utf8)
-		}
-	}
-
-	// CleanUp Demo Content
-	deinit {
-		try? FileManager.default.removeItem(at: demoRoot)
+		self.vaultUID = domain.identifier.rawValue
 	}
 
 	public func fetchItemList(for folderIdentifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
@@ -71,11 +49,13 @@ public class FileProviderDecorator {
 
 		let parentId: Int64
 		let cloudPath: CloudPath
+		let provider: CloudProvider
 		do {
 			parentId = try convertFileProviderItemIdentifierToInt64(folderIdentifier)
 			guard let metadata = try itemMetadataManager.getCachedMetadata(for: parentId) else {
 				return Promise(CloudProviderError.itemNotFound)
 			}
+			provider = try getVaultDecorator()
 			cloudPath = metadata.cloudPath
 		} catch {
 			return Promise(error)
@@ -176,7 +156,12 @@ public class FileProviderDecorator {
 		}
 
 		let cloudPath = metadata.cloudPath
-
+		let provider: CloudProvider
+		do {
+			provider = try getVaultDecorator()
+		} catch {
+			return Promise(error)
+		}
 		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Bool in
 			guard let lastModifiedDateInCloud = cloudMetadata.lastModifiedDate else {
 				return false
@@ -198,8 +183,10 @@ public class FileProviderDecorator {
 	 */
 	public func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL) -> Promise<Void> {
 		let metadata: ItemMetadata
+		let provider: CloudProvider
 		do {
 			metadata = try getCachedMetadata(for: identifier)
+			provider = try getVaultDecorator()
 		} catch {
 			return Promise(error)
 		}
@@ -215,7 +202,7 @@ public class FileProviderDecorator {
 				}
 			}
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			return self.provider.downloadFile(from: cloudPath, to: localURL).then {
+			return provider.downloadFile(from: cloudPath, to: localURL).then {
 				progress.resignCurrent()
 			}
 		}.then {
@@ -381,9 +368,10 @@ public class FileProviderDecorator {
 		}
 		return Promise<FileProviderItem>(on: uploadQueue) { fulfill, reject in
 			self.uploadSemaphore.wait()
+			let provider = try self.getVaultDecorator()
 			task.resume()
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			self.provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
+			provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
 				itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
@@ -552,6 +540,12 @@ public class FileProviderDecorator {
 		assert(itemMetadata.isPlaceholderItem)
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
+		let provider: CloudProvider
+		do {
+			provider = try getVaultDecorator()
+		} catch {
+			return Promise(error)
+		}
 		return provider.createFolder(at: cloudPath).then { _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
@@ -629,6 +623,12 @@ public class FileProviderDecorator {
 	}
 
 	func moveFileOrFolderInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<Void> {
+		let provider: CloudProvider
+		do {
+			provider = try getVaultDecorator()
+		} catch {
+			return Promise(error)
+		}
 		switch metadata.type {
 		case .file:
 			return provider.moveFile(from: sourceCloudPath, to: targetCloudPath)
@@ -665,6 +665,12 @@ public class FileProviderDecorator {
 	}
 
 	func deleteItemInCloud(with deletionTask: DeletionTask) -> Promise<Void> {
+		let provider: CloudProvider
+		do {
+			provider = try getVaultDecorator()
+		} catch {
+			return Promise(error)
+		}
 		switch deletionTask.itemType {
 		case .file:
 			return provider.deleteFile(at: deletionTask.cloudPath)
@@ -676,11 +682,11 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 A possible version conflict between the local file and the file in the cloud can occur if the changes to the local file have not yet been synchronized to the cloud due to an upload error and the file in the cloud has also been changed.
-	 A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
-	 - Precondition: `itemIdentifier.rawValue ` can be casted to a positive Int64 value
-	 - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
-	     */
+	  A possible version conflict between the local file and the file in the cloud can occur if the changes to the local file have not yet been synchronized to the cloud due to an upload error and the file in the cloud has also been changed.
+	  A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
+	  - Precondition: `itemIdentifier.rawValue ` can be casted to a positive Int64 value
+	  - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
+	 */
 	public func hasPossibleVersioningConflictForItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> Bool {
 		let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
 		guard let uploadTask = try uploadTaskManager.getTask(for: id) else {
@@ -693,5 +699,9 @@ public class FileProviderDecorator {
 			return true
 		}
 		return lastFailedUploadDate > localLastModifiedDate
+	}
+
+	func getVaultDecorator() throws -> CloudProvider {
+		return try VaultManager.shared.getDecorator(forVaultUID: vaultUID)
 	}
 }

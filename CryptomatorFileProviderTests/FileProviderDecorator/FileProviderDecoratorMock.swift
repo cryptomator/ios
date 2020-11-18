@@ -13,10 +13,6 @@ import Foundation
 
 class FileProviderDecoratorMock: FileProviderDecorator {
 	let internalProvider: CloudProviderMock
-	override var provider: CloudProvider {
-		return internalProvider
-	}
-
 	let tmpDirURL: URL
 
 	init(with provider: CloudProviderMock, for domain: NSFileProviderDomain, with manager: NSFileProviderManager) throws {
@@ -25,6 +21,10 @@ class FileProviderDecoratorMock: FileProviderDecorator {
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbPath = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try super.init(for: domain, with: manager, dbPath: dbPath)
+	}
+
+	override func getVaultDecorator() throws -> CloudProvider {
+		return internalProvider
 	}
 
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
