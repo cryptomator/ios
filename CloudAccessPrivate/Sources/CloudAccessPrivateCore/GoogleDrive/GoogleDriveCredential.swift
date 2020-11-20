@@ -52,7 +52,8 @@ public class GoogleDriveCredential {
 		driveService.fetcherService.configurationBlock = { _, configuration in
 			configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
 		}
-		let configuration = URLSessionConfiguration.background(withIdentifier: "Crytomator-GoogleDriveSession-\(tokenUid)")
+		let bundleId = Bundle.main.bundleIdentifier ?? ""
+		let configuration = URLSessionConfiguration.background(withIdentifier: "Crytomator-GoogleDriveSession-\(tokenUid)-\(bundleId)")
 		configuration.sharedContainerIdentifier = CryptomatorConstants.appGroupName
 		driveService.fetcherService.configuration = configuration
 		driveService.fetcherService.isRetryEnabled = true
