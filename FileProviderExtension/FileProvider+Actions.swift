@@ -6,13 +6,15 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorFileProvider
 import FileProvider
 import Foundation
 
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
-		print("importDocument called: \(fileURL)")
+		DDLogInfo("FPExt: importDocument(at: \(fileURL), toParentItemIdentifier: \(parentItemIdentifier.rawValue))")
 		guard let decorator = self.decorator else {
 			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		}
@@ -37,7 +39,6 @@ extension FileProviderExtension {
 					do {
 						try self.fileManager.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
 						try self.fileManager.copyItem(at: fileURL, to: localURL)
-						print("copied item to: \(localURL)")
 					} catch let error as NSError {
 						fileManagerError = error as NSError
 					}
@@ -65,13 +66,14 @@ extension FileProviderExtension {
 					notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 					notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 				}.catch { error in
-					print("uploadFile error: \(error)")
+					DDLogError("FPExt:(importDocument) uploadFile failed: \(error)")
 				}
 			}
 		}
 	}
 
 	override func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		DDLogInfo("FPExt: createDirectory(withName: \(directoryName), inParentItemIdentifier: \(parentItemIdentifier.rawValue))")
 		guard let decorator = self.decorator else {
 			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		}
@@ -87,11 +89,12 @@ extension FileProviderExtension {
 			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
-			print("uncatched createFolderInCloud error: \(error)")
+			DDLogError("FPExt: createFolderInCloud failed: \(error)")
 		}
 	}
 
 	override func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		DDLogInfo("FPExt: renameItem(withIdentifier: \(itemIdentifier.rawValue), toName: \(itemName))")
 		guard let decorator = self.decorator else {
 			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		}
@@ -107,11 +110,12 @@ extension FileProviderExtension {
 			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
-			print("uncatched moveItemInCloud error: \(error)")
+			DDLogError("FPExt:(moveItem) moveItemInCloud failed: \(error)")
 		}
 	}
 
 	override func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		DDLogInfo("FPExt: reparentItem(withIdentifier: \(itemIdentifier.rawValue), toParentItemWithIdentifier: \(parentItemIdentifier.rawValue))")
 		guard let decorator = self.decorator else {
 			return completionHandler(nil, NSFileProviderError(.notAuthenticated))
 		}
@@ -126,11 +130,12 @@ extension FileProviderExtension {
 			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
-			print("uncatched moveItemInCloud error: \(error)")
+			DDLogError("FPExt:(reparentItem) moveItemInCloud failed: \(error)")
 		}
 	}
 
 	override func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
+		DDLogInfo("FPExt: deleteItem(withIdentifier: \(itemIdentifier.rawValue))")
 		guard let decorator = self.decorator else {
 			return completionHandler(NSFileProviderError(.notAuthenticated))
 		}
@@ -141,7 +146,7 @@ extension FileProviderExtension {
 		}
 		completionHandler(nil)
 		decorator.deleteItemInCloud(withIdentifier: itemIdentifier).catch { error in
-			print("deleteItemInCloud Error: \(error)")
+			DDLogError("FPExt:(deleteItem) deleteItemInCloud failed: \(error)")
 		}
 	}
 }

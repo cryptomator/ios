@@ -6,6 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorFileProvider
 import FileProvider
 
@@ -43,6 +45,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			observer.didEnumerate(itemList.items)
 			observer.finishEnumerating(upTo: itemList.nextPageToken)
 		}.catch { error in
+			DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
 			observer.finishEnumeratingWithError(error)
 		}
 	}
@@ -61,7 +64,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			return
 		}
 
-		print("enumerate now changes for: \(enumeratedItemIdentifier)")
+		DDLogInfo("FPExt: enumerate now changes for: \(enumeratedItemIdentifier)")
 		var itemsDelete = [NSFileProviderItemIdentifier]()
 		var itemsUpdate = [FileProviderItem]()
 

@@ -6,6 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 import CloudAccessPrivateCore
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorFileProvider
 import FileProvider
@@ -16,37 +18,46 @@ class FileProviderExtension: NSFileProviderExtension {
 	var manager: NSFileProviderManager?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
+	static var instanceCount = 0
+	static var instanceSemaphore = DispatchSemaphore(value: 1)
 	override init() {
+		LoggerSetup.oneTimeSetup()
 		if !FileProviderExtension.sharedDatabaseInitialized {
-			if let dbURL = CryptomatorDatabase.sharedDBURL{
+			if let dbURL = CryptomatorDatabase.sharedDBURL {
 				do {
 					let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 					CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
 					FileProviderExtension.sharedDatabaseInitialized = true
 				} catch {
 					// MARK: Handle error
+
 					FileProviderExtension.databaseError = error
-					print("Error while initializing the CryptomatorDatabase: \(error)")
+					DDLogError("Failed to initialize FPExt sharedDB: \(error)")
 				}
 			} else {
 				// MARK: Handle error
-				print("dbURL is nil")
+
+				DDLogError("FPExt - dbURL is nil")
 			}
 		}
-
 		super.init()
 		self.observation = observe(
 			\.domain,
 			options: [.old, .new]
 		) { _, change in
-			print("domain changed from: \(change.oldValue), updated to: \(change.newValue)")
-			if let domain = self.domain {
-				guard let manager = NSFileProviderManager(for: domain) else {
-					return
-				}
-				let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
-				self.decorator = try? DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
-				self.manager = manager
+			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue) for instance:#\(FileProviderExtension.instanceCount)")
+//			if let domain = self.domain {
+//				guard let manager = NSFileProviderManager(for: domain) else {
+//					return
+//				}
+//				let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
+//				self.decorator = try? DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
+//				self.manager = manager
+//			}
+			do {
+				self.decorator = try self.setUpDecorator()
+			} catch {
+				DDLogError("setUp decorator from kvo failed: \(error)")
 			}
 		}
 	}
@@ -296,10 +307,30 @@ class FileProviderExtension: NSFileProviderExtension {
 		guard let decorator = self.decorator else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
+			DDLogError("FPExtension: enumerator for:\(containerItemIdentifier.rawValue) decorator is nil")
 			throw NSFileProviderError(.notAuthenticated)
 		}
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator)
 	}
+
+	func setUpDecorator() throws -> FileProviderDecorator {
+		if let domain = self.domain {
+			guard let manager = NSFileProviderManager(for: domain) else {
+				throw FileProviderDecoratorSetupError.fileProviderManagerIsNil
+			}
+			self.manager = manager
+			let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
+			return try DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
+		} else {
+			DDLogInfo("setUpDecorator called with nil domain")
+			throw FileProviderDecoratorSetupError.domainIsNil
+		}
+	}
+}
+
+enum FileProviderDecoratorSetupError: Error {
+	case fileProviderManagerIsNil
+	case domainIsNil
 }
 
 extension URL {
@@ -313,5 +344,32 @@ extension URL {
 			result.appendPathComponent(components[i], isDirectory: isDirectory)
 		}
 		return result
+	}
+}
+
+class LoggerSetup {
+	private static var loggerInitialized = false
+
+	static func oneTimeSetup() {
+		guard !loggerInitialized else {
+			return
+		}
+		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
+			print("containerURL is nil")
+			return
+		}
+		let logDirectory = containerURL.appendingPathComponent("Logs")
+
+		do {
+			try FileManager.default.createDirectory(at: logDirectory, withIntermediateDirectories: false, attributes: nil)
+		} catch {
+			print(error)
+		}
+		print("LogDirectory: \(logDirectory.path)")
+		let logFileManager = DDLogFileManagerDefault(logsDirectory: logDirectory.path)
+		let fileLogger = DDFileLogger(logFileManager: logFileManager)
+		DDLog.add(DDOSLogger.sharedInstance)
+		DDLog.add(fileLogger)
+		loggerInitialized = true
 	}
 }
