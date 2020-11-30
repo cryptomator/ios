@@ -570,19 +570,7 @@ public class FileProviderDecorator {
 		precondition(itemMetadata.id != nil)
 		precondition(itemMetadata.type == .folder)
 		let cloudPath = item.metadata.cloudPath
-		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
-		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
-		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
-		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
-		return pathLockForReading.lock().then {
-			dataLockForReading.lock()
-		}.then {
-			pathLockForWriting.lock()
-		}.then {
-			dataLockForWriting.lock()
-		}.then {
-			self.createFolderInCloud(for: itemMetadata, at: cloudPath)
-		}.recover { error -> Promise<FileProviderItem> in
+		return createFolderInCloud(for: itemMetadata, at: cloudPath).recover { error -> Promise<FileProviderItem> in
 			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata) {
 				return Promise(item)
 			}
@@ -593,14 +581,6 @@ public class FileProviderDecorator {
 				return Promise(error)
 			}
 			return self.createFolderInCloud(for: itemMetadata, at: collisionFreeCloudPath)
-		}.always {
-			dataLockForWriting.unlock().then {
-				pathLockForWriting.unlock()
-			}.then {
-				dataLockForReading.unlock()
-			}.then {
-				pathLockForReading.unlock()
-			}
 		}
 	}
 
@@ -620,11 +600,31 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		return provider.createFolder(at: cloudPath).then { _ -> FileProviderItem in
+		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
+		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+		return pathLockForReading.lock().then {
+			dataLockForReading.lock()
+		}.then {
+			pathLockForWriting.lock()
+		}.then {
+			dataLockForWriting.lock()
+		}.then {
+			provider.createFolder(at: cloudPath)
+		}.then { _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try self.itemMetadataManager.updateMetadata(itemMetadata)
 			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true)
+		}.always {
+			dataLockForWriting.unlock().then {
+				pathLockForWriting.unlock()
+			}.then {
+				dataLockForReading.unlock()
+			}.then {
+				pathLockForReading.unlock()
+			}
 		}
 	}
 
