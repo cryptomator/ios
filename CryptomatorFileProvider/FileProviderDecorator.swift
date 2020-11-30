@@ -27,12 +27,12 @@ public class FileProviderDecorator {
 	let manager: NSFileProviderManager
 	let vaultUID: String
 
-	public init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
+	init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		// TODO: Real SetUp with CryptoDecorator, PersistentDBQueue, DBMigrator, etc.
 
-		let database = try DataBaseHelper.getDBMigratedQueue(at: dbPath.path)
+		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		self.notificator = FileProviderNotificator(manager: manager)
 		self.itemMetadataManager = MetadataManager(with: database)
 		self.cachedFileManager = CachedFileManager(with: database)

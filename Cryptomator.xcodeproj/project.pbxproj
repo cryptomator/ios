@@ -65,7 +65,7 @@
 		4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */; };
 		4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */; };
 		4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */; };
-		4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */; };
+		4AB6E86E24C70B070096E632 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6E86D24C70B070096E632 /* DatabaseHelper.swift */; };
 		4ABC08D3250D1BE700E3CEDC /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */; };
 		4ABC08D5250D1C6100E3CEDC /* DeletionTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */; };
 		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
@@ -266,7 +266,7 @@
 		4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBrowserViewModel.swift; sourceTree = "<group>"; };
 		4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallViewController.swift; sourceTree = "<group>"; };
 		4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallerViewModel.swift; sourceTree = "<group>"; };
-		4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseHelper.swift; sourceTree = "<group>"; };
+		4AB6E86D24C70B070096E632 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTask.swift; sourceTree = "<group>"; };
 		4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManager.swift; sourceTree = "<group>"; };
 		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
@@ -519,7 +519,7 @@
 				4A717CD424C833890048E08F /* ReparentTask.swift */,
 				4A717CD624C835270048E08F /* ReparentTaskManager.swift */,
 				4A2F373824B5C08E00460FD3 /* TaskError.swift */,
-				4AB6E86D24C70B070096E632 /* DataBaseHelper.swift */,
+				4AB6E86D24C70B070096E632 /* DatabaseHelper.swift */,
 				4ABC08D2250D1BE700E3CEDC /* DeletionTask.swift */,
 				4ABC08D4250D1C6100E3CEDC /* DeletionTaskManager.swift */,
 			);
@@ -1193,7 +1193,7 @@
 				4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */,
 				4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */,
 				4A2AE808254AD4BD00BB9D2A /* DecoratorManager.swift in Sources */,
-				4AB6E86E24C70B070096E632 /* DataBaseHelper.swift in Sources */,
+				4AB6E86E24C70B070096E632 /* DatabaseHelper.swift in Sources */,
 				4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */,
 				4ADB471324A3A5B9004DE115 /* MetadataManager.swift in Sources */,
 				4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */,

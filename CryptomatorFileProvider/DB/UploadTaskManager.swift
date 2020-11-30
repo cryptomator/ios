@@ -11,13 +11,13 @@ import Foundation
 import GRDB
 
 class UploadTaskManager {
-	let dbQueue: DatabaseQueue
-	init(with dbQueue: DatabaseQueue) {
-		self.dbQueue = dbQueue
+	let dbPool: DatabasePool
+	init(with dbPool: DatabasePool) {
+		self.dbPool = dbPool
 	}
 
 	func createNewTask(for identifier: Int64) throws -> UploadTask {
-		return try dbQueue.write { db in
+		return try dbPool.write { db in
 			let task = UploadTask(correspondingItem: identifier, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 			try task.save(db)
 			return task
@@ -25,14 +25,14 @@ class UploadTaskManager {
 	}
 
 	func getTask(for identifier: Int64) throws -> UploadTask? {
-		let uploadTask = try dbQueue.read { db in
+		let uploadTask = try dbPool.read { db in
 			return try UploadTask.fetchOne(db, key: identifier)
 		}
 		return uploadTask
 	}
 
 	func updateTask(with identifier: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			if var task = try UploadTask.fetchOne(db, key: identifier) {
 				task.lastFailedUploadDate = lastFailedUploadDate
 				task.uploadErrorCode = uploadErrorCode
@@ -45,7 +45,7 @@ class UploadTaskManager {
 	}
 
 	func updateTask(_ task: inout UploadTask, error: NSError) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			task.lastFailedUploadDate = Date()
 			task.uploadErrorCode = error.code
 			task.uploadErrorDomain = error.domain
@@ -54,7 +54,7 @@ class UploadTaskManager {
 	}
 
 	func getCorrespondingTasks(ids: [Int64]) throws -> [UploadTask?] {
-		let uploadTasks: [UploadTask?] = try dbQueue.read { db in
+		let uploadTasks: [UploadTask?] = try dbPool.read { db in
 			var tasks = [UploadTask?]()
 			for id in ids {
 				let task = try UploadTask.fetchOne(db, key: id)
@@ -66,13 +66,13 @@ class UploadTaskManager {
 	}
 
 	func updateTask(_ task: UploadTask) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			try task.update(db)
 		}
 	}
 
 	func removeTask(for identifier: Int64) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			try UploadTask.deleteOne(db, key: identifier)
 		}
 	}

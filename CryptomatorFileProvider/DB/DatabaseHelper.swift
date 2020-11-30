@@ -1,5 +1,5 @@
 //
-//  DataBaseHelper.swift
+//  DatabaseHelper.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 21.07.20.
@@ -9,14 +9,32 @@
 import CryptomatorCloudAccess
 import Foundation
 import GRDB
-class DataBaseHelper {
-	static func getDBMigratedQueue(at path: String) throws -> DatabaseQueue {
-		let dbQueue = try DatabaseQueue(path: path)
-		try migrate(dbQueue)
-		return dbQueue
+class DatabaseHelper {
+	static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
+		let dbPool = try openSharedDatabase(at: databaseURL)
+		try migrate(dbPool)
+		return dbPool
 	}
 
-	private static func migrate(_ dbQueue: DatabaseQueue) throws {
+	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
+		let coordinator = NSFileCoordinator(filePresenter: nil)
+		var coordinatorError: NSError?
+		var dbPool: DatabasePool?
+		var dbError: Error?
+		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
+			do {
+				dbPool = try DatabasePool(path: databaseURL.path)
+			} catch {
+				dbError = error
+			}
+		})
+		if let error = dbError ?? coordinatorError {
+			throw error
+		}
+		return dbPool!
+	}
+
+	private static func migrate(_ dbPool: DatabasePool) throws {
 		var migrator = DatabaseMigrator()
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "metadata") { table in
@@ -63,6 +81,6 @@ class DataBaseHelper {
 				table.column("itemType", .text).notNull()
 			}
 		}
-		try migrator.migrate(dbQueue)
+		try migrator.migrate(dbPool)
 	}
 }

@@ -17,8 +17,8 @@ class ReparentTaskManagerTests: XCTestCase {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		let dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
-		manager = try ReparentTaskManager(with: dbQueue)
+		let dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
+		manager = try ReparentTaskManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {

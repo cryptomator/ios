@@ -28,17 +28,17 @@ extension CachedEntry: PersistableRecord {
 }
 
 class CachedFileManager {
-	let dbQueue: DatabaseQueue
+	let dbPool: DatabasePool
 
-	init(with dbQueue: DatabaseQueue) {
-		self.dbQueue = dbQueue
+	init(with dbPool: DatabasePool) {
+		self.dbPool = dbPool
 	}
 
 	func hasCurrentVersionLocal(for identifier: Int64, with lastModifiedDateInCloud: Date?) throws -> Bool {
 		guard let lastModifiedDateInCloud = lastModifiedDateInCloud else {
 			return false
 		}
-		let fetchedEntry = try dbQueue.read { db in
+		let fetchedEntry = try dbPool.read { db in
 			return try CachedEntry.fetchOne(db, key: identifier)
 		}
 		guard let cachedEntry = fetchedEntry, let lastModifiedDateLocal = cachedEntry.lastModifiedDate else {
@@ -48,27 +48,27 @@ class CachedFileManager {
 	}
 
 	func getLastModifiedDate(for identifier: Int64) throws -> Date? {
-		let fetchedEntry = try dbQueue.read { db in
+		let fetchedEntry = try dbPool.read { db in
 			return try CachedEntry.fetchOne(db, key: identifier)
 		}
 		return fetchedEntry?.lastModifiedDate
 	}
 
 	func getLocalLastModifiedDate(for identifier: Int64) throws -> Date? {
-		let fetchedEntry = try dbQueue.read { db in
+		let fetchedEntry = try dbPool.read { db in
 			return try CachedEntry.fetchOne(db, key: identifier)
 		}
 		return fetchedEntry?.localLastModifiedDate
 	}
 
 	func cacheLocalFileInfo(for identifier: Int64, lastModifiedDate: Date?) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date()).save(db)
 		}
 	}
 
 	func removeCachedFile(for identifier: Int64, at localURL: URL) throws {
-		return try dbQueue.write { db in
+		return try dbPool.write { db in
 			if let entry = try CachedEntry.fetchOne(db, key: identifier) {
 				try FileManager.default.removeItem(at: localURL)
 				try entry.delete(db)

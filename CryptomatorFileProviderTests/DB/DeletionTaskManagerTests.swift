@@ -18,7 +18,7 @@ class DeletionTaskManagerTests: XCTestCase {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		let dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
+		let dbQueue = try DatabaseHelper.getMigratedDB(at: dbURL)
 		manager = try DeletionTaskManager(with: dbQueue)
 		metadataManager = MetadataManager(with: dbQueue)
 	}

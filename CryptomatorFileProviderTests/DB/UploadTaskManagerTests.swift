@@ -13,18 +13,18 @@ import XCTest
 class UploadTaskManagerTests: XCTestCase {
 	var manager: UploadTaskManager!
 	var tmpDirURL: URL!
-	var dbQueue: DatabaseQueue!
+	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
-		manager = UploadTaskManager(with: dbQueue)
+		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
+		manager = UploadTaskManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {
 		manager = nil
-		dbQueue = nil
+		dbPool = nil
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
 
@@ -68,7 +68,7 @@ class UploadTaskManagerTests: XCTestCase {
 		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
 		let taskBeforeRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNotNil(taskBeforeRemoval)
-		let itemManager = MetadataManager(with: dbQueue)
+		let itemManager = MetadataManager(with: dbPool)
 		try itemManager.removeItemMetadata(with: MetadataManager.rootContainerId)
 		let taskAfterRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
 		XCTAssertNil(taskAfterRemoval)

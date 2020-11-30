@@ -11,10 +11,10 @@ import FileProvider
 import Foundation
 import GRDB
 class MetadataManager {
-	private let dbQueue: DatabaseQueue
+	private let dbPool: DatabasePool
 	static let rootContainerId: Int64 = 1
-	init(with dbQueue: DatabaseQueue) {
-		self.dbQueue = dbQueue
+	init(with dbPool: DatabasePool) {
+		self.dbPool = dbPool
 	}
 
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
@@ -22,21 +22,21 @@ class MetadataManager {
 			metadata.id = cachedMetadata.id
 			try updateMetadata(metadata)
 		} else {
-			try dbQueue.write { db in
+			try dbPool.write { db in
 				try metadata.save(db)
 			}
 		}
 	}
 
 	func updateMetadata(_ metadata: ItemMetadata) throws {
-		try dbQueue.write { db in
+		try dbPool.write { db in
 			try metadata.update(db)
 		}
 	}
 
 	// TODO: Optimize Code and/or DB Scheme
 	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws {
-		try dbQueue.inTransaction { db in
+		try dbPool.writeInTransaction { db in
 			for metadata in metadatas {
 				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["cloudPath": metadata.cloudPath]) {
 					metadata.id = cachedMetadata.id
@@ -51,21 +51,21 @@ class MetadataManager {
 	}
 
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
-		let itemMetadata: ItemMetadata? = try dbQueue.read { db in
+		let itemMetadata: ItemMetadata? = try dbPool.read { db in
 			return try ItemMetadata.fetchOne(db, key: ["cloudPath": cloudPath])
 		}
 		return itemMetadata
 	}
 
 	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata? {
-		let itemMetadata: ItemMetadata? = try dbQueue.read { db in
+		let itemMetadata: ItemMetadata? = try dbPool.read { db in
 			return try ItemMetadata.fetchOne(db, key: identifier)
 		}
 		return itemMetadata
 	}
 
 	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
-		let itemMetadata: [ItemMetadata] = try dbQueue.read { db in
+		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
 				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != MetadataManager.rootContainerId)
 				.fetchAll(db)
@@ -74,7 +74,7 @@ class MetadataManager {
 	}
 
 	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata] {
-		let itemMetadata: [ItemMetadata] = try dbQueue.read { db in
+		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
 				.filter(Column("parentId") == parentId && Column("id") != MetadataManager.rootContainerId)
 				.fetchAll(db)
@@ -84,7 +84,7 @@ class MetadataManager {
 
 	// TODO: find a more meaningful name
 	func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			try ItemMetadata
 				.filter(Column("parentId") == parentId && !Column("isPlaceholderItem"))
 				.fetchAll(db)
@@ -96,7 +96,7 @@ class MetadataManager {
 	}
 
 	func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata] {
-		try dbQueue.read { db in
+		try dbPool.read { db in
 			return try ItemMetadata
 				.filter(Column(ItemMetadata.parentIdKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
 				.fetchAll(db)
@@ -104,19 +104,19 @@ class MetadataManager {
 	}
 
 	func removeItemMetadata(with identifier: Int64) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			try ItemMetadata.deleteOne(db, key: identifier)
 		}
 	}
 
 	func removeItemMetadata(_ identifiers: [Int64]) throws {
-		_ = try dbQueue.write { db in
+		_ = try dbPool.write { db in
 			try ItemMetadata.deleteAll(db, keys: identifiers)
 		}
 	}
 
 	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
-		try dbQueue.read { db in
+		try dbPool.read { db in
 			return try ItemMetadata.fetchAll(db, keys: ids)
 		}
 	}
@@ -126,7 +126,7 @@ class MetadataManager {
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
-		return try dbQueue.read { db in
+		return try dbPool.read { db in
 			let request: QueryInterfaceRequest<ItemMetadata>
 			if parent.id == MetadataManager.rootContainerId {
 				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != MetadataManager.rootContainerId)

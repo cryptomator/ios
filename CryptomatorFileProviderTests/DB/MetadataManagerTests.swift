@@ -13,18 +13,18 @@ import XCTest
 class MetadataManagerTests: XCTestCase {
 	var manager: MetadataManager!
 	var tmpDirURL: URL!
-	var dbQueue: DatabaseQueue!
+	var dbPool: DatabasePool!
 
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		dbQueue = try DataBaseHelper.getDBMigratedQueue(at: dbURL.path)
-		manager = MetadataManager(with: dbQueue)
+		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
+		manager = MetadataManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {
-		dbQueue = nil
+		dbPool = nil
 		manager = nil
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
