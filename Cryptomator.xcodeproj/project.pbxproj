@@ -36,6 +36,10 @@
 		4A4F47F124B872BC0033328B /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
 		4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */; };
+		4A5F3061256EA9410064084F /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F3060256EA9410064084F /* LockManager.swift */; };
+		4A5F30752571552A0064084F /* LockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F30742571552A0064084F /* LockNode.swift */; };
+		4A5F307C2571554F0064084F /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F307B2571554F0064084F /* RWLock.swift */; };
+		4A5F30832571556F0064084F /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F30822571556F0064084F /* FileSystemLock.swift */; };
 		4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */; };
 		4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */; };
 		4A717CD524C833890048E08F /* ReparentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD424C833890048E08F /* ReparentTask.swift */; };
@@ -228,6 +232,10 @@
 		4A4F47F024B872BC0033328B /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
 		4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestWithAuthentication.swift; sourceTree = "<group>"; };
+		4A5F3060256EA9410064084F /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
+		4A5F30742571552A0064084F /* LockNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockNode.swift; sourceTree = "<group>"; };
+		4A5F307B2571554F0064084F /* RWLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWLock.swift; sourceTree = "<group>"; };
+		4A5F30822571556F0064084F /* FileSystemLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemLock.swift; sourceTree = "<group>"; };
 		4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorIntegrationTestInterface.swift; sourceTree = "<group>"; };
 		4A60E7FA2459C6F500FD7F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -477,6 +485,17 @@
 				4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		4A5F306E257150C30064084F /* Locks */ = {
+			isa = PBXGroup;
+			children = (
+				4A5F3060256EA9410064084F /* LockManager.swift */,
+				4A5F30822571556F0064084F /* FileSystemLock.swift */,
+				4A5F307B2571554F0064084F /* RWLock.swift */,
+				4A5F30742571552A0064084F /* LockNode.swift */,
+			);
+			path = Locks;
 			sourceTree = "<group>";
 		};
 		4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */ = {
@@ -1191,11 +1210,14 @@
 				4A2F373B24B5C0A400460FD3 /* UploadTask.swift in Sources */,
 				4A482ACC24C1AB3400CEF6BE /* CloudProviderMock.swift in Sources */,
 				4ADB470F24A39AB4004DE115 /* FileProviderDecorator.swift in Sources */,
+				4A5F3061256EA9410064084F /* LockManager.swift in Sources */,
 				4A2245C924A4A6D000DBA437 /* FileProviderItemList.swift in Sources */,
 				4A2AE808254AD4BD00BB9D2A /* DecoratorManager.swift in Sources */,
 				4AB6E86E24C70B070096E632 /* DatabaseHelper.swift in Sources */,
+				4A5F30832571556F0064084F /* FileSystemLock.swift in Sources */,
 				4A2245CB24A4A70900DBA437 /* FileProviderItem.swift in Sources */,
 				4ADB471324A3A5B9004DE115 /* MetadataManager.swift in Sources */,
+				4A5F307C2571554F0064084F /* RWLock.swift in Sources */,
 				4A717CD724C835270048E08F /* ReparentTaskManager.swift in Sources */,
 				4A717CD524C833890048E08F /* ReparentTask.swift in Sources */,
 				4ADB471524A3AE7C004DE115 /* FileProviderDecoratorError.swift in Sources */,

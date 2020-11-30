@@ -46,7 +46,9 @@ public class FileProviderDecorator {
 
 	public func fetchItemList(for folderIdentifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
 		// TODO: Check for Internet Connection here
-
+		if folderIdentifier == .workingSet {
+			return Promise(FileProviderItemList(items: [], nextPageToken: nil))
+		}
 		let parentId: Int64
 		let cloudPath: CloudPath
 		let provider: CloudProvider
@@ -60,7 +62,13 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		return provider.fetchItemList(forFolderAt: cloudPath, withPageToken: pageToken).then { itemList -> FileProviderItemList in
+		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
+		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+		return pathLock.lock().then {
+			dataLock.lock()
+		}.then {
+			provider.fetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
+		}.then { itemList -> FileProviderItemList in
 			if pageToken == nil {
 				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: parentId)
 			}
@@ -89,6 +97,10 @@ public class FileProviderDecorator {
 			}
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentId: parentId)
 			return FileProviderItemList(items: items, nextPageToken: nil)
+		}.always {
+			dataLock.unlock().then {
+				pathLock.unlock()
+			}
 		}
 	}
 
@@ -162,7 +174,13 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Bool in
+		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
+		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+		return pathLock.lock().then {
+			dataLock.lock()
+		}.then {
+			provider.fetchItemMetadata(at: cloudPath)
+		}.then { cloudMetadata -> Bool in
 			guard let lastModifiedDateInCloud = cloudMetadata.lastModifiedDate else {
 				return false
 			}
@@ -172,6 +190,10 @@ public class FileProviderDecorator {
 				return true
 			}
 			return false
+		}.always {
+			dataLock.unlock().then {
+				pathLock.unlock()
+			}
 		}
 	}
 
@@ -192,7 +214,13 @@ public class FileProviderDecorator {
 		}
 		var lastModifiedDate: Date?
 		let cloudPath = metadata.cloudPath
-		return provider.fetchItemMetadata(at: cloudPath).then { cloudMetadata -> Promise<Void> in
+		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
+		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+		return pathLock.lock().then {
+			dataLock.lock()
+		}.then {
+			provider.fetchItemMetadata(at: cloudPath)
+		}.then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
 			let progress = Progress.discreteProgress(totalUnitCount: 1)
 			let task = FileProviderNetworkTask(with: progress)
@@ -216,6 +244,10 @@ public class FileProviderDecorator {
 				return Promise(self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError))
 			}
 			return Promise(error)
+		}.always {
+			dataLock.unlock().then {
+				pathLock.unlock()
+			}
 		}
 	}
 
@@ -271,13 +303,14 @@ public class FileProviderDecorator {
 	}
 
 	public func uploadFile(with localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
-		return uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata).recover { error -> Promise<FileProviderItem> in
-			guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
-				let errorItem = self.reportErrorWithFileProviderItem(error: error as NSError, itemMetadata: itemMetadata)
-				return Promise(errorItem)
+		return uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata)
+			.recover { error -> Promise<FileProviderItem> in
+				guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
+					let errorItem = self.reportErrorWithFileProviderItem(error: error as NSError, itemMetadata: itemMetadata)
+					return Promise(errorItem)
+				}
+				return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
 			}
-			return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
-		}
 	}
 
 	func cloudFileNameCollisionHandling(for localURL: URL, with collisionFreeLocalURL: URL, itemMetadata: ItemMetadata) throws {
@@ -371,7 +404,20 @@ public class FileProviderDecorator {
 			let provider = try self.getVaultDecorator()
 			task.resume()
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
+			let cloudPath = itemMetadata.cloudPath
+			let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+			let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+			let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
+			let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+			pathLockForReading.lock().then {
+				dataLockForReading.lock()
+			}.then {
+				pathLockForWriting.lock()
+			}.then {
+				dataLockForWriting.lock()
+			}.then {
+				provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem)
+			}.then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
 				itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
@@ -389,6 +435,13 @@ public class FileProviderDecorator {
 				}
 			}.always {
 				self.uploadSemaphore.signal()
+				dataLockForWriting.unlock().then {
+					pathLockForWriting.unlock()
+				}.then {
+					dataLockForReading.unlock()
+				}.then {
+					pathLockForReading.unlock()
+				}
 			}
 
 			progress.resignCurrent()
@@ -516,7 +569,20 @@ public class FileProviderDecorator {
 		precondition(itemMetadata.isPlaceholderItem)
 		precondition(itemMetadata.id != nil)
 		precondition(itemMetadata.type == .folder)
-		return createFolderInCloud(for: itemMetadata, at: itemMetadata.cloudPath).recover { error -> Promise<FileProviderItem> in
+		let cloudPath = item.metadata.cloudPath
+		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
+		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+		return pathLockForReading.lock().then {
+			dataLockForReading.lock()
+		}.then {
+			pathLockForWriting.lock()
+		}.then {
+			dataLockForWriting.lock()
+		}.then {
+			self.createFolderInCloud(for: itemMetadata, at: cloudPath)
+		}.recover { error -> Promise<FileProviderItem> in
 			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata) {
 				return Promise(item)
 			}
@@ -527,6 +593,14 @@ public class FileProviderDecorator {
 				return Promise(error)
 			}
 			return self.createFolderInCloud(for: itemMetadata, at: collisionFreeCloudPath)
+		}.always {
+			dataLockForWriting.unlock().then {
+				pathLockForWriting.unlock()
+			}.then {
+				dataLockForReading.unlock()
+			}.then {
+				pathLockForReading.unlock()
+			}
 		}
 	}
 
@@ -614,11 +688,63 @@ public class FileProviderDecorator {
 	}
 
 	func moveItemInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<FileProviderItem> {
-		return moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath).then { _ -> FileProviderItem in
+		let oldPathLockForReading = LockManager.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let oldDataLockForReading = LockManager.getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let newPathLockForReading = LockManager.getPathLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let newDataLockForReading = LockManager.getDataLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let oldPathLockForWriting = LockManager.getPathLockForWriting(at: sourceCloudPath)
+		let oldDataLockForWriting = LockManager.getDataLockForWriting(at: sourceCloudPath)
+		let newPathLockForWriting = LockManager.getPathLockForWriting(at: targetCloudPath)
+		let newDataLockForWriting = LockManager.getDataLockForWriting(at: targetCloudPath)
+		return oldPathLockForReading.lock().then {
+			oldDataLockForReading.lock()
+		}.then {
+			newPathLockForReading.lock()
+		}.then {
+			newDataLockForReading.lock()
+		}.then {
+			oldPathLockForWriting.lock()
+		}.then {
+			oldDataLockForWriting.lock()
+		}.then {
+			newPathLockForWriting.lock()
+		}.then {
+			newDataLockForWriting.lock()
+		}.then {
+			self.moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath)
+		}.then { _ -> FileProviderItem in
 			metadata.statusCode = .isUploaded
 			try self.itemMetadataManager.cacheMetadata(metadata)
 			let newestVersionLocallyCached = try self.cachedFileManager.hasCurrentVersionLocal(for: metadata.id!, with: metadata.lastModifiedDate)
 			return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
+		}.always {
+			self.unlockInOrder(a: newDataLockForWriting,
+							   b: newPathLockForWriting,
+							   c: oldDataLockForWriting,
+							   d: oldPathLockForWriting,
+							   e: newDataLockForReading,
+							   f: newPathLockForReading,
+							   g: oldDataLockForReading,
+							   h: oldPathLockForReading)
+		}
+	}
+
+	// Helper function to prevent error: `The compiler is unable to type-check this expression in reasonable time`
+	func unlockInOrder(a: FileSystemLock, b: FileSystemLock, c: FileSystemLock, d: FileSystemLock, e: FileSystemLock, f: FileSystemLock, g: FileSystemLock, h: FileSystemLock) {
+		a.unlock().then {
+			b.unlock()
+		}.then {
+			c.unlock()
+		}.then {
+			d.unlock()
+		}.then {
+			e.unlock()
+		}.then {
+			f.unlock()
+		}.then {
+			g.unlock()
+		}.then {
+			h.unlock()
 		}
 	}
 
@@ -658,9 +784,29 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
-
-		return deleteItemInCloud(with: deletionTask).always {
+		let cloudPath = deletionTask.cloudPath
+		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
+		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+		return pathLockForReading.lock().then {
+			dataLockForReading.lock()
+		}.then {
+			pathLockForWriting.lock()
+		}.then {
+			dataLockForWriting.lock()
+		}.then {
+			self.deleteItemInCloud(with: deletionTask)
+		}.always {
 			try? self.deletionTaskManager.removeTask(deletionTask) // MARK: Discuss if it is ok that we do not pass on an error when deleting the deletion task.
+
+			dataLockForWriting.unlock().then {
+				pathLockForWriting.unlock()
+			}.then {
+				dataLockForReading.unlock()
+			}.then {
+				pathLockForReading.unlock()
+			}
 		}
 	}
 
