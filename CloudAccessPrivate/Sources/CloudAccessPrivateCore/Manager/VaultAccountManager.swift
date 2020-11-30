@@ -17,7 +17,7 @@ public struct VaultAccount: Decodable, FetchableRecord, TableRecord {
 	static let lastUpToDateCheckKey = "lastUpToDateCheck"
 	let vaultUID: String
 	let delegateAccountUID: String
-	let vaultPath: CloudPath
+	public let vaultPath: CloudPath
 	let lastUpToDateCheck: Date
 
 	public init(vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, lastUpToDateCheck: Date = Date()) {
@@ -51,9 +51,9 @@ public class VaultAccountManager {
 		}
 	}
 
-	public func removeAccount(with accountUID: String) throws {
+	public func removeAccount(with vaultUID: String) throws {
 		try dbPool.write { db in
-			guard try VaultAccount.deleteOne(db, key: accountUID) else {
+			guard try VaultAccount.deleteOne(db, key: vaultUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 		}
@@ -67,5 +67,21 @@ public class VaultAccountManager {
 			throw CloudProviderAccountError.accountNotFoundError
 		}
 		return account
+	}
+
+	public func getAllAccounts() throws -> [VaultAccount] {
+		try dbPool.read{ db in
+			try VaultAccount.fetchAll(db)
+		}
+	}
+	
+	//only for prototype
+	public func getAllVaultUIDs(with delegateAccountUID: String) throws -> [String] {
+		let accounts: [VaultAccount] = try dbPool.read { db in
+			return try VaultAccount
+				.filter(Column(VaultAccount.delegateAccountUIDKey) == delegateAccountUID)
+				.fetchAll(db)
+		}
+		return accounts.map { $0.vaultUID }
 	}
 }

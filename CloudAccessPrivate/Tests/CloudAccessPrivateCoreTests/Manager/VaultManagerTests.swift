@@ -9,6 +9,7 @@
 import CryptomatorCloudAccess
 import Foundation
 import GRDB
+import Promises
 import XCTest
 @testable import CloudAccessPrivateCore
 @testable import CryptomatorCryptoLib
@@ -16,6 +17,7 @@ import XCTest
 class VaultManagerMock: VaultManager {
 	var savedMasterkeys = [String: Masterkey]()
 	var savedPasswords = [String: String]()
+	var removedVaultUIDs = [String]()
 	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, password: String, storePasswordInKeychain: Bool) throws {
 		savedMasterkeys[vaultUID] = masterkey
 		if storePasswordInKeychain {
@@ -26,6 +28,11 @@ class VaultManagerMock: VaultManager {
 
 	override func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {
 		return try masterkey.exportEncrypted(password: password, scryptCostParam: 2)
+	}
+
+	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
+		removedVaultUIDs.append(vaultUID)
+		return Promise(())
 	}
 }
 

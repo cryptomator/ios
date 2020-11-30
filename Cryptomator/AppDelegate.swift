@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Override point for customization after application launch.
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error
-
 			print("dbURL is nil")
 			return false
 		}
@@ -32,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return false
 		}
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let navigationController = UINavigationController(rootViewController: DropboxLoginViewController())
+		let navigationController = UINavigationController(rootViewController: GoogleDriveStartViewController())
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true

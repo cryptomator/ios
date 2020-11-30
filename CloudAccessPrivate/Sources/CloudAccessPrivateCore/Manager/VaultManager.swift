@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccess
 import CryptomatorCryptoLib
+import FileProvider
 import Foundation
 import Promises
 public enum VaultManagerError: Error {
@@ -15,38 +16,13 @@ public enum VaultManagerError: Error {
 	case vaultNotFound
 	case vaultVersionNotSupported
 	case passwordNotInKeychain
+	case fileProviderDomainNotFound
 }
 
 struct VaultKeychainEntry: Codable {
 	let masterkeyData: Data
 	let password: String?
 }
-
-/* class DecoratorCache{
- 	private static var cachedDecorators = [String: CloudProvider]()
- 	private static var delegateAccountUIDToVaultUIDMap = [String: [String]]()
-
- 	static func getCachedDecorator(forVaultUID vaultUID: String) -> CloudProvider? {
- 		return cachedDecorators[vaultUID]
- 	}
-
- 	static func cacheDecorator(_ decorator: CloudProvider, forVaultUID vaultUID: String, delegateAccountUID: String) {
- 		if let vaultUIDs = delegateAccountUIDToVaultUIDMap[delegateAccountUID] {
- 			delegateAccountUIDToVaultUIDMap[delegateAccountUID] = vaultUIDs.append(vaultUID)
- 		} else {
- 			delegateAccountUIDToVaultUIDMap[delegateAccountUID] = [vaultUID]
- 		}
- 		cachedDecorators[vaultUID] = decorator
- 	}
-
- 	static func uncacheDecorator(withVaultUID vaultUID: String) {
- 		cachedDecorators[vaultUID] = nil
- 	}
-
- 	static func getVaultUIDs(withDelegateAccountUID delegateAccountUID: String) -> [String]? {
- 		return delegateAccountUIDToVaultUIDMap[delegateAccountUID]
- 	}
- } */
 
 public class VaultManager {
 	static let scryptCostParamForFileProvider = 2 // MARK: Change CostParam!
@@ -201,14 +177,21 @@ public class VaultManager {
 	/**
 	 - Precondition: It exists a `VaultAccount` for the `vaultUID` in the database
 	 - Precondition: It exists a `VaultKeychainEntry` for the `vaultUID` in the keychain
+	 - Precondition: It exists a `NSFileProviderDomain` with the `vaultUID` as `identifier`
 	 - Postcondition: No `VaultAccount` exists for the `vaultUID` in the database
 	 - Postcondition: No `VaultKeychainEntry` exists for the `vaultUID` in the keychain
-	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`.
+	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`
+	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the NSFileProvider
 	 */
-	public func removeVault(withUID vaultUID: String) throws {
-		try CryptomatorKeychain.vault.delete(vaultUID)
-		try vaultAccountManager.removeAccount(with: vaultUID)
+	public func removeVault(withUID vaultUID: String) -> Promise<Void> {
+		do{
+			try CryptomatorKeychain.vault.delete(vaultUID)
+			try vaultAccountManager.removeAccount(with: vaultUID)
+		} catch {
+			return Promise(error)
+		}
 		VaultManager.cachedDecorators[vaultUID] = nil
+		return removeFileProviderDomain(withVaultUID: vaultUID)
 	}
 
 	/**
@@ -235,5 +218,43 @@ public class VaultManager {
 
 	func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {
 		return try masterkey.exportEncrypted(password: password)
+	}
+
+	func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
+		return NSFileProviderManager.getDomains().then { domains -> NSFileProviderDomain in
+			let domain = domains.first { $0.identifier.rawValue == vaultUID }
+			guard let domainForVault = domain else {
+				throw VaultManagerError.fileProviderDomainNotFound
+			}
+			return domainForVault
+		}.then{ domainForVault in
+			NSFileProviderManager.remove(domainForVault)
+		}
+	}
+}
+
+extension NSFileProviderManager {
+	static func getDomains() -> Promise<[NSFileProviderDomain]> {
+		return Promise<[NSFileProviderDomain]> { fulfill, reject in
+			NSFileProviderManager.getDomainsWithCompletionHandler { (domains, error) in
+				if let error = error {
+					reject(error)
+					return
+				}
+				fulfill(domains)
+			}
+		}
+	}
+
+	static func remove(_ domain: NSFileProviderDomain) -> Promise<Void> {
+		return Promise<Void> { fulfill, reject in
+			NSFileProviderManager.remove(domain) { (error) in
+				if let error = error {
+					reject(error)
+					return
+				}
+				fulfill(())
+			}
+		}
 	}
 }

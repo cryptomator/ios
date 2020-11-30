@@ -54,6 +54,9 @@
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
 		4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCredential.swift */; };
 		4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */; };
+		4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */; };
+		4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */; };
+		4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */; };
 		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A93916525555C530072CEC7 /* DecoratorFactory.swift */; };
 		4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */; };
@@ -252,6 +255,9 @@
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
 		4A837C75248994FD00223222 /* MockDropboxCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCredential.swift; sourceTree = "<group>"; };
 		4A837C78248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveLoginViewController.swift; sourceTree = "<group>"; };
+		4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveStartViewController.swift; sourceTree = "<group>"; };
+		4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveAccountOverviewViewController.swift; sourceTree = "<group>"; };
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A93916525555C530072CEC7 /* DecoratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorFactory.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
@@ -626,6 +632,7 @@
 				4ADB471624A49CEC004DE115 /* ItemStatus.swift */,
 				4ACC10A324C1A55400042F8C /* FileProviderNetworkTask.swift */,
 				4A482ACB24C1AB3400CEF6BE /* CloudProviderMock.swift */,
+				4A5F306E257150C30064084F /* Locks */,
 			);
 			path = CryptomatorFileProvider;
 			sourceTree = "<group>";
@@ -647,6 +654,9 @@
 				4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */,
 				4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */,
 				4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */,
+				4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */,
+				4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */,
+				4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */,
 				4AE97DAE24572E4900452814 /* ViewController.swift */,
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
@@ -1231,6 +1241,7 @@
 				4AA8F0AA24BC50BC002F58CA /* FileProviderNotificator.swift in Sources */,
 				4ADB471124A3A3EB004DE115 /* ItemMetadata.swift in Sources */,
 				4A30A6D924B33568002CABEB /* UploadTaskManager.swift in Sources */,
+				4A5F30752571552A0064084F /* LockNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1243,7 +1254,10 @@
 				4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
+				4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */,
 				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
+				4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */,
+				4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1633,7 +1647,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1669,7 +1683,7 @@
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
