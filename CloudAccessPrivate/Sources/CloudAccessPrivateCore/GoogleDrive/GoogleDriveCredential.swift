@@ -32,6 +32,7 @@ public class GoogleDriveCredential {
 		self.keychainItemName = keychainItemPrefix + "-" + tokenUid
 		self.authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: keychainItemName)
 		self.driveService = GTLRDriveService()
+		driveService.serviceUploadChunkSize = GoogleDriveCloudProvider.maximumUploadFetcherChunkSize
 		driveService.isRetryEnabled = true
 		driveService.retryBlock = { _, suggestedWillRetry, fetchError in
 			if let fetchError = fetchError as NSError? {

@@ -10,13 +10,12 @@ import CryptomatorCloudAccess
 import Foundation
 import GoogleAPIClientForREST_Drive
 import GRDB
-// import GTMSessionFetcherFull
 import GTMSessionFetcherCore
 import Promises
 
 public class GoogleDriveCloudProvider: CloudProvider {
+	static let maximumUploadFetcherChunkSize: UInt = 3 * 1024 * 1024 // 3MB per chunk as GTMSessionFetcher loads the chunk to the memory and the FileProviderExtension has a total memory limit of 15mb
 	private let credentials: GoogleDriveCredential
-
 	private let cloudIdentifierCache: GoogleDriveCloudIdentifierCacheManager?
 	private var runningTickets: [GTLRServiceTicket]
 	private var runningFetchers: [GTMSessionFetcher]
