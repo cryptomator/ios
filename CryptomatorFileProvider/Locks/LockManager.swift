@@ -16,10 +16,14 @@ import Promises
  ```
  let pathLock = LockManager.getPathLockForReading("/foo/bar/baz")
  let dataLock: LockManager.getDataLockForWriting("/foo/bar/baz")
- pathLock.lock().then{
+ pathLock.lock().then {
  	datalock.lock()
- }.then{
+ }.then {
  	// write to file
+ }.always {
+  	dataLock.unlock().then{
+  	 	pathLock.unlock()
+ 	}
  }
  ```
  */
