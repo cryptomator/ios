@@ -13,13 +13,14 @@ import CryptomatorFileProvider
 import FileProvider
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
+	let fileCoordinator = NSFileCoordinator()
 	var decorator: FileProviderDecorator?
 	var observation: NSKeyValueObservation?
 	var manager: NSFileProviderManager?
+	var dbPath: URL?
+	var notificator: FileProviderNotificator?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
-	static var instanceCount = 0
-	static var instanceSemaphore = DispatchSemaphore(value: 1)
 	override init() {
 		LoggerSetup.oneTimeSetup()
 		if !FileProviderExtension.sharedDatabaseInitialized {
@@ -45,7 +46,7 @@ class FileProviderExtension: NSFileProviderExtension {
 			\.domain,
 			options: [.old, .new]
 		) { _, change in
-			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue) for instance:#\(FileProviderExtension.instanceCount)")
+			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue)")
 //			if let domain = self.domain {
 //				guard let manager = NSFileProviderManager(for: domain) else {
 //					return
@@ -55,11 +56,16 @@ class FileProviderExtension: NSFileProviderExtension {
 //				self.manager = manager
 //			}
 			do {
-				self.decorator = try self.setUpDecorator()
+				try self.setUp()
 			} catch {
 				DDLogError("setUp decorator from kvo failed: \(error)")
 			}
 		}
+	}
+
+	deinit {
+		observation?.invalidate()
+		fileCoordinator.cancel()
 	}
 
 	override func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
@@ -244,9 +250,8 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 
 		decorator.uploadFile(with: url, itemMetadata: metadata).then { item in
-			let notificator = decorator.notificator
-			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+			self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
 			print("itemChanged Error: \(error)")
 		}
@@ -304,23 +309,26 @@ class FileProviderExtension: NSFileProviderExtension {
 		 return enumerator
 		 */
 		// TODO: Change error handling here
-		guard let decorator = self.decorator else {
+		guard let manager = self.manager, let domain = self.domain, let dbPath = dbPath, let notificator = notificator else {
 			// no domain ==> no installed vault
-			// TODO: Change error Code here
-			DDLogError("FPExtension: enumerator for:\(containerItemIdentifier.rawValue) decorator is nil")
+			DDLogError("FPExtension: not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, decorator: decorator)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, domain: domain, manager: manager, dbPath: dbPath, notificator: notificator)
 	}
 
-	func setUpDecorator() throws -> FileProviderDecorator {
+	func setUp() throws {
 		if let domain = self.domain {
 			guard let manager = NSFileProviderManager(for: domain) else {
 				throw FileProviderDecoratorSetupError.fileProviderManagerIsNil
 			}
 			self.manager = manager
 			let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
-			return try DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
+			self.dbPath = dbPath
+			notificator = FileProviderNotificator(manager: manager)
+			DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath).then { decorator in
+				self.decorator = decorator
+			}
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil

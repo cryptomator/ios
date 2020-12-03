@@ -16,7 +16,7 @@ public class FileProviderNotificator {
 	public var fileProviderSignalDeleteWorkingSetItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
 	public var fileProviderSignalUpdateWorkingSetItem = [NSFileProviderItemIdentifier: FileProviderItem]()
 
-	init(manager: NSFileProviderManager) {
+	public init(manager: NSFileProviderManager) {
 		self.manager = manager
 		self.currentAnchor = 0
 	}

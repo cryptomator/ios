@@ -26,6 +26,7 @@ extension FileProviderExtension {
 					item = try decorator.createPlaceholderItemForFile(for: fileURL, in: parentItemIdentifier)
 				} catch let error as NSError {
 					if error.domain == NSFileProviderErrorDomain, error.code == NSFileProviderError.filenameCollision.rawValue {
+						DDLogInfo("FPExt: filenameCollision for: \(fileURL.lastPathComponent)")
 						return completionHandler(nil, error)
 					}
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
@@ -34,7 +35,7 @@ extension FileProviderExtension {
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
 				}
 				var fileManagerError: NSError?
-				NSFileCoordinator().coordinate(readingItemAt: fileURL, options: .withoutChanges, error: nil) { _ in
+				self.fileCoordinator.coordinate(readingItemAt: fileURL, options: .withoutChanges, error: nil) { _ in
 					// TODO: better error handling, createDirectory does not need Coordinator!
 					do {
 						try self.fileManager.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
@@ -62,9 +63,8 @@ extension FileProviderExtension {
 
 				// Network Stuff
 				decorator.uploadFile(with: localURL, itemMetadata: metadata).then { item in
-					let notificator = decorator.notificator
-					notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-					notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+					self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+					self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 				}.catch { error in
 					DDLogError("FPExt:(importDocument) uploadFile failed: \(error)")
 				}
@@ -85,9 +85,8 @@ extension FileProviderExtension {
 		}
 		completionHandler(placeholderItem, nil)
 		decorator.createFolderInCloud(for: placeholderItem).then { item in
-			let notificator = decorator.notificator
-			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+			self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
 			DDLogError("FPExt: createFolderInCloud failed: \(error)")
 		}
@@ -106,9 +105,8 @@ extension FileProviderExtension {
 		}
 
 		decorator.moveItemInCloud(withIdentifier: itemIdentifier).then { item in
-			let notificator = decorator.notificator
-			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+			self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
 			DDLogError("FPExt:(moveItem) moveItemInCloud failed: \(error)")
 		}
@@ -126,9 +124,8 @@ extension FileProviderExtension {
 			return completionHandler(nil, error)
 		}
 		decorator.moveItemInCloud(withIdentifier: itemIdentifier).then { item in
-			let notificator = decorator.notificator
-			notificator.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-			notificator.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+			self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+			self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 		}.catch { error in
 			DDLogError("FPExt:(reparentItem) moveItemInCloud failed: \(error)")
 		}

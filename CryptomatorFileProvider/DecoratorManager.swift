@@ -8,18 +8,29 @@
 
 import FileProvider
 import Foundation
+import Promises
+
 public class DecoratorManager {
 	private static var cachedDecorators = [NSFileProviderDomainIdentifier: FileProviderDecorator]()
-	private static let semaphore = DispatchSemaphore(value: 1)
+	private static let queue = DispatchQueue(label: "DecoratorManager")
 
-	public static func getDecorator(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws -> FileProviderDecorator {
-		semaphore.wait()
-		if let cachedDecorator = cachedDecorators[domain.identifier] {
-			return cachedDecorator
+	public static func getDecorator(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) -> Promise<FileProviderDecorator> {
+		return Promise<FileProviderDecorator> { fulfill, reject in
+			queue.async(flags: .barrier) {
+				if let cachedDecorator = cachedDecorators[domain.identifier] {
+					fulfill(cachedDecorator)
+					return
+				}
+				let decorator: FileProviderDecorator
+				do {
+					decorator = try FileProviderDecorator(for: domain, with: manager, dbPath: dbPath)
+				} catch {
+					reject(error)
+					return
+				}
+				cachedDecorators[domain.identifier] = decorator
+				fulfill(decorator)
+			}
 		}
-		let decorator = try FileProviderDecorator(for: domain, with: manager, dbPath: dbPath)
-		cachedDecorators[domain.identifier] = decorator
-		semaphore.signal()
-		return decorator
 	}
 }

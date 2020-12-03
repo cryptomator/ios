@@ -7,6 +7,8 @@
 //
 
 import CloudAccessPrivateCore
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import FileProvider
 import Foundation
@@ -22,7 +24,6 @@ public class FileProviderDecorator {
 	let uploadTaskManager: UploadTaskManager
 	let reparentTaskManager: ReparentTaskManager
 	let deletionTaskManager: DeletionTaskManager
-	public let notificator: FileProviderNotificator
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
 	let vaultUID: String
@@ -33,7 +34,6 @@ public class FileProviderDecorator {
 		// TODO: Real SetUp with CryptoDecorator, PersistentDBQueue, DBMigrator, etc.
 
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
-		self.notificator = FileProviderNotificator(manager: manager)
 		self.itemMetadataManager = MetadataManager(with: database)
 		self.cachedFileManager = CachedFileManager(with: database)
 		self.uploadTaskManager = UploadTaskManager(with: database)
@@ -279,7 +279,6 @@ public class FileProviderDecorator {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
 			throw FileProviderDecoratorError.parentFolderNotFound
 		}
-		// TODO: Remove homeRoot <-- only for demo purpose with LocalFileSystemProvider
 		let parentCloudPath = parentItemMetadata.cloudPath
 		let cloudPath = parentCloudPath.appendingPathComponent(name)
 
@@ -309,6 +308,7 @@ public class FileProviderDecorator {
 					let errorItem = self.reportErrorWithFileProviderItem(error: error as NSError, itemMetadata: itemMetadata)
 					return Promise(errorItem)
 				}
+				DDLogInfo("FileProviderDecorator: online filename collision: \(itemMetadata.name)")
 				return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
 			}
 	}
@@ -443,7 +443,6 @@ public class FileProviderDecorator {
 					pathLockForReading.unlock()
 				}
 			}
-
 			progress.resignCurrent()
 		}
 	}
