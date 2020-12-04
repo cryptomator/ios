@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return false
 		}
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let navigationController = UINavigationController(rootViewController: GoogleDriveStartViewController())
+		let navigationController = UINavigationController(rootViewController: WebDAVLoginViewController())
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true

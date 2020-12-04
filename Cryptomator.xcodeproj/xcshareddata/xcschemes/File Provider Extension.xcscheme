@@ -58,9 +58,9 @@
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
       <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.springboard"
-         RemotePath = "/Today">
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.apple.DocumentsApp"
+         RemotePath = "/var/containers/Bundle/Application/0167060A-5774-4C3A-9F50-FB8A49EA60C7/Files.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
@@ -71,6 +71,18 @@
             ReferencedContainer = "container:Cryptomator.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
+      <AdditionalOptions>
+         <AdditionalOption
+            key = "MallocStackLogging"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+         <AdditionalOption
+            key = "PrefersMallocStackLoggingLite"
+            value = ""
+            isEnabled = "YES">
+         </AdditionalOption>
+      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
@@ -80,9 +92,9 @@
       debugDocumentVersioning = "YES"
       launchAutomaticallySubstyle = "2">
       <RemoteRunnable
-         runnableDebuggingMode = "0"
+         runnableDebuggingMode = "1"
          BundleIdentifier = "com.apple.DocumentsApp"
-         RemotePath = "/var/containers/Bundle/Application/0167060A-5774-4C3A-9F50-FB8A49EA60C7/Files.app">
+         RemotePath = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Library/Developer/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/Applications/Files.app">
       </RemoteRunnable>
       <MacroExpansion>
          <BuildableReference
