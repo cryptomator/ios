@@ -68,6 +68,11 @@ public class FileProviderDecorator {
 			dataLock.lock()
 		}.then {
 			provider.fetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
+		}.recover { error -> CloudItemList in
+			guard case CloudProviderError.itemNotFound = error else {
+				throw error
+			}
+			throw NSFileProviderError(.noSuchItem)
 		}.then { itemList -> FileProviderItemList in
 			if pageToken == nil {
 				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: parentId)
