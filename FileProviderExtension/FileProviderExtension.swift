@@ -265,26 +265,44 @@ class FileProviderExtension: NSFileProviderExtension {
 	}
 
 	override func stopProvidingItem(at url: URL) {
+		// ### Apple template comments: ###
 		// Called after the last claim to the file has been released. At this point, it is safe for the file provider to remove the content file.
 		// Care should be taken that the corresponding placeholder file stays behind after the content file has been deleted.
 
 		// Called after the last claim to the file has been released. At this point, it is safe for the file provider to remove the content file.
 
 		// TODO: look up whether the file has local changes
-		let fileHasLocalChanges = false
-
-		if !fileHasLocalChanges {
-			// remove the existing file to free up space
-			do {
-				_ = try FileManager.default.removeItem(at: url)
-			} catch {
-				// Handle error
-			}
-
+		//		let fileHasLocalChanges = false
+		//
+		//		if !fileHasLocalChanges {
+		//			// remove the existing file to free up space
+		//			do {
+		//				_ = try FileManager.default.removeItem(at: url)
+		//			} catch {
+		//				// Handle error
+		//			}
+		//
+		//			// write out a placeholder to facilitate future property lookups
+		//			providePlaceholder(at: url, completionHandler: { _ in
+		//				// TODO: handle any error, do any necessary cleanup
+		//            })
+		//		}
+		DDLogInfo("stopProvidingItem called for: \(url)")
+		guard let decorator = decorator, let identifier = persistentIdentifierForItem(at: url) else {
+			return
+		}
+		decorator.stopProvidingItem(with: identifier, url: url, notificator: notificator).then {
 			// write out a placeholder to facilitate future property lookups
-			providePlaceholder(at: url, completionHandler: { _ in
+			self.providePlaceholder(at: url, completionHandler: { error in
 				// TODO: handle any error, do any necessary cleanup
-            })
+				if let error = error {
+					DDLogError("stopProvidingItem for \(url) providePlaceholder failed with: \(error)")
+				} else {
+					DDLogInfo("stopProvidingItem for \(url) succeeded")
+				}
+			})
+		}.catch { error in
+			DDLogError("stopProvidingItem for \(url) failed with error: \(error)")
 		}
 	}
 

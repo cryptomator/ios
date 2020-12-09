@@ -846,4 +846,22 @@ public class FileProviderDecorator {
 	func getVaultDecorator() throws -> CloudProvider {
 		return try VaultManager.shared.getDecorator(forVaultUID: vaultUID)
 	}
+
+	public func stopProvidingItem(with identifier: NSFileProviderItemIdentifier, url: URL, notificator: FileProviderNotificator?) -> Promise<Void> {
+		return localFileIsCurrent(with: identifier).then { isCurrent in
+			if !isCurrent {
+				let metadata = try self.registerFileInUploadQueue(with: url, identifier: identifier)
+				return self.uploadFile(with: url, itemMetadata: metadata).then { item in
+					notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+					notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+				}.then { _ in
+					// no-op
+				}
+			} else {
+				return Promise(())
+			}
+		}.then {
+			return try self.deleteItemLocally(withIdentifier: identifier)
+		}
+	}
 }
