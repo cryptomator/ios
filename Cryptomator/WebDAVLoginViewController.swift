@@ -13,27 +13,29 @@ import UIKit
 
 class WebDAVLoginViewController: UIViewController {
 	var client: WebDAVClient?
+	let rootView = WebDAVLoginView()
 	override func loadView() {
-		let rootView = WebDAVLoginView()
+
 		rootView.loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		view = rootView
+		let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+		view.addGestureRecognizer(tap)
+	}
+
+	@objc func dismissKeyboard() {
+		view.endEditing(true)
 	}
 
 	@objc func login() {
-		guard let webDAVView = view as? WebDAVLoginView else {
-			return
-		}
-		guard let baseURLText = webDAVView.baseURL.text, let username = webDAVView.username.text, let password = webDAVView.password.text else {
+		guard let baseURLText = rootView.baseURL.text, let username = rootView.username.text, let password = rootView.password.text else {
 			return
 		}
 		guard let baseURL = URL(string: baseURLText) else {
 			return
 		}
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: nil)
-		let client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		self.client = client
-		WebDAVAuthenticator.verifyClient(client: client).then {
-			self.client = nil
+		self.client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: false)
+		WebDAVAuthenticator.verifyClient(client: client!).then {
 			try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: credential.identifier)
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try CloudProviderAccountManager.shared.saveNewAccount(account)
@@ -70,35 +72,35 @@ class WebDAVLoginView: UIView {
 		addSubview(loginButton)
 
 		NSLayoutConstraint.activate([
-			username.centerXAnchor.constraint(equalTo: centerXAnchor),
-			username.centerYAnchor.constraint(equalTo: centerYAnchor),
+			loginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
+			loginButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
 
-			username.widthAnchor.constraint(equalToConstant: 200),
-			username.heightAnchor.constraint(equalToConstant: 100)
+			loginButton.widthAnchor.constraint(equalToConstant: 200),
+			loginButton.heightAnchor.constraint(equalToConstant: 100)
 		])
 
 		NSLayoutConstraint.activate([
 			baseURL.centerXAnchor.constraint(equalTo: centerXAnchor),
-			baseURL.centerYAnchor.constraint(equalTo: username.topAnchor, constant: 10),
+			baseURL.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 10),
 
 			baseURL.widthAnchor.constraint(equalToConstant: 200),
-			baseURL.heightAnchor.constraint(equalToConstant: 100)
+			baseURL.heightAnchor.constraint(equalToConstant: 50)
+		])
+
+		NSLayoutConstraint.activate([
+			username.centerXAnchor.constraint(equalTo: centerXAnchor),
+			username.topAnchor.constraint(equalTo: baseURL.bottomAnchor),
+
+			username.widthAnchor.constraint(equalToConstant: 200),
+			username.heightAnchor.constraint(equalToConstant: 50)
 		])
 
 		NSLayoutConstraint.activate([
 			password.centerXAnchor.constraint(equalTo: centerXAnchor),
-			password.topAnchor.constraint(equalTo: username.bottomAnchor, constant: 10),
+			password.topAnchor.constraint(equalTo: username.bottomAnchor),
 
 			password.widthAnchor.constraint(equalToConstant: 200),
-			password.heightAnchor.constraint(equalToConstant: 100)
-		])
-
-		NSLayoutConstraint.activate([
-			loginButton.centerXAnchor.constraint(equalTo: centerXAnchor),
-			loginButton.topAnchor.constraint(equalTo: topAnchor),
-
-			loginButton.widthAnchor.constraint(equalToConstant: 200),
-			loginButton.heightAnchor.constraint(equalToConstant: 100)
+			password.heightAnchor.constraint(equalToConstant: 50)
 		])
 
 		backgroundColor = .white
