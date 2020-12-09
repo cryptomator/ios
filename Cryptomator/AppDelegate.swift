@@ -16,8 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
+
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error
+
 			print("dbURL is nil")
 			return false
 		}
@@ -29,6 +31,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 			print("Error while initializing the CryptomatorDatabase: \(error)")
 			return false
+		}
+		VaultManager.shared.removeAllUnusedFileProviderDomains().then {
+			print("removed all unused FileProviderDomains")
+		}.catch { error in
+			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
 		window = UIWindow(frame: UIScreen.main.bounds)
 		let navigationController = UINavigationController(rootViewController: WebDAVLoginViewController())

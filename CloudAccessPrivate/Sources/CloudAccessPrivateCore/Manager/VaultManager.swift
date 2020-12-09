@@ -184,7 +184,7 @@ public class VaultManager {
 	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the NSFileProvider
 	 */
 	public func removeVault(withUID vaultUID: String) -> Promise<Void> {
-		do{
+		do {
 			try CryptomatorKeychain.vault.delete(vaultUID)
 			try vaultAccountManager.removeAccount(with: vaultUID)
 		} catch {
@@ -192,6 +192,22 @@ public class VaultManager {
 		}
 		VaultManager.cachedDecorators[vaultUID] = nil
 		return removeFileProviderDomain(withVaultUID: vaultUID)
+	}
+
+	public func removeAllUnusedFileProviderDomains() -> Promise<Void> {
+		let vaultUIDs: [String]
+		do {
+			let vaults = try VaultAccountManager.shared.getAllAccounts()
+			vaultUIDs = vaults.map { $0.vaultUID }
+		} catch {
+			return Promise(error)
+		}
+		return NSFileProviderManager.getDomains().then { domains -> Promise<[Void]> in
+			let unusedDomains = domains.filter { vaultUIDs.contains($0.identifier.rawValue) }
+			return all(unusedDomains.map { NSFileProviderManager.remove($0) })
+		}.then { _ in
+			// no-op
+		}
 	}
 
 	/**
@@ -227,7 +243,7 @@ public class VaultManager {
 				throw VaultManagerError.fileProviderDomainNotFound
 			}
 			return domainForVault
-		}.then{ domainForVault in
+		}.then { domainForVault in
 			NSFileProviderManager.remove(domainForVault)
 		}
 	}
@@ -236,7 +252,7 @@ public class VaultManager {
 extension NSFileProviderManager {
 	static func getDomains() -> Promise<[NSFileProviderDomain]> {
 		return Promise<[NSFileProviderDomain]> { fulfill, reject in
-			NSFileProviderManager.getDomainsWithCompletionHandler { (domains, error) in
+			NSFileProviderManager.getDomainsWithCompletionHandler { domains, error in
 				if let error = error {
 					reject(error)
 					return
@@ -248,7 +264,7 @@ extension NSFileProviderManager {
 
 	static func remove(_ domain: NSFileProviderDomain) -> Promise<Void> {
 		return Promise<Void> { fulfill, reject in
-			NSFileProviderManager.remove(domain) { (error) in
+			NSFileProviderManager.remove(domain) { error in
 				if let error = error {
 					reject(error)
 					return
