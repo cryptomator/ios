@@ -238,12 +238,14 @@ public class FileProviderDecorator {
 			self.manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(metadata.id!))) { error in
 				if let error = error {
 					print("Register Task Error: \(error)")
+				} else {
+					task.resume()
 				}
 			}
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			return provider.downloadFile(from: cloudPath, to: localURL).then {
-				progress.resignCurrent()
-			}
+			let downloadPromise = provider.downloadFile(from: cloudPath, to: localURL)
+			progress.resignCurrent()
+			return downloadPromise
 		}.then { _ -> Promise<FileProviderItem> in
 			metadata.statusCode = .isUploaded
 			try self.itemMetadataManager.updateMetadata(metadata)
@@ -409,13 +411,14 @@ public class FileProviderDecorator {
 		manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(itemMetadata.id!))) { error in
 			if let error = error {
 				print("Register Task Error: \(error)")
+			} else {
+				task.resume()
 			}
 		}
 		return Promise<FileProviderItem>(on: uploadQueue) { fulfill, reject in
 			self.uploadSemaphore.wait()
 			let provider = try self.getVaultDecorator()
-			task.resume()
-			progress.becomeCurrent(withPendingUnitCount: 1)
+
 			let cloudPath = itemMetadata.cloudPath
 			let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
 			let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
@@ -427,8 +430,11 @@ public class FileProviderDecorator {
 				pathLockForWriting.lock()
 			}.then {
 				dataLockForWriting.lock()
-			}.then {
-				provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem)
+			}.then { () -> Promise<CloudItemMetadata> in
+				progress.becomeCurrent(withPendingUnitCount: 1)
+				let uploadPromise = provider.uploadFile(from: localURL, to: cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem)
+				progress.resignCurrent()
+				return uploadPromise
 			}.then { cloudItemMetadata in
 				itemMetadata.statusCode = .isUploaded
 				itemMetadata.isPlaceholderItem = false
@@ -455,7 +461,6 @@ public class FileProviderDecorator {
 					pathLockForReading.unlock()
 				}
 			}
-			progress.resignCurrent()
 		}
 	}
 
