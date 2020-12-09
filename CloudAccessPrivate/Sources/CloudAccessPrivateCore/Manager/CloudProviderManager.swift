@@ -38,7 +38,7 @@ public class CloudProviderManager {
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
-			let client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+			let client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: true)
 			provider = WebDAVProvider(with: client)
 		default:
 			throw CloudProviderAccountError.accountNotFoundError
