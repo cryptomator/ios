@@ -26,12 +26,4 @@ class FileProviderDecoratorMock: FileProviderDecorator {
 	override func getVaultDecorator() throws -> CloudProvider {
 		return internalProvider
 	}
-
-	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
-		guard let itemMetadata = try? getCachedMetadata(for: identifier) else {
-			return nil
-		}
-		let perItemDirectory = tmpDirURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
-		return perItemDirectory.appendingPathComponent(itemMetadata.name, isDirectory: false)
-	}
 }

@@ -13,7 +13,7 @@ import XCTest
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
 		let cloudPath = CloudPath("/")
-		let metadata = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let item = FileProviderItem(metadata: metadata)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
@@ -46,7 +46,7 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertTrue(item.isUploaded)
 		XCTAssertFalse(item.isUploading)
 		XCTAssertFalse(item.isDownloading)
-		XCTAssertFalse(item.isDownloaded)
+		XCTAssertTrue(item.isDownloaded)
 		XCTAssertEqual("public.folder", item.typeIdentifier)
 	}
 
@@ -77,11 +77,15 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
-	func testIsDownloadedOnlyForMostRecentVersion() {
+	func testIsDownloadedOnlyForLocallyExistingFile() throws {
 		let cloudPath = CloudPath("/test.txt")
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		let item = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false)
+		let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: false)
+		let localURL = tmpDir.appendingPathComponent("test.txt")
+
+		let item = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false, localURL: localURL)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)
@@ -92,7 +96,9 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertFalse(item.isDownloaded)
 		XCTAssertEqual("public.plain-text", item.typeIdentifier)
 
-		let newestItem = FileProviderItem(metadata: metadata, newestVersionLocallyCached: true)
+		try "Foo".write(to: localURL, atomically: true, encoding: .utf8)
+
+		let newestItem = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false, localURL: localURL)
 		XCTAssertEqual(NSFileProviderItemIdentifier("2"), newestItem.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, newestItem.parentItemIdentifier)
 		XCTAssertEqual("test.txt", newestItem.filename)

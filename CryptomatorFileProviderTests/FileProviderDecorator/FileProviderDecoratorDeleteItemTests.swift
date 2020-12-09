@@ -12,8 +12,8 @@ import XCTest
 
 class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	func testDeleteItemLocally() throws {
-		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test.txt")
+		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
@@ -28,16 +28,13 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	}
 
 	func testDeleteItemLocallyWithCachedFile() throws {
-		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let cloudPath = CloudPath("/test.txt")
+		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
-		let identifier = NSFileProviderItemIdentifier("2")
-		guard let localURLForItem = decorator.urlForItem(withPersistentIdentifier: identifier) else {
-			XCTFail("localURLForItem is nil")
-			return
-		}
+		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2,localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"
 		try content.write(to: localURLForItem, atomically: true, encoding: .utf8)
@@ -56,18 +53,15 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 
 	func testDeleteItemLocallyWithFolder() throws {
 		let folderCloudPath = CloudPath("/Folder/")
-		let cloudPath = CloudPath("/Folder/Test.txt")
+		let cloudPath = CloudPath("/Folder/test.txt")
 		let folderItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(folderItemMetadata)
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: folderItemMetadata.parentId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: folderItemMetadata.parentId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let folderIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemMetadata.id!))
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
-		let identifier = NSFileProviderItemIdentifier("3")
-		guard let localURLForItem = decorator.urlForItem(withPersistentIdentifier: identifier) else {
-			XCTFail("localURLForItem is nil")
-			return
-		}
+		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!,localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"
 		try content.write(to: localURLForItem, atomically: true, encoding: .utf8)

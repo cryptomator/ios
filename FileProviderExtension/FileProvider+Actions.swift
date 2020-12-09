@@ -38,7 +38,7 @@ extension FileProviderExtension {
 				self.fileCoordinator.coordinate(readingItemAt: fileURL, options: .withoutChanges, error: nil) { _ in
 					// TODO: better error handling, createDirectory does not need Coordinator!
 					do {
-						try self.fileManager.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+						try self.fileManager.createDirectory(at: localURL.deletingLastPathComponent(), withIntermediateDirectories: true)
 						try self.fileManager.copyItem(at: fileURL, to: localURL)
 					} catch let error as NSError {
 						fileManagerError = error as NSError

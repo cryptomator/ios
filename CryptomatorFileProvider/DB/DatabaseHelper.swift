@@ -57,6 +57,7 @@ class DatabaseHelper {
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
 				table.column("lastModifiedDate", .text)
 				table.column("localLastModifiedDate", .date).notNull()
+				table.column("localURL", .text).unique()
 			}
 			try db.create(table: "uploadTasks") { table in
 				table.column("correspondingItem", .integer).primaryKey().references("metadata", onDelete: .cascade) // TODO: Add Reference to ItemMetadata Table in Migrator

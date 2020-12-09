@@ -11,6 +11,7 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorFileProvider
 import FileProvider
+
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
 	let fileCoordinator = NSFileCoordinator()
@@ -161,7 +162,9 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 
 		if !fileManager.fileExists(atPath: url.path) {
-			decorator.downloadFile(with: identifier, to: url).then {
+			decorator.downloadFile(with: identifier, to: url).then { item in
+				self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+				self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 				completionHandler(nil)
 			}.catch { error in
 				completionHandler(error)
@@ -207,8 +210,10 @@ class FileProviderExtension: NSFileProviderExtension {
 								return
 							}
 							let tmpDownloadURL = url.createCollisionURL()
-							decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
+							decorator.downloadFile(with: identifier, to: tmpDownloadURL).then { item in
 								_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+								self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+								self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 								completionHandler(nil)
 							}.catch { error in
 								completionHandler(error)
@@ -216,8 +221,10 @@ class FileProviderExtension: NSFileProviderExtension {
 						}
 					} else {
 						let tmpDownloadURL = url.createCollisionURL()
-						decorator.downloadFile(with: identifier, to: tmpDownloadURL).then {
+						decorator.downloadFile(with: identifier, to: tmpDownloadURL).then { item in
 							_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+							self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+							self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 							completionHandler(nil)
 						}.catch { error in
 							completionHandler(error)

@@ -30,12 +30,15 @@ class CachedFileManagerTests: XCTestCase {
 
 	func testCacheLocalFileInfo() throws {
 		let date = Date(timeIntervalSince1970: 0)
-		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId, lastModifiedDate: date)
-		guard let lastModifiedDate = try manager.getLastModifiedDate(for: MetadataManager.rootContainerId) else {
-			XCTFail("No lastModifiedDate found for rootContainerId")
+		let localURLForItem = URL(fileURLWithPath: "/foo")
+		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId,localURL: localURLForItem, lastModifiedDate: date)
+		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: MetadataManager.rootContainerId) else {
+			XCTFail("No localCachedFileInfo found for rootContainerId")
 			return
 		}
-		XCTAssertEqual(date, lastModifiedDate)
+		XCTAssertEqual(date, localCachedFileInfo.lastModifiedDate)
+		XCTAssertEqual(MetadataManager.rootContainerId, localCachedFileInfo.correspondingItem)
+		XCTAssertEqual(localURLForItem, localCachedFileInfo.localURL)
 	}
 
 	func testHasCurrentVersionLocalWithOneSecondAccurcay() throws {
@@ -45,11 +48,17 @@ class CachedFileManagerTests: XCTestCase {
 
 		let firstDate = calendar.date(from: firstDateComp)!
 		let secondDate = calendar.date(from: secondDateComp)!
-		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId, lastModifiedDate: firstDate)
-		XCTAssertTrue(try manager.hasCurrentVersionLocal(for: MetadataManager.rootContainerId, with: secondDate))
+
+		let localURLForItem = URL(fileURLWithPath: "/foo")
+		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: firstDate)
+		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: MetadataManager.rootContainerId) else {
+			XCTFail("No localCachedFileInfo found for rootContainerId")
+			return
+		}
+		XCTAssertTrue(localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: secondDate))
 
 		let thirdDateComp = DateComponents(year: 2020, month: 1, day: 2, hour: 0, minute: 0, second: 1, nanosecond: 0)
 		let thirdDate = calendar.date(from: thirdDateComp)!
-		XCTAssertFalse(try manager.hasCurrentVersionLocal(for: MetadataManager.rootContainerId, with: thirdDate))
+		XCTAssertFalse(localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: thirdDate))
 	}
 }

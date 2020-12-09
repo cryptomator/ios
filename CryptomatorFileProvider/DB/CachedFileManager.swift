@@ -9,21 +9,32 @@
 import Foundation
 import GRDB
 
-private struct CachedEntry: Decodable, FetchableRecord, TableRecord {
+struct LocalCachedFileInfo: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "cachedFiles"
 	static let lastModifiedDateKey = "lastModifiedDate"
 	static let correspondingItemKey = "correspondingItem"
 	static let localLastModifiedDateKey = "localLastModifiedDate"
+	static let localURLKey = "localURL"
 	let lastModifiedDate: Date?
 	let correspondingItem: Int64
 	let localLastModifiedDate: Date
+	let localURL: URL
 }
 
-extension CachedEntry: PersistableRecord {
+extension LocalCachedFileInfo: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[CachedEntry.lastModifiedDateKey] = lastModifiedDate
-		container[CachedEntry.correspondingItemKey] = correspondingItem
-		container[CachedEntry.localLastModifiedDateKey] = localLastModifiedDate
+		container[LocalCachedFileInfo.lastModifiedDateKey] = lastModifiedDate
+		container[LocalCachedFileInfo.correspondingItemKey] = correspondingItem
+		container[LocalCachedFileInfo.localLastModifiedDateKey] = localLastModifiedDate
+		container[LocalCachedFileInfo.localURLKey] = localURL
+	}
+}
+extension LocalCachedFileInfo {
+	func isCurrentVersion(lastModifiedDateInCloud: Date?) -> Bool {
+		guard let lastModifiedDateInCloud = lastModifiedDateInCloud, let lastModifiedDateLocal = lastModifiedDate else {
+			return false
+		}
+		return Calendar(identifier: .gregorian).isDate(lastModifiedDateLocal, equalTo: lastModifiedDateInCloud, toGranularity: .second)
 	}
 }
 
@@ -34,43 +45,44 @@ class CachedFileManager {
 		self.dbPool = dbPool
 	}
 
-	func hasCurrentVersionLocal(for identifier: Int64, with lastModifiedDateInCloud: Date?) throws -> Bool {
-		guard let lastModifiedDateInCloud = lastModifiedDateInCloud else {
-			return false
-		}
+	func getLocalCachedFileInfo(for identifier: Int64) throws -> LocalCachedFileInfo? {
 		let fetchedEntry = try dbPool.read { db in
-			return try CachedEntry.fetchOne(db, key: identifier)
+			return try LocalCachedFileInfo.fetchOne(db, key: identifier)
 		}
-		guard let cachedEntry = fetchedEntry, let lastModifiedDateLocal = cachedEntry.lastModifiedDate else {
-			return false
-		}
-		return Calendar(identifier: .gregorian).isDate(lastModifiedDateLocal, equalTo: lastModifiedDateInCloud, toGranularity: .second)
+		return fetchedEntry
 	}
 
 	func getLastModifiedDate(for identifier: Int64) throws -> Date? {
 		let fetchedEntry = try dbPool.read { db in
-			return try CachedEntry.fetchOne(db, key: identifier)
+			return try LocalCachedFileInfo.fetchOne(db, key: identifier)
 		}
 		return fetchedEntry?.lastModifiedDate
 	}
 
 	func getLocalLastModifiedDate(for identifier: Int64) throws -> Date? {
 		let fetchedEntry = try dbPool.read { db in
-			return try CachedEntry.fetchOne(db, key: identifier)
+			return try LocalCachedFileInfo.fetchOne(db, key: identifier)
 		}
 		return fetchedEntry?.localLastModifiedDate
 	}
 
-	func cacheLocalFileInfo(for identifier: Int64, lastModifiedDate: Date?) throws {
+	func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws {
 		try dbPool.write { db in
-			try CachedEntry(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date()).save(db)
+			try LocalCachedFileInfo(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date(), localURL: localURL).save(db)
 		}
 	}
 
-	func removeCachedFile(for identifier: Int64, at localURL: URL) throws {
+	func getLocalURL(for identifier: Int64) throws -> URL? {
+		let fetchedEntry = try dbPool.read { db in
+			return try LocalCachedFileInfo.fetchOne(db, key: identifier)
+		}
+		return fetchedEntry?.localURL
+	}
+
+	func removeCachedFile(for identifier: Int64) throws {
 		return try dbPool.write { db in
-			if let entry = try CachedEntry.fetchOne(db, key: identifier) {
-				try FileManager.default.removeItem(at: localURL)
+			if let entry = try LocalCachedFileInfo.fetchOne(db, key: identifier) {
+				try FileManager.default.removeItem(at: entry.localURL)
 				try entry.delete(db)
 			}
 		}

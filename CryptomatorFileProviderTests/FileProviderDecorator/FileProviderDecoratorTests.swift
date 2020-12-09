@@ -26,12 +26,9 @@ class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 		let cloudPath = CloudPath("/Testfile")
 		let itemMetadata = ItemMetadata(id: 2, name: "TestFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
-		let identifier = NSFileProviderItemIdentifier("2")
-		guard let localURLForItem = decorator.urlForItem(withPersistentIdentifier: identifier) else {
-			XCTFail("localURLForItem is nil")
-			return
-		}
+		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/Testfile")
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"
 		try content.write(to: localURLForItem, atomically: true, encoding: .utf8)

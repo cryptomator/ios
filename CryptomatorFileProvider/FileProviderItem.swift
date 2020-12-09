@@ -16,10 +16,13 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	let metadata: ItemMetadata
 	let error: Error?
 	let newestVersionLocallyCached: Bool
-	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, error: Error? = nil) {
+	let localURL: URL?
+
+	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil) {
 		self.metadata = metadata
 		self.error = error
 		self.newestVersionLocallyCached = newestVersionLocallyCached
+		self.localURL = localURL
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
@@ -76,7 +79,15 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var isDownloaded: Bool {
-		return metadata.statusCode == .isDownloaded && isMostRecentVersionDownloaded
+		if metadata.type == .folder {
+			// Needs to return true for folders in order to allow browsing while offline
+			// Otherwise Files.app will bring up an alert "You're not connected to the Internet"
+			return true
+		}
+		guard let localURL = localURL else {
+			return false
+		}
+		return FileManager.default.fileExists(atPath: localURL.path)
 	}
 
 	public var isDownloading: Bool {

@@ -12,6 +12,5 @@ public enum ItemStatus: String, Codable {
 	case isUploaded
 	case uploadError
 	case isDownloading
-	case isDownloaded
 	case downloadError
 }
