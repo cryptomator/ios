@@ -33,7 +33,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2,localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: 2, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"
@@ -60,7 +60,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let folderIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemMetadata.id!))
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!,localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
 		try FileManager.default.createDirectory(at: localURLForItem.deletingLastPathComponent(), withIntermediateDirectories: false, attributes: nil)
 		let content = "TestLocalContent"

@@ -44,30 +44,70 @@ public class FileProviderDecorator {
 		self.vaultUID = domain.identifier.rawValue
 	}
 
-	public func fetchItemList(for folderIdentifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
+	public func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
 		// TODO: Check for Internet Connection here
-		if folderIdentifier == .workingSet {
+		if identifier == .workingSet {
 			return Promise(FileProviderItemList(items: [], nextPageToken: nil))
 		}
-		let parentId: Int64
-		let cloudPath: CloudPath
 		let provider: CloudProvider
+		let metadata: ItemMetadata
 		do {
-			parentId = try convertFileProviderItemIdentifierToInt64(folderIdentifier)
-			guard let metadata = try itemMetadataManager.getCachedMetadata(for: parentId) else {
+			let id = try convertFileProviderItemIdentifierToInt64(identifier)
+			guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: id) else {
 				return Promise(CloudProviderError.itemNotFound)
 			}
+			metadata = itemMetadata
 			provider = try getVaultDecorator()
-			cloudPath = metadata.cloudPath
 		} catch {
 			return Promise(error)
 		}
-		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
-		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+		switch metadata.type {
+		case .folder:
+			return fetchItemList(with: provider, folderMetadata: metadata, withPageToken: pageToken)
+		case .file:
+			return fetchItemMetadata(with: provider, fileMetadata: metadata)
+		default:
+			// TODO: Log Error
+			return Promise(NSFileProviderError(.noSuchItem))
+		}
+	}
+
+	func fetchItemMetadata(with provider: CloudProvider, fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
+		let pathLock = LockManager.getPathLockForReading(at: fileMetadata.cloudPath)
+		let dataLock = LockManager.getDataLockForReading(at: fileMetadata.cloudPath)
 		return pathLock.lock().then {
 			dataLock.lock()
 		}.then {
-			provider.fetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
+			provider.fetchItemMetadata(at: fileMetadata.cloudPath)
+		}.recover { error -> CloudItemMetadata in
+			guard case CloudProviderError.itemNotFound = error else {
+				throw error
+			}
+			throw NSFileProviderError(.noSuchItem)
+		}.then { cloudItem -> FileProviderItemList in
+			let fileProviderItemMetadata = self.createItemMetadata(for: cloudItem, withParentId: fileMetadata.parentId)
+			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
+			assert(fileProviderItemMetadata.id == fileMetadata.id)
+			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata.id!)
+			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: fileProviderItemMetadata.lastModifiedDate) ?? false
+			let localURL = localCachedFileInfo?.localURL
+			let uploadTask = try self.uploadTaskManager.getTask(for: fileProviderItemMetadata.id!)
+			let item = FileProviderItem(metadata: fileProviderItemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.error)
+			return FileProviderItemList(items: [item], nextPageToken: nil)
+		}.always {
+			dataLock.unlock().then {
+				pathLock.unlock()
+			}
+		}
+	}
+
+	func fetchItemList(with provider: CloudProvider, folderMetadata: ItemMetadata, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
+		let pathLock = LockManager.getPathLockForReading(at: folderMetadata.cloudPath)
+		let dataLock = LockManager.getDataLockForReading(at: folderMetadata.cloudPath)
+		return pathLock.lock().then {
+			dataLock.lock()
+		}.then {
+			provider.fetchItemList(forFolderAt: folderMetadata.cloudPath, withPageToken: pageToken)
 		}.recover { error -> CloudItemList in
 			guard case CloudProviderError.itemNotFound = error else {
 				throw error
@@ -75,20 +115,20 @@ public class FileProviderDecorator {
 			throw NSFileProviderError(.noSuchItem)
 		}.then { itemList -> FileProviderItemList in
 			if pageToken == nil {
-				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: parentId)
+				try self.itemMetadataManager.flagAllItemsAsMaybeOutdated(insideParentId: folderMetadata.id!)
 			}
 
 			var metadatas = [ItemMetadata]()
 			for cloudItem in itemList.items {
-				let fileProviderItemMetadata = self.createItemMetadata(for: cloudItem, withParentId: parentId)
+				let fileProviderItemMetadata = self.createItemMetadata(for: cloudItem, withParentId: folderMetadata.id!)
 				metadatas.append(fileProviderItemMetadata)
 			}
-			metadatas = try self.filterOutWaitingReparentTasks(parentId: parentId, for: metadatas)
-			metadatas = try self.filterOutWaitingDeletionTasks(parentId: parentId, for: metadatas)
+			metadatas = try self.filterOutWaitingReparentTasks(parentId: folderMetadata.id!, for: metadatas)
+			metadatas = try self.filterOutWaitingDeletionTasks(parentId: folderMetadata.id!, for: metadatas)
 			try self.itemMetadataManager.cacheMetadatas(metadatas)
-			let reparentMetadata = try self.getReparentMetadata(for: parentId)
+			let reparentMetadata = try self.getReparentMetadata(for: folderMetadata.id!)
 			metadatas.append(contentsOf: reparentMetadata)
-			let placeholderMetadatas = try self.itemMetadataManager.getPlaceholderMetadata(for: parentId)
+			let placeholderMetadatas = try self.itemMetadataManager.getPlaceholderMetadata(for: folderMetadata.id!)
 			metadatas.append(contentsOf: placeholderMetadatas)
 			let ids = metadatas.map { return $0.id! }
 			let uploadTasks = try self.uploadTaskManager.getCorrespondingTasks(ids: ids)
@@ -102,7 +142,7 @@ public class FileProviderDecorator {
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
-			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentId: parentId)
+			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentId: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
 		}.always {
 			dataLock.unlock().then {

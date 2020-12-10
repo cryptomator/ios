@@ -20,12 +20,12 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 												   FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
 		let expectedSubFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 7, name: "Directory 2", type: .folder, size: 0, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/Directory 2"), isPlaceholderItem: false)),
 												  FileProviderItem(metadata: ItemMetadata(id: 8, name: "File 5", type: .file, size: 14, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/File 5"), isPlaceholderItem: false))]
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> FileProviderItem in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> FileProviderItem in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			XCTAssertEqual(expectedRootFolderFileProviderItems, fileProviderItemList.items)
 			return fileProviderItemList.items[0]
 		}.then { folderFileProviderItem in
-			self.decorator.fetchItemList(for: folderFileProviderItem.itemIdentifier, withPageToken: nil)
+			self.decorator.enumerateItems(for: folderFileProviderItem.itemIdentifier, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(2, fileProviderItemList.items.count)
 			XCTAssertEqual(expectedSubFolderFileProviderItems, fileProviderItemList.items)
@@ -49,12 +49,12 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 														  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
 														  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)),
 														  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false))]
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			XCTAssertEqual(expectedRootFolderFileProviderItems, fileProviderItemList.items)
 			self.mockedProvider.files["/File 1"] = nil
 			self.mockedProvider.files["/NewFileFromCloud"] = "NewFileFromCloud content".data(using: .utf8)!
-			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+			return self.decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			XCTAssertEqual(expectedChangedRootFolderFileProviderItems, fileProviderItemList.items)
@@ -69,7 +69,7 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 	func testFolderEnumerationPreservesUploadError() throws {
 		let expectation = XCTestExpectation()
 
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ -> Void in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ -> Void in
 			var task = try self.decorator.uploadTaskManager.createNewTask(for: 3)
 			guard let metadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: 3) else {
 				XCTFail("No ItemMetadata for id found")
@@ -79,7 +79,7 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			try self.decorator.itemMetadataManager.updateMetadata(metadata)
 			try self.decorator.uploadTaskManager.updateTask(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
 		}.then {
-			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+			return self.decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			let errorItem = fileProviderItemList.items[1]
@@ -111,7 +111,7 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			XCTFail("id is nil")
 			return
 		}
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList in
 			XCTAssertNotNil(fileProviderItemList.nextPageToken)
 			XCTAssertEqual(2, fileProviderItemList.items.count)
 			XCTAssertEqual(0, fileProviderItemList.items.filter { $0.metadata.id == itemMetadata.id }.count)
@@ -138,12 +138,12 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			return
 		}
 		let decorator = try FileProviderDecoratorMock(with: paginatedMockedProvider, for: domain, with: manager)
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertNotNil(fileProviderItemList.nextPageToken)
 			guard let tokenData = fileProviderItemList.nextPageToken, let nextPageToken = String(data: tokenData.rawValue, encoding: .utf8) else {
 				throw NSError(domain: "FileProviderDecoratorTestError", code: -100, userInfo: ["localizedDescription": "No page Token"])
 			}
-			return decorator.fetchItemList(for: .rootContainer, withPageToken: nextPageToken)
+			return decorator.enumerateItems(for: .rootContainer, withPageToken: nextPageToken)
 		}.then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertNil(fileProviderItemList.nextPageToken)
 			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
@@ -151,14 +151,14 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 			guard let folderIdentifier = folderItem?.id else {
 				throw NSError(domain: "FileProviderDecoratorTestError", code: -100, userInfo: ["localizedDescription": "no Folder Id found!"])
 			}
-			return decorator.fetchItemList(for: NSFileProviderItemIdentifier("\(folderIdentifier)"), withPageToken: nil)
+			return decorator.enumerateItems(for: NSFileProviderItemIdentifier("\(folderIdentifier)"), withPageToken: nil)
 		}.then { _ -> Promise<FileProviderItemList> in
 			let rootItem = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 			let cachedMetadata = try decorator.itemMetadataManager.getAllCachedMetadata(inside: rootItem)
 			XCTAssertEqual(8, cachedMetadata.count)
 			paginatedMockedProvider.nextPageToken["0"] = nil
 			paginatedMockedProvider.pages["1"] = nil
-			return decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+			return decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertNil(fileProviderItemList.nextPageToken)
 			XCTAssertEqual(2, fileProviderItemList.items.count)
@@ -177,11 +177,11 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 	func testFolderEnumerationDidNotOverwriteReparentTask() throws {
 		let expectation = XCTestExpectation()
 		let newCloudPath = CloudPath("/RenamedItem")
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { itemList -> Promise<FileProviderItemList> in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { itemList -> Promise<FileProviderItemList> in
 			let item = itemList.items[1]
 			XCTAssertEqual("File 1", item.filename)
 			_ = try self.decorator.moveItemLocally(withIdentifier: item.itemIdentifier, toParentItemWithIdentifier: nil, newName: "RenamedItem")
-			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+			return self.decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			let renamedItem = fileProviderItemList.items.first(where: { $0.filename == "RenamedItem" })
@@ -200,11 +200,11 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 
 	func testFolderEnumerationDidNotOverwriteDeletionTask() throws {
 		let expectation = XCTestExpectation()
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { itemList -> Promise<FileProviderItemList> in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { itemList -> Promise<FileProviderItemList> in
 			let item = itemList.items[1]
 			XCTAssertEqual("File 1", item.filename)
 			_ = try self.decorator.deleteItemLocally(withIdentifier: item.itemIdentifier)
-			return self.decorator.fetchItemList(for: .rootContainer, withPageToken: nil)
+			return self.decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
 			XCTAssertEqual(4, fileProviderItemList.items.count)
 			XCTAssertFalse(fileProviderItemList.items.contains(where: { $0.filename == "File 1" }))

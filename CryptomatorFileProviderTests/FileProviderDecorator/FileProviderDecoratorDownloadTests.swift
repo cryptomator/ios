@@ -37,7 +37,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
 			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
 		}.then { _ in
 			self.decorator.localFileIsCurrent(with: itemIdentifier)
@@ -56,7 +56,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
 
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
 			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
 		}.then { _ -> Promise<Bool> in
 			let mockedDecorator = self.decorator as? FileProviderDecoratorMock
@@ -77,7 +77,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 
 		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
 		let itemIdentifier = NSFileProviderItemIdentifier("3")
-		decorator.fetchItemList(for: .rootContainer, withPageToken: nil).then { _ in
+		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
 			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
 		}.then { _ in
 			self.decorator.localFileIsCurrent(with: itemIdentifier)
@@ -98,7 +98,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let identifier = NSFileProviderItemIdentifier(String("3"))
-		decorator.downloadFile(with: identifier, to: localURL).then { item in
+		decorator.downloadFile(with: identifier, to: localURL).then { _ in
 			let localContent = try Data(contentsOf: localURL)
 			XCTAssertEqual(self.mockedProvider.files[cloudPath.path], localContent)
 			let lastModifiedDate = try self.decorator.cachedFileManager.getLastModifiedDate(for: 3)
@@ -180,7 +180,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!,localURL: localURLForItem, lastModifiedDate: nil)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURLForItem, lastModifiedDate: nil)
 		let item = FileProviderItem(metadata: metadata)
 		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
 		XCTAssertTrue(hasVersioningConflict)
@@ -190,7 +190,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
-		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!,localURL: localURLForItem, lastModifiedDate: nil)
+		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURLForItem, lastModifiedDate: nil)
 		let item = FileProviderItem(metadata: metadata)
 		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
 		XCTAssertFalse(hasVersioningConflict)

@@ -49,7 +49,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
 		DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath).then { decorator in
-			decorator.fetchItemList(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
+			decorator.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
 		}.then { itemList in
 			observer.didEnumerate(itemList.items)
 			observer.finishEnumerating(upTo: itemList.nextPageToken)
