@@ -11,6 +11,7 @@ import Foundation
 public class CloudProviderManager {
 	static var cachedProvider = [String: CloudProvider]()
 	public static let shared = CloudProviderManager(accountManager: CloudProviderAccountManager.shared)
+	public var useBackgroundSession = true
 	let accountManager: CloudProviderAccountManager
 
 	init(accountManager: CloudProviderAccountManager) {
@@ -38,7 +39,7 @@ public class CloudProviderManager {
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
-			let client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: true)
+			let client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: useBackgroundSession)
 			provider = WebDAVProvider(with: client)
 		default:
 			throw CloudProviderAccountError.accountNotFoundError

@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}.catch { error in
 			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
+		CloudProviderManager.shared.useBackgroundSession = false
 		window = UIWindow(frame: UIScreen.main.bounds)
 		let navigationController = UINavigationController(rootViewController: WebDAVLoginViewController())
 		window?.rootViewController = navigationController
