@@ -202,11 +202,18 @@ public class VaultManager {
 		} catch {
 			return Promise(error)
 		}
-		return NSFileProviderManager.getDomains().then { domains -> Promise<[Void]> in
-			let unusedDomains = domains.filter { vaultUIDs.contains($0.identifier.rawValue) }
-			return all(unusedDomains.map { NSFileProviderManager.remove($0) })
-		}.then { _ in
-			// no-op
+		return NSFileProviderManager.getDomains().then { domains -> Promise<Void> in
+			let unusedDomains = domains.filter { !vaultUIDs.contains($0.identifier.rawValue) }
+			return self.removeDomainsFromFileProvider(unusedDomains)
+		}
+	}
+
+	func removeDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
+		return Promise(on: .global()) { fulfill, _ in
+			for domain in domains {
+				try await(NSFileProviderManager.remove(domain))
+			}
+			fulfill(())
 		}
 	}
 
