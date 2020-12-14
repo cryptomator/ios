@@ -50,9 +50,15 @@ class MetadataManager {
 		}
 	}
 
+	/**
+	 Returns the ItemMetadata object that has the same path.
+	 The path is case insensitively checked for equality.
+	 However, it is stored and returned case preserving in the database, because this is important for the VaultDecorator.
+	 Since the two clearText paths: "/foo" and "/Foo" lead to two different cipherText paths.
+	 */
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try dbPool.read { db in
-			return try ItemMetadata.fetchOne(db, key: ["cloudPath": cloudPath])
+			return try ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).lowercased == cloudPath.path.lowercased()).fetchOne(db)
 		}
 		return itemMetadata
 	}

@@ -213,6 +213,24 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == subFolderId }))
 		XCTAssertTrue(cachedMetadata.contains(where: { $0.id == itemMetadataForFileInSubFolder.id! }))
 	}
+
+	func testGetMetadataWithCaseMismatchPath() throws {
+		let cloudPath = CloudPath("/File.txt")
+		let itemMetadataForFile = ItemMetadata(name: "File.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForFile)
+
+		guard let fetchedMetadataForSensitivePath = try manager.getCachedMetadata(for: cloudPath) else {
+			XCTFail("Metadata not found for path: \(cloudPath)")
+			return
+		}
+		let lowerCasedCloudPath = CloudPath("/file.txt")
+		guard let fetchedMetadataForInSensitivePath = try manager.getCachedMetadata(for: lowerCasedCloudPath) else {
+			XCTFail("Metadata not found for path: \(lowerCasedCloudPath)")
+			return
+		}
+		XCTAssertEqual(fetchedMetadataForSensitivePath, fetchedMetadataForInSensitivePath)
+		XCTAssertEqual(cloudPath, fetchedMetadataForInSensitivePath.cloudPath)
+	}
 }
 
 extension ItemMetadata: Comparable {
