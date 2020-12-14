@@ -15,8 +15,6 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
-      - name: Select Xcode 12.0
-        run: sudo xcode-select -switch /Applications/Xcode_12.app
       - name: Create CloudAccessSecrets
         run: ./create-cloud-access-secrets-file.sh
         env:
@@ -24,10 +22,10 @@ jobs:
           GOOGLE_DRIVE_REDIRECT_URL: ${{ secrets.GOOGLE_DRIVE_REDIRECT_URL }}
           DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
       - name: Build and test CloudAccessPrivateCore
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CloudAccessPrivateCore' -destination 'name=iPhone 11 Pro' -enableCodeCoverage YES clean test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CloudAccessPrivateCore' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
       - name: Run CryptomatorIntegrationTests
         if: startsWith(github.ref, 'refs/tags/')
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorIntegrationTests' -destination 'name=iPhone 11 Pro' test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorIntegrationTests' -destination 'name=iPhone 12 Pro' test | xcpretty
         env:
           GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
           DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
@@ -35,4 +33,4 @@ jobs:
           WEBDAV_USERNAME: ${{ secrets.WEBDAV_USERNAME }}
           WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
       - name: Build and test Cryptomator
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'Cryptomator' -destination 'name=iPhone 11 Pro' test | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'Cryptomator' -destination 'name=iPhone 12 Pro' test | xcpretty
