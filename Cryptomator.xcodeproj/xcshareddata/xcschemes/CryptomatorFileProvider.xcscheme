@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4ADB470124A39AA8004DE115"
-               BuildableName = "CryptomatorFileProvider.framework"
+               BlueprintIdentifier = "740375D62587AE7A0023FF53"
+               BuildableName = "libCryptomatorFileProvider.a"
                BlueprintName = "CryptomatorFileProvider"
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
@@ -60,8 +60,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4ADB470124A39AA8004DE115"
-            BuildableName = "CryptomatorFileProvider.framework"
+            BlueprintIdentifier = "740375D62587AE7A0023FF53"
+            BuildableName = "libCryptomatorFileProvider.a"
             BlueprintName = "CryptomatorFileProvider"
             ReferencedContainer = "container:Cryptomator.xcodeproj">
          </BuildableReference>
