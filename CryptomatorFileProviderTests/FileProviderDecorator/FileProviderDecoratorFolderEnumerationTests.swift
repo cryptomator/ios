@@ -215,4 +215,28 @@ class FileProviderDecoratorFolderEnumerationTests: FileProviderDecoratorTestCase
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
+
+	func testFolderEnumerationOnNonExistentItem() throws {
+		let expectation = XCTestExpectation()
+		let cloudPath = CloudPath("/itemNotFound")
+		let folderMetadata = ItemMetadata(name: "ItemNotExistInCloud", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		try decorator.itemMetadataManager.cacheMetadata(folderMetadata)
+		guard let id = folderMetadata.id else {
+			XCTFail("FolderMetadata not saved in DB")
+			return
+		}
+		let identifier = NSFileProviderItemIdentifier("\(id)")
+		decorator.enumerateItems(for: identifier, withPageToken: nil).then { _ in
+			XCTFail("Promise should not fulfill for nonexistent Folder")
+		}.catch { error in
+			let nsError = error as NSError
+			guard nsError.domain == NSFileProviderErrorDomain, nsError.code == NSFileProviderError.noSuchItem.rawValue else {
+				XCTFail("Promise rejected but with the wrong error: \(error)")
+				return
+			}
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
 }
