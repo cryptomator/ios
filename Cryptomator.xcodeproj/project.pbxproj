@@ -94,6 +94,7 @@
 		4AE3DD122534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE3DD112534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift */; };
 		4AE3DD202534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE3DD1F2534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift */; };
 		4AE564302541F17400D64237 /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */; };
+		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AE97DAF24572E4900452814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAE24572E4900452814 /* ViewController.swift */; };
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
@@ -305,6 +306,9 @@
 		4AE3DD112534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProvider+CreateIntermediateFolders.swift"; sourceTree = "<group>"; };
 		4AE3DD1F2534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProvider+IntermediateFolderTests.swift"; sourceTree = "<group>"; };
 		4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVKeychainTests.swift; sourceTree = "<group>"; };
+		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
+		4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProviderValidationServiceSource.h; sourceTree = "<group>"; };
+		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
 		4AE97DA824572E4900452814 /* Cryptomator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptomator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DAA24572E4900452814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AE97DAE24572E4900452814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -581,10 +585,13 @@
 			isa = PBXGroup;
 			children = (
 				4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */,
+				4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */,
+				4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */,
 				4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */,
 				4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */,
 				4AA621DE249A6A8400A0BCBD /* Info.plist */,
 				4AA621DF249A6A8400A0BCBD /* FileProviderExtension.entitlements */,
+				4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */,
 			);
 			path = FileProviderExtension;
 			sourceTree = "<group>";
@@ -894,6 +901,7 @@
 					};
 					4AA621D5249A6A8400A0BCBD = {
 						CreatedOnToolsVersion = 11.5;
+						LastSwiftMigration = 1220;
 					};
 					4AA621E3249A6A8400A0BCBD = {
 						CreatedOnToolsVersion = 11.5;
@@ -1201,6 +1209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */,
 				4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */,
 				4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */,
 				4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */,
@@ -1429,7 +1438,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = "SWIFT_PACKAGE=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SWIFT_PACKAGE=1",
+					"DEBUG=1",
+				);
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1601,6 +1613,7 @@
 		4AA621F6249A6A8400A0BCBD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -1617,6 +1630,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development com.setolabs.Cryptomator.FileProviderExtension";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1625,6 +1640,7 @@
 		4AA621F7249A6A8400A0BCBD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = FileProviderExtension/FileProviderExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -1641,6 +1657,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.setolabs.Cryptomator.FileProviderExtension";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

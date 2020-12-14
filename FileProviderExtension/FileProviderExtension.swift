@@ -23,6 +23,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
 	override init() {
+		super.init()
 		LoggerSetup.oneTimeSetup()
 		if !FileProviderExtension.sharedDatabaseInitialized {
 			if let dbURL = CryptomatorDatabase.sharedDBURL {
@@ -42,7 +43,7 @@ class FileProviderExtension: NSFileProviderExtension {
 				DDLogError("FPExt - dbURL is nil")
 			}
 		}
-		super.init()
+
 		self.observation = observe(
 			\.domain,
 			options: [.old, .new]
@@ -358,6 +359,14 @@ class FileProviderExtension: NSFileProviderExtension {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
+	}
+
+	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
+		var serviceSources = [NSFileProviderServiceSource]()
+		#if DEBUG
+			serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
+		#endif
+		return serviceSources
 	}
 }
 
