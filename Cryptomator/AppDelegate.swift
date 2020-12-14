@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		CloudProviderManager.shared.useBackgroundSession = false
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let navigationController = UINavigationController(rootViewController: WebDAVLoginViewController())
+		let navigationController = UINavigationController(rootViewController: ViewController())
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true
