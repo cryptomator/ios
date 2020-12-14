@@ -1,0 +1,18 @@
+# file options
+
+--exclude Pods
+
+# format options
+
+--commas inline
+--importgrouping testable-bottom
+--indent tab
+--self init-only
+--stripunusedargs closure-only
+--swiftversion 5.1
+--tabwidth 4
+
+# rules
+
+--enable isEmpty
+--disable redundantReturn,trailingClosures
