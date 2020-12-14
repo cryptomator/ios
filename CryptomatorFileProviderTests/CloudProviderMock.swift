@@ -59,7 +59,24 @@ class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken _: String?) -> Promise<CloudItemList> {
+	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+		switch cloudPath {
+		case CloudPath("/itemNotFound"):
+			return Promise(CloudProviderError.itemNotFound)
+		case CloudPath("/itemTypeMismatch"):
+			return Promise(CloudProviderError.itemTypeMismatch)
+		case CloudPath("/pageTokenInvalid"):
+			return Promise(CloudProviderError.pageTokenInvalid)
+		case CloudPath("/unauthorized"):
+			return Promise(CloudProviderError.unauthorized)
+		case CloudPath("/noInternetConnection"):
+			return Promise(CloudProviderError.noInternetConnection)
+		default:
+			return normalFetchItemList(forFolderAt: cloudPath, withPageToken: pageToken)
+		}
+	}
+
+	func normalFetchItemList(forFolderAt cloudPath: CloudPath, withPageToken _: String?) -> Promise<CloudItemList> {
 		let parentPath = cloudPath.path
 		let parentPathLvl = parentPath.components(separatedBy: "/").count - (parentPath.hasSuffix("/") ? 1 : 0)
 		let childDirs = folders.filter { $0.hasPrefix(parentPath) && $0.components(separatedBy: "/").count == parentPathLvl + 1 }
