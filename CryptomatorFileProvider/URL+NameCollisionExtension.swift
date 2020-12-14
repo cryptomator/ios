@@ -6,6 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Foundation
+
 public extension URL {
 	func createCollisionURL(conflictResolvingAddition: String) -> URL {
 		precondition(isFileURL)
