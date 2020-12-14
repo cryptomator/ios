@@ -75,11 +75,36 @@
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		740376212587AED60023FF53 /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 740376202587AED60023FF53 /* CloudAccessPrivateCore */; };
-		740376232587AFBF0023FF53 /* libCryptomatorFileProvider.a in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
-		740376242587AFCF0023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
+		747F2EB52587B7780072FB30 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
+		747F2F1D2587BC250072FB30 /* FileProviderDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F22587AEB50023FF53 /* FileProviderDecorator.swift */; };
+		747F2F1E2587BC250072FB30 /* DecoratorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F82587AEB50023FF53 /* DecoratorManager.swift */; };
+		747F2F1F2587BC250072FB30 /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F02587AEB40023FF53 /* FileProviderNotificator.swift */; };
+		747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */; };
+		747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */; };
+		747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376032587AEB60023FF53 /* ItemMetadata.swift */; };
+		747F2F232587BC250072FB30 /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760B2587AEB70023FF53 /* MetadataManager.swift */; };
+		747F2F242587BC250072FB30 /* CachedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376092587AEB70023FF53 /* CachedFileManager.swift */; };
+		747F2F252587BC250072FB30 /* UploadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376052587AEB60023FF53 /* UploadTaskManager.swift */; };
+		747F2F262587BC250072FB30 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376062587AEB60023FF53 /* UploadTask.swift */; };
+		747F2F272587BC250072FB30 /* ReparentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760C2587AEB70023FF53 /* ReparentTask.swift */; };
+		747F2F282587BC250072FB30 /* ReparentTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376072587AEB60023FF53 /* ReparentTaskManager.swift */; };
+		747F2F292587BC250072FB30 /* TaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760A2587AEB70023FF53 /* TaskError.swift */; };
+		747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760D2587AEB70023FF53 /* DatabaseHelper.swift */; };
+		747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376042587AEB60023FF53 /* DeletionTask.swift */; };
+		747F2F2C2587BC260072FB30 /* DeletionTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376082587AEB70023FF53 /* DeletionTaskManager.swift */; };
+		747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FC2587AEB50023FF53 /* FileProviderItemList.swift */; };
+		747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F32587AEB50023FF53 /* FileProviderItem.swift */; };
+		747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F12587AEB40023FF53 /* FileProviderDecoratorError.swift */; };
+		747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F42587AEB50023FF53 /* ItemStatus.swift */; };
+		747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */; };
+		747F2F322587BC260072FB30 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F62587AEB50023FF53 /* CloudProviderMock.swift */; };
+		747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376012587AEB60023FF53 /* LockManager.swift */; };
+		747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FF2587AEB60023FF53 /* FileSystemLock.swift */; };
+		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
+		747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376002587AEB60023FF53 /* LockNode.swift */; };
 		74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,14 +144,14 @@
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
 		};
-		740376252587AFD90023FF53 /* PBXContainerItemProxy */ = {
+		740376272587AFF20023FF53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 740375D62587AE7A0023FF53;
 			remoteInfo = CryptomatorFileProvider;
 		};
-		740376272587AFF20023FF53 /* PBXContainerItemProxy */ = {
+		747F2EB62587B7780072FB30 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
@@ -136,17 +161,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		4A291DB8252373A9006295E6 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				740376232587AFBF0023FF53 /* libCryptomatorFileProvider.a in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		4A965F342523978B002D7CBC /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -275,7 +289,6 @@
 		740375F42587AEB50023FF53 /* ItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStatus.swift; sourceTree = "<group>"; };
 		740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
 		740375F62587AEB50023FF53 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
-		740375F72587AEB50023FF53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		740375F82587AEB50023FF53 /* DecoratorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorManager.swift; sourceTree = "<group>"; };
 		740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
 		740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
@@ -319,7 +332,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				740376242587AFCF0023FF53 /* libCryptomatorFileProvider.a in Frameworks */,
+				747F2EB52587B7780072FB30 /* libCryptomatorFileProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,7 +643,6 @@
 			isa = PBXGroup;
 			children = (
 				740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */,
-				740375F72587AEB50023FF53 /* Info.plist */,
 				740375F22587AEB50023FF53 /* FileProviderDecorator.swift */,
 				740375F82587AEB50023FF53 /* DecoratorManager.swift */,
 				740375F02587AEB40023FF53 /* FileProviderNotificator.swift */,
@@ -726,13 +738,12 @@
 				4AA621D2249A6A8400A0BCBD /* Sources */,
 				4AA621D3249A6A8400A0BCBD /* Frameworks */,
 				4AA621D4249A6A8400A0BCBD /* Resources */,
-				4A291DB8252373A9006295E6 /* Embed Frameworks */,
 				742595D82552EF5200A8A008 /* Set Build Number */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				740376262587AFD90023FF53 /* PBXTargetDependency */,
+				747F2EB72587B7780072FB30 /* PBXTargetDependency */,
 			);
 			name = FileProviderExtension;
 			productName = "File Provider Extension";
@@ -1194,6 +1205,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */,
+				747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */,
+				747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */,
+				747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */,
+				747F2F1D2587BC250072FB30 /* FileProviderDecorator.swift in Sources */,
+				747F2F1E2587BC250072FB30 /* DecoratorManager.swift in Sources */,
+				747F2F1F2587BC250072FB30 /* FileProviderNotificator.swift in Sources */,
+				747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */,
+				747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */,
+				747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */,
+				747F2F232587BC250072FB30 /* MetadataManager.swift in Sources */,
+				747F2F242587BC250072FB30 /* CachedFileManager.swift in Sources */,
+				747F2F252587BC250072FB30 /* UploadTaskManager.swift in Sources */,
+				747F2F262587BC250072FB30 /* UploadTask.swift in Sources */,
+				747F2F272587BC250072FB30 /* ReparentTask.swift in Sources */,
+				747F2F282587BC250072FB30 /* ReparentTaskManager.swift in Sources */,
+				747F2F292587BC250072FB30 /* TaskError.swift in Sources */,
+				747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */,
+				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
+				747F2F2C2587BC260072FB30 /* DeletionTaskManager.swift in Sources */,
+				747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */,
+				747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */,
+				747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */,
+				747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */,
+				747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */,
+				747F2F322587BC260072FB30 /* CloudProviderMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1225,15 +1262,15 @@
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */;
 		};
-		740376262587AFD90023FF53 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
-			targetProxy = 740376252587AFD90023FF53 /* PBXContainerItemProxy */;
-		};
 		740376282587AFF20023FF53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
 			targetProxy = 740376272587AFF20023FF53 /* PBXContainerItemProxy */;
+		};
+		747F2EB72587B7780072FB30 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
+			targetProxy = 747F2EB62587B7780072FB30 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1719,10 +1756,6 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
