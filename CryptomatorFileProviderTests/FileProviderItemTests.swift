@@ -77,6 +77,13 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
+	func testUploadingFolderDoesNotRestrictCapabilities() {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata)
+		XCTAssertEqual([.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], item.capabilities)
+	}
+
 	func testIsDownloadedOnlyForLocallyExistingFile() throws {
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)

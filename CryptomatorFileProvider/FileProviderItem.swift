@@ -41,14 +41,14 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {
-		if metadata.statusCode == .isUploading {
-			return .allowsReading
-		}
 		if metadata.statusCode == .uploadError {
 			return .allowsDeleting
 		}
 		if metadata.type == .folder {
 			return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
+		}
+		if metadata.statusCode == .isUploading {
+			return .allowsReading
 		}
 		return [.allowsWriting, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
 	}
