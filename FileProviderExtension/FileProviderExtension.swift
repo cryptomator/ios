@@ -364,7 +364,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
 		var serviceSources = [NSFileProviderServiceSource]()
 		#if DEBUG
-			serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
+		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
 		return serviceSources
 	}
