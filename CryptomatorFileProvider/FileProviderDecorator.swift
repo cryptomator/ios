@@ -696,7 +696,13 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	  - Precondition: the metadata is stored in the database as PlaceholderItem
+	 Creates a folder in the Cloud
+
+	 If the folder cannot be created because of a name collision, a retry is started with a collision hash at the end of the name.
+	 - Precondition: the metadata is stored in the database as PlaceholderItem
+	 - Precondition: The passed item is a folder
+	 - Postcondition: The folder was created in the cloud.
+	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode = .isUploaded` and `isPlaceholderItem = false in the database. And if there was an online name collision, the name was updated as well.
 	 */
 	public func createFolderInCloud(for item: FileProviderItem) -> Promise<FileProviderItem> {
 		let itemMetadata = item.metadata
@@ -724,6 +730,14 @@ public class FileProviderDecorator {
 		try itemMetadataManager.updateMetadata(itemMetadata)
 	}
 
+	/**
+	 Creates a folder in the Cloud
+
+	 - Precondition: the metadata is stored in the database as PlaceholderItem
+	 - Precondition: The passed item is a folder
+	 - Postcondition: The folder was created in the cloud.
+	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode = .isUploaded` and `isPlaceholderItem = false in the database.
+	 */
 	func createFolderInCloud(for itemMetadata: ItemMetadata, at cloudPath: CloudPath) -> Promise<FileProviderItem> {
 		assert(itemMetadata.isPlaceholderItem)
 		assert(itemMetadata.id != nil)
@@ -763,9 +777,16 @@ public class FileProviderDecorator {
 	}
 
 	/**
+	 Moves the item only locally.
+
+	 The move only takes place in the database and the file is not moved or renamed on the local file system.
+	 This ensures that previously triggered uploads, but which are currently pending, do not use the wrong local URL.
+	 In addition, the exact name of the item via the local URL is not further relevant (for us), since we determine the names of the items via the database.
 	 - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
 	 - Precondition: `parentItemIdentifier != nil || newName != nil`
-	 - Postcondition:
+	 - Postcondition: `newName != nil` implies that the `ItemMetadata` entry in the database has the `name = newName`.
+	 - Postcondition: `parentItemIdentifier != nil` implies that now the `ItemMetadata` entry in the database has the `parentId = parentItemIdentifier`
+	 - Postcondition: A `ReparentTask` was created for the passed `itemIdentifier.
 	 */
 	public func moveItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier?, newName: String?) throws -> FileProviderItem {
 		precondition(parentItemIdentifier != nil || newName != nil)
@@ -797,6 +818,15 @@ public class FileProviderDecorator {
 		return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
 	}
 
+	/**
+	Moves the item in the cloud.
+
+	If the item cannot be moved because of a name collision, a retry is started with a collision hash at the end of the name.
+	- Precondition: The `ItemMetadata` associated with the `identifier` exists in the DB.
+	- Precondition: The `ReparentTask` associated with the `identifier` exists in the DB.
+	- Postcondition: The item in the Cloud has the same parent folder and name as in the database.
+	- Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode = .isUploaded`. And if there was an online name collision, the name was updated as well.
+	*/
 	public func moveItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
 		let metadata: ItemMetadata
 		let reparentTask: ReparentTask
@@ -822,6 +852,14 @@ public class FileProviderDecorator {
 		}
 	}
 
+	/**
+	Moves the item in the cloud.
+
+	- Precondition: The `ItemMetadata` associated with the `identifier` exists in the DB.
+	- Precondition: The `ReparentTask` associated with the `identifier` exists in the DB.
+	- Postcondition: The item in the Cloud has the same parent folder and name as in the database.
+	- Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode = .isUploaded`. And if there was an online name collision, the name was updated as well.
+	*/
 	func moveItemInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<FileProviderItem> {
 		let oldPathLockForReading = LockManager.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
 		let oldDataLockForReading = LockManager.getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())
@@ -884,6 +922,9 @@ public class FileProviderDecorator {
 		}
 	}
 
+	/**
+	- Precondition: The passed `metadata` has as type file or folder.
+	*/
 	func moveFileOrFolderInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<Void> {
 		let provider: CloudProvider
 		do {
@@ -901,6 +942,15 @@ public class FileProviderDecorator {
 		}
 	}
 
+	/**
+	Deletes the item locally.
+
+	Deletes the corresponding ItemMetadata entry and all child items from the database and if the respective item was cached locally also from the local file system.
+	If there is no ItemMetadata entry for the passed ItemIdentifier in the database, no error will be thrown.
+	This ensures that this item will be removed from the Files App GUI anyway.
+	- Postcondition: A `DeletionTask` was created for the passed `itemIdentifier.
+	- Postcondition: The `ItemMetadata` entry passed to the `ItemIdentifier` and all `ItemMetadata` entries that have this entry as implicit parent were removed from the database and the associated locally cached files were removed from the file system. 
+	*/
 	public func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws {
 		let metadata: ItemMetadata
 		do {
@@ -912,6 +962,13 @@ public class FileProviderDecorator {
 		try removeItemFromCache(metadata)
 	}
 
+	/**
+	Deletes the item in the cloud.
+
+	- Precondition: The `DeletionTask` associated with the `itemIdentifier` exists in the DB.
+	- Postcondition: The item has been deleted from the cloud.
+	- Postcondition: The `DeletionTask` for the passed `itemIdentifier` was removed from the database.
+	*/
 	public func deleteItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<Void> {
 		let deletionTask: DeletionTask
 		do {
@@ -987,6 +1044,14 @@ public class FileProviderDecorator {
 		return try VaultManager.shared.getDecorator(forVaultUID: vaultUID)
 	}
 
+	/**
+	Processes the signal that the item no longer needs to be cached on the local file system.
+
+	If the file was edited locally, the file is uploaded before the cache is cleaned up, so no changes are lost.
+
+	- warning: Currently, it is unclear whether there can be any local changes that are only discovered at this point.
+	Since the FileProviderExtension should always be informed about local changes via itemChanged before.
+	*/
 	public func stopProvidingItem(with identifier: NSFileProviderItemIdentifier, url: URL, notificator: FileProviderNotificator?) -> Promise<Void> {
 		return localFileIsCurrent(with: identifier).then { isCurrent in
 			if !isCurrent {
