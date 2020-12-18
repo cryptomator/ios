@@ -738,13 +738,13 @@ public class FileProviderDecorator {
 		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
 		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
 		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
-		return pathLockForReading.lock().then {
+		return pathLockForReading.lock().then { _ -> Promise<Void> in
 			dataLockForReading.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			pathLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			dataLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			provider.createFolder(at: cloudPath)
 		}.then { _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
@@ -831,21 +831,21 @@ public class FileProviderDecorator {
 		let oldDataLockForWriting = LockManager.getDataLockForWriting(at: sourceCloudPath)
 		let newPathLockForWriting = LockManager.getPathLockForWriting(at: targetCloudPath)
 		let newDataLockForWriting = LockManager.getDataLockForWriting(at: targetCloudPath)
-		return oldPathLockForReading.lock().then {
+		return oldPathLockForReading.lock().then { _ -> Promise<Void> in
 			oldDataLockForReading.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			newPathLockForReading.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			newDataLockForReading.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			oldPathLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			oldDataLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			newPathLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			newDataLockForWriting.lock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			self.moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath)
 		}.then { _ -> FileProviderItem in
 			metadata.statusCode = .isUploaded
@@ -853,33 +853,33 @@ public class FileProviderDecorator {
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata.id!)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 			return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
-		}.always {
+		}.always { () -> Void in
 			self.unlockInOrder(a: newDataLockForWriting,
-							   b: newPathLockForWriting,
-							   c: oldDataLockForWriting,
-							   d: oldPathLockForWriting,
-							   e: newDataLockForReading,
-							   f: newPathLockForReading,
-							   g: oldDataLockForReading,
-							   h: oldPathLockForReading)
+			                   b: newPathLockForWriting,
+			                   c: oldDataLockForWriting,
+			                   d: oldPathLockForWriting,
+			                   e: newDataLockForReading,
+			                   f: newPathLockForReading,
+			                   g: oldDataLockForReading,
+			                   h: oldPathLockForReading)
 		}
 	}
 
 	// Helper function to prevent error: `The compiler is unable to type-check this expression in reasonable time`
 	func unlockInOrder(a: FileSystemLock, b: FileSystemLock, c: FileSystemLock, d: FileSystemLock, e: FileSystemLock, f: FileSystemLock, g: FileSystemLock, h: FileSystemLock) {
-		a.unlock().then {
+		a.unlock().then { _ -> Promise<Void> in
 			b.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			c.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			d.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			e.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			f.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			g.unlock()
-		}.then {
+		}.then { _ -> Promise<Void> in
 			h.unlock()
 		}
 	}
