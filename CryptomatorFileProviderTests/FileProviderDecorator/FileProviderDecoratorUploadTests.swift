@@ -25,8 +25,8 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		XCTAssert(actualFileProviderItem.isUploading)
 		XCTAssertEqual(expectedCloudPath, actualFileProviderItem.metadata.cloudPath)
 		XCTAssert(actualFileProviderItem.metadata.isPlaceholderItem)
-		let localLastModifiedDate = try decorator.cachedFileManager.getLastModifiedDate(for: actualFileProviderItem.metadata.id!)
-		XCTAssertNotNil(localLastModifiedDate)
+		let lastModifiedDateInCloud = try decorator.cachedFileManager.getLastModifiedDate(for: actualFileProviderItem.metadata.id!)
+		XCTAssertNil(lastModifiedDateInCloud)
 	}
 
 	func skip_testCreatePlaceholderItemForFileWithNameCollision() throws {

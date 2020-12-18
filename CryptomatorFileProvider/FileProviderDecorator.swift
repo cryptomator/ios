@@ -389,7 +389,7 @@ public class FileProviderDecorator {
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId, type: .file)
 		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
-		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
+		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, localURL: localURL, lastModifiedDate: nil)
 		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true, localURL: localURL)
 	}
 
