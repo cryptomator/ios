@@ -20,6 +20,7 @@ class MetadataManager {
 	func cacheMetadata(_ metadata: ItemMetadata) throws {
 		if let cachedMetadata = try getCachedMetadata(for: metadata.cloudPath) {
 			metadata.id = cachedMetadata.id
+			metadata.statusCode = cachedMetadata.statusCode
 			try updateMetadata(metadata)
 		} else {
 			try dbPool.write { db in

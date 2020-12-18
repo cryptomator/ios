@@ -49,7 +49,12 @@ class CloudProviderMock: CloudProvider {
 	var movedFiles: [String: String] = [:]
 	var movedFolders: [String: String] = [:]
 
+	var everyOperationShouldFailWithError: Error?
+
 	public func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+		if let error = everyOperationShouldFailWithError {
+			return Promise(error)
+		}
 		if folders.contains(cloudPath.path) {
 			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: 0))
 		} else if let data = files[cloudPath.path] {

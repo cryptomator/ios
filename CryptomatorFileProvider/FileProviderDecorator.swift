@@ -887,7 +887,7 @@ public class FileProviderDecorator {
 			self.moveFileOrFolderInCloud(metadata: metadata, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath)
 		}.then { _ -> FileProviderItem in
 			metadata.statusCode = .isUploaded
-			try self.itemMetadataManager.cacheMetadata(metadata)
+			try self.itemMetadataManager.updateMetadata(metadata)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata.id!)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 			return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
