@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 import Promises
 
-public class DecoratorManager {
+public enum DecoratorManager {
 	private static var cachedDecorators = [NSFileProviderDomainIdentifier: FileProviderDecorator]()
 	private static let queue = DispatchQueue(label: "DecoratorManager")
 

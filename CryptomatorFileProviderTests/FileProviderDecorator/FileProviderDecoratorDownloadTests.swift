@@ -11,7 +11,6 @@ import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
-	
 	func testDownloadFile() throws {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)

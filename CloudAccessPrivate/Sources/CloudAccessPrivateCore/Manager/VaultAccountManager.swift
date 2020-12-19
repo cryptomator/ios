@@ -70,12 +70,12 @@ public class VaultAccountManager {
 	}
 
 	public func getAllAccounts() throws -> [VaultAccount] {
-		try dbPool.read{ db in
+		try dbPool.read { db in
 			try VaultAccount.fetchAll(db)
 		}
 	}
-	
-	//only for prototype
+
+	// only for prototype
 	public func getAllVaultUIDs(with delegateAccountUID: String) throws -> [String] {
 		let accounts: [VaultAccount] = try dbPool.read { db in
 			return try VaultAccount

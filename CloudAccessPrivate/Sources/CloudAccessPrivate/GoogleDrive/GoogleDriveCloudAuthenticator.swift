@@ -16,7 +16,7 @@ public enum GoogleDriveAuthenticationError: Error {
 	case userCanceled
 }
 
-public class GoogleDriveCloudAuthenticator {
+public enum GoogleDriveCloudAuthenticator {
 	private static let scopes = [kGTLRAuthScopeDrive]
 	public static var currentAuthorizationFlow: OIDExternalUserAgentSession?
 

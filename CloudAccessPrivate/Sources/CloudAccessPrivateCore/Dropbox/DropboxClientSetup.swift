@@ -7,7 +7,7 @@
 
 import Foundation
 import ObjectiveDropboxOfficial
-public class DropboxClientSetup {
+public enum DropboxClientSetup {
 	private static var firstTimeInit = true
 	public static func oneTimeSetup() {
 		if firstTimeInit {

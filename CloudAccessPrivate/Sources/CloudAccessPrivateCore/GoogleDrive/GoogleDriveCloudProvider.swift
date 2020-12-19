@@ -101,12 +101,12 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
 		let foldername = cloudPath.lastPathComponent
 		return Promise<Void>(on: .global()) { fulfill, reject in
-			let parentIdentifier = try await(self.resolveParentPath(for: cloudPath))
+			let parentIdentifier = try await (self.resolveParentPath(for: cloudPath))
 			do {
-				_ = try await(self.getFirstIdentifier(forItemWithName: foldername, itemType: .folder, inFolderWithId: parentIdentifier))
+				_ = try await (self.getFirstIdentifier(forItemWithName: foldername, itemType: .folder, inFolderWithId: parentIdentifier))
 				reject(CloudProviderError.itemAlreadyExists)
 			} catch CloudProviderError.itemNotFound {
-				_ = try await(self.createFolder(at: cloudPath, withParentIdentifier: parentIdentifier))
+				_ = try await (self.createFolder(at: cloudPath, withParentIdentifier: parentIdentifier))
 				fulfill(())
 			} catch CloudProviderError.itemTypeMismatch {
 				reject(CloudProviderError.itemAlreadyExists)
@@ -515,7 +515,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			for i in startIndex ..< endIndex {
 				let itemName = endCloudPath.pathComponents[i]
 				currentURL = currentURL.appendingPathComponent(itemName)
-				parentIdentifier = try await(self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
+				parentIdentifier = try await (self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
 				try self.cloudIdentifierCache?.cacheIdentifier(parentIdentifier, for: currentURL)
 			}
 			fulfill(parentIdentifier)

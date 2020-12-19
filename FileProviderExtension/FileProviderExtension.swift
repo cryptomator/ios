@@ -389,7 +389,7 @@ extension URL {
 	}
 }
 
-class LoggerSetup {
+enum LoggerSetup {
 	private static var loggerInitialized = false
 
 	static func oneTimeSetup() {

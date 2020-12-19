@@ -35,12 +35,12 @@ class CloudProviderMock: CloudProvider {
 		"/Directory 1/File 5": "File 5 content".data(using: .utf8)
 	]
 	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
-											 "/Directory 1/Directory 2": nil,
-											 "/File 1": Date(timeIntervalSince1970: 0),
-											 "/File 2": Date(timeIntervalSince1970: 0),
-											 "/File 3": Date(timeIntervalSince1970: 0),
-											 "/File 4": Date(timeIntervalSince1970: 0),
-											 "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
+	                                         "/Directory 1/Directory 2": nil,
+	                                         "/File 1": Date(timeIntervalSince1970: 0),
+	                                         "/File 2": Date(timeIntervalSince1970: 0),
+	                                         "/File 3": Date(timeIntervalSince1970: 0),
+	                                         "/File 4": Date(timeIntervalSince1970: 0),
+	                                         "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
 
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]

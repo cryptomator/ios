@@ -15,7 +15,6 @@ class WebDAVLoginViewController: UIViewController {
 	var client: WebDAVClient?
 	let rootView = WebDAVLoginView()
 	override func loadView() {
-
 		rootView.loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		view = rootView
 		let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
@@ -34,7 +33,7 @@ class WebDAVLoginViewController: UIViewController {
 			return
 		}
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: nil)
-		self.client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: false)
+		client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: false)
 		WebDAVAuthenticator.verifyClient(client: client!).then {
 			try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: credential.identifier)
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
