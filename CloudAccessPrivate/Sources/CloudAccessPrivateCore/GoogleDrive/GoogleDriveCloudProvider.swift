@@ -57,8 +57,12 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		if FileManager.default.fileExists(atPath: localURL.path) {
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		return resolvePath(forFileAt: cloudPath).then { identifier in
-			self.downloadFile(withIdentifier: identifier, from: cloudPath, to: localURL)
+		let progress = Progress(totalUnitCount: 1)
+		return resolvePath(forFileAt: cloudPath).then { identifier -> Promise<Void> in
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			let downloadPromise = self.downloadFile(withIdentifier: identifier, from: cloudPath, to: localURL)
+			progress.resignCurrent()
+			return downloadPromise
 		}
 	}
 
@@ -73,10 +77,10 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		if isDirectory.boolValue {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
+		let progress = Progress(totalUnitCount: -1)
 		return resolveParentPath(for: cloudPath).then { parentIdentfier in
 			self.createFileUploadQuery(from: localURL, to: cloudPath, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
 		}.then { query -> Promise<Any> in
-			let progress = Progress(totalUnitCount: -1)
 			query.executionParameters.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
 				progress.totalUnitCount = Int64(totalBytesExpectedToUpload)
 				progress.completedUnitCount = Int64(totalBytesUploaded)
