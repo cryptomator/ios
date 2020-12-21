@@ -39,10 +39,10 @@ public class GoogleDriveCredential {
 				if fetchError.domain != kGTMSessionFetcherStatusDomain || fetchError.code != GoogleDriveConstants.googleDriveErrorCodeForbidden {
 					return suggestedWillRetry
 				}
-				guard let data = fetchError.userInfo["data"] as? Data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let error = json["error"] else {
+				guard let data = fetchError.userInfo["data"] as? Data, let json = try? JSONSerialization.jsonObject(with: data, options: []) as? [String: Any], let error = json["error"] as? [String: Any] else {
 					return suggestedWillRetry
 				}
-				let googleDriveError = GTLRErrorObject(json: ["error": error])
+				let googleDriveError = GTLRErrorObject(json: error)
 				guard let errorItem = googleDriveError.errors?.first else {
 					return suggestedWillRetry
 				}
