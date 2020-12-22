@@ -40,7 +40,7 @@ class GoogleDriveCloudProviderIntegrationTests: IntegrationTestWithAuthenticatio
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		credential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: "Single Test")
+		credential = MockGoogleDriveAuthenticator.generateAuthorizedCredential(withRefreshToken: IntegrationTestSecrets.googleDriveRefreshToken, tokenUid: UUID().uuidString)
 		super.provider = GoogleDriveCloudProvider(with: credential)
 	}
 
