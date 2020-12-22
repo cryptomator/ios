@@ -57,8 +57,12 @@ public class DropboxCloudProvider: CloudProvider {
 		guard let authorizedClient = credential.authorizedClient else {
 			return Promise(CloudProviderError.unauthorized)
 		}
+		let progress = Progress(totalUnitCount: 1)
 		return retryWithExponentialBackoff({
-			self.downloadFile(from: cloudPath, to: localURL, with: authorizedClient)
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			let downloadPromise = self.downloadFile(from: cloudPath, to: localURL, with: authorizedClient)
+			progress.resignCurrent()
+			return downloadPromise
 		}, condition: shouldRetryForError).recover { error -> Promise<Void> in
 			// Currently we get a 409 (requestError) instead of a 404 (routeError) error when we download a file that does not exist.
 			// We also get this when a download was performed on a folder.
@@ -99,12 +103,23 @@ public class DropboxCloudProvider: CloudProvider {
 		guard localItemType == .file else {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
+		let progress = Progress(totalUnitCount: 1)
 		let mode = replaceExisting ? DBFILESWriteMode(overwrite: ()) : nil
 		let fileSize = attributes[FileAttributeKey.size] as? Int ?? 157_286_400
 		if fileSize >= 157_286_400 {
-			return retryWithExponentialBackoff({ self.uploadBigFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({
+				progress.becomeCurrent(withPendingUnitCount: 1)
+				let uploadPromise = self.uploadBigFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient)
+				progress.resignCurrent()
+				return uploadPromise
+			}, condition: shouldRetryForError)
 		} else {
-			return retryWithExponentialBackoff({ self.uploadSmallFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient) }, condition: shouldRetryForError)
+			return retryWithExponentialBackoff({
+				progress.becomeCurrent(withPendingUnitCount: 1)
+				let uploadPromise = self.uploadSmallFile(from: localURL, to: cloudPath, mode: mode, with: authorizedClient)
+				progress.resignCurrent()
+				return uploadPromise
+			}, condition: shouldRetryForError)
 		}
 	}
 
@@ -335,8 +350,12 @@ public class DropboxCloudProvider: CloudProvider {
 	// uploadFile
 
 	private func uploadBigFile(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
+		let progress = Progress(totalUnitCount: 1)
 		return ensureParentFolderExists(for: cloudPath).then {
-			self.batchUploadSingleFile(from: localURL, to: cloudPath, mode: mode, with: client)
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			let uploadPromise = self.batchUploadSingleFile(from: localURL, to: cloudPath, mode: mode, with: client)
+			progress.resignCurrent()
+			return uploadPromise
 		}
 	}
 
@@ -398,8 +417,12 @@ public class DropboxCloudProvider: CloudProvider {
 	}
 
 	private func uploadSmallFile(from localURL: URL, to cloudPath: CloudPath, mode: DBFILESWriteMode?, with client: DBUserClient) -> Promise<CloudItemMetadata> {
-		return ensureParentFolderExists(for: cloudPath).then {
-			self.uploadFileAfterParentCheck(from: localURL, to: cloudPath, mode: mode, with: client)
+		let progress = Progress(totalUnitCount: 1)
+		return ensureParentFolderExists(for: cloudPath).then { _ -> Promise<CloudItemMetadata> in
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			let uploadPromise = self.uploadFileAfterParentCheck(from: localURL, to: cloudPath, mode: mode, with: client)
+			progress.resignCurrent()
+			return uploadPromise
 		}
 	}
 
