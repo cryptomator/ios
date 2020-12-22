@@ -59,7 +59,22 @@ public class DropboxCloudProvider: CloudProvider {
 		}
 		return retryWithExponentialBackoff({
 			self.downloadFile(from: cloudPath, to: localURL, with: authorizedClient)
-		}, condition: shouldRetryForError)
+		}, condition: shouldRetryForError).recover { error -> Promise<Void> in
+			// Currently we get a 409 (requestError) instead of a 404 (routeError) error when we download a file that does not exist.
+			// We also get this when a download was performed on a folder.
+			// Therefore, we currently need to check if there is a folder on the given CloudPath.
+
+			guard case CloudProviderError.itemNotFound = error else {
+				return Promise(error)
+			}
+			return self.checkForItemExistence(at: cloudPath).then { itemExists in
+				if itemExists {
+					return Promise(CloudProviderError.itemTypeMismatch)
+				} else {
+					return Promise(error)
+				}
+			}
+		}
 	}
 
 	/**
@@ -302,7 +317,14 @@ public class DropboxCloudProvider: CloudProvider {
 							return
 						}
 					}
-					reject(self.convertRequestErrorToDropboxError(requestError))
+					let dropboxError = self.convertRequestErrorToDropboxError(requestError)
+					// Currently we get a 409 (requestError) instead of a 404 (routeError) error when we download a file that does not exist.
+					// Until this is fixed by Dropbox, this workaround is used.
+					if dropboxError == .httpError, requestError.statusCode == 409 {
+						reject(CloudProviderError.itemNotFound)
+						return
+					}
+					reject(dropboxError)
 					return
 				}
 				fulfill(())
