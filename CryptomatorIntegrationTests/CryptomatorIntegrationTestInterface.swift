@@ -53,7 +53,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 		// MARK: use waitForPromises as expectations are not available here. Therefore we can't catch the error from the promise above. And we need to check for an error later
 
-		guard waitForPromises(timeout: 60.0) else {
+		guard waitForPromises(timeout: 120.0) else {
 			classSetUpError = IntegrationTestError.oneTimeSetUpTimeout
 			return
 		}
