@@ -61,6 +61,7 @@
 		4ABD2EEE2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EED2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift */; };
 		4ABD2EF72592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EF62592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift */; };
 		4ABD2F0025925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EFF25925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift */; };
+		4ABD2F0925926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ACA06AE2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA06AD2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift */; };
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
@@ -264,6 +265,7 @@
 		4ABD2EED2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6DropboxIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD2EF62592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6WebDAVIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD2EFF25925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6GoogleDriveIntegrationTests.swift; sourceTree = "<group>"; };
+		4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7GoogleDriveIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ACA06AD2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
@@ -447,6 +449,7 @@
 			isa = PBXGroup;
 			children = (
 				4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */,
+				4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */,
 				4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */,
 				4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */,
 			);
@@ -1149,6 +1152,7 @@
 				4AE3DD122534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift in Sources */,
 				4A9D3ED925272A4E000811B6 /* MockGoogleDriveAuthenticator.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
+				4ABD2F0925926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift in Sources */,
 				4ABD2F0025925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
 				4ACA06AE2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift in Sources */,
