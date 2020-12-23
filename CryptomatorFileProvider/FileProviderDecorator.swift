@@ -530,7 +530,6 @@ public class FileProviderDecorator {
 	/**
 	 - Postcondition: The file is stored under the `remoteURL` of the cloud provider.
 	 - Postcondition: itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false
-	 - Postcondition: The associated CachedFileEntry contains the lastModifiedDate from the cloud.
 	 - Returns: Promise with FileProviderItem. If the upload fails with an error different to `CloudProviderError.itemAlreadyExists`  the Promise fulfills with a FileProviderItem, which contains a failed UploadTask to inform the FileProvider about the error. :
 	 	- `NSFileProviderError.noSuchItem` if the provider rejected the upload with `CloudProviderError.itemNotFound`
 	 	- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
@@ -554,6 +553,9 @@ public class FileProviderDecorator {
 			self.uploadSemaphore.wait()
 			let provider = try self.getVaultDecorator()
 
+			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
+			let localFileSize = attributes[FileAttributeKey.size] as? Int
+
 			let cloudPath = itemMetadata.cloudPath
 			let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
 			let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
@@ -571,14 +573,8 @@ public class FileProviderDecorator {
 				progress.resignCurrent()
 				return uploadPromise
 			}.then { cloudItemMetadata in
-				itemMetadata.statusCode = .isUploaded
-				itemMetadata.isPlaceholderItem = false
-				itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
-				itemMetadata.size = cloudItemMetadata.size
-				try self.itemMetadataManager.updateMetadata(itemMetadata)
-				try self.uploadTaskManager.removeTask(for: itemMetadata.id!)
-				try self.cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
-				fulfill(FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true, localURL: localURL))
+				let item = try self.uploadPostProcessing(for: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)
+				fulfill(item)
 			}.catch { error in
 				do {
 					let item = try self.errorHandlingForUserDrivenActions(error: error, itemMetadata: itemMetadata)
@@ -596,6 +592,34 @@ public class FileProviderDecorator {
 					pathLockForReading.unlock()
 				}
 			}
+		}
+	}
+
+	/**
+	 Post-processing the upload.
+
+	 Since some cloud providers (including WebDAV) cannot guarantee that the `CloudItemMetadata` supplied is the metadata of the uploaded version of the file, we must use the file size as a heuristic to verify this.
+	 Otherwise, the user will be delivered an outdated file from the local cache even though there is a newer version in the cloud.
+	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
+	 - Postcondition: `itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false`
+	 - Postcondition: If the file sizes (local & cloud) do not match there is no more local file under the `localURL` and no `localCachedFileInfo` entry for the `itemMetadata.id`.
+	 - Postcondition: If the file sizes (local & cloud) match, the `lastModifiedDate` from the cloud was stored together with the `localURL` as `localCachedFileInfo` in the database for the `itemMetadata.id`.
+	 */
+	func uploadPostProcessing(for itemMetadata: ItemMetadata, cloudItemMetadata: CloudItemMetadata, localURL: URL, localFileSizeBeforeUpload: Int?) throws -> FileProviderItem {
+		itemMetadata.statusCode = .isUploaded
+		itemMetadata.isPlaceholderItem = false
+		itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
+		itemMetadata.size = cloudItemMetadata.size
+		try itemMetadataManager.updateMetadata(itemMetadata)
+		try uploadTaskManager.removeTask(for: itemMetadata.id!)
+		if localFileSizeBeforeUpload == cloudItemMetadata.size {
+			DDLogInfo("uploadPostProcessing: received cloudItemMetadata seem to be correct: localSize = \(localFileSizeBeforeUpload ?? -1); cloudItemSize = \(cloudItemMetadata.size ?? -1)")
+			try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
+			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true, localURL: localURL)
+		} else {
+			DDLogInfo("uploadPostProcessing: received cloudItemMetadata do not belong to the version that was uploaded - size differs!")
+			try removeFileFromCache(itemMetadata)
+			return FileProviderItem(metadata: itemMetadata)
 		}
 	}
 
