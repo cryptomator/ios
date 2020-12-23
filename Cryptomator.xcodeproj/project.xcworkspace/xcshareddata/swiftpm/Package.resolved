@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "af84988bbe1296d1ead9e375cdd2478c2e206d10",
-          "version": null
+          "revision": "655991ca4c8d01183d69b01f3c4846c2626ce7e8",
+          "version": "0.9.10"
         }
       },
       {
