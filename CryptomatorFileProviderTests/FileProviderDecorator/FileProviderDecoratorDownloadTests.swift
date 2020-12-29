@@ -115,4 +115,93 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
 		XCTAssertFalse(hasVersioningConflict)
 	}
+
+	func testDownloadFileReplaceExisting() throws {
+		let expectation = XCTestExpectation()
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let existingLocalContent = "Old Local FileContent"
+		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
+		let existingLocalContentData = try Data(contentsOf: localURL)
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		let identifier = NSFileProviderItemIdentifier(String("3"))
+		decorator.downloadFile(with: identifier, to: localURL, replaceExisting: true).then { _ in
+			let localContent = try Data(contentsOf: localURL)
+			XCTAssertEqual(self.mockedProvider.files[cloudPath.path], localContent)
+			XCTAssertNotEqual(existingLocalContentData, localContent)
+			let lastModifiedDate = try self.decorator.cachedFileManager.getLastModifiedDate(for: 3)
+			XCTAssertNotNil(lastModifiedDate)
+			XCTAssertEqual(self.mockedProvider.lastModifiedDate[cloudPath.path], lastModifiedDate)
+			guard let fetchedMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: 3) else {
+				XCTFail("No ItemMetadata found")
+				return
+			}
+			XCTAssertEqual(ItemStatus.isUploaded, fetchedMetadata.statusCode)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testDownloadPostProcessingForReplaceExisting() throws {
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let existingLocalContent = "Old Local FileContent"
+		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
+
+		let downloadDestination = tmpDirectory.appendingPathComponent("localItem-12345.txt", isDirectory: false)
+		let downloadedContent = "Downloaded FileContent"
+		try downloadedContent.write(to: downloadDestination, atomically: true, encoding: .utf8)
+
+		let lastModifiedDate = Date(timeIntervalSince1970: 0)
+
+		let item = try decorator.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
+		XCTAssertFalse(FileManager.default.fileExists(atPath: downloadDestination.path))
+		let localURLContent = try String(contentsOf: localURL, encoding: .utf8)
+		XCTAssertEqual(downloadedContent, localURLContent)
+		XCTAssertEqual(localURL, item.localURL)
+		XCTAssert(item.newestVersionLocallyCached)
+		XCTAssertEqual(itemMetadata, item.metadata)
+
+		guard let localCachedFileInfo = try decorator.cachedFileManager.getLocalCachedFileInfo(for: 3) else {
+			XCTFail("No LocalCachedFileInfo found")
+			return
+		}
+		XCTAssertEqual(lastModifiedDate, localCachedFileInfo.lastModifiedDate)
+		XCTAssertEqual(localURL, localCachedFileInfo.localURL)
+	}
+
+	func testDownloadPostProcessingForNewFile() throws {
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let downloadedContent = "Downloaded FileContent"
+		try downloadedContent.write(to: localURL, atomically: true, encoding: .utf8)
+
+		let lastModifiedDate = Date(timeIntervalSince1970: 0)
+
+		let item = try decorator.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: localURL)
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
+		let localURLContent = try String(contentsOf: localURL, encoding: .utf8)
+		XCTAssertEqual(downloadedContent, localURLContent)
+		XCTAssertEqual(localURL, item.localURL)
+		XCTAssert(item.newestVersionLocallyCached)
+		XCTAssertEqual(itemMetadata, item.metadata)
+
+		guard let localCachedFileInfo = try decorator.cachedFileManager.getLocalCachedFileInfo(for: 3) else {
+			XCTFail("No LocalCachedFileInfo found")
+			return
+		}
+		XCTAssertEqual(lastModifiedDate, localCachedFileInfo.lastModifiedDate)
+		XCTAssertEqual(localURL, localCachedFileInfo.localURL)
+	}
 }

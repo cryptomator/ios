@@ -317,7 +317,7 @@ public class FileProviderDecorator {
 	  - Postcondition: The ItemMetadata associated with the `identifier` has the status `.isUploaded` in the database
 	  - Postcondition: The localCachedEntry associated with the `identifier` has the `lastModifiedDate` of the item downloaded from the cloud in the database.
 	  */
-	public func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL) -> Promise<FileProviderItem> {
+	public func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) -> Promise<FileProviderItem> {
 		let metadata: ItemMetadata
 		let provider: CloudProvider
 		do {
@@ -326,6 +326,7 @@ public class FileProviderDecorator {
 		} catch {
 			return Promise(error)
 		}
+		let downloadDestination = replaceExisting ? localURL.createCollisionURL() : localURL
 		var lastModifiedDate: Date?
 		let cloudPath = metadata.cloudPath
 		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
@@ -346,14 +347,11 @@ public class FileProviderDecorator {
 				}
 			}
 			progress.becomeCurrent(withPendingUnitCount: 1)
-			let downloadPromise = provider.downloadFile(from: cloudPath, to: localURL)
+			let downloadPromise = provider.downloadFile(from: cloudPath, to: downloadDestination)
 			progress.resignCurrent()
 			return downloadPromise
-		}.then { _ -> Promise<FileProviderItem> in
-			metadata.statusCode = .isUploaded
-			try self.itemMetadataManager.updateMetadata(metadata)
-			try self.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
-			return Promise(FileProviderItem(metadata: metadata, newestVersionLocallyCached: true, localURL: localURL))
+		}.then { _ -> FileProviderItem in
+			try self.downloadPostProcessing(for: metadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
 		}.recover { error -> Promise<FileProviderItem> in
 			metadata.statusCode = .downloadError
 			try self.itemMetadataManager.updateMetadata(metadata)
@@ -366,6 +364,34 @@ public class FileProviderDecorator {
 				pathLock.unlock()
 			}
 		}
+	}
+
+	/**
+	 Post-processing the download.
+
+	 Provides a uniform way of post-processing for overwriting and non-overwriting downloads.
+	 In the case of a non-overwriting download, the `localURL` and the `downloadDestination`, can be the same `URL`.
+	 - Parameter metadata: The metadata of the item for which post-processing is performed.
+	 - Parameter lastModifedDate: (Optional) The date the item was last modified in the cloud.
+	 - Parameter localURL: The local URL where the downloaded file is located at the end.
+	 - Parameter downloadDestination: The local URL to which the file was downloaded.
+	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
+	 - Postcondition: The downloaded file is located at `localURL`.
+	 - Postcondition: If the `downloadDestination != localURL` there is no file left at `downloadDestination`.
+	 - Postcondition: The passed `metadata` has the `statusCode` `isUploaded` in the database
+	 - Postcondition: The `localCacheFileInfo` entry associated with the `metadata.id` has the passed `lastModifiedDate` and the passed `localURL` stored in the database.
+	 - Returns: A `FileProviderItem` for the passed `metadata` with the `statusCode` `isUploaded` and the flag `newestVersionLocallyCached` and the passed `localURL`.
+	 */
+
+	func downloadPostProcessing(for metadata: ItemMetadata, lastModifiedDate: Date?, localURL: URL, downloadDestination: URL) throws -> FileProviderItem {
+		if localURL != downloadDestination {
+			try FileManager.default.removeItem(at: localURL)
+			try FileManager.default.moveItem(at: downloadDestination, to: localURL)
+		}
+		metadata.statusCode = .isUploaded
+		try itemMetadataManager.updateMetadata(metadata)
+		try cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
+		return FileProviderItem(metadata: metadata, newestVersionLocallyCached: true, localURL: localURL)
 	}
 
 	/**
