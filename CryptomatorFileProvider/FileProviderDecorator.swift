@@ -19,6 +19,7 @@ public class FileProviderDecorator {
 	private let uploadQueue: DispatchQueue
 	private let downloadQueue: DispatchQueue
 	private let uploadSemaphore = DispatchSemaphore(value: 1)
+	private let downloadSemaphore = DispatchSemaphore(value: 2)
 	let itemMetadataManager: MetadataManager
 	let cachedFileManager: CachedFileManager
 	let uploadTaskManager: UploadTaskManager
@@ -331,7 +332,12 @@ public class FileProviderDecorator {
 		let cloudPath = metadata.cloudPath
 		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
 		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
-		return pathLock.lock().then {
+		return Promise<Void>(on: downloadQueue) { fulfill, _ in
+			self.downloadSemaphore.wait()
+			fulfill(())
+		}.then {
+			pathLock.lock()
+		}.then {
 			dataLock.lock()
 		}.then {
 			provider.fetchItemMetadata(at: cloudPath)
@@ -360,6 +366,7 @@ public class FileProviderDecorator {
 			}
 			return Promise(error)
 		}.always {
+			self.downloadSemaphore.signal()
 			dataLock.unlock().then {
 				pathLock.unlock()
 			}
