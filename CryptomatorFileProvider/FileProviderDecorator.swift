@@ -32,8 +32,6 @@ public class FileProviderDecorator {
 	init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
-		// TODO: Real SetUp with CryptoDecorator, PersistentDBQueue, DBMigrator, etc.
-
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		self.itemMetadataManager = MetadataManager(with: database)
 		self.cachedFileManager = CachedFileManager(with: database)
@@ -100,6 +98,7 @@ public class FileProviderDecorator {
 	 - returns: returns a `FileProviderItemList` containing exactly one `FileProviderItem` which is the updated version of the item corresponding to the identifier of the passed `fileMetadata`.
 	 */
 	func fetchItemMetadata(with provider: CloudProvider, fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
+		assert(fileMetadata.type == .file)
 		let pathLock = LockManager.getPathLockForReading(at: fileMetadata.cloudPath)
 		let dataLock = LockManager.getDataLockForReading(at: fileMetadata.cloudPath)
 		return pathLock.lock().then {
@@ -146,6 +145,7 @@ public class FileProviderDecorator {
 	 - Postcondition: If a full folder listing took place (`nextPageToken == nil`), all items still flagged as `maybeOutdated` were removed from the database.
 	 */
 	func fetchItemList(with provider: CloudProvider, folderMetadata: ItemMetadata, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
+		assert(folderMetadata.type == .folder)
 		let pathLock = LockManager.getPathLockForReading(at: folderMetadata.cloudPath)
 		let dataLock = LockManager.getDataLockForReading(at: folderMetadata.cloudPath)
 		return pathLock.lock().then {
