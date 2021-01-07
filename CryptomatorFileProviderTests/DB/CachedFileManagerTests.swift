@@ -31,7 +31,7 @@ class CachedFileManagerTests: XCTestCase {
 	func testCacheLocalFileInfo() throws {
 		let date = Date(timeIntervalSince1970: 0)
 		let localURLForItem = URL(fileURLWithPath: "/foo")
-		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId,localURL: localURLForItem, lastModifiedDate: date)
+		try manager.cacheLocalFileInfo(for: MetadataManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: date)
 		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: MetadataManager.rootContainerId) else {
 			XCTFail("No localCachedFileInfo found for rootContainerId")
 			return

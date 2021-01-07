@@ -57,8 +57,12 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		if FileManager.default.fileExists(atPath: localURL.path) {
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		return resolvePath(forFileAt: cloudPath).then { identifier in
-			self.downloadFile(withIdentifier: identifier, from: cloudPath, to: localURL)
+		let progress = Progress(totalUnitCount: 1)
+		return resolvePath(forFileAt: cloudPath).then { identifier -> Promise<Void> in
+			progress.becomeCurrent(withPendingUnitCount: 1)
+			let downloadPromise = self.downloadFile(withIdentifier: identifier, from: cloudPath, to: localURL)
+			progress.resignCurrent()
+			return downloadPromise
 		}
 	}
 
@@ -73,10 +77,10 @@ public class GoogleDriveCloudProvider: CloudProvider {
 		if isDirectory.boolValue {
 			return Promise(CloudProviderError.itemTypeMismatch)
 		}
+		let progress = Progress(totalUnitCount: -1)
 		return resolveParentPath(for: cloudPath).then { parentIdentfier in
 			self.createFileUploadQuery(from: localURL, to: cloudPath, parentIdentifier: parentIdentfier, replaceExisting: replaceExisting)
 		}.then { query -> Promise<Any> in
-			let progress = Progress(totalUnitCount: -1)
 			query.executionParameters.uploadProgressBlock = { _, totalBytesUploaded, totalBytesExpectedToUpload in
 				progress.totalUnitCount = Int64(totalBytesExpectedToUpload)
 				progress.completedUnitCount = Int64(totalBytesUploaded)
@@ -101,12 +105,12 @@ public class GoogleDriveCloudProvider: CloudProvider {
 	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
 		let foldername = cloudPath.lastPathComponent
 		return Promise<Void>(on: .global()) { fulfill, reject in
-			let parentIdentifier = try await(self.resolveParentPath(for: cloudPath))
+			let parentIdentifier = try await (self.resolveParentPath(for: cloudPath))
 			do {
-				_ = try await(self.getFirstIdentifier(forItemWithName: foldername, itemType: .folder, inFolderWithId: parentIdentifier))
+				_ = try await (self.getFirstIdentifier(forItemWithName: foldername, itemType: .folder, inFolderWithId: parentIdentifier))
 				reject(CloudProviderError.itemAlreadyExists)
 			} catch CloudProviderError.itemNotFound {
-				_ = try await(self.createFolder(at: cloudPath, withParentIdentifier: parentIdentifier))
+				_ = try await (self.createFolder(at: cloudPath, withParentIdentifier: parentIdentifier))
 				fulfill(())
 			} catch CloudProviderError.itemTypeMismatch {
 				reject(CloudProviderError.itemAlreadyExists)
@@ -515,7 +519,7 @@ public class GoogleDriveCloudProvider: CloudProvider {
 			for i in startIndex ..< endIndex {
 				let itemName = endCloudPath.pathComponents[i]
 				currentURL = currentURL.appendingPathComponent(itemName)
-				parentIdentifier = try await(self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
+				parentIdentifier = try await (self.getFirstIdentifier(forItemWithName: itemName, itemType: .folder, inFolderWithId: parentIdentifier))
 				try self.cloudIdentifierCache?.cacheIdentifier(parentIdentifier, for: currentURL)
 			}
 			fulfill(parentIdentifier)

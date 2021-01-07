@@ -210,9 +210,7 @@ class FileProviderExtension: NSFileProviderExtension {
 								completionHandler(error)
 								return
 							}
-							let tmpDownloadURL = url.createCollisionURL()
-							decorator.downloadFile(with: identifier, to: tmpDownloadURL).then { item in
-								_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+							decorator.downloadFile(with: identifier, to: url, replaceExisting: true).then { item in
 								self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 								self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 								completionHandler(nil)
@@ -221,9 +219,7 @@ class FileProviderExtension: NSFileProviderExtension {
 							}
 						}
 					} else {
-						let tmpDownloadURL = url.createCollisionURL()
-						decorator.downloadFile(with: identifier, to: tmpDownloadURL).then { item in
-							_ = try self.fileManager.replaceItemAt(url, withItemAt: tmpDownloadURL)
+						decorator.downloadFile(with: identifier, to: url, replaceExisting: true).then { item in
 							self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
 							self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 							completionHandler(nil)
@@ -364,7 +360,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
 		var serviceSources = [NSFileProviderServiceSource]()
 		#if DEBUG
-			serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
+		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
 		return serviceSources
 	}
@@ -389,7 +385,7 @@ extension URL {
 	}
 }
 
-class LoggerSetup {
+enum LoggerSetup {
 	private static var loggerInitialized = false
 
 	static func oneTimeSetup() {

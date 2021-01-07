@@ -11,86 +11,6 @@ import Promises
 import XCTest
 @testable import CryptomatorFileProvider
 class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
-	func testLocalFileIsCurrentForUploadingFile() throws {
-		let expectation = XCTestExpectation()
-		let cloudPath = CloudPath("/TestUploadFile")
-		let uploadingItemMetadata = ItemMetadata(name: "TestUploadFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		try decorator.itemMetadataManager.cacheMetadata(uploadingItemMetadata)
-		guard let id = uploadingItemMetadata.id else {
-			XCTFail("uploadingItemMetadata has no id")
-			return
-		}
-		decorator.localFileIsCurrent(with: NSFileProviderItemIdentifier(String(id))).then { result in
-			XCTAssert(result)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
-	}
-
-	func testLocalFileIsCurrentForCloudLastModifiedDateIsNil() throws {
-		let expectation = XCTestExpectation()
-		let mockedDecorator = decorator as? FileProviderDecoratorMock
-		mockedDecorator?.internalProvider.setLastModifiedDate(nil, for: CloudPath("/File 1"))
-
-		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
-		let itemIdentifier = NSFileProviderItemIdentifier("3")
-		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
-			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
-		}.then { _ in
-			self.decorator.localFileIsCurrent(with: itemIdentifier)
-		}.then { result in
-			XCTAssertFalse(result)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-	}
-
-	func testLocalFileIsCurrentForNewerVersionInCloud() throws {
-		let expectation = XCTestExpectation()
-		let itemIdentifier = NSFileProviderItemIdentifier("3")
-
-		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
-		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
-			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
-		}.then { _ -> Promise<Bool> in
-			let mockedDecorator = self.decorator as? FileProviderDecoratorMock
-			mockedDecorator?.internalProvider.setLastModifiedDate(Date(timeIntervalSince1970: 100), for: CloudPath("/File 1"))
-			return self.decorator.localFileIsCurrent(with: itemIdentifier)
-		}.then { result in
-			XCTAssertFalse(result)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-	}
-
-	func testLocalFileIsCurrentForCloudLastModifiedDateIsEqual() throws {
-		let expectation = XCTestExpectation()
-
-		let localURL = tmpDirectory.appendingPathComponent("File 1", isDirectory: false)
-		let itemIdentifier = NSFileProviderItemIdentifier("3")
-		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ in
-			self.decorator.downloadFile(with: itemIdentifier, to: localURL)
-		}.then { _ in
-			self.decorator.localFileIsCurrent(with: itemIdentifier)
-		}.then { result in
-			XCTAssert(result)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-	}
-
 	func testDownloadFile() throws {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
@@ -194,5 +114,94 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let item = FileProviderItem(metadata: metadata)
 		let hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: item.itemIdentifier)
 		XCTAssertFalse(hasVersioningConflict)
+	}
+
+	func testDownloadFileReplaceExisting() throws {
+		let expectation = XCTestExpectation()
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let existingLocalContent = "Old Local FileContent"
+		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
+		let existingLocalContentData = try Data(contentsOf: localURL)
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+		let identifier = NSFileProviderItemIdentifier(String("3"))
+		decorator.downloadFile(with: identifier, to: localURL, replaceExisting: true).then { _ in
+			let localContent = try Data(contentsOf: localURL)
+			XCTAssertEqual(self.mockedProvider.files[cloudPath.path], localContent)
+			XCTAssertNotEqual(existingLocalContentData, localContent)
+			let lastModifiedDate = try self.decorator.cachedFileManager.getLastModifiedDate(for: 3)
+			XCTAssertNotNil(lastModifiedDate)
+			XCTAssertEqual(self.mockedProvider.lastModifiedDate[cloudPath.path], lastModifiedDate)
+			guard let fetchedMetadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: 3) else {
+				XCTFail("No ItemMetadata found")
+				return
+			}
+			XCTAssertEqual(ItemStatus.isUploaded, fetchedMetadata.statusCode)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testDownloadPostProcessingForReplaceExisting() throws {
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let existingLocalContent = "Old Local FileContent"
+		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
+
+		let downloadDestination = tmpDirectory.appendingPathComponent("localItem-12345.txt", isDirectory: false)
+		let downloadedContent = "Downloaded FileContent"
+		try downloadedContent.write(to: downloadDestination, atomically: true, encoding: .utf8)
+
+		let lastModifiedDate = Date(timeIntervalSince1970: 0)
+
+		let item = try decorator.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
+		XCTAssertFalse(FileManager.default.fileExists(atPath: downloadDestination.path))
+		let localURLContent = try String(contentsOf: localURL, encoding: .utf8)
+		XCTAssertEqual(downloadedContent, localURLContent)
+		XCTAssertEqual(localURL, item.localURL)
+		XCTAssert(item.newestVersionLocallyCached)
+		XCTAssertEqual(itemMetadata, item.metadata)
+
+		guard let localCachedFileInfo = try decorator.cachedFileManager.getLocalCachedFileInfo(for: 3) else {
+			XCTFail("No LocalCachedFileInfo found")
+			return
+		}
+		XCTAssertEqual(lastModifiedDate, localCachedFileInfo.lastModifiedDate)
+		XCTAssertEqual(localURL, localCachedFileInfo.localURL)
+	}
+
+	func testDownloadPostProcessingForNewFile() throws {
+		let cloudPath = CloudPath("/File 1")
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
+
+		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
+		let downloadedContent = "Downloaded FileContent"
+		try downloadedContent.write(to: localURL, atomically: true, encoding: .utf8)
+
+		let lastModifiedDate = Date(timeIntervalSince1970: 0)
+
+		let item = try decorator.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: localURL)
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
+		let localURLContent = try String(contentsOf: localURL, encoding: .utf8)
+		XCTAssertEqual(downloadedContent, localURLContent)
+		XCTAssertEqual(localURL, item.localURL)
+		XCTAssert(item.newestVersionLocallyCached)
+		XCTAssertEqual(itemMetadata, item.metadata)
+
+		guard let localCachedFileInfo = try decorator.cachedFileManager.getLocalCachedFileInfo(for: 3) else {
+			XCTFail("No LocalCachedFileInfo found")
+			return
+		}
+		XCTAssertEqual(lastModifiedDate, localCachedFileInfo.lastModifiedDate)
+		XCTAssertEqual(localURL, localCachedFileInfo.localURL)
 	}
 }

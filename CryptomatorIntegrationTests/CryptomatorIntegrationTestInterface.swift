@@ -53,7 +53,7 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 
 		// MARK: use waitForPromises as expectations are not available here. Therefore we can't catch the error from the promise above. And we need to check for an error later
 
-		guard waitForPromises(timeout: 60.0) else {
+		guard waitForPromises(timeout: 120.0) else {
 			classSetUpError = IntegrationTestError.oneTimeSetUpTimeout
 			return
 		}
@@ -455,15 +455,23 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile")
+		let progress = Progress(totalUnitCount: 1)
+		let progressObserver = progress.observe(\.fractionCompleted) { progress, _ in
+			print("\(progress.localizedDescription ?? "") (\(progress.localizedAdditionalDescription ?? ""))")
+		}
+		progress.becomeCurrent(withPendingUnitCount: 1)
 		provider.downloadFile(from: fileCloudPath, to: localFileURL)
 			.then {
 				let actualFileContent = try String(contentsOf: localFileURL)
 				XCTAssertEqual(expectedFileContent, actualFileContent)
+				XCTAssertTrue(progress.completedUnitCount >= progress.totalUnitCount)
 			}.catch { error in
 				XCTFail("Promise failed with error: \(error)")
 			}.always {
+				progressObserver.invalidate()
 				expectation.fulfill()
 			}
+		progress.resignCurrent()
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -479,6 +487,11 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		try FileManager.default.createDirectory(at: uniqueTempFolderURL, withIntermediateDirectories: false, attributes: nil)
 		let localFileURL = uniqueTempFolderURL.appendingPathComponent(filename, isDirectory: false)
 		let expectation = XCTestExpectation(description: "downloadFile")
+		let progress = Progress(totalUnitCount: 1)
+		let progressObserver = progress.observe(\.fractionCompleted) { progress, _ in
+			print("\(progress.localizedDescription ?? "") (\(progress.localizedAdditionalDescription ?? ""))")
+		}
+		progress.becomeCurrent(withPendingUnitCount: 1)
 		provider.downloadFile(from: fileCloudPath, to: localFileURL)
 			.then {
 				let actualFileContent = try String(contentsOf: localFileURL)
@@ -486,8 +499,10 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			}.catch { error in
 				XCTFail("Promise failed with error: \(error)")
 			}.always {
+				progressObserver.invalidate()
 				expectation.fulfill()
 			}
+		progress.resignCurrent()
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}
@@ -576,8 +591,14 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 		let overwrittenContent = "Overwritten content"
 		let fileCloudPath = CryptomatorIntegrationTestInterface.emptySubFolderCloudPath.appendingPathComponent("FileToOverwrite.txt")
 		let expectation = XCTestExpectation(description: "uploadFile fail overwrites file with update")
+		let progress = Progress(totalUnitCount: 1)
+		let progressObserver = progress.observe(\.fractionCompleted) { progress, _ in
+			print("\(progress.localizedDescription ?? "") (\(progress.localizedAdditionalDescription ?? ""))")
+		}
+		progress.becomeCurrent(withPendingUnitCount: 1)
 		provider.uploadFile(from: localFileURL, to: fileCloudPath, replaceExisting: false)
 			.then { _ -> Promise<CloudItemMetadata> in
+				XCTAssertTrue(progress.completedUnitCount >= progress.totalUnitCount)
 				try overwrittenContent.write(to: localFileURL, atomically: true, encoding: .utf8)
 				return self.provider.uploadFile(from: localFileURL, to: fileCloudPath, replaceExisting: true)
 			}.then { _ in
@@ -590,8 +611,10 @@ class CryptomatorIntegrationTestInterface: XCTestCase {
 			}.catch { error in
 				XCTFail("Promise failed with error: \(error)")
 			}.always {
+				progressObserver.invalidate()
 				expectation.fulfill()
 			}
+		progress.resignCurrent()
 		wait(for: [expectation], timeout: 60.0)
 		try FileManager.default.removeItem(at: uniqueTempFolderURL)
 	}

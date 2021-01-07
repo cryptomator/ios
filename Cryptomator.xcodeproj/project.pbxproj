@@ -12,18 +12,20 @@
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
 		4A123EAC24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */; };
 		4A123EAE24BF4776001D1CF7 /* FileProviderDecoratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */; };
-		4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */; };
+		4A123EB124BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB024BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift */; };
 		4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */; };
 		4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */; };
 		4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */; };
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
 		4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A26DF852579525400675413 /* WebDAVLoginViewController.swift */; };
+		4A2EE731258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
 		4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */; };
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
+		4A4AD0EF258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
 		4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */; };
 		4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */; };
@@ -56,6 +58,10 @@
 		4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */; };
 		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
 		4ABC08D9250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */; };
+		4ABD2EEE2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EED2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift */; };
+		4ABD2EF72592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EF62592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift */; };
+		4ABD2F0025925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2EFF25925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift */; };
+		4ABD2F0925926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */; };
 		4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */; };
 		4ACA06AE2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACA06AD2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift */; };
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
@@ -100,7 +106,6 @@
 		747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F12587AEB40023FF53 /* FileProviderDecoratorError.swift */; };
 		747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F42587AEB50023FF53 /* ItemStatus.swift */; };
 		747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */; };
-		747F2F322587BC260072FB30 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F62587AEB50023FF53 /* CloudProviderMock.swift */; };
 		747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376012587AEB60023FF53 /* LockManager.swift */; };
 		747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FF2587AEB60023FF53 /* FileSystemLock.swift */; };
 		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
@@ -200,7 +205,7 @@
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
 		4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTestCase.swift; sourceTree = "<group>"; };
 		4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMock.swift; sourceTree = "<group>"; };
-		4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorFolderEnumerationTests.swift; sourceTree = "<group>"; };
+		4A123EB024BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorItemEnumerationTests.swift; sourceTree = "<group>"; };
 		4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorGetFileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorCreateFolderTests.swift; sourceTree = "<group>"; };
 		4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorErrorReportingForUserDrivenActions.swift; sourceTree = "<group>"; };
@@ -209,11 +214,13 @@
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
 		4A26DF852579525400675413 /* WebDAVLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVLoginViewController.swift; sourceTree = "<group>"; };
+		4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7WebDAVIntegrationTests.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
 		4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
+		4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorLocalFileIsCurrentTests.swift; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
 		4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestWithAuthentication.swift; sourceTree = "<group>"; };
 		4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,6 +262,10 @@
 		4AAA073E255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallerViewModel.swift; sourceTree = "<group>"; };
 		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
 		4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDeleteItemTests.swift; sourceTree = "<group>"; };
+		4ABD2EED2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6DropboxIntegrationTests.swift; sourceTree = "<group>"; };
+		4ABD2EF62592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6WebDAVIntegrationTests.swift; sourceTree = "<group>"; };
+		4ABD2EFF25925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6GoogleDriveIntegrationTests.swift; sourceTree = "<group>"; };
+		4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7GoogleDriveIntegrationTests.swift; sourceTree = "<group>"; };
 		4ABD5F29247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGoogleDriveAuthenticationTests.swift; sourceTree = "<group>"; };
 		4ACA06AD2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat6LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
@@ -288,7 +299,6 @@
 		740375F32587AEB50023FF53 /* FileProviderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItem.swift; sourceTree = "<group>"; };
 		740375F42587AEB50023FF53 /* ItemStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemStatus.swift; sourceTree = "<group>"; };
 		740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
-		740375F62587AEB50023FF53 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		740375F82587AEB50023FF53 /* DecoratorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorManager.swift; sourceTree = "<group>"; };
 		740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
 		740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
@@ -398,7 +408,8 @@
 				4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */,
 				4ABC08D8250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift */,
 				4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */,
-				4A123EB024BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift */,
+				4A123EB024BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift */,
+				4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */,
 				4A123EB224BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift */,
 				4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */,
 				4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */,
@@ -438,7 +449,9 @@
 			isa = PBXGroup;
 			children = (
 				4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */,
+				4ABD2F0825926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift */,
 				4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */,
+				4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */,
 			);
 			path = VaultFormat7;
 			sourceTree = "<group>";
@@ -576,6 +589,9 @@
 			isa = PBXGroup;
 			children = (
 				4ACA06AD2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift */,
+				4ABD2EED2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift */,
+				4ABD2EFF25925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift */,
+				4ABD2EF62592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift */,
 			);
 			path = VaultFormat6;
 			sourceTree = "<group>";
@@ -654,7 +670,6 @@
 				740375F12587AEB40023FF53 /* FileProviderDecoratorError.swift */,
 				740375F42587AEB50023FF53 /* ItemStatus.swift */,
 				740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */,
-				740375F62587AEB50023FF53 /* CloudProviderMock.swift */,
 				740375FD2587AEB60023FF53 /* Locks */,
 			);
 			path = CryptomatorFileProvider;
@@ -1100,6 +1115,7 @@
 				4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */,
 				4ABC08D9250D2B8E00E3CEDC /* FileProviderDecoratorDeleteItemTests.swift in Sources */,
 				4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */,
+				4A4AD0EF258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift in Sources */,
 				4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */,
 				4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */,
 				4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */,
@@ -1108,7 +1124,7 @@
 				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */,
-				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorFolderEnumerationTests.swift in Sources */,
+				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift in Sources */,
 				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
 				4A717CDB24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift in Sources */,
 				4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */,
@@ -1126,6 +1142,7 @@
 				4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */,
 				4A75F83925656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift in Sources */,
 				4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */,
+				4ABD2EF72592275F004B3961 /* VaultFormat6WebDAVIntegrationTests.swift in Sources */,
 				4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */,
 				4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */,
 				4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */,
@@ -1135,13 +1152,17 @@
 				4AE3DD122534A99C00433096 /* CloudProvider+CreateIntermediateFolders.swift in Sources */,
 				4A9D3ED925272A4E000811B6 /* MockGoogleDriveAuthenticator.swift in Sources */,
 				4A837C79248AAC7D00223222 /* DropboxCloudProviderIntegrationTests.swift in Sources */,
+				4ABD2F0925926253004B3961 /* VaultFormat7GoogleDriveIntegrationTests.swift in Sources */,
+				4ABD2F0025925B82004B3961 /* VaultFormat6GoogleDriveIntegrationTests.swift in Sources */,
 				4ABD5F2A247BC58900EFCE53 /* MockGoogleDriveAuthenticationTests.swift in Sources */,
 				4ACA06AE2555BB93008F83C1 /* VaultFormat6LocalFileSystemProviderIntegrationTests.swift in Sources */,
+				4A2EE731258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift in Sources */,
 				4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */,
 				4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */,
 				4AE3DD202534AC9B00433096 /* CloudProvider+IntermediateFolderTests.swift in Sources */,
 				4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */,
 				4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */,
+				4ABD2EEE2592213E004B3961 /* VaultFormat6DropboxIntegrationTests.swift in Sources */,
 				4AE564302541F17400D64237 /* WebDAVKeychainTests.swift in Sources */,
 				74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */,
 				4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */,
@@ -1230,7 +1251,6 @@
 				747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */,
 				747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */,
 				747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */,
-				747F2F322587BC260072FB30 /* CloudProviderMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1395,9 +1415,11 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 			};
 			name = Debug;
 		};
@@ -1450,9 +1472,11 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100 -Xfrontend -warn-long-function-bodies=100";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_WHOLE_MODULE_OPTIMIZATION = NO;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

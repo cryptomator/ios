@@ -29,6 +29,7 @@ extension LocalCachedFileInfo: PersistableRecord {
 		container[LocalCachedFileInfo.localURLKey] = localURL
 	}
 }
+
 extension LocalCachedFileInfo {
 	func isCurrentVersion(lastModifiedDateInCloud: Date?) -> Bool {
 		guard let lastModifiedDateInCloud = lastModifiedDateInCloud, let lastModifiedDateLocal = lastModifiedDate else {

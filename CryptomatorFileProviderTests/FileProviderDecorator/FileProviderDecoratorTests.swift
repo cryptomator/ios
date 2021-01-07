@@ -66,7 +66,7 @@ class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 		let cloudPathForFirstItem = CloudPath("/File1.txt")
 		let cloudPathForItemToBeRenamed = CloudPath("/File is being renamed.txt")
 		let itemMetadatas = [ItemMetadata(name: "File1.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPathForFirstItem, isPlaceholderItem: false),
-							 ItemMetadata(name: "File is being renamed.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPathForItemToBeRenamed, isPlaceholderItem: false)]
+		                     ItemMetadata(name: "File is being renamed.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPathForItemToBeRenamed, isPlaceholderItem: false)]
 		try decorator.itemMetadataManager.cacheMetadatas(itemMetadatas)
 		try decorator.reparentTaskManager.createTask(for: itemMetadatas[1].id!, oldCloudPath: cloudPathForItemToBeRenamed, newCloudPath: CloudPath("/RenamedFile.txt"), oldParentId: MetadataManager.rootContainerId, newParentId: MetadataManager.rootContainerId)
 		let filteredMetadata = try decorator.filterOutWaitingReparentTasks(parentId: MetadataManager.rootContainerId, for: itemMetadatas)

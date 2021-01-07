@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public class LocalFileSystemBookmarkManager {
+public enum LocalFileSystemBookmarkManager {
 	public static func getBookmarkedRootURL(for accountUID: String) throws -> URL? {
 		guard let bookmarkData = CryptomatorKeychain.localFileSystem.getAsData(accountUID) else {
 			return nil
@@ -31,7 +31,7 @@ public class LocalFileSystemBookmarkManager {
 		try CryptomatorKeychain.localFileSystem.set(accountUID, value: bookmarkData)
 	}
 
-	public static func removeBookmarkedRootURL(for accountUID: String) throws{
+	public static func removeBookmarkedRootURL(for accountUID: String) throws {
 		try CryptomatorKeychain.localFileSystem.delete(accountUID)
 	}
 }

@@ -8,18 +8,18 @@
 
 import CryptomatorCloudAccess
 import Foundation
-extension WebDAVAuthenticator {
-	public static func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
+public extension WebDAVAuthenticator {
+	static func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
 		return CryptomatorKeychain.webDAV.get(accountUID)
 	}
 
-	public static func saveCredentialToKeychain(_ credential: WebDAVCredential, with accountUID: String) throws {
+	static func saveCredentialToKeychain(_ credential: WebDAVCredential, with accountUID: String) throws {
 		let jsonEnccoder = JSONEncoder()
 		let encodedCredential = try jsonEnccoder.encode(credential)
 		try CryptomatorKeychain.webDAV.set(accountUID, value: encodedCredential)
 	}
 
-	public static func removeCredentialFromKeychain(with accountUID: String) throws {
+	static func removeCredentialFromKeychain(with accountUID: String) throws {
 		try CryptomatorKeychain.webDAV.delete(accountUID)
 	}
 }

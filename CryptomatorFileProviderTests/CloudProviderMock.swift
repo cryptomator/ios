@@ -35,12 +35,12 @@ class CloudProviderMock: CloudProvider {
 		"/Directory 1/File 5": "File 5 content".data(using: .utf8)
 	]
 	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
-											 "/Directory 1/Directory 2": nil,
-											 "/File 1": Date(timeIntervalSince1970: 0),
-											 "/File 2": Date(timeIntervalSince1970: 0),
-											 "/File 3": Date(timeIntervalSince1970: 0),
-											 "/File 4": Date(timeIntervalSince1970: 0),
-											 "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
+	                                         "/Directory 1/Directory 2": nil,
+	                                         "/File 1": Date(timeIntervalSince1970: 0),
+	                                         "/File 2": Date(timeIntervalSince1970: 0),
+	                                         "/File 3": Date(timeIntervalSince1970: 0),
+	                                         "/File 4": Date(timeIntervalSince1970: 0),
+	                                         "/Directory 1/File 5": Date(timeIntervalSince1970: 0)]
 
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]
@@ -49,7 +49,12 @@ class CloudProviderMock: CloudProvider {
 	var movedFiles: [String: String] = [:]
 	var movedFolders: [String: String] = [:]
 
+	var everyOperationShouldFailWithError: Error?
+
 	public func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+		if let error = everyOperationShouldFailWithError {
+			return Promise(error)
+		}
 		if folders.contains(cloudPath.path) {
 			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .folder, lastModifiedDate: lastModifiedDate[cloudPath.path] ?? nil, size: 0))
 		} else if let data = files[cloudPath.path] {

@@ -14,7 +14,7 @@ import XCTest
 class CloudProviderAccountManagerTests: XCTestCase {
 	var accountManager: CloudProviderAccountManager!
 	var tmpDir: URL!
-	
+
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
