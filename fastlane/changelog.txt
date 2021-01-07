@@ -1,1 +1,2 @@
-First internal alpha!
+- Fixed "Background upload may cause inconsistency in the information about the locally cached file" (#14)
+- Fixed "Downloading a newer version of an already cached file prevents the file from being deleted" (#15)
