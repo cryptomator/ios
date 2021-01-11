@@ -86,6 +86,7 @@
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AF91CBE25A63FD600ACF01E /* VaultInfoProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CBD25A63FD600ACF01E /* VaultInfoProvider.swift */; };
+		4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
 		4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */; };
 		4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CD825A722A600ACF01E /* VaultInfo.swift */; };
 		4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CE125A7234500ACF01E /* DatabaseManager.swift */; };
@@ -311,6 +312,7 @@
 		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AEE4657252631CC0045DA9F /* CloudAccessPrivate */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CloudAccessPrivate; sourceTree = "<group>"; };
 		4AF91CBD25A63FD600ACF01E /* VaultInfoProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultInfoProvider.swift; sourceTree = "<group>"; };
+		4AF91CC625A6437000ACF01E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CloudProviderType.swift"; sourceTree = "<group>"; };
 		4AF91CD825A722A600ACF01E /* VaultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultInfo.swift; sourceTree = "<group>"; };
 		4AF91CE125A7234500ACF01E /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -665,6 +667,7 @@
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
 				4AAA073D255B00900085AA4E /* ViewModel */,
+				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
 				4AF91CD825A722A600ACF01E /* VaultInfo.swift */,
 			);
 			path = Cryptomator;
@@ -1014,6 +1017,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */,
 				746815472475605E00038679 /* LaunchScreen.storyboard in Resources */,
 				746815462475605E00038679 /* Assets.xcassets in Resources */,
 			);

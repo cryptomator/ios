@@ -40,6 +40,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
 		CloudProviderManager.shared.useBackgroundSession = false
+
+		// Application wide styling
+		UINavigationBar.appearance().barTintColor = UIColor(named: "primary")
+		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
+		UIBarButtonItem.appearance().tintColor = UIColor.white
+
 		let navigationController = UINavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
 		coordinator?.start()

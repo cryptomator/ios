@@ -93,7 +93,7 @@ class VaultListViewController: UITableViewController {
 		} else {
 			cell.textLabel?.text = vault.vaultPath.lastPathComponent
 			cell.detailTextLabel?.text = vault.vaultPath.path
-			cell.detailTextLabel?.textColor = .white
+			cell.detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
 			cell.imageView?.image = image
 		}
 		return cell
@@ -132,10 +132,15 @@ private class HeaderView: UITableViewHeaderFooterView {
 	convenience init() {
 		self.init(reuseIdentifier: nil)
 
-		editButton.setTitleColor(.systemBlue, for: .normal)
+		editButton.setTitleColor(UIColor(named: "primary"), for: .normal)
 		editButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
 
 		title.font = UIFont.preferredFont(forTextStyle: .footnote)
+		if #available(iOS 13, *) {
+			title.textColor = .secondaryLabel
+		} else {
+			title.textColor = UIColor(named: "secondaryLabel")
+		}
 
 		editButton.translatesAutoresizingMaskIntoConstraints = false
 		title.translatesAutoresizingMaskIntoConstraints = false
