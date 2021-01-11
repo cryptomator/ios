@@ -12,7 +12,6 @@ import UIKit
 
 class VaultListViewController: UITableViewController {
 	private let header = HeaderView(title: "Vaults".uppercased(), editButtonTitle: "Edit")
-	private var vaults = [VaultInfo]()
 	private let viewModel: VaultListViewModel
 
 	init(with viewModel: VaultListViewModel) {
@@ -56,7 +55,7 @@ class VaultListViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		do {
 			try viewModel.refreshItems()
-			vaults = viewModel.vaults
+			tableView.reloadData()
 		} catch {
 			print(error)
 		}
@@ -73,13 +72,13 @@ class VaultListViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return vaults.count
+		return viewModel.vaults.count
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "VaultCell", for: indexPath)
 		cell.accessoryType = .disclosureIndicator
-		let vault = vaults[indexPath.row]
+		let vault = viewModel.vaults[indexPath.row]
 		let image = UIImage(for: vault.cloudProviderType)
 		if #available(iOS 14, *) {
 			var content = cell.defaultContentConfiguration()
