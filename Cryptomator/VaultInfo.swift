@@ -40,7 +40,7 @@ public struct VaultInfo: Decodable, FetchableRecord {
 
 	var listPosition: Int {
 		get {
-			vaultListPosition.position
+			vaultListPosition.position!
 		}
 		set {
 			vaultListPosition.position = newValue

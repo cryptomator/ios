@@ -23,8 +23,9 @@ class DatabaseManager {
 		var migrator = DatabaseMigrator()
 		migrator.registerMigration("main-v1") { db in
 			try db.create(table: "vaultListPosition") { table in
-				table.column("position", .integer).unique().notNull()
+				table.column("position", .integer).unique()
 				table.column("vaultUID", .text).unique().notNull().references("vaultAccounts", onDelete: .cascade)
+				table.check(Column("position") != nil)
 			}
 			try db.execute(sql: """
 			CREATE TRIGGER position_creation
@@ -57,16 +58,20 @@ class DatabaseManager {
 		}
 	}
 
+	/**
+	 Since sqlite does not allow deferred unique constraints, we temporarily disable the not NULL check and change all positions to NULL and then save the correct positions.
+	 */
 	func updateVaultListPositions(_ positions: [VaultListPosition]) throws {
-		// use negative Positions as sqlite does not allow deferred unique constraints
 		var tempPositions = positions
 		for i in tempPositions.indices {
-			tempPositions[i].position *= -1
+			tempPositions[i].position = nil
 		}
 		try dbPool.write { db in
+			try db.execute(sql: "PRAGMA ignore_check_constraints=YES")
 			for position in tempPositions {
 				try position.update(db)
 			}
+			try db.execute(sql: "PRAGMA ignore_check_constraints=NO")
 			for position in positions {
 				try position.update(db)
 			}

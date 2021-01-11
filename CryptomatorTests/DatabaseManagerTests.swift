@@ -110,7 +110,7 @@ class DatabaseManagerTests: XCTestCase {
 		let vaultListPositions = vaults.map { $0.vaultListPosition }
 		let updatedVaultListPositions: [VaultListPosition] = vaultListPositions.map {
 			var vaultListPosition = $0
-			vaultListPosition.position += 1
+			vaultListPosition.position! += 1
 			return vaultListPosition
 		}
 		try dbManager.updateVaultListPositions(updatedVaultListPositions)
@@ -118,8 +118,8 @@ class DatabaseManagerTests: XCTestCase {
 		let updatedVaults = try dbManager.getAllVaults()
 		let fetchedVaultListPositions = updatedVaults.map { $0.vaultListPosition }
 
-		let sortedUpdatedVaultListPositions = updatedVaultListPositions.sorted { $0.position < $1.position }
-		let sortedFetchedVaultListPositions = fetchedVaultListPositions.sorted { $0.position < $1.position }
+		let sortedUpdatedVaultListPositions = updatedVaultListPositions.sorted { $0.position! < $1.position! }
+		let sortedFetchedVaultListPositions = fetchedVaultListPositions.sorted { $0.position! < $1.position! }
 		XCTAssertEqual(sortedUpdatedVaultListPositions, sortedFetchedVaultListPositions)
 	}
 }

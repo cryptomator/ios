@@ -10,7 +10,7 @@ import Foundation
 import GRDB
 struct VaultListPosition: Codable {
 	var id: Int64?
-	var position: Int
+	var position: Int?
 	let vaultUID: String
 }
 
