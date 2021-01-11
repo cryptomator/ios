@@ -26,6 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		do {
 			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
+			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
 		} catch {
 			// MARK: Handle error
 
