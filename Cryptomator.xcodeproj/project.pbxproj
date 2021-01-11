@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */; };
 		4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A070928247BC110005ED18E /* URL+Extensions.swift */; };
 		4A07092C247BC139005ED18E /* URL+ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */; };
+		4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07E125AC80C100B83211 /* UIView+Preview.swift */; };
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
 		4A123EAC24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */; };
 		4A123EAE24BF4776001D1CF7 /* FileProviderDecoratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */; };
@@ -200,8 +202,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
 		4A070928247BC110005ED18E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
 		4A07092B247BC139005ED18E /* URL+ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+ExtensionsTests.swift"; sourceTree = "<group>"; };
+		4A0C07E125AC80C100B83211 /* UIView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Preview.swift"; sourceTree = "<group>"; };
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
 		4A123EAB24BF46F8001D1CF7 /* FileProviderDecoratorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTestCase.swift; sourceTree = "<group>"; };
 		4A123EAD24BF4776001D1CF7 /* FileProviderDecoratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMock.swift; sourceTree = "<group>"; };
@@ -610,6 +614,8 @@
 				4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */,
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
+				4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */,
+				4A0C07E125AC80C100B83211 /* UIView+Preview.swift */,
 				4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */,
 				4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */,
 				4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */,
@@ -1193,7 +1199,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
+				4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */,
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
+				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
 				4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
 				4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */,
