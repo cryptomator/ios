@@ -13,6 +13,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
+	var coordinator: MainCoordinator?
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 		// Override point for customization after application launch.
@@ -39,8 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
 		CloudProviderManager.shared.useBackgroundSession = false
+		let navigationController = UINavigationController()
+		coordinator = MainCoordinator(navigationController: navigationController)
+		coordinator?.start()
+
 		window = UIWindow(frame: UIScreen.main.bounds)
-		let navigationController = UINavigationController(rootViewController: ViewController())
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true

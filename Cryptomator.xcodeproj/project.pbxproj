@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A03255525A3685500E63D7A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255425A3685500E63D7A /* Coordinator.swift */; };
+		4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255D25A368BF00E63D7A /* MainCoordinator.swift */; };
 		4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03257725A36A6900E63D7A /* VaultListViewController.swift */; };
 		4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */; };
 		4A070929247BC110005ED18E /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A070928247BC110005ED18E /* URL+Extensions.swift */; };
@@ -211,6 +213,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A03255425A3685500E63D7A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		4A03255D25A368BF00E63D7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A03257725A36A6900E63D7A /* VaultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewController.swift; sourceTree = "<group>"; };
 		4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
 		4A070928247BC110005ED18E /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
@@ -408,6 +412,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4A03256625A369F800E63D7A /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				4A03255425A3685500E63D7A /* Coordinator.swift */,
+				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
 		4A07092A247BC11D005ED18E /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -640,6 +653,7 @@
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
 				4AF91CBD25A63FD600ACF01E /* VaultInfoProvider.swift */,
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
+				4A03256625A369F800E63D7A /* Coordinator */,
 				4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */,
 				4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */,
 				4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */,
@@ -1238,10 +1252,12 @@
 				4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */,
 				4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */,
 				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
+				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultInfoProvider.swift in Sources */,
+				4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */,
 				4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,

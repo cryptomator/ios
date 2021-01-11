@@ -13,6 +13,7 @@ import UIKit
 class VaultListViewController: UITableViewController {
 	private let header = HeaderView(title: "Vaults".uppercased(), editButtonTitle: "Edit")
 	private let viewModel: VaultListViewModel
+	weak var coordinator: MainCoordinator?
 
 	init(with viewModel: VaultListViewModel) {
 		self.viewModel = viewModel
@@ -42,7 +43,9 @@ class VaultListViewController: UITableViewController {
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "VaultCell")
 	}
 
-	@objc func addNewVault() {}
+	@objc func addNewVault() {
+		coordinator?.addVault()
+	}
 
 	@objc func showSettings() {}
 
