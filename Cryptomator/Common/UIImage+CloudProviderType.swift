@@ -8,17 +8,28 @@
 
 import CloudAccessPrivateCore
 import UIKit
+
+enum State {
+	case normal
+	case highlighted
+}
+
 extension UIImage {
-	convenience init?(for cloudProviderType: CloudProviderType) {
+	convenience init?(for cloudProviderType: CloudProviderType, state: State) {
+		var assetName: String
 		switch cloudProviderType {
 		case .dropbox:
-			self.init(named: "dropbox")
+			assetName = "dropbox"
 		case .googleDrive:
-			self.init(named: "google-drive")
+			assetName = "google-drive"
 		case .localFileSystem:
-			self.init(named: "file-provider")
+			assetName = "file-provider"
 		case .webDAV:
-			self.init(named: "webdav")
+			assetName = "webdav"
 		}
+		if state == .highlighted {
+			assetName += "-selected"
+		}
+		self.init(named: assetName)
 	}
 }

@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 
 class VaultCell: UITableViewCell {
+	var vault: VaultInfo?
+
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		accessoryType = .disclosureIndicator
@@ -21,19 +23,27 @@ class VaultCell: UITableViewCell {
 	}
 
 	func configure(with vault: VaultInfo) {
-		let image = UIImage(for: vault.cloudProviderType)
-		if #available(iOS 14, *) {
-			var content = defaultContentConfiguration()
-			content.text = vault.vaultPath.lastPathComponent
-			content.secondaryText = vault.vaultPath.path
-			content.secondaryTextProperties.color = .secondaryLabel
-			content.image = image
-			contentConfiguration = content
-		} else {
-			textLabel?.text = vault.vaultPath.lastPathComponent
-			detailTextLabel?.text = vault.vaultPath.path
-			detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
-			imageView?.image = image
+		imageView?.image = UIImage(for: vault.cloudProviderType, state: .normal)
+		imageView?.highlightedImage = UIImage(for: vault.cloudProviderType, state: .highlighted)
+		textLabel?.text = vault.vaultPath.lastPathComponent
+		detailTextLabel?.text = vault.vaultPath.path
+		detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
+	}
+
+	@available(iOS 14, *)
+	override func updateConfiguration(using state: UICellConfigurationState) {
+		guard let vault = vault else {
+			return
 		}
+		var content = defaultContentConfiguration().updated(for: state)
+		if state.isHighlighted || state.isSelected {
+			content.image = UIImage(for: vault.cloudProviderType, state: .highlighted)
+		} else {
+			content.image = UIImage(for: vault.cloudProviderType, state: .normal)
+		}
+		content.text = vault.vaultPath.lastPathComponent
+		content.secondaryText = vault.vaultPath.path
+		content.secondaryTextProperties.color = .secondaryLabel
+		contentConfiguration = content
 	}
 }

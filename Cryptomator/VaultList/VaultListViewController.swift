@@ -84,7 +84,12 @@ class VaultListViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "VaultCell", for: indexPath) as! VaultCell
 		let vault = viewModel.vaults[indexPath.row]
-		cell.configure(with: vault)
+		if #available(iOS 14, *) {
+			cell.vault = vault
+			cell.setNeedsUpdateConfiguration()
+		} else {
+			cell.configure(with: vault)
+		}
 		return cell
 	}
 
