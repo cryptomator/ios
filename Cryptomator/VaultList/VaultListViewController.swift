@@ -40,7 +40,7 @@ class VaultListViewController: UITableViewController {
 	}
 
 	override func viewDidLoad() {
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "VaultCell")
+		tableView.register(VaultCell.self, forCellReuseIdentifier: "VaultCell")
 	}
 
 	@objc func addNewVault() {
@@ -79,23 +79,9 @@ class VaultListViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "VaultCell", for: indexPath)
-		cell.accessoryType = .disclosureIndicator
+		let cell = tableView.dequeueReusableCell(withIdentifier: "VaultCell", for: indexPath) as! VaultCell
 		let vault = viewModel.vaults[indexPath.row]
-		let image = UIImage(for: vault.cloudProviderType)
-		if #available(iOS 14, *) {
-			var content = cell.defaultContentConfiguration()
-			content.text = vault.vaultPath.lastPathComponent
-			content.secondaryText = vault.vaultPath.path
-			content.secondaryTextProperties.color = .secondaryLabel
-			content.image = image
-			cell.contentConfiguration = content
-		} else {
-			cell.textLabel?.text = vault.vaultPath.lastPathComponent
-			cell.detailTextLabel?.text = vault.vaultPath.path
-			cell.detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
-			cell.imageView?.image = image
-		}
+		cell.configure(with: vault)
 		return cell
 	}
 

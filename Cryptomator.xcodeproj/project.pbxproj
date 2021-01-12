@@ -125,6 +125,7 @@
 		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
 		747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376002587AEB60023FF53 /* LockNode.swift */; };
 		74F57D6C2475121F00AF951C /* IntegrationTestSecrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */; };
+		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +349,7 @@
 		7403760C2587AEB70023FF53 /* ReparentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTask.swift; sourceTree = "<group>"; };
 		7403760D2587AEB70023FF53 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		74F57D6B2475121F00AF951C /* IntegrationTestSecrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTestSecrets.swift; sourceTree = "<group>"; };
+		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -566,10 +568,11 @@
 		4A8195DB25ADB8AD00F7DDA1 /* VaultList */ = {
 			isa = PBXGroup;
 			children = (
+				74FC576025ADED030003ED27 /* VaultCell.swift */,
 				4AF91CD825A722A600ACF01E /* VaultInfo.swift */,
-				4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */,
 				4A0C07EA25AC832900B83211 /* VaultListPosition.swift */,
 				4A03257725A36A6900E63D7A /* VaultListViewController.swift */,
+				4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */,
 			);
 			path = VaultList;
 			sourceTree = "<group>";
@@ -1274,6 +1277,7 @@
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
 				4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */,
+				74FC576125ADED030003ED27 /* VaultCell.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
 				4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */,
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
