@@ -51,7 +51,10 @@ class VaultListViewController: UITableViewController {
 
 	@objc func editButtonToggled() {
 		tableView.setEditing(!tableView.isEditing, animated: true)
-		header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
+		UIView.performWithoutAnimation {
+			header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
+			header.editButton.layoutIfNeeded()
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
