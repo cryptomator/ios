@@ -16,8 +16,7 @@ extension UIImage {
 		case .googleDrive:
 			self.init(named: "google-drive")
 		case .localFileSystem:
-			// TODO: Add UIImage
-			return nil
+			self.init(named: "file-provider")
 		case .webDAV:
 			self.init(named: "webdav")
 		}
