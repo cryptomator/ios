@@ -60,7 +60,7 @@ class VaultListViewController: UITableViewController {
 			try viewModel.refreshItems()
 			tableView.reloadData()
 		} catch {
-			print(error)
+			coordinator?.handleError(error, for: self)
 		}
 	}
 
@@ -103,18 +103,29 @@ class VaultListViewController: UITableViewController {
 		do {
 			try viewModel.moveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
 		} catch {
-			print(error)
+			coordinator?.handleError(error, for: self)
 		}
 	}
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			do {
-				try viewModel.removeRow(at: indexPath.row)
-			} catch {
-				print(error)
+			let alertController = UIAlertController(title: "Remove Vault?",
+			                                        message: "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.",
+			                                        preferredStyle: .alert)
+			let okAction = UIAlertAction(title: "Remove", style: .destructive) {
+				_ in
+				do {
+					try self.viewModel.removeRow(at: indexPath.row)
+					tableView.deleteRows(at: [indexPath], with: .automatic)
+				} catch {
+					self.coordinator?.handleError(error, for: self)
+				}
 			}
-			tableView.deleteRows(at: [indexPath], with: .automatic)
+			
+			alertController.addAction(okAction)
+			alertController.addAction(UIAlertAction(title: "Cancle", style: .cancel))
+
+			present(alertController, animated: true, completion: nil)
 		}
 	}
 }

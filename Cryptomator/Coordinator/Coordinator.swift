@@ -14,3 +14,11 @@ protocol Coordinator: AnyObject {
 
 	func start()
 }
+
+extension Coordinator {
+	func handleError(_ error: Error, for viewController: UIViewController) {
+		let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: "OK", style: .default))
+		viewController.present(alertController, animated: true)
+	}
+}
