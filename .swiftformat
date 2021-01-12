@@ -1,3 +1,5 @@
+--minversion 0.47.10
+
 # format options
 
 --commas inline
