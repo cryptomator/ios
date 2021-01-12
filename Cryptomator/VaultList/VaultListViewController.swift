@@ -50,7 +50,7 @@ class VaultListViewController: UITableViewController {
 	@objc func showSettings() {}
 
 	@objc func editButtonToggled() {
-		tableView.isEditing.toggle()
+		tableView.setEditing(!tableView.isEditing, animated: true)
 		header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
 	}
 
@@ -121,7 +121,7 @@ class VaultListViewController: UITableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-			
+
 			alertController.addAction(okAction)
 			alertController.addAction(UIAlertAction(title: "Cancle", style: .cancel))
 
@@ -131,7 +131,7 @@ class VaultListViewController: UITableViewController {
 }
 
 private class HeaderView: UITableViewHeaderFooterView {
-	let editButton = UIButton()
+	let editButton = UIButton(type: .system)
 	let title = UILabel()
 
 	convenience init(title: String, editButtonTitle: String) {
