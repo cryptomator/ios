@@ -13,7 +13,7 @@ public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord {
 	static let accountUIDKey = "accountUID"
 	static let cloudProviderTypeKey = "cloudProviderType"
 	public let accountUID: String
-	let cloudProviderType: CloudProviderType
+	public let cloudProviderType: CloudProviderType
 
 	public init(accountUID: String, cloudProviderType: CloudProviderType) {
 		self.accountUID = accountUID

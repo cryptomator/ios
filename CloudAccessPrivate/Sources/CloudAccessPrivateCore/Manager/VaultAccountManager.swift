@@ -15,10 +15,12 @@ public struct VaultAccount: Decodable, FetchableRecord, TableRecord {
 	static let delegateAccountUIDKey = "delegateAccountUID"
 	static let vaultPathKey = "vaultPath"
 	static let lastUpToDateCheckKey = "lastUpToDateCheck"
-	let vaultUID: String
+	public let vaultUID: String
 	let delegateAccountUID: String
 	public let vaultPath: CloudPath
 	let lastUpToDateCheck: Date
+
+	public static let delegateAccount = belongsTo(CloudProviderAccount.self)
 
 	public init(vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, lastUpToDateCheck: Date = Date()) {
 		self.vaultUID = vaultUID
@@ -69,7 +71,7 @@ public class VaultAccountManager {
 		return account
 	}
 
-	public func getAllAccounts() throws -> [VaultAccount] {
+	func getAllAccounts() throws -> [VaultAccount] {
 		try dbPool.read { db in
 			try VaultAccount.fetchAll(db)
 		}
