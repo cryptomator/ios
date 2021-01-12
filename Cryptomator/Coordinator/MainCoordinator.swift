@@ -19,7 +19,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}
 
 	func start() {
-		let vaultListViewController = VaultListViewController(with: VaultInfoProvider())
+		let vaultListViewController = VaultListViewController(with: VaultListViewModel())
 		vaultListViewController.coordinator = self
 		navigationController.pushViewController(vaultListViewController, animated: false)
 	}

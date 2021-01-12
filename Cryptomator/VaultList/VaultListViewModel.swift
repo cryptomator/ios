@@ -1,5 +1,5 @@
 //
-//  VaultInfoProvider.swift
+//  VaultListViewModel.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 06.01.21.
@@ -8,7 +8,7 @@
 
 import CloudAccessPrivateCore
 import Foundation
-class VaultInfoProvider: VaultListViewModel {
+class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 	private let dbManager: DatabaseManager
 	private let vaultAccountManager: VaultAccountManager

@@ -1,5 +1,5 @@
 //
-//  VaultInfoProviderTests.swift
+//  VaultListViewModelTests.swift
 //  CryptomatorTests
 //
 //  Created by Philipp Schmid on 08.01.21.
@@ -11,7 +11,7 @@ import GRDB
 import XCTest
 @testable import CloudAccessPrivateCore
 @testable import Cryptomator
-class VaultInfoProviderTests: XCTestCase {
+class VaultListViewModelTests: XCTestCase {
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	var cryptomatorDB: CryptomatorDatabase!
@@ -33,7 +33,7 @@ class VaultInfoProviderTests: XCTestCase {
 	func testRefreshVaultsIsSorted() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultInfoProvider(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
 		XCTAssert(vaultListViewModel.vaults.isEmpty)
 		try vaultListViewModel.refreshItems()
 		XCTAssertEqual(2, vaultListViewModel.vaults.count)
@@ -47,7 +47,7 @@ class VaultInfoProviderTests: XCTestCase {
 	func testMoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultInfoProvider(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
@@ -68,7 +68,7 @@ class VaultInfoProviderTests: XCTestCase {
 	func testRemoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultInfoProvider(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)

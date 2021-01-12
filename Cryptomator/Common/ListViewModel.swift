@@ -13,6 +13,6 @@ protocol ListViewModel {
 	func removeRow(at index: Int) throws
 }
 
-protocol VaultListViewModel: ListViewModel {
+protocol VaultListViewModelProtocol: ListViewModel {
 	var vaults: [VaultInfo] { get }
 }

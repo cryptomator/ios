@@ -12,10 +12,10 @@ import UIKit
 
 class VaultListViewController: UITableViewController {
 	private let header = HeaderView(title: "Vaults".uppercased(), editButtonTitle: "Edit")
-	private let viewModel: VaultListViewModel
+	private let viewModel: VaultListViewModelProtocol
 	weak var coordinator: MainCoordinator?
 
-	init(with viewModel: VaultListViewModel) {
+	init(with viewModel: VaultListViewModelProtocol) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
@@ -176,7 +176,7 @@ private class HeaderView: UITableViewHeaderFooterView {
 import CryptomatorCloudAccess
 import SwiftUI
 
-private class VaultListViewModelMock: VaultListViewModel {
+private class VaultListViewModelMock: VaultListViewModelProtocol {
 	let vaults = [
 		VaultInfo(vaultAccount: VaultAccount(vaultUID: "1", delegateAccountUID: "1", vaultPath: CloudPath("/Work")), cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV), vaultListPosition: VaultListPosition(position: 1, vaultUID: "1")),
 
