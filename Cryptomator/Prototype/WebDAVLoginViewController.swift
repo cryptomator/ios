@@ -14,6 +14,7 @@ import UIKit
 class WebDAVLoginViewController: UIViewController {
 	var client: WebDAVClient?
 	let rootView = WebDAVLoginView()
+	weak var coordinator: AddVaultCoordinator?
 	override func loadView() {
 		rootView.loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		view = rootView
@@ -39,6 +40,7 @@ class WebDAVLoginViewController: UIViewController {
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try CloudProviderAccountManager.shared.saveNewAccount(account)
 			let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: credential.identifier, folder: CloudPath("/"))
+			folderBrowserViewModel.coordinator = self.coordinator
 			let folderBrowserViewController = FolderBrowserViewController(viewModel: folderBrowserViewModel)
 			self.navigationController?.pushViewController(folderBrowserViewController, animated: true)
 		}.catch { error in
