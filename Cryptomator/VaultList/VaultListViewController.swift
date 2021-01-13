@@ -41,6 +41,16 @@ class VaultListViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		tableView.register(VaultCell.self, forCellReuseIdentifier: "VaultCell")
+		viewModel.startListenForChanges { [weak self] error in
+			guard let self = self else { return }
+			self.coordinator?.handleError(error, for: self)
+		} onChange: { [weak self] in
+			guard let self = self else { return }
+			self.tableView.reloadData()
+			if self.viewModel.vaults.isEmpty {
+				self.coordinator?.addVault(allowToCancel: false)
+			}
+		}
 	}
 
 	@objc func addNewVault() {
@@ -54,19 +64,6 @@ class VaultListViewController: UITableViewController {
 		UIView.performWithoutAnimation {
 			header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
 			header.editButton.layoutIfNeeded()
-		}
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		do {
-			try viewModel.refreshItems()
-			tableView.reloadData()
-			if viewModel.vaults.isEmpty {
-				coordinator?.addVault(allowToCancel: false)
-			}
-		} catch {
-			coordinator?.handleError(error, for: self)
 		}
 	}
 
@@ -114,9 +111,9 @@ class VaultListViewController: UITableViewController {
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
 					tableView.deleteRows(at: [indexPath], with: .automatic)
-					if self.viewModel.vaults.isEmpty {
-						self.coordinator?.addVault(allowToCancel: false)
-					}
+//					if self.viewModel.vaults.isEmpty {
+//						self.coordinator?.addVault(allowToCancel: false)
+//					}
 				} catch {
 					self.coordinator?.handleError(error, for: self)
 				}
@@ -186,6 +183,7 @@ private class VaultListViewModelMock: VaultListViewModelProtocol {
 	func refreshItems() throws {}
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {}
 	func removeRow(at index: Int) throws {}
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}
 }
 
 @available(iOS 13, *)

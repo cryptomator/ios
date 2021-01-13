@@ -15,4 +15,5 @@ protocol ListViewModel {
 
 protocol VaultListViewModelProtocol: ListViewModel {
 	var vaults: [VaultInfo] { get }
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
 }

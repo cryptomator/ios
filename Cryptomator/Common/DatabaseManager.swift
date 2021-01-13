@@ -77,6 +77,13 @@ class DatabaseManager {
 			}
 		}
 	}
+
+	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> TransactionObserver {
+		let observation = ValueObservation.tracking { db in
+			try VaultAccount.fetchAll(db)
+		}
+		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+	}
 }
 
 extension VaultAccount {

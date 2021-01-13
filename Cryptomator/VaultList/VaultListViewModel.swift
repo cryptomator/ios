@@ -8,10 +8,12 @@
 
 import CloudAccessPrivateCore
 import Foundation
+import GRDB
 class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 	private let dbManager: DatabaseManager
 	private let vaultAccountManager: VaultAccountManager
+	private var observation: TransactionObserver?
 
 	convenience init() {
 		self.init(dbManager: DatabaseManager.shared, vaultAccountManager: VaultAccountManager.shared)
@@ -20,6 +22,17 @@ class VaultListViewModel: VaultListViewModelProtocol {
 	init(dbManager: DatabaseManager, vaultAccountManager: VaultAccountManager) {
 		self.dbManager = dbManager
 		self.vaultAccountManager = vaultAccountManager
+	}
+
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
+		observation = dbManager.observeVaultAccounts(onError: onError, onChange: { _ in
+			do {
+				try self.refreshItems()
+				onChange()
+			} catch {
+				onError(error)
+			}
+		})
 	}
 
 	func refreshItems() throws {
