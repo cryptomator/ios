@@ -9,14 +9,35 @@
 import Foundation
 import UIKit
 class AddVaultViewController: UITableViewController {
-	
+	weak var coordinator: AddVaultCoordinator?
+	private let allowToCancel: Bool
+
+	init(allowToCancel: Bool) {
+		self.allowToCancel = allowToCancel
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		if allowToCancel {
+			let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(close))
+			navigationItem.leftBarButtonItem = cancelButton
+		}
 		title = "Add Vault"
+
+		tableView = UITableView(frame: .zero, style: .grouped)
 	}
 
 	override func viewDidLoad() {
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddVaultCell")
+	}
+
+	@objc func close() {
+		coordinator?.close()
 	}
 
 	// MARK: TableView
@@ -68,6 +89,17 @@ class AddVaultViewController: UITableViewController {
 		}
 		return cell
 	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch indexPath.row {
+		case 0:
+			coordinator?.createNewVault()
+		case 1:
+			coordinator?.openExistingVault()
+		default:
+			return
+		}
+	}
 }
 
 #if canImport(SwiftUI) && DEBUG
@@ -77,7 +109,7 @@ import SwiftUI
 @available(iOS 13, *)
 struct VaultAddVCPreview: PreviewProvider {
 	static var previews: some View {
-		AddVaultViewController().toPreview()
+		AddVaultViewController(allowToCancel: true).toPreview()
 	}
 }
 #endif

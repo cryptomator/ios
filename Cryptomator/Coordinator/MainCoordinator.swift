@@ -24,10 +24,16 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		navigationController.pushViewController(vaultListViewController, animated: false)
 	}
 
-	func addVault() {
-		// TODO: Replace Prototype VC
-		let webdavController = WebDAVLoginViewController()
-		navigationController.pushViewController(webdavController, animated: true)
+	func addVault(allowToCancel: Bool) {
+		let modalNavigationController = UINavigationController()
+		if #available(iOS 13.0, *) {
+			modalNavigationController.isModalInPresentation = !allowToCancel
+		}
+		let child = AddVaultCoordinator(navigationController: modalNavigationController, allowToCancel: allowToCancel)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		navigationController.topViewController?.present(modalNavigationController, animated: true)
+		child.start()
 	}
 
 	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
@@ -39,6 +45,15 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		// Check whether our view controller array already contains that view controller. If it does it means we’re pushing a different view controller on top rather than popping it, so exit.
 		if navigationController.viewControllers.contains(fromViewController) {
 			return
+		}
+	}
+
+	func childDidFinish(_ child: Coordinator?) {
+		for (index, coordinator) in childCoordinators.enumerated() {
+			if coordinator === child {
+				childCoordinators.remove(at: index)
+				break
+			}
 		}
 	}
 }

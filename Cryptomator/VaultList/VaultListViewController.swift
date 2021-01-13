@@ -44,7 +44,7 @@ class VaultListViewController: UITableViewController {
 	}
 
 	@objc func addNewVault() {
-		coordinator?.addVault()
+		coordinator?.addVault(allowToCancel: !viewModel.vaults.isEmpty)
 	}
 
 	@objc func showSettings() {}
@@ -59,6 +59,9 @@ class VaultListViewController: UITableViewController {
 		do {
 			try viewModel.refreshItems()
 			tableView.reloadData()
+			if viewModel.vaults.isEmpty {
+				coordinator?.addVault(allowToCancel: false)
+			}
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}
@@ -117,6 +120,9 @@ class VaultListViewController: UITableViewController {
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
 					tableView.deleteRows(at: [indexPath], with: .automatic)
+					if self.viewModel.vaults.isEmpty {
+						self.coordinator?.addVault(allowToCancel: false)
+					}
 				} catch {
 					self.coordinator?.handleError(error, for: self)
 				}
