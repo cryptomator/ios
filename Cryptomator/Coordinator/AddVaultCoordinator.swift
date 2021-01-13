@@ -33,6 +33,7 @@ class AddVaultCoordinator: Coordinator {
 	func openExistingVault() {
 		// TODO: Replace Prototype VC
 		let webdavController = WebDAVLoginViewController()
+		webdavController.coordinator = self
 		navigationController.pushViewController(webdavController, animated: true)
 	}
 

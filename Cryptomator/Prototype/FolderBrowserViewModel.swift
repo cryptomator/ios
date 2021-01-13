@@ -17,6 +17,7 @@ class FolderBrowserViewModel {
 	private(set) var nextPageToken: String?
 	private(set) var items = [CloudItemMetadata]()
 	private let providerAccountUID: String
+	weak var coordinator: AddVaultCoordinator?
 
 	init(providerAccountUID: String, folder: CloudPath) {
 		self.providerAccountUID = providerAccountUID
@@ -50,9 +51,12 @@ class FolderBrowserViewModel {
 		let selectedPath = items[row].cloudPath
 		if selectedPath.path.hasSuffix("masterkey.cryptomator") {
 			let existingVaultInstallerViewModel = ExistingVaultInstallerViewModel(providerAccountUID: providerAccountUID, masterkeyPath: selectedPath)
-			return ExistingVaultInstallViewController(viewModel: existingVaultInstallerViewModel)
+			let vc = ExistingVaultInstallViewController(viewModel: existingVaultInstallerViewModel)
+			vc.coordinator = coordinator
+			return vc
 		} else {
 			let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: providerAccountUID, folder: selectedPath)
+			folderBrowserViewModel.coordinator = coordinator
 			return FolderBrowserViewController(viewModel: folderBrowserViewModel)
 		}
 	}

@@ -13,6 +13,7 @@ import UIKit
 class ExistingVaultInstallViewController: UIViewController {
 	let viewModel: ExistingVaultInstallerViewModel
 	private var passwordInput: UITextField?
+	weak var coordinator: AddVaultCoordinator?
 	override func loadView() {
 		let rootView = UIView()
 		rootView.backgroundColor = .white
@@ -47,7 +48,9 @@ class ExistingVaultInstallViewController: UIViewController {
 		}
 		viewModel.installVault(withPassword: password).then { vaultUID in
 			let alert = UIAlertController(title: "Success", message: "Installed Vault: \(vaultUID). You can now use it with the FileProviderExtension", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+				self.coordinator?.close()
+			}))
 			self.present(alert, animated: true, completion: nil)
 		}.catch { error in
 			let alert = UIAlertController(title: "Error", message: "Install Vault \(self.viewModel.masterkeyPath.lastPathComponent) failed with error: \(error)", preferredStyle: .alert)
