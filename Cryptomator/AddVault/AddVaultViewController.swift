@@ -24,7 +24,7 @@ class AddVaultViewController: UITableViewController {
 
 	override func loadView() {
 		if allowToCancel {
-			let cancelButton = UIBarButtonItem(title: "Cancel", style: .done, target: self, action: #selector(close))
+			let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
 			navigationItem.leftBarButtonItem = cancelButton
 		}
 		title = "Add Vault"
