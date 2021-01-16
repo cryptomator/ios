@@ -18,7 +18,7 @@ class VaultManagerMock: VaultManager {
 	var savedMasterkeys = [String: Masterkey]()
 	var savedPasswords = [String: String]()
 	var removedVaultUIDs = [String]()
-	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, password: String, storePasswordInKeychain: Bool) throws {
+	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, vaultVersion: Int, password: String, storePasswordInKeychain: Bool) throws {
 		savedMasterkeys[vaultUID] = masterkey
 		if storePasswordInKeychain {
 			savedPasswords[vaultUID] = password
@@ -26,8 +26,8 @@ class VaultManagerMock: VaultManager {
 		return
 	}
 
-	override func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {
-		return try masterkey.exportEncrypted(password: password, scryptCostParam: 2)
+	override func exportMasterkey(_ masterkey: Masterkey, vaultVersion: Int, password: String) throws -> Data {
+		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 7, passphrase: password, pepper: [UInt8](), scryptCostParam: 2)
 	}
 
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
@@ -95,7 +95,8 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Masterkey not uploaded")
 				return
 			}
-			let masterkey = try Masterkey.createFromMasterkeyFile(jsonData: masterkeyData, password: "pw")
+			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyData)
+			let masterkey = try masterkeyFile.unlock(passphrase: "pw")
 
 			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
 			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
@@ -131,8 +132,8 @@ class VaultManagerTests: XCTestCase {
 			XCTFail("Could not convert manager to VaultManagerMock")
 			return
 		}
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
-		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, password: "pw")
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 7, password: "pw")
 		let vaultUID = UUID().uuidString
 		manager.createFromExisting(withVaultID: vaultUID, delegateAccountUID: delegateAccountUID, masterkeyPath: masterkeyPath, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
@@ -165,8 +166,8 @@ class VaultManagerTests: XCTestCase {
 		let vaultPath = CloudPath("/VaultV7/")
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 		try accountManager.saveNewAccount(vaultAccount)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
-		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID)
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 7)
 		guard decorator is VaultFormat7ShorteningProviderDecorator else {
 			XCTFail("Decorator is not a VaultFormat7ShorteningProviderDecorator")
 			return
@@ -182,8 +183,8 @@ class VaultManagerTests: XCTestCase {
 		let vaultPath = CloudPath("/VaultV6/")
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 		try accountManager.saveNewAccount(vaultAccount)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 6)
-		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID)
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 6)
 		guard decorator is VaultFormat6ShorteningProviderDecorator else {
 			XCTFail("Decorator is not a VaultFormat6ShorteningProviderDecorator")
 			return
@@ -199,8 +200,8 @@ class VaultManagerTests: XCTestCase {
 		let vaultPath = CloudPath("/VaultV1/")
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 		try accountManager.saveNewAccount(vaultAccount)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 1)
-		XCTAssertThrowsError(try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID)) { error in
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		XCTAssertThrowsError(try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 1)) { error in
 			guard case VaultManagerError.vaultVersionNotSupported = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -211,6 +212,6 @@ class VaultManagerTests: XCTestCase {
 
 extension Masterkey: Equatable {
 	public static func == (lhs: Masterkey, rhs: Masterkey) -> Bool {
-		return lhs.aesMasterKey == rhs.aesMasterKey && lhs.macMasterKey == rhs.macMasterKey && lhs.version == rhs.version
+		return lhs.aesMasterKey == rhs.aesMasterKey && lhs.macMasterKey == rhs.macMasterKey
 	}
 }
