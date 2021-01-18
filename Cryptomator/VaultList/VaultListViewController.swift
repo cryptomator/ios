@@ -35,7 +35,6 @@ class VaultListViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = addNewVaulButton
 
 		title = "Cryptomator"
-
 		header.editButton.addTarget(self, action: #selector(editButtonToggled), for: .touchUpInside)
 	}
 
@@ -48,13 +47,20 @@ class VaultListViewController: UITableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.vaults.isEmpty {
-				self.coordinator?.addVault(allowToCancel: false)
+				self.coordinator?.addVault()
+				self.tableView.backgroundView = EmptyVaultListMessage(message: "Tap here to add a Vault")
+				self.tableView.contentInsetAdjustmentBehavior = .never
+				self.tableView.separatorStyle = .none
+			} else {
+				self.tableView.backgroundView = nil
+				self.tableView.separatorStyle = .singleLine
+				self.tableView.contentInsetAdjustmentBehavior = .automatic
 			}
 		}
 	}
 
 	@objc func addNewVault() {
-		coordinator?.addVault(allowToCancel: !viewModel.vaults.isEmpty)
+		coordinator?.addVault()
 	}
 
 	@objc func showSettings() {}
@@ -74,6 +80,9 @@ class VaultListViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard !viewModel.vaults.isEmpty else {
+			return nil
+		}
 		return header
 	}
 
@@ -111,9 +120,6 @@ class VaultListViewController: UITableViewController {
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
 					tableView.deleteRows(at: [indexPath], with: .automatic)
-//					if self.viewModel.vaults.isEmpty {
-//						self.coordinator?.addVault(allowToCancel: false)
-//					}
 				} catch {
 					self.coordinator?.handleError(error, for: self)
 				}

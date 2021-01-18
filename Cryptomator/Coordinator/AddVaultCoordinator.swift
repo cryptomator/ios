@@ -13,15 +13,13 @@ class AddVaultCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
 	weak var parentCoordinator: MainCoordinator?
-	private let allowToCancel: Bool
 
-	init(navigationController: UINavigationController, allowToCancel: Bool) {
+	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
-		self.allowToCancel = allowToCancel
 	}
 
 	func start() {
-		let addVaultViewController = AddVaultViewController(allowToCancel: allowToCancel)
+		let addVaultViewController = AddVaultViewController()
 		addVaultViewController.coordinator = self
 		navigationController.pushViewController(addVaultViewController, animated: false)
 	}

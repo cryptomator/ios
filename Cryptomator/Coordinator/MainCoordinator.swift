@@ -24,12 +24,9 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		navigationController.pushViewController(vaultListViewController, animated: false)
 	}
 
-	func addVault(allowToCancel: Bool) {
+	func addVault() {
 		let modalNavigationController = UINavigationController()
-		if #available(iOS 13.0, *) {
-			modalNavigationController.isModalInPresentation = !allowToCancel
-		}
-		let child = AddVaultCoordinator(navigationController: modalNavigationController, allowToCancel: allowToCancel)
+		let child = AddVaultCoordinator(navigationController: modalNavigationController)
 		child.parentCoordinator = self
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)

@@ -10,23 +10,11 @@ import Foundation
 import UIKit
 class AddVaultViewController: UITableViewController {
 	weak var coordinator: AddVaultCoordinator?
-	private let allowToCancel: Bool
-
-	init(allowToCancel: Bool) {
-		self.allowToCancel = allowToCancel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
 
 	override func loadView() {
-		if allowToCancel {
-			let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-			navigationItem.leftBarButtonItem = cancelButton
-		}
+		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+		navigationItem.leftBarButtonItem = cancelButton
+
 		title = "Add Vault"
 
 		tableView = UITableView(frame: .zero, style: .grouped)
@@ -109,7 +97,7 @@ import SwiftUI
 @available(iOS 13, *)
 struct VaultAddVCPreview: PreviewProvider {
 	static var previews: some View {
-		AddVaultViewController(allowToCancel: true).toPreview()
+		AddVaultViewController().toPreview()
 	}
 }
 #endif
