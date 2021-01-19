@@ -15,7 +15,25 @@ enum State {
 }
 
 extension UIImage {
-	convenience init?(for cloudProviderType: CloudProviderType, state: State) {
+	convenience init?(vaultIconFor cloudProviderType: CloudProviderType, state: State) {
+		var assetName: String
+		switch cloudProviderType {
+		case .dropbox:
+			assetName = "dropbox-vault"
+		case .googleDrive:
+			assetName = "google-drive-vault"
+		case .localFileSystem:
+			assetName = "file-provider-vault"
+		case .webDAV:
+			assetName = "webdav-vault"
+		}
+		if state == .highlighted {
+			assetName += "-selected"
+		}
+		self.init(named: assetName)
+	}
+
+	convenience init?(storageIconFor cloudProviderType: CloudProviderType) {
 		var assetName: String
 		switch cloudProviderType {
 		case .dropbox:
@@ -26,9 +44,6 @@ extension UIImage {
 			assetName = "file-provider"
 		case .webDAV:
 			assetName = "webdav"
-		}
-		if state == .highlighted {
-			assetName += "-selected"
 		}
 		self.init(named: assetName)
 	}

@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "dropbox-selected.png",
+      "filename" : "file-provider-vault.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "dropbox-selected@2x.png",
+      "filename" : "file-provider-vault@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "dropbox-selected@3x.png",
+      "filename" : "file-provider-vault@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

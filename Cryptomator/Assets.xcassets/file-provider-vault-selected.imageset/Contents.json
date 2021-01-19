@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "onedrive-selected.png",
+      "filename" : "file-provider-vault-selected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "onedrive-selected@2x.png",
+      "filename" : "file-provider-vault-selected@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "onedrive-selected@3x.png",
+      "filename" : "file-provider-vault-selected@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
