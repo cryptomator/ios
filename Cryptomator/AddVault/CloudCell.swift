@@ -24,7 +24,7 @@ class CloudCell: UITableViewCell {
 
 	func configure(with cloudProviderType: CloudProviderType) {
 		imageView?.image = UIImage(storageIconFor: cloudProviderType)
-		textLabel?.text = text(for: cloudProviderType)
+		textLabel?.text = cloudProviderType.localizedString()
 	}
 
 	@available(iOS 14, *)
@@ -34,20 +34,7 @@ class CloudCell: UITableViewCell {
 		}
 		var content = defaultContentConfiguration().updated(for: state)
 		content.image = UIImage(storageIconFor: cloudProviderType)
-		content.text = text(for: cloudProviderType)
+		content.text = cloudProviderType.localizedString()
 		contentConfiguration = content
-	}
-
-	private func text(for cloudProviderType: CloudProviderType) -> String {
-		switch cloudProviderType {
-		case .dropbox:
-			return "Dropbox"
-		case .googleDrive:
-			return "Google Drive"
-		case .localFileSystem:
-			return "Other File Provider"
-		case .webDAV:
-			return "WebDAV"
-		}
 	}
 }

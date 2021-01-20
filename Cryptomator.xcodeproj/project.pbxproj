@@ -101,6 +101,7 @@
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
 		4AFCE4DD25B8514F0069C4FC /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */; };
+		4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		740376212587AED60023FF53 /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 740376202587AED60023FF53 /* CloudAccessPrivateCore */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
@@ -336,6 +337,7 @@
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
+		4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+Localization.swift"; sourceTree = "<group>"; };
 		4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
 		740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCryptomatorFileProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		740375F02587AEB40023FF53 /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
@@ -623,6 +625,7 @@
 				4A7B97CA25B6F7340044B7FB /* CloudAccountList */,
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
 				4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */,
+				4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1341,6 +1344,7 @@
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
 				4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
+				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
