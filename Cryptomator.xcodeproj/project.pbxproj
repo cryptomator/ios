@@ -46,6 +46,8 @@
 		4A797F9124AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */; };
 		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
+		4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */; };
+		4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */; };
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
 		4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */; };
 		4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCredential.swift */; };
@@ -263,6 +265,8 @@
 		4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTests.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
+		4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
+		4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListPosition.swift; sourceTree = "<group>"; };
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
 		4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A837C75248994FD00223222 /* MockDropboxCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCredential.swift; sourceTree = "<group>"; };
@@ -576,6 +580,15 @@
 			path = "Google Drive";
 			sourceTree = "<group>";
 		};
+		4A7B97CA25B6F7340044B7FB /* CloudAccountList */ = {
+			isa = PBXGroup;
+			children = (
+				4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */,
+				4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */,
+			);
+			path = CloudAccountList;
+			sourceTree = "<group>";
+		};
 		4A7BC0E825ADF13100F007B3 /* AddVault */ = {
 			isa = PBXGroup;
 			children = (
@@ -605,6 +618,7 @@
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
 				4A8195E425ADB94500F7DDA1 /* Previews */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
+				4A7B97CA25B6F7340044B7FB /* CloudAccountList */,
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
 			);
 			path = Common;
@@ -1318,8 +1332,10 @@
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */,
 				4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */,
+				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
+				4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
