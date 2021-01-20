@@ -23,7 +23,7 @@ public struct AccountInfo: Decodable, FetchableRecord {
 		return cloudProviderAccount.cloudProviderType
 	}
 
-	var delegateAccountUID: String {
+	var accountUID: String {
 		return cloudProviderAccount.accountUID
 	}
 
