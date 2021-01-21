@@ -103,7 +103,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			}
 			XCTAssertEqual(ItemStatus.isUploaded, cachedItemMetadata.statusCode)
 			XCTAssertFalse(cachedItemMetadata.isPlaceholderItem)
-			
+
 			// Verify that there is no longer an entry about the cached file and the ( outdated ) locally cached file has been removed.
 			let cachedLocalFileInfo = try decorator.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
 			XCTAssertNil(cachedLocalFileInfo)

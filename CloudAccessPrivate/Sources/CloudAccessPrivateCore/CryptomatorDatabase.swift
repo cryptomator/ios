@@ -29,7 +29,7 @@ public class CryptomatorDatabase {
 
 	private static var migrator: DatabaseMigrator {
 		var migrator = DatabaseMigrator()
-		
+
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "cloudProviderAccounts") { table in
 				table.column("accountUID", .text).primaryKey()
