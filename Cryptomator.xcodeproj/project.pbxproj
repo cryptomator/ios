@@ -46,6 +46,7 @@
 		4A797F9124AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */; };
 		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
+		4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */; };
 		4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */; };
 		4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */; };
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
@@ -101,8 +102,10 @@
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
 		4AFCE4DD25B8514F0069C4FC /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */; };
+		4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */; };
 		4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */; };
 		4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */; };
+		4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		740376212587AED60023FF53 /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 740376202587AED60023FF53 /* CloudAccessPrivateCore */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
@@ -268,6 +271,7 @@
 		4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTests.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
+		4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
 		4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
 		4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListPosition.swift; sourceTree = "<group>"; };
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
@@ -338,8 +342,10 @@
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
+		4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellContent.swift; sourceTree = "<group>"; };
 		4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+Localization.swift"; sourceTree = "<group>"; };
 		4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAuthenticator.swift; sourceTree = "<group>"; };
+		4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModelTests.swift; sourceTree = "<group>"; };
 		4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
 		740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCryptomatorFileProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		740375F02587AEB40023FF53 /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
@@ -589,8 +595,10 @@
 		4A7B97CA25B6F7340044B7FB /* CloudAccountList */ = {
 			isa = PBXGroup;
 			children = (
+				4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */,
 				4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */,
 				4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */,
+				4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */,
 			);
 			path = CloudAccountList;
 			sourceTree = "<group>";
@@ -753,6 +761,7 @@
 				4AE97DC124572E4A00452814 /* CryptomatorTests.swift */,
 				4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */,
 			);
 			path = CryptomatorTests;
 			sourceTree = "<group>";
@@ -1321,6 +1330,7 @@
 				4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
+				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
 				4A2FD04425B1C3BB008565C8 /* EmptyVaultListMessage.swift in Sources */,
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
@@ -1343,6 +1353,7 @@
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */,
 				4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */,
+				4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */,
 				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
@@ -1358,6 +1369,7 @@
 			files = (
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
+				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
 				4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

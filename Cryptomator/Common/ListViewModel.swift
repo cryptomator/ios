@@ -8,12 +8,16 @@
 
 import Foundation
 protocol ListViewModel {
-	func refreshItems() throws
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
 	func removeRow(at index: Int) throws
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
 }
 
 protocol VaultListViewModelProtocol: ListViewModel {
 	var vaults: [VaultInfo] { get }
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
+}
+
+protocol AccountListViewModelProtocol: ListViewModel {
+	var accounts: [AccountCellContent] { get }
+	var title: String { get }
 }

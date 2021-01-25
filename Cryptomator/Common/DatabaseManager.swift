@@ -140,6 +140,13 @@ class DatabaseManager {
 			}
 		}
 	}
+
+	func observeCloudProviderAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([CloudProviderAccount]) -> Void) -> TransactionObserver {
+		let observation = ValueObservation.tracking { db in
+			try CloudProviderAccount.fetchAll(db)
+		}
+		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+	}
 }
 
 extension VaultAccount {
