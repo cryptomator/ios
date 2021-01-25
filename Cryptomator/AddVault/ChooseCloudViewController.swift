@@ -10,16 +10,11 @@ import CloudAccessPrivateCore
 import Foundation
 import UIKit
 class ChooseCloudViewController: UITableViewController {
-	private static let clouds: [CloudProviderType] = [
-		.dropbox,
-		.googleDrive,
-		.webDAV,
-		.localFileSystem
-	]
-	private let headerTitle: String
+	let viewModel: ChooseCloudViewModel
+	weak var coordinator: CloudChoosing?
 
-	init(headerTitle: String) {
-		self.headerTitle = headerTitle
+	init(viewModel: ChooseCloudViewModel) {
+		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
 	}
 
@@ -43,7 +38,7 @@ class ChooseCloudViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return headerTitle
+		return viewModel.headerTitle
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -51,16 +46,16 @@ class ChooseCloudViewController: UITableViewController {
 			return
 		}
 		// Prevents the Header Title from being displayed in uppercase
-		headerView.textLabel?.text = headerTitle
+		headerView.textLabel?.text = viewModel.headerTitle
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return ChooseCloudViewController.clouds.count
+		return viewModel.clouds.count
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseCloudCell", for: indexPath) as! CloudCell
-		let cloudProviderType = ChooseCloudViewController.clouds[indexPath.row]
+		let cloudProviderType = viewModel.clouds[indexPath.row]
 		if #available(iOS 14, *) {
 			cell.cloudProviderType = cloudProviderType
 			cell.setNeedsUpdateConfiguration()
@@ -68,6 +63,11 @@ class ChooseCloudViewController: UITableViewController {
 			cell.configure(with: cloudProviderType)
 		}
 		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let cloudProviderType = viewModel.clouds[indexPath.row]
+		coordinator?.showAccountList(for: cloudProviderType)
 	}
 }
 
@@ -78,7 +78,11 @@ import SwiftUI
 @available(iOS 13, *)
 struct ChooseCloudVCPreview: PreviewProvider {
 	static var previews: some View {
-		ChooseCloudViewController(headerTitle: "Preview Header Title").toPreview()
+		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox,
+		                                                                   .googleDrive,
+		                                                                   .webDAV,
+		                                                                   .localFileSystem],
+																  headerTitle: "Preview Header Title")).toPreview()
 	}
 }
 #endif
