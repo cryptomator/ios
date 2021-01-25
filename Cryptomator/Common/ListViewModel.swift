@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CloudAccessPrivateCore
 import Foundation
 protocol ListViewModel {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
@@ -20,4 +21,5 @@ protocol VaultListViewModelProtocol: ListViewModel {
 protocol AccountListViewModelProtocol: ListViewModel {
 	var accounts: [AccountCellContent] { get }
 	var title: String { get }
+	var cloudProviderType: CloudProviderType { get }
 }

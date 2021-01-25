@@ -12,7 +12,7 @@ import Foundation
 import GRDB
 import Promises
 class AccountListViewModel: AccountListViewModelProtocol {
-	private let cloudProviderType: CloudProviderType
+	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
 	private var observation: TransactionObserver?

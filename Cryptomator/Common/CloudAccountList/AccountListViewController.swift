@@ -120,6 +120,8 @@ import CryptomatorCloudAccess
 import Promises
 import SwiftUI
 private class AccountListViewModelMock: AccountListViewModelProtocol {
+	let cloudProviderType = CloudProviderType.googleDrive
+
 	let accounts = [AccountCellContent(mainLabelText: "John AppleSeed", detailLabelText: "j.appleseed@icloud.com")]
 	let title = "Google Drive"
 
