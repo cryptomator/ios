@@ -20,6 +20,7 @@ protocol VaultListViewModelProtocol: ListViewModel {
 
 protocol AccountListViewModelProtocol: ListViewModel {
 	var accounts: [AccountCellContent] { get }
+	var accountInfos: [AccountInfo] { get }
 	var title: String { get }
 	var cloudProviderType: CloudProviderType { get }
 }

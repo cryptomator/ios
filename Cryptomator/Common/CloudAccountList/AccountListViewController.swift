@@ -11,6 +11,7 @@ import UIKit
 class AccountListViewController: UITableViewController {
 	private let header = TableViewHeader(title: "Authentications".uppercased(), editButtonTitle: "Edit")
 	private let viewModel: AccountListViewModelProtocol
+	weak var coordinator: (Coordinator & AccountListing)?
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -33,10 +34,9 @@ class AccountListViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		tableView.register(AccountCell.self, forCellReuseIdentifier: "AccountCell")
-		viewModel.startListenForChanges { [weak self] _ in
+		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }
-			#warning("TODO: Add Coordinator")
-//			self.coordinator?.handleError(error, for: self)
+			self.coordinator?.handleError(error, for: self)
 		} onChange: { [weak self] in
 			guard let self = self else { return }
 			self.tableView.reloadData()
@@ -71,7 +71,7 @@ class AccountListViewController: UITableViewController {
 	}
 
 	@objc func addNewAccount() {
-		#warning("TODO: Add Coordinator")
+		coordinator?.showAddAccount(for: viewModel.cloudProviderType, from: self)
 	}
 
 	// MARK: TableView
@@ -108,8 +108,16 @@ class AccountListViewController: UITableViewController {
 		do {
 			try viewModel.moveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
 		} catch {
-			#warning("TODO: Add Coordinator")
-			// coordinator?.handleError(error, for: self)
+			coordinator?.handleError(error, for: self)
+		}
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		let accountInfo = viewModel.accountInfos[indexPath.row]
+		do {
+			try coordinator?.selectedAccont(accountInfo)
+		} catch {
+			coordinator?.handleError(error, for: self)
 		}
 	}
 }
@@ -123,6 +131,7 @@ private class AccountListViewModelMock: AccountListViewModelProtocol {
 	let cloudProviderType = CloudProviderType.googleDrive
 
 	let accounts = [AccountCellContent(mainLabelText: "John AppleSeed", detailLabelText: "j.appleseed@icloud.com")]
+	let accountInfos = [AccountInfo]()
 	let title = "Google Drive"
 
 	func refreshItems() -> Promise<Void> { return Promise(()) }

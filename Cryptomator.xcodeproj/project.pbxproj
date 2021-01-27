@@ -105,6 +105,7 @@
 		4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */; };
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
+		4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4D325B842830069C4FC /* AccountListing.swift */; };
 		4AFCE4DD25B8514F0069C4FC /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */; };
 		4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */; };
 		4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE51525B880C90069C4FC /* AccountCell.swift */; };
@@ -351,6 +352,7 @@
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
 		4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderChoosing.swift; sourceTree = "<group>"; };
+		4AFCE4D325B842830069C4FC /* AccountListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListing.swift; sourceTree = "<group>"; };
 		4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
 		4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellContent.swift; sourceTree = "<group>"; };
 		4AFCE51525B880C90069C4FC /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
@@ -459,6 +461,7 @@
 				4A03255425A3685500E63D7A /* Coordinator.swift */,
 				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
 				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
+				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
 				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
 			);
 			path = Coordinator;
@@ -1362,6 +1365,7 @@
 				4A2FD07925B5D98B008565C8 /* CloudCell.swift in Sources */,
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
 				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
+				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
 				4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */,
 				4AFCE4DD25B8514F0069C4FC /* TableViewHeader.swift in Sources */,
 				4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */,
