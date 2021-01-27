@@ -1,0 +1,66 @@
+//
+//  ChooseFolderViewModel.swift
+//  Cryptomator
+//
+//  Created by Philipp Schmid on 25.01.21.
+//  Copyright © 2021 Skymatic GmbH. All rights reserved.
+//
+
+import CryptomatorCloudAccess
+import Foundation
+protocol ChooseFolderViewModelProtocol: SingleSectionTableViewModelProtocol {
+	var canCreateFolder: Bool { get }
+	var cloudPath: CloudPath { get }
+	var items: [CloudItemMetadata] { get }
+	func startListenForChanges(onError: @escaping (Error) -> Void,
+	                           onChange: @escaping () -> Void,
+	                           onMasterkeyDetection: @escaping (CloudPath) -> Void)
+	func refreshItems()
+}
+
+extension ChooseFolderViewModelProtocol {
+	var headerTitle: String {
+		return cloudPath.path
+	}
+
+	var headerUppercased: Bool {
+		return false
+	}
+}
+
+class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
+	var canCreateFolder: Bool
+	var cloudPath: CloudPath
+	var items = [CloudItemMetadata]()
+	private let provider: CloudProvider
+
+	private var errorListener: ((Error) -> Void)?
+	private var changeListener: (() -> Void)?
+	private var masterkeyListener: ((CloudPath) -> Void)?
+
+	init(canCreateFolder: Bool, cloudPath: CloudPath, provider: CloudProvider) {
+		self.canCreateFolder = canCreateFolder
+		self.cloudPath = cloudPath
+		self.provider = provider
+	}
+
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onMasterkeyDetection: @escaping (CloudPath) -> Void) {
+		errorListener = onError
+		changeListener = onChange
+		masterkeyListener = onMasterkeyDetection
+		refreshItems()
+	}
+
+	func refreshItems() {
+		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
+			if let masterkeyItem = itemList.items.first(where: { $0.cloudPath.lastPathComponent == "masterkey.cryptomator" && $0.itemType == .file }) {
+				self.masterkeyListener?(masterkeyItem.cloudPath)
+			} else {
+				self.items = itemList.items
+				self.changeListener?()
+			}
+		}.catch { error in
+			self.errorListener?(error)
+		}
+	}
+}
