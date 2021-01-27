@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "bot.png",
+      "filename" : "bot-vault.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "bot@2x.png",
+      "filename" : "bot-vault@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "bot@3x.png",
+      "filename" : "bot-vault@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
