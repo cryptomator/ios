@@ -28,13 +28,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		super.loadView()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		cancelButton.tintColor = UIColor(named: "primary")
-		var toolbarItems = [cancelButton]
-		if viewModel.canCreateFolder {
-			toolbarItems.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil))
-			let createFolderButton = UIBarButtonItem(title: "Create Folder", style: .plain, target: self, action: #selector(createNewFolder))
-			createFolderButton.tintColor = UIColor(named: "primary")
-			toolbarItems.append(createFolderButton)
-		}
+		let toolbarItems = [cancelButton]
 		setToolbarItems(toolbarItems, animated: false)
 		navigationController?.setToolbarHidden(false, animated: false)
 	}
