@@ -11,6 +11,7 @@ import Foundation
 protocol ChooseFolderViewModelProtocol: SingleSectionTableViewModelProtocol {
 	var canCreateFolder: Bool { get }
 	var cloudPath: CloudPath { get }
+	var foundMasterkey: Bool { get }
 	var items: [CloudItemMetadata] { get }
 	func startListenForChanges(onError: @escaping (Error) -> Void,
 	                           onChange: @escaping () -> Void,
@@ -32,6 +33,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	var canCreateFolder: Bool
 	var cloudPath: CloudPath
 	var items = [CloudItemMetadata]()
+	var foundMasterkey = false
 	private let provider: CloudProvider
 
 	private var errorListener: ((Error) -> Void)?
@@ -54,6 +56,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	func refreshItems() {
 		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
 			if let masterkeyItem = itemList.items.first(where: { $0.cloudPath.lastPathComponent == "masterkey.cryptomator" && $0.itemType == .file }) {
+				self.foundMasterkey = true
 				self.masterkeyListener?(masterkeyItem.cloudPath)
 			} else {
 				self.items = itemList.items

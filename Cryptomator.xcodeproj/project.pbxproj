@@ -110,6 +110,7 @@
 		4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */; };
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
+		4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */; };
 		4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4D325B842830069C4FC /* AccountListing.swift */; };
 		4AFCE4DD25B8514F0069C4FC /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* TableViewHeader.swift */; };
 		4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */; };
@@ -469,6 +470,7 @@
 			isa = PBXGroup;
 			children = (
 				4A03255425A3685500E63D7A /* Coordinator.swift */,
+				4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */,
 				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
 				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
 				4AFCE4D325B842830069C4FC /* AccountListing.swift */,

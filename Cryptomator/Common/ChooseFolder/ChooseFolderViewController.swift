@@ -9,6 +9,7 @@
 import UIKit
 class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
+	weak var coordinator: (Coordinator & FolderChoosing)?
 	private lazy var header: HeaderWithSearchbar = {
 		return HeaderWithSearchbar(title: viewModel.headerTitle, searchBar: searchController.searchBar)
 	}()
@@ -44,25 +45,30 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		tableView.register(FileCell.self, forCellReuseIdentifier: "FileCell")
 		// pull to refresh
 		initRefreshControl()
-		viewModel.startListenForChanges { [weak self] _ in
+		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }
-			#warning("ToDo: Add Coordinator")
-//			self.coordinator?.handleError(error, for: self)
+			self.coordinator?.handleError(error, for: self)
 		} onChange: { [weak self] in
 			guard let self = self else { return }
 			self.refreshControl?.endRefreshing()
 			self.tableView.reloadData()
-		} onMasterkeyDetection: { _ in
-			#warning("ToDo: Add Coordinator")
+		} onMasterkeyDetection: { [weak self] masterkeyPath in
+			guard let self = self else { return }
+			self.tableView.reloadData()
+			self.showDetectedMasterkey(at: masterkeyPath)
 		}
 	}
 
+	func showDetectedMasterkey(at path: CloudPath) {
+		fatalError("not implemented")
+	}
+
 	@objc func cancel() {
-		#warning("ToDo: Add Coordinator")
+		coordinator?.close()
 	}
 
 	@objc func createNewFolder() {
-		#warning("ToDo: Add Coordinator")
+		coordinator?.showCreateNewFolder(parentPath: viewModel.cloudPath)
 	}
 
 	@objc func pullToRefresh() {
@@ -79,6 +85,9 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	// MARK: TableView
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		if viewModel.foundMasterkey {
+			return nil
+		}
 		return header
 	}
 
@@ -113,7 +122,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = viewModel.items[indexPath.row]
-		#warning("ToDo: Add Coordinator")
+		coordinator?.showItems(for: item.cloudPath)
 	}
 }
 
@@ -158,6 +167,7 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 import CryptomatorCloudAccess
 import SwiftUI
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
+	let foundMasterkey = false
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
 	let items = [CloudItemMetadata(name: "Bar",
