@@ -1,0 +1,114 @@
+//
+//  OpenExistingVaultCoordinator.swift
+//  Cryptomator
+//
+//  Created by Philipp Schmid on 18.01.21.
+//  Copyright © 2021 Skymatic GmbH. All rights reserved.
+//
+
+import CloudAccessPrivateCore
+import CryptomatorCloudAccess
+import Foundation
+import UIKit
+class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
+	var childCoordinators = [Coordinator]()
+	var navigationController: UINavigationController
+	weak var parentCoordinator: AddVaultCoordinator?
+
+	init(navigationController: UINavigationController) {
+		self.navigationController = navigationController
+	}
+
+	func start() {
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV, .localFileSystem],
+		                                     headerTitle: "Where is the Vault located?")
+		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
+		chooseCloudVC.title = "Open Existing Vault"
+		chooseCloudVC.coordinator = self
+		navigationController.pushViewController(chooseCloudVC, animated: true)
+	}
+
+	func showAccountList(for cloudProviderType: CloudProviderType) {
+		let viewModel = AccountListViewModel(with: cloudProviderType)
+		let accountListVC = AccountListViewController(with: viewModel)
+		accountListVC.coordinator = self
+		navigationController.pushViewController(accountListVC, animated: true)
+	}
+
+	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
+		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared)
+		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
+			let provider = try CloudProviderManager.shared.getProvider(with: account.accountUID)
+			self.startFolderChooser(with: provider, account: account)
+		}
+	}
+
+	func selectedAccont(_ account: AccountInfo) throws {
+		let provider = try CloudProviderManager.shared.getProvider(with: account.accountUID)
+		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+	}
+
+	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
+		let child = AuthenticatedOpenExistingVaultCoordinator(navigationController: navigationController, provider: provider, account: account)
+		childCoordinators.append(child)
+		child.parentCoordinator = self
+		child.start()
+	}
+
+	func showEdit(for account: AccountInfo) {}
+
+	func close() {
+		navigationController.dismiss(animated: true)
+		parentCoordinator?.close()
+	}
+}
+
+private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultInstallationCoordinator {
+	var childCoordinators = [Coordinator]()
+	weak var parentCoordinator: OpenExistingVaultCoordinator?
+	var navigationController: UINavigationController
+	let provider: CloudProvider
+	let account: CloudProviderAccount
+
+	init(navigationController: UINavigationController, provider: CloudProvider, account: CloudProviderAccount) {
+		self.navigationController = navigationController
+		self.provider = provider
+		self.account = account
+	}
+
+	func start() {
+		showItems(for: CloudPath("/"))
+	}
+
+	// MARK: FolderChoosing
+
+	func showItems(for path: CloudPath) {
+		let viewModel = ChooseFolderViewModel(canCreateFolder: false, cloudPath: path, provider: provider)
+		let chooseFolderVC = OpenExistingVaultChooseFolderViewController(with: viewModel)
+		chooseFolderVC.coordinator = self
+		navigationController.pushViewController(chooseFolderVC, animated: true)
+	}
+
+	func close() {
+		parentCoordinator?.close()
+	}
+
+	func chooseItem(at path: CloudPath) {
+		let viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, masterkeyPath: path, vaultID: UUID().uuidString)
+		let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
+		passwordVC.coordinator = self
+		navigationController.pushViewController(passwordVC, animated: true)
+	}
+
+	func showCreateNewFolder(parentPath: CloudPath) {}
+
+	// MARK: VaultInstallationCoordinator
+
+	func showFilesApp() {}
+
+	func showLearnMore() {}
+
+	func showSuccessfullyAddedVault(withName name: String) {
+		print("added vault with name:\(name)")
+	}
+}

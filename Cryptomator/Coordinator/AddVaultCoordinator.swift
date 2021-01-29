@@ -29,10 +29,10 @@ class AddVaultCoordinator: Coordinator {
 	}
 
 	func openExistingVault() {
-		// TODO: Replace Prototype VC
-		let webdavController = WebDAVLoginViewController()
-		webdavController.coordinator = self
-		navigationController.pushViewController(webdavController, animated: true)
+		let child = OpenExistingVaultCoordinator(navigationController: navigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		child.start()
 	}
 
 	func close() {

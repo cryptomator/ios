@@ -9,8 +9,8 @@
 import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import Foundation
-import UIKit
 import Promises
+import UIKit
 class WebDAVLoginViewController: UIViewController {
 	var client: WebDAVClient?
 	let rootView = WebDAVLoginView()

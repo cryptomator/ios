@@ -17,6 +17,7 @@ class OpenExistingVaultPasswordViewController: UITableViewController {
 	}()
 
 	private var viewModel: OpenExistingVaultPasswordViewModelProtocol
+	weak var coordinator: (Coordinator & VaultInstallationCoordinator)?
 
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
@@ -36,10 +37,12 @@ class OpenExistingVaultPasswordViewController: UITableViewController {
 	}
 
 	@objc func verify() {
-		viewModel.addVault().then {
-			#warning("TODO: Add Coordinator")
-		}.catch { _ in
-			#warning("TODO: Add Coordinator")
+		viewModel.addVault().then { [weak self] in
+			guard let self = self else { return }
+			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName)
+		}.catch { [weak self] error in
+			guard let self = self else { return }
+			self.coordinator?.handleError(error, for: self)
 			#warning("TODO: Add Shake Animation")
 		}
 	}

@@ -19,30 +19,45 @@ class CloudAuthenticator {
 		self.accountManager = accountManager
 	}
 
-	func authenticateDropbox(from viewController: UIViewController) -> Promise<DropboxCredential> {
+	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let authenticator = DropboxCloudAuthenticator()
-		return authenticator.authenticate(from: viewController).then { credential in
+		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
+			return account
 		}
 	}
 
-	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<GoogleDriveCredential> {
+	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let credential = GoogleDriveCredential(with: UUID().uuidString)
-		return GoogleDriveCloudAuthenticator.authenticate(credential: credential, from: viewController).then { () -> GoogleDriveCredential in
+		return GoogleDriveCloudAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
-			return credential
+			return account
 		}
 	}
 
-	func authenticateWebDAV(from viewController: UIViewController) -> Promise<WebDAVCredential> {
+	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let pendingPromise = Promise<WebDAVCredential>.pending()
 		let webDAVLoginViewController = WebDAVLoginViewController(pendingAuthenticationPromise: pendingPromise)
 		viewController.present(webDAVLoginViewController, animated: true)
-		return pendingPromise.then { credential in
+		return pendingPromise.then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
+	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		switch cloudProviderType {
+		case .dropbox:
+			return authenticateDropbox(from: viewController)
+		case .googleDrive:
+			return authenticateGoogleDrive(from: viewController)
+		case .localFileSystem:
+			fatalError("not supported (yet)")
+		case .webDAV:
+			return authenticateWebDAV(from: viewController)
 		}
 	}
 
