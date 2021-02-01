@@ -9,7 +9,7 @@
 import CloudAccessPrivateCore
 import Foundation
 import UIKit
-class ChooseCloudViewController: SingleSectionTableViewController {
+class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 	let viewModel: ChooseCloudViewModel
 	weak var coordinator: CloudChoosing?
 

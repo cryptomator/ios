@@ -7,7 +7,7 @@
 //
 
 import CloudAccessPrivateCore
-struct ChooseCloudViewModel: SingleSectionTableViewModelProtocol {
+struct ChooseCloudViewModel: SingleSectionHeaderTableViewModelProtocol {
 	let clouds: [CloudProviderType]
 	let headerTitle: String
 	let headerUppercased = false

@@ -8,7 +8,7 @@
 
 import CryptomatorCloudAccess
 import Foundation
-protocol ChooseFolderViewModelProtocol: SingleSectionTableViewModelProtocol {
+protocol ChooseFolderViewModelProtocol {
 	var canCreateFolder: Bool { get }
 	var cloudPath: CloudPath { get }
 	var foundMasterkey: Bool { get }
@@ -22,10 +22,6 @@ protocol ChooseFolderViewModelProtocol: SingleSectionTableViewModelProtocol {
 extension ChooseFolderViewModelProtocol {
 	var headerTitle: String {
 		return cloudPath.path
-	}
-
-	var headerUppercased: Bool {
-		return false
 	}
 }
 

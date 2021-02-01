@@ -21,7 +21,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(with: viewModel)
+		super.init()
 	}
 
 	override func loadView() {
@@ -88,12 +88,6 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.items.count
 	}
-
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return nil
-	}
-
-	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell: CloudItemCell

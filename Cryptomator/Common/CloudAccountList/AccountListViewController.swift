@@ -8,27 +8,22 @@
 
 import Foundation
 import UIKit
-class AccountListViewController: UITableViewController {
 	private let header = TableViewHeader(title: "Authentications".uppercased(), editButtonTitle: "Edit")
+class AccountListViewController: SingleSectionTableViewController {
 	private let viewModel: AccountListViewModelProtocol
 	weak var coordinator: (Coordinator & AccountListing)?
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
+		super.init()
 		header.editButton.addTarget(self, action: #selector(editButtonToggled), for: .touchUpInside)
 
 		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewAccount))
 		navigationItem.rightBarButtonItem = addNewVaulButton
 	}
 
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
 	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.loadView()
 		title = viewModel.title
 	}
 
@@ -75,10 +70,6 @@ class AccountListViewController: UITableViewController {
 	}
 
 	// MARK: TableView
-
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		1
-	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		guard !viewModel.accounts.isEmpty else {

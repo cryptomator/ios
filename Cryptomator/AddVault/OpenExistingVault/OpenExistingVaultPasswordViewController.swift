@@ -9,7 +9,7 @@
 import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import UIKit
-class OpenExistingVaultPasswordViewController: UITableViewController {
+class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
 	lazy var verifyButton: UIBarButtonItem = {
 		let button = UIBarButtonItem(title: "Verify", style: .plain, target: self, action: #selector(verify))
 		button.isEnabled = false
@@ -21,16 +21,10 @@ class OpenExistingVaultPasswordViewController: UITableViewController {
 
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
 		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
 		tableView.rowHeight = 44
 		navigationItem.rightBarButtonItem = verifyButton

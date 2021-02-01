@@ -7,22 +7,17 @@
 //
 
 import UIKit
-class AddVaultSuccessViewController: UITableViewController {
+class AddVaultSuccessViewController: SingleSectionTableViewController {
 	let vaultName: String
 	weak var coordinator: AddVaultSuccesing?
 
 	init(vaultName: String) {
 		self.vaultName = vaultName
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.loadView()
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 	}
