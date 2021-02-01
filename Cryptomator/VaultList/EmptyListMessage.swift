@@ -1,5 +1,5 @@
 //
-//  EmptyVaultListMessage.swift
+//  EmptyListMessage.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 15.01.21.
@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class EmptyVaultListMessage: UIView {
+class EmptyListMessage: UIView {
 	convenience init(message: String) {
 		self.init(frame: CGRect.zero)
 		let arrow = CurvedArrow(lineWidth: 1)
@@ -86,9 +86,9 @@ import CryptomatorCloudAccess
 import SwiftUI
 
 @available(iOS 13, *)
-struct EmptyVaultListMessagePreview: PreviewProvider {
+struct EmptyListMessagePreview: PreviewProvider {
 	static var previews: some View {
-		EmptyVaultListMessage(message: "Tap here to add a Vault").toPreview()
+		EmptyListMessage(message: "Tap here to add a Vault").toPreview()
 	}
 }
 #endif

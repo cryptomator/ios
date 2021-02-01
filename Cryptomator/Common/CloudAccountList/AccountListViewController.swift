@@ -36,8 +36,8 @@ class AccountListViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.accounts.isEmpty {
-				self.tableView.backgroundView = EmptyVaultListMessage(message: "Tap here to add a Account")
-				// Prevents the EmptyVaultMessageView from being placed under the navigation bar.
+				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add an account")
+				// Prevents the EmptyListMessageView from being placed under the navigation bar.
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
 			} else {
