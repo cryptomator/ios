@@ -9,6 +9,7 @@
 import UIKit
 class AddVaultSuccessViewController: UITableViewController {
 	let vaultName: String
+	weak var coordinator: AddVaultSuccesing?
 
 	init(vaultName: String) {
 		self.vaultName = vaultName
@@ -32,11 +33,11 @@ class AddVaultSuccessViewController: UITableViewController {
 	}
 
 	@objc func done() {
-		#warning("TODO: Add Coordinator")
+		coordinator?.done()
 	}
 
 	@objc func openFilesApp() {
-		#warning("TODO: Add Coordinator")
+		coordinator?.showFilesApp()
 	}
 
 	// MARK: Table View

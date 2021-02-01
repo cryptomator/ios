@@ -63,7 +63,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 }
 
-private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultInstallationCoordinator {
+private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultInstallationCoordinator, AddVaultSuccesing {
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: OpenExistingVaultCoordinator?
 	var navigationController: UINavigationController
@@ -104,11 +104,20 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 
 	// MARK: VaultInstallationCoordinator
 
-	func showFilesApp() {}
-
-	func showLearnMore() {}
-
 	func showSuccessfullyAddedVault(withName name: String) {
-		print("added vault with name:\(name)")
+		let successVC = AddVaultSuccessViewController(vaultName: name)
+		successVC.coordinator = self
+		navigationController.pushViewController(successVC, animated: true)
+		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.
+		navigationController.viewControllers = [successVC]
 	}
+
+	// MARK: AddVaultSuccesing
+
+	func done() {
+		parentCoordinator?.childDidFinish(self)
+		parentCoordinator?.close()
+	}
+
+	func showFilesApp() {}
 }
