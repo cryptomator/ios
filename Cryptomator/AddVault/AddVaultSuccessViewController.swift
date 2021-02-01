@@ -38,11 +38,11 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	// MARK: Table View
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		1
+		return 1
 	}
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		1
+		return 1
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -57,7 +57,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-		VaultSuccessFooterView()
+		return VaultSuccessFooterView()
 	}
 }
 
@@ -78,7 +78,7 @@ private class VaultSuccessHeaderView: UIView {
 
 	convenience init(vaultName: String) {
 		self.init(frame: .zero)
-		infoText.text = "Added Vault \"\(vaultName)\".\n Access this vault via the Files app."
+		infoText.text = "Added vault \"\(vaultName)\".\n Access this vault via the Files app."
 		let stack = UIStackView(arrangedSubviews: [successImage, infoText])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
@@ -107,8 +107,8 @@ private class VaultSuccessFooterView: UIView {
 			textColor = UIColor(named: "secondaryLabel")!
 		}
 
-		let text = NSMutableAttributedString(string: "If you haven't already, enable Cryptomator in the files app. ", attributes: [NSAttributedString.Key.foregroundColor: textColor])
-		let learnMoreLink = NSMutableAttributedString(string: "Learn more.", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cryptomator.de")!])
+		let text = NSMutableAttributedString(string: "If you haven't already, enable Cryptomator in the Files app. ", attributes: [NSAttributedString.Key.foregroundColor: textColor])
+		let learnMoreLink = NSMutableAttributedString(string: "Learn more.", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cryptomator.de")!]) // TODO: replace link
 		learnMoreLink.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "primary")!, range: NSRange(location: 0, length: learnMoreLink.length))
 		text.append(learnMoreLink)
 		textView.attributedText = text
