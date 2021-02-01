@@ -48,7 +48,7 @@ class ExistingVaultInstallViewController: UIViewController {
 		}
 		viewModel.installVault(withPassword: password).then { vaultUID in
 			let alert = UIAlertController(title: "Success", message: "Installed Vault: \(vaultUID). You can now use it with the FileProviderExtension", preferredStyle: .alert)
-			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: {_ in
+			alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { _ in
 				self.coordinator?.close()
 			}))
 			self.present(alert, animated: true, completion: nil)

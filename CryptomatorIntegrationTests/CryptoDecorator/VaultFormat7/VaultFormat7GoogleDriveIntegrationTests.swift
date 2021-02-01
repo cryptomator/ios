@@ -84,4 +84,3 @@ class VaultFormat7GoogleDriveIntegrationTests: CryptomatorIntegrationTestInterfa
 		return XCTestSuite(forTestCaseClass: VaultFormat7GoogleDriveIntegrationTests.self)
 	}
 }
-

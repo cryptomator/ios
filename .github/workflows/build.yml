@@ -16,6 +16,11 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
+      - name: Run process.sh script
+        run: |
+          ./Scripts/process.sh --fail-on-errors
+          failed=$?
+          exit $failed
       - name: Create CloudAccessSecrets
         run: ./create-cloud-access-secrets-file.sh
         env:

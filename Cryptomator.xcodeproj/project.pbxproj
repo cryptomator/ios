@@ -1007,7 +1007,6 @@
 				4AE97DA424572E4900452814 /* Sources */,
 				4AE97DA524572E4900452814 /* Frameworks */,
 				4AE97DA624572E4900452814 /* Resources */,
-				74987489246C726D00CE641A /* Lint With SwiftFormat */,
 				4A965F342523978B002D7CBC /* Embed Frameworks */,
 				4AEE469525263B2E0045DA9F /* Embed App Extensions */,
 				742595D72552EE0000A8A008 /* Set Build Number */,
@@ -1069,7 +1068,6 @@
 				740375D32587AE7A0023FF53 /* Sources */,
 				740375D42587AE7A0023FF53 /* Frameworks */,
 				740375D52587AE7A0023FF53 /* CopyFiles */,
-				740376222587AF050023FF53 /* Lint with SwiftFormat */,
 			);
 			buildRules = (
 			);
@@ -1207,24 +1205,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		740376222587AF050023FF53 /* Lint with SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Lint with SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
-		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1278,24 +1258,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\nappBuild=`\"$git\" rev-list --count $branchName`\nif [ $CONFIGURATION = \"Debug\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
-		};
-		74987489246C726D00CE641A /* Lint With SwiftFormat */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Lint With SwiftFormat";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat --lint --lenient .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 		74F57D6A2475118700AF951C /* Create IntegrationTestSecrets */ = {
 			isa = PBXShellScriptBuildPhase;
