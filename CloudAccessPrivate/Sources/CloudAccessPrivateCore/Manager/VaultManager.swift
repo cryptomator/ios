@@ -79,6 +79,8 @@ public class VaultManager {
 				try self.vaultAccountManager.saveNewAccount(account)
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: vaultVersion, password: password, storePasswordInKeychain: storePasswordInKeychain)
 				VaultManager.cachedDecorators[vaultUID] = shorteningDecorator
+			}.then {
+				self.addFileProviderDomain(forVaultUID: vaultUID, vaultPath: vaultPath)
 			}
 		} catch {
 			return Promise(error)
@@ -171,6 +173,8 @@ public class VaultManager {
 				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: masterkeyFile.version, password: password, storePasswordInKeychain: storePasswordInKeychain)
 				try self.vaultAccountManager.saveNewAccount(vaultAccount)
+			}.then {
+				self.addFileProviderDomain(forVaultUID: vaultUID, vaultPath: self.getVaultPath(from: masterkeyPath))
 			}
 		} catch {
 			VaultManager.cachedDecorators[vaultUID] = nil
@@ -258,6 +262,12 @@ public class VaultManager {
 			NSFileProviderManager.remove(domainForVault)
 		}
 	}
+
+	func addFileProviderDomain(forVaultUID vaultUID: String, vaultPath: CloudPath) -> Promise<Void> {
+		let identifier = NSFileProviderDomainIdentifier(vaultUID)
+		let domain = NSFileProviderDomain(identifier: identifier, displayName: vaultPath.lastPathComponent, pathRelativeToDocumentStorage: vaultUID)
+		return NSFileProviderManager.add(domain)
+	}
 }
 
 extension NSFileProviderManager {
@@ -281,6 +291,18 @@ extension NSFileProviderManager {
 					return
 				}
 				fulfill(())
+			}
+		}
+	}
+
+	class func add(_ domain: NSFileProviderDomain) -> Promise<Void> {
+		return Promise<Void> { fulfill, reject in
+			NSFileProviderManager.add(domain) { error in
+				if let error = error {
+					reject(error)
+				} else {
+					fulfill(())
+				}
 			}
 		}
 	}
