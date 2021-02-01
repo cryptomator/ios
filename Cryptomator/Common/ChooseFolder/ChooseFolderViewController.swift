@@ -151,7 +151,7 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 
 			self.title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			self.title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-			self.title.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 10),
+			self.title.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
 			self.title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
 		])
 	}
