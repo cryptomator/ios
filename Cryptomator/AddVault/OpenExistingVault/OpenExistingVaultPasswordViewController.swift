@@ -67,6 +67,7 @@ class OpenExistingVaultPasswordViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordFieldCell", for: indexPath) as! PasswordFieldCell
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+		cell.textField.becomeFirstResponder()
 		return cell
 	}
 
