@@ -6,9 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CloudAccessPrivateCore
 import Foundation
 import GRDB
-import CloudAccessPrivateCore
 
 struct AccountListPosition: Codable {
 	var id: Int64?

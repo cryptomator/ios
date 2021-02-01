@@ -81,11 +81,12 @@ import Promises
 import SwiftUI
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVaultPasswordViewModelProtocol {
 	var password: String?
-	var footerTitle : String {
+	var footerTitle: String {
 		"Enter password for \"\(vaultName)\""
 	}
+
 	let vaultName = "Work"
-	
+
 	func addVault() -> Promise<Void> {
 		Promise(())
 	}

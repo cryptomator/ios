@@ -22,8 +22,8 @@ class TextFieldCell: UITableViewCell {
 			textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 			textField.topAnchor.constraint(equalTo: topAnchor),
-			textField.bottomAnchor.constraint(equalTo: bottomAnchor),
-				])
+			textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+		])
 	}
 
 	@available(*, unavailable)
