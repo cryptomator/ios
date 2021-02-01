@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class VaultListViewController: UITableViewController {
-	private let header = TableViewHeader(title: "Vaults".uppercased(), editButtonTitle: "Edit")
+	private let header = EditableTableViewHeader(title: "Vaults", editButtonTitle: "Edit")
 	private let viewModel: VaultListViewModelProtocol
 	weak var coordinator: MainCoordinator?
 
@@ -67,10 +67,7 @@ class VaultListViewController: UITableViewController {
 
 	@objc func editButtonToggled() {
 		tableView.setEditing(!tableView.isEditing, animated: true)
-		UIView.performWithoutAnimation {
-			header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
-			header.editButton.layoutIfNeeded()
-		}
+		header.isEditing = tableView.isEditing
 	}
 
 	// MARK: TableView

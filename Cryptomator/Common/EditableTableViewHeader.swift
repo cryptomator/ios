@@ -1,5 +1,5 @@
 //
-//  TableViewHeader.swift
+//  EditableTableViewHeader.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 20.01.21.
@@ -7,13 +7,20 @@
 //
 
 import UIKit
-class TableViewHeader: UITableViewHeaderFooterView {
+class EditableTableViewHeader: UITableViewHeaderFooterView {
 	let editButton = UIButton(type: .system)
 	let title = UILabel()
+	var isEditing: Bool = false {
+		didSet {
+			if oldValue != isEditing {
+				changeEditButton()
+			}
+		}
+	}
 
 	convenience init(title: String, editButtonTitle: String) {
 		self.init()
-		self.title.text = title
+		self.title.text = title.uppercased()
 		editButton.setTitle(editButtonTitle, for: .normal)
 	}
 
@@ -46,5 +53,12 @@ class TableViewHeader: UITableViewHeaderFooterView {
 			editButton.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor)
 
 		])
+	}
+
+	private func changeEditButton() {
+		UIView.performWithoutAnimation {
+			editButton.setTitle(isEditing ? "Done" : "Edit", for: .normal)
+			editButton.layoutIfNeeded()
+		}
 	}
 }

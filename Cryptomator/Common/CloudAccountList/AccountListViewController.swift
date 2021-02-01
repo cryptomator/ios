@@ -8,8 +8,8 @@
 
 import Foundation
 import UIKit
-	private let header = TableViewHeader(title: "Authentications".uppercased(), editButtonTitle: "Edit")
 class AccountListViewController: SingleSectionTableViewController {
+	private let header = EditableTableViewHeader(title: "Authentications", editButtonTitle: "Edit")
 	private let viewModel: AccountListViewModelProtocol
 	weak var coordinator: (Coordinator & AccountListing)?
 
@@ -51,10 +51,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	// TODO: Refactor this & VaultListVC and subclass
 	@objc func editButtonToggled() {
 		tableView.setEditing(!tableView.isEditing, animated: true)
-		UIView.performWithoutAnimation {
-			header.editButton.setTitle(tableView.isEditing ? "Done" : "Edit", for: .normal)
-			header.editButton.layoutIfNeeded()
-		}
+		header.isEditing = tableView.isEditing
 	}
 
 	@objc func showLogoutActionSheet(sender: AccountCellButton) {
