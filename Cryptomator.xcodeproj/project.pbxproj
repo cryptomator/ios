@@ -70,6 +70,8 @@
 		4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */; };
 		4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */; };
 		4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */; };
+		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
+		4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */; };
 		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A93916525555C530072CEC7 /* DecoratorFactory.swift */; };
 		4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */; };
@@ -315,6 +317,8 @@
 		4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveLoginViewController.swift; sourceTree = "<group>"; };
 		4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveStartViewController.swift; sourceTree = "<group>"; };
 		4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveAccountOverviewViewController.swift; sourceTree = "<group>"; };
+		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
+		4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A93916525555C530072CEC7 /* DecoratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorFactory.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
@@ -670,6 +674,7 @@
 				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
 				4A2FD07825B5D98B008565C8 /* CloudCell.swift */,
 				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
+				4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */,
 			);
 			path = AddVault;
 			sourceTree = "<group>";
@@ -702,6 +707,7 @@
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
 				4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */,
+				4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1436,8 +1442,10 @@
 				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
 				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
+				4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */,
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstallationCoordinator.swift in Sources */,
+				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
 				4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */,
