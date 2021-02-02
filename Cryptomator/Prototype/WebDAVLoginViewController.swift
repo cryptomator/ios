@@ -9,12 +9,23 @@
 import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import Foundation
+import Promises
 import UIKit
-
 class WebDAVLoginViewController: UIViewController {
 	var client: WebDAVClient?
 	let rootView = WebDAVLoginView()
-	weak var coordinator: AddVaultCoordinator?
+	let pendingAuthenticationPromise: Promise<WebDAVCredential>
+
+	init(pendingAuthenticationPromise: Promise<WebDAVCredential>) {
+		self.pendingAuthenticationPromise = pendingAuthenticationPromise
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
 	override func loadView() {
 		rootView.loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		view = rootView
@@ -37,13 +48,9 @@ class WebDAVLoginViewController: UIViewController {
 		client = WebDAVClient(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName, useBackgroundSession: false)
 		WebDAVAuthenticator.verifyClient(client: client!).then {
 			try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: credential.identifier)
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
-			try CloudProviderAccountManager.shared.saveNewAccount(account)
-			let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: credential.identifier, folder: CloudPath("/"))
-			folderBrowserViewModel.coordinator = self.coordinator
-			let folderBrowserViewController = FolderBrowserViewController(viewModel: folderBrowserViewModel)
-			self.navigationController?.pushViewController(folderBrowserViewController, animated: true)
+			self.pendingAuthenticationPromise.fulfill(credential)
 		}.catch { error in
+			self.pendingAuthenticationPromise.reject(error)
 			print("login failed! \(error)")
 		}
 	}

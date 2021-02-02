@@ -18,6 +18,7 @@ class VaultManagerMock: VaultManager {
 	var savedMasterkeys = [String: Masterkey]()
 	var savedPasswords = [String: String]()
 	var removedVaultUIDs = [String]()
+	var addedFileProviderDomains = [String: CloudPath]()
 	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, vaultVersion: Int, password: String, storePasswordInKeychain: Bool) throws {
 		savedMasterkeys[vaultUID] = masterkey
 		if storePasswordInKeychain {
@@ -32,6 +33,11 @@ class VaultManagerMock: VaultManager {
 
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
 		removedVaultUIDs.append(vaultUID)
+		return Promise(())
+	}
+
+	override func addFileProviderDomain(forVaultUID vaultUID: String, vaultPath: CloudPath) -> Promise<Void> {
+		addedFileProviderDomains[vaultUID] = vaultPath
 		return Promise(())
 	}
 }
@@ -49,10 +55,11 @@ class VaultManagerTests: XCTestCase {
 	var providerManager: CloudProviderManagerMock!
 	var providerAccountManager: CloudProviderAccountManager!
 	var tmpDir: URL!
+	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		let dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
+		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
 		try dbPool.write { db in
 			try db.create(table: CloudProviderAccount.databaseTableName) { table in
 				table.column(CloudProviderAccount.accountUIDKey, .text).primaryKey()
@@ -73,8 +80,12 @@ class VaultManagerTests: XCTestCase {
 	}
 
 	override func tearDownWithError() throws {
+		// Set all objects related to the sqlite database to nil to avoid warnings about database integrity when deleting the test database.
+		manager = nil
 		providerAccountManager = nil
+		providerManager = nil
 		accountManager = nil
+		dbPool = nil
 		try FileManager.default.removeItem(at: tmpDir)
 	}
 
@@ -112,6 +123,8 @@ class VaultManagerTests: XCTestCase {
 				return
 			}
 			XCTAssertEqual(managerMock.savedMasterkeys[vaultUID], masterkey)
+			XCTAssertEqual(1, managerMock.addedFileProviderDomains.count)
+			XCTAssertEqual(vaultPath, managerMock.addedFileProviderDomains[vaultUID])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -150,6 +163,8 @@ class VaultManagerTests: XCTestCase {
 				return
 			}
 			XCTAssertEqual(managerMock.savedMasterkeys[vaultUID], masterkey)
+			XCTAssertEqual(1, managerMock.addedFileProviderDomains.count)
+			XCTAssertEqual(vaultPath, managerMock.addedFileProviderDomains[vaultUID])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {

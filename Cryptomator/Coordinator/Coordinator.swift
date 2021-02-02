@@ -21,4 +21,13 @@ extension Coordinator {
 		alertController.addAction(UIAlertAction(title: "OK", style: .default))
 		viewController.present(alertController, animated: true)
 	}
+
+	func childDidFinish(_ child: Coordinator?) {
+		for (index, coordinator) in childCoordinators.enumerated() {
+			if coordinator === child {
+				childCoordinators.remove(at: index)
+				break
+			}
+		}
+	}
 }

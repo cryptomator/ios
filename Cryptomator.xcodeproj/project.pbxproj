@@ -27,8 +27,20 @@
 		4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A26DF852579525400675413 /* WebDAVLoginViewController.swift */; };
 		4A2EE731258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
-		4A2FD04425B1C3BB008565C8 /* EmptyVaultListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyVaultListMessage.swift */; };
+		4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */; };
+		4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */; };
+		4A2FD07925B5D98B008565C8 /* CloudCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD07825B5D98B008565C8 /* CloudCell.swift */; };
+		4A2FD08225B5E2BA008565C8 /* VaultInstallationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */; };
+		4A2FD08B25B5E437008565C8 /* OpenExistingVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */; };
 		4A30FD2D24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */; };
+		4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DB225BEF68100D9520D /* CloudChoosing.swift */; };
+		4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */; };
+		4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */; };
+		4A447E1B25BF0DE300D9520D /* ChooseFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E1A25BF0DE300D9520D /* ChooseFolderViewController.swift */; };
+		4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E2325BF0E3A00D9520D /* ChooseFolderViewModel.swift */; };
+		4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E3C25BF1AD400D9520D /* FolderCell.swift */; };
+		4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E4C25BF1E8B00D9520D /* FileCell.swift */; };
+		4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */; };
 		4A44EC35246C2ADE00950BBF /* IntegrationTestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */; };
 		4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */; };
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
@@ -37,6 +49,9 @@
 		4A5811C92499350E006F6DCB /* IntegrationTestWithAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5811C82499350E006F6DCB /* IntegrationTestWithAuthentication.swift */; };
 		4A60E7F92459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */; };
 		4A60E8022459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */; };
+		4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F57825C47BB2001BE15E /* TextFieldCell.swift */; };
+		4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */; };
+		4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A717CDB24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */; };
 		4A75F83925656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */; };
@@ -44,6 +59,10 @@
 		4A797F9124AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */; };
 		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
+		4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */; };
+		4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */; };
+		4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */; };
+		4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */; };
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
 		4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */; };
 		4A837C76248994FD00223222 /* MockDropboxCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A837C75248994FD00223222 /* MockDropboxCredential.swift */; };
@@ -51,6 +70,10 @@
 		4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */; };
 		4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */; };
 		4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */; };
+		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
+		4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */; };
+		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
+		4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */; };
 		4A91CD7424A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */; };
 		4A93916625555C530072CEC7 /* DecoratorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A93916525555C530072CEC7 /* DecoratorFactory.swift */; };
 		4A9BEBF12510AC2200294FE0 /* CloudPath+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */; };
@@ -61,6 +84,9 @@
 		4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */; };
 		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
 		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
+		4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */; };
+		4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */; };
+		4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */; };
 		4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */; };
 		4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */; };
 		4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */; };
@@ -96,6 +122,14 @@
 		4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */; };
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
+		4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */; };
+		4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4D325B842830069C4FC /* AccountListing.swift */; };
+		4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */; };
+		4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */; };
+		4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE51525B880C90069C4FC /* AccountCell.swift */; };
+		4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */; };
+		4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */; };
+		4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		740376212587AED60023FF53 /* CloudAccessPrivateCore in Frameworks */ = {isa = PBXBuildFile; productRef = 740376202587AED60023FF53 /* CloudAccessPrivateCore */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
@@ -240,8 +274,20 @@
 		4A26DF852579525400675413 /* WebDAVLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVLoginViewController.swift; sourceTree = "<group>"; };
 		4A2EE730258E2AA400604220 /* VaultFormat7WebDAVIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7WebDAVIntegrationTests.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
-		4A2FD04325B1C3BB008565C8 /* EmptyVaultListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyVaultListMessage.swift; sourceTree = "<group>"; };
+		4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListMessage.swift; sourceTree = "<group>"; };
+		4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewController.swift; sourceTree = "<group>"; };
+		4A2FD07825B5D98B008565C8 /* CloudCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudCell.swift; sourceTree = "<group>"; };
+		4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultInstallationCoordinator.swift; sourceTree = "<group>"; };
+		4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A30FD2C24A20D2600E1576C /* VaultFormat7LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		4A447DB225BEF68100D9520D /* CloudChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChoosing.swift; sourceTree = "<group>"; };
+		4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewModel.swift; sourceTree = "<group>"; };
+		4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionTableViewController.swift; sourceTree = "<group>"; };
+		4A447E1A25BF0DE300D9520D /* ChooseFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseFolderViewController.swift; sourceTree = "<group>"; };
+		4A447E2325BF0E3A00D9520D /* ChooseFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseFolderViewModel.swift; sourceTree = "<group>"; };
+		4A447E3C25BF1AD400D9520D /* FolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCell.swift; sourceTree = "<group>"; };
+		4A447E4C25BF1E8B00D9520D /* FileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
+		4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudItemCell.swift; sourceTree = "<group>"; };
 		4A44EC34246C2ADE00950BBF /* IntegrationTestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationTestError.swift; sourceTree = "<group>"; };
 		4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
@@ -252,6 +298,9 @@
 		4A60E7F82459C6F500FD7F0E /* CryptomatorIntegrationTestInterface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorIntegrationTestInterface.swift; sourceTree = "<group>"; };
 		4A60E7FA2459C6F500FD7F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A60E8012459D04400FD7F0E /* GoogleDriveCloudProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveCloudProviderIntegrationTests.swift; sourceTree = "<group>"; };
+		4A66F57825C47BB2001BE15E /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
+		4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFieldCell.swift; sourceTree = "<group>"; };
+		4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A717CDA24C848B10048E08F /* FileProviderDecoratorMoveItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorMoveItemTests.swift; sourceTree = "<group>"; };
 		4A75F83825656FC00072E97A /* VaultFormat7DropboxIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultFormat7DropboxIntegrationTests.swift; sourceTree = "<group>"; };
@@ -259,6 +308,10 @@
 		4A797F9024AC6B3E007DDBE1 /* FileProviderDecoratorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorTests.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
+		4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
+		4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
+		4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
+		4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListPosition.swift; sourceTree = "<group>"; };
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
 		4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A837C75248994FD00223222 /* MockDropboxCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDropboxCredential.swift; sourceTree = "<group>"; };
@@ -266,6 +319,10 @@
 		4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveLoginViewController.swift; sourceTree = "<group>"; };
 		4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveStartViewController.swift; sourceTree = "<group>"; };
 		4A8AAA2325658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleDriveAccountOverviewViewController.swift; sourceTree = "<group>"; };
+		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
+		4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
+		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
+		4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionHeaderTableViewController.swift; sourceTree = "<group>"; };
 		4A91CD7324A2054D00946270 /* LocalFileSystemProviderIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemProviderIntegrationTests.swift; sourceTree = "<group>"; };
 		4A93916525555C530072CEC7 /* DecoratorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoratorFactory.swift; sourceTree = "<group>"; };
 		4A9BEBF02510AC2200294FE0 /* CloudPath+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+Extension.swift"; sourceTree = "<group>"; };
@@ -283,6 +340,9 @@
 		4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentActionViewController.swift; sourceTree = "<group>"; };
 		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedMasterkeyViewModel.swift; sourceTree = "<group>"; };
+		4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultChooseFolderViewController.swift; sourceTree = "<group>"; };
+		4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewController.swift; sourceTree = "<group>"; };
 		4AAA0717255992DC0085AA4E /* FolderBrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBrowserViewController.swift; sourceTree = "<group>"; };
 		4AAA072A25599B280085AA4E /* FolderBrowserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderBrowserViewModel.swift; sourceTree = "<group>"; };
 		4AAA0736255AFFC20085AA4E /* ExistingVaultInstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExistingVaultInstallViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +386,14 @@
 		4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerTests.swift; sourceTree = "<group>"; };
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderChoosing.swift; sourceTree = "<group>"; };
+		4AFCE4D325B842830069C4FC /* AccountListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListing.swift; sourceTree = "<group>"; };
+		4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewHeader.swift; sourceTree = "<group>"; };
+		4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCellContent.swift; sourceTree = "<group>"; };
+		4AFCE51525B880C90069C4FC /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
+		4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudProviderType+Localization.swift"; sourceTree = "<group>"; };
+		4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudAuthenticator.swift; sourceTree = "<group>"; };
+		4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModelTests.swift; sourceTree = "<group>"; };
 		4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
 		740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCryptomatorFileProvider.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		740375F02587AEB40023FF53 /* FileProviderNotificator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificator.swift; sourceTree = "<group>"; };
@@ -425,9 +493,15 @@
 		4A03256625A369F800E63D7A /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
-				4A03255425A3685500E63D7A /* Coordinator.swift */,
-				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
 				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
+				4A03255425A3685500E63D7A /* Coordinator.swift */,
+				4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */,
+				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
+				4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */,
+				4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */,
+				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
+				4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */,
+				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -502,6 +576,18 @@
 			path = VaultFormat7;
 			sourceTree = "<group>";
 		};
+		4A447DEB25BF064300D9520D /* ChooseFolder */ = {
+			isa = PBXGroup;
+			children = (
+				4A447E1A25BF0DE300D9520D /* ChooseFolderViewController.swift */,
+				4A447E2325BF0E3A00D9520D /* ChooseFolderViewModel.swift */,
+				4A447E3C25BF1AD400D9520D /* FolderCell.swift */,
+				4A447E4C25BF1E8B00D9520D /* FileCell.swift */,
+				4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */,
+			);
+			path = ChooseFolder;
+			sourceTree = "<group>";
+		};
 		4A47746B2556D7C000718D7F /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
@@ -572,10 +658,28 @@
 			path = "Google Drive";
 			sourceTree = "<group>";
 		};
+		4A7B97CA25B6F7340044B7FB /* CloudAccountList */ = {
+			isa = PBXGroup;
+			children = (
+				4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */,
+				4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */,
+				4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */,
+				4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */,
+				4AFCE51525B880C90069C4FC /* AccountCell.swift */,
+				4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */,
+			);
+			path = CloudAccountList;
+			sourceTree = "<group>";
+		};
 		4A7BC0E825ADF13100F007B3 /* AddVault */ = {
 			isa = PBXGroup;
 			children = (
 				4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */,
+				4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */,
+				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
+				4A2FD07825B5D98B008565C8 /* CloudCell.swift */,
+				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
+				4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */,
 			);
 			path = AddVault;
 			sourceTree = "<group>";
@@ -583,7 +687,7 @@
 		4A8195DB25ADB8AD00F7DDA1 /* VaultList */ = {
 			isa = PBXGroup;
 			children = (
-				4A2FD04325B1C3BB008565C8 /* EmptyVaultListMessage.swift */,
+				4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */,
 				74FC576025ADED030003ED27 /* VaultCell.swift */,
 				4AF91CD825A722A600ACF01E /* VaultInfo.swift */,
 				4A0C07EA25AC832900B83211 /* VaultListPosition.swift */,
@@ -599,7 +703,17 @@
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
 				4A8195E425ADB94500F7DDA1 /* Previews */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
+				4A7B97CA25B6F7340044B7FB /* CloudAccountList */,
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
+				4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */,
+				4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */,
+				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
+				4A447DEB25BF064300D9520D /* ChooseFolder */,
+				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
+				4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */,
+				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
+				4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */,
+				4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -680,6 +794,17 @@
 			path = FileProviderExtensionUI;
 			sourceTree = "<group>";
 		};
+		4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */ = {
+			isa = PBXGroup;
+			children = (
+				4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */,
+				4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */,
+				4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */,
+				4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */,
+			);
+			path = OpenExistingVault;
+			sourceTree = "<group>";
+		};
 		4ACA06AF2555BB98008F83C1 /* VaultFormat6 */ = {
 			isa = PBXGroup;
 			children = (
@@ -724,6 +849,7 @@
 				4AE97DC124572E4A00452814 /* CryptomatorTests.swift */,
 				4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */,
 			);
 			path = CryptomatorTests;
 			sourceTree = "<group>";
@@ -1252,29 +1378,62 @@
 				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
 				4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */,
 				4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */,
+				4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */,
+				4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */,
+				4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
+				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
-				4A2FD04425B1C3BB008565C8 /* EmptyVaultListMessage.swift in Sources */,
+				4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */,
+				4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */,
+				4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */,
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
 				4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */,
 				4AAA073F255B009E0085AA4E /* ExistingVaultInstallerViewModel.swift in Sources */,
+				4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */,
+				4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */,
 				74FC576125ADED030003ED27 /* VaultCell.swift in Sources */,
+				4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
 				4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */,
+				4A2FD07925B5D98B008565C8 /* CloudCell.swift in Sources */,
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
+				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
+				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
+				4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */,
 				4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */,
+				4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */,
+				4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */,
 				4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */,
+				4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */,
+				4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */,
+				4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */,
+				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
 				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
+				4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */,
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
+				4A2FD08225B5E2BA008565C8 /* VaultInstallationCoordinator.swift in Sources */,
+				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
 				4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */,
 				4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */,
+				4AFCE4FF25B871500069C4FC /* AccountCellContent.swift in Sources */,
+				4A2FD08B25B5E437008565C8 /* OpenExistingVaultCoordinator.swift in Sources */,
+				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
+				4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */,
+				4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */,
 				4A8AAA112565892A00F5091E /* GoogleDriveLoginViewController.swift in Sources */,
+				4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */,
 				4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */,
+				4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */,
+				4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */,
+				4A447E1B25BF0DE300D9520D /* ChooseFolderViewController.swift in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
+				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
+				4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1284,6 +1443,7 @@
 			files = (
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
+				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
 				4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
