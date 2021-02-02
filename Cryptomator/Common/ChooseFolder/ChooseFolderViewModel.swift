@@ -51,7 +51,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 
 	func refreshItems() {
 		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
-			if let masterkeyItem = itemList.items.first(where: { $0.cloudPath.lastPathComponent == "masterkey.cryptomator" && $0.itemType == .file }) {
+			if let masterkeyItem = itemList.items.first(where: { $0.name == "masterkey.cryptomator" && $0.itemType == .file }), itemList.items.contains(where: { $0.name == "d" && $0.itemType == .folder }) {
 				self.foundMasterkey = true
 				self.masterkeyListener?(masterkeyItem.cloudPath)
 			} else {
