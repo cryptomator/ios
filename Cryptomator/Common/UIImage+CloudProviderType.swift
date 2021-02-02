@@ -22,10 +22,10 @@ extension UIImage {
 			assetName = "dropbox-vault"
 		case .googleDrive:
 			assetName = "google-drive-vault"
-		case .localFileSystem:
-			assetName = "file-provider-vault"
 		case .webDAV:
 			assetName = "webdav-vault"
+		case .localFileSystem:
+			assetName = "file-provider-vault"
 		}
 		if state == .highlighted {
 			assetName += "-selected"

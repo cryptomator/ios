@@ -54,10 +54,10 @@ class CloudAuthenticator {
 			return authenticateDropbox(from: viewController)
 		case .googleDrive:
 			return authenticateGoogleDrive(from: viewController)
-		case .localFileSystem:
-			fatalError("not supported (yet)")
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
+		case .localFileSystem:
+			fatalError("not supported (yet)")
 		}
 	}
 

@@ -21,7 +21,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	func start() {
 		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV, .localFileSystem],
-		                                     headerTitle: "Where is the Vault located?")
+		                                     headerTitle: "Where is the vault located?")
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = "Open Existing Vault"
 		chooseCloudVC.coordinator = self

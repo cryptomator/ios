@@ -47,7 +47,7 @@ class VaultListViewController: UITableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.vaults.isEmpty {
-				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add a Vault")
+				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add a vault")
 				// Prevents the EmptyListMessageView from being placed under the navigation bar.
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
