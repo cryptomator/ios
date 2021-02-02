@@ -36,7 +36,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 		let addVaultButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addVault))
 		navigationItem.rightBarButtonItem = addVaultButton
-		navigationController?.setToolbarHidden(true, animated: false)
+		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	@objc func addVault() {

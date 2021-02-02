@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class VaultListViewController: UITableViewController {
-	private let header = EditableTableViewHeader(title: "Vaults", editButtonTitle: "Edit")
+	private let header = EditableTableViewHeader(title: "Vaults")
 	private let viewModel: VaultListViewModelProtocol
 	weak var coordinator: MainCoordinator?
 

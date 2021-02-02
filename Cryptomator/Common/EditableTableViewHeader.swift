@@ -18,10 +18,10 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 		}
 	}
 
-	convenience init(title: String, editButtonTitle: String) {
+	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
-		editButton.setTitle(editButtonTitle, for: .normal)
+		editButton.setTitle("Edit", for: .normal)
 	}
 
 	convenience init() {

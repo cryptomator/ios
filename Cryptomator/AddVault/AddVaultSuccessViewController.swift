@@ -23,8 +23,15 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
+
 		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
 		tableView.rowHeight = 44
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	@objc func done() {
@@ -114,7 +121,7 @@ private class VaultSuccessFooterView: UIView {
 		textView.attributedText = text
 		textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "primary")!]
 		textView.isUserInteractionEnabled = true
-		textView.font = .systemFont(ofSize: 17)
+		textView.font = .preferredFont(forTextStyle: .footnote)
 
 		return textView
 	}()

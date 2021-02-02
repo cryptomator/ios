@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class AccountListViewController: SingleSectionTableViewController {
-	private let header = EditableTableViewHeader(title: "Authentications", editButtonTitle: "Edit")
+	private let header = EditableTableViewHeader(title: "Authentications")
 	private let viewModel: AccountListViewModelProtocol
 	weak var coordinator: (Coordinator & AccountListing)?
 
@@ -28,6 +28,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		tableView.register(AccountCell.self, forCellReuseIdentifier: "AccountCell")
 		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }
@@ -46,6 +47,11 @@ class AccountListViewController: SingleSectionTableViewController {
 				self.tableView.contentInsetAdjustmentBehavior = .automatic
 			}
 		}
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	// TODO: Refactor this & VaultListVC and subclass

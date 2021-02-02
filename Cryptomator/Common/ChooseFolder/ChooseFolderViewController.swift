@@ -30,7 +30,11 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		cancelButton.tintColor = UIColor(named: "primary")
 		let toolbarItems = [cancelButton]
 		setToolbarItems(toolbarItems, animated: false)
-		navigationController?.setToolbarHidden(false, animated: false)
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationController?.setToolbarHidden(false, animated: true)
 	}
 
 	override func viewDidLoad() {

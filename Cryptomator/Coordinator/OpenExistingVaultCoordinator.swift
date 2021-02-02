@@ -106,6 +106,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 
 	func showSuccessfullyAddedVault(withName name: String) {
 		let successVC = AddVaultSuccessViewController(vaultName: name)
+		successVC.title = "Open Existing Vault"
 		successVC.coordinator = self
 		navigationController.pushViewController(successVC, animated: true)
 		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.

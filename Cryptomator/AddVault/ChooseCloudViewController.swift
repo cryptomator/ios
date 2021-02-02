@@ -23,7 +23,13 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		tableView.register(CloudCell.self, forCellReuseIdentifier: "ChooseCloudCell")
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		navigationController?.setToolbarHidden(true, animated: true)
 	}
 
 	// MARK: TableView
