@@ -11,7 +11,7 @@ import Foundation
 import GRDB
 
 class DatabaseManager {
-	private let dbPool: DatabasePool
+	let dbPool: DatabasePool
 	public static var shared: DatabaseManager!
 
 	init(dbPool: DatabasePool) throws {
