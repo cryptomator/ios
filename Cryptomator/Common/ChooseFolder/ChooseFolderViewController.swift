@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
 import UIKit
 class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
@@ -32,9 +33,18 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		setToolbarItems(toolbarItems, animated: false)
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		navigationController?.setToolbarHidden(false, animated: true)
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden {
+			navigationController?.setToolbarHidden(false, animated: animated)
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		if !(navigationController?.topViewController is ChooseFolderViewController) {
+			navigationController?.setToolbarHidden(true, animated: animated)
+		}
 	}
 
 	override func viewDidLoad() {

@@ -24,7 +24,7 @@ class FileCell: UITableViewCell, CloudItemCell {
 
 	func configure(with item: CloudItemMetadata) {
 		textLabel?.text = item.name
-		detailTextLabel?.text = "\(item.size) KB"
+		detailTextLabel?.text = FileCell.formattedTextForSize(from: item)
 		if #available(iOS 13.0, *) {
 			detailTextLabel?.textColor = .secondaryLabel
 		} else {
@@ -46,8 +46,15 @@ class FileCell: UITableViewCell, CloudItemCell {
 			content.image = UIImage(named: "file-type-unknown")
 		}
 		content.text = item.name
-		content.secondaryText = "\(item.size) KB"
+		content.secondaryText = FileCell.formattedTextForSize(from: item)
 		content.secondaryTextProperties.color = .secondaryLabel
 		contentConfiguration = content
+	}
+
+	private static func formattedTextForSize(from item: CloudItemMetadata) -> String? {
+		guard let size = item.size else {
+			return nil
+		}
+		return ByteCountFormatter().string(fromByteCount: Int64(size))
 	}
 }

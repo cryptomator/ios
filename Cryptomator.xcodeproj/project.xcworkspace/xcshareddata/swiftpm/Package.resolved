@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "d8accebc8fa32f57196df191e733f946e955c549",
-          "version": "1.2.11"
+          "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
+          "version": "1.2.12"
         }
       },
       {

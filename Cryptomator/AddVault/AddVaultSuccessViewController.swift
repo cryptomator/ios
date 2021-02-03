@@ -29,11 +29,6 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 		tableView.rowHeight = 44
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		navigationController?.setToolbarHidden(true, animated: true)
-	}
-
 	@objc func done() {
 		coordinator?.done()
 	}
