@@ -49,11 +49,6 @@ class AccountListViewController: SingleSectionTableViewController {
 		}
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		navigationController?.setToolbarHidden(true, animated: true)
-	}
-
 	// TODO: Refactor this & VaultListVC and subclass
 	@objc func editButtonToggled() {
 		tableView.setEditing(!tableView.isEditing, animated: true)

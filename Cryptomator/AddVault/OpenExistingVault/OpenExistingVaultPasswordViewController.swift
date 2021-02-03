@@ -32,11 +32,6 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		title = "Open Existing Vault"
 	}
 
-	override func viewDidAppear(_ animated: Bool) {
-		super.viewDidAppear(animated)
-		navigationController?.setToolbarHidden(true, animated: true)
-	}
-
 	@objc func verify() {
 		viewModel.addVault().then { [weak self] in
 			guard let self = self else { return }
