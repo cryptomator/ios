@@ -1,2 +1,8 @@
-- Fixed "Background upload may cause inconsistency in the information about the locally cached file" (#14)
-- Fixed "Downloading a newer version of an already cached file prevents the file from being deleted" (#15)
+- Added screen "Vault List" (#4)
+- Added screen "Add Vault" (#6, #21, #23)
+- Added screen "Open Existing Vault" (#8)
+
+During the alpha, the internal database won't be automatically migrated. If you encounter errors and would like to nuke the internal database:
+
+1. Tap button with gear icon
+2. Restart app
