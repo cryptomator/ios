@@ -63,17 +63,7 @@ class VaultListViewController: UITableViewController {
 		coordinator?.addVault()
 	}
 
-	@objc func showSettings() {
-		// Nuke Database
-		do {
-			let dbPool = DatabaseManager.shared.dbPool
-			try dbPool.erase()
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
-		} catch {
-			coordinator?.handleError(error, for: self)
-		}
-	}
+	@objc func showSettings() {}
 
 	@objc func editButtonToggled() {
 		tableView.setEditing(!tableView.isEditing, animated: true)
