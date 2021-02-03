@@ -29,6 +29,7 @@ public class CryptomatorDatabase {
 
 	private static var migrator: DatabaseMigrator {
 		var migrator = DatabaseMigrator()
+
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "cloudProviderAccounts") { table in
 				table.column("accountUID", .text).primaryKey()
@@ -36,7 +37,7 @@ public class CryptomatorDatabase {
 			}
 			try db.create(table: "vaultAccounts") { table in
 				table.column("vaultUID", .text).primaryKey()
-				table.column("delegateAccountUID", .text).notNull()
+				table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts")
 				table.column("vaultPath", .text).notNull()
 				table.column("lastUpToDateCheck", .date).notNull()
 			}

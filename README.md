@@ -13,6 +13,8 @@ export GOOGLE_DRIVE_REDIRECT_URL=...
 export DROPBOX_APP_KEY=...
 ```
 
+And then run `./create-cloud-access-secrets-file.sh` once. Of course, if you change the secrets, you have to run that script again.
+
 If you are building via a CI system, set these secret environment variables accordingly.
 
 #### Integration Testing
@@ -32,4 +34,10 @@ export WEBDAV_PASSWORD=...
 
 Install [SwiftFormat](https://github.com/nicklockwood/SwiftFormat/) if you haven't already.
 
-The code will regularly be linted via SwiftFormat if you build the project. If the code is not formatted according to the rules, you will see warnings that you should fix.
+Please make sure that your code is correctly formatted. The easiest way to do that is to set up a pre-commit hook. Create a file at `.git/hooks/pre-commit` with this content:
+
+```
+./Scripts/process.sh --fail-on-errors
+failed=$?
+exit $failed
+```

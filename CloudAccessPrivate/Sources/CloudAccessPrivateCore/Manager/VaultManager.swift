@@ -51,6 +51,7 @@ public class VaultManager {
 			guard VaultManager.cachedDecorators[vaultUID] == nil else {
 				throw VaultManagerError.vaultAlreadyExists
 			}
+			let vaultVersion = 7
 			let masterkey = try Masterkey.createNew()
 			let cryptor = Cryptor(masterkey: masterkey)
 			let delegate = try providerManager.getProvider(with: delegateAccountUID)
@@ -60,7 +61,7 @@ public class VaultManager {
 				let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 				try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 				let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-				let masterkeyData = try self.exportMasterkey(masterkey, password: password)
+				let masterkeyData = try self.exportMasterkey(masterkey, vaultVersion: vaultVersion, password: password)
 				try masterkeyData.write(to: localMasterkeyURL)
 				let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 				return delegate.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: false)
@@ -76,8 +77,10 @@ public class VaultManager {
 				let shorteningDecorator = try VaultFormat7ShorteningProviderDecorator(delegate: decorator, vaultPath: vaultPath)
 				let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 				try self.vaultAccountManager.saveNewAccount(account)
-				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: storePasswordInKeychain)
+				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: vaultVersion, password: password, storePasswordInKeychain: storePasswordInKeychain)
 				VaultManager.cachedDecorators[vaultUID] = shorteningDecorator
+			}.then {
+				self.addFileProviderDomain(forVaultUID: vaultUID, vaultPath: vaultPath)
 			}
 		} catch {
 			return Promise(error)
@@ -102,19 +105,20 @@ public class VaultManager {
 	 */
 	public func manualUnlockVault(withUID vaultUID: String, password: String) throws -> CloudProvider {
 		let keychainEntry = try getVaultFromKeychain(forVaultUID: vaultUID)
-		let masterkey = try Masterkey.createFromMasterkeyFile(jsonData: keychainEntry.masterkeyData, password: password)
-		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: keychainEntry.masterkeyData)
+		let masterkey = try masterkeyFile.unlock(passphrase: password)
+		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
 	}
 
-	func createVaultDecorator(from masterkey: Masterkey, vaultUID: String) throws -> CloudProvider {
+	func createVaultDecorator(from masterkey: Masterkey, vaultUID: String, vaultVersion: Int) throws -> CloudProvider {
 		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
 		let delegate = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
-		return try createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultAccount.vaultPath, vaultUID: vaultUID)
+		return try createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultAccount.vaultPath, vaultUID: vaultUID, vaultVersion: vaultVersion)
 	}
 
-	func createVaultDecorator(from masterkey: Masterkey, delegate: CloudProvider, vaultPath: CloudPath, vaultUID: String) throws -> CloudProvider {
+	func createVaultDecorator(from masterkey: Masterkey, delegate: CloudProvider, vaultPath: CloudPath, vaultUID: String, vaultVersion: Int) throws -> CloudProvider {
 		let cryptor = Cryptor(masterkey: masterkey)
-		switch masterkey.version {
+		switch vaultVersion {
 		case 7:
 			let decorator = try VaultFormat7ProviderDecorator(delegate: delegate, vaultPath: vaultPath, cryptor: cryptor)
 			let shorteningDecorator = try VaultFormat7ShorteningProviderDecorator(delegate: decorator, vaultPath: vaultPath)
@@ -140,8 +144,9 @@ public class VaultManager {
 		guard let password = vault.password else {
 			throw VaultManagerError.passwordNotInKeychain
 		}
-		let masterkey = try Masterkey.createFromMasterkeyFile(jsonData: vault.masterkeyData, password: password)
-		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: vault.masterkeyData)
+		let masterkey = try masterkeyFile.unlock(passphrase: password)
+		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
 	}
 
 	/**
@@ -161,12 +166,15 @@ public class VaultManager {
 			let tmpDirURL = FileManager.default.temporaryDirectory
 			let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then {
-				let masterkey = try Masterkey.createFromMasterkeyFile(fileURL: localMasterkeyURL, password: password)
+				let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
+				let masterkey = try masterkeyFile.unlock(passphrase: password)
 				let vaultPath = self.getVaultPath(from: masterkeyPath)
-				_ = try self.createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID)
+				_ = try self.createVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
 				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
-				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: storePasswordInKeychain)
+				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: masterkeyFile.version, password: password, storePasswordInKeychain: storePasswordInKeychain)
 				try self.vaultAccountManager.saveNewAccount(vaultAccount)
+			}.then {
+				self.addFileProviderDomain(forVaultUID: vaultUID, vaultPath: self.getVaultPath(from: masterkeyPath))
 			}
 		} catch {
 			VaultManager.cachedDecorators[vaultUID] = nil
@@ -220,8 +228,8 @@ public class VaultManager {
 	/**
 	 - Postcondition: The masterkey is stored in the keychain with a ScryptCostParameter, which allows the usage in the FileProviderExtension (15mb Memory Limit). Additionally: storePasswordInKeychain <=> the password for the masterkey is also stored in the keychain.
 	 */
-	func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, password: String, storePasswordInKeychain: Bool) throws {
-		let masterkeyDataForFileProvider = try masterkey.exportEncrypted(password: password, pepper: [UInt8](), scryptCostParam: VaultManager.scryptCostParamForFileProvider)
+	func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, vaultVersion: Int, password: String, storePasswordInKeychain: Bool) throws {
+		let masterkeyDataForFileProvider = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: vaultVersion, passphrase: password, pepper: [UInt8](), scryptCostParam: VaultManager.scryptCostParamForFileProvider)
 		let keychainEntry = VaultKeychainEntry(masterkeyData: masterkeyDataForFileProvider, password: storePasswordInKeychain ? password : nil)
 		let jsonEnccoder = JSONEncoder()
 		let encodedEntry = try jsonEnccoder.encode(keychainEntry)
@@ -239,8 +247,8 @@ public class VaultManager {
 		return masterkeyPath.deletingLastPathComponent()
 	}
 
-	func exportMasterkey(_ masterkey: Masterkey, password: String) throws -> Data {
-		return try masterkey.exportEncrypted(password: password)
+	func exportMasterkey(_ masterkey: Masterkey, vaultVersion: Int, password: String) throws -> Data {
+		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: vaultVersion, passphrase: password)
 	}
 
 	func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
@@ -253,6 +261,12 @@ public class VaultManager {
 		}.then { domainForVault in
 			NSFileProviderManager.remove(domainForVault)
 		}
+	}
+
+	func addFileProviderDomain(forVaultUID vaultUID: String, vaultPath: CloudPath) -> Promise<Void> {
+		let identifier = NSFileProviderDomainIdentifier(vaultUID)
+		let domain = NSFileProviderDomain(identifier: identifier, displayName: vaultPath.lastPathComponent, pathRelativeToDocumentStorage: vaultUID)
+		return NSFileProviderManager.add(domain)
 	}
 }
 
@@ -277,6 +291,18 @@ extension NSFileProviderManager {
 					return
 				}
 				fulfill(())
+			}
+		}
+	}
+
+	class func add(_ domain: NSFileProviderDomain) -> Promise<Void> {
+		return Promise<Void> { fulfill, reject in
+			NSFileProviderManager.add(domain) { error in
+				if let error = error {
+					reject(error)
+				} else {
+					fulfill(())
+				}
 			}
 		}
 	}

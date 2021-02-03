@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "a84be718653b0a7dae85bef160510d5e648358c8",
-          "version": "0.9.10"
+          "revision": "a6c3586e19b5f752b97833dbfa7ec5f36fd60fdc",
+          "version": "0.11.0"
         }
       },
       {
@@ -42,17 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cryptolib-swift.git",
         "state": {
           "branch": null,
-          "revision": "02d28a0d6b666462b9a32a93f11ca357bc2ffb4d",
-          "version": "0.9.5"
-        }
-      },
-      {
-        "package": "CryptoSwift",
-        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "5669f222e46c8134fb1f399c745fa6882b43532e",
-          "version": "1.3.8"
+          "revision": "6b998c93971940f11e29c76edf1312d006b63dea",
+          "version": "0.11.1"
         }
       },
       {
@@ -105,8 +96,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "d8accebc8fa32f57196df191e733f946e955c549",
-          "version": "1.2.11"
+          "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
+          "version": "1.2.12"
         }
       },
       {
