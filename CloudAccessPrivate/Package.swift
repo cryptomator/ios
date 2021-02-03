@@ -42,6 +42,7 @@ let package = Package(
 				"CryptomatorCloudAccess",
 				"GoogleAPIClientForREST_Drive",
 				"GTMAppAuth",
+				"GTMSessionFetcher",
 				"ObjectiveDropboxOfficial"
 			]
 		),
