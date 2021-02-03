@@ -1,8 +1,5 @@
+With this update, you will lose your local data/settings (only the ones from this new Swift project). During the alpha, the internal database won't be automatically migrated.
+
 - Added screen "Vault List" (#4)
 - Added screen "Add Vault" (#6, #21, #23)
 - Added screen "Open Existing Vault" (#8)
-
-During the alpha, the internal database won't be automatically migrated. If you encounter errors and would like to nuke the internal database:
-
-1. Tap button with gear icon
-2. Restart app
