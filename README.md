@@ -36,8 +36,15 @@ Install [SwiftFormat](https://github.com/nicklockwood/SwiftFormat/) if you haven
 
 Please make sure that your code is correctly formatted. The easiest way to do that is to set up a pre-commit hook. Create a file at `.git/hooks/pre-commit` with this content:
 
-```
+```sh
 ./Scripts/process.sh --fail-on-errors
 failed=$?
 exit $failed
+```
+
+You may have to make the scripts executable:
+
+```sh
+chmod +x Scripts/process.sh
+chmod +x .git/hooks/pre-commit
 ```
