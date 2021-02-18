@@ -38,6 +38,7 @@ class FolderBrowserViewController: UIViewController, UITableViewDelegate, UITabl
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		let barHeight: CGFloat = UIApplication.shared.statusBarFrame.size.height
 		let displayWidth: CGFloat = view.frame.width
 		let displayHeight: CGFloat = view.frame.height

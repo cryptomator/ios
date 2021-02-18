@@ -33,8 +33,12 @@ class GoogleDriveAccountOverviewViewController: UIViewController {
 		rootView.folderListingButton.setTitle("Choose existing Vault", for: .normal)
 		rootView.folderListingButton.addTarget(self, action: #selector(chooseExistingVault), for: .touchUpInside)
 
-		title = "GDrive - Account Overview"
 		view = rootView
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "GDrive - Account Overview"
 	}
 
 	@objc func logout() {

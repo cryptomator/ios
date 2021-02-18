@@ -12,15 +12,14 @@ class AddVaultViewController: UITableViewController {
 	weak var coordinator: AddVaultCoordinator?
 
 	override func loadView() {
-		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
-		navigationItem.leftBarButtonItem = cancelButton
-
-		title = "Add Vault"
-
 		tableView = UITableView(frame: .zero, style: .grouped)
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Add Vault"
+		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
+		navigationItem.leftBarButtonItem = cancelButton
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddVaultCell")
 	}
 

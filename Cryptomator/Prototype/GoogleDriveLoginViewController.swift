@@ -27,6 +27,7 @@ class GoogleDriveLoginViewController: UIViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		title = "Google Drive Login"
 	}
 

@@ -24,12 +24,12 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		super.init()
 	}
 
-	override func loadView() {
-		super.loadView()
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Open Existing Vault"
+		navigationItem.rightBarButtonItem = verifyButton
 		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
 		tableView.rowHeight = 44
-		navigationItem.rightBarButtonItem = verifyButton
-		title = "Open Existing Vault"
 	}
 
 	@objc func verify() {

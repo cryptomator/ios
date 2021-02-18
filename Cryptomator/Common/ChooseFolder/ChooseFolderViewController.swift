@@ -25,30 +25,12 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		super.init()
 	}
 
-	override func loadView() {
-		super.loadView()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		cancelButton.tintColor = UIColor(named: "primary")
 		let toolbarItems = [cancelButton]
 		setToolbarItems(toolbarItems, animated: false)
-	}
-
-	override func viewWillAppear(_ animated: Bool) {
-		super.viewWillAppear(animated)
-		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden {
-			navigationController?.setToolbarHidden(false, animated: animated)
-		}
-	}
-
-	override func viewWillDisappear(_ animated: Bool) {
-		super.viewWillDisappear(animated)
-		if !(navigationController?.topViewController is ChooseFolderViewController) {
-			navigationController?.setToolbarHidden(true, animated: animated)
-		}
-	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
 		tableView.register(FolderCell.self, forCellReuseIdentifier: "FolderCell")
 		tableView.register(FileCell.self, forCellReuseIdentifier: "FileCell")
 		// pull to refresh
@@ -64,6 +46,20 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			self.showDetectedMasterkey(at: masterkeyPath)
+		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden {
+			navigationController?.setToolbarHidden(false, animated: animated)
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		if !(navigationController?.topViewController is ChooseFolderViewController) {
+			navigationController?.setToolbarHidden(true, animated: animated)
 		}
 	}
 

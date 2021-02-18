@@ -33,11 +33,6 @@ class ViewController: UIViewController {
 		let activityController = UIActivityViewController(activityItems: [logDirectory], applicationActivities: nil)
 		present(activityController, animated: true)
 	}
-
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		// Do any additional setup after loading the view.
-	}
 }
 
 class RootView: UIView {

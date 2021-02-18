@@ -29,6 +29,10 @@ class WebDAVLoginViewController: UIViewController {
 	override func loadView() {
 		rootView.loginButton.addTarget(self, action: #selector(login), for: .touchUpInside)
 		view = rootView
+	}
+
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
 		view.addGestureRecognizer(tap)
 	}

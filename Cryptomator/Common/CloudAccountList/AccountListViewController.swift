@@ -22,13 +22,9 @@ class AccountListViewController: SingleSectionTableViewController {
 		navigationItem.rightBarButtonItem = addNewVaulButton
 	}
 
-	override func loadView() {
-		super.loadView()
-		title = viewModel.title
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		title = viewModel.title
 		tableView.register(AccountCell.self, forCellReuseIdentifier: "AccountCell")
 		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }

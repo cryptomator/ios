@@ -66,10 +66,6 @@ class DropboxLoginViewController: UIViewController {
 		view = rootView
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-	}
-
 	@objc func login() {
 		let authenticator = DropboxCloudAuthenticator()
 		authenticator.authenticate(from: self).then { credential in

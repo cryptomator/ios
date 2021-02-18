@@ -27,18 +27,16 @@ class VaultListViewController: UITableViewController {
 
 	override func loadView() {
 		tableView = UITableView(frame: .zero, style: .grouped)
-
-		let settingsButton = UIBarButtonItem(image: UIImage(named: "740-gear"), style: .plain, target: self, action: #selector(showSettings))
-		navigationItem.leftBarButtonItem = settingsButton
-
-		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewVault))
-		navigationItem.rightBarButtonItem = addNewVaulButton
-
-		title = "Cryptomator"
-		header.editButton.addTarget(self, action: #selector(editButtonToggled), for: .touchUpInside)
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
+		title = "Cryptomator"
+		let settingsButton = UIBarButtonItem(image: UIImage(named: "740-gear"), style: .plain, target: self, action: #selector(showSettings))
+		navigationItem.leftBarButtonItem = settingsButton
+		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewVault))
+		navigationItem.rightBarButtonItem = addNewVaulButton
+		header.editButton.addTarget(self, action: #selector(editButtonToggled), for: .touchUpInside)
 		tableView.register(VaultCell.self, forCellReuseIdentifier: "VaultCell")
 		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }

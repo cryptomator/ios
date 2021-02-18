@@ -16,15 +16,10 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 		super.init()
 	}
 
-	override func loadView() {
-		super.loadView()
-		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-		navigationItem.rightBarButtonItem = doneButton
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
+		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+		navigationItem.rightBarButtonItem = doneButton
 		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
 		tableView.rowHeight = 44
 	}

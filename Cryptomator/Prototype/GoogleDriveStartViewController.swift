@@ -11,6 +11,7 @@ import Foundation
 import UIKit
 class GoogleDriveStartViewController: UIViewController {
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		let accountUIDs: [String]
 		do {
 			accountUIDs = try CloudProviderAccountManager.shared.getAllAccountUIDs(for: .googleDrive)
