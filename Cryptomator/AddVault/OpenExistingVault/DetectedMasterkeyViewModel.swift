@@ -16,9 +16,6 @@ struct DetectedMasterkeyViewModel {
 	}
 
 	var text: String {
-		"""
-		Cryptomator detected the vault \"\(vaultName)\".
-		Would you like to add this vault?
-		"""
+		return String(format: NSLocalizedString("addVault.openExistingVault.detectedMasterkey.text", comment: ""), vaultName)
 	}
 }

@@ -44,7 +44,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle("Open Files App", for: .normal)
+		cell.button.setTitle(NSLocalizedString("addVault.success.openFilesApp", comment: ""), for: .normal)
 		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)
 		return cell
 	}
@@ -75,7 +75,7 @@ private class VaultSuccessHeaderView: UIView {
 
 	convenience init(vaultName: String) {
 		self.init(frame: .zero)
-		infoText.text = "Added vault \"\(vaultName)\".\n Access this vault via the Files app."
+		infoText.text = String(format: NSLocalizedString("addVault.success.info", comment: ""), vaultName)
 		let stack = UIStackView(arrangedSubviews: [successImage, infoText])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
@@ -104,9 +104,9 @@ private class VaultSuccessFooterView: UIView {
 			textColor = UIColor(named: "secondaryLabel")!
 		}
 
-		let text = NSMutableAttributedString(string: "If you haven't already, enable Cryptomator in the Files app. ", attributes: [NSAttributedString.Key.foregroundColor: textColor])
-		let learnMoreLink = NSMutableAttributedString(string: "Learn more.", attributes: [NSAttributedString.Key.link: URL(string: "https://www.cryptomator.de")!]) // TODO: replace link
-		learnMoreLink.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(named: "primary")!, range: NSRange(location: 0, length: learnMoreLink.length))
+		let text = NSMutableAttributedString(string: NSLocalizedString("addVault.success.footer", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: textColor])
+		text.append(NSAttributedString(string: " "))
+		let learnMoreLink = NSAttributedString(string: NSLocalizedString("common.footer.learnMore", comment: ""), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
 		text.append(learnMoreLink)
 		textView.attributedText = text
 		textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "primary")!]

@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 class VaultListViewController: UITableViewController {
-	private let header = EditableTableViewHeader(title: "Vaults")
+	private let header = EditableTableViewHeader(title: NSLocalizedString("vaultList.header.title", comment: ""))
 	private let viewModel: VaultListViewModelProtocol
 	weak var coordinator: MainCoordinator?
 
@@ -45,7 +45,7 @@ class VaultListViewController: UITableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.vaults.isEmpty {
-				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add a vault")
+				self.tableView.backgroundView = EmptyListMessage(message: NSLocalizedString("vaultList.emptyList.message", comment: ""))
 				// Prevents the EmptyListMessageView from being placed under the navigation bar.
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
@@ -107,10 +107,10 @@ class VaultListViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			let alertController = UIAlertController(title: "Remove Vault?",
-			                                        message: "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.",
+			let alertController = UIAlertController(title: NSLocalizedString("vaultList.alert.remove.title", comment: ""),
+			                                        message: NSLocalizedString("vaultList.alert.remove.message", comment: ""),
 			                                        preferredStyle: .alert)
-			let okAction = UIAlertAction(title: "Remove", style: .destructive) {
+			let okAction = UIAlertAction(title: NSLocalizedString("common.button.remove", comment: ""), style: .destructive) {
 				_ in
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
@@ -121,7 +121,7 @@ class VaultListViewController: UITableViewController {
 			}
 
 			alertController.addAction(okAction)
-			alertController.addAction(UIAlertAction(title: "Cancle", style: .cancel))
+			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
 
 			present(alertController, animated: true, completion: nil)
 		}

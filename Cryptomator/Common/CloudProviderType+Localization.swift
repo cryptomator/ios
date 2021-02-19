@@ -10,7 +10,6 @@ import CloudAccessPrivateCore
 import Foundation
 extension CloudProviderType {
 	func localizedString() -> String {
-		// TODO: real Localization
 		switch self {
 		case .dropbox:
 			return "Dropbox"
@@ -19,7 +18,7 @@ extension CloudProviderType {
 		case .webDAV:
 			return "WebDAV"
 		case .localFileSystem:
-			return "Other File Provider"
+			return NSLocalizedString("common.cloudProviderType.localFileSystem", comment: "")
 		}
 	}
 }

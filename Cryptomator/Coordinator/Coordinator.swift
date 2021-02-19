@@ -17,8 +17,8 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
 	func handleError(_ error: Error, for viewController: UIViewController) {
-		let alertController = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: "OK", style: .default))
+		let alertController = UIAlertController(title: NSLocalizedString("common.alert.error.title", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.ok", comment: ""), style: .default))
 		viewController.present(alertController, animated: true)
 	}
 

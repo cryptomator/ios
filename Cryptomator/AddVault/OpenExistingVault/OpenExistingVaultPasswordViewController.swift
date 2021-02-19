@@ -10,8 +10,8 @@ import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import UIKit
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
-	lazy var verifyButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: "Verify", style: .plain, target: self, action: #selector(verify))
+	lazy var confirmButton: UIBarButtonItem = {
+		let button = UIBarButtonItem(title: NSLocalizedString("common.button.confirm", comment: ""), style: .plain, target: self, action: #selector(verify))
 		button.isEnabled = false
 		return button
 	}()
@@ -26,8 +26,8 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "Open Existing Vault"
-		navigationItem.rightBarButtonItem = verifyButton
+		title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
+		navigationItem.rightBarButtonItem = confirmButton
 		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
 		tableView.rowHeight = 44
 	}
@@ -46,9 +46,9 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		viewModel.password = textField.text
 		if textField.text?.isEmpty ?? true {
-			verifyButton.isEnabled = false
+			confirmButton.isEnabled = false
 		} else {
-			verifyButton.isEnabled = true
+			confirmButton.isEnabled = true
 		}
 	}
 

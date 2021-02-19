@@ -17,7 +17,7 @@ class AddVaultViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "Add Vault"
+		title = NSLocalizedString("addVault.title", comment: "")
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
 		navigationItem.leftBarButtonItem = cancelButton
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddVaultCell")
@@ -61,9 +61,9 @@ class AddVaultViewController: UITableViewController {
 		let text: String
 		switch indexPath.row {
 		case 0:
-			text = "Create New Vault"
+			text = NSLocalizedString("addVault.createNewVault.title", comment: "")
 		case 1:
-			text = "Open Existing Vault"
+			text = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 		default:
 			return cell
 		}

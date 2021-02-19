@@ -21,9 +21,9 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	func start() {
 		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV, .localFileSystem],
-		                                     headerTitle: "Where is the vault located?")
+		                                     headerTitle: NSLocalizedString("addVault.openExistingVault.chooseCloud.header", comment: ""))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
-		chooseCloudVC.title = "Open Existing Vault"
+		chooseCloudVC.title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 		chooseCloudVC.coordinator = self
 		navigationController.pushViewController(chooseCloudVC, animated: true)
 	}
@@ -106,7 +106,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 
 	func showSuccessfullyAddedVault(withName name: String) {
 		let successVC = AddVaultSuccessViewController(vaultName: name)
-		successVC.title = "Open Existing Vault"
+		successVC.title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 		successVC.coordinator = self
 		navigationController.pushViewController(successVC, animated: true)
 		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.

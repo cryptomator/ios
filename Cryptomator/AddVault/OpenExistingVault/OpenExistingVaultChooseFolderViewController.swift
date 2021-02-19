@@ -13,7 +13,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = "Open Existing Vault"
+		title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 	}
 
 	override func showDetectedMasterkey(at path: CloudPath) {
@@ -34,7 +34,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 		tableView.contentInsetAdjustmentBehavior = .never
 		tableView.separatorStyle = .none
 
-		let addVaultButton = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addVault))
+		let addVaultButton = UIBarButtonItem(title: NSLocalizedString("common.button.add", comment: ""), style: .plain, target: self, action: #selector(addVault))
 		navigationItem.rightBarButtonItem = addVaultButton
 		navigationController?.setToolbarHidden(true, animated: true)
 	}

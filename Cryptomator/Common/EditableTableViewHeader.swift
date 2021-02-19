@@ -21,7 +21,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
-		editButton.setTitle("Edit", for: .normal)
+		editButton.setTitle(NSLocalizedString("common.button.edit", comment: ""), for: .normal)
 	}
 
 	convenience init() {
@@ -57,7 +57,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 
 	private func changeEditButton() {
 		UIView.performWithoutAnimation {
-			editButton.setTitle(isEditing ? "Done" : "Edit", for: .normal)
+			editButton.setTitle(NSLocalizedString(isEditing ? "common.button.done" : "common.button.edit", comment: ""), for: .normal)
 			editButton.layoutIfNeeded()
 		}
 	}

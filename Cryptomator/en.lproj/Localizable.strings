@@ -1,0 +1,33 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Created by Tobias Hagemann on 19.02.21.
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Error";
+"common.button.add" = "Add";
+"common.button.cancel" = "Cancel";
+"common.button.confirm" = "Confirm";
+"common.button.done" = "Done";
+"common.button.edit" = "Edit";
+"common.button.ok" = "OK";
+"common.button.remove" = "Remove";
+"common.footer.learnMore" = "Learn more.";
+"common.cloudProviderType.localFileSystem" = "Other File Provider";
+
+"addVault.title" = "Add Vault";
+"addVault.createNewVault.title" = "Create New Vault";
+"addVault.openExistingVault.title" = "Open Existing Vault";
+"addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
+"addVault.openExistingVault.password.footer" = "Enter password for \"%@\"";
+"addVault.success.info" = "Added vault \"%@\".\nAccess this vault via the Files app.";
+"addVault.success.openFilesApp" = "Open Files App";
+"addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
+
+"vaultList.header.title" = "Vaults";
+"vaultList.emptyList.message" = "Tap here to add a vault";
+"vaultList.alert.remove.title" = "Remove Vault?";
+"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
