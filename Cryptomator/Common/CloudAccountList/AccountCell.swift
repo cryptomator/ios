@@ -50,11 +50,7 @@ class AccountCell: UITableViewCell {
 	func configure(with account: AccountCellContent) {
 		textLabel?.text = account.mainLabelText
 		detailTextLabel?.text = account.detailLabelText
-		if #available(iOS 13.0, *) {
-			detailTextLabel?.textColor = .secondaryLabel
-		} else {
-			detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
-		}
+		detailTextLabel?.textColor = .secondaryLabel
 	}
 
 	@available(iOS 14, *)

@@ -68,7 +68,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import Promises
 import SwiftUI
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVaultPasswordViewModelProtocol {
@@ -84,7 +84,6 @@ private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVau
 	}
 }
 
-@available(iOS 13, *)
 struct OpenExistingVaultMasterkeyProcessingVC_Preview: PreviewProvider {
 	static var previews: some View {
 		OpenExistingVaultPasswordViewController(viewModel: OpenExistingVaultMasterkeyProcessingViewModelMock()).toPreview()

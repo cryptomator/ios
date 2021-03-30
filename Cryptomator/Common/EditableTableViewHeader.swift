@@ -31,11 +31,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 		editButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
 
 		title.font = UIFont.preferredFont(forTextStyle: .footnote)
-		if #available(iOS 13, *) {
-			title.textColor = .secondaryLabel
-		} else {
-			title.textColor = UIColor(named: "secondaryLabel")
-		}
+		title.textColor = .secondaryLabel
 
 		editButton.translatesAutoresizingMaskIntoConstraints = false
 		title.translatesAutoresizingMaskIntoConstraints = false

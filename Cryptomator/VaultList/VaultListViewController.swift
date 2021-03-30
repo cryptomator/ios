@@ -128,7 +128,7 @@ class VaultListViewController: UITableViewController {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 
@@ -145,7 +145,6 @@ private class VaultListViewModelMock: VaultListViewModelProtocol {
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}
 }
 
-@available(iOS 13, *)
 struct VaultListVCPreview: PreviewProvider {
 	static var previews: some View {
 		VaultListViewController(with: VaultListViewModelMock()).toPreview()

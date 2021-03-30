@@ -89,11 +89,10 @@ class AddVaultViewController: UITableViewController {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 
-@available(iOS 13, *)
 struct VaultAddVCPreview: PreviewProvider {
 	static var previews: some View {
 		AddVaultViewController().toPreview()

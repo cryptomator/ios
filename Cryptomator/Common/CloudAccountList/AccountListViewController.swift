@@ -107,7 +107,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CloudAccessPrivateCore
 import CryptomatorCloudAccess
 import Promises
@@ -125,7 +125,6 @@ private class AccountListViewModelMock: AccountListViewModelProtocol {
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}
 }
 
-@available(iOS 13, *)
 struct AccountListVCPreview: PreviewProvider {
 	static var previews: some View {
 		AccountListViewController(with: AccountListViewModelMock()).toPreview()

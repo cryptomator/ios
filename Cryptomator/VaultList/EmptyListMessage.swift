@@ -69,23 +69,16 @@ class EmptyListMessage: UIView {
 
 		override func layoutSubviews() {
 			super.layoutSubviews()
-			let color: UIColor
-			if #available(iOS 13.0, *) {
-				color = .label
-			} else {
-				color = .black
-			}
-			shapeLayer.strokeColor = color.cgColor
+			shapeLayer.strokeColor = UIColor.label.cgColor
 			shapeLayer.path = arrowPath().cgPath
 		}
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 
-@available(iOS 13, *)
 struct EmptyListMessagePreview: PreviewProvider {
 	static var previews: some View {
 		EmptyListMessage(message: "Tap here to add a Vault").toPreview()

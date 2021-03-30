@@ -25,11 +25,7 @@ class FileCell: UITableViewCell, CloudItemCell {
 	func configure(with item: CloudItemMetadata) {
 		textLabel?.text = item.name
 		detailTextLabel?.text = FileCell.formattedTextForSize(from: item)
-		if #available(iOS 13.0, *) {
-			detailTextLabel?.textColor = .secondaryLabel
-		} else {
-			detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
-		}
+		detailTextLabel?.textColor = .secondaryLabel
 		imageView?.image = UIImage(named: "file-type-unknown")
 		imageView?.highlightedImage = UIImage(named: "file-type-unknown-selected")
 	}

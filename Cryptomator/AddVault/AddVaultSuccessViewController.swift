@@ -97,14 +97,8 @@ private class VaultSuccessFooterView: UIView {
 		textView.backgroundColor = .clear
 		textView.isEditable = false
 		textView.isScrollEnabled = false
-		let textColor: UIColor
-		if #available(iOS 13.0, *) {
-			textColor = .secondaryLabel
-		} else {
-			textColor = UIColor(named: "secondaryLabel")!
-		}
 
-		let text = NSMutableAttributedString(string: NSLocalizedString("addVault.success.footer", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: textColor])
+		let text = NSMutableAttributedString(string: NSLocalizedString("addVault.success.footer", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
 		text.append(NSAttributedString(string: " "))
 		let learnMoreLink = NSAttributedString(string: NSLocalizedString("common.footer.learnMore", comment: ""), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
 		text.append(learnMoreLink)
@@ -130,10 +124,9 @@ private class VaultSuccessFooterView: UIView {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import SwiftUI
 
-@available(iOS 13, *)
 struct AddVaultSuccessVCPreview: PreviewProvider {
 	static var previews: some View {
 		AddVaultSuccessViewController(vaultName: "Work").toPreview()

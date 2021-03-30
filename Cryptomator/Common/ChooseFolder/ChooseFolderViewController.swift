@@ -134,11 +134,7 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 		self.title.text = title
 
 		self.title.font = UIFont.preferredFont(forTextStyle: .footnote)
-		if #available(iOS 13, *) {
-			self.title.textColor = .secondaryLabel
-		} else {
-			self.title.textColor = UIColor(named: "secondaryLabel")
-		}
+		self.title.textColor = .secondaryLabel
 		searchBar.sizeToFit()
 		searchBar.backgroundColor = .clear
 		searchBar.backgroundImage = UIImage()
@@ -161,7 +157,7 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
@@ -191,7 +187,6 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 	func refreshItems() {}
 }
 
-@available(iOS 13, *)
 struct ChooseFolderVCPreview: PreviewProvider {
 	static var previews: some View {
 		ChooseFolderViewController(with: ChooseFolderViewModelMock(cloudPath: CloudPath("/Preview/Folder"),

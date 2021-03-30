@@ -51,11 +51,10 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 
-@available(iOS 13, *)
 struct ChooseCloudVCPreview: PreviewProvider {
 	static var previews: some View {
 		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox,
