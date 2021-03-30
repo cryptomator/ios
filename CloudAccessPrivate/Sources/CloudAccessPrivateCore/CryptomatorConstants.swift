@@ -8,6 +8,6 @@
 
 import Foundation
 public enum CryptomatorConstants {
-	public static let appGroupName = "group.com.setolabs.Cryptomator"
-	public static let mainAppBundleId = "com.setolabs.Cryptomator"
+	public static let appGroupName = "group.org.cryptomator.ios"
+	public static let mainAppBundleId = "org.cryptomator.ios"
 }
