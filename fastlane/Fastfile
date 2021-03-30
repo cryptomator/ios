@@ -9,6 +9,11 @@ platform :ios do
     match(type: "development", force_for_new_devices: true)
   end
 
+  desc "Update metadata in App Store Connect"
+  lane :update_metadata do
+    deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)
+  end
+
   desc "Submit a new internal beta build to TestFlight"
   lane :beta do
     gym(scheme: "Cryptomator")
