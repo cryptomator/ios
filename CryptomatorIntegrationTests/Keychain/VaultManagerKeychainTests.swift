@@ -43,32 +43,34 @@ class VaultManagerKeychainTests: XCTestCase {
 	}
 
 	func testSaveFileProviderConformMasterkeyToKeychainNoPWStored() throws {
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		let vaultUID = UUID().uuidString
 		let password = "pw"
-		try manager.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: false)
+		try manager.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: 7, password: password, storePasswordInKeychain: false)
 
 		let masterkeyKeychainEntry = try manager.getVaultFromKeychain(forVaultUID: vaultUID)
 		XCTAssertNil(masterkeyKeychainEntry.password)
-		let storedMasterkey = try Masterkey.createFromMasterkeyFile(jsonData: masterkeyKeychainEntry.masterkeyData, password: password)
+		let storedMasterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyKeychainEntry.masterkeyData)
+		let storedMasterkey = try storedMasterkeyFile.unlock(passphrase: password)
 		XCTAssertEqual(masterkey.aesMasterKey, storedMasterkey.aesMasterKey)
 		XCTAssertEqual(masterkey.macMasterKey, storedMasterkey.macMasterKey)
-		XCTAssertEqual(masterkey.version, storedMasterkey.version)
+		XCTAssertEqual(7, storedMasterkeyFile.version)
 		try CryptomatorKeychain.vault.delete(vaultUID)
 	}
 
 	func testSaveFileProviderConformMasterkeyToKeychainPWStored() throws {
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32), version: 7)
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		let vaultUID = UUID().uuidString
 		let password = "pw"
-		try manager.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, password: password, storePasswordInKeychain: true)
+		try manager.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: 7, password: password, storePasswordInKeychain: true)
 
 		let masterkeyKeychainEntry = try manager.getVaultFromKeychain(forVaultUID: vaultUID)
 		XCTAssertEqual(password, masterkeyKeychainEntry.password)
-		let storedMasterkey = try Masterkey.createFromMasterkeyFile(jsonData: masterkeyKeychainEntry.masterkeyData, password: password)
+		let storedMasterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyKeychainEntry.masterkeyData)
+		let storedMasterkey = try storedMasterkeyFile.unlock(passphrase: password)
 		XCTAssertEqual(masterkey.aesMasterKey, storedMasterkey.aesMasterKey)
 		XCTAssertEqual(masterkey.macMasterKey, storedMasterkey.macMasterKey)
-		XCTAssertEqual(masterkey.version, storedMasterkey.version)
+		XCTAssertEqual(7, storedMasterkeyFile.version)
 		try CryptomatorKeychain.vault.delete(vaultUID)
 	}
 }
