@@ -3,10 +3,10 @@ if [ -f ./.cloud-access-secrets.sh ]; then
 else
   echo "warning: .cloud-access-secrets.sh could not be found, please see README for instructions"
 fi
-cat > ./CloudAccessPrivate/Sources/CloudAccessPrivateCore/CloudAccessSecrets.swift << EOM
+cat > ./CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swift << EOM
 //
 //  CloudAccessSecrets.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCore
 //
 //  Created by Tobias Hagemann on 19.05.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.

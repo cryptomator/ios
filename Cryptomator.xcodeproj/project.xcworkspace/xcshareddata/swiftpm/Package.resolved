@@ -23,9 +23,9 @@
         "package": "CryptomatorCloudAccess",
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
-          "branch": null,
-          "revision": "ca131fbb185843b7a830f9be8f40c31260bec376",
-          "version": "0.11.1"
+          "branch": "feature/cloud-access-private-merge",
+          "revision": "ff0450d582853198b0d81e19b52ea40b79630076",
+          "version": null
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cryptolib-swift.git",
         "state": {
           "branch": null,
-          "revision": "693216c62737b44ff92e06c401db8288849805fc",
-          "version": "0.11.2"
+          "revision": "365ede1f3f0eb20526d521e579b9f2a83227a60e",
+          "version": "0.11.4"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "12d3a8651d32295794a850307f77407f95b8c881",
-          "version": "1.4.1"
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
         }
       }
     ]

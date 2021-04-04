@@ -6,8 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
-import CryptomatorCloudAccess
+import CryptomatorCommonCore
+import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 

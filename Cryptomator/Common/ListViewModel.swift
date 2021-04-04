@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import Foundation
 protocol ListViewModel {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws

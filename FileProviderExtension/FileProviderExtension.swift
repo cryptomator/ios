@@ -5,10 +5,10 @@
 //  Created by Philipp Schmid on 17.06.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import CocoaLumberjack
 import CocoaLumberjackSwift
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
 import FileProvider
 

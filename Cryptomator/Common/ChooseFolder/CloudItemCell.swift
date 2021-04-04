@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import UIKit
 protocol CloudItemCell: UITableViewCell {
 	var item: CloudItemMetadata? { get set }

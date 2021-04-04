@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 protocol FolderChoosing: AnyObject {
 	func showItems(for path: CloudPath)
 	func close()

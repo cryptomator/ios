@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -129,7 +129,7 @@ class VaultListViewController: UITableViewController {
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import SwiftUI
 
 private class VaultListViewModelMock: VaultListViewModelProtocol {

@@ -9,7 +9,7 @@
 import CryptomatorCloudAccess
 import GRDB
 import XCTest
-@testable import CloudAccessPrivateCore
+@testable import CryptomatorCommonCore
 @testable import Cryptomator
 class VaultListViewModelTests: XCTestCase {
 	var tmpDir: URL!

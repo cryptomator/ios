@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
-import CryptomatorCloudAccess
+import CryptomatorCommonCore
+import CryptomatorCloudAccessCore
 import Foundation
 import Promises
 import UIKit

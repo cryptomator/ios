@@ -66,6 +66,36 @@
                ReferencedContainer = "container:Cryptomator.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4A0697AC2619ED4A00A67F30"
+               BuildableName = "CryptomatorCommonTests.xctest"
+               BlueprintName = "CryptomatorCommonTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4ACA65C32619E21100D19304"
+               BuildableName = "CryptomatorCommonFrameworkTests.xctest"
+               BlueprintName = "CryptomatorCommonFrameworkTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4A0697F42619ED9100A67F30"
+               BuildableName = "CryptomatorCommonCoreTests.xctest"
+               BlueprintName = "CryptomatorCommonCoreTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

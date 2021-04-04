@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import UIKit
 protocol AccountListing: AnyObject {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController)

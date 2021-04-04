@@ -108,7 +108,7 @@ class AccountListViewController: SingleSectionTableViewController {
 }
 
 #if DEBUG
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import CryptomatorCloudAccess
 import Promises
 import SwiftUI

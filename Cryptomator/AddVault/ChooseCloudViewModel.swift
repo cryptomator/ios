@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 struct ChooseCloudViewModel: SingleSectionHeaderTableViewModelProtocol {
 	let clouds: [CloudProviderType]
 	let headerTitle: String

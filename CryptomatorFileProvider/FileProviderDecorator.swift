@@ -6,10 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import CocoaLumberjack
 import CocoaLumberjackSwift
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB

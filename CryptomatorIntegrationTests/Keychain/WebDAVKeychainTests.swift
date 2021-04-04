@@ -8,7 +8,7 @@
 
 import CryptomatorCloudAccess
 import XCTest
-@testable import CloudAccessPrivateCore
+@testable import CryptomatorCommonCore
 
 class WebDAVKeychainTests: XCTestCase {
 	func testSaveCredentialToKeychain() {

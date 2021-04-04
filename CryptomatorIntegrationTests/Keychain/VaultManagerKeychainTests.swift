@@ -8,7 +8,7 @@
 
 import GRDB
 import XCTest
-@testable import CloudAccessPrivateCore
+@testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 class VaultManagerKeychainTests: XCTestCase {
 	var manager: VaultManager!

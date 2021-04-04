@@ -5,7 +5,7 @@
 //  Created by Philipp Schmid on 27.01.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import Foundation
 
 struct DetectedMasterkeyViewModel {
