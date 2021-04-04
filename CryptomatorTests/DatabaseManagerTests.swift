@@ -5,7 +5,7 @@
 //  Created by Philipp Schmid on 07.01.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
 @testable import CryptomatorCommonCore

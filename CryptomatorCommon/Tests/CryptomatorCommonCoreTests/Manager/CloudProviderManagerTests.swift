@@ -9,6 +9,7 @@
 import Foundation
 import GRDB
 import XCTest
+import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 
 class CloudProviderManagerTests: XCTestCase {
@@ -34,6 +35,7 @@ class CloudProviderManagerTests: XCTestCase {
 	}
 
 	func testCreateProviderCachesTheProvider() throws {
+		DropboxSetup.constants = DropboxSetup(appKey: "", appGroupName: "", mainAppBundleId: "")
 		let account = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 		try accountManager.saveNewAccount(account)
 		XCTAssertNil(CloudProviderManager.cachedProvider[account.accountUID])

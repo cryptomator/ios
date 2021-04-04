@@ -6,7 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider

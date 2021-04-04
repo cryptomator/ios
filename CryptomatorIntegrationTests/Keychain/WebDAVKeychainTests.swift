@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorCommonCore
 

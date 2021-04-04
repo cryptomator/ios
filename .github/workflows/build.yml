@@ -30,7 +30,6 @@ jobs:
       - name: Build and test CryptomatorCommonCore
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorCommonCore' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
       - name: Run CryptomatorIntegrationTests
-        if: startsWith(github.ref, 'refs/tags/')
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorIntegrationTests' -destination 'name=iPhone 12 Pro' test | xcpretty
         env:
           GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}

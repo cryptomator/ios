@@ -7,7 +7,7 @@
 //
 import Promises
 import XCTest
-@testable import CryptomatorCloudAccess
+@testable import CryptomatorCloudAccessCore
 
 class CloudProviderMockTests: XCTestCase {
 	var tmpDirURL: URL!
