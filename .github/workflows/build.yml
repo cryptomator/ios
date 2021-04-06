@@ -29,13 +29,5 @@ jobs:
           DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
       - name: Build and test CryptomatorCommonCore
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorCommonCore' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
-      - name: Run CryptomatorIntegrationTests
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorIntegrationTests' -destination 'name=iPhone 12 Pro' test | xcpretty
-        env:
-          GOOGLE_DRIVE_REFRESH_TOKEN: ${{ secrets.GOOGLE_DRIVE_REFRESH_TOKEN }}
-          DROPBOX_ACCESS_TOKEN: ${{ secrets.DROPBOX_ACCESS_TOKEN }}
-          WEBDAV_BASE_URL: ${{ secrets.WEBDAV_BASE_URL }}
-          WEBDAV_USERNAME: ${{ secrets.WEBDAV_USERNAME }}
-          WEBDAV_PASSWORD: ${{ secrets.WEBDAV_PASSWORD }}
       - name: Build and test Cryptomator
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'Cryptomator' -destination 'name=iPhone 12 Pro' test | xcpretty

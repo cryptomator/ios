@@ -37,10 +37,11 @@
 		4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E3C25BF1AD400D9520D /* FolderCell.swift */; };
 		4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E4C25BF1E8B00D9520D /* FileCell.swift */; };
 		4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */; };
-		4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */; };
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
 		4A4AD0EF258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
+		4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */; };
+		4A51E612261C9A8800CC8C9B /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */; };
 		4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F57825C47BB2001BE15E /* TextFieldCell.swift */; };
 		4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */; };
 		4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */; };
@@ -82,12 +83,10 @@
 		4ACC10A024C1870900042F8C /* FileProviderDecoratorUploadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */; };
 		4ACC10A224C1881000042F8C /* FileProviderDecoratorDownloadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
-		4AE564302541F17400D64237 /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */; };
 		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AE97DAF24572E4900452814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAE24572E4900452814 /* ViewController.swift */; };
 		4AE97DC224572E4A00452814 /* CryptomatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DC124572E4A00452814 /* CryptomatorTests.swift */; };
-		4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */; };
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */; };
@@ -141,14 +140,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4AE97DBE24572E4A00452814 /* PBXContainerItemProxy */ = {
+		4A51E601261C9A7000CC8C9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
 		};
-		4AE97DC924572E4A00452814 /* PBXContainerItemProxy */ = {
+		4AE97DBE24572E4A00452814 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
 			proxyType = 1;
@@ -168,13 +167,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4AA621E3249A6A8400A0BCBD;
 			remoteInfo = "File Provider ExtensionUI";
-		};
-		4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4AE97DA724572E4900452814;
-			remoteInfo = Cryptomator;
 		};
 		740376272587AFF20023FF53 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -260,12 +252,13 @@
 		4A447E3C25BF1AD400D9520D /* FolderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCell.swift; sourceTree = "<group>"; };
 		4A447E4C25BF1E8B00D9520D /* FileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileCell.swift; sourceTree = "<group>"; };
 		4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudItemCell.swift; sourceTree = "<group>"; };
-		4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
 		4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorLocalFileIsCurrentTests.swift; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
-		4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorIntegrationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A60E7FA2459C6F500FD7F0E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorCommonHostedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A51E600261C9A7000CC8C9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
+		4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVKeychainTests.swift; sourceTree = "<group>"; };
 		4A66F57825C47BB2001BE15E /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFieldCell.swift; sourceTree = "<group>"; };
 		4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -312,7 +305,6 @@
 		4ACC109F24C1870900042F8C /* FileProviderDecoratorUploadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorUploadTests.swift; sourceTree = "<group>"; };
 		4ACC10A124C1881000042F8C /* FileProviderDecoratorDownloadTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorDownloadTests.swift; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
-		4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVKeychainTests.swift; sourceTree = "<group>"; };
 		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProviderValidationServiceSource.h; sourceTree = "<group>"; };
 		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
@@ -325,9 +317,6 @@
 		4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DC124572E4A00452814 /* CryptomatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorTests.swift; sourceTree = "<group>"; };
 		4AE97DC324572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorUITests.swift; sourceTree = "<group>"; };
-		4AE97DCE24572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModel.swift; sourceTree = "<group>"; };
 		4AF91CC625A6437000ACF01E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CloudProviderType.swift"; sourceTree = "<group>"; };
@@ -386,7 +375,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A60E7F32459C6F500FD7F0E /* Frameworks */ = {
+		4A51E5F9261C9A7000CC8C9B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -417,13 +406,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4AE97DBA24572E4A00452814 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4AE97DC524572E4A00452814 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -505,11 +487,20 @@
 			path = ChooseFolder;
 			sourceTree = "<group>";
 		};
-		4A47746B2556D7C000718D7F /* Keychain */ = {
+		4A51E5FD261C9A7000CC8C9B /* CryptomatorCommonHostedTests */ = {
 			isa = PBXGroup;
 			children = (
-				4AE5642F2541F17400D64237 /* WebDAVKeychainTests.swift */,
-				4A47745F2556C8B100718D7F /* VaultManagerKeychainTests.swift */,
+				4A51E60E261C9A8700CC8C9B /* Keychain */,
+				4A51E600261C9A7000CC8C9B /* Info.plist */,
+			);
+			path = CryptomatorCommonHostedTests;
+			sourceTree = "<group>";
+		};
+		4A51E60E261C9A8700CC8C9B /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */,
+				4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */,
 			);
 			path = Keychain;
 			sourceTree = "<group>";
@@ -519,11 +510,10 @@
 			children = (
 				4A0698692619EF9C00A67F30 /* CryptomatorCommon */,
 				4AE97DA924572E4900452814 /* Cryptomator */,
+				4A51E5FD261C9A7000CC8C9B /* CryptomatorCommonHostedTests */,
 				740375D82587AE7B0023FF53 /* CryptomatorFileProvider */,
 				4A2245D124A5E16300DBA437 /* CryptomatorFileProviderTests */,
-				4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */,
 				4AE97DC024572E4A00452814 /* CryptomatorTests */,
-				4AE97DCB24572E4A00452814 /* CryptomatorUITests */,
 				4AA621D7249A6A8400A0BCBD /* FileProviderExtension */,
 				4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				4A828287252617D600A4EAD4 /* Frameworks */,
@@ -536,23 +526,13 @@
 			children = (
 				4AE97DA824572E4900452814 /* Cryptomator.app */,
 				4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */,
-				4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */,
-				4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */,
 				4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */,
 				4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */,
 				4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */,
 				740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */,
+				4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4A60E7F72459C6F500FD7F0E /* CryptomatorIntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-				4A60E7FA2459C6F500FD7F0E /* Info.plist */,
-				4A47746B2556D7C000718D7F /* Keychain */,
-			);
-			path = CryptomatorIntegrationTests;
 			sourceTree = "<group>";
 		};
 		4A7B97CA25B6F7340044B7FB /* CloudAccountList */ = {
@@ -716,15 +696,6 @@
 			path = CryptomatorTests;
 			sourceTree = "<group>";
 		};
-		4AE97DCB24572E4A00452814 /* CryptomatorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4AE97DCE24572E4A00452814 /* Info.plist */,
-				4AE97DCC24572E4A00452814 /* CryptomatorUITests.swift */,
-			);
-			path = CryptomatorUITests;
-			sourceTree = "<group>";
-		};
 		4AF69E2924ACCED000A7174C /* DB */ = {
 			isa = PBXGroup;
 			children = (
@@ -807,25 +778,22 @@
 			productReference = 4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */ = {
+		4A51E5FB261C9A7000CC8C9B /* CryptomatorCommonHostedTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4A60E8002459C6F500FD7F0E /* Build configuration list for PBXNativeTarget "CryptomatorIntegrationTests" */;
+			buildConfigurationList = 4A51E603261C9A7000CC8C9B /* Build configuration list for PBXNativeTarget "CryptomatorCommonHostedTests" */;
 			buildPhases = (
-				74F57D6A2475118700AF951C /* Create IntegrationTestSecrets */,
-				4A60E7F22459C6F500FD7F0E /* Sources */,
-				4A60E7F32459C6F500FD7F0E /* Frameworks */,
-				4A60E7F42459C6F500FD7F0E /* Resources */,
+				4A51E5F8261C9A7000CC8C9B /* Sources */,
+				4A51E5F9261C9A7000CC8C9B /* Frameworks */,
+				4A51E5FA261C9A7000CC8C9B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4AFE6AEE2516278600A4A315 /* PBXTargetDependency */,
+				4A51E602261C9A7000CC8C9B /* PBXTargetDependency */,
 			);
-			name = CryptomatorIntegrationTests;
-			packageProductDependencies = (
-			);
-			productName = CryptomatorIntegrationTests;
-			productReference = 4A60E7F62459C6F500FD7F0E /* CryptomatorIntegrationTests.xctest */;
+			name = CryptomatorCommonHostedTests;
+			productName = CryptomatorCommonHostedTests;
+			productReference = 4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		4AA621D5249A6A8400A0BCBD /* FileProviderExtension */ = {
@@ -908,24 +876,6 @@
 			productReference = 4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		4AE97DC724572E4A00452814 /* CryptomatorUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4AE97DD524572E4A00452814 /* Build configuration list for PBXNativeTarget "CryptomatorUITests" */;
-			buildPhases = (
-				4AE97DC424572E4A00452814 /* Sources */,
-				4AE97DC524572E4A00452814 /* Frameworks */,
-				4AE97DC624572E4A00452814 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4AE97DCA24572E4A00452814 /* PBXTargetDependency */,
-			);
-			name = CryptomatorUITests;
-			productName = CryptomatorUITests;
-			productReference = 4AE97DC824572E4A00452814 /* CryptomatorUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		740375D62587AE7A0023FF53 /* CryptomatorFileProvider */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 740375DB2587AE7B0023FF53 /* Build configuration list for PBXNativeTarget "CryptomatorFileProvider" */;
@@ -960,8 +910,8 @@
 					4A2245CF24A5E16300DBA437 = {
 						CreatedOnToolsVersion = 11.5;
 					};
-					4A60E7F52459C6F500FD7F0E = {
-						CreatedOnToolsVersion = 11.4.1;
+					4A51E5FB261C9A7000CC8C9B = {
+						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 4AE97DA724572E4900452814;
 					};
 					4AA621D5249A6A8400A0BCBD = {
@@ -975,10 +925,6 @@
 						CreatedOnToolsVersion = 11.4.1;
 					};
 					4AE97DBC24572E4A00452814 = {
-						CreatedOnToolsVersion = 11.4.1;
-						TestTargetID = 4AE97DA724572E4900452814;
-					};
-					4AE97DC724572E4A00452814 = {
 						CreatedOnToolsVersion = 11.4.1;
 						TestTargetID = 4AE97DA724572E4900452814;
 					};
@@ -1005,12 +951,11 @@
 			targets = (
 				4AE97DA724572E4900452814 /* Cryptomator */,
 				4AE97DBC24572E4A00452814 /* CryptomatorTests */,
-				4AE97DC724572E4A00452814 /* CryptomatorUITests */,
-				4A60E7F52459C6F500FD7F0E /* CryptomatorIntegrationTests */,
 				4AA621D5249A6A8400A0BCBD /* FileProviderExtension */,
 				4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				740375D62587AE7A0023FF53 /* CryptomatorFileProvider */,
 				4A2245CF24A5E16300DBA437 /* CryptomatorFileProviderTests */,
+				4A51E5FB261C9A7000CC8C9B /* CryptomatorCommonHostedTests */,
 			);
 		};
 /* End PBXProject section */
@@ -1023,7 +968,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A60E7F42459C6F500FD7F0E /* Resources */ = {
+		4A51E5FA261C9A7000CC8C9B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1057,13 +1002,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4AE97DBB24572E4A00452814 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4AE97DC624572E4A00452814 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1127,27 +1065,6 @@
 			shellPath = /bin/sh;
 			shellScript = "git=`sh /etc/profile; which git`\nbranchName=`\"$git\" rev-parse --abbrev-ref HEAD`\nappBuild=`\"$git\" rev-list --count $branchName`\nif [ $CONFIGURATION = \"Debug\" ]; then\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild-$branchName\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nelse\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $appBuild\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\nfi\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n";
 		};
-		74F57D6A2475118700AF951C /* Create IntegrationTestSecrets */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"./.integration-test-secrets.sh",
-				"./create-integration-test-secrets-file.sh",
-			);
-			name = "Create IntegrationTestSecrets";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				./CryptomatorIntegrationTests/IntegrationTestSecrets.swift,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.integration-test-secrets.sh ]; then\n  source ./.integration-test-secrets.sh\nelse\n  echo \"warning: .integration-test-secrets.sh could not be found, please see README for instructions\"\nfi\n./create-integration-test-secrets-file.sh\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -1182,12 +1099,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A60E7F22459C6F500FD7F0E /* Sources */ = {
+		4A51E5F8261C9A7000CC8C9B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A4774602556C8B100718D7F /* VaultManagerKeychainTests.swift in Sources */,
-				4AE564302541F17400D64237 /* WebDAVKeychainTests.swift in Sources */,
+				4A51E612261C9A8800CC8C9B /* VaultManagerKeychainTests.swift in Sources */,
+				4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1287,14 +1204,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4AE97DC424572E4A00452814 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4AE97DCD24572E4A00452814 /* CryptomatorUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		740375D32587AE7A0023FF53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1330,6 +1239,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A51E602261C9A7000CC8C9B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AE97DA724572E4900452814 /* Cryptomator */;
+			targetProxy = 4A51E601261C9A7000CC8C9B /* PBXContainerItemProxy */;
+		};
 		4A9172722619F16C003C4043 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 4A9172712619F16C003C4043 /* CryptomatorCommonCore */;
@@ -1338,11 +1252,6 @@
 			isa = PBXTargetDependency;
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4AE97DBE24572E4A00452814 /* PBXContainerItemProxy */;
-		};
-		4AE97DCA24572E4A00452814 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4AE97DA724572E4900452814 /* Cryptomator */;
-			targetProxy = 4AE97DC924572E4A00452814 /* PBXContainerItemProxy */;
 		};
 		4AEE469125263B2E0045DA9F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1353,11 +1262,6 @@
 			isa = PBXTargetDependency;
 			target = 4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */;
 			targetProxy = 4AEE469325263B2E0045DA9F /* PBXContainerItemProxy */;
-		};
-		4AFE6AEE2516278600A4A315 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4AE97DA724572E4900452814 /* Cryptomator */;
-			targetProxy = 4AFE6AED2516278600A4A315 /* PBXContainerItemProxy */;
 		};
 		740376282587AFF20023FF53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1443,6 +1347,52 @@
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		4A51E604261C9A7000CC8C9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FZ53285T8H;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CryptomatorCommonHostedTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.CryptomatorCommonHostedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
+			};
+			name = Debug;
+		};
+		4A51E605261C9A7000CC8C9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = FZ53285T8H;
+				INFOPLIST_FILE = CryptomatorCommonHostedTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.CryptomatorCommonHostedTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
 		};
@@ -1564,54 +1514,6 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		4A60E7FE2459C6F500FD7F0E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.integration-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
-			};
-			name = Debug;
-		};
-		4A60E7FF2459C6F500FD7F0E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				INFOPLIST_FILE = CryptomatorIntegrationTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.integration-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
 		};
@@ -1814,52 +1716,6 @@
 			};
 			name = Release;
 		};
-		4AE97DD624572E4A00452814 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.ui-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cryptomator;
-			};
-			name = Debug;
-		};
-		4AE97DD724572E4A00452814 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				INFOPLIST_FILE = CryptomatorUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.ui-tests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Cryptomator;
-			};
-			name = Release;
-		};
 		740375DC2587AE7B0023FF53 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1902,20 +1758,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		4A51E603261C9A7000CC8C9B /* Build configuration list for PBXNativeTarget "CryptomatorCommonHostedTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A51E604261C9A7000CC8C9B /* Debug */,
+				4A51E605261C9A7000CC8C9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4A5E5B242453119100BD6298 /* Build configuration list for PBXProject "Cryptomator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4A5E5B512453119200BD6298 /* Debug */,
 				4A5E5B522453119200BD6298 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4A60E8002459C6F500FD7F0E /* Build configuration list for PBXNativeTarget "CryptomatorIntegrationTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A60E7FE2459C6F500FD7F0E /* Debug */,
-				4A60E7FF2459C6F500FD7F0E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1952,15 +1808,6 @@
 			buildConfigurations = (
 				4AE97DD324572E4A00452814 /* Debug */,
 				4AE97DD424572E4A00452814 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4AE97DD524572E4A00452814 /* Build configuration list for PBXNativeTarget "CryptomatorUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4AE97DD624572E4A00452814 /* Debug */,
-				4AE97DD724572E4A00452814 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
