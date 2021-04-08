@@ -6,10 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import CryptomatorCommon
 import CryptomatorCommonCore
-import CryptomatorCloudAccessCore
-import CryptomatorCloudAccess
 import Foundation
 import Promises
 import UIKit
@@ -68,7 +68,7 @@ class DropboxLoginViewController: UIViewController {
 	}
 
 	@objc func login() {
-		let authenticator = DropboxCloudAuthenticator()
+		let authenticator = DropboxAuthenticator()
 		authenticator.authenticate(from: self).then { credential in
 			print("authenticated with tokenUid: \(credential.tokenUid)")
 			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)

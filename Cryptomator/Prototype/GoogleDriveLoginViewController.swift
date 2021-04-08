@@ -6,10 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import CryptomatorCommon
 import CryptomatorCommonCore
-import CryptomatorCloudAccessCore
-import CryptomatorCloudAccess
 import Foundation
 import UIKit
 class GoogleDriveLoginViewController: UIViewController {
@@ -35,7 +35,7 @@ class GoogleDriveLoginViewController: UIViewController {
 	@objc func login() {
 		let accountUID = UUID().uuidString
 		let credential = GoogleDriveCredential(with: accountUID)
-		GoogleDriveCloudAuthenticator.authenticate(credential: credential, from: self).then {
+		GoogleDriveAuthenticator.authenticate(credential: credential, from: self).then {
 			print("authenticated with accountUID: \(accountUID)")
 
 			let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .googleDrive)
