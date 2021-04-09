@@ -102,7 +102,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
-		observation = dbManager.observeVaultAccounts(onError: onError, onChange: { _ in
+		observation = dbManager.observeCloudProviderAccounts(onError: onError, onChange: { _ in
 			do {
 				try self.refreshItems()
 				onChange()
