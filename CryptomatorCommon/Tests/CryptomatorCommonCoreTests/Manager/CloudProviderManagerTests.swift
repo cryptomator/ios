@@ -6,10 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 import XCTest
-import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 
 class CloudProviderManagerTests: XCTestCase {

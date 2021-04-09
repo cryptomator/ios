@@ -6,8 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import CryptomatorCloudAccess
+import CryptomatorCommonCore
 import UIKit
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
 	lazy var confirmButton: UIBarButtonItem = {

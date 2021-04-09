@@ -6,8 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import CryptomatorCloudAccess
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 class ExistingVaultInstallViewController: UIViewController {

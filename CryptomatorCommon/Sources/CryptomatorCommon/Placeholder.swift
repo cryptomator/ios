@@ -1,6 +1,6 @@
 //
 //  Placeholder.swift
-//  
+//
 //
 //  Created by Philipp Schmid on 04.04.21.
 //

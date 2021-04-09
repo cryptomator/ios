@@ -5,8 +5,8 @@
 //  Created by Philipp Schmid on 09.11.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
-import CryptomatorCommonCore
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 import UIKit
