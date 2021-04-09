@@ -46,7 +46,7 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 		tableView.rowHeight = 44
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton
-		let doneButton = UIBarButtonItem(title: NSLocalizedString("common.button.done", comment: ""), style: .plain, target: self, action: #selector(done))
+		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 	}
 
