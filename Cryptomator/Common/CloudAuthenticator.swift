@@ -38,10 +38,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let pendingPromise = Promise<WebDAVCredential>.pending()
-		let webDAVLoginViewController = WebDAVLoginViewController(pendingAuthenticationPromise: pendingPromise)
-		viewController.present(webDAVLoginViewController, animated: true)
-		return pendingPromise.then { credential -> CloudProviderAccount in
+		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try self.accountManager.saveNewAccount(account)
 			return account

@@ -16,6 +16,9 @@
 "common.button.remove" = "Remove";
 "common.footer.learnMore" = "Learn more.";
 "common.cloudProviderType.localFileSystem" = "Other File Provider";
+"common.cells.password" = "Password";
+"common.cells.url" = "URL";
+"common.cells.username" = "Username";
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
@@ -31,3 +34,11 @@
 "vaultList.emptyList.message" = "Tap here to add a vault";
 "vaultList.alert.remove.title" = "Remove Vault?";
 "vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
+"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
+
