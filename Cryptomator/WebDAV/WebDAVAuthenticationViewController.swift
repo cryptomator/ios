@@ -25,6 +25,7 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 		let urlCell = URLFieldCell(style: .default, reuseIdentifier: "URLFieldCell")
 		urlCell.textField.placeholder = NSLocalizedString("common.cells.url", comment: "")
 		urlCell.textField.text = "https://"
+		urlCell.textField.becomeFirstResponder()
 		return urlCell
 	}()
 

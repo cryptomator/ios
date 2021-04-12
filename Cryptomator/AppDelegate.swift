@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		coordinator?.start()
 
 		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.tintColor = UIColor(named: "primary")
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true
