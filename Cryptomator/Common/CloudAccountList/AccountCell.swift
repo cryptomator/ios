@@ -15,7 +15,6 @@ class AccountCellButton: UIButton {
 		self.cell = cell
 		setImage(UIImage(named: "actions"), for: .normal)
 		setImage(UIImage(named: "actions-selected"), for: .selected)
-		tintColor = UIColor(named: "primary")
 		sizeToFit()
 	}
 

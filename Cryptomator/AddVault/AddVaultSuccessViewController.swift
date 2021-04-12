@@ -103,7 +103,6 @@ private class VaultSuccessFooterView: UIView {
 		let learnMoreLink = NSAttributedString(string: NSLocalizedString("common.footer.learnMore", comment: ""), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
 		text.append(learnMoreLink)
 		textView.attributedText = text
-		textView.linkTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(named: "primary")!]
 		textView.isUserInteractionEnabled = true
 		textView.font = .preferredFont(forTextStyle: .footnote)
 
