@@ -60,6 +60,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		CloudProviderManager.shared.useBackgroundSession = false
 
+		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, appGroupName: CryptomatorConstants.appGroupName)
+		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, appGroupName: CryptomatorConstants.appGroupName, mainAppBundleId: CryptomatorConstants.mainAppBundleId)
+
 		// Application wide styling
 		UINavigationBar.appearance().barTintColor = UIColor(named: "primary")
 		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
