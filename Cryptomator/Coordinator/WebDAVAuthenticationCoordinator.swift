@@ -44,7 +44,6 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 		}))
 		alertController.addAction(UIAlertAction(title: NSLocalizedString("untrustedTLSCertificate.dismiss", comment: ""), style: .cancel))
 		viewController.present(alertController, animated: true)
-		alertController.view.tintColor = UIColor(named: "primary")
 	}
 
 	func cancel() {
