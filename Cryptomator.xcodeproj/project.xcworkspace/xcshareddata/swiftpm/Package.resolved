@@ -23,8 +23,8 @@
         "package": "CryptomatorCloudAccess",
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
-          "branch": "feature/cloud-access-private-merge",
-          "revision": "ff0450d582853198b0d81e19b52ea40b79630076",
+          "branch": "develop",
+          "revision": "06f5f8313eccf5b161070a1e7b2bcfb023166f4d",
           "version": null
         }
       },
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
         "state": {
           "branch": null,
-          "revision": "b06614d2373a9830c87817144d47ce654980a2d7",
-          "version": "3.7.0"
+          "revision": "c2111e1262004053911681334ed060a06cbdcd56",
+          "version": "3.7.1"
         }
       },
       {

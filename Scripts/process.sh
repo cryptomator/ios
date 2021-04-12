@@ -67,7 +67,7 @@ function process_output() {
   echo Execution time was `expr $end - $start` seconds.
 }
 
-process "SwiftFormat" "swiftformat --lint ."
+process_output "SwiftFormat" "swiftformat --lint --quiet ."
 
 if [[ $final_status -gt 0 ]]
 then

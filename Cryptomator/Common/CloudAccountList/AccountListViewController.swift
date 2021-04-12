@@ -108,8 +108,8 @@ class AccountListViewController: SingleSectionTableViewController {
 }
 
 #if DEBUG
-import CryptomatorCommonCore
 import CryptomatorCloudAccess
+import CryptomatorCommonCore
 import Promises
 import SwiftUI
 private class AccountListViewModelMock: AccountListViewModelProtocol {

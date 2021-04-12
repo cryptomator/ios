@@ -6,10 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommon
-import CryptomatorCommonCore
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
+import CryptomatorCommon
+import CryptomatorCommonCore
 import ObjectiveDropboxOfficial
 import UIKit
 @UIApplicationMain
@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		coordinator?.start()
 
 		window = UIWindow(frame: UIScreen.main.bounds)
+		window?.tintColor = UIColor(named: "primary")
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true
@@ -84,11 +85,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				if authResult.isSuccess() {
 					let tokenUid = authResult.accessToken.uid
 					let credential = DropboxCredential(tokenUid: tokenUid)
-					DropboxCloudAuthenticator.pendingAuthentication?.fulfill(credential)
+					DropboxAuthenticator.pendingAuthentication?.fulfill(credential)
 				} else if authResult.isCancel() {
-					DropboxCloudAuthenticator.pendingAuthentication?.reject(DropboxAuthenticationError.userCanceled)
+					DropboxAuthenticator.pendingAuthentication?.reject(DropboxAuthenticatorError.userCanceled)
 				} else if authResult.isError() {
-					DropboxCloudAuthenticator.pendingAuthentication?.reject(authResult.nsError)
+					DropboxAuthenticator.pendingAuthentication?.reject(authResult.nsError)
 				}
 			}
 			return canHandle

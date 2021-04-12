@@ -27,7 +27,6 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init() {
 		self.init(reuseIdentifier: nil)
 
-		editButton.setTitleColor(UIColor(named: "primary"), for: .normal)
 		editButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
 
 		title.font = UIFont.preferredFont(forTextStyle: .footnote)

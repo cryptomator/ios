@@ -8,8 +8,8 @@
 import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
-@testable import CryptomatorCommonCore
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
 class DatabaseManagerTests: XCTestCase {
 	var tmpDir: URL!
 	var dbPool: DatabasePool!

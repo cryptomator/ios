@@ -6,9 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
-import CryptomatorCloudAccessCore
 import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 import UIKit
@@ -20,7 +20,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let authenticator = DropboxCloudAuthenticator()
+		let authenticator = DropboxAuthenticator()
 		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
@@ -30,7 +30,7 @@ class CloudAuthenticator {
 
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let credential = GoogleDriveCredential(with: UUID().uuidString)
-		return GoogleDriveCloudAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
+		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -38,10 +38,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let pendingPromise = Promise<WebDAVCredential>.pending()
-		let webDAVLoginViewController = WebDAVLoginViewController(pendingAuthenticationPromise: pendingPromise)
-		viewController.present(webDAVLoginViewController, animated: true)
-		return pendingPromise.then { credential -> CloudProviderAccount in
+		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try self.accountManager.saveNewAccount(account)
 			return account

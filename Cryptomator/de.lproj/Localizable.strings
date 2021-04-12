@@ -16,6 +16,9 @@
 "common.button.remove" = "Entfernen";
 "common.footer.learnMore" = "Mehr erfahren.";
 "common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
+"common.cells.url" = "URL";
+"common.cells.username" = "Username";
+"common.cells.password" = "Passwort";
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
@@ -31,3 +34,10 @@
 "vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
 "vaultList.alert.remove.title" = "Tresor entfernen?";
 "vaultList.alert.remove.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
+"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vertrauen";
+"untrustedTLSCertificate.dismiss" = "Nicht vertrauen";

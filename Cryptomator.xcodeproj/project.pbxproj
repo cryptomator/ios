@@ -22,7 +22,6 @@
 		4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingForUserDrivenActions.swift */; };
 		4A2245D324A5E16300DBA437 /* CryptomatorFileProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
-		4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A26DF852579525400675413 /* WebDAVLoginViewController.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */; };
 		4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */; };
@@ -66,7 +65,14 @@
 		4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */; };
 		4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 4A9172812619F17C003C4043 /* CryptomatorCommon */; };
 		4A91728B2619F1D0003C4043 /* CryptomatorCommonCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4A91728A2619F1D0003C4043 /* CryptomatorCommonCore */; };
+		4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */; };
+		4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */; };
+		4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */; };
+		4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */; };
 		4A9D3E7B2526494A000811B6 /* DropboxLoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */; };
+		4AA22BFB261CA69F00A17486 /* WebDAVAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */; };
+		4AA22C16261CA8D800A17486 /* URLFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22C15261CA8D800A17486 /* URLFieldCell.swift */; };
+		4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */; };
 		4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */; };
 		4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */; };
 		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
@@ -237,7 +243,6 @@
 		4A2245D224A5E16300DBA437 /* CryptomatorFileProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorFileProviderTests.swift; sourceTree = "<group>"; };
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
-		4A26DF852579525400675413 /* WebDAVLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVLoginViewController.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListMessage.swift; sourceTree = "<group>"; };
 		4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewController.swift; sourceTree = "<group>"; };
@@ -281,9 +286,16 @@
 		4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
 		4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionHeaderTableViewController.swift; sourceTree = "<group>"; };
+		4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewModel.swift; sourceTree = "<group>"; };
+		4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticating.swift; sourceTree = "<group>"; };
+		4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationCoordinator.swift; sourceTree = "<group>"; };
+		4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebDAVAuthenticator+VC.swift"; sourceTree = "<group>"; };
 		4A9D3E7A2526494A000811B6 /* DropboxLoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropboxLoginViewController.swift; sourceTree = "<group>"; };
 		4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtensionUI.entitlements; sourceTree = "<group>"; };
 		4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cryptomator.entitlements; sourceTree = "<group>"; };
+		4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewController.swift; sourceTree = "<group>"; };
+		4AA22C15261CA8D800A17486 /* URLFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLFieldCell.swift; sourceTree = "<group>"; };
+		4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsernameFieldCell.swift; sourceTree = "<group>"; };
 		4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FileProviderExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderExtension.swift; sourceTree = "<group>"; };
 		4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderEnumerator.swift; sourceTree = "<group>"; };
@@ -429,12 +441,14 @@
 				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
 				4A03255425A3685500E63D7A /* Coordinator.swift */,
 				4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */,
+				4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */,
 				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
 				4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */,
 				4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */,
 				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
 				4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */,
 				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
+				4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -588,9 +602,7 @@
 				4A447DEB25BF064300D9520D /* ChooseFolder */,
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */,
-				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
-				4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */,
-				4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */,
+				4AA22C25261CA96600A17486 /* Cells */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -616,7 +628,6 @@
 				4A8AAA102565892A00F5091E /* GoogleDriveLoginViewController.swift */,
 				4A8AAA1725658C3C00F5091E /* GoogleDriveStartViewController.swift */,
 				4AE97DAE24572E4900452814 /* ViewController.swift */,
-				4A26DF852579525400675413 /* WebDAVLoginViewController.swift */,
 			);
 			path = Prototype;
 			sourceTree = "<group>";
@@ -626,6 +637,28 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4AA22C08261CA71300A17486 /* WebDAV */ = {
+			isa = PBXGroup;
+			children = (
+				4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */,
+				4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */,
+				4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */,
+			);
+			path = WebDAV;
+			sourceTree = "<group>";
+		};
+		4AA22C25261CA96600A17486 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4AA22C15261CA8D800A17486 /* URLFieldCell.swift */,
+				4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */,
+				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
+				4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */,
+				4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		4AA621D7249A6A8400A0BCBD /* FileProviderExtension */ = {
@@ -670,16 +703,17 @@
 			children = (
 				4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */,
 				4AE97DB824572E4A00452814 /* Info.plist */,
-				7439031325E0008D00BB3B81 /* Localizable.strings */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
-				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
 				4A7BC0E825ADF13100F007B3 /* AddVault */,
 				4A8195E325ADB92600F7DDA1 /* Common */,
 				4A03256625A369F800E63D7A /* Coordinator */,
+				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
+				7439031325E0008D00BB3B81 /* Localizable.strings */,
 				4A8195F325ADB96200F7DDA1 /* Prototype */,
 				4A8195DB25ADB8AD00F7DDA1 /* VaultList */,
+				4AA22C08261CA71300A17486 /* WebDAV */,
 			);
 			path = Cryptomator;
 			sourceTree = "<group>";
@@ -1132,6 +1166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AE97DAF24572E4900452814 /* ViewController.swift in Sources */,
+				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
 				4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */,
 				4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */,
 				4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */,
@@ -1141,6 +1176,7 @@
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
+				4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */,
 				4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */,
 				4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */,
 				4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */,
@@ -1151,8 +1187,9 @@
 				4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */,
 				74FC576125ADED030003ED27 /* VaultCell.swift in Sources */,
 				4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */,
+				4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */,
 				4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */,
-				4A26DF862579525400675413 /* WebDAVLoginViewController.swift in Sources */,
+				4AA22C16261CA8D800A17486 /* URLFieldCell.swift in Sources */,
 				4A2FD07925B5D98B008565C8 /* CloudCell.swift in Sources */,
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
 				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
@@ -1166,6 +1203,8 @@
 				4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */,
 				4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */,
 				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
+				4AA22BFB261CA69F00A17486 /* WebDAVAuthenticationViewController.swift in Sources */,
+				4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */,
 				4AAA0737255AFFC20085AA4E /* ExistingVaultInstallViewController.swift in Sources */,
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
 				4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */,
@@ -1190,6 +1229,7 @@
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
 				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
 				4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */,
+				4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
