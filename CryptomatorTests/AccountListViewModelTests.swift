@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
 @testable import Cryptomator
@@ -75,6 +75,42 @@ class AccountListViewModelTests: XCTestCase {
 		XCTAssertEqual(0, dbManagerMock.updatedPositions[0].position)
 
 		XCTAssertEqual("account1", cloudAuthenticatorMock.deauthenticatedAccounts[0].accountUID)
+	}
+
+	func testWebDAVAccountCellContent() throws {
+		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
+		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
+		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
+		let baseURL = URL(string: "https://www.example.com")!
+		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
+		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
+		XCTAssertEqual("www.example.com", accountCellContent.mainLabelText)
+		XCTAssertEqual("Alice", accountCellContent.detailLabelText)
+	}
+
+	func testWebDAVAccountCellContentWithPathInDetailLabel() throws {
+		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
+		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
+		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
+		let baseURL = URL(string: "https://www.example.com/path")!
+		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
+		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
+		XCTAssertEqual("www.example.com", accountCellContent.mainLabelText)
+		XCTAssertEqual("Alice • /path", accountCellContent.detailLabelText)
+	}
+
+	func testWebDAVAccountCellContentWithUnknownHost() throws {
+		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
+		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
+		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
+		let baseURL = URL(string: "www")!
+		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
+		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
+		XCTAssertEqual("<unknown-host>", accountCellContent.mainLabelText)
+		XCTAssertEqual("Alice • www", accountCellContent.detailLabelText)
 	}
 }
 

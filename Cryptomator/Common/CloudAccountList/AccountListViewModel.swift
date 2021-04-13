@@ -82,8 +82,15 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	private func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
-		return AccountCellContent(mainLabelText: credential.username, detailLabelText: credential.baseURL.path)
+	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
+		let detailLabelText: String
+		let path = credential.baseURL.path
+		if path.count > 0, path != "/" {
+			detailLabelText = "\(credential.username) • \(path)"
+		} else {
+			detailLabelText = credential.username
+		}
+		return AccountCellContent(mainLabelText: credential.baseURL.host ?? "<unknown-host>", detailLabelText: detailLabelText)
 	}
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {
