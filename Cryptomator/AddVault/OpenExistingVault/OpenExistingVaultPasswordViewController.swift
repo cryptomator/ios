@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import UIKit
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
 	lazy var confirmButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: NSLocalizedString("common.button.confirm", comment: ""), style: .plain, target: self, action: #selector(verify))
+		let button = UIBarButtonItem(title: NSLocalizedString("common.button.confirm", comment: ""), style: .done, target: self, action: #selector(verify))
 		button.isEnabled = false
 		return button
 	}()

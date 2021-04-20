@@ -34,7 +34,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 		tableView.contentInsetAdjustmentBehavior = .never
 		tableView.separatorStyle = .none
 
-		let addVaultButton = UIBarButtonItem(title: NSLocalizedString("common.button.add", comment: ""), style: .plain, target: self, action: #selector(addVault))
+		let addVaultButton = UIBarButtonItem(title: NSLocalizedString("common.button.add", comment: ""), style: .done, target: self, action: #selector(addVault))
 		navigationItem.rightBarButtonItem = addVaultButton
 		navigationController?.setToolbarHidden(true, animated: true)
 	}
