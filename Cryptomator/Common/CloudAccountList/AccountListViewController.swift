@@ -45,10 +45,14 @@ class AccountListViewController: SingleSectionTableViewController {
 		}
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		header.isEditing = editing
+	}
+
 	// TODO: Refactor this & VaultListVC and subclass
 	@objc func editButtonToggled() {
-		tableView.setEditing(!tableView.isEditing, animated: true)
-		header.isEditing = tableView.isEditing
+		setEditing(!isEditing, animated: true)
 	}
 
 	@objc func showLogoutActionSheet(sender: AccountCellButton) {
@@ -60,6 +64,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	@objc func addNewAccount() {
+		setEditing(false, animated: true)
 		coordinator?.showAddAccount(for: viewModel.cloudProviderType, from: self)
 	}
 

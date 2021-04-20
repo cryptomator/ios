@@ -57,15 +57,22 @@ class VaultListViewController: UITableViewController {
 		}
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		header.isEditing = editing
+	}
+
 	@objc func addNewVault() {
+		setEditing(false, animated: true)
 		coordinator?.addVault()
 	}
 
-	@objc func showSettings() {}
+	@objc func showSettings() {
+		setEditing(false, animated: true)
+	}
 
 	@objc func editButtonToggled() {
-		tableView.setEditing(!tableView.isEditing, animated: true)
-		header.isEditing = tableView.isEditing
+		setEditing(!isEditing, animated: true)
 	}
 
 	// MARK: TableView
