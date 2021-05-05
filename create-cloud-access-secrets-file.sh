@@ -17,5 +17,7 @@ public struct CloudAccessSecrets {
 	public static let googleDriveRedirectURL = URL(string: "${GOOGLE_DRIVE_REDIRECT_URL}")
 	public static let dropboxAppKey = "${DROPBOX_APP_KEY}"
 	public static let dropboxURLScheme = "db-${DROPBOX_APP_KEY}"
+	public static let oneDriveClientId = "${ONEDRIVE_CLIENT_ID}"
+	public static let oneDriveRedirectUri = "${ONEDRIVE_REDIRECT_URI_SCHEME}://auth"
 }
 EOM

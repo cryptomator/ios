@@ -37,6 +37,15 @@ class CloudAuthenticator {
 		}
 	}
 
+	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		OneDriveAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+		
+	}
+
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
@@ -51,6 +60,8 @@ class CloudAuthenticator {
 			return authenticateDropbox(from: viewController)
 		case .googleDrive:
 			return authenticateGoogleDrive(from: viewController)
+		case .oneDrive:
+			return authenticateOneDrive(from: viewController)
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		case .localFileSystem:
@@ -66,6 +77,9 @@ class CloudAuthenticator {
 		case .googleDrive:
 			let credential = GoogleDriveCredential(with: account.accountUID)
 			credential.deauthenticate()
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: account.accountUID)
+			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVAuthenticator.removeCredentialFromKeychain(with: account.accountUID)
 		case .localFileSystem:

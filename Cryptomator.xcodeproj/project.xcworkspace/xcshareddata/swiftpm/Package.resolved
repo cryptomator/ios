@@ -24,7 +24,7 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": "develop",
-          "revision": "06f5f8313eccf5b161070a1e7b2bcfb023166f4d",
+          "revision": "328fb123f8e9fdc38dd3ceb8e14b378286e28e97",
           "version": null
         }
       },
@@ -89,6 +89,51 @@
           "branch": null,
           "revision": "319b2371c69138665d8cbd7c6700ceccbb49e04f",
           "version": "1.1.0"
+        }
+      },
+      {
+        "package": "JOSESwift",
+        "repositoryURL": "https://github.com/airsidemobile/JOSESwift.git",
+        "state": {
+          "branch": null,
+          "revision": "10ed3b6736def7c26eb87135466b1cb46ea7e37f",
+          "version": "2.4.0"
+        }
+      },
+      {
+        "package": "MSAL",
+        "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
+        "state": {
+          "branch": null,
+          "revision": "06a2a1cd11d72ef19a09d4b66b292f5185337692",
+          "version": "1.1.17"
+        }
+      },
+      {
+        "package": "MSGraphClientSDK",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc.git",
+        "state": {
+          "branch": "swift-pm",
+          "revision": "a4d0a18ab62176762e4efc2f56021c2f386d98bc",
+          "version": null
+        }
+      },
+      {
+        "package": "MSGraphMSALAuthProvider",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-auth.git",
+        "state": {
+          "branch": "swift-pm",
+          "revision": "2b3c3fd3c3252608b2f8e53a71e1a57a48925690",
+          "version": null
+        }
+      },
+      {
+        "package": "MSGraphClientModels",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-models.git",
+        "state": {
+          "branch": "1.3.0-fixed",
+          "revision": "edd261b525df0e5b56f1a3989210244ed5c18cfe",
+          "version": null
         }
       },
       {

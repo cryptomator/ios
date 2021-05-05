@@ -35,6 +35,9 @@ public class CloudProviderManager {
 		case .dropbox:
 			let credential = DropboxCredential(tokenUid: accountUID)
 			provider = DropboxCloudProvider(with: credential)
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: accountUID)
+			provider = try OneDriveCloudProvider(credential: credential)
 		case .webDAV:
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError

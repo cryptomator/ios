@@ -56,6 +56,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		case .googleDrive:
 			let credential = GoogleDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: accountInfo.accountUID)
+			return try createAccountCellContent(for: credential)
 		case .webDAV:
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
@@ -78,6 +81,11 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	private func createAccountCellContent(for credential: GoogleDriveCredential) throws -> AccountCellContent {
+		let username = try credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+	}
+
+	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
 		let username = try credential.getUsername()
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}

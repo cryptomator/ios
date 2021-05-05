@@ -10,6 +10,7 @@ import Foundation
 public enum CloudProviderType: String, Codable {
 	case googleDrive
 	case dropbox
+	case oneDrive
 	case webDAV
 	case localFileSystem
 }

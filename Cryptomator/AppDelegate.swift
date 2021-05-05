@@ -12,6 +12,7 @@ import CryptomatorCommon
 import CryptomatorCommonCore
 import ObjectiveDropboxOfficial
 import UIKit
+import MSAL
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
@@ -62,7 +63,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, appGroupName: CryptomatorConstants.appGroupName)
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, appGroupName: CryptomatorConstants.appGroupName, mainAppBundleId: CryptomatorConstants.mainAppBundleId)
-
+		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
+		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+		do {
+			OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+		} catch {
+			print("Error while setting up OneDrive: \(error)")
+		}
 		// Application wide styling
 		UINavigationBar.appearance().barTintColor = UIColor(named: "primary")
 		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]

@@ -15,6 +15,8 @@ extension CloudProviderType {
 			return "Dropbox"
 		case .googleDrive:
 			return "Google Drive"
+		case .oneDrive:
+			return "OneDrive"
 		case .webDAV:
 			return "WebDAV"
 		case .localFileSystem:

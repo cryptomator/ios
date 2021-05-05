@@ -11,6 +11,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProvider
+import MSAL
 
 class FileProviderExtension: NSFileProviderExtension {
 	var fileManager = FileManager()
@@ -31,6 +32,11 @@ class FileProviderExtension: NSFileProviderExtension {
 					let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 					CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
 					FileProviderExtension.sharedDatabaseInitialized = true
+					OneDriveSetup.appGroupName = CryptomatorConstants.appGroupName
+					let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
+					oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+					OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+
 				} catch {
 					// MARK: Handle error
 
