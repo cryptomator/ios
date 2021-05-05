@@ -23,7 +23,8 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>DROPBOX_APP_URL_SCHEME</string>
+				<string></string>
+				<string></string>
 			</array>
 		</dict>
 	</array>

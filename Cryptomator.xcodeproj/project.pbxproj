@@ -877,6 +877,7 @@
 				4A965F342523978B002D7CBC /* Embed Frameworks */,
 				4AEE469525263B2E0045DA9F /* Embed App Extensions */,
 				742595D72552EE0000A8A008 /* Set Build Number */,
+				4A41D25026428D2900B5D787 /* Set URL Schemes */,
 			);
 			buildRules = (
 			);
@@ -1045,6 +1046,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		4A41D25026428D2900B5D787 /* Set URL Schemes */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(TARGET_BUILD_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "Set URL Schemes";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleURLTypes:0:CFBundleURLSchemes:0 db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n/usr/libexec/PlistBuddy -c \"Set :CFBundleURLTypes:0:CFBundleURLSchemes:1 ${GOOGLE_DRIVE_REDIRECT_URL}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n\n";
+		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1668,7 +1688,6 @@
 				CURRENT_PROJECT_VERSION = AUTOMATIC;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
-				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1693,7 +1712,6 @@
 				CURRENT_PROJECT_VERSION = AUTOMATIC;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				INFOPLIST_FILE = Cryptomator/Info.plist;
-				INFOPLIST_PREFIX_HEADER = CryptomatorEnvironmentVariables.h;
 				INFOPLIST_PREPROCESS = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
