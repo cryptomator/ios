@@ -36,6 +36,7 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseCloudCell", for: indexPath) as! CloudCell
 		let cloudProviderType = viewModel.clouds[indexPath.row]
 		if #available(iOS 14, *) {

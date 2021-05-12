@@ -13,6 +13,7 @@ import FileProvider
 import Foundation
 
 extension FileProviderExtension {
+	// swiftlint:disable:next function_body_length
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DDLogInfo("FPExt: importDocument(at: \(fileURL), toParentItemIdentifier: \(parentItemIdentifier.rawValue))")
 		guard let decorator = self.decorator else {

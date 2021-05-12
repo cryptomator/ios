@@ -10,9 +10,9 @@ import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommon
 import CryptomatorCommonCore
+import MSAL
 import ObjectiveDropboxOfficial
 import UIKit
-import MSAL
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,22 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		// FIXME: Dirty hack, which nukes database when there is a new version
-		let userDefaults = UserDefaults.standard
-		let appVersionKey = "CryptomatorUserDefaultAppVersion"
-		let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-		let previousVersion = userDefaults.string(forKey: appVersionKey)
-		if previousVersion == nil || previousVersion != currentAppVersion {
-			do {
-				let dbPool = DatabaseManager.shared.dbPool
-				try dbPool.erase()
-				CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-				DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
-			} catch {
-				print("Error while nuking the CryptomatorDatabase: \(error)")
-				return false
-			}
+		do {
+			try nukeDatabase()
+		} catch {
+			print("Error while nuking the CryptomatorDatabase: \(error)")
+			return false
 		}
-		userDefaults.set(currentAppVersion, forKey: appVersionKey)
 
 		// Clean up
 		VaultManager.shared.removeAllUnusedFileProviderDomains().then {
@@ -89,6 +79,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		window?.rootViewController = navigationController
 		window?.makeKeyAndVisible()
 		return true
+	}
+
+	private func nukeDatabase() throws {
+		let userDefaults = UserDefaults.standard
+		let appVersionKey = "CryptomatorUserDefaultAppVersion"
+		// swiftlint:disable:next force_cast
+		let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+		let previousVersion = userDefaults.string(forKey: appVersionKey)
+		if previousVersion == nil || previousVersion != currentAppVersion {
+			let dbPool = DatabaseManager.shared.dbPool
+			try dbPool.erase()
+			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
+			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
+		}
+		userDefaults.set(currentAppVersion, forKey: appVersionKey)
 	}
 
 	func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {

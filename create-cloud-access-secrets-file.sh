@@ -11,8 +11,10 @@ cat > ./CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swift
 //  Created by Tobias Hagemann on 19.05.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
+
 import Foundation
-public struct CloudAccessSecrets {
+
+public enum CloudAccessSecrets {
 	public static let googleDriveClientId = "${GOOGLE_DRIVE_CLIENT_ID}"
 	public static let googleDriveRedirectURL = URL(string: "${GOOGLE_DRIVE_REDIRECT_URL}")
 	public static let dropboxAppKey = "${DROPBOX_APP_KEY}"

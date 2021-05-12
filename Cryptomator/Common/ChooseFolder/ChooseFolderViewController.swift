@@ -98,8 +98,10 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		let item = viewModel.items[indexPath.row]
 		switch item.itemType {
 		case .folder:
+			// swiftlint:disable:next force_cast
 			cell = tableView.dequeueReusableCell(withIdentifier: "FolderCell", for: indexPath) as! FolderCell
 		default:
+			// swiftlint:disable:next force_cast
 			cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as! FileCell
 		}
 

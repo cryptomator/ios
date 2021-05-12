@@ -58,6 +58,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	@objc func showLogoutActionSheet(sender: AccountCellButton) {
+		// swiftlint:disable:next unused_optional_binding
 		guard let cell = sender.cell, let _ = tableView.indexPath(for: cell) else {
 			return
 		}
@@ -77,6 +78,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath) as! AccountCell
 		let account = viewModel.accounts[indexPath.row]
 		if #available(iOS 14, *) {

@@ -60,6 +60,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordFieldCell", for: indexPath) as! PasswordFieldCell
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 		cell.textField.becomeFirstResponder()

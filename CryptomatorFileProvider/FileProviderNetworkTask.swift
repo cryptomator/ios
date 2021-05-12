@@ -77,6 +77,7 @@ class FileProviderNetworkTask: URLSessionTask {
 		get {
 			return 410
 		}
+		// swiftlint:disable:next unused_setter_value
 		set {}
 	}
 
@@ -84,6 +85,7 @@ class FileProviderNetworkTask: URLSessionTask {
 		get {
 			return 410
 		}
+		// swiftlint:disable:next unused_setter_value
 		set {}
 	}
 }

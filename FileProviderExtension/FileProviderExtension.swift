@@ -131,6 +131,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
+	// swiftlint:disable:next function_body_length
 	override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		// Should ensure that the actual file is in the position returned by URLForItemWithIdentifier:, then call the completion handler
 

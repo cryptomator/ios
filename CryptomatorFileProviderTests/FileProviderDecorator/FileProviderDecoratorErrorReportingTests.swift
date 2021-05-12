@@ -1,5 +1,5 @@
 //
-//  FileProviderDecoratorErrorReportingForUserDrivenActions.swift
+//  FileProviderDecoratorErrorReportingTests.swift
 //  CryptomatorFileProviderTests
 //
 //  Created by Philipp Schmid on 16.07.20.
@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
 
-class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecoratorTestCase {
+class FileProviderDecoratorErrorReportingTests: FileProviderDecoratorTestCase {
 	func testReportErrorWithFileProviderItemWithoutCorrespondingUploadTask() throws {
 		let lastModifiedDate = Date(timeIntervalSinceReferenceDate: 0)
 		let cloudPath = CloudPath("/TestItem")

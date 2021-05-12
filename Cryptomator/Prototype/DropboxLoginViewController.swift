@@ -15,6 +15,7 @@ import Promises
 import UIKit
 class DropboxLoginViewController: UIViewController {
 	private var vaultUIDInput: UITextField?
+	// swiftlint:disable:next function_body_length
 	override func loadView() {
 		let rootView = UIStackView()
 		rootView.backgroundColor = .white

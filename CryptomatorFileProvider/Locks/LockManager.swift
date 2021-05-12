@@ -18,13 +18,22 @@ import Promises
  let pathLock = LockManager.getPathLockForReading("/foo/bar/baz")
  let dataLock = LockManager.getDataLockForWriting("/foo/bar/baz")
  pathLock.lock().then {
- 	datalock.lock()
+ 	dataLock.lock()
  }.then {
  	// write to file
  }.always {
   	dataLock.unlock().then{
-  	 	pathLock.unlock()
+ 		pathLock.unlock()
  	}
+ }
+ ```
+
+ Alternatively, use the convenience method to lock/unlock multiple locks in order:
+ ```
+ FileSystemLock.lockInOrder([pathLock, dataLock]).then {
+ 	// write to file
+ }.always {
+ 	_ = FileSystemLock.unlockInOrder([dataLock, pathLock])
  }
  ```
  */

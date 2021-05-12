@@ -44,6 +44,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
 		cell.button.setTitle(NSLocalizedString("addVault.success.openFilesApp", comment: ""), for: .normal)
 		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)

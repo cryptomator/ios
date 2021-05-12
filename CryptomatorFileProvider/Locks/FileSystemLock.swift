@@ -28,4 +28,24 @@ class FileSystemLock {
 			lockNode.unlock()
 		}
 	}
+
+	public static func lockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
+		guard let firstLock = locks.first else {
+			return Promise(())
+		}
+		return firstLock.lock().then { _ -> Promise<Void> in
+			let remainingLocks = Array(locks.dropFirst())
+			return lockInOrder(remainingLocks)
+		}
+	}
+
+	public static func unlockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
+		guard let firstLock = locks.first else {
+			return Promise(())
+		}
+		return firstLock.unlock().then { _ -> Promise<Void> in
+			let remainingLocks = Array(locks.dropFirst())
+			return unlockInOrder(remainingLocks)
+		}
+	}
 }

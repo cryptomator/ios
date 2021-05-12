@@ -34,12 +34,12 @@ export WEBDAV_PASSWORD=...
 
 Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question or help us with coding.
 
-This project uses [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) to enforce code style and conventions. Install this tool if you haven't already.
+This project uses [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) and [SwiftLint](https://github.com/realm/SwiftLint) to enforce code style and conventions. Install these tools if you haven't already.
 
 Please make sure that your code is correctly formatted and passes linter validations. The easiest way to do that is to set up a pre-commit hook. Create a file at `.git/hooks/pre-commit` with this content:
 
 ```sh
-./Scripts/process.sh --fail-on-errors
+./Scripts/process.sh --staged
 exit $?
 ```
 

@@ -18,9 +18,8 @@ jobs:
             ${{ runner.os }}-spm-
       - name: Run process.sh script
         run: |
-          ./Scripts/process.sh --fail-on-errors
-          failed=$?
-          exit $failed
+          ./Scripts/process.sh
+          exit $?
       - name: Create CloudAccessSecrets
         run: ./create-cloud-access-secrets-file.sh
         env:
