@@ -113,8 +113,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 			}
 			return canHandle
+		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURL?.scheme {
+			return GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) ?? false
 		}
 		#warning("TODO: Handle OneDrive URL scheme")
-		return true
+		return false
 	}
 }
