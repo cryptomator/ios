@@ -32,14 +32,15 @@ export WEBDAV_PASSWORD=...
 
 ## Contributing
 
-Install [SwiftFormat](https://github.com/nicklockwood/SwiftFormat/) if you haven't already.
+Please read our [contribution guide](.github/CONTRIBUTING.md), if you would like to report a bug, ask a question or help us with coding.
 
-Please make sure that your code is correctly formatted. The easiest way to do that is to set up a pre-commit hook. Create a file at `.git/hooks/pre-commit` with this content:
+This project uses [SwiftFormat](https://github.com/nicklockwood/SwiftFormat) to enforce code style and conventions. Install this tool if you haven't already.
+
+Please make sure that your code is correctly formatted and passes linter validations. The easiest way to do that is to set up a pre-commit hook. Create a file at `.git/hooks/pre-commit` with this content:
 
 ```sh
 ./Scripts/process.sh --fail-on-errors
-failed=$?
-exit $failed
+exit $?
 ```
 
 You may have to make the scripts executable:
@@ -48,3 +49,11 @@ You may have to make the scripts executable:
 chmod +x Scripts/process.sh
 chmod +x .git/hooks/pre-commit
 ```
+
+## Code of Conduct
+
+Help us keep Cryptomator open and inclusive. Please read and follow our [Code of Conduct](.github/CODE_OF_CONDUCT.md).
+
+## License
+
+Distributed under the GPLv3. See the LICENSE file for more info.
