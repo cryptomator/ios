@@ -1,12 +1,13 @@
 //
 //  LocalFileSystemBookmarkManager.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 23.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
 import Foundation
+
 public enum LocalFileSystemBookmarkManager {
 	public static func getBookmarkedRootURL(for accountUID: String) throws -> URL? {
 		guard let bookmarkData = CryptomatorKeychain.localFileSystem.getAsData(accountUID) else {

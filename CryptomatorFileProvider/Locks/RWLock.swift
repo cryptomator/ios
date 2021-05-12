@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 final class RWLock {
 	private var lock: pthread_rwlock_t
 

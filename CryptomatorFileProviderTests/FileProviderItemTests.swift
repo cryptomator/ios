@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import MobileCoreServices
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
 		let cloudPath = CloudPath("/")

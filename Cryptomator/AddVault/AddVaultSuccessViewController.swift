@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class AddVaultSuccessViewController: SingleSectionTableViewController {
 	let vaultName: String
 	weak var coordinator: AddVaultSuccesing?
@@ -32,13 +33,13 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 		coordinator?.showFilesApp()
 	}
 
-	// MARK: Table View
+	// MARK: - UITableViewDataSource
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 1
 	}
 
@@ -48,6 +49,8 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)
 		return cell
 	}
+
+	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return VaultSuccessHeaderView(vaultName: vaultName)

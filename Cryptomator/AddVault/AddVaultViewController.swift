@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class AddVaultViewController: UITableViewController {
 	weak var coordinator: AddVaultCoordinator?
 
@@ -27,28 +28,10 @@ class AddVaultViewController: UITableViewController {
 		coordinator?.close()
 	}
 
-	// MARK: TableView
+	// MARK: - UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		1
-	}
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = UIView()
-		let cryptoBotImage = UIImage(named: "bot")
-		let imageView = UIImageView(image: cryptoBotImage)
-		headerView.addSubview(imageView)
-
-		imageView.contentMode = .scaleAspectFit
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			imageView.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor),
-			imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20),
-			imageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20),
-			imageView.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor)
-		])
-
-		return headerView
+		return 1
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,6 +58,26 @@ class AddVaultViewController: UITableViewController {
 			cell.textLabel?.text = text
 		}
 		return cell
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let headerView = UIView()
+		let cryptoBotImage = UIImage(named: "bot")
+		let imageView = UIImageView(image: cryptoBotImage)
+		headerView.addSubview(imageView)
+
+		imageView.contentMode = .scaleAspectFit
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate([
+			imageView.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor),
+			imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20),
+			imageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20),
+			imageView.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor)
+		])
+
+		return headerView
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

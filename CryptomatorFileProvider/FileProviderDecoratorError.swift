@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum FileProviderDecoratorError: Error {
 	case unsupportedItemIdentifier
 	case folderUploadNotSupported

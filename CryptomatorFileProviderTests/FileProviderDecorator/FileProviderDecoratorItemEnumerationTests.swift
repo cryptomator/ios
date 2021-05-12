@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testWorkingSetReturnsEmptyItemList() {
 		let expectation = XCTestExpectation()

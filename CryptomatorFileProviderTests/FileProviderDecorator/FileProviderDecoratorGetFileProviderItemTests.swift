@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCase {
 	func testGetFileProviderItemThrowsForNonExistentItem() throws {
 		XCTAssertThrowsError(try decorator.getFileProviderItem(for: NSFileProviderItemIdentifier("2")), "Did not throw for non existent Item") { error in

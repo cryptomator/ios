@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCommonCore
+
 struct ChooseCloudViewModel: SingleSectionHeaderTableViewModelProtocol {
 	let clouds: [CloudProviderType]
 	let headerTitle: String

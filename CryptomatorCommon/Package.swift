@@ -1,6 +1,15 @@
 // swift-tools-version:5.1
 
+//
+//  Package.swift
+//  CryptomatorCommon
+//
+//  Created by Philipp Schmid on 04.04.21.
+//  Copyright © 2021 Skymatic GmbH. All rights reserved.
+//
+
 import PackageDescription
+
 let package = Package(
 	name: "CryptomatorCommon",
 	platforms: [

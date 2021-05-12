@@ -12,6 +12,7 @@ import CryptomatorCommonCore
 import Foundation
 import Promises
 import UIKit
+
 class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
 

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class EmptyListMessage: UIView {
 	convenience init(message: String) {
 		self.init(frame: CGRect.zero)
@@ -81,7 +82,7 @@ import SwiftUI
 
 struct EmptyListMessagePreview: PreviewProvider {
 	static var previews: some View {
-		EmptyListMessage(message: "Tap here to add a Vault").toPreview()
+		EmptyListMessage(message: "Tap here to add a vault").toPreview()
 	}
 }
 #endif

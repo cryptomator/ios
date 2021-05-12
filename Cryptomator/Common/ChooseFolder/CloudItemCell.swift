@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import UIKit
+
 protocol CloudItemCell: UITableViewCell {
 	var item: CloudItemMetadata? { get set }
 	func configure(with item: CloudItemMetadata)

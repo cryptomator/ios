@@ -11,8 +11,9 @@ import Foundation
 import GRDB
 
 class DatabaseManager {
-	let dbPool: DatabasePool
 	public static var shared: DatabaseManager!
+
+	let dbPool: DatabasePool
 
 	init(dbPool: DatabasePool) throws {
 		self.dbPool = dbPool
@@ -87,7 +88,7 @@ class DatabaseManager {
 	}
 
 	/**
-	 Since sqlite does not allow deferred unique constraints, we temporarily disable the not NULL check and change all positions to NULL and then save the correct positions.
+	 Since SQLite does not allow deferred unique constraints, we temporarily disable the `NOT NULL` check, change all positions to `NULL` and then save the correct positions.
 	 */
 	func updateVaultListPositions(_ positions: [VaultListPosition]) throws {
 		var tempPositions = positions
@@ -122,7 +123,7 @@ class DatabaseManager {
 	}
 
 	/**
-	 Since sqlite does not allow deferred unique constraints, we temporarily disable the not NULL check and change all positions to NULL and then save the correct positions.
+	 Since SQLite does not allow deferred unique constraints, we temporarily disable the `NOT NULL` check, change all positions to `NULL` and then save the correct positions.
 	 */
 	func updateAccountListPositions(_ positions: [AccountListPosition]) throws {
 		var tempPositions = positions

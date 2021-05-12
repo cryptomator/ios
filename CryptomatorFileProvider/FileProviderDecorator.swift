@@ -16,10 +16,6 @@ import GRDB
 import Promises
 
 public class FileProviderDecorator {
-	private let uploadQueue: DispatchQueue
-	private let downloadQueue: DispatchQueue
-	private let uploadSemaphore = DispatchSemaphore(value: 1)
-	private let downloadSemaphore = DispatchSemaphore(value: 2)
 	let itemMetadataManager: MetadataManager
 	let cachedFileManager: CachedFileManager
 	let uploadTaskManager: UploadTaskManager
@@ -28,6 +24,11 @@ public class FileProviderDecorator {
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
 	let vaultUID: String
+
+	private let uploadQueue: DispatchQueue
+	private let downloadQueue: DispatchQueue
+	private let uploadSemaphore = DispatchSemaphore(value: 1)
+	private let downloadSemaphore = DispatchSemaphore(value: 2)
 
 	init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
@@ -46,22 +47,26 @@ public class FileProviderDecorator {
 	/**
 	 Performs an enumeration on the item.
 
-	 On a folder, this contains all items within that folder. If the CloudProvider supports it, only page enumeration is performed and a `pageToken` is returned.
+	 On a folder, this contains all items within that folder. If the `CloudProvider` supports it, only page enumeration is performed and a `pageToken` is returned.
+
 	 If an enumeration is performed on a file, only its metadata is refreshed.
+
 	 An enumeration on the `workingSet` always returns an empty `FileProviderItemList`.
-	 This is because the contents of the working set are visible in the Recents tab of the Files app and could therefore also be visible when the Vault is locked.
+
+	 This is because the contents of the working set are visible in the "Recents" tab of the Files app and could therefore also be visible when the vault is locked.
+
 	 - Parameter identifier: The identifier of the item on which the enumeration is to be performed.
 	 - Parameter pageToken: (Optional) The page token that was previously returned when this function was called with the same identifier.
-	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the DB.
+	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the database.
 	 - Precondition: The `itemType` of the `ItemMetadata` is either file or folder.
 	 - Precondition: An authenticated `VaultDecorator` exists for the `vaultUID`.
-	 - returns: Depending on the type of item associated with the passed identifier, the following is returned:
-	 	- If the `identifier` is the workingSet: an empty `FileProviderItemList`
-	 	- If the `identifier` belonged to a folder: returns the FileProviderItems of the folder and if it was not a complete enumeration, i.e. there are more items in the folder, also a `nextPageToken`.
-	 	- If the `identifier` belongs to a file: an ItemList with exactly one `FileProviderItem`, which is the corresponding item to the `identifier`, is returned.
+	 - Returns: Depending on the type of item associated with the passed identifier, the following is returned:
+	   - If the `identifier` is the `workingSet`: empty `FileProviderItemList`.
+	   - If the `identifier` belongs to a folder: `FileProviderItemList` with children of the folder and if it was not a complete enumeration, i.e. there are more items in the folder, also a `nextPageToken`.
+	   - If the `identifier` belongs to a file: `FileProviderItemList` with exactly one `FileProviderItem`, which corresponds to the `identifier`.
 	 */
 	public func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
-		// TODO: Check for Internet Connection here
+		// TODO: Check for internet connection here
 		if identifier == .workingSet {
 			return Promise(FileProviderItemList(items: [], nextPageToken: nil))
 		}
@@ -83,19 +88,20 @@ public class FileProviderDecorator {
 		case .file:
 			return fetchItemMetadata(with: provider, fileMetadata: metadata)
 		default:
-			// TODO: Log Error
+			DDLogError("Unable to enumerate items on metadata type: \(metadata.type)")
 			return Promise(NSFileProviderError(.noSuchItem))
 		}
 	}
 
 	/**
-	 Updates the ItemMetadata with the ItemMetadata from the cloud.
-	 - Precondition: The passed `fileMetadata` has the `itemType` file
-	 - Precondition: The passed `fileMetadata` has already been stored in the database, i.e. it has an `id`
-	 - Postcondition: The updated `ItemMetadata` was stored in the database under the `id` of the passed `fileItemMetadata`
-	 - Postcondition: If there was an UploadError for the associated item, it was added to the returned `FileProviderItem`
-	 - Postcondition: If there was information about the associated local file, it was added to the returned `FileProviderItem`
-	 - returns: returns a `FileProviderItemList` containing exactly one `FileProviderItem` which is the updated version of the item corresponding to the identifier of the passed `fileMetadata`.
+	 Updates item metadata with the current one from the cloud.
+
+	 - Precondition: The `type` of the passed `fileMetadata` is `.file`.
+	 - Precondition: The passed `fileMetadata` has already been stored in the database, i.e. it has an `id`.
+	 - Postcondition: The updated `ItemMetadata` was stored in the database under the `id` of the passed `fileMetadata`
+	 - Postcondition: If there was an upload error for the associated item, it was added to the returned `FileProviderItem`.
+	 - Postcondition: If there was information about the associated local file, it was added to the returned `FileProviderItem`.
+	 - Returns: `FileProviderItemList` with exactly one `FileProviderItem`, which is the updated version of the item corresponding to the `id` of the passed `fileMetadata`.
 	 */
 	func fetchItemMetadata(with provider: CloudProvider, fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
 		assert(fileMetadata.type == .file)
@@ -130,19 +136,25 @@ public class FileProviderDecorator {
 	/**
 	 Starts fetching the contents of a folder.
 
-	 To ensure consistency with the Files App UI, some items need to be filtered out or added.
+	 To ensure consistency with the UI of the Files app, some items need to be filtered out or added.
+
 	 Since we can only be sure that items stored in the database are no longer in this folder once we have performed a complete enumeration of the folder, the following procedure has been introduced:
-	 For an enumeration that starts from the beginning (<=> `pageToken == nil`) all items of the folder are flagged as `maybeOutdated`.
-	 The maybeOutdated flag is automatically removed when the item is updated in the database.
+
+	 For an enumeration that starts from the beginning (<=> `pageToken == nil`), all items of the folder are flagged as `maybeOutdated`.
+
+	 The `maybeOutdated` flag is automatically removed when the item is updated in the database.
+
 	 When the enumeration of the folder is complete, i.e. we have retrieved all items of the folder from the cloud (<=> `nextPageToken == nil`), all items that are still flagged as `maybeOutdated` are removed.
-	 - Precondition: The passed `folderMetadata` has the `itemType` folder
-	 - Precondition: The passed `folderMetadata` has already been stored in the database, i.e. it has an `id`
+
+	 - Precondition: The `type` of the passed `folderMetadata` is `.folder`.
+	 - Precondition: The passed `folderMetadata` has already been stored in the database, i.e. it has an `id`.
 	 - Postcondition: All items that remain in this folder after all actions pending on this device (deletion, move) have been stored in the database.
-	 - Postcondition: (`pageToken == nil`) implies all items in this folder were flagged as maybeOutdated in the database.
+	 - Postcondition: (`pageToken == nil`) implies all items in this folder were flagged as `maybeOutdated` in the database.
 	 - Postcondition: All items that will be in the folder in the future, due to pending actions (move) on this device, are also included in the returned `FileProviderItemList`.
-	 - Postcondition: If there is an UploadError associated with an identifier of an item from the `FileProviderItemList, this information has been added to that item.
-	 - Postcondition: To each item from the returned `FileProviderItemList` the information about the locally cached file was added.
+	 - Postcondition: If there is an upload error associated with an identifier of an item from the `FileProviderItemList`, this information has been added to that item.
+	 - Postcondition: To each item from the returned `FileProviderItemList`, the information about the locally cached file was added.
 	 - Postcondition: If a full folder listing took place (`nextPageToken == nil`), all items still flagged as `maybeOutdated` were removed from the database.
+	 - Returns: `FileProviderItemList` with contents of the requested folder.
 	 */
 	func fetchItemList(with provider: CloudProvider, folderMetadata: ItemMetadata, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
 		assert(folderMetadata.type == .folder)
@@ -233,11 +245,12 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Returns the locally stored metadata for the passed `identifier` in the form of a `FileProviderItem`
+	 Gets the locally stored metadata for an identifier.
 
 	 - Precondition: The passed `identifier` is a valid `identifier` and the corresponding item is stored in the database.
-	 - Postcondition: If there was an UploadError for the associated item, it was added to the returned `FileProviderItem`
-	 - Postcondition: If there was information about the associated local file, it was added to the returned `FileProviderItem`
+	 - Postcondition: If there was an upload error for the associated item, it was added to the returned `FileProviderItem`.
+	 - Postcondition: If there was information about the associated local file, it was added to the returned `FileProviderItem`.
+	 - Returns: `FileProviderItem` with the locally stored metadata for the passed `identifier`.
 	 */
 	public func getFileProviderItem(for identifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
@@ -257,14 +270,17 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Checks if the local file is still up to date compared to the file in the cloud.
+	 Checks if the local file is still up-to-date compared to the file in the cloud.
 
-	 For performance reasons, it should be ensured before the call that the local file exists for which this check is performed.
+	 For performance reasons, it should be ensured, before the call, that the local file exists for which this check is performed.
+
 	 Only the change of the `lastModifiedDate` in the cloud is checked.
-	 If a cloud shows inconsistency here (for example, change of the file without change of the `lastModifiedDate`), this is not taken into account, although it might be possible with an additional comparison of the file size.
-	 - returns:
-	 	- `true` if the local file is still guaranteed to be the current one or we have no internet connection.
-	 	- `false` if the file in the cloud is a newer version or the cloud did not return a `lastModifiedDate` or there is no `localCachedFileInfo` for the passed `identifier`.
+
+	 If a cloud shows inconsistency here (e.g., change of the file without change of the `lastModifiedDate`), this is not taken into account, although it might be possible with an additional comparison of the file size.
+
+	 - Returns:
+	   - `true` if the local file is still guaranteed to be the current one or we have no internet connection.
+	   - `false` if the file in the cloud is a newer version or the cloud did not return a `lastModifiedDate` or there is no `localCachedFileInfo` for the passed `identifier`.
 	 */
 	public func localFileIsCurrent(with identifier: NSFileProviderItemIdentifier) -> Promise<Bool> {
 		let metadata: ItemMetadata
@@ -312,11 +328,10 @@ public class FileProviderDecorator {
 	/**
 	 Downloads a file.
 
-	  - Precondition: `localURL` must be a file URL
-	  - Precondition: `localURL` must point to a file
-	  - Precondition: The ItemMetadata associated with the `identifier` exists in the DB.
-	  - Postcondition: The ItemMetadata associated with the `identifier` has the status `.isUploaded` in the database
-	  - Postcondition: The localCachedEntry associated with the `identifier` has the `lastModifiedDate` of the item downloaded from the cloud in the database.
+	  - Precondition: `localURL` must be a file URL.
+	  - Precondition: The `ItemMetadata` associated with the `identifier` exists in the database.
+	  - Postcondition: The `ItemMetadata` associated with the `identifier` has the status `.isUploaded` in the database.
+	  - Postcondition: The `LocalCachedFileInfo` associated with the `identifier` has the `lastModifiedDate` of the item downloaded from the cloud in the database.
 	  */
 	public func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) -> Promise<FileProviderItem> {
 		let metadata: ItemMetadata
@@ -347,7 +362,7 @@ public class FileProviderDecorator {
 			let task = FileProviderNetworkTask(with: progress)
 			self.manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(metadata.id!))) { error in
 				if let error = error {
-					print("Register Task Error: \(error)")
+					DDLogError("Register Task Error: \(error)")
 				} else {
 					task.resume()
 				}
@@ -374,22 +389,23 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Post-processing the download.
+	 Post-process the download.
 
 	 Provides a uniform way of post-processing for overwriting and non-overwriting downloads.
+
 	 In the case of a non-overwriting download, the `localURL` and the `downloadDestination`, can be the same `URL`.
+
 	 - Parameter metadata: The metadata of the item for which post-processing is performed.
-	 - Parameter lastModifedDate: (Optional) The date the item was last modified in the cloud.
+	 - Parameter lastModifiedDate: (Optional) The date the item was last modified in the cloud.
 	 - Parameter localURL: The local URL where the downloaded file is located at the end.
 	 - Parameter downloadDestination: The local URL to which the file was downloaded.
 	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
 	 - Postcondition: The downloaded file is located at `localURL`.
-	 - Postcondition: If the `downloadDestination != localURL` there is no file left at `downloadDestination`.
-	 - Postcondition: The passed `metadata` has the `statusCode` `isUploaded` in the database
-	 - Postcondition: The `localCacheFileInfo` entry associated with the `metadata.id` has the passed `lastModifiedDate` and the passed `localURL` stored in the database.
-	 - Returns: A `FileProviderItem` for the passed `metadata` with the `statusCode` `isUploaded` and the flag `newestVersionLocallyCached` and the passed `localURL`.
+	 - Postcondition: If `downloadDestination != localURL`, there is no file left at `downloadDestination`.
+	 - Postcondition: The passed `metadata` has the `statusCode == .isUploaded` in the database
+	 - Postcondition: The `LocalCachedFileInfo` entry associated with the `metadata.id` has the passed `lastModifiedDate` and the passed `localURL` stored in the database.
+	 - Returns: A `FileProviderItem` for the passed `metadata` with `statusCode == .isUploaded` and the flag `newestVersionLocallyCached` and the passed `localURL`.
 	 */
-
 	func downloadPostProcessing(for metadata: ItemMetadata, lastModifiedDate: Date?, localURL: URL, downloadDestination: URL) throws -> FileProviderItem {
 		if localURL != downloadDestination {
 			try FileManager.default.removeItem(at: localURL)
@@ -402,13 +418,13 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Creates a PlaceholderItem for a file.
+	 Creates a placeholder item for a file.
 
 	 - Precondition: A file exists at the passed `localURL`.
 	 - Precondition: The database does not yet contain an `ItemMetadata` entry for this file.
-	 - Postcondition: It exists an `ItemMetadata` entry in the database with the attributes of the local file, `isPlaceholderItem = true` and `statusCode = isUploading`.
-	 - Postcondition: A `LocalCachedFileInfo` with the `localURL` exists in the Database and has as `correspondingItem` Id, the Id of the newly created `ItemMetadata` entry.
-	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached = true`  and the passed `localURL` of the file.
+	 - Postcondition: An `ItemMetadata` entry exists in the database with the attributes of the local file, `isPlaceholderItem == true` and `statusCode == .isUploading`.
+	 - Postcondition: A `LocalCachedFileInfo` with the `localURL` exists in the database and has as `correspondingItem` the `id` of the newly created `ItemMetadata` entry.
+	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached == true` and the passed `localURL` of the file.
 	 */
 	public func createPlaceholderItemForFile(for localURL: URL, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
@@ -427,10 +443,11 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Creates a PlaceholderItem for a folder.
+	 Creates a placeholder item for a folder.
+
 	 - Precondition: The database does not yet contain an `ItemMetadata` entry for this folder.
-	 - Postcondition: It exists an `ItemMetadata` entry in the database with `isPlaceholderItem = true` and `statusCode = isUploading`.
-	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached = true`.
+	 - Postcondition: An `ItemMetadata` entry exists in the database with `isPlaceholderItem == true` and `statusCode == .isUploading`.
+	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached == true`.
 	 */
 	public func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
@@ -441,9 +458,9 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Creates the `CloudPath` based on the item name and `parentId`.
+	 Gets the cloud path based on the item name and parent id.
 
-	 - Precondition: The passed `parentId` must belong to an item with the type folder.
+	 - Precondition: The passed `parentId` must belong to an item with the type `.folder`.
 	 */
 	func getCloudPathForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> CloudPath {
 		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
@@ -454,20 +471,18 @@ public class FileProviderDecorator {
 
 		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: cloudPath) {
 			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
-//			DEBUG:
-//			throw CloudProviderError.noInternetConnection
 		}
 		return cloudPath
 	}
 
-	// MARK: UploadFile
+	// MARK: - Upload File
 
 	/**
-	 Reports a local upload error with a `FileProviderItem`.
+	 Reports a local upload error with a file provider item.
 
 	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the database.
-	 - Postcondition: The statusCode of the `ItemMetadata` corresponding to the given `identifier` is `uploadError`.
-	 - Postcondition: It exists an `UploadTask` for the passed `identifier` in the database with the passed error as error.
+	 - Postcondition: The `statusCode` of the `ItemMetadata` corresponding to the given `identifier` is `.uploadError`.
+	 - Postcondition: An `UploadTask` exists for the passed `identifier` in the database with the passed `error` as `error`.
 	 */
 	public func reportLocalUploadError(for identifier: NSFileProviderItemIdentifier, error: NSError) throws {
 		let itemMetadata = try getCachedMetadata(for: identifier)
@@ -523,20 +538,18 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	  - Precondition: `identifier.rawValue ` can be casted to a positive Int64 value
-	  - Precondition: the metadata associated with the `identifier` is stored in the database
-	  - Precondition: `localURL` must be a file URL
-	  - Precondition: `localURL` must point to a file
-	  - Postcondition: the `ItemMetadata` entry associated with the `identifier` has the statusCode: `ItemStatus.isUploading`
-	  - Postcondition: a new UploadTask was registered for the ItemIdentifier.
-	  - Postcondition:  if a previous UploadTask for the ItemIdentifier existed in the database, it was removed.
-	  - Postcondition: in the local FileInfo table the entry for the passed identifier was updated to the local lastModifiedDate.
-	  - Returns: For convenience, returns the ItemMetadata for the file to upload.
-	  - throws: throws an NSFileProviderError.noSuchItem if the identifier could not be converted or no ItemMetadata exists for the identifier or an error occurs while writing to the database.
+	  - Precondition: `identifier.rawValue` can be cast to a positive `Int64` value.
+	  - Precondition: The metadata associated with the `identifier` is stored in the database.
+	  - Precondition: `localURL` must be a file URL.
+	  - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploading`.
+	  - Postcondition: A new `UploadTask` was registered for the `identifier`.
+	  - Postcondition: If a previous `UploadTask` for the `identifier` existed in the database, it was removed.
+	  - Postcondition: In the `LocalCachedFileInfo` database, the entry for the passed `identifier` was updated to the local `lastModifiedDate`.
+	  - Returns: For convenience, the `ItemMetadata` for the file to upload.
+	  - Throws: An `NSFileProviderError.noSuchItem` if the `identifier` could not be converted, no `ItemMetadata` exists for the `identifier`, or an error occurred while writing to the database.
 	 */
 	public func registerFileInUploadQueue(with localURL: URL, identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
 		precondition(localURL.isFileURL)
-		precondition(!localURL.hasDirectoryPath)
 		let id: Int64
 		do {
 			id = try convertFileProviderItemIdentifierToInt64(identifier)
@@ -562,22 +575,20 @@ public class FileProviderDecorator {
 
 	/**
 	 - Postcondition: The file is stored under the `remoteURL` of the cloud provider.
-	 - Postcondition: itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false
-	 - Returns: Promise with FileProviderItem. If the upload fails with an error different to `CloudProviderError.itemAlreadyExists`  the Promise fulfills with a FileProviderItem, which contains a failed UploadTask to inform the FileProvider about the error. :
-	 	- `NSFileProviderError.noSuchItem` if the provider rejected the upload with `CloudProviderError.itemNotFound`
-	 	- `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`
-	 	- `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`
-	 	- `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`
+	 - Postcondition: `itemMetadata.statusCode == .isUploaded && itemMetadata.isPlaceholderItem == false`.
+	 - Returns: Promise with `FileProviderItem`. If the upload fails with an error other than `CloudProviderError.itemAlreadyExists`, the promise fulfills with a `FileProviderItem`, which contains a failed `UploadTask` to inform the `FileProvider` about the error:
+	   - `NSFileProviderError.noSuchItem` if the provider rejected the upload with `CloudProviderError.itemNotFound`.
+	   - `NSFileProviderError.insufficientQuota` if the provider rejected the upload with `CloudProviderError.quotaInsufficient`.
+	   - `NSFileProviderError.serverUnreachable` if the provider rejected the upload with `CloudProviderError.noInternetConnection`.
+	   - `NSFileProviderError.notAuthenticated` if the provider rejected the upload with `CloudProviderError.unauthorized`.
 	 */
 	func uploadFileWithoutRecover(from localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
 		precondition(itemMetadata.statusCode == .isUploading)
-		let cloudPath = itemMetadata.cloudPath
-		print("uploadTo: \(cloudPath)")
 		let progress = Progress.discreteProgress(totalUnitCount: 1)
 		let task = FileProviderNetworkTask(with: progress)
 		manager.register(task, forItemWithIdentifier: NSFileProviderItemIdentifier(String(itemMetadata.id!))) { error in
 			if let error = error {
-				print("Register Task Error: \(error)")
+				DDLogError("Register Task Error: \(error)")
 			} else {
 				task.resume()
 			}
@@ -629,14 +640,16 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Post-processing the upload.
+	 Post-process the upload.
 
 	 Since some cloud providers (including WebDAV) cannot guarantee that the `CloudItemMetadata` supplied is the metadata of the uploaded version of the file, we must use the file size as a heuristic to verify this.
+
 	 Otherwise, the user will be delivered an outdated file from the local cache even though there is a newer version in the cloud.
+
 	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
-	 - Postcondition: `itemMetadata.statusCode = .isUploaded && itemMetadata.isPlaceholderItem = false`
-	 - Postcondition: If the file sizes (local & cloud) do not match there is no more local file under the `localURL` and no `localCachedFileInfo` entry for the `itemMetadata.id`.
-	 - Postcondition: If the file sizes (local & cloud) match, the `lastModifiedDate` from the cloud was stored together with the `localURL` as `localCachedFileInfo` in the database for the `itemMetadata.id`.
+	 - Postcondition: `itemMetadata.statusCode == .isUploaded && itemMetadata.isPlaceholderItem == false`.
+	 - Postcondition: If the file sizes (local & cloud) do not match, there is no more a local file under the `localURL` and no `LocalCachedFileInfo` entry for the `itemMetadata.id`.
+	 - Postcondition: If the file sizes (local & cloud) match, the `lastModifiedDate` from the cloud was stored together with the `localURL` as `LocalCachedFileInfo` in the database for the `itemMetadata.id`.
 	 */
 	func uploadPostProcessing(for itemMetadata: ItemMetadata, cloudItemMetadata: CloudItemMetadata, localURL: URL, localFileSizeBeforeUpload: Int?) throws -> FileProviderItem {
 		itemMetadata.statusCode = .isUploaded
@@ -657,10 +670,10 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 - Precondition: `itemMetadata` is already stored in the db
-	 - Postcondition: `itemMetadata.statusCode` == .uploadError
-	 - Postcondition: If an UploadTask associated with the ItemMetadata exists, the error was passed to it and persisted in the DB.
-	 - returns: FileProviderItem from the passed `itemMetadata` and the passed `error`
+	 - Precondition: `itemMetadata` is already stored in the database.
+	 - Postcondition: `itemMetadata.statusCode == .uploadError`.
+	 - Postcondition: If an `UploadTask` associated with the `ItemMetadata` exists, the `error` was passed to it and persisted in the database.
+	 - Returns: `FileProviderItem` from the passed `itemMetadata` and the passed `error`.
 	 */
 	func reportErrorWithFileProviderItem(error: NSError, itemMetadata: ItemMetadata) -> FileProviderItem {
 		itemMetadata.statusCode = .uploadError
@@ -672,25 +685,23 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 - Precondition: `itemMetadata` is already stored in the db
-	 - Postcondition: `itemMetadata.statusCode` == .uploadError
-	 - Postcondition: If an UploadTask associated with the ItemMetadata exists, the error was passed to it and persisted in the DB.
-	 - returns: FileProviderItem from the passed `itemMetadata` and the passed `error`.
-	 - throws:  If the passed `error` is  `CloudProviderError.itemAlreadyExists`
+	 - Precondition: `itemMetadata` is already stored in the database.
+	 - Postcondition: `itemMetadata.statusCode == .uploadError`.
+	 - Postcondition: If an `UploadTask` associated with the `ItemMetadata` exists, the `error` was passed to it and persisted in the database.
+	 - Returns: `FileProviderItem` from the passed `itemMetadata` and the passed `error`.
+	 - Throws: If the passed `error` is `CloudProviderError.itemAlreadyExists`.
 	 */
 	func errorHandlingForUserDrivenActions(error: Error, itemMetadata: ItemMetadata) throws -> FileProviderItem {
 		let errorToReport: NSError
 		if let cloudProviderError = error as? CloudProviderError {
 			if cloudProviderError == .itemAlreadyExists {
-				throw CloudProviderError.itemAlreadyExists
+				throw cloudProviderError
 			}
 			errorToReport = mapCloudProviderErrorToNSFileProviderError(cloudProviderError) as NSError
-
 		} else {
 			errorToReport = error as NSError
 		}
-		let item = reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
-		return item
+		return reportErrorWithFileProviderItem(error: errorToReport, itemMetadata: itemMetadata)
 	}
 
 	func mapCloudProviderErrorToNSFileProviderError(_ error: CloudProviderError) -> NSFileProviderError {
@@ -732,7 +743,9 @@ public class FileProviderDecorator {
 
 	/**
 	 Deletes the folder from the cache and all items contained in the folder.
+
 	 This includes in particular all subfolders and their contents. Locally cached files contained in this folder are also removed from the device.
+
 	 - Precondition: The passed item is a folder
 	 */
 	func removeFolderFromCache(_ folder: ItemMetadata) throws {
@@ -753,13 +766,14 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Creates a folder in the Cloud
+	 Creates a folder in the cloud.
 
 	 If the folder cannot be created because of a name collision, a retry is started with a collision hash at the end of the name.
-	 - Precondition: the metadata is stored in the database as PlaceholderItem
-	 - Precondition: The passed item is a folder
+
+	 - Precondition: The metadata is stored in the database as `PlaceholderItem`.
+	 - Precondition: The passed item is a folder.
 	 - Postcondition: The folder was created in the cloud.
-	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode = .isUploaded` and `isPlaceholderItem = false in the database. And if there was an online name collision, the name was updated as well.
+	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode == .isUploaded` and `isPlaceholderItem == false` in the database. And if there was an online name collision, the name was updated as well.
 	 */
 	public func createFolderInCloud(for item: FileProviderItem) -> Promise<FileProviderItem> {
 		let itemMetadata = item.metadata
@@ -788,12 +802,12 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 Creates a folder in the Cloud
+	 Creates a folder in the cloud.
 
-	 - Precondition: the metadata is stored in the database as PlaceholderItem
-	 - Precondition: The passed item is a folder
+	 - Precondition: The metadata is stored in the database as `PlaceholderItem`.
+	 - Precondition: The passed item is a folder.
 	 - Postcondition: The folder was created in the cloud.
-	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode = .isUploaded` and `isPlaceholderItem = false in the database.
+	 - Postcondition: The `ItemMetadata` entry associated with the created folder has the `statusCode == .isUploaded` and `isPlaceholderItem == false` in the database.
 	 */
 	func createFolderInCloud(for itemMetadata: ItemMetadata, at cloudPath: CloudPath) -> Promise<FileProviderItem> {
 		assert(itemMetadata.isPlaceholderItem)
@@ -837,13 +851,16 @@ public class FileProviderDecorator {
 	 Moves the item only locally.
 
 	 The move only takes place in the database and the file is not moved or renamed on the local file system.
-	 This ensures that previously triggered uploads, but which are currently pending, do not use the wrong local URL.
+
+	 This ensures that previously triggered uploads, that are currently pending, do not use the wrong local URL.
+
 	 In addition, the exact name of the item via the local URL is not further relevant (for us), since we determine the names of the items via the database.
-	 - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
-	 - Precondition: `parentItemIdentifier != nil || newName != nil`
-	 - Postcondition: `newName != nil` implies that the `ItemMetadata` entry in the database has the `name = newName`.
-	 - Postcondition: `parentItemIdentifier != nil` implies that now the `ItemMetadata` entry in the database has the `parentId = parentItemIdentifier`
-	 - Postcondition: A `ReparentTask` was created for the passed `itemIdentifier.
+
+	 - Precondition: The metadata associated with the `itemIdentifier` is stored in the database.
+	 - Precondition: `parentItemIdentifier != nil || newName != nil`.
+	 - Postcondition: `newName != nil` implies that the `ItemMetadata` entry in the database has the `name == newName`.
+	 - Postcondition: `parentItemIdentifier != nil` implies that now the `ItemMetadata` entry in the database has the `parentId == parentItemIdentifier`.
+	 - Postcondition: A `ReparentTask` was created for the passed `itemIdentifier`.
 	 */
 	public func moveItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier?, newName: String?) throws -> FileProviderItem {
 		precondition(parentItemIdentifier != nil || newName != nil)
@@ -879,10 +896,11 @@ public class FileProviderDecorator {
 	 Moves the item in the cloud.
 
 	 If the item cannot be moved because of a name collision, a retry is started with a collision hash at the end of the name.
-	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the DB.
-	 - Precondition: The `ReparentTask` associated with the `identifier` exists in the DB.
-	 - Postcondition: The item in the Cloud has the same parent folder and name as in the database.
-	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode = .isUploaded`. And if there was an online name collision, the name was updated as well.
+
+	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the database.
+	 - Precondition: The `ReparentTask` associated with the `identifier` exists in the database.
+	 - Postcondition: The item in the cloud has the same parent folder and name as in the database.
+	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploaded`. And if there was an online name collision, the name was updated as well.
 	 */
 	public func moveItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
 		let metadata: ItemMetadata
@@ -912,10 +930,10 @@ public class FileProviderDecorator {
 	/**
 	 Moves the item in the cloud.
 
-	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the DB.
-	 - Precondition: The `ReparentTask` associated with the `identifier` exists in the DB.
-	 - Postcondition: The item in the Cloud has the same parent folder and name as in the database.
-	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode = .isUploaded`. And if there was an online name collision, the name was updated as well.
+	 - Precondition: The `ItemMetadata` associated with the `identifier` exists in the database.
+	 - Precondition: The `ReparentTask` associated with the `identifier` exists in the database.
+	 - Postcondition: The item in the cloud has the same parent folder and name as in the database.
+	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploaded`. And if there was an online name collision, the name was updated as well.
 	 */
 	func moveItemInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<FileProviderItem> {
 		let oldPathLockForReading = LockManager.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
@@ -960,7 +978,9 @@ public class FileProviderDecorator {
 		}
 	}
 
-	// Helper function to prevent error: `The compiler is unable to type-check this expression in reasonable time`
+	/**
+	 Helper function to prevent error: "The compiler is unable to type-check this expression in reasonable time"
+	 */
 	func unlockInOrder(a: FileSystemLock, b: FileSystemLock, c: FileSystemLock, d: FileSystemLock, e: FileSystemLock, f: FileSystemLock, g: FileSystemLock, h: FileSystemLock) {
 		a.unlock().then { _ -> Promise<Void> in
 			b.unlock()
@@ -980,7 +1000,7 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	 - Precondition: The passed `metadata` has as type file or folder.
+	 - Precondition: The passed `metadata` has as type `.file` or `.folder`.
 	 */
 	func moveFileOrFolderInCloud(metadata: ItemMetadata, sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> Promise<Void> {
 		let provider: CloudProvider
@@ -1002,11 +1022,14 @@ public class FileProviderDecorator {
 	/**
 	 Deletes the item locally.
 
-	 Deletes the corresponding ItemMetadata entry and all child items from the database and if the respective item was cached locally also from the local file system.
-	 If there is no ItemMetadata entry for the passed ItemIdentifier in the database, no error will be thrown.
-	 This ensures that this item will be removed from the Files App GUI anyway.
-	 - Postcondition: A `DeletionTask` was created for the passed `itemIdentifier.
-	 - Postcondition: The `ItemMetadata` entry passed to the `ItemIdentifier` and all `ItemMetadata` entries that have this entry as implicit parent were removed from the database and the associated locally cached files were removed from the file system.
+	 Deletes the corresponding `ItemMetadata` entry and all child items from the database and if the respective item was cached locally also from the local file system.
+
+	 If there is no `ItemMetadata` entry for the passed `itemIdentifier` in the database, no error will be thrown.
+
+	 This ensures that this item will be removed from the UI of the Files app anyway.
+
+	 - Postcondition: A `DeletionTask` was created for the passed `itemIdentifier`.
+	 - Postcondition: The `ItemMetadata` entry for the passed `itemIdentifier` and all `ItemMetadata` entries that have this entry as implicit parent were removed from the database and the associated locally cached files were removed from the file system.
 	 */
 	public func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws {
 		let metadata: ItemMetadata
@@ -1022,7 +1045,7 @@ public class FileProviderDecorator {
 	/**
 	 Deletes the item in the cloud.
 
-	 - Precondition: The `DeletionTask` associated with the `itemIdentifier` exists in the DB.
+	 - Precondition: The `DeletionTask` associated with the `itemIdentifier` exists in the database.
 	 - Postcondition: The item has been deleted from the cloud.
 	 - Postcondition: The `DeletionTask` for the passed `itemIdentifier` was removed from the database.
 	 */
@@ -1078,10 +1101,14 @@ public class FileProviderDecorator {
 	}
 
 	/**
-	  A possible version conflict between the local file and the file in the cloud can occur if the changes to the local file have not yet been synchronized to the cloud due to an upload error and the file in the cloud has also been changed.
-	  A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
-	  - Precondition: `itemIdentifier.rawValue ` can be casted to a positive Int64 value
-	  - Precondition: the metadata associated with the `itemIdentifier` is stored in the database
+	 Checks if an item has a possible versioning conflict.
+
+	 A possible version conflict between the local file and the file in the cloud can occur if the changes to the local file have not yet been synchronized to the cloud due to an upload error and the file in the cloud has also been changed.
+
+	 A possible conflict can also occur if the file is being uploaded and could be overwritten due to an immediate download.
+
+	 - Precondition: `itemIdentifier.rawValue` can be cast to a positive `Int64` value.
+	 - Precondition: The metadata associated with the `itemIdentifier` is stored in the database.
 	 */
 	public func hasPossibleVersioningConflictForItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> Bool {
 		let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
@@ -1106,8 +1133,7 @@ public class FileProviderDecorator {
 
 	 If the file was edited locally, the file is uploaded before the cache is cleaned up, so no changes are lost.
 
-	 - warning: Currently, it is unclear whether there can be any local changes that are only discovered at this point.
-	 Since the FileProviderExtension should always be informed about local changes via itemChanged before.
+	 - Warning: Currently, it is unclear whether there can be any local changes that are only discovered at this point. Since the `FileProviderExtension` should always be informed about local changes via `itemChanged` before.
 	 */
 	public func stopProvidingItem(with identifier: NSFileProviderItemIdentifier, url: URL, notificator: FileProviderNotificator?) -> Promise<Void> {
 		return localFileIsCurrent(with: identifier).then { isCurrent in

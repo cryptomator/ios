@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import UIKit
+
 class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	private var masterkeyPath: CloudPath?
 
@@ -29,7 +30,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 			successView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor)
 		])
 
-		// Prevents the View from being placed under the navigation bar.
+		// Prevents the view from being placed under the navigation bar
 		tableView.backgroundView = containerView
 		tableView.contentInsetAdjustmentBehavior = .never
 		tableView.separatorStyle = .none

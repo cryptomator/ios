@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double CryptomatorFileProviderVersionNumber;
 FOUNDATION_EXPORT const unsigned char CryptomatorFileProviderVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <CryptomatorFileProvider/PublicHeader.h>
-
-

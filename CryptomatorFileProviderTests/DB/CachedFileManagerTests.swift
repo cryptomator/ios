@@ -9,6 +9,7 @@
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
+
 class CachedFileManagerTests: XCTestCase {
 	var manager: CachedFileManager!
 	var tmpDirURL: URL!

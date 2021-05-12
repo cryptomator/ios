@@ -9,8 +9,9 @@
 import UIKit
 
 class WebDAVAuthenticationViewController: SingleSectionTableViewController {
-	private var viewModel: WebDAVAuthenticationViewModelProtocol
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
+
+	private var viewModel: WebDAVAuthenticationViewModelProtocol
 
 	init(viewModel: WebDAVAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
@@ -73,6 +74,8 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 		coordinator?.cancel()
 	}
 
+	// MARK: - UITableViewDataSource
+
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 3
 	}
@@ -86,6 +89,7 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 import CryptomatorCloudAccessCore
 import Promises
 import SwiftUI
+
 class WebDAVAuthenticationViewModelMock: WebDAVAuthenticationViewModelProtocol {
 	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential> {
 		return Promise(WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil))

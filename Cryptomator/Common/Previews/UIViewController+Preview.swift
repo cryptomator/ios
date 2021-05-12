@@ -5,6 +5,7 @@
 //  Created by Philipp Schmid on 04.01.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
+
 #if DEBUG
 import SwiftUI
 import UIKit

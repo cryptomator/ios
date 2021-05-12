@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import UIKit
+
 protocol WebDAVAuthenticating: AnyObject {
 	func authenticated(with credential: WebDAVCredential)
 	func handleUntrustedCertificate(_ certificate: TLSCertificate, url: URL, for viewController: WebDAVAuthenticationViewController, viewModel: WebDAVAuthenticationViewModelProtocol)

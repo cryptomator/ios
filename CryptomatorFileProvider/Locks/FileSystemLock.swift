@@ -8,6 +8,7 @@
 
 import Foundation
 import Promises
+
 class FileSystemLock {
 	private let lockPromise: Promise<LockNode>
 	private let startLockPromise: Promise<Void>

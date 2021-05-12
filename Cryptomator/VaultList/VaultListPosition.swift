@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+
 struct VaultListPosition: Codable {
 	var id: Int64?
 	var position: Int?

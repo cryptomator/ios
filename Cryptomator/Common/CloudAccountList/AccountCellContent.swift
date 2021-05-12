@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct AccountCellContent {
 	let mainLabelText: String
 	let detailLabelText: String?

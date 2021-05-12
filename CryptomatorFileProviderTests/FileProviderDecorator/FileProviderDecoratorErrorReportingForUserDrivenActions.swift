@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorErrorReportingForUserDrivenActions: FileProviderDecoratorTestCase {
 	func testReportErrorWithFileProviderItemWithoutCorrespondingUploadTask() throws {
 		let lastModifiedDate = Date(timeIntervalSinceReferenceDate: 0)

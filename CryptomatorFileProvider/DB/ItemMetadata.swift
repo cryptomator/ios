@@ -88,5 +88,4 @@ public class ItemMetadata: Record {
 	}
 }
 
-extension CloudItemType: DatabaseValueConvertible {}
 extension ItemStatus: DatabaseValueConvertible {}

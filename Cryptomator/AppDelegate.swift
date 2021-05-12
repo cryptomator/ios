@@ -13,12 +13,14 @@ import CryptomatorCommonCore
 import ObjectiveDropboxOfficial
 import UIKit
 import MSAL
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	var coordinator: MainCoordinator?
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		// Set up database
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error
 
@@ -54,15 +56,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		userDefaults.set(currentAppVersion, forKey: appVersionKey)
 
+		// Clean up
 		VaultManager.shared.removeAllUnusedFileProviderDomains().then {
 			print("removed all unused FileProviderDomains")
 		}.catch { error in
 			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
-		CloudProviderManager.shared.useBackgroundSession = false
 
-		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, appGroupName: CryptomatorConstants.appGroupName)
+		// Set up cloud storage services
+		CloudProviderManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, appGroupName: CryptomatorConstants.appGroupName, mainAppBundleId: CryptomatorConstants.mainAppBundleId)
+		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, appGroupName: CryptomatorConstants.appGroupName)
 		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
 		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 		do {
@@ -70,15 +74,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} catch {
 			print("Error while setting up OneDrive: \(error)")
 		}
-		// Application wide styling
+
+		// Application-wide styling
 		UINavigationBar.appearance().barTintColor = UIColor(named: "primary")
 		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
 		UIBarButtonItem.appearance().tintColor = UIColor.white
 
+		// Create window
 		let navigationController = UINavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
 		coordinator?.start()
-
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.tintColor = UIColor(named: "primary")
 		window?.rootViewController = navigationController
@@ -104,6 +109,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			}
 			return canHandle
 		}
+		#warning("TODO: Handle OneDrive URL scheme")
 		return true
 	}
 }

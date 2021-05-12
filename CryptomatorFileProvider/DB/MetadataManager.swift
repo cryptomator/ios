@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
+
 class MetadataManager {
 	private let dbPool: DatabasePool
 	static let rootContainerId: Int64 = 1
@@ -52,10 +53,11 @@ class MetadataManager {
 	}
 
 	/**
-	 Returns the ItemMetadata object that has the same path.
-	 The path is case insensitively checked for equality.
-	 However, it is stored and returned case preserving in the database, because this is important for the VaultDecorator.
-	 Since the two clearText paths: "/foo" and "/Foo" lead to two different cipherText paths.
+	 Returns the item metadata that has the same path.
+
+	 The path is case-insensitively checked for equality.
+
+	 However, it is stored and returned case-preserving in the database, because this is important for the `VaultDecorator` since the two cleartext paths "/foo" and "/Foo" lead to different ciphertext paths.
 	 */
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try dbPool.read { db in
@@ -129,7 +131,7 @@ class MetadataManager {
 	}
 
 	/**
-	 Returns the items that have the item as parent because of its RemotePath. This also includes all subfolders including their items.
+	 Returns the items that have the item as parent because of its cloud path. This also includes all subfolders including their items.
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)

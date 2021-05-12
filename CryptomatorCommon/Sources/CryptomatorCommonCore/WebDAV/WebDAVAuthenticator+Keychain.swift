@@ -1,6 +1,6 @@
 //
 //  WebDAVAuthenticator+Keychain.swift
-//	CloudAccessPrivateCore
+//	CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 21.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 public extension WebDAVAuthenticator {
 	static func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
 		return CryptomatorKeychain.webDAV.get(accountUID)

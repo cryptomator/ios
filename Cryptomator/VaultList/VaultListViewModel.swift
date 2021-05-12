@@ -9,8 +9,10 @@
 import CryptomatorCommonCore
 import Foundation
 import GRDB
+
 class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
+
 	private let dbManager: DatabaseManager
 	private let vaultAccountManager: VaultAccountManager
 	private var observation: TransactionObserver?

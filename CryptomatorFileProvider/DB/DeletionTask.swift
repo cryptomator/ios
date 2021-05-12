@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 struct DeletionTask: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "deletionTasks"
 	static let correspondingItemKey = "correspondingItem"

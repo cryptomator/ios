@@ -8,6 +8,7 @@
 
 import FileProvider
 import Foundation
+
 public struct FileProviderItemList {
 	public let items: [FileProviderItem]
 	public let nextPageToken: NSFileProviderPage?

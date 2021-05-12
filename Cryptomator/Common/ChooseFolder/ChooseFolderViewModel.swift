@@ -8,14 +8,13 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 protocol ChooseFolderViewModelProtocol {
 	var canCreateFolder: Bool { get }
 	var cloudPath: CloudPath { get }
 	var foundMasterkey: Bool { get }
 	var items: [CloudItemMetadata] { get }
-	func startListenForChanges(onError: @escaping (Error) -> Void,
-	                           onChange: @escaping () -> Void,
-	                           onMasterkeyDetection: @escaping (CloudPath) -> Void)
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onMasterkeyDetection: @escaping (CloudPath) -> Void)
 	func refreshItems()
 }
 
@@ -30,8 +29,8 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	var cloudPath: CloudPath
 	var items = [CloudItemMetadata]()
 	var foundMasterkey = false
-	private let provider: CloudProvider
 
+	private let provider: CloudProvider
 	private var errorListener: ((Error) -> Void)?
 	private var changeListener: (() -> Void)?
 	private var masterkeyListener: ((CloudPath) -> Void)?
@@ -51,6 +50,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 
 	func refreshItems() {
 		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
+			#warning("TODO: Consider Vault Format 8")
 			if let masterkeyItem = itemList.items.first(where: { $0.name == "masterkey.cryptomator" && $0.itemType == .file }), itemList.items.contains(where: { $0.name == "d" && $0.itemType == .folder }) {
 				self.foundMasterkey = true
 				self.masterkeyListener?(masterkeyItem.cloudPath)

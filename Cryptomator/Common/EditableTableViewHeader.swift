@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class EditableTableViewHeader: UITableViewHeaderFooterView {
 	let editButton = UIButton(type: .system)
 	let title = UILabel()

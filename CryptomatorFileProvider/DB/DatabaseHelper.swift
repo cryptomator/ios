@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 class DatabaseHelper {
 	static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
 		let dbPool = try openSharedDatabase(at: databaseURL)

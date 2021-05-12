@@ -11,16 +11,14 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 import Promises
+
 class AccountListViewModel: AccountListViewModelProtocol {
 	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
 	private var observation: TransactionObserver?
 
-	init(with cloudProviderType: CloudProviderType,
-	     dbManager: DatabaseManager = DatabaseManager.shared,
-	     cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared))
-	{
+	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared)) {
 		self.cloudProviderType = cloudProviderType
 		self.dbManager = dbManager
 		self.cloudAuthenticator = cloudAuthenticator
@@ -93,7 +91,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
 		let detailLabelText: String
 		let path = credential.baseURL.path
-		if path.count > 0, path != "/" {
+		if !path.isEmpty, path != "/" {
 			detailLabelText = "\(credential.username) • \(path)"
 		} else {
 			detailLabelText = credential.username

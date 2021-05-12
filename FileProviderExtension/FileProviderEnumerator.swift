@@ -75,7 +75,6 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		var itemsUpdate = [FileProviderItem]()
 
 		// Report the deleted items
-		//
 		if enumeratedItemIdentifier == .workingSet {
 			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteWorkingSetItemIdentifier {
 				itemsDelete.append(itemIdentifier)
@@ -89,7 +88,6 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		}
 
 		// Report the updated items
-		//
 		if enumeratedItemIdentifier == .workingSet {
 			for (_, item) in notificator.fileProviderSignalUpdateWorkingSetItem {
 				itemsUpdate.append(item)

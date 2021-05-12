@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 protocol OpenExistingVaultPasswordViewModelProtocol {
 	var password: String? { get set }
 	var footerTitle: String { get }

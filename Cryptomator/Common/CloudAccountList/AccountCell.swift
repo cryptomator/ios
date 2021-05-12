@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class AccountCellButton: UIButton {
 	weak var cell: AccountCell?
 

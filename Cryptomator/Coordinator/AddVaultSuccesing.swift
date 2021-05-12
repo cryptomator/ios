@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol AddVaultSuccesing: AnyObject {
 	func showFilesApp()
 	func done()

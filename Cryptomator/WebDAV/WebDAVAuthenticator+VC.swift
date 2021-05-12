@@ -9,8 +9,10 @@
 import CryptomatorCloudAccessCore
 import Promises
 import UIKit
+
 extension WebDAVAuthenticator {
 	private static var coordinator: WebDAVAuthenticationCoordinator?
+
 	static func authenticate(from viewController: UIViewController) -> Promise<WebDAVCredential> {
 		let navigationController = UINavigationController()
 		let webDAVCoordinator = WebDAVAuthenticationCoordinator(navigationController: navigationController)

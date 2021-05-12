@@ -9,7 +9,9 @@
 import CryptomatorCloudAccess
 import CryptomatorCommonCore
 import UIKit
+
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
+	weak var coordinator: (Coordinator & VaultInstallationCoordinator)?
 	lazy var confirmButton: UIBarButtonItem = {
 		let button = UIBarButtonItem(title: NSLocalizedString("common.button.confirm", comment: ""), style: .done, target: self, action: #selector(verify))
 		button.isEnabled = false
@@ -17,7 +19,6 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	}()
 
 	private var viewModel: OpenExistingVaultPasswordViewModelProtocol
-	weak var coordinator: (Coordinator & VaultInstallationCoordinator)?
 
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
@@ -52,6 +53,8 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		}
 	}
 
+	// MARK: - UITableViewDataSource
+
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return 1
 	}
@@ -71,6 +74,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 #if DEBUG
 import Promises
 import SwiftUI
+
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVaultPasswordViewModelProtocol {
 	var password: String?
 	var footerTitle: String {

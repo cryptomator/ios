@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+
 protocol FolderChoosing: AnyObject {
 	func showItems(for path: CloudPath)
 	func close()

@@ -10,12 +10,14 @@ import GRDB
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
+
 class VaultManagerKeychainTests: XCTestCase {
-	var manager: VaultManager!
-	var accountManager: VaultAccountManager!
-	var providerManager: CloudProviderManager!
-	var providerAccountManager: CloudProviderAccountManager!
 	var tmpDir: URL!
+	var providerAccountManager: CloudProviderAccountManager!
+	var providerManager: CloudProviderManager!
+	var accountManager: VaultAccountManager!
+	var manager: VaultManager!
+
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)

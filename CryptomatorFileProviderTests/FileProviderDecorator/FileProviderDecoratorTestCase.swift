@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorTestCase: XCTestCase {
 	var decorator: FileProviderDecorator!
 	var mockedProvider: CloudProviderMock!

@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
+
 class MetadataManagerTests: XCTestCase {
 	var manager: MetadataManager!
 	var tmpDirURL: URL!

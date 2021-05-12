@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class ButtonCell: UITableViewCell {
 	lazy var button: UIButton = {
 		let button = UIButton()

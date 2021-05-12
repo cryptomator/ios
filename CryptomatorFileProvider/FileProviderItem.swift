@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import MobileCoreServices
+
 public class FileProviderItem: NSObject, NSFileProviderItem {
 	// TODO: implement an initializer to create an item from your extension's backing model
 	// TODO: implement the accessors to return the values from your extension's backing model
@@ -60,16 +61,12 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	public var typeIdentifier: String {
 		switch metadata.type {
 		case .folder:
-			return "public.folder"
+			return kUTTypeFolder as String
 		default:
-			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(
-				kUTTagClassFilenameExtension,
-				metadata.cloudPath.pathExtension as CFString,
-				nil
-			) {
+			if let typeIdentifier = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, metadata.cloudPath.pathExtension as CFString, nil) {
 				return typeIdentifier.takeRetainedValue() as String
 			} else {
-				return "public.file"
+				return kUTTypeData as String
 			}
 		}
 	}
@@ -81,7 +78,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	public var isDownloaded: Bool {
 		if metadata.type == .folder {
 			// Needs to return true for folders in order to allow browsing while offline
-			// Otherwise Files.app will bring up an alert "You're not connected to the Internet"
+			// Otherwise Files app will bring up an alert "You're not connected to the Internet"
 			return true
 		}
 		guard let localURL = localURL else {

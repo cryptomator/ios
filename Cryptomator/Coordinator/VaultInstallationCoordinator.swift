@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccess
 import Foundation
+
 protocol VaultInstallationCoordinator: Coordinator {
 	func showSuccessfullyAddedVault(withName name: String)
 }

@@ -1,6 +1,6 @@
 //
 //  CloudProviderMock.swift
-//  CloudAccessPrivateCoreTests
+//  CryptomatorCommonCoreTests
 //
 //  Created by Philipp Schmid on 02.11.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import Promises
+
 class CloudProviderMock: CloudProvider {
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]

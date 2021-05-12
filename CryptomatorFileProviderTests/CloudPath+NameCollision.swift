@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import XCTest
+
 class CloudPath_NameCollision: XCTestCase {
 	func testForFileWithoutPathExtension() throws {
 		let cloudPath = CloudPath("/Test")

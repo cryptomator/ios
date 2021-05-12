@@ -1,6 +1,6 @@
 //
 //  VaultAccountManager.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 30.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 public struct VaultAccount: Decodable, FetchableRecord, TableRecord {
 	public static let databaseTableName = "vaultAccounts"
 	static let vaultUIDKey = "vaultUID"

@@ -10,6 +10,7 @@ import FileProvider
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
+
 class UploadTaskManagerTests: XCTestCase {
 	var manager: UploadTaskManager!
 	var tmpDirURL: URL!

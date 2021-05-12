@@ -1,6 +1,6 @@
 //
 //  CloudProviderAccountManagerTests.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCoreTests
 //
 //  Created by Philipp Schmid on 20.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.

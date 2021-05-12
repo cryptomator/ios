@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 	func testRemoveOutdatedItemFromCacheWithoutAnExistingLocalCachedFile() throws {
 		let cloudPath = CloudPath("/Testfile")

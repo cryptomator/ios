@@ -11,8 +11,8 @@ import Foundation
 import Promises
 
 public enum DecoratorManager {
-	private static var cachedDecorators = [NSFileProviderDomainIdentifier: FileProviderDecorator]()
 	private static let queue = DispatchQueue(label: "DecoratorManager")
+	private static var cachedDecorators = [NSFileProviderDomainIdentifier: FileProviderDecorator]()
 
 	public static func getDecorator(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) -> Promise<FileProviderDecorator> {
 		return Promise<FileProviderDecorator> { fulfill, reject in

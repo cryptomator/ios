@@ -11,9 +11,10 @@ import Foundation
 import UIKit
 
 class VaultListViewController: UITableViewController {
-	private let header = EditableTableViewHeader(title: NSLocalizedString("vaultList.header.title", comment: ""))
-	private let viewModel: VaultListViewModelProtocol
 	weak var coordinator: MainCoordinator?
+
+	private let viewModel: VaultListViewModelProtocol
+	private let header = EditableTableViewHeader(title: NSLocalizedString("vaultList.header.title", comment: ""))
 
 	init(with viewModel: VaultListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -46,7 +47,7 @@ class VaultListViewController: UITableViewController {
 			self.tableView.reloadData()
 			if self.viewModel.vaults.isEmpty {
 				self.tableView.backgroundView = EmptyListMessage(message: NSLocalizedString("vaultList.emptyList.message", comment: ""))
-				// Prevents the EmptyListMessageView from being placed under the navigation bar.
+				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
 			} else {
@@ -75,17 +76,10 @@ class VaultListViewController: UITableViewController {
 		setEditing(!isEditing, animated: true)
 	}
 
-	// MARK: TableView
+	// MARK: - UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		1
-	}
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard !viewModel.vaults.isEmpty else {
-			return nil
-		}
-		return header
+		return 1
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,19 +98,9 @@ class VaultListViewController: UITableViewController {
 		return cell
 	}
 
-	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-		do {
-			try viewModel.moveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
-		} catch {
-			coordinator?.handleError(error, for: self)
-		}
-	}
-
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			let alertController = UIAlertController(title: NSLocalizedString("vaultList.alert.remove.title", comment: ""),
-			                                        message: NSLocalizedString("vaultList.alert.remove.message", comment: ""),
-			                                        preferredStyle: .alert)
+			let alertController = UIAlertController(title: NSLocalizedString("vaultList.alert.remove.title", comment: ""), message: NSLocalizedString("vaultList.alert.remove.message", comment: ""), preferredStyle: .alert)
 			let okAction = UIAlertAction(title: NSLocalizedString("common.button.remove", comment: ""), style: .destructive) {
 				_ in
 				do {
@@ -133,6 +117,23 @@ class VaultListViewController: UITableViewController {
 			present(alertController, animated: true, completion: nil)
 		}
 	}
+
+	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+		do {
+			try viewModel.moveRow(at: sourceIndexPath.row, to: destinationIndexPath.row)
+		} catch {
+			coordinator?.handleError(error, for: self)
+		}
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard !viewModel.vaults.isEmpty else {
+			return nil
+		}
+		return header
+	}
 }
 
 #if DEBUG
@@ -142,7 +143,6 @@ import SwiftUI
 private class VaultListViewModelMock: VaultListViewModelProtocol {
 	let vaults = [
 		VaultInfo(vaultAccount: VaultAccount(vaultUID: "1", delegateAccountUID: "1", vaultPath: CloudPath("/Work")), cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV), vaultListPosition: VaultListPosition(position: 1, vaultUID: "1")),
-
 		VaultInfo(vaultAccount: VaultAccount(vaultUID: "2", delegateAccountUID: "2", vaultPath: CloudPath("/Family")), cloudProviderAccount: CloudProviderAccount(accountUID: "2", cloudProviderType: .googleDrive), vaultListPosition: VaultListPosition(position: 2, vaultUID: "2"))
 	]
 

@@ -8,13 +8,16 @@
 
 import FileProvider
 import Foundation
+
 public class FileProviderNotificator {
-	private let manager: NSFileProviderManager
-	public private(set) var currentAnchor: UInt64
 	public var fileProviderSignalDeleteContainerItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
 	public var fileProviderSignalUpdateContainerItem = [NSFileProviderItemIdentifier: FileProviderItem]()
 	public var fileProviderSignalDeleteWorkingSetItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
 	public var fileProviderSignalUpdateWorkingSetItem = [NSFileProviderItemIdentifier: FileProviderItem]()
+
+	public private(set) var currentAnchor: UInt64
+
+	private let manager: NSFileProviderManager
 
 	public init(manager: NSFileProviderManager) {
 		self.manager = manager
@@ -22,7 +25,7 @@ public class FileProviderNotificator {
 	}
 
 	/**
-	 Signal the Enumerator with a small delay of 0.2 seconds, because otherwise some items in the FileProvider are not updated correctly.
+	 Signal the enumerator with a small delay of 0.2 seconds, because otherwise some items in the `FileProvider` are not updated correctly.
 	 */
 	public func signalEnumerator(for containerItemIdentifiers: [NSFileProviderItemIdentifier]) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {

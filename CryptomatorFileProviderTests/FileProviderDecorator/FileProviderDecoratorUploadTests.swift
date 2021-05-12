@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 	func testCreatePlaceholderItemForFile() throws {
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)

@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorLocalFileIsCurrentTests: FileProviderDecoratorTestCase {
 	func testLocalFileIsCurrentForUploadingFile() throws {
 		let expectation = XCTestExpectation()

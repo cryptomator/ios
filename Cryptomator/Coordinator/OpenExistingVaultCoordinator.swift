@@ -10,9 +10,10 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import UIKit
+
 class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
-	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
+	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: AddVaultCoordinator?
 
 	init(navigationController: UINavigationController) {
@@ -20,8 +21,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem],
-		                                     headerTitle: NSLocalizedString("addVault.openExistingVault.chooseCloud.header", comment: ""))
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem], headerTitle: NSLocalizedString("addVault.openExistingVault.chooseCloud.header", comment: ""))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 		chooseCloudVC.coordinator = self
@@ -63,10 +63,11 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 }
 
-private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultInstallationCoordinator, AddVaultSuccesing {
+private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordinator, FolderChoosing, AddVaultSuccesing {
+	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: OpenExistingVaultCoordinator?
-	var navigationController: UINavigationController
+
 	let provider: CloudProvider
 	let account: CloudProviderAccount
 
@@ -80,7 +81,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 		showItems(for: CloudPath("/"))
 	}
 
-	// MARK: FolderChoosing
+	// MARK: - FolderChoosing
 
 	func showItems(for path: CloudPath) {
 		let viewModel = ChooseFolderViewModel(canCreateFolder: false, cloudPath: path, provider: provider)
@@ -102,7 +103,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 
 	func showCreateNewFolder(parentPath: CloudPath) {}
 
-	// MARK: VaultInstallationCoordinator
+	// MARK: - VaultInstallationCoordinator
 
 	func showSuccessfullyAddedVault(withName name: String) {
 		let successVC = AddVaultSuccessViewController(vaultName: name)
@@ -113,7 +114,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: FolderChoosing, VaultIn
 		navigationController.viewControllers = [successVC]
 	}
 
-	// MARK: AddVaultSuccesing
+	// MARK: - AddVaultSuccesing
 
 	func done() {
 		parentCoordinator?.childDidFinish(self)

@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveItemLocallyOnlyNameChanged() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")

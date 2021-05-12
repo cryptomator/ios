@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 struct ReparentTask: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "reparentTasks"
 	static let correspondingItemKey = "correspondingItem"

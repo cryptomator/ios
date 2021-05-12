@@ -8,6 +8,7 @@
 
 import CryptomatorCommonCore
 import UIKit
+
 protocol AccountListing: AnyObject {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController)
 	func selectedAccont(_ account: AccountInfo) throws

@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+
 class AccountListViewController: SingleSectionTableViewController {
-	private let header = EditableTableViewHeader(title: "Authentications")
-	private let viewModel: AccountListViewModelProtocol
 	weak var coordinator: (Coordinator & AccountListing)?
+
+	private let viewModel: AccountListViewModelProtocol
+	private let header = EditableTableViewHeader(title: "Authentications")
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -34,7 +36,7 @@ class AccountListViewController: SingleSectionTableViewController {
 			self.tableView.reloadData()
 			if self.viewModel.accounts.isEmpty {
 				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add an account")
-				// Prevents the EmptyListMessageView from being placed under the navigation bar.
+				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
 			} else {
@@ -56,7 +58,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	@objc func showLogoutActionSheet(sender: AccountCellButton) {
-		guard let cell = sender.cell, let indexpath = tableView.indexPath(for: cell) else {
+		guard let cell = sender.cell, let _ = tableView.indexPath(for: cell) else {
 			return
 		}
 		sender.setSelected(true)
@@ -68,14 +70,7 @@ class AccountListViewController: SingleSectionTableViewController {
 		coordinator?.showAddAccount(for: viewModel.cloudProviderType, from: self)
 	}
 
-	// MARK: TableView
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard !viewModel.accounts.isEmpty else {
-			return nil
-		}
-		return header
-	}
+	// MARK: - UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.accounts.count
@@ -100,6 +95,15 @@ class AccountListViewController: SingleSectionTableViewController {
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard !viewModel.accounts.isEmpty else {
+			return nil
+		}
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

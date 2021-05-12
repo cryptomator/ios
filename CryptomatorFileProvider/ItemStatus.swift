@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public enum ItemStatus: String, Codable {
 	case isUploading
 	case isUploaded

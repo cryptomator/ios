@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 class ReparentTaskManager {
 	let dbPool: DatabasePool
 	init(with dbPool: DatabasePool) throws {

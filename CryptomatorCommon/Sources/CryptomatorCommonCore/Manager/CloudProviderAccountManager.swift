@@ -1,6 +1,6 @@
 //
 //  CloudProviderAccountManager.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 20.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+
 public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord {
 	public static let databaseTableName = "cloudProviderAccounts"
 	static let accountUIDKey = "accountUID"

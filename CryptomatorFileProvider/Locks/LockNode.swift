@@ -6,7 +6,10 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import Foundation
+
 class LockNode {
 	private let lock: RWLock
 	private let parent: LockNode?
@@ -20,15 +23,15 @@ class LockNode {
 	}
 
 	func readLock() {
-		print("readLock - \(path)(\(Unmanaged.passUnretained(self).toOpaque())) called")
+		DDLogDebug("readLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) called")
 		lock.readLock()
-		print("readLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) done")
+		DDLogDebug("readLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) done")
 	}
 
 	func writeLock() {
-		print("writeLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) called")
+		DDLogDebug("writeLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) called")
 		lock.writeLock()
-		print("writeLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) done")
+		DDLogDebug("writeLock \(path)(\(Unmanaged.passUnretained(self).toOpaque())) done")
 	}
 
 	func unlock() {

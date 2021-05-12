@@ -1,9 +1,6 @@
 # Secrets
 .cloud-access-secrets.sh
-CryptomatorEnvironmentVariables.h
 CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swift
-.integration-test-secrets.sh
-CryptomatorIntegrationTests/IntegrationTestSecrets.swift
 
 # macOS
 .DS_Store

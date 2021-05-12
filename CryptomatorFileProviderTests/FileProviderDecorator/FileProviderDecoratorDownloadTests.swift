@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	func testDownloadFile() throws {
 		let expectation = XCTestExpectation()

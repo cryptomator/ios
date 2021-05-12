@@ -10,9 +10,8 @@ import Foundation
 import UIKit
 
 class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
-	var childCoordinators = [Coordinator]()
-
 	var navigationController: UINavigationController
+	var childCoordinators = [Coordinator]()
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
@@ -32,6 +31,8 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
 	}
+
+	// MARK: - UINavigationControllerDelegate
 
 	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
 		// Read the view controller we’re moving from.

@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCommonCore
+
 protocol CloudChoosing: AnyObject {
 	func showAccountList(for cloudProviderType: CloudProviderType)
 }

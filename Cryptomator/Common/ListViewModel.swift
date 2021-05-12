@@ -8,6 +8,7 @@
 
 import CryptomatorCommonCore
 import Foundation
+
 protocol ListViewModel {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
 	func removeRow(at index: Int) throws

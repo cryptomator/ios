@@ -41,4 +41,3 @@
 "untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Trust";
 "untrustedTLSCertificate.dismiss" = "Don't Trust";
-

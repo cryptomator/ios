@@ -8,6 +8,7 @@
 
 import CryptomatorCommonCore
 import Foundation
+
 extension CloudProviderType {
 	func localizedString() -> String {
 		switch self {

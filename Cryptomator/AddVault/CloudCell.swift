@@ -9,6 +9,7 @@
 import CryptomatorCommonCore
 import Foundation
 import UIKit
+
 class CloudCell: UITableViewCell {
 	var cloudProviderType: CloudProviderType?
 

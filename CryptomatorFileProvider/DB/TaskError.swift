@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum TaskError: Error {
 	case taskNotFound
 }

@@ -1,6 +1,6 @@
 //
 //  VaultManager.swift
-//  CloudAccessPrivateCore
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 30.10.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
@@ -11,6 +11,7 @@ import CryptomatorCryptoLib
 import FileProvider
 import Foundation
 import Promises
+
 public enum VaultManagerError: Error {
 	case vaultAlreadyExists
 	case vaultNotFound

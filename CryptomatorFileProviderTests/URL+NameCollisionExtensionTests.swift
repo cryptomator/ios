@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import CryptomatorFileProvider
+
 class URL_NameCollisionExtensionTests: XCTestCase {
 	func testForFileWithoutPathExtension() throws {
 		let url = URL(fileURLWithPath: "/Test", isDirectory: false)

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 class FileProviderNetworkTask: URLSessionTask {
 	private let taskProgress: Progress
 	private var taskState: URLSessionTask.State

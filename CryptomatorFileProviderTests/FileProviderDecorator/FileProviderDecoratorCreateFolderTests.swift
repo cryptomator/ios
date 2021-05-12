@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 	func testCreatePlaceholderItemForFolder() throws {
 		let placeholderItem = try decorator.createPlaceholderItemForFolder(withName: "TestFolder", in: .rootContainer)

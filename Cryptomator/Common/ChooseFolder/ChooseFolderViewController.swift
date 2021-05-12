@@ -8,16 +8,17 @@
 
 import CryptomatorCloudAccessCore
 import UIKit
+
 class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
 	weak var coordinator: (Coordinator & FolderChoosing)?
+
 	private lazy var header: HeaderWithSearchbar = {
 		return HeaderWithSearchbar(title: viewModel.headerTitle, searchBar: searchController.searchBar)
 	}()
 
 	private lazy var searchController: UISearchController = {
-		let searchController = UISearchController(searchResultsController: self)
-		return searchController
+		return UISearchController(searchResultsController: self)
 	}()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
@@ -86,14 +87,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.size.height ?? 0)), animated: true)
 	}
 
-	// MARK: TableView
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		if viewModel.foundMasterkey {
-			return nil
-		}
-		return header
-	}
+	// MARK: - UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.items.count
@@ -116,6 +110,15 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			cell.configure(with: item)
 		}
 		return cell
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		if viewModel.foundMasterkey {
+			return nil
+		}
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -160,20 +163,15 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 #if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
+
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 	let foundMasterkey = false
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
-	let items = [CloudItemMetadata(name: "Bar",
-	                               cloudPath: CloudPath("/Bar"),
-	                               itemType: .file,
-	                               lastModifiedDate: Date(),
-	                               size: 42),
-	             CloudItemMetadata(name: "Foo",
-	                               cloudPath: CloudPath("/Foo"),
-	                               itemType: .folder,
-	                               lastModifiedDate: nil,
-	                               size: nil)]
+	let items = [
+		CloudItemMetadata(name: "Bar", cloudPath: CloudPath("/Bar"), itemType: .file, lastModifiedDate: Date(), size: 42),
+		CloudItemMetadata(name: "Foo", cloudPath: CloudPath("/Foo"), itemType: .folder, lastModifiedDate: nil, size: nil)
+	]
 
 	init(cloudPath: CloudPath, canCreateFolder: Bool) {
 		self.canCreateFolder = canCreateFolder
@@ -189,8 +187,7 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 
 struct ChooseFolderVCPreview: PreviewProvider {
 	static var previews: some View {
-		ChooseFolderViewController(with: ChooseFolderViewModelMock(cloudPath: CloudPath("/Preview/Folder"),
-		                                                           canCreateFolder: true)).toPreview()
+		ChooseFolderViewController(with: ChooseFolderViewModelMock(cloudPath: CloudPath("/Preview/Folder"), canCreateFolder: true)).toPreview()
 	}
 }
 #endif
