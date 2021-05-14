@@ -34,7 +34,7 @@ class GoogleDriveLoginViewController: UIViewController {
 
 	@objc func login() {
 		let accountUID = UUID().uuidString
-		let credential = GoogleDriveCredential(with: accountUID)
+		let credential = GoogleDriveCredential(tokenUID: accountUID)
 		GoogleDriveAuthenticator.authenticate(credential: credential, from: self).then {
 			print("authenticated with accountUID: \(accountUID)")
 

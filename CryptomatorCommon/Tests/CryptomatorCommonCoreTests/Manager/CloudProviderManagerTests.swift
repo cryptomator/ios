@@ -35,7 +35,7 @@ class CloudProviderManagerTests: XCTestCase {
 	}
 
 	func testCreateProviderCachesTheProvider() throws {
-		DropboxSetup.constants = DropboxSetup(appKey: "", appGroupName: "", mainAppBundleId: "")
+		DropboxSetup.constants = DropboxSetup(appKey: "", sharedContainerIdentifier: nil, keychainService: nil, forceForegroundSession: false)
 		let account = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 		try accountManager.saveNewAccount(account)
 		XCTAssertNil(CloudProviderManager.cachedProvider[account.accountUID])

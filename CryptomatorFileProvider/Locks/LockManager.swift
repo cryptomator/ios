@@ -172,7 +172,7 @@ extension CloudPath {
 
 	 This function returns the following cloud paths:
 
-	 `["/", "/AAA/", "/AAA/BBB/", "/AAA/BBB/CCC/"]`
+	 `["/", "/AAA/", "/AAA/BBB/", "/AAA/BBB/CCC/", "/AAA/BBB/CCC/example.txt"]`
 
 	 - Precondition: `startIndex > 0` (default: `startIndex = 1`).
 	 - Postcondition: Returned `array.count > 0`.

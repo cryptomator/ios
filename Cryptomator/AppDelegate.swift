@@ -55,8 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		// Set up cloud storage services
 		CloudProviderManager.shared.useBackgroundSession = false
-		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, appGroupName: CryptomatorConstants.appGroupName, mainAppBundleId: CryptomatorConstants.mainAppBundleId)
-		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, appGroupName: CryptomatorConstants.appGroupName)
+		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
+		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
 		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 		do {
@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 				if authResult.isSuccess() {
 					let tokenUid = authResult.accessToken.uid
-					let credential = DropboxCredential(tokenUid: tokenUid)
+					let credential = DropboxCredential(tokenUID: tokenUid)
 					DropboxAuthenticator.pendingAuthentication?.fulfill(credential)
 				} else if authResult.isCancel() {
 					DropboxAuthenticator.pendingAuthentication?.reject(DropboxAuthenticatorError.userCanceled)

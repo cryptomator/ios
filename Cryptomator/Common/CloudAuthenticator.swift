@@ -23,16 +23,16 @@ class CloudAuthenticator {
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let authenticator = DropboxAuthenticator()
 		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)
+			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let credential = GoogleDriveCredential(with: UUID().uuidString)
+		let credential = GoogleDriveCredential(tokenUID: UUID().uuidString)
 		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .googleDrive)
+			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
@@ -72,10 +72,10 @@ class CloudAuthenticator {
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .dropbox:
-			let credential = DropboxCredential(tokenUid: account.accountUID)
+			let credential = DropboxCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()
 		case .googleDrive:
-			let credential = GoogleDriveCredential(with: account.accountUID)
+			let credential = GoogleDriveCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: account.accountUID)

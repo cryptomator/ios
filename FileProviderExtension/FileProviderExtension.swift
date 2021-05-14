@@ -33,7 +33,7 @@ class FileProviderExtension: NSFileProviderExtension {
 					let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 					CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
 					FileProviderExtension.sharedDatabaseInitialized = true
-					OneDriveSetup.appGroupName = CryptomatorConstants.appGroupName
+					OneDriveSetup.sharedContainerIdentifier = CryptomatorConstants.appGroupName
 					let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
 					oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 					OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)

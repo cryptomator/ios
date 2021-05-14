@@ -33,7 +33,7 @@ class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 		}
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
 		return checkTLSCertificate(for: baseURL, allowedCertificate: allowedCertificate).then { _ -> Promise<Void> in
-			let client = WebDAVClient(credential: credential, sharedContainerIdentifier: "", useBackgroundSession: false)
+			let client = WebDAVClient(credential: credential)
 			self.client = client
 			return WebDAVAuthenticator.verifyClient(client: client)
 		}.then { _ -> WebDAVCredential in

@@ -56,7 +56,6 @@ public class VaultManager {
 			let masterkey = try Masterkey.createNew()
 			let cryptor = Cryptor(masterkey: masterkey)
 			let delegate = try providerManager.getProvider(with: delegateAccountUID)
-			let decorator = try VaultFormat7ProviderDecorator(delegate: delegate, vaultPath: vaultPath, cryptor: cryptor)
 			let rootDirPath = try VaultManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 			return delegate.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
 				let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
@@ -75,11 +74,11 @@ public class VaultManager {
 			}.then { _ -> Promise<Void> in
 				return delegate.createFolder(at: rootDirPath)
 			}.then { _ -> Void in
-				let shorteningDecorator = try VaultFormat7ShorteningProviderDecorator(delegate: decorator, vaultPath: vaultPath)
+				let decorator = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: vaultVersion, vaultPath: vaultPath, with: delegate)
 				let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, lastUpToDateCheck: Date())
 				try self.vaultAccountManager.saveNewAccount(account)
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: vaultVersion, password: password, storePasswordInKeychain: storePasswordInKeychain)
-				VaultManager.cachedDecorators[vaultUID] = shorteningDecorator
+				VaultManager.cachedDecorators[vaultUID] = decorator
 			}.then {
 				self.addFileProviderDomain(forVaultUID: vaultUID, vaultPath: vaultPath)
 			}
@@ -118,21 +117,9 @@ public class VaultManager {
 	}
 
 	func createVaultDecorator(from masterkey: Masterkey, delegate: CloudProvider, vaultPath: CloudPath, vaultUID: String, vaultVersion: Int) throws -> CloudProvider {
-		let cryptor = Cryptor(masterkey: masterkey)
-		switch vaultVersion {
-		case 7:
-			let decorator = try VaultFormat7ProviderDecorator(delegate: delegate, vaultPath: vaultPath, cryptor: cryptor)
-			let shorteningDecorator = try VaultFormat7ShorteningProviderDecorator(delegate: decorator, vaultPath: vaultPath)
-			VaultManager.cachedDecorators[vaultUID] = shorteningDecorator
-			return shorteningDecorator
-		case 6:
-			let decorator = try VaultFormat6ProviderDecorator(delegate: delegate, vaultPath: vaultPath, cryptor: cryptor)
-			let shorteningDecorator = try VaultFormat6ShorteningProviderDecorator(delegate: decorator, vaultPath: vaultPath)
-			VaultManager.cachedDecorators[vaultUID] = shorteningDecorator
-			return shorteningDecorator
-		default:
-			throw VaultManagerError.vaultVersionNotSupported
-		}
+		let decorator = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: vaultVersion, vaultPath: vaultPath, with: delegate)
+		VaultManager.cachedDecorators[vaultUID] = decorator
+		return decorator
 	}
 
 	public func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider {

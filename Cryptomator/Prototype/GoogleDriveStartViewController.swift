@@ -21,7 +21,7 @@ class GoogleDriveStartViewController: UIViewController {
 			return
 		}
 		if let firstAccountUID = accountUIDs.first {
-			let credential = GoogleDriveCredential(with: firstAccountUID)
+			let credential = GoogleDriveCredential(tokenUID: firstAccountUID)
 			let accountOverviewVC = GoogleDriveAccountOverviewViewController(for: credential)
 			navigationController?.pushViewController(accountOverviewVC, animated: true)
 		} else {

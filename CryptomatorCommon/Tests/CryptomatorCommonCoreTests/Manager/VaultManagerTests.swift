@@ -6,11 +6,11 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 import Promises
 import XCTest
+@testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
@@ -217,7 +217,7 @@ class VaultManagerTests: XCTestCase {
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		XCTAssertThrowsError(try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 1)) { error in
-			guard case VaultManagerError.vaultVersionNotSupported = error else {
+			guard case VaultProviderFactoryError.unsupportedVaultVersion = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}

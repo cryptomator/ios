@@ -39,7 +39,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	func refreshDropboxItems() -> Promise<Void> {
 		return all(accountInfos
-			.map { DropboxCredential(tokenUid: $0.accountUID) }
+			.map { DropboxCredential(tokenUID: $0.accountUID) }
 			.map { self.createAccountCellContent(for: $0) }
 		).then { accounts in
 			self.accounts = accounts
@@ -49,10 +49,10 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
 		case .dropbox:
-			let credential = DropboxCredential(tokenUid: accountInfo.accountUID)
+			let credential = DropboxCredential(tokenUID: accountInfo.accountUID)
 			return createAccountCellContentPlaceholder(for: credential)
 		case .googleDrive:
-			let credential = GoogleDriveCredential(with: accountInfo.accountUID)
+			let credential = GoogleDriveCredential(tokenUID: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)

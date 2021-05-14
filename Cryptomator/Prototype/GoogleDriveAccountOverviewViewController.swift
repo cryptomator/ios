@@ -42,7 +42,7 @@ class GoogleDriveAccountOverviewViewController: UIViewController {
 	}
 
 	@objc func logout() {
-		VaultManager.shared.removeVault(withUID: credential.tokenUid).then(on: .main) {
+		VaultManager.shared.removeVault(withUID: credential.tokenUID).then(on: .main) {
 			self.credential.deauthenticate()
 			self.navigationController?.popToRootViewController(animated: true)
 		}.catch { error in
@@ -51,7 +51,7 @@ class GoogleDriveAccountOverviewViewController: UIViewController {
 	}
 
 	@objc func chooseExistingVault() {
-		let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: credential.tokenUid, folder: CloudPath("/"))
+		let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: credential.tokenUID, folder: CloudPath("/"))
 		let folderBrowserViewController = FolderBrowserViewController(viewModel: folderBrowserViewModel)
 		navigationController?.pushViewController(folderBrowserViewController, animated: true)
 	}

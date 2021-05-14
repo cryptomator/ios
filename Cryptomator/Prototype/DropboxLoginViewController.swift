@@ -40,7 +40,7 @@ class DropboxLoginViewController: UIViewController {
 
 			let accountEmailText = UITextView(frame: CGRect(x: 50, y: 200, width: 300, height: 50))
 			accountEmailText.text = "Loading Name"
-			let credential = DropboxCredential(tokenUid: firstAccountUID)
+			let credential = DropboxCredential(tokenUID: firstAccountUID)
 			credential.getUsername().then { name in
 				accountEmailText.text = name
 			}.catch { error in
@@ -71,8 +71,8 @@ class DropboxLoginViewController: UIViewController {
 	@objc func login() {
 		let authenticator = DropboxAuthenticator()
 		authenticator.authenticate(from: self).then { credential in
-			print("authenticated with tokenUid: \(credential.tokenUid)")
-			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)
+			print("authenticated with tokenUid: \(credential.tokenUID)")
+			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
 			try CloudProviderAccountManager.shared.saveNewAccount(account)
 			let folderBrowserViewModel = FolderBrowserViewModel(providerAccountUID: account.accountUID, folder: CloudPath("/"))
 			let folderVC = FolderBrowserViewController(viewModel: folderBrowserViewModel)
@@ -97,7 +97,7 @@ class DropboxLoginViewController: UIViewController {
 			print("no tokenUID")
 			return
 		}
-		let credential = DropboxCredential(tokenUid: tokenUID)
+		let credential = DropboxCredential(tokenUID: tokenUID)
 		do {
 			try VaultAccountManager.shared.removeAccount(with: tokenUID)
 		} catch {
