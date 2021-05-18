@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		CloudProviderManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectUri, authority: nil)
+		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
 		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 		do {
 			OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
@@ -96,7 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		userDefaults.set(currentAppVersion, forKey: appVersionKey)
 	}
 
-	func application(_: UIApplication, open url: URL, options _: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+	func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
 		if url.scheme == CloudAccessSecrets.dropboxURLScheme {
 			let canHandle = DBClientsManager.handleRedirectURL(url) { authResult in
 				guard let authResult = authResult else {
@@ -113,10 +113,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 				}
 			}
 			return canHandle
-		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURL?.scheme {
+		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURLScheme {
 			return GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) ?? false
+		} else if url.scheme == CloudAccessSecrets.oneDriveRedirectURIScheme {
+			return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
 		}
-		#warning("TODO: Handle OneDrive URL scheme")
 		return false
 	}
 }
