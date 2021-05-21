@@ -32,13 +32,13 @@ public class CloudProviderManager {
 		switch cloudProviderType {
 		case .googleDrive:
 			let credential = GoogleDriveCredential(tokenUID: accountUID)
-			provider = GoogleDriveCloudProvider(credential: credential)
+			provider = GoogleDriveCloudProvider(credential: credential, useBackgroundSession: useBackgroundSession)
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: accountUID)
 			provider = DropboxCloudProvider(credential: credential)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider(credential: credential)
+			provider = try OneDriveCloudProvider(credential: credential, useBackgroundSession: useBackgroundSession)
 		case .webDAV:
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
