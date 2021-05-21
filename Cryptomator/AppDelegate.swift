@@ -38,14 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return false
 		}
 
-		// FIXME: Dirty hack, which nukes database when there is a new version
-		do {
-			try nukeDatabase()
-		} catch {
-			print("Error while nuking the CryptomatorDatabase: \(error)")
-			return false
-		}
-
 		// Clean up
 		VaultManager.shared.removeAllUnusedFileProviderDomains().then {
 			print("removed all unused FileProviderDomains")
@@ -81,24 +73,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 
-	private func nukeDatabase() throws {
-		let userDefaults = UserDefaults.standard
-		let appVersionKey = "CryptomatorUserDefaultAppVersion"
-		// swiftlint:disable:next force_cast
-		let currentAppVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
-		let previousVersion = userDefaults.string(forKey: appVersionKey)
-		if previousVersion == nil || previousVersion != currentAppVersion {
-			let dbPool = DatabaseManager.shared.dbPool
-			try dbPool.erase()
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
-		}
-		userDefaults.set(currentAppVersion, forKey: appVersionKey)
-	}
-
 	func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
 		if url.scheme == CloudAccessSecrets.dropboxURLScheme {
-			let canHandle = DBClientsManager.handleRedirectURL(url) { authResult in
+			return DBClientsManager.handleRedirectURL(url) { authResult in
 				guard let authResult = authResult else {
 					return
 				}
@@ -112,7 +89,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					DropboxAuthenticator.pendingAuthentication?.reject(authResult.nsError)
 				}
 			}
-			return canHandle
 		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURLScheme {
 			return GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) ?? false
 		} else if url.scheme == CloudAccessSecrets.oneDriveRedirectURIScheme {
