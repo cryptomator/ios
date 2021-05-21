@@ -1,5 +1,7 @@
-With this update, you will lose your local data/settings (only the ones from this new Swift project). During the alpha, the internal database won't be automatically migrated.
+Welcome to the first alpha version of the new Cryptomator for iOS app!
 
-- Added screen "Vault List" (#4)
-- Added screen "Add Vault" (#6, #21, #23)
-- Added screen "Open Existing Vault" (#8)
+This new app is fully integrated into the Files app.
+
+Be aware that a lot of things aren't working yet. E.g., you can't create a new vault yet. Make sure to create a new vault with our other apps so that you can add an existing vault.
+
+We're looking forward to your feedback!
