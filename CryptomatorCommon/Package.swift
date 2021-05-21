@@ -26,7 +26,7 @@ let package = Package(
 		)
 	],
 	dependencies: [
-		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .branch("develop")),
+		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "0.12.0")),
 		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.7.0"))
 	],
 	targets: [
