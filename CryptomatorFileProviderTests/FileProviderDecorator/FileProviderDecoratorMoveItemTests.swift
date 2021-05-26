@@ -14,7 +14,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveItemLocallyOnlyNameChanged() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/RenamedTest.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let newName = "RenamedTest.txt"
@@ -29,7 +29,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 			return
 		}
 		XCTAssertEqual(newName, fetchedItemMetadata.name)
-		XCTAssertEqual(MetadataManager.rootContainerId, fetchedItemMetadata.parentId)
+		XCTAssertEqual(MetadataDBManager.rootContainerId, fetchedItemMetadata.parentId)
 		XCTAssertEqual(ItemStatus.isUploading, fetchedItemMetadata.statusCode)
 		XCTAssertEqual(targetCloudPath, fetchedItemMetadata.cloudPath)
 		let reparenTask = try decorator.reparentTaskManager.getTask(for: itemMetadata.id!)
@@ -41,9 +41,9 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveItemLocallyOnlyParentChanged() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -71,9 +71,9 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveItemLocally() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/RenamedTest.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -102,9 +102,9 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 	func testMoveFileInCloud() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/RenamedTest.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		let newParentItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadatas([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
@@ -133,7 +133,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 
 	func testMoveItemCloudItemNameCollisionHandling() throws {
 		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 
@@ -166,7 +166,7 @@ class FileProviderDecoratorMoveItemTests: FileProviderDecoratorTestCase {
 
 	func testMoveItemInCloudReportsErrorWithFileProviderItem() throws {
 		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 

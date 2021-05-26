@@ -11,14 +11,14 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class ReparentTaskManagerTests: XCTestCase {
-	var manager: ReparentTaskManager!
+	var manager: ReparentTaskDBManager!
 	var tmpDirURL: URL!
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		let dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
-		manager = try ReparentTaskManager(with: dbPool)
+		manager = try ReparentTaskDBManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {
@@ -29,8 +29,8 @@ class ReparentTaskManagerTests: XCTestCase {
 	func testCreateAndGetTask() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
-		let fetchedTask = try manager.getTask(for: 1)
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
+		let fetchedTask = try manager.getTaskRecord(for: 1)
 		XCTAssertEqual(1, fetchedTask.correspondingItem)
 		XCTAssertEqual(sourceCloudPath, fetchedTask.sourceCloudPath)
 		XCTAssertEqual(targetCloudPath, fetchedTask.targetCloudPath)
@@ -41,10 +41,10 @@ class ReparentTaskManagerTests: XCTestCase {
 	func testDeleteTask() throws {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
-		let task = try manager.getTask(for: 1)
-		try manager.removeTask(task)
-		XCTAssertThrowsError(try manager.getTask(for: 1)) { error in
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: 2, newParentId: 3)
+		let task = try manager.getTaskRecord(for: 1)
+		try manager.removeTaskRecord(task)
+		XCTAssertThrowsError(try manager.getTaskRecord(for: 1)) { error in
 			guard case TaskError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -57,9 +57,9 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 		let oldParentId: Int64 = 2
 		let newParentId: Int64 = 3
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
 
-		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
+		let retrievedTasks = try manager.getTaskRecordsForItemsWhichWere(in: oldParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
 		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
@@ -73,8 +73,8 @@ class ReparentTaskManagerTests: XCTestCase {
 		let oldParentId: Int64 = 2
 		let newParentId = oldParentId
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
-		let retrievedTasks = try manager.getTasksForItemsWhichWere(in: oldParentId)
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
+		let retrievedTasks = try manager.getTaskRecordsForItemsWhichWere(in: oldParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
 		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
@@ -88,9 +88,9 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 		let oldParentId: Int64 = 2
 		let newParentId: Int64 = 3
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: newParentId)
 
-		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
+		let retrievedTasks = try manager.getTaskRecordsForItemsWhichAreSoon(in: newParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
 		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
@@ -104,8 +104,8 @@ class ReparentTaskManagerTests: XCTestCase {
 		let oldParentId: Int64 = 2
 		let newParentId = oldParentId
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
-		try manager.createTask(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
-		let retrievedTasks = try manager.getTasksForItemsWhichAreSoon(in: newParentId)
+		try manager.createTaskRecord(for: 1, oldCloudPath: sourceCloudPath, newCloudPath: targetCloudPath, oldParentId: oldParentId, newParentId: oldParentId)
+		let retrievedTasks = try manager.getTaskRecordsForItemsWhichAreSoon(in: newParentId)
 		XCTAssertEqual(1, retrievedTasks.count)
 		XCTAssertEqual(1, retrievedTasks[0].correspondingItem)
 		XCTAssertEqual(sourceCloudPath, retrievedTasks[0].sourceCloudPath)
@@ -115,8 +115,8 @@ class ReparentTaskManagerTests: XCTestCase {
 	}
 }
 
-extension ReparentTask: Equatable {
-	public static func == (lhs: ReparentTask, rhs: ReparentTask) -> Bool {
+extension ReparentTaskRecord: Equatable {
+	public static func == (lhs: ReparentTaskRecord, rhs: ReparentTaskRecord) -> Bool {
 		return lhs.correspondingItem == rhs.correspondingItem &&
 			lhs.sourceCloudPath == rhs.sourceCloudPath &&
 			lhs.targetCloudPath == rhs.targetCloudPath &&

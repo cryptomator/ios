@@ -39,7 +39,16 @@ extension LocalCachedFileInfo {
 	}
 }
 
-class CachedFileManager {
+protocol CachedFileManager {
+	func getLocalCachedFileInfo(for identifier: Int64) throws -> LocalCachedFileInfo?
+	func getLastModifiedDate(for identifier: Int64) throws -> Date?
+	func getLocalLastModifiedDate(for identifier: Int64) throws -> Date?
+	func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws
+	func getLocalURL(for identifier: Int64) throws -> URL?
+	func removeCachedFile(for identifier: Int64) throws
+}
+
+class CachedFileDBManager: CachedFileManager {
 	let dbPool: DatabasePool
 
 	init(with dbPool: DatabasePool) {

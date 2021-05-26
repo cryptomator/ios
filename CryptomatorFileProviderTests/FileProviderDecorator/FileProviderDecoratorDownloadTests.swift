@@ -16,7 +16,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let identifier = NSFileProviderItemIdentifier(String("3"))
 		decorator.downloadFile(with: identifier, to: localURL).then { _ in
@@ -61,7 +61,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
 		let cloudPath = CloudPath("/itemNotFound.txt")
-		let itemMetadata = ItemMetadata(id: 3, name: "itemNotFound.txt", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "itemNotFound.txt", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let identifier = NSFileProviderItemIdentifier(String("3"))
 		decorator.downloadFile(with: identifier, to: localURL).then { _ in
@@ -84,7 +84,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	}
 
 	func testHasPossibleVersioningConflictForItemWithFailedUploadAfterDownload() throws {
-		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
 		let error = NSFileProviderError(.serverUnreachable)
@@ -97,7 +97,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	}
 
 	func testHasPossibleVersioningConflictForUploadingItem() throws {
-		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
@@ -108,7 +108,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	}
 
 	func testHasNoVersioningConflictForItemWithoudPendingUploadTask() throws {
-		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURLForItem, lastModifiedDate: nil)
@@ -124,7 +124,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
 		let existingLocalContentData = try Data(contentsOf: localURL)
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let identifier = NSFileProviderItemIdentifier(String("3"))
 		decorator.downloadFile(with: identifier, to: localURL, replaceExisting: true).then { _ in
@@ -149,7 +149,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 
 	func testDownloadPostProcessingForReplaceExisting() throws {
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
@@ -181,7 +181,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 
 	func testDownloadPostProcessingForNewFile() throws {
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)

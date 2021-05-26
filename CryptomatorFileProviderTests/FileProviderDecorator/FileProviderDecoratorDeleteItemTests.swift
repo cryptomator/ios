@@ -13,7 +13,7 @@ import XCTest
 class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	func testDeleteItemLocally() throws {
 		let cloudPath = CloudPath("/test.txt")
-		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
@@ -29,7 +29,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 
 	func testDeleteItemLocallyWithCachedFile() throws {
 		let cloudPath = CloudPath("/test.txt")
-		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
@@ -54,7 +54,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 	func testDeleteItemLocallyWithFolder() throws {
 		let folderCloudPath = CloudPath("/Folder/")
 		let cloudPath = CloudPath("/Folder/test.txt")
-		let folderItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
+		let folderItemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(folderItemMetadata)
 		let itemMetadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: folderItemMetadata.parentId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
@@ -90,7 +90,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 
 	func testDeleteFileInCloud() throws {
 		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		try decorator.deleteItemLocally(withIdentifier: itemIdentifier)
@@ -117,7 +117,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 
 	func testDeleteItemInCloudFailsWithoutDeletionTask() throws {
 		let cloudPath = CloudPath("/Test.txt")
-		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let expectation = XCTestExpectation()

@@ -25,7 +25,7 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 	}
 
 	func testGetFileProviderItem() throws {
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no ID")
@@ -36,7 +36,7 @@ class FileProviderDecoratorGetFileProviderItemTests: FileProviderDecoratorTestCa
 	}
 
 	func testGetFileProviderItemWithUploadError() throws {
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: 100, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		guard let id = itemMetadata.id else {
 			XCTFail("Metadata has no ID")

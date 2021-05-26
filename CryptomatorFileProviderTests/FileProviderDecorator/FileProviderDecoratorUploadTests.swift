@@ -34,7 +34,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let expectedCloudPath = CloudPath("/FileNotYetUploaded.txt")
-		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: expectedCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: expectedCloudPath, isPlaceholderItem: false)
 		let expectation = XCTestExpectation()
 		DispatchQueue.main.async {
 			autoreleasepool {

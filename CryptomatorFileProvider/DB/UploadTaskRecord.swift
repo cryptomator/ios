@@ -1,16 +1,16 @@
 //
-//  UploadTask.swift
+//  UploadTaskRecord.swift
 //  CryptomatorFileProvider
 //
-//  Created by Philipp Schmid on 08.07.20.
-//  Copyright © 2020 Skymatic GmbH. All rights reserved.
+//  Created by Philipp Schmid on 01.06.21.
+//  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
 import FileProvider
 import Foundation
 import GRDB
 
-struct UploadTask: Decodable, FetchableRecord, TableRecord {
+struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "uploadTasks"
 	static let correspondingItemKey = "correspondingItem"
 	static let lastFailedUploadDateKey = "lastFailedUploadDate"
@@ -20,7 +20,7 @@ struct UploadTask: Decodable, FetchableRecord, TableRecord {
 	var lastFailedUploadDate: Date?
 	var uploadErrorCode: Int?
 	var uploadErrorDomain: String?
-	var error: Error? {
+	var failedWithError: Error? {
 		guard let errorCode = uploadErrorCode, let errorDomain = uploadErrorDomain else {
 			return nil
 		}
@@ -38,11 +38,18 @@ struct UploadTask: Decodable, FetchableRecord, TableRecord {
 	}
 }
 
-extension UploadTask: PersistableRecord {
+extension UploadTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[UploadTask.correspondingItemKey] = correspondingItem
-		container[UploadTask.lastFailedUploadDateKey] = lastFailedUploadDate
-		container[UploadTask.uploadErrorCodeKey] = uploadErrorCode
-		container[UploadTask.uploadErrorDomainKey] = uploadErrorDomain
+		container[UploadTaskRecord.correspondingItemKey] = correspondingItem
+		container[UploadTaskRecord.lastFailedUploadDateKey] = lastFailedUploadDate
+		container[UploadTaskRecord.uploadErrorCodeKey] = uploadErrorCode
+		container[UploadTaskRecord.uploadErrorDomainKey] = uploadErrorDomain
+	}
+}
+
+extension UploadTaskRecord {
+	static let itemMetadata = belongsTo(ItemMetadata.self, key: "metadata")
+	var itemMetadata: QueryInterfaceRequest<ItemMetadata> {
+		request(for: UploadTaskRecord.itemMetadata)
 	}
 }

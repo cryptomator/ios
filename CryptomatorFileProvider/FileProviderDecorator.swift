@@ -16,11 +16,11 @@ import GRDB
 import Promises
 
 public class FileProviderDecorator {
-	let itemMetadataManager: MetadataManager
-	let cachedFileManager: CachedFileManager
-	let uploadTaskManager: UploadTaskManager
-	let reparentTaskManager: ReparentTaskManager
-	let deletionTaskManager: DeletionTaskManager
+	let itemMetadataManager: MetadataDBManager
+	let cachedFileManager: CachedFileDBManager
+	let uploadTaskManager: UploadTaskDBManager
+	let reparentTaskManager: ReparentTaskDBManager
+	let deletionTaskManager: DeletionTaskDBManager
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
 	let vaultUID: String
@@ -34,11 +34,11 @@ public class FileProviderDecorator {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
-		self.itemMetadataManager = MetadataManager(with: database)
-		self.cachedFileManager = CachedFileManager(with: database)
-		self.uploadTaskManager = UploadTaskManager(with: database)
-		self.reparentTaskManager = try ReparentTaskManager(with: database)
-		self.deletionTaskManager = try DeletionTaskManager(with: database)
+		self.itemMetadataManager = MetadataDBManager(with: database)
+		self.cachedFileManager = CachedFileDBManager(with: database)
+		self.uploadTaskManager = UploadTaskDBManager(with: database)
+		self.reparentTaskManager = try ReparentTaskDBManager(with: database)
+		self.deletionTaskManager = try DeletionTaskDBManager(with: database)
 		self.domain = domain
 		self.manager = manager
 		self.vaultUID = domain.identifier.rawValue
@@ -227,7 +227,7 @@ public class FileProviderDecorator {
 	func convertFileProviderItemIdentifierToInt64(_ identifier: NSFileProviderItemIdentifier) throws -> Int64 {
 		switch identifier {
 		case .rootContainer:
-			return MetadataManager.rootContainerId
+			return MetadataDBManager.rootContainerId
 		default:
 			guard let id = Int64(identifier.rawValue) else {
 				throw FileProviderDecoratorError.unsupportedItemIdentifier

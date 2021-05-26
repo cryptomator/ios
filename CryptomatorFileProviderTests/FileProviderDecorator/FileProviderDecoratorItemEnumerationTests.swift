@@ -43,7 +43,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testFileEnumeration() throws {
 		let expectation = XCTestExpectation()
 		let path = CloudPath("/File 1")
-		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
+		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(fileMetadata)
 		guard let id = fileMetadata.id else {
 			XCTFail("ItemMetadata has no id")
@@ -60,7 +60,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual("File 1", fetchedItemMetadata.name)
 			XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
 			XCTAssertEqual(14, fetchedItemMetadata.size)
-			XCTAssertEqual(MetadataManager.rootContainerId, fetchedItemMetadata.parentId)
+			XCTAssertEqual(MetadataDBManager.rootContainerId, fetchedItemMetadata.parentId)
 			XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
 			XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
 			XCTAssertEqual(CloudPath("/File 1"), fetchedItemMetadata.cloudPath)
@@ -83,7 +83,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testFileEnumerationPreservesUploadError() throws {
 		let expectation = XCTestExpectation()
 		let path = CloudPath("/File 1")
-		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
+		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(fileMetadata)
 		guard let id = fileMetadata.id else {
 			XCTFail("ItemMetadata has no id")
@@ -124,7 +124,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testFileEnumerationPreservesLocalCachedFileInfo() throws {
 		let expectation = XCTestExpectation()
 		let path = CloudPath("/File 1")
-		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
+		let fileMetadata = ItemMetadata(name: "File 1", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: path, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(fileMetadata)
 		guard let id = fileMetadata.id else {
 			XCTFail("ItemMetadata has no id")
@@ -153,7 +153,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual("File 1", fetchedItemMetadata.name)
 			XCTAssertEqual(CloudItemType.file, fetchedItemMetadata.type)
 			XCTAssertEqual(14, fetchedItemMetadata.size)
-			XCTAssertEqual(MetadataManager.rootContainerId, fetchedItemMetadata.parentId)
+			XCTAssertEqual(MetadataDBManager.rootContainerId, fetchedItemMetadata.parentId)
 			XCTAssertNotNil(fetchedItemMetadata.lastModifiedDate)
 			XCTAssertEqual(ItemStatus.isUploaded, fetchedItemMetadata.statusCode)
 			XCTAssertEqual(CloudPath("/File 1"), fetchedItemMetadata.cloudPath)
@@ -175,7 +175,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testEnumerationOnNonExistentFile() throws {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/itemNotFound")
-		let folderMetadata = ItemMetadata(name: "ItemNotExistInCloud", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let folderMetadata = ItemMetadata(name: "ItemNotExistInCloud", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(folderMetadata)
 		guard let id = folderMetadata.id else {
 			XCTFail("FolderMetadata not saved in DB")
@@ -200,11 +200,11 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 
 	func testFolderEnumeration() throws {
 		let expectation = XCTestExpectation(description: "Folder Enumeration")
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
+		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
 		let expectedSubFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 7, name: "Directory 2", type: .folder, size: 0, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/Directory 2"), isPlaceholderItem: false)),
 		                                          FileProviderItem(metadata: ItemMetadata(id: 8, name: "File 5", type: .file, size: 14, parentId: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/File 5"), isPlaceholderItem: false))]
 		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> FileProviderItem in
@@ -226,16 +226,16 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 
 	func testFolderEnumerationSameFolderTwice() throws {
 		let expectation = XCTestExpectation(description: "Folder Enumeration")
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
-		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false))]
+		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
+		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false))]
 		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
 			XCTAssertEqual(expectedRootFolderFileProviderItems, fileProviderItemList.items)
@@ -303,7 +303,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 			return
 		}
 		let decorator = try FileProviderDecoratorMock(with: paginatedMockedProvider, for: domain, with: manager)
-		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "TestItem", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		XCTAssertFalse(itemMetadata.isMaybeOutdated)
 		guard let id = itemMetadata.id else {
@@ -345,14 +345,14 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 			return decorator.enumerateItems(for: .rootContainer, withPageToken: nextPageToken)
 		}.then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertNil(fileProviderItemList.nextPageToken)
-			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
+			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataDBManager.rootContainerId)
 			let folderItem = cachedMetadata.first(where: { $0.name == "Folder" && $0.type == .folder })
 			guard let folderIdentifier = folderItem?.id else {
 				throw NSError(domain: "FileProviderDecoratorTestError", code: -100, userInfo: ["localizedDescription": "no Folder Id found!"])
 			}
 			return decorator.enumerateItems(for: NSFileProviderItemIdentifier("\(folderIdentifier)"), withPageToken: nil)
 		}.then { _ -> Promise<FileProviderItemList> in
-			let rootItem = ItemMetadata(id: MetadataManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+			let rootItem = ItemMetadata(id: MetadataDBManager.rootContainerId, name: "root", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 			let cachedMetadata = try decorator.itemMetadataManager.getAllCachedMetadata(inside: rootItem)
 			XCTAssertEqual(8, cachedMetadata.count)
 			paginatedMockedProvider.nextPageToken["0"] = nil
@@ -361,7 +361,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 		}.then { fileProviderItemList in
 			XCTAssertNil(fileProviderItemList.nextPageToken)
 			XCTAssertEqual(2, fileProviderItemList.items.count)
-			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataManager.rootContainerId)
+			let cachedMetadata = try decorator.itemMetadataManager.getCachedMetadata(forParentId: MetadataDBManager.rootContainerId)
 			XCTAssertEqual(2, cachedMetadata.count)
 			XCTAssertFalse(cachedMetadata[0].isMaybeOutdated)
 			XCTAssertFalse(cachedMetadata[1].isMaybeOutdated)
@@ -418,7 +418,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 	func testEnumerationOnNonExistentFolder() throws {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/itemNotFound")
-		let folderMetadata = ItemMetadata(name: "ItemNotExistInCloud", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let folderMetadata = ItemMetadata(name: "ItemNotExistInCloud", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try decorator.itemMetadataManager.cacheMetadata(folderMetadata)
 		guard let id = folderMetadata.id else {
 			XCTFail("FolderMetadata not saved in DB")

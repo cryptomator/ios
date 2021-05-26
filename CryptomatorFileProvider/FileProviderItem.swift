@@ -28,14 +28,14 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
 		assert(metadata.id != nil)
-		if metadata.id == MetadataManager.rootContainerId {
+		if metadata.id == MetadataDBManager.rootContainerId {
 			return .rootContainer
 		}
 		return NSFileProviderItemIdentifier(String(metadata.id ?? -1)) // TODO: Change Optional Handling
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
-		if metadata.parentId == MetadataManager.rootContainerId {
+		if metadata.parentId == MetadataDBManager.rootContainerId {
 			return .rootContainer
 		}
 		return NSFileProviderItemIdentifier(String(metadata.parentId))

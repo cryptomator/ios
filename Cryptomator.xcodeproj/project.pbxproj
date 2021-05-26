@@ -38,6 +38,9 @@
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
 		4A4AD0EF258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */; };
 		4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */; };
+		4A511D5B26668E0C000A0E01 /* UploadTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A511D5A26668E0C000A0E01 /* UploadTaskRecord.swift */; };
+		4A511D5D26668E47000A0E01 /* ReparentTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A511D5C26668E47000A0E01 /* ReparentTaskRecord.swift */; };
+		4A511D5F26668E68000A0E01 /* DeletionTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */; };
 		4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */; };
 		4A51E612261C9A8800CC8C9B /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */; };
 		4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F57825C47BB2001BE15E /* TextFieldCell.swift */; };
@@ -121,16 +124,16 @@
 		747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */; };
 		747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */; };
 		747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376032587AEB60023FF53 /* ItemMetadata.swift */; };
-		747F2F232587BC250072FB30 /* MetadataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760B2587AEB70023FF53 /* MetadataManager.swift */; };
-		747F2F242587BC250072FB30 /* CachedFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376092587AEB70023FF53 /* CachedFileManager.swift */; };
-		747F2F252587BC250072FB30 /* UploadTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376052587AEB60023FF53 /* UploadTaskManager.swift */; };
+		747F2F232587BC250072FB30 /* MetadataDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760B2587AEB70023FF53 /* MetadataDBManager.swift */; };
+		747F2F242587BC250072FB30 /* CachedFileDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376092587AEB70023FF53 /* CachedFileDBManager.swift */; };
+		747F2F252587BC250072FB30 /* UploadTaskDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376052587AEB60023FF53 /* UploadTaskDBManager.swift */; };
 		747F2F262587BC250072FB30 /* UploadTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376062587AEB60023FF53 /* UploadTask.swift */; };
 		747F2F272587BC250072FB30 /* ReparentTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760C2587AEB70023FF53 /* ReparentTask.swift */; };
-		747F2F282587BC250072FB30 /* ReparentTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376072587AEB60023FF53 /* ReparentTaskManager.swift */; };
+		747F2F282587BC250072FB30 /* ReparentTaskDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376072587AEB60023FF53 /* ReparentTaskDBManager.swift */; };
 		747F2F292587BC250072FB30 /* TaskError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760A2587AEB70023FF53 /* TaskError.swift */; };
 		747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7403760D2587AEB70023FF53 /* DatabaseHelper.swift */; };
 		747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376042587AEB60023FF53 /* DeletionTask.swift */; };
-		747F2F2C2587BC260072FB30 /* DeletionTaskManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376082587AEB70023FF53 /* DeletionTaskManager.swift */; };
+		747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376082587AEB70023FF53 /* DeletionTaskDBManager.swift */; };
 		747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FC2587AEB50023FF53 /* FileProviderItemList.swift */; };
 		747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F32587AEB50023FF53 /* FileProviderItem.swift */; };
 		747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F12587AEB40023FF53 /* FileProviderDecoratorError.swift */; };
@@ -257,6 +260,9 @@
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
 		4A4AD0EE258A64C5003AACDD /* FileProviderDecoratorLocalFileIsCurrentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderDecoratorLocalFileIsCurrentTests.swift; sourceTree = "<group>"; };
 		4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtensionTests.swift"; sourceTree = "<group>"; };
+		4A511D5A26668E0C000A0E01 /* UploadTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskRecord.swift; sourceTree = "<group>"; };
+		4A511D5C26668E47000A0E01 /* ReparentTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskRecord.swift; sourceTree = "<group>"; };
+		4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskRecord.swift; sourceTree = "<group>"; };
 		4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorCommonHostedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A51E600261C9A7000CC8C9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
@@ -360,13 +366,13 @@
 		740376012587AEB60023FF53 /* LockManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockManager.swift; sourceTree = "<group>"; };
 		740376032587AEB60023FF53 /* ItemMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemMetadata.swift; sourceTree = "<group>"; };
 		740376042587AEB60023FF53 /* DeletionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTask.swift; sourceTree = "<group>"; };
-		740376052587AEB60023FF53 /* UploadTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManager.swift; sourceTree = "<group>"; };
+		740376052587AEB60023FF53 /* UploadTaskDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskDBManager.swift; sourceTree = "<group>"; };
 		740376062587AEB60023FF53 /* UploadTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTask.swift; sourceTree = "<group>"; };
-		740376072587AEB60023FF53 /* ReparentTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManager.swift; sourceTree = "<group>"; };
-		740376082587AEB70023FF53 /* DeletionTaskManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManager.swift; sourceTree = "<group>"; };
-		740376092587AEB70023FF53 /* CachedFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManager.swift; sourceTree = "<group>"; };
+		740376072587AEB60023FF53 /* ReparentTaskDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskDBManager.swift; sourceTree = "<group>"; };
+		740376082587AEB70023FF53 /* DeletionTaskDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskDBManager.swift; sourceTree = "<group>"; };
+		740376092587AEB70023FF53 /* CachedFileDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileDBManager.swift; sourceTree = "<group>"; };
 		7403760A2587AEB70023FF53 /* TaskError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskError.swift; sourceTree = "<group>"; };
-		7403760B2587AEB70023FF53 /* MetadataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManager.swift; sourceTree = "<group>"; };
+		7403760B2587AEB70023FF53 /* MetadataDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataDBManager.swift; sourceTree = "<group>"; };
 		7403760C2587AEB70023FF53 /* ReparentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTask.swift; sourceTree = "<group>"; };
 		7403760D2587AEB70023FF53 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
 		7439031225E0008D00BB3B81 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -770,17 +776,17 @@
 		740376022587AEB60023FF53 /* DB */ = {
 			isa = PBXGroup;
 			children = (
-				740376092587AEB70023FF53 /* CachedFileManager.swift */,
+				740376092587AEB70023FF53 /* CachedFileDBManager.swift */,
 				7403760D2587AEB70023FF53 /* DatabaseHelper.swift */,
-				740376042587AEB60023FF53 /* DeletionTask.swift */,
-				740376082587AEB70023FF53 /* DeletionTaskManager.swift */,
+				4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */,
+				740376082587AEB70023FF53 /* DeletionTaskDBManager.swift */,
 				740376032587AEB60023FF53 /* ItemMetadata.swift */,
-				7403760B2587AEB70023FF53 /* MetadataManager.swift */,
-				7403760C2587AEB70023FF53 /* ReparentTask.swift */,
-				740376072587AEB60023FF53 /* ReparentTaskManager.swift */,
+				7403760B2587AEB70023FF53 /* MetadataDBManager.swift */,
+				4A511D5C26668E47000A0E01 /* ReparentTaskRecord.swift */,
+				740376072587AEB60023FF53 /* ReparentTaskDBManager.swift */,
 				7403760A2587AEB70023FF53 /* TaskError.swift */,
-				740376062587AEB60023FF53 /* UploadTask.swift */,
-				740376052587AEB60023FF53 /* UploadTaskManager.swift */,
+				740376052587AEB60023FF53 /* UploadTaskDBManager.swift */,
+				4A511D5A26668E0C000A0E01 /* UploadTaskRecord.swift */,
 			);
 			path = DB;
 			sourceTree = "<group>";
@@ -1273,16 +1279,19 @@
 				747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */,
 				747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */,
 				747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */,
-				747F2F232587BC250072FB30 /* MetadataManager.swift in Sources */,
-				747F2F242587BC250072FB30 /* CachedFileManager.swift in Sources */,
-				747F2F252587BC250072FB30 /* UploadTaskManager.swift in Sources */,
+				747F2F232587BC250072FB30 /* MetadataDBManager.swift in Sources */,
+				747F2F242587BC250072FB30 /* CachedFileDBManager.swift in Sources */,
+				747F2F252587BC250072FB30 /* UploadTaskDBManager.swift in Sources */,
 				747F2F262587BC250072FB30 /* UploadTask.swift in Sources */,
+				4A511D5D26668E47000A0E01 /* ReparentTaskRecord.swift in Sources */,
 				747F2F272587BC250072FB30 /* ReparentTask.swift in Sources */,
-				747F2F282587BC250072FB30 /* ReparentTaskManager.swift in Sources */,
+				747F2F282587BC250072FB30 /* ReparentTaskDBManager.swift in Sources */,
+				4A511D5B26668E0C000A0E01 /* UploadTaskRecord.swift in Sources */,
 				747F2F292587BC250072FB30 /* TaskError.swift in Sources */,
+				4A511D5F26668E68000A0E01 /* DeletionTaskRecord.swift in Sources */,
 				747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */,
 				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
-				747F2F2C2587BC260072FB30 /* DeletionTaskManager.swift in Sources */,
+				747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */,
 				747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */,
 				747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */,
 				747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */,

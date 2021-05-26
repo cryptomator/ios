@@ -35,8 +35,14 @@ class DatabaseHelper {
 		return dbPool!
 	}
 
+	// swiftlint:disable:next function_body_length
 	private static func migrate(_ dbPool: DatabasePool) throws {
 		var migrator = DatabaseMigrator()
+		#if DEBUG
+		// Speed up development by nuking the database when migrations change
+		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
+		migrator.eraseDatabaseOnSchemaChange = true
+		#endif
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "metadata") { table in
 				table.autoIncrementedPrimaryKey("id")
@@ -52,7 +58,7 @@ class DatabaseHelper {
 			}
 
 			let rootCloudPath = CloudPath("/")
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
 			try db.create(table: "cachedFiles") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
@@ -61,7 +67,7 @@ class DatabaseHelper {
 				table.column("localURL", .text).unique()
 			}
 			try db.create(table: "uploadTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey().references("metadata", onDelete: .cascade) // TODO: Add Reference to ItemMetadata Table in Migrator
+				table.column("correspondingItem", .integer).primaryKey().references("metadata", onDelete: .cascade)
 				table.column(
 					"lastFailedUploadDate", .date
 				)
@@ -77,7 +83,7 @@ class DatabaseHelper {
 				table.column("newParentId", .integer).notNull()
 			}
 			try db.create(table: "deletionTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace)
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata", onDelete: .cascade)
 				table.column("cloudPath", .text).notNull()
 				table.column("parentId", .integer).notNull()
 				table.column("itemType", .text).notNull()
