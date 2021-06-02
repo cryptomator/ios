@@ -89,10 +89,10 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 			XCTFail("ItemMetadata has no id")
 			return
 		}
-		var task = try decorator.uploadTaskManager.createNewTask(for: id)
+		var task = try decorator.uploadTaskManager.createNewTaskRecord(for: id)
 		fileMetadata.statusCode = .uploadError
 		try decorator.itemMetadataManager.updateMetadata(fileMetadata)
-		try decorator.uploadTaskManager.updateTask(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
+		try decorator.uploadTaskManager.updateTaskRecord(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
 
 		let identifier = NSFileProviderItemIdentifier("\(id)")
 		decorator.enumerateItems(for: identifier, withPageToken: nil).then { itemList in
@@ -103,7 +103,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 				return
 			}
 			XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
-			guard let uploadTask = try self.decorator.uploadTaskManager.getTask(for: id) else {
+			guard let uploadTask = try self.decorator.uploadTaskManager.getTaskRecord(for: id) else {
 				XCTFail("No UploadTask found for id")
 				return
 			}
@@ -257,14 +257,14 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 		let expectation = XCTestExpectation()
 		let id: Int64 = 3
 		decorator.enumerateItems(for: .rootContainer, withPageToken: nil).then { _ -> Void in
-			var task = try self.decorator.uploadTaskManager.createNewTask(for: id)
+			var task = try self.decorator.uploadTaskManager.createNewTaskRecord(for: id)
 			guard let metadata = try self.decorator.itemMetadataManager.getCachedMetadata(for: id) else {
 				XCTFail("No ItemMetadata for id found")
 				return
 			}
 			metadata.statusCode = .uploadError
 			try self.decorator.itemMetadataManager.updateMetadata(metadata)
-			try self.decorator.uploadTaskManager.updateTask(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
+			try self.decorator.uploadTaskManager.updateTaskRecord(&task, error: NSFileProviderError(.insufficientQuota)._nsError)
 		}.then {
 			return self.decorator.enumerateItems(for: .rootContainer, withPageToken: nil)
 		}.then { fileProviderItemList in
@@ -275,7 +275,7 @@ class FileProviderDecoratorItemEnumerationTests: FileProviderDecoratorTestCase {
 				return
 			}
 			XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
-			guard let uploadTask = try self.decorator.uploadTaskManager.getTask(for: id) else {
+			guard let uploadTask = try self.decorator.uploadTaskManager.getTaskRecord(for: id) else {
 				XCTFail("No UploadTask found for id")
 				return
 			}

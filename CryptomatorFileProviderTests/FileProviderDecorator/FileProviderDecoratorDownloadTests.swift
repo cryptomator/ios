@@ -86,9 +86,9 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	func testHasPossibleVersioningConflictForItemWithFailedUploadAfterDownload() throws {
 		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
-		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
+		_ = try decorator.uploadTaskManager.createNewTaskRecord(for: metadata.id!)
 		let error = NSFileProviderError(.serverUnreachable)
-		try decorator.uploadTaskManager.updateTask(with: metadata.id!, lastFailedUploadDate: Date.distantFuture, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		try decorator.uploadTaskManager.updateTaskRecord(with: metadata.id!, lastFailedUploadDate: Date.distantFuture, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURLForItem, lastModifiedDate: nil)
 		let item = FileProviderItem(metadata: metadata)
@@ -99,7 +99,7 @@ class FileProviderDecoratorDownloadTests: FileProviderDecoratorTestCase {
 	func testHasPossibleVersioningConflictForUploadingItem() throws {
 		let metadata = ItemMetadata(name: "test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/test.txt"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
-		_ = try decorator.uploadTaskManager.createNewTask(for: metadata.id!)
+		_ = try decorator.uploadTaskManager.createNewTaskRecord(for: metadata.id!)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/FileProviderItemIdentifier/test.txt")
 		try decorator.cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURLForItem, lastModifiedDate: nil)
 		let item = FileProviderItem(metadata: metadata)

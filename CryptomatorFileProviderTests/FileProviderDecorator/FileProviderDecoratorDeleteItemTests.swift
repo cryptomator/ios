@@ -21,7 +21,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			XCTFail("Metadata is still in DB")
 			return
 		}
-		let deletionTask = try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)
+		let deletionTask = try decorator.deletionTaskManager.getTaskRecord(for: itemMetadata.id!)
 		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
 		XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
@@ -44,7 +44,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			XCTFail("Metadata is still in DB")
 			return
 		}
-		let deletionTask = try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)
+		let deletionTask = try decorator.deletionTaskManager.getTaskRecord(for: itemMetadata.id!)
 		XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 		XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
 		XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
@@ -75,11 +75,11 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			XCTFail("Metadata for File is still in DB")
 			return
 		}
-		let folderDeletionTask = try decorator.deletionTaskManager.getTask(for: folderItemMetadata.id!)
+		let folderDeletionTask = try decorator.deletionTaskManager.getTaskRecord(for: folderItemMetadata.id!)
 		XCTAssertEqual(folderCloudPath, folderDeletionTask.cloudPath)
 		XCTAssertEqual(folderItemMetadata.id, folderDeletionTask.correspondingItem)
 		XCTAssertEqual(folderItemMetadata.parentId, folderDeletionTask.parentId)
-		XCTAssertThrowsError(try decorator.deletionTaskManager.getTask(for: itemMetadata.id!)) { error in
+		XCTAssertThrowsError(try decorator.deletionTaskManager.getTaskRecord(for: itemMetadata.id!)) { error in
 			guard case TaskError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -101,7 +101,7 @@ class FileProviderDecoratorDeleteItemTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(1, self.mockedProvider.deletedFiles.count)
 			XCTAssertEqual(0, self.mockedProvider.deletedFolders.count)
 			XCTAssertEqual(cloudPath.path, self.mockedProvider.deletedFiles[0])
-			XCTAssertThrowsError(try self.decorator.deletionTaskManager.getTask(for: itemMetadata.id!)) { error in
+			XCTAssertThrowsError(try self.decorator.deletionTaskManager.getTaskRecord(for: itemMetadata.id!)) { error in
 				guard case TaskError.taskNotFound = error else {
 					XCTFail("Throws the wrong error: \(error)")
 					return

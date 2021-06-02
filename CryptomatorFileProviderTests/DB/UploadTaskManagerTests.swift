@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import FileProvider
 import GRDB
 import XCTest
@@ -41,7 +42,7 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertNil(fetchedUploadTask.uploadErrorDomain)
 	}
 
-	func testUpdateTask() throws {
+	func testUpdateTaskRecord() throws {
 		_ = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let error = NSFileProviderError(.serverUnreachable)
@@ -56,7 +57,7 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertEqual(NSFileProviderError.errorDomain, fetchedUploadTask.uploadErrorDomain)
 	}
 
-	func testUpdateNonExistentTaskFailsWithTaskNotFound() throws {
+	func testUpdateNonExistentTaskRecordFailsWithTaskNotFound() throws {
 		XCTAssertThrowsError(try manager.updateTaskRecord(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
 			guard case TaskError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
@@ -75,7 +76,7 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertNil(taskAfterRemoval)
 	}
 
-	func testGetCorrespondingTasks() throws {
+	func testGetCorrespondingTaskRecords() throws {
 		let savedTask = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
 		let ids = [MetadataDBManager.rootContainerId + 1, MetadataDBManager.rootContainerId, MetadataDBManager.rootContainerId + 3]
 		let tasks = try manager.getCorrespondingTaskRecords(ids: ids)
@@ -83,5 +84,16 @@ class UploadTaskManagerTests: XCTestCase {
 		XCTAssertNil(tasks[0])
 		XCTAssertNil(tasks[2])
 		XCTAssertEqual(savedTask.correspondingItem, tasks[1]?.correspondingItem)
+	}
+
+	func testGetTask() throws {
+		let cloudPath = CloudPath("/Test")
+		let metadataManager = MetadataDBManager(with: dbPool)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try metadataManager.cacheMetadata(itemMetadata)
+		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata.id!)
+		let fetchedTask = try manager.getTask(for: taskRecord)
+		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
+		XCTAssertEqual(itemMetadata.id, fetchedTask.task.correspondingItem)
 	}
 }

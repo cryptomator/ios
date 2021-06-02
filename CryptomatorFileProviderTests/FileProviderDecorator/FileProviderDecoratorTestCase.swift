@@ -26,6 +26,7 @@ class FileProviderDecoratorTestCase: XCTestCase {
 		decorator = try FileProviderDecoratorMock(with: mockedProvider, for: domain, with: manager)
 		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
+		throw XCTSkip("The FileProviderDecorator will be replaced soon.")
 	}
 
 	override func tearDownWithError() throws {

@@ -29,7 +29,7 @@ class DeletionTaskManagerTests: XCTestCase {
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
 
-	func testCreateAndGetTask() throws {
+	func testCreateAndGetTaskRecord() throws {
 		let cloudPath = CloudPath("/Test")
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
@@ -40,7 +40,7 @@ class DeletionTaskManagerTests: XCTestCase {
 		XCTAssertEqual(cloudPath, fetchedTask.cloudPath)
 	}
 
-	func testRemoveTask() throws {
+	func testRemoveTaskRecord() throws {
 		let cloudPath = CloudPath("/Test")
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
@@ -55,7 +55,7 @@ class DeletionTaskManagerTests: XCTestCase {
 		}
 	}
 
-	func testGetTasksWhichWereIn() throws {
+	func testGetTaskRecordsWhichWereIn() throws {
 		let cloudPath = CloudPath("/Test")
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManager.cacheMetadata(itemMetadata)
@@ -76,5 +76,17 @@ class DeletionTaskManagerTests: XCTestCase {
 		XCTAssertEqual(2, fetchedTasks.count)
 		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == fileInsideFolderMetadata.id && $0.cloudPath == fileInsideFolderCloudPath }))
 		XCTAssert(fetchedTasks.contains(where: { $0.correspondingItem == subfolderMetadata.id && $0.cloudPath == subfolderCloudPath }))
+	}
+
+	func testGetTask() throws {
+		let cloudPath = CloudPath("/Test")
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try metadataManager.cacheMetadata(itemMetadata)
+		let taskRecord = try manager.createTaskRecord(for: itemMetadata)
+		let fetchedTask = try manager.getTask(for: taskRecord)
+		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
+		XCTAssertEqual(itemMetadata.id, fetchedTask.task.correspondingItem)
+		XCTAssertEqual(itemMetadata.parentId, fetchedTask.task.parentId)
+		XCTAssertEqual(cloudPath, fetchedTask.task.cloudPath)
 	}
 }

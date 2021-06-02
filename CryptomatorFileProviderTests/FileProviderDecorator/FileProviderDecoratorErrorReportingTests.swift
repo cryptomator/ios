@@ -44,7 +44,7 @@ class FileProviderDecoratorErrorReportingTests: FileProviderDecoratorTestCase {
 			XCTFail("Metadata has no id")
 			return
 		}
-		_ = try decorator.uploadTaskManager.createNewTask(for: id)
+		_ = try decorator.uploadTaskManager.createNewTaskRecord(for: id)
 		let testError = NSError(domain: "TestDomain", code: -100, userInfo: nil)
 		let item = decorator.reportErrorWithFileProviderItem(error: testError, itemMetadata: itemMetadata)
 		XCTAssertEqual(ItemStatus.uploadError, item.metadata.statusCode)
@@ -63,7 +63,7 @@ class FileProviderDecoratorErrorReportingTests: FileProviderDecoratorTestCase {
 		XCTAssert(item.metadata.isPlaceholderItem)
 		XCTAssertFalse(item.metadata.isMaybeOutdated)
 
-		guard let uploadTask = try decorator.uploadTaskManager.getTask(for: id) else {
+		guard let uploadTask = try decorator.uploadTaskManager.getTaskRecord(for: id) else {
 			XCTFail("No corresponding UploadTask found")
 			return
 		}

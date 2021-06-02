@@ -69,7 +69,7 @@ class FileProviderDecoratorTests: FileProviderDecoratorTestCase {
 		let itemMetadatas = [ItemMetadata(name: "File1.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPathForFirstItem, isPlaceholderItem: false),
 		                     ItemMetadata(name: "File is being renamed.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPathForItemToBeRenamed, isPlaceholderItem: false)]
 		try decorator.itemMetadataManager.cacheMetadatas(itemMetadatas)
-		try decorator.reparentTaskManager.createTask(for: itemMetadatas[1].id!, oldCloudPath: cloudPathForItemToBeRenamed, newCloudPath: CloudPath("/RenamedFile.txt"), oldParentId: MetadataDBManager.rootContainerId, newParentId: MetadataDBManager.rootContainerId)
+		try decorator.reparentTaskManager.createTaskRecord(for: itemMetadatas[1].id!, oldCloudPath: cloudPathForItemToBeRenamed, newCloudPath: CloudPath("/RenamedFile.txt"), oldParentId: MetadataDBManager.rootContainerId, newParentId: MetadataDBManager.rootContainerId)
 		let filteredMetadata = try decorator.filterOutWaitingReparentTasks(parentId: MetadataDBManager.rootContainerId, for: itemMetadatas)
 		XCTAssertEqual(1, filteredMetadata.count)
 		XCTAssertEqual(itemMetadatas[0], filteredMetadata[0])
