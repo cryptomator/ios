@@ -207,7 +207,7 @@ public class VaultManager {
 	func removeDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
 		return Promise(on: .global()) { fulfill, _ in
 			for domain in domains {
-				try await(NSFileProviderManager.remove(domain))
+				try awaitPromise(NSFileProviderManager.remove(domain))
 			}
 			fulfill(())
 		}
