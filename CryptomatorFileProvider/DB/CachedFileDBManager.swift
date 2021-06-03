@@ -1,5 +1,5 @@
 //
-//  CachedFileManager.swift
+//  CachedFileDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 01.07.20.

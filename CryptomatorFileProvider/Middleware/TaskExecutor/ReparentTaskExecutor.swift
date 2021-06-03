@@ -56,7 +56,7 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 			try self.metadataManager.updateMetadata(itemMetadata)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-			try self.reparentTaskManager.removeTaskRecord(reparentTask.task)
+			try self.reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)
 			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		}
 	}
@@ -64,9 +64,9 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 	private func moveItemInCloud(reparentTask: ReparentTask) -> Promise<Void> {
 		switch reparentTask.itemMetadata.type {
 		case .file:
-			return provider.moveFile(from: reparentTask.task.sourceCloudPath, to: reparentTask.task.targetCloudPath)
+			return provider.moveFile(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		case .folder:
-			return provider.moveFolder(from: reparentTask.task.sourceCloudPath, to: reparentTask.task.targetCloudPath)
+			return provider.moveFolder(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		default:
 			return Promise(FileProviderDecoratorError.unsupportedItemType)
 		}

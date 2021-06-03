@@ -1,5 +1,5 @@
 //
-//  DeletionTaskManager.swift
+//  DeletionTaskDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 12.09.20.
@@ -67,7 +67,7 @@ class DeletionTaskDBManager: DeletionTaskManager {
 			guard let itemMetadata = try deletionTask.itemMetadata.fetchOne(db) else {
 				throw DeletionTaskManagerError.missingItemMetadata
 			}
-			return DeletionTask(task: deletionTask, itemMetadata: itemMetadata)
+			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata)
 		}
 	}
 }

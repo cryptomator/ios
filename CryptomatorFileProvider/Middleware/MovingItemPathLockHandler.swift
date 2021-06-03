@@ -1,5 +1,5 @@
 //
-//  MoveItemPathLockHandler.swift
+//  MovingItemPathLockHandler.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 18.05.21.
@@ -9,7 +9,7 @@
 import Foundation
 import Promises
 
-class MoveItemPathLockHandler: WorkflowMiddleware {
+class MovingItemPathLockHandler: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<FileProviderItem>?
 
 	func setNext(_ next: AnyWorkflowMiddleware<FileProviderItem>) {
@@ -27,8 +27,8 @@ class MoveItemPathLockHandler: WorkflowMiddleware {
 		guard let reparentTask = task as? ReparentTask else {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
-		let sourceCloudPath = reparentTask.task.sourceCloudPath
-		let targetCloudPath = reparentTask.task.targetCloudPath
+		let sourceCloudPath = reparentTask.taskRecord.sourceCloudPath
+		let targetCloudPath = reparentTask.taskRecord.targetCloudPath
 
 		let oldPathLockForReading = LockManager.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
 		let oldDataLockForReading = LockManager.getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())

@@ -115,7 +115,7 @@
 		4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */; };
 		4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */; };
 		4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */; };
-		4AEBE8C726540EBF0031487F /* MoveItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C626540EBF0031487F /* MoveItemPathLockHandler.swift */; };
+		4AEBE8C726540EBF0031487F /* MovingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C626540EBF0031487F /* MovingItemPathLockHandler.swift */; };
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */; };
@@ -374,7 +374,7 @@
 		4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddleware.swift; sourceTree = "<group>"; };
-		4AEBE8C626540EBF0031487F /* MoveItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveItemPathLockHandler.swift; sourceTree = "<group>"; };
+		4AEBE8C626540EBF0031487F /* MovingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModel.swift; sourceTree = "<group>"; };
 		4AF91CC625A6437000ACF01E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CloudProviderType.swift"; sourceTree = "<group>"; };
@@ -835,10 +835,9 @@
 			isa = PBXGroup;
 			children = (
 				4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */,
-				4AEBE8C626540EBF0031487F /* MoveItemPathLockHandler.swift */,
+				4AEBE8C626540EBF0031487F /* MovingItemPathLockHandler.swift */,
 				4AB1C326265CEA0E00DC7A49 /* CreatingOrDeletingItemPathLockHandler.swift */,
 				4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */,
-				4AB1C32A265CF2BF00DC7A49 /* OnlineItemNameCollisionHandler.swift */,
 				4A511D4A2660FDC7000A0E01 /* TaskExecutor */,
 			);
 			path = Middleware;
@@ -1414,7 +1413,7 @@
 				4AE0D8DC2653DF1300DF5D22 /* DownloadTaskExecutor.swift in Sources */,
 				747F2F242587BC250072FB30 /* CachedFileDBManager.swift in Sources */,
 				4A511D4C2660FEFE000A0E01 /* Workflow.swift in Sources */,
-				4AEBE8C726540EBF0031487F /* MoveItemPathLockHandler.swift in Sources */,
+				4AEBE8C726540EBF0031487F /* MovingItemPathLockHandler.swift in Sources */,
 				747F2F252587BC250072FB30 /* UploadTaskDBManager.swift in Sources */,
 				747F2F262587BC250072FB30 /* UploadTask.swift in Sources */,
 				4A511D572662924C000A0E01 /* ItemEnumerationTask.swift in Sources */,

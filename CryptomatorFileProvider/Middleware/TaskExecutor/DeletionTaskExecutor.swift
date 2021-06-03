@@ -1,5 +1,5 @@
 //
-//  DeletionTask.swift
+//  DeletionTaskExecutor.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 18.05.21.

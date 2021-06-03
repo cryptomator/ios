@@ -94,6 +94,6 @@ class UploadTaskManagerTests: XCTestCase {
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata.id!)
 		let fetchedTask = try manager.getTask(for: taskRecord)
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
-		XCTAssertEqual(itemMetadata.id, fetchedTask.task.correspondingItem)
+		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
 	}
 }

@@ -31,7 +31,7 @@ enum WorkflowFactory {
 	}
 
 	static func createWorkflow(for reparenTask: ReparentTask, provider: CloudProvider, metadataManager: MetadataManager, cachedFileManager: CachedFileManager, reparentTaskManager: ReparentTaskManager) throws -> Workflow<FileProviderItem> {
-		let pathLockMiddleware = MoveItemPathLockHandler()
+		let pathLockMiddleware = MovingItemPathLockHandler()
 		let taskExecutor = ReparentTaskExecutor(provider: provider, reparentTaskManager: reparentTaskManager, metadataManager: metadataManager, cachedFileManager: cachedFileManager)
 		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: reparenTask)

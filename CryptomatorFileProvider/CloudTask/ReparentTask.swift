@@ -9,11 +9,11 @@
 import GRDB
 
 struct ReparentTask: CloudTask, FetchableRecord, Decodable {
-	let task: ReparentTaskRecord
+	let taskRecord: ReparentTaskRecord
 	let itemMetadata: ItemMetadata
 
 	enum CodingKeys: String, CodingKey {
-		case task = "reparentTask"
+		case taskRecord = "reparentTask"
 		case itemMetadata = "metadata"
 	}
 }

@@ -1,5 +1,5 @@
 //
-//  ReparentTaskManager.swift
+//  ReparentTaskDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 22.07.20.
@@ -73,7 +73,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
 				throw DeletionTaskManagerError.missingItemMetadata
 			}
-			return ReparentTask(task: taskRecord, itemMetadata: itemMetadata)
+			return ReparentTask(taskRecord: taskRecord, itemMetadata: itemMetadata)
 		}
 	}
 }

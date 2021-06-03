@@ -1,5 +1,5 @@
 //
-//  UploadTaskManager.swift
+//  UploadTaskDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 06.07.20.
@@ -93,7 +93,7 @@ class UploadTaskDBManager: UploadTaskManager {
 			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DeletionTaskManagerError.missingItemMetadata
 			}
-			return UploadTask(task: uploadTask, itemMetadata: itemMetadata)
+			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
 		}
 	}
 }

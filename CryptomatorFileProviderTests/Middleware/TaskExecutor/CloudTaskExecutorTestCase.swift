@@ -285,7 +285,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			guard let itemMetadata = associatedItemMetadata[deletionTask.correspondingItem] else {
 				throw DeletionTaskManagerError.missingItemMetadata
 			}
-			return DeletionTask(task: deletionTask, itemMetadata: itemMetadata)
+			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata)
 		}
 	}
 

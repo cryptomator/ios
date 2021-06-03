@@ -85,8 +85,8 @@ class DeletionTaskManagerTests: XCTestCase {
 		let taskRecord = try manager.createTaskRecord(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: taskRecord)
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
-		XCTAssertEqual(itemMetadata.id, fetchedTask.task.correspondingItem)
-		XCTAssertEqual(itemMetadata.parentId, fetchedTask.task.parentId)
-		XCTAssertEqual(cloudPath, fetchedTask.task.cloudPath)
+		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
+		XCTAssertEqual(itemMetadata.parentId, fetchedTask.taskRecord.parentId)
+		XCTAssertEqual(cloudPath, fetchedTask.taskRecord.cloudPath)
 	}
 }

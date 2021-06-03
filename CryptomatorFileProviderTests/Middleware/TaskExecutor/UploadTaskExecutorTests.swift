@@ -26,7 +26,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
-		let uploadTask = UploadTask(task: uploadTaskRecord, itemMetadata: itemMetadata)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTAssertEqual("TestContent".data(using: .utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
 
@@ -65,7 +65,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
-		let uploadTask = UploadTask(task: uploadTaskRecord, itemMetadata: itemMetadata)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTFail("Promise should not fulfill for missing local cached file info")
@@ -97,7 +97,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
-		let uploadTask = UploadTask(task: uploadTaskRecord, itemMetadata: itemMetadata)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { item in
 			// Verify that the file has been modified since the upload began.
@@ -145,7 +145,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
-		let uploadTask = UploadTask(task: uploadTaskRecord, itemMetadata: itemMetadata)
+		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
