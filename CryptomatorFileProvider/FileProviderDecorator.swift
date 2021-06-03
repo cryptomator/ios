@@ -16,11 +16,11 @@ import GRDB
 import Promises
 
 public class FileProviderDecorator {
-	let itemMetadataManager: MetadataManager
-	let cachedFileManager: CachedFileManager
-	let uploadTaskManager: UploadTaskManager
-	let reparentTaskManager: ReparentTaskManager
-	let deletionTaskManager: DeletionTaskManager
+	let itemMetadataManager: MetadataDBManager
+	let cachedFileManager: CachedFileDBManager
+	let uploadTaskManager: UploadTaskDBManager
+	let reparentTaskManager: ReparentTaskDBManager
+	let deletionTaskManager: DeletionTaskDBManager
 	let domain: NSFileProviderDomain
 	let manager: NSFileProviderManager
 	let vaultUID: String
@@ -29,19 +29,21 @@ public class FileProviderDecorator {
 	private let downloadQueue: DispatchQueue
 	private let uploadSemaphore = DispatchSemaphore(value: 1)
 	private let downloadSemaphore = DispatchSemaphore(value: 2)
+	private let scheduler: WorkflowScheduler
 
 	init(for domain: NSFileProviderDomain, with manager: NSFileProviderManager, dbPath: URL) throws {
 		self.uploadQueue = DispatchQueue(label: "FileProviderDecorator-Upload", qos: .userInitiated)
 		self.downloadQueue = DispatchQueue(label: "FileProviderDecorator-Download", qos: .userInitiated)
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
-		self.itemMetadataManager = MetadataManager(with: database)
-		self.cachedFileManager = CachedFileManager(with: database)
-		self.uploadTaskManager = UploadTaskManager(with: database)
-		self.reparentTaskManager = try ReparentTaskManager(with: database)
-		self.deletionTaskManager = try DeletionTaskManager(with: database)
+		self.itemMetadataManager = MetadataDBManager(with: database)
+		self.cachedFileManager = CachedFileDBManager(with: database)
+		self.uploadTaskManager = UploadTaskDBManager(with: database)
+		self.reparentTaskManager = try ReparentTaskDBManager(with: database)
+		self.deletionTaskManager = try DeletionTaskDBManager(with: database)
 		self.domain = domain
 		self.manager = manager
 		self.vaultUID = domain.identifier.rawValue
+		self.scheduler = WorkflowScheduler()
 	}
 
 	/**
@@ -70,27 +72,19 @@ public class FileProviderDecorator {
 		if identifier == .workingSet {
 			return Promise(FileProviderItemList(items: [], nextPageToken: nil))
 		}
-		let provider: CloudProvider
-		let metadata: ItemMetadata
+		let workflow: Workflow<FileProviderItemList>
 		do {
 			let id = try convertFileProviderItemIdentifierToInt64(identifier)
 			guard let itemMetadata = try itemMetadataManager.getCachedMetadata(for: id) else {
 				return Promise(CloudProviderError.itemNotFound)
 			}
-			metadata = itemMetadata
-			provider = try getVaultDecorator()
+			let enumerationTask = ItemEnumerationTask(pageToken: pageToken, itemMetadata: itemMetadata)
+			let provider = try getVaultDecorator()
+			workflow = try WorkflowFactory.createWorkflow(for: enumerationTask, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager, uploadTaskManager: uploadTaskManager, deletionTaskManager: deletionTaskManager)
 		} catch {
 			return Promise(error)
 		}
-		switch metadata.type {
-		case .folder:
-			return fetchItemList(with: provider, folderMetadata: metadata, withPageToken: pageToken)
-		case .file:
-			return fetchItemMetadata(with: provider, fileMetadata: metadata)
-		default:
-			DDLogError("Unable to enumerate items on metadata type: \(metadata.type)")
-			return Promise(NSFileProviderError(.noSuchItem))
-		}
+		return scheduler.schedule(workflow)
 	}
 
 	/**
@@ -121,8 +115,8 @@ public class FileProviderDecorator {
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata.id!)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: fileProviderItemMetadata.lastModifiedDate) ?? false
 			let localURL = localCachedFileInfo?.localURL
-			let uploadTask = try self.uploadTaskManager.getTask(for: fileProviderItemMetadata.id!)
-			let item = FileProviderItem(metadata: fileProviderItemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.error)
+			let uploadTask = try self.uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata.id!)
+			let item = FileProviderItem(metadata: fileProviderItemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
 			return FileProviderItemList(items: [item], nextPageToken: nil)
 		}.always {
 			_ = FileSystemLock.unlockInOrder([dataLock, pathLock])
@@ -181,13 +175,13 @@ public class FileProviderDecorator {
 			let placeholderMetadatas = try self.itemMetadataManager.getPlaceholderMetadata(for: folderMetadata.id!)
 			metadatas.append(contentsOf: placeholderMetadatas)
 			let ids = metadatas.map { return $0.id! }
-			let uploadTasks = try self.uploadTaskManager.getCorrespondingTasks(ids: ids)
+			let uploadTasks = try self.uploadTaskManager.getCorrespondingTaskRecords(ids: ids)
 			assert(metadatas.count == uploadTasks.count)
 			let items = try metadatas.enumerated().map { index, metadata -> FileProviderItem in
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata.id!)
 				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.error)
+				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
 			}
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
@@ -200,20 +194,20 @@ public class FileProviderDecorator {
 	}
 
 	func getReparentMetadata(for parentId: Int64) throws -> [ItemMetadata] {
-		let reparentTasks = try reparentTaskManager.getTasksForItemsWhichAreSoon(in: parentId)
+		let reparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichAreSoon(in: parentId)
 		let reparentMetadata = try itemMetadataManager.getCachedMetadata(forIds: reparentTasks.map { $0.correspondingItem })
 		return reparentMetadata
 	}
 
 	func filterOutWaitingReparentTasks(parentId: Int64, for itemMetadatas: [ItemMetadata]) throws -> [ItemMetadata] {
-		let runningReparentTasks = try reparentTaskManager.getTasksForItemsWhichWere(in: parentId)
+		let runningReparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichWere(in: parentId)
 		return itemMetadatas.filter { element in
 			!runningReparentTasks.contains { $0.sourceCloudPath == element.cloudPath }
 		}
 	}
 
 	func filterOutWaitingDeletionTasks(parentId: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
-		let runningDeletionTasks = try deletionTaskManager.getTasksForItemsWhichWere(in: parentId)
+		let runningDeletionTasks = try deletionTaskManager.getTaskRecordsForItemsWhichWere(in: parentId)
 		return itemMetadata.filter { element in
 			!runningDeletionTasks.contains { $0.cloudPath == element.cloudPath }
 		}
@@ -227,7 +221,7 @@ public class FileProviderDecorator {
 	func convertFileProviderItemIdentifierToInt64(_ identifier: NSFileProviderItemIdentifier) throws -> Int64 {
 		switch identifier {
 		case .rootContainer:
-			return MetadataManager.rootContainerId
+			return MetadataDBManager.rootContainerId
 		default:
 			guard let id = Int64(identifier.rawValue) else {
 				throw FileProviderDecoratorError.unsupportedItemIdentifier
@@ -246,11 +240,11 @@ public class FileProviderDecorator {
 	 */
 	public func getFileProviderItem(for identifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
-		let uploadTask = try uploadTaskManager.getTask(for: itemMetadata.id!)
+		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata.id!)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let localURL = localCachedFileInfo?.localURL
-		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.error)
+		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
 	}
 
 	func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
@@ -322,47 +316,49 @@ public class FileProviderDecorator {
 	  - Postcondition: The `LocalCachedFileInfo` associated with the `identifier` has the `lastModifiedDate` of the item downloaded from the cloud in the database.
 	  */
 	public func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) -> Promise<FileProviderItem> {
-		let metadata: ItemMetadata
-		let provider: CloudProvider
+		let workflow: Workflow<FileProviderItem>
 		do {
-			metadata = try getCachedMetadata(for: identifier)
-			provider = try getVaultDecorator()
+			let itemMetadata = try getCachedMetadata(for: identifier)
+			let provider = try getVaultDecorator()
+			let task = DownloadTask(replaceExisting: replaceExisting, localURL: localURL, itemMetadata: itemMetadata)
+			workflow = try WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		} catch {
 			return Promise(error)
 		}
-		let downloadDestination = replaceExisting ? localURL.createCollisionURL() : localURL
-		var lastModifiedDate: Date?
-		let cloudPath = metadata.cloudPath
-		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
-		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
-		return Promise<Void>(on: downloadQueue) { fulfill, _ in
-			self.downloadSemaphore.wait()
-			fulfill(())
-		}.then {
-			FileSystemLock.lockInOrder([pathLock, dataLock])
-		}.then {
-			provider.fetchItemMetadata(at: cloudPath)
-		}.then { cloudMetadata -> Promise<Void> in
-			lastModifiedDate = cloudMetadata.lastModifiedDate
-			let progress = Progress.discreteProgress(totalUnitCount: 1)
-			self.createAndRegisterFileProviderNetworkTask(forItemWithIdentifier: NSFileProviderItemIdentifier(String(metadata.id!)), with: progress)
-			progress.becomeCurrent(withPendingUnitCount: 1)
-			let downloadPromise = provider.downloadFile(from: cloudPath, to: downloadDestination)
-			progress.resignCurrent()
-			return downloadPromise
-		}.then { _ -> FileProviderItem in
-			try self.downloadPostProcessing(for: metadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
-		}.recover { error -> Promise<FileProviderItem> in
-			metadata.statusCode = .downloadError
-			try self.itemMetadataManager.updateMetadata(metadata)
-			if let cloudProviderError = error as? CloudProviderError {
-				return Promise(self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError))
-			}
-			return Promise(error)
-		}.always {
-			self.downloadSemaphore.signal()
-			_ = FileSystemLock.unlockInOrder([dataLock, pathLock])
-		}
+		return scheduler.schedule(workflow)
+//		let downloadDestination = replaceExisting ? localURL.createCollisionURL() : localURL
+//		var lastModifiedDate: Date?
+//		let cloudPath = metadata.cloudPath
+//		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
+//		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+//		return Promise<Void>(on: downloadQueue) { fulfill, _ in
+//			self.downloadSemaphore.wait()
+//			fulfill(())
+//		}.then {
+//			FileSystemLock.lockInOrder([pathLock, dataLock])
+//		}.then {
+//			provider.fetchItemMetadata(at: cloudPath)
+//		}.then { cloudMetadata -> Promise<Void> in
+//			lastModifiedDate = cloudMetadata.lastModifiedDate
+//			let progress = Progress.discreteProgress(totalUnitCount: 1)
+//			self.createAndRegisterFileProviderNetworkTask(forItemWithIdentifier: NSFileProviderItemIdentifier(String(metadata.id!)), with: progress)
+//			progress.becomeCurrent(withPendingUnitCount: 1)
+//			let downloadPromise = provider.downloadFile(from: cloudPath, to: downloadDestination)
+//			progress.resignCurrent()
+//			return downloadPromise
+//		}.then { _ -> FileProviderItem in
+//			try self.downloadPostProcessing(for: metadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
+//		}.recover { error -> Promise<FileProviderItem> in
+//			metadata.statusCode = .downloadError
+//			try self.itemMetadataManager.updateMetadata(metadata)
+//			if let cloudProviderError = error as? CloudProviderError {
+//				return Promise(self.mapCloudProviderErrorToNSFileProviderError(cloudProviderError))
+//			}
+//			return Promise(error)
+//		}.always {
+//			self.downloadSemaphore.signal()
+//			_ = FileSystemLock.unlockInOrder([dataLock, pathLock])
+//		}
 	}
 
 	/**
@@ -463,8 +459,8 @@ public class FileProviderDecorator {
 	 */
 	public func reportLocalUploadError(for identifier: NSFileProviderItemIdentifier, error: NSError) throws {
 		let itemMetadata = try getCachedMetadata(for: identifier)
-		var uploadTask = try uploadTaskManager.createNewTask(for: itemMetadata.id!)
-		try uploadTaskManager.updateTask(&uploadTask, error: error)
+		var uploadTask = try uploadTaskManager.createNewTaskRecord(for: itemMetadata.id!)
+		try uploadTaskManager.updateTaskRecord(&uploadTask, error: error)
 
 		itemMetadata.statusCode = .uploadError
 		try itemMetadataManager.updateMetadata(itemMetadata)
@@ -476,15 +472,26 @@ public class FileProviderDecorator {
 	 If the upload for a new file cannot be uploaded due to a name collision, a new attempt is started with a collision hash at the end of the name.
 	 */
 	public func uploadFile(with localURL: URL, itemMetadata: ItemMetadata) -> Promise<FileProviderItem> {
-		return uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata)
-			.recover { error -> Promise<FileProviderItem> in
-				guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
-					let errorItem = self.reportErrorWithFileProviderItem(error: error as NSError, itemMetadata: itemMetadata)
-					return Promise(errorItem)
-				}
-				DDLogInfo("FileProviderDecorator: online filename collision: \(itemMetadata.name)")
-				return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
+//		return uploadFileWithoutRecover(from: localURL, itemMetadata: itemMetadata)
+//			.recover { error -> Promise<FileProviderItem> in
+//				guard itemMetadata.isPlaceholderItem, case CloudProviderError.itemAlreadyExists = error else {
+//					let errorItem = self.reportErrorWithFileProviderItem(error: error as NSError, itemMetadata: itemMetadata)
+//					return Promise(errorItem)
+//				}
+//				DDLogInfo("FileProviderDecorator: online filename collision: \(itemMetadata.name)")
+//				return self.collisionHandlingUpload(from: localURL, itemMetadata: itemMetadata)
+//			}
+		let workflow: Workflow<FileProviderItem>
+		do {
+			guard let task = try uploadTaskManager.getTaskRecord(for: itemMetadata.id!) else {
+				return Promise(NSFileProviderError(.noSuchItem))
 			}
+			let taskInfo = try uploadTaskManager.getTask(for: task)
+			workflow = try WorkflowFactory.createWorkflow(for: taskInfo, provider: try getVaultDecorator(), metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
+		} catch {
+			return Promise(error)
+		}
+		return scheduler.schedule(workflow)
 	}
 
 	func cloudFileNameCollisionHandling(for localURL: URL, with collisionFreeLocalURL: URL, itemMetadata: ItemMetadata) throws {
@@ -541,8 +548,8 @@ public class FileProviderDecorator {
 			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
 			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
 			try itemMetadataManager.updateMetadata(metadata)
-			try uploadTaskManager.removeTask(for: id)
-			_ = try uploadTaskManager.createNewTask(for: id)
+			try uploadTaskManager.removeTaskRecord(for: id)
+			_ = try uploadTaskManager.createNewTaskRecord(for: id)
 			try cachedFileManager.cacheLocalFileInfo(for: id, localURL: localURL, lastModifiedDate: lastModifiedDate)
 		} catch {
 			throw NSFileProviderError(.noSuchItem)
@@ -615,7 +622,7 @@ public class FileProviderDecorator {
 		itemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
 		itemMetadata.size = cloudItemMetadata.size
 		try itemMetadataManager.updateMetadata(itemMetadata)
-		try uploadTaskManager.removeTask(for: itemMetadata.id!)
+		try uploadTaskManager.removeTaskRecord(for: itemMetadata.id!)
 		if localFileSizeBeforeUpload == cloudItemMetadata.size {
 			DDLogInfo("uploadPostProcessing: received cloudItemMetadata seem to be correct: localSize = \(localFileSizeBeforeUpload ?? -1); cloudItemSize = \(cloudItemMetadata.size ?? -1)")
 			try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
@@ -635,8 +642,8 @@ public class FileProviderDecorator {
 	 */
 	func reportErrorWithFileProviderItem(error: NSError, itemMetadata: ItemMetadata) -> FileProviderItem {
 		itemMetadata.statusCode = .uploadError
-		if var uploadTask = try? uploadTaskManager.getTask(for: itemMetadata.id!) {
-			try? uploadTaskManager.updateTask(&uploadTask, error: error)
+		if var uploadTask = try? uploadTaskManager.getTaskRecord(for: itemMetadata.id!) {
+			try? uploadTaskManager.updateTaskRecord(&uploadTask, error: error)
 		}
 		try? itemMetadataManager.updateMetadata(itemMetadata)
 		return FileProviderItem(metadata: itemMetadata, error: error)
@@ -696,7 +703,7 @@ public class FileProviderDecorator {
 		} else if item.type == .file {
 			try removeFileFromCache(item)
 		}
-		try itemMetadataManager.removeItemMetadata(with: item.id!)
+		// try itemMetadataManager.removeItemMetadata(with: item.id!)
 	}
 
 	/**
@@ -830,7 +837,7 @@ public class FileProviderDecorator {
 		metadata.parentId = parentId
 		metadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(metadata)
-		try reparentTaskManager.createTask(for: metadata.id!, oldCloudPath: oldCloudPath, newCloudPath: cloudPath, oldParentId: oldParentId, newParentId: parentId)
+		try reparentTaskManager.createTaskRecord(for: metadata.id!, oldCloudPath: oldCloudPath, newCloudPath: cloudPath, oldParentId: oldParentId, newParentId: parentId)
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata.id!)
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 		return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
@@ -847,29 +854,31 @@ public class FileProviderDecorator {
 	 - Postcondition: The `ItemMetadata` entry associated with the `identifier` has the `statusCode == .isUploaded`. And if there was an online name collision, the name was updated as well.
 	 */
 	public func moveItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
-		let metadata: ItemMetadata
-		let reparentTask: ReparentTask
+		let workflow: Workflow<FileProviderItem>
 		do {
-			metadata = try getCachedMetadata(for: itemIdentifier)
-			reparentTask = try reparentTaskManager.getTask(for: metadata.id!)
+			let itemMetadata = try getCachedMetadata(for: itemIdentifier)
+			let reparentTask = try reparentTaskManager.getTaskRecord(for: itemMetadata.id!)
+			let reparentTaskInfo = try reparentTaskManager.getTask(for: reparentTask)
+			workflow = try WorkflowFactory.createWorkflow(for: reparentTaskInfo, provider: try getVaultDecorator(), metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
 		} catch {
 			return Promise(error)
 		}
-		return moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: reparentTask.targetCloudPath).recover { error -> Promise<FileProviderItem> in
-			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: metadata) {
-				return Promise(item)
-			}
-			let collisionFreeCloudPath = reparentTask.targetCloudPath.createCollisionCloudPath()
-			do {
-				try self.cloudFolderNameCollisionUpdate(with: collisionFreeCloudPath, itemMetadata: metadata)
-			} catch {
-				return Promise(error)
-			}
-			return self.moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: collisionFreeCloudPath)
-		}.always {
-			#warning("TODO: Discuss if it is ok that we do not pass on an error when deleting the reparent task.")
-			try? self.reparentTaskManager.removeTask(reparentTask)
-		}
+		return scheduler.schedule(workflow)
+//		return moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: reparentTask.targetCloudPath).recover { error -> Promise<FileProviderItem> in
+//			if let item = try? self.errorHandlingForUserDrivenActions(error: error, itemMetadata: metadata) {
+//				return Promise(item)
+//			}
+//			let collisionFreeCloudPath = reparentTask.targetCloudPath.createCollisionCloudPath()
+//			do {
+//				try self.cloudFolderNameCollisionUpdate(with: collisionFreeCloudPath, itemMetadata: metadata)
+//			} catch {
+//				return Promise(error)
+//			}
+//			return self.moveItemInCloud(metadata: metadata, sourceCloudPath: reparentTask.sourceCloudPath, targetCloudPath: collisionFreeCloudPath)
+//		}.always {
+//			#warning("TODO: Discuss if it is ok that we do not pass on an error when deleting the reparent task.")
+//			try? self.reparentTaskManager.removeTask(reparentTask)
+//		}
 	}
 
 	/**
@@ -959,7 +968,7 @@ public class FileProviderDecorator {
 		} catch {
 			return
 		}
-		try deletionTaskManager.createTask(for: metadata)
+		try deletionTaskManager.createTaskRecord(for: metadata)
 		try removeItemFromCache(metadata)
 	}
 
@@ -971,28 +980,38 @@ public class FileProviderDecorator {
 	 - Postcondition: The `DeletionTask` for the passed `itemIdentifier` was removed from the database.
 	 */
 	public func deleteItemInCloud(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) -> Promise<Void> {
-		let deletionTask: DeletionTask
+		/* let deletionTask: DeletionTask
+		 do {
+		 	let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
+		 	deletionTask = try deletionTaskManager.getTask(for: id)
+		 } catch {
+		 	return Promise(error)
+		 }
+		 let cloudPath = deletionTask.cloudPath
+		 let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		 let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		 let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
+		 let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+		 return FileSystemLock.lockInOrder([pathLockForReading, dataLockForReading, pathLockForWriting, dataLockForWriting]).then {
+		 	self.deleteItemInCloud(with: deletionTask)
+		 }.always {
+		 	#warning("TOOD: Discuss if it is ok that we do not pass on an error when deleting the deletion task.")
+		 	try? self.deletionTaskManager.removeTask(deletionTask)
+		 	_ = FileSystemLock.unlockInOrder([dataLockForWriting, pathLockForWriting, dataLockForReading, pathLockForReading])
+		 } */
+		let workflow: Workflow<Void>
 		do {
 			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
-			deletionTask = try deletionTaskManager.getTask(for: id)
+			let deletionTask = try deletionTaskManager.getTaskRecord(for: id)
+			let deletionTaskInfo = try deletionTaskManager.getTask(for: deletionTask)
+			workflow = try WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: try getVaultDecorator(), metadataManager: itemMetadataManager)
 		} catch {
 			return Promise(error)
 		}
-		let cloudPath = deletionTask.cloudPath
-		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
-		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
-		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
-		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
-		return FileSystemLock.lockInOrder([pathLockForReading, dataLockForReading, pathLockForWriting, dataLockForWriting]).then {
-			self.deleteItemInCloud(with: deletionTask)
-		}.always {
-			#warning("TOOD: Discuss if it is ok that we do not pass on an error when deleting the deletion task.")
-			try? self.deletionTaskManager.removeTask(deletionTask)
-			_ = FileSystemLock.unlockInOrder([dataLockForWriting, pathLockForWriting, dataLockForReading, pathLockForReading])
-		}
+		return scheduler.schedule(workflow)
 	}
 
-	func deleteItemInCloud(with deletionTask: DeletionTask) -> Promise<Void> {
+	func deleteItemInCloud(with deletionTask: DeletionTaskRecord) -> Promise<Void> {
 		let provider: CloudProvider
 		do {
 			provider = try getVaultDecorator()
@@ -1021,7 +1040,7 @@ public class FileProviderDecorator {
 	 */
 	public func hasPossibleVersioningConflictForItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> Bool {
 		let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
-		guard let uploadTask = try uploadTaskManager.getTask(for: id) else {
+		guard let uploadTask = try uploadTaskManager.getTaskRecord(for: id) else {
 			return false
 		}
 		guard let localLastModifiedDate = try cachedFileManager.getLocalLastModifiedDate(for: id) else {

@@ -15,7 +15,7 @@ class FileProviderDecoratorLocalFileIsCurrentTests: FileProviderDecoratorTestCas
 	func testLocalFileIsCurrentForUploadingFile() throws {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/TestUploadFile")
-		let uploadingItemMetadata = ItemMetadata(name: "TestUploadFile", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let uploadingItemMetadata = ItemMetadata(name: "TestUploadFile", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(uploadingItemMetadata)
 		guard let id = uploadingItemMetadata.id else {
 			XCTFail("uploadingItemMetadata has no id")
@@ -35,7 +35,7 @@ class FileProviderDecoratorLocalFileIsCurrentTests: FileProviderDecoratorTestCas
 		mockedProvider.everyOperationShouldFailWithError = CloudProviderError.noInternetConnection
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/File")
-		let metadata = ItemMetadata(name: "File", type: .file, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let metadata = ItemMetadata(name: "File", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(metadata)
 		guard let id = metadata.id else {
 			XCTFail("ItemMetadata has no id")

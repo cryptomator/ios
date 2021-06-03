@@ -34,7 +34,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileNotYetUploaded.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let expectedCloudPath = CloudPath("/FileNotYetUploaded.txt")
-		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: expectedCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "FileNotYetUploaded.txt", type: .file, size: 0, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: expectedCloudPath, isPlaceholderItem: false)
 		let expectation = XCTestExpectation()
 		DispatchQueue.main.async {
 			autoreleasepool {
@@ -139,7 +139,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			}
 			let expectedError = NSFileProviderError(.noSuchItem) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
-			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTaskRecord(for: placeholderFileProviderItem.metadata.id!) else {
 				XCTFail("The item has no corresponding UploadTask")
 				return
 			}
@@ -171,7 +171,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			}
 			let expectedError = NSFileProviderError(.insufficientQuota) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
-			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTaskRecord(for: placeholderFileProviderItem.metadata.id!) else {
 				XCTFail("The item has no corresponding UploadTask")
 				return
 			}
@@ -203,7 +203,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			}
 			let expectedError = NSFileProviderError(.serverUnreachable) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
-			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTaskRecord(for: placeholderFileProviderItem.metadata.id!) else {
 				XCTFail("The item has no corresponding UploadTask")
 				return
 			}
@@ -235,7 +235,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			}
 			let expectedError = NSFileProviderError(.notAuthenticated) as NSError
 			XCTAssertTrue(expectedError.isEqual(actualError))
-			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTaskRecord(for: placeholderFileProviderItem.metadata.id!) else {
 				XCTFail("The item has no corresponding UploadTask")
 				return
 			}
@@ -270,7 +270,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 				return
 			}
 			XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
-			guard let uploadTask = try? self.decorator.uploadTaskManager.getTask(for: placeholderFileProviderItem.metadata.id!) else {
+			guard let uploadTask = try? self.decorator.uploadTaskManager.getTaskRecord(for: placeholderFileProviderItem.metadata.id!) else {
 				XCTFail("UploadTask is missing in the DB")
 				return
 			}
@@ -298,7 +298,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			return
 		}
 		XCTAssertEqual(ItemStatus.isUploading, fetchedItemMetadata.statusCode)
-		guard let uploadTask = try decorator.uploadTaskManager.getTask(for: id) else {
+		guard let uploadTask = try decorator.uploadTaskManager.getTaskRecord(for: id) else {
 			XCTFail("No UploadTask found")
 			return
 		}
@@ -322,7 +322,7 @@ class FileProviderDecoratorUploadTests: FileProviderDecoratorTestCase {
 			XCTAssertEqual(placeholderFileProviderItem.itemIdentifier, item.itemIdentifier)
 			XCTAssert(item.metadata.cloudPath.path.hasPrefix("/itemAlreadyExists ("))
 			XCTAssert(item.metadata.cloudPath.path.hasSuffix(").txt"))
-			XCTAssertNil(try self.decorator.uploadTaskManager.getTask(for: item.metadata.id!))
+			XCTAssertNil(try self.decorator.uploadTaskManager.getTaskRecord(for: item.metadata.id!))
 			// Ensure that the file with the collision hash was uploaded
 			XCTAssert(self.mockedProvider.createdFiles.keys.filter { $0.hasPrefix("/itemAlreadyExists (") && $0.hasSuffix(").txt") && $0.count == 30 }.count == 1)
 		}.catch { error in

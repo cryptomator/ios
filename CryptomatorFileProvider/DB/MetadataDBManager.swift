@@ -1,5 +1,5 @@
 //
-//  MetadataManager.swift
+//  MetadataDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 24.06.20.
@@ -10,8 +10,34 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
+protocol MetadataManager {
+	func getRootContainerID() -> Int64
+	func cacheMetadata(_ metadata: ItemMetadata) throws
+	func updateMetadata(_ metadata: ItemMetadata) throws
+	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws
+	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata?
+	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata?
+	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata]
+	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata]
+	func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws
+	func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata]
+	func removeItemMetadata(with identifier: Int64) throws
+	func removeItemMetadata(_ identifiers: [Int64]) throws
+	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata]
+	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata]
+}
 
-class MetadataManager {
+extension MetadataManager {
+	func getRootContainerID() -> Int64 {
+		1
+	}
+}
+
+class MetadataDBManager: MetadataManager {
+	static func getRootContainerID() -> Int64 {
+		rootContainerId
+	}
+
 	private let dbPool: DatabasePool
 	static let rootContainerId: Int64 = 1
 	init(with dbPool: DatabasePool) {
@@ -76,7 +102,7 @@ class MetadataManager {
 	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != MetadataManager.rootContainerId)
+				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != MetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -85,7 +111,7 @@ class MetadataManager {
 	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("id") != MetadataManager.rootContainerId)
+				.filter(Column("parentId") == parentId && Column("id") != MetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -137,8 +163,8 @@ class MetadataManager {
 		precondition(parent.type == .folder)
 		return try dbPool.read { db in
 			let request: QueryInterfaceRequest<ItemMetadata>
-			if parent.id == MetadataManager.rootContainerId {
-				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != MetadataManager.rootContainerId)
+			if parent.id == MetadataDBManager.rootContainerId {
+				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != MetadataDBManager.rootContainerId)
 			} else {
 				request = ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).like("\(parent.cloudPath.path + "/")_%"))
 			}

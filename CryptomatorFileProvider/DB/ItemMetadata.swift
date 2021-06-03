@@ -10,13 +10,11 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-public class ItemMetadata: Record {
+public class ItemMetadata: Record, Codable {
 	override public class var databaseTableName: String {
 		"metadata"
 	}
 
-//	static let databaseTableName = "metadata"
-//	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
 	override public static var databaseSelection: [SQLSelectable] {
 		[AllColumns(), Column.rowID]
 	}

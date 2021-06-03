@@ -6,13 +6,14 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import FileProvider
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
 
 class UploadTaskManagerTests: XCTestCase {
-	var manager: UploadTaskManager!
+	var manager: UploadTaskDBManager!
 	var tmpDirURL: URL!
 	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
@@ -20,7 +21,7 @@ class UploadTaskManagerTests: XCTestCase {
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
-		manager = UploadTaskManager(with: dbPool)
+		manager = UploadTaskDBManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {
@@ -30,34 +31,34 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testCachedAndFetchEntry() throws {
-		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
-		guard let fetchedUploadTask = try manager.getTask(for: MetadataManager.rootContainerId) else {
+		_ = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
+		guard let fetchedUploadTask = try manager.getTaskRecord(for: MetadataDBManager.rootContainerId) else {
 			XCTFail("UploadTask not found")
 			return
 		}
-		XCTAssertEqual(MetadataManager.rootContainerId, fetchedUploadTask.correspondingItem)
+		XCTAssertEqual(MetadataDBManager.rootContainerId, fetchedUploadTask.correspondingItem)
 		XCTAssertNil(fetchedUploadTask.lastFailedUploadDate)
 		XCTAssertNil(fetchedUploadTask.uploadErrorCode)
 		XCTAssertNil(fetchedUploadTask.uploadErrorDomain)
 	}
 
-	func testUpdateTask() throws {
-		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
+	func testUpdateTaskRecord() throws {
+		_ = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let error = NSFileProviderError(.serverUnreachable)
-		try manager.updateTask(with: MetadataManager.rootContainerId, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
-		guard let fetchedUploadTask = try manager.getTask(for: MetadataManager.rootContainerId) else {
+		try manager.updateTaskRecord(with: MetadataDBManager.rootContainerId, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		guard let fetchedUploadTask = try manager.getTaskRecord(for: MetadataDBManager.rootContainerId) else {
 			XCTFail("UploadTask not found")
 			return
 		}
-		XCTAssertEqual(MetadataManager.rootContainerId, fetchedUploadTask.correspondingItem)
+		XCTAssertEqual(MetadataDBManager.rootContainerId, fetchedUploadTask.correspondingItem)
 		XCTAssertEqual(lastFailedUploadDate, fetchedUploadTask.lastFailedUploadDate)
 		XCTAssertEqual(error.errorCode, fetchedUploadTask.uploadErrorCode)
 		XCTAssertEqual(NSFileProviderError.errorDomain, fetchedUploadTask.uploadErrorDomain)
 	}
 
-	func testUpdateNonExistentTaskFailsWithTaskNotFound() throws {
-		XCTAssertThrowsError(try manager.updateTask(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
+	func testUpdateNonExistentTaskRecordFailsWithTaskNotFound() throws {
+		XCTAssertThrowsError(try manager.updateTaskRecord(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
 			guard case TaskError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -66,22 +67,33 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testDeleteCascadeWorks() throws {
-		_ = try manager.createNewTask(for: MetadataManager.rootContainerId)
-		let taskBeforeRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
+		_ = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
+		let taskBeforeRemoval = try manager.getTaskRecord(for: MetadataDBManager.rootContainerId)
 		XCTAssertNotNil(taskBeforeRemoval)
-		let itemManager = MetadataManager(with: dbPool)
-		try itemManager.removeItemMetadata(with: MetadataManager.rootContainerId)
-		let taskAfterRemoval = try manager.getTask(for: MetadataManager.rootContainerId)
+		let itemManager = MetadataDBManager(with: dbPool)
+		try itemManager.removeItemMetadata(with: MetadataDBManager.rootContainerId)
+		let taskAfterRemoval = try manager.getTaskRecord(for: MetadataDBManager.rootContainerId)
 		XCTAssertNil(taskAfterRemoval)
 	}
 
-	func testGetCorrespondingTasks() throws {
-		let savedTask = try manager.createNewTask(for: MetadataManager.rootContainerId)
-		let ids = [MetadataManager.rootContainerId + 1, MetadataManager.rootContainerId, MetadataManager.rootContainerId + 3]
-		let tasks = try manager.getCorrespondingTasks(ids: ids)
+	func testGetCorrespondingTaskRecords() throws {
+		let savedTask = try manager.createNewTaskRecord(for: MetadataDBManager.rootContainerId)
+		let ids = [MetadataDBManager.rootContainerId + 1, MetadataDBManager.rootContainerId, MetadataDBManager.rootContainerId + 3]
+		let tasks = try manager.getCorrespondingTaskRecords(ids: ids)
 		XCTAssertEqual(3, tasks.count)
 		XCTAssertNil(tasks[0])
 		XCTAssertNil(tasks[2])
 		XCTAssertEqual(savedTask.correspondingItem, tasks[1]?.correspondingItem)
+	}
+
+	func testGetTask() throws {
+		let cloudPath = CloudPath("/Test")
+		let metadataManager = MetadataDBManager(with: dbPool)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try metadataManager.cacheMetadata(itemMetadata)
+		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata.id!)
+		let fetchedTask = try manager.getTask(for: taskRecord)
+		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
+		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
 	}
 }

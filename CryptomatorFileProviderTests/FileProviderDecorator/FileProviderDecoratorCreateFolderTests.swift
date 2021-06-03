@@ -40,7 +40,7 @@ class FileProviderDecoratorCreateFolderTests: FileProviderDecoratorTestCase {
 
 	func skip_testCreatePlaceholderItemForFolderFailsWithLocalFilenameCollsion() throws {
 		let cloudPath = CloudPath("/Test Folder/")
-		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try decorator.itemMetadataManager.cacheMetadata(itemMetadata)
 		XCTAssertThrowsError(try decorator.createPlaceholderItemForFolder(withName: "Test Folder", in: .rootContainer)) { error in
 			print(error)
