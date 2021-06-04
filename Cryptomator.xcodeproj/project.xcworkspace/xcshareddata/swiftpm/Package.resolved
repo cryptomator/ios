@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "a1f5c7dc38f01e62a80ead2eac3f147eeee64982",
-          "version": "0.12.1"
+          "revision": "fb5090d76f1f8861f57d2186d9109449c7867918",
+          "version": "0.12.2"
         }
       },
       {
@@ -51,7 +51,7 @@
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
         "state": {
           "branch": null,
-          "revision": "375a67dd299548693527f15a3a3df14f44eff47d",
+          "revision": "9560ecda2271a7fc3a653c388a3387f81d7862ab",
           "version": "5.0.3-fork"
         }
       },
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "06a2a1cd11d72ef19a09d4b66b292f5185337692",
-          "version": "1.1.17"
+          "revision": "d8b4503ada5b9cd4b9f3928148cbda3936a97eed",
+          "version": "1.1.18"
         }
       },
       {
