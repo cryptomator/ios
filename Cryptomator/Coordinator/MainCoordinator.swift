@@ -32,6 +32,15 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		child.start()
 	}
 
+	func showSettings() {
+		let modalNavigationController = UINavigationController()
+		let child = SettingsCoordinator(navigationController: modalNavigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		navigationController.topViewController?.present(modalNavigationController, animated: true)
+		child.start()
+	}
+
 	// MARK: - UINavigationControllerDelegate
 
 	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
