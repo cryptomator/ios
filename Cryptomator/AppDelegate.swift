@@ -20,6 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var coordinator: MainCoordinator?
 
 	func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		// Set up logger
+		LoggerSetup.oneTimeSetup()
+
 		// Set up database
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error

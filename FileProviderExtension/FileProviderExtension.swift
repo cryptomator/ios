@@ -393,30 +393,3 @@ extension URL {
 		return result
 	}
 }
-
-enum LoggerSetup {
-	private static var loggerInitialized = false
-
-	static func oneTimeSetup() {
-		guard !loggerInitialized else {
-			return
-		}
-		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
-			print("containerURL is nil")
-			return
-		}
-		let logDirectory = containerURL.appendingPathComponent("Logs")
-
-		do {
-			try FileManager.default.createDirectory(at: logDirectory, withIntermediateDirectories: false, attributes: nil)
-		} catch {
-			print(error)
-		}
-		print("LogDirectory: \(logDirectory.path)")
-		let logFileManager = DDLogFileManagerDefault(logsDirectory: logDirectory.path)
-		let fileLogger = DDFileLogger(logFileManager: logFileManager)
-		DDLog.add(DDOSLogger.sharedInstance)
-		DDLog.add(fileLogger)
-		loggerInitialized = true
-	}
-}

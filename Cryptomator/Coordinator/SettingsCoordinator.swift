@@ -6,6 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
 import UIKit
@@ -25,13 +27,16 @@ class SettingsCoordinator: Coordinator {
 		navigationController.pushViewController(settingsViewController, animated: false)
 	}
 
-	func exportLogs() {
-		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
-			print("containerURL is nil")
-			return
+	func exportLogs() throws {
+		let logsDirectoryURL = URL(fileURLWithPath: DDFileLogger.sharedInstance.logFileManager.logsDirectory)
+		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
+		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+		let zippedLogsURL = tmpDirURL.appendingPathComponent("Logs.zip", isDirectory: false)
+		try logsDirectoryURL.zipFolder(toFileAt: zippedLogsURL)
+		let activityController = UIActivityViewController(activityItems: [zippedLogsURL], applicationActivities: nil)
+		activityController.completionWithItemsHandler = { _, _, _, _ -> Void in
+			try? FileManager.default.removeItem(at: tmpDirURL)
 		}
-		let logDirectory = containerURL.appendingPathComponent("Logs")
-		let activityController = UIActivityViewController(activityItems: [logDirectory], applicationActivities: nil)
 		navigationController.present(activityController, animated: true)
 	}
 
@@ -40,3 +45,4 @@ class SettingsCoordinator: Coordinator {
 		parentCoordinator?.childDidFinish(self)
 	}
 }
+

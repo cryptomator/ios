@@ -42,7 +42,7 @@ class SettingsViewController: UITableViewController {
 	}
 
 	@objc func exportLogs() {
-		coordinator?.exportLogs()
+		try? coordinator?.exportLogs()
 	}
 
 	// MARK: - UITableViewDataSource
@@ -58,7 +58,7 @@ class SettingsViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(viewModel.exportLogs), for: .normal)
+		cell.button.setTitle(viewModel.exportLogs, for: .normal)
 		cell.button.addTarget(self, action: #selector(exportLogs), for: .touchUpInside)
 		return cell
 	}
