@@ -45,4 +45,11 @@ enum WorkflowFactory {
 		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: itemEnumerationTask)
 	}
+
+	static func createWorkflow(for folderCreationTask: FolderCreationTask, provider: CloudProvider, metadataManager: MetadataManager) -> Workflow<FileProviderItem> {
+		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<FileProviderItem>()
+		let taskExecutor = FolderCreationTaskExecutor(provider: provider, itemMetadataManager: metadataManager)
+		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: folderCreationTask)
+	}
 }

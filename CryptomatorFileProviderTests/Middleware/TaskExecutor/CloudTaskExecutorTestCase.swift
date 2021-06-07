@@ -216,6 +216,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var deleteFolderResponse: ((CloudPath) -> Promise<Void>)?
 		var moveFileResponse: ((CloudPath, CloudPath) -> Promise<Void>)?
 		var moveFolderResponse: ((CloudPath, CloudPath) -> Promise<Void>)?
+		var createFolderResponse: ((CloudPath) -> Promise<Void>)?
 
 		func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
 			fetchItemMetadataResponse?(cloudPath) ?? Promise(MockError.notMocked)
@@ -234,7 +235,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
-			Promise(MockError.notMocked)
+			createFolderResponse?(cloudPath) ?? Promise(MockError.notMocked)
 		}
 
 		func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {

@@ -21,6 +21,9 @@
 		4A123EB524BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB424BF5788001D1CF7 /* FileProviderDecoratorCreateFolderTests.swift */; };
 		4A123EB724C04150001D1CF7 /* FileProviderDecoratorErrorReportingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EB624C04150001D1CF7 /* FileProviderDecoratorErrorReportingTests.swift */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
+		4A248223266E266E002D9F59 /* FolderCreationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248222266E266E002D9F59 /* FolderCreationTask.swift */; };
+		4A248225266E26D7002D9F59 /* FolderCreationTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248224266E26D7002D9F59 /* FolderCreationTaskExecutor.swift */; };
+		4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248226266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */; };
 		4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */; };
@@ -265,6 +268,9 @@
 		4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorFileProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
+		4A248222266E266E002D9F59 /* FolderCreationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCreationTask.swift; sourceTree = "<group>"; };
+		4A248224266E26D7002D9F59 /* FolderCreationTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCreationTaskExecutor.swift; sourceTree = "<group>"; };
+		4A248226266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCreationTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListMessage.swift; sourceTree = "<group>"; };
 		4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewController.swift; sourceTree = "<group>"; };
@@ -555,6 +561,7 @@
 				4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */,
 				4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */,
 				4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */,
+				4A248224266E26D7002D9F59 /* FolderCreationTaskExecutor.swift */,
 			);
 			path = TaskExecutor;
 			sourceTree = "<group>";
@@ -575,6 +582,7 @@
 				4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */,
 				4A511D482660EE3F000A0E01 /* DeletionTaskExecutorTests.swift */,
 				4AB1C324265CE69700DC7A49 /* DownloadTaskExecutorTests.swift */,
+				4A248226266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift */,
 				4A511D44265EB13B000A0E01 /* ItemEnumerationTaskTests.swift */,
 				4A511D5226615439000A0E01 /* ReparentTaskExecutorTests.swift */,
 				4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */,
@@ -796,6 +804,7 @@
 				4A511D562662924C000A0E01 /* ItemEnumerationTask.swift */,
 				7403760C2587AEB70023FF53 /* ReparentTask.swift */,
 				740376062587AEB60023FF53 /* UploadTask.swift */,
+				4A248222266E266E002D9F59 /* FolderCreationTask.swift */,
 			);
 			path = CloudTask;
 			sourceTree = "<group>";
@@ -1267,6 +1276,7 @@
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A123EB324BF498E001D1CF7 /* FileProviderDecoratorGetFileProviderItemTests.swift in Sources */,
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
+				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4A123EB124BF4834001D1CF7 /* FileProviderDecoratorItemEnumerationTests.swift in Sources */,
 				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
@@ -1424,6 +1434,7 @@
 				4A511D5B26668E0C000A0E01 /* UploadTaskRecord.swift in Sources */,
 				747F2F292587BC250072FB30 /* TaskError.swift in Sources */,
 				4A511D5F26668E68000A0E01 /* DeletionTaskRecord.swift in Sources */,
+				4A248223266E266E002D9F59 /* FolderCreationTask.swift in Sources */,
 				747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */,
 				4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */,
 				4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */,
@@ -1433,6 +1444,7 @@
 				747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */,
 				747F2F2D2587BC260072FB30 /* FileProviderItemList.swift in Sources */,
 				747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */,
+				4A248225266E26D7002D9F59 /* FolderCreationTaskExecutor.swift in Sources */,
 				747F2F2F2587BC260072FB30 /* FileProviderDecoratorError.swift in Sources */,
 				747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */,
 				747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */,
