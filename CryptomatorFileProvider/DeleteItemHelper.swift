@@ -22,7 +22,6 @@ class DeleteItemHelper {
 		} else if item.type == .file {
 			try removeFileFromCache(item)
 		}
-		try metadataManager.removeItemMetadata(with: item.id!)
 	}
 
 	/**

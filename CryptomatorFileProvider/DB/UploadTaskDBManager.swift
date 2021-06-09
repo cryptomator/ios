@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 protocol UploadTaskManager {
-	func createNewTaskRecord(for identifier: Int64) throws -> UploadTaskRecord
+	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord
 	func getTaskRecord(for identifier: Int64) throws -> UploadTaskRecord?
 	func updateTaskRecord(with identifier: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws
 	func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws
@@ -27,9 +27,9 @@ class UploadTaskDBManager: UploadTaskManager {
 		self.dbPool = dbPool
 	}
 
-	func createNewTaskRecord(for identifier: Int64) throws -> UploadTaskRecord {
+	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
 		return try dbPool.write { db in
-			let task = UploadTaskRecord(correspondingItem: identifier, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+			let task = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 			try task.save(db)
 			return task
 		}

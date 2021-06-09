@@ -14,10 +14,10 @@ import CryptomatorFileProvider
 import FileProvider
 import MSAL
 
-class FileProviderExtension: NSFileProviderExtension {
+class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	var fileManager = FileManager()
 	let fileCoordinator = NSFileCoordinator()
-	var decorator: FileProviderDecorator?
+	var adapter: FileProviderAdapter?
 	var observation: NSKeyValueObservation?
 	var manager: NSFileProviderManager?
 	var dbPath: URL?
@@ -57,14 +57,6 @@ class FileProviderExtension: NSFileProviderExtension {
 			options: [.old, .new]
 		) { _, change in
 			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue)")
-//			if let domain = self.domain {
-//				guard let manager = NSFileProviderManager(for: domain) else {
-//					return
-//				}
-//				let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
-//				self.decorator = try? DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath)
-//				self.manager = manager
-//			}
 			do {
 				try self.setUp()
 			} catch {
@@ -82,12 +74,12 @@ class FileProviderExtension: NSFileProviderExtension {
 		// resolve the given identifier to a record in the model
 		// TODO: implement the actual lookup
 		// TODO: Change domain stuff, decorator init, etc.
-		guard let decorator = self.decorator else {
+		guard let adapter = self.adapter else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return try decorator.getFileProviderItem(for: identifier)
+		return try adapter.item(for: identifier)
 	}
 
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
@@ -132,7 +124,6 @@ class FileProviderExtension: NSFileProviderExtension {
 		}
 	}
 
-	// swiftlint:disable:next function_body_length
 	override func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		// Should ensure that the actual file is in the position returned by URLForItemWithIdentifier:, then call the completion handler
 
@@ -160,85 +151,13 @@ class FileProviderExtension: NSFileProviderExtension {
 		 }
 		 */
 		// TODO: Register DownloadTask
-		guard let decorator = self.decorator else {
+		guard let adapter = self.adapter else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
 			completionHandler(NSFileProviderError(.notAuthenticated))
 			return
 		}
-		guard let identifier = persistentIdentifierForItem(at: url) else {
-			completionHandler(NSFileProviderError(.noSuchItem))
-			return
-		}
-
-		if !fileManager.fileExists(atPath: url.path) {
-			decorator.downloadFile(with: identifier, to: url).then { item in
-				self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-				self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
-				completionHandler(nil)
-			}.catch { error in
-				completionHandler(error)
-			}
-		} else {
-			decorator.localFileIsCurrent(with: identifier).then { isCurrent in
-				if isCurrent {
-					completionHandler(nil)
-				} else {
-					// if localFileHasChanges DO:
-					// TODO: Implement the following Logic
-					// Move LocalFile in Tmp Folder
-					// Call import Document
-					// after completionHandler returned (immediately) delete localFile in tmp folder
-					let hasVersioningConflict: Bool
-					do {
-						hasVersioningConflict = try decorator.hasPossibleVersioningConflictForItem(withIdentifier: identifier)
-					} catch {
-						completionHandler(error)
-						return
-					}
-					if hasVersioningConflict {
-						let tmpDirectory = self.fileManager.temporaryDirectory
-						let tmpFileURL = tmpDirectory.appendingPathComponent(url.lastPathComponent)
-						let parentIdentifier: NSFileProviderItemIdentifier
-						do {
-							try self.fileManager.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
-							try self.fileManager.moveItem(at: url, to: tmpFileURL)
-							parentIdentifier = try self.item(for: identifier).parentItemIdentifier
-						} catch {
-							completionHandler(error)
-							return
-						}
-						self.importDocument(at: tmpFileURL, toParentItemIdentifier: parentIdentifier) { _, error in
-							if let error = error {
-								completionHandler(error)
-								return
-							}
-							do {
-								try self.fileManager.removeItem(at: tmpFileURL)
-							} catch {
-								completionHandler(error)
-								return
-							}
-							decorator.downloadFile(with: identifier, to: url, replaceExisting: true).then { item in
-								self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-								self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
-								completionHandler(nil)
-							}.catch { error in
-								completionHandler(error)
-							}
-						}
-					} else {
-						decorator.downloadFile(with: identifier, to: url, replaceExisting: true).then { item in
-							self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-							self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
-							completionHandler(nil)
-						}.catch { error in
-							completionHandler(error)
-						}
-					}
-				}
-			}
-		}
+		adapter.startProvidingItem(at: url, completionHandler: completionHandler)
 	}
 
 	override func itemChanged(at url: URL) {
@@ -251,31 +170,17 @@ class FileProviderExtension: NSFileProviderExtension {
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
 
-		guard let decorator = self.decorator else {
+		guard let adapter = self.adapter else {
 			// no domain ==> no installed vault
 			return
 		}
-		guard let itemIdentifier = persistentIdentifierForItem(at: url) else {
-			return
-		}
-		guard let metadata = try? decorator.registerFileInUploadQueue(with: url, identifier: itemIdentifier) else {
-			return
-		}
-
-		decorator.uploadFile(with: url, itemMetadata: metadata).then { item in
-			self.notificator?.fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
-			self.notificator?.signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
-		}.catch { error in
-			print("itemChanged Error: \(error)")
-		}
+		adapter.itemChanged(at: url)
 	}
 
 	override func stopProvidingItem(at url: URL) {
 		// ### Apple template comments: ###
 		// Called after the last claim to the file has been released. At this point, it is safe for the file provider to remove the content file.
 		// Care should be taken that the corresponding placeholder file stays behind after the content file has been deleted.
-
-		// Called after the last claim to the file has been released. At this point, it is safe for the file provider to remove the content file.
 
 		// TODO: look up whether the file has local changes
 		//		let fileHasLocalChanges = false
@@ -293,23 +198,9 @@ class FileProviderExtension: NSFileProviderExtension {
 		//				// TODO: handle any error, do any necessary cleanup
 		//            })
 		//		}
+
+		// Not implemented in the moment.
 		DDLogInfo("stopProvidingItem called for: \(url)")
-		guard let decorator = decorator, let identifier = persistentIdentifierForItem(at: url) else {
-			return
-		}
-		decorator.stopProvidingItem(with: identifier, url: url, notificator: notificator).then {
-			// write out a placeholder to facilitate future property lookups
-			self.providePlaceholder(at: url, completionHandler: { error in
-				// TODO: handle any error, do any necessary cleanup
-				if let error = error {
-					DDLogError("stopProvidingItem for \(url) providePlaceholder failed with: \(error)")
-				} else {
-					DDLogInfo("stopProvidingItem for \(url) succeeded")
-				}
-			})
-		}.catch { error in
-			DDLogError("stopProvidingItem for \(url) failed with error: \(error)")
-		}
 	}
 
 	// MARK: - Actions
@@ -345,7 +236,7 @@ class FileProviderExtension: NSFileProviderExtension {
 			DDLogError("FPExtension: not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, domain: domain, manager: manager, dbPath: dbPath, notificator: notificator)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, manager: manager, dbPath: dbPath, localURLProvider: self)
 	}
 
 	func setUp() throws {
@@ -356,9 +247,10 @@ class FileProviderExtension: NSFileProviderExtension {
 			self.manager = manager
 			let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
 			self.dbPath = dbPath
-			notificator = FileProviderNotificator(manager: manager)
-			DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath).then { decorator in
-				self.decorator = decorator
+			let notificator = FileProviderNotificator(manager: manager)
+			self.notificator = notificator
+			FileProviderAdapterManager.getAdapter(for: domain, with: manager, dbPath: dbPath, delegate: self, notificator: notificator).then { adapter in
+				self.adapter = adapter
 			}
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")

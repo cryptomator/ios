@@ -496,3 +496,10 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 }
+
+extension FileProviderItem {
+	override open func isEqual(_ object: Any?) -> Bool {
+		let other = object as? FileProviderItem
+		return filename == other?.filename && itemIdentifier == other?.itemIdentifier && parentItemIdentifier == other?.parentItemIdentifier && typeIdentifier == other?.typeIdentifier && capabilities == other?.capabilities && documentSize == other?.documentSize
+	}
+}

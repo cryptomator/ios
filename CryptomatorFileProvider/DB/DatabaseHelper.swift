@@ -49,7 +49,7 @@ class DatabaseHelper {
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
-				table.column("parentId", .integer).references("metadata")
+				table.column("parentId", .integer).references("metadata", onDelete: .cascade)
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .text).notNull()
 				table.column("cloudPath", .text).unique()

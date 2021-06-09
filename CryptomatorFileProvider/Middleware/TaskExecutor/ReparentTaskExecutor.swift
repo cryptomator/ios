@@ -68,7 +68,7 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 		case .folder:
 			return provider.moveFolder(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		default:
-			return Promise(FileProviderDecoratorError.unsupportedItemType)
+			return Promise(FileProviderAdapterError.unsupportedItemType)
 		}
 	}
 }

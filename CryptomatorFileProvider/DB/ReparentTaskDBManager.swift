@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 protocol ReparentTaskManager {
-	func createTaskRecord(for id: Int64, oldCloudPath: CloudPath, newCloudPath: CloudPath, oldParentId: Int64, newParentId: Int64) throws -> ReparentTaskRecord
+	func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord
 	func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord
 	func removeTaskRecord(_ task: ReparentTaskRecord) throws
 	func getTaskRecordsForItemsWhichWere(in parentId: Int64) throws -> [ReparentTaskRecord]
@@ -27,9 +27,9 @@ class ReparentTaskDBManager: ReparentTaskManager {
 		}
 	}
 
-	func createTaskRecord(for id: Int64, oldCloudPath: CloudPath, newCloudPath: CloudPath, oldParentId: Int64, newParentId: Int64) throws -> ReparentTaskRecord {
+	func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord {
 		try dbPool.write { db in
-			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: oldCloudPath, targetCloudPath: newCloudPath, oldParentId: oldParentId, newParentId: newParentId)
+			let task = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: newCloudPath, oldParentId: itemMetadata.parentId, newParentId: newParentId)
 			try task.save(db)
 			return task
 		}

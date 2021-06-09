@@ -33,7 +33,7 @@ class DeletionTaskExecutor: WorkflowMiddleware {
 		case .folder:
 			return provider.deleteFolder(at: itemMetadata.cloudPath)
 		default:
-			return Promise(FileProviderDecoratorError.unsupportedItemType)
+			return Promise(FileProviderAdapterError.unsupportedItemType)
 		}
 	}
 

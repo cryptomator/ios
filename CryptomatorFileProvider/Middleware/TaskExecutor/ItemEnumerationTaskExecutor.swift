@@ -135,6 +135,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		let outdatedItems = try itemMetadataManager.getMaybeOutdatedItems(insideParentId: parentId)
 		for outdatedItem in outdatedItems {
 			try deleteItemHelper.removeItemFromCache(outdatedItem)
+			try itemMetadataManager.removeItemMetadata(with: outdatedItem.id!)
 		}
 	}
 

@@ -169,9 +169,13 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	class UploadTaskManagerMock: UploadTaskManager {
 		var uploadTasks = [Int64: UploadTaskRecord]()
 		var removedUploadTaskID = [Int64]()
+		var associatedItemMetadata = [Int64: ItemMetadata]()
 
-		func createNewTaskRecord(for identifier: Int64) throws -> UploadTaskRecord {
-			throw MockError.notMocked
+		func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
+			let taskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+			uploadTasks[itemMetadata.id!] = taskRecord
+			associatedItemMetadata[itemMetadata.id!] = itemMetadata
+			return taskRecord
 		}
 
 		func getTaskRecord(for identifier: Int64) throws -> UploadTaskRecord? {
@@ -195,15 +199,19 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func removeTaskRecord(for identifier: Int64) throws {
+			uploadTasks.removeValue(forKey: identifier)
 			removedUploadTaskID.append(identifier)
 		}
 
 		func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
-			throw MockError.notMocked
+			guard let itemMetadata = associatedItemMetadata[uploadTask.correspondingItem] else {
+				throw DeletionTaskManagerError.missingItemMetadata
+			}
+			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
 		}
 	}
 
-	private enum MockError: Error {
+	enum MockError: Error {
 		case notMocked
 	}
 
@@ -291,11 +299,15 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	}
 
 	class ReparentTaskManagerMock: ReparentTaskManager {
+		var associatedItemMetadata = [Int64: ItemMetadata]()
 		var reparentTasks = [Int64: ReparentTaskRecord]()
 		var removedReparentTasks = [ReparentTaskRecord]()
 
-		func createTaskRecord(for id: Int64, oldCloudPath: CloudPath, newCloudPath: CloudPath, oldParentId: Int64, newParentId: Int64) throws -> ReparentTaskRecord {
-			throw MockError.notMocked
+		func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord {
+			let taskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: newCloudPath, oldParentId: itemMetadata.parentId, newParentId: newParentId)
+			reparentTasks[itemMetadata.id!] = taskRecord
+			associatedItemMetadata[itemMetadata.id!] = itemMetadata
+			return taskRecord
 		}
 
 		func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord {
@@ -323,7 +335,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func getTask(for reparentTask: ReparentTaskRecord) throws -> ReparentTask {
-			throw MockError.notMocked
+			guard let itemMetadata = associatedItemMetadata[reparentTask.correspondingItem] else {
+				throw DeletionTaskManagerError.missingItemMetadata
+			}
+			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata)
 		}
 	}
 
