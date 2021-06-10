@@ -11,13 +11,38 @@ import Foundation
 import GRDB
 protocol UploadTaskManager {
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord
-	func getTaskRecord(for identifier: Int64) throws -> UploadTaskRecord?
-	func updateTaskRecord(with identifier: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws
+	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord?
+	func updateTaskRecord(with id: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws
 	func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?]
-	func updateTaskRecord(_ task: UploadTaskRecord) throws
-	func removeTaskRecord(for identifier: Int64) throws
+	func removeTaskRecord(for id: Int64) throws
 	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask
+}
+
+extension UploadTaskManager {
+	func getTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord? {
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		return try getTaskRecord(for: id)
+	}
+
+	func getTaskRecords(for itemMetadata: [ItemMetadata]) throws -> [UploadTaskRecord?] {
+		let ids: [Int64] = try itemMetadata.map {
+			guard let id = $0.id else {
+				throw DBManagerError.nonSavedItemMetadata
+			}
+			return id
+		}
+		return try getCorrespondingTaskRecords(ids: ids)
+	}
+
+	func removeTaskRecord(for itemMetadata: ItemMetadata) throws {
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		try removeTaskRecord(for: id)
+	}
 }
 
 class UploadTaskDBManager: UploadTaskManager {
@@ -35,22 +60,22 @@ class UploadTaskDBManager: UploadTaskManager {
 		}
 	}
 
-	func getTaskRecord(for identifier: Int64) throws -> UploadTaskRecord? {
+	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord? {
 		let uploadTask = try dbPool.read { db in
-			return try UploadTaskRecord.fetchOne(db, key: identifier)
+			return try UploadTaskRecord.fetchOne(db, key: id)
 		}
 		return uploadTask
 	}
 
-	func updateTaskRecord(with identifier: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
+	func updateTaskRecord(with id: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
 		try dbPool.write { db in
-			if var task = try UploadTaskRecord.fetchOne(db, key: identifier) {
+			if var task = try UploadTaskRecord.fetchOne(db, key: id) {
 				task.lastFailedUploadDate = lastFailedUploadDate
 				task.uploadErrorCode = uploadErrorCode
 				task.uploadErrorDomain = uploadErrorDomain
 				try task.update(db)
 			} else {
-				throw TaskError.taskNotFound
+				throw DBManagerError.taskNotFound
 			}
 		}
 	}
@@ -76,22 +101,16 @@ class UploadTaskDBManager: UploadTaskManager {
 		return uploadTasks
 	}
 
-	func updateTaskRecord(_ task: UploadTaskRecord) throws {
+	func removeTaskRecord(for id: Int64) throws {
 		_ = try dbPool.write { db in
-			try task.update(db)
-		}
-	}
-
-	func removeTaskRecord(for identifier: Int64) throws {
-		_ = try dbPool.write { db in
-			try UploadTaskRecord.deleteOne(db, key: identifier)
+			try UploadTaskRecord.deleteOne(db, key: id)
 		}
 	}
 
 	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
 		try dbPool.read { db in
 			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
-				throw DeletionTaskManagerError.missingItemMetadata
+				throw DBManagerError.missingItemMetadata
 			}
 			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
 		}

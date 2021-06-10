@@ -14,7 +14,7 @@ import XCTest
 
 class UploadTaskManagerTests: XCTestCase {
 	var manager: UploadTaskDBManager!
-	var itemMetadataManager: MetadataDBManager!
+	var itemMetadataManager: ItemMetadataDBManager!
 	var tmpDirURL: URL!
 	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
@@ -23,7 +23,7 @@ class UploadTaskManagerTests: XCTestCase {
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
 		manager = UploadTaskDBManager(with: dbPool)
-		itemMetadataManager = MetadataDBManager(with: dbPool)
+		itemMetadataManager = ItemMetadataDBManager(with: dbPool)
 	}
 
 	override func tearDownWithError() throws {
@@ -66,7 +66,7 @@ class UploadTaskManagerTests: XCTestCase {
 
 	func testUpdateNonExistentTaskRecordFailsWithTaskNotFound() throws {
 		XCTAssertThrowsError(try manager.updateTaskRecord(with: 2, lastFailedUploadDate: Date(), uploadErrorCode: 0, uploadErrorDomain: "")) { error in
-			guard case TaskError.taskNotFound = error else {
+			guard case DBManagerError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
@@ -79,7 +79,7 @@ class UploadTaskManagerTests: XCTestCase {
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let taskBeforeRemoval = try manager.getTaskRecord(for: itemMetadata.id!)
 		XCTAssertNotNil(taskBeforeRemoval)
-		let itemManager = MetadataDBManager(with: dbPool)
+		let itemManager = ItemMetadataDBManager(with: dbPool)
 		try itemManager.removeItemMetadata(with: itemMetadata.id!)
 		let taskAfterRemoval = try manager.getTaskRecord(for: itemMetadata.id!)
 		XCTAssertNil(taskAfterRemoval)
@@ -99,9 +99,9 @@ class UploadTaskManagerTests: XCTestCase {
 
 	func testGetTask() throws {
 		let cloudPath = CloudPath("/Test")
-		let metadataManager = MetadataDBManager(with: dbPool)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		try metadataManager.cacheMetadata(itemMetadata)
+		let itemMetadataManager = ItemMetadataDBManager(with: dbPool)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: taskRecord)
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)

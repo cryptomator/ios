@@ -32,13 +32,13 @@ class CachedFileManagerTests: XCTestCase {
 	func testCacheLocalFileInfo() throws {
 		let date = Date(timeIntervalSince1970: 0)
 		let localURLForItem = URL(fileURLWithPath: "/foo")
-		try manager.cacheLocalFileInfo(for: MetadataDBManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: date)
-		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: MetadataDBManager.rootContainerId) else {
+		try manager.cacheLocalFileInfo(for: ItemMetadataDBManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: date)
+		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: ItemMetadataDBManager.rootContainerId) else {
 			XCTFail("No localCachedFileInfo found for rootContainerId")
 			return
 		}
 		XCTAssertEqual(date, localCachedFileInfo.lastModifiedDate)
-		XCTAssertEqual(MetadataDBManager.rootContainerId, localCachedFileInfo.correspondingItem)
+		XCTAssertEqual(ItemMetadataDBManager.rootContainerId, localCachedFileInfo.correspondingItem)
 		XCTAssertEqual(localURLForItem, localCachedFileInfo.localURL)
 	}
 
@@ -51,8 +51,8 @@ class CachedFileManagerTests: XCTestCase {
 		let secondDate = calendar.date(from: secondDateComp)!
 
 		let localURLForItem = URL(fileURLWithPath: "/foo")
-		try manager.cacheLocalFileInfo(for: MetadataDBManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: firstDate)
-		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: MetadataDBManager.rootContainerId) else {
+		try manager.cacheLocalFileInfo(for: ItemMetadataDBManager.rootContainerId, localURL: localURLForItem, lastModifiedDate: firstDate)
+		guard let localCachedFileInfo = try manager.getLocalCachedFileInfo(for: ItemMetadataDBManager.rootContainerId) else {
 			XCTFail("No localCachedFileInfo found for rootContainerId")
 			return
 		}

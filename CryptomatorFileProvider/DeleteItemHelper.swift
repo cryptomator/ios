@@ -8,11 +8,11 @@
 
 import Foundation
 class DeleteItemHelper {
-	private let metadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 
-	init(metadataManager: MetadataManager, cachedFileManager: CachedFileManager) {
-		self.metadataManager = metadataManager
+	init(metadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+		self.itemMetadataManager = metadataManager
 		self.cachedFileManager = cachedFileManager
 	}
 
@@ -33,12 +33,12 @@ class DeleteItemHelper {
 	 */
 	func removeFolderFromCache(_ folder: ItemMetadata) throws {
 		assert(folder.type == .folder)
-		let innerItems = try metadataManager.getAllCachedMetadata(inside: folder)
+		let innerItems = try itemMetadataManager.getAllCachedMetadata(inside: folder)
 		for item in innerItems where item.type == .file {
 			try removeFileFromCache(item)
 		}
 		let identifiers = innerItems.map({ $0.id! })
-		try metadataManager.removeItemMetadata(identifiers)
+		try itemMetadataManager.removeItemMetadata(identifiers)
 	}
 
 	func removeFileFromCache(_ file: ItemMetadata) throws {

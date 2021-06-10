@@ -24,10 +24,10 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	private let itemMetadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let provider: CloudProvider
 
-	init(provider: CloudProvider, itemMetadataManager: MetadataManager) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 	}

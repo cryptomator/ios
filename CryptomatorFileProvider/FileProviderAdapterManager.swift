@@ -25,7 +25,7 @@ public enum FileProviderAdapterManager {
 				let adapter: FileProviderAdapter
 				do {
 					let database = try DatabaseHelper.getMigratedDB(at: dbPath)
-					let itemMetadataManager = MetadataDBManager(with: database)
+					let itemMetadataManager = ItemMetadataDBManager(with: database)
 					let cachedFileManager = CachedFileDBManager(with: database)
 					let uploadTaskManager = UploadTaskDBManager(with: database)
 					let reparentTaskManager = try ReparentTaskDBManager(with: database)

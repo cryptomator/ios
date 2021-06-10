@@ -13,11 +13,7 @@ protocol DeletionTaskManager {
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord
 	func removeTaskRecord(_ task: DeletionTaskRecord) throws
 	func getTaskRecordsForItemsWhichWere(in parentId: Int64) throws -> [DeletionTaskRecord]
-	func getTask(for id: DeletionTaskRecord) throws -> DeletionTask
-}
-
-enum DeletionTaskManagerError: Error {
-	case missingItemMetadata
+	func getTask(for taskRecord: DeletionTaskRecord) throws -> DeletionTask
 }
 
 class DeletionTaskDBManager: DeletionTaskManager {
@@ -41,7 +37,7 @@ class DeletionTaskDBManager: DeletionTaskManager {
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord {
 		try dbPool.read { db in
 			guard let task = try DeletionTaskRecord.fetchOne(db, key: id) else {
-				throw TaskError.taskNotFound
+				throw DBManagerError.taskNotFound
 			}
 			return task
 		}
@@ -62,12 +58,12 @@ class DeletionTaskDBManager: DeletionTaskManager {
 		return tasks
 	}
 
-	func getTask(for deletionTask: DeletionTaskRecord) throws -> DeletionTask {
+	func getTask(for taskRecord: DeletionTaskRecord) throws -> DeletionTask {
 		try dbPool.read { db in
-			guard let itemMetadata = try deletionTask.itemMetadata.fetchOne(db) else {
-				throw DeletionTaskManagerError.missingItemMetadata
+			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
+				throw DBManagerError.missingItemMetadata
 			}
-			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata)
+			return DeletionTask(taskRecord: taskRecord, itemMetadata: itemMetadata)
 		}
 	}
 }

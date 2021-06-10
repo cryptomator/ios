@@ -16,7 +16,7 @@ import Promises
 public class FileProviderAdapter {
 	private let uploadTaskManager: UploadTaskManager
 	private let cachedFileManager: CachedFileManager
-	private let itemMetadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let reparentTaskManager: ReparentTaskManager
 	private let deletionTaskManager: DeletionTaskManager
 	private let scheduler: WorkflowScheduler
@@ -24,7 +24,7 @@ public class FileProviderAdapter {
 	private weak var localURLProvider: LocalURLProvider?
 	private let notificator: FileProviderItemUpdateDelegate?
 
-	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: MetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil) {
+	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil) {
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -57,8 +57,8 @@ public class FileProviderAdapter {
 	 */
 	public func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		let itemMetadata = try getCachedMetadata(for: identifier)
-		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata.id!)
-		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
+		let uploadTask = try uploadTaskManager.getTaskRecord(for: itemMetadata)
+		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let localURL = localCachedFileInfo?.localURL
 		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
@@ -224,7 +224,7 @@ public class FileProviderAdapter {
 		let workflow: Workflow<FileProviderItem>
 		do {
 			let task = try uploadTaskManager.getTask(for: taskRecord)
-			workflow = try WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
+			workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
 		} catch {
 			return Promise(error)
 		}
@@ -241,7 +241,7 @@ public class FileProviderAdapter {
 			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
 			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
 			try itemMetadataManager.updateMetadata(itemMetadata)
-			try uploadTaskManager.removeTaskRecord(for: itemMetadata.id!)
+			try uploadTaskManager.removeTaskRecord(for: itemMetadata)
 			uploadTaskRecord = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
 			try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
 		} catch {
@@ -329,32 +329,32 @@ public class FileProviderAdapter {
 	 */
 	func moveItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier?, newName: String?) throws -> MoveItemLocallyResult {
 		precondition(parentItemIdentifier != nil || newName != nil)
-		let metadata = try getCachedMetadata(for: itemIdentifier)
+		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
 		let parentId: Int64
 		if let parentItemIdentifier = parentItemIdentifier {
 			parentId = try convertFileProviderItemIdentifierToInt64(parentItemIdentifier)
 		} else {
-			parentId = metadata.parentId
+			parentId = itemMetadata.parentId
 		}
 		let name: String
 		if let newName = newName {
 			name = newName
 		} else {
-			name = metadata.name
+			name = itemMetadata.name
 		}
 
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: metadata.type)
-		let taskRecord = try reparentTaskManager.createTaskRecord(for: metadata, newCloudPath: cloudPath, newParentId: parentId)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: itemMetadata.type)
+		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: cloudPath, newParentID: parentId)
 
-		metadata.name = name
-		metadata.cloudPath = cloudPath
-		metadata.parentId = parentId
-		metadata.statusCode = .isUploading
-		try itemMetadataManager.updateMetadata(metadata)
+		itemMetadata.name = name
+		itemMetadata.cloudPath = cloudPath
+		itemMetadata.parentId = parentId
+		itemMetadata.statusCode = .isUploading
+		try itemMetadataManager.updateMetadata(itemMetadata)
 
-		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata.id!)
-		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
-		let item = FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached)
+		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
+		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
+		let item = FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
 	}
 
@@ -376,7 +376,7 @@ public class FileProviderAdapter {
 		let workflow: Workflow<Void>
 		do {
 			let deletionTaskInfo = try deletionTaskManager.getTask(for: taskRecord)
-			workflow = try WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: provider, metadataManager: itemMetadataManager)
+			workflow = WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: provider, metadataManager: itemMetadataManager)
 		} catch {
 			completionHandler(error)
 			return
@@ -400,10 +400,10 @@ public class FileProviderAdapter {
 	 - Postcondition: The `ItemMetadata` entry for the passed `itemIdentifier` and all `ItemMetadata` entries that have this entry as implicit parent were removed from the database and the associated locally cached files were removed from the file system.
 	 */
 	func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> DeletionTaskRecord {
-		let metadata = try getCachedMetadata(for: itemIdentifier)
-		let taskRecord = try deletionTaskManager.createTaskRecord(for: metadata)
+		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
+		let taskRecord = try deletionTaskManager.createTaskRecord(for: itemMetadata)
 		let deletionHelper = DeleteItemHelper(metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		try deletionHelper.removeItemFromCache(metadata)
+		try deletionHelper.removeItemFromCache(itemMetadata)
 		return taskRecord
 	}
 
@@ -484,7 +484,8 @@ public class FileProviderAdapter {
 		guard let uploadTask = try uploadTaskManager.getTaskRecord(for: id) else {
 			return false
 		}
-		guard let localLastModifiedDate = try cachedFileManager.getLocalLastModifiedDate(for: id) else {
+		let cachedLocalFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: id)
+		guard let localLastModifiedDate = cachedLocalFileInfo?.localLastModifiedDate else {
 			return false
 		}
 		guard let lastFailedUploadDate = uploadTask.lastFailedUploadDate else {
@@ -524,7 +525,7 @@ public class FileProviderAdapter {
 			guard let lastModifiedDateInCloud = itemMetadata.lastModifiedDate else {
 				return false
 			}
-			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
+			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: lastModifiedDateInCloud) ?? false
 			return newestVersionLocallyCached
 		}

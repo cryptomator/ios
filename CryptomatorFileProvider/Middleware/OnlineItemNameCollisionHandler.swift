@@ -11,10 +11,10 @@ import Foundation
 import Promises
 
 class OnlineItemNameCollisionHandler<T>: WorkflowMiddleware {
-	private let itemMetadataManager: MetadataDBManager
+	private let itemMetadataManager: ItemMetadataDBManager
 	private var next: AnyWorkflowMiddleware<T>?
 
-	init(itemMetadataManager: MetadataDBManager) {
+	init(itemMetadataManager: ItemMetadataDBManager) {
 		self.itemMetadataManager = itemMetadataManager
 	}
 

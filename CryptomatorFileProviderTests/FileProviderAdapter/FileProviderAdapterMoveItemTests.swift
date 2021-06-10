@@ -21,10 +21,10 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/RenamedTest.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadatas([itemMetadata, newParentItemMetadata])
+		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
 		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(parentItemID))
@@ -47,8 +47,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 
 		let reparentTaskRecord = result.reparentTaskRecord
 		XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
-		XCTAssertEqual(metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentId)
-		XCTAssertEqual(parentItemID, reparentTaskRecord.newParentId)
+		XCTAssertEqual(metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentID)
+		XCTAssertEqual(parentItemID, reparentTaskRecord.newParentID)
 		XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
 		XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 	}
@@ -60,7 +60,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/RenamedTest.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let newName = "RenamedTest.txt"
@@ -76,7 +76,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(itemMetadata, metadataManagerMock.cachedMetadata[itemID])
 
 		XCTAssertEqual(newName, itemMetadata.name)
-		XCTAssertEqual(MetadataDBManager.rootContainerId, itemMetadata.parentId)
+		XCTAssertEqual(ItemMetadataDBManager.rootContainerId, itemMetadata.parentId)
 		XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
 		XCTAssertEqual(targetCloudPath, itemMetadata.cloudPath)
 
@@ -95,10 +95,10 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/Test.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadatas([itemMetadata, newParentItemMetadata])
+		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
 		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(newParentItemMetadata.id!))
@@ -120,8 +120,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let reparentTaskRecord = result.reparentTaskRecord
 
 		XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
-		XCTAssertEqual(metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentId)
-		XCTAssertEqual(parentItemID, reparentTaskRecord.newParentId)
+		XCTAssertEqual(metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentID)
+		XCTAssertEqual(parentItemID, reparentTaskRecord.newParentID)
 		XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
 		XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 	}
@@ -135,7 +135,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/RenamedTest.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
 		let newName = "RenamedTest.txt"
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
@@ -156,7 +156,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(itemMetadata, self.metadataManagerMock.cachedMetadata[itemID])
 
 			XCTAssertEqual(newName, itemMetadata.name)
-			XCTAssertEqual(MetadataDBManager.rootContainerId, itemMetadata.parentId)
+			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, itemMetadata.parentId)
 			XCTAssertEqual(ItemStatus.isUploading, itemMetadata.statusCode)
 			XCTAssertEqual(targetCloudPath, itemMetadata.cloudPath)
 
@@ -183,10 +183,10 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Folder/Test.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		let targetParentCloudPath = CloudPath("/Folder/")
-		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: MetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadatas([itemMetadata, newParentItemMetadata])
+		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
 		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(parentItemID))
@@ -215,8 +215,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 				return
 			}
 			XCTAssertEqual(itemID, reparentTaskRecord.correspondingItem)
-			XCTAssertEqual(self.metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentId)
-			XCTAssertEqual(parentItemID, reparentTaskRecord.newParentId)
+			XCTAssertEqual(self.metadataManagerMock.getRootContainerID(), reparentTaskRecord.oldParentID)
+			XCTAssertEqual(parentItemID, reparentTaskRecord.newParentID)
 			XCTAssertEqual(sourceCloudPath, reparentTaskRecord.sourceCloudPath)
 			XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 			expectation.fulfill()

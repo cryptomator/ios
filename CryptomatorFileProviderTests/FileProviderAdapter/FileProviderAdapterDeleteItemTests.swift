@@ -41,7 +41,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Folder", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		let cloudPath = CloudPath("Folder/test.txt")
 		let fileItemMetadata = ItemMetadata(id: fileItemID, name: "test.txt", type: .file, size: nil, parentId: folderItemID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		try metadataManagerMock.cacheMetadatas([folderItemMetadata, fileItemMetadata])
+		try metadataManagerMock.cacheMetadata([folderItemMetadata, fileItemMetadata])
 
 		let folderItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemID))
 		let fileItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(fileItemID))

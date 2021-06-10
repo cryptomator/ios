@@ -28,10 +28,10 @@ class UploadTaskExecutor: WorkflowMiddleware {
 
 	let provider: CloudProvider
 	let cachedFileManager: CachedFileManager
-	let itemMetadataManager: MetadataManager
+	let itemMetadataManager: ItemMetadataManager
 	let uploadTaskManager: UploadTaskManager
 
-	init(provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: MetadataManager, uploadTaskManager: UploadTaskManager) {
+	init(provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager) {
 		self.provider = provider
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -45,7 +45,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		let itemMetadata = task.itemMetadata
 		let localCachedFile: LocalCachedFileInfo?
 		do {
-			localCachedFile = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
+			localCachedFile = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 		} catch {
 			return Promise(error)
 		}
@@ -73,7 +73,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 
 	 Otherwise, the user will be delivered an outdated file from the local cache even though there is a newer version in the cloud.
 
-	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
+	 - Precondition: The passed `taskItemMetadata` has already been stored in the database, i.e. it has an `id`.
 	 - Postcondition: `itemMetadata.statusCode == .isUploaded && itemMetadata.isPlaceholderItem == false`.
 	 - Postcondition: If the file sizes (local & cloud) do not match, there is no more a local file under the `localURL` and no `LocalCachedFileInfo` entry for the `itemMetadata.id`.
 	 - Postcondition: If the file sizes (local & cloud) match, the `lastModifiedDate` from the cloud was stored together with the `localURL` as `LocalCachedFileInfo` in the database for the `itemMetadata.id`.
@@ -84,7 +84,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		taskItemMetadata.lastModifiedDate = cloudItemMetadata.lastModifiedDate
 		taskItemMetadata.size = cloudItemMetadata.size
 		try itemMetadataManager.updateMetadata(taskItemMetadata)
-		try uploadTaskManager.removeTaskRecord(for: taskItemMetadata.id!)
+		try uploadTaskManager.removeTaskRecord(for: taskItemMetadata)
 		if localFileSizeBeforeUpload == cloudItemMetadata.size {
 			DDLogInfo("uploadPostProcessing: received cloudItemMetadata seem to be correct: localSize = \(localFileSizeBeforeUpload ?? -1); cloudItemSize = \(cloudItemMetadata.size ?? -1)")
 			try cachedFileManager.cacheLocalFileInfo(for: taskItemMetadata.id!, localURL: localURL, lastModifiedDate: cloudItemMetadata.lastModifiedDate)

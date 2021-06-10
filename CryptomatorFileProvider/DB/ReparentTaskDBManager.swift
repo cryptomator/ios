@@ -10,11 +10,10 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 protocol ReparentTaskManager {
-	func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord
-	func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord
+	func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord
 	func removeTaskRecord(_ task: ReparentTaskRecord) throws
-	func getTaskRecordsForItemsWhichWere(in parentId: Int64) throws -> [ReparentTaskRecord]
-	func getTaskRecordsForItemsWhichAreSoon(in parentId: Int64) throws -> [ReparentTaskRecord]
+	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord]
+	func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord]
 	func getTask(for taskRecord: ReparentTaskRecord) throws -> ReparentTask
 }
 
@@ -27,19 +26,13 @@ class ReparentTaskDBManager: ReparentTaskManager {
 		}
 	}
 
-	func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord {
-		try dbPool.write { db in
-			let task = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: newCloudPath, oldParentId: itemMetadata.parentId, newParentId: newParentId)
-			try task.save(db)
-			return task
+	func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
 		}
-	}
-
-	func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord {
-		try dbPool.read { db in
-			guard let task = try ReparentTaskRecord.fetchOne(db, key: id) else {
-				throw TaskError.taskNotFound
-			}
+		return try dbPool.write { db in
+			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: newParentID)
+			try task.save(db)
 			return task
 		}
 	}
@@ -71,7 +64,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	func getTask(for taskRecord: ReparentTaskRecord) throws -> ReparentTask {
 		try dbPool.read { db in
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
-				throw DeletionTaskManagerError.missingItemMetadata
+				throw DBManagerError.missingItemMetadata
 			}
 			return ReparentTask(taskRecord: taskRecord, itemMetadata: itemMetadata)
 		}

@@ -24,11 +24,11 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 		return nextMiddleware
 	}
 
-	private let itemMetadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 	private let provider: CloudProvider
 
-	init(provider: CloudProvider, itemMetadataManager: MetadataManager, cachedFileManager: CachedFileManager) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
@@ -56,25 +56,25 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 
 	 In the case of a non-overwriting download, the `localURL` and the `downloadDestination`, can be the same `URL`.
 
-	 - Parameter metadata: The metadata of the item for which post-processing is performed.
+	 - Parameter itemMetadata: The metadata of the item for which post-processing is performed.
 	 - Parameter lastModifiedDate: (Optional) The date the item was last modified in the cloud.
 	 - Parameter localURL: The local URL where the downloaded file is located at the end.
 	 - Parameter downloadDestination: The local URL to which the file was downloaded.
 	 - Precondition: The passed `itemMetadata` has already been stored in the database, i.e. it has an `id`.
 	 - Postcondition: The downloaded file is located at `localURL`.
 	 - Postcondition: If `downloadDestination != localURL`, there is no file left at `downloadDestination`.
-	 - Postcondition: The passed `metadata` has the `statusCode == .isUploaded` in the database
+	 - Postcondition: The passed `itemMetadata` has the `statusCode == .isUploaded` in the database
 	 - Postcondition: The `LocalCachedFileInfo` entry associated with the `metadata.id` has the passed `lastModifiedDate` and the passed `localURL` stored in the database.
 	 - Returns: A `FileProviderItem` for the passed `metadata` with `statusCode == .isUploaded` and the flag `newestVersionLocallyCached` and the passed `localURL`.
 	 */
-	func downloadPostProcessing(for metadata: ItemMetadata, lastModifiedDate: Date?, localURL: URL, downloadDestination: URL) throws -> FileProviderItem {
+	func downloadPostProcessing(for itemMetadata: ItemMetadata, lastModifiedDate: Date?, localURL: URL, downloadDestination: URL) throws -> FileProviderItem {
 		if localURL != downloadDestination {
 			try FileManager.default.removeItem(at: localURL)
 			try FileManager.default.moveItem(at: downloadDestination, to: localURL)
 		}
-		metadata.statusCode = .isUploaded
-		try itemMetadataManager.updateMetadata(metadata)
-		try cachedFileManager.cacheLocalFileInfo(for: metadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
-		return FileProviderItem(metadata: metadata, newestVersionLocallyCached: true, localURL: localURL)
+		itemMetadata.statusCode = .isUploaded
+		try itemMetadataManager.updateMetadata(itemMetadata)
+		try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
+		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true, localURL: localURL)
 	}
 }

@@ -20,7 +20,7 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
-		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentId: itemMetadata.parentId, newParentId: itemMetadata.parentId)
+		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: itemMetadata.parentId)
 		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
 		let taskExecutor = ReparentTaskExecutor(provider: cloudProviderMock, reparentTaskManager: reparentTaskManagerMock, metadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 
@@ -52,7 +52,7 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
-		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentId: itemMetadata.parentId, newParentId: itemMetadata.parentId)
+		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: itemMetadata.parentId)
 		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
 		let taskExecutor = ReparentTaskExecutor(provider: cloudProviderMock, reparentTaskManager: reparentTaskManagerMock, metadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 
@@ -89,7 +89,7 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "Test.txt", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
-		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentId: itemMetadata.parentId, newParentId: itemMetadata.parentId)
+		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: itemMetadata.parentId)
 		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
 		let taskExecutor = ReparentTaskExecutor(provider: errorCloudProviderMock, reparentTaskManager: reparentTaskManagerMock, metadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		taskExecutor.execute(task: reparentTask).then { _ in
@@ -119,7 +119,7 @@ class ReparentTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 
-		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentId: itemMetadata.parentId, newParentId: itemMetadata.parentId)
+		let reparentTaskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: sourceCloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: itemMetadata.parentId)
 		let reparentTask = ReparentTask(taskRecord: reparentTaskRecord, itemMetadata: itemMetadata)
 		let taskExecutor = ReparentTaskExecutor(provider: errorCloudProviderMock, reparentTaskManager: reparentTaskManagerMock, metadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		taskExecutor.execute(task: reparentTask).then { _ in

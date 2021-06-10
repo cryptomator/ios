@@ -20,8 +20,8 @@ struct ReparentTaskRecord: Decodable, FetchableRecord, TableRecord {
 	let correspondingItem: Int64
 	let sourceCloudPath: CloudPath
 	let targetCloudPath: CloudPath
-	let oldParentId: Int64
-	let newParentId: Int64
+	let oldParentID: Int64
+	let newParentID: Int64
 }
 
 extension ReparentTaskRecord: PersistableRecord {
@@ -29,8 +29,8 @@ extension ReparentTaskRecord: PersistableRecord {
 		container[ReparentTaskRecord.correspondingItemKey] = correspondingItem
 		container[ReparentTaskRecord.sourceCloudPathKey] = sourceCloudPath
 		container[ReparentTaskRecord.targetCloudPathKey] = targetCloudPath
-		container[ReparentTaskRecord.oldParentIdKey] = oldParentId
-		container[ReparentTaskRecord.newParentIdKey] = newParentId
+		container[ReparentTaskRecord.oldParentIdKey] = oldParentID
+		container[ReparentTaskRecord.newParentIdKey] = newParentID
 	}
 }
 

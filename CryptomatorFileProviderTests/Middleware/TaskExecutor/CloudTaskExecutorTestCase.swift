@@ -36,7 +36,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		try FileManager.default.removeItem(at: tmpDirectory)
 	}
 
-	class MetadataManagerMock: MetadataManager {
+	class MetadataManagerMock: ItemMetadataManager {
 		var cachedMetadata = [Int64: ItemMetadata]()
 		var removedMetadataID = [Int64]()
 		var updatedMetadata = [ItemMetadata]()
@@ -65,8 +65,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			updatedMetadata.append(metadata)
 		}
 
-		func cacheMetadatas(_ metadatas: [ItemMetadata]) throws {
-			for metadata in metadatas {
+		func cacheMetadata(_ itemMetadataList: [ItemMetadata]) throws {
+			for metadata in itemMetadataList {
 				try cacheMetadata(metadata)
 			}
 		}
@@ -75,7 +75,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			cachedMetadata.first(where: { $1.cloudPath == cloudPath })?.value
 		}
 
-		func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
+		func getPlaceholderMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
 			var result = [ItemMetadata]()
 			for metadata in cachedMetadata.values where metadata.parentId == parentId && metadata.isPlaceholderItem {
 				result.append(metadata)
@@ -83,7 +83,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			return result
 		}
 
-		func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata] {
+		func getCachedMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
 			var result = [ItemMetadata]()
 			for metadata in cachedMetadata.values where metadata.parentId == parentId {
 				result.append(metadata)
@@ -91,13 +91,13 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			return result
 		}
 
-		func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws {
+		func flagAllItemsAsMaybeOutdated(withParentID parentId: Int64) throws {
 			for metadata in cachedMetadata.values where metadata.parentId == parentId && metadata.id != getRootContainerID() {
 				metadata.isMaybeOutdated = true
 			}
 		}
 
-		func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata] {
+		func getMaybeOutdatedItems(withParentID parentId: Int64) throws -> [ItemMetadata] {
 			var result = [ItemMetadata]()
 			for metadata in cachedMetadata.values where metadata.isMaybeOutdated && metadata.parentId == parentId {
 				result.append(metadata)
@@ -116,7 +116,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			}
 		}
 
-		func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
+		func getCachedMetadata(forIDs ids: [Int64]) throws -> [ItemMetadata] {
 			return try ids.map { try getCachedMetadata(for: $0)! }
 		}
 
@@ -144,20 +144,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			cachedLocalFileInfo[identifier]
 		}
 
-		func getLastModifiedDate(for identifier: Int64) throws -> Date? {
-			cachedLocalFileInfo[identifier]?.lastModifiedDate
-		}
-
-		func getLocalLastModifiedDate(for identifier: Int64) throws -> Date? {
-			cachedLocalFileInfo[identifier]?.localLastModifiedDate
-		}
-
 		func cacheLocalFileInfo(for identifier: Int64, localURL: URL, lastModifiedDate: Date?) throws {
 			cachedLocalFileInfo[identifier] = LocalCachedFileInfo(lastModifiedDate: lastModifiedDate, correspondingItem: identifier, localLastModifiedDate: Date(), localURL: localURL)
-		}
-
-		func getLocalURL(for identifier: Int64) throws -> URL? {
-			cachedLocalFileInfo[identifier]?.localURL
 		}
 
 		func removeCachedFile(for identifier: Int64) throws {
@@ -205,7 +193,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
 			guard let itemMetadata = associatedItemMetadata[uploadTask.correspondingItem] else {
-				throw DeletionTaskManagerError.missingItemMetadata
+				throw DBManagerError.missingItemMetadata
 			}
 			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
 		}
@@ -292,7 +280,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func getTask(for deletionTask: DeletionTaskRecord) throws -> DeletionTask {
 			guard let itemMetadata = associatedItemMetadata[deletionTask.correspondingItem] else {
-				throw DeletionTaskManagerError.missingItemMetadata
+				throw DBManagerError.missingItemMetadata
 			}
 			return DeletionTask(taskRecord: deletionTask, itemMetadata: itemMetadata)
 		}
@@ -303,32 +291,28 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var reparentTasks = [Int64: ReparentTaskRecord]()
 		var removedReparentTasks = [ReparentTaskRecord]()
 
-		func createTaskRecord(for itemMetadata: ItemMetadata, newCloudPath: CloudPath, newParentId: Int64) throws -> ReparentTaskRecord {
-			let taskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: newCloudPath, oldParentId: itemMetadata.parentId, newParentId: newParentId)
+		func createTaskRecord(for itemMetadata: ItemMetadata, targetCloudPath: CloudPath, newParentID: Int64) throws -> ReparentTaskRecord {
+			let taskRecord = ReparentTaskRecord(correspondingItem: itemMetadata.id!, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: newParentID)
 			reparentTasks[itemMetadata.id!] = taskRecord
 			associatedItemMetadata[itemMetadata.id!] = itemMetadata
 			return taskRecord
-		}
-
-		func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord {
-			throw MockError.notMocked
 		}
 
 		func removeTaskRecord(_ task: ReparentTaskRecord) throws {
 			removedReparentTasks.append(task)
 		}
 
-		func getTaskRecordsForItemsWhichWere(in parentId: Int64) throws -> [ReparentTaskRecord] {
+		func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord] {
 			var result = [ReparentTaskRecord]()
-			for reparentTask in reparentTasks.values where reparentTask.oldParentId == parentId {
+			for reparentTask in reparentTasks.values where reparentTask.oldParentID == parentID {
 				result.append(reparentTask)
 			}
 			return result
 		}
 
-		func getTaskRecordsForItemsWhichAreSoon(in parentId: Int64) throws -> [ReparentTaskRecord] {
+		func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord] {
 			var result = [ReparentTaskRecord]()
-			for reparentTask in reparentTasks.values where reparentTask.newParentId == parentId {
+			for reparentTask in reparentTasks.values where reparentTask.newParentID == parentID {
 				result.append(reparentTask)
 			}
 			return result
@@ -336,7 +320,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func getTask(for reparentTask: ReparentTaskRecord) throws -> ReparentTask {
 			guard let itemMetadata = associatedItemMetadata[reparentTask.correspondingItem] else {
-				throw DeletionTaskManagerError.missingItemMetadata
+				throw DBManagerError.missingItemMetadata
 			}
 			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata)
 		}

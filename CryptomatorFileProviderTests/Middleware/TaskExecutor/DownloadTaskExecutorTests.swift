@@ -16,8 +16,9 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let expectation = XCTestExpectation()
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let cloudPath = CloudPath("/File 1")
+		let itemID: Int64 = 2
 
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTask = DownloadTask(replaceExisting: false, localURL: localURL, itemMetadata: itemMetadata)
 
@@ -26,7 +27,9 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		taskExecutor.execute(task: downloadTask).then { _ in
 			let localContent = try Data(contentsOf: localURL)
 			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
-			let lastModifiedDate = try self.cachedFileManagerMock.getLastModifiedDate(for: 3)
+			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
+			XCTAssertNotNil(localCachedFileInfo)
+			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
@@ -78,8 +81,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		try existingLocalContent.write(to: localURL, atomically: true, encoding: .utf8)
 		let existingLocalContentData = try Data(contentsOf: localURL)
 		let cloudPath = CloudPath("/File 1")
-
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemID: Int64 = 2
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTask = DownloadTask(replaceExisting: true, localURL: localURL, itemMetadata: itemMetadata)
 
@@ -89,7 +92,9 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 			let localContent = try Data(contentsOf: localURL)
 			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
 			XCTAssertNotEqual(existingLocalContentData, localContent)
-			let lastModifiedDate = try self.cachedFileManagerMock.getLastModifiedDate(for: 3)
+			let cachedLocalFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
+			XCTAssertNotNil(cachedLocalFileInfo)
+			let lastModifiedDate = cachedLocalFileInfo?.lastModifiedDate
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 
@@ -105,8 +110,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 	func testDownloadPostProcessingForReplaceExisting() throws {
 		let cloudPath = CloudPath("/File 1")
-
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemID: Int64 = 2
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let existingLocalContent = "Old Local FileContent"
@@ -129,7 +134,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		XCTAssert(item.newestVersionLocallyCached)
 		XCTAssertEqual(itemMetadata, item.metadata)
 
-		guard let localCachedFileInfo = try cachedFileManagerMock.getLocalCachedFileInfo(for: 3) else {
+		guard let localCachedFileInfo = try cachedFileManagerMock.getLocalCachedFileInfo(for: itemID) else {
 			XCTFail("No LocalCachedFileInfo found")
 			return
 		}
@@ -139,8 +144,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 	func testDownloadPostProcessingForNewFile() throws {
 		let cloudPath = CloudPath("/File 1")
-
-		let itemMetadata = ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemID: Int64 = 2
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let downloadedContent = "Downloaded FileContent"
@@ -158,7 +163,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		XCTAssert(item.newestVersionLocallyCached)
 		XCTAssertEqual(itemMetadata, item.metadata)
 
-		guard let localCachedFileInfo = try cachedFileManagerMock.getLocalCachedFileInfo(for: 3) else {
+		guard let localCachedFileInfo = try cachedFileManagerMock.getLocalCachedFileInfo(for: itemID) else {
 			XCTFail("No LocalCachedFileInfo found")
 			return
 		}

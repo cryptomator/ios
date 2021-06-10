@@ -29,7 +29,9 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			let localContent = try? Data(contentsOf: url)
 			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
 
-			let lastModifiedDate = try? self.cachedFileManagerMock.getLastModifiedDate(for: itemID)
+			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
+			XCTAssertNotNil(localCachedFileInfo)
+			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
@@ -60,7 +62,10 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			let localContent = try? Data(contentsOf: url)
 			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
 
-			let lastModifiedDate = try? self.cachedFileManagerMock.getLastModifiedDate(for: itemID)
+			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
+			XCTAssertNotNil(localCachedFileInfo)
+			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
+			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 			XCTAssert(self.metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
@@ -92,7 +97,10 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			let localContent = try? Data(contentsOf: url)
 			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
 
-			let lastModifiedDate = try? self.cachedFileManagerMock.getLastModifiedDate(for: itemID)
+			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
+			XCTAssertNotNil(localCachedFileInfo)
+			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
+			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertNotNil(lastModifiedDate)
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
