@@ -46,7 +46,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord] {
 		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
 			return try ReparentTaskRecord
-				.filter(Column("oldParentId") == parentID)
+				.filter(ReparentTaskRecord.Columns.oldParentID == parentID)
 				.fetchAll(db)
 		}
 		return tasks
@@ -55,7 +55,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord] {
 		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
 			return try ReparentTaskRecord
-				.filter(Column("newParentId") == parentID)
+				.filter(ReparentTaskRecord.Columns.newParentID == parentID)
 				.fetchAll(db)
 		}
 		return tasks

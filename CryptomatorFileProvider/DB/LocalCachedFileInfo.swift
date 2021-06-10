@@ -11,22 +11,23 @@ import GRDB
 
 struct LocalCachedFileInfo: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "cachedFiles"
-	static let lastModifiedDateKey = "lastModifiedDate"
-	static let correspondingItemKey = "correspondingItem"
-	static let localLastModifiedDateKey = "localLastModifiedDate"
-	static let localURLKey = "localURL"
+
 	let lastModifiedDate: Date?
 	let correspondingItem: Int64
 	let localLastModifiedDate: Date
 	let localURL: URL
+
+	enum Columns: String, ColumnExpression {
+		case lastModifiedDate, correspondingItem, localLastModifiedDate, localURL
+	}
 }
 
 extension LocalCachedFileInfo: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[LocalCachedFileInfo.lastModifiedDateKey] = lastModifiedDate
-		container[LocalCachedFileInfo.correspondingItemKey] = correspondingItem
-		container[LocalCachedFileInfo.localLastModifiedDateKey] = localLastModifiedDate
-		container[LocalCachedFileInfo.localURLKey] = localURL
+		container[Columns.lastModifiedDate] = lastModifiedDate
+		container[Columns.correspondingItem] = correspondingItem
+		container[Columns.localLastModifiedDate] = localLastModifiedDate
+		container[Columns.localURL] = localURL
 	}
 }
 

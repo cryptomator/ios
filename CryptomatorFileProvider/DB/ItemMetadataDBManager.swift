@@ -90,7 +90,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try dbPool.read { db in
-			return try ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).lowercased == cloudPath.path.lowercased()).fetchOne(db)
+			return try ItemMetadata.filter(ItemMetadata.Columns.cloudPath.lowercased == cloudPath.path.lowercased()).fetchOne(db)
 		}
 		return itemMetadata
 	}
@@ -105,7 +105,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentID && Column("isPlaceholderItem") && Column("id") != ItemMetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.isPlaceholderItem && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -114,7 +114,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getCachedMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("id") != ItemMetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -124,7 +124,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func flagAllItemsAsMaybeOutdated(withParentID parentId: Int64) throws {
 		_ = try dbPool.write { db in
 			try ItemMetadata
-				.filter(Column("parentId") == parentId && !Column("isPlaceholderItem"))
+				.filter(ItemMetadata.Columns.parentID == parentId && !ItemMetadata.Columns.isPlaceholderItem)
 				.fetchAll(db)
 				.forEach {
 					$0.isMaybeOutdated = true
@@ -136,7 +136,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getMaybeOutdatedItems(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column(ItemMetadata.parentIDKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
+				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.isMaybeOutdated)
 				.fetchAll(db)
 		}
 	}
@@ -164,9 +164,9 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		return try dbPool.read { db in
 			let request: QueryInterfaceRequest<ItemMetadata>
 			if parent.id == ItemMetadataDBManager.rootContainerId {
-				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != ItemMetadataDBManager.rootContainerId)
+				request = ItemMetadata.filter(ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 			} else {
-				request = ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).like("\(parent.cloudPath.path + "/")_%"))
+				request = ItemMetadata.filter(ItemMetadata.Columns.cloudPath.like("\(parent.cloudPath.path + "/")_%"))
 			}
 			return try request.fetchAll(db)
 		}

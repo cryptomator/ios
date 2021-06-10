@@ -12,25 +12,25 @@ import GRDB
 
 struct ReparentTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "reparentTasks"
-	static let correspondingItemKey = "correspondingItem"
-	static let sourceCloudPathKey = "sourceCloudPath"
-	static let targetCloudPathKey = "targetCloudPath"
-	static let oldParentIdKey = "oldParentId"
-	static let newParentIdKey = "newParentId"
+
 	let correspondingItem: Int64
 	let sourceCloudPath: CloudPath
 	let targetCloudPath: CloudPath
 	let oldParentID: Int64
 	let newParentID: Int64
+
+	enum Columns: String, ColumnExpression {
+		case correspondingItem, sourceCloudPath, targetCloudPath, oldParentID, newParentID
+	}
 }
 
 extension ReparentTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[ReparentTaskRecord.correspondingItemKey] = correspondingItem
-		container[ReparentTaskRecord.sourceCloudPathKey] = sourceCloudPath
-		container[ReparentTaskRecord.targetCloudPathKey] = targetCloudPath
-		container[ReparentTaskRecord.oldParentIdKey] = oldParentID
-		container[ReparentTaskRecord.newParentIdKey] = newParentID
+		container[Columns.correspondingItem] = correspondingItem
+		container[Columns.sourceCloudPath] = sourceCloudPath
+		container[Columns.targetCloudPath] = targetCloudPath
+		container[Columns.oldParentID] = oldParentID
+		container[Columns.newParentID] = newParentID
 	}
 }
 

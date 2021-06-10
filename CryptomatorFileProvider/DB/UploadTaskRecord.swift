@@ -12,10 +12,7 @@ import GRDB
 
 struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "uploadTasks"
-	static let correspondingItemKey = "correspondingItem"
-	static let lastFailedUploadDateKey = "lastFailedUploadDate"
-	static let uploadErrorCodeKey = "uploadErrorCode"
-	static let uploadErrorDomainKey = "uploadErrorDomain"
+
 	let correspondingItem: Int64
 	var lastFailedUploadDate: Date?
 	var uploadErrorCode: Int?
@@ -36,14 +33,18 @@ struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 			return NSError(domain: errorDomain, code: errorCode, userInfo: nil)
 		}
 	}
+
+	enum Columns: String, ColumnExpression {
+		case correspondingItem, lastFailedUploadDate, uploadErrorCode, uploadErrorDomain
+	}
 }
 
 extension UploadTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[UploadTaskRecord.correspondingItemKey] = correspondingItem
-		container[UploadTaskRecord.lastFailedUploadDateKey] = lastFailedUploadDate
-		container[UploadTaskRecord.uploadErrorCodeKey] = uploadErrorCode
-		container[UploadTaskRecord.uploadErrorDomainKey] = uploadErrorDomain
+		container[Columns.correspondingItem] = correspondingItem
+		container[Columns.lastFailedUploadDate] = lastFailedUploadDate
+		container[Columns.uploadErrorCode] = uploadErrorCode
+		container[Columns.uploadErrorDomain] = uploadErrorDomain
 	}
 }
 
