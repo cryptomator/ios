@@ -12,7 +12,7 @@ import GRDB
 
 public class ItemMetadata: Record, Codable {
 	override public class var databaseTableName: String {
-		"metadata"
+		"itemMetadata"
 	}
 
 	override public static var databaseSelection: [SQLSelectable] {

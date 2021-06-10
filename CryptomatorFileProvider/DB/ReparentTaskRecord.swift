@@ -35,7 +35,7 @@ extension ReparentTaskRecord: PersistableRecord {
 }
 
 extension ReparentTaskRecord {
-	static let itemMetadata = belongsTo(ItemMetadata.self, key: "metadata")
+	static let itemMetadata = belongsTo(ItemMetadata.self)
 	var itemMetadata: QueryInterfaceRequest<ItemMetadata> {
 		request(for: ReparentTaskRecord.itemMetadata)
 	}

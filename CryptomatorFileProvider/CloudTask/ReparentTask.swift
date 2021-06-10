@@ -14,6 +14,6 @@ struct ReparentTask: CloudTask, FetchableRecord, Decodable {
 
 	enum CodingKeys: String, CodingKey {
 		case taskRecord = "reparentTask"
-		case itemMetadata = "metadata"
+		case itemMetadata
 	}
 }

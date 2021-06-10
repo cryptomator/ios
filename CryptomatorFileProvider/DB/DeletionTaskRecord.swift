@@ -23,7 +23,7 @@ struct DeletionTaskRecord: Decodable, FetchableRecord, TableRecord {
 }
 
 extension DeletionTaskRecord {
-	static let itemMetadata = belongsTo(ItemMetadata.self, key: "metadata")
+	static let itemMetadata = belongsTo(ItemMetadata.self)
 	var itemMetadata: QueryInterfaceRequest<ItemMetadata> {
 		request(for: DeletionTaskRecord.itemMetadata)
 	}
