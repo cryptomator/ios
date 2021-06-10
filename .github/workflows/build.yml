@@ -24,5 +24,7 @@ jobs:
         run: ./create-cloud-access-secrets-file.sh
       - name: Build and test CryptomatorCommonCore
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorCommonCore' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
+      - name: Build and test CryptomatorFileProvider
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorFileProvider' -destination 'name=iPhone 12 Pro' test | xcpretty
       - name: Build and test Cryptomator
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'Cryptomator' -destination 'name=iPhone 12 Pro' test | xcpretty
