@@ -14,9 +14,9 @@ class DeletionTaskExecutor: WorkflowMiddleware {
 	private let provider: CloudProvider
 	private let itemMetadataManager: ItemMetadataManager
 
-	init(provider: CloudProvider, metadataManager: ItemMetadataManager) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
 		self.provider = provider
-		self.itemMetadataManager = metadataManager
+		self.itemMetadataManager = itemMetadataManager
 	}
 
 	func execute(task: CloudTask) -> Promise<Void> {

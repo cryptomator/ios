@@ -31,7 +31,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 			throw DBManagerError.nonSavedItemMetadata
 		}
 		return try dbPool.write { db in
-			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentId, newParentID: newParentID)
+			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
 			try task.save(db)
 			return task
 		}
@@ -43,19 +43,19 @@ class ReparentTaskDBManager: ReparentTaskManager {
 		}
 	}
 
-	func getTaskRecordsForItemsWhichWere(in parentId: Int64) throws -> [ReparentTaskRecord] {
+	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord] {
 		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
 			return try ReparentTaskRecord
-				.filter(Column("oldParentId") == parentId)
+				.filter(Column("oldParentId") == parentID)
 				.fetchAll(db)
 		}
 		return tasks
 	}
 
-	func getTaskRecordsForItemsWhichAreSoon(in parentId: Int64) throws -> [ReparentTaskRecord] {
+	func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord] {
 		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
 			return try ReparentTaskRecord
-				.filter(Column("newParentId") == parentId)
+				.filter(Column("newParentId") == parentID)
 				.fetchAll(db)
 		}
 		return tasks

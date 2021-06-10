@@ -17,7 +17,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
-		let itemMetadata = ItemMetadata(id: itemID, name: "FileToBeUploaded", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "FileToBeUploaded", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(), localURL: localURL)
 
 		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
@@ -57,7 +57,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
-		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
@@ -87,7 +87,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("FileToBeUploaded", isDirectory: false)
 		try "TestContent".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/FileToBeUploaded")
-		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "FileToBeUploaded", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[2] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: 2, localLastModifiedDate: Date(), localURL: localURL)
 
 		let cloudProviderUploadInconsistencyMock = CloudProviderUploadInconsistencyMock()
@@ -134,7 +134,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
 		try "".write(to: localURL, atomically: true, encoding: .utf8)
 		let cloudPath = CloudPath("/itemNotFound.txt")
-		let itemMetadata = ItemMetadata(id: 2, name: "itemNotFound.txt", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "itemNotFound.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[2] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: 2, localLastModifiedDate: Date(), localURL: localURL)
 
 		let errorCloudProviderMock = CloudProviderErrorMock()

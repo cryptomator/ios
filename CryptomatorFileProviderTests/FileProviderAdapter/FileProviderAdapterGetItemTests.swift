@@ -25,7 +25,7 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 
 	func testGetFileProviderItem() throws {
 		let id: Int64 = 2
-		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[id] = itemMetadata
 
 		let item = try adapter.item(for: NSFileProviderItemIdentifier(String(id)))
@@ -38,7 +38,7 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 
 	func testGetFileProviderItemWithUploadError() throws {
 		let id: Int64 = 2
-		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
 		metadataManagerMock.cachedMetadata[id] = itemMetadata
 
 		let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)

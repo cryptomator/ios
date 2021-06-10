@@ -15,7 +15,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
@@ -45,7 +45,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
@@ -78,7 +78,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
@@ -113,7 +113,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	// swiftlint:disable:next function_body_length
 	func testStartProvidingItemWithConflictingLocalVersion() throws {
 		let expectation = XCTestExpectation()
-		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		// Create local folder for conflicting item
@@ -129,7 +129,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: Date(timeIntervalSince1970: 0), statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: Date(timeIntervalSince1970: 0), statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let itemDirectory = tmpDirectory.appendingPathComponent("\(itemID)")
@@ -172,6 +172,10 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	}
 
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {
+		init() {
+			super.init(maxParallelUploads: 1, maxParallelDownloads: 1)
+		}
+
 		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
 			// Ignore UploadTasks to test the conflicting local version DB entries
 			if workflow.task is UploadTask {

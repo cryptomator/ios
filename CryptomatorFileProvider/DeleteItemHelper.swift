@@ -11,8 +11,8 @@ class DeleteItemHelper {
 	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 
-	init(metadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
-		self.itemMetadataManager = metadataManager
+	init(itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
 	}
 

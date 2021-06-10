@@ -15,7 +15,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testCreateFolder() {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/NewFolder")
-		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let task = FolderCreationTask(itemMetadata: itemMetadata)
 		let taskExecutor = FolderCreationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock)
@@ -37,7 +37,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testCreateFolderFailWithSameErrorAsProvider() {
 		let expectation = XCTestExpectation()
 		let cloudPath = CloudPath("/NewFolder")
-		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.createFolderResponse = { folderPath in

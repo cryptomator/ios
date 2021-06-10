@@ -18,7 +18,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let cloudPath = CloudPath("/File 1")
 		let itemID: Int64 = 2
 
-		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTask = DownloadTask(replaceExisting: false, localURL: localURL, itemMetadata: itemMetadata)
 
@@ -47,7 +47,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let localURL = tmpDirectory.appendingPathComponent("itemNotFound.txt", isDirectory: false)
 		let cloudPath = CloudPath("/itemNotFound.txt")
 
-		let itemMetadata = ItemMetadata(id: 3, name: "itemNotFound.txt", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: 3, name: "itemNotFound.txt", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		let errorCloudProviderMock = CloudProviderErrorMock()
 		errorCloudProviderMock.fetchItemMetadataResponse = { _ in
 			Promise(CloudTaskTestError.correctPassthrough)
@@ -82,7 +82,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let existingLocalContentData = try Data(contentsOf: localURL)
 		let cloudPath = CloudPath("/File 1")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTask = DownloadTask(replaceExisting: true, localURL: localURL, itemMetadata: itemMetadata)
 
@@ -111,7 +111,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testDownloadPostProcessingForReplaceExisting() throws {
 		let cloudPath = CloudPath("/File 1")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let existingLocalContent = "Old Local FileContent"
@@ -145,7 +145,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testDownloadPostProcessingForNewFile() throws {
 		let cloudPath = CloudPath("/File 1")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let localURL = tmpDirectory.appendingPathComponent("localItem.txt", isDirectory: false)
 		let downloadedContent = "Downloaded FileContent"

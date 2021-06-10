@@ -69,11 +69,11 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 			var metadataList = [ItemMetadata]()
 			for cloudItem in itemList.items {
-				let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentId: folderMetadata.id!)
+				let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentID: folderMetadata.id!)
 				metadataList.append(fileProviderItemMetadata)
 			}
-			metadataList = try self.filterOutWaitingReparentTasks(parentId: folderMetadata.id!, for: metadataList)
-			metadataList = try self.filterOutWaitingDeletionTasks(parentId: folderMetadata.id!, for: metadataList)
+			metadataList = try self.filterOutWaitingReparentTasks(parentID: folderMetadata.id!, for: metadataList)
+			metadataList = try self.filterOutWaitingDeletionTasks(parentID: folderMetadata.id!, for: metadataList)
 			try self.itemMetadataManager.cacheMetadata(metadataList)
 			let reparentMetadata = try self.getReparentMetadata(for: folderMetadata.id!)
 			metadataList.append(contentsOf: reparentMetadata)
@@ -90,26 +90,26 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
-			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentId: folderMetadata.id!)
+			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
 		}
 	}
 
-	func getReparentMetadata(for parentId: Int64) throws -> [ItemMetadata] {
-		let reparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichAreSoon(in: parentId)
+	func getReparentMetadata(for parentID: Int64) throws -> [ItemMetadata] {
+		let reparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichAreSoon(in: parentID)
 		let reparentMetadata = try itemMetadataManager.getCachedMetadata(forIDs: reparentTasks.map { $0.correspondingItem })
 		return reparentMetadata
 	}
 
-	func filterOutWaitingReparentTasks(parentId: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
-		let runningReparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichWere(in: parentId)
+	func filterOutWaitingReparentTasks(parentID: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
+		let runningReparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichWere(in: parentID)
 		return itemMetadata.filter { element in
 			!runningReparentTasks.contains { $0.sourceCloudPath == element.cloudPath }
 		}
 	}
 
-	func filterOutWaitingDeletionTasks(parentId: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
-		let runningDeletionTasks = try deletionTaskManager.getTaskRecordsForItemsWhichWere(in: parentId)
+	func filterOutWaitingDeletionTasks(parentID: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {
+		let runningDeletionTasks = try deletionTaskManager.getTaskRecordsForItemsWhichWere(in: parentID)
 		return itemMetadata.filter { element in
 			!runningDeletionTasks.contains { $0.cloudPath == element.cloudPath }
 		}
@@ -117,7 +117,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 	func fetchItemMetadata(fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
 		return provider.fetchItemMetadata(at: fileMetadata.cloudPath).then { cloudItem -> FileProviderItemList in
-			let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentId: fileMetadata.parentId)
+			let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentID: fileMetadata.parentID)
 			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
 			assert(fileProviderItemMetadata.id == fileMetadata.id)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
@@ -130,15 +130,15 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 		}
 	}
 
-	func cleanUpNoLongerInTheCloudExistingItems(insideParentId parentId: Int64) throws {
-		let outdatedItems = try itemMetadataManager.getMaybeOutdatedItems(withParentID: parentId)
+	func cleanUpNoLongerInTheCloudExistingItems(insideParentID parentID: Int64) throws {
+		let outdatedItems = try itemMetadataManager.getMaybeOutdatedItems(withParentID: parentID)
 		for outdatedItem in outdatedItems {
 			try deleteItemHelper.removeItemFromCache(outdatedItem)
 			try itemMetadataManager.removeItemMetadata(with: outdatedItem.id!)
 		}
 	}
 
-	static func createItemMetadata(for item: CloudItemMetadata, withParentId parentId: Int64, isPlaceholderItem: Bool = false) -> ItemMetadata {
-		ItemMetadata(name: item.name, type: item.itemType, size: item.size, parentId: parentId, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
+	static func createItemMetadata(for item: CloudItemMetadata, withParentID parentID: Int64, isPlaceholderItem: Bool = false) -> ItemMetadata {
+		ItemMetadata(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
 	}
 }

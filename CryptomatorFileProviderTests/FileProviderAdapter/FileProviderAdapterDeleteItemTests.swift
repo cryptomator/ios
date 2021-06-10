@@ -14,7 +14,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/test.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
@@ -27,7 +27,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			}
 			XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 			XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
+			XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
@@ -38,9 +38,9 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let folderItemID: Int64 = 2
 		let fileItemID: Int64 = 3
 		let folderCloudPath = CloudPath("/Folder/")
-		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Folder", type: .folder, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
+		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Folder", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: folderCloudPath, isPlaceholderItem: false)
 		let cloudPath = CloudPath("Folder/test.txt")
-		let fileItemMetadata = ItemMetadata(id: fileItemID, name: "test.txt", type: .file, size: nil, parentId: folderItemID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let fileItemMetadata = ItemMetadata(id: fileItemID, name: "test.txt", type: .file, size: nil, parentID: folderItemID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata([folderItemMetadata, fileItemMetadata])
 
 		let folderItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemID))
@@ -58,7 +58,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			}
 			XCTAssertEqual(folderCloudPath, deletionTask.cloudPath)
 			XCTAssertEqual(folderItemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(folderItemMetadata.parentId, deletionTask.parentId)
+			XCTAssertEqual(folderItemMetadata.parentID, deletionTask.parentID)
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
@@ -68,7 +68,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/test.txt")
-		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentId: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
@@ -85,7 +85,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			}
 			XCTAssertEqual(cloudPath, deletionTask.cloudPath)
 			XCTAssertEqual(itemMetadata.id, deletionTask.correspondingItem)
-			XCTAssertEqual(itemMetadata.parentId, deletionTask.parentId)
+			XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
 
 			XCTAssertEqual(1, self.cachedFileManagerMock.removeCachedFile.count)
 			XCTAssertEqual(itemID, self.cachedFileManagerMock.removeCachedFile[0])

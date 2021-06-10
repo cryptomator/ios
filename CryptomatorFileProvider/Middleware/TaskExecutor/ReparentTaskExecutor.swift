@@ -26,13 +26,13 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 
 	private let provider: CloudProvider
 	private let reparentTaskManager: ReparentTaskManager
-	private let metadataManager: ItemMetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 
-	init(provider: CloudProvider, reparentTaskManager: ReparentTaskManager, metadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+	init(provider: CloudProvider, reparentTaskManager: ReparentTaskManager, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
 		self.provider = provider
 		self.reparentTaskManager = reparentTaskManager
-		self.metadataManager = metadataManager
+		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
 	}
 
@@ -53,7 +53,7 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 		return moveItemInCloud(reparentTask: reparentTask).then { _ -> FileProviderItem in
 			let itemMetadata = reparentTask.itemMetadata
 			itemMetadata.statusCode = .isUploaded
-			try self.metadataManager.updateMetadata(itemMetadata)
+			try self.itemMetadataManager.updateMetadata(itemMetadata)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 			try self.reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)

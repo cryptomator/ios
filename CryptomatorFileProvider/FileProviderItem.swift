@@ -35,10 +35,10 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
-		if metadata.parentId == ItemMetadataDBManager.rootContainerId {
+		if metadata.parentID == ItemMetadataDBManager.rootContainerId {
 			return .rootContainer
 		}
-		return NSFileProviderItemIdentifier(String(metadata.parentId))
+		return NSFileProviderItemIdentifier(String(metadata.parentID))
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {

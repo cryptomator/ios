@@ -13,7 +13,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 class OnlineItemNameCollisionHandlerTests: XCTestCase {
 	var middleware: OnlineItemNameCollisionHandler<Void>!
-	var metadataManager: ItemMetadataDBManager!
+	var itemMetadataManager: ItemMetadataDBManager!
 	var tmpDirURL: URL!
 	var dbPool: DatabasePool!
 
@@ -22,14 +22,14 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
-		metadataManager = ItemMetadataDBManager(with: dbPool)
+		itemMetadataManager = ItemMetadataDBManager(with: dbPool)
 
-		middleware = OnlineItemNameCollisionHandler(itemMetadataManager: metadataManager)
+		middleware = OnlineItemNameCollisionHandler(itemMetadataManager: itemMetadataManager)
 	}
 
 	override func tearDownWithError() throws {
 		middleware = nil
-		metadataManager = nil
+		itemMetadataManager = nil
 		dbPool = nil
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
@@ -43,11 +43,11 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			}
 			return Promise(())
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: originalCloudPath, isPlaceholderItem: true)
-		try metadataManager.cacheMetadata(itemMetadata)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: originalCloudPath, isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
-			guard let itemID = itemMetadata.id, let cachedItemMetadata = try self.metadataManager.getCachedMetadata(for: itemID) else {
+			guard let itemID = itemMetadata.id, let cachedItemMetadata = try self.itemMetadataManager.getCachedMetadata(for: itemID) else {
 				XCTFail("ItemMetadata not found in DB")
 				return
 			}
@@ -66,7 +66,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentId)
+			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 
@@ -84,8 +84,8 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
-		try metadataManager.cacheMetadata(itemMetadata)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
 			XCTFail("Promise fulfilled")
@@ -94,7 +94,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			guard let itemID = itemMetadata.id, let cachedItemMetadata = try? self.metadataManager.getCachedMetadata(for: itemID) else {
+			guard let itemID = itemMetadata.id, let cachedItemMetadata = try? self.itemMetadataManager.getCachedMetadata(for: itemID) else {
 				XCTFail("ItemMetadata not found in DB")
 				return
 			}
@@ -111,7 +111,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			// Check that the remaining item metadata properties have not changed.
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentId)
+			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 		}.always {
@@ -125,8 +125,8 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemNotFound)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentId: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
-		try metadataManager.cacheMetadata(itemMetadata)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
 			XCTFail("Promise fulfilled")
@@ -135,7 +135,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			guard let itemID = itemMetadata.id, let cachedItemMetadata = try? self.metadataManager.getCachedMetadata(for: itemID) else {
+			guard let itemID = itemMetadata.id, let cachedItemMetadata = try? self.itemMetadataManager.getCachedMetadata(for: itemID) else {
 				XCTFail("ItemMetadata not found in DB")
 				return
 			}
@@ -145,7 +145,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			XCTAssertEqual(CloudPath("/foo.txt"), cachedItemMetadata.cloudPath)
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentId)
+			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 		}.always {

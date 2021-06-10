@@ -33,7 +33,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let newParentID: Int64 = 3
 		let createdTask = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: newParentID)
@@ -50,7 +50,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		let sourceCloudPath = CloudPath("/Test.txt")
 		let targetCloudPath = CloudPath("/Foo.txt")
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: 3)
 		let task = try manager.getTaskRecord(for: itemID)
@@ -68,11 +68,11 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Foo/Bar.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		let folderItemID: Int64 = 3
-		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Foo", type: .folder, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Foo"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let folderItemMetadata = ItemMetadata(id: folderItemID, name: "Foo", type: .folder, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Foo"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(folderItemMetadata)
 
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: folderItemID)
@@ -91,7 +91,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: itemMetadataManager.getRootContainerID())
@@ -110,7 +110,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		let newParentID: Int64 = 3
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: newParentID)
@@ -129,7 +129,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		let targetCloudPath = CloudPath("/Test2 - Only Renamed.txt")
 
 		let itemID: Int64 = 2
-		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentId: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
+		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: itemMetadataManager.getRootContainerID())

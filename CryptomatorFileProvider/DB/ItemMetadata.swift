@@ -23,7 +23,7 @@ public class ItemMetadata: Record, Codable {
 	var name: String
 	let type: CloudItemType
 	var size: Int?
-	var parentId: Int64
+	var parentID: Int64
 	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
 	var cloudPath: CloudPath
@@ -33,7 +33,7 @@ public class ItemMetadata: Record, Codable {
 	static let nameKey = "name"
 	static let typeKey = "type"
 	static let sizeKey = "size"
-	static let parentIdKey = "parentId"
+	static let parentIDKey = "parentID"
 	static let lastModifiedDateKey = "lastModifiedDate"
 	static let statusCodeKey = "statusCode"
 	static let cloudPathKey = "cloudPath"
@@ -45,7 +45,7 @@ public class ItemMetadata: Record, Codable {
 		self.name = row[ItemMetadata.nameKey]
 		self.type = row[ItemMetadata.typeKey]
 		self.size = row[ItemMetadata.sizeKey]
-		self.parentId = row[ItemMetadata.parentIdKey]
+		self.parentID = row[ItemMetadata.parentIDKey]
 		self.lastModifiedDate = row[ItemMetadata.lastModifiedDateKey]
 		self.statusCode = row[ItemMetadata.statusCodeKey]
 		self.cloudPath = row[ItemMetadata.cloudPathKey]
@@ -54,12 +54,12 @@ public class ItemMetadata: Record, Codable {
 		super.init(row: row)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
 		self.id = id
 		self.name = name
 		self.type = type
 		self.size = size
-		self.parentId = parentId
+		self.parentID = parentID
 		self.lastModifiedDate = lastModifiedDate
 		self.statusCode = statusCode
 		self.cloudPath = cloudPath
@@ -77,7 +77,7 @@ public class ItemMetadata: Record, Codable {
 		container[ItemMetadata.nameKey] = name
 		container[ItemMetadata.typeKey] = type
 		container[ItemMetadata.sizeKey] = size
-		container[ItemMetadata.parentIdKey] = parentId
+		container[ItemMetadata.parentIDKey] = parentID
 		container[ItemMetadata.lastModifiedDateKey] = lastModifiedDate
 		container[ItemMetadata.statusCodeKey] = statusCode
 		container[ItemMetadata.cloudPathKey] = cloudPath

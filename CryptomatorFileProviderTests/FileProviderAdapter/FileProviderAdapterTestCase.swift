@@ -16,7 +16,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		localURLProviderMock = LocalURLProviderMock()
-		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, scheduler: WorkflowScheduler(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 	}
 
 	class LocalURLProviderMock: LocalURLProvider {
@@ -31,6 +31,10 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	class WorkflowSchedulerMock: WorkflowScheduler {
+		init() {
+			super.init(maxParallelUploads: 1, maxParallelDownloads: 1)
+		}
+
 		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
 			return Promise(CloudTaskTestError.correctPassthrough)
 		}

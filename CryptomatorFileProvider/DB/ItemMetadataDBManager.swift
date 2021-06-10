@@ -102,10 +102,10 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		return itemMetadata
 	}
 
-	func getPlaceholderMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
+	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != ItemMetadataDBManager.rootContainerId)
+				.filter(Column("parentId") == parentID && Column("isPlaceholderItem") && Column("id") != ItemMetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -136,7 +136,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getMaybeOutdatedItems(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column(ItemMetadata.parentIdKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
+				.filter(Column(ItemMetadata.parentIDKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
 				.fetchAll(db)
 		}
 	}

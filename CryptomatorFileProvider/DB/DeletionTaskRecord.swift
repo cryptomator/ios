@@ -14,11 +14,11 @@ struct DeletionTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "deletionTasks"
 	static let correspondingItemKey = "correspondingItem"
 	static let cloudPathKey = "cloudPath"
-	static let parentIdKey = "parentId"
+	static let parentIdKey = "parentID"
 	static let itemTypeKey = "itemType"
 	let correspondingItem: Int64
 	let cloudPath: CloudPath
-	let parentId: Int64
+	let parentID: Int64
 	let itemType: CloudItemType
 }
 
@@ -33,7 +33,7 @@ extension DeletionTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
 		container[DeletionTaskRecord.correspondingItemKey] = correspondingItem
 		container[DeletionTaskRecord.cloudPathKey] = cloudPath
-		container[DeletionTaskRecord.parentIdKey] = parentId
+		container[DeletionTaskRecord.parentIdKey] = parentID
 		container[DeletionTaskRecord.itemTypeKey] = itemType
 	}
 }

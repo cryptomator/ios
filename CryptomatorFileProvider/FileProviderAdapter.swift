@@ -103,7 +103,7 @@ public class FileProviderAdapter {
 			return Promise(error)
 		}
 		let enumerationTask = ItemEnumerationTask(pageToken: pageToken, itemMetadata: itemMetadata)
-		let workflow = WorkflowFactory.createWorkflow(for: enumerationTask, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager, uploadTaskManager: uploadTaskManager, deletionTaskManager: deletionTaskManager)
+		let workflow = WorkflowFactory.createWorkflow(for: enumerationTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager, uploadTaskManager: uploadTaskManager, deletionTaskManager: deletionTaskManager)
 		return scheduler.schedule(workflow)
 	}
 
@@ -224,7 +224,7 @@ public class FileProviderAdapter {
 		let workflow: Workflow<FileProviderItem>
 		do {
 			let task = try uploadTaskManager.getTask(for: taskRecord)
-			workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
+			workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
 		} catch {
 			return Promise(error)
 		}
@@ -262,7 +262,7 @@ public class FileProviderAdapter {
 		}
 		completionHandler(placeholderItem, nil)
 		let task = FolderCreationTask(itemMetadata: placeholderItem.metadata)
-		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager)
+		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager)
 		scheduler.schedule(workflow).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
@@ -285,7 +285,7 @@ public class FileProviderAdapter {
 			return completionHandler(nil, error)
 		}
 		completionHandler(result.item, nil)
-		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
+		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
 		scheduler.schedule(workflow).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
@@ -306,7 +306,7 @@ public class FileProviderAdapter {
 			return completionHandler(nil, error)
 		}
 		completionHandler(result.item, nil)
-		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
+		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
 		scheduler.schedule(workflow).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
@@ -324,17 +324,17 @@ public class FileProviderAdapter {
 	 - Precondition: The metadata associated with the `itemIdentifier` is stored in the database.
 	 - Precondition: `parentItemIdentifier != nil || newName != nil`.
 	 - Postcondition: `newName != nil` implies that the `ItemMetadata` entry in the database has the `name == newName`.
-	 - Postcondition: `parentItemIdentifier != nil` implies that now the `ItemMetadata` entry in the database has the `parentId == parentItemIdentifier`.
+	 - Postcondition: `parentItemIdentifier != nil` implies that now the `ItemMetadata` entry in the database has the `parentID == parentItemIdentifier`.
 	 - Postcondition: A `ReparentTask` was created for the passed `itemIdentifier`.
 	 */
 	func moveItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier?, newName: String?) throws -> MoveItemLocallyResult {
 		precondition(parentItemIdentifier != nil || newName != nil)
 		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
-		let parentId: Int64
+		let parentID: Int64
 		if let parentItemIdentifier = parentItemIdentifier {
-			parentId = try convertFileProviderItemIdentifierToInt64(parentItemIdentifier)
+			parentID = try convertFileProviderItemIdentifierToInt64(parentItemIdentifier)
 		} else {
-			parentId = itemMetadata.parentId
+			parentID = itemMetadata.parentID
 		}
 		let name: String
 		if let newName = newName {
@@ -343,12 +343,12 @@ public class FileProviderAdapter {
 			name = itemMetadata.name
 		}
 
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: itemMetadata.type)
-		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: cloudPath, newParentID: parentId)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: itemMetadata.type)
+		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: cloudPath, newParentID: parentID)
 
 		itemMetadata.name = name
 		itemMetadata.cloudPath = cloudPath
-		itemMetadata.parentId = parentId
+		itemMetadata.parentID = parentID
 		itemMetadata.statusCode = .isUploading
 		try itemMetadataManager.updateMetadata(itemMetadata)
 
@@ -376,7 +376,7 @@ public class FileProviderAdapter {
 		let workflow: Workflow<Void>
 		do {
 			let deletionTaskInfo = try deletionTaskManager.getTask(for: taskRecord)
-			workflow = WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: provider, metadataManager: itemMetadataManager)
+			workflow = WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: provider, itemMetadataManager: itemMetadataManager)
 		} catch {
 			completionHandler(error)
 			return
@@ -402,7 +402,7 @@ public class FileProviderAdapter {
 	func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> DeletionTaskRecord {
 		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
 		let taskRecord = try deletionTaskManager.createTaskRecord(for: itemMetadata)
-		let deletionHelper = DeleteItemHelper(metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let deletionHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		try deletionHelper.removeItemFromCache(itemMetadata)
 		return taskRecord
 	}
@@ -539,7 +539,7 @@ public class FileProviderAdapter {
 			return Promise(error)
 		}
 		let task = DownloadTask(replaceExisting: replaceExisting, localURL: localURL, itemMetadata: itemMetadata)
-		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, metadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		return scheduler.schedule(workflow).then { item -> Void in
 			self.notificator?.signalUpdate(for: item)
 		}
@@ -563,7 +563,7 @@ public class FileProviderAdapter {
 	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached == true` and the passed `localURL` of the file.
 	 */
 	func createPlaceholderItemForFile(for localURL: URL, in parentIdentifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
-		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
+		let parentID = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
 		let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
 		let size = attributes[FileAttributeKey.size] as? Int
 		let typeFile = attributes[FileAttributeKey.type] as? FileAttributeType
@@ -571,8 +571,8 @@ public class FileProviderAdapter {
 		if typeFile == FileAttributeType.typeDirectory {
 			throw FileProviderAdapterError.folderUploadNotSupported
 		}
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentId, type: .file)
-		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentId: parentId, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentID, type: .file)
+		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return placeholderMetadata
 	}
@@ -585,9 +585,9 @@ public class FileProviderAdapter {
 	 - Postcondition: The returned `FileProviderItem` has `newestVersionLocallyCached == true`.
 	 */
 	func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
-		let parentId = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentId, type: .folder)
-		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentId: parentId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let parentID = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .folder)
+		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true)
 	}
@@ -595,10 +595,10 @@ public class FileProviderAdapter {
 	/**
 	 Gets the cloud path based on the item name and parent id.
 
-	 - Precondition: The passed `parentId` must belong to an item with the type `.folder`.
+	 - Precondition: The passed `parentID` must belong to an item with the type `.folder`.
 	 */
-	func getCloudPathForPlaceholderItem(withName name: String, in parentId: Int64, type: CloudItemType) throws -> CloudPath {
-		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentId), parentItemMetadata.type == .folder else {
+	func getCloudPathForPlaceholderItem(withName name: String, in parentID: Int64, type: CloudItemType) throws -> CloudPath {
+		guard let parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentID), parentItemMetadata.type == .folder else {
 			throw FileProviderAdapterError.parentFolderNotFound
 		}
 		let parentCloudPath = parentItemMetadata.cloudPath

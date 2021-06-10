@@ -49,7 +49,7 @@ class DatabaseHelper {
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
-				table.column("parentId", .integer).references("metadata", onDelete: .cascade)
+				table.column("parentID", .integer).references("metadata", onDelete: .cascade)
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .text).notNull()
 				table.column("cloudPath", .text).unique()
@@ -58,7 +58,7 @@ class DatabaseHelper {
 			}
 
 			let rootCloudPath = CloudPath("/")
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
 			try db.create(table: "cachedFiles") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
@@ -85,7 +85,7 @@ class DatabaseHelper {
 			try db.create(table: "deletionTasks") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata", onDelete: .cascade)
 				table.column("cloudPath", .text).notNull()
-				table.column("parentId", .integer).notNull()
+				table.column("parentID", .integer).notNull()
 				table.column("itemType", .text).notNull()
 			}
 		}
