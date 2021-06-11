@@ -12,17 +12,17 @@ import Promises
 class DeletionTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<Void>?
 	private let provider: CloudProvider
-	private let metadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 
-	init(provider: CloudProvider, metadataManager: MetadataManager) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
 		self.provider = provider
-		self.metadataManager = metadataManager
+		self.itemMetadataManager = itemMetadataManager
 	}
 
 	func execute(task: CloudTask) -> Promise<Void> {
 		let itemMetadata = task.itemMetadata
 		return deleteItemInCloud(itemMetadata).then {
-			try self.metadataManager.removeItemMetadata(with: itemMetadata.id!)
+			try self.itemMetadataManager.removeItemMetadata(with: itemMetadata.id!)
 		}
 	}
 
@@ -33,7 +33,7 @@ class DeletionTaskExecutor: WorkflowMiddleware {
 		case .folder:
 			return provider.deleteFolder(at: itemMetadata.cloudPath)
 		default:
-			return Promise(FileProviderDecoratorError.unsupportedItemType)
+			return Promise(FileProviderAdapterError.unsupportedItemType)
 		}
 	}
 

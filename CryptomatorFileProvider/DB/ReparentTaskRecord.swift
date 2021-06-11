@@ -12,30 +12,30 @@ import GRDB
 
 struct ReparentTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "reparentTasks"
-	static let correspondingItemKey = "correspondingItem"
-	static let sourceCloudPathKey = "sourceCloudPath"
-	static let targetCloudPathKey = "targetCloudPath"
-	static let oldParentIdKey = "oldParentId"
-	static let newParentIdKey = "newParentId"
+
 	let correspondingItem: Int64
 	let sourceCloudPath: CloudPath
 	let targetCloudPath: CloudPath
-	let oldParentId: Int64
-	let newParentId: Int64
+	let oldParentID: Int64
+	let newParentID: Int64
+
+	enum Columns: String, ColumnExpression {
+		case correspondingItem, sourceCloudPath, targetCloudPath, oldParentID, newParentID
+	}
 }
 
 extension ReparentTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[ReparentTaskRecord.correspondingItemKey] = correspondingItem
-		container[ReparentTaskRecord.sourceCloudPathKey] = sourceCloudPath
-		container[ReparentTaskRecord.targetCloudPathKey] = targetCloudPath
-		container[ReparentTaskRecord.oldParentIdKey] = oldParentId
-		container[ReparentTaskRecord.newParentIdKey] = newParentId
+		container[Columns.correspondingItem] = correspondingItem
+		container[Columns.sourceCloudPath] = sourceCloudPath
+		container[Columns.targetCloudPath] = targetCloudPath
+		container[Columns.oldParentID] = oldParentID
+		container[Columns.newParentID] = newParentID
 	}
 }
 
 extension ReparentTaskRecord {
-	static let itemMetadata = belongsTo(ItemMetadata.self, key: "metadata")
+	static let itemMetadata = belongsTo(ItemMetadata.self)
 	var itemMetadata: QueryInterfaceRequest<ItemMetadata> {
 		request(for: ReparentTaskRecord.itemMetadata)
 	}

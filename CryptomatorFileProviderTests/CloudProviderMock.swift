@@ -89,10 +89,10 @@ class CloudProviderMock: CloudProvider {
 		let children = childDirs + childFiles
 		let metadataPromises = children.map { self.fetchItemMetadata(at: CloudPath($0)) }
 		return all(metadataPromises).then { metadata -> CloudItemList in
-			let sortedMetadatas = metadata.sorted {
+			let sortedMetadata = metadata.sorted {
 				$0.name < $1.name
 			}
-			return CloudItemList(items: sortedMetadatas)
+			return CloudItemList(items: sortedMetadata)
 		}
 	}
 

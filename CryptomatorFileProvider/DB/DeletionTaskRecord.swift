@@ -12,18 +12,18 @@ import GRDB
 
 struct DeletionTaskRecord: Decodable, FetchableRecord, TableRecord {
 	static let databaseTableName = "deletionTasks"
-	static let correspondingItemKey = "correspondingItem"
-	static let cloudPathKey = "cloudPath"
-	static let parentIdKey = "parentId"
-	static let itemTypeKey = "itemType"
 	let correspondingItem: Int64
 	let cloudPath: CloudPath
-	let parentId: Int64
+	let parentID: Int64
 	let itemType: CloudItemType
+
+	enum Columns: String, ColumnExpression {
+		case correspondingItem, cloudPath, parentID, itemType
+	}
 }
 
 extension DeletionTaskRecord {
-	static let itemMetadata = belongsTo(ItemMetadata.self, key: "metadata")
+	static let itemMetadata = belongsTo(ItemMetadata.self)
 	var itemMetadata: QueryInterfaceRequest<ItemMetadata> {
 		request(for: DeletionTaskRecord.itemMetadata)
 	}
@@ -31,9 +31,9 @@ extension DeletionTaskRecord {
 
 extension DeletionTaskRecord: PersistableRecord {
 	func encode(to container: inout PersistenceContainer) {
-		container[DeletionTaskRecord.correspondingItemKey] = correspondingItem
-		container[DeletionTaskRecord.cloudPathKey] = cloudPath
-		container[DeletionTaskRecord.parentIdKey] = parentId
-		container[DeletionTaskRecord.itemTypeKey] = itemType
+		container[Columns.correspondingItem] = correspondingItem
+		container[Columns.cloudPath] = cloudPath
+		container[Columns.parentID] = parentID
+		container[Columns.itemType] = itemType
 	}
 }

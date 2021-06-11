@@ -9,7 +9,7 @@
 import FileProvider
 import Foundation
 
-public class FileProviderNotificator {
+public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 	public var fileProviderSignalDeleteContainerItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
 	public var fileProviderSignalUpdateContainerItem = [NSFileProviderItemIdentifier: FileProviderItem]()
 	public var fileProviderSignalDeleteWorkingSetItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
@@ -39,4 +39,13 @@ public class FileProviderNotificator {
 			}
 		}
 	}
+
+	func signalUpdate(for item: FileProviderItem) {
+		fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+		signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+	}
+}
+
+protocol FileProviderItemUpdateDelegate: AnyObject {
+	func signalUpdate(for item: FileProviderItem)
 }

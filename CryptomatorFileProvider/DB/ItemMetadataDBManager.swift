@@ -1,5 +1,5 @@
 //
-//  MetadataDBManager.swift
+//  ItemMetadataDBManager.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 24.06.20.
@@ -10,30 +10,40 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
-protocol MetadataManager {
+protocol ItemMetadataManager {
 	func getRootContainerID() -> Int64
 	func cacheMetadata(_ metadata: ItemMetadata) throws
 	func updateMetadata(_ metadata: ItemMetadata) throws
-	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws
+	func cacheMetadata(_ metadataList: [ItemMetadata]) throws
+	/**
+	 Returns the item metadata that has the same path.
+
+	 The path is case-insensitively checked for equality.
+
+	 However, it is stored and returned case-preserving in the database, because this is important for the `VaultDecorator` since the two cleartext paths "/foo" and "/Foo" lead to different ciphertext paths.
+	 */
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata?
-	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata?
-	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata]
-	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata]
-	func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws
-	func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata]
-	func removeItemMetadata(with identifier: Int64) throws
-	func removeItemMetadata(_ identifiers: [Int64]) throws
-	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata]
+	func getCachedMetadata(for id: Int64) throws -> ItemMetadata?
+	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata]
+	func getCachedMetadata(withParentID parentID: Int64) throws -> [ItemMetadata]
+	func flagAllItemsAsMaybeOutdated(withParentID parentID: Int64) throws
+	func getMaybeOutdatedItems(withParentID parentID: Int64) throws -> [ItemMetadata]
+	func removeItemMetadata(with id: Int64) throws
+	func removeItemMetadata(_ ids: [Int64]) throws
+	func getCachedMetadata(forIDs ids: [Int64]) throws -> [ItemMetadata]
+	/**
+	 Returns the items that have the item as parent because of its cloud path. This also includes all subfolders including their items.
+	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata]
 }
 
-extension MetadataManager {
+extension ItemMetadataManager {
 	func getRootContainerID() -> Int64 {
 		1
 	}
 }
 
-class MetadataDBManager: MetadataManager {
+class ItemMetadataDBManager: ItemMetadataManager {
 	static func getRootContainerID() -> Int64 {
 		rootContainerId
 	}
@@ -63,9 +73,9 @@ class MetadataDBManager: MetadataManager {
 	}
 
 	// TODO: Optimize Code and/or DB Scheme
-	func cacheMetadatas(_ metadatas: [ItemMetadata]) throws {
+	func cacheMetadata(_ itemMetadataList: [ItemMetadata]) throws {
 		try dbPool.writeInTransaction { db in
-			for metadata in metadatas {
+			for metadata in itemMetadataList {
 				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["cloudPath": metadata.cloudPath]) {
 					metadata.id = cachedMetadata.id
 					metadata.statusCode = cachedMetadata.statusCode
@@ -78,16 +88,9 @@ class MetadataDBManager: MetadataManager {
 		}
 	}
 
-	/**
-	 Returns the item metadata that has the same path.
-
-	 The path is case-insensitively checked for equality.
-
-	 However, it is stored and returned case-preserving in the database, because this is important for the `VaultDecorator` since the two cleartext paths "/foo" and "/Foo" lead to different ciphertext paths.
-	 */
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try dbPool.read { db in
-			return try ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).lowercased == cloudPath.path.lowercased()).fetchOne(db)
+			return try ItemMetadata.filter(ItemMetadata.Columns.cloudPath.lowercased == cloudPath.path.lowercased()).fetchOne(db)
 		}
 		return itemMetadata
 	}
@@ -99,29 +102,29 @@ class MetadataDBManager: MetadataManager {
 		return itemMetadata
 	}
 
-	func getPlaceholderMetadata(for parentId: Int64) throws -> [ItemMetadata] {
+	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("isPlaceholderItem") && Column("id") != MetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.isPlaceholderItem && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
 	}
 
-	func getCachedMetadata(forParentId parentId: Int64) throws -> [ItemMetadata] {
+	func getCachedMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column("parentId") == parentId && Column("id") != MetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 				.fetchAll(db)
 		}
 		return itemMetadata
 	}
 
 	// TODO: find a more meaningful name
-	func flagAllItemsAsMaybeOutdated(insideParentId parentId: Int64) throws {
+	func flagAllItemsAsMaybeOutdated(withParentID parentId: Int64) throws {
 		_ = try dbPool.write { db in
 			try ItemMetadata
-				.filter(Column("parentId") == parentId && !Column("isPlaceholderItem"))
+				.filter(ItemMetadata.Columns.parentID == parentId && !ItemMetadata.Columns.isPlaceholderItem)
 				.fetchAll(db)
 				.forEach {
 					$0.isMaybeOutdated = true
@@ -130,10 +133,10 @@ class MetadataDBManager: MetadataManager {
 		}
 	}
 
-	func getMaybeOutdatedItems(insideParentId parentId: Int64) throws -> [ItemMetadata] {
+	func getMaybeOutdatedItems(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		try dbPool.read { db in
 			return try ItemMetadata
-				.filter(Column(ItemMetadata.parentIdKey) == parentId && Column(ItemMetadata.isMaybeOutdatedKey))
+				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.isMaybeOutdated)
 				.fetchAll(db)
 		}
 	}
@@ -150,23 +153,20 @@ class MetadataDBManager: MetadataManager {
 		}
 	}
 
-	func getCachedMetadata(forIds ids: [Int64]) throws -> [ItemMetadata] {
+	func getCachedMetadata(forIDs ids: [Int64]) throws -> [ItemMetadata] {
 		try dbPool.read { db in
 			return try ItemMetadata.fetchAll(db, keys: ids)
 		}
 	}
 
-	/**
-	 Returns the items that have the item as parent because of its cloud path. This also includes all subfolders including their items.
-	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata] {
 		precondition(parent.type == .folder)
 		return try dbPool.read { db in
 			let request: QueryInterfaceRequest<ItemMetadata>
-			if parent.id == MetadataDBManager.rootContainerId {
-				request = ItemMetadata.filter(Column(ItemMetadata.idKey) != MetadataDBManager.rootContainerId)
+			if parent.id == ItemMetadataDBManager.rootContainerId {
+				request = ItemMetadata.filter(ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
 			} else {
-				request = ItemMetadata.filter(Column(ItemMetadata.cloudPathKey).like("\(parent.cloudPath.path + "/")_%"))
+				request = ItemMetadata.filter(ItemMetadata.Columns.cloudPath.like("\(parent.cloudPath.path + "/")_%"))
 			}
 			return try request.fetchAll(db)
 		}

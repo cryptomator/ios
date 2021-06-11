@@ -26,13 +26,13 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 
 	private let provider: CloudProvider
 	private let reparentTaskManager: ReparentTaskManager
-	private let metadataManager: MetadataManager
+	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 
-	init(provider: CloudProvider, reparentTaskManager: ReparentTaskManager, metadataManager: MetadataManager, cachedFileManager: CachedFileManager) {
+	init(provider: CloudProvider, reparentTaskManager: ReparentTaskManager, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
 		self.provider = provider
 		self.reparentTaskManager = reparentTaskManager
-		self.metadataManager = metadataManager
+		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
 	}
 
@@ -53,8 +53,8 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 		return moveItemInCloud(reparentTask: reparentTask).then { _ -> FileProviderItem in
 			let itemMetadata = reparentTask.itemMetadata
 			itemMetadata.statusCode = .isUploaded
-			try self.metadataManager.updateMetadata(itemMetadata)
-			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata.id!)
+			try self.itemMetadataManager.updateMetadata(itemMetadata)
+			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 			try self.reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)
 			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
@@ -68,7 +68,7 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 		case .folder:
 			return provider.moveFolder(from: reparentTask.taskRecord.sourceCloudPath, to: reparentTask.taskRecord.targetCloudPath)
 		default:
-			return Promise(FileProviderDecoratorError.unsupportedItemType)
+			return Promise(FileProviderAdapterError.unsupportedItemType)
 		}
 	}
 }

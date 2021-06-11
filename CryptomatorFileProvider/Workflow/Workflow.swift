@@ -10,5 +10,5 @@ import Foundation
 struct Workflow<T> {
 	let middleware: AnyWorkflowMiddleware<T>
 	let task: CloudTask
-	#warning("TODO: Add constraints")
+	let constraint: WorkflowConstraint
 }

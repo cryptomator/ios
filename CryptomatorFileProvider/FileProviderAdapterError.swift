@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FileProviderDecoratorError: Error {
+enum FileProviderAdapterError: Error {
 	case unsupportedItemIdentifier
 	case folderUploadNotSupported
 	case parentFolderNotFound

@@ -12,7 +12,7 @@ import GRDB
 
 public class ItemMetadata: Record, Codable {
 	override public class var databaseTableName: String {
-		"metadata"
+		"itemMetadata"
 	}
 
 	override public static var databaseSelection: [SQLSelectable] {
@@ -23,43 +23,33 @@ public class ItemMetadata: Record, Codable {
 	var name: String
 	let type: CloudItemType
 	var size: Int?
-	var parentId: Int64
+	var parentID: Int64
 	var lastModifiedDate: Date?
 	var statusCode: ItemStatus
 	var cloudPath: CloudPath
 	var isPlaceholderItem: Bool
 	var isMaybeOutdated: Bool
-	static let idKey = "id"
-	static let nameKey = "name"
-	static let typeKey = "type"
-	static let sizeKey = "size"
-	static let parentIdKey = "parentId"
-	static let lastModifiedDateKey = "lastModifiedDate"
-	static let statusCodeKey = "statusCode"
-	static let cloudPathKey = "cloudPath"
-	static let isPlaceholderItemKey = "isPlaceholderItem"
-	static let isMaybeOutdatedKey = "isMaybeOutdated"
 
 	required init(row: Row) {
-		self.id = row[ItemMetadata.idKey]
-		self.name = row[ItemMetadata.nameKey]
-		self.type = row[ItemMetadata.typeKey]
-		self.size = row[ItemMetadata.sizeKey]
-		self.parentId = row[ItemMetadata.parentIdKey]
-		self.lastModifiedDate = row[ItemMetadata.lastModifiedDateKey]
-		self.statusCode = row[ItemMetadata.statusCodeKey]
-		self.cloudPath = row[ItemMetadata.cloudPathKey]
-		self.isPlaceholderItem = row[ItemMetadata.isPlaceholderItemKey]
-		self.isMaybeOutdated = row[ItemMetadata.isMaybeOutdatedKey]
+		self.id = row[Columns.id]
+		self.name = row[Columns.name]
+		self.type = row[Columns.type]
+		self.size = row[Columns.size]
+		self.parentID = row[Columns.parentID]
+		self.lastModifiedDate = row[Columns.lastModifiedDate]
+		self.statusCode = row[Columns.statusCode]
+		self.cloudPath = row[Columns.cloudPath]
+		self.isPlaceholderItem = row[Columns.isPlaceholderItem]
+		self.isMaybeOutdated = row[Columns.isMaybeOutdated]
 		super.init(row: row)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentId: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
 		self.id = id
 		self.name = name
 		self.type = type
 		self.size = size
-		self.parentId = parentId
+		self.parentID = parentID
 		self.lastModifiedDate = lastModifiedDate
 		self.statusCode = statusCode
 		self.cloudPath = cloudPath
@@ -73,16 +63,20 @@ public class ItemMetadata: Record, Codable {
 	}
 
 	override public func encode(to container: inout PersistenceContainer) {
-		container[ItemMetadata.idKey] = id
-		container[ItemMetadata.nameKey] = name
-		container[ItemMetadata.typeKey] = type
-		container[ItemMetadata.sizeKey] = size
-		container[ItemMetadata.parentIdKey] = parentId
-		container[ItemMetadata.lastModifiedDateKey] = lastModifiedDate
-		container[ItemMetadata.statusCodeKey] = statusCode
-		container[ItemMetadata.cloudPathKey] = cloudPath
-		container[ItemMetadata.isPlaceholderItemKey] = isPlaceholderItem
-		container[ItemMetadata.isMaybeOutdatedKey] = isMaybeOutdated
+		container[Columns.id] = id
+		container[Columns.name] = name
+		container[Columns.type] = type
+		container[Columns.size] = size
+		container[Columns.parentID] = parentID
+		container[Columns.lastModifiedDate] = lastModifiedDate
+		container[Columns.statusCode] = statusCode
+		container[Columns.cloudPath] = cloudPath
+		container[Columns.isPlaceholderItem] = isPlaceholderItem
+		container[Columns.isMaybeOutdated] = isMaybeOutdated
+	}
+
+	enum Columns: String, ColumnExpression {
+		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated
 	}
 }
 
