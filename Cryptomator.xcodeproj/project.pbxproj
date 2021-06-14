@@ -497,25 +497,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4A03256625A369F800E63D7A /* Coordinator */ = {
-			isa = PBXGroup;
-			children = (
-				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
-				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
-				4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */,
-				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
-				4A03255425A3685500E63D7A /* Coordinator.swift */,
-				4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */,
-				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
-				4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */,
-				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
-				4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */,
-				4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */,
-				4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */,
-			);
-			path = Coordinator;
-			sourceTree = "<group>";
-		};
 		4A2245D124A5E16300DBA437 /* CryptomatorFileProviderTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -541,6 +522,7 @@
 				4A447E5525BF1F6A00D9520D /* CloudItemCell.swift */,
 				4A447E4C25BF1E8B00D9520D /* FileCell.swift */,
 				4A447E3C25BF1AD400D9520D /* FolderCell.swift */,
+				4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */,
 			);
 			path = ChooseFolder;
 			sourceTree = "<group>";
@@ -562,9 +544,9 @@
 			isa = PBXGroup;
 			children = (
 				4A511D4B2660FEFE000A0E01 /* Workflow.swift */,
-				4A511D4D2660FF9E000A0E01 /* WorkflowScheduler.swift */,
-				4A511D502661000F000A0E01 /* WorkflowFactory.swift */,
 				4ADD233D2672376500374E4E /* WorkflowConstraint.swift */,
+				4A511D502661000F000A0E01 /* WorkflowFactory.swift */,
+				4A511D4D2660FF9E000A0E01 /* WorkflowScheduler.swift */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -637,6 +619,7 @@
 				4AFCE51525B880C90069C4FC /* AccountCell.swift */,
 				4AFCE4FE25B871500069C4FC /* AccountCellContent.swift */,
 				4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */,
+				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
 				4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */,
 				4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */,
 				4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */,
@@ -647,11 +630,15 @@
 		4A7BC0E825ADF13100F007B3 /* AddVault */ = {
 			isa = PBXGroup;
 			children = (
+				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
+				4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */,
 				4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */,
 				4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */,
 				4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */,
 				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
 				4A2FD07825B5D98B008565C8 /* CloudCell.swift */,
+				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
+				4A2FD08125B5E2BA008565C8 /* VaultInstallationCoordinator.swift */,
 				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
 			);
 			path = AddVault;
@@ -675,6 +662,7 @@
 			children = (
 				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
 				4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */,
+				4A03255425A3685500E63D7A /* Coordinator.swift */,
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
 				4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
@@ -740,6 +728,8 @@
 		4AA22C08261CA71300A17486 /* WebDAV */ = {
 			isa = PBXGroup;
 			children = (
+				4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */,
+				4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */,
 				4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */,
 				4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */,
 				4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */,
@@ -790,6 +780,7 @@
 			children = (
 				4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */,
 				4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */,
+				4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */,
 				4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */,
 				4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */,
 			);
@@ -826,11 +817,11 @@
 				4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */,
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
+				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
 				4A7BC0E825ADF13100F007B3 /* AddVault */,
 				4A8195E325ADB92600F7DDA1 /* Common */,
-				4A03256625A369F800E63D7A /* Coordinator */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
 				7439031325E0008D00BB3B81 /* Localizable.strings */,
 				4A8195F325ADB96200F7DDA1 /* Prototype */,
@@ -934,6 +925,7 @@
 		740D367C266A18C80058744D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
+				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
 			);
