@@ -8,6 +8,7 @@
 
 import Foundation
 import Promises
+
 enum WorkflowMiddlewareError: Error {
 	case missingMiddleware
 	case incompatibleCloudTask

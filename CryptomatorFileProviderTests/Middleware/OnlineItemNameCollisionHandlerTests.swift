@@ -11,6 +11,7 @@ import GRDB
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class OnlineItemNameCollisionHandlerTests: XCTestCase {
 	var middleware: OnlineItemNameCollisionHandler<Void>!
 	var itemMetadataManager: ItemMetadataDBManager!

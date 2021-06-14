@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct Workflow<T> {
 	let middleware: AnyWorkflowMiddleware<T>
 	let task: CloudTask

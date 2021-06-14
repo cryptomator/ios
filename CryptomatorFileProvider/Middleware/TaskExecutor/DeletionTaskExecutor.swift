@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import Promises
+
 class DeletionTaskExecutor: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<Void>?
 	private let provider: CloudProvider

@@ -8,6 +8,7 @@
 
 import Foundation
 import Promises
+
 class CreatingOrDeletingItemPathLockHandler<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
 

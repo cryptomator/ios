@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
+
 protocol UploadTaskManager {
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord
 	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord?

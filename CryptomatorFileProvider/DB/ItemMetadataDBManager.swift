@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
+
 protocol ItemMetadataManager {
 	func getRootContainerID() -> Int64
 	func cacheMetadata(_ metadata: ItemMetadata) throws

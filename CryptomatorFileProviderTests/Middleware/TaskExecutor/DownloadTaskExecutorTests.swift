@@ -11,6 +11,7 @@ import GRDB
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testDownloadFile() throws {
 		let expectation = XCTestExpectation()

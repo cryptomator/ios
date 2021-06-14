@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+
 protocol DeletionTaskManager {
 	func createTaskRecord(for item: ItemMetadata) throws -> DeletionTaskRecord
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord

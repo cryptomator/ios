@@ -5,6 +5,7 @@
 //  Created by Philipp Schmid on 01.07.20.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
+
 import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore

@@ -8,6 +8,7 @@
 
 import Foundation
 import Promises
+
 class WorkflowScheduler {
 	private let uploadSemaphore: DispatchSemaphore
 	private let downloadSemaphore: DispatchSemaphore

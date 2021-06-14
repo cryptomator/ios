@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testUploadFile() throws {
 		let expectation = XCTestExpectation()

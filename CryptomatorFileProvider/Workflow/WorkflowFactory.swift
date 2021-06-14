@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 enum WorkflowFactory {
 	static func createWorkflow(for deletionTask: DeletionTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager) -> Workflow<Void> {
 		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<Void>()

@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	func testStartProvidingItemNoLocalVersion() throws {
 		let expectation = XCTestExpectation()

@@ -10,6 +10,7 @@ import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import Promises
+
 public enum FileProviderAdapterManager {
 	private static let queue = DispatchQueue(label: "FileProviderAdapterManager")
 	private static var cachedAdapters = [NSFileProviderDomainIdentifier: FileProviderAdapter]()

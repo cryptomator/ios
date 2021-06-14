@@ -10,6 +10,7 @@ import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	var adapter: FileProviderAdapter!
 	var localURLProviderMock: LocalURLProviderMock!

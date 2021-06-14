@@ -11,6 +11,7 @@ import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 	func testMoveItemLocally() throws {
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)

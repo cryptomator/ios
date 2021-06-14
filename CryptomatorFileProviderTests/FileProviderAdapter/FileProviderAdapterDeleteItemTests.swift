@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 	func testDeleteItemWithFile() throws {
 		let expectation = XCTestExpectation()

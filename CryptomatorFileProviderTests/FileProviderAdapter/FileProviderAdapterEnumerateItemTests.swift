@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 	// MARK: Enumerate Working Set
 

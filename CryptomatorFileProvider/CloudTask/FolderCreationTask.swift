@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct FolderCreationTask: CloudTask {
 	let itemMetadata: ItemMetadata
 }

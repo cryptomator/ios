@@ -11,6 +11,7 @@ import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	// MARK: LocalItemImport
 

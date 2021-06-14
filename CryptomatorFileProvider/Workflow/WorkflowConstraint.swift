@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum WorkflowConstraint {
 	case unconstrained
 	case downloadConstrained

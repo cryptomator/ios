@@ -11,6 +11,7 @@ import Foundation
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
+
 class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 	func testCreateFolder() {
 		let expectation = XCTestExpectation()

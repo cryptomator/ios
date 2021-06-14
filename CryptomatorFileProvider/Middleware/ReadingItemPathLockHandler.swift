@@ -8,6 +8,7 @@
 
 import Foundation
 import Promises
+
 class ReadingItemPathLockHandler<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
 
