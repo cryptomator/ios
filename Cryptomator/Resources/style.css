@@ -1,0 +1,45 @@
+body {
+	font-family: "Helvetica Neue";
+	font-size: 16px;
+	line-height: 1.75;
+	font-weight: 400;
+	color: #222;
+	margin: 16px;
+}
+
+h1, h2, p, ul, ol, pre {
+	margin-bottom: 16px;
+}
+
+h1, h2 {
+	font-weight: 500;
+	margin-top: 32px;
+}
+
+h1:first-child, h2:first-child {
+	margin-top: 0;
+}
+
+h1 {
+	font-size: 28px;
+}
+
+h2 {
+	font-size: 21px;
+}
+
+ul, ol {
+	padding-left: 1.5em;
+}
+
+/* links */
+
+a {
+	color: #49b04a;
+	text-decoration: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+a.touched {
+	text-decoration: underline;
+}

@@ -27,7 +27,13 @@ class SettingsCoordinator: Coordinator {
 		navigationController.pushViewController(settingsViewController, animated: false)
 	}
 
-	func exportLogs() throws {
+	func showAbout() {
+		let child = AboutCoordinator(navigationController: navigationController)
+		childCoordinators.append(child) // TODO: remove missing?
+		child.start()
+	}
+
+	func sendLogFile() throws {
 		let logsDirectoryURL = URL(fileURLWithPath: DDFileLogger.sharedInstance.logFileManager.logsDirectory)
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
