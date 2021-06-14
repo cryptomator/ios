@@ -112,6 +112,8 @@
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233B267219E200374E4E /* LocalCachedFileInfo.swift */; };
 		4ADD233E2672376500374E4E /* WorkflowConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233D2672376500374E4E /* WorkflowConstraint.swift */; };
+		4ADD234026737CD400374E4E /* RootFileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */; };
+		4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD2341267383BE00374E4E /* AddVaultSuccessViewModel.swift */; };
 		4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8D62653D5D500DF5D22 /* CloudTask.swift */; };
 		4AE0D8DA2653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */; };
 		4AE0D8DC2653DF1300DF5D22 /* DownloadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */; };
@@ -371,6 +373,8 @@
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADD233B267219E200374E4E /* LocalCachedFileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCachedFileInfo.swift; sourceTree = "<group>"; };
 		4ADD233D2672376500374E4E /* WorkflowConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowConstraint.swift; sourceTree = "<group>"; };
+		4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFileProviderItem.swift; sourceTree = "<group>"; };
+		4ADD2341267383BE00374E4E /* AddVaultSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewModel.swift; sourceTree = "<group>"; };
 		4AE0D8D62653D5D500DF5D22 /* CloudTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTask.swift; sourceTree = "<group>"; };
 		4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskExecutor.swift; sourceTree = "<group>"; };
@@ -633,6 +637,7 @@
 				4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */,
 				4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */,
 				4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */,
+				4ADD2341267383BE00374E4E /* AddVaultSuccessViewModel.swift */,
 				4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */,
 				4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */,
 				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
@@ -882,6 +887,7 @@
 				740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */,
 				740375F02587AEB40023FF53 /* FileProviderNotificator.swift */,
 				740375F42587AEB50023FF53 /* ItemStatus.swift */,
+				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
 				740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */,
 				4AE0D8D82653D8F200DF5D22 /* CloudTask */,
 				740376022587AEB60023FF53 /* DB */,
@@ -1340,6 +1346,7 @@
 				4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */,
 				4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */,
 				4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */,
+				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				740D3682266A19150058744D /* SettingsViewModel.swift in Sources */,
 				4AAA0718255992DC0085AA4E /* FolderBrowserViewController.swift in Sources */,
@@ -1436,6 +1443,7 @@
 				747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */,
 				4AE0D8DE2653F18900DF5D22 /* DeletionTaskExecutor.swift in Sources */,
 				4AE0D8DA2653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift in Sources */,
+				4ADD234026737CD400374E4E /* RootFileProviderItem.swift in Sources */,
 				747F2F232587BC250072FB30 /* ItemMetadataDBManager.swift in Sources */,
 				4A511D47265FEFBE000A0E01 /* DownloadTask.swift in Sources */,
 				4AE0D8DC2653DF1300DF5D22 /* DownloadTaskExecutor.swift in Sources */,

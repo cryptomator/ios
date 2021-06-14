@@ -9,6 +9,6 @@
 import Foundation
 
 protocol AddVaultSuccesing: AnyObject {
-	func showFilesApp()
+	func showFilesApp(forVaultUID: String)
 	func done()
 }

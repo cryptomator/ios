@@ -70,10 +70,16 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		fileCoordinator.cancel()
 	}
 
+	/**
+	 To support `NSExtensionFileProviderSupportsPickingFolders` it is necessary that we return an empty root item for additional identifiers. This includes the identifier "File Provider Storage", since this is the second to last folder in the URL that is responsible for opening this file provider domain.
+	 In addition, for all files that are located directly in the local root folder of the file provider domain (e.g. the file provider database), we get the file provider domain as identifier.
+	 Since we do not want to display these files externally, an empty RootItem is also returned for them.
+	 */
 	override func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		// resolve the given identifier to a record in the model
-		// TODO: implement the actual lookup
-		// TODO: Change domain stuff, decorator init, etc.
+		if identifier == .rootContainer || identifier.rawValue == "File Provider Storage" || identifier.rawValue == domain?.identifier.rawValue {
+			return RootFileProviderItem()
+		}
 		guard let adapter = self.adapter else {
 			// no domain ==> no installed vault
 			// TODO: Change error Code here
@@ -84,17 +90,17 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
 		// resolve the given identifier to a file on disk
-
+		if identifier == .rootContainer {
+			return getBaseStorageDirectory()
+		}
 		guard let item = try? item(for: identifier) else {
 			return nil
 		}
 
 		// in this implementation, all paths are structured as <base storage directory>/<item identifier>/<item file name>
-		let domainDocumentStorage = domain!.pathRelativeToDocumentStorage
-		let manager = NSFileProviderManager.default
-		let domainURL = manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
-		let perItemDirectory = domainURL.appendingPathComponent(identifier.rawValue, isDirectory: true)
-		return perItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
+		let baseStorageDirectoryURL = getBaseStorageDirectory()
+		let perItemDirectory = baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		return perItemDirectory?.appendingPathComponent(item.filename, isDirectory: false)
 	}
 
 	override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
@@ -256,6 +262,16 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
+	}
+
+	private func getBaseStorageDirectory() -> URL? {
+		guard let domain = domain else {
+			DDLogError("getBaseStorageDirectory: domain is nil")
+			return nil
+		}
+		let domainDocumentStorage = domain.pathRelativeToDocumentStorage
+		let manager = NSFileProviderManager.default
+		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
 	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {

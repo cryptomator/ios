@@ -15,6 +15,7 @@ protocol OpenExistingVaultPasswordViewModelProtocol {
 	var password: String? { get set }
 	var footerTitle: String { get }
 	var vaultName: String { get }
+	var vaultUID: String { get }
 	// This function is later no longer asynchronous
 	func addVault() -> Promise<Void>
 }
@@ -36,7 +37,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 	}
 
 	private let localMasterkeyURL: URL
-	private let vaultID: String
+	let vaultUID: String
 
 	init(provider: CloudProvider, account: CloudProviderAccount, masterkeyPath: CloudPath, vaultID: String) {
 		self.provider = provider
@@ -44,7 +45,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 		self.masterkeyPath = masterkeyPath
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		self.localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		self.vaultID = vaultID
+		self.vaultUID = vaultID
 	}
 
 	func addVault() -> Promise<Void> {
@@ -52,7 +53,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultManager.shared.createFromExisting(withVaultID: vaultID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
+		return VaultManager.shared.createFromExisting(withVaultID: vaultUID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
 	}
 }
 

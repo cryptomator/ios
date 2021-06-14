@@ -9,11 +9,11 @@
 import UIKit
 
 class AddVaultSuccessViewController: SingleSectionTableViewController {
-	let vaultName: String
+	private let viewModel: AddVaultSuccessViewModel
 	weak var coordinator: AddVaultSuccesing?
 
-	init(vaultName: String) {
-		self.vaultName = vaultName
+	init(viewModel: AddVaultSuccessViewModel) {
+		self.viewModel = viewModel
 		super.init()
 	}
 
@@ -30,7 +30,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	}
 
 	@objc func openFilesApp() {
-		coordinator?.showFilesApp()
+		coordinator?.showFilesApp(forVaultUID: viewModel.vaultUID)
 	}
 
 	// MARK: - UITableViewDataSource
@@ -54,7 +54,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return VaultSuccessHeaderView(vaultName: vaultName)
+		return VaultSuccessHeaderView(vaultName: viewModel.vaultName)
 	}
 
 	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -132,7 +132,7 @@ import SwiftUI
 
 struct AddVaultSuccessVCPreview: PreviewProvider {
 	static var previews: some View {
-		AddVaultSuccessViewController(vaultName: "Work").toPreview()
+		AddVaultSuccessViewController(viewModel: AddVaultSuccessViewModel(vaultName: "Work", vaultUID: "")).toPreview()
 	}
 }
 #endif

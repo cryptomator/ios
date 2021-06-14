@@ -46,7 +46,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	@objc func verify() {
 		viewModel.addVault().then { [weak self] in
 			guard let self = self else { return }
-			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName)
+			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
 		}.catch { [weak self] error in
 			guard let self = self else { return }
 			if case MasterkeyFileError.invalidPassphrase = error {
@@ -90,6 +90,8 @@ import Promises
 import SwiftUI
 
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVaultPasswordViewModelProtocol {
+	let vaultUID = ""
+
 	var password: String?
 	var footerTitle: String {
 		"Enter password for \"\(vaultName)\""

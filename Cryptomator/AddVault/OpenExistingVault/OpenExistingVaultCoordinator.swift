@@ -105,8 +105,9 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordi
 
 	// MARK: - VaultInstallationCoordinator
 
-	func showSuccessfullyAddedVault(withName name: String) {
-		let successVC = AddVaultSuccessViewController(vaultName: name)
+	func showSuccessfullyAddedVault(withName name: String, vaultUID: String) {
+		let viewModel = AddVaultSuccessViewModel(vaultName: name, vaultUID: vaultUID)
+		let successVC = AddVaultSuccessViewController(viewModel: viewModel)
 		successVC.title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 		successVC.coordinator = self
 		navigationController.pushViewController(successVC, animated: true)
@@ -121,5 +122,24 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordi
 		parentCoordinator?.close()
 	}
 
-	func showFilesApp() {}
+	func showFilesApp(forVaultUID vaultUID: String) {
+		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
+			print("containerURL is nil")
+			return
+		}
+		let url = containerURL.appendingPathComponent("File Provider Storage").appendingPathComponent(vaultUID)
+		guard let sharedDocumentsURL = changeSchemeToSharedDocuments(for: url) else {
+			print("Conversion to shared documents url failed")
+			return
+		}
+		UIApplication.shared.open(sharedDocumentsURL)
+		parentCoordinator?.childDidFinish(self)
+		parentCoordinator?.close()
+	}
+
+	private func changeSchemeToSharedDocuments(for url: URL) -> URL? {
+		var comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
+		comps?.scheme = "shareddocuments"
+		return comps?.url
+	}
 }
