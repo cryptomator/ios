@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccess
 import CryptomatorCommonCore
+import CryptomatorCryptoLib
 import UIKit
 
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
@@ -19,6 +20,10 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	}()
 
 	private var viewModel: OpenExistingVaultPasswordViewModelProtocol
+
+	private var viewToShake: UIView? {
+		return navigationController?.view.superview // shake the whole modal dialog
+	}
 
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
@@ -33,14 +38,22 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		tableView.rowHeight = 44
 	}
 
+	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+		super.viewWillTransition(to: size, with: coordinator)
+		viewToShake?.cancelShaking()
+	}
+
 	@objc func verify() {
 		viewModel.addVault().then { [weak self] in
 			guard let self = self else { return }
 			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName)
 		}.catch { [weak self] error in
 			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
-			#warning("TODO: Add Shake Animation")
+			if case MasterkeyFileError.invalidPassphrase = error {
+				self.viewToShake?.shake()
+			} else {
+				self.coordinator?.handleError(error, for: self)
+			}
 		}
 	}
 
