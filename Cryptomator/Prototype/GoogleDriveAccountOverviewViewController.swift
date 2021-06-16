@@ -42,7 +42,7 @@ class GoogleDriveAccountOverviewViewController: UIViewController {
 	}
 
 	@objc func logout() {
-		VaultManager.shared.removeVault(withUID: credential.tokenUID).then(on: .main) {
+		try? VaultManager.shared.removeVault(withUID: credential.tokenUID).then(on: .main) {
 			self.credential.deauthenticate()
 			self.navigationController?.popToRootViewController(animated: true)
 		}.catch { error in

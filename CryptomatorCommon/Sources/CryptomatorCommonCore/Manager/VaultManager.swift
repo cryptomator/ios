@@ -242,13 +242,9 @@ public class VaultManager {
 	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`
 	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the NSFileProvider
 	 */
-	public func removeVault(withUID vaultUID: String) -> Promise<Void> {
-		do {
-			try CryptomatorKeychain.vault.delete(vaultUID)
-			try vaultAccountManager.removeAccount(with: vaultUID)
-		} catch {
-			return Promise(error)
-		}
+	public func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
+		try CryptomatorKeychain.vault.delete(vaultUID)
+		try vaultAccountManager.removeAccount(with: vaultUID)
 		VaultManager.cachedDecorators[vaultUID] = nil
 		return removeFileProviderDomain(withVaultUID: vaultUID)
 	}
