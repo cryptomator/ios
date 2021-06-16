@@ -11,6 +11,17 @@ import CryptomatorCloudAccessCore
 protocol FolderChoosing: AnyObject {
 	func showItems(for path: CloudPath)
 	func close()
-	func chooseItem(at path: CloudPath)
+	func chooseItem(_ item: Item)
 	func showCreateNewFolder(parentPath: CloudPath)
+}
+
+struct Item {
+	let type: ItemType
+	let path: CloudPath
+}
+
+enum ItemType {
+	case folder
+	case vaultConfig
+	case legacyMasterkey
 }

@@ -94,8 +94,17 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordi
 		parentCoordinator?.close()
 	}
 
-	func chooseItem(at path: CloudPath) {
-		let viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, masterkeyPath: path, vaultID: UUID().uuidString)
+	func chooseItem(_ item: Item) {
+		let viewModel: OpenExistingVaultPasswordViewModelProtocol
+		switch item.type {
+		case .vaultConfig:
+			viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, vaultConfigPath: item.path, vaultUID: UUID().uuidString)
+		case .legacyMasterkey:
+			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, masterkeyPath: item.path, vaultID: UUID().uuidString)
+		default:
+			handleError(ExistingVaultCoordinatorError.wrongItemType, for: navigationController)
+			return
+		}
 		let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
 		passwordVC.coordinator = self
 		navigationController.pushViewController(passwordVC, animated: true)
@@ -142,4 +151,8 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordi
 		comps?.scheme = "shareddocuments"
 		return comps?.url
 	}
+}
+
+enum ExistingVaultCoordinatorError: Error {
+	case wrongItemType
 }

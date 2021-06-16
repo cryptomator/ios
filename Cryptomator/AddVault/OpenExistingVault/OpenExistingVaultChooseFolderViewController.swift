@@ -10,16 +10,16 @@ import CryptomatorCloudAccessCore
 import UIKit
 
 class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
-	private var masterkeyPath: CloudPath?
+	private var vault: Item?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 	}
 
-	override func showDetectedMasterkey(at path: CloudPath) {
-		masterkeyPath = path
-		let successView = SuccessView(viewModel: DetectedMasterkeyViewModel(masterkeyPath: path))
+	override func showDetectedVault(_ vault: Item) {
+		self.vault = vault
+		let successView = SuccessView(viewModel: DetectedMasterkeyViewModel(masterkeyPath: vault.path))
 		let containerView = UIView()
 		successView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(successView)
@@ -41,10 +41,10 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 
 	@objc func addVault() {
-		guard let masterkeyPath = masterkeyPath else {
+		guard let vault = vault else {
 			return
 		}
-		coordinator?.chooseItem(at: masterkeyPath)
+		coordinator?.chooseItem(vault)
 	}
 }
 

@@ -43,10 +43,10 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.refreshControl?.endRefreshing()
 			self.tableView.reloadData()
-		} onMasterkeyDetection: { [weak self] masterkeyPath in
+		} onVaultDetection: { [weak self] vault in
 			guard let self = self else { return }
 			self.tableView.reloadData()
-			self.showDetectedMasterkey(at: masterkeyPath)
+			self.showDetectedVault(vault)
 		}
 	}
 
@@ -64,7 +64,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		}
 	}
 
-	func showDetectedMasterkey(at path: CloudPath) {
+	func showDetectedVault(_ vault: Item) {
 		fatalError("not implemented")
 	}
 
@@ -180,7 +180,7 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 		self.cloudPath = cloudPath
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onMasterkeyDetection: @escaping (CloudPath) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
 		onChange()
 	}
 
