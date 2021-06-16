@@ -31,7 +31,9 @@
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
 "settings.title" = "Settings";
-"settings.exportLogs" = "Export Logs";
+"settings.aboutCryptomator" = "About Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Send Log File";
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Tap here to add a vault";

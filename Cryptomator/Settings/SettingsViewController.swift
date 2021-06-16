@@ -41,25 +41,30 @@ class SettingsViewController: UITableViewController {
 		coordinator?.close()
 	}
 
-	@objc func exportLogs() {
-		try? coordinator?.exportLogs()
+	@objc func showAbout() {
+		coordinator?.showAbout()
+	}
+
+	@objc func sendLogFile() {
+		try? coordinator?.sendLogFile()
 	}
 
 	// MARK: - UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return viewModel.numberOfSections
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return viewModel.numberOfRows(in: section)
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(viewModel.exportLogs, for: .normal)
-		cell.button.addTarget(self, action: #selector(exportLogs), for: .touchUpInside)
+		cell.button.setTitle(viewModel.title(for: indexPath), for: .normal)
+		cell.button.addTarget(self, action: Selector(viewModel.buttonAction(for: indexPath).rawValue), for: .touchUpInside)
+		cell.accessoryType = viewModel.accessoryType(for: indexPath)
 		return cell
 	}
 }

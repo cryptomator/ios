@@ -146,6 +146,13 @@
 		4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE56925BAEE890069C4FC /* AccountListViewModelTests.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
+		7408E6BF267783F100D7FAEA /* LocalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6BE267783F100D7FAEA /* LocalWebViewController.swift */; };
+		7408E6C126778C7A00D7FAEA /* LocalWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6C026778C7A00D7FAEA /* LocalWebViewModel.swift */; };
+		7408E6C326778D9B00D7FAEA /* AboutCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6C226778D9B00D7FAEA /* AboutCoordinator.swift */; };
+		7408E6C52677954000D7FAEA /* about.html in Resources */ = {isa = PBXBuildFile; fileRef = 7408E6C42677954000D7FAEA /* about.html */; };
+		7408E6C7267797B700D7FAEA /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 7408E6C6267797B700D7FAEA /* style.css */; };
+		7408E6CA2677985800D7FAEA /* jquery-3.6.0.slim.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 7408E6C92677985800D7FAEA /* jquery-3.6.0.slim.min.js */; };
+		7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */; };
 		740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D367D266A18DF0058744D /* SettingsViewController.swift */; };
 		740D3682266A19150058744D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3681266A19150058744D /* SettingsViewModel.swift */; };
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
@@ -437,6 +444,13 @@
 		7403760B2587AEB70023FF53 /* ItemMetadataDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemMetadataDBManager.swift; sourceTree = "<group>"; };
 		7403760C2587AEB70023FF53 /* ReparentTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTask.swift; sourceTree = "<group>"; };
 		7403760D2587AEB70023FF53 /* DatabaseHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHelper.swift; sourceTree = "<group>"; };
+		7408E6BE267783F100D7FAEA /* LocalWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWebViewController.swift; sourceTree = "<group>"; };
+		7408E6C026778C7A00D7FAEA /* LocalWebViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalWebViewModel.swift; sourceTree = "<group>"; };
+		7408E6C226778D9B00D7FAEA /* AboutCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutCoordinator.swift; sourceTree = "<group>"; };
+		7408E6C42677954000D7FAEA /* about.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = about.html; sourceTree = "<group>"; };
+		7408E6C6267797B700D7FAEA /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = style.css; sourceTree = "<group>"; };
+		7408E6C92677985800D7FAEA /* jquery-3.6.0.slim.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "jquery-3.6.0.slim.min.js"; sourceTree = "<group>"; };
+		7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewModel.swift; sourceTree = "<group>"; };
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
@@ -680,6 +694,7 @@
 				4AA22C25261CA96600A17486 /* Cells */,
 				4A447DEB25BF064300D9520D /* ChooseFolder */,
 				4A7B97CA25B6F7340044B7FB /* CloudAccountList */,
+				7408E6BD2677835C00D7FAEA /* LocalWeb */,
 				4A8195E425ADB94500F7DDA1 /* Previews */,
 			);
 			path = Common;
@@ -833,6 +848,7 @@
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
 				7439031325E0008D00BB3B81 /* Localizable.strings */,
 				4A8195F325ADB96200F7DDA1 /* Prototype */,
+				7408E6C8267797DC00D7FAEA /* Resources */,
 				740D367C266A18C80058744D /* Settings */,
 				4A8195DB25ADB8AD00F7DDA1 /* VaultList */,
 				4AA22C08261CA71300A17486 /* WebDAV */,
@@ -931,12 +947,41 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		7408E6BD2677835C00D7FAEA /* LocalWeb */ = {
+			isa = PBXGroup;
+			children = (
+				7408E6BE267783F100D7FAEA /* LocalWebViewController.swift */,
+				7408E6C026778C7A00D7FAEA /* LocalWebViewModel.swift */,
+			);
+			path = LocalWeb;
+			sourceTree = "<group>";
+		};
+		7408E6C8267797DC00D7FAEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7408E6C6267797B700D7FAEA /* style.css */,
+				7408E6C42677954000D7FAEA /* about.html */,
+				7408E6C92677985800D7FAEA /* jquery-3.6.0.slim.min.js */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		7408E6CB26779BC200D7FAEA /* About */ = {
+			isa = PBXGroup;
+			children = (
+				7408E6C226778D9B00D7FAEA /* AboutCoordinator.swift */,
+				7408E6CC26779BCC00D7FAEA /* AboutViewModel.swift */,
+			);
+			path = About;
+			sourceTree = "<group>";
+		};
 		740D367C266A18C80058744D /* Settings */ = {
 			isa = PBXGroup;
 			children = (
 				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
+				7408E6CB26779BC200D7FAEA /* About */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -1180,8 +1225,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */,
+				7408E6C7267797B700D7FAEA /* style.css in Resources */,
 				7439031125E0008D00BB3B81 /* Localizable.strings in Resources */,
 				746815472475605E00038679 /* LaunchScreen.storyboard in Resources */,
+				7408E6C52677954000D7FAEA /* about.html in Resources */,
+				7408E6CA2677985800D7FAEA /* jquery-3.6.0.slim.min.js in Resources */,
 				746815462475605E00038679 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1356,6 +1404,7 @@
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
 				4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */,
+				7408E6BF267783F100D7FAEA /* LocalWebViewController.swift in Sources */,
 				4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */,
 				4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */,
 				4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */,
@@ -1373,6 +1422,7 @@
 				4AAA072B25599B280085AA4E /* FolderBrowserViewModel.swift in Sources */,
 				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
 				740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */,
+				7408E6C326778D9B00D7FAEA /* AboutCoordinator.swift in Sources */,
 				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
 				4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */,
 				4A8AAA2425658D5B00F5091E /* GoogleDriveAccountOverviewViewController.swift in Sources */,
@@ -1392,6 +1442,7 @@
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstallationCoordinator.swift in Sources */,
 				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
+				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A8AAA1825658C3C00F5091E /* GoogleDriveStartViewController.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */,
@@ -1413,6 +1464,7 @@
 				4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */,
 				4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */,
 				4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */,
+				7408E6C126778C7A00D7FAEA /* LocalWebViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

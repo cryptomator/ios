@@ -31,7 +31,9 @@
 "addVault.success.footer" = "Falls du es noch nicht getan hast, aktiviere Cryptomator in der Dateien-App.";
 
 "settings.title" = "Einstellungen";
-"settings.exportLogs" = "Logs exportieren";
+"settings.aboutCryptomator" = "Über Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Log-Datei senden";
 
 "vaultList.header.title" = "Tresore";
 "vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
