@@ -22,7 +22,7 @@ class ExistingVaultInstallerViewModel {
 
 	func installVault(withPassword password: String) -> Promise<String> {
 		let vaultUID = UUID().uuidString
-		return VaultManager.shared.createFromExisting(withVaultID: vaultUID, delegateAccountUID: providerAccountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true).then {
+		return VaultManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: providerAccountUID, vaultConfigPath: masterkeyPath, password: password, storePasswordInKeychain: true).then {
 			self.registerFileProviderDomain(for: vaultUID)
 		}.then {
 			return vaultUID
