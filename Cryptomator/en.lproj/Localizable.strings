@@ -12,6 +12,7 @@
 "common.button.confirm" = "Confirm";
 "common.button.done" = "Done";
 "common.button.edit" = "Edit";
+"common.button.next" = "Next";
 "common.button.ok" = "OK";
 "common.button.remove" = "Remove";
 "common.footer.learnMore" = "Learn more.";
@@ -46,3 +47,6 @@
 "untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Trust";
 "untrustedTLSCertificate.dismiss" = "Don't Trust";
+
+"setVaultName.header.title" = "Choose a name for the vault.";
+"setVaultName.cells.name" = "Vault Name";

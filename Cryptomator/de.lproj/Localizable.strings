@@ -12,6 +12,7 @@
 "common.button.confirm" = "Bestätigen";
 "common.button.done" = "Fertig";
 "common.button.edit" = "Bearbeiten";
+"common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
 "common.footer.learnMore" = "Mehr erfahren.";
@@ -46,3 +47,6 @@
 "untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"setVaultName.cells.name" = "Tresorname";

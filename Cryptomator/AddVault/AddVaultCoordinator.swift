@@ -25,7 +25,9 @@ class AddVaultCoordinator: Coordinator {
 	}
 
 	func createNewVault() {
-		// TODO: Push to CreateNewVaultVC
+		let child = SetVaultNameCoordinator(navigationController: navigationController)
+		childCoordinators.append(child)
+		child.start()
 	}
 
 	func openExistingVault() {
