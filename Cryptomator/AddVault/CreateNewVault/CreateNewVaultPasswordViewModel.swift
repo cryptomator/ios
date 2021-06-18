@@ -51,6 +51,7 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 		}
 
 		return VaultManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
 	}
 }
 

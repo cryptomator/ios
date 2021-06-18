@@ -13,8 +13,8 @@ import XCTest
 @testable import CryptomatorCommonCore
 
 class CloudProviderManagerTests: XCTestCase {
-	var manager: CloudProviderManager!
-	var accountManager: CloudProviderAccountManager!
+	var manager: CloudProviderDBManager!
+	var accountManager: CloudProviderAccountDBManager!
 	var tmpDir: URL!
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -26,8 +26,8 @@ class CloudProviderManagerTests: XCTestCase {
 				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
 			}
 		}
-		accountManager = CloudProviderAccountManager(dbPool: dbPool)
-		manager = CloudProviderManager(accountManager: accountManager)
+		accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		manager = CloudProviderDBManager(accountManager: accountManager)
 	}
 
 	override func tearDownWithError() throws {
@@ -38,12 +38,12 @@ class CloudProviderManagerTests: XCTestCase {
 		DropboxSetup.constants = DropboxSetup(appKey: "", sharedContainerIdentifier: nil, keychainService: nil, forceForegroundSession: false)
 		let account = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 		try accountManager.saveNewAccount(account)
-		XCTAssertNil(CloudProviderManager.cachedProvider[account.accountUID])
+		XCTAssertNil(CloudProviderDBManager.cachedProvider[account.accountUID])
 		let provider = try manager.getProvider(with: account.accountUID)
 		guard provider is DropboxCloudProvider else {
 			XCTFail("Provider has wrong type")
 			return
 		}
-		XCTAssertNotNil(CloudProviderManager.cachedProvider[account.accountUID])
+		XCTAssertNotNil(CloudProviderDBManager.cachedProvider[account.accountUID])
 	}
 }

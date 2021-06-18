@@ -18,7 +18,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	private let cloudAuthenticator: CloudAuthenticator
 	private var observation: TransactionObserver?
 
-	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared)) {
+	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) {
 		self.cloudProviderType = cloudProviderType
 		self.dbManager = dbManager
 		self.cloudAuthenticator = cloudAuthenticator

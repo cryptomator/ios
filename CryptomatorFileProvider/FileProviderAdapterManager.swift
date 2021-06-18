@@ -31,7 +31,7 @@ public enum FileProviderAdapterManager {
 					let uploadTaskManager = UploadTaskDBManager(with: database)
 					let reparentTaskManager = try ReparentTaskDBManager(with: database)
 					let deletionTaskManager = try DeletionTaskDBManager(with: database)
-					let provider = try VaultManager.shared.getDecorator(forVaultUID: domain.identifier.rawValue)
+					let provider = try VaultDBManager.shared.getDecorator(forVaultUID: domain.identifier.rawValue)
 					adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
 				} catch {
 					reject(error)

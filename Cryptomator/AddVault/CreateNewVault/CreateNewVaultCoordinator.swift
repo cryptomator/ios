@@ -38,15 +38,15 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
-		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared)
+		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
-			let provider = try CloudProviderManager.shared.getProvider(with: account.accountUID)
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 			self.startFolderChooser(with: provider, account: account)
 		}
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderManager.shared.getProvider(with: account.accountUID)
+		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 		startFolderChooser(with: provider, account: account.cloudProviderAccount)
 	}
 

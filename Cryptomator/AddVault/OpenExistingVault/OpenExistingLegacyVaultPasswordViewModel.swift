@@ -42,6 +42,6 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
 	}
 }

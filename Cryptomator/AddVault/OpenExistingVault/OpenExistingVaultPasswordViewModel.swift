@@ -49,7 +49,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultConfigPath: vaultConfigPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultConfigPath: vaultConfigPath, password: password, storePasswordInKeychain: true)
 	}
 }
 

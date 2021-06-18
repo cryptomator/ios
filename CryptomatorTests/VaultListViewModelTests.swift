@@ -26,8 +26,8 @@ class VaultListViewModelTests: XCTestCase {
 		dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 		cryptomatorDB = try CryptomatorDatabase(dbPool)
 
-		let cloudProviderManager = CloudProviderManager(accountManager: CloudProviderAccountManager(dbPool: dbPool))
-		vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
+		let cloudProviderManager = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager(dbPool: dbPool))
+		vaultAccountManagerMock = VaultAccountManagerMock()
 		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock)
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
@@ -117,14 +117,30 @@ private class DatabaseManagerMock: DatabaseManager {
 }
 
 private class VaultAccountManagerMock: VaultAccountManager {
+	func saveNewAccount(_ account: VaultAccount) throws {
+		throw MockError.notMocked
+	}
+
+	func getAccount(with vaultUID: String) throws -> VaultAccount {
+		throw MockError.notMocked
+	}
+
+	func getAllAccounts() throws -> [VaultAccount] {
+		throw MockError.notMocked
+	}
+
 	var removedVaultUIDs = [String]()
 
-	override func removeAccount(with vaultUID: String) throws {
+	func removeAccount(with vaultUID: String) throws {
 		removedVaultUIDs.append(vaultUID)
 	}
 }
 
-private class VaultManagerMock: VaultManager {
+private enum MockError: Error {
+	case notMocked
+}
+
+private class VaultManagerMock: VaultDBManager {
 	var removedFileProviderDomains = [String]()
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
 		removedFileProviderDomains.append(vaultUID)

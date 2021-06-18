@@ -36,8 +36,8 @@ class DatabaseManagerTests: XCTestCase {
 	// MARK: VaultListPosition
 
 	func testCreatePositionTrigger() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
-		let vaultAccountManager = VaultAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -62,8 +62,8 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testDeleteVaultAccountUpdatesPositions() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
-		let vaultAccountManager = VaultAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -97,8 +97,8 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testUpdateVaultListPositions() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
-		let vaultAccountManager = VaultAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
@@ -130,7 +130,7 @@ class DatabaseManagerTests: XCTestCase {
 	// MARK: AccountListPosition
 
 	func testCreateAccountListPositionTrigger() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -164,7 +164,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testDeleteCloudProviderAccountUpdatesPositions() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -207,7 +207,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testUpdateAccountListPositions() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
@@ -239,7 +239,7 @@ class DatabaseManagerTests: XCTestCase {
 	}
 
 	func testGetAllAccountsIsFiltered() throws {
-		let cloudAccountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
 		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)

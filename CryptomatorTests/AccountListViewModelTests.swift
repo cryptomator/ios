@@ -33,7 +33,7 @@ class AccountListViewModelTests: XCTestCase {
 
 	func testMoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModelMock(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		try accountListViewModel.refreshItems()
@@ -58,7 +58,7 @@ class AccountListViewModelTests: XCTestCase {
 
 	func testRemoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModelMock(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		try accountListViewModel.refreshItems()
@@ -79,7 +79,7 @@ class AccountListViewModelTests: XCTestCase {
 
 	func testWebDAVAccountCellContent() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "https://www.example.com")!
@@ -91,7 +91,7 @@ class AccountListViewModelTests: XCTestCase {
 
 	func testWebDAVAccountCellContentWithPathInDetailLabel() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "https://www.example.com/path")!
@@ -103,7 +103,7 @@ class AccountListViewModelTests: XCTestCase {
 
 	func testWebDAVAccountCellContentWithUnknownHost() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "www")!
