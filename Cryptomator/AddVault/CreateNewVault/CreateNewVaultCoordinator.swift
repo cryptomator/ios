@@ -65,7 +65,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 }
 
-private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, Coordinator {
+private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInstalling, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: CreateNewVaultCoordinator?
@@ -101,8 +101,10 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, Coordinato
 	func chooseItem(_ item: Item) {
 		switch item.type {
 		default:
-			handleError(ExistingVaultCoordinatorError.wrongItemType, for: navigationController)
-			return
+			let viewModel = CreateNewVaultPasswordViewModel(vaultPath: item.path, account: account, vaultUID: UUID().uuidString)
+			let passwordVC = CreateNewVaultPasswordViewController(viewModel: viewModel)
+			passwordVC.coordinator = self
+			navigationController.pushViewController(passwordVC, animated: true)
 		}
 	}
 
@@ -112,6 +114,15 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, Coordinato
 		child.parentCoordinator = self
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
+		child.start()
+	}
+
+	// MARK: - VaultInstalling
+
+	func showSuccessfullyAddedVault(withName name: String, vaultUID: String) {
+		let child = AddVaultSuccessCoordinator(vaultName: name, vaultUID: vaultUID, navigationController: navigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
 		child.start()
 	}
 }

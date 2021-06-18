@@ -63,7 +63,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 }
 
-private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordinator, FolderChoosing, AddVaultSuccesing {
+private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, FolderChoosing, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: OpenExistingVaultCoordinator?
@@ -112,44 +112,13 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstallationCoordi
 
 	func showCreateNewFolder(parentPath: CloudPath) {}
 
-	// MARK: - VaultInstallationCoordinator
+	// MARK: - VaultInstalling
 
 	func showSuccessfullyAddedVault(withName name: String, vaultUID: String) {
-		let viewModel = AddVaultSuccessViewModel(vaultName: name, vaultUID: vaultUID)
-		let successVC = AddVaultSuccessViewController(viewModel: viewModel)
-		successVC.title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
-		successVC.coordinator = self
-		navigationController.pushViewController(successVC, animated: true)
-		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.
-		navigationController.viewControllers = [successVC]
-	}
-
-	// MARK: - AddVaultSuccesing
-
-	func done() {
-		parentCoordinator?.childDidFinish(self)
-		parentCoordinator?.close()
-	}
-
-	func showFilesApp(forVaultUID vaultUID: String) {
-		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
-			print("containerURL is nil")
-			return
-		}
-		let url = containerURL.appendingPathComponent("File Provider Storage").appendingPathComponent(vaultUID)
-		guard let sharedDocumentsURL = changeSchemeToSharedDocuments(for: url) else {
-			print("Conversion to shared documents url failed")
-			return
-		}
-		UIApplication.shared.open(sharedDocumentsURL)
-		parentCoordinator?.childDidFinish(self)
-		parentCoordinator?.close()
-	}
-
-	private func changeSchemeToSharedDocuments(for url: URL) -> URL? {
-		var comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
-		comps?.scheme = "shareddocuments"
-		return comps?.url
+		let child = AddVaultSuccessCoordinator(vaultName: name, vaultUID: vaultUID, navigationController: navigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		child.start()
 	}
 }
 
