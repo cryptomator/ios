@@ -9,7 +9,10 @@
 "common.alert.error.title" = "Error";
 "common.button.add" = "Add";
 "common.button.cancel" = "Cancel";
+"common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
+"common.button.create" = "Create";
+"common.button.createFolder" = "Create Folder";
 "common.button.done" = "Done";
 "common.button.edit" = "Edit";
 "common.button.next" = "Next";
@@ -23,6 +26,8 @@
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
+"addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\n In order to create a new vault, please go back and choose a different folder.";
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
@@ -50,3 +55,6 @@
 
 "setVaultName.header.title" = "Choose a name for the vault.";
 "setVaultName.cells.name" = "Vault Name";
+
+"createNewFolder.header.title" = "Choose a name for the folder.";
+"createNewFolder.cells.name" = "Folder Name";

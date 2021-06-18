@@ -9,8 +9,11 @@
 "common.alert.error.title" = "Fehler";
 "common.button.add" = "Hinzufügen";
 "common.button.cancel" = "Abbrechen";
+"common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
 "common.button.done" = "Fertig";
+"common.button.create" = "Erstellen";
+"common.button.createFolder" = "Neuer Ordner";
 "common.button.edit" = "Bearbeiten";
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
@@ -24,6 +27,8 @@
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
 "addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
+"addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors speichern?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\n Um einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
@@ -50,3 +55,6 @@
 
 "setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
 "setVaultName.cells.name" = "Tresorname";
+
+"createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
+"createNewFolder.cells.name" = "Ordnername";

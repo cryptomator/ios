@@ -48,38 +48,10 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 }
 
-private class SuccessView: UIView {
-	lazy var label: UILabel = {
-		let label = UILabel()
-		label.numberOfLines = 0
-		label.lineBreakMode = .byWordWrapping
-		label.textAlignment = .center
-		return label
-	}()
-
-	convenience init(viewModel: DetectedMasterkeyViewModel) {
-		self.init(frame: .zero)
-
+private class SuccessView: DetectedVaultView {
+	init(viewModel: DetectedMasterkeyViewModel) {
 		let botVaultImage = UIImage(named: "bot-vault")
 		let imageView = UIImageView(image: botVaultImage)
-
-		imageView.contentMode = .scaleAspectFit
-
-		label.text = viewModel.text
-
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		label.translatesAutoresizingMaskIntoConstraints = false
-
-		addSubview(imageView)
-		addSubview(label)
-
-		NSLayoutConstraint.activate([
-			imageView.topAnchor.constraint(equalTo: topAnchor),
-			imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-			label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-			label.bottomAnchor.constraint(equalTo: bottomAnchor),
-			label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
-		])
+		super.init(imageView: imageView, text: viewModel.text)
 	}
 }
