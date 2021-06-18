@@ -42,14 +42,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 
 		// Clean up
-		VaultManager.shared.removeAllUnusedFileProviderDomains().then {
+		VaultDBManager.shared.removeAllUnusedFileProviderDomains().then {
 			print("removed all unused FileProviderDomains")
 		}.catch { error in
 			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
 		}
 
 		// Set up cloud storage services
-		CloudProviderManager.shared.useBackgroundSession = false
+		CloudProviderDBManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: nil)
 		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)

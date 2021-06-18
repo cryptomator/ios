@@ -1,5 +1,5 @@
 //
-//  VaultAccountManager.swift
+//  VaultAccountDBManager.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 30.10.20.
@@ -40,8 +40,15 @@ extension VaultAccount: PersistableRecord {
 	}
 }
 
-public class VaultAccountManager {
-	public static let shared = VaultAccountManager(dbPool: CryptomatorDatabase.shared.dbPool)
+public protocol VaultAccountManager {
+	func saveNewAccount(_ account: VaultAccount) throws
+	func removeAccount(with vaultUID: String) throws
+	func getAccount(with vaultUID: String) throws -> VaultAccount
+	func getAllAccounts() throws -> [VaultAccount]
+}
+
+public class VaultAccountDBManager: VaultAccountManager {
+	public static let shared = VaultAccountDBManager(dbPool: CryptomatorDatabase.shared.dbPool)
 	private let dbPool: DatabasePool
 
 	public init(dbPool: DatabasePool) {
@@ -72,19 +79,9 @@ public class VaultAccountManager {
 		return account
 	}
 
-	func getAllAccounts() throws -> [VaultAccount] {
+	public func getAllAccounts() throws -> [VaultAccount] {
 		try dbPool.read { db in
 			try VaultAccount.fetchAll(db)
 		}
-	}
-
-	// only for prototype
-	public func getAllVaultUIDs(with delegateAccountUID: String) throws -> [String] {
-		let accounts: [VaultAccount] = try dbPool.read { db in
-			return try VaultAccount
-				.filter(Column(VaultAccount.delegateAccountUIDKey) == delegateAccountUID)
-				.fetchAll(db)
-		}
-		return accounts.map { $0.vaultUID }
 	}
 }

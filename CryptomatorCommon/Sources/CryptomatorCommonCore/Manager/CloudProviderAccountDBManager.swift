@@ -1,5 +1,5 @@
 //
-//  CloudProviderAccountManager.swift
+//  CloudProviderAccountDBManager.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 20.10.20.
@@ -35,8 +35,15 @@ public enum CloudProviderAccountError: Error {
 	case accountNotFoundError
 }
 
-public class CloudProviderAccountManager {
-	public static let shared = CloudProviderAccountManager(dbPool: CryptomatorDatabase.shared.dbPool)
+public protocol CloudProviderAccountManager {
+	func getCloudProviderType(for accountUID: String) throws -> CloudProviderType
+	func getAllAccountUIDs(for type: CloudProviderType) throws -> [String]
+	func saveNewAccount(_ account: CloudProviderAccount) throws
+	func removeAccount(with accountUID: String) throws
+}
+
+public class CloudProviderAccountDBManager: CloudProviderAccountManager {
+	public static let shared = CloudProviderAccountDBManager(dbPool: CryptomatorDatabase.shared.dbPool)
 	private let dbPool: DatabasePool
 
 	init(dbPool: DatabasePool) {

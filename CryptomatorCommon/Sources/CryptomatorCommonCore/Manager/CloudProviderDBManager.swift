@@ -1,5 +1,5 @@
 //
-//  CloudProviderManager.swift
+//  CloudProviderDBManager.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 20.10.20.
@@ -8,19 +8,23 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+public protocol CloudProviderManager {
+	func getProvider(with accountUID: String) throws -> CloudProvider
+	static func providerShouldUpdate(with accountUID: String)
+}
 
-public class CloudProviderManager {
+public class CloudProviderDBManager: CloudProviderManager {
 	static var cachedProvider = [String: CloudProvider]()
-	public static let shared = CloudProviderManager(accountManager: CloudProviderAccountManager.shared)
+	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	public var useBackgroundSession = true
-	let accountManager: CloudProviderAccountManager
+	let accountManager: CloudProviderAccountDBManager
 
-	init(accountManager: CloudProviderAccountManager) {
+	init(accountManager: CloudProviderAccountDBManager) {
 		self.accountManager = accountManager
 	}
 
 	public func getProvider(with accountUID: String) throws -> CloudProvider {
-		if let provider = CloudProviderManager.cachedProvider[accountUID] {
+		if let provider = CloudProviderDBManager.cachedProvider[accountUID] {
 			return provider
 		}
 		return try createProvider(for: accountUID)
@@ -53,7 +57,7 @@ public class CloudProviderManager {
 		default:
 			throw CloudProviderAccountError.accountNotFoundError
 		}
-		CloudProviderManager.cachedProvider[accountUID] = provider
+		CloudProviderDBManager.cachedProvider[accountUID] = provider
 		return provider
 	}
 

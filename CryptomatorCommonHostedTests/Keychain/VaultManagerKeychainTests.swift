@@ -13,10 +13,10 @@ import XCTest
 
 class VaultManagerKeychainTests: XCTestCase {
 	var tmpDir: URL!
-	var providerAccountManager: CloudProviderAccountManager!
-	var providerManager: CloudProviderManager!
+	var providerAccountManager: CloudProviderAccountDBManager!
+	var providerManager: CloudProviderDBManager!
 	var accountManager: VaultAccountManager!
-	var manager: VaultManager!
+	var manager: VaultDBManager!
 
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -34,10 +34,10 @@ class VaultManagerKeychainTests: XCTestCase {
 				table.column(VaultAccount.lastUpToDateCheckKey, .date).notNull()
 			}
 		}
-		providerAccountManager = CloudProviderAccountManager(dbPool: dbPool)
-		providerManager = CloudProviderManager(accountManager: providerAccountManager)
-		accountManager = VaultAccountManager(dbPool: dbPool)
-		manager = VaultManager(providerManager: providerManager, vaultAccountManager: accountManager)
+		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		providerManager = CloudProviderDBManager(accountManager: providerAccountManager)
+		accountManager = VaultAccountDBManager(dbPool: dbPool)
+		manager = VaultDBManager(providerManager: providerManager, vaultAccountManager: accountManager)
 	}
 
 	override func tearDownWithError() throws {

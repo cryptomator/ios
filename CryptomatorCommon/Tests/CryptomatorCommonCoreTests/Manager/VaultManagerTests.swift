@@ -14,7 +14,7 @@ import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
-class VaultManagerMock: VaultManager {
+class VaultManagerMock: VaultDBManager {
 	var savedMasterkeys = [String: Masterkey]()
 	var savedPasswords = [String: String]()
 	var savedVaultConfigTokens = [String: String]()
@@ -53,7 +53,7 @@ class VaultManagerMock: VaultManager {
 	}
 }
 
-class CloudProviderManagerMock: CloudProviderManager {
+class CloudProviderManagerMock: CloudProviderDBManager {
 	let provider = CloudProviderMock()
 	override func getProvider(with accountUID: String) throws -> CloudProvider {
 		return provider
@@ -61,10 +61,10 @@ class CloudProviderManagerMock: CloudProviderManager {
 }
 
 class VaultManagerTests: XCTestCase {
-	var manager: VaultManager!
+	var manager: VaultDBManager!
 	var accountManager: VaultAccountManager!
 	var providerManager: CloudProviderManagerMock!
-	var providerAccountManager: CloudProviderAccountManager!
+	var providerAccountManager: CloudProviderAccountDBManager!
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
@@ -84,9 +84,9 @@ class VaultManagerTests: XCTestCase {
 			}
 		}
 
-		providerAccountManager = CloudProviderAccountManager(dbPool: dbPool)
+		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		providerManager = CloudProviderManagerMock(accountManager: providerAccountManager)
-		accountManager = VaultAccountManager(dbPool: dbPool)
+		accountManager = VaultAccountDBManager(dbPool: dbPool)
 		manager = VaultManagerMock(providerManager: providerManager, vaultAccountManager: accountManager)
 	}
 
@@ -122,8 +122,8 @@ class VaultManagerTests: XCTestCase {
 			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyData)
 			let masterkey = try masterkeyFile.unlock(passphrase: "pw")
 
-			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
-			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -188,8 +188,8 @@ class VaultManagerTests: XCTestCase {
 
 		let vaultUID = UUID().uuidString
 		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultConfigPath: vaultConfigPath, password: "pw", storePasswordInKeychain: true).then { [self] in
-			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
-			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat8ShorteningProviderDecorator else {
+			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat8ShorteningProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -240,8 +240,8 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 7, password: "pw")
 		let vaultUID = UUID().uuidString
 		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, masterkeyPath: masterkeyPath, password: "pw", storePasswordInKeychain: true).then { [self] in
-			XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
-			guard VaultManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -280,7 +280,7 @@ class VaultManagerTests: XCTestCase {
 			XCTFail("Decorator is not a VaultFormat8ShorteningProviderDecorator")
 			return
 		}
-		XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
+		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 
 	func testCreateVaultDecoratorV7() throws {
@@ -297,7 +297,7 @@ class VaultManagerTests: XCTestCase {
 			XCTFail("Decorator is not a VaultFormat7ShorteningProviderDecorator")
 			return
 		}
-		XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
+		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 
 	func testCreateVaultDecoratorV6() throws {
@@ -314,7 +314,7 @@ class VaultManagerTests: XCTestCase {
 			XCTFail("Decorator is not a VaultFormat6ShorteningProviderDecorator")
 			return
 		}
-		XCTAssertNotNil(VaultManager.cachedDecorators[vaultUID])
+		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 
 	func testCreateVaultDecoratorThrowsForNonSupportedVaultVersion() throws {

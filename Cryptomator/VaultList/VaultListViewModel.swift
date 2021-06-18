@@ -15,14 +15,14 @@ class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 
 	private let dbManager: DatabaseManager
-	private let vaultManager: VaultManager
+	private let vaultManager: VaultDBManager
 	private var observation: TransactionObserver?
 
 	convenience init() {
-		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultManager.shared)
+		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared)
 	}
 
-	init(dbManager: DatabaseManager, vaultManager: VaultManager) {
+	init(dbManager: DatabaseManager, vaultManager: VaultDBManager) {
 		self.dbManager = dbManager
 		self.vaultManager = vaultManager
 	}
