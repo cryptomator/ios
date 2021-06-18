@@ -40,17 +40,16 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 	}
 
 	func createNewVault() -> Promise<Void> {
-		guard let password = password, !password.isEmpty, let confirmingPassword = confirmingPassword, !confirmingPassword.isEmpty else {
+		guard let password = password, !password.isEmpty else {
 			return Promise(CreateNewVaultPasswordViewModelError.emptyPassword)
 		}
-		guard password == confirmingPassword else {
+		guard let confirmingPassword = confirmingPassword, password == confirmingPassword else {
 			return Promise(CreateNewVaultPasswordViewModelError.nonMatchingPasswords)
 		}
 		guard password.count >= CreateNewVaultPasswordViewModel.minimumPasswordLength else {
 			return Promise(CreateNewVaultPasswordViewModelError.tooShortPassword)
 		}
 
-		return VaultManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
 		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
 	}
 }
