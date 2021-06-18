@@ -8,6 +8,10 @@
 
 import UIKit
 class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
+	init(viewModel: CreateNewVaultChooseFolderViewModelProtocol) {
+		super.init(with: viewModel)
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = NSLocalizedString("addVault.createNewVault.title", comment: "")
@@ -43,8 +47,14 @@ class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 
 	@objc func chooseFolder() {
-		let item = Item(type: .folder, path: viewModel.cloudPath)
-		coordinator?.chooseItem(item)
+		guard let viewModel = viewModel as? CreateNewVaultChooseFolderViewModelProtocol else {
+			return
+		}
+		do {
+			coordinator?.chooseItem(try viewModel.chooseCurrentFolder())
+		} catch {
+			coordinator?.handleError(error, for: self)
+		}
 	}
 }
 

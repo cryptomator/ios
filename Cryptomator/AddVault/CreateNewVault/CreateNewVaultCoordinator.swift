@@ -51,7 +51,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
-		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account)
+		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account, vaultName: vaultName)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
 		child.start()
@@ -72,11 +72,13 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, Coordinato
 
 	let provider: CloudProvider
 	let account: CloudProviderAccount
+	let vaultName: String
 
-	init(navigationController: UINavigationController, provider: CloudProvider, account: CloudProviderAccount) {
+	init(navigationController: UINavigationController, provider: CloudProvider, account: CloudProviderAccount, vaultName: String) {
 		self.navigationController = navigationController
 		self.provider = provider
 		self.account = account
+		self.vaultName = vaultName
 	}
 
 	func start() {
@@ -86,8 +88,8 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, Coordinato
 	// MARK: - FolderChoosing
 
 	func showItems(for path: CloudPath) {
-		let viewModel = ChooseFolderViewModel(canCreateFolder: true, cloudPath: path, provider: provider)
-		let chooseFolderVC = CreateNewVaultChooseFolderViewController(with: viewModel)
+		let viewModel = CreateNewVaultChooseFolderViewModel(vaultName: vaultName, cloudPath: path, provider: provider)
+		let chooseFolderVC = CreateNewVaultChooseFolderViewController(viewModel: viewModel)
 		chooseFolderVC.coordinator = self
 		navigationController.pushViewController(chooseFolderVC, animated: true)
 	}
