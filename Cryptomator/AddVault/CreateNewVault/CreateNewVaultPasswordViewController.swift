@@ -62,6 +62,24 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 	}
 
 	@objc func createNewVault() {
+		do {
+			try viewModel.validatePassword()
+		} catch {
+			coordinator?.handleError(error, for: self)
+			return
+		}
+		let alertController = UIAlertController(title: NSLocalizedString("addVault.createNewVault.alert.confirmPassword.title", comment: ""), message: NSLocalizedString("addVault.createNewVault.alert.confirmPassword.message", comment: ""), preferredStyle: .alert)
+		let okAction = UIAlertAction(title: NSLocalizedString("common.button.confirm", comment: ""), style: .default) { _ in
+			self.userConfirmedPassword()
+		}
+
+		alertController.addAction(okAction)
+		alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
+
+		present(alertController, animated: true, completion: nil)
+	}
+
+	private func userConfirmedPassword() {
 		viewModel.createNewVault().then { [weak self] in
 			guard let self = self else { return }
 			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
@@ -113,6 +131,8 @@ private class CreateNewVaultPasswordViewModelMock: CreateNewVaultPasswordViewMod
 	func createNewVault() -> Promise<Void> {
 		return Promise(())
 	}
+
+	func validatePassword() throws {}
 }
 
 struct CreateNewVaultPasswordVC_Preview: PreviewProvider {

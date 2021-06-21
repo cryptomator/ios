@@ -26,9 +26,11 @@
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
-"addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
 "addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors speichern?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\n Um einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Passwort bestätigen?";
+"addVault.createNewVault.alert.confirmPassword.message" = "WICHTIG: Wenn du dein Passwort vergisst, gibt es keine Möglichkeit deine Daten wiederherzustellen.";
+"addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";

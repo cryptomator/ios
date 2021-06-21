@@ -16,6 +16,7 @@ protocol CreateNewVaultPasswordViewModelProtocol {
 	var vaultName: String { get }
 	var password: String? { get set }
 	var confirmingPassword: String? { get set }
+	func validatePassword() throws
 	func createNewVault() -> Promise<Void>
 }
 
@@ -39,17 +40,22 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 		self.vaultUID = vaultUID
 	}
 
-	func createNewVault() -> Promise<Void> {
+	func validatePassword() throws {
 		guard let password = password, !password.isEmpty else {
-			return Promise(CreateNewVaultPasswordViewModelError.emptyPassword)
+			throw CreateNewVaultPasswordViewModelError.emptyPassword
 		}
 		guard let confirmingPassword = confirmingPassword, password == confirmingPassword else {
-			return Promise(CreateNewVaultPasswordViewModelError.nonMatchingPasswords)
+			throw CreateNewVaultPasswordViewModelError.nonMatchingPasswords
 		}
 		guard password.count >= CreateNewVaultPasswordViewModel.minimumPasswordLength else {
-			return Promise(CreateNewVaultPasswordViewModelError.tooShortPassword)
+			throw CreateNewVaultPasswordViewModelError.tooShortPassword
 		}
+	}
 
+	func createNewVault() -> Promise<Void> {
+		guard let password = password else {
+			return Promise(CreateNewVaultPasswordViewModelError.emptyPassword)
+		}
 		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
 	}
 }
