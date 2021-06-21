@@ -18,7 +18,7 @@ extension URL {
 	 */
 	func zipFolder(toFileAt dstURL: URL) throws {
 		var isDirectory: ObjCBool = false
-		guard self.isFileURL && FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory) && isDirectory.boolValue == true else {
+		guard isFileURL, FileManager.default.fileExists(atPath: path, isDirectory: &isDirectory), isDirectory.boolValue == true else {
 			throw ZipError.unexpectedSourceURL
 		}
 		var readError: NSError?

@@ -21,8 +21,8 @@ public enum LoggerSetup {
 	}()
 }
 
-extension DDFileLogger {
-	public static var sharedInstance: DDFileLogger = {
+public extension DDFileLogger {
+	static var sharedInstance: DDFileLogger = {
 		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
 			print("containerURL is nil")
 			return DDFileLogger()
