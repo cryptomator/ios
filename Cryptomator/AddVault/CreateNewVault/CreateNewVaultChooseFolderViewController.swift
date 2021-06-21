@@ -63,7 +63,7 @@ private class FailureView: DetectedVaultView {
 		let configuration = UIImage.SymbolConfiguration(pointSize: 120)
 		let warningSymbol = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
 		let imageView = UIImageView(image: warningSymbol)
-		imageView.tintColor = UIColor(named: "triangleColor")
+		imageView.tintColor = UIColor(named: "yellow")
 		super.init(imageView: imageView, text: NSLocalizedString("addVault.createNewVault.detectedMasterkey.text", comment: ""))
 	}
 }

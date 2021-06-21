@@ -61,7 +61,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	func close() {
 		navigationController.dismiss(animated: true)
-//		parentCoordinator?.close()
+		parentCoordinator?.childDidFinish(self)
 	}
 }
 
