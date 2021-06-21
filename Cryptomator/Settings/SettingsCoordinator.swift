@@ -51,4 +51,3 @@ class SettingsCoordinator: Coordinator {
 		parentCoordinator?.childDidFinish(self)
 	}
 }
-
