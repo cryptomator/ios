@@ -70,7 +70,7 @@ private class VaultSuccessHeaderView: UIView {
 		return imageView
 	}()
 
-	private lazy var infoText: UILabel = {
+	private lazy var infoLabel: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
 		label.numberOfLines = 0
@@ -79,18 +79,18 @@ private class VaultSuccessHeaderView: UIView {
 
 	convenience init(vaultName: String) {
 		self.init(frame: .zero)
-		infoText.text = String(format: NSLocalizedString("addVault.success.info", comment: ""), vaultName)
-		let stack = UIStackView(arrangedSubviews: [successImage, infoText])
+		infoLabel.text = String(format: NSLocalizedString("addVault.success.info", comment: ""), vaultName)
+		let stack = UIStackView(arrangedSubviews: [successImage, infoLabel])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
-		stack.spacing = 10
+		stack.spacing = 20
 		addSubview(stack)
 
 		NSLayoutConstraint.activate([
 			stack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
 			stack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			stack.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			stack.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+			stack.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 12),
+			stack.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -12)
 		])
 	}
 }

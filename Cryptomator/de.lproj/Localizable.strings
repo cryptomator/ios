@@ -34,7 +34,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
-"addVault.success.info" = "Tresor „%@“ hinzugefügt.\nGreife auf diesen Tresor über die Dateien-App zu.";
+"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die Dateien-App zu.";
 "addVault.success.openFilesApp" = "Dateien-App öffnen";
 "addVault.success.footer" = "Falls du es noch nicht getan hast, aktiviere Cryptomator in der Dateien-App.";
 
