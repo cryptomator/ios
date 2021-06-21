@@ -33,8 +33,8 @@ class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 		NSLayoutConstraint.activate([
 			failureView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			failureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			failureView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor),
-			failureView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor)
+			failureView.leadingAnchor.constraint(equalTo: containerView.readableContentGuide.leadingAnchor),
+			failureView.trailingAnchor.constraint(equalTo: containerView.readableContentGuide.trailingAnchor)
 		])
 
 		// Prevents the view from being placed under the navigation bar
