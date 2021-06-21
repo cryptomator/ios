@@ -102,7 +102,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		case .legacyMasterkey:
 			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, masterkeyPath: item.path, vaultID: UUID().uuidString)
 		default:
-			handleError(ExistingVaultCoordinatorError.wrongItemType, for: navigationController)
+			handleError(VaultCoordinatorError.wrongItemType, for: navigationController)
 			return
 		}
 		let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
@@ -120,8 +120,4 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		childCoordinators.append(child)
 		child.start()
 	}
-}
-
-enum ExistingVaultCoordinatorError: Error {
-	case wrongItemType
 }

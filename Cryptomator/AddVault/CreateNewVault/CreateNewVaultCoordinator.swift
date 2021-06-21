@@ -100,11 +100,13 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 
 	func chooseItem(_ item: Item) {
 		switch item.type {
-		default:
+		case .folder:
 			let viewModel = CreateNewVaultPasswordViewModel(vaultPath: item.path, account: account, vaultUID: UUID().uuidString)
 			let passwordVC = CreateNewVaultPasswordViewController(viewModel: viewModel)
 			passwordVC.coordinator = self
 			navigationController.pushViewController(passwordVC, animated: true)
+		default:
+			handleError(VaultCoordinatorError.wrongItemType, for: navigationController)
 		}
 	}
 
