@@ -9,9 +9,13 @@
 "common.alert.error.title" = "Fehler";
 "common.button.add" = "Hinzufügen";
 "common.button.cancel" = "Abbrechen";
+"common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
 "common.button.done" = "Fertig";
+"common.button.create" = "Erstellen";
+"common.button.createFolder" = "Neuer Ordner";
 "common.button.edit" = "Bearbeiten";
+"common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
 "common.footer.learnMore" = "Mehr erfahren.";
@@ -22,6 +26,10 @@
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
+"addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors speichern?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Passwort bestätigen?";
+"addVault.createNewVault.alert.confirmPassword.message" = "WICHTIG: Wenn du dein Passwort vergisst, gibt es keine Möglichkeit, deine Daten wiederherzustellen.";
 "addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
@@ -46,3 +54,9 @@
 "untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"setVaultName.cells.name" = "Tresorname";
+
+"createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
+"createNewFolder.cells.name" = "Ordnername";
