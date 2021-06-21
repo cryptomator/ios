@@ -32,10 +32,9 @@ Please make sure that your code is correctly formatted and passes linter validat
 exit $?
 ```
 
-You may have to make the scripts executable:
+And make your pre-commit hook executable:
 
 ```sh
-chmod +x Scripts/process.sh
 chmod +x .git/hooks/pre-commit
 ```
 
