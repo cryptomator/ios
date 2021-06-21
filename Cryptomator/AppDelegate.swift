@@ -6,6 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommon
@@ -27,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error
 
-			print("dbURL is nil")
+			DDLogError("dbURL is nil")
 			return false
 		}
 		do {
@@ -37,15 +39,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} catch {
 			// MARK: Handle error
 
-			print("Error while initializing the CryptomatorDatabase: \(error)")
+			DDLogError("Error while initializing the CryptomatorDatabase: \(error)")
 			return false
 		}
 
 		// Clean up
 		VaultDBManager.shared.removeAllUnusedFileProviderDomains().then {
-			print("removed all unused FileProviderDomains")
+			DDLogDebug("Removed all unused FileProviderDomains")
 		}.catch { error in
-			print("removeAllUnusedFileProviderDomains failed with error: \(error)")
+			DDLogError("Removing all unused FileProviderDomains failed with error: \(error)")
 		}
 
 		// Set up cloud storage services
@@ -57,7 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		do {
 			OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
 		} catch {
-			print("Error while setting up OneDrive: \(error)")
+			DDLogError("Error while setting up OneDrive: \(error)")
 		}
 
 		// Application-wide styling

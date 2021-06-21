@@ -28,12 +28,7 @@ public extension DDFileLogger {
 			return DDFileLogger()
 		}
 		let logsDirectory = containerURL.appendingPathComponent("Logs")
-		do {
-			try FileManager.default.createDirectory(at: logsDirectory, withIntermediateDirectories: false, attributes: nil)
-		} catch {
-			print(error)
-		}
-		print("LogsDirectory: \(logsDirectory.path)")
+		try? FileManager.default.createDirectory(at: logsDirectory, withIntermediateDirectories: false, attributes: nil)
 		let logFileManager = DDLogFileManagerDefault(logsDirectory: logsDirectory.path)
 		return DDFileLogger(logFileManager: logFileManager)
 	}()

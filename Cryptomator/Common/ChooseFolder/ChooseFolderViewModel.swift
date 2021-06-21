@@ -6,6 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Foundation
 
@@ -76,7 +78,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	func getVaultConfigCloudPath(items: [CloudItemMetadata]) -> CloudPath? {
 		let vaultConfigItem = items.first(where: { $0.name == "vault.cryptomator" && $0.itemType == .file })
 		guard items.contains(where: { $0.name == "d" && $0.itemType == .folder }) else {
-			print("Missing d folder")
+			DDLogDebug("Missing d folder")
 			return nil
 		}
 		return vaultConfigItem?.cloudPath
@@ -85,7 +87,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	func getLegacyMasterkeyPath(items: [CloudItemMetadata]) -> CloudPath? {
 		let masterkeyItem = items.first(where: { $0.name == "masterkey.cryptomator" && $0.itemType == .file })
 		guard items.contains(where: { $0.name == "d" && $0.itemType == .folder }) else {
-			print("Missing d folder")
+			DDLogDebug("Missing d folder")
 			return nil
 		}
 		return masterkeyItem?.cloudPath

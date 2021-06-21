@@ -6,6 +6,8 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import FileProvider
 import Foundation
 
@@ -33,7 +35,7 @@ public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 			for containerItemIdentifier in containerItemIdentifiers {
 				self.manager.signalEnumerator(for: containerItemIdentifier) { error in
 					if let error = error {
-						print("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
+						DDLogDebug("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
 					}
 				}
 			}

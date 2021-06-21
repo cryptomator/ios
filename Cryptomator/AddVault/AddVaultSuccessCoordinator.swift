@@ -6,8 +6,11 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import UIKit
+
 class AddVaultSuccessCoordinator: AddVaultSuccesing, Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
@@ -41,12 +44,12 @@ class AddVaultSuccessCoordinator: AddVaultSuccesing, Coordinator {
 
 	func showFilesApp(forVaultUID vaultUID: String) {
 		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
-			print("containerURL is nil")
+			DDLogDebug("containerURL is nil")
 			return
 		}
 		let url = containerURL.appendingPathComponent("File Provider Storage").appendingPathComponent(vaultUID)
 		guard let sharedDocumentsURL = changeSchemeToSharedDocuments(for: url) else {
-			print("Conversion to shared documents url failed")
+			DDLogDebug("Conversion to shared documents url failed")
 			return
 		}
 		UIApplication.shared.open(sharedDocumentsURL)
