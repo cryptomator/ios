@@ -26,8 +26,8 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 		NSLayoutConstraint.activate([
 			successView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			successView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			successView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor),
-			successView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor)
+			successView.leadingAnchor.constraint(equalTo: containerView.readableContentGuide.leadingAnchor),
+			successView.trailingAnchor.constraint(equalTo: containerView.readableContentGuide.trailingAnchor)
 		])
 
 		// Prevents the view from being placed under the navigation bar

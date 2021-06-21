@@ -29,10 +29,10 @@ class DetectedVaultView: UIView {
 		NSLayoutConstraint.activate([
 			imageView.topAnchor.constraint(equalTo: topAnchor),
 			imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+			label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
 			label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
 			label.bottomAnchor.constraint(equalTo: bottomAnchor),
-			label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
+			label.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
 		])
 	}
 
