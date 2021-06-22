@@ -2,6 +2,6 @@ Welcome to the first alpha version of the new Cryptomator for iOS app!
 
 This new app is fully integrated into the Files app.
 
-Be aware that a lot of things aren't working yet. E.g., you can't create a new vault yet. Make sure to create a new vault with our other apps so that you can add an existing vault.
+Be aware that a lot of things aren't working yet. E.g., you can't use iCloud Drive and "other" file providers yet.
 
 We're looking forward to your feedback!
