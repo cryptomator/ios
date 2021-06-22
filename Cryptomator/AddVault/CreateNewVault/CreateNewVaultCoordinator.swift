@@ -31,6 +31,13 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func showAccountList(for cloudProviderType: CloudProviderType) {
+		if cloudProviderType == .localFileSystem {
+			let alertController = UIAlertController(title: "Info", message: NSLocalizedString("testFlight.otherFileProviders.alert.text", comment: ""), preferredStyle: .alert)
+			let okAction = UIAlertAction(title: NSLocalizedString("common.button.ok", comment: ""), style: .default)
+			alertController.addAction(okAction)
+			navigationController.present(alertController, animated: true, completion: nil)
+			return
+		}
 		let viewModel = AccountListViewModel(with: cloudProviderType)
 		let accountListVC = AccountListViewController(with: viewModel)
 		accountListVC.coordinator = self

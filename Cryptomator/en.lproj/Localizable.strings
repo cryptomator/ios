@@ -60,3 +60,6 @@
 
 "createNewFolder.header.title" = "Choose a name for the folder.";
 "createNewFolder.cells.name" = "Folder Name";
+
+
+"testFlight.otherFileProviders.alert.text" =  "Other file providers are currently not available. Stay tuned for an update!";

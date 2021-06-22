@@ -60,3 +60,5 @@
 
 "createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "createNewFolder.cells.name" = "Ordnername";
+
+"testFlight.otherFileProviders.alert.text" =  "Andere Datei-Anbieter sind derzeit nicht verfügbar. Diese Funktion folgt bald in einem Update!";

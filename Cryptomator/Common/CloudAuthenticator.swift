@@ -65,7 +65,7 @@ class CloudAuthenticator {
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		case .localFileSystem:
-			fatalError("not supported (yet)")
+			return Promise(CloudAuthenticatorError.functionNotYetSupported)
 		}
 	}
 
@@ -87,4 +87,8 @@ class CloudAuthenticator {
 		}
 		try accountManager.removeAccount(with: account.accountUID)
 	}
+}
+
+enum CloudAuthenticatorError: Error {
+	case functionNotYetSupported
 }
