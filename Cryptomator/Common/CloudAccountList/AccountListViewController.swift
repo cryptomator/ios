@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+
 class AccountListViewController: SingleSectionTableViewController {
-	private let header = EditableTableViewHeader(title: "Authentications")
-	private let viewModel: AccountListViewModelProtocol
 	weak var coordinator: (Coordinator & AccountListing)?
+
+	private let viewModel: AccountListViewModelProtocol
+	private let header = EditableTableViewHeader(title: "Authentications")
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -22,13 +24,9 @@ class AccountListViewController: SingleSectionTableViewController {
 		navigationItem.rightBarButtonItem = addNewVaulButton
 	}
 
-	override func loadView() {
-		super.loadView()
-		title = viewModel.title
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		title = viewModel.title
 		tableView.register(AccountCell.self, forCellReuseIdentifier: "AccountCell")
 		viewModel.startListenForChanges { [weak self] error in
 			guard let self = self else { return }
@@ -38,7 +36,7 @@ class AccountListViewController: SingleSectionTableViewController {
 			self.tableView.reloadData()
 			if self.viewModel.accounts.isEmpty {
 				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add an account")
-				// Prevents the EmptyListMessageView from being placed under the navigation bar.
+				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
 			} else {
@@ -49,14 +47,19 @@ class AccountListViewController: SingleSectionTableViewController {
 		}
 	}
 
+	override func setEditing(_ editing: Bool, animated: Bool) {
+		super.setEditing(editing, animated: animated)
+		header.isEditing = editing
+	}
+
 	// TODO: Refactor this & VaultListVC and subclass
 	@objc func editButtonToggled() {
-		tableView.setEditing(!tableView.isEditing, animated: true)
-		header.isEditing = tableView.isEditing
+		setEditing(!isEditing, animated: true)
 	}
 
 	@objc func showLogoutActionSheet(sender: AccountCellButton) {
-		guard let cell = sender.cell, let indexpath = tableView.indexPath(for: cell) else {
+		// swiftlint:disable:next unused_optional_binding
+		guard let cell = sender.cell, let _ = tableView.indexPath(for: cell) else {
 			return
 		}
 		sender.setSelected(true)
@@ -64,23 +67,18 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	@objc func addNewAccount() {
+		setEditing(false, animated: true)
 		coordinator?.showAddAccount(for: viewModel.cloudProviderType, from: self)
 	}
 
-	// MARK: TableView
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		guard !viewModel.accounts.isEmpty else {
-			return nil
-		}
-		return header
-	}
+	// MARK: - UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.accounts.count
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "AccountCell", for: indexPath) as! AccountCell
 		let account = viewModel.accounts[indexPath.row]
 		if #available(iOS 14, *) {
@@ -101,6 +99,15 @@ class AccountListViewController: SingleSectionTableViewController {
 		}
 	}
 
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		guard !viewModel.accounts.isEmpty else {
+			return nil
+		}
+		return header
+	}
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let accountInfo = viewModel.accountInfos[indexPath.row]
 		do {
@@ -111,9 +118,9 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
-import CloudAccessPrivateCore
+#if DEBUG
 import CryptomatorCloudAccess
+import CryptomatorCommonCore
 import Promises
 import SwiftUI
 private class AccountListViewModelMock: AccountListViewModelProtocol {
@@ -129,7 +136,6 @@ private class AccountListViewModelMock: AccountListViewModelProtocol {
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}
 }
 
-@available(iOS 13, *)
 struct AccountListVCPreview: PreviewProvider {
 	static var previews: some View {
 		AccountListViewController(with: AccountListViewModelMock()).toPreview()

@@ -1,0 +1,65 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Created by Tobias Hagemann on 19.02.21.
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Error";
+"common.button.add" = "Add";
+"common.button.cancel" = "Cancel";
+"common.button.choose" = "Choose";
+"common.button.confirm" = "Confirm";
+"common.button.create" = "Create";
+"common.button.createFolder" = "Create Folder";
+"common.button.done" = "Done";
+"common.button.edit" = "Edit";
+"common.button.next" = "Next";
+"common.button.ok" = "OK";
+"common.button.remove" = "Remove";
+"common.footer.learnMore" = "Learn more.";
+"common.cloudProviderType.localFileSystem" = "Other File Provider";
+"common.cells.password" = "Password";
+"common.cells.url" = "URL";
+"common.cells.username" = "Username";
+
+"addVault.title" = "Add Vault";
+"addVault.createNewVault.title" = "Create New Vault";
+"addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Confirm Password?";
+"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
+"addVault.openExistingVault.title" = "Open Existing Vault";
+"addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
+"addVault.openExistingVault.password.footer" = "Enter password for \"%@\"";
+"addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
+"addVault.success.openFilesApp" = "Open Files App";
+"addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
+
+"settings.title" = "Settings";
+"settings.aboutCryptomator" = "About Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Send Log File";
+
+"vaultList.header.title" = "Vaults";
+"vaultList.emptyList.message" = "Tap here to add a vault";
+"vaultList.alert.remove.title" = "Remove Vault?";
+"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
+"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
+
+"setVaultName.header.title" = "Choose a name for the vault.";
+"setVaultName.cells.name" = "Vault Name";
+
+"createNewFolder.header.title" = "Choose a name for the folder.";
+"createNewFolder.cells.name" = "Folder Name";
+
+
+"testFlight.otherFileProviders.alert.text" =  "Other file providers are currently not available. Stay tuned for an update!";

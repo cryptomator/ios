@@ -5,20 +5,18 @@
 //  Created by Philipp Schmid on 27.01.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
-import CryptomatorCloudAccess
+
+import CryptomatorCloudAccessCore
 import Foundation
 
 struct DetectedMasterkeyViewModel {
 	let masterkeyPath: CloudPath
+	var text: String {
+		return String(format: NSLocalizedString("addVault.openExistingVault.detectedMasterkey.text", comment: ""), vaultName)
+	}
+
 	private var vaultName: String {
 		let masterkeyParentPath = masterkeyPath.deletingLastPathComponent()
 		return masterkeyParentPath.lastPathComponent
-	}
-
-	var text: String {
-		"""
-		Cryptomator detected the vault \"\(vaultName)\".
-		Would you like to add this vault?
-		"""
 	}
 }

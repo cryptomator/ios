@@ -6,21 +6,19 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import GRDB
 import Promises
+
 class AccountListViewModel: AccountListViewModelProtocol {
 	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
 	private var observation: TransactionObserver?
 
-	init(with cloudProviderType: CloudProviderType,
-	     dbManager: DatabaseManager = DatabaseManager.shared,
-	     cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountManager.shared))
-	{
+	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) {
 		self.cloudProviderType = cloudProviderType
 		self.dbManager = dbManager
 		self.cloudAuthenticator = cloudAuthenticator
@@ -41,7 +39,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	func refreshDropboxItems() -> Promise<Void> {
 		return all(accountInfos
-			.map { DropboxCredential(tokenUid: $0.accountUID) }
+			.map { DropboxCredential(tokenUID: $0.accountUID) }
 			.map { self.createAccountCellContent(for: $0) }
 		).then { accounts in
 			self.accounts = accounts
@@ -51,10 +49,13 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
 		case .dropbox:
-			let credential = DropboxCredential(tokenUid: accountInfo.accountUID)
+			let credential = DropboxCredential(tokenUID: accountInfo.accountUID)
 			return createAccountCellContentPlaceholder(for: credential)
 		case .googleDrive:
-			let credential = GoogleDriveCredential(with: accountInfo.accountUID)
+			let credential = GoogleDriveCredential(tokenUID: accountInfo.accountUID)
+			return try createAccountCellContent(for: credential)
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .webDAV:
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountInfo.accountUID) else {
@@ -82,8 +83,20 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	private func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
-		return AccountCellContent(mainLabelText: credential.username, detailLabelText: credential.baseURL.path)
+	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
+		let username = try credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+	}
+
+	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
+		let detailLabelText: String
+		let path = credential.baseURL.path
+		if !path.isEmpty, path != "/" {
+			detailLabelText = "\(credential.username) • \(path)"
+		} else {
+			detailLabelText = credential.username
+		}
+		return AccountCellContent(mainLabelText: credential.baseURL.host ?? "<unknown-host>", detailLabelText: detailLabelText)
 	}
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {
@@ -102,7 +115,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
-		observation = dbManager.observeVaultAccounts(onError: onError, onChange: { _ in
+		observation = dbManager.observeCloudProviderAccounts(onError: onError, onChange: { _ in
 			do {
 				try self.refreshItems()
 				onChange()

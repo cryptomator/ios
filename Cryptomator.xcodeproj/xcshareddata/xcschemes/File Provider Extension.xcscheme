@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1240"
+   LastUpgradeVersion = "1250"
    wasCreatedForAppExtension = "YES"
    version = "2.0">
    <BuildAction
@@ -43,6 +43,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4A51E5FB261C9A7000CC8C9B"
+               BuildableName = "CryptomatorCommonHostedTests.xctest"
+               BlueprintName = "CryptomatorCommonHostedTests"
+               ReferencedContainer = "container:Cryptomator.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

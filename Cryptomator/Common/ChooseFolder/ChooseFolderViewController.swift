@@ -6,18 +6,19 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import UIKit
+
 class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
 	weak var coordinator: (Coordinator & FolderChoosing)?
+
 	private lazy var header: HeaderWithSearchbar = {
 		return HeaderWithSearchbar(title: viewModel.headerTitle, searchBar: searchController.searchBar)
 	}()
 
 	private lazy var searchController: UISearchController = {
-		let searchController = UISearchController(searchResultsController: self)
-		return searchController
+		return UISearchController(searchResultsController: self)
 	}()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
@@ -25,12 +26,28 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		super.init()
 	}
 
-	override func loadView() {
-		super.loadView()
+	override func viewDidLoad() {
+		super.viewDidLoad()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		cancelButton.tintColor = UIColor(named: "primary")
 		let toolbarItems = [cancelButton]
 		setToolbarItems(toolbarItems, animated: false)
+		tableView.register(FolderCell.self, forCellReuseIdentifier: "FolderCell")
+		tableView.register(FileCell.self, forCellReuseIdentifier: "FileCell")
+		// pull to refresh
+		initRefreshControl()
+		viewModel.startListenForChanges { [weak self] error in
+			guard let self = self else { return }
+			self.coordinator?.handleError(error, for: self)
+		} onChange: { [weak self] in
+			guard let self = self else { return }
+			self.refreshControl?.endRefreshing()
+			self.tableView.reloadData()
+		} onVaultDetection: { [weak self] vault in
+			guard let self = self else { return }
+			self.tableView.reloadData()
+			self.showDetectedVault(vault)
+		}
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -47,27 +64,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		}
 	}
 
-	override func viewDidLoad() {
-		super.viewDidLoad()
-		tableView.register(FolderCell.self, forCellReuseIdentifier: "FolderCell")
-		tableView.register(FileCell.self, forCellReuseIdentifier: "FileCell")
-		// pull to refresh
-		initRefreshControl()
-		viewModel.startListenForChanges { [weak self] error in
-			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
-		} onChange: { [weak self] in
-			guard let self = self else { return }
-			self.refreshControl?.endRefreshing()
-			self.tableView.reloadData()
-		} onMasterkeyDetection: { [weak self] masterkeyPath in
-			guard let self = self else { return }
-			self.tableView.reloadData()
-			self.showDetectedMasterkey(at: masterkeyPath)
-		}
-	}
-
-	func showDetectedMasterkey(at path: CloudPath) {
+	func showDetectedVault(_ vault: Item) {
 		fatalError("not implemented")
 	}
 
@@ -90,14 +87,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		tableView.setContentOffset(CGPoint(x: 0, y: -(refreshControl?.frame.size.height ?? 0)), animated: true)
 	}
 
-	// MARK: TableView
-
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		if viewModel.foundMasterkey {
-			return nil
-		}
-		return header
-	}
+	// MARK: - UITableViewDataSource
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return viewModel.items.count
@@ -108,8 +98,10 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		let item = viewModel.items[indexPath.row]
 		switch item.itemType {
 		case .folder:
+			// swiftlint:disable:next force_cast
 			cell = tableView.dequeueReusableCell(withIdentifier: "FolderCell", for: indexPath) as! FolderCell
 		default:
+			// swiftlint:disable:next force_cast
 			cell = tableView.dequeueReusableCell(withIdentifier: "FileCell", for: indexPath) as! FileCell
 		}
 
@@ -120,6 +112,15 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			cell.configure(with: item)
 		}
 		return cell
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		if viewModel.foundMasterkey {
+			return nil
+		}
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -138,11 +139,7 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 		self.title.text = title
 
 		self.title.font = UIFont.preferredFont(forTextStyle: .footnote)
-		if #available(iOS 13, *) {
-			self.title.textColor = .secondaryLabel
-		} else {
-			self.title.textColor = UIColor(named: "secondaryLabel")
-		}
+		self.title.textColor = .secondaryLabel
 		searchBar.sizeToFit()
 		searchBar.backgroundColor = .clear
 		searchBar.backgroundImage = UIImage()
@@ -165,41 +162,34 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
+
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 	let foundMasterkey = false
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
-	let items = [CloudItemMetadata(name: "Bar",
-	                               cloudPath: CloudPath("/Bar"),
-	                               itemType: .file,
-	                               lastModifiedDate: Date(),
-	                               size: 42),
-	             CloudItemMetadata(name: "Foo",
-	                               cloudPath: CloudPath("/Foo"),
-	                               itemType: .folder,
-	                               lastModifiedDate: nil,
-	                               size: nil)]
+	let items = [
+		CloudItemMetadata(name: "Bar", cloudPath: CloudPath("/Bar"), itemType: .file, lastModifiedDate: Date(), size: 42),
+		CloudItemMetadata(name: "Foo", cloudPath: CloudPath("/Foo"), itemType: .folder, lastModifiedDate: nil, size: nil)
+	]
 
 	init(cloudPath: CloudPath, canCreateFolder: Bool) {
 		self.canCreateFolder = canCreateFolder
 		self.cloudPath = cloudPath
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onMasterkeyDetection: @escaping (CloudPath) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
 		onChange()
 	}
 
 	func refreshItems() {}
 }
 
-@available(iOS 13, *)
 struct ChooseFolderVCPreview: PreviewProvider {
 	static var previews: some View {
-		ChooseFolderViewController(with: ChooseFolderViewModelMock(cloudPath: CloudPath("/Preview/Folder"),
-		                                                           canCreateFolder: true)).toPreview()
+		ChooseFolderViewController(with: ChooseFolderViewModelMock(cloudPath: CloudPath("/Preview/Folder"), canCreateFolder: true)).toPreview()
 	}
 }
 #endif

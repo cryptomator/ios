@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import UIKit
 
 enum State {
@@ -22,6 +22,8 @@ extension UIImage {
 			assetName = "dropbox-vault"
 		case .googleDrive:
 			assetName = "google-drive-vault"
+		case .oneDrive:
+			assetName = "onedrive-vault"
 		case .webDAV:
 			assetName = "webdav-vault"
 		case .localFileSystem:
@@ -40,6 +42,8 @@ extension UIImage {
 			assetName = "dropbox"
 		case .googleDrive:
 			assetName = "google-drive"
+		case .oneDrive:
+			assetName = "onedrive"
 		case .localFileSystem:
 			assetName = "file-provider"
 		case .webDAV:

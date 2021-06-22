@@ -6,20 +6,22 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import Foundation
+
 extension CloudProviderType {
 	func localizedString() -> String {
-		// TODO: real Localization
 		switch self {
 		case .dropbox:
 			return "Dropbox"
 		case .googleDrive:
 			return "Google Drive"
+		case .oneDrive:
+			return "OneDrive"
 		case .webDAV:
 			return "WebDAV"
 		case .localFileSystem:
-			return "Other File Provider"
+			return NSLocalizedString("common.cloudProviderType.localFileSystem", comment: "")
 		}
 	}
 }

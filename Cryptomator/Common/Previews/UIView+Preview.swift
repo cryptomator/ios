@@ -6,14 +6,13 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import SwiftUI
 import UIKit
 
-@available(iOS 13, *)
 extension UIView {
 	private struct Preview: UIViewRepresentable {
-		// this variable is used for injecting the current view controller
+		// this variable is used for injecting the current view
 		let view: UIView
 
 		func makeUIView(context: Context) -> some UIView {
@@ -24,7 +23,7 @@ extension UIView {
 	}
 
 	func toPreview() -> some View {
-		// inject self (the current view controller) for the preview
+		// inject self (the current view) for the preview
 		Preview(view: self)
 	}
 }

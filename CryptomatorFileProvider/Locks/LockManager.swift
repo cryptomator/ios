@@ -6,44 +6,42 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import Foundation
 import Promises
+
 /**
  Provides a path-based locking mechanism as described by [Ritik Malhotra](https://people.eecs.berkeley.edu/~kubitron/courses/cs262a-F14/projects/reports/project6_report.pdf)
 
  Usage Example:
  ```
  let pathLock = LockManager.getPathLockForReading("/foo/bar/baz")
- let dataLock: LockManager.getDataLockForWriting("/foo/bar/baz")
+ let dataLock = LockManager.getDataLockForWriting("/foo/bar/baz")
  pathLock.lock().then {
- 	datalock.lock()
+ 	dataLock.lock()
  }.then {
  	// write to file
  }.always {
   	dataLock.unlock().then{
-  	 	pathLock.unlock()
+ 		pathLock.unlock()
  	}
+ }
+ ```
+
+ Alternatively, use the convenience method to lock/unlock multiple locks in order:
+ ```
+ FileSystemLock.lockInOrder([pathLock, dataLock]).then {
+ 	// write to file
+ }.always {
+ 	_ = FileSystemLock.unlockInOrder([dataLock, pathLock])
  }
  ```
  */
 class LockManager {
 	private static var pathLocks = [String: RWLock]()
 	private static var dataLocks = [String: RWLock]()
-	fileprivate static let queue = DispatchQueue(label: "LockManager Queue", qos: .userInitiated, attributes: .concurrent)
+	private static let queue = DispatchQueue(label: "LockManager Queue", qos: .userInitiated, attributes: .concurrent)
 	private static let dictionaryQueue = DispatchQueue(label: "LockManager dicitionaryQueue")
-
-	public static func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
-		let partialPaths = path.getPartialCloudPaths()
-		let pendingStartLockPromise = Promise<Void>.pending()
-		let readLockPromise = pendingStartLockPromise.then {
-			getPathLocks(for: partialPaths)
-		}.then { locks in
-			// pass partialPaths only for debug / log
-			return readLock(locks: locks, paths: partialPaths)
-		}
-		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
-	}
 
 	private static func readLock(locks: [RWLock], paths: [CloudPath]) -> Promise<LockNode> {
 		return Promise<LockNode> { fulfill, _ in
@@ -59,6 +57,30 @@ class LockManager {
 		}
 	}
 
+	private static func writeLock(lock: RWLock, path: CloudPath) -> Promise<LockNode> {
+		return Promise<LockNode> { fulfill, _ in
+			queue.async {
+				let lockNode = LockNode(path: path.path, lock: lock)
+				lockNode.writeLock()
+				fulfill(lockNode)
+			}
+		}
+	}
+
+	// MARK: - Path Locks
+
+	public static func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
+		let partialPaths = path.getPartialCloudPaths()
+		let pendingStartLockPromise = Promise<Void>.pending()
+		let readLockPromise = pendingStartLockPromise.then {
+			getPathLocks(for: partialPaths)
+		}.then { locks in
+			// pass partialPaths only for debug / log
+			return readLock(locks: locks, paths: partialPaths)
+		}
+		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
+	}
+
 	public static func getPathLockForWriting(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let writeLockPromise = pendingStartLockPromise.then {
@@ -70,17 +92,7 @@ class LockManager {
 		return FileSystemLock(lockPromise: writeLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	private static func writeLock(lock: RWLock, path: CloudPath) -> Promise<LockNode> {
-		return Promise<LockNode> { fulfill, _ in
-			queue.async {
-				let lockNode = LockNode(path: path.path, lock: lock)
-				lockNode.writeLock()
-				fulfill(lockNode)
-			}
-		}
-	}
-
-	// MARK: DataLocks
+	// MARK: - Data Locks
 
 	public static func getDataLockForReading(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
@@ -104,7 +116,7 @@ class LockManager {
 		return FileSystemLock(lockPromise: writeLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	// MARK: Synchronized Dictionary Access
+	// MARK: - Synchronized Dictionary Access
 
 	private static func getPathLocks(for cloudPaths: [CloudPath]) -> Promise<[RWLock]> {
 		return Promise<[RWLock]> { fulfill, _ in
@@ -152,14 +164,18 @@ class LockManager {
 
 extension CloudPath {
 	/**
-	   Get all partialCloudPaths from the current CloudPath.
-	   e.g.: currentCloudPath = "/AAA/BBB/CCC/example.txt"
-	   returns the following CloudPaths:
-	  "/", "/AAA/", "/AAA/BBB/", "/AAA/BBB/CCC/"
+	 Get all partial cloud paths from the current cloud path.
 
-	   - Precondition: startIndex > 0 (default: startIndex = 1)
+	 Example:
 
-	   - Postcondition: returned array.count > 0
+	 `currentCloudPath = "/AAA/BBB/CCC/example.txt"`
+
+	 This function returns the following cloud paths:
+
+	 `["/", "/AAA/", "/AAA/BBB/", "/AAA/BBB/CCC/", "/AAA/BBB/CCC/example.txt"]`
+
+	 - Precondition: `startIndex > 0` (default: `startIndex = 1`).
+	 - Postcondition: Returned `array.count > 0`.
 	 */
 	func getPartialCloudPaths(startIndex: Int = 1) -> [CloudPath] {
 		precondition(startIndex > 0)

@@ -12,18 +12,20 @@ import CryptomatorFileProvider
 import FileProvider
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
-	var enumeratedItemIdentifier: NSFileProviderItemIdentifier
-	let domain: NSFileProviderDomain
-	let manager: NSFileProviderManager
-	let dbPath: URL
-	let notificator: FileProviderNotificator
+	private let enumeratedItemIdentifier: NSFileProviderItemIdentifier
+	private let notificator: FileProviderNotificator
+	private let domain: NSFileProviderDomain
+	private let manager: NSFileProviderManager
+	private let dbPath: URL
+	private weak var localURLProvider: LocalURLProvider?
 
-	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, domain: NSFileProviderDomain, manager: NSFileProviderManager, dbPath: URL, notificator: FileProviderNotificator) {
+	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificator, domain: NSFileProviderDomain, manager: NSFileProviderManager, dbPath: URL, localURLProvider: LocalURLProvider?) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
+		self.notificator = notificator
 		self.domain = domain
 		self.manager = manager
 		self.dbPath = dbPath
-		self.notificator = notificator
+		self.localURLProvider = localURLProvider
 		super.init()
 	}
 
@@ -48,8 +50,8 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
-		DecoratorManager.getDecorator(for: domain, with: manager, dbPath: dbPath).then { decorator in
-			decorator.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
+		FileProviderAdapterManager.getAdapter(for: domain, with: manager, dbPath: dbPath, delegate: localURLProvider, notificator: notificator).then { adapter in
+			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
 		}.then { itemList in
 			observer.didEnumerate(itemList.items)
 			observer.finishEnumerating(upTo: itemList.nextPageToken)
@@ -75,7 +77,6 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		var itemsUpdate = [FileProviderItem]()
 
 		// Report the deleted items
-		//
 		if enumeratedItemIdentifier == .workingSet {
 			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteWorkingSetItemIdentifier {
 				itemsDelete.append(itemIdentifier)
@@ -89,7 +90,6 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		}
 
 		// Report the updated items
-		//
 		if enumeratedItemIdentifier == .workingSet {
 			for (_, item) in notificator.fileProviderSignalUpdateWorkingSetItem {
 				itemsUpdate.append(item)

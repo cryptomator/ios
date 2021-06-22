@@ -6,12 +6,13 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivate
-import CloudAccessPrivateCore
 import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 import UIKit
+
 class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
 
@@ -20,28 +21,33 @@ class CloudAuthenticator {
 	}
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let authenticator = DropboxCloudAuthenticator()
+		let authenticator = DropboxAuthenticator()
 		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .dropbox)
+			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let credential = GoogleDriveCredential(with: UUID().uuidString)
-		return GoogleDriveCloudAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.tokenUid, cloudProviderType: .googleDrive)
+		let credential = GoogleDriveCredential(tokenUID: UUID().uuidString)
+		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .googleDrive)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
+	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		OneDriveAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let pendingPromise = Promise<WebDAVCredential>.pending()
-		let webDAVLoginViewController = WebDAVLoginViewController(pendingAuthenticationPromise: pendingPromise)
-		viewController.present(webDAVLoginViewController, animated: true)
-		return pendingPromise.then { credential -> CloudProviderAccount in
+		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -54,21 +60,26 @@ class CloudAuthenticator {
 			return authenticateDropbox(from: viewController)
 		case .googleDrive:
 			return authenticateGoogleDrive(from: viewController)
+		case .oneDrive:
+			return authenticateOneDrive(from: viewController)
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		case .localFileSystem:
-			fatalError("not supported (yet)")
+			return Promise(CloudAuthenticatorError.functionNotYetSupported)
 		}
 	}
 
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .dropbox:
-			let credential = DropboxCredential(tokenUid: account.accountUID)
+			let credential = DropboxCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()
 		case .googleDrive:
-			let credential = GoogleDriveCredential(with: account.accountUID)
+			let credential = GoogleDriveCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: account.accountUID)
+			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVAuthenticator.removeCredentialFromKeychain(with: account.accountUID)
 		case .localFileSystem:
@@ -76,4 +87,8 @@ class CloudAuthenticator {
 		}
 		try accountManager.removeAccount(with: account.accountUID)
 	}
+}
+
+enum CloudAuthenticatorError: Error {
+	case functionNotYetSupported
 }

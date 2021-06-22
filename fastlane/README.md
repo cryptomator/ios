@@ -21,6 +21,11 @@ or alternatively using `brew install fastlane`
 fastlane ios certificates
 ```
 Sync certificates and provisioning profiles for all targets
+### ios update_metadata
+```
+fastlane ios update_metadata
+```
+Update metadata in App Store Connect
 ### ios beta
 ```
 fastlane ios beta

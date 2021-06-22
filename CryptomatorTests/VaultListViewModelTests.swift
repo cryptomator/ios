@@ -6,21 +6,29 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import GRDB
+import Promises
 import XCTest
-@testable import CloudAccessPrivateCore
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
+
 class VaultListViewModelTests: XCTestCase {
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	var cryptomatorDB: CryptomatorDatabase!
+	private var vaultManagerMock: VaultManagerMock!
+	private var vaultAccountManagerMock: VaultAccountManagerMock!
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
 		let dbURL = tmpDir.appendingPathComponent("db.sqlite")
 		dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
 		cryptomatorDB = try CryptomatorDatabase(dbPool)
+
+		let cloudProviderManager = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager(dbPool: dbPool))
+		vaultAccountManagerMock = VaultAccountManagerMock()
+		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock)
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
 
@@ -32,8 +40,7 @@ class VaultListViewModelTests: XCTestCase {
 
 	func testRefreshVaultsIsSorted() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
 		XCTAssert(vaultListViewModel.vaults.isEmpty)
 		try vaultListViewModel.refreshItems()
 		XCTAssertEqual(2, vaultListViewModel.vaults.count)
@@ -46,8 +53,7 @@ class VaultListViewModelTests: XCTestCase {
 
 	func testMoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
@@ -66,9 +72,13 @@ class VaultListViewModelTests: XCTestCase {
 	}
 
 	func testRemoveRow() throws {
+		let keychainEntry = VaultKeychainEntry(masterkeyData: "".data(using: .utf8)!, vaultConfigToken: nil, password: nil)
+		let jsonEnccoder = JSONEncoder()
+		let encodedEntry = try jsonEnccoder.encode(keychainEntry)
+		try CryptomatorKeychain.vault.set("vault2", value: encodedEntry)
+
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultAccountManagerMock = VaultAccountManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultAccountManager: vaultAccountManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
@@ -81,6 +91,10 @@ class VaultListViewModelTests: XCTestCase {
 		XCTAssertEqual(0, dbManagerMock.updatedPositions[0].position)
 
 		XCTAssertEqual("vault2", vaultAccountManagerMock.removedVaultUIDs[0])
+		XCTAssertEqual(1, vaultManagerMock.removedFileProviderDomains.count)
+		XCTAssertEqual("vault2", vaultManagerMock.removedFileProviderDomains[0])
+
+		XCTAssertNil(CryptomatorKeychain.vault.getAsData("vault2"))
 	}
 }
 
@@ -103,9 +117,33 @@ private class DatabaseManagerMock: DatabaseManager {
 }
 
 private class VaultAccountManagerMock: VaultAccountManager {
+	func saveNewAccount(_ account: VaultAccount) throws {
+		throw MockError.notMocked
+	}
+
+	func getAccount(with vaultUID: String) throws -> VaultAccount {
+		throw MockError.notMocked
+	}
+
+	func getAllAccounts() throws -> [VaultAccount] {
+		throw MockError.notMocked
+	}
+
 	var removedVaultUIDs = [String]()
 
-	override func removeAccount(with vaultUID: String) throws {
+	func removeAccount(with vaultUID: String) throws {
 		removedVaultUIDs.append(vaultUID)
+	}
+}
+
+private enum MockError: Error {
+	case notMocked
+}
+
+private class VaultManagerMock: VaultDBManager {
+	var removedFileProviderDomains = [String]()
+	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
+		removedFileProviderDomains.append(vaultUID)
+		return Promise(())
 	}
 }

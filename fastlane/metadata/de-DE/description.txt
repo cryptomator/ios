@@ -1,0 +1,38 @@
+Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator ver­schlüsselst du deine Daten schnell und unkompliziert. Anschließend lädst du sie geschützt in deinen Lieblingscloudservice hoch.
+
+EINFACH
+
+Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermöglicht dir, deine Cloud-Daten eigenständig und unabhängig zu schützen.
+
+• Erstelle einen Tresor und vergib ein Passwort
+• Keine komplizierte Konfiguration und keine weiteren Accounts notwendig
+• Entsperr Tresore mit Face ID / Touch ID
+
+KOMPATIBEL
+
+Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
+
+• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive und WebDAV-basierten Cloudspeicher-Diensten
+• Create vaults in any location via the File Provider (e.g., works with third-party apps)
+• Erstelle auch Tresore an einem beliebigen Ort über andere Datei-Anbieter (funktioniert bspw. zusammen mit Apps von Drittanbietern)
+• Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
+
+SICHER
+
+Du musst Cryptomator nicht blind vertrauen, denn die App ist quelloffen, was für dich als Nutzer bedeutet, dass jeder den Code einsehen kann: https://github.com/cryptomator/ios
+
+• Verschlüsselung der Dateiinhalte und Dateinamen mit AES und 256-Bit-Schlüssellänge
+• Erhöhte Brute-Force-Resistenz des Tresor-Passworts durch Einsatz von scrypt
+• Tresore werden automatisch gesperrt, wenn die App in den Hintergrund geschickt wird
+• Verschlüsselungsimplementierung ist öffentlich dokumentiert
+
+PREISGEKRÖNT
+
+Cryptomator wurde mit dem CeBIT Innovation Award 2016 for Usable Security and Privacy ausgezeichnet. Wir freuen uns, hunderttausenden Cryptomator-Nutzern Sicherheit und Privatsphärenschutz bieten zu können.
+
+CRYPTOMATOR COMMUNITY
+
+Tritt der Cryptomator Community bei und tausche dich mit Cryptomator-Nutzern aus: https://community.cryptomator.org
+
+• Folge uns auf Twitter @Cryptomator
+• Like uns auf Facebook /Cryptomator

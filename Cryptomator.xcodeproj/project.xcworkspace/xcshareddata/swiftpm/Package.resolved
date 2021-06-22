@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
           "branch": null,
-          "revision": "69fc95dd2e4229a2fd82e14d9358c23b0fd8cf74",
-          "version": "0.8.0"
+          "revision": "c4bc0a49689999ae2c7c778f3830a6a6e694efb8",
+          "version": "0.9.0"
         }
       },
       {
@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "a6c3586e19b5f752b97833dbfa7ec5f36fd60fdc",
-          "version": "0.11.0"
+          "revision": "fb5090d76f1f8861f57d2186d9109449c7867918",
+          "version": "0.12.2"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
         "state": {
           "branch": null,
-          "revision": "b06614d2373a9830c87817144d47ce654980a2d7",
-          "version": "3.7.0"
+          "revision": "e518eb6e362df327574ba5e04269cd6d29f40aec",
+          "version": "3.7.2"
         }
       },
       {
@@ -42,17 +42,17 @@
         "repositoryURL": "https://github.com/cryptomator/cryptolib-swift.git",
         "state": {
           "branch": null,
-          "revision": "6b998c93971940f11e29c76edf1312d006b63dea",
-          "version": "0.11.1"
+          "revision": "f0371edb56ce45694236f1b05bd01b4c077d59b1",
+          "version": "0.12.0"
         }
       },
       {
         "package": "ObjectiveDropboxOfficial",
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
         "state": {
-          "branch": "main",
-          "revision": "375a67dd299548693527f15a3a3df14f44eff47d",
-          "version": null
+          "branch": null,
+          "revision": "9560ecda2271a7fc3a653c388a3387f81d7862ab",
+          "version": "5.0.3-fork"
         }
       },
       {
@@ -60,8 +60,8 @@
         "repositoryURL": "https://github.com/google/google-api-objectivec-client-for-rest.git",
         "state": {
           "branch": null,
-          "revision": "430236029b2022ad8aab353af77f86049c8bdd3b",
-          "version": "1.4.3"
+          "revision": "a0a0826501a4075a5dcb7ad59ecd97a1f2422c32",
+          "version": "1.5.2"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "1d4ef59335abfccee6150ca5c9b436c17c801fa9",
-          "version": "1.4.0"
+          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
+          "version": "1.5.0"
         }
       },
       {
@@ -87,8 +87,44 @@
         "repositoryURL": "https://github.com/google/GTMAppAuth.git",
         "state": {
           "branch": null,
-          "revision": "319b2371c69138665d8cbd7c6700ceccbb49e04f",
-          "version": "1.1.0"
+          "revision": "40f4103fb52109032c05599a0c39ad43edbdf80a",
+          "version": "1.2.2"
+        }
+      },
+      {
+        "package": "JOSESwift",
+        "repositoryURL": "https://github.com/airsidemobile/JOSESwift.git",
+        "state": {
+          "branch": null,
+          "revision": "10ed3b6736def7c26eb87135466b1cb46ea7e37f",
+          "version": "2.4.0"
+        }
+      },
+      {
+        "package": "MSAL",
+        "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
+        "state": {
+          "branch": null,
+          "revision": "d8b4503ada5b9cd4b9f3928148cbda3936a97eed",
+          "version": "1.1.18"
+        }
+      },
+      {
+        "package": "MSGraphClientSDK",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc.git",
+        "state": {
+          "branch": null,
+          "revision": "a4d0a18ab62176762e4efc2f56021c2f386d98bc",
+          "version": "1.0.0-fork"
+        }
+      },
+      {
+        "package": "MSGraphClientModels",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-models.git",
+        "state": {
+          "branch": null,
+          "revision": "50596f424c7496687f34666372c71a6fe6270ac2",
+          "version": "1.3.0-fork"
         }
       },
       {
@@ -96,8 +132,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
-          "version": "1.2.12"
+          "revision": "611337c330350c9c1823ad6d671e7f936af5ee13",
+          "version": "2.0.0"
         }
       },
       {
@@ -105,8 +141,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "173f567a2dfec11d74588eea82cecea555bdc0bc",
-          "version": "1.4.0"
+          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
+          "version": "1.4.2"
         }
       }
     ]

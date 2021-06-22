@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 protocol SingleSectionHeaderTableViewModelProtocol {
 	var headerTitle: String { get }
 	var headerUppercased: Bool { get }
@@ -20,9 +21,13 @@ class SingleSectionHeaderTableViewController: SingleSectionTableViewController {
 		super.init()
 	}
 
+	// MARK: - UITableViewDataSource
+
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		return viewModel.headerTitle
 	}
+
+	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
 		guard !viewModel.headerUppercased else {
@@ -31,7 +36,7 @@ class SingleSectionHeaderTableViewController: SingleSectionTableViewController {
 		guard let headerView = view as? UITableViewHeaderFooterView else {
 			return
 		}
-		// Prevents the Header Title from being displayed in uppercase
+		// Prevents the header title from being displayed in uppercase
 		headerView.textLabel?.text = viewModel.headerTitle
 	}
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class EditableTableViewHeader: UITableViewHeaderFooterView {
 	let editButton = UIButton(type: .system)
 	let title = UILabel()
@@ -21,21 +22,16 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
-		editButton.setTitle("Edit", for: .normal)
+		editButton.setTitle(NSLocalizedString("common.button.edit", comment: ""), for: .normal)
 	}
 
 	convenience init() {
 		self.init(reuseIdentifier: nil)
 
-		editButton.setTitleColor(UIColor(named: "primary"), for: .normal)
 		editButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
 
 		title.font = UIFont.preferredFont(forTextStyle: .footnote)
-		if #available(iOS 13, *) {
-			title.textColor = .secondaryLabel
-		} else {
-			title.textColor = UIColor(named: "secondaryLabel")
-		}
+		title.textColor = .secondaryLabel
 
 		editButton.translatesAutoresizingMaskIntoConstraints = false
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -57,7 +53,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 
 	private func changeEditButton() {
 		UIView.performWithoutAnimation {
-			editButton.setTitle(isEditing ? "Done" : "Edit", for: .normal)
+			editButton.setTitle(NSLocalizedString(isEditing ? "common.button.done" : "common.button.edit", comment: ""), for: .normal)
 			editButton.layoutIfNeeded()
 		}
 	}

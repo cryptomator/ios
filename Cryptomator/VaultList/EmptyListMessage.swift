@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class EmptyListMessage: UIView {
 	convenience init(message: String) {
 		self.init(frame: CGRect.zero)
@@ -64,31 +65,25 @@ class EmptyListMessage: UIView {
 		}
 
 		private var shapeLayer: CAShapeLayer {
+			// swiftlint:disable:next force_cast
 			return self.layer as! CAShapeLayer
 		}
 
 		override func layoutSubviews() {
 			super.layoutSubviews()
-			let color: UIColor
-			if #available(iOS 13.0, *) {
-				color = .label
-			} else {
-				color = .black
-			}
-			shapeLayer.strokeColor = color.cgColor
+			shapeLayer.strokeColor = UIColor.label.cgColor
 			shapeLayer.path = arrowPath().cgPath
 		}
 	}
 }
 
-#if canImport(SwiftUI) && DEBUG
+#if DEBUG
 import CryptomatorCloudAccess
 import SwiftUI
 
-@available(iOS 13, *)
 struct EmptyListMessagePreview: PreviewProvider {
 	static var previews: some View {
-		EmptyListMessage(message: "Tap here to add a Vault").toPreview()
+		EmptyListMessage(message: "Tap here to add a vault").toPreview()
 	}
 }
 #endif

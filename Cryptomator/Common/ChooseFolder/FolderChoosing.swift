@@ -1,0 +1,27 @@
+//
+//  FolderChoosing.swift
+//  Cryptomator
+//
+//  Created by Philipp Schmid on 20.01.21.
+//  Copyright © 2021 Skymatic GmbH. All rights reserved.
+//
+
+import CryptomatorCloudAccessCore
+
+protocol FolderChoosing: AnyObject {
+	func showItems(for path: CloudPath)
+	func close()
+	func chooseItem(_ item: Item)
+	func showCreateNewFolder(parentPath: CloudPath)
+}
+
+struct Item {
+	let type: ItemType
+	let path: CloudPath
+}
+
+enum ItemType {
+	case folder
+	case vaultConfig
+	case legacyMasterkey
+}

@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+	<meta name="viewport" content="initial-scale=1.0" />
+	<link href="style.css" rel="stylesheet" type="text/css"/>
+	<script src="jquery-3.6.0.slim.min.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		/* <![CDATA[ */
+		$(document).ready(function() {
+			$('a').bind('touchstart', function () {
+				$(this).addClass('touched');
+			});
+			$('a').bind('touchend', function () {
+				$(this).removeClass('touched');
+			});
+		});
+		/* ]]> */
+	</script>
+</head>
+<body>
+	<h1>About Cryptomator</h1>
+	<p>Cryptomator provides transparent, client-side encryption for your cloud. Protect your documents from unauthorized access. Cryptomator for iOS is open-source and its code can be reviewed on GitHub. The encryption scheme is publicly documented on Cryptomator's website.</p>
+	
+	<h2>Privacy Policy</h2>
+	<p>Cryptomator does not collect any personal information. In case you use third-party cloud storage services, please refer to the corresponding privacy policy of the provider.</p>
+	
+	<h2>Connect</h2>
+	<ul>
+		<li><a href="https://twitter.com/Cryptomator">Twitter @Cryptomator</a></li>
+		<li><a href="https://facebook.com/Cryptomator">Facebook /Cryptomator</a></li>
+	</ul>
+	
+	<h2>Contribute</h2>
+	<ul>
+		<li><a href="https://github.com/cryptomator/ios/blob/develop/CONTRIBUTING.md">Report a Bug</a></li>
+		<li><a href="https://cryptomator.org/donate/">Donate</a></li>
+	</ul>
+	
+	<h2>Third-Party Dependencies</h2>
+	<ul>
+		<li><a href="https://github.com/openid/AppAuth-iOS">AppAuth by OpenID</a></li>
+		<li><a href="https://github.com/norio-nomura/Base32">Base32 by Norio Nomura</a></li>
+		<li><a href="https://github.com/CocoaLumberjack/CocoaLumberjack">CocoaLumberjack by Robbie Hanson</a></li>
+		<li><a href="https://github.com/cryptomator/cloud-access-swift">CryptomatorCloudAccess by Cryptomator</a></li>
+		<li><a href="https://github.com/cryptomator/cryptolib-swift">CryptomatorCryptoLib by Cryptomator</a></li>
+		<li><a href="https://github.com/google/google-api-objectivec-client-for-rest">GoogleAPIClientForREST by Google</a></li>
+		<li><a href="https://github.com/google/GTMAppAuth">GTMAppAuth by Google</a></li>
+		<li><a href="https://github.com/google/gtm-session-fetcher">GTMSessionFetcher by Google</a></li>
+		<li><a href="https://github.com/airsidemobile/JOSESwift">JOSESwift by Airside Mobile</a></li>
+		<li><a href="https://github.com/AzureAD/microsoft-authentication-library-for-objc">MSAL by Microsoft</a></li>
+		<li><a href="https://github.com/microsoftgraph/msgraph-sdk-objc-models/">MSGraphClientModels by Microsoft</a></li>
+		<li><a href="https://github.com/microsoftgraph/msgraph-sdk-objc">MSGraphClientSDK by Microsoft</a></li>
+		<li><a href="https://github.com/dropbox/dropbox-sdk-obj-c">ObjectiveDropboxOfficial by Dropbox</a></li>
+		<li><a href="https://github.com/google/promises">Promises by Google</a></li>
+		<li><a href="https://github.com/apple/swift-log">swift-log by Apple</a></li>
+	</ul>
+	
+	<h2>Disclaimer</h2>
+	<p>THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+	
+	<h2>Copyright</h2>
+	<p>© 2016 – 2021 Skymatic GmbH. All rights reserved.</p>
+</body>
+</html>

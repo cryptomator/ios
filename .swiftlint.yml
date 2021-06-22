@@ -1,0 +1,24 @@
+disabled_rules:
+  - file_length
+  - line_length
+  - todo
+  - type_body_length
+
+included:
+  - Cryptomator
+  - CryptomatorTests
+  - CryptomatorCommon
+  - CryptomatorCommonHostedTests
+  - CryptomatorFileProvider
+  - CryptomatorFileProviderTests
+  - FileProviderExtension
+  - FileProviderExtensionUI
+
+identifier_name:
+  min_length: 1
+  max_length: 50
+inclusive_language:
+  override_allowed_terms: ["masterkey"]
+type_name:
+  max_length: 50
+  allowed_symbols: "_"

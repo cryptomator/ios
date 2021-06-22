@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CloudAccessPrivateCore
+import CryptomatorCommonCore
 import Foundation
 import GRDB
 
@@ -18,7 +18,6 @@ struct AccountListPosition: Codable {
 
 extension AccountListPosition: FetchableRecord, MutablePersistableRecord {
 	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
-
 	static let account = belongsTo(CloudProviderAccount.self)
 
 	mutating func didInsert(with rowID: Int64, for column: String?) {

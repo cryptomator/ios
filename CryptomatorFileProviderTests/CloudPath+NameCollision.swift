@@ -6,8 +6,9 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
+import CryptomatorCloudAccessCore
 import XCTest
+
 class CloudPath_NameCollision: XCTestCase {
 	func testForFileWithoutPathExtension() throws {
 		let cloudPath = CloudPath("/Test")
