@@ -35,15 +35,21 @@ class DatabaseHelper {
 		return dbPool!
 	}
 
+	// swiftlint:disable:next function_body_length
 	private static func migrate(_ dbPool: DatabasePool) throws {
 		var migrator = DatabaseMigrator()
+		#if DEBUG
+		// Speed up development by nuking the database when migrations change
+		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
+		migrator.eraseDatabaseOnSchemaChange = true
+		#endif
 		migrator.registerMigration("v1") { db in
-			try db.create(table: "metadata") { table in
+			try db.create(table: "itemMetadata") { table in
 				table.autoIncrementedPrimaryKey("id")
 				table.column("name", .text).notNull()
 				table.column("type", .text).notNull()
 				table.column("size", .integer)
-				table.column("parentId", .integer).references("metadata")
+				table.column("parentID", .integer).references("itemMetadata", onDelete: .cascade)
 				table.column("lastModifiedDate", .date)
 				table.column("statusCode", .text).notNull()
 				table.column("cloudPath", .text).unique()
@@ -52,16 +58,16 @@ class DatabaseHelper {
 			}
 
 			let rootCloudPath = CloudPath("/")
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentId: MetadataManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
+			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
 			try rootFolderMetadata.save(db)
 			try db.create(table: "cachedFiles") { table in
-				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata")
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata")
 				table.column("lastModifiedDate", .text)
 				table.column("localLastModifiedDate", .date).notNull()
 				table.column("localURL", .text).unique()
 			}
 			try db.create(table: "uploadTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey().references("metadata", onDelete: .cascade) // TODO: Add Reference to ItemMetadata Table in Migrator
+				table.column("correspondingItem", .integer).primaryKey().references("itemMetadata", onDelete: .cascade)
 				table.column(
 					"lastFailedUploadDate", .date
 				)
@@ -70,16 +76,16 @@ class DatabaseHelper {
 				table.check(sql: "(lastFailedUploadDate is NULL and uploadErrorCode is NULL and uploadErrorDomain is NULL) OR (lastFailedUploadDate is NOT NULL and uploadErrorCode is NOT NULL and uploadErrorDomain is NOT NULL)")
 			}
 			try db.create(table: "reparentTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("metadata", onDelete: .cascade)
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
 				table.column("sourceCloudPath", .text).notNull()
 				table.column("targetCloudPath", .text).notNull()
 				table.column("oldParentId", .integer).notNull()
 				table.column("newParentId", .integer).notNull()
 			}
 			try db.create(table: "deletionTasks") { table in
-				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace)
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
 				table.column("cloudPath", .text).notNull()
-				table.column("parentId", .integer).notNull()
+				table.column("parentID", .integer).notNull()
 				table.column("itemType", .text).notNull()
 			}
 		}

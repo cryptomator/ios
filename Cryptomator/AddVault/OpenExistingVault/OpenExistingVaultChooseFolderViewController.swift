@@ -10,24 +10,24 @@ import CryptomatorCloudAccessCore
 import UIKit
 
 class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
-	private var masterkeyPath: CloudPath?
+	private var vault: Item?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
 	}
 
-	override func showDetectedMasterkey(at path: CloudPath) {
-		masterkeyPath = path
-		let successView = SuccessView(viewModel: DetectedMasterkeyViewModel(masterkeyPath: path))
+	override func showDetectedVault(_ vault: Item) {
+		self.vault = vault
+		let successView = SuccessView(viewModel: DetectedMasterkeyViewModel(masterkeyPath: vault.path))
 		let containerView = UIView()
 		successView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(successView)
 		NSLayoutConstraint.activate([
 			successView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			successView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			successView.leadingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.leadingAnchor),
-			successView.trailingAnchor.constraint(equalTo: containerView.safeAreaLayoutGuide.trailingAnchor)
+			successView.leadingAnchor.constraint(equalTo: containerView.readableContentGuide.leadingAnchor),
+			successView.trailingAnchor.constraint(equalTo: containerView.readableContentGuide.trailingAnchor)
 		])
 
 		// Prevents the view from being placed under the navigation bar
@@ -41,45 +41,17 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 
 	@objc func addVault() {
-		guard let masterkeyPath = masterkeyPath else {
+		guard let vault = vault else {
 			return
 		}
-		coordinator?.chooseItem(at: masterkeyPath)
+		coordinator?.chooseItem(vault)
 	}
 }
 
-private class SuccessView: UIView {
-	lazy var label: UILabel = {
-		let label = UILabel()
-		label.numberOfLines = 0
-		label.lineBreakMode = .byWordWrapping
-		label.textAlignment = .center
-		return label
-	}()
-
-	convenience init(viewModel: DetectedMasterkeyViewModel) {
-		self.init(frame: .zero)
-
+private class SuccessView: DetectedVaultView {
+	init(viewModel: DetectedMasterkeyViewModel) {
 		let botVaultImage = UIImage(named: "bot-vault")
 		let imageView = UIImageView(image: botVaultImage)
-
-		imageView.contentMode = .scaleAspectFit
-
-		label.text = viewModel.text
-
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		label.translatesAutoresizingMaskIntoConstraints = false
-
-		addSubview(imageView)
-		addSubview(label)
-
-		NSLayoutConstraint.activate([
-			imageView.topAnchor.constraint(equalTo: topAnchor),
-			imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
-			label.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
-			label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-			label.bottomAnchor.constraint(equalTo: bottomAnchor),
-			label.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor)
-		])
+		super.init(imageView: imageView, text: viewModel.text)
 	}
 }

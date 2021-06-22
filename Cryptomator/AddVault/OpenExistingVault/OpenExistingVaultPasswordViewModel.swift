@@ -15,6 +15,7 @@ protocol OpenExistingVaultPasswordViewModelProtocol {
 	var password: String? { get set }
 	var footerTitle: String { get }
 	var vaultName: String { get }
+	var vaultUID: String { get }
 	// This function is later no longer asynchronous
 	func addVault() -> Promise<Void>
 }
@@ -25,34 +26,30 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 	let account: CloudProviderAccount
 
 	// later: localMasterkeyURL: URL instead of masterkeyPath: CloudPath
-	let masterkeyPath: CloudPath
+	let vaultConfigPath: CloudPath
 	var vaultName: String {
-		let masterkeyParentPath = masterkeyPath.deletingLastPathComponent()
-		return masterkeyParentPath.lastPathComponent
+		let vaultConfigParentPath = vaultConfigPath.deletingLastPathComponent()
+		return vaultConfigParentPath.lastPathComponent
 	}
 
 	var footerTitle: String {
 		return String(format: NSLocalizedString("addVault.openExistingVault.password.footer", comment: ""), vaultName)
 	}
 
-	private let localMasterkeyURL: URL
-	private let vaultID: String
+	let vaultUID: String
 
-	init(provider: CloudProvider, account: CloudProviderAccount, masterkeyPath: CloudPath, vaultID: String) {
+	init(provider: CloudProvider, account: CloudProviderAccount, vaultConfigPath: CloudPath, vaultUID: String) {
 		self.provider = provider
 		self.account = account
-		self.masterkeyPath = masterkeyPath
-		let tmpDirURL = FileManager.default.temporaryDirectory
-		self.localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		self.vaultID = vaultID
+		self.vaultConfigPath = vaultConfigPath
+		self.vaultUID = vaultUID
 	}
 
 	func addVault() -> Promise<Void> {
-		#warning("TODO: Remove Async Implementation")
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultManager.shared.createFromExisting(withVaultID: vaultID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultConfigPath: vaultConfigPath, password: password, storePasswordInKeychain: true)
 	}
 }
 

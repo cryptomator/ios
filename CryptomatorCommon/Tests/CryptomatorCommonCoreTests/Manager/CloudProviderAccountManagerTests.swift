@@ -12,7 +12,7 @@ import XCTest
 @testable import CryptomatorCommonCore
 
 class CloudProviderAccountManagerTests: XCTestCase {
-	var accountManager: CloudProviderAccountManager!
+	var accountManager: CloudProviderAccountDBManager!
 	var tmpDir: URL!
 
 	override func setUpWithError() throws {
@@ -25,7 +25,7 @@ class CloudProviderAccountManagerTests: XCTestCase {
 				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
 			}
 		}
-		accountManager = CloudProviderAccountManager(dbPool: dbPool)
+		accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 	}
 
 	override func tearDownWithError() throws {

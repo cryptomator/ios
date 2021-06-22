@@ -6,24 +6,25 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
 import GRDB
-
 class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 
 	private let dbManager: DatabaseManager
-	private let vaultAccountManager: VaultAccountManager
+	private let vaultManager: VaultDBManager
 	private var observation: TransactionObserver?
 
 	convenience init() {
-		self.init(dbManager: DatabaseManager.shared, vaultAccountManager: VaultAccountManager.shared)
+		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared)
 	}
 
-	init(dbManager: DatabaseManager, vaultAccountManager: VaultAccountManager) {
+	init(dbManager: DatabaseManager, vaultManager: VaultDBManager) {
 		self.dbManager = dbManager
-		self.vaultAccountManager = vaultAccountManager
+		self.vaultManager = vaultManager
 	}
 
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
@@ -50,7 +51,9 @@ class VaultListViewModel: VaultListViewModelProtocol {
 
 	func removeRow(at index: Int) throws {
 		let removedVault = vaults.remove(at: index)
-		try vaultAccountManager.removeAccount(with: removedVault.vaultUID)
+		try vaultManager.removeVault(withUID: removedVault.vaultUID).catch { error in
+			DDLogError("VaultListViewModel: remove row failed with error: \(error)")
+		}
 		try updateVaultListPositions()
 	}
 

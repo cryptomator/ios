@@ -70,6 +70,7 @@ class VaultListViewController: UITableViewController {
 
 	@objc func showSettings() {
 		setEditing(false, animated: true)
+		coordinator?.showSettings()
 	}
 
 	@objc func editButtonToggled() {

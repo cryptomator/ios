@@ -6,10 +6,12 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjack
+import CocoaLumberjackSwift
 import FileProvider
 import Foundation
 
-public class FileProviderNotificator {
+public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 	public var fileProviderSignalDeleteContainerItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
 	public var fileProviderSignalUpdateContainerItem = [NSFileProviderItemIdentifier: FileProviderItem]()
 	public var fileProviderSignalDeleteWorkingSetItemIdentifier = [NSFileProviderItemIdentifier: NSFileProviderItemIdentifier]()
@@ -33,10 +35,19 @@ public class FileProviderNotificator {
 			for containerItemIdentifier in containerItemIdentifiers {
 				self.manager.signalEnumerator(for: containerItemIdentifier) { error in
 					if let error = error {
-						print("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
+						DDLogDebug("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
 					}
 				}
 			}
 		}
 	}
+
+	func signalUpdate(for item: FileProviderItem) {
+		fileProviderSignalUpdateContainerItem[item.itemIdentifier] = item
+		signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
+	}
+}
+
+protocol FileProviderItemUpdateDelegate: AnyObject {
+	func signalUpdate(for item: FileProviderItem)
 }
