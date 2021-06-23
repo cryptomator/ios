@@ -96,7 +96,7 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 
 	func showItems(for path: CloudPath) {
 		let viewModel = CreateNewVaultChooseFolderViewModel(vaultName: vaultName, cloudPath: path, provider: provider)
-		let chooseFolderVC = CreateNewVaultChooseFolderViewController(viewModel: viewModel)
+		let chooseFolderVC = CreateNewVaultChooseFolderViewController(with: viewModel)
 		chooseFolderVC.coordinator = self
 		navigationController.pushViewController(chooseFolderVC, animated: true)
 	}

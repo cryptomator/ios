@@ -87,10 +87,10 @@ private class VaultSuccessHeaderView: UIView {
 		addSubview(stack)
 
 		NSLayoutConstraint.activate([
-			stack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			stack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			stack.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor, constant: 12),
-			stack.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: -12)
+			stack.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+			stack.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+			stack.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+			stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
 		])
 	}
 }

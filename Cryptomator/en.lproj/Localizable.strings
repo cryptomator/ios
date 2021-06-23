@@ -7,7 +7,6 @@
 */
 
 "common.alert.error.title" = "Error";
-"common.button.add" = "Add";
 "common.button.cancel" = "Cancel";
 "common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
@@ -33,6 +32,7 @@
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\"";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.openFilesApp" = "Open Files App";

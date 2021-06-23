@@ -7,7 +7,6 @@
 */
 
 "common.alert.error.title" = "Fehler";
-"common.button.add" = "Hinzufügen";
 "common.button.cancel" = "Abbrechen";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
@@ -33,6 +32,7 @@
 "addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
 "addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die Dateien-App zu.";
 "addVault.success.openFilesApp" = "Dateien-App öffnen";

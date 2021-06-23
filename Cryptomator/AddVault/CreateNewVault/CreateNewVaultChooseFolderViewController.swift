@@ -7,11 +7,8 @@
 //
 
 import UIKit
-class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
-	init(viewModel: CreateNewVaultChooseFolderViewModelProtocol) {
-		super.init(with: viewModel)
-	}
 
+class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = NSLocalizedString("addVault.createNewVault.title", comment: "")
@@ -31,10 +28,10 @@ class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 		failureView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(failureView)
 		NSLayoutConstraint.activate([
-			failureView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
 			failureView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-			failureView.leadingAnchor.constraint(equalTo: containerView.readableContentGuide.leadingAnchor),
-			failureView.trailingAnchor.constraint(equalTo: containerView.readableContentGuide.trailingAnchor)
+			failureView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+			failureView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+			failureView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
 		])
 
 		// Prevents the view from being placed under the navigation bar
@@ -71,10 +68,31 @@ private class FailureView: DetectedVaultView {
 #if DEBUG
 import CryptomatorCloudAccessCore
 import SwiftUI
-struct FailureView_Preview: PreviewProvider {
-	static var previews: some View {
-		FailureView().toPreview()
+
+private class CreateNewVaultChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
+	let foundMasterkey = true
+	let canCreateFolder: Bool
+	let cloudPath: CloudPath
+	let items: [CloudItemMetadata] = []
+
+	init(cloudPath: CloudPath, canCreateFolder: Bool) {
+		self.canCreateFolder = canCreateFolder
+		self.cloudPath = cloudPath
 	}
+
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
+		onChange()
+	}
+
+	func refreshItems() {}
 }
 
+struct CreateNewVaultChooseFolderVCPreview: PreviewProvider {
+	static var previews: some View {
+		let viewController = CreateNewVaultChooseFolderViewController(with: CreateNewVaultChooseFolderViewModelMock(cloudPath: CloudPath("/Vault"), canCreateFolder: false))
+		let vault = Item(type: .folder, path: CloudPath("/Vault/masterkey.cryptomator"))
+		viewController.showDetectedVault(vault)
+		return viewController.toPreview()
+	}
+}
 #endif

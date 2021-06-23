@@ -52,7 +52,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden {
+		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden, !viewModel.foundMasterkey {
 			navigationController?.setToolbarHidden(false, animated: animated)
 		}
 	}
@@ -151,19 +151,18 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 
 		NSLayoutConstraint.activate([
 			searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			searchBar.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			searchBar.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 
 			self.title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			self.title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+			self.title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 			self.title.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-			self.title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
+			self.title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import SwiftUI
 
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {

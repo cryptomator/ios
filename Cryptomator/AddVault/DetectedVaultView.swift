@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class DetectedVaultView: UIView {
 	private lazy var label: UILabel = {
 		let label = UILabel()
@@ -27,12 +28,12 @@ class DetectedVaultView: UIView {
 		addSubview(label)
 
 		NSLayoutConstraint.activate([
-			imageView.topAnchor.constraint(equalTo: topAnchor),
 			imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
 			label.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+			label.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+			imageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
 			label.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
-			label.bottomAnchor.constraint(equalTo: bottomAnchor),
-			label.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor)
+			label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
 		])
 	}
 

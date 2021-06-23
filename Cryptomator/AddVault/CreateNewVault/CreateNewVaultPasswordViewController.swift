@@ -121,6 +121,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 #if DEBUG
 import Promises
 import SwiftUI
+
 private class CreateNewVaultPasswordViewModelMock: CreateNewVaultPasswordViewModelProtocol {
 	let vaultUID = ""
 	let vaultName = ""

@@ -119,10 +119,10 @@ class AccountListViewController: SingleSectionTableViewController {
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import CryptomatorCommonCore
 import Promises
 import SwiftUI
+
 private class AccountListViewModelMock: AccountListViewModelProtocol {
 	let cloudProviderType = CloudProviderType.googleDrive
 

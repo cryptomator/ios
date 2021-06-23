@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 	weak var coordinator: (FolderCreating & Coordinator)?
 	private var viewModel: CreateNewFolderViewModelProtocol
@@ -73,6 +74,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 import CryptomatorCloudAccessCore
 import Promises
 import SwiftUI
+
 private class CreateNewFolderViewModelMock: CreateNewFolderViewModelProtocol {
 	var folderName: String?
 

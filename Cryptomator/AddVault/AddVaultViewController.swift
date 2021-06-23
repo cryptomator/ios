@@ -71,10 +71,10 @@ class AddVaultViewController: UITableViewController {
 		imageView.contentMode = .scaleAspectFit
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
-			imageView.leadingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.leadingAnchor),
-			imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20),
+			imageView.leadingAnchor.constraint(equalTo: headerView.readableContentGuide.leadingAnchor),
+			imageView.trailingAnchor.constraint(equalTo: headerView.readableContentGuide.trailingAnchor),
 			imageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20),
-			imageView.trailingAnchor.constraint(equalTo: headerView.layoutMarginsGuide.trailingAnchor)
+			imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20)
 		])
 
 		return headerView
@@ -93,7 +93,6 @@ class AddVaultViewController: UITableViewController {
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import SwiftUI
 
 struct VaultAddVCPreview: PreviewProvider {
