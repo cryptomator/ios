@@ -40,6 +40,7 @@ public class CryptomatorDatabase {
 				table.column("vaultUID", .text).primaryKey()
 				table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts")
 				table.column("vaultPath", .text).notNull()
+				table.column("vaultName", .text).notNull()
 				table.column("lastUpToDateCheck", .date).notNull()
 			}
 		}

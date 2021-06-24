@@ -26,10 +26,9 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 	let account: CloudProviderAccount
 
 	// later: localMasterkeyURL: URL instead of masterkeyPath: CloudPath
-	let vaultConfigPath: CloudPath
+	let vault: VaultItem
 	var vaultName: String {
-		let vaultConfigParentPath = vaultConfigPath.deletingLastPathComponent()
-		return vaultConfigParentPath.lastPathComponent
+		return vault.name
 	}
 
 	var footerTitle: String {
@@ -38,10 +37,10 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 
 	let vaultUID: String
 
-	init(provider: CloudProvider, account: CloudProviderAccount, vaultConfigPath: CloudPath, vaultUID: String) {
+	init(provider: CloudProvider, account: CloudProviderAccount, vault: VaultItem, vaultUID: String) {
 		self.provider = provider
 		self.account = account
-		self.vaultConfigPath = vaultConfigPath
+		self.vault = vault
 		self.vaultUID = vaultUID
 	}
 
@@ -49,7 +48,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultConfigPath: vaultConfigPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultDetails: vault, password: password, storePasswordInKeychain: true)
 	}
 }
 

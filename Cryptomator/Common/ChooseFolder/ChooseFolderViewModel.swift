@@ -9,21 +9,17 @@
 import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 
 protocol ChooseFolderViewModelProtocol {
 	var canCreateFolder: Bool { get }
 	var cloudPath: CloudPath { get }
 	var foundMasterkey: Bool { get }
+	var headerTitle: String { get }
 	var items: [CloudItemMetadata] { get }
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void)
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void)
 	func refreshItems()
-}
-
-extension ChooseFolderViewModelProtocol {
-	var headerTitle: String {
-		return cloudPath.path
-	}
 }
 
 class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
@@ -31,11 +27,14 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	var cloudPath: CloudPath
 	var items = [CloudItemMetadata]()
 	var foundMasterkey = false
+	var headerTitle: String {
+		return cloudPath.path
+	}
 
 	private let provider: CloudProvider
 	private var errorListener: ((Error) -> Void)?
 	private var changeListener: (() -> Void)?
-	private var vaultListener: ((Item) -> Void)?
+	private var vaultListener: ((VaultDetailItem) -> Void)?
 
 	init(canCreateFolder: Bool, cloudPath: CloudPath, provider: CloudProvider) {
 		self.canCreateFolder = canCreateFolder
@@ -43,7 +42,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 		self.provider = provider
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void) {
 		errorListener = onError
 		changeListener = onChange
 		vaultListener = onVaultDetection
@@ -65,11 +64,13 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 		}
 	}
 
-	func getVaultItem(items: [CloudItemMetadata]) -> Item? {
+	func getVaultItem(items: [CloudItemMetadata]) -> VaultDetailItem? {
 		if let vaultConfigPath = getVaultConfigCloudPath(items: items) {
-			return Item(type: .vaultConfig, path: vaultConfigPath)
+			let vaultName = getVaultName(for: vaultConfigPath)
+			return VaultDetailItem(name: vaultName, vaultPath: cloudPath, isLegacyVault: false)
 		} else if let legacyMasterkeyPath = getLegacyMasterkeyPath(items: items) {
-			return Item(type: .legacyMasterkey, path: legacyMasterkeyPath)
+			let vaultName = getVaultName(for: legacyMasterkeyPath)
+			return VaultDetailItem(name: vaultName, vaultPath: cloudPath, isLegacyVault: true)
 		} else {
 			return nil
 		}
@@ -91,5 +92,10 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 			return nil
 		}
 		return masterkeyItem?.cloudPath
+	}
+
+	func getVaultName(for cryptomatorFilePath: CloudPath) -> String {
+		let parentPath = cryptomatorFilePath.deletingLastPathComponent()
+		return parentPath.lastPathComponent
 	}
 }

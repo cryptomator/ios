@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import UIKit
 
 class ChooseFolderViewController: SingleSectionTableViewController {
@@ -40,9 +41,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
 		} onChange: { [weak self] in
-			guard let self = self else { return }
-			self.refreshControl?.endRefreshing()
-			self.tableView.reloadData()
+			self?.onItemsChange()
 		} onVaultDetection: { [weak self] vault in
 			guard let self = self else { return }
 			self.tableView.reloadData()
@@ -64,8 +63,13 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		}
 	}
 
-	func showDetectedVault(_ vault: Item) {
+	func showDetectedVault(_ vault: VaultDetailItem) {
 		fatalError("not implemented")
+	}
+
+	func onItemsChange() {
+		refreshControl?.endRefreshing()
+		tableView.reloadData()
 	}
 
 	@objc func cancel() {
@@ -166,6 +170,10 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 import SwiftUI
 
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
+	var headerTitle: String {
+		cloudPath.path
+	}
+
 	let foundMasterkey = false
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
@@ -179,7 +187,7 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 		self.cloudPath = cloudPath
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void) {
 		onChange()
 	}
 

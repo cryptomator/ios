@@ -54,8 +54,11 @@ public class CloudProviderDBManager: CloudProviderManager {
 				client = WebDAVClient(credential: credential)
 			}
 			provider = WebDAVProvider(with: client)
-		default:
-			throw CloudProviderAccountError.accountNotFoundError
+		case .localFileSystem:
+			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			provider = LocalFileSystemProvider(rootURL: rootURL)
 		}
 		CloudProviderDBManager.cachedProvider[accountUID] = provider
 		return provider

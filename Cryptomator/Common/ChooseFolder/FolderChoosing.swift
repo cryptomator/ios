@@ -13,15 +13,19 @@ protocol FolderChoosing: AnyObject {
 	func close()
 	func chooseItem(_ item: Item)
 	func showCreateNewFolder(parentPath: CloudPath)
+	func handleError(error: Error)
 }
 
-struct Item {
-	let type: ItemType
+protocol Item {
+	var path: CloudPath { get }
+}
+
+struct Folder: Item {
 	let path: CloudPath
 }
 
-enum ItemType {
-	case folder
-	case vaultConfig
-	case legacyMasterkey
-}
+// enum ItemType {
+//	case folder
+//	case vaultConfig
+//	case legacyMasterkey
+// }

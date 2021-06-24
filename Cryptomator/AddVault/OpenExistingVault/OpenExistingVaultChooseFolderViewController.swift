@@ -7,10 +7,11 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import UIKit
 
 class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
-	private var vault: Item?
+	private var vault: VaultDetailItem?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -18,7 +19,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
 	}
 
-	override func showDetectedVault(_ vault: Item) {
+	override func showDetectedVault(_ vault: VaultDetailItem) {
 		self.vault = vault
 		refreshControl = nil
 		navigationController?.setToolbarHidden(true, animated: true)
@@ -57,7 +58,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if viewModel.foundMasterkey, let vault = vault {
-			return SuccessView(viewModel: DetectedMasterkeyViewModel(masterkeyPath: vault.path))
+			return SuccessView(vaultName: vault.name)
 		} else {
 			return super.tableView(tableView, viewForHeaderInSection: section)
 		}
@@ -73,10 +74,11 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 }
 
 private class SuccessView: DetectedVaultView {
-	init(viewModel: DetectedMasterkeyViewModel) {
+	init(vaultName: String) {
 		let botVaultImage = UIImage(named: "bot-vault")
 		let imageView = UIImageView(image: botVaultImage)
-		super.init(imageView: imageView, text: viewModel.text)
+		let text = String(format: NSLocalizedString("addVault.openExistingVault.detectedMasterkey.text", comment: ""), vaultName)
+		super.init(imageView: imageView, text: text)
 	}
 }
 
@@ -84,6 +86,8 @@ private class SuccessView: DetectedVaultView {
 import SwiftUI
 
 private class OpenExistingVaultChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
+	var headerTitle: String = "/Vault"
+
 	let foundMasterkey = true
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
@@ -94,7 +98,7 @@ private class OpenExistingVaultChooseFolderViewModelMock: ChooseFolderViewModelP
 		self.cloudPath = cloudPath
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void) {
 		onChange()
 	}
 
@@ -104,7 +108,7 @@ private class OpenExistingVaultChooseFolderViewModelMock: ChooseFolderViewModelP
 struct OpenExistingVaultChooseFolderVCPreview: PreviewProvider {
 	static var previews: some View {
 		let viewController = OpenExistingVaultChooseFolderViewController(with: OpenExistingVaultChooseFolderViewModelMock(cloudPath: CloudPath("/Vault"), canCreateFolder: false))
-		let vault = Item(type: .folder, path: CloudPath("/Vault/masterkey.cryptomator"))
+		let vault = VaultDetailItem(name: "vault", vaultPath: CloudPath("/Vault/masterkey.cryptomator"), isLegacyVault: false)
 		viewController.showDetectedVault(vault)
 		return viewController.toPreview()
 	}

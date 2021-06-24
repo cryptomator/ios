@@ -185,11 +185,11 @@ private class VaultManagerMock: VaultManager {
 		throw MockError.notMocked
 	}
 
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultConfigPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, masterkeyPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 
