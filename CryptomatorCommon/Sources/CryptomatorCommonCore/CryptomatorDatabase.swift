@@ -31,20 +31,84 @@ public class CryptomatorDatabase {
 	private static var migrator: DatabaseMigrator {
 		var migrator = DatabaseMigrator()
 
+		// Speed up development by nuking the database when migrations change
+		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
+		migrator.eraseDatabaseOnSchemaChange = true
+
 		migrator.registerMigration("v1") { db in
-			try db.create(table: "cloudProviderAccounts") { table in
-				table.column("accountUID", .text).primaryKey()
-				table.column("cloudProviderType", .text).notNull()
-			}
-			try db.create(table: "vaultAccounts") { table in
-				table.column("vaultUID", .text).primaryKey()
-				table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts")
-				table.column("vaultPath", .text).notNull()
-				table.column("vaultName", .text).notNull()
-				table.column("lastUpToDateCheck", .date).notNull()
-			}
+			try v1Migration(db)
 		}
 		return migrator
+	}
+
+	// swiftlint:disable:next function_body_length
+	public class func v1Migration(_ db: Database) throws {
+		// Common
+		try db.create(table: "cloudProviderAccounts") { table in
+			table.column("accountUID", .text).primaryKey()
+			table.column("cloudProviderType", .text).notNull()
+		}
+		try db.create(table: "vaultAccounts") { table in
+			table.column("vaultUID", .text).primaryKey()
+			table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts")
+			table.column("vaultPath", .text).notNull()
+			table.column("vaultName", .text).notNull()
+			table.column("lastUpToDateCheck", .date).notNull()
+		}
+		// Main App
+		try db.create(table: "vaultListPosition") { table in
+			table.column("position", .integer).unique()
+			table.column("vaultUID", .text).unique().notNull().references("vaultAccounts", onDelete: .cascade)
+			table.check(Column("position") != nil)
+		}
+		try db.execute(sql: """
+		CREATE TRIGGER position_creation
+		AFTER INSERT
+		ON vaultAccounts
+		BEGIN
+			INSERT INTO vaultListPosition (position, vaultUID)
+			VALUES (IFNULL((SELECT MAX(position) FROM vaultListPosition), -1)+1, NEW.vaultUID);
+		END;
+		""")
+
+		try db.execute(sql: """
+		CREATE TRIGGER position_update
+		AFTER DELETE
+		ON vaultListPosition
+		BEGIN
+			UPDATE vaultListPosition
+			SET position = position - 1
+			WHERE position > OLD.position;
+		END;
+		""")
+
+		try db.create(table: "accountListPosition") { table in
+			table.column("position", .integer)
+			table.column("cloudProviderType", .text)
+			table.column("accountUID", .text).unique().notNull().references("cloudProviderAccounts", onDelete: .cascade)
+			table.uniqueKey(["position", "cloudProviderType"])
+			table.check(Column("position") != nil && Column("cloudProviderType") != nil)
+		}
+		try db.execute(sql: """
+		CREATE TRIGGER accountList_position_creation
+		AFTER INSERT
+		ON cloudProviderAccounts
+		BEGIN
+			INSERT INTO accountListPosition (position, cloudProviderType, accountUID)
+			VALUES (IFNULL((SELECT MAX(position) FROM accountListPosition WHERE cloudProviderType = NEW.cloudProviderType), -1)+1, NEW.cloudProviderType, NEW.accountUID);
+		END;
+		""")
+
+		try db.execute(sql: """
+		CREATE TRIGGER accountList_position_update
+		AFTER DELETE
+		ON accountListPosition
+		BEGIN
+			UPDATE accountListPosition
+			SET position = position - 1
+			WHERE position > OLD.position AND cloudProviderType = OLD.cloudProviderType;
+		END;
+		""")
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

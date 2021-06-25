@@ -17,67 +17,6 @@ class DatabaseManager {
 
 	init(dbPool: DatabasePool) throws {
 		self.dbPool = dbPool
-		try DatabaseManager.migrator.migrate(dbPool)
-	}
-
-	private static var migrator: DatabaseMigrator {
-		var migrator = DatabaseMigrator()
-		migrator.registerMigration("main-v1") { db in
-			try db.create(table: "vaultListPosition") { table in
-				table.column("position", .integer).unique()
-				table.column("vaultUID", .text).unique().notNull().references("vaultAccounts", onDelete: .cascade)
-				table.check(Column("position") != nil)
-			}
-			try db.execute(sql: """
-			CREATE TRIGGER position_creation
-			AFTER INSERT
-			ON vaultAccounts
-			BEGIN
-				INSERT INTO vaultListPosition (position, vaultUID)
-				VALUES (IFNULL((SELECT MAX(position) FROM vaultListPosition), -1)+1, NEW.vaultUID);
-			END;
-			""")
-
-			try db.execute(sql: """
-			CREATE TRIGGER position_update
-			AFTER DELETE
-			ON vaultListPosition
-			BEGIN
-				UPDATE vaultListPosition
-				SET position = position - 1
-				WHERE position > OLD.position;
-			END;
-			""")
-
-			try db.create(table: "accountListPosition") { table in
-				table.column("position", .integer)
-				table.column("cloudProviderType", .text)
-				table.column("accountUID", .text).unique().notNull().references("cloudProviderAccounts", onDelete: .cascade)
-				table.uniqueKey(["position", "cloudProviderType"])
-				table.check(Column("position") != nil && Column("cloudProviderType") != nil)
-			}
-			try db.execute(sql: """
-			CREATE TRIGGER accountList_position_creation
-			AFTER INSERT
-			ON cloudProviderAccounts
-			BEGIN
-				INSERT INTO accountListPosition (position, cloudProviderType, accountUID)
-				VALUES (IFNULL((SELECT MAX(position) FROM accountListPosition WHERE cloudProviderType = NEW.cloudProviderType), -1)+1, NEW.cloudProviderType, NEW.accountUID);
-			END;
-			""")
-
-			try db.execute(sql: """
-			CREATE TRIGGER accountList_position_update
-			AFTER DELETE
-			ON accountListPosition
-			BEGIN
-				UPDATE accountListPosition
-				SET position = position - 1
-				WHERE position > OLD.position AND cloudProviderType = OLD.cloudProviderType;
-			END;
-			""")
-		}
-		return migrator
 	}
 
 	func getAllVaults() throws -> [VaultInfo] {
