@@ -1,5 +1,18 @@
 # Cryptomator for iOS
 
+[![Build](https://github.com/cryptomator/ios/actions/workflows/build.yml/badge.svg)](https://github.com/cryptomator/ios/actions/workflows/build.yml)
+[![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
+[![Crowdin](https://badges.crowdin.net/cryptomator-ios/localized.svg)](https://crowdin.com/project/cryptomator-ios)
+[![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
+
+Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
+
+This is the repository for the new iOS app of Cryptomator, which has been rewritten from the ground up and is currently in a beta phase.
+
+Try it out for free via TestFlight: https://testflight.apple.com/join/WMtYSrzD
+
+If you're looking for the current App Store version and would like to report an issue, check out the other repository: https://github.com/cryptomator/cryptomator-ios
+
 ## Building
 
 ### Create Secrets
