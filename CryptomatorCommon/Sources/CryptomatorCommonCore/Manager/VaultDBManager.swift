@@ -30,8 +30,8 @@ public protocol VaultManager {
 	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
 	func manualUnlockVault(withUID vaultUID: String, password: String) throws -> CloudProvider
 	func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
 	func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath
@@ -175,7 +175,7 @@ public class VaultDBManager: VaultManager {
 
 	// MARK: Open Existing Vault
 
-	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let delegate: CloudProvider
 		do {
 			guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
@@ -188,7 +188,7 @@ public class VaultDBManager: VaultManager {
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		let vaultPath = vaultDetails.vaultPath
+		let vaultPath = vaultItem.vaultPath
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		return delegate.downloadFile(from: vaultConfigPath, to: localVaultConfigURL).then {
@@ -199,12 +199,12 @@ public class VaultDBManager: VaultManager {
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
 			let vaultProvider = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
-			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultDetails.name, lastUpToDateCheck: Date())
+			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
 			try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultConfigToken: token, password: password, storePasswordInKeychain: storePasswordInKeychain)
 			try self.vaultAccountManager.saveNewAccount(vaultAccount)
 			VaultDBManager.cachedDecorators[vaultUID] = vaultProvider
 		}.then {
-			self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultDetails.name)
+			self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 		}.catch { _ in
 			VaultDBManager.cachedDecorators[vaultUID] = nil
 		}
@@ -218,7 +218,7 @@ public class VaultDBManager: VaultManager {
 	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
 	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
 	 */
-	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultDetails: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		do {
 			guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
 				throw VaultManagerError.vaultAlreadyExists
@@ -226,17 +226,17 @@ public class VaultDBManager: VaultManager {
 			let delegate = try providerManager.getProvider(with: delegateAccountUID)
 			let tmpDirURL = FileManager.default.temporaryDirectory
 			let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-			let vaultPath = vaultDetails.vaultPath
+			let vaultPath = vaultItem.vaultPath
 			let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then {
 				let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 				let masterkey = try masterkeyFile.unlock(passphrase: password)
 				_ = try self.createLegacyVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
-				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultDetails.name, lastUpToDateCheck: Date())
+				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: masterkeyFile.version, password: password, storePasswordInKeychain: storePasswordInKeychain)
 				try self.vaultAccountManager.saveNewAccount(vaultAccount)
 			}.then {
-				self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultDetails.name)
+				self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 			}
 		} catch {
 			VaultDBManager.cachedDecorators[vaultUID] = nil

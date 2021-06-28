@@ -24,7 +24,12 @@ class LocalFileSystemAuthenticationViewController: SingleSectionTableViewControl
 	}
 
 	@objc func openDocumentPicker() {
-		let documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+		let documentPicker: UIDocumentPickerViewController
+		if #available(iOS 14, *) {
+			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
+		} else {
+			documentPicker = UIDocumentPickerViewController(documentTypes: [kUTTypeFolder as String], in: .open)
+		}
 		documentPicker.allowsMultipleSelection = false
 		documentPicker.delegate = self
 		present(documentPicker, animated: true)
@@ -37,8 +42,7 @@ class LocalFileSystemAuthenticationViewController: SingleSectionTableViewControl
 			let credential = try viewModel.userPicked(urls: urls)
 			coordinator?.authenticated(credential: credential)
 		} catch {
-			#warning("TODO: Add coordinator for error handling")
-			print(error)
+			coordinator?.handleError(error, for: self)
 		}
 	}
 

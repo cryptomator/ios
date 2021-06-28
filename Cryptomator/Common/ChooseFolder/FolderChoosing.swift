@@ -23,9 +23,3 @@ protocol Item {
 struct Folder: Item {
 	let path: CloudPath
 }
-
-// enum ItemType {
-//	case folder
-//	case vaultConfig
-//	case legacyMasterkey
-// }

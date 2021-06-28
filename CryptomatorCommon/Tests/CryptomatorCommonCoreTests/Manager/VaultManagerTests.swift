@@ -189,7 +189,7 @@ class VaultManagerTests: XCTestCase {
 
 		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
-		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultDetails: vaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
+		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat8ShorteningProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
@@ -242,7 +242,7 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 7, password: "pw")
 		let vaultUID = UUID().uuidString
 		let legacyVaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
-		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultDetails: legacyVaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
+		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: legacyVaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")

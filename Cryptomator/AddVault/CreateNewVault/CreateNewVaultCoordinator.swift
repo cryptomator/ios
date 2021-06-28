@@ -77,13 +77,13 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 			do {
 				try CloudProviderAccountDBManager.shared.saveNewAccount(account)
 			} catch {
-				DDLogError("startLocalFileSystemAuthenticationFlow saveNewAccount failed with:\(error)")
+				DDLogError("startLocalFileSystemAuthenticationFlow saveNewAccount failed with: \(error)")
 			}
-			self.startAuthenticatedLocalFileSystemOpenExistingVaultFlow(with: credential, account: account)
+			self.startAuthenticatedLocalFileSystemCreateNewVaultFlow(with: credential, account: account)
 		})
 	}
 
-	private func startAuthenticatedLocalFileSystemOpenExistingVaultFlow(with credential: LocalFileSystemCredential, account: CloudProviderAccount) {
+	private func startAuthenticatedLocalFileSystemCreateNewVaultFlow(with credential: LocalFileSystemCredential, account: CloudProviderAccount) {
 		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
 		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account, vaultName: vaultName)
 		childCoordinators.append(child)

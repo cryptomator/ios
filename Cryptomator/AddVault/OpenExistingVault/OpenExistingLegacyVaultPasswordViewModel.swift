@@ -15,7 +15,6 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 	let provider: CloudProvider
 	let account: CloudProviderAccount
 
-	// later: localMasterkeyURL: URL instead of masterkeyPath: CloudPath
 	let vault: VaultItem
 	var vaultName: String {
 		return vault.name
@@ -41,6 +40,6 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultDetails: vault, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultItem: vault, password: password, storePasswordInKeychain: true)
 	}
 }

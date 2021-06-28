@@ -13,15 +13,15 @@ class LocalFileSystemAuthenticator {
 	private static var coordinator: LocalFileSystemCoordinator?
 
 	static func authenticateForOpenExistingVault(from navigationController: UINavigationController, onCompletion: @escaping (LocalFileSystemCredential) -> Void) {
-		let documentPickerButtonText = "Select Vault Folder"
-		let headerText = "In the next screen, choose the storage location for your new vault."
+		let documentPickerButtonText = NSLocalizedString("localFileSystemAuthentication.openExistingVault.button", comment: "")
+		let headerText = NSLocalizedString("localFileSystemAuthentication.openExistingVault.header", comment: "")
 		let viewModel = LocalFileSystemAuthenticationViewModel(documentPickerButtonText: documentPickerButtonText, headerText: headerText)
 		authenticate(from: navigationController, viewModel: viewModel, onCompletion: onCompletion)
 	}
 
 	static func authenticateForCreateNewVault(from navigationController: UINavigationController, onCompletion: @escaping (LocalFileSystemCredential) -> Void) {
-		let documentPickerButtonText = "Select Storage Location"
-		let headerText = "In the next screen, choose the folder of your existing vault."
+		let documentPickerButtonText = NSLocalizedString("localFileSystemAuthentication.createNewVault.button", comment: "")
+		let headerText = NSLocalizedString("localFileSystemAuthentication.createNewVault.header", comment: "")
 		let viewModel = LocalFileSystemAuthenticationViewModel(documentPickerButtonText: documentPickerButtonText, headerText: headerText)
 		authenticate(from: navigationController, viewModel: viewModel, onCompletion: onCompletion)
 	}
