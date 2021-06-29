@@ -70,27 +70,18 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	// MARK: - LocalFileSystemProvider Flow
 
 	private func startLocalFileSystemAuthenticationFlow() {
-		LocalFileSystemAuthenticator.authenticateForOpenExistingVault(from: navigationController, onCompletion: { credential in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .localFileSystem)
-			do {
-				try CloudProviderAccountDBManager.shared.saveNewAccount(account)
-			} catch {
-				DDLogError("startLocalFileSystemAuthenticationFlow saveNewAccount failed with:\(error)")
-			}
-			self.startAuthenticatedLocalFileSystemOpenExistingVaultFlow(with: credential, account: account)
-		})
+		let child = OpenExistingLocalVaultCoordinator(navigationController: navigationController)
+		childCoordinators.append(child)
+		child.parentCoordinator = self
+		child.start()
 	}
 
-	private func startAuthenticatedLocalFileSystemOpenExistingVaultFlow(with credential: LocalFileSystemCredential, account: CloudProviderAccount) {
+	func startAuthenticatedLocalFileSystemOpenExistingVaultFlow(credential: LocalFileSystemCredential, account: CloudProviderAccount, item: Item) {
 		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
 		let child = AuthenticatedOpenExistingVaultCoordinator(navigationController: navigationController, provider: provider, account: account)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
-
-		let viewModel = OpenExistingLocalVaultViewModel(rootFolderName: credential.rootURL.lastPathComponent, provider: provider)
-		let chooseFolderVC = OpenExistingVaultChooseFolderViewController(with: viewModel)
-		chooseFolderVC.coordinator = child
-		navigationController.pushViewController(chooseFolderVC, animated: true)
+		child.chooseItem(item)
 	}
 }
 

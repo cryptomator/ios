@@ -136,10 +136,6 @@ private class VaultAccountManagerMock: VaultAccountManager {
 	}
 }
 
-private enum MockError: Error {
-	case notMocked
-}
-
 private class VaultManagerMock: VaultDBManager {
 	var removedFileProviderDomains = [String]()
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {

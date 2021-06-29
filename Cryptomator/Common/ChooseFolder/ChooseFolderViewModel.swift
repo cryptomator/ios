@@ -51,7 +51,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 
 	func refreshItems() {
 		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
-			if let vaultItem = self.getVaultItem(items: itemList.items) {
+			if let vaultItem = VaultDetector.getVaultItem(items: itemList.items, parentCloudPath: self.cloudPath) {
 				self.foundMasterkey = true
 				self.vaultListener?(vaultItem)
 			} else {
@@ -62,40 +62,5 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 		}.catch { error in
 			self.errorListener?(error)
 		}
-	}
-
-	func getVaultItem(items: [CloudItemMetadata]) -> VaultDetailItem? {
-		if let vaultConfigPath = getVaultConfigCloudPath(items: items) {
-			let vaultName = getVaultName(for: vaultConfigPath)
-			return VaultDetailItem(name: vaultName, vaultPath: cloudPath, isLegacyVault: false)
-		} else if let legacyMasterkeyPath = getLegacyMasterkeyPath(items: items) {
-			let vaultName = getVaultName(for: legacyMasterkeyPath)
-			return VaultDetailItem(name: vaultName, vaultPath: cloudPath, isLegacyVault: true)
-		} else {
-			return nil
-		}
-	}
-
-	func getVaultConfigCloudPath(items: [CloudItemMetadata]) -> CloudPath? {
-		let vaultConfigItem = items.first(where: { $0.name == "vault.cryptomator" && $0.itemType == .file })
-		guard items.contains(where: { $0.name == "d" && $0.itemType == .folder }) else {
-			DDLogDebug("Missing d folder")
-			return nil
-		}
-		return vaultConfigItem?.cloudPath
-	}
-
-	func getLegacyMasterkeyPath(items: [CloudItemMetadata]) -> CloudPath? {
-		let masterkeyItem = items.first(where: { $0.name == "masterkey.cryptomator" && $0.itemType == .file })
-		guard items.contains(where: { $0.name == "d" && $0.itemType == .folder }) else {
-			DDLogDebug("Missing d folder")
-			return nil
-		}
-		return masterkeyItem?.cloudPath
-	}
-
-	func getVaultName(for cryptomatorFilePath: CloudPath) -> String {
-		let parentPath = cryptomatorFilePath.deletingLastPathComponent()
-		return parentPath.lastPathComponent
 	}
 }

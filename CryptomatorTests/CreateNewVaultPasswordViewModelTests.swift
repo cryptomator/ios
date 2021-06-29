@@ -206,10 +206,6 @@ private class VaultManagerMock: VaultManager {
 	}
 }
 
-private enum MockError: Error {
-	case notMocked
-}
-
 private struct CreatedVault {
 	let vaultUID: String
 	let delegateAccountUID: String

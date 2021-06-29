@@ -20,6 +20,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 
 	override func showDetectedVault(_ vault: VaultDetailItem) {
+		tableView.reloadData()
 		self.vault = vault
 		refreshControl = nil
 		navigationController?.setToolbarHidden(true, animated: true)
@@ -108,8 +109,8 @@ private class OpenExistingVaultChooseFolderViewModelMock: ChooseFolderViewModelP
 struct OpenExistingVaultChooseFolderVCPreview: PreviewProvider {
 	static var previews: some View {
 		let viewController = OpenExistingVaultChooseFolderViewController(with: OpenExistingVaultChooseFolderViewModelMock(cloudPath: CloudPath("/Vault"), canCreateFolder: false))
-		let vault = VaultDetailItem(name: "vault", vaultPath: CloudPath("/Vault/masterkey.cryptomator"), isLegacyVault: false)
-		viewController.showDetectedVault(vault)
+		let item = VaultDetailItem(name: "vault", vaultPath: CloudPath("/Vault/masterkey.cryptomator"), isLegacyVault: false)
+		viewController.showDetectedVault(item)
 		return viewController.toPreview()
 	}
 }
