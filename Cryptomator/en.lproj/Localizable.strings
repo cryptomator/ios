@@ -61,5 +61,7 @@
 "createNewFolder.header.title" = "Choose a name for the folder.";
 "createNewFolder.cells.name" = "Folder Name";
 
-
-"testFlight.otherFileProviders.alert.text" =  "Other file providers are currently not available. Stay tuned for an update!";
+"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
+"localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
+"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
+"localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";

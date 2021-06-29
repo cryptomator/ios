@@ -41,7 +41,7 @@ class DatabaseManagerTests: XCTestCase {
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
-		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"))
+		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
 		let firstVaultListPosition = try dbPool.read { db in
 			try VaultListPosition.filter(Column("vaultUID") == "Vault1").fetchOne(db)
@@ -50,7 +50,7 @@ class DatabaseManagerTests: XCTestCase {
 		XCTAssertEqual(0, firstVaultListPosition?.position)
 		XCTAssertEqual(1, firstVaultListPosition?.id)
 
-		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"))
+		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"), vaultName: "Vault2")
 		try vaultAccountManager.saveNewAccount(secondVaultAccount)
 
 		let secondVaultListPosition = try dbPool.read { db in
@@ -67,11 +67,11 @@ class DatabaseManagerTests: XCTestCase {
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
-		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"))
+		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
-		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"))
+		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"), vaultName: "Vault2")
 		try vaultAccountManager.saveNewAccount(secondVaultAccount)
-		let thirdVaultAccount = VaultAccount(vaultUID: "Vault3", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault3"))
+		let thirdVaultAccount = VaultAccount(vaultUID: "Vault3", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault3"), vaultName: "Vault3")
 		try vaultAccountManager.saveNewAccount(thirdVaultAccount)
 
 		_ = try dbPool.write { db in
@@ -102,11 +102,11 @@ class DatabaseManagerTests: XCTestCase {
 
 		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
-		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"))
+		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
-		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"))
+		let secondVaultAccount = VaultAccount(vaultUID: "Vault2", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault2"), vaultName: "Vault2")
 		try vaultAccountManager.saveNewAccount(secondVaultAccount)
-		let thirdVaultAccount = VaultAccount(vaultUID: "Vault3", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault3"))
+		let thirdVaultAccount = VaultAccount(vaultUID: "Vault3", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault3"), vaultName: "Vault3")
 		try vaultAccountManager.saveNewAccount(thirdVaultAccount)
 
 		let vaults = try dbManager.getAllVaults()

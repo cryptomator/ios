@@ -26,6 +26,10 @@ public struct VaultInfo: Decodable, FetchableRecord {
 		return vaultAccount.vaultPath
 	}
 
+	var vaultName: String {
+		return vaultAccount.vaultName
+	}
+
 	var vaultUID: String {
 		return vaultAccount.vaultUID
 	}

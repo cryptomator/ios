@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
@@ -32,16 +33,13 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	func showAccountList(for cloudProviderType: CloudProviderType) {
 		if cloudProviderType == .localFileSystem {
-			let alertController = UIAlertController(title: "Info", message: NSLocalizedString("testFlight.otherFileProviders.alert.text", comment: ""), preferredStyle: .alert)
-			let okAction = UIAlertAction(title: NSLocalizedString("common.button.ok", comment: ""), style: .default)
-			alertController.addAction(okAction)
-			navigationController.present(alertController, animated: true, completion: nil)
-			return
+			startLocalFileSystemAuthenticationFlow()
+		} else {
+			let viewModel = AccountListViewModel(with: cloudProviderType)
+			let accountListVC = AccountListViewController(with: viewModel)
+			accountListVC.coordinator = self
+			navigationController.pushViewController(accountListVC, animated: true)
 		}
-		let viewModel = AccountListViewModel(with: cloudProviderType)
-		let accountListVC = AccountListViewController(with: viewModel)
-		accountListVC.coordinator = self
-		navigationController.pushViewController(accountListVC, animated: true)
 	}
 
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
@@ -69,6 +67,23 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	func close() {
 		navigationController.dismiss(animated: true)
 		parentCoordinator?.childDidFinish(self)
+	}
+
+	// MARK: - LocalFileSystemProvider Flow
+
+	private func startLocalFileSystemAuthenticationFlow() {
+		let child = CreateNewLocalVaultCoordinator(vaultName: vaultName, navigationController: navigationController)
+		childCoordinators.append(child)
+		child.parentCoordinator = self
+		child.start()
+	}
+
+	func startAuthenticatedLocalFileSystemCreateNewVaultFlow(credential: LocalFileSystemCredential, account: CloudProviderAccount, item: Item) {
+		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
+		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account, vaultName: vaultName)
+		childCoordinators.append(child)
+		child.parentCoordinator = self
+		child.chooseItem(item)
 	}
 }
 
@@ -106,15 +121,14 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 	}
 
 	func chooseItem(_ item: Item) {
-		switch item.type {
-		case .folder:
-			let viewModel = CreateNewVaultPasswordViewModel(vaultPath: item.path, account: account, vaultUID: UUID().uuidString)
-			let passwordVC = CreateNewVaultPasswordViewController(viewModel: viewModel)
-			passwordVC.coordinator = self
-			navigationController.pushViewController(passwordVC, animated: true)
-		default:
+		guard let vaultFolder = item as? Folder else {
 			handleError(VaultCoordinatorError.wrongItemType, for: navigationController)
+			return
 		}
+		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultFolder.path, account: account, vaultUID: UUID().uuidString)
+		let passwordVC = CreateNewVaultPasswordViewController(viewModel: viewModel)
+		passwordVC.coordinator = self
+		navigationController.pushViewController(passwordVC, animated: true)
 	}
 
 	func showCreateNewFolder(parentPath: CloudPath) {
@@ -124,6 +138,13 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
+	}
+
+	func handleError(error: Error) {
+		navigationController.popViewController(animated: true)
+		if let topViewController = navigationController.topViewController {
+			handleError(error, for: topViewController)
+		}
 	}
 
 	// MARK: - VaultInstalling

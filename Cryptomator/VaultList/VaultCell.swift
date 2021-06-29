@@ -25,7 +25,7 @@ class VaultCell: UITableViewCell {
 	func configure(with vault: VaultInfo) {
 		imageView?.image = UIImage(vaultIconFor: vault.cloudProviderType, state: .normal)
 		imageView?.highlightedImage = UIImage(vaultIconFor: vault.cloudProviderType, state: .highlighted)
-		textLabel?.text = vault.vaultPath.lastPathComponent
+		textLabel?.text = vault.vaultName
 		detailTextLabel?.text = vault.vaultPath.path
 		detailTextLabel?.textColor = UIColor(named: "secondaryLabel")
 	}
@@ -41,7 +41,7 @@ class VaultCell: UITableViewCell {
 		} else {
 			content.image = UIImage(vaultIconFor: vault.cloudProviderType, state: .normal)
 		}
-		content.text = vault.vaultPath.lastPathComponent
+		content.text = vault.vaultName
 		content.secondaryText = vault.vaultPath.path
 		content.secondaryTextProperties.color = .secondaryLabel
 		contentConfiguration = content

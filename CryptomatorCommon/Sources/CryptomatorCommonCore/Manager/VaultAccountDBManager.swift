@@ -16,17 +16,20 @@ public struct VaultAccount: Decodable, FetchableRecord, TableRecord {
 	static let delegateAccountUIDKey = "delegateAccountUID"
 	static let vaultPathKey = "vaultPath"
 	static let lastUpToDateCheckKey = "lastUpToDateCheck"
+	static let vaultNameKey = "vaultName"
 	public let vaultUID: String
 	let delegateAccountUID: String
 	public let vaultPath: CloudPath
+	public let vaultName: String
 	let lastUpToDateCheck: Date
 
 	public static let delegateAccount = belongsTo(CloudProviderAccount.self)
 
-	public init(vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, lastUpToDateCheck: Date = Date()) {
+	public init(vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, vaultName: String, lastUpToDateCheck: Date = Date()) {
 		self.vaultUID = vaultUID
 		self.delegateAccountUID = delegateAccountUID
 		self.vaultPath = vaultPath
+		self.vaultName = vaultName
 		self.lastUpToDateCheck = lastUpToDateCheck
 	}
 }
@@ -36,6 +39,7 @@ extension VaultAccount: PersistableRecord {
 		container[VaultAccount.vaultUIDKey] = vaultUID
 		container[VaultAccount.delegateAccountUIDKey] = delegateAccountUID
 		container[VaultAccount.vaultPathKey] = vaultPath
+		container[VaultAccount.vaultNameKey] = vaultName
 		container[VaultAccount.lastUpToDateCheckKey] = lastUpToDateCheck
 	}
 }
