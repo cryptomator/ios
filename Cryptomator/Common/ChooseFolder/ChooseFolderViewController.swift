@@ -19,7 +19,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	}()
 
 	private lazy var searchController: UISearchController = {
-		return UISearchController(searchResultsController: self)
+		return UISearchController()
 	}()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
@@ -129,11 +129,18 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	// MARK: - UITableViewDelegate
 
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	/* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	 	if viewModel.foundMasterkey {
+	 		return nil
+	 	}
+	 	return header
+	 } */
+
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if viewModel.foundMasterkey {
 			return nil
 		}
-		return header
+		return viewModel.headerTitle
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
