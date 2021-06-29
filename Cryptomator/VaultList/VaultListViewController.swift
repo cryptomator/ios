@@ -135,6 +135,11 @@ class VaultListViewController: UITableViewController {
 		}
 		return header
 	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		FilesAppUtil.showFilesApp(forVaultUID: viewModel.vaults[indexPath.row].vaultUID)
+	}
 }
 
 #if DEBUG
@@ -143,8 +148,8 @@ import SwiftUI
 
 private class VaultListViewModelMock: VaultListViewModelProtocol {
 	let vaults = [
-		VaultInfo(vaultAccount: VaultAccount(vaultUID: "1", delegateAccountUID: "1", vaultPath: CloudPath("/Work")), cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV), vaultListPosition: VaultListPosition(position: 1, vaultUID: "1")),
-		VaultInfo(vaultAccount: VaultAccount(vaultUID: "2", delegateAccountUID: "2", vaultPath: CloudPath("/Family")), cloudProviderAccount: CloudProviderAccount(accountUID: "2", cloudProviderType: .googleDrive), vaultListPosition: VaultListPosition(position: 2, vaultUID: "2"))
+		VaultInfo(vaultAccount: VaultAccount(vaultUID: "1", delegateAccountUID: "1", vaultPath: CloudPath("/Work"), vaultName: "Work"), cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV), vaultListPosition: VaultListPosition(position: 1, vaultUID: "1")),
+		VaultInfo(vaultAccount: VaultAccount(vaultUID: "2", delegateAccountUID: "2", vaultPath: CloudPath("/Family"), vaultName: "Family"), cloudProviderAccount: CloudProviderAccount(accountUID: "2", cloudProviderType: .googleDrive), vaultListPosition: VaultListPosition(position: 2, vaultUID: "2"))
 	]
 
 	func refreshItems() throws {}

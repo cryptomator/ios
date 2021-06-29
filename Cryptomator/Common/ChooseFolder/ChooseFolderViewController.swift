@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import UIKit
 
 class ChooseFolderViewController: SingleSectionTableViewController {
@@ -18,7 +19,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	}()
 
 	private lazy var searchController: UISearchController = {
-		return UISearchController(searchResultsController: self)
+		return UISearchController()
 	}()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
@@ -40,9 +41,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
 		} onChange: { [weak self] in
-			guard let self = self else { return }
-			self.refreshControl?.endRefreshing()
-			self.tableView.reloadData()
+			self?.onItemsChange()
 		} onVaultDetection: { [weak self] vault in
 			guard let self = self else { return }
 			self.tableView.reloadData()
@@ -52,7 +51,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden {
+		if let isToolbarHidden = navigationController?.isToolbarHidden, isToolbarHidden, !viewModel.foundMasterkey {
 			navigationController?.setToolbarHidden(false, animated: animated)
 		}
 	}
@@ -64,8 +63,13 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		}
 	}
 
-	func showDetectedVault(_ vault: Item) {
+	func showDetectedVault(_ vault: VaultDetailItem) {
 		fatalError("not implemented")
+	}
+
+	func onItemsChange() {
+		refreshControl?.endRefreshing()
+		tableView.reloadData()
 	}
 
 	@objc func cancel() {
@@ -114,13 +118,37 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		return cell
 	}
 
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		let itemsLoading = refreshControl?.isRefreshing ?? true
+		if !itemsLoading, viewModel.items.isEmpty {
+			return NSLocalizedString("chooseFolder.emptyFolder.footer", comment: "")
+		} else {
+			return nil
+		}
+	}
+
 	// MARK: - UITableViewDelegate
 
-	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	/* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	 	if viewModel.foundMasterkey {
+	 		return nil
+	 	}
+	 	return header
+	 } */
+
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 		if viewModel.foundMasterkey {
 			return nil
 		}
-		return header
+		return viewModel.headerTitle
+	}
+
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		// Prevents the header title from being displayed in uppercase
+		guard let headerView = view as? UITableViewHeaderFooterView else {
+			return
+		}
+		headerView.textLabel?.text = viewModel.headerTitle
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -151,22 +179,25 @@ private class HeaderWithSearchbar: UITableViewHeaderFooterView {
 
 		NSLayoutConstraint.activate([
 			searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			searchBar.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			searchBar.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 
 			self.title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			self.title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+			self.title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 			self.title.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
-			self.title.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor)
+			self.title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import SwiftUI
 
 private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
+	var headerTitle: String {
+		cloudPath.path
+	}
+
 	let foundMasterkey = false
 	let canCreateFolder: Bool
 	let cloudPath: CloudPath
@@ -180,7 +211,7 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 		self.cloudPath = cloudPath
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (Item) -> Void) {
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void) {
 		onChange()
 	}
 

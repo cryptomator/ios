@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 protocol FolderCreating: AnyObject {
 	func createdNewFolder(at folderPath: CloudPath)
 	func stop()

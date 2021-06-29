@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 protocol CreateNewVaultPasswordViewModelProtocol {
 	var headerTitles: [String] { get }
 	var vaultUID: String { get }
@@ -26,7 +27,10 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 	}
 
 	let vaultUID: String
-	let headerTitles = ["Enter a new password.", "Confirm the new password."]
+	let headerTitles = [
+		NSLocalizedString("addVault.createNewVault.enterPassword.header", comment: ""),
+		NSLocalizedString("addVault.createNewVault.confirmPassword.header", comment: "")
+	]
 	var password: String?
 	var confirmingPassword: String?
 

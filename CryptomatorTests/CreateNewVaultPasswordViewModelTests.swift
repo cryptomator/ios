@@ -11,6 +11,7 @@ import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import Cryptomator
+
 class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
 
@@ -185,11 +186,11 @@ private class VaultManagerMock: VaultManager {
 		throw MockError.notMocked
 	}
 
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultConfigPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, masterkeyPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
+	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 
@@ -204,10 +205,6 @@ private class VaultManagerMock: VaultManager {
 	func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath {
 		return masterkeyPath
 	}
-}
-
-private enum MockError: Error {
-	case notMocked
 }
 
 private struct CreatedVault {

@@ -57,7 +57,6 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import SwiftUI
 
 struct ChooseCloudVCPreview: PreviewProvider {

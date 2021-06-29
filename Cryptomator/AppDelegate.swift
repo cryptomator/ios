@@ -62,13 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DDLogError("Error while setting up OneDrive: \(error)")
 		}
 
-		// Application-wide styling
-		UINavigationBar.appearance().barTintColor = UIColor(named: "primary")
-		UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor.white]
-		UIBarButtonItem.appearance().tintColor = UIColor.white
-
 		// Create window
-		let navigationController = UINavigationController()
+		let navigationController = BaseNavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
 		coordinator?.start()
 		window = UIWindow(frame: UIScreen.main.bounds)

@@ -10,16 +10,15 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProtocol {
 	var password: String?
 	let provider: CloudProvider
 	let account: CloudProviderAccount
 
-	// later: localMasterkeyURL: URL instead of masterkeyPath: CloudPath
-	let masterkeyPath: CloudPath
+	let vault: VaultItem
 	var vaultName: String {
-		let masterkeyParentPath = masterkeyPath.deletingLastPathComponent()
-		return masterkeyParentPath.lastPathComponent
+		return vault.name
 	}
 
 	var footerTitle: String {
@@ -29,10 +28,10 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 	private let localMasterkeyURL: URL
 	let vaultUID: String
 
-	init(provider: CloudProvider, account: CloudProviderAccount, masterkeyPath: CloudPath, vaultID: String) {
+	init(provider: CloudProvider, account: CloudProviderAccount, vault: VaultItem, vaultID: String) {
 		self.provider = provider
 		self.account = account
-		self.masterkeyPath = masterkeyPath
+		self.vault = vault
 		let tmpDirURL = FileManager.default.temporaryDirectory
 		self.localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		self.vaultUID = vaultID
@@ -42,6 +41,6 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 		guard let password = password else {
 			return Promise(MasterkeyProcessingViewModelError.noPasswordSet)
 		}
-		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, masterkeyPath: masterkeyPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultItem: vault, password: password, storePasswordInKeychain: true)
 	}
 }

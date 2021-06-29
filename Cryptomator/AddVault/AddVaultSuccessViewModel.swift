@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 struct AddVaultSuccessViewModel {
 	let vaultName: String
 	let vaultUID: String

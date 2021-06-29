@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol ChildCoordinator: Coordinator {
 	func stop()
 	var parentCoordinator: Coordinator? { get set }

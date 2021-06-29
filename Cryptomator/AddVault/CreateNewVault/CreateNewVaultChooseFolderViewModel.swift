@@ -8,9 +8,10 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 protocol CreateNewVaultChooseFolderViewModelProtocol: ChooseFolderViewModelProtocol {
 	var vaultName: String { get }
-	func chooseCurrentFolder() throws -> Item
+	func chooseCurrentFolder() throws -> Folder
 }
 
 class CreateNewVaultChooseFolderViewModel: ChooseFolderViewModel, CreateNewVaultChooseFolderViewModelProtocol {
@@ -21,12 +22,12 @@ class CreateNewVaultChooseFolderViewModel: ChooseFolderViewModel, CreateNewVault
 		super.init(canCreateFolder: true, cloudPath: cloudPath, provider: provider)
 	}
 
-	func chooseCurrentFolder() throws -> Item {
+	func chooseCurrentFolder() throws -> Folder {
 		guard !items.contains(where: { $0.name == vaultName }) else {
 			throw CreateNewVaultChooseFolderViewModelError.vaultNameCollision
 		}
 		let vaultPath = cloudPath.appendingPathComponent(vaultName)
-		return Item(type: .folder, path: vaultPath)
+		return Folder(path: vaultPath)
 	}
 }
 

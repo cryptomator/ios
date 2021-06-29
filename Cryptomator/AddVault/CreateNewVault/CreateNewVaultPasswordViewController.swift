@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class CreateNewVaultPasswordViewController: UITableViewController {
 	weak var coordinator: (Coordinator & VaultInstalling)?
 	private var viewModel: CreateNewVaultPasswordViewModelProtocol
@@ -121,6 +122,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 #if DEBUG
 import Promises
 import SwiftUI
+
 private class CreateNewVaultPasswordViewModelMock: CreateNewVaultPasswordViewModelProtocol {
 	let vaultUID = ""
 	let vaultName = ""

@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import Promises
+
 protocol CreateNewFolderViewModelProtocol: SingleSectionHeaderTableViewModelProtocol {
 	var folderName: String? { get set }
 	func createFolder() -> Promise<CloudPath>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 	weak var coordinator: (VaultNaming & Coordinator)?
 	private var viewModel: SetVaultNameViewModelProtocol

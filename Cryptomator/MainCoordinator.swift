@@ -24,7 +24,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}
 
 	func addVault() {
-		let modalNavigationController = UINavigationController()
+		let modalNavigationController = BaseNavigationController()
 		let child = AddVaultCoordinator(navigationController: modalNavigationController)
 		child.parentCoordinator = self
 		childCoordinators.append(child)
@@ -33,7 +33,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}
 
 	func showSettings() {
-		let modalNavigationController = UINavigationController()
+		let modalNavigationController = BaseNavigationController()
 		let child = SettingsCoordinator(navigationController: modalNavigationController)
 		child.parentCoordinator = self
 		childCoordinators.append(child)

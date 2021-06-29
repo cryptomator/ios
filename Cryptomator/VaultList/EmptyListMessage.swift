@@ -78,7 +78,6 @@ class EmptyListMessage: UIView {
 }
 
 #if DEBUG
-import CryptomatorCloudAccess
 import SwiftUI
 
 struct EmptyListMessagePreview: PreviewProvider {

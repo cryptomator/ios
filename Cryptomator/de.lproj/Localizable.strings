@@ -7,7 +7,6 @@
 */
 
 "common.alert.error.title" = "Fehler";
-"common.button.add" = "Hinzufügen";
 "common.button.cancel" = "Abbrechen";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
@@ -28,15 +27,20 @@
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
 "addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors speichern?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
+"addVault.createNewVault.enterPassword.header" = "Gib ein neues Passwort ein.";
+"addVault.createNewVault.confirmPassword.header" = "Bestätige das neue Passwort.";
 "addVault.createNewVault.alert.confirmPassword.title" = "Passwort bestätigen?";
 "addVault.createNewVault.alert.confirmPassword.message" = "WICHTIG: Wenn du dein Passwort vergisst, gibt es keine Möglichkeit, deine Daten wiederherzustellen.";
 "addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du den Tresor hinzufügen?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
 "addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die Dateien-App zu.";
 "addVault.success.openFilesApp" = "Dateien-App öffnen";
 "addVault.success.footer" = "Falls du es noch nicht getan hast, aktiviere Cryptomator in der Dateien-App.";
+
+"chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
@@ -61,4 +65,7 @@
 "createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "createNewFolder.cells.name" = "Ordnername";
 
-"testFlight.otherFileProviders.alert.text" =  "Andere Datei-Anbieter sind derzeit nicht verfügbar. Diese Funktion folgt bald in einem Update!";
+"localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
+"localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
+"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
+"localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";

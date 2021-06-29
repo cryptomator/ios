@@ -33,8 +33,8 @@
 				<string>Custom Action</string>
 			</dict>
 		</array>
-		<key>NSExtensionMainStoryboard</key>
-		<string>MainInterface</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>$(PRODUCT_MODULE_NAME).RootViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.fileprovider-actionsui</string>
 	</dict>

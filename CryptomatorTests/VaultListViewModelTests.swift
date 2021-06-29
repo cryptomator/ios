@@ -100,10 +100,10 @@ class VaultListViewModelTests: XCTestCase {
 
 private class DatabaseManagerMock: DatabaseManager {
 	var updatedPositions = [VaultListPosition]()
-	let vaults = [VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault1", delegateAccountUID: "1", vaultPath: CloudPath("/vault1")),
+	let vaults = [VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault1", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vault1"),
 	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
 	                        vaultListPosition: VaultListPosition(position: 1, vaultUID: "vault1")),
-	              VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault2", delegateAccountUID: "1", vaultPath: CloudPath("/vault1")),
+	              VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault2", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vautlt1"),
 	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
 	                        vaultListPosition: VaultListPosition(position: 0, vaultUID: "vault2"))]
 
@@ -134,10 +134,6 @@ private class VaultAccountManagerMock: VaultAccountManager {
 	func removeAccount(with vaultUID: String) throws {
 		removedVaultUIDs.append(vaultUID)
 	}
-}
-
-private enum MockError: Error {
-	case notMocked
 }
 
 private class VaultManagerMock: VaultDBManager {
