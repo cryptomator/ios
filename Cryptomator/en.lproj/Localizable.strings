@@ -27,6 +27,8 @@
 "addVault.createNewVault.title" = "Create New Vault";
 "addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
+"addVault.createNewVault.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.confirmPassword.header" = "Confirm the new password.";
 "addVault.createNewVault.alert.confirmPassword.title" = "Confirm Password?";
 "addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
 "addVault.openExistingVault.title" = "Open Existing Vault";
