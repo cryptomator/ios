@@ -85,15 +85,15 @@ public class VaultDBManager: VaultManager {
 			try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, delegate: delegate, tmpDirURL: tmpDirURL)
 		}.then { _ -> Promise<Void> in
 			try self.createVaultFolderStructure(masterkey: masterkey, vaultPath: vaultPath, delegate: delegate)
-		}.then { _ -> Void in
+		}.then { _ -> Promise<Void> in
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 			let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
-			let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultPath.lastPathComponent, lastUpToDateCheck: Date())
-			try self.vaultAccountManager.saveNewAccount(account)
 			try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultConfigToken: vaultConfigToken, password: password, storePasswordInKeychain: storePasswordInKeychain)
 			VaultDBManager.cachedDecorators[vaultUID] = decorator
+			return self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultPath.lastPathComponent)
 		}.then {
-			self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultPath.lastPathComponent)
+			let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultPath.lastPathComponent, lastUpToDateCheck: Date())
+			try self.vaultAccountManager.saveNewAccount(account)
 		}
 	}
 
@@ -193,18 +193,18 @@ public class VaultDBManager: VaultManager {
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		return delegate.downloadFile(from: vaultConfigPath, to: localVaultConfigURL).then {
 			delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
-		}.then {
+		}.then { _ -> Promise<Void> in
 			let token = try String(contentsOf: localVaultConfigURL, encoding: .utf8)
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: token)
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
 			let vaultProvider = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
-			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
 			try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultConfigToken: token, password: password, storePasswordInKeychain: storePasswordInKeychain)
-			try self.vaultAccountManager.saveNewAccount(vaultAccount)
 			VaultDBManager.cachedDecorators[vaultUID] = vaultProvider
+			return self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 		}.then {
-			self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
+			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
+			try self.vaultAccountManager.saveNewAccount(vaultAccount)
 		}.catch { _ in
 			VaultDBManager.cachedDecorators[vaultUID] = nil
 		}
@@ -228,15 +228,16 @@ public class VaultDBManager: VaultManager {
 			let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 			let vaultPath = vaultItem.vaultPath
 			let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then {
+			return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then { _ -> Promise<Void> in
 				let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 				let masterkey = try masterkeyFile.unlock(passphrase: password)
-				_ = try self.createLegacyVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
-				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
+				let vaultProvider = try self.createLegacyVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
+				VaultDBManager.cachedDecorators[vaultUID] = vaultProvider
 				try self.saveFileProviderConformMasterkeyToKeychain(masterkey, forVaultUID: vaultUID, vaultVersion: masterkeyFile.version, password: password, storePasswordInKeychain: storePasswordInKeychain)
-				try self.vaultAccountManager.saveNewAccount(vaultAccount)
+				return self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
 			}.then {
-				self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name)
+				let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name, lastUpToDateCheck: Date())
+				try self.vaultAccountManager.saveNewAccount(vaultAccount)
 			}
 		} catch {
 			VaultDBManager.cachedDecorators[vaultUID] = nil
