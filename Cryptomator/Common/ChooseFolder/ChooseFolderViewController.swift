@@ -143,6 +143,14 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		return viewModel.headerTitle
 	}
 
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		// Prevents the header title from being displayed in uppercase
+		guard let headerView = view as? UITableViewHeaderFooterView else {
+			return
+		}
+		headerView.textLabel?.text = viewModel.headerTitle
+	}
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let item = viewModel.items[indexPath.row]
 		coordinator?.showItems(for: item.cloudPath)
