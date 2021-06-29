@@ -11,6 +11,7 @@ import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import Cryptomator
+
 class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
 

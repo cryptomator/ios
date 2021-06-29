@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Cryptomator
+
 class SetVaultNameViewModelTests: XCTestCase {
 	var viewModel: SetVaultNameViewModel!
 	override func setUpWithError() throws {

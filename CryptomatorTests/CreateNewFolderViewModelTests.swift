@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import Promises
 import XCTest
 @testable import Cryptomator
+
 class CreateNewFolderViewModelTests: XCTestCase {
 	private var cloudProviderMock: CloudProviderMock!
 

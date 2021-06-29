@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class CreateNewLocalVaultCoordinator: LocalVaultAdding, LocalFileSystemAuthenticating, Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController

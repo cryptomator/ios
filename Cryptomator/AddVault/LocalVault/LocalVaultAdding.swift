@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 protocol LocalVaultAdding {
 	func validationFailed(with error: Error, at viewController: UIViewController)
 	func showPasswordScreen(for result: LocalFileSystemAuthenticationResult)

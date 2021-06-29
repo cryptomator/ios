@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 protocol VaultNaming: AnyObject {
 	func setVaultName(_ name: String)
 }

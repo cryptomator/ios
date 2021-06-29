@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 protocol CreateNewVaultChooseFolderViewModelProtocol: ChooseFolderViewModelProtocol {
 	var vaultName: String { get }
 	func chooseCurrentFolder() throws -> Folder

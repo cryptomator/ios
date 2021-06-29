@@ -11,6 +11,7 @@ import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
 import GRDB
+
 class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 

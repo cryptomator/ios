@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtocol {
 	var vaultName: String? { get set }
 	func getValidatedVaultName() throws -> String

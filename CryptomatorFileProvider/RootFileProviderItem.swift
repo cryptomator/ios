@@ -9,6 +9,7 @@
 import FileProvider
 import Foundation
 import MobileCoreServices
+
 public class RootFileProviderItem: NSObject, NSFileProviderItem {
 	public var itemIdentifier = NSFileProviderItemIdentifier.rootContainer
 	public let parentItemIdentifier = NSFileProviderItemIdentifier.rootContainer

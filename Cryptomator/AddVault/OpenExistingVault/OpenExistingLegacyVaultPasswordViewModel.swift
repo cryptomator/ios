@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProtocol {
 	var password: String?
 	let provider: CloudProvider

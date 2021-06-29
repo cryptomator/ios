@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 enum VaultCoordinatorError: Error {
 	case wrongItemType
 }

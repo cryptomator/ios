@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
+
 struct VaultDetailItem: Item, VaultItem {
 	var path: CloudPath {
 		return vaultPath

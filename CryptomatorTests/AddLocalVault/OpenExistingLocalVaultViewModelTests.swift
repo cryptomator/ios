@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import XCTest
 @testable import Cryptomator
+
 class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 	var viewModel: OpenExistingLocalVaultViewModel!
 

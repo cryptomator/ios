@@ -8,6 +8,7 @@
 
 import MobileCoreServices
 import UIKit
+
 class LocalFileSystemAuthenticationViewController: SingleSectionTableViewController, UIDocumentPickerDelegate {
 	weak var coordinator: (LocalFileSystemAuthenticating & LocalVaultAdding & Coordinator)?
 	private let viewModel: LocalFileSystemAuthenticationViewModelProtocol
@@ -104,6 +105,7 @@ private class LocalFileSystemAuthenticationHeaderView: UIView {
 #if DEBUG
 import CryptomatorCommonCore
 import SwiftUI
+
 struct LocalFileSystemViewModelMock: LocalFileSystemAuthenticationViewModelProtocol {
 	let documentPickerButtonText = "Select Storage Location"
 	let headerText = "In the next screen, choose the storage location for your new vault."

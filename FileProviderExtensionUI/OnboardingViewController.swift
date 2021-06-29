@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class OnboardingViewController: UITableViewController {
 	weak var coordinator: FileProviderCoordinator?
 

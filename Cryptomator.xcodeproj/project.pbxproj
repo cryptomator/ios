@@ -594,11 +594,11 @@
 		4A1EB0D6268A6CF5006D072B /* LocalVault */ = {
 			isa = PBXGroup;
 			children = (
-				4A1EB0C92689C373006D072B /* LocalVaultAdding.swift */,
 				4A1EB0D7268A6DE1006D072B /* AddLocalVaultViewController.swift */,
 				4A3D65602680A3CB000DA764 /* LocalFileSystemAuthenticating.swift */,
 				4A3D65632680A4B7000DA764 /* LocalFileSystemAuthenticationViewController.swift */,
 				4A3D65652680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift */,
+				4A1EB0C92689C373006D072B /* LocalVaultAdding.swift */,
 			);
 			path = LocalVault;
 			sourceTree = "<group>";
@@ -705,6 +705,7 @@
 				4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A5E5B2A2453119100BD6298 /* Products */,
+				74D365BC268B965B005ECD69 /* SharedResources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -725,7 +726,6 @@
 		4A644B45267A3D21008CBB9A /* CreateNewVault */ = {
 			isa = PBXGroup;
 			children = (
-				4A1EB0D3268A5A44006D072B /* LocalVault */,
 				4A644B4A267B4C08008CBB9A /* CreateNewVaultChooseFolderViewController.swift */,
 				4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */,
 				4A644B4C267B55E4008CBB9A /* CreateNewVaultCoordinator.swift */,
@@ -736,6 +736,7 @@
 				4A644B4E267B9E6A008CBB9A /* SetVaultNameCoordinator.swift */,
 				4A644B43267A3BEC008CBB9A /* SetVaultNameViewController.swift */,
 				4A644B46267A3D43008CBB9A /* SetVaultNameViewModel.swift */,
+				4A1EB0D3268A5A44006D072B /* LocalVault */,
 			);
 			path = CreateNewVault;
 			sourceTree = "<group>";
@@ -753,8 +754,8 @@
 			isa = PBXGroup;
 			children = (
 				4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */,
-				4A6A5203268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift */,
 				4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */,
+				4A6A5203268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift */,
 			);
 			path = AddLocalVault;
 			sourceTree = "<group>";
@@ -789,8 +790,8 @@
 				4A644B5A267CA972008CBB9A /* DetectedVaultView.swift */,
 				4A3D655E268099F9000DA764 /* VaultCoordinatorError.swift */,
 				4A2FD08125B5E2BA008565C8 /* VaultInstalling.swift */,
-				4A1EB0D6268A6CF5006D072B /* LocalVault */,
 				4A644B45267A3D21008CBB9A /* CreateNewVault */,
+				4A1EB0D6268A6CF5006D072B /* LocalVault */,
 				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
 			);
 			path = AddVault;
@@ -924,11 +925,11 @@
 			isa = PBXGroup;
 			children = (
 				4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */,
+				4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */,
 				4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */,
 				4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */,
 				4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */,
 				4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */,
-				4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */,
 				4A6A5200268B1BEF006F7368 /* LocalVault */,
 			);
 			path = OpenExistingVault;
@@ -965,8 +966,6 @@
 				4AE97DB824572E4A00452814 /* Info.plist */,
 				4AE97DAA24572E4900452814 /* AppDelegate.swift */,
 				4A03255D25A368BF00E63D7A /* MainCoordinator.swift */,
-				4AE97DB324572E4A00452814 /* Assets.xcassets */,
-				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
 				4A7BC0E825ADF13100F007B3 /* AddVault */,
 				4A8195E325ADB92600F7DDA1 /* Common */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
@@ -1112,6 +1111,15 @@
 				7408E6CB26779BC200D7FAEA /* About */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		74D365BC268B965B005ECD69 /* SharedResources */ = {
+			isa = PBXGroup;
+			children = (
+				4AE97DB324572E4A00452814 /* Assets.xcassets */,
+				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
+			);
+			path = SharedResources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

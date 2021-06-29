@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
+
 protocol LocalFileSystemAuthenticating {
 	func authenticated(credential: LocalFileSystemCredential)
 }

@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let vaultName: String
 

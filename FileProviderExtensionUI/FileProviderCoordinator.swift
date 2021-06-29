@@ -8,6 +8,7 @@
 
 import FileProviderUI
 import UIKit
+
 class FileProviderCoordinator {
 	let navigationController: UINavigationController
 	let extensionContext: FPUIActionExtensionContext

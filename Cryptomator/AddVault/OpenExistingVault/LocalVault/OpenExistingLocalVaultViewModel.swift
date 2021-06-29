@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let validator: OpenExistingLocalVaultValidationLogic
 	init(accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {

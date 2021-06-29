@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class CreateNewVaultPasswordViewController: UITableViewController {
 	weak var coordinator: (Coordinator & VaultInstalling)?
 	private var viewModel: CreateNewVaultPasswordViewModelProtocol

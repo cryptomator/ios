@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class DetectedVaultFailureViewController: UIViewController {
 	override func viewDidLoad() {
 		let failureView = DetectedVaultFailureView()
@@ -32,6 +33,7 @@ class DetectedVaultFailureViewController: UIViewController {
 
 #if DEBUG
 import SwiftUI
+
 struct DetectedVaultFailureVC_Preview: PreviewProvider {
 	static var previews: some View {
 		DetectedVaultFailureViewController().toPreview()

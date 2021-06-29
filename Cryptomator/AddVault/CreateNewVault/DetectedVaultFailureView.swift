@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class DetectedVaultFailureView: DetectedVaultView {
 	init() {
 		let configuration = UIImage.SymbolConfiguration(pointSize: 120)

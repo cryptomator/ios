@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
+
 protocol CreateNewVaultPasswordViewModelProtocol {
 	var headerTitles: [String] { get }
 	var vaultUID: String { get }
