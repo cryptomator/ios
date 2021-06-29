@@ -43,22 +43,7 @@ class AddVaultSuccessCoordinator: AddVaultSuccesing, Coordinator {
 	}
 
 	func showFilesApp(forVaultUID vaultUID: String) {
-		guard let containerURL = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName) else {
-			DDLogDebug("containerURL is nil")
-			return
-		}
-		let url = containerURL.appendingPathComponent("File Provider Storage").appendingPathComponent(vaultUID)
-		guard let sharedDocumentsURL = changeSchemeToSharedDocuments(for: url) else {
-			DDLogDebug("Conversion to shared documents url failed")
-			return
-		}
-		UIApplication.shared.open(sharedDocumentsURL)
+		FilesAppUtil.showFilesApp(forVaultUID: vaultUID)
 		done()
-	}
-
-	private func changeSchemeToSharedDocuments(for url: URL) -> URL? {
-		var comps = URLComponents(url: url, resolvingAgainstBaseURL: false)
-		comps?.scheme = "shareddocuments"
-		return comps?.url
 	}
 }

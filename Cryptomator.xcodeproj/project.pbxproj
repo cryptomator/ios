@@ -209,6 +209,7 @@
 		747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FF2587AEB60023FF53 /* FileSystemLock.swift */; };
 		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
 		747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376002587AEB60023FF53 /* LockNode.swift */; };
+		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -509,6 +510,7 @@
 		7439031225E0008D00BB3B81 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7439031B25E0009D00BB3B81 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
+		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -817,6 +819,7 @@
 				4A8195E425ADB94500F7DDA1 /* Previews */,
 				4A09BFC52684D599000E40AB /* VaultDetailItem.swift */,
 				4A1EB0D4268A5AA3006D072B /* VaultDetector.swift */,
+				74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1510,6 +1513,7 @@
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
+				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
 				4A644B4D267B55E4008CBB9A /* CreateNewVaultCoordinator.swift in Sources */,
 				740D3682266A19150058744D /* SettingsViewModel.swift in Sources */,
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
