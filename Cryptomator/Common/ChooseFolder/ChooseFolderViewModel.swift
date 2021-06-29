@@ -56,7 +56,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 				self.vaultListener?(vaultItem)
 			} else {
 				self.foundMasterkey = false
-				self.items = itemList.items
+				self.items = itemList.items.sorted { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
 				self.changeListener?()
 			}
 		}.catch { error in
