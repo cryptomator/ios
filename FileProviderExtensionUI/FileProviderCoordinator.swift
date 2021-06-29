@@ -17,13 +17,24 @@ class FileProviderCoordinator {
 		self.navigationController = navigationController
 	}
 
+	func userCancelled() {
+		extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.userCancelled.rawValue), userInfo: nil))
+	}
+
+	// MARK: - Onboarding
+
 	func showOnboarding() {
 		let onboardingVC = OnboardingViewController()
 		onboardingVC.coordinator = self
 		navigationController.pushViewController(onboardingVC, animated: false)
 	}
 
-	func userCancelled() {
-		extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.userCancelled.rawValue), userInfo: nil))
+	func openCryptomatorApp() {
+		let url = URL(string: "cryptomator:")!
+		extensionContext.open(url) { success in
+			if success {
+				self.userCancelled()
+			}
+		}
 	}
 }

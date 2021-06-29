@@ -51,6 +51,10 @@ class OnboardingViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return OnboardingHeaderView()
 	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		coordinator?.openCryptomatorApp()
+	}
 }
 
 private class OnboardingHeaderView: UIView {

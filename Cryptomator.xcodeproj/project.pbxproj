@@ -1391,7 +1391,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:0:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:0:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:0:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
+			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
 		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
