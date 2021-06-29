@@ -132,7 +132,7 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 	}
 
 	func showCreateNewFolder(parentPath: CloudPath) {
-		let modalNavigationController = UINavigationController()
+		let modalNavigationController = BaseNavigationController()
 		let child = AuthenticatedFolderCreationCoordinator(navigationController: modalNavigationController, provider: provider, parentPath: parentPath)
 		child.parentCoordinator = self
 		childCoordinators.append(child)

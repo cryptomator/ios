@@ -14,7 +14,7 @@ extension WebDAVAuthenticator {
 	private static var coordinator: WebDAVAuthenticationCoordinator?
 
 	static func authenticate(from viewController: UIViewController) -> Promise<WebDAVCredential> {
-		let navigationController = UINavigationController()
+		let navigationController = BaseNavigationController()
 		let webDAVCoordinator = WebDAVAuthenticationCoordinator(navigationController: navigationController)
 		coordinator = webDAVCoordinator
 		viewController.present(navigationController, animated: true)
