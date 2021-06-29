@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Foundation
 import Promises
 
-protocol LocalFileSystemAuthenticationBaseViewModelProtocol {
+protocol LocalFileSystemAuthenticationViewModelProtocol {
 	var documentPickerButtonText: String { get }
 	var headerText: String { get }
 	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential
@@ -25,7 +25,7 @@ protocol LocalFileSystemAuthenticationValidationLogic {
 	func validate(items: [CloudItemMetadata]) throws
 }
 
-class LocalFileSystemAuthenticationViewModel: LocalFileSystemAuthenticationBaseViewModelProtocol {
+class LocalFileSystemAuthenticationViewModel: LocalFileSystemAuthenticationViewModelProtocol {
 	let documentPickerButtonText: String
 	let headerText: String
 	private let validationLogic: LocalFileSystemAuthenticationValidationLogic

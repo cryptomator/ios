@@ -8,7 +8,7 @@
 
 import UIKit
 class AddLocalVaultViewController: LocalFileSystemAuthenticationViewController {
-	typealias AddLocalVaultViewModel = LocalFileSystemAuthenticationBaseViewModelProtocol & LocalFileSystemVaultInstallingViewModelProtocol
+	typealias AddLocalVaultViewModel = LocalFileSystemAuthenticationViewModelProtocol & LocalFileSystemVaultInstallingViewModelProtocol
 	let viewModel: AddLocalVaultViewModel
 
 	init(viewModel: AddLocalVaultViewModel) {
