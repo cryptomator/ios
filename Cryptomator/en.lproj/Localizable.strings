@@ -40,6 +40,8 @@
 "addVault.success.openFilesApp" = "Open Files App";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
+"chooseFolder.emptyFolder.footer" = "Folder is Empty";
+
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";

@@ -118,6 +118,15 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		return cell
 	}
 
+	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+		let itemsLoading = refreshControl?.isRefreshing ?? true
+		if !itemsLoading, viewModel.items.isEmpty {
+			return NSLocalizedString("chooseFolder.emptyFolder.footer", comment: "")
+		} else {
+			return nil
+		}
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
