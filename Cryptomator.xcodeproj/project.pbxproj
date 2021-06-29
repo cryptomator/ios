@@ -94,6 +94,13 @@
 		4A6A5206268B2B24006F7368 /* MockError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5205268B2B24006F7368 /* MockError.swift */; };
 		4A6A5208268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */; };
 		4A6A520B268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */; };
+		4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520C268B5EF7006F7368 /* RootViewController.swift */; };
+		4A6A520F268B5FA1006F7368 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520E268B5FA1006F7368 /* OnboardingView.swift */; };
+		4A6A5212268B6697006F7368 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
+		4A6A5213268B66AC006F7368 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
+		4A6A5214268B6937006F7368 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4A6A5216268B6937006F7368 /* Localizable.strings */; };
+		4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */; };
+		4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
@@ -126,8 +133,6 @@
 		4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */; };
 		4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */; };
 		4AA621DD249A6A8400A0BCBD /* FileProviderEnumerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */; };
-		4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */; };
-		4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */; };
 		4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */; };
 		4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */; };
 		4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */; };
@@ -385,6 +390,12 @@
 		4A6A5205268B2B24006F7368 /* MockError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockError.swift; sourceTree = "<group>"; };
 		4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocalVaultViewModelTestCase.swift; sourceTree = "<group>"; };
 		4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewLocalVaultViewModelTests.swift; sourceTree = "<group>"; };
+		4A6A520C268B5EF7006F7368 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		4A6A520E268B5FA1006F7368 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		4A6A5215268B6937006F7368 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A6A5217268B693E006F7368 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinator.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
@@ -421,8 +432,6 @@
 		4AA621DE249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA621DF249A6A8400A0BCBD /* FileProviderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtension.entitlements; sourceTree = "<group>"; };
 		4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FileProviderExtensionUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentActionViewController.swift; sourceTree = "<group>"; };
-		4AA621E9249A6A8400A0BCBD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedMasterkeyViewModel.swift; sourceTree = "<group>"; };
 		4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultChooseFolderViewController.swift; sourceTree = "<group>"; };
@@ -899,8 +908,11 @@
 			children = (
 				4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
-				4AA621E6249A6A8400A0BCBD /* DocumentActionViewController.swift */,
-				4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */,
+				4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */,
+				4A6A520E268B5FA1006F7368 /* OnboardingView.swift */,
+				4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */,
+				4A6A520C268B5EF7006F7368 /* RootViewController.swift */,
+				4A6A5216268B6937006F7368 /* Localizable.strings */,
 			);
 			path = FileProviderExtensionUI;
 			sourceTree = "<group>";
@@ -1329,7 +1341,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AA621EA249A6A8400A0BCBD /* MainInterface.storyboard in Resources */,
+				4A6A5213268B66AC006F7368 /* Colors.xcassets in Resources */,
+				4A6A5212268B6697006F7368 /* Assets.xcassets in Resources */,
+				4A6A5214268B6937006F7368 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1495,7 +1509,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AA621E7249A6A8400A0BCBD /* DocumentActionViewController.swift in Sources */,
+				4A6A520F268B5FA1006F7368 /* OnboardingView.swift in Sources */,
+				4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */,
+				4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */,
+				4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1715,12 +1732,13 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4AA621E8249A6A8400A0BCBD /* MainInterface.storyboard */ = {
+		4A6A5216268B6937006F7368 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				4AA621E9249A6A8400A0BCBD /* Base */,
+				4A6A5215268B6937006F7368 /* en */,
+				4A6A5217268B693E006F7368 /* de */,
 			);
-			name = MainInterface.storyboard;
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */ = {
