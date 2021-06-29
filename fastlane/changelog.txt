@@ -1,7 +1,5 @@
-Welcome to the first alpha version of the new Cryptomator for iOS app!
+Welcome to the first beta version of the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS.
 
-This new app is fully integrated into the Files app.
-
-Be aware that a lot of things aren't working yet. E.g., you can't use iCloud Drive and "other" file providers yet.
+Keep in mind that this is a pre-release version intended for testing and that some features like auto-lock are still missing. Check out our open-source repository on GitHub: https://github.com/cryptomator/ios
 
 We're looking forward to your feedback!
