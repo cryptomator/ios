@@ -10,18 +10,18 @@
 "common.button.cancel" = "Abbrechen";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
-"common.button.done" = "Fertig";
 "common.button.create" = "Erstellen";
 "common.button.createFolder" = "Neuer Ordner";
+"common.button.done" = "Fertig";
 "common.button.edit" = "Bearbeiten";
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
 "common.footer.learnMore" = "Mehr erfahren.";
 "common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
-"common.cells.url" = "URL";
-"common.cells.username" = "Username";
 "common.cells.password" = "Passwort";
+"common.cells.url" = "URL";
+"common.cells.username" = "Benutzername";
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
