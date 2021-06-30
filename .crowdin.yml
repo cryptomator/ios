@@ -1,3 +1,4 @@
+commit_message: '[ci skip]'
 files:
   - source: /Cryptomator/en.lproj/Localizable.strings
     translation: /Cryptomator/%two_letters_code%.lproj/Localizable.strings
