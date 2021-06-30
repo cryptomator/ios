@@ -2,7 +2,7 @@
 
 [![Build](https://github.com/cryptomator/ios/actions/workflows/build.yml/badge.svg)](https://github.com/cryptomator/ios/actions/workflows/build.yml)
 [![Twitter](https://img.shields.io/badge/twitter-@Cryptomator-blue.svg?style=flat)](http://twitter.com/Cryptomator)
-[![Crowdin](https://badges.crowdin.net/cryptomator-ios/localized.svg)](https://crowdin.com/project/cryptomator-ios)
+[![Crowdin](https://badges.crowdin.net/cryptomator/localized.svg)](https://translate.cryptomator.org/)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)
 
 Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
