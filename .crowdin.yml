@@ -1,0 +1,5 @@
+files:
+  - source: /Cryptomator/en.lproj/Localizable.strings
+    translation: /Cryptomator/%two_letters_code%.lproj/Localizable.strings
+  - source: /FileProviderExtensionUI/en.lproj/Localizable.strings
+    translation: /FileProviderExtensionUI/%two_letters_code%.lproj/Localizable.strings
