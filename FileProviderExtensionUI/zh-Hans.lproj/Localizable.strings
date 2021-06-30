@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Created by Philipp Schmid on 29.06.21.
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"onboarding.title" = "欢迎使用";
+"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧";
+"onboarding.button.openCryptomator" = "打开 Cryptomator";
