@@ -1,0 +1,71 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Created by Tobias Hagemann on 19.02.21.
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Erro";
+"common.button.cancel" = "Cancelar";
+"common.button.choose" = "Escolher";
+"common.button.confirm" = "Confirmar";
+"common.button.create" = "Criar";
+"common.button.createFolder" = "Criar pasta";
+"common.button.done" = "Concluído";
+"common.button.edit" = "Editar";
+"common.button.next" = "Próximo";
+"common.button.ok" = "Ok";
+"common.button.remove" = "Remover";
+"common.footer.learnMore" = "Saiba mais.";
+"common.cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
+"common.cells.password" = "Senha";
+"common.cells.url" = "URL";
+"common.cells.username" = "Usuário";
+
+"addVault.title" = "Adicionar Cofre";
+"addVault.createNewVault.title" = "Criar Um Novo Cofre";
+"addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos encriptados do seu cofre?";
+"addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
+"addVault.createNewVault.enterPassword.header" = "Digite a nova senha.";
+"addVault.createNewVault.confirmPassword.header" = "Confirme a nova senha.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Confirmar Senha?";
+"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.";
+"addVault.openExistingVault.title" = "Abrir Cofre Existente";
+"addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
+"addVault.openExistingVault.detectedMasterkey.text" = "O Cryptomator detectou o cofre \"%@\".\nVocê gostaria de adicionar este cofre?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\"";
+"addVault.success.info" = "Adicionado com sucesso cofre \"%@\".\nAcesse este cofre através do aplicativo Arquivos.";
+"addVault.success.openFilesApp" = "Abrir App Arquivos";
+"addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
+
+"chooseFolder.emptyFolder.footer" = "A pasta está vazia";
+
+"settings.title" = "Configurações";
+"settings.aboutCryptomator" = "Sobre o Cryptomator";
+"settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.sendLogFile" = "Enviar arquivo de log";
+
+"vaultList.header.title" = "Cofres";
+"vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
+"vaultList.alert.remove.title" = "Remover Cofre?";
+"vaultList.alert.remove.message" = "Isso somente removerá o cofre da lista de cofres. Nenhum dado criptografado será excluído. Você pode adicionar novamente o cofre mais tarde.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "Certificado TLS Inválido";
+"untrustedTLSCertificate.message" = "O certificado TLS de \"%@\" é inválido. Você quer confiar nele mesmo assim?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Confiar";
+"untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"setVaultName.header.title" = "Escolha um nome para o cofre.";
+"setVaultName.cells.name" = "Nome do Cofre";
+
+"createNewFolder.header.title" = "Escolha um nome para a pasta.";
+"createNewFolder.cells.name" = "Nome de Pasta";
+
+"localFileSystemAuthentication.createNewVault.header" = "Na próxima tela, escolha o local de armazenamento para o seu novo cofre.";
+"localFileSystemAuthentication.createNewVault.button" = "Selecionar local de armazenamento";
+"localFileSystemAuthentication.openExistingVault.header" = "Na próxima tela, escolha a pasta do seu cofre existente.";
+"localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
