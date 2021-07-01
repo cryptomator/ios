@@ -16,6 +16,7 @@
 "common.button.next" = "Continuar";
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
+"common.button.signOut" = "Cerrar sesión";
 "common.footer.learnMore" = "Más información.";
 "common.cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
 "common.cells.password" = "Contraseña";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
 "localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
+
+"accountList.alert.signOut.title" = "¿Eliminar bóvedas asociadas?";
+"accountList.alert.signOut.message" = "Al cerrar sesión, todas las bóvedas asociadas se eliminarán de la lista de bóvedas. No se eliminarán los datos cifrados. Puede iniciar sesión de nuevo y volver a añadir las bóvedas más tarde.";
