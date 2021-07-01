@@ -1,0 +1,70 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "에러";
+"common.button.cancel" = "취소";
+"common.button.choose" = "선택";
+"common.button.confirm" = "확인";
+"common.button.create" = "생성";
+"common.button.createFolder" = "폴더 생성";
+"common.button.done" = "완료";
+"common.button.edit" = "수정";
+"common.button.next" = "다음";
+"common.button.ok" = "OK";
+"common.button.remove" = "제거";
+"common.footer.learnMore" = "자세히 알아보기";
+"common.cloudProviderType.localFileSystem" = "다른 파일 앱";
+"common.cells.password" = "비밀번호";
+"common.cells.url" = "URL";
+"common.cells.username" = "사용자명";
+
+"addVault.title" = "Vault 추가";
+"addVault.createNewVault.title" = "새 Vault 생성";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault 내 암호화 파일을 어느 경로에 저장하시겠습니까?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
+"addVault.createNewVault.enterPassword.header" = "새 비밀번호를 입력하세요.";
+"addVault.createNewVault.confirmPassword.header" = "새 비밀번호 확인.";
+"addVault.createNewVault.alert.confirmPassword.title" = "비밀번호를 확인하셨습니까?";
+"addVault.createNewVault.alert.confirmPassword.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.openExistingVault.title" = "기존 Vault 열기";
+"addVault.openExistingVault.chooseCloud.header" = "Vault가 어디에 위치하고 있습니까?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
+"addVault.openExistingVault.detectedMasterkey.add" = "이 Vault 추가";
+"addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요";
+"addVault.success.info" = "\"%@\" Vault가 성공적으로 추가되었습니다.\n파일 앱을 통해 이 Vault에 접근할 수 있습니다.";
+"addVault.success.openFilesApp" = "파일 앱 열기";
+"addVault.success.footer" = "아직 Cryptomator를 파일 앱에서 사용가능토록 설정하지 않은 경우, 사용가능하게 설정바랍니다.";
+
+"chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
+
+"settings.title" = "설정";
+"settings.aboutCryptomator" = "Cryptomator에 대해서";
+"settings.aboutCryptomator.title" = "버전 %@ (%@)";
+"settings.sendLogFile" = "로그파일 전송";
+
+"vaultList.header.title" = "Vault";
+"vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
+"vaultList.alert.remove.title" = "Vault 제거?";
+"vaultList.alert.remove.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
+"untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "신뢰하기";
+"untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
+
+"setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
+"setVaultName.cells.name" = "Vault 이름";
+
+"createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
+"createNewFolder.cells.name" = "폴더명";
+
+"localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
+"localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
+"localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
+"localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
