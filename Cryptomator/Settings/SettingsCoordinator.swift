@@ -33,7 +33,7 @@ class SettingsCoordinator: Coordinator {
 		child.start()
 	}
 
-	func sendLogFile() throws {
+	func sendLogFile(sourceView: UIView) throws {
 		let logsDirectoryURL = URL(fileURLWithPath: DDFileLogger.sharedInstance.logFileManager.logsDirectory)
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
@@ -43,6 +43,8 @@ class SettingsCoordinator: Coordinator {
 		activityController.completionWithItemsHandler = { _, _, _, _ -> Void in
 			try? FileManager.default.removeItem(at: tmpDirURL)
 		}
+		activityController.popoverPresentationController?.sourceView = sourceView
+		activityController.popoverPresentationController?.sourceRect = sourceView.bounds
 		navigationController.present(activityController, animated: true)
 	}
 
