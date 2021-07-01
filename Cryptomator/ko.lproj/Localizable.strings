@@ -16,6 +16,7 @@
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
 "common.button.remove" = "제거";
+"common.button.signOut" = "로그아웃";
 "common.footer.learnMore" = "자세히 알아보기";
 "common.cloudProviderType.localFileSystem" = "다른 파일 앱";
 "common.cells.password" = "비밀번호";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
+
+"accountList.alert.signOut.title" = "연결된 Vault를 제거하시겠습니까?";
+"accountList.alert.signOut.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
