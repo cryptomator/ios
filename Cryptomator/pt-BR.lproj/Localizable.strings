@@ -16,6 +16,7 @@
 "common.button.next" = "Próximo";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Remover";
+"common.button.signOut" = "Finalizar sessão";
 "common.footer.learnMore" = "Saiba mais.";
 "common.cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
 "common.cells.password" = "Senha";
@@ -23,7 +24,7 @@
 "common.cells.username" = "Usuário";
 
 "addVault.title" = "Adicionar Cofre";
-"addVault.createNewVault.title" = "Criar Um Novo Cofre";
+"addVault.createNewVault.title" = "Criar Novo Cofre";
 "addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos encriptados do seu cofre?";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
 "addVault.createNewVault.enterPassword.header" = "Digite a nova senha.";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar local de armazenamento";
 "localFileSystemAuthentication.openExistingVault.header" = "Na próxima tela, escolha a pasta do seu cofre existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
+
+"accountList.alert.signOut.title" = "Remover Cofres Associados?";
+"accountList.alert.signOut.message" = "Ao sair, todos os cofres associados serão removidos da lista de cofre. Nenhum dado criptografado será excluído. Você pode fazer login novamente e adicionar novamente os cofres depois.";
