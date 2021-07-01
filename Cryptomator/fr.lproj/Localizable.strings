@@ -16,6 +16,7 @@
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
 "common.button.remove" = "Retirer";
+"common.button.signOut" = "Se déconnecter";
 "common.footer.learnMore" = "En savoir plus.";
 "common.cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
 "common.cells.password" = "Mot de passe";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
+
+"accountList.alert.signOut.title" = "Enlever les coffres associés?";
+"accountList.alert.signOut.message" = "En vous déconnectant, tous les coffres associés seront supprimés de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pouvez vous reconnecter et ré-ajouter les coffres plus tard.";
