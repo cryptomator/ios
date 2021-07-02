@@ -13,9 +13,10 @@
 "common.button.createFolder" = "Klasör Oluştur";
 "common.button.done" = "Bitti";
 "common.button.edit" = "Düzenle";
-"common.button.next" = "İleri";
+"common.button.next" = "Sonraki";
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
+"common.button.signOut" = "Çıkış Yap";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
 "common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 "common.cells.password" = "Şifre";
@@ -53,7 +54,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 
-"untrustedTLSCertificate.title" = "Geçersiz SSL Sertifikası";
+"untrustedTLSCertificate.title" = "Geçersiz TLS Sertifikası";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
+
+"accountList.alert.signOut.title" = "İlişkili Kasalar Kaldırılsın mı?";
+"accountList.alert.signOut.message" = "Çıkış yaptığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
