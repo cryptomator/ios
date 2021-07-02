@@ -16,6 +16,7 @@
 "common.button.next" = "Ďalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstrániť";
+"common.button.signOut" = "Odhlásiť";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
 "common.cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
 "common.cells.password" = "Heslo";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
 "localFileSystemAuthentication.openExistingVault.header" = "V nasledujúcej obrazovke zvoľte adresár Vášho existujúceho trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
+
+"accountList.alert.signOut.title" = "Odstrániť asociované trezory?";
+"accountList.alert.signOut.message" = "Odhlásením sa budú všetky asociované trezory odstránené zo zoznamu trezorov. Žiadne zašifrované dáta však nebudú zmazané. Môžte sa znovu prihlásiť a opätovne pridať trezory neskôr.";
