@@ -2,9 +2,7 @@ commit_message: '[ci skip]'
 files:
   - source: /Cryptomator/en.lproj/Localizable.strings
     translation: /Cryptomator/%osx_code%/Localizable.strings
-    skip_untranslated_strings: false
     skip_untranslated_files: true
   - source: /FileProviderExtensionUI/en.lproj/Localizable.strings
     translation: /FileProviderExtensionUI/%osx_code%/Localizable.strings
-    skip_untranslated_strings: false
     skip_untranslated_files: true
