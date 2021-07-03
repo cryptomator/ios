@@ -16,6 +16,7 @@
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
+"common.button.signOut" = "退出登录";
 "common.footer.learnMore" = "了解更多";
 "common.cloudProviderType.localFileSystem" = "其他文件提供商";
 "common.cells.password" = "密码";
@@ -68,3 +69,6 @@
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
 "localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
+
+"accountList.alert.signOut.title" = "移除关联的保险库吗？";
+"accountList.alert.signOut.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
