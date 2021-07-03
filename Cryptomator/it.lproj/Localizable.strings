@@ -1,0 +1,74 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Errore";
+"common.button.cancel" = "Annulla";
+"common.button.choose" = "Scegli";
+"common.button.confirm" = "Conferma";
+"common.button.create" = "Crea";
+"common.button.createFolder" = "Crea Cartella";
+"common.button.done" = "Fatto";
+"common.button.edit" = "Modifica";
+"common.button.next" = "Avanti";
+"common.button.ok" = "OK";
+"common.button.remove" = "Rimuovi";
+"common.button.signOut" = "Disconnettiti";
+"common.footer.learnMore" = "Scopri di più.";
+"common.cloudProviderType.localFileSystem" = "Altro Fornitore di File";
+"common.cells.password" = "Password";
+"common.cells.url" = "URL";
+"common.cells.username" = "Nome utente";
+
+"addVault.title" = "Aggiungi Cassaforte";
+"addVault.createNewVault.title" = "Crea Nuova Cassaforte";
+"addVault.createNewVault.chooseCloud.header" = "Dove dovrebbe memorizzare Cryptomator i file crittografati della tua cassaforte?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poterne creare una nuova, sei pregato di tornare indietro e scegliere una cartella differente.";
+"addVault.createNewVault.enterPassword.header" = "Inserisci una nuova password.";
+"addVault.createNewVault.confirmPassword.header" = "Conferma la nuova password.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Confermare la Password?";
+"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANTE: Se dimentichi la tua password, non c'è moto di recuperare i tuoi dati.";
+"addVault.openExistingVault.title" = "Apri Cassaforte Esistente";
+"addVault.openExistingVault.chooseCloud.header" = "Dove si trova la cassaforte?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha rilevato la cassaforte \"%@\".\nVorresti aggiungerla?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Aggiungi Questa Cassaforte";
+"addVault.openExistingVault.password.footer" = "Inserisci la password per \"%@\"";
+"addVault.success.info" = "Cassaforte \"%@\" aggiunta correttamente.\nAccedi a questa cassaforte tramite l'app File.";
+"addVault.success.openFilesApp" = "Apri App File";
+"addVault.success.footer" = "Se non lo hai già fatto, abilita Cryptomator nell'app File.";
+
+"chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
+
+"settings.title" = "Impostazioni";
+"settings.aboutCryptomator" = "Su Cryptomator";
+"settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.sendLogFile" = "Invia File di Registro";
+
+"vaultList.header.title" = "Cassaforti";
+"vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
+"vaultList.alert.remove.title" = "Rimuovi Cassaforte?";
+"vaultList.alert.remove.message" = "Questo rimuoverà la cassaforte solo dall'elenco di cassaforti. Nessun dato crittografato sarà eliminato. Puoi riaggiungerla in seguito.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"untrustedTLSCertificate.title" = "Certificato TLS non valido";
+"untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Fidati";
+"untrustedTLSCertificate.dismiss" = "Non Fidarti";
+
+"setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
+"setVaultName.cells.name" = "Nome Cassaforte";
+
+"createNewFolder.header.title" = "Scegli un nome per la cartella.";
+"createNewFolder.cells.name" = "Nome della Cartella";
+
+"localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
+"localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
+"localFileSystemAuthentication.openExistingVault.header" = "Nella prossima schermata, scegli la cartella della tua cassaforte esistente.";
+"localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
+
+"accountList.alert.signOut.title" = "Rimuovere le Cassaforti Associate?";
+"accountList.alert.signOut.message" = "Disconnettendoti, tutte le cassaforti associate saranno rimosse dall'elenco delle cassaforti. Nessun dato crittografato sarà eliminato. Puoi accedere nuovamente e riaggiungerle in seguito.";
