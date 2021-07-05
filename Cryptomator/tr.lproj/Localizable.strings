@@ -17,11 +17,14 @@
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
 "common.button.signOut" = "Çıkış Yap";
-"common.footer.learnMore" = "Daha fazla bilgi edin.";
-"common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 "common.cells.password" = "Şifre";
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
+"common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
+"common.footer.learnMore" = "Daha fazla bilgi edin.";
+
+"accountList.alert.signOut.title" = "İlişkili Kasalar Kaldırılsın mı?";
+"accountList.alert.signOut.message" = "Çıkış yaptığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
 
 "addVault.title" = "Kasa Ekle";
 "addVault.createNewVault.title" = "Yeni Kasa Oluştur";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
 
-"settings.title" = "Ayarlar";
-"settings.aboutCryptomator" = "Cryptomator Hakkında";
-"settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
-"settings.sendLogFile" = "Günlük Dosyasını Gönder";
-
-"vaultList.header.title" = "Kasalar";
-"vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
-"vaultList.alert.remove.title" = "Kasayı Sil?";
-"vaultList.alert.remove.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Geçersiz TLS Sertifikası";
-"untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Güven";
-"untrustedTLSCertificate.dismiss" = "Güvenme";
-
-"setVaultName.header.title" = "Kasa için bir isim seç.";
-"setVaultName.cells.name" = "Kasa Adı";
-
 "createNewFolder.header.title" = "Klasör için bir ad seçin.";
 "createNewFolder.cells.name" = "Klasör Adı";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
 
-"accountList.alert.signOut.title" = "İlişkili Kasalar Kaldırılsın mı?";
-"accountList.alert.signOut.message" = "Çıkış yaptığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
+"settings.title" = "Ayarlar";
+"settings.aboutCryptomator" = "Cryptomator Hakkında";
+"settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.sendLogFile" = "Günlük Dosyasını Gönder";
+
+"setVaultName.header.title" = "Kasa için bir isim seç.";
+"setVaultName.cells.name" = "Kasa Adı";
+
+"untrustedTLSCertificate.title" = "Geçersiz TLS Sertifikası";
+"untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Güven";
+"untrustedTLSCertificate.dismiss" = "Güvenme";
+
+"vaultList.header.title" = "Kasalar";
+"vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
+"vaultList.alert.remove.title" = "Kasayı Sil?";
+"vaultList.alert.remove.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
+
+"webDAVAuthentication.title" = "WebDAV";
