@@ -7,4 +7,4 @@
 
 "onboarding.title" = "Witamy";
 "onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
-"onboarding.button.openCryptomator" = "Otwórz Cryptomator";
+"onboarding.openCryptomator.button" = "Otwórz Cryptomator";
