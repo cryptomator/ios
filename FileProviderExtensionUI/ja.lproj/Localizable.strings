@@ -7,4 +7,4 @@
 
 "onboarding.title" = "ようこそ";
 "onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
-"onboarding.button.openCryptomator" = "Cryptomator を開く";
+"onboarding.openCryptomator.button" = "Cryptomator を開く";
