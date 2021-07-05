@@ -17,11 +17,14 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Usuń";
 "common.button.signOut" = "Wyloguj";
-"common.footer.learnMore" = "Więcej informacji.";
-"common.cloudProviderType.localFileSystem" = "Inny dostawca";
 "common.cells.password" = "Hasło";
 "common.cells.url" = "URL";
 "common.cells.username" = "Login";
+"common.cloudProviderType.localFileSystem" = "Inny dostawca";
+"common.footer.learnMore" = "Więcej informacji.";
+
+"accountList.alert.signOut.title" = "Usunąć powiązane sejfy?";
+"accountList.alert.signOut.message" = "Po wylogowaniu wszystkie powiązane sejfy zostaną usunięte z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Po ponownym logowaniu będzie można znowu dodać sejfy.";
 
 "addVault.title" = "Dodaj sejf";
 "addVault.createNewVault.title" = "Utwórz nowy sejf";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
 
-"settings.title" = "Ustawienia";
-"settings.aboutCryptomator" = "O Cryptomator";
-"settings.aboutCryptomator.title" = "Wersja %@ (%@)";
-"settings.sendLogFile" = "Wyślij plik logów";
-
-"vaultList.header.title" = "Sejfy";
-"vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
-"vaultList.alert.remove.title" = "Usuń sejf?";
-"vaultList.alert.remove.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
-"untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Zaufany";
-"untrustedTLSCertificate.dismiss" = "Niezaufany";
-
-"setVaultName.header.title" = "Wybierz nazwę sejfu.";
-"setVaultName.cells.name" = "Nazwa sejfu";
-
 "createNewFolder.header.title" = "Wybierz nazwę katalogu.";
 "createNewFolder.cells.name" = "Nazwa katalogu";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Na następnym ekranie wybierz folder istniejącego sejfu.";
 "localFileSystemAuthentication.openExistingVault.button" = "Wybierz folder sejfu";
 
-"accountList.alert.signOut.title" = "Usunąć powiązane sejfy?";
-"accountList.alert.signOut.message" = "Po wylogowaniu wszystkie powiązane sejfy zostaną usunięte z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Po ponownym logowaniu będzie można znowu dodać sejfy.";
+"settings.title" = "Ustawienia";
+"settings.aboutCryptomator" = "O Cryptomator";
+"settings.aboutCryptomator.title" = "Wersja %@ (%@)";
+"settings.sendLogFile" = "Wyślij plik logów";
+
+"setVaultName.header.title" = "Wybierz nazwę sejfu.";
+"setVaultName.cells.name" = "Nazwa sejfu";
+
+"untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
+"untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Zaufany";
+"untrustedTLSCertificate.dismiss" = "Niezaufany";
+
+"vaultList.header.title" = "Sejfy";
+"vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
+"vaultList.alert.remove.title" = "Usuń sejf?";
+"vaultList.alert.remove.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
+
+"webDAVAuthentication.title" = "WebDAV";
