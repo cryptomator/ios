@@ -17,11 +17,14 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Remove";
 "common.button.signOut" = "Sign Out";
-"common.footer.learnMore" = "Learn more.";
-"common.cloudProviderType.localFileSystem" = "Other File Provider";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
+"common.cloudProviderType.localFileSystem" = "Other File Provider";
+"common.footer.learnMore" = "Learn more.";
+
+"accountList.alert.signOut.title" = "Remove Associated Vaults?";
+"accountList.alert.signOut.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 
-"settings.title" = "Settings";
-"settings.aboutCryptomator" = "About Cryptomator";
-"settings.aboutCryptomator.title" = "Version %@ (%@)";
-"settings.sendLogFile" = "Send Log File";
-
-"vaultList.header.title" = "Vaults";
-"vaultList.emptyList.message" = "Tap here to add a vault";
-"vaultList.alert.remove.title" = "Remove Vault?";
-"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
-"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Trust";
-"untrustedTLSCertificate.dismiss" = "Don't Trust";
-
-"setVaultName.header.title" = "Choose a name for the vault.";
-"setVaultName.cells.name" = "Vault Name";
-
 "createNewFolder.header.title" = "Choose a name for the folder.";
 "createNewFolder.cells.name" = "Folder Name";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 
-"accountList.alert.signOut.title" = "Remove Associated Vaults?";
-"accountList.alert.signOut.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"settings.title" = "Settings";
+"settings.aboutCryptomator" = "About Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Send Log File";
+
+"setVaultName.header.title" = "Choose a name for the vault.";
+"setVaultName.cells.name" = "Vault Name";
+
+"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
+"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
+
+"vaultList.header.title" = "Vaults";
+"vaultList.emptyList.message" = "Tap here to add a vault";
+"vaultList.alert.remove.title" = "Remove Vault?";
+"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+
+"webDAVAuthentication.title" = "WebDAV";
