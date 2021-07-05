@@ -7,4 +7,4 @@
 
 "onboarding.title" = "환영합니다";
 "onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
-"onboarding.button.openCryptomator" = "Cryptomator 열기";
+"onboarding.openCryptomator.button" = "Cryptomator 열기";
