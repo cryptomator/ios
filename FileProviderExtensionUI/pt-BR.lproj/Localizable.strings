@@ -7,4 +7,4 @@
 
 "onboarding.title" = "Bem vindo";
 "onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
-"onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"onboarding.openCryptomator.button" = "Abrir Cryptomator";
