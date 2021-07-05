@@ -17,11 +17,14 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Удалить";
 "common.button.signOut" = "Выйти";
-"common.footer.learnMore" = "Подробнее";
-"common.cloudProviderType.localFileSystem" = "Другой файл-провайдер";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
+"common.cloudProviderType.localFileSystem" = "Другой файл-провайдер";
+"common.footer.learnMore" = "Подробнее";
+
+"accountList.alert.signOut.title" = "Удалить связанные хранилища?";
+"accountList.alert.signOut.message" = "После выхода из системы все связанные хранилища будут удалены из списка хранилищ. Зашифрованные данные не будут удалены. Позже вы можете опять войти и снова добавить хранилище.";
 
 "addVault.title" = "Добавить хранилище";
 "addVault.createNewVault.title" = "Создать хранилище";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "Папка пуста";
 
-"settings.title" = "Настройки";
-"settings.aboutCryptomator" = "О программе Cryptomator";
-"settings.aboutCryptomator.title" = "Версия: %@ (%@)";
-"settings.sendLogFile" = "Отправить журнал";
-
-"vaultList.header.title" = "Хранилища";
-"vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
-"vaultList.alert.remove.title" = "Удалить хранилище?";
-"vaultList.alert.remove.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Неверный TLS-сертификат";
-"untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Доверять";
-"untrustedTLSCertificate.dismiss" = "Не доверять";
-
-"setVaultName.header.title" = "Выберите имя для хранилища.";
-"setVaultName.cells.name" = "Имя хранилища";
-
 "createNewFolder.header.title" = "Выберите имя для папки.";
 "createNewFolder.cells.name" = "Имя папки";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 
-"accountList.alert.signOut.title" = "Удалить связанные хранилища?";
-"accountList.alert.signOut.message" = "После выхода из системы все связанные хранилища будут удалены из списка хранилищ. Зашифрованные данные не будут удалены. Позже вы можете опять войти и снова добавить хранилище.";
+"settings.title" = "Настройки";
+"settings.aboutCryptomator" = "О программе Cryptomator";
+"settings.aboutCryptomator.title" = "Версия: %@ (%@)";
+"settings.sendLogFile" = "Отправить журнал";
+
+"setVaultName.header.title" = "Выберите имя для хранилища.";
+"setVaultName.cells.name" = "Имя хранилища";
+
+"untrustedTLSCertificate.title" = "Неверный TLS-сертификат";
+"untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Доверять";
+"untrustedTLSCertificate.dismiss" = "Не доверять";
+
+"vaultList.header.title" = "Хранилища";
+"vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
+"vaultList.alert.remove.title" = "Удалить хранилище?";
+"vaultList.alert.remove.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
+
+"webDAVAuthentication.title" = "WebDAV";
