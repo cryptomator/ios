@@ -17,11 +17,14 @@
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
 "common.button.signOut" = "Cerrar sesión";
-"common.footer.learnMore" = "Más información.";
-"common.cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
 "common.cells.password" = "Contraseña";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nombre de usuario";
+"common.cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
+"common.footer.learnMore" = "Más información.";
+
+"accountList.alert.signOut.title" = "¿Eliminar bóvedas asociadas?";
+"accountList.alert.signOut.message" = "Al cerrar sesión, todas las bóvedas asociadas se eliminarán de la lista de bóvedas. No se eliminarán los datos cifrados. Puede iniciar sesión de nuevo y volver a añadir las bóvedas más tarde.";
 
 "addVault.title" = "Añadir bóveda";
 "addVault.createNewVault.title" = "Crear bóveda nueva";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
 
-"settings.title" = "Configuración";
-"settings.aboutCryptomator" = "Acerca de Cryptomator";
-"settings.aboutCryptomator.title" = "Versión %@ (%@)";
-"settings.sendLogFile" = "Enviar archivo de registro";
-
-"vaultList.header.title" = "Bóvedas";
-"vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
-"vaultList.alert.remove.title" = "Eliminar bóveda?";
-"vaultList.alert.remove.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Certificado TLS inválido";
-"untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Confiar";
-"untrustedTLSCertificate.dismiss" = "No confiar";
-
-"setVaultName.header.title" = "Elegir un nombre para la bóveda.";
-"setVaultName.cells.name" = "Nombre de la bóveda";
-
 "createNewFolder.header.title" = "Elija un nombre para la carpeta.";
 "createNewFolder.cells.name" = "Nombre de la carpeta";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
 
-"accountList.alert.signOut.title" = "¿Eliminar bóvedas asociadas?";
-"accountList.alert.signOut.message" = "Al cerrar sesión, todas las bóvedas asociadas se eliminarán de la lista de bóvedas. No se eliminarán los datos cifrados. Puede iniciar sesión de nuevo y volver a añadir las bóvedas más tarde.";
+"settings.title" = "Configuración";
+"settings.aboutCryptomator" = "Acerca de Cryptomator";
+"settings.aboutCryptomator.title" = "Versión %@ (%@)";
+"settings.sendLogFile" = "Enviar archivo de registro";
+
+"setVaultName.header.title" = "Elegir un nombre para la bóveda.";
+"setVaultName.cells.name" = "Nombre de la bóveda";
+
+"untrustedTLSCertificate.title" = "Certificado TLS inválido";
+"untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Confiar";
+"untrustedTLSCertificate.dismiss" = "No confiar";
+
+"vaultList.header.title" = "Bóvedas";
+"vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
+"vaultList.alert.remove.title" = "Eliminar bóveda?";
+"vaultList.alert.remove.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
+
+"webDAVAuthentication.title" = "WebDAV";
