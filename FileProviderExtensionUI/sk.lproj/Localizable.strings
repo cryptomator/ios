@@ -7,4 +7,4 @@
 
 "onboarding.title" = "Vitajte";
 "onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator pre ochranu Vašich súborov. Pre začatie choďte do hlavnej aplikácie a pridajte trezor.";
-"onboarding.button.openCryptomator" = "Otvoriť Cryptomator";
+"onboarding.openCryptomator.button" = "Otvoriť Cryptomator";
