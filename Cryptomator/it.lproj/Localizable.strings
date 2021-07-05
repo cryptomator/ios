@@ -17,11 +17,14 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Rimuovi";
 "common.button.signOut" = "Disconnettiti";
-"common.footer.learnMore" = "Scopri di più.";
-"common.cloudProviderType.localFileSystem" = "Altro Fornitore di File";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
+"common.cloudProviderType.localFileSystem" = "Altro Fornitore di File";
+"common.footer.learnMore" = "Scopri di più.";
+
+"accountList.alert.signOut.title" = "Rimuovere le Cassaforti Associate?";
+"accountList.alert.signOut.message" = "Disconnettendoti, tutte le cassaforti associate saranno rimosse dall'elenco delle cassaforti. Nessun dato crittografato sarà eliminato. Puoi accedere nuovamente e riaggiungerle in seguito.";
 
 "addVault.title" = "Aggiungi Cassaforte";
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 
-"settings.title" = "Impostazioni";
-"settings.aboutCryptomator" = "Su Cryptomator";
-"settings.aboutCryptomator.title" = "Versione %@ (%@)";
-"settings.sendLogFile" = "Invia File di Registro";
-
-"vaultList.header.title" = "Cassaforti";
-"vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
-"vaultList.alert.remove.title" = "Rimuovi Cassaforte?";
-"vaultList.alert.remove.message" = "Questo rimuoverà la cassaforte solo dall'elenco di cassaforti. Nessun dato crittografato sarà eliminato. Puoi riaggiungerla in seguito.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Certificato TLS non valido";
-"untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Fidati";
-"untrustedTLSCertificate.dismiss" = "Non Fidarti";
-
-"setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
-"setVaultName.cells.name" = "Nome Cassaforte";
-
 "createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "createNewFolder.cells.name" = "Nome della Cartella";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Nella prossima schermata, scegli la cartella della tua cassaforte esistente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
 
-"accountList.alert.signOut.title" = "Rimuovere le Cassaforti Associate?";
-"accountList.alert.signOut.message" = "Disconnettendoti, tutte le cassaforti associate saranno rimosse dall'elenco delle cassaforti. Nessun dato crittografato sarà eliminato. Puoi accedere nuovamente e riaggiungerle in seguito.";
+"settings.title" = "Impostazioni";
+"settings.aboutCryptomator" = "Su Cryptomator";
+"settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.sendLogFile" = "Invia File di Registro";
+
+"setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
+"setVaultName.cells.name" = "Nome Cassaforte";
+
+"untrustedTLSCertificate.title" = "Certificato TLS non valido";
+"untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Fidati";
+"untrustedTLSCertificate.dismiss" = "Non Fidarti";
+
+"vaultList.header.title" = "Cassaforti";
+"vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
+"vaultList.alert.remove.title" = "Rimuovi Cassaforte?";
+"vaultList.alert.remove.message" = "Questo rimuoverà la cassaforte solo dall'elenco di cassaforti. Nessun dato crittografato sarà eliminato. Puoi riaggiungerla in seguito.";
+
+"webDAVAuthentication.title" = "WebDAV";
