@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"onboarding.title" = "Dobrodošli,";
+"onboarding.info" = "Hvala što ste izabrali Cryptomator za zaštitu podataka. Za početak idite na glavnu aplikaciju i dodajte sef.";
+"onboarding.button.openCryptomator" = "Otvori Cryptomator";
