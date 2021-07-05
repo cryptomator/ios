@@ -17,11 +17,14 @@
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
 "common.button.signOut" = "退出登录";
-"common.footer.learnMore" = "了解更多";
-"common.cloudProviderType.localFileSystem" = "其他文件提供商";
 "common.cells.password" = "密码";
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
+"common.cloudProviderType.localFileSystem" = "其他文件提供商";
+"common.footer.learnMore" = "了解更多";
+
+"accountList.alert.signOut.title" = "移除关联的保险库吗？";
+"accountList.alert.signOut.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
 "addVault.title" = "添加保险库";
 "addVault.createNewVault.title" = "创建新的保险库";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 
-"settings.title" = "设置";
-"settings.aboutCryptomator" = "关于";
-"settings.aboutCryptomator.title" = "版本 %@ (%@)";
-"settings.sendLogFile" = "发送日志文件";
-
-"vaultList.header.title" = "保险库";
-"vaultList.emptyList.message" = "点击此处添加保险库";
-"vaultList.alert.remove.title" = "删除保险库?";
-"vaultList.alert.remove.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "TLS 证书无效";
-"untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "信任";
-"untrustedTLSCertificate.dismiss" = "不信任";
-
-"setVaultName.header.title" = "为保险库创建一个名称.";
-"setVaultName.cells.name" = "保险库名称";
-
 "createNewFolder.header.title" = "为文件夹创建一个名称";
 "createNewFolder.cells.name" = "文件夹名称";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
 
-"accountList.alert.signOut.title" = "移除关联的保险库吗？";
-"accountList.alert.signOut.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
+"settings.title" = "设置";
+"settings.aboutCryptomator" = "关于";
+"settings.aboutCryptomator.title" = "版本 %@ (%@)";
+"settings.sendLogFile" = "发送日志文件";
+
+"setVaultName.header.title" = "为保险库创建一个名称.";
+"setVaultName.cells.name" = "保险库名称";
+
+"untrustedTLSCertificate.title" = "TLS 证书无效";
+"untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "信任";
+"untrustedTLSCertificate.dismiss" = "不信任";
+
+"vaultList.header.title" = "保险库";
+"vaultList.emptyList.message" = "点击此处添加保险库";
+"vaultList.alert.remove.title" = "删除保险库?";
+"vaultList.alert.remove.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
+
+"webDAVAuthentication.title" = "WebDAV";
