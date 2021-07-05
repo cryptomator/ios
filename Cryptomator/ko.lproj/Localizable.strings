@@ -17,11 +17,14 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "제거";
 "common.button.signOut" = "로그아웃";
-"common.footer.learnMore" = "자세히 알아보기";
-"common.cloudProviderType.localFileSystem" = "다른 파일 앱";
 "common.cells.password" = "비밀번호";
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
+"common.cloudProviderType.localFileSystem" = "다른 파일 앱";
+"common.footer.learnMore" = "자세히 알아보기";
+
+"accountList.alert.signOut.title" = "연결된 Vault를 제거하시겠습니까?";
+"accountList.alert.signOut.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
 
 "addVault.title" = "Vault 추가";
 "addVault.createNewVault.title" = "새 Vault 생성";
@@ -42,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 
-"settings.title" = "설정";
-"settings.aboutCryptomator" = "Cryptomator에 대해서";
-"settings.aboutCryptomator.title" = "버전 %@ (%@)";
-"settings.sendLogFile" = "로그파일 전송";
-
-"vaultList.header.title" = "Vault";
-"vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
-"vaultList.alert.remove.title" = "Vault 제거?";
-"vaultList.alert.remove.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
-"untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "신뢰하기";
-"untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
-
-"setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
-"setVaultName.cells.name" = "Vault 이름";
-
 "createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
 "createNewFolder.cells.name" = "폴더명";
 
@@ -70,5 +53,22 @@
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
 
-"accountList.alert.signOut.title" = "연결된 Vault를 제거하시겠습니까?";
-"accountList.alert.signOut.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
+"settings.title" = "설정";
+"settings.aboutCryptomator" = "Cryptomator에 대해서";
+"settings.aboutCryptomator.title" = "버전 %@ (%@)";
+"settings.sendLogFile" = "로그파일 전송";
+
+"setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
+"setVaultName.cells.name" = "Vault 이름";
+
+"untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
+"untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "신뢰하기";
+"untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
+
+"vaultList.header.title" = "Vault";
+"vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
+"vaultList.alert.remove.title" = "Vault 제거?";
+"vaultList.alert.remove.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
+
+"webDAVAuthentication.title" = "WebDAV";
