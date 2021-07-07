@@ -80,11 +80,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		if identifier == .rootContainer || identifier.rawValue == "File Provider Storage" || identifier.rawValue == domain?.identifier.rawValue {
 			return RootFileProviderItem()
 		}
-		guard let adapter = self.adapter else {
-			// no domain ==> no installed vault
-			// TODO: Change error Code here
-			throw NSFileProviderError(.notAuthenticated)
-		}
+		let adapter = try getAdapterWithWrappedError()
 		return try adapter.item(for: identifier)
 	}
 
@@ -157,10 +153,11 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 }
 		 */
 		// TODO: Register DownloadTask
-		guard let adapter = self.adapter else {
-			// no domain ==> no installed vault
-			// TODO: Change error Code here
-			completionHandler(NSFileProviderError(.notAuthenticated))
+		let adapter: FileProviderAdapter
+		do {
+			adapter = try getAdapterWithWrappedError()
+		} catch {
+			completionHandler(error)
 			return
 		}
 		adapter.startProvidingItem(at: url, completionHandler: completionHandler)
@@ -175,12 +172,8 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 - create a fresh background NSURLSessionTask and schedule it to upload the current modifications
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
-
-		guard let adapter = self.adapter else {
-			// no domain ==> no installed vault
-			return
-		}
-		adapter.itemChanged(at: url)
+		let adapter = getFailableAdapter()
+		adapter?.itemChanged(at: url)
 	}
 
 	override func stopProvidingItem(at url: URL) {
@@ -208,15 +201,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		// Not implemented in the moment.
 		DDLogInfo("stopProvidingItem called for: \(url)")
 	}
-
-	// MARK: - Actions
-
-	/* TODO: implement the actions for items here
-	 each of the actions follows the same pattern:
-	 - make a note of the change in the local model
-	 - schedule a server request as a background task to inform the server of the change
-	 - call the completion block with the modified item in its post-modification state
-	 */
 
 	// MARK: - Enumeration
 
@@ -255,14 +239,24 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			self.dbPath = dbPath
 			let notificator = FileProviderNotificator(manager: manager)
 			self.notificator = notificator
-			FileProviderAdapterManager.getAdapter(for: domain, with: manager, dbPath: dbPath, delegate: self, notificator: notificator).then { adapter in
-				self.adapter = adapter
-			}
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
 	}
+
+	// MARK: File Provider Service Sources
+
+	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
+		var serviceSources = [NSFileProviderServiceSource]()
+		#if DEBUG
+		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
+		#endif
+		serviceSources.append(VaultUnlockingServiceSource(fileprovider: self))
+		return serviceSources
+	}
+
+	// MARK: Internal
 
 	private func getBaseStorageDirectory() -> URL? {
 		guard let domain = domain else {
@@ -274,12 +268,30 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
-	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
-		var serviceSources = [NSFileProviderServiceSource]()
-		#if DEBUG
-		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
-		#endif
-		return serviceSources
+	private func getFailableAdapter() -> FileProviderAdapter? {
+		do {
+			return try getAdapter()
+		} catch {
+			return nil
+		}
+	}
+
+	private func getAdapter() throws -> FileProviderAdapter {
+		if let cachedAdapter = adapter {
+			return cachedAdapter
+		}
+		guard let domain = self.domain, let dbPath = self.dbPath, let notificator = self.notificator else {
+			throw FileProviderDecoratorSetupError.domainIsNil
+		}
+		return try FileProviderAdapterManager.getAdapter(for: domain, dbPath: dbPath, delegate: self, notificator: notificator)
+	}
+
+	private func getAdapterWithWrappedError() throws -> FileProviderAdapter {
+		do {
+			return try getAdapter()
+		} catch {
+			throw ErrorWrapper.wrapError(error, domain: domain)
+		}
 	}
 }
 

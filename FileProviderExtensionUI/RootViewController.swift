@@ -22,7 +22,10 @@ class RootViewController: FPUIActionExtensionViewController {
 		navigationController.didMove(toParent: self)
 
 		coordinator = FileProviderCoordinator(extensionContext: extensionContext, navigationController: navigationController)
-		coordinator?.showOnboarding()
+	}
+
+	override func prepare(forError error: Error) {
+		coordinator?.startWith(error: error)
 	}
 
 	@objc func cancel() {
