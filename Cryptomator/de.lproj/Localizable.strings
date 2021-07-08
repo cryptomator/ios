@@ -16,11 +16,15 @@
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
-"common.footer.learnMore" = "Mehr erfahren.";
-"common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
+"common.button.signOut" = "Ausloggen";
 "common.cells.password" = "Passwort";
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
+"common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
+"common.footer.learnMore" = "Mehr erfahren.";
+
+"accountList.alert.signOut.title" = "Verknüpfte Tresore entfernen?";
+"accountList.alert.signOut.message" = "Durch das Abmelden werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Sie können sich erneut anmelden und die Tresore später erneut hinzufügen.";
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
@@ -41,26 +45,6 @@
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 
-"settings.title" = "Einstellungen";
-"settings.aboutCryptomator" = "Über Cryptomator";
-"settings.aboutCryptomator.title" = "Version %@ (%@)";
-"settings.sendLogFile" = "Protokolldatei senden";
-
-"vaultList.header.title" = "Tresore";
-"vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
-"vaultList.alert.remove.title" = "Tresor entfernen?";
-"vaultList.alert.remove.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
-"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
-"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Vertrauen";
-"untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
-
-"setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
-"setVaultName.cells.name" = "Tresorname";
-
 "createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "createNewFolder.cells.name" = "Ordnername";
 
@@ -68,3 +52,23 @@
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
+
+"settings.title" = "Einstellungen";
+"settings.aboutCryptomator" = "Über Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Protokolldatei senden";
+
+"setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"setVaultName.cells.name" = "Tresorname";
+
+"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
+"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vertrauen";
+"untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"vaultList.header.title" = "Tresore";
+"vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
+"vaultList.alert.remove.title" = "Tresor entfernen?";
+"vaultList.alert.remove.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
+
+"webDAVAuthentication.title" = "WebDAV";
