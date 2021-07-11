@@ -286,7 +286,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		return try FileProviderAdapterManager.getAdapter(for: domain, dbPath: dbPath, delegate: self, notificator: notificator)
 	}
 
-	private func getAdapterWithWrappedError() throws -> FileProviderAdapter {
+	func getAdapterWithWrappedError() throws -> FileProviderAdapter {
 		do {
 			return try getAdapter()
 		} catch {
