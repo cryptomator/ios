@@ -1,0 +1,68 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "エラー";
+"common.button.cancel" = "キャンセル";
+"common.button.choose" = "選択";
+"common.button.confirm" = "確認";
+"common.button.create" = "作成";
+"common.button.createFolder" = "フォルダーを作成";
+"common.button.done" = "完了";
+"common.button.edit" = "編集";
+"common.button.next" = "次へ";
+"common.button.ok" = "OK";
+"common.button.remove" = "削除";
+"common.button.signOut" = "サインアウト";
+"common.cells.password" = "パスワード";
+"common.cells.url" = "URL";
+"common.cells.username" = "ユーザー名";
+"common.cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
+"common.footer.learnMore" = "さらに詳しく。";
+
+"addVault.title" = "金庫を追加";
+"addVault.createNewVault.title" = "新しい金庫を作成";
+"addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
+"addVault.createNewVault.enterPassword.header" = "新しいパスワードを入力してください。";
+"addVault.createNewVault.confirmPassword.header" = "新しいパスワードの確認。";
+"addVault.createNewVault.alert.confirmPassword.title" = "パスワードの確認?";
+"addVault.createNewVault.alert.confirmPassword.message" = "重要: パスワードを忘れると、データを回復する方法はありません。";
+"addVault.openExistingVault.title" = "既存の金庫を開く";
+"addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
+"addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
+"addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください";
+"addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
+"addVault.success.openFilesApp" = "ファイル アプリを開く";
+"addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
+
+"chooseFolder.emptyFolder.footer" = "フォルダが空です";
+
+"createNewFolder.header.title" = "フォルダーの名前を入力してください.";
+"createNewFolder.cells.name" = "フォルダー名";
+"localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
+"localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
+
+"settings.title" = "設定";
+"settings.aboutCryptomator" = "Cryptomator について";
+"settings.aboutCryptomator.title" = "バージョン %@ (%@)";
+"settings.sendLogFile" = "ログ ファイルを送信";
+
+"setVaultName.header.title" = "金庫の名前を入力してください.";
+"setVaultName.cells.name" = "金庫の名前";
+
+"untrustedTLSCertificate.title" = "不正な TLS 証明書です";
+"untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "信頼する";
+"untrustedTLSCertificate.dismiss" = "信頼しない";
+
+"vaultList.header.title" = "金庫";
+"vaultList.emptyList.message" = "ここをタップして金庫を追加";
+"vaultList.alert.remove.title" = "金庫を削除?";
+"vaultList.alert.remove.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
+
+"webDAVAuthentication.title" = "WebDAV";
