@@ -1,0 +1,51 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Greška";
+"common.button.cancel" = "Odustani";
+"common.button.choose" = "Odaberi";
+"common.button.confirm" = "Potvrdi";
+"common.button.create" = "Dodaj";
+"common.button.createFolder" = "Napravi folder";
+"common.button.done" = "Gotovo";
+"common.button.edit" = "Izmjeni";
+"common.button.next" = "Sljedeće";
+"common.button.ok" = "OK";
+"common.button.remove" = "Ukloni";
+"common.button.signOut" = "Odjavi se";
+"common.cells.password" = "Šifra";
+"common.cells.url" = "URL adresa";
+"common.cells.username" = "Korisničko ime";
+"common.footer.learnMore" = "Saznaj više.";
+
+"accountList.alert.signOut.title" = "Ukloni povezane sefove?";
+"accountList.alert.signOut.message" = "Odjavom će se ukloniti svi povezani sefovi sa popisa sefova. Nijedan šifrirani podatak neće biti izbrisan. Možete se ponovo prijaviti i kasnije ponovo dodati sefove.";
+
+"addVault.title" = "Dodaj sef";
+"addVault.createNewVault.title" = "Kreiraj novi sef";
+"addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti enkriptovane fajlove iz vaseg sefa?";
+"addVault.createNewVault.enterPassword.header" = "Unesi novu šifru.";
+"addVault.createNewVault.confirmPassword.header" = "Potvrdi novu šifru.";
+"addVault.openExistingVault.title" = "Otvori postojeći sef";
+"addVault.openExistingVault.detectedMasterkey.add" = "Dodajte ovaj sef";
+"addVault.openExistingVault.password.footer" = "Unesite lozinku za \"%@\"";
+
+"chooseFolder.emptyFolder.footer" = "Folder je prazan";
+
+"createNewFolder.header.title" = "Izaberi naziv za folder.";
+"createNewFolder.cells.name" = "Naziv foldera";
+
+"settings.title" = "Postavke";
+
+"setVaultName.header.title" = "Izaberi naziv za sef.";
+"setVaultName.cells.name" = "Ime sefa";
+"untrustedTLSCertificate.add" = "Povjerenje";
+"untrustedTLSCertificate.dismiss" = "Ne vjeruj";
+
+"vaultList.header.title" = "Sef";
+"vaultList.emptyList.message" = "Kliknite ovdje da dodate sef";
+"vaultList.alert.remove.title" = "Ukloni Sef?";
