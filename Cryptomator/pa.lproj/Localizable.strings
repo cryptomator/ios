@@ -1,0 +1,13 @@
+"common.button.cancel" = "ਰੱਦ ਕਰੋ";
+"common.button.choose" = "ਚੁਣੋ";
+"common.button.done" = "ਮੁਕੰਮਲ";
+"common.button.next" = "ਅੱਗੇ";
+"common.cells.password" = "ਪਾਸਵਰਡ";
+
+"addVault.title" = "ਵਾਲਟ ਜੋੜੋ";
+"addVault.createNewVault.title" = "ਨਵਾਂ ਵਾਲਟ ਬਣਾਓ";
+"addVault.createNewVault.chooseCloud.header" = "ਤੁਹਾਡੇ ਵਾਲੇਟ ਲਈ ਇੰਕ੍ਰਿਪਟ ਕੀਤੀਆਂ ਫ਼ਾਇਲਾਂ Cryptomator ਕਿੱਥੇ ਸਟੋਰ ਕਰੇ?";
+"addVault.createNewVault.enterPassword.header" = "ਨਵਾਂ ਪਾਸਵਰਡ ਦਿਓ.";
+"addVault.openExistingVault.title" = "ਮੌਜੂਦਾ ਵਾਲਟ ਖੋਲ੍ਹੋ";
+"setVaultName.cells.name" = "ਵਾਲਟ ਦਾ ਨਾਂ";
+"vaultList.alert.remove.title" = "ਵਾਲਟ ਹਟਾਓ?";
