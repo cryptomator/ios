@@ -32,9 +32,43 @@
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
 "addVault.createNewVault.enterPassword.header" = "Zadejte nové heslo.";
 "addVault.createNewVault.confirmPassword.header" = "Potvrď nové heslo.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Confirm Password?";
+"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
 "addVault.openExistingVault.title" = "Otevřít existující trezor";
+"addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
 "addVault.openExistingVault.password.footer" = "Zadejte heslo pro \"%@\"";
+"addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
+"addVault.success.openFilesApp" = "Open Files App";
+"addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
+
+"chooseFolder.emptyFolder.footer" = "Folder is Empty";
+
+"createNewFolder.header.title" = "Choose a name for the folder.";
+"createNewFolder.cells.name" = "Folder Name";
+
+"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
+"localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
+"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
+"localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
+
+"settings.title" = "Settings";
+"settings.aboutCryptomator" = "About Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Send Log File";
 
 "setVaultName.header.title" = "Zvolte jméno trezoru.";
 "setVaultName.cells.name" = "Název trezoru";
+
+"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
+"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
+
+"vaultList.header.title" = "Vaults";
+"vaultList.emptyList.message" = "Tap here to add a vault";
 "vaultList.alert.remove.title" = "Odstranit trezor?";
+"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+
+"webDAVAuthentication.title" = "WebDAV";
