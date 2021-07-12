@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Chyba";
+"common.button.cancel" = "Zrušit";
+"common.button.choose" = "Vybrat";
+"common.button.confirm" = "Potvrdit";
+"common.button.create" = "Vytvořit";
+"common.button.createFolder" = "Vytvořit složku";
+"common.button.done" = "Hotovo";
+"common.button.edit" = "Upravit";
+"common.button.next" = "Další";
+"common.button.ok" = "OK";
+"common.button.remove" = "Odstranit";
+"common.button.signOut" = "Odhlásit se";
+"common.cells.password" = "Heslo";
+"common.cells.url" = "URL";
+"common.cells.username" = "Uživatel";
+"common.cloudProviderType.localFileSystem" = "Další poskytovatel souborů";
+"common.footer.learnMore" = "Více informací.";
+
+"accountList.alert.signOut.title" = "Odstranit přidružené trezory?";
+"accountList.alert.signOut.message" = "Odhlášením budou všechny přidružené trezory odstraněny ze seznamu trezorů. Žádná zašifrovaná data nebudou odstraněna. Můžete se znovu přihlásit a trezory znovu přidat později.";
+
+"addVault.title" = "Přidat trezor";
+"addVault.createNewVault.title" = "Vytvořit nový trezor";
+"addVault.createNewVault.chooseCloud.header" = "Kde by měl Cryptomator ukládat šifrované soubory vašeho trezoru?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
+"addVault.createNewVault.enterPassword.header" = "Zadejte nové heslo.";
+"addVault.createNewVault.confirmPassword.header" = "Potvrď nové heslo.";
+"addVault.openExistingVault.title" = "Otevřít existující trezor";
+"addVault.openExistingVault.password.footer" = "Zadejte heslo pro \"%@\"";
+
+"setVaultName.header.title" = "Zvolte jméno trezoru.";
+"setVaultName.cells.name" = "Název trezoru";
+"vaultList.alert.remove.title" = "Odstranit trezor?";
