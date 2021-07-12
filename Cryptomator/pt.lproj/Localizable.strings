@@ -1,0 +1,15 @@
+"common.button.cancel" = "Cancelar";
+"common.button.choose" = "Escolher";
+"common.button.done" = "Ok";
+"common.button.next" = "Seguinte";
+"common.cells.password" = "Senha";
+
+"addVault.title" = "Adicionar Cofre";
+"addVault.createNewVault.title" = "Criar Novo Cofre";
+"addVault.createNewVault.chooseCloud.header" = "Onde deve o Cryptomator armazenar os arquivos criptografados do cofre?";
+"addVault.openExistingVault.title" = "Abrir Cofre Existente";
+"addVault.openExistingVault.password.footer" = "Insira a senha para \"%@\"";
+
+"setVaultName.header.title" = "Escolha um nome para o cofre.";
+"setVaultName.cells.name" = "Nome do Cofre";
+"vaultList.alert.remove.title" = "Remover Cofre?";
