@@ -1,0 +1,18 @@
+"common.button.cancel" = "Откажи";
+"common.button.choose" = "Изабери";
+"common.button.done" = "Завршено";
+"common.button.next" = "Даље";
+"common.button.remove" = "Уклони";
+"common.cells.password" = "Лозинка";
+
+"addVault.title" = "Додавање сефа";
+"addVault.createNewVault.title" = "Направи нови сеф";
+"addVault.createNewVault.chooseCloud.header" = "Где Cryptomator да складишти шифроване датотеке вашег сефа?";
+"addVault.createNewVault.enterPassword.header" = "Унесите нову лозинку.";
+"addVault.createNewVault.confirmPassword.header" = "Потврдите нову лозинку.";
+"addVault.openExistingVault.title" = "Отвори постојећи сеф";
+"addVault.openExistingVault.password.footer" = "Унесите лозинку за \"%@\"";
+
+"setVaultName.header.title" = "Одабери назив за сеф.";
+"setVaultName.cells.name" = "Назив сефа";
+"vaultList.alert.remove.title" = "Уклони сеф?";
