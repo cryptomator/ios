@@ -55,7 +55,20 @@
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Send Log File";
 
 "setVaultName.header.title" = "Kies een naam voor de kluis.";
 "setVaultName.cells.name" = "Kluisnaam";
+
+"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
+"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
+
+"vaultList.header.title" = "Vaults";
+"vaultList.emptyList.message" = "Tap here to add a vault";
 "vaultList.alert.remove.title" = "Verwijder Kluis?";
+"vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+
+"webDAVAuthentication.title" = "WebDAV";
