@@ -1,1 +1,10 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"onboarding.title" = "Welcome";
+"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";
