@@ -1,0 +1,17 @@
+"common.button.cancel" = "Avbryt";
+"common.button.choose" = "Vel";
+"common.button.done" = "Ferdig";
+"common.button.next" = "Neste";
+"common.cells.password" = "Passord";
+
+"addVault.title" = "Legg til kvelv";
+"addVault.createNewVault.title" = "Opprett ein ny kvelv";
+"addVault.createNewVault.chooseCloud.header" = "Kvar skal Cryptomator lagra dei krypterte filene i kvelven din?";
+"addVault.createNewVault.enterPassword.header" = "Skriv inn eit nytt passord.";
+"addVault.createNewVault.confirmPassword.header" = "Stadfest det nye passordet.";
+"addVault.openExistingVault.title" = "Opn ein eksisterande kvelv";
+"addVault.openExistingVault.password.footer" = "Skriv inn passordet for \"%@\"";
+
+"setVaultName.header.title" = "Vel eit namn på kvelven.";
+"setVaultName.cells.name" = "Namn på kvelven";
+"vaultList.alert.remove.title" = "Fjern kvelv?";
