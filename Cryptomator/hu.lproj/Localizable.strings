@@ -1,0 +1,17 @@
+"common.button.cancel" = "Mégse";
+"common.button.choose" = "Választás";
+"common.button.done" = "Kész";
+"common.button.next" = "Következő";
+"common.cells.password" = "Jelszó";
+
+"addVault.title" = "Széf hozzáadása";
+"addVault.createNewVault.title" = "Új széf létrehozása";
+"addVault.createNewVault.chooseCloud.header" = "Hova mentse a Cryptomator a széf titkosított fájljait?";
+"addVault.createNewVault.enterPassword.header" = "Adjon meg egy új jelszót.";
+"addVault.createNewVault.confirmPassword.header" = "Az új jelszó megerősítése.";
+"addVault.openExistingVault.title" = "Meglévő széf megnyitása";
+"addVault.openExistingVault.password.footer" = "Írja be a jelszavát a következő széfhez \"%@\"";
+
+"setVaultName.header.title" = "Válasszon egy nevet az új széf számára.";
+"setVaultName.cells.name" = "A széf neve";
+"vaultList.alert.remove.title" = "Széf eltávolitása?";
