@@ -1,0 +1,18 @@
+"common.button.cancel" = "Cancel·la";
+"common.button.choose" = "Trieu";
+"common.button.done" = "Fet";
+"common.button.next" = "Següent";
+"common.button.remove" = "Elimina";
+"common.cells.password" = "Contrasenya";
+
+"addVault.title" = "Afegir una caixa forta";
+"addVault.createNewVault.title" = "Crea una caixa forta nova";
+"addVault.createNewVault.chooseCloud.header" = "On deu emmagatzemar Cryptomator els fitxers xifrats de la vostra caixa forta?";
+"addVault.createNewVault.enterPassword.header" = "Introdueix una contrasenya nova.";
+"addVault.createNewVault.confirmPassword.header" = "Confirma la nova contrasenya.";
+"addVault.openExistingVault.title" = "Obri una caixa forta existent";
+"addVault.openExistingVault.password.footer" = "Introduïu la contrasenya de \"%@\"";
+
+"setVaultName.header.title" = "Introduiu el nom de la caixa forta.";
+"setVaultName.cells.name" = "Nom de la caixa forta";
+"vaultList.alert.remove.title" = "Elimina la caixa forta?";
