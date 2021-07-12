@@ -21,14 +21,14 @@ public class CryptomatorDatabase {
 		return sharedContainer?.appendingPathComponent("main.sqlite")
 	}
 
-	let dbPool: DatabasePool
+	public let dbPool: DatabasePool
 
 	public init(_ dbPool: DatabasePool) throws {
 		self.dbPool = dbPool
 		try CryptomatorDatabase.migrator.migrate(dbPool)
 	}
 
-	private static var migrator: DatabaseMigrator {
+	static var migrator: DatabaseMigrator {
 		var migrator = DatabaseMigrator()
 
 		// Speed up development by nuking the database when migrations change
@@ -53,6 +53,11 @@ public class CryptomatorDatabase {
 			table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts", onDelete: .cascade)
 			table.column("vaultPath", .text).notNull()
 			table.column("vaultName", .text).notNull()
+		}
+		try db.create(table: "cachedVaults") { table in
+			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)
+			table.column("masterkeyFileData", .text).notNull()
+			table.column("vaultConfigToken", .text)
 			table.column("lastUpToDateCheck", .date).notNull()
 		}
 		// Main App

@@ -6,9 +6,10 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
+import CryptomatorCommonCore
 import FileProviderUI
 import UIKit
-
 class RootViewController: FPUIActionExtensionViewController {
 	private var coordinator: FileProviderCoordinator?
 	override func viewDidLoad() {
@@ -20,7 +21,7 @@ class RootViewController: FPUIActionExtensionViewController {
 		addChild(navigationController)
 		view.addSubview(navigationController.view)
 		navigationController.didMove(toParent: self)
-
+		RootViewController.oneTimeSetup()
 		coordinator = FileProviderCoordinator(extensionContext: extensionContext, navigationController: navigationController)
 	}
 
@@ -31,4 +32,26 @@ class RootViewController: FPUIActionExtensionViewController {
 	@objc func cancel() {
 		extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.userCancelled.rawValue), userInfo: nil))
 	}
+
+	static var oneTimeSetup: () -> Void = {
+		// Set up logger
+		LoggerSetup.oneTimeSetup()
+		// Set up database
+		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
+			// MARK: Handle error
+
+			DDLogError("dbURL is nil")
+			return {}
+		}
+		do {
+			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
+			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
+		} catch {
+			// MARK: Handle error
+
+			DDLogError("Error while initializing the CryptomatorDatabase: \(error)")
+			return {}
+		}
+		return {}
+	}()
 }

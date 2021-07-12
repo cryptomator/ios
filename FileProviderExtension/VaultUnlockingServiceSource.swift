@@ -46,12 +46,14 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 
 	// MARK: - VaultUnlocking
 
-	func unlockVault(password: String, reply: (Error?) -> Void) {
-		do {
-			try FileProviderAdapterManager.unlockVault(for: fileprovider.domain, password: password, dbPath: fileprovider.dbPath, delegate: fileprovider, notificator: fileprovider.notificator)
-			reply(nil)
-		} catch {
-			reply(error)
+	func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			do {
+				try FileProviderAdapterManager.unlockVault(for: self.fileprovider.domain, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
+				reply(nil)
+			} catch {
+				reply(error)
+			}
 		}
 	}
 }

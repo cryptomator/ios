@@ -37,11 +37,11 @@ public enum FileProviderAdapterManager {
 		}
 	}
 
-	public static func unlockVault(for domain: NSFileProviderDomain?, password: String, dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws {
+	public static func unlockVault(for domain: NSFileProviderDomain?, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws {
 		guard let domain = domain, let dbPath = dbPath else {
 			return
 		}
-		let provider = try VaultDBManager.shared.manualUnlockVault(withUID: domain.identifier.rawValue, password: password)
+		let provider = try VaultDBManager.shared.manualUnlockVault(withUID: domain.identifier.rawValue, kek: kek)
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		let itemMetadataManager = ItemMetadataDBManager(with: database)
 		let cachedFileManager = CachedFileDBManager(with: database)

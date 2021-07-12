@@ -31,7 +31,7 @@ class FileProviderCoordinator {
 			return
 		}
 		switch internalError {
-		case let internalError as NSError where internalError == VaultManagerError.passwordNotInKeychain as NSError:
+		case let internalError as NSError where internalError == VaultPasswordManagerError.passwordNotFound as NSError:
 			let domain = NSFileProviderDomain(identifier: domainIdentifier, displayName: vaultName, pathRelativeToDocumentStorage: pathRelativeToDocumentStorage)
 			showPasswordScreen(for: domain)
 		default:

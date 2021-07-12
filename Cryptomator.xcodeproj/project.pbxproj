@@ -69,7 +69,6 @@
 		4A511D5D26668E47000A0E01 /* ReparentTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A511D5C26668E47000A0E01 /* ReparentTaskRecord.swift */; };
 		4A511D5F26668E68000A0E01 /* DeletionTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */; };
 		4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */; };
-		4A51E612261C9A8800CC8C9B /* VaultManagerKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */; };
 		4A53CC11267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC10267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift */; };
 		4A53CC13267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC12267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift */; };
 		4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */; };
@@ -129,6 +128,7 @@
 		4A9BED64268F1DB000721BAA /* VaultUnlockingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */; };
 		4A9BED66268F2D9D00721BAA /* UnlockVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */; };
 		4A9BED67268F379300721BAA /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
+		4A9CD5622699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */; };
 		4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */; };
 		4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */; };
 		4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */; };
@@ -378,7 +378,6 @@
 		4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskRecord.swift; sourceTree = "<group>"; };
 		4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorCommonHostedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A51E600261C9A7000CC8C9B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerKeychainTests.swift; sourceTree = "<group>"; };
 		4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVKeychainTests.swift; sourceTree = "<group>"; };
 		4A53CC10267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessCoordinator.swift; sourceTree = "<group>"; };
 		4A53CC12267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewController.swift; sourceTree = "<group>"; };
@@ -435,6 +434,7 @@
 		4A9BED61268F1A2400721BAA /* VaultUnlocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlocking.swift; sourceTree = "<group>"; };
 		4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingServiceSource.swift; sourceTree = "<group>"; };
 		4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewController.swift; sourceTree = "<group>"; };
+		4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordKeychainManagerTests.swift; sourceTree = "<group>"; };
 		4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticating.swift; sourceTree = "<group>"; };
 		4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationCoordinator.swift; sourceTree = "<group>"; };
@@ -705,7 +705,7 @@
 		4A51E60E261C9A8700CC8C9B /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
-				4A51E60F261C9A8800CC8C9B /* VaultManagerKeychainTests.swift */,
+				4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */,
 				4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */,
 			);
 			path = Keychain;
@@ -1525,8 +1525,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A51E612261C9A8800CC8C9B /* VaultManagerKeychainTests.swift in Sources */,
 				4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */,
+				4A9CD5622699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

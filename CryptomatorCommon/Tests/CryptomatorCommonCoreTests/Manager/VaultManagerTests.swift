@@ -15,31 +15,11 @@ import XCTest
 @testable import CryptomatorCryptoLib
 
 class VaultManagerMock: VaultDBManager {
-	var savedMasterkeys = [String: Masterkey]()
-	var savedPasswords = [String: String]()
-	var savedVaultConfigTokens = [String: String]()
 	var removedVaultUIDs = [String]()
 	var addedFileProviderDomains = [String: String]()
 
-	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, vaultVersion: Int, password: String, storePasswordInKeychain: Bool) throws {
-		savedMasterkeys[vaultUID] = masterkey
-		if storePasswordInKeychain {
-			savedPasswords[vaultUID] = password
-		}
-		return
-	}
-
-	override func saveFileProviderConformMasterkeyToKeychain(_ masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: String, password: String, storePasswordInKeychain: Bool) throws {
-		savedMasterkeys[vaultUID] = masterkey
-		savedVaultConfigTokens[vaultUID] = vaultConfigToken
-		if storePasswordInKeychain {
-			savedPasswords[vaultUID] = password
-		}
-		return
-	}
-
 	override func exportMasterkey(_ masterkey: Masterkey, vaultVersion: Int, password: String) throws -> Data {
-		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 7, passphrase: password, pepper: [UInt8](), scryptCostParam: 2)
+		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: vaultVersion, passphrase: password, pepper: [UInt8](), scryptCostParam: 2)
 	}
 
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
@@ -65,6 +45,8 @@ class VaultManagerTests: XCTestCase {
 	var accountManager: VaultAccountManager!
 	var providerManager: CloudProviderManagerMock!
 	var providerAccountManager: CloudProviderAccountDBManager!
+	var vaultCacheMock: VaultCacheMock!
+	var passwordManagerMock: VaultPasswordManagerMock!
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	override func setUpWithError() throws {
@@ -88,7 +70,9 @@ class VaultManagerTests: XCTestCase {
 		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		providerManager = CloudProviderManagerMock(accountManager: providerAccountManager)
 		accountManager = VaultAccountDBManager(dbPool: dbPool)
-		manager = VaultManagerMock(providerManager: providerManager, vaultAccountManager: accountManager)
+		vaultCacheMock = VaultCacheMock()
+		passwordManagerMock = VaultPasswordManagerMock()
+		manager = VaultManagerMock(providerManager: providerManager, vaultAccountManager: accountManager, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
 	}
 
 	override func tearDownWithError() throws {
@@ -120,8 +104,10 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Masterkey not uploaded")
 				return
 			}
-			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyData)
-			let masterkey = try masterkeyFile.unlock(passphrase: "pw")
+			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyData)
+			XCTAssertEqual(999, uploadedMasterkeyFile.version)
+
+			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: "pw")
 
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
@@ -136,9 +122,17 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Could not convert manager to VaultManagerMock")
 				return
 			}
-			XCTAssertEqual(masterkey, managerMock.savedMasterkeys[vaultUID])
+
 			XCTAssertEqual(1, managerMock.addedFileProviderDomains.count)
 			XCTAssertEqual(vaultPath.lastPathComponent, managerMock.addedFileProviderDomains[vaultUID])
+
+			guard let cachedVault = vaultCacheMock.cachedVaults[vaultUID] else {
+				XCTFail("Vault not cached for \(vaultUID)")
+				return
+			}
+			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: "pw")
+			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
 
 			// Vault config checks
 			let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
@@ -148,8 +142,7 @@ class VaultManagerTests: XCTestCase {
 			}
 			let uploadedVaultConfigToken = String(data: uploadedVaultConfigData, encoding: .utf8)
 
-			XCTAssertEqual(1, managerMock.savedVaultConfigTokens.count)
-			guard let savedVaultConfigToken = managerMock.savedVaultConfigTokens[vaultUID] else {
+			guard let savedVaultConfigToken = cachedVault.vaultConfigToken else {
 				XCTFail("savedVaultConfigToken is nil")
 				return
 			}
@@ -203,12 +196,15 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Could not convert manager to VaultManagerMock")
 				return
 			}
-			XCTAssertEqual(managerMock.savedMasterkeys[vaultUID], masterkey)
+			guard let cachedVault = vaultCacheMock.cachedVaults[vaultUID] else {
+				XCTFail("Vault not cached for \(vaultUID)")
+				return
+			}
+
 			XCTAssertEqual(1, managerMock.addedFileProviderDomains.count)
 			XCTAssertEqual(vaultPath.lastPathComponent, managerMock.addedFileProviderDomains[vaultUID])
 
-			XCTAssertEqual(1, managerMock.savedVaultConfigTokens.count)
-			guard let savedVaultConfigToken = managerMock.savedVaultConfigTokens[vaultUID] else {
+			guard let savedVaultConfigToken = cachedVault.vaultConfigToken else {
 				XCTFail("savedVaultConfigToken is nil")
 				return
 			}
@@ -256,7 +252,14 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Could not convert manager to VaultManagerMock")
 				return
 			}
-			XCTAssertEqual(managerMock.savedMasterkeys[vaultUID], masterkey)
+			guard let cachedVault = vaultCacheMock.cachedVaults[vaultUID] else {
+				XCTFail("Vault not cached for \(vaultUID)")
+				return
+			}
+			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			XCTAssertEqual(7, masterkeyFile.version)
+			let savedMasterkey = try masterkeyFile.unlock(passphrase: "pw")
+			XCTAssertEqual(masterkey, savedMasterkey)
 			XCTAssertEqual(1, managerMock.addedFileProviderDomains.count)
 			XCTAssertEqual(vaultPath.lastPathComponent, managerMock.addedFileProviderDomains[vaultUID])
 		}.catch { error in
@@ -346,5 +349,45 @@ struct VaultDetails: VaultItem {
 extension Masterkey: Equatable {
 	public static func == (lhs: Masterkey, rhs: Masterkey) -> Bool {
 		return lhs.aesMasterKey == rhs.aesMasterKey && lhs.macMasterKey == rhs.macMasterKey
+	}
+}
+
+class VaultPasswordManagerMock: VaultPasswordManager {
+	var savedPasswords = [String: String]()
+	var removedPasswords = [String]()
+
+	func setPassword(_ password: String, forVaultUID vaultUID: String) throws {
+		savedPasswords[vaultUID] = password
+	}
+
+	func getPassword(forVaultUID vaultUID: String) throws -> String {
+		guard let password = savedPasswords[vaultUID] else {
+			throw VaultPasswordManagerError.passwordNotFound
+		}
+		return password
+	}
+
+	func removePassword(forVaultUID vaultUID: String) throws {
+		removedPasswords.append(vaultUID)
+	}
+}
+
+class VaultCacheMock: VaultCache {
+	var cachedVaults = [String: CachedVault]()
+	var invalidatedVaults = [String]()
+
+	func cache(_ entry: CachedVault) throws {
+		cachedVaults[entry.vaultUID] = entry
+	}
+
+	func getCachedVault(withVaultUID vaultUID: String) throws -> CachedVault {
+		guard let vault = cachedVaults[vaultUID] else {
+			throw VaultCacheError.vaultNotFound
+		}
+		return vault
+	}
+
+	func invalidate(vaultUID: String) throws {
+		invalidatedVaults.append(vaultUID)
 	}
 }

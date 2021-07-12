@@ -7,6 +7,8 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCommonCore
+import CryptomatorCryptoLib
 import CryptomatorFileProvider
 import FileProvider
 import FileProviderUI
@@ -32,6 +34,15 @@ class UnlockVaultViewModel {
 	}
 
 	func unlock(withPassword password: String) -> Promise<Void> {
+		let kek: [UInt8]
+		do {
+			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: domain.identifier.rawValue)
+			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			kek = try masterkeyFile.deriveKey(passphrase: password)
+		} catch {
+			return Promise(error)
+		}
+
 		let url = NSFileProviderManager.default.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
 		return wrap { handler in
 			FileManager.default.getFileProviderServicesForItem(at: url, completionHandler: handler)
@@ -54,13 +65,13 @@ class UnlockVaultViewModel {
 				throw UnlockVaultViewModelError.rawProxyCastingFailed
 			}
 
-			return self.proxyUnlockVault(proxy, password: password)
+			return self.proxyUnlockVault(proxy, kek: kek)
 		}
 	}
 
-	func proxyUnlockVault(_ proxy: VaultUnlocking, password: String) -> Promise<Void> {
+	func proxyUnlockVault(_ proxy: VaultUnlocking, kek: [UInt8]) -> Promise<Void> {
 		return Promise<Void> { fulfill, reject in
-			proxy.unlockVault(password: password, reply: { error in
+			proxy.unlockVault(kek: kek, reply: { error in
 				if let error = error {
 					reject(error)
 				} else {
