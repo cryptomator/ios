@@ -1,0 +1,17 @@
+"common.button.cancel" = "Avbryt";
+"common.button.choose" = "Velg";
+"common.button.done" = "Ferdig";
+"common.button.next" = "Neste";
+"common.cells.password" = "Passord";
+
+"addVault.title" = "Legg til hvelv";
+"addVault.createNewVault.title" = "Lag et nytt hvelv";
+"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
+"addVault.createNewVault.enterPassword.header" = "Skriv inn et nytt passord.";
+"addVault.createNewVault.confirmPassword.header" = "Bekreft det nye passordet.";
+"addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
+"addVault.openExistingVault.password.footer" = "Skriv inn passordet for \"%@\"";
+
+"setVaultName.header.title" = "Velg et navn på hvelvet.";
+"setVaultName.cells.name" = "Navn på hvelvet";
+"vaultList.alert.remove.title" = "Fjern hvelvet?";
