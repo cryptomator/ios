@@ -23,6 +23,9 @@
 "common.cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
 "common.footer.learnMore" = "さらに詳しく。";
 
+"accountList.alert.signOut.title" = "Remove Associated Vaults?";
+"accountList.alert.signOut.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
@@ -44,7 +47,10 @@
 
 "createNewFolder.header.title" = "フォルダーの名前を入力してください.";
 "createNewFolder.cells.name" = "フォルダー名";
+
+"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
+"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 
 "settings.title" = "設定";
