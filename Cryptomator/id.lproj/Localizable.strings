@@ -1,0 +1,14 @@
+"common.button.cancel" = "Batalkan";
+"common.button.choose" = "Pilih";
+"common.button.done" = "Selesai";
+"common.button.next" = "Lanjut";
+
+"addVault.title" = "Tambah Brankas";
+"addVault.createNewVault.title" = "Buat Brankas Baru";
+"addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan brankas berkas terenkripsi kamu?";
+"addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
+"addVault.openExistingVault.password.footer" = "Masukkan kata sandi untuk \"%@\"";
+
+"setVaultName.header.title" = "Buat sebuah nama untuk brankas.";
+"setVaultName.cells.name" = "Nama Brankas";
+"vaultList.alert.remove.title" = "Hapus Vault?";
