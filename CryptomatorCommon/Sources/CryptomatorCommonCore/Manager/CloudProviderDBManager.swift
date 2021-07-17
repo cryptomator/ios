@@ -36,7 +36,7 @@ public class CloudProviderDBManager: CloudProviderManager {
 		switch cloudProviderType {
 		case .googleDrive:
 			let credential = GoogleDriveCredential(tokenUID: accountUID)
-			provider = GoogleDriveCloudProvider(credential: credential, useBackgroundSession: useBackgroundSession)
+			provider = try GoogleDriveCloudProvider(credential: credential, useBackgroundSession: useBackgroundSession)
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: accountUID)
 			provider = DropboxCloudProvider(credential: credential)
