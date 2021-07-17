@@ -10,6 +10,14 @@ import CryptomatorFileProvider
 import Foundation
 
 class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultUnlocking, NSXPCListenerDelegate {
+	func startBiometricalUnlock() {
+		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
+	}
+
+	func cancelledBiometricalUnlock() {
+		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = false
+	}
+
 	var serviceName: NSFileProviderServiceName {
 		VaultUnlockingService.name
 	}

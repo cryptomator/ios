@@ -88,6 +88,8 @@ public class VaultDBManager: VaultManager {
 			let account = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultPath.lastPathComponent)
 			try self.vaultAccountManager.saveNewAccount(account)
 			try self.postProcessVaultCreation(for: masterkey, forVaultUID: vaultUID, vaultConfigToken: vaultConfigToken, password: password, storePasswordInKeychain: storePasswordInKeychain)
+		}.catch { _ in
+			VaultDBManager.cachedDecorators[vaultUID] = nil
 		}
 	}
 

@@ -12,4 +12,9 @@
 "onboarding.openCryptomator.button" = "Open Cryptomator";
 
 "unlockVault.button.unlock" = "Unlock";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
 "unlockVault.password.footer" = "Enter password for \"%@\"";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+

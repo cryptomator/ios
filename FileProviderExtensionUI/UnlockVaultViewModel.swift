@@ -13,15 +13,48 @@ import CryptomatorFileProvider
 import FileProvider
 import FileProviderUI
 import Foundation
+import LocalAuthentication
 import Promises
+
+enum AuthenticationError: Error {
+	case authenticationFailedWithoutError
+}
+
+enum UnlockCellType: Int {
+	case password
+	case biometricalUnlock
+	case enableBiometricalUnlock
+	case unknown
+}
+
+enum UnlockVaultViewModelError: Error {
+	case vaultUnlockingServiceNotSupported
+	case rawProxyCastingFailed
+	case connectionIsNil
+}
+
+enum UnlockSection: Int {
+	case passwordSection
+	case biometricalUnlockSection
+	case enableBiometricalSection
+}
 
 class UnlockVaultViewModel {
 	var title: String {
 		vaultName
 	}
 
-	var footerTitle: String {
-		return String(format: NSLocalizedString("unlockVault.password.footer", comment: ""), vaultName)
+	var numberOfSections: Int {
+		return sections.count
+	}
+
+	var biometricalUnlockEnabled: Bool {
+		do {
+			return try passwordManager.hasPassword(forVaultUID: vaultUID)
+		} catch {
+			DDLogError("biometricalUnlockEnabled failed with error: \(error)")
+			return false
+		}
 	}
 
 	private let domain: NSFileProviderDomain
@@ -29,20 +62,198 @@ class UnlockVaultViewModel {
 		return domain.displayName
 	}
 
-	init(domain: NSFileProviderDomain) {
-		self.domain = domain
+	private var vaultUID: String {
+		return domain.identifier.rawValue
 	}
 
-	func unlock(withPassword password: String) -> Promise<Void> {
+	private var sections: [UnlockSection] {
+		if canEvaluatePolicy {
+			if biometricalUnlockEnabled {
+				return [.passwordSection, .biometricalUnlockSection]
+
+			} else {
+				return [.passwordSection, .enableBiometricalSection]
+			}
+		} else {
+			return [.passwordSection]
+		}
+	}
+
+	private let cells: [UnlockSection: [UnlockCellType]] = [
+		.passwordSection: [.password],
+		.biometricalUnlockSection: [.biometricalUnlock],
+		.enableBiometricalSection: [.enableBiometricalUnlock]
+	]
+
+	private let context: LAContext
+	private let passwordManager: VaultPasswordKeychainManager
+	private lazy var canEvaluatePolicy: Bool = {
+		var error: NSError?
+		if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+			return true
+		} else {
+			DDLogError("Can not evaluate policy due to error: \(error?.description ?? "")")
+			return false
+		}
+	}()
+
+	init(domain: NSFileProviderDomain, context: LAContext = LAContext()) {
+		self.domain = domain
+		self.context = context
+		self.passwordManager = VaultPasswordKeychainManager()
+	}
+
+	func numberOfRows(in section: Int) -> Int {
+		let unlockSection = sections[section]
+		if let sectionCells = cells[unlockSection] {
+			return sectionCells.count
+		} else {
+			return 0
+		}
+	}
+
+	func getCellType(for indexPath: IndexPath) -> UnlockCellType {
+		let unlockSection = sections[indexPath.section]
+		guard let sectionCells = cells[unlockSection] else {
+			return .unknown
+		}
+		return sectionCells[indexPath.row]
+	}
+
+	func getTitle(for indexPath: IndexPath) -> String? {
+		switch getCellType(for: indexPath) {
+		case .biometricalUnlock:
+			return getUnlockTitle(for: context.biometryType)
+		case .enableBiometricalUnlock:
+			return getEnableTitle(for: context.biometryType)
+		default:
+			return nil
+		}
+	}
+
+	func getSystemImageName(for indexPath: IndexPath) -> String? {
+		switch getCellType(for: indexPath) {
+		case .biometricalUnlock:
+			return getSystemImageName(for: context.biometryType)
+		default:
+			return nil
+		}
+	}
+
+	func getFooterTitle(for section: Int) -> String? {
+		let unlockSection = sections[section]
+		switch unlockSection {
+		case .passwordSection:
+			return String(format: NSLocalizedString("unlockVault.password.footer", comment: ""), vaultName)
+		case .enableBiometricalSection:
+			guard let biometryTypeName = getName(for: context.biometryType) else {
+				return nil
+			}
+			return String(format: NSLocalizedString("unlockVault.enableBiometricalUnlock.footer", comment: ""), biometryTypeName)
+		default:
+			return nil
+		}
+	}
+
+	// MARK: Unlock Vault
+
+	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let kek: [UInt8]
 		do {
-			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: domain.identifier.rawValue)
+			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
 			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 			kek = try masterkeyFile.deriveKey(passphrase: password)
 		} catch {
 			return Promise(error)
 		}
+		if storePasswordInKeychain {
+			do {
+				try passwordManager.setPassword(password, forVaultUID: vaultUID)
+			} catch {
+				return Promise(error)
+			}
+		}
 
+		return getProxy().then { proxy -> Promise<Void> in
+			return self.proxyUnlockVault(proxy, kek: kek)
+		}
+	}
+
+	/**
+	 Unlock a vault via Touch ID or Face ID.
+
+	 Since the closing of the evaluate policy dialog causes the FileProviderExtensionUI view to be closed,
+	 some actions need special handling.
+	 These include that if successful, an `enumerateItems` is executed too quickly and the `FileProviderAdapter` is not yet available. Therefore, we need to artificially delay the item enumeration until we have successfully completed our actual vault unlock.
+	 This ensures that we have to tell the proxy both to start (to enable the artificial delay) and to cancel a biometric unlock (to disable the artificial delay again - otherwise the user will not see an authenticate dialog in the Files app).
+	 */
+	func biometricalUnlock() -> Promise<Void> {
+		let reason = NSLocalizedString("unlockVault.evaluatePolicy.reason", comment: "")
+		let getProxyPromise = getProxy()
+		return getProxyPromise.then { proxy in
+			proxy.startBiometricalUnlock()
+		}.then { _ -> Void in
+			var error: NSError?
+			guard self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
+				if let error = error {
+					throw error
+				} else {
+					throw AuthenticationError.authenticationFailedWithoutError
+				}
+			}
+		}.then {
+			self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
+		}.catch { error in
+			DDLogError("Evaluate policy failed with: \(error)")
+			getProxyPromise.then { proxy in
+				proxy.cancelledBiometricalUnlock()
+			}
+		}.then {
+			getProxyPromise
+		}.then(on: .main) { proxy in
+			self.unlockWithSavedPassword(proxy: proxy)
+		}
+	}
+
+	// MARK: Internal
+
+	private func getUnlockTitle(for biometryType: LABiometryType) -> String? {
+		guard let biometryName = getName(for: biometryType) else {
+			return nil
+		}
+		return String(format: NSLocalizedString("unlockVault.button.unlockVia", comment: ""), biometryName)
+	}
+
+	private func getEnableTitle(for biometryType: LABiometryType) -> String? {
+		guard let biometryName = getName(for: biometryType) else {
+			return nil
+		}
+		return String(format: NSLocalizedString("unlockVault.enableBiometricalUnlock.switch", comment: ""), biometryName)
+	}
+
+	private func getSystemImageName(for biometryType: LABiometryType) -> String? {
+		switch biometryType {
+		case .faceID:
+			return "faceid"
+		case .touchID:
+			return "touchid"
+		default:
+			return nil
+		}
+	}
+
+	private func getName(for biometryType: LABiometryType) -> String? {
+		switch biometryType {
+		case .faceID:
+			return "Face ID"
+		case .touchID:
+			return "Touch ID"
+		default:
+			return nil
+		}
+	}
+
+	private func getProxy() -> Promise<VaultUnlocking> {
 		let url = NSFileProviderManager.default.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
 		return wrap { handler in
 			FileManager.default.getFileProviderServicesForItem(at: url, completionHandler: handler)
@@ -52,7 +263,7 @@ class UnlockVaultViewModel {
 			} else {
 				return Promise(UnlockVaultViewModelError.vaultUnlockingServiceNotSupported)
 			}
-		}.then { connection -> Promise<Void> in
+		}.then { connection -> VaultUnlocking in
 			guard let connection = connection else {
 				throw UnlockVaultViewModelError.connectionIsNil
 			}
@@ -64,12 +275,29 @@ class UnlockVaultViewModel {
 			guard let proxy = rawProxy as? VaultUnlocking else {
 				throw UnlockVaultViewModelError.rawProxyCastingFailed
 			}
-
-			return self.proxyUnlockVault(proxy, kek: kek)
+			return proxy
 		}
 	}
 
-	func proxyUnlockVault(_ proxy: VaultUnlocking, kek: [UInt8]) -> Promise<Void> {
+	private func unlockWithSavedPassword(proxy: VaultUnlocking) -> Promise<Void> {
+		let password: String
+		do {
+			password = try passwordManager.getPassword(forVaultUID: vaultUID, context: context)
+		} catch {
+			return Promise(error)
+		}
+		let kek: [UInt8]
+		do {
+			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
+			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			kek = try masterkeyFile.deriveKey(passphrase: password)
+		} catch {
+			return Promise(error)
+		}
+		return proxyUnlockVault(proxy, kek: kek)
+	}
+
+	private func proxyUnlockVault(_ proxy: VaultUnlocking, kek: [UInt8]) -> Promise<Void> {
 		return Promise<Void> { fulfill, reject in
 			proxy.unlockVault(kek: kek, reply: { error in
 				if let error = error {
@@ -90,8 +318,20 @@ extension NSFileProviderService {
 	}
 }
 
-enum UnlockVaultViewModelError: Error {
-	case vaultUnlockingServiceNotSupported
-	case rawProxyCastingFailed
-	case connectionIsNil
+extension LAContext {
+	func evaluatePolicy(_ policy: LAPolicy, localizedReason: String) -> Promise<Void> {
+		return Promise<Void> { fulfill, reject in
+			self.evaluatePolicy(policy, localizedReason: localizedReason) { success, error in
+				if success {
+					fulfill(())
+				} else {
+					if let error = error {
+						reject(error)
+					} else {
+						reject(AuthenticationError.authenticationFailedWithoutError)
+					}
+				}
+			}
+		}
+	}
 }

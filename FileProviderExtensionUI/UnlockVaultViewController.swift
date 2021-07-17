@@ -9,17 +9,34 @@
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import FileProviderUI
+import Promises
 import UIKit
-
 class UnlockVaultViewController: UITableViewController {
 	weak var coordinator: FileProviderCoordinator?
-
 	private let viewModel: UnlockVaultViewModel
 	private lazy var passwordCell: PasswordFieldCell = {
 		let cell = PasswordFieldCell()
 		cell.textField.becomeFirstResponder()
+		cell.textField.tintColor = UIColor(named: "primary")
 		cell.selectionStyle = .none
 		return cell
+	}()
+
+	private lazy var button: UITableViewCell = {
+		let cell = UITableViewCell()
+		return cell
+	}()
+
+	private lazy var enableBiometricalUnlockCell: UITableViewCell = {
+		let cell = UITableViewCell()
+		cell.accessoryView = enableBiometricalUnlockSwitch
+		return cell
+	}()
+
+	private lazy var enableBiometricalUnlockSwitch: UISwitch = {
+		let switchView = UISwitch(frame: .zero)
+		switchView.setOn(false, animated: false)
+		return switchView
 	}()
 
 	private var viewToShake: UIView? {
@@ -42,6 +59,7 @@ class UnlockVaultViewController: UITableViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		title = viewModel.title
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		let unlockButton = UIBarButtonItem(title: NSLocalizedString("unlockVault.button.unlock", comment: ""), style: .done, target: self, action: #selector(unlock))
@@ -50,8 +68,14 @@ class UnlockVaultViewController: UITableViewController {
 		navigationItem.rightBarButtonItem = unlockButton
 	}
 
+	private func biometricalUnlock() {
+		viewModel.biometricalUnlock().then { [weak self] in
+			self?.coordinator?.unlocked()
+		}
+	}
+
 	@objc func unlock() {
-		viewModel.unlock(withPassword: passwordCell.textField.text ?? "").then { [weak self] in
+		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then { [weak self] in
 			self?.coordinator?.unlocked()
 		}.catch { [weak self] error in
 			guard let self = self else { return }
@@ -69,21 +93,46 @@ class UnlockVaultViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return viewModel.footerTitle
+		return viewModel.getFooterTitle(for: section)
 	}
 
 	// MARK: - UITableViewDataSource
 
 	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
+		return viewModel.numberOfSections
 	}
 
 	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
+		return viewModel.numberOfRows(in: section)
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		switch viewModel.getCellType(for: indexPath) {
+		case .biometricalUnlock:
+			tableView.deselectRow(at: indexPath, animated: true)
+			biometricalUnlock()
+		default:
+			break
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return passwordCell
+		switch viewModel.getCellType(for: indexPath) {
+		case .password:
+			return passwordCell
+		case .biometricalUnlock:
+			button.textLabel?.text = viewModel.getTitle(for: indexPath)
+			if let systemImageName = viewModel.getSystemImageName(for: indexPath) {
+				button.imageView?.image = UIImage(systemName: systemImageName)
+				button.imageView?.tintColor = UIColor(named: "primary")
+			}
+			return button
+		case .enableBiometricalUnlock:
+			enableBiometricalUnlockCell.textLabel?.text = viewModel.getTitle(for: indexPath)
+			return enableBiometricalUnlockCell
+		case .unknown:
+			return UITableViewCell()
+		}
 	}
 }
 

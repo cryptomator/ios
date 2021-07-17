@@ -60,7 +60,7 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 		guard let password = password else {
 			return Promise(CreateNewVaultPasswordViewModelError.emptyPassword)
 		}
-		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: true)
+		return VaultDBManager.shared.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: false)
 	}
 }
 

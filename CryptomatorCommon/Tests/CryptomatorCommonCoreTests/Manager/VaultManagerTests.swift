@@ -63,7 +63,6 @@ class VaultManagerTests: XCTestCase {
 				table.column(VaultAccount.delegateAccountUIDKey, .text).notNull()
 				table.column(VaultAccount.vaultPathKey, .text).notNull()
 				table.column(VaultAccount.vaultNameKey, .text).notNull()
-				table.column(VaultAccount.lastUpToDateCheckKey, .date).notNull()
 			}
 		}
 
@@ -276,7 +275,7 @@ class VaultManagerTests: XCTestCase {
 		try providerAccountManager.saveNewAccount(account)
 		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/VaultV8/")
-		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV8", lastUpToDateCheck: Date())
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV8")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
@@ -295,7 +294,7 @@ class VaultManagerTests: XCTestCase {
 		try providerAccountManager.saveNewAccount(account)
 		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/VaultV7/")
-		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV7", lastUpToDateCheck: Date())
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV7")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 7, vaultConfigToken: nil)
@@ -312,7 +311,7 @@ class VaultManagerTests: XCTestCase {
 		try providerAccountManager.saveNewAccount(account)
 		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/VaultV6/")
-		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV6", lastUpToDateCheck: Date())
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV6")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 6, vaultConfigToken: nil)
@@ -329,7 +328,7 @@ class VaultManagerTests: XCTestCase {
 		try providerAccountManager.saveNewAccount(account)
 		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/VaultV1/")
-		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV1", lastUpToDateCheck: Date())
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV1")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		XCTAssertThrowsError(try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 1, vaultConfigToken: nil)) { error in
