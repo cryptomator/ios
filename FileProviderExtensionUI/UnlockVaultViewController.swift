@@ -152,8 +152,8 @@ private class PasswordFieldCell: UITableViewCell {
 		NSLayoutConstraint.activate([
 			textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			textField.topAnchor.constraint(equalTo: topAnchor),
-			textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+			textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			textField.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 
