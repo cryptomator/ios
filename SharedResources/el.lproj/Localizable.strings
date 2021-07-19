@@ -20,29 +20,29 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
 "common.cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
-"common.error.alert.title" = "Error";
+"common.error.alert.title" = "Σφάλμα";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.signOut.alert.title" = "Αφαίρεση Συσχετιζόμενων Vault;";
+"accountList.signOut.alert.message" = "Με την αποσύνδεση, όλα τα συνδεδεμένα vault θα αφαιρεθούν από τη λίστα vault. Δεν θα διαγραφούν τα κρυπτογραφημένα δεδομένα. Μπορείτε να συνδεθείτε ξανά και να προσθέσετε ξανά τα vault αργότερα.";
 
 "addVault.title" = "Προσθήκη Vault";
 "addVault.createNewVault.title" = "Δημιουργία νέου Vault";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για το vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Όνομα Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Που θα αποθηκεύσει το Cryptomator τα κωδικοποιημένα αρχεία του vault σου;";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε ένα υπάρχον valut σε αυτή τη θέση.\nΓια να δημιουργήσετε ένα νέο vault, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.enterPassword.header" = "Εισάγετε ένα νέο κωδικό.";
+"addVault.createNewVault.password.confirmPassword.header" = "Επιβεβαιώστε το νέο κωδικό.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Επιβεβαίωση κωδικού;";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ΣΗΜΑΝΤΙΚΟ: Εάν ξεχάσετε τον κωδικό πρόσβασής σας, δεν υπάρχει τρόπος να ανακτήσετε τα δεδομένα σας.";
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Οι κωδικοί δεν ταιριάζουν.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Άνοιγμα υπάρχοντος Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται το vault;";
@@ -54,8 +54,8 @@
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
 "chooseFolder.emptyFolder.footer" = "Ο φάκελος είναι κενός";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
+"chooseFolder.createNewFolder.cells.name" = "Όνομα Φακέλου";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
@@ -90,7 +90,7 @@
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα vault";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+"vaultList.remove.alert.title" = "Διαγραφή Vault;";
+"vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο τοvault από τη λίστα των vault. Δεν θα διαγραφούν κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά το vault αργότερα.";
 
 "webDAVAuthentication.title" = "WebDAV";
