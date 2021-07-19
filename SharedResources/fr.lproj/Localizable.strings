@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Supprimer le coffre?";
 "vaultList.remove.alert.message" = "Cela ne supprimera que le coffre de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pourrez ré-ajouter le coffre plus tard.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
