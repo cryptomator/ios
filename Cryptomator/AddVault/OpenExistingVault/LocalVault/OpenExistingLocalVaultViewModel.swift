@@ -41,6 +41,13 @@ private class OpenExistingLocalVaultValidationLogic: LocalFileSystemAuthenticati
 	}
 }
 
-enum OpenExistingLocalVaultViewModelError: Error {
+enum OpenExistingLocalVaultViewModelError: LocalizedError {
 	case noVaultFound
+
+	var errorDescription: String? {
+		switch self {
+		case .noVaultFound:
+			return NSLocalizedString("localFileSystemAuthentication.openExistingVault.error.noVaultFound", comment: "")
+		}
+	}
 }

@@ -24,13 +24,20 @@ class CreateNewVaultChooseFolderViewModel: ChooseFolderViewModel, CreateNewVault
 
 	func chooseCurrentFolder() throws -> Folder {
 		guard !items.contains(where: { $0.name == vaultName }) else {
-			throw CreateNewVaultChooseFolderViewModelError.vaultNameCollision
+			throw CreateNewVaultChooseFolderViewModelError.vaultNameCollision(name: vaultName)
 		}
 		let vaultPath = cloudPath.appendingPathComponent(vaultName)
 		return Folder(path: vaultPath)
 	}
 }
 
-enum CreateNewVaultChooseFolderViewModelError: Error {
-	case vaultNameCollision
+enum CreateNewVaultChooseFolderViewModelError: LocalizedError {
+	case vaultNameCollision(name: String)
+
+	var errorDescription: String? {
+		switch self {
+		case let .vaultNameCollision(name: name):
+			return String(format: NSLocalizedString("addVault.createNewVault.chooseFolder.error.vaultNameCollision", comment: ""), name)
+		}
+	}
 }

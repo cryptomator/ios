@@ -40,11 +40,18 @@ private class CreateNewLocalVaultValidationLogic: LocalFileSystemAuthenticationV
 			throw CreateNewLocalVaultViewModelError.detectedExistingVault
 		}
 		guard !items.contains(where: { $0.name == vaultName }) else {
-			throw CreateNewVaultChooseFolderViewModelError.vaultNameCollision
+			throw CreateNewVaultChooseFolderViewModelError.vaultNameCollision(name: vaultName)
 		}
 	}
 }
 
-enum CreateNewLocalVaultViewModelError: Error {
+enum CreateNewLocalVaultViewModelError: LocalizedError {
 	case detectedExistingVault
+
+	var errorDescription: String? {
+		switch self {
+		case .detectedExistingVault:
+			return NSLocalizedString("localFileSystemAuthentication.createNewVault.error.detectedExistingVault", comment: "")
+		}
+	}
 }

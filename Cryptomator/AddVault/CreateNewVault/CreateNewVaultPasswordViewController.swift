@@ -69,7 +69,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 			coordinator?.handleError(error, for: self)
 			return
 		}
-		let alertController = UIAlertController(title: NSLocalizedString("addVault.createNewVault.alert.confirmPassword.title", comment: ""), message: NSLocalizedString("addVault.createNewVault.alert.confirmPassword.message", comment: ""), preferredStyle: .alert)
+		let alertController = UIAlertController(title: NSLocalizedString("addVault.createNewVault.password.confirmPassword.alert.title", comment: ""), message: NSLocalizedString("addVault.createNewVault.password.confirmPassword.alert.message", comment: ""), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: NSLocalizedString("common.button.confirm", comment: ""), style: .default) { _ in
 			self.userConfirmedPassword()
 		}

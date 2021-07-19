@@ -13,7 +13,7 @@ class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 	private var viewModel: SetVaultNameViewModelProtocol
 	private lazy var nameCell: TextFieldCell = {
 		let cell = TextFieldCell()
-		cell.textField.placeholder = NSLocalizedString("setVaultName.cells.name", comment: "")
+		cell.textField.placeholder = NSLocalizedString("addVault.createNewVault.setVaultName.cells.name", comment: "")
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 		cell.textField.becomeFirstResponder()
 		return cell

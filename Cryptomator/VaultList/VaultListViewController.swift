@@ -102,7 +102,7 @@ class VaultListViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			let alertController = UIAlertController(title: NSLocalizedString("vaultList.alert.remove.title", comment: ""), message: NSLocalizedString("vaultList.alert.remove.message", comment: ""), preferredStyle: .alert)
+			let alertController = UIAlertController(title: NSLocalizedString("vaultList.remove.alert.title", comment: ""), message: NSLocalizedString("vaultList.remove.alert.message", comment: ""), preferredStyle: .alert)
 			let okAction = UIAlertAction(title: NSLocalizedString("common.button.remove", comment: ""), style: .destructive) { _ in
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)

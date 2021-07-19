@@ -54,7 +54,13 @@ class LocalFileSystemAuthenticationViewModel: LocalFileSystemAuthenticationViewM
 
 	private func validate(credential: LocalFileSystemCredential) -> Promise<Void> {
 		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
-		return provider.fetchItemListExhaustively(forFolderAt: CloudPath("/")).then { itemList in
+		return provider.fetchItemListExhaustively(forFolderAt: CloudPath("/")).recover { error -> CloudItemList in
+			if let error = error as? CloudProviderError {
+				throw LocalizedCloudProviderError.convertToLocalized(error, cloudPath: CloudPath("/"))
+			} else {
+				throw error
+			}
+		}.then { itemList in
 			try self.validationLogic.validate(items: itemList.items)
 		}
 	}
