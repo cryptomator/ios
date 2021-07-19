@@ -20,29 +20,29 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživatel";
 "common.cloudProviderType.localFileSystem" = "Další poskytovatel souborů";
-"common.error.alert.title" = "Error";
+"common.error.alert.title" = "Chyba";
 "common.footer.learnMore" = "Více informací.";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.signOut.alert.title" = "Odstranit přidružené trezory?";
+"accountList.signOut.alert.message" = "Odhlášením budou všechny přidružené trezory odstraněny ze seznamu trezorů. Žádná zašifrovaná data nebudou odstraněna. Můžete se znovu přihlásit a trezory znovu přidat později.";
 
 "addVault.title" = "Přidat trezor";
 "addVault.createNewVault.title" = "Vytvořit nový trezor";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Kde by měl Cryptomator ukládat šifrované soubory vašeho trezoru?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.enterPassword.header" = "Zadejte nové heslo.";
+"addVault.createNewVault.password.confirmPassword.header" = "Potvrď nové heslo.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Hesla se neshodují.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Otevřít existující trezor";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
