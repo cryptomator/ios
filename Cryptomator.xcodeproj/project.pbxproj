@@ -95,7 +95,6 @@
 		4A6A5208268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */; };
 		4A6A520B268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */; };
 		4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520C268B5EF7006F7368 /* RootViewController.swift */; };
-		4A6A520F268B5FA1006F7368 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520E268B5FA1006F7368 /* OnboardingView.swift */; };
 		4A6A5212268B6697006F7368 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		4A6A5213268B66AC006F7368 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
 		4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */; };
@@ -392,7 +391,6 @@
 		4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocalVaultViewModelTestCase.swift; sourceTree = "<group>"; };
 		4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewLocalVaultViewModelTests.swift; sourceTree = "<group>"; };
 		4A6A520C268B5EF7006F7368 /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
-		4A6A520E268B5FA1006F7368 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinator.swift; sourceTree = "<group>"; };
 		4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
@@ -910,7 +908,6 @@
 				4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
 				4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */,
-				4A6A520E268B5FA1006F7368 /* OnboardingView.swift */,
 				4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */,
 				4A6A520C268B5EF7006F7368 /* RootViewController.swift */,
 			);
@@ -1516,7 +1513,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A6A520F268B5FA1006F7368 /* OnboardingView.swift in Sources */,
 				4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */,
 				4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */,
 				4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */,
