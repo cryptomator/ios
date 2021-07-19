@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Błąd";
 "common.button.cancel" = "Anuluj";
 "common.button.choose" = "Wybierz";
 "common.button.confirm" = "Zatwierdź";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Login";
 "common.cloudProviderType.localFileSystem" = "Inny dostawca";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "Więcej informacji.";
 
-"accountList.alert.signOut.title" = "Usunąć powiązane sejfy?";
-"accountList.alert.signOut.message" = "Po wylogowaniu wszystkie powiązane sejfy zostaną usunięte z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Po ponownym logowaniu będzie można znowu dodać sejfy.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Dodaj sejf";
 "addVault.createNewVault.title" = "Utwórz nowy sejf";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Nazwa sejfu";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Gdzie Cryptomator powinien przechowywać zaszyfrowane pliki twojego sejfu?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tej lokalizacji.\nAby utworzyć nowy sejf, wróć i wybierz inny folder.";
-"addVault.createNewVault.enterPassword.header" = "Wprowadź nowe hasło.";
-"addVault.createNewVault.confirmPassword.header" = "Potwierdź nowe hasło.";
-"addVault.createNewVault.alert.confirmPassword.title" = "Potwierdzić hasło?";
-"addVault.createNewVault.alert.confirmPassword.message" = "WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Otwórz istniejący sejf";
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator wykrył sejf \"%@\".\nCzy chcesz dodać ten sejf?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "Jeśli jeszcze tego nie zrobiłeś, włącz Cryptomator w aplikacji Pliki.";
 
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "Wybierz nazwę katalogu.";
-"createNewFolder.cells.name" = "Nazwa katalogu";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "Na następnym ekranie wybierz folder istniejącego sejfu.";
 "localFileSystemAuthentication.openExistingVault.button" = "Wybierz folder sejfu";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "Witamy";
+"onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
+"onboarding.openCryptomator.button" = "Otwórz Cryptomator";
 
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
 "settings.aboutCryptomator.title" = "Wersja %@ (%@)";
 "settings.sendLogFile" = "Wyślij plik logów";
-
-"setVaultName.header.title" = "Wybierz nazwę sejfu.";
-"setVaultName.cells.name" = "Nazwa sejfu";
 
 "untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Sejfy";
 "vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
-"vaultList.alert.remove.title" = "Usuń sejf?";
-"vaultList.alert.remove.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "Witamy";
-"onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
-"onboarding.openCryptomator.button" = "Otwórz Cryptomator";
