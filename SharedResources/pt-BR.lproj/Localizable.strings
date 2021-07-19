@@ -20,29 +20,29 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Usuário";
 "common.cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
-"common.error.alert.title" = "Error";
+"common.error.alert.title" = "Erro";
 "common.footer.learnMore" = "Saiba mais.";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.signOut.alert.title" = "Remover Cofres Associados?";
+"accountList.signOut.alert.message" = "Ao sair, todos os cofres associados serão removidos da lista de cofre. Nenhum dado criptografado será excluído. Você pode fazer login novamente e adicionar novamente os cofres depois.";
 
 "addVault.title" = "Adicionar Cofre";
 "addVault.createNewVault.title" = "Criar Um Novo Cofre";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos encriptados do seu cofre?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.enterPassword.header" = "Digite a nova senha.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirme a nova senha.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmar Senha?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.";
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "As senhas não coincidem.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Abrir Cofre Existente";
 "addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
@@ -54,8 +54,8 @@
 "addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
 
 "chooseFolder.emptyFolder.footer" = "A pasta está vazia";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
+"chooseFolder.createNewFolder.cells.name" = "Nome de Pasta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
@@ -90,7 +90,7 @@
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+"vaultList.remove.alert.title" = "Remover Cofre?";
+"vaultList.remove.alert.message" = "Isso somente removerá o cofre da lista de cofres. Nenhum dado criptografado será excluído. Você pode adicionar novamente o cofre mais tarde.";
 
 "webDAVAuthentication.title" = "WebDAV";
