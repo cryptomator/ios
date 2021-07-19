@@ -518,6 +518,7 @@
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		742679FA26A56B33004C61BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7439031225E0008D00BB3B81 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7439031B25E0009D00BB3B81 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
@@ -1118,6 +1119,7 @@
 			children = (
 				4AE97DB324572E4A00452814 /* Assets.xcassets */,
 				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
+				742679F926A56B33004C61BC /* Localizable.strings */,
 			);
 			path = SharedResources;
 			sourceTree = "<group>";
@@ -1759,6 +1761,14 @@
 				4AE97DB624572E4A00452814 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		742679F926A56B33004C61BC /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				742679FA26A56B33004C61BC /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		7439031325E0008D00BB3B81 /* Localizable.strings */ = {

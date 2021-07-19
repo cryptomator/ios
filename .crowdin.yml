@@ -6,3 +6,6 @@ files:
   - source: /FileProviderExtensionUI/en.lproj/Localizable.strings
     translation: /FileProviderExtensionUI/%osx_code%/%original_file_name%
     skip_untranslated_files: true
+  - source: /SharedResources/en.lproj/Localizable.strings
+    translation: /SharedResources/%osx_code%/%original_file_name%
+    skip_untranslated_files: true
