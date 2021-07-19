@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Διαγραφή Vault;";
 "vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο τοvault από τη λίστα των vault. Δεν θα διαγραφούν κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά το vault αργότερα.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
