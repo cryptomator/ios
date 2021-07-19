@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Remover Cofre?";
 "vaultList.remove.alert.message" = "Isso somente removerá o cofre da lista de cofres. Nenhum dado criptografado será excluído. Você pode adicionar novamente o cofre mais tarde.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
