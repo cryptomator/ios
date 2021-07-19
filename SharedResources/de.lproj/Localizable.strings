@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Tresor entfernen?";
 "vaultList.remove.alert.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
