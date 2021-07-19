@@ -9,17 +9,17 @@
 "common.button.cancel" = "Cancel·la";
 "common.button.choose" = "Trieu";
 "common.button.confirm" = "Confirm";
-"common.button.create" = "Create";
+"common.button.create" = "Crear";
 "common.button.createFolder" = "Create Folder";
 "common.button.done" = "Fet";
-"common.button.edit" = "Edit";
+"common.button.edit" = "Editar";
 "common.button.next" = "Següent";
-"common.button.ok" = "OK";
+"common.button.ok" = "D'acord";
 "common.button.remove" = "Elimina";
 "common.button.signOut" = "Sign Out";
 "common.cells.password" = "Contrasenya";
 "common.cells.url" = "URL";
-"common.cells.username" = "Username";
+"common.cells.username" = "Nom d'usuari";
 "common.cloudProviderType.localFileSystem" = "Other File Provider";
 "common.footer.learnMore" = "Learn more.";
 
