@@ -23,27 +23,27 @@
 "common.error.alert.title" = "Error";
 "common.footer.learnMore" = "Más información.";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.header.title" = "Autenticaciones";
+"accountList.emptyList.message" = "Pulse aquí para añadir una cuenta";
+"accountList.signOut.alert.title" = "¿Eliminar bóvedas asociadas?";
+"accountList.signOut.alert.message" = "Al cerrar sesión, todas las bóvedas asociadas se eliminarán de la lista de bóvedas. No se eliminarán los datos cifrados. Puede iniciar sesión de nuevo y volver a añadir las bóvedas más tarde.";
 
 "addVault.title" = "Añadir bóveda";
 "addVault.createNewVault.title" = "Crear bóveda nueva";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "El nombre de la bóveda no debe contener \\ / : * ? \" < > | o terminar con un punto.";
 "addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.enterPassword.header" = "Ingrese una contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirmar la contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "¿Confirmar contraseña?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: si olvida su contraseña no habrá manera de recuperar los datos.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.emptyPassword" = "La contraseña no puede estar vacía.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Las contraseñas no coinciden.";
+"addVault.createNewVault.password.error.tooShortPassword" = "La contraseña debe contener al menos 8 caracteres.";
 "addVault.openExistingVault.title" = "Abrir bóveda existente";
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
@@ -54,25 +54,25 @@
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
+"chooseFolder.createNewFolder.cells.name" = "Nombre de la carpeta";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "El nombre de la carpeta no puede estar vacío.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.itemNotFound" = "No se pudo encontrar \"%@\".";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" ya existe.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" tiene un tipo de elemento inesperado.";
+"cloudProvider.error.parentFolderDoesNotExist" = "La carpeta padre \"%@\" no existe.";
+"cloudProvider.error.pageTokenInvalid" = "No se pudo continuar la búsqueda del contenido del directorio.";
+"cloudProvider.error.quotaInsufficient" = "Su almacenamiento no tiene espacio suficiente.";
+"cloudProvider.error.unauthorized" = "No se puede realizar la operación no autorizada.";
+"cloudProvider.error.noInternetConnection" = "Se necesita conexión a Internet para esta operación.";
 
 "localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ya existe una bóveda en esta ubicación. Intente de nuevo con una ubicación de almacenamiento diferente.";
 "localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
 
 "onboarding.title" = "Bienvenido";
 "onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
@@ -90,7 +90,7 @@
 
 "vaultList.header.title" = "Bóvedas";
 "vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+"vaultList.remove.alert.title" = "¿Eliminar bóveda?";
+"vaultList.remove.alert.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
 
 "webDAVAuthentication.title" = "WebDAV";
