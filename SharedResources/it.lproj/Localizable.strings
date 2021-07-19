@@ -93,7 +93,7 @@
 "vaultList.remove.alert.title" = "Rimuovi Cassaforte?";
 "vaultList.remove.alert.message" = "Questo rimuoverà la cassaforte solo dall'elenco di cassaforti. Nessun dato crittografato sarà eliminato. Puoi riaggiungerla in seguito.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "La configurazione della cassaforte non è supportata. Assicurati di stare eseguendo l'ultima versione di Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "La versione della cassaforte non è supportata. Questa cassaforte è stata creata con una versione più vecchia o più recente di Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
