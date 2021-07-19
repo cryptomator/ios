@@ -19,7 +19,7 @@ class OnboardingView: UIView {
 
 	lazy var cancelButton: UIButton = {
 		let button = UIButton()
-		button.setTitle(NSLocalizedString("onboarding.button.ok", comment: ""), for: .normal)
+		button.setTitle(NSLocalizedString("common.button.ok", comment: ""), for: .normal)
 		button.setTitleColor(UIColor(named: "primary"), for: .normal)
 		return button
 	}()
@@ -30,7 +30,7 @@ class OnboardingView: UIView {
 		let botVaultImage = UIImage(named: "bot-vault")
 		let imageView = UIImageView(image: botVaultImage)
 
-		label.text = NSLocalizedString("onboarding.text", comment: "")
+		label.text = NSLocalizedString("onboarding.info", comment: "")
 		imageView.contentMode = .scaleAspectFit
 		imageView.translatesAutoresizingMaskIntoConstraints = false
 		label.translatesAutoresizingMaskIntoConstraints = false
