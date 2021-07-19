@@ -93,7 +93,7 @@
 "vaultList.remove.alert.title" = "Usunąć sejf?";
 "vaultList.remove.alert.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracja sejfu jest nieobsługiwana. Upewnij się, że używasz najnowszej wersji Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
