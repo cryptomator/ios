@@ -9,17 +9,17 @@
 "common.button.cancel" = "Mégse";
 "common.button.choose" = "Választás";
 "common.button.confirm" = "Confirm";
-"common.button.create" = "Create";
+"common.button.create" = "Létrehozás";
 "common.button.createFolder" = "Create Folder";
 "common.button.done" = "Kész";
 "common.button.edit" = "Edit";
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
-"common.button.remove" = "Remove";
+"common.button.remove" = "Eltávolítás";
 "common.button.signOut" = "Sign Out";
 "common.cells.password" = "Jelszó";
-"common.cells.url" = "URL";
-"common.cells.username" = "Username";
+"common.cells.url" = "ULR";
+"common.cells.username" = "Felhasználónév";
 "common.cloudProviderType.localFileSystem" = "Other File Provider";
 "common.footer.learnMore" = "Learn more.";
 
@@ -33,7 +33,7 @@
 "addVault.createNewVault.enterPassword.header" = "Adjon meg egy új jelszót.";
 "addVault.createNewVault.confirmPassword.header" = "Az új jelszó megerősítése.";
 "addVault.createNewVault.alert.confirmPassword.title" = "Confirm Password?";
-"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
+"addVault.createNewVault.alert.confirmPassword.message" = "FONTOS: Ha elfelejti a jelszavát, nincs mód az adatok helyreállítására.";
 "addVault.openExistingVault.title" = "Meglévő széf megnyitása";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
