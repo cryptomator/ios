@@ -20,26 +20,26 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
 "common.cloudProviderType.localFileSystem" = "其他文件提供商";
-"common.error.alert.title" = "Error";
+"common.error.alert.title" = "错误";
 "common.footer.learnMore" = "了解更多";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.signOut.alert.title" = "移除关联的保险库吗？";
+"accountList.signOut.alert.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
 "addVault.title" = "添加保险库";
 "addVault.createNewVault.title" = "创建新的保险库";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称.";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库\n若想创建一个新的保险库，请返回并选择其他路径";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.enterPassword.header" = "输入新密码.";
+"addVault.createNewVault.password.confirmPassword.header" = "确认新密码.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据";
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
@@ -54,8 +54,8 @@
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
 
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
+"chooseFolder.createNewFolder.cells.name" = "文件夹名称";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
@@ -90,7 +90,7 @@
 
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+"vaultList.remove.alert.title" = "删除保险库?";
+"vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
 
 "webDAVAuthentication.title" = "WebDAV";
