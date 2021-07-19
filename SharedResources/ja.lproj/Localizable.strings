@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "エラー";
 "common.button.cancel" = "キャンセル";
 "common.button.choose" = "選択";
 "common.button.confirm" = "確認";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
 "common.cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "さらに詳しく。";
 
-"accountList.alert.signOut.title" = "Remove Associated Vaults?";
-"accountList.alert.signOut.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
-"addVault.createNewVault.enterPassword.header" = "新しいパスワードを入力してください。";
-"addVault.createNewVault.confirmPassword.header" = "新しいパスワードの確認。";
-"addVault.createNewVault.alert.confirmPassword.title" = "パスワードの確認?";
-"addVault.createNewVault.alert.confirmPassword.message" = "重要: パスワードを忘れると、データを回復する方法はありません。";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要: パスワードを忘れると、データを回復する方法はありません。";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "既存の金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "フォルダーの名前を入力してください.";
-"createNewFolder.cells.name" = "フォルダー名";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "ようこそ";
+"onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
+"onboarding.openCryptomator.button" = "Cryptomator を開く";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
 "settings.sendLogFile" = "ログ ファイルを送信";
-
-"setVaultName.header.title" = "金庫の名前を入力してください.";
-"setVaultName.cells.name" = "金庫の名前";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
-"vaultList.alert.remove.title" = "金庫を削除?";
-"vaultList.alert.remove.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "ようこそ";
-"onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
-"onboarding.openCryptomator.button" = "Cryptomator を開く";
