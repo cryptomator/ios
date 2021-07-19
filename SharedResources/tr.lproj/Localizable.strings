@@ -61,10 +61,10 @@
 "setVaultName.header.title" = "Kasa için bir isim seç.";
 "setVaultName.cells.name" = "Kasa Adı";
 
-"untrustedTLSCertificate.title" = "Geçersiz TLS Sertifikası";
+"untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Güven";
-"untrustedTLSCertificate.dismiss" = "Güvenme";
+"untrustedTLSCertificate.add" = "Trust";
+"untrustedTLSCertificate.dismiss" = "Don't Trust";
 
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
