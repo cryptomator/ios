@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "에러";
 "common.button.cancel" = "취소";
 "common.button.choose" = "선택";
 "common.button.confirm" = "확인";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
 "common.cloudProviderType.localFileSystem" = "다른 파일 앱";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "자세히 알아보기";
 
-"accountList.alert.signOut.title" = "연결된 Vault를 제거하시겠습니까?";
-"accountList.alert.signOut.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Vault 추가";
 "addVault.createNewVault.title" = "새 Vault 생성";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault 내 암호화 파일을 어느 경로에 저장하시겠습니까?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
-"addVault.createNewVault.enterPassword.header" = "새 비밀번호를 입력하세요.";
-"addVault.createNewVault.confirmPassword.header" = "새 비밀번호 확인.";
-"addVault.createNewVault.alert.confirmPassword.title" = "비밀번호를 확인하셨습니까?";
-"addVault.createNewVault.alert.confirmPassword.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "기존 Vault 열기";
 "addVault.openExistingVault.chooseCloud.header" = "Vault가 어디에 위치하고 있습니까?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "아직 Cryptomator를 파일 앱에서 사용가능토록 설정하지 않은 경우, 사용가능하게 설정바랍니다.";
 
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
-"createNewFolder.cells.name" = "폴더명";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "환영합니다";
+"onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
+"onboarding.openCryptomator.button" = "Cryptomator 열기";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
 "settings.sendLogFile" = "로그파일 전송";
-
-"setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
-"setVaultName.cells.name" = "Vault 이름";
 
 "untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
 "untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
-"vaultList.alert.remove.title" = "Vault 제거?";
-"vaultList.alert.remove.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "환영합니다";
-"onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
-"onboarding.openCryptomator.button" = "Cryptomator 열기";
