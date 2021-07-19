@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fel";
+"common.button.cancel" = "Avbryt";
+"common.button.choose" = "Välj";
+"common.button.confirm" = "Bekräfta";
+"common.button.create" = "Skapa";
+"common.button.createFolder" = "Skapa mapp";
+"common.button.done" = "Klar";
+"common.button.edit" = "Ändra";
+"common.button.next" = "Nästa";
+"common.button.ok" = "OK";
+"common.button.remove" = "Ta bort";
+"common.button.signOut" = "Logga ut";
+"common.cells.password" = "Lösenord";
+"common.cells.url" = "URL";
+"common.cells.username" = "Användarnamn";
+"common.cloudProviderType.localFileSystem" = "Annan filleverantör";
+"common.footer.learnMore" = "Läs mer.";
+
+"accountList.alert.signOut.title" = "Ta bort associerade valv?";
+"accountList.alert.signOut.message" = "Genom att logga ut kommer alla associerade valv att tas bort från valvlistan. Ingen krypterad data kommer att raderas. Du kan logga in igen och lägga till valven senare.";
+
+"addVault.title" = "Lägg till valv";
+"addVault.createNewVault.title" = "Skapa nytt valv";
+"addVault.createNewVault.chooseCloud.header" = "Var ska Cryptomator lagra de krypterade filerna för ditt valv?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
+"addVault.createNewVault.enterPassword.header" = "Ange ett nytt lösenord.";
+"addVault.createNewVault.confirmPassword.header" = "Bekräfta det nya lösenordet.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Bekräfta lösenord?";
+"addVault.createNewVault.alert.confirmPassword.message" = "VIKTIGT: Om du glömmer ditt lösenord finns det inget sätt att återställa dina data.";
+"addVault.openExistingVault.title" = "Öppna befintligt valv";
+"addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Lägg till detta valv";
+"addVault.openExistingVault.password.footer" = "Ange lösenord för \"%@\"";
+"addVault.success.info" = "Framgångsrikt lagt till valvet \"%@\".\nKom åt detta valv via Fil-appen.";
+"addVault.success.openFilesApp" = "Öppna Filer-appen";
+"addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
+
+"chooseFolder.emptyFolder.footer" = "Mappen är tom";
+
+"createNewFolder.header.title" = "Välj namn för valvet.";
+"createNewFolder.cells.name" = "Namn på mappen";
+
+"localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
+"localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
+"localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
+"localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
+
+"settings.title" = "Inställningar";
+"settings.aboutCryptomator" = "Om Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Skicka loggfil";
+
+"setVaultName.header.title" = "Välj namn för valvet.";
+"setVaultName.cells.name" = "Valvnamn";
+
+"untrustedTLSCertificate.title" = "Ogiltigt certifikat";
+"untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Ange som betrott";
+"untrustedTLSCertificate.dismiss" = "Lita inte på";
+
+"vaultList.header.title" = "Valv";
+"vaultList.emptyList.message" = "Klicka här för att lägga till valv";
+"vaultList.alert.remove.title" = "Ta bort valv?";
+"vaultList.alert.remove.message" = "Detta kommer bara att ta bort valvet från valvlistan. Inga krypterade data kommer att raderas. Du kan lägga till valvet igen senare.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"onboarding.title" = "Välkommen";
+"onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
+"onboarding.openCryptomator.button" = "Öppna Cryptomator";
