@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Удалить хранилище?";
 "vaultList.remove.alert.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
