@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Hata";
+"common.button.cancel" = "İptal";
+"common.button.choose" = "Seç";
+"common.button.confirm" = "Onayla";
+"common.button.create" = "Oluştur";
+"common.button.createFolder" = "Klasör Oluştur";
+"common.button.done" = "Bitti";
+"common.button.edit" = "Düzenle";
+"common.button.next" = "İleri";
+"common.button.ok" = "Tamam";
+"common.button.remove" = "Kaldır";
+"common.button.signOut" = "Çıkış Yap";
+"common.cells.password" = "Şifre";
+"common.cells.url" = "URL";
+"common.cells.username" = "Kullanıcı adı";
+"common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
+"common.footer.learnMore" = "Daha fazla bilgi edin.";
+
+"accountList.alert.signOut.title" = "İlişkili Kasalar Kaldırılsın mı?";
+"accountList.alert.signOut.message" = "Çıkış yaptığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
+
+"addVault.title" = "Kasa Ekle";
+"addVault.createNewVault.title" = "Yeni Kasa Oluştur";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator kasanızın şifreli dosyalarını nerede depolasın?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
+"addVault.createNewVault.enterPassword.header" = "Yeni bir şifre girin.";
+"addVault.createNewVault.confirmPassword.header" = "Yeni şifreyi onaylayın.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Şifreyi Onaylıyor musunuz?";
+"addVault.createNewVault.alert.confirmPassword.message" = "ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.";
+"addVault.openExistingVault.title" = "Varolan Kasayı Aç";
+"addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
+"addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin";
+"addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
+"addVault.success.openFilesApp" = "Dosyalar Uygulamasını Aç";
+"addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
+
+"chooseFolder.emptyFolder.footer" = "Klasör Boş";
+
+"createNewFolder.header.title" = "Klasör için bir ad seçin.";
+"createNewFolder.cells.name" = "Klasör Adı";
+
+"localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
+"localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
+"localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
+"localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
+
+"settings.title" = "Ayarlar";
+"settings.aboutCryptomator" = "Cryptomator Hakkında";
+"settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.sendLogFile" = "Günlük Dosyasını Gönder";
+
+"setVaultName.header.title" = "Kasa için bir isim seç.";
+"setVaultName.cells.name" = "Kasa Adı";
+
+"untrustedTLSCertificate.title" = "Geçersiz TLS Sertifikası";
+"untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Güven";
+"untrustedTLSCertificate.dismiss" = "Güvenme";
+
+"vaultList.header.title" = "Kasalar";
+"vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
+"vaultList.alert.remove.title" = "Kasayı Sil?";
+"vaultList.alert.remove.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"onboarding.title" = "Hoş geldiniz";
+"onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
+"onboarding.openCryptomator.button" = "Cryptomator'ı aç";

@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fehler";
+"common.button.cancel" = "Abbrechen";
+"common.button.choose" = "Auswählen";
+"common.button.confirm" = "Bestätigen";
+"common.button.create" = "Erstellen";
+"common.button.createFolder" = "Ordner erstellen";
+"common.button.done" = "Fertig";
+"common.button.edit" = "Bearbeiten";
+"common.button.next" = "Weiter";
+"common.button.ok" = "OK";
+"common.button.remove" = "Entfernen";
+"common.button.signOut" = "Ausloggen";
+"common.cells.password" = "Passwort";
+"common.cells.url" = "URL";
+"common.cells.username" = "Benutzername";
+"common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
+"common.footer.learnMore" = "Mehr erfahren.";
+
+"accountList.alert.signOut.title" = "Verknüpfte Tresore entfernen?";
+"accountList.alert.signOut.message" = "Durch das Abmelden werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Sie können sich erneut anmelden und die Tresore später erneut hinzufügen.";
+
+"addVault.title" = "Tresor hinzufügen";
+"addVault.createNewVault.title" = "Neuen Tresor erstellen";
+"addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors ablegen?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
+"addVault.createNewVault.enterPassword.header" = "Gib ein neues Passwort ein.";
+"addVault.createNewVault.confirmPassword.header" = "Bestätige das neue Passwort.";
+"addVault.createNewVault.alert.confirmPassword.title" = "Passwort bestätigen?";
+"addVault.createNewVault.alert.confirmPassword.message" = "WICHTIG: Falls du dein Passwort vergisst, können deine Daten nicht wiederhergestellt werden.";
+"addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
+"addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du diesen Tresor hinzufügen?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
+"addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
+"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
+"addVault.success.openFilesApp" = "App „Dateien“ öffnen";
+"addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
+
+"chooseFolder.emptyFolder.footer" = "Ordner ist leer";
+
+"createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
+"createNewFolder.cells.name" = "Ordnername";
+
+"localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
+"localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
+"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
+"localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
+
+"settings.title" = "Einstellungen";
+"settings.aboutCryptomator" = "Über Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.sendLogFile" = "Protokolldatei senden";
+
+"setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"setVaultName.cells.name" = "Tresorname";
+
+"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
+"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vertrauen";
+"untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"vaultList.header.title" = "Tresore";
+"vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
+"vaultList.alert.remove.title" = "Tresor entfernen?";
+"vaultList.alert.remove.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"onboarding.title" = "Willkommen";
+"onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast. Um loszulegen, gehe zur Haupt-App und füge einen Tresor hinzu.";
+"onboarding.openCryptomator.button" = "Cryptomator öffnen";

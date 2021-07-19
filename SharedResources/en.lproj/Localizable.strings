@@ -72,3 +72,14 @@
 "vaultList.alert.remove.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
+
+"onboarding.title" = "Welcome";
+"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
+"onboarding.openCryptomator.button" = "Open Cryptomator";
+
+"unlockVault.button.unlock" = "Unlock";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Enter password for \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";

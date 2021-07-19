@@ -1,0 +1,78 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "错误";
+"common.button.cancel" = "取消";
+"common.button.choose" = "选择";
+"common.button.confirm" = "确认";
+"common.button.create" = "新建";
+"common.button.createFolder" = "新建文件夹";
+"common.button.done" = "完成";
+"common.button.edit" = "编辑";
+"common.button.next" = "下一步";
+"common.button.ok" = "确定";
+"common.button.remove" = "删除";
+"common.button.signOut" = "退出登录";
+"common.cells.password" = "密码";
+"common.cells.url" = "URL";
+"common.cells.username" = "用户名";
+"common.cloudProviderType.localFileSystem" = "其他文件提供商";
+"common.footer.learnMore" = "了解更多";
+
+"accountList.alert.signOut.title" = "移除关联的保险库吗？";
+"accountList.alert.signOut.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
+
+"addVault.title" = "添加保险库";
+"addVault.createNewVault.title" = "创建新的保险库";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库\n若想创建一个新的保险库，请返回并选择其他路径";
+"addVault.createNewVault.enterPassword.header" = "输入新密码.";
+"addVault.createNewVault.confirmPassword.header" = "确认新密码.";
+"addVault.createNewVault.alert.confirmPassword.title" = "确认密码?";
+"addVault.createNewVault.alert.confirmPassword.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据";
+"addVault.openExistingVault.title" = "打开现有的保险库";
+"addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"\n您想要添加它吗？";
+"addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
+"addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码";
+"addVault.success.info" = "成功添加保险库 \"%@\"\n现在可通过文管应用访问它";
+"addVault.success.openFilesApp" = "打开文管应用";
+"addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
+
+"chooseFolder.emptyFolder.footer" = "文件夹为空";
+
+"createNewFolder.header.title" = "为文件夹创建一个名称";
+"createNewFolder.cells.name" = "文件夹名称";
+
+"localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
+"localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
+"localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
+"localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
+
+"settings.title" = "设置";
+"settings.aboutCryptomator" = "关于";
+"settings.aboutCryptomator.title" = "版本 %@ (%@)";
+"settings.sendLogFile" = "发送日志文件";
+
+"setVaultName.header.title" = "为保险库创建一个名称.";
+"setVaultName.cells.name" = "保险库名称";
+
+"untrustedTLSCertificate.title" = "TLS 证书无效";
+"untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "信任";
+"untrustedTLSCertificate.dismiss" = "不信任";
+
+"vaultList.header.title" = "保险库";
+"vaultList.emptyList.message" = "点击此处添加保险库";
+"vaultList.alert.remove.title" = "删除保险库?";
+"vaultList.alert.remove.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
+
+"webDAVAuthentication.title" = "WebDAV";
+
+"onboarding.title" = "欢迎使用";
+"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧";
+"onboarding.openCryptomator.button" = "打开 Cryptomator";
