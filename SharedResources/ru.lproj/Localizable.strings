@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Ошибка";
 "common.button.cancel" = "Отмена";
 "common.button.choose" = "Выбрать";
 "common.button.confirm" = "Подтвердить";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
 "common.cloudProviderType.localFileSystem" = "Другой файл-провайдер";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "Подробнее";
 
-"accountList.alert.signOut.title" = "Удалить связанные хранилища?";
-"accountList.alert.signOut.message" = "После выхода из системы все связанные хранилища будут удалены из списка хранилищ. Зашифрованные данные не будут удалены. Позже вы можете опять войти и снова добавить хранилище.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Добавить хранилище";
 "addVault.createNewVault.title" = "Создать хранилище";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Имя хранилища";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Где Cryptomator должен хранить зашифрованные файлы хранилища?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище в этом месте.\nЧтобы создать новое хранилище, вернитесь назад и выберите другую папку.";
-"addVault.createNewVault.enterPassword.header" = "Введите новый пароль.";
-"addVault.createNewVault.confirmPassword.header" = "Подтвердите новый пароль.";
-"addVault.createNewVault.alert.confirmPassword.title" = "Подтвердите пароль";
-"addVault.createNewVault.alert.confirmPassword.message" = "ВАЖНО: Если вы забыли пароль, восстановить данные невозможно.";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖНО: Если вы забыли пароль, восстановить данные невозможно.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Открыть имеющееся хранилище";
 "addVault.openExistingVault.chooseCloud.header" = "Где находится хранилище?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище \"%@\".\nДобавить это хранилище?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "Если вы ещё этого не сделали, включите Cryptomator в приложении \"Файлы\".";
 
 "chooseFolder.emptyFolder.footer" = "Папка пуста";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "Выберите имя для папки.";
-"createNewFolder.cells.name" = "Имя папки";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "Добро пожаловать";
+"onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
+"onboarding.openCryptomator.button" = "Открыть Cryptomator";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
 "settings.aboutCryptomator.title" = "Версия: %@ (%@)";
 "settings.sendLogFile" = "Отправить журнал";
-
-"setVaultName.header.title" = "Выберите имя для хранилища.";
-"setVaultName.cells.name" = "Имя хранилища";
 
 "untrustedTLSCertificate.title" = "Неверный TLS-сертификат";
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Хранилища";
 "vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
-"vaultList.alert.remove.title" = "Удалить хранилище?";
-"vaultList.alert.remove.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "Добро пожаловать";
-"onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
-"onboarding.openCryptomator.button" = "Открыть Cryptomator";
