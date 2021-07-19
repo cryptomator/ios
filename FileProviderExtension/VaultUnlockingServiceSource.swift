@@ -15,7 +15,7 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
 	}
 
-	func cancelledBiometricalUnlock() {
+	func endBiometricalUnlock() {
 		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = false
 	}
 

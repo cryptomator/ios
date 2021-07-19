@@ -97,8 +97,11 @@ class UnlockVaultViewModel {
 		}
 	}()
 
-	init(domain: NSFileProviderDomain, context: LAContext = LAContext()) {
+	init(domain: NSFileProviderDomain) {
 		self.domain = domain
+		let context = LAContext()
+		// Remove fallback title because "Enter password" also closes the FileProviderExtensionUI and does not display the password input
+		context.localizedFallbackTitle = ""
 		self.context = context
 		self.passwordManager = VaultPasswordKeychainManager()
 	}
@@ -184,8 +187,8 @@ class UnlockVaultViewModel {
 
 	 Since the closing of the evaluate policy dialog causes the FileProviderExtensionUI view to be closed,
 	 some actions need special handling.
-	 These include that if successful, an `enumerateItems` is executed too quickly and the `FileProviderAdapter` is not yet available. Therefore, we need to artificially delay the item enumeration until we have successfully completed our actual vault unlock.
-	 This ensures that we have to tell the proxy both to start (to enable the artificial delay) and to cancel a biometric unlock (to disable the artificial delay again - otherwise the user will not see an authenticate dialog in the Files app).
+	 These include that if successful, a subsequent `enumerateItems` call is executed too quickly and the `FileProviderAdapter` is not yet available. Therefore, we need to artificially delay the item enumeration until we have successfully completed our actual vault unlock.
+	 This means we have to notify the proxy about the start (to enable the artificial delay) and the end of a biometric unlock (to disable the artificial delay again - otherwise the user will not see an authenticate dialog in the Files app).
 	 */
 	func biometricalUnlock() -> Promise<Void> {
 		let reason = NSLocalizedString("unlockVault.evaluatePolicy.reason", comment: "")
@@ -203,15 +206,14 @@ class UnlockVaultViewModel {
 			}
 		}.then {
 			self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
-		}.catch { error in
-			DDLogError("Evaluate policy failed with: \(error)")
-			getProxyPromise.then { proxy in
-				proxy.cancelledBiometricalUnlock()
-			}
 		}.then {
 			getProxyPromise
 		}.then(on: .main) { proxy in
 			self.unlockWithSavedPassword(proxy: proxy)
+		}.always {
+			getProxyPromise.then { proxy in
+				proxy.endBiometricalUnlock()
+			}
 		}
 	}
 
