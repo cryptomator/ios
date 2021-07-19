@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Fel";
 "common.button.cancel" = "Avbryt";
 "common.button.choose" = "Välj";
 "common.button.confirm" = "Bekräfta";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Användarnamn";
 "common.cloudProviderType.localFileSystem" = "Annan filleverantör";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "Läs mer.";
 
-"accountList.alert.signOut.title" = "Ta bort associerade valv?";
-"accountList.alert.signOut.message" = "Genom att logga ut kommer alla associerade valv att tas bort från valvlistan. Ingen krypterad data kommer att raderas. Du kan logga in igen och lägga till valven senare.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Lägg till valv";
 "addVault.createNewVault.title" = "Skapa nytt valv";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Var ska Cryptomator lagra de krypterade filerna för ditt valv?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
-"addVault.createNewVault.enterPassword.header" = "Ange ett nytt lösenord.";
-"addVault.createNewVault.confirmPassword.header" = "Bekräfta det nya lösenordet.";
-"addVault.createNewVault.alert.confirmPassword.title" = "Bekräfta lösenord?";
-"addVault.createNewVault.alert.confirmPassword.message" = "VIKTIGT: Om du glömmer ditt lösenord finns det inget sätt att återställa dina data.";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VIKTIGT: Om du glömmer ditt lösenord finns det inget sätt att återställa dina data.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Öppna befintligt valv";
 "addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
 
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "Välj namn för valvet.";
-"createNewFolder.cells.name" = "Namn på mappen";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "Välkommen";
+"onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
+"onboarding.openCryptomator.button" = "Öppna Cryptomator";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.sendLogFile" = "Skicka loggfil";
-
-"setVaultName.header.title" = "Välj namn för valvet.";
-"setVaultName.cells.name" = "Valvnamn";
 
 "untrustedTLSCertificate.title" = "Ogiltigt certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Valv";
 "vaultList.emptyList.message" = "Klicka här för att lägga till valv";
-"vaultList.alert.remove.title" = "Ta bort valv?";
-"vaultList.alert.remove.message" = "Detta kommer bara att ta bort valvet från valvlistan. Inga krypterade data kommer att raderas. Du kan lägga till valvet igen senare.";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "Välkommen";
-"onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
-"onboarding.openCryptomator.button" = "Öppna Cryptomator";
