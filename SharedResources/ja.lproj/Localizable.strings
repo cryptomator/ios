@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "金庫を削除？";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
