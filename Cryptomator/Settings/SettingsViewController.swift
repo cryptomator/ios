@@ -33,7 +33,7 @@ class SettingsViewController: UITableViewController {
 		title = NSLocalizedString("settings.title", comment: "")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
+		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
 		tableView.rowHeight = 44
 	}
 
@@ -41,12 +41,29 @@ class SettingsViewController: UITableViewController {
 		coordinator?.close()
 	}
 
-	@objc func showAbout() {
+	func showAbout() {
 		coordinator?.showAbout()
 	}
 
-	@objc func sendLogFile() {
-		try? coordinator?.sendLogFile()
+	func sendLogFile(sender: UIView) {
+		try? coordinator?.sendLogFile(sourceView: sender)
+	}
+
+	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		switch viewModel.buttonAction(for: indexPath) {
+		case .showAbout:
+			showAbout()
+		case .sendLogFile:
+			guard let cell = tableView.cellForRow(at: indexPath) else {
+				return
+			}
+			sendLogFile(sender: cell)
+		default:
+			break
+		}
 	}
 
 	// MARK: - UITableViewDataSource
@@ -60,10 +77,9 @@ class SettingsViewController: UITableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// swiftlint:disable:next force_cast
-		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(viewModel.title(for: indexPath), for: .normal)
-		cell.button.addTarget(self, action: Selector(viewModel.buttonAction(for: indexPath).rawValue), for: .touchUpInside)
+		let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
+		cell.textLabel?.textColor = UIColor(named: "primary")
+		cell.textLabel?.text = viewModel.title(for: indexPath)
 		cell.accessoryType = viewModel.accessoryType(for: indexPath)
 		return cell
 	}

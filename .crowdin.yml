@@ -1,0 +1,5 @@
+commit_message: '[ci skip]'
+files:
+  - source: /SharedResources/en.lproj/Localizable.strings
+    translation: /SharedResources/%osx_code%/%original_file_name%
+    skip_untranslated_files: true

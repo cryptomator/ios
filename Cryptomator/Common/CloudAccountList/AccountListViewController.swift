@@ -13,7 +13,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	weak var coordinator: (Coordinator & AccountListing)?
 
 	private let viewModel: AccountListViewModelProtocol
-	private let header = EditableTableViewHeader(title: "Authentications")
+	private let header = EditableTableViewHeader(title: NSLocalizedString("accountList.header.title", comment: ""))
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -35,7 +35,7 @@ class AccountListViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.accounts.isEmpty {
-				self.tableView.backgroundView = EmptyListMessage(message: "Tap here to add an account")
+				self.tableView.backgroundView = EmptyListMessage(message: NSLocalizedString("accountList.emptyList.message", comment: ""))
 				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
@@ -89,6 +89,25 @@ class AccountListViewController: SingleSectionTableViewController {
 		}
 		cell.accessoryButton.addTarget(self, action: #selector(showLogoutActionSheet), for: .touchUpInside)
 		return cell
+	}
+
+	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
+			let alertController = UIAlertController(title: NSLocalizedString("accountList.signOut.alert.title", comment: ""), message: NSLocalizedString("accountList.signOut.alert.message", comment: ""), preferredStyle: .alert)
+			let okAction = UIAlertAction(title: NSLocalizedString("common.button.signOut", comment: ""), style: .destructive) { _ in
+				do {
+					try self.viewModel.removeRow(at: indexPath.row)
+					tableView.deleteRows(at: [indexPath], with: .automatic)
+				} catch {
+					self.coordinator?.handleError(error, for: self)
+				}
+			}
+
+			alertController.addAction(okAction)
+			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
+
+			present(alertController, animated: true, completion: nil)
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {

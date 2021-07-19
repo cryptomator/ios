@@ -1,0 +1,96 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.button.cancel" = "İptal";
+"common.button.choose" = "Seç";
+"common.button.confirm" = "Onayla";
+"common.button.create" = "Oluştur";
+"common.button.createFolder" = "Klasör Oluştur";
+"common.button.done" = "Bitti";
+"common.button.edit" = "Düzenle";
+"common.button.next" = "İleri";
+"common.button.ok" = "Tamam";
+"common.button.remove" = "Kaldır";
+"common.button.signOut" = "Çıkış Yap";
+"common.cells.password" = "Şifre";
+"common.cells.url" = "URL";
+"common.cells.username" = "Kullanıcı adı";
+"common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
+"common.error.alert.title" = "Hata";
+"common.footer.learnMore" = "Daha fazla bilgi edin.";
+
+"accountList.header.title" = "Kimlik Doğrulaması";
+"accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
+"accountList.signOut.alert.title" = "İlişkili Kasalar Kaldırılsın mı?";
+"accountList.signOut.alert.message" = "Oturumu kapattığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
+
+"addVault.title" = "Kasa Ekle";
+"addVault.createNewVault.title" = "Yeni Kasa Oluştur";
+"addVault.createNewVault.setVaultName.header.title" = "Kasa için bir ad seçin.";
+"addVault.createNewVault.setVaultName.cells.name" = "Kasa Adı";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kasa adı boş olamaz.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Kasa adını, \\ / : * ? \" < > | veya nokta ile bitirin.";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator kasanızın şifreli dosyalarını nerede depolasın?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bu konumda mevcut. Farklı bir kasa adı veya konum seçin.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
+"addVault.createNewVault.password.enterPassword.header" = "Yeni bir şifre girin.";
+"addVault.createNewVault.password.confirmPassword.header" = "Yeni şifreyi onaylayın.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Şifreyi onaylıyor musunuz?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.";
+"addVault.createNewVault.password.error.emptyPassword" = "Şifre boş bırakılamaz.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Şifreler eşleşmiyor.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Şifre en az 8 karakter içermelidir.";
+"addVault.openExistingVault.title" = "Varolan Kasayı Aç";
+"addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
+"addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin";
+"addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
+"addVault.success.openFilesApp" = "Dosyalar Uygulamasını Aç";
+"addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
+
+"chooseFolder.emptyFolder.footer" = "Klasör Boş";
+"chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
+"chooseFolder.createNewFolder.cells.name" = "Klasör Adı";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Klasör adı boş olamaz.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" bulunamadı.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" zaten mevcut.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\", beklenmeyen bir öğe türüne sahip.";
+"cloudProvider.error.parentFolderDoesNotExist" = "\"%@\" ana klasörü mevcut değil.";
+"cloudProvider.error.pageTokenInvalid" = "Dizin içeriğini alma işlemine devam edilemedi.";
+"cloudProvider.error.quotaInsufficient" = "Depolama alanınız yetersiz.";
+"cloudProvider.error.unauthorized" = "İşlem, yetkisiz gerçekleştirilemiyor.";
+"cloudProvider.error.noInternetConnection" = "Bu işlem için İnternet bağlantısı gerekiyor.";
+
+"localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
+"localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
+"localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
+"localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Seçilen klasör bir kasa değil. Lütfen farklı bir klasörle tekrar deneyin.";
+
+"onboarding.title" = "Hoş geldiniz";
+"onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
+"onboarding.openCryptomator.button" = "Cryptomator'ı aç";
+
+"settings.title" = "Ayarlar";
+"settings.aboutCryptomator" = "Cryptomator Hakkında";
+"settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.sendLogFile" = "Günlük Dosyasını Gönder";
+
+"untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
+"untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Güven";
+"untrustedTLSCertificate.dismiss" = "Güvenme";
+
+"vaultList.header.title" = "Kasalar";
+"vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
+"vaultList.remove.alert.title" = "Kasa Silinsin mi?";
+"vaultList.remove.alert.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
+
+"webDAVAuthentication.title" = "WebDAV";

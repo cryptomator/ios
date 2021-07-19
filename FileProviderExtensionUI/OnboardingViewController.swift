@@ -13,7 +13,7 @@ class OnboardingViewController: UITableViewController {
 
 	private lazy var openCryptomatorCell: UITableViewCell = {
 		let cell = UITableViewCell()
-		cell.textLabel?.text = NSLocalizedString("onboarding.button.openCryptomator", comment: "")
+		cell.textLabel?.text = NSLocalizedString("onboarding.openCryptomator.button", comment: "")
 		cell.textLabel?.textColor = UIColor(named: "primary")
 		return cell
 	}()

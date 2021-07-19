@@ -1,0 +1,96 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.button.cancel" = "Cancelar";
+"common.button.choose" = "Seleccionar";
+"common.button.confirm" = "Confirmar";
+"common.button.create" = "Crear";
+"common.button.createFolder" = "Crear carpeta";
+"common.button.done" = "Hecho";
+"common.button.edit" = "Editar";
+"common.button.next" = "Continuar";
+"common.button.ok" = "Aceptar";
+"common.button.remove" = "Eliminar";
+"common.button.signOut" = "Cerrar sesión";
+"common.cells.password" = "Contraseña";
+"common.cells.url" = "URL";
+"common.cells.username" = "Nombre de usuario";
+"common.cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
+"common.error.alert.title" = "Error";
+"common.footer.learnMore" = "Más información.";
+
+"accountList.header.title" = "Autenticaciones";
+"accountList.emptyList.message" = "Pulse aquí para añadir una cuenta";
+"accountList.signOut.alert.title" = "¿Eliminar bóvedas asociadas?";
+"accountList.signOut.alert.message" = "Al cerrar sesión, todas las bóvedas asociadas se eliminarán de la lista de bóvedas. No se eliminarán los datos cifrados. Puede iniciar sesión de nuevo y volver a añadir las bóvedas más tarde.";
+
+"addVault.title" = "Añadir bóveda";
+"addVault.createNewVault.title" = "Crear bóveda nueva";
+"addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
+"addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "El nombre de la bóveda no debe contener \\ / : * ? \" < > | o terminar con un punto.";
+"addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
+"addVault.createNewVault.password.enterPassword.header" = "Ingrese una contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirmar la contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "¿Confirmar contraseña?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: si olvida su contraseña no habrá manera de recuperar los datos.";
+"addVault.createNewVault.password.error.emptyPassword" = "La contraseña no puede estar vacía.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Las contraseñas no coinciden.";
+"addVault.createNewVault.password.error.tooShortPassword" = "La contraseña debe contener al menos 8 caracteres.";
+"addVault.openExistingVault.title" = "Abrir bóveda existente";
+"addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
+"addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\"";
+"addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
+"addVault.success.openFilesApp" = "Abrir aplicación de archivos";
+"addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
+
+"chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
+"chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
+"chooseFolder.createNewFolder.cells.name" = "Nombre de la carpeta";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "El nombre de la carpeta no puede estar vacío.";
+
+"cloudProvider.error.itemNotFound" = "No se pudo encontrar \"%@\".";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" ya existe.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" tiene un tipo de elemento inesperado.";
+"cloudProvider.error.parentFolderDoesNotExist" = "La carpeta padre \"%@\" no existe.";
+"cloudProvider.error.pageTokenInvalid" = "No se pudo continuar la búsqueda del contenido del directorio.";
+"cloudProvider.error.quotaInsufficient" = "Su almacenamiento no tiene espacio suficiente.";
+"cloudProvider.error.unauthorized" = "No se puede realizar la operación no autorizada.";
+"cloudProvider.error.noInternetConnection" = "Se necesita conexión a Internet para esta operación.";
+
+"localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
+"localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ya existe una bóveda en esta ubicación. Intente de nuevo con una ubicación de almacenamiento diferente.";
+"localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
+"localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
+
+"onboarding.title" = "Bienvenido";
+"onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
+"onboarding.openCryptomator.button" = "Abrir Cryptomator";
+
+"settings.title" = "Configuración";
+"settings.aboutCryptomator" = "Acerca de Cryptomator";
+"settings.aboutCryptomator.title" = "Versión %@ (%@)";
+"settings.sendLogFile" = "Enviar archivo de registro";
+
+"untrustedTLSCertificate.title" = "Certificado TLS inválido";
+"untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Confiar";
+"untrustedTLSCertificate.dismiss" = "No confiar";
+
+"vaultList.header.title" = "Bóvedas";
+"vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
+"vaultList.remove.alert.title" = "¿Eliminar bóveda?";
+"vaultList.remove.alert.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
+
+"webDAVAuthentication.title" = "WebDAV";

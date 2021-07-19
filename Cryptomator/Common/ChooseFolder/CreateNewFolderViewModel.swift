@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 
@@ -16,7 +17,7 @@ protocol CreateNewFolderViewModelProtocol: SingleSectionHeaderTableViewModelProt
 }
 
 class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
-	let headerTitle = NSLocalizedString("createNewFolder.header.title", comment: "")
+	let headerTitle = NSLocalizedString("chooseFolder.createNewFolder.header.title", comment: "")
 	let headerUppercased = false
 
 	var folderName: String?
@@ -33,12 +34,25 @@ class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
 			return Promise(CreateNewFolderViewModelError.emptyFolderName)
 		}
 		let folderPath = parentPath.appendingPathComponent(folderName)
-		return provider.createFolder(at: folderPath).then {
+		return provider.createFolder(at: folderPath).recover { error -> Void in
+			if let error = error as? CloudProviderError {
+				throw LocalizedCloudProviderError.convertToLocalized(error, cloudPath: folderPath)
+			} else {
+				throw error
+			}
+		}.then {
 			folderPath
 		}
 	}
 }
 
-enum CreateNewFolderViewModelError: Error {
+enum CreateNewFolderViewModelError: LocalizedError {
 	case emptyFolderName
+
+	var errorDescription: String? {
+		switch self {
+		case .emptyFolderName:
+			return NSLocalizedString("chooseFolder.createNewFolder.error.emptyFolderName", comment: "")
+		}
+	}
 }

@@ -50,7 +50,7 @@ public class CryptomatorDatabase {
 		}
 		try db.create(table: "vaultAccounts") { table in
 			table.column("vaultUID", .text).primaryKey()
-			table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts")
+			table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts", onDelete: .cascade)
 			table.column("vaultPath", .text).notNull()
 			table.column("vaultName", .text).notNull()
 			table.column("lastUpToDateCheck", .date).notNull()

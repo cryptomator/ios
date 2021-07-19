@@ -280,7 +280,7 @@ public class VaultDBManager: VaultManager {
 	func removeDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
 		return Promise(on: .global()) { fulfill, _ in
 			for domain in domains {
-				try awaitPromise(NSFileProviderManager.remove(domain))
+				try awaitPromise(self.removeFileProviderDomain(domain))
 			}
 			fulfill(())
 		}
@@ -338,14 +338,26 @@ public class VaultDBManager: VaultManager {
 	}
 
 	func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
+		return getFileProviderDomain(forVaultUID: vaultUID).then { domainForVault in
+			self.removeFileProviderDomain(domainForVault)
+		}
+	}
+
+	private func removeFileProviderDomain(_ domain: NSFileProviderDomain) -> Promise<Void> {
+		return NSFileProviderManager.remove(domain).then {
+			let documentStorageURL = NSFileProviderManager.default.documentStorageURL
+			let domainDocumentStorageURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
+			try FileManager.default.removeItem(at: domainDocumentStorageURL)
+		}
+	}
+
+	private func getFileProviderDomain(forVaultUID vaultUID: String) -> Promise<NSFileProviderDomain> {
 		return NSFileProviderManager.getDomains().then { domains -> NSFileProviderDomain in
 			let domain = domains.first { $0.identifier.rawValue == vaultUID }
 			guard let domainForVault = domain else {
 				throw VaultManagerError.fileProviderDomainNotFound
 			}
 			return domainForVault
-		}.then { domainForVault in
-			NSFileProviderManager.remove(domainForVault)
 		}
 	}
 

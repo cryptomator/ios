@@ -13,7 +13,7 @@ import PackageDescription
 let package = Package(
 	name: "CryptomatorCommon",
 	platforms: [
-		.iOS(.v11)
+		.iOS(.v13)
 	],
 	products: [
 		.library(
@@ -26,7 +26,7 @@ let package = Package(
 		)
 	],
 	dependencies: [
-		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "0.12.0")),
+		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", .upToNextMinor(from: "0.13.0")),
 		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.7.0"))
 	],
 	targets: [

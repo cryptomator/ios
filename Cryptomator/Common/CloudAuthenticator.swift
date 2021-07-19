@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -15,9 +16,11 @@ import UIKit
 
 class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
+	private let vaultManager: VaultManager
 
-	init(accountManager: CloudProviderAccountManager) {
+	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared) {
 		self.accountManager = accountManager
+		self.vaultManager = vaultManager
 	}
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -86,6 +89,11 @@ class CloudAuthenticator {
 			break
 		}
 		try accountManager.removeAccount(with: account.accountUID)
+		vaultManager.removeAllUnusedFileProviderDomains().then {
+			DDLogDebug("Successfully removed all unused file provider domains after deauthenticated account: \(account.accountUID) - \(account.cloudProviderType)")
+		}.catch { error in
+			DDLogError("removeAllUnusedFileProviderDomains failed with error: \(error) after deauthenticated account: \(account.accountUID) - \(account.cloudProviderType)")
+		}
 	}
 }
 
