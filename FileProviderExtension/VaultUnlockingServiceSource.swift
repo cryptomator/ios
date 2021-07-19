@@ -7,6 +7,7 @@
 //
 
 import CryptomatorFileProvider
+import FileProvider
 import Foundation
 
 class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultUnlocking, NSXPCListenerDelegate {
