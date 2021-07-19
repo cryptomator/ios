@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "删除保险库?";
 "vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
