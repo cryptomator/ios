@@ -1,5 +1,18 @@
-Welcome to the first beta version of the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS.
+Welcome to the public beta test of the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS.
 
 Keep in mind that this is a pre-release version intended for testing and that some features like auto-lock are still missing. Check out our open-source repository on GitHub: https://github.com/cryptomator/ios
 
 We're looking forward to your feedback!
+
+---
+
+## Changes Since 2.0.0 Beta 1
+- Added 14(!) languages, kudos to our contributors at https://translate.cryptomator.org/
+- Added the option to remove authentications
+- Improved error messages in alerts, making them less technical (#46)
+- Fixed directory listing with over 500 items in Dropbox (#52)
+- Fixed authentication with multiple accounts in OneDrive (#45)
+- Fixed authentication to ownCloud-based cloud storage services via WebDAV (#53)
+- Fixed "Send Log File" crash on iPad (#44)
+
+Be aware that with this update, you have to set up your vaults again. This will happen during the beta from time to time, probably more often in the beginning. Sorry for the inconvenience that this may cause.
