@@ -20,30 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
 "common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
-"common.error.alert.title" = "Error";
+"common.error.alert.title" = "Hata";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
+"accountList.header.title" = "Kimlik Doğrulaması";
+"accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
+"accountList.signOut.alert.title" = "İlişkili Kasalar Kaldırılsın mı?";
+"accountList.signOut.alert.message" = "Oturumu kapattığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
 
 "addVault.title" = "Kasa Ekle";
 "addVault.createNewVault.title" = "Yeni Kasa Oluştur";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Kasa için bir ad seçin.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kasa Adı";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kasa adı boş olamaz.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Kasa adını, \\ / : * ? \" < > | veya nokta ile bitirin.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator kasanızın şifreli dosyalarını nerede depolasın?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bu konumda mevcut. Farklı bir kasa adı veya konum seçin.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.enterPassword.header" = "Yeni bir şifre girin.";
+"addVault.createNewVault.password.confirmPassword.header" = "Yeni şifreyi onaylayın.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Şifreyi onaylıyor musunuz?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.emptyPassword" = "Şifre boş bırakılamaz.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Şifreler eşleşmiyor.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Şifre en az 8 karakter içermelidir.";
 "addVault.openExistingVault.title" = "Varolan Kasayı Aç";
 "addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
@@ -54,25 +54,25 @@
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
 
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
+"chooseFolder.createNewFolder.cells.name" = "Klasör Adı";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Klasör adı boş olamaz.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.itemNotFound" = "\"%@\" bulunamadı.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" zaten mevcut.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\", beklenmeyen bir öğe türüne sahip.";
+"cloudProvider.error.parentFolderDoesNotExist" = "\"%@\" ana klasörü mevcut değil.";
+"cloudProvider.error.pageTokenInvalid" = "Dizin içeriğini alma işlemine devam edilemedi.";
+"cloudProvider.error.quotaInsufficient" = "Depolama alanınız yetersiz.";
+"cloudProvider.error.unauthorized" = "İşlem, yetkisiz gerçekleştirilemiyor.";
+"cloudProvider.error.noInternetConnection" = "Bu işlem için İnternet bağlantısı gerekiyor.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
 "localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Seçilen klasör bir kasa değil. Lütfen farklı bir klasörle tekrar deneyin.";
 
 "onboarding.title" = "Hoş geldiniz";
 "onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
@@ -85,12 +85,12 @@
 
 "untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Trust";
-"untrustedTLSCertificate.dismiss" = "Don't Trust";
+"untrustedTLSCertificate.add" = "Güven";
+"untrustedTLSCertificate.dismiss" = "Güvenme";
 
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
+"vaultList.remove.alert.title" = "Kasa Silinsin mi?";
+"vaultList.remove.alert.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
 
 "webDAVAuthentication.title" = "WebDAV";
