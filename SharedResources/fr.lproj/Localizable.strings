@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Erreur";
 "common.button.cancel" = "Annuler";
 "common.button.choose" = "Choisir";
 "common.button.confirm" = "Confirmer";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'utilisateur";
 "common.cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
+"common.error.alert.title" = "Error";
 "common.footer.learnMore" = "En savoir plus.";
 
-"accountList.alert.signOut.title" = "Enlever les coffres associés?";
-"accountList.alert.signOut.message" = "En vous déconnectant, tous les coffres associés seront supprimés de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pouvez vous reconnecter et ré-ajouter les coffres plus tard.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Remove Associated Vaults?";
+"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Ajouter un coffre";
 "addVault.createNewVault.title" = "Créer un nouveau coffre";
+"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Où Cryptomator doit-il stocker les fichiers chiffrés de votre coffre ?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de créer un nouveau coffre, veuillez revenir en arrière et choisir un dossier différent.";
-"addVault.createNewVault.enterPassword.header" = "Entrer un nouveau mot de passe.";
-"addVault.createNewVault.confirmPassword.header" = "Confirmez le nouveau mot de passe.";
-"addVault.createNewVault.alert.confirmPassword.title" = "Confirmer le mot de passe ?";
-"addVault.createNewVault.alert.confirmPassword.message" = "IMPORTANT: Si vous oubliez votre mot de passe, il n'y aura aucun moyen de récupérer vos données.";
+"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: Si vous oubliez votre mot de passe, il n'y aura aucun moyen de récupérer vos données.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Ouvrir un coffre existant";
 "addVault.openExistingVault.chooseCloud.header" = "Où se situe le coffre ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a détecté le coffre \"%@\".\nVoulez-vous ajouter ce coffre ?";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "Si vous ne l'avez pas déjà fait, activez Cryptomator dans l'application Fichiers.";
 
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
+"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
+"chooseFolder.createNewFolder.cells.name" = "Folder Name";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "Choisissez un nouveau nom pour ce classeur.";
-"createNewFolder.cells.name" = "Nom de classeur";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "Bienvenue";
+"onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
+"onboarding.openCryptomator.button" = "Ouvrir Cryptomator";
 
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.sendLogFile" = "Envoyer le fichier journal";
-
-"setVaultName.header.title" = "Choisissez le nom du coffre.";
-"setVaultName.cells.name" = "Nom du coffre";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalide";
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Coffres";
 "vaultList.emptyList.message" = "Appuyez ici pour ajouter un coffre";
-"vaultList.alert.remove.title" = "Supprimer le coffre?";
-"vaultList.alert.remove.message" = "Cela ne supprimera que le coffre de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pourrez ré-ajouter le coffre plus tard.";
+"vaultList.remove.alert.title" = "Remove Vault?";
+"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "Bienvenue";
-"onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
-"onboarding.openCryptomator.button" = "Ouvrir Cryptomator";
