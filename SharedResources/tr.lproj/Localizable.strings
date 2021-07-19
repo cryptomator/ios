@@ -10,9 +10,9 @@
 "common.button.confirm" = "Onayla";
 "common.button.create" = "Oluştur";
 "common.button.createFolder" = "Klasör Oluştur";
-"common.button.done" = "Bitti";
+"common.button.done" = "Tamam";
 "common.button.edit" = "Düzenle";
-"common.button.next" = "İleri";
+"common.button.next" = "Sonraki";
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
 "common.button.signOut" = "Çıkış Yap";
@@ -93,7 +93,7 @@
 "vaultList.remove.alert.title" = "Kasa Silinsin mi?";
 "vaultList.remove.alert.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Kasa yapılandırması desteklenmiyor. Cryptomator'ın en son sürümünü kullandığınızdan lütfen emin olun.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Kasa sürümü desteklenmiyor. Bu kasa, Cryptomator'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.";
 
 "webDAVAuthentication.title" = "WebDAV";
