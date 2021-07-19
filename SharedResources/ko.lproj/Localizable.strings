@@ -93,4 +93,7 @@
 "vaultList.remove.alert.title" = "Vault 제거?";
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+
 "webDAVAuthentication.title" = "WebDAV";
