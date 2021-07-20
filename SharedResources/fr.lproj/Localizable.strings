@@ -23,8 +23,8 @@
 "common.error.alert.title" = "Erreur";
 "common.footer.learnMore" = "En savoir plus.";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.header.title" = "Authentifications";
+"accountList.emptyList.message" = "Appuyez ici pour ajouter un compte";
 "accountList.signOut.alert.title" = "Enlever les coffres associés?";
 "accountList.signOut.alert.message" = "En vous déconnectant, tous les coffres associés seront supprimés de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pouvez vous reconnecter et ré-ajouter les coffres plus tard.";
 
@@ -33,17 +33,17 @@
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Le nom d'un coffre ne doit pas contenir \\ / : * ? \" < > | ni se terminer par un point.";
 "addVault.createNewVault.chooseCloud.header" = "Où Cryptomator doit-il stocker les fichiers chiffrés de votre coffre ?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" existe déjà à cet emplacement. Choisissez un autre nom de coffre ou un autre emplacement.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de créer un nouveau coffre, veuillez revenir en arrière et choisir un dossier différent.";
 "addVault.createNewVault.password.enterPassword.header" = "Entrer un nouveau mot de passe.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirmez le nouveau mot de passe.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmer le mot de passe ?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: Si vous oubliez votre mot de passe, il n'y aura aucun moyen de récupérer vos données.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.emptyPassword" = "Le mot de passe ne peut pas être vide.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Les mots de passe ne sont pas identiques.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Le mot de passe doit contenir au moins 8 caractères.";
 "addVault.openExistingVault.title" = "Ouvrir un coffre existant";
 "addVault.openExistingVault.chooseCloud.header" = "Où se situe le coffre ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a détecté le coffre \"%@\".\nVoulez-vous ajouter ce coffre ?";
@@ -56,15 +56,15 @@
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
 "chooseFolder.createNewFolder.header.title" = "Choisissez un nouveau nom pour ce classeur.";
 "chooseFolder.createNewFolder.cells.name" = "Nom de classeur";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Le nom de dossier ne peut pas être vide.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.itemNotFound" = "\"%@\" n'a pas pu être trouvé.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" existe déjà.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" a un type d'élément inattendu.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Le dossier parent \"%@\" n'existe pas.";
+"cloudProvider.error.pageTokenInvalid" = "La récupération du contenu du répertoire n'a pas pu être poursuivie.";
+"cloudProvider.error.quotaInsufficient" = "Votre espace de stockage est insuffisant.";
+"cloudProvider.error.unauthorized" = "Impossible d'effectuer une opération non autorisée.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
