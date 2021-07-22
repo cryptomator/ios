@@ -23,8 +23,8 @@
 "common.error.alert.title" = "错误";
 "common.footer.learnMore" = "了解更多";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.header.title" = "身份验证";
+"accountList.emptyList.message" = "点击此处添加保险库";
 "accountList.signOut.alert.title" = "移除关联的保险库吗？";
 "accountList.signOut.alert.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
@@ -33,17 +33,17 @@
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称.";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "保险库名称不应包含 \\ / : * ? \" < > | 或以一个时间段结尾";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库\n若想创建一个新的保险库，请返回并选择其他路径";
 "addVault.createNewVault.password.enterPassword.header" = "输入新密码.";
 "addVault.createNewVault.password.confirmPassword.header" = "确认新密码.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.emptyPassword" = "密码不能为空";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "密码不匹配";
+"addVault.createNewVault.password.error.tooShortPassword" = "密码必须至少包含 8 个字符";
 "addVault.openExistingVault.title" = "打开现有的保险库";
 "addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"\n您想要添加它吗？";
@@ -56,9 +56,9 @@
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemNotFound" = "找不到 %@\"";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
