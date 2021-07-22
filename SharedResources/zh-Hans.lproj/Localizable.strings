@@ -59,20 +59,20 @@
 "chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空";
 
 "cloudProvider.error.itemNotFound" = "找不到 %@\"";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型";
+"cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在";
+"cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容";
+"cloudProvider.error.quotaInsufficient" = "您的存储空间不足";
+"cloudProvider.error.unauthorized" = "无法执行未经授权的操作";
+"cloudProvider.error.noInternetConnection" = "此操作需要网络连接";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试";
 "localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次";
 
 "onboarding.title" = "欢迎使用";
 "onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧";
@@ -93,7 +93,7 @@
 "vaultList.remove.alert.title" = "删除保险库?";
 "vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的";
 
 "webDAVAuthentication.title" = "WebDAV";
