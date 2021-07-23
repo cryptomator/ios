@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Protokolldatei senden";
 
 "unlockVault.button.unlock" = "Entsperren";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Entsperren über %@";
 "unlockVault.password.footer" = "Gib das Passwort für „%@“ ein";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ aktivieren";
+"unlockVault.enableBiometricalUnlock.footer" = "Anstatt deinen Tresor mit deinem Passwort zu entsperren, kannst du ihn über %@ entsperren.";
+"unlockVault.evaluatePolicy.reason" = "Entsperre deinen Tresor";
 
 "untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
 "untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
