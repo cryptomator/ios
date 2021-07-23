@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
 "unlockVault.button.unlock" = "Kilidi Aç";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
 "unlockVault.password.footer" = "\"%@\" için şifre girin";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
+"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
+"unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
 
 "untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
