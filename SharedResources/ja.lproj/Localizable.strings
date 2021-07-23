@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
 "settings.sendLogFile" = "ログ ファイルを送信";
 
+"unlockVault.button.unlock" = "解錠";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "\"%@\" のパスワードを入力してください";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
