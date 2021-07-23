@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "Έκδοση %@ (%@)";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 
+"unlockVault.button.unlock" = "Ξεκλείδωμα";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "Μη έγκυρο πιστοποιητικό TLS";
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
