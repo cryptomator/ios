@@ -41,9 +41,9 @@
 "addVault.createNewVault.password.confirmPassword.header" = "新しいパスワードの確認。";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "パスワードの確認?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "重要: パスワードを忘れると、データを回復する方法はありません。";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.emptyPassword" = "パスワードは空にできません。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "パスワードが一致しません。";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.tooShortPassword" = "パスワードは8文字以上にする必要があります。";
 "addVault.openExistingVault.title" = "既存の金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
@@ -56,7 +56,7 @@
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "フォルダ名は空にできません。";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
@@ -88,7 +88,7 @@
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください";
 "unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
@@ -97,7 +97,7 @@
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
-"vaultList.remove.alert.title" = "金庫を削除？";
+"vaultList.remove.alert.title" = "金庫を削除しますか?";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
