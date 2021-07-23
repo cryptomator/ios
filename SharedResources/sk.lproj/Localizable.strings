@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "Verzia %@ (%@)";
 "settings.sendLogFile" = "Zaslať Log súbor";
 
+"unlockVault.button.unlock" = "Odomknúť";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Zadajte heslo pre \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "Neplatný TLS certifikát";
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
