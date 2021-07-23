@@ -1,3 +1,4 @@
+#!/bin/sh
 if [ -f ./.cloud-access-secrets.sh ]; then
   source ./.cloud-access-secrets.sh
 else
