@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Enviar archivo de registro";
 
 "unlockVault.button.unlock" = "Desbloquear";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Desbloquear a través de %@";
 "unlockVault.password.footer" = "Ingresar contraseña para \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
+"unlockVault.enableBiometricalUnlock.footer" = "En lugar de desbloquear su bóveda con su contraseña, puede desbloquearla a través de %@.";
+"unlockVault.evaluatePolicy.reason" = "Desbloquee su bóveda";
 
 "untrustedTLSCertificate.title" = "Certificado TLS inválido";
 "untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
