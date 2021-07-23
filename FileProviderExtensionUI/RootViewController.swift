@@ -12,6 +12,27 @@ import FileProviderUI
 import UIKit
 class RootViewController: FPUIActionExtensionViewController {
 	private var coordinator: FileProviderCoordinator?
+
+	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+		NotificationCenter.default.addObserver(self,
+		                                       selector: #selector(extensionHostDidEnterBackground),
+		                                       name: NSNotification.Name.NSExtensionHostDidEnterBackground,
+		                                       object: nil)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	/**
+	 To prevent a visible dismiss of the `RootViewController` when the FileProviderExtensionUI was in the background and becomes active again, we cancel the request as soon as the host app (Files app) switches to the background.
+	 */
+	@objc func extensionHostDidEnterBackground() {
+		cancel()
+	}
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let navigationController = UINavigationController()
