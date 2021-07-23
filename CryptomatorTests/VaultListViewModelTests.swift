@@ -19,6 +19,8 @@ class VaultListViewModelTests: XCTestCase {
 	var cryptomatorDB: CryptomatorDatabase!
 	private var vaultManagerMock: VaultManagerMock!
 	private var vaultAccountManagerMock: VaultAccountManagerMock!
+	private var passwordManager: VaultPasswordKeychainManager!
+	private var vaultCacheMock: VaultCacheMock!
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
@@ -28,7 +30,9 @@ class VaultListViewModelTests: XCTestCase {
 
 		let cloudProviderManager = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager(dbPool: dbPool))
 		vaultAccountManagerMock = VaultAccountManagerMock()
-		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock)
+		passwordManager = VaultPasswordKeychainManager()
+		vaultCacheMock = VaultCacheMock()
+		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManager)
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
 
@@ -72,10 +76,9 @@ class VaultListViewModelTests: XCTestCase {
 	}
 
 	func testRemoveRow() throws {
-		let keychainEntry = VaultKeychainEntry(masterkeyData: "".data(using: .utf8)!, vaultConfigToken: nil, password: nil)
-		let jsonEnccoder = JSONEncoder()
-		let encodedEntry = try jsonEnccoder.encode(keychainEntry)
-		try CryptomatorKeychain.vault.set("vault2", value: encodedEntry)
+		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: "".data(using: .utf8)!, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		try vaultCacheMock.cache(cachedVault)
+		try passwordManager.setPassword("pw", forVaultUID: "vault2")
 
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
@@ -93,8 +96,12 @@ class VaultListViewModelTests: XCTestCase {
 		XCTAssertEqual("vault2", vaultAccountManagerMock.removedVaultUIDs[0])
 		XCTAssertEqual(1, vaultManagerMock.removedFileProviderDomains.count)
 		XCTAssertEqual("vault2", vaultManagerMock.removedFileProviderDomains[0])
-
-		XCTAssertNil(CryptomatorKeychain.vault.getAsData("vault2"))
+		XCTAssertThrowsError(try passwordManager.getPassword(forVaultUID: "vault2")) { error in
+			guard case VaultPasswordManagerError.passwordNotFound = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+		}
 	}
 }
 
@@ -141,5 +148,25 @@ private class VaultManagerMock: VaultDBManager {
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
 		removedFileProviderDomains.append(vaultUID)
 		return Promise(())
+	}
+}
+
+class VaultCacheMock: VaultCache {
+	var cachedVaults = [String: CachedVault]()
+	var invalidatedVaults = [String]()
+
+	func cache(_ entry: CachedVault) throws {
+		cachedVaults[entry.vaultUID] = entry
+	}
+
+	func getCachedVault(withVaultUID vaultUID: String) throws -> CachedVault {
+		guard let vault = cachedVaults[vaultUID] else {
+			throw VaultCacheError.vaultNotFound
+		}
+		return vault
+	}
+
+	func invalidate(vaultUID: String) throws {
+		invalidatedVaults.append(vaultUID)
 	}
 }

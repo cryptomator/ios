@@ -50,14 +50,23 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
-		FileProviderAdapterManager.getAdapter(for: domain, with: manager, dbPath: dbPath, delegate: localURLProvider, notificator: notificator).then { adapter in
-			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
-		}.then { itemList in
-			observer.didEnumerate(itemList.items)
-			observer.finishEnumerating(upTo: itemList.nextPageToken)
-		}.catch { error in
-			DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
-			observer.finishEnumeratingWithError(error)
+		DispatchQueue.global(qos: .userInitiated).async {
+			FileProviderAdapterManager.semaphore.wait()
+			let adapter: FileProviderAdapter
+			do {
+				adapter = try FileProviderAdapterManager.getAdapter(for: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
+			} catch {
+				let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
+				observer.finishEnumeratingWithError(wrappedError)
+				return
+			}
+			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
+				observer.didEnumerate(itemList.items)
+				observer.finishEnumerating(upTo: itemList.nextPageToken)
+			}.catch { error in
+				DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
+				observer.finishEnumeratingWithError(error)
+			}
 		}
 	}
 
