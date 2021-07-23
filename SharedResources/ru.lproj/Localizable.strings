@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Отправить журнал";
 
 "unlockVault.button.unlock" = "Разблокировать";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Разблокировать через %@";
 "unlockVault.password.footer" = "Введите пароль для \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "Включить %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Вместо разблокирования хранилища с помощью пароля, его можно разблокировать через %@.";
+"unlockVault.evaluatePolicy.reason" = "Разблокировка хранилища";
 
 "untrustedTLSCertificate.title" = "Неверный TLS-сертификат";
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
