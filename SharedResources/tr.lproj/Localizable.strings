@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
+"unlockVault.button.unlock" = "Kilidi Aç";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "\"%@\" için şifre girin";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Güven";
