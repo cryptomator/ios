@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "Versión %@ (%@)";
 "settings.sendLogFile" = "Enviar archivo de registro";
 
+"unlockVault.button.unlock" = "Desbloquear";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Ingresar contraseña para \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "Certificado TLS inválido";
 "untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
