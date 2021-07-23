@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Wyślij plik logów";
 
 "unlockVault.button.unlock" = "Odblokuj";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Odblokuj przez %@";
 "unlockVault.password.footer" = "Wprowadź hasło dla \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "Włącz %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Zamiast hasłem możesz odblokować sejf za pomocą %@.";
+"unlockVault.evaluatePolicy.reason" = "Odblokuj swój sejf";
 
 "untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
