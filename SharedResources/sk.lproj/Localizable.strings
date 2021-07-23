@@ -100,7 +100,7 @@
 "vaultList.remove.alert.title" = "Odstrániť trezor?";
 "vaultList.remove.alert.message" = "Toto len odstráni trezor zo zoznamu trezorov. Žiadne zašifrované dáta sa nezmažú. Môžte znovu pridať trezor v budúcnosti.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurácia trezora je nepodporovaná. Prosím uistite sa či spúšťate najnovšiu verziu Cryptomator-a.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Konfigurácia trezora je nepodporovaná. Tento trezor bol vytvorený staršou alebo novšou verziou Cryptomator-a.";
 
 "webDAVAuthentication.title" = "WebDAV";
