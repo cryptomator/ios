@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "Zaslať Log súbor";
 
 "unlockVault.button.unlock" = "Odomknúť";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Odomknúť prostredníctvom %@";
 "unlockVault.password.footer" = "Zadajte heslo pre \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "Povoliť %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Namiesto odomknutia Vášho trezora s Vašim heslom, môžte ho odomknúť cez %@.";
+"unlockVault.evaluatePolicy.reason" = "Odomknúť Váš trezor";
 
 "untrustedTLSCertificate.title" = "Neplatný TLS certifikát";
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
