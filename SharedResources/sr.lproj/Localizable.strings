@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.sendLogFile" = "Send Log File";
 
+"unlockVault.button.unlock" = "Откључај";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Унесите лозинку за \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "Invalid TLS Certificate";
 "untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Trust";
