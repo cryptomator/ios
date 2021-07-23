@@ -84,11 +84,11 @@
 "settings.sendLogFile" = "发送日志文件";
 
 "unlockVault.button.unlock" = "解锁";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "通过 %@ 解锁";
 "unlockVault.password.footer" = "输入 \"%@\" 的密码";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "启用 %@";
+"unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库";
+"unlockVault.evaluatePolicy.reason" = "解锁保险库";
 
 "untrustedTLSCertificate.title" = "TLS 证书无效";
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
