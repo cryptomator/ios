@@ -83,6 +83,13 @@
 "settings.aboutCryptomator.title" = "版本 %@ (%@)";
 "settings.sendLogFile" = "发送日志文件";
 
+"unlockVault.button.unlock" = "解锁";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "输入 \"%@\" 的密码";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "TLS 证书无效";
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
