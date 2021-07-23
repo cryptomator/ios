@@ -14,7 +14,7 @@ protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtoco
 }
 
 class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
-	let headerTitle = NSLocalizedString("setVaultName.header.title", comment: "")
+	let headerTitle = NSLocalizedString("addVault.createNewVault.setVaultName.header.title", comment: "")
 	let headerUppercased = false
 
 	var vaultName: String? {
@@ -45,7 +45,16 @@ class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
 	}
 }
 
-enum SetVaultNameViewModelError: Error {
-	case invalidInput
+enum SetVaultNameViewModelError: LocalizedError {
 	case emptyVaultName
+	case invalidInput
+
+	var errorDescription: String? {
+		switch self {
+		case .emptyVaultName:
+			return NSLocalizedString("addVault.createNewVault.setVaultName.error.emptyVaultName", comment: "")
+		case .invalidInput:
+			return NSLocalizedString("addVault.createNewVault.setVaultName.error.invalidInput", comment: "")
+		}
+	}
 }

@@ -50,7 +50,13 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	}
 
 	func refreshItems() {
-		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
+		provider.fetchItemListExhaustively(forFolderAt: cloudPath).recover { error -> CloudItemList in
+			if let error = error as? CloudProviderError {
+				throw LocalizedCloudProviderError.convertToLocalized(error, cloudPath: self.cloudPath)
+			} else {
+				throw error
+			}
+		}.then { itemList in
 			if let vaultItem = VaultDetector.getVaultItem(items: itemList.items, parentCloudPath: self.cloudPath) {
 				self.foundMasterkey = true
 				self.vaultListener?(vaultItem)

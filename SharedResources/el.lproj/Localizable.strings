@@ -5,7 +5,6 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Σφάλμα";
 "common.button.cancel" = "Ακύρωση";
 "common.button.choose" = "Επιλογή";
 "common.button.confirm" = "Επιβεβαίωση";
@@ -21,19 +20,30 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
 "common.cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
+"common.error.alert.title" = "Σφάλμα";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
 
-"accountList.alert.signOut.title" = "Αφαίρεση Συσχετιζόμενων Vault;";
-"accountList.alert.signOut.message" = "Με την αποσύνδεση, όλα τα συνδεδεμένα vault θα αφαιρεθούν από τη λίστα vault. Δεν θα διαγραφούν τα κρυπτογραφημένα δεδομένα. Μπορείτε να συνδεθείτε ξανά και να προσθέσετε ξανά τα vault αργότερα.";
+"accountList.header.title" = "Authentications";
+"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.signOut.alert.title" = "Αφαίρεση Συσχετιζόμενων Vault;";
+"accountList.signOut.alert.message" = "Με την αποσύνδεση, όλα τα συνδεδεμένα vault θα αφαιρεθούν από τη λίστα vault. Δεν θα διαγραφούν τα κρυπτογραφημένα δεδομένα. Μπορείτε να συνδεθείτε ξανά και να προσθέσετε ξανά τα vault αργότερα.";
 
 "addVault.title" = "Προσθήκη Vault";
 "addVault.createNewVault.title" = "Δημιουργία νέου Vault";
+"addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για το vault.";
+"addVault.createNewVault.setVaultName.cells.name" = "Όνομα Vault";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Που θα αποθηκεύσει το Cryptomator τα κωδικοποιημένα αρχεία του vault σου;";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε ένα υπάρχον valut σε αυτή τη θέση.\nΓια να δημιουργήσετε ένα νέο vault, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
-"addVault.createNewVault.enterPassword.header" = "Εισάγετε ένα νέο κωδικό.";
-"addVault.createNewVault.confirmPassword.header" = "Επιβεβαιώστε το νέο κωδικό.";
-"addVault.createNewVault.alert.confirmPassword.title" = "Επιβεβαίωση κωδικού;";
-"addVault.createNewVault.alert.confirmPassword.message" = "ΣΗΜΑΝΤΙΚΟ: Εάν ξεχάσετε τον κωδικό πρόσβασής σας, δεν υπάρχει τρόπος να ανακτήσετε τα δεδομένα σας.";
+"addVault.createNewVault.password.enterPassword.header" = "Εισάγετε ένα νέο κωδικό.";
+"addVault.createNewVault.password.confirmPassword.header" = "Επιβεβαιώστε το νέο κωδικό.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Επιβεβαίωση κωδικού;";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ΣΗΜΑΝΤΙΚΟ: Εάν ξεχάσετε τον κωδικό πρόσβασής σας, δεν υπάρχει τρόπος να ανακτήσετε τα δεδομένα σας.";
+"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Οι κωδικοί δεν ταιριάζουν.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Άνοιγμα υπάρχοντος Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται το vault;";
 "addVault.openExistingVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε το vault \"%@\".\nΘα θέλατε να προσθέσετε αυτό το vault;";
@@ -44,22 +54,34 @@
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
 "chooseFolder.emptyFolder.footer" = "Ο φάκελος είναι κενός";
+"chooseFolder.createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
+"chooseFolder.createNewFolder.cells.name" = "Όνομα Φακέλου";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
-"createNewFolder.cells.name" = "Όνομα Φακέλου";
+"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
+"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
+"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για το νέο vault σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "Στην επόμενη οθόνη, επιλέξτε το φάκελο του υπάρχοντος vault σας.";
 "localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Vault";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+
+"onboarding.title" = "Welcome";
+"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
+"onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";
 
 "settings.title" = "Ρυθμίσεις";
 "settings.aboutCryptomator" = "Σχετικά με το Cryptomator";
 "settings.aboutCryptomator.title" = "Έκδοση %@ (%@)";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
-
-"setVaultName.header.title" = "Διαλέξτε ένα όνομα για το vault.";
-"setVaultName.cells.name" = "Όνομα Vault";
 
 "untrustedTLSCertificate.title" = "Μη έγκυρο πιστοποιητικό TLS";
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
@@ -68,11 +90,7 @@
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα vault";
-"vaultList.alert.remove.title" = "Διαγραφή Vault?";
-"vaultList.alert.remove.message" = "Αυτό θα αφαιρέσει μόνο τοvault από τη λίστα των vault. Δεν θα διαγραφούν κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά το vault αργότερα.";
+"vaultList.remove.alert.title" = "Διαγραφή Vault;";
+"vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο τοvault από τη λίστα των vault. Δεν θα διαγραφούν κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά το vault αργότερα.";
 
 "webDAVAuthentication.title" = "WebDAV";
-
-"onboarding.title" = "Welcome";
-"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
-"onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";

@@ -28,8 +28,8 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 
 	let vaultUID: String
 	let headerTitles = [
-		NSLocalizedString("addVault.createNewVault.enterPassword.header", comment: ""),
-		NSLocalizedString("addVault.createNewVault.confirmPassword.header", comment: "")
+		NSLocalizedString("addVault.createNewVault.password.enterPassword.header", comment: ""),
+		NSLocalizedString("addVault.createNewVault.password.confirmPassword.header", comment: "")
 	]
 	var password: String?
 	var confirmingPassword: String?
@@ -64,8 +64,19 @@ class CreateNewVaultPasswordViewModel: CreateNewVaultPasswordViewModelProtocol {
 	}
 }
 
-enum CreateNewVaultPasswordViewModelError: Error {
+enum CreateNewVaultPasswordViewModelError: LocalizedError {
 	case emptyPassword
 	case nonMatchingPasswords
 	case tooShortPassword
+
+	var errorDescription: String? {
+		switch self {
+		case .emptyPassword:
+			return NSLocalizedString("addVault.createNewVault.password.error.emptyPassword", comment: "")
+		case .nonMatchingPasswords:
+			return NSLocalizedString("addVault.createNewVault.password.error.nonMatchingPasswords", comment: "")
+		case .tooShortPassword:
+			return NSLocalizedString("addVault.createNewVault.password.error.tooShortPassword", comment: "")
+		}
+	}
 }

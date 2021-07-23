@@ -13,7 +13,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 	private var viewModel: CreateNewFolderViewModelProtocol
 	private lazy var nameCell: TextFieldCell = {
 		let cell = TextFieldCell()
-		cell.textField.placeholder = NSLocalizedString("createNewFolder.cells.name", comment: "")
+		cell.textField.placeholder = NSLocalizedString("chooseFolder.createNewFolder.cells.name", comment: "")
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 		cell.textField.becomeFirstResponder()
 		let folderIcon = UIImage(named: "folder")
