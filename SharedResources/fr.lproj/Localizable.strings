@@ -84,7 +84,11 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
+"unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Entrez le mot de passe pour “%@”";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalide";
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
