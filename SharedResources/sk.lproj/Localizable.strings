@@ -22,9 +22,6 @@
 "common.cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
 "common.error.alert.title" = "Chyba";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
-
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
 "accountList.signOut.alert.title" = "Odstrániť asociované trezory?";
 "accountList.signOut.alert.message" = "Odhlásením sa budú všetky asociované trezory odstránené zo zoznamu trezorov. Žiadne zašifrované dáta však nebudú zmazané. Môžte sa znovu prihlásiť a opätovne pridať trezory neskôr.";
 
@@ -33,17 +30,13 @@
 "addVault.createNewVault.setVaultName.header.title" = "Zvoľte názov pre trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Názov trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Meno trezora nemôže byť prázdne.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Kde by mal Cryptomator uchovávať šifrované súbory vášho trezoru?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator zdetekoval existujúci trezor na tejto lokalite.\n V prípade vytvorenia nového trezoru sa prosím vráťte späť a zvoľte iný adresár.";
 "addVault.createNewVault.password.enterPassword.header" = "Zadajte nové heslo.";
 "addVault.createNewVault.password.confirmPassword.header" = "Porvrďte nové heslo.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Potvrdiť heslo?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "Dôležité: Ak zabudnete Vaše heslo, neexistuje spôsob na obnovu dát.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Heslá sa nezhodujú.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Otvoriť existujúci trezor";
 "addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umiestnený?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator zdetekoval trezor \"%@\".\n Prejete si pridať tento trezor?";
@@ -56,23 +49,11 @@
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
 "chooseFolder.createNewFolder.cells.name" = "Meno adresára";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
-
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "V nasledujúcej obrazovke zvoľte adresár Vášho existujúceho trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
 "onboarding.title" = "Vitajte";
 "onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator pre ochranu Vašich súborov. Pre začatie choďte do hlavnej aplikácie a pridajte trezor.";
