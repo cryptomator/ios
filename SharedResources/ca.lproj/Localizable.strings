@@ -78,7 +78,7 @@
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "onboarding.openCryptomator.button" = "Open Cryptomator";
 
-"settings.title" = "Settings";
+"settings.title" = "Configuració";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.sendLogFile" = "Send Log File";
