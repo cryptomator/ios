@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import FileProvider
 import Foundation
+import os.log
 import Promises
 
 public enum VaultManagerError: Error {
@@ -369,10 +370,11 @@ extension NSFileProviderManager {
 		return Promise<[NSFileProviderDomain]> { fulfill, reject in
 			NSFileProviderManager.getDomainsWithCompletionHandler { domains, error in
 				if let error = error {
+					os_log("NSFileProviderManager.getDomains() Error: %@", log: .default, type: .error, String(describing: error))
 					reject(error)
-					return
+				} else {
+					fulfill(domains)
 				}
-				fulfill(domains)
 			}
 		}
 	}
@@ -381,10 +383,11 @@ extension NSFileProviderManager {
 		return Promise<Void> { fulfill, reject in
 			NSFileProviderManager.remove(domain) { error in
 				if let error = error {
+					os_log("NSFileProviderManager.remove() Error: %@", log: .default, type: .error, String(describing: error))
 					reject(error)
-					return
+				} else {
+					fulfill(())
 				}
-				fulfill(())
 			}
 		}
 	}
@@ -393,6 +396,7 @@ extension NSFileProviderManager {
 		return Promise<Void> { fulfill, reject in
 			NSFileProviderManager.add(domain) { error in
 				if let error = error {
+					os_log("NSFileProviderManager.add() Error: %@", log: .default, type: .error, String(describing: error))
 					reject(error)
 				} else {
 					fulfill(())
