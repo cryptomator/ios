@@ -11,7 +11,9 @@ import CryptomatorCommonCore
 import FileProviderUI
 import UIKit
 class RootViewController: FPUIActionExtensionViewController {
-	private var coordinator: FileProviderCoordinator?
+	private lazy var coordinator: FileProviderCoordinator = {
+		return FileProviderCoordinator(extensionContext: extensionContext, hostViewController: self)
+	}()
 
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -35,19 +37,7 @@ class RootViewController: FPUIActionExtensionViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let navigationController = UINavigationController()
-		navigationController.navigationBar.barTintColor = UIColor(named: "primary")
-		navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-		navigationController.navigationBar.tintColor = .white
-		addChild(navigationController)
-		view.addSubview(navigationController.view)
-		navigationController.didMove(toParent: self)
 		RootViewController.oneTimeSetup()
-		coordinator = FileProviderCoordinator(extensionContext: extensionContext, navigationController: navigationController)
-	}
-
-	override func prepare(forError error: Error) {
-		coordinator?.startWith(error: error)
 	}
 
 	@objc func cancel() {
@@ -75,4 +65,10 @@ class RootViewController: FPUIActionExtensionViewController {
 		}
 		return {}
 	}()
+
+	// MARK: - FPUIActionExtensionViewController
+
+	override func prepare(forError error: Error) {
+		coordinator.startWith(error: error)
+	}
 }

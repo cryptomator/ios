@@ -11,12 +11,20 @@ import FileProviderUI
 import UIKit
 
 class FileProviderCoordinator {
-	let navigationController: UINavigationController
-	let extensionContext: FPUIActionExtensionContext
+	private let extensionContext: FPUIActionExtensionContext
+	private weak var hostViewController: UIViewController?
+	private lazy var navigationController: UINavigationController = {
+		let navigationController = UINavigationController()
+		navigationController.navigationBar.barTintColor = UIColor(named: "primary")
+		navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+		navigationController.navigationBar.tintColor = .white
+		addViewControllerAsChildToHost(navigationController)
+		return navigationController
+	}()
 
-	init(extensionContext: FPUIActionExtensionContext, navigationController: UINavigationController) {
+	init(extensionContext: FPUIActionExtensionContext, hostViewController: UIViewController) {
 		self.extensionContext = extensionContext
-		self.navigationController = navigationController
+		self.hostViewController = hostViewController
 	}
 
 	func userCancelled() {
@@ -46,6 +54,10 @@ class FileProviderCoordinator {
 		viewController.present(alertController, animated: true)
 	}
 
+	func done() {
+		extensionContext.completeRequest()
+	}
+
 	// MARK: - Onboarding
 
 	func showOnboarding() {
@@ -72,7 +84,14 @@ class FileProviderCoordinator {
 		navigationController.pushViewController(unlockVaultVC, animated: false)
 	}
 
-	func unlocked() {
-		extensionContext.completeRequest()
+	// MARK: - Internal
+
+	private func addViewControllerAsChildToHost(_ viewController: UIViewController) {
+		guard let hostViewController = hostViewController else {
+			return
+		}
+		hostViewController.addChild(viewController)
+		hostViewController.view.addSubview(viewController.view)
+		viewController.didMove(toParent: hostViewController)
 	}
 }
