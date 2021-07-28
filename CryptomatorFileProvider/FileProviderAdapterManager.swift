@@ -44,6 +44,24 @@ public enum FileProviderAdapterManager {
 		}
 		semaphore.signal()
 	}
+
+	public static func lockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
+		queue.sync(flags: .barrier) {
+			cachedAdapters[domainIdentifier] = nil
+		}
+	}
+
+	public static func vaultIsUnLocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
+		queue.sync(flags: .barrier) {
+			return cachedAdapters[domainIdentifier] != nil
+		}
+	}
+
+	public static func getDomainIdentifiersOfUnlockedVaults() -> [NSFileProviderDomainIdentifier] {
+		queue.sync(flags: .barrier) {
+			return cachedAdapters.map { $0.key }
+		}
+	}
 }
 
 public class BiometricalUnlockSemaphore {
