@@ -9,7 +9,6 @@
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import Foundation
-import OSLog
 class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, VaultLocking {
 	var serviceName: NSFileProviderServiceName {
 		VaultLockingService.name
@@ -42,7 +41,6 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 	// MARK: - VaultLocking
 
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
-		os_log("lockVault called")
 		FileProviderAdapterManager.lockVault(with: domainIdentifier)
 	}
 

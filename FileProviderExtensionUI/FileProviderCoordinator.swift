@@ -43,7 +43,6 @@ class FileProviderCoordinator {
 			let domain = NSFileProviderDomain(identifier: domainIdentifier, displayName: vaultName, pathRelativeToDocumentStorage: pathRelativeToDocumentStorage)
 			showPasswordScreen(for: domain)
 		default:
-			print(internalError)
 			showOnboarding()
 		}
 	}

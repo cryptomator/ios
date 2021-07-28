@@ -26,7 +26,6 @@ class VaultCell: UITableViewCell {
 			guard isUnlocked != oldValue else {
 				return
 			}
-			print(isUnlocked)
 			lockButton.isHidden = !isUnlocked
 		}
 	}
