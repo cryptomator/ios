@@ -23,8 +23,8 @@
 "common.error.alert.title" = "Chyba";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.header.title" = "Overenia";
+"accountList.emptyList.message" = "Kliknúť sem pre pridanie účtu";
 "accountList.signOut.alert.title" = "Odstrániť asociované trezory?";
 "accountList.signOut.alert.message" = "Odhlásením sa budú všetky asociované trezory odstránené zo zoznamu trezorov. Žiadne zašifrované dáta však nebudú zmazané. Môžte sa znovu prihlásiť a opätovne pridať trezory neskôr.";
 
