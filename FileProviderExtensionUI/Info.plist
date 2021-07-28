@@ -22,17 +22,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSExtension</key>
 	<dict>
-		<key>NSExtensionFileProviderActions</key>
-		<array>
-			<dict>
-				<key>NSExtensionFileProviderActionActivationRule</key>
-				<string>TRUEPREDICATE</string>
-				<key>NSExtensionFileProviderActionIdentifier</key>
-				<string>com.mycompany.FileProviderUI.CustomAction</string>
-				<key>NSExtensionFileProviderActionName</key>
-				<string>Custom Action</string>
-			</dict>
-		</array>
 		<key>NSExtensionPrincipalClass</key>
 		<string>$(PRODUCT_MODULE_NAME).RootViewController</string>
 		<key>NSExtensionPointIdentifier</key>

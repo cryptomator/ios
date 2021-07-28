@@ -97,8 +97,11 @@ class UnlockVaultViewModel {
 		}
 	}()
 
-	init(domain: NSFileProviderDomain) {
+	private let fileProviderConnector: FileProviderConnector
+
+	init(domain: NSFileProviderDomain, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.domain = domain
+		self.fileProviderConnector = fileProviderConnector
 		let context = LAContext()
 		// Remove fallback title because "Enter password" also closes the FileProviderExtensionUI and does not display the password input
 		context.localizedFallbackTitle = ""
@@ -177,7 +180,7 @@ class UnlockVaultViewModel {
 			}
 		}
 
-		return getProxy().then { proxy -> Promise<Void> in
+		return fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain).then { proxy -> Promise<Void> in
 			return self.proxyUnlockVault(proxy, kek: kek)
 		}
 	}
@@ -192,7 +195,7 @@ class UnlockVaultViewModel {
 	 */
 	func biometricalUnlock() -> Promise<Void> {
 		let reason = NSLocalizedString("unlockVault.evaluatePolicy.reason", comment: "")
-		let getProxyPromise = getProxy()
+		let getProxyPromise: Promise<VaultUnlocking> = fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain) // getProxy()
 		return getProxyPromise.then { proxy in
 			proxy.startBiometricalUnlock()
 		}.then { _ -> Void in
@@ -252,32 +255,6 @@ class UnlockVaultViewModel {
 			return "Touch ID"
 		default:
 			return nil
-		}
-	}
-
-	private func getProxy() -> Promise<VaultUnlocking> {
-		let url = NSFileProviderManager.default.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
-		return wrap { handler in
-			FileManager.default.getFileProviderServicesForItem(at: url, completionHandler: handler)
-		}.then { services -> Promise<NSXPCConnection?> in
-			if let desiredService = services?[VaultUnlockingService.name] {
-				return desiredService.getFileProviderConnection()
-			} else {
-				return Promise(UnlockVaultViewModelError.vaultUnlockingServiceNotSupported)
-			}
-		}.then { connection -> VaultUnlocking in
-			guard let connection = connection else {
-				throw UnlockVaultViewModelError.connectionIsNil
-			}
-			connection.remoteObjectInterface = NSXPCInterface(with: VaultUnlocking.self)
-			connection.resume()
-			let rawProxy = connection.remoteObjectProxyWithErrorHandler { errorAccessingRemoteObject in
-				DDLogError("remoteObjectProxyWithErrorHandler failed with: \(errorAccessingRemoteObject)")
-			}
-			guard let proxy = rawProxy as? VaultUnlocking else {
-				throw UnlockVaultViewModelError.rawProxyCastingFailed
-			}
-			return proxy
 		}
 	}
 

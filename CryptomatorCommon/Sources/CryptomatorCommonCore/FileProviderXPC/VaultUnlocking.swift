@@ -1,6 +1,6 @@
 //
 //  VaultUnlocking.swift
-//  CryptomatorFileProvider
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 02.07.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.

@@ -8,6 +8,7 @@
 
 import CryptomatorCommonCore
 import Foundation
+import Promises
 
 protocol ListViewModel {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
@@ -17,6 +18,8 @@ protocol ListViewModel {
 
 protocol VaultListViewModelProtocol: ListViewModel {
 	var vaults: [VaultInfo] { get }
+	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void>
+	func refreshVaultLockStates() -> Promise<Void>
 }
 
 protocol AccountListViewModelProtocol: ListViewModel {

@@ -70,13 +70,13 @@ class UnlockVaultViewController: UITableViewController {
 
 	private func biometricalUnlock() {
 		viewModel.biometricalUnlock().then { [weak self] in
-			self?.coordinator?.unlocked()
+			self?.coordinator?.done()
 		}
 	}
 
 	@objc func unlock() {
 		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then { [weak self] in
-			self?.coordinator?.unlocked()
+			self?.coordinator?.done()
 		}.catch { [weak self] error in
 			guard let self = self else { return }
 			switch error {

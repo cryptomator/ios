@@ -253,6 +253,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
 		serviceSources.append(VaultUnlockingServiceSource(fileprovider: self))
+		serviceSources.append(VaultLockingServiceSource())
 		return serviceSources
 	}
 

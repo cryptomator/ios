@@ -11,21 +11,24 @@ import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
 import GRDB
+import Promises
 
 class VaultListViewModel: VaultListViewModelProtocol {
 	var vaults = [VaultInfo]()
 
 	private let dbManager: DatabaseManager
 	private let vaultManager: VaultDBManager
+	private let fileProviderConnector: FileProviderConnector
 	private var observation: TransactionObserver?
 
 	convenience init() {
-		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared)
+		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared)
 	}
 
-	init(dbManager: DatabaseManager, vaultManager: VaultDBManager) {
+	init(dbManager: DatabaseManager, vaultManager: VaultDBManager, fileProviderConnector: FileProviderConnector) {
 		self.dbManager = dbManager
 		self.vaultManager = vaultManager
+		self.fileProviderConnector = fileProviderConnector
 	}
 
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
@@ -33,6 +36,9 @@ class VaultListViewModel: VaultListViewModelProtocol {
 			do {
 				try self.refreshItems()
 				onChange()
+				self.refreshVaultLockStates().then {
+					onChange()
+				}
 			} catch {
 				onError(error)
 			}
@@ -56,6 +62,30 @@ class VaultListViewModel: VaultListViewModelProtocol {
 			DDLogError("VaultListViewModel: remove row failed with error: \(error)")
 		}
 		try updateVaultListPositions()
+	}
+
+	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
+		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
+		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getProxyPromise.then { proxy in
+			proxy.lockVault(domainIdentifier: domainIdentifier)
+		}.then {
+			vaultInfo.vaultIsUnlocked = false
+		}
+	}
+
+	func refreshVaultLockStates() -> Promise<Void> {
+		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domain: nil)
+		return getProxyPromise.then { proxy in
+			return wrap { handler in
+				proxy.getUnlockedVaultDomainIdentifiers(reply: handler)
+			}
+		}.then { unlockedVaultDomainIdentifiers in
+			unlockedVaultDomainIdentifiers.forEach { domainIdentifier in
+				let vaultInfo = self.vaults.first { $0.vaultUID == domainIdentifier.rawValue }
+				vaultInfo?.vaultIsUnlocked = true
+			}
+		}
 	}
 
 	private func updateVaultListPositions() throws {
