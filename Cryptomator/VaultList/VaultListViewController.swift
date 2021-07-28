@@ -15,6 +15,7 @@ class VaultListViewController: UITableViewController {
 
 	private let viewModel: VaultListViewModelProtocol
 	private let header = EditableTableViewHeader(title: NSLocalizedString("vaultList.header.title", comment: ""))
+	private var observer: NSObjectProtocol?
 
 	init(with viewModel: VaultListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -54,6 +55,12 @@ class VaultListViewController: UITableViewController {
 				self.tableView.backgroundView = nil
 				self.tableView.separatorStyle = .singleLine
 				self.tableView.contentInsetAdjustmentBehavior = .automatic
+			}
+		}
+
+		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+			self?.viewModel.refreshVaultLockStates().then {
+				self?.tableView.reloadData()
 			}
 		}
 	}
@@ -96,6 +103,19 @@ class VaultListViewController: UITableViewController {
 			cell.setNeedsUpdateConfiguration()
 		} else {
 			cell.configure(with: vault)
+		}
+		cell.isUnlocked = vault.vaultIsUnlocked
+		cell.lockButton.primaryAction = { [weak self] _ in
+			self?.viewModel.lockVault(vault).then {
+				let feedBackGenerator = UINotificationFeedbackGenerator()
+				feedBackGenerator.notificationOccurred(.success)
+				self?.tableView.reloadData()
+			}.catch { error in
+				guard let self = self else {
+					return
+				}
+				self.coordinator?.handleError(error, for: self)
+			}
 		}
 		return cell
 	}
@@ -144,6 +164,7 @@ class VaultListViewController: UITableViewController {
 
 #if DEBUG
 import CryptomatorCloudAccessCore
+import Promises
 import SwiftUI
 
 private class VaultListViewModelMock: VaultListViewModelProtocol {
@@ -156,6 +177,13 @@ private class VaultListViewModelMock: VaultListViewModelProtocol {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {}
 	func removeRow(at index: Int) throws {}
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}
+	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
+		return Promise(())
+	}
+
+	func refreshVaultLockStates() -> Promise<Void> {
+		return Promise(())
+	}
 }
 
 struct VaultListVCPreview: PreviewProvider {

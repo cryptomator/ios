@@ -105,6 +105,7 @@
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
 		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
 		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
+		4A79E26926B16993008C9959 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A79E26826B16993008C9959 /* ActionButton.swift */; };
 		4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */; };
 		4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */; };
 		4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */; };
@@ -412,6 +413,7 @@
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
+		4A79E26826B16993008C9959 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
 		4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
 		4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 		4A8195E325ADB92600F7DDA1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				4A79E26826B16993008C9959 /* ActionButton.swift */,
 				4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */,
 				4A644B56267C958F008CBB9A /* ChildCoordinator.swift */,
 				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
@@ -1592,6 +1595,7 @@
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
+				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
 				4A644B4D267B55E4008CBB9A /* CreateNewVaultCoordinator.swift in Sources */,

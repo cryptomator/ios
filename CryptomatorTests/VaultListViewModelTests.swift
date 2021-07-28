@@ -21,6 +21,7 @@ class VaultListViewModelTests: XCTestCase {
 	private var vaultAccountManagerMock: VaultAccountManagerMock!
 	private var passwordManager: VaultPasswordKeychainManager!
 	private var vaultCacheMock: VaultCacheMock!
+	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
@@ -33,6 +34,7 @@ class VaultListViewModelTests: XCTestCase {
 		passwordManager = VaultPasswordKeychainManager()
 		vaultCacheMock = VaultCacheMock()
 		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManager)
+		fileProviderConnectorMock = FileProviderConnectorMock()
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
 
@@ -44,7 +46,7 @@ class VaultListViewModelTests: XCTestCase {
 
 	func testRefreshVaultsIsSorted() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		XCTAssert(vaultListViewModel.vaults.isEmpty)
 		try vaultListViewModel.refreshItems()
 		XCTAssertEqual(2, vaultListViewModel.vaults.count)
@@ -57,7 +59,7 @@ class VaultListViewModelTests: XCTestCase {
 
 	func testMoveRow() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
@@ -81,7 +83,7 @@ class VaultListViewModelTests: XCTestCase {
 		try passwordManager.setPassword("pw", forVaultUID: "vault2")
 
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
 		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
@@ -102,6 +104,61 @@ class VaultListViewModelTests: XCTestCase {
 				return
 			}
 		}
+	}
+
+	func testLockVault() throws {
+		let expectation = XCTestExpectation()
+		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		let vaultInfo = VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault1", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vault1"),
+		                          cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
+		                          vaultListPosition: VaultListPosition(position: 1, vaultUID: "vault1"))
+		let vaultLockingMock = VaultLockingMock()
+		fileProviderConnectorMock.proxy = vaultLockingMock
+		vaultListViewModel.lockVault(vaultInfo).then {
+			XCTAssertEqual(NSFileProviderDomainIdentifier("vault1"), self.fileProviderConnectorMock.passedDomainIdentifier)
+			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
+
+			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier("vault1")))
+
+			XCTAssertEqual(0, vaultLockingMock.unlockedVaults.count)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testRefreshVaultLockedStates() throws {
+		let expectation = XCTestExpectation()
+		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
+		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		try vaultListViewModel.refreshItems()
+
+		XCTAssertTrue(vaultListViewModel.vaults.allSatisfy({ !$0.vaultIsUnlocked }))
+
+		let vaultLockingMock = VaultLockingMock()
+		fileProviderConnectorMock.proxy = vaultLockingMock
+
+		// Simulate an unlocked vault
+		vaultLockingMock.unlockedVaults.append(NSFileProviderDomainIdentifier("vault1"))
+
+		vaultListViewModel.refreshVaultLockStates().then {
+			XCTAssertNil(self.fileProviderConnectorMock.passedDomain)
+			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
+
+			XCTAssertEqual(1, vaultLockingMock.unlockedVaults.count)
+			let unlockedVaults = vaultListViewModel.vaults.filter({ $0.vaultIsUnlocked })
+			XCTAssertEqual(1, unlockedVaults.count)
+			XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
 	}
 }
 
@@ -168,5 +225,54 @@ class VaultCacheMock: VaultCache {
 
 	func invalidate(vaultUID: String) throws {
 		invalidatedVaults.append(vaultUID)
+	}
+}
+
+private class VaultLockingMock: VaultLocking {
+	var lockedVaults = [NSFileProviderDomainIdentifier]()
+	var unlockedVaults = [NSFileProviderDomainIdentifier]()
+
+	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
+		lockedVaults.append(domainIdentifier)
+	}
+
+	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
+		reply(unlockedVaults.contains(domainIdentifier))
+	}
+
+	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
+		reply(unlockedVaults)
+	}
+
+	let serviceName = NSFileProviderServiceName("org.cryptomator.ios.vault-locking")
+
+	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
+		throw MockError.notMocked
+	}
+}
+
+private class FileProviderConnectorMock: FileProviderConnector {
+	var proxy: Any?
+	var passedServiceName: NSFileProviderServiceName?
+	var passedDomainIdentifier: NSFileProviderDomainIdentifier?
+	var passedDomain: NSFileProviderDomain?
+
+	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
+		passedServiceName = serviceName
+		passedDomainIdentifier = domainIdentifier
+		return getCastedProxy()
+	}
+
+	func getProxy<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<T> {
+		passedServiceName = serviceName
+		passedDomain = domain
+		return getCastedProxy()
+	}
+
+	private func getCastedProxy<T>() -> Promise<T> {
+		guard let castedProxy = proxy as? T else {
+			return Promise(FileProviderXPCConnectorError.typeMismatch)
+		}
+		return Promise(castedProxy)
 	}
 }
