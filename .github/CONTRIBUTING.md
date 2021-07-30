@@ -2,8 +2,8 @@
 
 ## Did you find a bug?
 
-- Ensure the bug was not [already reported](https://github.com/cryptomator/ios/issues).
-- If you're unable to find an open issue addressing the problem, [submit a new one](https://github.com/cryptomator/ios/issues/new).
+- Ensure the bug was not [already reported](https://github.com/cryptomator/ios/issues?q=).
+- If you're unable to find an open issue addressing the problem, [submit a new one](https://github.com/cryptomator/ios/issues/new/choose).
 
 ## Did you write a patch that fixes a bug?
 
@@ -12,7 +12,7 @@
 
 ## Do you intend to add a new feature or change an existing one?
 
-- Suggest your change by [submitting a new issue](https://github.com/cryptomator/ios/issues/new) and start writing code.
+- Suggest your change by [submitting a new issue](https://github.com/cryptomator/ios/issues/new/choose) and start writing code.
 
 ## Code of Conduct
 
