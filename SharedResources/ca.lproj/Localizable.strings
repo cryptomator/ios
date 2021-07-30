@@ -7,65 +7,65 @@
 
 "common.button.cancel" = "Cancel·la";
 "common.button.choose" = "Trieu";
-"common.button.confirm" = "Confirm";
+"common.button.confirm" = "Confirma";
 "common.button.create" = "Crear";
-"common.button.createFolder" = "Create Folder";
+"common.button.createFolder" = "Crea una carpeta";
 "common.button.done" = "Fet";
 "common.button.edit" = "Editar";
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
 "common.button.remove" = "Elimina";
-"common.button.signOut" = "Sign Out";
+"common.button.signOut" = "Tanca la sessió";
 "common.cells.password" = "Contrasenya";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'usuari";
 "common.cloudProviderType.localFileSystem" = "Other File Provider";
 "common.error.alert.title" = "Error";
-"common.footer.learnMore" = "Learn more.";
+"common.footer.learnMore" = "Més informació.";
 
-"accountList.header.title" = "Authentications";
+"accountList.header.title" = "Autenticacions";
 "accountList.emptyList.message" = "Tap here to add an account";
 "accountList.signOut.alert.title" = "Remove Associated Vaults?";
 "accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "Afegir una caixa forta";
 "addVault.createNewVault.title" = "Crea una caixa forta nova";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
+"addVault.createNewVault.setVaultName.header.title" = "Trieu el nom de la caixa forta.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom de la caixa forta";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "El nom de la caixa forta no hauria de contenir \\ / : * ? \" < > | ni acabar amb un punt.";
 "addVault.createNewVault.chooseCloud.header" = "On deu emmagatzemar Cryptomator els fitxers xifrats de la vostra caixa forta?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.enterPassword.header" = "Introduïu una nova contrasenya.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirma la nova contrasenya.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmeu la contrasenya?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ALERTA: Si oblideu la contrasenya no hi haurà manera de recuperar les dades.";
+"addVault.createNewVault.password.error.emptyPassword" = "La contrasenya no es pot deixar en blanc.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Les contrasenyes no coincideixen.";
+"addVault.createNewVault.password.error.tooShortPassword" = "La contrasenya ha de tenir, si més no, 8 caràcters.";
 "addVault.openExistingVault.title" = "Obri una caixa forta existent";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
-"addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
+"addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya de \"%@\"";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.openFilesApp" = "Open Files App";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
-"chooseFolder.emptyFolder.footer" = "Folder is Empty";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.emptyFolder.footer" = "La carpeta és buida";
+"chooseFolder.createNewFolder.header.title" = "Trieu el nom de la carpeta.";
+"chooseFolder.createNewFolder.cells.name" = "Nom de la carpeta";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "No es pot deixar buit el nom de la carpeta.";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
 "cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
+"cloudProvider.error.quotaInsufficient" = "No hi ha prou espai d'emmagatzematge.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
@@ -74,13 +74,13 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
-"onboarding.title" = "Welcome";
+"onboarding.title" = "Us donem la benvinguda";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
-"onboarding.openCryptomator.button" = "Open Cryptomator";
+"onboarding.openCryptomator.button" = "Obre Cryptomator";
 
 "settings.title" = "Configuració";
-"settings.aboutCryptomator" = "About Cryptomator";
-"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator" = "Quant a Cryptomator";
+"settings.aboutCryptomator.title" = "Versió %@ (%@)";
 "settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Desbloqueja";
