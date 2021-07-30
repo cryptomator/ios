@@ -63,16 +63,16 @@
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" obsahuje neočakávaný typ položiek.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Nadradený adresár \"%@\" neexistuje.";
 "cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.quotaInsufficient" = "Váše úložisko má nedostatok miesta.";
+"cloudProvider.error.unauthorized" = "Nie je možné vykonať neautorizovanú operáciu.";
+"cloudProvider.error.noInternetConnection" = "Internetové pripojenie je potrebné k tejto operácii.";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Trezor už existuje na tomto úložisku. Prosím skúste znovu s iným dátovým úložiskom.";
 "localFileSystemAuthentication.openExistingVault.header" = "V nasledujúcej obrazovke zvoľte adresár Vášho existujúceho trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Zvolený adresár nie je trezor. Prosím skúste znovu s iným adresárom.";
 
 "onboarding.title" = "Vitajte";
 "onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator pre ochranu Vašich súborov. Pre začatie choďte do hlavnej aplikácie a pridajte trezor.";
