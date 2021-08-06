@@ -12,6 +12,7 @@ public protocol VaultPasswordManager {
 	func setPassword(_ password: String, forVaultUID vaultUID: String) throws
 	func getPassword(forVaultUID vaultUID: String) throws -> String
 	func removePassword(forVaultUID vaultUID: String) throws
+	func hasPassword(forVaultUID vaultUID: String) throws -> Bool
 }
 
 public enum VaultPasswordManagerError: Error {
