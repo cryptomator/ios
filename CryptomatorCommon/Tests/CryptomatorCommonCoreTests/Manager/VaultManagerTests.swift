@@ -369,6 +369,10 @@ class VaultPasswordManagerMock: VaultPasswordManager {
 	func removePassword(forVaultUID vaultUID: String) throws {
 		removedPasswords.append(vaultUID)
 	}
+
+	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
+		return false
+	}
 }
 
 class VaultCacheMock: VaultCache {
