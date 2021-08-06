@@ -16,11 +16,6 @@ class SwitchCell: TableViewCell {
 		accessoryView = switchControl
 	}
 
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
 	override func configure(with viewModel: TableViewCellViewModel) {
 		super.configure(with: viewModel)
 		guard let switchCellViewModel = viewModel as? SwitchCellViewModel else {
