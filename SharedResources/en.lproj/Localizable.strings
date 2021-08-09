@@ -21,7 +21,9 @@
 "common.cells.username" = "Username";
 "common.cloudProviderType.localFileSystem" = "Other File Provider";
 "common.error.alert.title" = "Error";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Learn more.";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -105,7 +107,6 @@
 "vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
 "vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
 "vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Tap here to add a vault";

@@ -203,9 +203,9 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private func getName(for biometryType: LABiometryType) -> String? {
 		switch biometryType {
 		case .faceID:
-			return "Face ID"
+			return NSLocalizedString("common.faceID", comment: "")
 		case .touchID:
-			return "Touch ID"
+			return NSLocalizedString("common.touchID", comment: "")
 		default:
 			return nil
 		}
