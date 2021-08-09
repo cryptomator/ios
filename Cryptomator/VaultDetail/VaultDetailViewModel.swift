@@ -83,7 +83,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private var lockSectionCells: [TableViewCellViewModel] {
-		if canEvaluatePolicy, let biometryTypeName = getName(for: context.biometryType) {
+		if let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
 			let switchCellViewModel = getSwitchCellViewModel(biometryTypeName: biometryTypeName)
 			return [
 				lockButton,
@@ -107,16 +107,6 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}
 
-	private lazy var canEvaluatePolicy: Bool = {
-		var error: NSError?
-		if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-			return true
-		} else {
-			DDLogError("VaultDetailViewModel - Can not evaluate policy due to error: \(error?.description ?? "")")
-			return false
-		}
-	}()
-
 	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = {
 		[.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
 		 .lockingSection: unlockSectionFooterViewModel,
@@ -124,11 +114,11 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}()
 
 	private lazy var unlockSectionFooterViewModel: UnlockSectionFooterViewModel = {
-		let viewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: getName(for: context.biometryType))
+		let viewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
 
 		// Binding
 		lockButton.isEnabled.$value.assign(to: \.vaultUnlocked, on: viewModel).store(in: &subscribers)
-		switchCellViewModel?.$isOn.assign(to: \.biometricalUnlockEnabled, on: viewModel).store(in: &subscribers)
+		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: viewModel).store(in: &subscribers)
 
 		return viewModel
 	}()
@@ -189,7 +179,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	func refreshVaultStatus() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
 		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		switchCellViewModel?.isOn = biometricalUnlockEnabled
+		switchCellViewModel?.isOn.value = biometricalUnlockEnabled
 		return getProxyPromise.then { proxy in
 			return wrap { handler in
 				proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: handler)
@@ -200,20 +190,9 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}
 
-	private func getName(for biometryType: LABiometryType) -> String? {
-		switch biometryType {
-		case .faceID:
-			return NSLocalizedString("common.faceID", comment: "")
-		case .touchID:
-			return NSLocalizedString("common.touchID", comment: "")
-		default:
-			return nil
-		}
-	}
-
 	private func getSwitchCellViewModel(biometryTypeName: String) -> SwitchCellViewModel {
 		if let switchCellViewModel = self.switchCellViewModel {
-			switchCellViewModel.isOn = biometricalUnlockEnabled
+			switchCellViewModel.isOn.value = biometricalUnlockEnabled
 			return switchCellViewModel
 		}
 		let viewModel = SwitchCellViewModel(title: biometryTypeName, titleTextColor: nil, isOn: biometricalUnlockEnabled)

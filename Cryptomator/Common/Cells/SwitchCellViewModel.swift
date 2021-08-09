@@ -16,7 +16,7 @@ class SwitchCellViewModel: TableViewCellViewModel {
 
 	let title: Bindable<String?>
 	let titleTextColor: Bindable<UIColor?>
-	@Published var isOn: Bool = false
+	let isOn: Bindable<Bool>
 	var isOnButtonPublisher: PassthroughSubject<Bool, Never>
 
 	let detailTitle: Bindable<String?> = Bindable(nil)
@@ -29,7 +29,7 @@ class SwitchCellViewModel: TableViewCellViewModel {
 	init(title: String, titleTextColor: UIColor? = nil, isOn: Bool = false) {
 		self.title = Bindable(title)
 		self.titleTextColor = Bindable(titleTextColor)
-		self.isOn = isOn
+		self.isOn = Bindable(isOn)
 		self.isOnButtonPublisher = PassthroughSubject()
 	}
 }

@@ -25,10 +25,11 @@ class SwitchCell: TableViewCell {
 	}
 
 	private func twoWayBinding(viewModel: SwitchCellViewModel) {
-		viewModel.$isOn.receive(on: DispatchQueue.main).assign(to: \.isOn, on: switchControl).store(in: &subscribers)
+		viewModel.isOn.$value.receive(on: DispatchQueue.main).assign(to: \.isOn, on: switchControl).store(in: &subscribers)
 		switchControl.publisher(for: .valueChanged)
 			.sink(receiveValue: {
 				viewModel.isOnButtonPublisher.send($0)
+				viewModel.isOn.value = $0
 			}).store(in: &subscribers)
 	}
 }
