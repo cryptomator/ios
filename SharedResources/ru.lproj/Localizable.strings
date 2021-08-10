@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Заблокировать";
+"vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
+"vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
+"vaultDetail.info.footer.accountInfo" = "Вы вошли как %@ через %@.";
+"vaultDetail.locked.footer" = "Хранилище сейчас заблокировано.";
+"vaultDetail.removeVault.footer" = "Это только удалит хранилище из списка, но не удалит зашифрованные файлы.";
+"vaultDetail.unlocked.footer" = "Сейчас хранилище разблокировано в приложении \"Файлы\".";
+"vaultDetail.unlockVault.footer" = "Введите пароль для \"%@\", чтобы сохранить его в Связке ключей iOS и включить %@.";
 
 "vaultList.header.title" = "Хранилища";
 "vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
