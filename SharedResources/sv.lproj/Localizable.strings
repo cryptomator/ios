@@ -21,7 +21,9 @@
 "common.cells.username" = "Användarnamn";
 "common.cloudProviderType.localFileSystem" = "Annan filleverantör";
 "common.error.alert.title" = "Fel";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Läs mer.";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -83,14 +85,35 @@
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.sendLogFile" = "Skicka loggfil";
 
+"unlockVault.button.unlock" = "Lås upp";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "Ange lösenord för \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "Ogiltigt certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Ange som betrott";
 "untrustedTLSCertificate.dismiss" = "Lita inte på";
 
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+
 "vaultList.header.title" = "Valv";
 "vaultList.emptyList.message" = "Klicka här för att lägga till valv";
 "vaultList.remove.alert.title" = "Ta bort valv?";
 "vaultList.remove.alert.message" = "Detta kommer bara att ta bort valvet från valvlistan. Inga krypterade data kommer att raderas. Du kan lägga till valvet igen senare.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";

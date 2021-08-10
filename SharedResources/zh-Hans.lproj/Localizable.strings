@@ -21,10 +21,12 @@
 "common.cells.username" = "用户名";
 "common.cloudProviderType.localFileSystem" = "其他文件提供商";
 "common.error.alert.title" = "错误";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "了解更多";
+"common.touchID" = "Touch ID";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.header.title" = "身份验证";
+"accountList.emptyList.message" = "点击此处添加保险库";
 "accountList.signOut.alert.title" = "移除关联的保险库吗？";
 "accountList.signOut.alert.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
@@ -33,17 +35,17 @@
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称.";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "保险库名称不应包含 \\ / : * ? \" < > | 或以一个时间段结尾";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库\n若想创建一个新的保险库，请返回并选择其他路径";
 "addVault.createNewVault.password.enterPassword.header" = "输入新密码.";
 "addVault.createNewVault.password.confirmPassword.header" = "确认新密码.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.emptyPassword" = "密码不能为空";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "密码不匹配";
+"addVault.createNewVault.password.error.tooShortPassword" = "密码必须至少包含 8 个字符";
 "addVault.openExistingVault.title" = "打开现有的保险库";
 "addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"\n您想要添加它吗？";
@@ -56,23 +58,23 @@
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.itemNotFound" = "找不到 %@\"";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型";
+"cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在";
+"cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容";
+"cloudProvider.error.quotaInsufficient" = "您的存储空间不足";
+"cloudProvider.error.unauthorized" = "无法执行未经授权的操作";
+"cloudProvider.error.noInternetConnection" = "此操作需要网络连接";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试";
 "localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次";
 
 "onboarding.title" = "欢迎使用";
 "onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧";
@@ -83,14 +85,35 @@
 "settings.aboutCryptomator.title" = "版本 %@ (%@)";
 "settings.sendLogFile" = "发送日志文件";
 
+"unlockVault.button.unlock" = "解锁";
+"unlockVault.button.unlockVia" = "通过 %@ 解锁";
+"unlockVault.password.footer" = "输入 \"%@\" 的密码";
+"unlockVault.enableBiometricalUnlock.switch" = "启用 %@";
+"unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库";
+"unlockVault.evaluatePolicy.reason" = "解锁保险库";
+
 "untrustedTLSCertificate.title" = "TLS 证书无效";
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";
 "vaultList.remove.alert.title" = "删除保险库?";
 "vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的";
 
 "webDAVAuthentication.title" = "WebDAV";

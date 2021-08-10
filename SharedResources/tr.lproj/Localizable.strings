@@ -10,9 +10,9 @@
 "common.button.confirm" = "Onayla";
 "common.button.create" = "Oluştur";
 "common.button.createFolder" = "Klasör Oluştur";
-"common.button.done" = "Bitti";
+"common.button.done" = "Tamam";
 "common.button.edit" = "Düzenle";
-"common.button.next" = "İleri";
+"common.button.next" = "Sonraki";
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
 "common.button.signOut" = "Çıkış Yap";
@@ -21,7 +21,9 @@
 "common.cells.username" = "Kullanıcı adı";
 "common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 "common.error.alert.title" = "Hata";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Kimlik Doğrulaması";
 "accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
@@ -83,14 +85,35 @@
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
+"unlockVault.button.unlock" = "Kilidi Aç";
+"unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
+"unlockVault.password.footer" = "\"%@\" için şifre girin";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
+"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
+"unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
+
 "untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
 
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
 "vaultList.remove.alert.title" = "Kasa Silinsin mi?";
 "vaultList.remove.alert.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Kasa yapılandırması desteklenmiyor. Cryptomator'ın en son sürümünü kullandığınızdan lütfen emin olun.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Kasa sürümü desteklenmiyor. Bu kasa, Cryptomator'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.";
 
 "webDAVAuthentication.title" = "WebDAV";
