@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Jetzt sperren";
+"vaultDetail.button.removeVault" = "Aus der Tresor-Liste entfernen";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Wenn du %@ aktivierst, wird dein Tresor-Passwort im iOS-Schlüsselbund gespeichert.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";
+"vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
+"vaultDetail.info.footer.accountInfo" = "Eingeloggt als %@ über %@.";
+"vaultDetail.locked.footer" = "Dein Tresor ist zurzeit gesperrt.";
+"vaultDetail.removeVault.footer" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt und keine verschlüsselten Daten gelöscht.";
+"vaultDetail.unlocked.footer" = "Dein Tresor ist in der App „Dateien“ zurzeit entsperrt.";
+"vaultDetail.unlockVault.footer" = "Gib das Passwort für „%@“ ein, um es im iOS-Schlüsselbund zu speichern und %@ zu aktivieren.";
 
 "vaultList.header.title" = "Tresore";
 "vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
