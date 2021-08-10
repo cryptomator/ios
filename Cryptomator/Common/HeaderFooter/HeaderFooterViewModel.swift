@@ -14,6 +14,7 @@ protocol HeaderFooterViewModel {
 
 protocol HeaderFooterViewModelConfiguring: UIView {
 	func configure(with viewModel: HeaderFooterViewModel)
+	var tableView: UITableView? { get set }
 }
 
 class BaseHeaderFooterViewModel: HeaderFooterViewModel {

@@ -22,15 +22,18 @@ class AttributedTextHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterV
 		return textView
 	}()
 
+	weak var tableView: UITableView?
+
 	init() {
 		super.init(reuseIdentifier: nil)
+
 		textView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(textView)
+		contentView.addSubview(textView)
 		NSLayoutConstraint.activate([
-			textView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			textView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			textView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+			textView.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+			textView.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
+			textView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			textView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 		// Bind to own textLabel as the text color and font are set automatically by the UITableView later and there is no other way to access these internal values.
 		textLabel?.publisher(for: \.textColor).sink(receiveValue: { [weak self] textColor in
@@ -51,9 +54,13 @@ class AttributedTextHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterV
 			return
 		}
 		viewModel.attributedText.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] attributedText in
+			UIView.setAnimationsEnabled(false)
+			self?.tableView?.beginUpdates()
 			self?.textView.attributedText = attributedText
 			self?.textView.font = self?.textLabel?.font
 			self?.textView.textColor = self?.textLabel?.textColor
+			self?.tableView?.endUpdates()
+			UIView.setAnimationsEnabled(true)
 		}).store(in: &subscriber)
 	}
 }

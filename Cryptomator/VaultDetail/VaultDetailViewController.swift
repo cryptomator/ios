@@ -128,6 +128,7 @@ class VaultDetailViewController: UITableViewController {
 		}
 		let footerView = footerViewModel.viewType.init()
 		footerView.configure(with: footerViewModel)
+		footerView.tableView = tableView
 		return footerView
 	}
 }

@@ -9,6 +9,8 @@
 import Combine
 import UIKit
 class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelConfiguring {
+	weak var tableView: UITableView?
+
 	var subscriber: AnyCancellable?
 
 	func configure(with viewModel: HeaderFooterViewModel) {
