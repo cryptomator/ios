@@ -21,7 +21,9 @@
 "common.cells.username" = "Usuário";
 "common.cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
 "common.error.alert.title" = "Erro";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Saiba mais.";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -94,6 +96,17 @@
 "untrustedTLSCertificate.message" = "O certificado TLS de \"%@\" é inválido. Você quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
