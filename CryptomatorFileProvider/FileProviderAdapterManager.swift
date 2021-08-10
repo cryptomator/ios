@@ -42,7 +42,6 @@ public enum FileProviderAdapterManager {
 		queue.sync(flags: .barrier) {
 			cachedAdapters[domain.identifier] = adapter
 		}
-		semaphore.signal()
 	}
 
 	public static func lockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
@@ -74,7 +73,7 @@ public class BiometricalUnlockSemaphore {
 		}
 	}
 
-	func signal() {
+	public func signal() {
 		semaphore.signal()
 		runningBiometricalUnlock = false
 	}

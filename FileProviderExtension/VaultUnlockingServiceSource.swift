@@ -12,14 +12,6 @@ import FileProvider
 import Foundation
 
 class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultUnlocking, NSXPCListenerDelegate {
-	func startBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
-	}
-
-	func endBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = false
-	}
-
 	var serviceName: NSFileProviderServiceName {
 		VaultUnlockingService.name
 	}
@@ -65,5 +57,13 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 				reply(error)
 			}
 		}
+	}
+
+	func startBiometricalUnlock() {
+		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
+	}
+
+	func endBiometricalUnlock() {
+		FileProviderAdapterManager.semaphore.signal()
 	}
 }
