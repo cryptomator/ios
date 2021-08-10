@@ -21,7 +21,9 @@
 "common.cells.username" = "Логин";
 "common.cloudProviderType.localFileSystem" = "Другой файл-провайдер";
 "common.error.alert.title" = "Ошибка";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Подробнее";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Аутентификации";
 "accountList.emptyList.message" = "Нажмите, чтобы добавить аккаунт";
@@ -94,6 +96,17 @@
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
+
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
 
 "vaultList.header.title" = "Хранилища";
 "vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
