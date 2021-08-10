@@ -34,8 +34,8 @@ class TableViewCell: UITableViewCell {
 		viewModel.detailTitleTextColor.$value.assign(to: \.textColor, on: detailTextLabel).store(in: &subscribers)
 
 		viewModel.image.$value.assign(to: \.image, on: imageView).store(in: &subscribers)
-
 		viewModel.isEnabled.$value.assign(to: \.isUserInteractionEnabled, on: self).store(in: &subscribers)
+		viewModel.selectionStyle.$value.assign(to: \.selectionStyle, on: self).store(in: &subscribers)
 		viewModel.isEnabled.$value.sink(receiveValue: { [weak self] isEnabled in
 			self?.textLabel?.textColor = isEnabled ? viewModel.titleTextColor.value : .label
 			self?.contentView.alpha = isEnabled ? 1.0 : 0.25

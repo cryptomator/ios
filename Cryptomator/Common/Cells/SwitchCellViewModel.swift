@@ -23,6 +23,9 @@ class SwitchCellViewModel: TableViewCellViewModel {
 	let detailTitleTextColor: Bindable<UIColor?> = Bindable(nil)
 	let image: Bindable<UIImage?> = Bindable(nil)
 	let isEnabled: Bindable<Bool> = Bindable(true)
+	var selectionStyle: Bindable<UITableViewCell.SelectionStyle> {
+		return Bindable(.none)
+	}
 
 	private var subscriber: AnyCancellable?
 

@@ -15,6 +15,7 @@ protocol TableViewCellViewModel: AnyObject {
 	var detailTitleTextColor: Bindable<UIColor?> { get }
 	var image: Bindable<UIImage?> { get }
 	var isEnabled: Bindable<Bool> { get }
+	var selectionStyle: Bindable<UITableViewCell.SelectionStyle> { get }
 }
 
 class DefaultTableCellViewModel: TableViewCellViewModel {
@@ -28,13 +29,15 @@ class DefaultTableCellViewModel: TableViewCellViewModel {
 	var detailTitleTextColor: Bindable<UIColor?>
 	var image: Bindable<UIImage?>
 	var isEnabled: Bindable<Bool>
+	let selectionStyle: Bindable<UITableViewCell.SelectionStyle>
 
-	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = nil, image: UIImage? = nil, isEnabled: Bool = true) {
+	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = nil, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default) {
 		self.title = Bindable(title)
 		self.titleTextColor = Bindable(titleTextColor)
 		self.detailTitle = Bindable(detailTitle)
 		self.detailTitleTextColor = Bindable(detailTitleTextColor)
 		self.image = Bindable(image)
 		self.isEnabled = Bindable(isEnabled)
+		self.selectionStyle = Bindable(selectionStyle)
 	}
 }

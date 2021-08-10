@@ -18,13 +18,15 @@ class ButtonCellViewModel<T>: TableViewCellViewModel {
 	let detailTitle: Bindable<String?> = Bindable(nil)
 	let detailTitleTextColor: Bindable<UIColor?> = Bindable(nil)
 	let image: Bindable<UIImage?> = Bindable(nil)
-	let action: T
 	var isEnabled: Bindable<Bool>
+	let selectionStyle: Bindable<UITableViewCell.SelectionStyle>
 
-	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), isEnabled: Bool = true) {
+	let action: T
+	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default) {
 		self.action = action
 		self.title = Bindable(title)
 		self.titleTextColor = Bindable(titleTextColor)
 		self.isEnabled = Bindable(isEnabled)
+		self.selectionStyle = Bindable(selectionStyle)
 	}
 }

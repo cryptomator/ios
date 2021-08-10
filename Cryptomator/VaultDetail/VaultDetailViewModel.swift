@@ -74,7 +74,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
-				DefaultTableCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal)),
+				DefaultTableCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none),
 				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: NSLocalizedString("addVault.success.openFilesApp", comment: ""))
 			],
 			.lockingSection: lockSectionCells,
