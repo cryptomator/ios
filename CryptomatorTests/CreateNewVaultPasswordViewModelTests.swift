@@ -178,7 +178,7 @@ private class VaultManagerMock: VaultManager {
 		return Promise(())
 	}
 
-	func manualUnlockVault(withUID vaultUID: String, password: String) throws -> CloudProvider {
+	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
 		throw MockError.notMocked
 	}
 

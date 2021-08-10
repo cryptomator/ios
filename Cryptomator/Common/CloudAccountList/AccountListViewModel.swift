@@ -74,8 +74,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	private func createAccountCellContentPlaceholder(for credential: DropboxCredential) -> AccountCellContent {
-		let placeholder = "Loading..."
-		return AccountCellContent(mainLabelText: placeholder, detailLabelText: nil)
+		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
 	}
 
 	private func createAccountCellContent(for credential: GoogleDriveCredential) throws -> AccountCellContent {

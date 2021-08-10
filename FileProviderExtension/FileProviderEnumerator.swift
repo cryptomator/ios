@@ -33,6 +33,16 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		// TODO: perform invalidation of server connection if necessary
 	}
 
+	/**
+	 Since unexpected behavior can occur in combination with the FileProviderExtensionUI in the unauthenticated state, two special cases must be considered here:
+	 1. Biometric Unlock:
+	 Triggering the biometric unlock results in the FileProviderExtensionUI being closed too quickly, so that the FileProviderAdapter is not yet deposited and we would again report a notAuthenticated Error.
+	 This is fixed by using the BiometricalUnlockSemaphore so that the adapter is not retrieved too soon.
+
+	 2. Open in Files app:
+	 From time to time the FileProviderExtensionUI is dismissed directly, so the user only sees the password input for a short moment and has to trigger it manually again.
+	 This is fixed by notifying the Files App with a delay of 1s in case of an error. Apparently the Files app has problems with a too fast reporting of the notAuthenticated error.
+	 */
 	func enumerateItems(for observer: NSFileProviderEnumerationObserver, startingAt page: NSFileProviderPage) {
 		/* TODO:
 		 - inspect the page to determine whether this is an initial or a follow-up request
@@ -50,14 +60,25 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
-		FileProviderAdapterManager.getAdapter(for: domain, with: manager, dbPath: dbPath, delegate: localURLProvider, notificator: notificator).then { adapter in
-			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken)
-		}.then { itemList in
-			observer.didEnumerate(itemList.items)
-			observer.finishEnumerating(upTo: itemList.nextPageToken)
-		}.catch { error in
-			DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
-			observer.finishEnumeratingWithError(error)
+		DispatchQueue.global(qos: .userInitiated).async {
+			FileProviderAdapterManager.semaphore.wait()
+			let adapter: FileProviderAdapter
+			do {
+				adapter = try FileProviderAdapterManager.getAdapter(for: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
+			} catch {
+				DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+					let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
+					observer.finishEnumeratingWithError(wrappedError)
+				}
+				return
+			}
+			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
+				observer.didEnumerate(itemList.items)
+				observer.finishEnumerating(upTo: itemList.nextPageToken)
+			}.catch { error in
+				DDLogError("enumerateItems failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
+				observer.finishEnumeratingWithError(error)
+			}
 		}
 	}
 

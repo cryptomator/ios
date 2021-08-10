@@ -21,7 +21,9 @@
 "common.cells.username" = "Login";
 "common.cloudProviderType.localFileSystem" = "Inny dostawca";
 "common.error.alert.title" = "Błąd";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Więcej informacji.";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Uwierzytelnianie";
 "accountList.emptyList.message" = "Dotknij tutaj, aby dodać konto";
@@ -83,14 +85,35 @@
 "settings.aboutCryptomator.title" = "Wersja %@ (%@)";
 "settings.sendLogFile" = "Wyślij plik logów";
 
+"unlockVault.button.unlock" = "Odblokuj";
+"unlockVault.button.unlockVia" = "Odblokuj przez %@";
+"unlockVault.password.footer" = "Wprowadź hasło dla \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Włącz %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Zamiast hasłem możesz odblokować sejf za pomocą %@.";
+"unlockVault.evaluatePolicy.reason" = "Odblokuj swój sejf";
+
 "untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
 
+"vaultDetail.button.lock" = "Zablokuj";
+"vaultDetail.button.removeVault" = "Usuń z listy sejfów";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Jeśli włączysz %@, hasło sejfu będzie przechowywane w pęku kluczy iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";
+"vaultDetail.info.footer.accessVault" = "Uzyskaj dostęp do sejfu przez aplikację Pliki.";
+"vaultDetail.info.footer.accountInfo" = "Zalogowano jako %@ przez %@.";
+"vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
+"vaultDetail.removeVault.footer" = "Spowoduje to wyłącznie usunięcie sejfu z listy, zaszyfrowane pliki nie zostaną skasowane.";
+"vaultDetail.unlocked.footer" = "Twój sejf jest obecnie odblokowany w aplikacji Pliki.";
+"vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%@\", aby zapisać je w pęku kluczy iOS i aktywować %@.";
+
 "vaultList.header.title" = "Sejfy";
 "vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
 "vaultList.remove.alert.title" = "Usunąć sejf?";
 "vaultList.remove.alert.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracja sejfu jest nieobsługiwana. Upewnij się, że używasz najnowszej wersji Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";

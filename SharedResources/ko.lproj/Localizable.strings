@@ -21,7 +21,9 @@
 "common.cells.username" = "사용자명";
 "common.cloudProviderType.localFileSystem" = "다른 파일 앱";
 "common.error.alert.title" = "에러";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "자세히 알아보기";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -83,14 +85,35 @@
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
 "settings.sendLogFile" = "로그파일 전송";
 
+"unlockVault.button.unlock" = "잠금해제";
+"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요";
+"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
+"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+
 "untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
 "untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
 
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
 "vaultList.remove.alert.title" = "Vault 제거?";
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";

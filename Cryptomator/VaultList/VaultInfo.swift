@@ -11,10 +11,17 @@ import CryptomatorCommonCore
 import Foundation
 import GRDB
 
-public struct VaultInfo: Decodable, FetchableRecord {
+public class VaultInfo: Decodable, FetchableRecord {
 	let vaultAccount: VaultAccount
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var vaultListPosition: VaultListPosition
+	var vaultIsUnlocked = false
+
+	enum CodingKeys: String, CodingKey {
+		case vaultAccount
+		case cloudProviderAccount
+		case vaultListPosition
+	}
 
 	init(vaultAccount: VaultAccount, cloudProviderAccount: CloudProviderAccount, vaultListPosition: VaultListPosition) {
 		self.vaultAccount = vaultAccount

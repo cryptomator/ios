@@ -22,9 +22,13 @@ jobs:
           exit $?
       - name: Create CloudAccessSecrets
         run: ./create-cloud-access-secrets-file.sh
-      - name: Build and test CryptomatorCommonCore
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorCommonCore' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
-      - name: Build and test CryptomatorFileProvider
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'CryptomatorFileProvider' -destination 'name=iPhone 12 Pro' test | xcpretty
-      - name: Build and test Cryptomator
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'Cryptomator' -destination 'name=iPhone 12 Pro' test | xcpretty
+      - name: Build and test
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild -scheme 'AllTests' -destination 'name=iPhone 12 Pro' -enableCodeCoverage YES clean test | xcpretty
+      - name: Upload code coverage report
+        run: |
+          gem install slather
+          slather coverage -x -i '../../../Library/*' --scheme AllTests Cryptomator.xcodeproj
+          bash <(curl -Ls https://coverage.codacy.com/get.sh)
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        continue-on-error: true
