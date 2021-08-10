@@ -158,7 +158,7 @@ class VaultListViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		FilesAppUtil.showFilesApp(forVaultUID: viewModel.vaults[indexPath.row].vaultUID)
+		coordinator?.showVaultDetail(for: viewModel.vaults[indexPath.row])
 	}
 }
 
