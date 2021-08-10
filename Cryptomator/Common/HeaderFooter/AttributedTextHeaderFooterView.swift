@@ -55,11 +55,11 @@ class AttributedTextHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterV
 		}
 		viewModel.attributedText.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] attributedText in
 			UIView.setAnimationsEnabled(false)
-			self?.tableView?.beginUpdates()
-			self?.textView.attributedText = attributedText
-			self?.textView.font = self?.textLabel?.font
-			self?.textView.textColor = self?.textLabel?.textColor
-			self?.tableView?.endUpdates()
+			self?.tableView?.performBatchUpdates({
+				self?.textView.attributedText = attributedText
+				self?.textView.font = self?.textLabel?.font
+				self?.textView.textColor = self?.textLabel?.textColor
+			})
 			UIView.setAnimationsEnabled(true)
 		}).store(in: &subscriber)
 	}
