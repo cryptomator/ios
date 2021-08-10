@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "No confiar";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Bloquear ahora";
+"vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
+"vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
+"vaultDetail.info.footer.accountInfo" = "Sesión iniciada como %@ vía %@.";
+"vaultDetail.locked.footer" = "Su bóveda está bloqueada actualmente.";
+"vaultDetail.removeVault.footer" = "Esto solo eliminará la bóveda de la lista de bóvedas y no eliminará ningún archivo cifrado.";
+"vaultDetail.unlocked.footer" = "Su bóveda está actualmente desbloqueada en la aplicación Archivos.";
+"vaultDetail.unlockVault.footer" = "Ingrese la contraseña para \"%@\" para guardarla en el llavero de iOS y para habilitar %@.";
 
 "vaultList.header.title" = "Bóvedas";
 "vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
