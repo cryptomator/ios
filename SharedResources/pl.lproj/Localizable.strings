@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Zablokuj";
+"vaultDetail.button.removeVault" = "Usuń z listy sejfów";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Jeśli włączysz %@, hasło sejfu będzie przechowywane w pęku kluczy iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";
+"vaultDetail.info.footer.accessVault" = "Uzyskaj dostęp do sejfu przez aplikację Pliki.";
+"vaultDetail.info.footer.accountInfo" = "Zalogowano jako %@ przez %@.";
+"vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
+"vaultDetail.removeVault.footer" = "Spowoduje to wyłącznie usunięcie sejfu z listy, zaszyfrowane pliki nie zostaną skasowane.";
+"vaultDetail.unlocked.footer" = "Twój sejf jest obecnie odblokowany w aplikacji Pliki.";
+"vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%@\", aby zapisać je w pęku kluczy iOS i aktywować %@.";
 
 "vaultList.header.title" = "Sejfy";
 "vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
