@@ -21,7 +21,9 @@
 "common.cells.username" = "ユーザー名";
 "common.cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
 "common.error.alert.title" = "エラー";
+"common.faceID" = "Face ID";
 "common.footer.learnMore" = "さらに詳しく。";
+"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -94,6 +96,17 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
+
+"vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
+"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
