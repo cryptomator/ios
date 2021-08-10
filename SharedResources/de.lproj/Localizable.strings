@@ -98,7 +98,7 @@
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
 
 "vaultDetail.button.lock" = "Jetzt sperren";
-"vaultDetail.button.removeVault" = "Aus der Tresor-Liste entfernen";
+"vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Wenn du %@ aktivierst, wird dein Tresor-Passwort im iOS-Schlüsselbund gespeichert.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";
 "vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
