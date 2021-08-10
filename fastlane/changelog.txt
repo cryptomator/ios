@@ -6,13 +6,10 @@ We're looking forward to your feedback!
 
 ---
 
-## Changes Since 2.0.0 Beta 1
-- Added 14(!) languages, kudos to our contributors at https://translate.cryptomator.org/
-- Added the option to remove authentications
-- Improved error messages in alerts, making them less technical (#46)
-- Fixed directory listing with over 500 items in Dropbox (#52)
-- Fixed authentication with multiple accounts in OneDrive (#45)
-- Fixed authentication to ownCloud-based cloud storage services via WebDAV (#53)
-- Fixed "Send Log File" crash on iPad (#44)
+## Changes Since 2.0.0 Beta 2
+- Added "unlock vault" in Files app, incl. support for Touch ID / Face ID (#10, #59)
+- Added vault detail screen, incl. "lock vault" (#5, #69)
+- Fixed support for external drives via "Other File Provider" (#63)
+- Fixed links in "About Cryptomator" screen
 
 Be aware that with this update, you have to set up your vaults again. This will happen during the beta from time to time, probably more often in the beginning. Sorry for the inconvenience that this may cause.

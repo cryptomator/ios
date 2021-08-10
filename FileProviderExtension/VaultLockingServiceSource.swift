@@ -8,7 +8,9 @@
 
 import CryptomatorCommonCore
 import CryptomatorFileProvider
+import FileProvider
 import Foundation
+
 class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, VaultLocking {
 	var serviceName: NSFileProviderServiceName {
 		VaultLockingService.name
