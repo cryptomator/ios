@@ -21,9 +21,9 @@
 "common.cells.username" = "用户名";
 "common.cloudProviderType.localFileSystem" = "其他文件提供商";
 "common.error.alert.title" = "错误";
-"common.faceID" = "Face ID";
+"common.faceID" = "面部 ID";
 "common.footer.learnMore" = "了解更多";
-"common.touchID" = "Touch ID";
+"common.touchID" = "触控 ID";
 
 "accountList.header.title" = "身份验证";
 "accountList.emptyList.message" = "点击此处添加保险库";
@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
+"vaultDetail.button.lock" = "立即锁定";
+"vaultDetail.button.removeVault" = "从保险库列表中移除";
+"vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中";
+"vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码";
+"vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.locked.footer" = "您的保险库目前已锁定";
+"vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件";
+"vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁";
+"vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 密钥链并启用 %@";
 
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";
