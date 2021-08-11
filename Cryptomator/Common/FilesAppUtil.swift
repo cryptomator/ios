@@ -6,7 +6,6 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import UIKit
@@ -19,7 +18,7 @@ public enum FilesAppUtil {
 		}
 		let url = containerURL.appendingPathComponent("File Provider Storage").appendingPathComponent(vaultUID)
 		guard let sharedDocumentsURL = FilesAppUtil.changeSchemeToSharedDocuments(for: url) else {
-			DDLogDebug("Conversion to shared documents url failed")
+			DDLogDebug("Conversion to \"shareddocuments\" scheme failed")
 			return
 		}
 		UIApplication.shared.open(sharedDocumentsURL)

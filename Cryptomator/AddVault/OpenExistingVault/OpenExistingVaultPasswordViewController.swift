@@ -6,8 +6,6 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccess
-import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import UIKit
 

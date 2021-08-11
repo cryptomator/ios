@@ -11,6 +11,7 @@ import CryptomatorCryptoLib
 import FileProviderUI
 import Promises
 import UIKit
+
 class UnlockVaultViewController: UITableViewController {
 	weak var coordinator: FileProviderCoordinator?
 	private let viewModel: UnlockVaultViewModel

@@ -41,9 +41,7 @@ class VaultDetailViewController: UITableViewController {
 
 	private func refreshVaultLockStatus() {
 		viewModel.refreshVaultStatus().catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
+			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
 		}
 	}
@@ -62,7 +60,10 @@ class VaultDetailViewController: UITableViewController {
 		case .openVaultInFilesApp:
 			FilesAppUtil.showFilesApp(forVaultUID: viewModel.vaultUID)
 		case .lockVault:
-			viewModel.lockVault().catch { error in
+			viewModel.lockVault().then {
+				let feedbackGenerator = UINotificationFeedbackGenerator()
+				feedbackGenerator.notificationOccurred(.success)
+			}.catch { error in
 				self.coordinator?.handleError(error, for: self)
 			}
 		case .removeVault:
@@ -75,10 +76,8 @@ class VaultDetailViewController: UITableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-
 			alertController.addAction(okAction)
 			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
-
 			present(alertController, animated: true, completion: nil)
 		case let .showUnlockScreen(vault: vault, biometryTypeName: biometryType):
 			coordinator?.unlockVault(vault, biometryTypeName: biometryType).recover { [weak self] error -> Promise<Void> in

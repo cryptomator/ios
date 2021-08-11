@@ -48,9 +48,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 		viewModel.createFolder().then { [weak self] folderPath in
 			self?.coordinator?.createdNewFolder(at: folderPath)
 		}.catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
+			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
 		}
 	}

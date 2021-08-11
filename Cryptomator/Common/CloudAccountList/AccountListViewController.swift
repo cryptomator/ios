@@ -102,10 +102,8 @@ class AccountListViewController: SingleSectionTableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-
 			alertController.addAction(okAction)
 			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
-
 			present(alertController, animated: true, completion: nil)
 		}
 	}

@@ -102,7 +102,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		do {
 			return try passwordManager.hasPassword(forVaultUID: vaultUID)
 		} catch {
-			DDLogError("VaultDetailViewModel - biometricalUnlockEnabled failed with error: \(error)")
+			DDLogError("biometricalUnlockEnabled failed with error: \(error)")
 			return false
 		}
 	}
@@ -161,9 +161,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	func removeVault() throws {
-		try vaultManager.removeVault(withUID: vaultUID).catch { error in
-			DDLogError("VaultDetailViewModel: remove vault failed with error: \(error)")
-		}
+		_ = try vaultManager.removeVault(withUID: vaultUID)
 	}
 
 	func lockVault() -> Promise<Void> {

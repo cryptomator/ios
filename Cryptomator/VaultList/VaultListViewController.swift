@@ -107,13 +107,11 @@ class VaultListViewController: UITableViewController {
 		cell.isUnlocked = vault.vaultIsUnlocked
 		cell.lockButton.primaryAction = { [weak self] _ in
 			self?.viewModel.lockVault(vault).then {
-				let feedBackGenerator = UINotificationFeedbackGenerator()
-				feedBackGenerator.notificationOccurred(.success)
+				let feedbackGenerator = UINotificationFeedbackGenerator()
+				feedbackGenerator.notificationOccurred(.success)
 				self?.tableView.reloadData()
 			}.catch { error in
-				guard let self = self else {
-					return
-				}
+				guard let self = self else { return }
 				self.coordinator?.handleError(error, for: self)
 			}
 		}
@@ -131,10 +129,8 @@ class VaultListViewController: UITableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-
 			alertController.addAction(okAction)
 			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
-
 			present(alertController, animated: true, completion: nil)
 		}
 	}

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProvider
@@ -50,10 +51,17 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 
 	func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			guard let domain = self.fileprovider.domain else {
+				DDLogError("Unlocking vault failed, unable to find FileProviderDomain")
+				reply(VaultManagerError.fileProviderDomainNotFound)
+				return
+			}
 			do {
-				try FileProviderAdapterManager.unlockVault(for: self.fileprovider.domain, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
+				try FileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
+				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)
 			} catch {
+				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
 				reply(error)
 			}
 		}
