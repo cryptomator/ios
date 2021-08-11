@@ -97,16 +97,16 @@
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
 "untrustedTLSCertificate.dismiss" = "Μην Εμπιστευτείτε";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Κλείδωμα τώρα";
+"vaultDetail.button.removeVault" = "Κατάργηση από την λίστα των Vault";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Εάν ενεργοποιήσετε το %@, ο κωδικός πρόσβασης του Vault σας θα αποθηκευτεί στο iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Ο κωδικός πρόσβασης του Vault σας θα απαιτείται μόνο εάν αποτύχει η ταυτοποίηση %@.";
+"vaultDetail.info.footer.accessVault" = "Πρόσβαση στο Vault μέσω της εφαρμογής Αρχείων.";
+"vaultDetail.info.footer.accountInfo" = "Συνδεθήκατε ως %@ μέσω %@.";
+"vaultDetail.locked.footer" = "Το Vault σας είναι κλειδωμένο.";
+"vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο το Vault από τη λίστα των Vault και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
+"vaultDetail.unlocked.footer" = "Το Vault σας είναι ξεκλείδωτο αυτή τη στιγμή στην εφαρμογή Αρχείων.";
+"vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για το \"%@\" για να τον αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %@.";
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα vault";
