@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Avbryt";
 "common.button.choose" = "Välj";
 "common.button.confirm" = "Bekräfta";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Lösenord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Användarnamn";
-"common.cloudProviderType.localFileSystem" = "Annan filleverantör";
-"common.error.alert.title" = "Fel";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Läs mer.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Öppna Filer-appen";
 "addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
 "chooseFolder.createNewFolder.cells.name" = "Namn på mappen";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
