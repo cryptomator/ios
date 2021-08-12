@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "取消";
 "common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
@@ -19,11 +20,7 @@
 "common.cells.password" = "密碼";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
-"common.cloudProviderType.localFileSystem" = "Other File Provider";
-"common.error.alert.title" = "Error";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Learn more.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Open Files App";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
 "chooseFolder.createNewFolder.cells.name" = "Folder Name";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
