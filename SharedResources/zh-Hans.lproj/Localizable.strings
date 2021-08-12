@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  Cryptomator
-
-  Copyright © 2021 Skymatic GmbH. All rights reserved.
-*/
-
-"common.alert.error.title" = "Error";
 "common.button.cancel" = "取消";
 "common.button.choose" = "选择";
 "common.button.confirm" = "确认";
@@ -52,9 +44,6 @@
 "addVault.success.openFilesApp" = "打开文管应用";
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
 
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
-
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
@@ -68,8 +57,6 @@
 "cloudProvider.error.quotaInsufficient" = "您的存储空间不足";
 "cloudProvider.error.unauthorized" = "无法执行未经授权的操作";
 "cloudProvider.error.noInternetConnection" = "此操作需要网络连接";
-
-"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
@@ -104,7 +91,6 @@
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码";
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.locked.footer" = "您的保险库目前已锁定";
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁";
