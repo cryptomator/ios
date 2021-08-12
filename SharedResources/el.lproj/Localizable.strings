@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Ακύρωση";
 "common.button.choose" = "Επιλογή";
 "common.button.confirm" = "Επιβεβαίωση";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Κωδικός πρόσβασης";
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
-"common.cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
-"common.error.alert.title" = "Σφάλμα";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Πιστοποιήσεις";
 "accountList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα λογαριασμό";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Άνοιγμα Εφαρμογής Αρχείων";
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Ο φάκελος είναι κενός";
 "chooseFolder.createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
 "chooseFolder.createNewFolder.cells.name" = "Όνομα Φακέλου";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Ο αποθηκευτικός σας χώρος δεν επαρκεί.";
 "cloudProvider.error.unauthorized" = "Δεν είναι δυνατή η εκτέλεση μη εξουσιοδοτημένης λειτουργίας.";
 "cloudProvider.error.noInternetConnection" = "Απαιτείται σύνδεση στο διαδίκτυο για αυτήν τη λειτουργία.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για το νέο vault σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
