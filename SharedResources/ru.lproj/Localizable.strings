@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Ошибка";
 "common.button.cancel" = "Отмена";
 "common.button.choose" = "Выбрать";
 "common.button.confirm" = "Подтвердить";
@@ -44,6 +52,9 @@
 "addVault.success.openFilesApp" = "Открыть приложение \"Файлы\"";
 "addVault.success.footer" = "Если вы ещё этого не сделали, включите Cryptomator в приложении \"Файлы\".";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Папка пуста";
 "chooseFolder.createNewFolder.header.title" = "Выберите имя для папки.";
 "chooseFolder.createNewFolder.cells.name" = "Имя папки";
@@ -57,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Недостаточно места на устройстве хранения данных.";
 "cloudProvider.error.unauthorized" = "Невозможно выполнить неавторизованную операцию.";
 "cloudProvider.error.noInternetConnection" = "Для этой операции требуется подключение к Интернету.";
+
+"cloudProviderType.localFileSystem" = "Другой файл-провайдер";
 
 "localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
