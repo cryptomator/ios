@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Abbrechen";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Passwort";
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
-"common.cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
-"common.error.alert.title" = "Fehler";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Mehr erfahren.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentifizierungen";
 "accountList.emptyList.message" = "Tipp hier, um einen Account hinzuzufügen";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "App „Dateien“ öffnen";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "chooseFolder.createNewFolder.cells.name" = "Ordnername";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
 "cloudProvider.error.unauthorized" = "Unautorisierte Operation konnte nicht ausgeführt werden.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
