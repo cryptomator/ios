@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "キャンセル";
 "common.button.choose" = "選択";
 "common.button.confirm" = "確認";
@@ -19,11 +20,7 @@
 "common.cells.password" = "パスワード";
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
-"common.cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
-"common.error.alert.title" = "エラー";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "さらに詳しく。";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "ファイル アプリを開く";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "ストレージの容量が不足しています。";
 "cloudProvider.error.unauthorized" = "権限のない操作を実行できません。";
 "cloudProvider.error.noInternetConnection" = "この操作にはインターネット接続が必要です。";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
