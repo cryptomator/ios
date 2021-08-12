@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Erreur";
 "common.button.cancel" = "Annuler";
 "common.button.choose" = "Choisir";
 "common.button.confirm" = "Confirmer";
@@ -57,6 +65,8 @@
 "cloudProvider.error.quotaInsufficient" = "Votre espace de stockage est insuffisant.";
 "cloudProvider.error.unauthorized" = "Impossible d'effectuer une opération non autorisée.";
 "cloudProvider.error.noInternetConnection" = "Connexion Internet requise pour cette opération.";
+
+"cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
 
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
