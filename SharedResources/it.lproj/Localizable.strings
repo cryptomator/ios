@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Errore";
 "common.button.cancel" = "Annulla";
 "common.button.choose" = "Scegli";
 "common.button.confirm" = "Conferma";
@@ -39,6 +47,8 @@
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "chooseFolder.createNewFolder.cells.name" = "Nome della Cartella";
+
+"cloudProviderType.localFileSystem" = "Altro Fornitore di File";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
