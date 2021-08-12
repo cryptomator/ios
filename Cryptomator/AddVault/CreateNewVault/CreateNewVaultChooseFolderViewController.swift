@@ -6,17 +6,18 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("addVault.createNewVault.title", comment: "")
-		let chooseFolderButton = UIBarButtonItem(title: NSLocalizedString("common.button.choose", comment: ""), style: .done, target: self, action: #selector(chooseFolder))
+		title = LocalizedString.getValue("addVault.createNewVault.title")
+		let chooseFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.choose"), style: .done, target: self, action: #selector(chooseFolder))
 		navigationItem.rightBarButtonItem = chooseFolderButton
 
 		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		let createFolderButton = UIBarButtonItem(title: NSLocalizedString("common.button.createFolder", comment: ""), style: .plain, target: self, action: #selector(createNewFolder))
+		let createFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.createFolder"), style: .plain, target: self, action: #selector(createNewFolder))
 		createFolderButton.tintColor = UIColor(named: "primary")
 		toolbarItems?.append(flexibleSpaceItem)
 		toolbarItems?.append(createFolderButton)

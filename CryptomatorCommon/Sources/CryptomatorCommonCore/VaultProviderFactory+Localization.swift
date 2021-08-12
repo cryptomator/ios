@@ -13,9 +13,9 @@ extension VaultProviderFactoryError: LocalizedError {
 	public var errorDescription: String? {
 		switch self {
 		case .unsupportedVaultConfig:
-			return NSLocalizedString("vaultProviderFactory.error.unsupportedVaultConfig", comment: "")
+			return LocalizedString.getValue("vaultProviderFactory.error.unsupportedVaultConfig")
 		case .unsupportedVaultVersion:
-			return NSLocalizedString("vaultProviderFactory.error.unsupportedVaultVersion", comment: "")
+			return LocalizedString.getValue("vaultProviderFactory.error.unsupportedVaultVersion")
 		}
 	}
 }

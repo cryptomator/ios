@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -39,9 +40,9 @@ struct SettingsViewModel {
 	func title(for indexPath: IndexPath) -> String {
 		switch SettingsSection(rawValue: indexPath.section) {
 		case .aboutSection:
-			return NSLocalizedString("settings.aboutCryptomator", comment: "")
+			return LocalizedString.getValue("settings.aboutCryptomator")
 		case .debugSection:
-			return NSLocalizedString("settings.sendLogFile", comment: "")
+			return LocalizedString.getValue("settings.sendLogFile")
 		case nil:
 			return ""
 		}

@@ -24,9 +24,9 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem], headerTitle: NSLocalizedString("addVault.createNewVault.chooseCloud.header", comment: ""))
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
-		chooseCloudVC.title = NSLocalizedString("addVault.createNewVault.title", comment: "")
+		chooseCloudVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 		chooseCloudVC.coordinator = self
 		navigationController.pushViewController(chooseCloudVC, animated: true)
 	}
@@ -173,7 +173,7 @@ private class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoord
 	func start() {
 		let viewModel = CreateNewFolderViewModel(parentPath: parentPath, provider: provider)
 		let createNewFolderVC = CreateNewFolderViewController(viewModel: viewModel)
-		createNewFolderVC.title = NSLocalizedString("common.button.createFolder", comment: "")
+		createNewFolderVC.title = LocalizedString.getValue("common.button.createFolder")
 		createNewFolderVC.coordinator = self
 		navigationController.pushViewController(createNewFolderVC, animated: false)
 	}

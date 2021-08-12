@@ -22,7 +22,7 @@ class OpenExistingLegacyVaultPasswordViewModel: OpenExistingVaultPasswordViewMod
 	}
 
 	var footerTitle: String {
-		return String(format: NSLocalizedString("addVault.openExistingVault.password.footer", comment: ""), vaultName)
+		return String(format: LocalizedString.getValue("addVault.openExistingVault.password.footer"), vaultName)
 	}
 
 	private let localMasterkeyURL: URL

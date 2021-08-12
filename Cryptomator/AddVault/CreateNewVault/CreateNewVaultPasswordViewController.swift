@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class CreateNewVaultPasswordViewController: UITableViewController {
@@ -29,7 +30,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 	}()
 
 	private lazy var createButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: NSLocalizedString("common.button.create", comment: ""), style: .done, target: self, action: #selector(createNewVault))
+		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
 		return button
 	}()
 
@@ -44,7 +45,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("addVault.createNewVault.title", comment: "")
+		title = LocalizedString.getValue("addVault.createNewVault.title")
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
 	}
@@ -69,13 +70,13 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 			coordinator?.handleError(error, for: self)
 			return
 		}
-		let alertController = UIAlertController(title: NSLocalizedString("addVault.createNewVault.password.confirmPassword.alert.title", comment: ""), message: NSLocalizedString("addVault.createNewVault.password.confirmPassword.alert.message", comment: ""), preferredStyle: .alert)
-		let okAction = UIAlertAction(title: NSLocalizedString("common.button.confirm", comment: ""), style: .default) { _ in
+		let alertController = UIAlertController(title: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.title"), message: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.message"), preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.confirm"), style: .default) { _ in
 			self.userConfirmedPassword()
 		}
 
 		alertController.addAction(okAction)
-		alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 
 		present(alertController, animated: true, completion: nil)
 	}

@@ -21,7 +21,7 @@ extension CloudProviderType {
 		case .webDAV:
 			return "WebDAV"
 		case .localFileSystem:
-			return NSLocalizedString("cloudProviderType.localFileSystem", comment: "")
+			return LocalizedString.getValue("cloudProviderType.localFileSystem")
 		}
 	}
 }

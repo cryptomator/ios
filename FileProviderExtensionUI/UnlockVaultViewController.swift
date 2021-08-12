@@ -63,7 +63,7 @@ class UnlockVaultViewController: UITableViewController {
 		super.viewDidLoad()
 		title = viewModel.title
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-		let unlockButton = UIBarButtonItem(title: NSLocalizedString("unlockVault.button.unlock", comment: ""), style: .done, target: self, action: #selector(unlock))
+		let unlockButton = UIBarButtonItem(title: LocalizedString.getValue("unlockVault.button.unlock"), style: .done, target: self, action: #selector(unlock))
 
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = unlockButton

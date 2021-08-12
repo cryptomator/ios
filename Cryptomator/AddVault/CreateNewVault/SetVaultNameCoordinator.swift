@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 protocol VaultNaming: AnyObject {
@@ -23,7 +24,7 @@ class SetVaultNameCoordinator: VaultNaming, Coordinator {
 	func start() {
 		let viewModel = SetVaultNameViewModel()
 		let setVaultNameVC = SetVaultNameViewController(viewModel: viewModel)
-		setVaultNameVC.title = NSLocalizedString("addVault.createNewVault.title", comment: "")
+		setVaultNameVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 		setVaultNameVC.coordinator = self
 		navigationController.pushViewController(setVaultNameVC, animated: true)
 	}

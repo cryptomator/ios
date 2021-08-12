@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CryptomatorCommonCore
 import Promises
 import UIKit
 
@@ -67,8 +68,8 @@ class VaultDetailViewController: UITableViewController {
 				self.coordinator?.handleError(error, for: self)
 			}
 		case .removeVault:
-			let alertController = UIAlertController(title: NSLocalizedString("vaultList.remove.alert.title", comment: ""), message: NSLocalizedString("vaultList.remove.alert.message", comment: ""), preferredStyle: .alert)
-			let okAction = UIAlertAction(title: NSLocalizedString("common.button.remove", comment: ""), style: .destructive) { _ in
+			let alertController = UIAlertController(title: LocalizedString.getValue("vaultList.remove.alert.title"), message: LocalizedString.getValue("vaultList.remove.alert.message"), preferredStyle: .alert)
+			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
 				do {
 					try self.viewModel.removeVault()
 					self.navigationController?.popViewController(animated: true)
@@ -77,7 +78,7 @@ class VaultDetailViewController: UITableViewController {
 				}
 			}
 			alertController.addAction(okAction)
-			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 			present(alertController, animated: true, completion: nil)
 		case let .showUnlockScreen(vault: vault, biometryTypeName: biometryType):
 			coordinator?.unlockVault(vault, biometryTypeName: biometryType).recover { [weak self] error -> Promise<Void> in

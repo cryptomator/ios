@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class DetectedVaultFailureView: DetectedVaultView {
@@ -14,6 +15,6 @@ class DetectedVaultFailureView: DetectedVaultView {
 		let warningSymbol = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
 		let imageView = UIImageView(image: warningSymbol)
 		imageView.tintColor = UIColor(named: "yellow")
-		super.init(imageView: imageView, text: NSLocalizedString("addVault.createNewVault.detectedMasterkey.text", comment: ""))
+		super.init(imageView: imageView, text: LocalizedString.getValue("addVault.createNewVault.detectedMasterkey.text"))
 	}
 }

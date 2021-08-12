@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Promises
 import UIKit
 
@@ -44,11 +45,11 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 	}
 
 	func handleUntrustedCertificate(_ certificate: TLSCertificate, url: URL, for viewController: WebDAVAuthenticationViewController, viewModel: WebDAVAuthenticationViewModelProtocol) {
-		let alertController = UIAlertController(title: NSLocalizedString("untrustedTLSCertificate.title", comment: ""), message: String(format: NSLocalizedString("untrustedTLSCertificate.message", comment: ""), url.absoluteString, certificate.fingerprint), preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: NSLocalizedString("untrustedTLSCertificate.add", comment: ""), style: .default, handler: { _ in
+		let alertController = UIAlertController(title: LocalizedString.getValue("untrustedTLSCertificate.title"), message: String(format: LocalizedString.getValue("untrustedTLSCertificate.message"), url.absoluteString, certificate.fingerprint), preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.add"), style: .default, handler: { _ in
 			viewController.addAccount(allowedCertificate: certificate.data)
 		}))
-		alertController.addAction(UIAlertAction(title: NSLocalizedString("untrustedTLSCertificate.dismiss", comment: ""), style: .cancel))
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.dismiss"), style: .cancel))
 		viewController.present(alertController, animated: true)
 	}
 

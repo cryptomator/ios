@@ -7,12 +7,13 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 
 struct DetectedMasterkeyViewModel {
 	let masterkeyPath: CloudPath
 	var text: String {
-		return String(format: NSLocalizedString("addVault.openExistingVault.detectedMasterkey.text", comment: ""), vaultName)
+		return String(format: LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.text"), vaultName)
 	}
 
 	private var vaultName: String {

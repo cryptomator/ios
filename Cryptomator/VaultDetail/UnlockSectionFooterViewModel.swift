@@ -6,7 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
+
 class UnlockSectionFooterViewModel: HeaderFooterViewModel {
 	var viewType: HeaderFooterViewModelConfiguring.Type { return BaseHeaderFooterView.self }
 	let title: Bindable<String?>
@@ -39,16 +41,16 @@ class UnlockSectionFooterViewModel: HeaderFooterViewModel {
 	private static func getTitleText(vaultUnlocked: Bool, biometricalUnlockEnabled: Bool, biometryTypeName: String?) -> String {
 		let unlockedText: String
 		if vaultUnlocked {
-			unlockedText = NSLocalizedString("vaultDetail.unlocked.footer", comment: "")
+			unlockedText = LocalizedString.getValue("vaultDetail.unlocked.footer")
 		} else {
-			unlockedText = NSLocalizedString("vaultDetail.locked.footer", comment: "")
+			unlockedText = LocalizedString.getValue("vaultDetail.locked.footer")
 		}
 		if let biometryTypeName = biometryTypeName {
 			let biometricalUnlockText: String
 			if biometricalUnlockEnabled {
-				biometricalUnlockText = String(format: NSLocalizedString("vaultDetail.enabledBiometricalUnlock.footer", comment: ""), biometryTypeName)
+				biometricalUnlockText = String(format: LocalizedString.getValue("vaultDetail.enabledBiometricalUnlock.footer"), biometryTypeName)
 			} else {
-				biometricalUnlockText = String(format: NSLocalizedString("vaultDetail.disabledBiometricalUnlock.footer", comment: ""), biometryTypeName)
+				biometricalUnlockText = String(format: LocalizedString.getValue("vaultDetail.disabledBiometricalUnlock.footer"), biometryTypeName)
 			}
 			return "\(unlockedText)\n\n\(biometricalUnlockText)"
 		} else {

@@ -31,7 +31,7 @@ class OpenExistingVaultPasswordViewModel: OpenExistingVaultPasswordViewModelProt
 	}
 
 	var footerTitle: String {
-		return String(format: NSLocalizedString("addVault.openExistingVault.password.footer", comment: ""), vaultName)
+		return String(format: LocalizedString.getValue("addVault.openExistingVault.password.footer"), vaultName)
 	}
 
 	let vaultUID: String

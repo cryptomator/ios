@@ -15,8 +15,8 @@ class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, Loca
 	private let vaultName: String
 
 	init(vaultName: String, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
-		let documentPickerButtonText = NSLocalizedString("localFileSystemAuthentication.createNewVault.button", comment: "")
-		let headerText = NSLocalizedString("localFileSystemAuthentication.createNewVault.header", comment: "")
+		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.button")
+		let headerText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.header")
 		self.vaultName = vaultName
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, validationLogic: CreateNewLocalVaultValidationLogic(vaultName: vaultName), accountManager: accountManager)
 	}
@@ -51,7 +51,7 @@ enum CreateNewLocalVaultViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .detectedExistingVault:
-			return NSLocalizedString("localFileSystemAuthentication.createNewVault.error.detectedExistingVault", comment: "")
+			return LocalizedString.getValue("localFileSystemAuthentication.createNewVault.error.detectedExistingVault")
 		}
 	}
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class SetVaultNameViewController: SingleSectionHeaderTableViewController {
@@ -13,7 +14,7 @@ class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 	private var viewModel: SetVaultNameViewModelProtocol
 	private lazy var nameCell: TextFieldCell = {
 		let cell = TextFieldCell()
-		cell.textField.placeholder = NSLocalizedString("addVault.createNewVault.setVaultName.cells.name", comment: "")
+		cell.textField.placeholder = LocalizedString.getValue("addVault.createNewVault.setVaultName.cells.name")
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 		cell.textField.becomeFirstResponder()
 		return cell
@@ -26,7 +27,7 @@ class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let doneButton = UIBarButtonItem(title: NSLocalizedString("common.button.next", comment: ""), style: .done, target: self, action: #selector(nextButtonClicked))
+		let doneButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.next"), style: .done, target: self, action: #selector(nextButtonClicked))
 		navigationItem.rightBarButtonItem = doneButton
 		tableView.rowHeight = 44
 	}
