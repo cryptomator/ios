@@ -5,7 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Error";
+"common.alert.error.title" = "Fehler";
 "common.button.cancel" = "Abbrechen";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
@@ -53,7 +53,7 @@
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
+"biometryType.touchID" = "Fingerabdruck";
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
@@ -69,7 +69,7 @@
 "cloudProvider.error.unauthorized" = "Unautorisierte Operation konnte nicht ausgeführt werden.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
 
-"cloudProviderType.localFileSystem" = "Other File Provider";
+"cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
 
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
