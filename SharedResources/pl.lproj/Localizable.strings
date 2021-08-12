@@ -5,7 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Error";
+"common.alert.error.title" = "Błąd";
 "common.button.cancel" = "Anuluj";
 "common.button.choose" = "Wybierz";
 "common.button.confirm" = "Zatwierdź";
@@ -69,7 +69,7 @@
 "cloudProvider.error.unauthorized" = "Nie można wykonać operacji nieautoryzowanej.";
 "cloudProvider.error.noInternetConnection" = "Połączenie z Internetem potrzebne do tej operacji.";
 
-"cloudProviderType.localFileSystem" = "Other File Provider";
+"cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
