@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "取消";
 "common.button.choose" = "选择";
 "common.button.confirm" = "确认";
@@ -19,11 +20,7 @@
 "common.cells.password" = "密码";
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
-"common.cloudProviderType.localFileSystem" = "其他文件提供商";
-"common.error.alert.title" = "错误";
-"common.faceID" = "面部 ID";
 "common.footer.learnMore" = "了解更多";
-"common.touchID" = "触控 ID";
 
 "accountList.header.title" = "身份验证";
 "accountList.emptyList.message" = "点击此处添加保险库";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "打开文管应用";
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "您的存储空间不足";
 "cloudProvider.error.unauthorized" = "无法执行未经授权的操作";
 "cloudProvider.error.noInternetConnection" = "此操作需要网络连接";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
