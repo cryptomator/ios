@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fout";
 "common.button.cancel" = "Annuleren";
 "common.button.choose" = "Kies";
 "common.button.confirm" = "Bevestig";
@@ -39,6 +47,8 @@
 "chooseFolder.emptyFolder.footer" = "Map is leeg";
 "chooseFolder.createNewFolder.header.title" = "Kies een naam voor de map.";
 "chooseFolder.createNewFolder.cells.name" = "Naam van de Map";
+
+"cloudProviderType.localFileSystem" = "Andere File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
