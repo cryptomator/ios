@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "エラー";
 "common.button.cancel" = "キャンセル";
 "common.button.choose" = "選択";
 "common.button.confirm" = "確認";
@@ -48,6 +56,8 @@
 "cloudProvider.error.quotaInsufficient" = "ストレージの容量が不足しています。";
 "cloudProvider.error.unauthorized" = "権限のない操作を実行できません。";
 "cloudProvider.error.noInternetConnection" = "この操作にはインターネット接続が必要です。";
+
+"cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
