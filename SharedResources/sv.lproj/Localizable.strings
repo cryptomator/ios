@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fel";
 "common.button.cancel" = "Avbryt";
 "common.button.choose" = "Välj";
 "common.button.confirm" = "Bekräfta";
@@ -39,6 +47,8 @@
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
 "chooseFolder.createNewFolder.cells.name" = "Namn på mappen";
+
+"cloudProviderType.localFileSystem" = "Annan filleverantör";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
