@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  Cryptomator
-
-  Copyright © 2021 Skymatic GmbH. All rights reserved.
-*/
-
-"common.alert.error.title" = "Error";
 "common.button.cancel" = "キャンセル";
 "common.button.choose" = "選択";
 "common.button.confirm" = "確認";
@@ -25,16 +17,13 @@
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
 "accountList.signOut.alert.title" = "関連する金庫を削除しますか?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
 
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
 "addVault.createNewVault.password.enterPassword.header" = "新しいパスワードを入力してください。";
 "addVault.createNewVault.password.confirmPassword.header" = "新しいパスワードの確認。";
@@ -52,29 +41,15 @@
 "addVault.success.openFilesApp" = "ファイル アプリを開く";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
-
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "フォルダ名は空にできません。";
-
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
 "cloudProvider.error.quotaInsufficient" = "ストレージの容量が不足しています。";
 "cloudProvider.error.unauthorized" = "権限のない操作を実行できません。";
 "cloudProvider.error.noInternetConnection" = "この操作にはインターネット接続が必要です。";
-
-"cloudProviderType.localFileSystem" = "Other File Provider";
-
-"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
-"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
 
@@ -88,10 +63,8 @@
 "settings.sendLogFile" = "ログ ファイルを送信";
 
 "unlockVault.button.unlock" = "解錠";
-"unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ を有効にする";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
 "unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
@@ -99,23 +72,9 @@
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
 "vaultList.remove.alert.title" = "金庫を削除しますか?";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
-
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
