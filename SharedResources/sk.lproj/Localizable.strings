@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Zrušiť";
 "common.button.choose" = "Vybrať";
 "common.button.confirm" = "Potvrdiť";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Heslo";
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživateľské meno";
-"common.cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
-"common.error.alert.title" = "Chyba";
-"common.faceID" = "Tvárové ID";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
-"common.touchID" = "Dotykové ID";
 
 "accountList.header.title" = "Overenia";
 "accountList.emptyList.message" = "Kliknúť sem pre pridanie účtu";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Otvoriť súborovú aplikáciu";
 "addVault.success.footer" = "Ak ešte nemáte, povoľte Cryptomator v Súborovej aplikácii.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
 "chooseFolder.createNewFolder.cells.name" = "Meno adresára";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Váše úložisko má nedostatok miesta.";
 "cloudProvider.error.unauthorized" = "Nie je možné vykonať neautorizovanú operáciu.";
 "cloudProvider.error.noInternetConnection" = "Internetové pripojenie je potrebné k tejto operácii.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
