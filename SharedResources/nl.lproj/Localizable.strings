@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Annuleren";
 "common.button.choose" = "Kies";
 "common.button.confirm" = "Bevestig";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Wachtwoord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Gebruikersnaam";
-"common.cloudProviderType.localFileSystem" = "Andere File Provider";
-"common.error.alert.title" = "Fout";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Meer weten.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Open Verkenner";
 "addVault.success.footer" = "Schakel Cryptomator in in de Verkenner als u dat nog niet gedaan hebt.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Map is leeg";
 "chooseFolder.createNewFolder.header.title" = "Kies een naam voor de map.";
 "chooseFolder.createNewFolder.cells.name" = "Naam van de Map";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
