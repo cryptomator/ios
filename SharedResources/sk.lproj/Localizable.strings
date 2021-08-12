@@ -5,7 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
-"common.alert.error.title" = "Error";
+"common.alert.error.title" = "Chyba";
 "common.button.cancel" = "Zrušiť";
 "common.button.choose" = "Vybrať";
 "common.button.confirm" = "Potvrdiť";
@@ -52,8 +52,8 @@
 "addVault.success.openFilesApp" = "Otvoriť súborovú aplikáciu";
 "addVault.success.footer" = "Ak ešte nemáte, povoľte Cryptomator v Súborovej aplikácii.";
 
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
+"biometryType.faceID" = "Tvárové ID";
+"biometryType.touchID" = "Dotykové ID";
 
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
@@ -69,7 +69,7 @@
 "cloudProvider.error.unauthorized" = "Nie je možné vykonať neautorizovanú operáciu.";
 "cloudProvider.error.noInternetConnection" = "Internetové pripojenie je potrebné k tejto operácii.";
 
-"cloudProviderType.localFileSystem" = "Other File Provider";
+"cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
