@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "에러";
 "common.button.cancel" = "취소";
 "common.button.choose" = "선택";
 "common.button.confirm" = "확인";
@@ -38,6 +46,8 @@
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 "chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
 "chooseFolder.createNewFolder.cells.name" = "폴더명";
+
+"cloudProviderType.localFileSystem" = "다른 파일 앱";
 
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
