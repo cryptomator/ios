@@ -1,11 +1,3 @@
-/* 
-  Localizable.strings
-  Cryptomator
-
-  Copyright © 2021 Skymatic GmbH. All rights reserved.
-*/
-
-"common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancelar";
 "common.button.choose" = "Seleccionar";
 "common.button.confirm" = "Confirmar";
@@ -52,9 +44,6 @@
 "addVault.success.openFilesApp" = "Abrir aplicación de archivos";
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
-
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
 "chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
 "chooseFolder.createNewFolder.cells.name" = "Nombre de la carpeta";
@@ -68,8 +57,6 @@
 "cloudProvider.error.quotaInsufficient" = "Su almacenamiento no tiene espacio suficiente.";
 "cloudProvider.error.unauthorized" = "No se puede realizar la operación no autorizada.";
 "cloudProvider.error.noInternetConnection" = "Se necesita conexión a Internet para esta operación.";
-
-"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
