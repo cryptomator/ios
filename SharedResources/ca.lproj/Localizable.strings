@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancel·la";
 "common.button.choose" = "Trieu";
 "common.button.confirm" = "Confirma";
@@ -34,12 +42,17 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya de \"%@\"";
 
+"biometryType.faceID" = "ID de cara";
+"biometryType.touchID" = "ID tàctil";
+
 "chooseFolder.emptyFolder.footer" = "La carpeta és buida";
 "chooseFolder.createNewFolder.header.title" = "Trieu el nom de la carpeta.";
 "chooseFolder.createNewFolder.cells.name" = "Nom de la carpeta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "No es pot deixar buit el nom de la carpeta.";
 "cloudProvider.error.quotaInsufficient" = "No hi ha prou espai d'emmagatzematge.";
 "cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
+
+"cloudProviderType.localFileSystem" = "Un altre proveïdor de fitxers";
 
 "onboarding.title" = "Us donem la benvinguda";
 "onboarding.openCryptomator.button" = "Obre Cryptomator";
