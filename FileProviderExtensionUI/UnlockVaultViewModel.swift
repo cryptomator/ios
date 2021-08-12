@@ -250,9 +250,9 @@ class UnlockVaultViewModel {
 	private func getName(for biometryType: LABiometryType) -> String? {
 		switch biometryType {
 		case .faceID:
-			return NSLocalizedString("common.faceID", comment: "")
+			return NSLocalizedString("biometryType.faceID", comment: "")
 		case .touchID:
-			return NSLocalizedString("common.touchID", comment: "")
+			return NSLocalizedString("biometryType.touchID", comment: "")
 		default:
 			return nil
 		}
