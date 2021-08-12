@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Error";
 "common.button.cancel" = "Annulla";
 "common.button.choose" = "Scegli";
 "common.button.confirm" = "Conferma";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
-"common.cloudProviderType.localFileSystem" = "Altro Fornitore di File";
-"common.error.alert.title" = "Errore";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Scopri di più.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Apri App File";
 "addVault.success.footer" = "Se non lo hai già fatto, abilita Cryptomator nell'app File.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "chooseFolder.createNewFolder.cells.name" = "Nome della Cartella";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+
+"cloudProviderType.localFileSystem" = "Other File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
