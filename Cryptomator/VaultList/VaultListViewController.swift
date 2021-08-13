@@ -65,6 +65,13 @@ class VaultListViewController: UITableViewController {
 		}
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel.refreshVaultLockStates().then { [weak self] _ in
+			self?.tableView.reloadData()
+		}
+	}
+
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 		header.isEditing = editing
