@@ -81,16 +81,17 @@ class VaultDetailViewController: UITableViewController {
 			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 			present(alertController, animated: true, completion: nil)
 		case let .showUnlockScreen(vault: vault, biometryTypeName: biometryType):
-			coordinator?.unlockVault(vault, biometryTypeName: biometryType).recover { [weak self] error -> Promise<Void> in
-				guard case VaultDetailUnlockError.userCanceled = error, let viewModel = self?.viewModel else {
-					return Promise(error)
+			coordinator?.unlockVault(vault, biometryTypeName: biometryType).recover { error -> Void in
+				guard case VaultDetailUnlockError.userCanceled = error else {
+					throw error
 				}
-				return viewModel.refreshVaultStatus()
 			}.catch { [weak self] error in
 				guard let self = self else {
 					return
 				}
 				self.coordinator?.handleError(error, for: self)
+			}.always { [weak self] in
+				_ = self?.viewModel.refreshVaultStatus()
 			}
 		}
 	}
