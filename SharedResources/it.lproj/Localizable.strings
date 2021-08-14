@@ -21,6 +21,9 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
 "common.footer.learnMore" = "Scopri di più.";
+
+"accountList.header.title" = "Autenticazioni";
+"accountList.emptyList.message" = "Tocca qui per aggiungere un account";
 "accountList.signOut.alert.title" = "Rimuovere le Cassaforti Associate?";
 "accountList.signOut.alert.message" = "Disconnettendoti, tutte le cassaforti associate saranno rimosse dall'elenco delle cassaforti. Nessun dato crittografato sarà eliminato. Puoi accedere nuovamente e riaggiungerle in seguito.";
 
@@ -28,6 +31,7 @@
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome Cassaforte";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
 "addVault.createNewVault.chooseCloud.header" = "Dove dovrebbe memorizzare Cryptomator i file crittografati della tua cassaforte?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poterne creare una nuova, sei pregato di tornare indietro e scegliere una cartella differente.";
 "addVault.createNewVault.password.enterPassword.header" = "Inserisci una nuova password.";
@@ -43,10 +47,12 @@
 "addVault.success.info" = "Cassaforte \"%@\" aggiunta correttamente.\nAccedi a questa cassaforte tramite l'app File.";
 "addVault.success.openFilesApp" = "Apri App File";
 "addVault.success.footer" = "Se non lo hai già fatto, abilita Cryptomator nell'app File.";
+"biometryType.touchID" = "Touch ID";
 
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "chooseFolder.createNewFolder.cells.name" = "Nome della Cartella";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Il nome della cartella non può essere vuoto.";
 
 "cloudProviderType.localFileSystem" = "Altro Fornitore di File";
 
@@ -71,6 +77,17 @@
 "untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Fidati";
 "untrustedTLSCertificate.dismiss" = "Non Fidarti";
+
+"vaultDetail.button.lock" = "Blocca Ora";
+"vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
+"vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
+"vaultDetail.info.footer.accountInfo" = "Accesso effettuato come %@ tramite %@.";
+"vaultDetail.locked.footer" = "La tua cassaforte è attualmente bloccata.";
+"vaultDetail.removeVault.footer" = "Questo rimuoverà solo la cassaforte dall'elenco della cassaforte e non eliminerà alcun file crittografato.";
+"vaultDetail.unlocked.footer" = "La tua cassaforte è attualmente sbloccata nell'app File.";
+"vaultDetail.unlockVault.footer" = "Inserisci la password per \"%@\" per memorizzarla nel portachiavi iOS e per abilitare %@.";
 
 "vaultList.header.title" = "Cassaforti";
 "vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
