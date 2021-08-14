@@ -52,6 +52,9 @@
 "addVault.success.openFilesApp" = "Dosyalar Uygulamasını Aç";
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
 
+"biometryType.faceID" = "Yüz kimliği";
+"biometryType.touchID" = "Dokunmatik kimlik";
+
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
 "chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
 "chooseFolder.createNewFolder.cells.name" = "Klasör Adı";
