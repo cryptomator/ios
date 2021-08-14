@@ -99,6 +99,17 @@
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
 
+"vaultDetail.button.lock" = "Şimdi Kilitle";
+"vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
+"vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
+"vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
+"vaultDetail.info.footer.accountInfo" = "%@ aracılığıyla %@ olarak oturum açıldı.";
+"vaultDetail.locked.footer" = "Kasanız şu anda kilitli.";
+"vaultDetail.removeVault.footer" = "Bu, yalnızca kasayı kasa listesinden kaldırır ve şifrelenmiş dosyaları silmez.";
+"vaultDetail.unlocked.footer" = "Kasanızın kilidi şu anda Dosyalar uygulamasında açık.";
+"vaultDetail.unlockVault.footer" = "iOS anahtar zincirinde saklamak ve %@'yi etkinleştirmek için \"%@\" parolasını girin.";
+
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
 "vaultList.remove.alert.title" = "Kasa Silinsin mi?";
