@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Fel";
 "common.button.cancel" = "Avbryt";
 "common.button.choose" = "Välj";
 "common.button.confirm" = "Bekräfta";
@@ -19,14 +20,7 @@
 "common.cells.password" = "Lösenord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Användarnamn";
-"common.cloudProviderType.localFileSystem" = "Annan filleverantör";
-"common.error.alert.title" = "Fel";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Läs mer.";
-"common.touchID" = "Touch ID";
-
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
 "accountList.signOut.alert.title" = "Ta bort associerade valv?";
 "accountList.signOut.alert.message" = "Genom att logga ut kommer alla associerade valv att tas bort från valvlistan. Ingen krypterad data kommer att raderas. Du kan logga in igen och lägga till valven senare.";
 
@@ -34,18 +28,13 @@
 "addVault.createNewVault.title" = "Skapa nytt valv";
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Var ska Cryptomator lagra de krypterade filerna för ditt valv?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
 "addVault.createNewVault.password.enterPassword.header" = "Ange ett nytt lösenord.";
 "addVault.createNewVault.password.confirmPassword.header" = "Bekräfta nytt lösenord.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Bekräfta lösenord?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "VIKTIGT: Om du glömmer ditt lösenord finns det inget sätt att återställa dina data.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Lösenorden överensstämmer inte.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Öppna befintligt valv";
 "addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
@@ -58,23 +47,13 @@
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
 "chooseFolder.createNewFolder.cells.name" = "Namn på mappen";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProviderType.localFileSystem" = "Annan filleverantör";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
 "onboarding.title" = "Välkommen";
 "onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
@@ -86,34 +65,16 @@
 "settings.sendLogFile" = "Skicka loggfil";
 
 "unlockVault.button.unlock" = "Lås upp";
-"unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Ange lösenord för \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
 
 "untrustedTLSCertificate.title" = "Ogiltigt certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Ange som betrott";
 "untrustedTLSCertificate.dismiss" = "Lita inte på";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
 "vaultList.header.title" = "Valv";
 "vaultList.emptyList.message" = "Klicka här för att lägga till valv";
 "vaultList.remove.alert.title" = "Ta bort valv?";
 "vaultList.remove.alert.message" = "Detta kommer bara att ta bort valvet från valvlistan. Inga krypterade data kommer att raderas. Du kan lägga till valvet igen senare.";
-
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";

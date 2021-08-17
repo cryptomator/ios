@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Errore";
 "common.button.cancel" = "Annulla";
 "common.button.choose" = "Scegli";
 "common.button.confirm" = "Conferma";
@@ -19,14 +20,10 @@
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
-"common.cloudProviderType.localFileSystem" = "Altro Fornitore di File";
-"common.error.alert.title" = "Errore";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Scopri di più.";
-"common.touchID" = "Touch ID";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
+"accountList.header.title" = "Autenticazioni";
+"accountList.emptyList.message" = "Tocca qui per aggiungere un account";
 "accountList.signOut.alert.title" = "Rimuovere le Cassaforti Associate?";
 "accountList.signOut.alert.message" = "Disconnettendoti, tutte le cassaforti associate saranno rimosse dall'elenco delle cassaforti. Nessun dato crittografato sarà eliminato. Puoi accedere nuovamente e riaggiungerle in seguito.";
 
@@ -34,18 +31,18 @@
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome Cassaforte";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Il nome della cassaforte non deve contenere \\ / : * ? \" < > | o terminare con un punto.";
 "addVault.createNewVault.chooseCloud.header" = "Dove dovrebbe memorizzare Cryptomator i file crittografati della tua cassaforte?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" esiste già in questa posizione. Scegli un nome o una posizione della cassaforte diverso.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poterne creare una nuova, sei pregato di tornare indietro e scegliere una cartella differente.";
 "addVault.createNewVault.password.enterPassword.header" = "Inserisci una nuova password.";
 "addVault.createNewVault.password.confirmPassword.header" = "Conferma la nuova password.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confermare la Password?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se dimentichi la tua password, non c'è moto di recuperare i tuoi dati.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
+"addVault.createNewVault.password.error.emptyPassword" = "La password non può essere vuota.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Le password non corrispondono.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.password.error.tooShortPassword" = "La password deve contenere almeno 8 caratteri.";
 "addVault.openExistingVault.title" = "Apri Cassaforte Esistente";
 "addVault.openExistingVault.chooseCloud.header" = "Dove si trova la cassaforte?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha rilevato la cassaforte \"%@\".\nVorresti aggiungerla?";
@@ -55,26 +52,31 @@
 "addVault.success.openFilesApp" = "Apri App File";
 "addVault.success.footer" = "Se non lo hai già fatto, abilita Cryptomator nell'app File.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "chooseFolder.createNewFolder.cells.name" = "Nome della Cartella";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Il nome della cartella non può essere vuoto.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProvider.error.itemNotFound" = "\"%@\" non è stato trovato.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" esiste già.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" ha un tipo di elemento inatteso.";
+"cloudProvider.error.parentFolderDoesNotExist" = "La cartella padre \"%@\" non esiste.";
+"cloudProvider.error.pageTokenInvalid" = "Impossibile continuare il recupero dei contenuti della directory.";
+"cloudProvider.error.quotaInsufficient" = "Lo spazio di archiviazione dispone di spazio insufficiente.";
+"cloudProvider.error.unauthorized" = "Impossibile eseguire operazioni non autorizzate.";
+"cloudProvider.error.noInternetConnection" = "Connessione Internet necessaria per questa operazione.";
+
+"cloudProviderType.localFileSystem" = "Altro Fornitore di File";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una cassaforte esiste già in questa posizione. Riprova con un'altra posizione di archiviazione.";
 "localFileSystemAuthentication.openExistingVault.header" = "Nella prossima schermata, scegli la cartella della tua cassaforte esistente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La cartella selezionata non è una cassaforte. Riprova con una cartella diversa.";
 
 "onboarding.title" = "Benvenuto";
 "onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file. Per iniziare, vai all'app principale e aggiungi una cassaforte.";
@@ -86,27 +88,27 @@
 "settings.sendLogFile" = "Invia File di Registro";
 
 "unlockVault.button.unlock" = "Sblocca";
-"unlockVault.button.unlockVia" = "Unlock via %@";
+"unlockVault.button.unlockVia" = "Sblocca tramite %@";
 "unlockVault.password.footer" = "Inserisci la password per \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.enableBiometricalUnlock.switch" = "Abilita %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Invece di sbloccare la cassaforte con la password, puoi sbloccarla tramite %@.";
+"unlockVault.evaluatePolicy.reason" = "Sblocca la tua cassaforte";
 
 "untrustedTLSCertificate.title" = "Certificato TLS non valido";
 "untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Fidati";
 "untrustedTLSCertificate.dismiss" = "Non Fidarti";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Blocca Ora";
+"vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
+"vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
+"vaultDetail.info.footer.accountInfo" = "Accesso effettuato come %@ tramite %@.";
+"vaultDetail.locked.footer" = "La tua cassaforte è attualmente bloccata.";
+"vaultDetail.removeVault.footer" = "Questo rimuoverà solo la cassaforte dall'elenco della cassaforte e non eliminerà alcun file crittografato.";
+"vaultDetail.unlocked.footer" = "La tua cassaforte è attualmente sbloccata nell'app File.";
+"vaultDetail.unlockVault.footer" = "Inserisci la password per \"%@\" per memorizzarla nel portachiavi iOS e per abilitare %@.";
 
 "vaultList.header.title" = "Cassaforti";
 "vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
