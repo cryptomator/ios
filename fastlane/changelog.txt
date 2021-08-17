@@ -6,10 +6,11 @@ We're looking forward to your feedback!
 
 ---
 
-## Changes Since 2.0.0 Beta 2
-- Added "unlock vault" in Files app, incl. support for Touch ID / Face ID (#10, #59)
-- Added vault detail screen, incl. "lock vault" (#5, #69)
-- Fixed support for external drives via "Other File Provider" (#63)
-- Fixed links in "About Cryptomator" screen
+## Changes Since 2.0.0 Beta 3
+- Removed Cryptomator itself as a file provider for third-party apps (see #48)
+- Fixed file upload in OneDrive (#78)
+- Fixed greyed out files (#67)
+- Fixed some UI inconsistencies (#75, #76)
+- Improved logging
 
-Be aware that with this update, you have to set up your vaults again. This will happen during the beta from time to time, probably more often in the beginning. Sorry for the inconvenience that this may cause.
+Be aware that with this update, you may have to set up your vaults again. This will happen during the beta from time to time, probably more often in the beginning. Sorry for the inconvenience that this may cause.
