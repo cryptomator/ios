@@ -14,7 +14,7 @@ class VaultListViewController: UITableViewController {
 	weak var coordinator: MainCoordinator?
 
 	private let viewModel: VaultListViewModelProtocol
-	private let header = EditableTableViewHeader(title: NSLocalizedString("vaultList.header.title", comment: ""))
+	private let header = EditableTableViewHeader(title: LocalizedString.getValue("vaultList.header.title"))
 	private var observer: NSObjectProtocol?
 
 	init(with viewModel: VaultListViewModelProtocol) {
@@ -47,7 +47,7 @@ class VaultListViewController: UITableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.vaults.isEmpty {
-				self.tableView.backgroundView = EmptyListMessage(message: NSLocalizedString("vaultList.emptyList.message", comment: ""))
+				self.tableView.backgroundView = EmptyListMessage(message: LocalizedString.getValue("vaultList.emptyList.message"))
 				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
@@ -62,6 +62,13 @@ class VaultListViewController: UITableViewController {
 			self?.viewModel.refreshVaultLockStates().then {
 				self?.tableView.reloadData()
 			}
+		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		viewModel.refreshVaultLockStates().then { [weak self] _ in
+			self?.tableView.reloadData()
 		}
 	}
 
@@ -107,13 +114,11 @@ class VaultListViewController: UITableViewController {
 		cell.isUnlocked = vault.vaultIsUnlocked
 		cell.lockButton.primaryAction = { [weak self] _ in
 			self?.viewModel.lockVault(vault).then {
-				let feedBackGenerator = UINotificationFeedbackGenerator()
-				feedBackGenerator.notificationOccurred(.success)
+				let feedbackGenerator = UINotificationFeedbackGenerator()
+				feedbackGenerator.notificationOccurred(.success)
 				self?.tableView.reloadData()
 			}.catch { error in
-				guard let self = self else {
-					return
-				}
+				guard let self = self else { return }
 				self.coordinator?.handleError(error, for: self)
 			}
 		}
@@ -122,8 +127,8 @@ class VaultListViewController: UITableViewController {
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			let alertController = UIAlertController(title: NSLocalizedString("vaultList.remove.alert.title", comment: ""), message: NSLocalizedString("vaultList.remove.alert.message", comment: ""), preferredStyle: .alert)
-			let okAction = UIAlertAction(title: NSLocalizedString("common.button.remove", comment: ""), style: .destructive) { _ in
+			let alertController = UIAlertController(title: LocalizedString.getValue("vaultList.remove.alert.title"), message: LocalizedString.getValue("vaultList.remove.alert.message"), preferredStyle: .alert)
+			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
 					tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -131,10 +136,8 @@ class VaultListViewController: UITableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-
 			alertController.addAction(okAction)
-			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
-
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 			present(alertController, animated: true, completion: nil)
 		}
 	}

@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Fout";
 "common.button.cancel" = "Annuleren";
 "common.button.choose" = "Kies";
 "common.button.confirm" = "Bevestig";
@@ -19,14 +20,7 @@
 "common.cells.password" = "Wachtwoord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Gebruikersnaam";
-"common.cloudProviderType.localFileSystem" = "Andere File Provider";
-"common.error.alert.title" = "Fout";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Meer weten.";
-"common.touchID" = "Touch ID";
-
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
 "accountList.signOut.alert.title" = "Bijbehorende kluizen verwijderen?";
 "accountList.signOut.alert.message" = "Door uit te loggen worden alle bijbehorende kluizen uit de kluislijst verwijderd. Er worden geen versleutelde gegevens verwijderd. U kunt opnieuw inloggen en later de kluis opnieuw toevoegen.";
 
@@ -34,18 +28,13 @@
 "addVault.createNewVault.title" = "Nieuwe Kluis Aanmaken";
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Waar moet Cryptomator de versleutelde bestanden van je kluis opslaan?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm een nieuwe kluis te maken, ga terug en kies een andere map.";
 "addVault.createNewVault.password.enterPassword.header" = "Voer een nieuw wachtwoord in.";
 "addVault.createNewVault.password.confirmPassword.header" = "Bevestig het nieuwe wachtwoord.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Bevestig Wachtwoord?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "BELANGRIJK: Als u uw wachtwoord vergeet, is er geen manier om uw gegevens te herstellen.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Wachtwoorden komen niet overeen.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "Open Bestaande Kluis";
 "addVault.openExistingVault.chooseCloud.header" = "Wat is de locatie van de kluis?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detecteerde de kluis \"%@\".\nWilt u deze kluis toevoegen?";
@@ -58,62 +47,17 @@
 "chooseFolder.emptyFolder.footer" = "Map is leeg";
 "chooseFolder.createNewFolder.header.title" = "Kies een naam voor de map.";
 "chooseFolder.createNewFolder.cells.name" = "Naam van de Map";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProviderType.localFileSystem" = "Andere File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "Kies in het volgende scherm de map van uw bestaande kluis.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
-
-"onboarding.title" = "Welcome";
-"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
-"onboarding.openCryptomator.button" = "Open Cryptomator";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
-"settings.aboutCryptomator.title" = "Version %@ (%@)";
-"settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Ontgrendel";
-"unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
-
-"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
-"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Trust";
-"untrustedTLSCertificate.dismiss" = "Don't Trust";
-
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
-"vaultList.header.title" = "Vaults";
-"vaultList.emptyList.message" = "Tap here to add a vault";
 "vaultList.remove.alert.title" = "Verwijder Kluis?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
-
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
-
-"webDAVAuthentication.title" = "WebDAV";

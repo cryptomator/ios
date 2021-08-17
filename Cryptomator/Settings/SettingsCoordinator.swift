@@ -6,7 +6,6 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation

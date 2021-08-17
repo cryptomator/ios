@@ -6,7 +6,6 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -89,11 +88,7 @@ class CloudAuthenticator {
 			break
 		}
 		try accountManager.removeAccount(with: account.accountUID)
-		vaultManager.removeAllUnusedFileProviderDomains().then {
-			DDLogDebug("Successfully removed all unused file provider domains after deauthenticated account: \(account.accountUID) - \(account.cloudProviderType)")
-		}.catch { error in
-			DDLogError("removeAllUnusedFileProviderDomains failed with error: \(error) after deauthenticated account: \(account.accountUID) - \(account.cloudProviderType)")
-		}
+		_ = vaultManager.removeAllUnusedFileProviderDomains()
 	}
 }
 

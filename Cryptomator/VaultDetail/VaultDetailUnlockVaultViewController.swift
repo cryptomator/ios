@@ -6,13 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import UIKit
 
 class VaultDetailUnlockVaultViewController: SingleSectionTableViewController {
 	weak var coordinator: (Coordinator & VaultPasswordVerifying)?
 	lazy var confirmButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: NSLocalizedString("common.button.confirm", comment: ""), style: .done, target: self, action: #selector(verify))
+		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.confirm"), style: .done, target: self, action: #selector(verify))
 		button.isEnabled = false
 		return button
 	}()

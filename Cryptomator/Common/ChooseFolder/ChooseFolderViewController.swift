@@ -121,7 +121,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		let itemsLoading = refreshControl?.isRefreshing ?? true
 		if !itemsLoading, viewModel.items.isEmpty {
-			return NSLocalizedString("chooseFolder.emptyFolder.footer", comment: "")
+			return LocalizedString.getValue("chooseFolder.emptyFolder.footer")
 		} else {
 			return nil
 		}

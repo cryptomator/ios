@@ -6,7 +6,6 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -77,6 +76,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	 */
 	override func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		// resolve the given identifier to a record in the model
+		DDLogDebug("FPExt: item(for: \(identifier)) called")
 		if identifier == .rootContainer || identifier.rawValue == "File Provider Storage" || identifier.rawValue == domain?.identifier.rawValue {
 			return RootFileProviderItem()
 		}
@@ -86,6 +86,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
 		// resolve the given identifier to a file on disk
+		DDLogDebug("FPExt: urlForItem(withPersistentIdentifier: \(identifier)) called")
 		if identifier == .rootContainer {
 			return getBaseStorageDirectory()
 		}
@@ -100,6 +101,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
+		DDLogDebug("FPExt: persistentIdentifierForItem(at: \(url)) called")
 		// resolve the given URL to a persistent identifier using a database
 		let pathComponents = url.pathComponents
 
@@ -111,7 +113,9 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
+		DDLogDebug("FPExt: providePlaceholder(at: \(url)) called")
 		guard let identifier = persistentIdentifierForItem(at: url) else {
+			DDLogError("providePlaceholder - persistentIdentifier is nil")
 			completionHandler(NSFileProviderError(.noSuchItem))
 			return
 		}
@@ -122,6 +126,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			try NSFileProviderManager.writePlaceholder(at: placeholderURL, withMetadata: fileProviderItem)
 			completionHandler(nil)
 		} catch {
+			DDLogError("providePlaceholder - failed with error:\(error)")
 			completionHandler(error)
 		}
 	}
@@ -153,6 +158,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 }
 		 */
 		// TODO: Register DownloadTask
+		DDLogDebug("FPExt: startProvidingItem(at: \(url)) called")
 		let adapter: FileProviderAdapter
 		do {
 			adapter = try getAdapterWithWrappedError()
@@ -172,6 +178,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 - create a fresh background NSURLSessionTask and schedule it to upload the current modifications
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
+		DDLogDebug("FPExt: itemChanged(at: \(url)) called")
 		let adapter = getFailableAdapter()
 		adapter?.itemChanged(at: url)
 	}
@@ -199,7 +206,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		//		}
 
 		// Not implemented in the moment.
-		DDLogInfo("stopProvidingItem called for: \(url)")
+		DDLogInfo("FPExt: stopProvidingItem(at: \(url)) called")
 	}
 
 	// MARK: - Enumeration
@@ -221,9 +228,10 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 return enumerator
 		 */
 		// TODO: Change error handling here
+		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
 		guard let manager = self.manager, let domain = self.domain, let dbPath = dbPath, let notificator = notificator else {
 			// no domain ==> no installed vault
-			DDLogError("FPExtension: not initialized")
+			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, manager: manager, dbPath: dbPath, localURLProvider: self)

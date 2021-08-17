@@ -27,11 +27,11 @@ public enum FileProviderAdapterManager {
 		}
 	}
 
-	public static func unlockVault(for domain: NSFileProviderDomain?, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws {
-		guard let domain = domain, let dbPath = dbPath else {
+	public static func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws {
+		guard let dbPath = dbPath else {
 			return
 		}
-		let provider = try VaultDBManager.shared.manualUnlockVault(withUID: domain.identifier.rawValue, kek: kek)
+		let provider = try VaultDBManager.shared.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		let itemMetadataManager = ItemMetadataDBManager(with: database)
 		let cachedFileManager = CachedFileDBManager(with: database)
@@ -40,7 +40,7 @@ public enum FileProviderAdapterManager {
 		let deletionTaskManager = try DeletionTaskDBManager(with: database)
 		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
 		queue.sync(flags: .barrier) {
-			cachedAdapters[domain.identifier] = adapter
+			cachedAdapters[domainIdentifier] = adapter
 		}
 	}
 
@@ -50,7 +50,7 @@ public enum FileProviderAdapterManager {
 		}
 	}
 
-	public static func vaultIsUnLocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
+	public static func vaultIsUnlocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
 		queue.sync(flags: .barrier) {
 			return cachedAdapters[domainIdentifier] != nil
 		}

@@ -6,9 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
-import CocoaLumberjackSwift
 import CryptomatorCommonCore
+import FileProvider
 import Foundation
 import GRDB
 import Promises
@@ -58,9 +57,7 @@ class VaultListViewModel: VaultListViewModelProtocol {
 
 	func removeRow(at index: Int) throws {
 		let removedVault = vaults.remove(at: index)
-		try vaultManager.removeVault(withUID: removedVault.vaultUID).catch { error in
-			DDLogError("VaultListViewModel: remove row failed with error: \(error)")
-		}
+		_ = try vaultManager.removeVault(withUID: removedVault.vaultUID)
 		try updateVaultListPositions()
 	}
 

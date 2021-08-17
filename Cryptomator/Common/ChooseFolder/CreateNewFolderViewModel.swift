@@ -17,7 +17,7 @@ protocol CreateNewFolderViewModelProtocol: SingleSectionHeaderTableViewModelProt
 }
 
 class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
-	let headerTitle = NSLocalizedString("chooseFolder.createNewFolder.header.title", comment: "")
+	let headerTitle = LocalizedString.getValue("chooseFolder.createNewFolder.header.title")
 	let headerUppercased = false
 
 	var folderName: String?
@@ -52,7 +52,7 @@ enum CreateNewFolderViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptyFolderName:
-			return NSLocalizedString("chooseFolder.createNewFolder.error.emptyFolderName", comment: "")
+			return LocalizedString.getValue("chooseFolder.createNewFolder.error.emptyFolderName")
 		}
 	}
 }

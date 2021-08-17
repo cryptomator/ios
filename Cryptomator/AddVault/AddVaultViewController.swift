@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -18,7 +19,7 @@ class AddVaultViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("addVault.title", comment: "")
+		title = LocalizedString.getValue("addVault.title")
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(close))
 		navigationItem.leftBarButtonItem = cancelButton
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "AddVaultCell")
@@ -44,9 +45,9 @@ class AddVaultViewController: UITableViewController {
 		let text: String
 		switch indexPath.row {
 		case 0:
-			text = NSLocalizedString("addVault.createNewVault.title", comment: "")
+			text = LocalizedString.getValue("addVault.createNewVault.title")
 		case 1:
-			text = NSLocalizedString("addVault.openExistingVault.title", comment: "")
+			text = LocalizedString.getValue("addVault.openExistingVault.title")
 		default:
 			return cell
 		}

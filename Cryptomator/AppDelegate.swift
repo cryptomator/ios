@@ -6,7 +6,6 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
@@ -39,16 +38,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		} catch {
 			// MARK: Handle error
 
-			DDLogError("Error while initializing the CryptomatorDatabase: \(error)")
+			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
 			return false
 		}
 
 		// Clean up
-		VaultDBManager.shared.removeAllUnusedFileProviderDomains().then {
-			DDLogDebug("Removed all unused FileProviderDomains")
-		}.catch { error in
-			DDLogError("Removing all unused FileProviderDomains failed with error: \(error)")
-		}
+		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 
 		// Set up cloud storage services
 		CloudProviderDBManager.shared.useBackgroundSession = false
@@ -59,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		do {
 			OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
 		} catch {
-			DDLogError("Error while setting up OneDrive: \(error)")
+			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 
 		// Create window

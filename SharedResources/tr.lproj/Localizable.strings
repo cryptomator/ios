@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Hata";
 "common.button.cancel" = "İptal";
 "common.button.choose" = "Seç";
 "common.button.confirm" = "Onayla";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Şifre";
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
-"common.cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
-"common.error.alert.title" = "Hata";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Kimlik Doğrulaması";
 "accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Dosyalar Uygulamasını Aç";
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
 
+"biometryType.faceID" = "Yüz kimliği";
+"biometryType.touchID" = "Dokunmatik kimlik";
+
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
 "chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
 "chooseFolder.createNewFolder.cells.name" = "Klasör Adı";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Depolama alanınız yetersiz.";
 "cloudProvider.error.unauthorized" = "İşlem, yetkisiz gerçekleştirilemiyor.";
 "cloudProvider.error.noInternetConnection" = "Bu işlem için İnternet bağlantısı gerekiyor.";
+
+"cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
@@ -97,16 +99,16 @@
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.button.lock" = "Şimdi Kilitle";
+"vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
+"vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
+"vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
+"vaultDetail.info.footer.accountInfo" = "%@ aracılığıyla %@ olarak oturum açıldı.";
+"vaultDetail.locked.footer" = "Kasanız şu anda kilitli.";
+"vaultDetail.removeVault.footer" = "Bu, yalnızca kasayı kasa listesinden kaldırır ve şifrelenmiş dosyaları silmez.";
+"vaultDetail.unlocked.footer" = "Kasanızın kilidi şu anda Dosyalar uygulamasında açık.";
+"vaultDetail.unlockVault.footer" = "iOS anahtar zincirinde saklamak ve %@'yi etkinleştirmek için \"%@\" parolasını girin.";
 
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";

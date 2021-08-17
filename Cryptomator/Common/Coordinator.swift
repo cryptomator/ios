@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 protocol Coordinator: AnyObject {
@@ -17,8 +18,8 @@ protocol Coordinator: AnyObject {
 
 extension Coordinator {
 	func handleError(_ error: Error, for viewController: UIViewController) {
-		let alertController = UIAlertController(title: NSLocalizedString("common.error.alert.title", comment: ""), message: error.localizedDescription, preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.ok", comment: ""), style: .default))
+		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
 		viewController.present(alertController, animated: true)
 	}
 

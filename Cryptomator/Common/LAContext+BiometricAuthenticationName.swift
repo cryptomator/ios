@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import LocalAuthentication
 
 extension LAContext {
@@ -13,9 +14,9 @@ extension LAContext {
 		if canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil) {
 			switch biometryType {
 			case .faceID:
-				return NSLocalizedString("common.faceID", comment: "")
+				return LocalizedString.getValue("biometryType.faceID")
 			case .touchID:
-				return NSLocalizedString("common.touchID", comment: "")
+				return LocalizedString.getValue("biometryType.touchID")
 			default:
 				return nil
 			}

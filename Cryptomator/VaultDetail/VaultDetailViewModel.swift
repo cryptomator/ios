@@ -70,15 +70,15 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var subscribers = Set<AnyCancellable>()
 
 	private let sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection, .removeVaultSection]
-	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: NSLocalizedString("vaultDetail.button.lock", comment: ""), isEnabled: false)
+	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: false)
 	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
 				DefaultTableCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none),
-				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: NSLocalizedString("addVault.success.openFilesApp", comment: ""))
+				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: LocalizedString.getValue("addVault.success.openFilesApp"))
 			],
 			.lockingSection: lockSectionCells,
-			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: NSLocalizedString("vaultDetail.button.removeVault", comment: ""), titleTextColor: .systemRed)]
+			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: LocalizedString.getValue("vaultDetail.button.removeVault"), titleTextColor: .systemRed)]
 		]
 	}
 
@@ -102,7 +102,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		do {
 			return try passwordManager.hasPassword(forVaultUID: vaultUID)
 		} catch {
-			DDLogError("VaultDetailViewModel - biometricalUnlockEnabled failed with error: \(error)")
+			DDLogError("biometricalUnlockEnabled failed with error: \(error)")
 			return false
 		}
 	}
@@ -110,7 +110,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = {
 		[.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
 		 .lockingSection: unlockSectionFooterViewModel,
-		 .removeVaultSection: BaseHeaderFooterViewModel(title: NSLocalizedString("vaultDetail.removeVault.footer", comment: ""))]
+		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 	}()
 
 	private lazy var unlockSectionFooterViewModel: UnlockSectionFooterViewModel = {
@@ -161,9 +161,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	func removeVault() throws {
-		try vaultManager.removeVault(withUID: vaultUID).catch { error in
-			DDLogError("VaultDetailViewModel: remove vault failed with error: \(error)")
-		}
+		_ = try vaultManager.removeVault(withUID: vaultUID)
 	}
 
 	func lockVault() -> Promise<Void> {

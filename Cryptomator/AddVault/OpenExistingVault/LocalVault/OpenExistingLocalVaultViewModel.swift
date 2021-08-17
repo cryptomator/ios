@@ -14,8 +14,8 @@ import Promises
 class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let validator: OpenExistingLocalVaultValidationLogic
 	init(accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
-		let documentPickerButtonText = NSLocalizedString("localFileSystemAuthentication.openExistingVault.button", comment: "")
-		let headerText = NSLocalizedString("localFileSystemAuthentication.openExistingVault.header", comment: "")
+		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.button")
+		let headerText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.header")
 		self.validator = OpenExistingLocalVaultValidationLogic()
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, validationLogic: validator, accountManager: accountManager)
 	}
@@ -47,7 +47,7 @@ enum OpenExistingLocalVaultViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .noVaultFound:
-			return NSLocalizedString("localFileSystemAuthentication.openExistingVault.error.noVaultFound", comment: "")
+			return LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.error.noVaultFound")
 		}
 	}
 }

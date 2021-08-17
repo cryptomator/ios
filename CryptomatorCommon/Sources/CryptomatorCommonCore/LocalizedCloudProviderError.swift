@@ -22,21 +22,21 @@ public enum LocalizedCloudProviderError: LocalizedError {
 	public var errorDescription: String? {
 		switch self {
 		case let .itemNotFound(cloudPath: cloudPath):
-			return String(format: NSLocalizedString("cloudProvider.error.itemNotFound", comment: ""), cloudPath.lastPathComponent)
+			return String(format: LocalizedString.getValue("cloudProvider.error.itemNotFound"), cloudPath.lastPathComponent)
 		case let .itemAlreadyExists(cloudPath: cloudPath):
-			return String(format: NSLocalizedString("cloudProvider.error.itemAlreadyExists", comment: ""), cloudPath.lastPathComponent)
+			return String(format: LocalizedString.getValue("cloudProvider.error.itemAlreadyExists"), cloudPath.lastPathComponent)
 		case let .itemTypeMismatch(cloudPath: cloudPath):
-			return String(format: NSLocalizedString("cloudProvider.error.itemTypeMismatch", comment: ""), cloudPath.lastPathComponent)
+			return String(format: LocalizedString.getValue("cloudProvider.error.itemTypeMismatch"), cloudPath.lastPathComponent)
 		case let .parentFolderDoesNotExist(cloudPath: cloudPath):
-			return String(format: NSLocalizedString("cloudProvider.error.parentFolderDoesNotExist", comment: ""), cloudPath.deletingLastPathComponent().lastPathComponent)
+			return String(format: LocalizedString.getValue("cloudProvider.error.parentFolderDoesNotExist"), cloudPath.deletingLastPathComponent().lastPathComponent)
 		case .pageTokenInvalid:
-			return NSLocalizedString("cloudProvider.error.pageTokenInvalid", comment: "")
+			return LocalizedString.getValue("cloudProvider.error.pageTokenInvalid")
 		case .quotaInsufficient:
-			return NSLocalizedString("cloudProvider.error.quotaInsufficient", comment: "")
+			return LocalizedString.getValue("cloudProvider.error.quotaInsufficient")
 		case .unauthorized:
-			return NSLocalizedString("cloudProvider.error.unauthorized", comment: "")
+			return LocalizedString.getValue("cloudProvider.error.unauthorized")
 		case .noInternetConnection:
-			return NSLocalizedString("cloudProvider.error.noInternetConnection", comment: "")
+			return LocalizedString.getValue("cloudProvider.error.noInternetConnection")
 		}
 	}
 

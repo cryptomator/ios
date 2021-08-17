@@ -59,7 +59,7 @@ public class FileProviderXPCConnector: FileProviderConnector {
 			connection.remoteObjectInterface = NSXPCInterface(with: type)
 			connection.resume()
 			let rawProxy = connection.remoteObjectProxyWithErrorHandler { errorAccessingRemoteObject in
-				DDLogError("remoteObjectProxyWithErrorHandler failed with: \(errorAccessingRemoteObject)")
+				DDLogError("remoteObjectProxy failed with error: \(errorAccessingRemoteObject)")
 			}
 			guard let proxy = rawProxy as? T else {
 				throw FileProviderXPCConnectorError.rawProxyCastingFailed

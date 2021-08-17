@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -13,7 +14,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	weak var coordinator: (Coordinator & AccountListing)?
 
 	private let viewModel: AccountListViewModelProtocol
-	private let header = EditableTableViewHeader(title: NSLocalizedString("accountList.header.title", comment: ""))
+	private let header = EditableTableViewHeader(title: LocalizedString.getValue("accountList.header.title"))
 
 	init(with viewModel: AccountListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -35,7 +36,7 @@ class AccountListViewController: SingleSectionTableViewController {
 			guard let self = self else { return }
 			self.tableView.reloadData()
 			if self.viewModel.accounts.isEmpty {
-				self.tableView.backgroundView = EmptyListMessage(message: NSLocalizedString("accountList.emptyList.message", comment: ""))
+				self.tableView.backgroundView = EmptyListMessage(message: LocalizedString.getValue("accountList.emptyList.message"))
 				// Prevents `EmptyListMessage` from being placed under the navigation bar
 				self.tableView.contentInsetAdjustmentBehavior = .never
 				self.tableView.separatorStyle = .none
@@ -93,8 +94,8 @@ class AccountListViewController: SingleSectionTableViewController {
 
 	override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 		if editingStyle == .delete {
-			let alertController = UIAlertController(title: NSLocalizedString("accountList.signOut.alert.title", comment: ""), message: NSLocalizedString("accountList.signOut.alert.message", comment: ""), preferredStyle: .alert)
-			let okAction = UIAlertAction(title: NSLocalizedString("common.button.signOut", comment: ""), style: .destructive) { _ in
+			let alertController = UIAlertController(title: LocalizedString.getValue("accountList.signOut.alert.title"), message: LocalizedString.getValue("accountList.signOut.alert.message"), preferredStyle: .alert)
+			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.signOut"), style: .destructive) { _ in
 				do {
 					try self.viewModel.removeRow(at: indexPath.row)
 					tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -102,10 +103,8 @@ class AccountListViewController: SingleSectionTableViewController {
 					self.coordinator?.handleError(error, for: self)
 				}
 			}
-
 			alertController.addAction(okAction)
-			alertController.addAction(UIAlertAction(title: NSLocalizedString("common.button.cancel", comment: ""), style: .cancel))
-
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 			present(alertController, animated: true, completion: nil)
 		}
 	}

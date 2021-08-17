@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class EditableTableViewHeader: UITableViewHeaderFooterView {
@@ -22,7 +23,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
-		editButton.setTitle(NSLocalizedString("common.button.edit", comment: ""), for: .normal)
+		editButton.setTitle(LocalizedString.getValue("common.button.edit"), for: .normal)
 	}
 
 	convenience init() {
@@ -53,7 +54,7 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 
 	private func changeEditButton() {
 		UIView.performWithoutAnimation {
-			editButton.setTitle(NSLocalizedString(isEditing ? "common.button.done" : "common.button.edit", comment: ""), for: .normal)
+			editButton.setTitle(LocalizedString.getValue(isEditing ? "common.button.done" : "common.button.edit"), for: .normal)
 			editButton.layoutIfNeeded()
 		}
 	}

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class AddVaultSuccessViewController: SingleSectionTableViewController {
@@ -46,7 +47,7 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		// swiftlint:disable:next force_cast
 		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(NSLocalizedString("addVault.success.openFilesApp", comment: ""), for: .normal)
+		cell.button.setTitle(LocalizedString.getValue("addVault.success.openFilesApp"), for: .normal)
 		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)
 		return cell
 	}
@@ -79,7 +80,7 @@ private class VaultSuccessHeaderView: UIView {
 
 	convenience init(vaultName: String) {
 		self.init(frame: .zero)
-		infoLabel.text = String(format: NSLocalizedString("addVault.success.info", comment: ""), vaultName)
+		infoLabel.text = String(format: LocalizedString.getValue("addVault.success.info"), vaultName)
 		let stack = UIStackView(arrangedSubviews: [successImage, infoLabel])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical
@@ -102,9 +103,9 @@ private class VaultSuccessFooterView: UIView {
 		textView.isEditable = false
 		textView.isScrollEnabled = false
 
-		let text = NSMutableAttributedString(string: NSLocalizedString("addVault.success.footer", comment: ""), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
+		let text = NSMutableAttributedString(string: LocalizedString.getValue("addVault.success.footer"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: NSLocalizedString("common.footer.learnMore", comment: ""), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
 		text.append(learnMoreLink)
 		textView.attributedText = text
 		textView.isUserInteractionEnabled = true

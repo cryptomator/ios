@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
@@ -13,7 +14,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 	private var viewModel: CreateNewFolderViewModelProtocol
 	private lazy var nameCell: TextFieldCell = {
 		let cell = TextFieldCell()
-		cell.textField.placeholder = NSLocalizedString("chooseFolder.createNewFolder.cells.name", comment: "")
+		cell.textField.placeholder = LocalizedString.getValue("chooseFolder.createNewFolder.cells.name")
 		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 		cell.textField.becomeFirstResponder()
 		let folderIcon = UIImage(named: "folder")
@@ -34,7 +35,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-		let createButton = UIBarButtonItem(title: NSLocalizedString("common.button.create", comment: ""), style: .done, target: self, action: #selector(createButtonClicked))
+		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createButtonClicked))
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
@@ -48,9 +49,7 @@ class CreateNewFolderViewController: SingleSectionHeaderTableViewController {
 		viewModel.createFolder().then { [weak self] folderPath in
 			self?.coordinator?.createdNewFolder(at: folderPath)
 		}.catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
+			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
 		}
 	}

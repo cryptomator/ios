@@ -150,12 +150,12 @@ class UnlockVaultViewModel {
 		let unlockSection = sections[section]
 		switch unlockSection {
 		case .passwordSection:
-			return String(format: NSLocalizedString("unlockVault.password.footer", comment: ""), vaultName)
+			return String(format: LocalizedString.getValue("unlockVault.password.footer"), vaultName)
 		case .enableBiometricalSection:
 			guard let biometryTypeName = getName(for: context.biometryType) else {
 				return nil
 			}
-			return String(format: NSLocalizedString("unlockVault.enableBiometricalUnlock.footer", comment: ""), biometryTypeName)
+			return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.footer"), biometryTypeName)
 		default:
 			return nil
 		}
@@ -194,7 +194,7 @@ class UnlockVaultViewModel {
 	 This means we have to notify the proxy about the start (to enable the artificial delay) and the end of a biometric unlock (to disable the artificial delay again - otherwise the user will not see an authenticate dialog in the Files app).
 	 */
 	func biometricalUnlock() -> Promise<Void> {
-		let reason = NSLocalizedString("unlockVault.evaluatePolicy.reason", comment: "")
+		let reason = LocalizedString.getValue("unlockVault.evaluatePolicy.reason")
 		let getProxyPromise: Promise<VaultUnlocking> = fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain) // getProxy()
 		return getProxyPromise.then { proxy in
 			proxy.startBiometricalUnlock()
@@ -226,14 +226,14 @@ class UnlockVaultViewModel {
 		guard let biometryName = getName(for: biometryType) else {
 			return nil
 		}
-		return String(format: NSLocalizedString("unlockVault.button.unlockVia", comment: ""), biometryName)
+		return String(format: LocalizedString.getValue("unlockVault.button.unlockVia"), biometryName)
 	}
 
 	private func getEnableTitle(for biometryType: LABiometryType) -> String? {
 		guard let biometryName = getName(for: biometryType) else {
 			return nil
 		}
-		return String(format: NSLocalizedString("unlockVault.enableBiometricalUnlock.switch", comment: ""), biometryName)
+		return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.switch"), biometryName)
 	}
 
 	private func getSystemImageName(for biometryType: LABiometryType) -> String? {
@@ -250,9 +250,9 @@ class UnlockVaultViewModel {
 	private func getName(for biometryType: LABiometryType) -> String? {
 		switch biometryType {
 		case .faceID:
-			return NSLocalizedString("common.faceID", comment: "")
+			return LocalizedString.getValue("biometryType.faceID")
 		case .touchID:
-			return NSLocalizedString("common.touchID", comment: "")
+			return LocalizedString.getValue("biometryType.touchID")
 		default:
 			return nil
 		}

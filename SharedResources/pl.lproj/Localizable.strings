@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "Błąd";
 "common.button.cancel" = "Anuluj";
 "common.button.choose" = "Wybierz";
 "common.button.confirm" = "Zatwierdź";
@@ -19,11 +20,7 @@
 "common.cells.password" = "Hasło";
 "common.cells.url" = "URL";
 "common.cells.username" = "Login";
-"common.cloudProviderType.localFileSystem" = "Inny dostawca";
-"common.error.alert.title" = "Błąd";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "Więcej informacji.";
-"common.touchID" = "Touch ID";
 
 "accountList.header.title" = "Uwierzytelnianie";
 "accountList.emptyList.message" = "Dotknij tutaj, aby dodać konto";
@@ -55,6 +52,9 @@
 "addVault.success.openFilesApp" = "Otwórz aplikację Pliki";
 "addVault.success.footer" = "Jeśli jeszcze tego nie zrobiłeś, włącz Cryptomator w aplikacji Pliki.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
 "chooseFolder.createNewFolder.header.title" = "Wybierz nazwę katalogu.";
 "chooseFolder.createNewFolder.cells.name" = "Nazwa katalogu";
@@ -68,6 +68,8 @@
 "cloudProvider.error.quotaInsufficient" = "Pamięć nie ma wystarczającej ilości miejsca.";
 "cloudProvider.error.unauthorized" = "Nie można wykonać operacji nieautoryzowanej.";
 "cloudProvider.error.noInternetConnection" = "Połączenie z Internetem potrzebne do tej operacji.";
+
+"cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";

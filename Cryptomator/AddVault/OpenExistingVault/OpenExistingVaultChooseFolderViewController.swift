@@ -15,7 +15,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("addVault.openExistingVault.title", comment: "")
+		title = LocalizedString.getValue("addVault.openExistingVault.title")
 		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
 	}
 
@@ -47,7 +47,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 		if viewModel.foundMasterkey {
 			// swiftlint:disable:next force_cast
 			let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-			cell.button.setTitle(NSLocalizedString("addVault.openExistingVault.detectedMasterkey.add", comment: ""), for: .normal)
+			cell.button.setTitle(LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.add"), for: .normal)
 			cell.button.addTarget(self, action: #selector(addVault), for: .touchUpInside)
 			return cell
 		} else {
@@ -78,7 +78,7 @@ private class SuccessView: DetectedVaultView {
 	init(vaultName: String) {
 		let botVaultImage = UIImage(named: "bot-vault")
 		let imageView = UIImageView(image: botVaultImage)
-		let text = String(format: NSLocalizedString("addVault.openExistingVault.detectedMasterkey.text", comment: ""), vaultName)
+		let text = String(format: LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.text"), vaultName)
 		super.init(imageView: imageView, text: text)
 	}
 }

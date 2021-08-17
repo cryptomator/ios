@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 
 protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtocol {
@@ -14,7 +15,7 @@ protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtoco
 }
 
 class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
-	let headerTitle = NSLocalizedString("addVault.createNewVault.setVaultName.header.title", comment: "")
+	let headerTitle = LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
 	let headerUppercased = false
 
 	var vaultName: String? {
@@ -52,9 +53,9 @@ enum SetVaultNameViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptyVaultName:
-			return NSLocalizedString("addVault.createNewVault.setVaultName.error.emptyVaultName", comment: "")
+			return LocalizedString.getValue("addVault.createNewVault.setVaultName.error.emptyVaultName")
 		case .invalidInput:
-			return NSLocalizedString("addVault.createNewVault.setVaultName.error.invalidInput", comment: "")
+			return LocalizedString.getValue("addVault.createNewVault.setVaultName.error.invalidInput")
 		}
 	}
 }

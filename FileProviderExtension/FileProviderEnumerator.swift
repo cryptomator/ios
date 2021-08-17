@@ -6,7 +6,6 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import CocoaLumberjack
 import CocoaLumberjackSwift
 import CryptomatorFileProvider
 import FileProvider
@@ -56,6 +55,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer about the items returned by the server (possibly multiple times)
 		 - inform the observer that you are finished with this page
 		 */
+		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier)")
 		var pageToken: String?
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
@@ -66,6 +66,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			do {
 				adapter = try FileProviderAdapterManager.getAdapter(for: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
 			} catch {
+				DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
 				DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
 					let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
 					observer.finishEnumeratingWithError(wrappedError)
@@ -93,7 +94,7 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer when you have finished enumerating up to a subsequent sync anchor
 		 */
 
-		DDLogInfo("FPExt: enumerate now changes for: \(enumeratedItemIdentifier)")
+		DDLogDebug("FPExt: enumerate now changes for: \(enumeratedItemIdentifier)")
 		var itemsDelete = [NSFileProviderItemIdentifier]()
 		var itemsUpdate = [FileProviderItem]()
 

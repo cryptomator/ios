@@ -5,6 +5,7 @@
   Copyright © 2021 Skymatic GmbH. All rights reserved.
 */
 
+"common.alert.error.title" = "에러";
 "common.button.cancel" = "취소";
 "common.button.choose" = "선택";
 "common.button.confirm" = "확인";
@@ -19,14 +20,7 @@
 "common.cells.password" = "비밀번호";
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
-"common.cloudProviderType.localFileSystem" = "다른 파일 앱";
-"common.error.alert.title" = "에러";
-"common.faceID" = "Face ID";
 "common.footer.learnMore" = "자세히 알아보기";
-"common.touchID" = "Touch ID";
-
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
 "accountList.signOut.alert.title" = "연결된 Vault를 제거하시겠습니까?";
 "accountList.signOut.alert.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
 
@@ -34,18 +28,12 @@
 "addVault.createNewVault.title" = "새 Vault 생성";
 "addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault 내 암호화 파일을 어느 경로에 저장하시겠습니까?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "비밀번호를 확인하셨습니까?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.openExistingVault.title" = "기존 Vault 열기";
 "addVault.openExistingVault.chooseCloud.header" = "Vault가 어디에 위치하고 있습니까?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
@@ -58,23 +46,13 @@
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 "chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
 "chooseFolder.createNewFolder.cells.name" = "폴더명";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
+"cloudProviderType.localFileSystem" = "다른 파일 앱";
 
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
 "onboarding.title" = "환영합니다";
 "onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
@@ -86,34 +64,16 @@
 "settings.sendLogFile" = "로그파일 전송";
 
 "unlockVault.button.unlock" = "잠금해제";
-"unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
 
 "untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
 "untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
 
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
 "vaultList.remove.alert.title" = "Vault 제거?";
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
-
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";

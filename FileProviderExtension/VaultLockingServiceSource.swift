@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProvider
@@ -44,10 +45,11 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
 		FileProviderAdapterManager.lockVault(with: domainIdentifier)
+		DDLogInfo("Locked vault \(domainIdentifier.rawValue)")
 	}
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
-		reply(FileProviderAdapterManager.vaultIsUnLocked(domainIdentifier: domainIdentifier))
+		reply(FileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domainIdentifier))
 	}
 
 	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {

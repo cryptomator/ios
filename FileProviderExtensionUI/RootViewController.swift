@@ -60,7 +60,7 @@ class RootViewController: FPUIActionExtensionViewController {
 		} catch {
 			// MARK: Handle error
 
-			DDLogError("Error while initializing the CryptomatorDatabase: \(error)")
+			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
 			return {}
 		}
 		return {}

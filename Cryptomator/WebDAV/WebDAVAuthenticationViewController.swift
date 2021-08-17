@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class WebDAVAuthenticationViewController: SingleSectionTableViewController {
@@ -24,7 +25,7 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 
 	private lazy var urlCell: URLFieldCell = {
 		let urlCell = URLFieldCell(style: .default, reuseIdentifier: "URLFieldCell")
-		urlCell.textField.placeholder = NSLocalizedString("common.cells.url", comment: "")
+		urlCell.textField.placeholder = LocalizedString.getValue("common.cells.url")
 		urlCell.textField.text = "https://"
 		urlCell.textField.becomeFirstResponder()
 		return urlCell
@@ -32,19 +33,19 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 
 	private lazy var usernameCell: UsernameFieldCell = {
 		let usernameCell = UsernameFieldCell(style: .default, reuseIdentifier: "UsernameFieldCell")
-		usernameCell.textField.placeholder = NSLocalizedString("common.cells.username", comment: "")
+		usernameCell.textField.placeholder = LocalizedString.getValue("common.cells.username")
 		return usernameCell
 	}()
 
 	private lazy var passwordCell: PasswordFieldCell = {
 		let passwordCell = PasswordFieldCell(style: .default, reuseIdentifier: "PasswordFieldCell")
-		passwordCell.textField.placeholder = NSLocalizedString("common.cells.password", comment: "")
+		passwordCell.textField.placeholder = LocalizedString.getValue("common.cells.password")
 		return passwordCell
 	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("webDAVAuthentication.title", comment: "")
+		title = LocalizedString.getValue("webDAVAuthentication.title")
 		tableView.rowHeight = 44
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class OnboardingViewController: UITableViewController {
@@ -13,7 +14,7 @@ class OnboardingViewController: UITableViewController {
 
 	private lazy var openCryptomatorCell: UITableViewCell = {
 		let cell = UITableViewCell()
-		cell.textLabel?.text = NSLocalizedString("onboarding.openCryptomator.button", comment: "")
+		cell.textLabel?.text = LocalizedString.getValue("onboarding.openCryptomator.button")
 		cell.textLabel?.textColor = UIColor(named: "primary")
 		return cell
 	}()
@@ -24,7 +25,7 @@ class OnboardingViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = NSLocalizedString("onboarding.title", comment: "")
+		title = LocalizedString.getValue("onboarding.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 	}
@@ -76,7 +77,7 @@ private class OnboardingHeaderView: UIView {
 
 	init() {
 		super.init(frame: .zero)
-		infoLabel.text = NSLocalizedString("onboarding.info", comment: "")
+		infoLabel.text = LocalizedString.getValue("onboarding.info")
 		let stack = UIStackView(arrangedSubviews: [imageView, infoLabel])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical

@@ -16,7 +16,7 @@ class VaultDetailUnlockVaultViewModel {
 	}
 
 	var footerTitle: String {
-		return String(format: NSLocalizedString("vaultDetail.unlockVault.footer", comment: ""), vault.vaultName, biometryTypeName)
+		return String(format: LocalizedString.getValue("vaultDetail.unlockVault.footer"), vault.vaultName, biometryTypeName)
 	}
 
 	var password: String?

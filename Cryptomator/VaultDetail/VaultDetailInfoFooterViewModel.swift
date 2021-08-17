@@ -23,11 +23,11 @@ class VaultDetailInfoFooterViewModel: AttributedTextHeaderFooterViewModel {
 	}
 
 	func createAttributedText(loggedInText: String) -> NSAttributedString {
-		let infoText = loggedInText + NSLocalizedString("vaultDetail.info.footer.accessVault", comment: "")
+		let infoText = loggedInText + LocalizedString.getValue("vaultDetail.info.footer.accessVault")
 
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: NSLocalizedString("common.footer.learnMore", comment: ""), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
 		text.append(learnMoreLink)
 		return text
 	}
@@ -40,7 +40,7 @@ class VaultDetailInfoFooterViewModel: AttributedTextHeaderFooterViewModel {
 	}
 
 	func createLoggedInText(forUsername username: String) -> String {
-		return String(format: NSLocalizedString("vaultDetail.info.footer.accountInfo", comment: ""), username, vault.cloudProviderType.localizedString()) + " "
+		return String(format: LocalizedString.getValue("vaultDetail.info.footer.accountInfo"), username, vault.cloudProviderType.localizedString()) + " "
 	}
 
 	func getUsername() -> String? {

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class CreateNewLocalVaultCoordinator: LocalVaultAdding, LocalFileSystemAuthenticating, Coordinator {
@@ -38,7 +39,7 @@ class CreateNewLocalVaultCoordinator: LocalVaultAdding, LocalFileSystemAuthentic
 		// TODO: Disable Progress-HUD
 		if case CreateNewLocalVaultViewModelError.detectedExistingVault = error {
 			let failureVC = DetectedVaultFailureViewController()
-			failureVC.title = NSLocalizedString("addVault.createNewVault.title", comment: "")
+			failureVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 			navigationController.pushViewController(failureVC, animated: true)
 		} else {
 			handleError(error, for: viewController)

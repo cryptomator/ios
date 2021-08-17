@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 
 protocol CreateNewVaultChooseFolderViewModelProtocol: ChooseFolderViewModelProtocol {
@@ -37,7 +38,7 @@ enum CreateNewVaultChooseFolderViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case let .vaultNameCollision(name: name):
-			return String(format: NSLocalizedString("addVault.createNewVault.chooseFolder.error.vaultNameCollision", comment: ""), name)
+			return String(format: LocalizedString.getValue("addVault.createNewVault.chooseFolder.error.vaultNameCollision"), name)
 		}
 	}
 }
