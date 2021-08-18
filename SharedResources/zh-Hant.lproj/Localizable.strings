@@ -25,7 +25,7 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
-"cloudProviderType.localFileSystem" = "其他檔案儲存服務商";
+"cloudProviderType.localFileSystem" = "其他儲存空間";
 
 "unlockVault.button.unlock" = "解鎖";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
