@@ -595,6 +595,7 @@
 		74267A1C26A5799F004C61BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A1D26A579A4004C61BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
+		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1433,6 +1434,7 @@
 				en,
 				Base,
 				de,
+				cs,
 				el,
 				es,
 				fr,
@@ -1929,6 +1931,7 @@
 			children = (
 				742679FA26A56B33004C61BC /* en */,
 				742679FE26A578E2004C61BC /* de */,
+				74BDA62B26CE8AE1007FBD72 /* cs */,
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
 				74267A0526A57947004C61BC /* fr */,
