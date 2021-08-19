@@ -11,6 +11,10 @@ import FileProvider
 import Foundation
 import Promises
 
+public enum FileProviderAdapterManagerError: Error {
+	case cachedAdapterNotFound
+}
+
 public enum FileProviderAdapterManager {
 	private static let queue = DispatchQueue(label: "FileProviderAdapterManager")
 	private static var cachedAdapters = [NSFileProviderDomainIdentifier: FileProviderAdapter]()
@@ -22,7 +26,7 @@ public enum FileProviderAdapterManager {
 			if let cachedAdapter = cachedAdapters[domain.identifier] {
 				return cachedAdapter
 			} else {
-				throw VaultPasswordManagerError.passwordNotFound
+				throw FileProviderAdapterManagerError.cachedAdapterNotFound
 			}
 		}
 	}

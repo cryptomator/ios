@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
+import CryptomatorFileProvider
 import FileProviderUI
 import UIKit
 
@@ -40,7 +41,8 @@ class FileProviderCoordinator {
 			return
 		}
 		switch internalError {
-		case let internalError as NSError where internalError == VaultPasswordManagerError.passwordNotFound as NSError:
+		// Workaround since iOS 15: It used to be possible to check for the equality `internalError == FileProviderAdapterManagerError.cachedAdapterNotFound as NSError` but it doesn't work anymore for unknown reasons.
+		case let internalError as NSError where internalError.domain == (FileProviderAdapterManagerError.cachedAdapterNotFound as NSError).domain && internalError.code == (FileProviderAdapterManagerError.cachedAdapterNotFound as NSError).code:
 			let domain = NSFileProviderDomain(identifier: domainIdentifier, displayName: vaultName, pathRelativeToDocumentStorage: pathRelativeToDocumentStorage)
 			showPasswordScreen(for: domain)
 		default:
