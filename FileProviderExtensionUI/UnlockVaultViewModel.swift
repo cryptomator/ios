@@ -172,16 +172,16 @@ class UnlockVaultViewModel {
 		} catch {
 			return Promise(error)
 		}
-		if storePasswordInKeychain {
-			do {
-				try passwordManager.setPassword(password, forVaultUID: vaultUID)
-			} catch {
-				return Promise(error)
-			}
-		}
-
 		return fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain).then { proxy -> Promise<Void> in
 			return self.proxyUnlockVault(proxy, kek: kek)
+		}.then {
+			if storePasswordInKeychain {
+				do {
+					try self.passwordManager.setPassword(password, forVaultUID: self.vaultUID)
+				} catch {
+					throw error
+				}
+			}
 		}
 	}
 
