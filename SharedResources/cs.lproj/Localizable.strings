@@ -76,6 +76,55 @@
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "V tomto umístění již trezor existuje. Zkuste to prosím znovu s jiným umístěním.";
 "localFileSystemAuthentication.openExistingVault.header" = "Na další obrazovce vyberte složku vašeho existujícího trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vybrat složku trezoru";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Vybraná složka není trezor. Zkuste to prosím znovu s jinou složkou.";
+
+"onboarding.title" = "Vítejte";
+"onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
+"onboarding.openCryptomator.button" = "Otevřít Cryptomator";
+
+"settings.title" = "Nastavení";
+"settings.aboutCryptomator" = "O Cryptomatoru";
+"settings.aboutCryptomator.title" = "Verze %@ (%@)";
+"settings.sendLogFile" = "Odeslat log soubor";
 
 "unlockVault.button.unlock" = "Odemknout";
+"unlockVault.button.unlockVia" = "Odemknout pomocí %@";
 "unlockVault.password.footer" = "Zadejte heslo pro \"%@\"";
+"unlockVault.enableBiometricalUnlock.switch" = "Povolit %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Namísto odemknutí vašeho trezoru pomocí hesla jej můžete odemknout přes %@.";
+"unlockVault.evaluatePolicy.reason" = "Odemknout váš trezor";
+
+"untrustedTLSCertificate.title" = "Neplatný TLS certifikát";
+"untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu přesto důvěřovat?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Důvěřovat";
+"untrustedTLSCertificate.dismiss" = "Nedůvěřovat";
+
+"urlSession.error.httpError.401" = "Nesprávné uživatelské jméno a/nebo heslo.";
+"urlSession.error.httpError.403" = "Nedostatečná práva k požadovanému zdroji.";
+"urlSession.error.httpError.404" = "Požadovaný zdroj nebyl nalezen.";
+"urlSession.error.httpError.405" = "Metoda požadavku není podporována cílovým zdrojem.";
+"urlSession.error.httpError.409" = "Konflikt požadavku se současným stavem cílového zdroje.";
+"urlSession.error.httpError.412" = "Přístup k cílovému zdroji byl odepřen.";
+"urlSession.error.httpError.default" = "Připojení k síti selhalo se stavovým kódem %ld.";
+"urlSession.error.unexpectedResponse" = "Došlo k neočekávané odpovědi sítě.";
+
+"vaultDetail.button.lock" = "Uzamknout nyní";
+"vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Pokud povolíte %@, vaše heslo k trezoru bude uloženo v iOS klíčence.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Vaše heslo k trezoru bude vyžadováno pouze v případě, že %@ ověření selže.";
+"vaultDetail.info.footer.accessVault" = "Přistoupit k trezoru prostřednictvím aplikace Soubory.";
+"vaultDetail.info.footer.accountInfo" = "Přihlášen jako %@ přes %@.";
+"vaultDetail.locked.footer" = "Váš trezor je momentálně uzamčen.";
+"vaultDetail.removeVault.footer" = "Tímto odstraníte pouze trezor ze seznamu trezorů a neodstraníte žádné šifrované soubory.";
+"vaultDetail.unlocked.footer" = "Váš trezor je v současné době odemčen v aplikaci Soubory.";
+"vaultDetail.unlockVault.footer" = "Zadejte heslo pro \"%@\" pro uložení do iOS klíčenky a pro povolení %@.";
+
+"vaultList.header.title" = "Trezory";
+"vaultList.emptyList.message" = "Klikněte zde pro přidání nového trezoru";
+"vaultList.remove.alert.title" = "Odstranit trezor?";
+"vaultList.remove.alert.message" = "Tímto odstraníte trezor pouze ze seznamu trezorů. Šifrovaná data nebudou smazána. Později můžete trezor znovu přidat.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurace trezoru není podporována. Ujistěte se, že používáte nejnovější verzi Cryptomatoru.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomatoru.";
+
+"webDAVAuthentication.title" = "WebDAV";
