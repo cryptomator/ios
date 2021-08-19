@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
 "common.button.done" = "完成";
 "common.button.next" = "繼續";
@@ -13,6 +21,11 @@
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.openExistingVault.title" = "開啟現有加密檔案庫";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"cloudProviderType.localFileSystem" = "其他儲存空間";
 
 "unlockVault.button.unlock" = "解鎖";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";

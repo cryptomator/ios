@@ -99,6 +99,15 @@
 "untrustedTLSCertificate.add" = "Fidati";
 "untrustedTLSCertificate.dismiss" = "Non Fidarti";
 
+"urlSession.error.httpError.401" = "Nome utente e/o password errati.";
+"urlSession.error.httpError.403" = "Diritti insufficienti per la risorsa richiesta.";
+"urlSession.error.httpError.404" = "Risorsa richiesta non trovata.";
+"urlSession.error.httpError.405" = "Metodo di richiesta non supportato dalla risorsa di destinazione.";
+"urlSession.error.httpError.409" = "Conflitto di richiesta con lo stato corrente della risorsa di destinazione.";
+"urlSession.error.httpError.412" = "Accesso alla risorsa di destinazione negato.";
+"urlSession.error.httpError.default" = "Connessione di rete non riuscita con codice di stato %ld.";
+"urlSession.error.unexpectedResponse" = "Si è verificata una risposta di rete imprevista.";
+
 "vaultDetail.button.lock" = "Blocca Ora";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";

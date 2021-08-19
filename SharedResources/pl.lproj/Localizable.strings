@@ -98,6 +98,7 @@
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
+"urlSession.error.unexpectedResponse" = "Nieoczekiwana odpowiedź z sieci.";
 
 "vaultDetail.button.lock" = "Zablokuj";
 "vaultDetail.button.removeVault" = "Usuń z listy sejfów";

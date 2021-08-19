@@ -53,7 +53,7 @@
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Fingerabdruck";
+"biometryType.touchID" = "Touch ID";
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
@@ -98,6 +98,15 @@
 "untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"urlSession.error.httpError.401" = "Benutzername und/oder Passwort falsch.";
+"urlSession.error.httpError.403" = "Unzureichende Rechte für die angeforderte Ressource.";
+"urlSession.error.httpError.404" = "Angeforderte Ressource nicht gefunden.";
+"urlSession.error.httpError.405" = "Anfragemethode wird von der Zielressource nicht unterstützt.";
+"urlSession.error.httpError.409" = "Anfragekonflikt mit dem aktuellen Zustand der Zielressource.";
+"urlSession.error.httpError.412" = "Zugriff auf die Zielressource verweigert.";
+"urlSession.error.httpError.default" = "Netzwerkverbindung mit Statuscode %ld fehlgeschlagen.";
+"urlSession.error.unexpectedResponse" = "Ein unerwarteter Netzwerkfehler ist aufgetreten.";
 
 "vaultDetail.button.lock" = "Jetzt sperren";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
