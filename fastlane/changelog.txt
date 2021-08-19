@@ -6,11 +6,10 @@ We're looking forward to your feedback!
 
 ---
 
-## Changes Since 2.0.0 Beta 3
-- Removed Cryptomator itself as a file provider for third-party apps (see #48)
-- Fixed file upload in OneDrive (#78)
-- Fixed greyed out files (#67)
-- Fixed some UI inconsistencies (#75, #76)
-- Improved logging
+## Changes Since 2.0.0 Beta 4
+- Added Czech translation
+- Fixed unshown password screen on iOS 15 (#81)
+- Fixed wrong password being potentially stored in keychain for Touch ID / Face ID
+- Improved logging and WebDAV error messages
 
 Be aware that with this update, you may have to set up your vaults again. This will happen during the beta from time to time, probably more often in the beginning. Sorry for the inconvenience that this may cause.
