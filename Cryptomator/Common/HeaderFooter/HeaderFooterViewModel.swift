@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 protocol HeaderFooterViewModel {
 	var viewType: HeaderFooterViewModelConfiguring.Type { get }
 	var title: Bindable<String?> { get }

@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import CryptomatorCommonCore
+
 class VaultPasswordKeychainManagerTests: XCTestCase {
 	func testSetAndRetrievePassword() throws {
 		let passwordManager = VaultPasswordKeychainManager()

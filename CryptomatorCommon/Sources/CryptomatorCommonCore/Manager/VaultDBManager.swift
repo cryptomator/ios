@@ -22,13 +22,11 @@ public enum VaultManagerError: Error {
 
 public protocol VaultManager {
 	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
-	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
-	func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider
 	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
 	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
+	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
-	func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath
 }
 
 public class VaultDBManager: VaultManager {
@@ -47,16 +45,16 @@ public class VaultDBManager: VaultManager {
 		self.passwordManager = passwordManager
 	}
 
-	// MARK: Create New Vault
+	// MARK: - Create New Vault
 
 	/**
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
 	 - Postcondition: The root path was created in the cloud and the masterkey file was uploaded.
-	 - Postcondition: The masterkey file and vault config token is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and `vaultPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`.
+	 - Postcondition: The masterkey file and vault config token are cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
@@ -65,25 +63,25 @@ public class VaultDBManager: VaultManager {
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let masterkey: Masterkey
-		let delegate: CloudProvider
+		let provider: LocalizedCloudProviderDecorator
 		let vaultConfigToken: String
 		do {
 			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 			masterkey = try Masterkey.createNew()
 			vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-			delegate = try providerManager.getProvider(with: delegateAccountUID)
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
-		return delegate.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
-			try self.uploadMasterkey(masterkey, password: password, vaultPath: vaultPath, delegate: delegate, tmpDirURL: tmpDirURL)
+		return provider.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
+			try self.uploadMasterkey(masterkey, password: password, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { _ -> Promise<CloudItemMetadata> in
-			try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, delegate: delegate, tmpDirURL: tmpDirURL)
+			try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { _ -> Promise<Void> in
-			try self.createVaultFolderStructure(masterkey: masterkey, vaultPath: vaultPath, delegate: delegate)
+			try self.createVaultFolderStructure(masterkey: masterkey, vaultPath: vaultPath, provider: provider)
 		}.then { _ -> Promise<Void> in
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
-			let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
+			let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
 			VaultDBManager.cachedDecorators[vaultUID] = decorator
 			return self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultPath.lastPathComponent)
 		}.then {
@@ -97,104 +95,54 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	private func uploadMasterkey(_ masterkey: Masterkey, password: String, vaultPath: CloudPath, delegate: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
+	private func uploadMasterkey(_ masterkey: Masterkey, password: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let masterkeyData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
 		try masterkeyData.write(to: localMasterkeyURL)
 		let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return delegate.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: false)
+		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: false)
 	}
 
-	private func uploadVaultConfigToken(_ token: String, vaultPath: CloudPath, delegate: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
+	private func uploadVaultConfigToken(_ token: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		try token.write(to: localVaultConfigURL, atomically: true, encoding: .utf8)
 		let vaultConfigCloudPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return delegate.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
+		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
 	}
 
-	private func createVaultFolderStructure(masterkey: Masterkey, vaultPath: CloudPath, delegate: CloudProvider) throws -> Promise<Void> {
+	private func createVaultFolderStructure(masterkey: Masterkey, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
 		let cryptor = Cryptor(masterkey: masterkey)
 		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 		let dPath = vaultPath.appendingPathComponent("d")
-		return delegate.createFolder(at: dPath).then { _ -> Promise<Void> in
+		return provider.createFolder(at: dPath).then { _ -> Promise<Void> in
 			let twoCharsPath = rootDirPath.deletingLastPathComponent()
-			return delegate.createFolder(at: twoCharsPath)
+			return provider.createFolder(at: twoCharsPath)
 		}.then {
-			delegate.createFolder(at: rootDirPath)
+			provider.createFolder(at: rootDirPath)
 		}
 	}
 
-	// MARK: - Manual Unlock Vault
-
-	/**
-	 Manually unlock a vault via KEK.
-
-	 This method is used to unlock the vault with `vaultUID` if the user does not want to store his vault password in the keychain.
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
-	 */
-	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
-		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-		let masterkey = try masterkeyFile.unlock(kek: kek)
-		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: masterkeyFile.version, vaultConfigToken: cachedVault.vaultConfigToken)
-	}
-
-	func createVaultDecorator(from masterkey: Masterkey, vaultUID: String, vaultVersion: Int, vaultConfigToken: String?) throws -> CloudProvider {
-		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-		let delegate = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
-		if let vaultConfigToken = vaultConfigToken {
-			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
-			return try createVaultDecorator(from: masterkey, unverifiedVaultConfig: unverifiedVaultConfig, delegate: delegate, vaultPath: vaultAccount.vaultPath, vaultUID: vaultUID)
-		} else {
-			return try createLegacyVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultAccount.vaultPath, vaultUID: vaultUID, vaultVersion: vaultVersion)
-		}
-	}
-
-	func createVaultDecorator(from masterkey: Masterkey, unverifiedVaultConfig: UnverifiedVaultConfig, delegate: CloudProvider, vaultPath: CloudPath, vaultUID: String) throws -> CloudProvider {
-		let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
-		VaultDBManager.cachedDecorators[vaultUID] = decorator
-		return decorator
-	}
-
-	func createLegacyVaultDecorator(from masterkey: Masterkey, delegate: CloudProvider, vaultPath: CloudPath, vaultUID: String, vaultVersion: Int) throws -> CloudProvider {
-		let decorator = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: vaultVersion, vaultPath: vaultPath, with: delegate)
-		VaultDBManager.cachedDecorators[vaultUID] = decorator
-		return decorator
-	}
-
-	public func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider {
-		if let cachedDecorator = VaultDBManager.cachedDecorators[vaultUID] {
-			// MARK: Add here masterkey up to date check
-
-			return cachedDecorator
-		}
-		let password = try passwordManager.getPassword(forVaultUID: vaultUID)
-		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-		let masterkey = try masterkeyFile.unlock(passphrase: password)
-		return try createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: masterkeyFile.version, vaultConfigToken: cachedVault.vaultConfigToken)
-	}
-
-	// MARK: Open Existing Vault
+	// MARK: - Open Existing Vault
 
 	/**
 	 Imports an existing Vault.
 
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
-	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` does exist in the cloud
-	 - Postcondition: The masterkey file and vault config token is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
+	 - Precondition: The vault config file at `vaultItem.vaultPath.appendingPathComponent("vault.cryptomator")` exists in the cloud.
+	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` exists in the cloud.
+	 - Postcondition: The masterkey file and vault config token are cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let delegate: CloudProvider
+		let provider: LocalizedCloudProviderDecorator
 		do {
 			guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
 				throw VaultManagerError.vaultAlreadyExists
 			}
-			delegate = try providerManager.getProvider(with: delegateAccountUID)
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -204,15 +152,15 @@ public class VaultDBManager: VaultManager {
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return delegate.downloadFile(from: vaultConfigPath, to: localVaultConfigURL).then {
-			delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
+		return provider.downloadFile(from: vaultConfigPath, to: localVaultConfigURL).then {
+			provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
 		}.then { _ -> Promise<(Masterkey, String, Void)> in
 			let token = try String(contentsOf: localVaultConfigURL, encoding: .utf8)
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: token)
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
-			let vaultProvider = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: delegate)
-			VaultDBManager.cachedDecorators[vaultUID] = vaultProvider
+			let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
+			VaultDBManager.cachedDecorators[vaultUID] = decorator
 			return all(Promise(masterkey), Promise(token), self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name))
 		}.then { masterkey, token, _ -> Void in
 			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
@@ -228,23 +176,23 @@ public class VaultDBManager: VaultManager {
 	/**
 	 Imports an existing legacy Vault.
 
-	 Supported legacy vault formats are 6 & 7
+	 Supported legacy vault formats are 6 & 7.
 
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
-	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` does exist in the cloud
-	 - Postcondition: The masterkey file is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
+	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` exists in the cloud.
+	 - Postcondition: The masterkey file is cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let delegate: CloudProvider
+		let provider: LocalizedCloudProviderDecorator
 		do {
 			guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
 				throw VaultManagerError.vaultAlreadyExists
 			}
-			delegate = try providerManager.getProvider(with: delegateAccountUID)
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -252,11 +200,11 @@ public class VaultDBManager: VaultManager {
 		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let vaultPath = vaultItem.vaultPath
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return delegate.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then { _ -> Promise<(Masterkey, MasterkeyFile, Void)> in
+		return provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL).then { _ -> Promise<(Masterkey, MasterkeyFile, Void)> in
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
-			let vaultProvider = try self.createLegacyVaultDecorator(from: masterkey, delegate: delegate, vaultPath: vaultPath, vaultUID: vaultUID, vaultVersion: masterkeyFile.version)
-			VaultDBManager.cachedDecorators[vaultUID] = vaultProvider
+			let decorator = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: masterkeyFile.version, vaultPath: vaultPath, with: provider.delegate)
+			VaultDBManager.cachedDecorators[vaultUID] = decorator
 			return all(Promise(masterkey), Promise(masterkeyFile), self.addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name))
 		}.then { masterkey, masterkeyFile, _ -> Void in
 			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
@@ -269,15 +217,15 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	// MARK: Remove Vault Locally
+	// MARK: - Remove Vault Locally
 
 	/**
-	 - Precondition: It exists a `VaultAccount` for the `vaultUID` in the database
-	 - Precondition: It exists a `NSFileProviderDomain` with the `vaultUID` as `identifier`
-	 - Postcondition: No `VaultAccount` exists for the `vaultUID` in the database
-	 - Postcondition: No password is stored for this `vaultUID`
-	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`
-	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the NSFileProvider
+	 - Precondition: A `VaultAccount` for the `vaultUID` exists in the database.
+	 - Precondition: A `NSFileProviderDomain` with the `vaultUID` as `identifier` exists.
+	 - Postcondition: The `VaultAccount` for the `vaultUID` was removed in the database.
+	 - Postcondition: The password for the `vaultUID` was removed.
+	 - Postcondition: The vault decorator under the corresponding `vaultUID` was removed from cache.
+	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the `NSFileProvider`.
 	 */
 	public func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
 		do {
@@ -322,7 +270,33 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	// MARK: Internal
+	// MARK: - Manual Unlock Vault
+
+	/**
+	 Manually unlock a vault via KEK.
+
+	 This method is used to unlock the vault with `vaultUID` if the user does not want to store his vault password in the keychain.
+
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
+	 */
+	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
+		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+		let masterkey = try masterkeyFile.unlock(kek: kek)
+		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+		let provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+		let decorator: CloudProvider
+		if let vaultConfigToken = cachedVault.vaultConfigToken {
+			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+			decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultAccount.vaultPath, with: provider)
+		} else {
+			decorator = try VaultProviderFactory.createLegacyVaultProvider(from: masterkey, vaultVersion: masterkeyFile.version, vaultPath: vaultAccount.vaultPath, with: provider)
+		}
+		VaultDBManager.cachedDecorators[vaultUID] = decorator
+		return decorator
+	}
+
+	// MARK: - Internal
 
 	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: String, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
@@ -347,11 +321,6 @@ public class VaultDBManager: VaultManager {
 		let digest = try cryptor.encryptDirId(Data())
 		let i = digest.index(digest.startIndex, offsetBy: 2)
 		return vaultPath.appendingPathComponent("d/\(digest[..<i])/\(digest[i...])")
-	}
-
-	public func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath {
-		precondition(masterkeyPath.path.hasSuffix("masterkey.cryptomator"))
-		return masterkeyPath.deletingLastPathComponent()
 	}
 
 	func exportMasterkey(_ masterkey: Masterkey, vaultVersion: Int, password: String) throws -> Data {

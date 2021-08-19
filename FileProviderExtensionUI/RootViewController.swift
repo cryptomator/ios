@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import FileProviderUI
 import UIKit
+
 class RootViewController: FPUIActionExtensionViewController {
 	private lazy var coordinator: FileProviderCoordinator = {
 		return FileProviderCoordinator(extensionContext: extensionContext, hostViewController: self)

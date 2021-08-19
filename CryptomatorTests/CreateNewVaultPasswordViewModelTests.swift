@@ -172,14 +172,11 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 
 private class VaultManagerMock: VaultManager {
 	var createdVaults = [CreatedVault]()
+
 	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let vault = CreatedVault(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, password: password, storePasswordInKeychain: storePasswordInKeychain)
 		createdVaults.append(vault)
 		return Promise(())
-	}
-
-	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
-		throw MockError.notMocked
 	}
 
 	func getDecorator(forVaultUID vaultUID: String) throws -> CloudProvider {
@@ -194,16 +191,16 @@ private class VaultManagerMock: VaultManager {
 		return Promise(MockError.notMocked)
 	}
 
+	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
+		throw MockError.notMocked
+	}
+
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 
 	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
 		return Promise(MockError.notMocked)
-	}
-
-	func getVaultPath(from masterkeyPath: CloudPath) -> CloudPath {
-		return masterkeyPath
 	}
 }
 

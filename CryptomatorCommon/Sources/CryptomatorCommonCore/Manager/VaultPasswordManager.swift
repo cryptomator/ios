@@ -8,6 +8,7 @@
 
 import Foundation
 import LocalAuthentication
+
 public protocol VaultPasswordManager {
 	func setPassword(_ password: String, forVaultUID vaultUID: String) throws
 	func getPassword(forVaultUID vaultUID: String) throws -> String

@@ -269,7 +269,7 @@ class VaultManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testCreateVaultDecoratorV8() throws {
+	func testManualUnlockVaultV8() throws {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
@@ -278,9 +278,14 @@ class VaultManagerTests: XCTestCase {
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV8")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: "asd", pepper: [UInt8](), scryptCostParam: 2)
 		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
-		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 7, vaultConfigToken: token)
+		let vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
+		try vaultCacheMock.cache(cachedVault)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
 		guard decorator is VaultFormat8ShorteningProviderDecorator else {
 			XCTFail("Decorator is not a VaultFormat8ShorteningProviderDecorator")
 			return
@@ -288,7 +293,7 @@ class VaultManagerTests: XCTestCase {
 		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 
-	func testCreateVaultDecoratorV7() throws {
+	func testManualUnlockVaultV7() throws {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
@@ -297,7 +302,12 @@ class VaultManagerTests: XCTestCase {
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV7")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 7, vaultConfigToken: nil)
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 7, passphrase: "asd", pepper: [UInt8](), scryptCostParam: 2)
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		try vaultCacheMock.cache(cachedVault)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
 		guard decorator is VaultFormat7ShorteningProviderDecorator else {
 			XCTFail("Decorator is not a VaultFormat7ShorteningProviderDecorator")
 			return
@@ -305,24 +315,7 @@ class VaultManagerTests: XCTestCase {
 		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 
-	func testCreateVaultDecoratorV6() throws {
-		let delegateAccountUID = UUID().uuidString
-		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		try providerAccountManager.saveNewAccount(account)
-		let vaultUID = UUID().uuidString
-		let vaultPath = CloudPath("/VaultV6/")
-		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV6")
-		try accountManager.saveNewAccount(vaultAccount)
-		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-		let decorator = try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 6, vaultConfigToken: nil)
-		guard decorator is VaultFormat6ShorteningProviderDecorator else {
-			XCTFail("Decorator is not a VaultFormat6ShorteningProviderDecorator")
-			return
-		}
-		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
-	}
-
-	func testCreateVaultDecoratorThrowsForNonSupportedVaultVersion() throws {
+	func testManualUnlockVaultV6() throws {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
@@ -331,12 +324,40 @@ class VaultManagerTests: XCTestCase {
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV1")
 		try accountManager.saveNewAccount(vaultAccount)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-		XCTAssertThrowsError(try manager.createVaultDecorator(from: masterkey, vaultUID: vaultUID, vaultVersion: 1, vaultConfigToken: nil)) { error in
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 6, passphrase: "asd", pepper: [UInt8](), scryptCostParam: 2)
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		try vaultCacheMock.cache(cachedVault)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
+		guard decorator is VaultFormat6ShorteningProviderDecorator else {
+			XCTFail("Decorator is not a VaultFormat6ShorteningProviderDecorator")
+			return
+		}
+		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
+	}
+
+	func testManualUnlockVaultThrowsForNonSupportedVaultVersion() throws {
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		try providerAccountManager.saveNewAccount(account)
+		let vaultUID = UUID().uuidString
+		let vaultPath = CloudPath("/VaultV6/")
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "VaultV6")
+		try accountManager.saveNewAccount(vaultAccount)
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 1, passphrase: "asd", pepper: [UInt8](), scryptCostParam: 2)
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		try vaultCacheMock.cache(cachedVault)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
+		XCTAssertThrowsError(try manager.manualUnlockVault(withUID: vaultUID, kek: kek)) { error in
 			guard case VaultProviderFactoryError.unsupportedVaultVersion = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
 		}
+		XCTAssertNil(VaultDBManager.cachedDecorators[vaultUID])
 	}
 }
 

@@ -8,6 +8,7 @@
 
 import Combine
 import UIKit
+
 class TableViewCell: UITableViewCell {
 	lazy var subscribers = Set<AnyCancellable>()
 	private var viewModel: TableViewCellViewModel?

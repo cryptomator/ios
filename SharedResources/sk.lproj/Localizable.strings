@@ -99,6 +99,15 @@
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
 
+"urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
+"urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
+"urlSession.error.httpError.404" = "Požadovaný zdroj nenájdený.";
+"urlSession.error.httpError.405" = "Požadovaná metóda nie je podporovaná cieľovým zdrojom.";
+"urlSession.error.httpError.409" = "Konflikt požiadavky so súčasným stavom cieľového zdroja.";
+"urlSession.error.httpError.412" = "Prístup do cieľového zdroja zamietnutý.";
+"urlSession.error.httpError.default" = "Sieťové pripojenie zlyhalo s kódom %ld.";
+"urlSession.error.unexpectedResponse" = "Udiala sa neočakávaná sieťová reakcia.";
+
 "vaultDetail.button.lock" = "Uzamknúť teraz";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";

@@ -26,7 +26,7 @@ class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
 
 	init(parentPath: CloudPath, provider: CloudProvider) {
 		self.parentPath = parentPath
-		self.provider = provider
+		self.provider = LocalizedCloudProviderDecorator(delegate: provider)
 	}
 
 	func createFolder() -> Promise<CloudPath> {
@@ -34,13 +34,7 @@ class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
 			return Promise(CreateNewFolderViewModelError.emptyFolderName)
 		}
 		let folderPath = parentPath.appendingPathComponent(folderName)
-		return provider.createFolder(at: folderPath).recover { error -> Void in
-			if let error = error as? CloudProviderError {
-				throw LocalizedCloudProviderError.convertToLocalized(error, cloudPath: folderPath)
-			} else {
-				throw error
-			}
-		}.then {
+		return provider.createFolder(at: folderPath).then {
 			folderPath
 		}
 	}

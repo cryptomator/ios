@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class ActionButton: UIButton {
 	var primaryAction: ((UIButton) -> Void)?
 
