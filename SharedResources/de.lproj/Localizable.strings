@@ -53,7 +53,7 @@
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Fingerabdruck";
+"biometryType.touchID" = "Touch ID";
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
