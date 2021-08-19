@@ -98,6 +98,7 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
+"urlSession.error.unexpectedResponse" = "Udiala sa neočakávaná sieťová reakcia.";
 
 "vaultDetail.button.lock" = "Uzamknúť teraz";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
