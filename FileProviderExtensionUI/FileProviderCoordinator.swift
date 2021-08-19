@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import FileProviderUI
 import UIKit
@@ -48,6 +49,7 @@ class FileProviderCoordinator {
 	}
 
 	func handleError(_ error: Error, for viewController: UIViewController) {
+		DDLogError("Error: \(error)")
 		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
 		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
 		viewController.present(alertController, animated: true)
