@@ -99,6 +99,9 @@
 "untrustedTLSCertificate.add" = "Trust";
 "untrustedTLSCertificate.dismiss" = "Don't Trust";
 
+"urlSession.error.httpError" = "Network connection failed with status code %ld.";
+"urlSession.error.unexpectedResponse" = "There was an unexpected network response.";
+
 "vaultDetail.button.lock" = "Lock Now";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
