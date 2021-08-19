@@ -99,6 +99,15 @@
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
 
+"urlSession.error.httpError.401" = "Yanlış kullanıcı adı ve / veya şifre.";
+"urlSession.error.httpError.403" = "İstenen kaynak için yetersiz haklar.";
+"urlSession.error.httpError.404" = "İstenen kaynak bulunamadı.";
+"urlSession.error.httpError.405" = "Hedef kaynak tarafından desteklenmeyen istek yöntemi.";
+"urlSession.error.httpError.409" = "İstek hedef kaynağın mevcut durumuyla çakışıyor.";
+"urlSession.error.httpError.412" = "Hedef kaynağa erişim reddedildi.";
+"urlSession.error.httpError.default" = "Ağ bağlantısı %ld durum kodu ile başarısız oldu.";
+"urlSession.error.unexpectedResponse" = "Beklenmeyen bir ağ yanıtı oluştu.";
+
 "vaultDetail.button.lock" = "Şimdi Kilitle";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
