@@ -8,6 +8,7 @@
 
 import Combine
 import UIKit
+
 class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelConfiguring {
 	weak var tableView: UITableView?
 

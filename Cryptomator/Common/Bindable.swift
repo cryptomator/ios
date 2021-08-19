@@ -8,6 +8,7 @@
 
 import Combine
 import Foundation
+
 class Bindable<Value> {
 	@Published var value: Value
 

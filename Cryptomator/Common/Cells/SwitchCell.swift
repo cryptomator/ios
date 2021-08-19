@@ -8,6 +8,7 @@
 
 import Combine
 import UIKit
+
 class SwitchCell: TableViewCell {
 	var switchControl = UISwitch(frame: .zero)
 

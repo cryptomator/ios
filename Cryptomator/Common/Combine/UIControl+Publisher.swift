@@ -8,8 +8,12 @@
 
 import Combine
 import UIKit
-// Taken from: https://www.avanderlee.com/swift/custom-combine-publisher/
-/// A custom subscription to capture UIControl target events.
+
+/**
+ A custom subscription to capture `UIControl` target events.
+
+ Taken from: <https://www.avanderlee.com/swift/custom-combine-publisher/>
+ */
 final class UIControlSubscription<SubscriberType: Subscriber, Control: UIControl>: Subscription where SubscriberType.Input == Control {
 	private var subscriber: SubscriberType?
 	private let control: Control

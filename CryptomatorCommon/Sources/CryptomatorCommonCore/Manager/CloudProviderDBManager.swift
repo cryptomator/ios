@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 public protocol CloudProviderManager {
 	func getProvider(with accountUID: String) throws -> CloudProvider
 	static func providerShouldUpdate(with accountUID: String)

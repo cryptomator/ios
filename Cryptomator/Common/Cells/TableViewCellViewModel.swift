@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 protocol TableViewCellViewModel: AnyObject {
 	var type: TableViewCell.Type { get }
 	var title: Bindable<String?> { get }

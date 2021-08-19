@@ -1004,11 +1004,11 @@
 				4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */,
 				4A4B7E4726B2BAFB009BFDB1 /* SwitchCell.swift */,
 				4A4B7E4526B2B6A0009BFDB1 /* SwitchCellViewModel.swift */,
+				4A4B7E4B26B2FF41009BFDB1 /* TableViewCell.swift */,
 				4A4B7E4326B2B1A5009BFDB1 /* TableViewCellViewModel.swift */,
 				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
 				4AA22C15261CA8D800A17486 /* URLFieldCell.swift */,
 				4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */,
-				4A4B7E4B26B2FF41009BFDB1 /* TableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1021,12 +1021,12 @@
 				4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */,
 				4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */,
 				4AA621DE249A6A8400A0BCBD /* Info.plist */,
+				4AFD8C102693204900F77BA6 /* ErrorWrapper.swift */,
 				4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */,
 				4AA621DC249A6A8400A0BCBD /* FileProviderEnumerator.swift */,
 				4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */,
 				4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */,
 				4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */,
-				4AFD8C102693204900F77BA6 /* ErrorWrapper.swift */,
 			);
 			path = FileProviderExtension;
 			sourceTree = "<group>";

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol VaultPasswordVerifying {
 	func verifiedVaultPassword()
 	func cancel()
