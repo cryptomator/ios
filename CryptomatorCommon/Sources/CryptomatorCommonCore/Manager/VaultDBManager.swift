@@ -48,13 +48,13 @@ public class VaultDBManager: VaultManager {
 	// MARK: - Create New Vault
 
 	/**
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
 	 - Postcondition: The root path was created in the cloud and the masterkey file was uploaded.
-	 - Postcondition: The masterkey file and vault config token is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and `vaultPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`.
+	 - Postcondition: The masterkey file and vault config token are cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		guard VaultDBManager.cachedDecorators[vaultUID] == nil else {
@@ -127,13 +127,14 @@ public class VaultDBManager: VaultManager {
 	/**
 	 Imports an existing Vault.
 
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
-	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` does exist in the cloud
-	 - Postcondition: The masterkey file and vault config token is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
+	 - Precondition: The vault config file at `vaultItem.vaultPath.appendingPathComponent("vault.cryptomator")` exists in the cloud.
+	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` exists in the cloud.
+	 - Postcondition: The masterkey file and vault config token are cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
@@ -175,15 +176,15 @@ public class VaultDBManager: VaultManager {
 	/**
 	 Imports an existing legacy Vault.
 
-	 Supported legacy vault formats are 6 & 7
+	 Supported legacy vault formats are 6 & 7.
 
-	 - Precondition: There is no VaultAccount for the `vaultUID` in the database yet
-	 - Precondition: It exists a CloudProviderAccount with the `delegateAccountUID` in the database
-	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` does exist in the cloud
-	 - Postcondition: The masterkey file is cached under the corresponding `vaultUID`
-	 - Postcondition: storePasswordInKeychain <=> the password for the masterkey is stored in the keychain.
-	 - Postcondition: The passed `vaultUID`, `delegateAccountUID` and the `vaultPath` derived from `masterkeyPath` are stored as VaultAccount in the database
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
+	 - Precondition: There is no `VaultAccount` for the `vaultUID` in the database yet.
+	 - Precondition: A `CloudProviderAccount` with the `delegateAccountUID` exists in the database.
+	 - Precondition: The masterkey file at `vaultItem.vaultPath.appendingPathComponent("masterkey.cryptomator")` exists in the cloud.
+	 - Postcondition: The masterkey file is cached under the corresponding `vaultUID`.
+	 - Postcondition: `storePasswordInKeychain` <=> the password for the masterkey is stored in the keychain.
+	 - Postcondition: The passed `vaultUID`, `delegateAccountUID`, and `vaultItem.vaultPath` are stored as `VaultAccount` in the database.
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
@@ -219,12 +220,12 @@ public class VaultDBManager: VaultManager {
 	// MARK: - Remove Vault Locally
 
 	/**
-	 - Precondition: It exists a `VaultAccount` for the `vaultUID` in the database
-	 - Precondition: It exists a `NSFileProviderDomain` with the `vaultUID` as `identifier`
-	 - Postcondition: No `VaultAccount` exists for the `vaultUID` in the database
-	 - Postcondition: No password is stored for this `vaultUID`
-	 - Postcondition: No `VaultDecorator` is cached under the corresponding `vaultUID`
-	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the NSFileProvider
+	 - Precondition: A `VaultAccount` for the `vaultUID` exists in the database.
+	 - Precondition: A `NSFileProviderDomain` with the `vaultUID` as `identifier` exists.
+	 - Postcondition: The `VaultAccount` for the `vaultUID` was removed in the database.
+	 - Postcondition: The password for the `vaultUID` was removed.
+	 - Postcondition: The vault decorator under the corresponding `vaultUID` was removed from cache.
+	 - Postcondition: The `NSFileProviderDomain` with the `vaultUID` as `identifier` was removed from the `NSFileProvider`.
 	 */
 	public func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
 		do {
@@ -275,7 +276,8 @@ public class VaultDBManager: VaultManager {
 	 Manually unlock a vault via KEK.
 
 	 This method is used to unlock the vault with `vaultUID` if the user does not want to store his vault password in the keychain.
-	 - Postcondition: The created VaultDecorator is cached under the corresponding `vaultUID`
+
+	 - Postcondition: The created vault decorator is cached under the corresponding `vaultUID`.
 	 */
 	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
