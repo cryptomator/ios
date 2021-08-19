@@ -99,6 +99,15 @@
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "No confiar";
 
+"urlSession.error.httpError.401" = "Usuario y/o contraseña incorrectos.";
+"urlSession.error.httpError.403" = "Derechos insuficientes para el recurso solicitado.";
+"urlSession.error.httpError.404" = "Recurso solicitado no encontrado.";
+"urlSession.error.httpError.405" = "Método de solicitud no compatible por el recurso de destino.";
+"urlSession.error.httpError.409" = "La solicitud entra en conflicto con el estado actual del recurso de destino.";
+"urlSession.error.httpError.412" = "Acceso al recurso de destino denegado.";
+"urlSession.error.httpError.default" = "La conexión de red ha fallado con el código de estado %ld.";
+"urlSession.error.unexpectedResponse" = "Hubo una respuesta de red inesperada.";
+
 "vaultDetail.button.lock" = "Bloquear ahora";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
