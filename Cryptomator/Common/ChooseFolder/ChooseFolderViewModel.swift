@@ -38,7 +38,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	init(canCreateFolder: Bool, cloudPath: CloudPath, provider: CloudProvider) {
 		self.canCreateFolder = canCreateFolder
 		self.cloudPath = cloudPath
-		self.provider = provider
+		self.provider = LocalizedCloudProviderDecorator(delegate: provider)
 	}
 
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void) {
@@ -49,13 +49,7 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 	}
 
 	func refreshItems() {
-		provider.fetchItemListExhaustively(forFolderAt: cloudPath).recover { error -> CloudItemList in
-			if let error = error as? CloudProviderError {
-				throw LocalizedCloudProviderError.convertToLocalized(error, cloudPath: self.cloudPath)
-			} else {
-				throw error
-			}
-		}.then { itemList in
+		provider.fetchItemListExhaustively(forFolderAt: cloudPath).then { itemList in
 			if let vaultItem = VaultDetector.getVaultItem(items: itemList.items, parentCloudPath: self.cloudPath) {
 				self.foundMasterkey = true
 				self.vaultListener?(vaultItem)
