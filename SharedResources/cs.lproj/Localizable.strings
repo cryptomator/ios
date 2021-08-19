@@ -21,6 +21,9 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživatel";
 "common.footer.learnMore" = "Více informací.";
+
+"accountList.header.title" = "Ověření";
+"accountList.emptyList.message" = "Klepnutím sem přidáte účet";
 "accountList.signOut.alert.title" = "Odstranit přidružené trezory?";
 "accountList.signOut.alert.message" = "Odhlášením budou všechny přidružené trezory odstraněny ze seznamu trezorů. Žádná zašifrovaná data nebudou odstraněna. Můžete se znovu přihlásit a trezory znovu přidat později.";
 
@@ -28,15 +31,51 @@
 "addVault.createNewVault.title" = "Vytvořit nový trezor";
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Název trezoru by nesmí obsahovat \\ / : * ? \" < > | nebo končit tečkou.";
 "addVault.createNewVault.chooseCloud.header" = "Kde by měl Cryptomator ukládat šifrované soubory vašeho trezoru?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" již v tomtom umístění existuje. Vyberte jiný trezor nebo umístění.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
 "addVault.createNewVault.password.enterPassword.header" = "Zadejte nové heslo.";
 "addVault.createNewVault.password.confirmPassword.header" = "Potvrď nové heslo.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Potvrdit heslo?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "DŮLEŽITÉ: Pokud zapomenete své heslo, neexistuje způsob jak obnovit vaše data.";
+"addVault.createNewVault.password.error.emptyPassword" = "Heslo nemůže zůstat nevyplněno.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Hesla se neshodují.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Heslo musí obsahovat alespoň 8 znaků.";
 "addVault.openExistingVault.title" = "Otevřít existující trezor";
+"addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umístěn?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detekoval trezor \"%@\".\nChcete přidat tento trezor?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Přidat tento trezor";
 "addVault.openExistingVault.password.footer" = "Zadejte heslo pro \"%@\"";
+"addVault.success.info" = "Úspěšně přidán trezor \"%@\".\nPřistupujte k tomuto trezoru prostřednictvím aplikace Soubory.";
+"addVault.success.openFilesApp" = "Otevřít aplikaci Soubory";
+"addVault.success.footer" = "Pokud jste již neučinili, povolte Cryptomator v aplikaci Soubory.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "Složka je prázdná";
+"chooseFolder.createNewFolder.header.title" = "Zvolte název složky.";
+"chooseFolder.createNewFolder.cells.name" = "Název složky";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Název složky nemůže být prázdný.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" nebylo nalezeno.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" již existuje.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" má neočekávaný typ položky.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Nadřazená složka \"%@\" neexistuje.";
+"cloudProvider.error.pageTokenInvalid" = "Načítání obsahu adresáře nemůže pokračovat.";
+"cloudProvider.error.quotaInsufficient" = "Vaše úložiště nemá dostatek místa.";
+"cloudProvider.error.unauthorized" = "Nelze provést neautorizovanou operaci.";
+"cloudProvider.error.noInternetConnection" = "Pro tuto operaci je nutné připojení k internetu.";
 
 "cloudProviderType.localFileSystem" = "Další poskytovatel souborů";
+
+"localFileSystemAuthentication.createNewVault.header" = "Na další obrazovce vyberte umístění úložiště pro váš nový trezor.";
+"localFileSystemAuthentication.createNewVault.button" = "Vyberte umístění úložiště";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "V tomto umístění již trezor existuje. Zkuste to prosím znovu s jiným umístěním.";
+"localFileSystemAuthentication.openExistingVault.header" = "Na další obrazovce vyberte složku vašeho existujícího trezoru.";
+"localFileSystemAuthentication.openExistingVault.button" = "Vybrat složku trezoru";
 
 "unlockVault.button.unlock" = "Odemknout";
 "unlockVault.password.footer" = "Zadejte heslo pro \"%@\"";
