@@ -99,6 +99,15 @@
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
 
+"urlSession.error.httpError.401" = "Неверное имя пользователя и/или пароль.";
+"urlSession.error.httpError.403" = "Недостаточно прав на запрашиваемый ресурс.";
+"urlSession.error.httpError.404" = "Запрошенный ресурс не найден.";
+"urlSession.error.httpError.405" = "Метод запроса не поддерживается целевым ресурсом.";
+"urlSession.error.httpError.409" = "Запрос конфликтует с текущим состоянием целевого ресурса.";
+"urlSession.error.httpError.412" = "Доступ к целевому ресурсу запрещён.";
+"urlSession.error.httpError.default" = "Не удалось подключиться к сети с кодом статуса %ld.";
+"urlSession.error.unexpectedResponse" = "Неожиданный ответ сети.";
+
 "vaultDetail.button.lock" = "Заблокировать";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
