@@ -99,6 +99,8 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"urlSession.error.httpError.401" = "用户名或密码错误";
+
 "vaultDetail.button.lock" = "立即锁定";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中";
