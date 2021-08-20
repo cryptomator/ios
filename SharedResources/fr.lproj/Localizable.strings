@@ -92,6 +92,8 @@
 "untrustedTLSCertificate.add" = "Approuver";
 "untrustedTLSCertificate.dismiss" = "Ne pas faire confiance";
 
+"urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
+
 "vaultDetail.button.lock" = "Verrouiller maintenant";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si vous activez %@, votre mot de passe de coffre sera stocké dans porte-clés iOS.";
