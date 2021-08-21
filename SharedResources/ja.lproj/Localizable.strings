@@ -25,13 +25,16 @@
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
 "accountList.signOut.alert.title" = "関連する金庫を削除しますか?";
+"accountList.signOut.alert.message" = "サインアウトすると、関連するすべての金庫が金庫のリストから削除されます。暗号化済みのデータは削除されません。再度ログインすれば再度金庫をあとから追加することができます。";
 
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "金庫は \\ / : * ? \" < > | や 末尾がピリオドの名前にすることができません。";
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" がすでにこの場所に存在します。別の名前か別の場所を選択してください。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
 "addVault.createNewVault.password.enterPassword.header" = "新しいパスワードを入力してください。";
 "addVault.createNewVault.password.confirmPassword.header" = "新しいパスワードの確認。";
@@ -49,17 +52,29 @@
 "addVault.success.openFilesApp" = "ファイル アプリを開く";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "フォルダ名は空にできません。";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" が見つかりませんでした。";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" が既に存在します。";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" に予期しないファイルがあります。";
+"cloudProvider.error.parentFolderDoesNotExist" = "親フォルダ \"%@\" が存在しません。";
+"cloudProvider.error.pageTokenInvalid" = "ディレクトリの内容を取得できませんでした。";
 "cloudProvider.error.quotaInsufficient" = "ストレージの容量が不足しています。";
 "cloudProvider.error.unauthorized" = "権限のない操作を実行できません。";
 "cloudProvider.error.noInternetConnection" = "この操作にはインターネット接続が必要です。";
 
 "cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
+
+"localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
+"localFileSystemAuthentication.openExistingVault.header" = "次の画面で、既存の金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
 
@@ -73,8 +88,10 @@
 "settings.sendLogFile" = "ログ ファイルを送信";
 
 "unlockVault.button.unlock" = "解錠";
+"unlockVault.button.unlockVia" = "%@ で解錠";
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ を有効にする";
+"unlockVault.enableBiometricalUnlock.footer" = "金庫をパスワードで解錠する代わりに、%@ を利用して解錠できます。";
 "unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
@@ -82,9 +99,20 @@
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
 
+"urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
+"urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
+"urlSession.error.httpError.404" = "リクエストされたリソースが見つかりませんでした。";
+"urlSession.error.unexpectedResponse" = "予期しないネットワーク応答が発生しました。";
+
+"vaultDetail.button.lock" = "今すぐ施錠";
+"vaultDetail.button.removeVault" = "金庫のリストから削除";
+
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
 "vaultList.remove.alert.title" = "金庫を削除しますか?";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
 "webDAVAuthentication.title" = "WebDAV";
