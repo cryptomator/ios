@@ -95,6 +95,9 @@
 "urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
 "urlSession.error.httpError.403" = "Vous n'avez pas les droits pour accéder à cette ressource.";
 "urlSession.error.httpError.404" = "La ressource demandée est intouvable.";
+"urlSession.error.httpError.405" = "Méthode de requête non prise en charge par la ressource cible.";
+"urlSession.error.httpError.412" = "Accès à la ressource cible refusé.";
+"urlSession.error.httpError.default" = "La connexion au réseau a échoué avec le code %ld.";
 
 "vaultDetail.button.lock" = "Verrouiller maintenant";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
