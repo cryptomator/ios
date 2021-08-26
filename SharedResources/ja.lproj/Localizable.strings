@@ -102,10 +102,22 @@
 "urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
 "urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
 "urlSession.error.httpError.404" = "リクエストされたリソースが見つかりませんでした。";
+"urlSession.error.httpError.405" = "リクエストしたリクエストは対象のリソースによってサポートされていません。";
+"urlSession.error.httpError.409" = "対称のリソースの現在の状態とリクエストが競合します。";
+"urlSession.error.httpError.412" = "対象のリソースへのアクセスが拒否されました。";
+"urlSession.error.httpError.default" = "ステータス コード %ld でネットワーク接続に失敗しました。";
 "urlSession.error.unexpectedResponse" = "予期しないネットワーク応答が発生しました。";
 
 "vaultDetail.button.lock" = "今すぐ施錠";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
+"vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
+"vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
+"vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
+"vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
+"vaultDetail.locked.footer" = "金庫が施錠されています。";
+"vaultDetail.removeVault.footer" = "暗号化されたファイルは削除されずに、金庫のリストから金庫が削除されます。";
+"vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
+"vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
