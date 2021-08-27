@@ -13,6 +13,7 @@
 "common.button.createFolder" = "フォルダーを作成";
 "common.button.done" = "完了";
 "common.button.edit" = "編集";
+"common.button.enable" = "有効";
 "common.button.next" = "次へ";
 "common.button.ok" = "OK";
 "common.button.remove" = "削除";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
 "addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください";
 "addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
-"addVault.success.openFilesApp" = "ファイル アプリを開く";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
 "biometryType.faceID" = "Face ID";
