@@ -39,6 +39,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Wat is de locatie van de kluis?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detecteerde de kluis \"%@\".\nWilt u deze kluis toevoegen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Voeg deze kluis toe";
+"addVault.openExistingVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
 "addVault.success.info" = "Kluis succesvol toegevoegd \"%@\".\nToegang tot deze kluis via de bestandsapp.";
 "addVault.success.footer" = "Schakel Cryptomator in in de Verkenner als u dat nog niet gedaan hebt.";
 
@@ -57,4 +58,5 @@
 "settings.aboutCryptomator" = "Over Cryptomator";
 
 "unlockVault.button.unlock" = "Ontgrendel";
+"unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
 "vaultList.remove.alert.title" = "Verwijder Kluis?";
