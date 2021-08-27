@@ -48,6 +48,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
+"addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください。";
 "addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
@@ -88,6 +89,7 @@
 
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
+"unlockVault.password.footer" = "\"%@\" のパスワードを入力してください。";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ を有効にする";
 "unlockVault.enableBiometricalUnlock.footer" = "金庫をパスワードで解錠する代わりに、%@ を利用して解錠できます。";
 "unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
