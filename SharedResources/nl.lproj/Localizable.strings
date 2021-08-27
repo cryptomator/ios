@@ -41,7 +41,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Voeg deze kluis toe";
 "addVault.openExistingVault.password.footer" = "Voer wachtwoord voor \"%@\" in";
 "addVault.success.info" = "Kluis succesvol toegevoegd \"%@\".\nToegang tot deze kluis via de bestandsapp.";
-"addVault.success.openFilesApp" = "Open Verkenner";
 "addVault.success.footer" = "Schakel Cryptomator in in de Verkenner als u dat nog niet gedaan hebt.";
 
 "chooseFolder.emptyFolder.footer" = "Map is leeg";
