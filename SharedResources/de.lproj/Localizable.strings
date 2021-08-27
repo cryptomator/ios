@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Ordner erstellen";
 "common.button.done" = "Fertig";
 "common.button.edit" = "Bearbeiten";
+"common.button.enable" = "Aktivieren";
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
 "addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
-"addVault.success.openFilesApp" = "App „Dateien“ öffnen";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
