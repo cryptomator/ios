@@ -48,7 +48,6 @@
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
-"addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\"";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
@@ -89,7 +88,6 @@
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
-"unlockVault.password.footer" = "Ingresar contraseña para \"%@\"";
 "unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "En lugar de desbloquear su bóveda con su contraseña, puede desbloquearla a través de %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloquee su bóveda";
