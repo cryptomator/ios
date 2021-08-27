@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Criar pasta";
 "common.button.done" = "Concluído";
 "common.button.edit" = "Editar";
+"common.button.enable" = "Habilitar";
 "common.button.next" = "Próximo";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Remover";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
 "addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\"";
 "addVault.success.info" = "Adicionado com sucesso cofre \"%@\".\nAcesse este cofre através do aplicativo Arquivos.";
-"addVault.success.openFilesApp" = "Abrir App Arquivos";
 "addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
 
 "biometryType.faceID" = "Face ID";
