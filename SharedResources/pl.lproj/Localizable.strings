@@ -50,6 +50,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator wykrył sejf \"%@\".\nCzy chcesz dodać ten sejf?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ten sejf";
+"addVault.openExistingVault.password.footer" = "Wprowadź hasło dla \"%@\".";
 "addVault.success.info" = "Dodano sejf \"%@\".\nUzyskaj dostęp do tego sejfu poprzez aplikację Pliki.";
 "addVault.success.footer" = "Jeśli jeszcze tego nie zrobiłeś, włącz Cryptomator w aplikacji Pliki.";
 
@@ -90,6 +91,7 @@
 
 "unlockVault.button.unlock" = "Odblokuj";
 "unlockVault.button.unlockVia" = "Odblokuj przez %@";
+"unlockVault.password.footer" = "Wprowadź hasło dla \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Włącz %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Zamiast hasłem możesz odblokować sejf za pomocą %@.";
 "unlockVault.evaluatePolicy.reason" = "Odblokuj swój sejf";
