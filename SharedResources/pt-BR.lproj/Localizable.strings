@@ -48,6 +48,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "O Cryptomator detectou o cofre \"%@\".\nVocê gostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\".";
 "addVault.success.info" = "Adicionado com sucesso cofre \"%@\".\nAcesse este cofre através do aplicativo Arquivos.";
 "addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
 
@@ -88,6 +89,7 @@
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
+"unlockVault.password.footer" = "Digite a senha para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com sua senha, você pode desbloqueá-lo via %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloqueie o seu cofre";
