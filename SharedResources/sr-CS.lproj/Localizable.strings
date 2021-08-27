@@ -8,7 +8,5 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Naziv sefa";
 "addVault.createNewVault.chooseCloud.header" = "Gde Cryptomator da skladišti šifrovane datoteke vašeg sefa?";
 "addVault.openExistingVault.title" = "Otvori postojeći sef";
-"addVault.openExistingVault.password.footer" = "Unesite lozinku za \"%@\"";
 
 "unlockVault.button.unlock" = "Otključaj";
-"unlockVault.password.footer" = "Unesite lozinku za \"%@\"";
