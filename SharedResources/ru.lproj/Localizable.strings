@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Удалить";
 "common.button.signOut" = "Выйти";
+"common.button.verify" = "Проверить";
+"common.cells.openInFilesApp" = "Открыть в приложении \"Файлы\"";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
