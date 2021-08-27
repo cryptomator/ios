@@ -39,6 +39,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Lägg till detta valv";
+"addVault.openExistingVault.password.footer" = "Ange lösenord för \"%@\".";
 "addVault.success.info" = "Framgångsrikt lagt till valvet \"%@\".\nKom åt detta valv via Fil-appen.";
 "addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
 
@@ -63,6 +64,7 @@
 "settings.sendLogFile" = "Skicka loggfil";
 
 "unlockVault.button.unlock" = "Lås upp";
+"unlockVault.password.footer" = "Ange lösenord för \"%@\".";
 
 "untrustedTLSCertificate.title" = "Ogiltigt certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
