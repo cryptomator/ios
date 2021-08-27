@@ -112,7 +112,7 @@ class UnlockVaultViewController: UITableViewController {
 		case .biometricalUnlock:
 			tableView.deselectRow(at: indexPath, animated: true)
 			biometricalUnlock()
-		default:
+		case .password, .enableBiometricalUnlock, .unknown:
 			break
 		}
 	}

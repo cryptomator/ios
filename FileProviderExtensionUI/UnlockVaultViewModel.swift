@@ -132,7 +132,7 @@ class UnlockVaultViewModel {
 			return getUnlockTitle(for: context.biometryType)
 		case .enableBiometricalUnlock:
 			return getEnableTitle(for: context.biometryType)
-		default:
+		case .password, .unknown:
 			return nil
 		}
 	}
@@ -141,7 +141,7 @@ class UnlockVaultViewModel {
 		switch getCellType(for: indexPath) {
 		case .biometricalUnlock:
 			return getSystemImageName(for: context.biometryType)
-		default:
+		case .password, .enableBiometricalUnlock, .unknown:
 			return nil
 		}
 	}
@@ -156,7 +156,7 @@ class UnlockVaultViewModel {
 				return nil
 			}
 			return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.footer"), biometryName)
-		default:
+		case .biometricalUnlockSection:
 			return nil
 		}
 	}

@@ -62,7 +62,7 @@ class SettingsViewController: UITableViewController {
 				return
 			}
 			sendLogFile(sender: cell)
-		default:
+		case .unknown:
 			break
 		}
 	}
