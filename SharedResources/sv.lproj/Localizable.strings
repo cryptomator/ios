@@ -41,7 +41,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Lägg till detta valv";
 "addVault.openExistingVault.password.footer" = "Ange lösenord för \"%@\"";
 "addVault.success.info" = "Framgångsrikt lagt till valvet \"%@\".\nKom åt detta valv via Fil-appen.";
-"addVault.success.openFilesApp" = "Öppna Filer-appen";
 "addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
 
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
