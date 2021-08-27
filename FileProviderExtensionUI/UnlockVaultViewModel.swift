@@ -152,10 +152,10 @@ class UnlockVaultViewModel {
 		case .passwordSection:
 			return String(format: LocalizedString.getValue("unlockVault.password.footer"), vaultName)
 		case .enableBiometricalSection:
-			guard let biometryTypeName = getName(for: context.biometryType) else {
+			guard let biometryName = context.biometryType.localizedName() else {
 				return nil
 			}
-			return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.footer"), biometryTypeName)
+			return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.footer"), biometryName)
 		default:
 			return nil
 		}
@@ -223,14 +223,14 @@ class UnlockVaultViewModel {
 	// MARK: Internal
 
 	private func getUnlockTitle(for biometryType: LABiometryType) -> String? {
-		guard let biometryName = getName(for: biometryType) else {
+		guard let biometryName = biometryType.localizedName() else {
 			return nil
 		}
 		return String(format: LocalizedString.getValue("unlockVault.button.unlockVia"), biometryName)
 	}
 
 	private func getEnableTitle(for biometryType: LABiometryType) -> String? {
-		guard let biometryName = getName(for: biometryType) else {
+		guard let biometryName = biometryType.localizedName() else {
 			return nil
 		}
 		return String(format: LocalizedString.getValue("unlockVault.enableBiometricalUnlock.switch"), biometryName)
@@ -242,17 +242,6 @@ class UnlockVaultViewModel {
 			return "faceid"
 		case .touchID:
 			return "touchid"
-		default:
-			return nil
-		}
-	}
-
-	private func getName(for biometryType: LABiometryType) -> String? {
-		switch biometryType {
-		case .faceID:
-			return LocalizedString.getValue("biometryType.faceID")
-		case .touchID:
-			return LocalizedString.getValue("biometryType.touchID")
 		default:
 			return nil
 		}
