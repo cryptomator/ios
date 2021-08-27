@@ -48,7 +48,6 @@
 "addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
-"addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin";
 "addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
 
@@ -89,7 +88,6 @@
 
 "unlockVault.button.unlock" = "Kilidi Aç";
 "unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
-"unlockVault.password.footer" = "\"%@\" için şifre girin";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
 "unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
 "unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
