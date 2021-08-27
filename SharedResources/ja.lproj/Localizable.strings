@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "削除";
 "common.button.signOut" = "サインアウト";
+"common.button.verify" = "認証";
+"common.cells.openInFilesApp" = "ファイル アプリで開く";
 "common.cells.password" = "パスワード";
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
