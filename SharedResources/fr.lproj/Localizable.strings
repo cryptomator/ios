@@ -48,6 +48,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Où se situe le coffre ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a détecté le coffre \"%@\".\nVoulez-vous ajouter ce coffre ?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Ajouter ce coffre";
+"addVault.openExistingVault.password.footer" = "Entrez le mot de passe pour “%@”.";
 "addVault.success.info" = "Le coffre \"%@\" a été ajouté avec succès.\nAccédez à ce coffre via l'application Fichiers.";
 "addVault.success.footer" = "Si vous ne l'avez pas déjà fait, activez Cryptomator dans l'application Fichiers.";
 
@@ -84,6 +85,7 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
+"unlockVault.password.footer" = "Entrez le mot de passe pour “%@”.";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalide";
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
