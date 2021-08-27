@@ -48,6 +48,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umístěn?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detekoval trezor \"%@\".\nChcete přidat tento trezor?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Přidat tento trezor";
+"addVault.openExistingVault.password.footer" = "Zadejte heslo pro \"%@\".";
 "addVault.success.info" = "Úspěšně přidán trezor \"%@\".\nPřistupujte k tomuto trezoru prostřednictvím aplikace Soubory.";
 "addVault.success.footer" = "Pokud jste již neučinili, povolte Cryptomator v aplikaci Soubory.";
 
@@ -88,6 +89,7 @@
 
 "unlockVault.button.unlock" = "Odemknout";
 "unlockVault.button.unlockVia" = "Odemknout pomocí %@";
+"unlockVault.password.footer" = "Zadejte heslo pro \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Povolit %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Namísto odemknutí vašeho trezoru pomocí hesla jej můžete odemknout přes %@.";
 "unlockVault.evaluatePolicy.reason" = "Odemknout váš trezor";
