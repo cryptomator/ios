@@ -49,7 +49,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Προσθήκη αυτού του vault";
 "addVault.openExistingVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\"";
 "addVault.success.info" = "Προστέθηκε με επιτυχία το vault \"%@\".\nΠρόσβαση σε αυτό το vault μέσω της εφαρμογής Αρχείων.";
-"addVault.success.openFilesApp" = "Άνοιγμα Εφαρμογής Αρχείων";
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
 "biometryType.faceID" = "Face ID";
