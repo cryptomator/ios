@@ -48,7 +48,6 @@
 "addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"\n您想要添加它吗？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
-"addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码";
 "addVault.success.info" = "成功添加保险库 \"%@\"\n现在可通过文管应用访问它";
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
 
@@ -89,7 +88,6 @@
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
-"unlockVault.password.footer" = "输入 \"%@\" 的密码";
 "unlockVault.enableBiometricalUnlock.switch" = "启用 %@";
 "unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库";
 "unlockVault.evaluatePolicy.reason" = "解锁保险库";
