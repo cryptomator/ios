@@ -13,6 +13,7 @@
 "common.button.createFolder" = "新建文件夹";
 "common.button.done" = "完成";
 "common.button.edit" = "编辑";
+"common.button.enable" = "启用";
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
 "addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码";
 "addVault.success.info" = "成功添加保险库 \"%@\"\n现在可通过文管应用访问它";
-"addVault.success.openFilesApp" = "打开文管应用";
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
 
 "biometryType.faceID" = "面部 ID";
