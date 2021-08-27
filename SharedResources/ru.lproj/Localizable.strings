@@ -48,6 +48,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Где находится хранилище?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище \"%@\".\nДобавить это хранилище?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Добавить это хранилище";
+"addVault.openExistingVault.password.footer" = "Введите пароль для \"%@\".";
 "addVault.success.info" = "Хранилище \"%@\" добавлено.\nДоступ к нему - через приложение \"Файлы\".";
 "addVault.success.footer" = "Если вы ещё этого не сделали, включите Cryptomator в приложении \"Файлы\".";
 
@@ -88,6 +89,7 @@
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
+"unlockVault.password.footer" = "Введите пароль для \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Включить %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Вместо разблокирования хранилища с помощью пароля, его можно разблокировать через %@.";
 "unlockVault.evaluatePolicy.reason" = "Разблокировка хранилища";
