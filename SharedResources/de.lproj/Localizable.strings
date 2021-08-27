@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
 "common.button.signOut" = "Ausloggen";
+"common.button.verify" = "Verifizieren";
+"common.cells.openInFilesApp" = "In Dateien-App öffnen";
 "common.cells.password" = "Passwort";
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
@@ -48,7 +50,6 @@
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du diesen Tresor hinzufügen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
-"addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein";
 "addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
@@ -89,7 +90,6 @@
 
 "unlockVault.button.unlock" = "Entsperren";
 "unlockVault.button.unlockVia" = "Entsperren über %@";
-"unlockVault.password.footer" = "Gib das Passwort für „%@“ ein";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ aktivieren";
 "unlockVault.enableBiometricalUnlock.footer" = "Anstatt deinen Tresor mit deinem Passwort zu entsperren, kannst du ihn über %@ entsperren.";
 "unlockVault.evaluatePolicy.reason" = "Entsperre deinen Tresor";
