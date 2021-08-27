@@ -20,7 +20,6 @@
 "addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti enkriptovane fajlove iz vaseg sefa?";
 "addVault.openExistingVault.title" = "Otvori postojeći sef";
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodajte ovaj sef";
-"addVault.openExistingVault.password.footer" = "Unesite lozinku za \"%@\"";
 
 "chooseFolder.emptyFolder.footer" = "Folder je prazan";
 
@@ -31,7 +30,6 @@
 "settings.title" = "Postavke";
 
 "unlockVault.button.unlock" = "Otključaj";
-"unlockVault.password.footer" = "Unesite lozinku za \"%@\"";
 "untrustedTLSCertificate.add" = "Povjerenje";
 "untrustedTLSCertificate.dismiss" = "Ne vjeruj";
 
