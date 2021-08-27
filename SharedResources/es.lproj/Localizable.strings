@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Crear carpeta";
 "common.button.done" = "Hecho";
 "common.button.edit" = "Editar";
+"common.button.enable" = "Activar";
 "common.button.next" = "Continuar";
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
 "addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\"";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
-"addVault.success.openFilesApp" = "Abrir aplicación de archivos";
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
 "biometryType.faceID" = "Face ID";
