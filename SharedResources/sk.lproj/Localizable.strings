@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Vytvoriť adresár";
 "common.button.done" = "Hotovo";
 "common.button.edit" = "Upraviť";
+"common.button.enable" = "Povoliť";
 "common.button.next" = "Ďalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstrániť";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Pridať tento trezor";
 "addVault.openExistingVault.password.footer" = "Zadajte heslo pre \"%@\"";
 "addVault.success.info" = "Úspešne pridaný trezor \"%@\".\n Sprístupnený tento trezor prostredníctvom Súborovej aplikácie.";
-"addVault.success.openFilesApp" = "Otvoriť súborovú aplikáciu";
 "addVault.success.footer" = "Ak ešte nemáte, povoľte Cryptomator v Súborovej aplikácii.";
 
 "biometryType.faceID" = "Tvárové ID";
