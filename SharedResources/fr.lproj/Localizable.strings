@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Créer un répertoire";
 "common.button.done" = "Terminé";
 "common.button.edit" = "Éditer";
+"common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
 "common.button.remove" = "Retirer";
@@ -49,7 +50,6 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Ajouter ce coffre";
 "addVault.openExistingVault.password.footer" = "Entrez le mot de passe pour “%@”";
 "addVault.success.info" = "Le coffre \"%@\" a été ajouté avec succès.\nAccédez à ce coffre via l'application Fichiers.";
-"addVault.success.openFilesApp" = "Ouvrir l'App Fichiers";
 "addVault.success.footer" = "Si vous ne l'avez pas déjà fait, activez Cryptomator dans l'application Fichiers.";
 
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
