@@ -18,6 +18,8 @@
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
 "common.button.signOut" = "退出登录";
+"common.button.verify" = "验证";
+"common.cells.openInFilesApp" = "在文管应用中打开";
 "common.cells.password" = "密码";
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
@@ -113,6 +115,7 @@
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
+"vaultDetail.info.footer.accountInfo" = "已登录账户：%@ (%@).";
 "vaultDetail.locked.footer" = "您的保险库目前已锁定。";
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
