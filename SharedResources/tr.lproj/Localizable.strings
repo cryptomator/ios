@@ -18,6 +18,8 @@
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
 "common.button.signOut" = "Çıkış Yap";
+"common.button.verify" = "Doğrula";
+"common.cells.openInFilesApp" = "Dosyalar Uygulamasında Aç";
 "common.cells.password" = "Şifre";
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
