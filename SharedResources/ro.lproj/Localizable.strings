@@ -15,3 +15,118 @@
 "common.button.edit" = "Editează";
 "common.button.enable" = "Activează";
 "common.button.next" = "Următor";
+"common.button.ok" = "OK";
+"common.button.remove" = "Șterge";
+"common.button.signOut" = "Deconectare";
+"common.button.verify" = "Verifică";
+"common.cells.openInFilesApp" = "Deschide în aplicația de fișiere";
+"common.cells.password" = "Parolă";
+"common.cells.url" = "Adresa URL";
+"common.cells.username" = "Nume de utilizator";
+"common.footer.learnMore" = "Aflați mai multe.";
+
+"accountList.header.title" = "Autentificări";
+"accountList.emptyList.message" = "Atinge aici pentru a adăuga un cont";
+"accountList.signOut.alert.title" = "Eliminați Seifele asociate?";
+"accountList.signOut.alert.message" = "Prin deconectare, toate seifurile asociate vor fi șterse din lista de seife. Nicio informație criptată nu va fi ștearsă. Puteți să vă conectați din nou și să readăugați seifurile mai târziu.";
+
+"addVault.title" = "Adaugă seif";
+"addVault.createNewVault.title" = "Creează seif nou";
+"addVault.createNewVault.setVaultName.header.title" = "Alege un nume pentru seif.";
+"addVault.createNewVault.setVaultName.cells.name" = "Nume seif";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Numele seifului nu poate fi gol.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Numele seifului nu trebuie să conțină \\ / : * ? \" < > | , sau să se termine cu un punct.";
+"addVault.createNewVault.chooseCloud.header" = "Unde ar trebui Cryptomator să stocheze fișierele criptate din seiful dumneavoastră?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" există deja la această locație. Alegeți un alt nume de seif sau o locație nouă.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a detectat un seif existent în această locație.\nPentru a crea un nou seif, vă rugăm să mergeți înapoi și să alegeți un alt folder.";
+"addVault.createNewVault.password.enterPassword.header" = "Introduceți o parolă nouă.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirmați noua parolă.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmați parola?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: Dacă vă uitați parola, nu există nicio modalitate de a vă recupera datele.";
+"addVault.createNewVault.password.error.emptyPassword" = "Parola nu poate fi goală.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Parolele nu se potrivesc.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Parola trebuie să conțină cel puțin 8 caractere.";
+"addVault.openExistingVault.title" = "Deschide un seif existent";
+"addVault.openExistingVault.chooseCloud.header" = "Unde este localizat seiful?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Criptomatorul a detectat seiful \"%@\".\nDoriți să adăugați acest seif?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Adaugă acest seif";
+"addVault.openExistingVault.password.footer" = "Introduceți parola pentru „%@”.";
+"addVault.success.info" = "Seiful \"%@\" a fost adăugat cu succes.\nAccesați seiful prin intermediul aplicației fișiere.";
+"addVault.success.footer" = "Dacă nu ați făcut-o deja, activați Cryptomator în aplicația Fișiere.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "Dosarul este gol";
+"chooseFolder.createNewFolder.header.title" = "Alegeți un nume pentru dosar.";
+"chooseFolder.createNewFolder.cells.name" = "Nume dosar";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Numele dosarului nu poate fi gol.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" nu a putut fi găsit.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" există deja.";
+"cloudProvider.error.itemTypeMismatch" = "„%@” are un tip de element neașteptat.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Dosarul părinte \" \"%@\" nu există.";
+"cloudProvider.error.pageTokenInvalid" = "Preluarea conținutului directorului nu a putut fi continuată.";
+"cloudProvider.error.quotaInsufficient" = "Spațiul dvs. de stocare nu este suficient.";
+"cloudProvider.error.unauthorized" = "Imposibil de efectuat o operațiune neautorizată.";
+"cloudProvider.error.noInternetConnection" = "Conexiune la internet necesară pentru această operațiune.";
+
+"cloudProviderType.localFileSystem" = "Alt furnizor de fisiere";
+
+"localFileSystemAuthentication.createNewVault.header" = "În ecranul următor, alegeți locația de stocare pentru seiful dvs. nou.";
+"localFileSystemAuthentication.createNewVault.button" = "Selectați locația de stocare";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un seif există deja în această locație. Vă rugăm să încercați din nou cu o altă locație de stocare.";
+"localFileSystemAuthentication.openExistingVault.header" = "În ecranul următor, alegeți folderul seifului dvs. existent.";
+"localFileSystemAuthentication.openExistingVault.button" = "Selectaţi dosarul cu seif";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Dosarul selectat nu este un seif. Vă rugăm să încercaţi din nou cu un alt dosar.";
+
+"onboarding.title" = "Bine ați venit";
+"onboarding.info" = "Vă mulțumim că ați ales Cryptomator pentru a vă proteja fișierele. Pentru a începe, mergeți la aplicația principală și adăugați un seif.";
+"onboarding.openCryptomator.button" = "Deschideți Cryptomator";
+
+"settings.title" = "Setări";
+"settings.aboutCryptomator" = "Despre Cryptomator";
+"settings.aboutCryptomator.title" = "Versiunea %@ (%@)";
+"settings.sendLogFile" = "Trimiteți fişierul jurnal";
+
+"unlockVault.button.unlock" = "Deblocați";
+"unlockVault.button.unlockVia" = "Deblocare prin %@";
+"unlockVault.password.footer" = "Introduceți parola pentru „%@”.";
+"unlockVault.enableBiometricalUnlock.switch" = "Activează %@";
+"unlockVault.enableBiometricalUnlock.footer" = "În loc să deblocați seiful dvs. cu parola, îl puteți debloca prin %@.";
+"unlockVault.evaluatePolicy.reason" = "Deblochează seiful tău";
+
+"untrustedTLSCertificate.title" = "Certificat TLS invalid";
+"untrustedTLSCertificate.message" = "Certificatul TLS al \"%@\" nu este valid. Vrei să ai încredere în el oricum?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "De încredere";
+"untrustedTLSCertificate.dismiss" = "Nu acreditați";
+
+"urlSession.error.httpError.401" = "Nume utilizator și/sau parolă greșită.";
+"urlSession.error.httpError.403" = "Drepturi insuficiente pentru resursele solicitate.";
+"urlSession.error.httpError.404" = "Resursa solicitată nu a fost găsită.";
+"urlSession.error.httpError.405" = "Metoda de solicitare nu este suportată de resursa țintă.";
+"urlSession.error.httpError.409" = "Conflict de solicitare cu starea actuală a resursei țintă.";
+"urlSession.error.httpError.412" = "Accesul la resursa țintă a fost respins.";
+"urlSession.error.httpError.default" = "Conexiunea la rețea a eșuat cu codul de stare %ld.";
+"urlSession.error.unexpectedResponse" = "A existat un răspuns neașteptat în rețea.";
+
+"vaultDetail.button.lock" = "Blochează acum";
+"vaultDetail.button.removeVault" = "Eliminați din lista de seifuri";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Dacă activați %@, parola de seif va fi stocată în iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Parola dvs. de seif va fi necesară doar dacă autentificarea %@ eșuează.";
+"vaultDetail.info.footer.accessVault" = "Accesați seiful prin intermediul aplicației fișiere.";
+"vaultDetail.info.footer.accountInfo" = "Autentificat ca %@ prin %@.";
+"vaultDetail.locked.footer" = "Seiful dvs. este la moment blocat.";
+"vaultDetail.removeVault.footer" = "Acest lucru va elimina doar seiful din lista de seifuri și nu va șterge niciun fișier criptat.";
+"vaultDetail.unlocked.footer" = "Seiful dvs. este în prezent deblocat în aplicația fișiere.";
+"vaultDetail.unlockVault.footer" = "Introduceți parola pentru \"%@\" pentru a o stoca în iOS keychain și pentru a activa %@.";
+
+"vaultList.header.title" = "Seifuri";
+"vaultList.emptyList.message" = "Atinge aici pentru a adăuga un seif";
+"vaultList.remove.alert.title" = "Eliminați seiful?";
+"vaultList.remove.alert.message" = "Acest lucru va elimina doar seiful din lista de seif. Nici o dată criptată nu va fi ștearsă. Puteți adăuga din nou seiful mai târziu.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Configurarea seifului nu este suportată. Vă rugăm să vă asigurați că rulați cea mai noua versiune de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Versiunea seif nu este acceptată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.";
+
+"webDAVAuthentication.title" = "WebDAV";
