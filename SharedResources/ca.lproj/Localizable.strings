@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Crea una carpeta";
 "common.button.done" = "Fet";
 "common.button.edit" = "Editar";
+"common.button.enable" = "Activar";
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
 "common.button.remove" = "Elimina";
 "common.button.signOut" = "Tanca la sessió";
+"common.button.verify" = "Verificar";
+"common.cells.openInFilesApp" = "Obrir amb l'aplicació de fitxers";
 "common.cells.password" = "Contrasenya";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'usuari";
@@ -40,7 +43,6 @@
 "addVault.createNewVault.password.error.tooShortPassword" = "La contrasenya ha de tenir, si més no, 8 caràcters.";
 "addVault.openExistingVault.title" = "Obri una caixa forta existent";
 "addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
-"addVault.openExistingVault.password.footer" = "Introduïu la contrasenya de \"%@\"";
 
 "biometryType.faceID" = "ID de cara";
 "biometryType.touchID" = "ID tàctil";
@@ -62,7 +64,6 @@
 "settings.aboutCryptomator.title" = "Versió %@ (%@)";
 
 "unlockVault.button.unlock" = "Desbloqueja";
-"unlockVault.password.footer" = "Introduïu la contrasenya de \"%@\"";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
 
 "webDAVAuthentication.title" = "WebDAV";

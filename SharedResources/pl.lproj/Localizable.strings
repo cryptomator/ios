@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Utwórz Folder";
 "common.button.done" = "Gotowe";
 "common.button.edit" = "Edytuj";
+"common.button.enable" = "Włącz";
 "common.button.next" = "Dalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Usuń";
 "common.button.signOut" = "Wyloguj";
+"common.button.verify" = "Potwierdź";
+"common.cells.openInFilesApp" = "Otwórz w aplikacji Pliki";
 "common.cells.password" = "Hasło";
 "common.cells.url" = "URL";
 "common.cells.username" = "Login";
@@ -47,9 +50,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator wykrył sejf \"%@\".\nCzy chcesz dodać ten sejf?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ten sejf";
-"addVault.openExistingVault.password.footer" = "Wprowadź hasło dla \"%@\"";
+"addVault.openExistingVault.password.footer" = "Wprowadź hasło dla \"%@\".";
 "addVault.success.info" = "Dodano sejf \"%@\".\nUzyskaj dostęp do tego sejfu poprzez aplikację Pliki.";
-"addVault.success.openFilesApp" = "Otwórz aplikację Pliki";
 "addVault.success.footer" = "Jeśli jeszcze tego nie zrobiłeś, włącz Cryptomator w aplikacji Pliki.";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +91,7 @@
 
 "unlockVault.button.unlock" = "Odblokuj";
 "unlockVault.button.unlockVia" = "Odblokuj przez %@";
-"unlockVault.password.footer" = "Wprowadź hasło dla \"%@\"";
+"unlockVault.password.footer" = "Wprowadź hasło dla \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Włącz %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Zamiast hasłem możesz odblokować sejf za pomocą %@.";
 "unlockVault.evaluatePolicy.reason" = "Odblokuj swój sejf";

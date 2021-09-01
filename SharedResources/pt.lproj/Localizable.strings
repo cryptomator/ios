@@ -9,7 +9,5 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.chooseCloud.header" = "Onde deve o Cryptomator armazenar os arquivos criptografados do cofre?";
 "addVault.openExistingVault.title" = "Abrir Cofre Existente";
-"addVault.openExistingVault.password.footer" = "Insira a senha para \"%@\"";
 
 "unlockVault.button.unlock" = "Destrancar";
-"unlockVault.password.footer" = "Insira a senha para \"%@\"";

@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Создать папку";
 "common.button.done" = "Готово";
 "common.button.edit" = "Изменить";
+"common.button.enable" = "Вкл.";
 "common.button.next" = "Далее";
 "common.button.ok" = "OK";
 "common.button.remove" = "Удалить";
 "common.button.signOut" = "Выйти";
+"common.button.verify" = "Проверить";
+"common.cells.openInFilesApp" = "Открыть в приложении \"Файлы\"";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
@@ -47,9 +50,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "Где находится хранилище?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище \"%@\".\nДобавить это хранилище?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Добавить это хранилище";
-"addVault.openExistingVault.password.footer" = "Введите пароль для \"%@\"";
+"addVault.openExistingVault.password.footer" = "Введите пароль для \"%@\".";
 "addVault.success.info" = "Хранилище \"%@\" добавлено.\nДоступ к нему - через приложение \"Файлы\".";
-"addVault.success.openFilesApp" = "Открыть приложение \"Файлы\"";
 "addVault.success.footer" = "Если вы ещё этого не сделали, включите Cryptomator в приложении \"Файлы\".";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +91,7 @@
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
-"unlockVault.password.footer" = "Введите пароль для \"%@\"";
+"unlockVault.password.footer" = "Введите пароль для \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Включить %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Вместо разблокирования хранилища с помощью пароля, его можно разблокировать через %@.";
 "unlockVault.evaluatePolicy.reason" = "Разблокировка хранилища";
@@ -98,6 +100,15 @@
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
+
+"urlSession.error.httpError.401" = "Неверное имя пользователя и/или пароль.";
+"urlSession.error.httpError.403" = "Недостаточно прав на запрашиваемый ресурс.";
+"urlSession.error.httpError.404" = "Запрошенный ресурс не найден.";
+"urlSession.error.httpError.405" = "Метод запроса не поддерживается целевым ресурсом.";
+"urlSession.error.httpError.409" = "Запрос конфликтует с текущим состоянием целевого ресурса.";
+"urlSession.error.httpError.412" = "Доступ к целевому ресурсу запрещён.";
+"urlSession.error.httpError.default" = "Не удалось подключиться к сети с кодом статуса %ld.";
+"urlSession.error.unexpectedResponse" = "Неожиданный ответ сети.";
 
 "vaultDetail.button.lock" = "Заблокировать";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";

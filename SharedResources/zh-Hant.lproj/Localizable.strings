@@ -7,10 +7,14 @@
 
 "common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
+"common.button.choose" = "選擇";
 "common.button.done" = "完成";
+"common.button.edit" = "編輯";
 "common.button.next" = "繼續";
+"common.button.ok" = "確認";
 "common.button.remove" = "移除";
 "common.cells.password" = "密碼";
+"common.cells.url" = "網址";
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
@@ -26,6 +30,8 @@
 "biometryType.touchID" = "Touch ID";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+
+"settings.title" = "設定";
 
 "unlockVault.button.unlock" = "解鎖";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";

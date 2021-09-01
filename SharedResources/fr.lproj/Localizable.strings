@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Créer un répertoire";
 "common.button.done" = "Terminé";
 "common.button.edit" = "Éditer";
+"common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
 "common.button.remove" = "Retirer";
 "common.button.signOut" = "Se déconnecter";
+"common.button.verify" = "Vérifier";
+"common.cells.openInFilesApp" = "Ouvrir dans l'application Fichiers";
 "common.cells.password" = "Mot de passe";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'utilisateur";
@@ -47,10 +50,12 @@
 "addVault.openExistingVault.chooseCloud.header" = "Où se situe le coffre ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a détecté le coffre \"%@\".\nVoulez-vous ajouter ce coffre ?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Ajouter ce coffre";
-"addVault.openExistingVault.password.footer" = "Entrez le mot de passe pour “%@”";
+"addVault.openExistingVault.password.footer" = "Entrez le mot de passe pour “%@”.";
 "addVault.success.info" = "Le coffre \"%@\" a été ajouté avec succès.\nAccédez à ce coffre via l'application Fichiers.";
-"addVault.success.openFilesApp" = "Ouvrir l'App Fichiers";
 "addVault.success.footer" = "Si vous ne l'avez pas déjà fait, activez Cryptomator dans l'application Fichiers.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
 
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
 "chooseFolder.createNewFolder.header.title" = "Choisissez un nouveau nom pour ce classeur.";
@@ -85,12 +90,25 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
-"unlockVault.password.footer" = "Entrez le mot de passe pour “%@”";
+"unlockVault.button.unlockVia" = "Débloquer via %@";
+"unlockVault.password.footer" = "Entrez le mot de passe pour “%@”.";
+"unlockVault.enableBiometricalUnlock.switch" = "Activer %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Au lieu de déverrouiller votre coffre avec votre mot de passe, vous pouvez le déverrouiller via %@.";
+"unlockVault.evaluatePolicy.reason" = "Déverrouiller votre coffre";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalide";
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
 "untrustedTLSCertificate.add" = "Approuver";
 "untrustedTLSCertificate.dismiss" = "Ne pas faire confiance";
+
+"urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
+"urlSession.error.httpError.403" = "Vous n'avez pas les droits pour accéder à cette ressource.";
+"urlSession.error.httpError.404" = "La ressource demandée est intouvable.";
+"urlSession.error.httpError.405" = "Méthode de requête non prise en charge par la ressource cible.";
+"urlSession.error.httpError.409" = "Conflit dans la requête avec l'état actuel de la ressource cible.";
+"urlSession.error.httpError.412" = "Accès à la ressource cible refusé.";
+"urlSession.error.httpError.default" = "La connexion au réseau a échoué avec le code %ld.";
+"urlSession.error.unexpectedResponse" = "Une erreur réseau inattendue s'est produite.";
 
 "vaultDetail.button.lock" = "Verrouiller maintenant";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
