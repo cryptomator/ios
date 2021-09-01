@@ -9,7 +9,5 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
-"addVault.openExistingVault.password.footer" = "Skriv inn passordet for \"%@\"";
 
 "unlockVault.button.unlock" = "Lås opp";
-"unlockVault.password.footer" = "Skriv inn passordet for \"%@\"";

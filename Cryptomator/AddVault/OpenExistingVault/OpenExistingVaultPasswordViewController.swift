@@ -12,8 +12,8 @@ import UIKit
 
 class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
 	weak var coordinator: (Coordinator & VaultInstalling)?
-	lazy var confirmButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.confirm"), style: .done, target: self, action: #selector(verify))
+	lazy var verifyButton: UIBarButtonItem = {
+		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.verify"), style: .done, target: self, action: #selector(verify))
 		button.isEnabled = false
 		return button
 	}()
@@ -32,7 +32,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("addVault.openExistingVault.title")
-		navigationItem.rightBarButtonItem = confirmButton
+		navigationItem.rightBarButtonItem = verifyButton
 		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
 		tableView.rowHeight = 44
 	}
@@ -59,9 +59,9 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		viewModel.password = textField.text
 		if textField.text?.isEmpty ?? true {
-			confirmButton.isEnabled = false
+			verifyButton.isEnabled = false
 		} else {
-			confirmButton.isEnabled = true
+			verifyButton.isEnabled = true
 		}
 	}
 

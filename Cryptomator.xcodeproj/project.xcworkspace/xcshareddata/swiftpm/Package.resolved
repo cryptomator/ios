@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "6fa587f07d66795abd262cb757ce907a57595011",
-          "version": "0.13.2"
+          "revision": "e5d7a3b3e9dec236c893214bb75df1eb95f8b49f",
+          "version": "0.13.3"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "d8b4503ada5b9cd4b9f3928148cbda3936a97eed",
-          "version": "1.1.18"
+          "revision": "e096bfad37e4b32336130a9256a1e28a277e043f",
+          "version": "1.1.21"
         }
       },
       {

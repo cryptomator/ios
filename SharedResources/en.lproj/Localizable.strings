@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Create Folder";
 "common.button.done" = "Done";
 "common.button.edit" = "Edit";
+"common.button.enable" = "Enable";
 "common.button.next" = "Next";
 "common.button.ok" = "OK";
 "common.button.remove" = "Remove";
 "common.button.signOut" = "Sign Out";
+"common.button.verify" = "Verify";
+"common.cells.openInFilesApp" = "Open in Files App";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
@@ -47,9 +50,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
-"addVault.openExistingVault.password.footer" = "Enter password for \"%@\"";
+"addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
-"addVault.success.openFilesApp" = "Open Files App";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +91,7 @@
 
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";
-"unlockVault.password.footer" = "Enter password for \"%@\"";
+"unlockVault.password.footer" = "Enter password for \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
 "unlockVault.evaluatePolicy.reason" = "Unlock your vault";

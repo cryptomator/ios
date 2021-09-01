@@ -47,9 +47,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται το vault;";
 "addVault.openExistingVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε το vault \"%@\".\nΘα θέλατε να προσθέσετε αυτό το vault;";
 "addVault.openExistingVault.detectedMasterkey.add" = "Προσθήκη αυτού του vault";
-"addVault.openExistingVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\"";
+"addVault.openExistingVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
 "addVault.success.info" = "Προστέθηκε με επιτυχία το vault \"%@\".\nΠρόσβαση σε αυτό το vault μέσω της εφαρμογής Αρχείων.";
-"addVault.success.openFilesApp" = "Άνοιγμα Εφαρμογής Αρχείων";
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +88,7 @@
 
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
 "unlockVault.button.unlockVia" = "Ξεκλείδωμα μέσω %@";
-"unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\"";
+"unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Ενεργοποίηση %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Αντί να ξεκλειδώνετε το vault σας με τον κωδικό πρόσβασής σας, μπορείτε να το ξεκλειδώσετε μέσω %@.";
 "unlockVault.evaluatePolicy.reason" = "Ξεκλειδώστε το vault σας";

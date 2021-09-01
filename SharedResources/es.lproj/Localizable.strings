@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Crear carpeta";
 "common.button.done" = "Hecho";
 "common.button.edit" = "Editar";
+"common.button.enable" = "Activar";
 "common.button.next" = "Continuar";
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
 "common.button.signOut" = "Cerrar sesión";
+"common.button.verify" = "Verificar";
+"common.cells.openInFilesApp" = "Abrir en la app de Archivos";
 "common.cells.password" = "Contraseña";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nombre de usuario";
@@ -47,9 +50,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
-"addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\"";
+"addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\".";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
-"addVault.success.openFilesApp" = "Abrir aplicación de archivos";
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +91,7 @@
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
-"unlockVault.password.footer" = "Ingresar contraseña para \"%@\"";
+"unlockVault.password.footer" = "Ingresar contraseña para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "En lugar de desbloquear su bóveda con su contraseña, puede desbloquearla a través de %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloquee su bóveda";
@@ -98,6 +100,15 @@
 "untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "No confiar";
+
+"urlSession.error.httpError.401" = "Usuario y/o contraseña incorrectos.";
+"urlSession.error.httpError.403" = "Derechos insuficientes para el recurso solicitado.";
+"urlSession.error.httpError.404" = "Recurso solicitado no encontrado.";
+"urlSession.error.httpError.405" = "Método de solicitud no compatible por el recurso de destino.";
+"urlSession.error.httpError.409" = "La solicitud entra en conflicto con el estado actual del recurso de destino.";
+"urlSession.error.httpError.412" = "Acceso al recurso de destino denegado.";
+"urlSession.error.httpError.default" = "La conexión de red ha fallado con el código de estado %ld.";
+"urlSession.error.unexpectedResponse" = "Hubo una respuesta de red inesperada.";
 
 "vaultDetail.button.lock" = "Bloquear ahora";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";

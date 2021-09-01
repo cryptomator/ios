@@ -8,7 +8,5 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan brankas berkas terenkripsi kamu?";
 "addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
-"addVault.openExistingVault.password.footer" = "Masukkan kata sandi untuk \"%@\"";
 
 "unlockVault.button.unlock" = "Buka Gembok";
-"unlockVault.password.footer" = "Masukkan kata sandi untuk \"%@\"";

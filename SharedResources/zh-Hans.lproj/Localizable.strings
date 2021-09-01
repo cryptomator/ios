@@ -13,14 +13,17 @@
 "common.button.createFolder" = "新建文件夹";
 "common.button.done" = "完成";
 "common.button.edit" = "编辑";
+"common.button.enable" = "启用";
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
 "common.button.signOut" = "退出登录";
+"common.button.verify" = "验证";
+"common.cells.openInFilesApp" = "在文管应用中打开";
 "common.cells.password" = "密码";
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
-"common.footer.learnMore" = "了解更多";
+"common.footer.learnMore" = "了解更多。";
 
 "accountList.header.title" = "身份验证";
 "accountList.emptyList.message" = "点击此处添加保险库";
@@ -29,57 +32,56 @@
 
 "addVault.title" = "添加保险库";
 "addVault.createNewVault.title" = "创建新的保险库";
-"addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称.";
+"addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "保险库名称不应包含 \\ / : * ? \" < > | 或以一个时间段结尾";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "保险库名称不应包含 \\ / : * ? \" < > | 或以一个时间段结尾。";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置";
-"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库\n若想创建一个新的保险库，请返回并选择其他路径";
-"addVault.createNewVault.password.enterPassword.header" = "输入新密码.";
-"addVault.createNewVault.password.confirmPassword.header" = "确认新密码.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据";
-"addVault.createNewVault.password.error.emptyPassword" = "密码不能为空";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "密码不匹配";
-"addVault.createNewVault.password.error.tooShortPassword" = "密码必须至少包含 8 个字符";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置。";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库。\n若想创建一个新的保险库，请返回并选择其他路径。";
+"addVault.createNewVault.password.enterPassword.header" = "输入新密码。";
+"addVault.createNewVault.password.confirmPassword.header" = "确认新密码。";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码？";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据。";
+"addVault.createNewVault.password.error.emptyPassword" = "密码不能为空。";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "密码不匹配。";
+"addVault.createNewVault.password.error.tooShortPassword" = "密码必须至少包含 8 个字符。";
 "addVault.openExistingVault.title" = "打开现有的保险库";
-"addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"\n您想要添加它吗？";
+"addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪？";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"。\n您想要添加它吗？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
-"addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码";
-"addVault.success.info" = "成功添加保险库 \"%@\"\n现在可通过文管应用访问它";
-"addVault.success.openFilesApp" = "打开文管应用";
-"addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator";
+"addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码。";
+"addVault.success.info" = "成功添加保险库 \"%@\"。\n现在可通过文管应用访问它。";
+"addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator。";
 
 "biometryType.faceID" = "面部 ID";
 "biometryType.touchID" = "触控 ID";
 
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
-"chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称";
+"chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称。";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空。";
 
-"cloudProvider.error.itemNotFound" = "找不到 %@\"";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型";
-"cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在";
-"cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容";
-"cloudProvider.error.quotaInsufficient" = "您的存储空间不足";
-"cloudProvider.error.unauthorized" = "无法执行未经授权的操作";
-"cloudProvider.error.noInternetConnection" = "此操作需要网络连接";
+"cloudProvider.error.itemNotFound" = "找不到 %@\"。";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在。";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型。";
+"cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在。";
+"cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容。";
+"cloudProvider.error.quotaInsufficient" = "您的存储空间不足。";
+"cloudProvider.error.unauthorized" = "无法执行未经授权的操作。";
+"cloudProvider.error.noInternetConnection" = "此操作需要网络连接。";
 
 "cloudProviderType.localFileSystem" = "其他文件提供商";
 
-"localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径";
+"localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试";
-"localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试。";
+"localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹。";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次。";
 
 "onboarding.title" = "欢迎使用";
-"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧";
+"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧。";
 "onboarding.openCryptomator.button" = "打开 Cryptomator";
 
 "settings.title" = "设置";
@@ -89,9 +91,9 @@
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
-"unlockVault.password.footer" = "输入 \"%@\" 的密码";
+"unlockVault.password.footer" = "输入 \"%@\" 的密码。";
 "unlockVault.enableBiometricalUnlock.switch" = "启用 %@";
-"unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库";
+"unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库。";
 "unlockVault.evaluatePolicy.reason" = "解锁保险库";
 
 "untrustedTLSCertificate.title" = "TLS 证书无效";
@@ -99,22 +101,32 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"urlSession.error.httpError.401" = "用户名或密码错误。";
+"urlSession.error.httpError.403" = "对请求的资源权限不足。";
+"urlSession.error.httpError.404" = "找不到请求的资源。";
+"urlSession.error.httpError.405" = "请求方式不受目标资源支持。";
+"urlSession.error.httpError.409" = "请求与目标资源的当前状态冲突。";
+"urlSession.error.httpError.412" = "访问目标资源受阻。";
+"urlSession.error.httpError.default" = "网络连接失败，状态代码 %ld。";
+"urlSession.error.unexpectedResponse" = "意外的网络响应。";
+
 "vaultDetail.button.lock" = "立即锁定";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
-"vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中";
-"vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码";
-"vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库";
-"vaultDetail.locked.footer" = "您的保险库目前已锁定";
-"vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件";
-"vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁";
-"vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 密钥链并启用 %@";
+"vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
+"vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
+"vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
+"vaultDetail.info.footer.accountInfo" = "已登录账户：%@ (%@).";
+"vaultDetail.locked.footer" = "您的保险库目前已锁定。";
+"vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
+"vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
+"vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 密钥链并启用 %@。";
 
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";
-"vaultList.remove.alert.title" = "删除保险库?";
-"vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库";
+"vaultList.remove.alert.title" = "删除保险库？";
+"vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库。";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator。";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的。";
 
 "webDAVAuthentication.title" = "WebDAV";

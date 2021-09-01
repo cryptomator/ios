@@ -12,8 +12,8 @@ import UIKit
 
 class VaultDetailUnlockVaultViewController: SingleSectionTableViewController {
 	weak var coordinator: (Coordinator & VaultPasswordVerifying)?
-	lazy var confirmButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.confirm"), style: .done, target: self, action: #selector(verify))
+	lazy var enableButton: UIBarButtonItem = {
+		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.enable"), style: .done, target: self, action: #selector(verify))
 		button.isEnabled = false
 		return button
 	}()
@@ -33,7 +33,7 @@ class VaultDetailUnlockVaultViewController: SingleSectionTableViewController {
 		super.viewDidLoad()
 		title = viewModel.title
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-		navigationItem.rightBarButtonItem = confirmButton
+		navigationItem.rightBarButtonItem = enableButton
 		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
 		tableView.rowHeight = 44
 	}
@@ -61,9 +61,9 @@ class VaultDetailUnlockVaultViewController: SingleSectionTableViewController {
 	@objc func textFieldDidChange(_ textField: UITextField) {
 		viewModel.password = textField.text
 		if textField.text?.isEmpty ?? true {
-			confirmButton.isEnabled = false
+			enableButton.isEnabled = false
 		} else {
-			confirmButton.isEnabled = true
+			enableButton.isEnabled = true
 		}
 	}
 

@@ -29,11 +29,6 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 		return cell
 	}()
 
-	private lazy var createButton: UIBarButtonItem = {
-		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
-		return button
-	}()
-
 	init(viewModel: CreateNewVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
 		super.init(nibName: nil, bundle: nil)
@@ -46,6 +41,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("addVault.createNewVault.title")
+		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
 	}

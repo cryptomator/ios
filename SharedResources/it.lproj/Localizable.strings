@@ -13,6 +13,7 @@
 "common.button.createFolder" = "Crea Cartella";
 "common.button.done" = "Fatto";
 "common.button.edit" = "Modifica";
+"common.button.enable" = "Abilita";
 "common.button.next" = "Avanti";
 "common.button.ok" = "OK";
 "common.button.remove" = "Rimuovi";
@@ -47,9 +48,8 @@
 "addVault.openExistingVault.chooseCloud.header" = "Dove si trova la cassaforte?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha rilevato la cassaforte \"%@\".\nVorresti aggiungerla?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Aggiungi Questa Cassaforte";
-"addVault.openExistingVault.password.footer" = "Inserisci la password per \"%@\"";
+"addVault.openExistingVault.password.footer" = "Inserisci la password per \"%@\".";
 "addVault.success.info" = "Cassaforte \"%@\" aggiunta correttamente.\nAccedi a questa cassaforte tramite l'app File.";
-"addVault.success.openFilesApp" = "Apri App File";
 "addVault.success.footer" = "Se non lo hai già fatto, abilita Cryptomator nell'app File.";
 
 "biometryType.faceID" = "Face ID";
@@ -89,7 +89,7 @@
 
 "unlockVault.button.unlock" = "Sblocca";
 "unlockVault.button.unlockVia" = "Sblocca tramite %@";
-"unlockVault.password.footer" = "Inserisci la password per \"%@\"";
+"unlockVault.password.footer" = "Inserisci la password per \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Abilita %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Invece di sbloccare la cassaforte con la password, puoi sbloccarla tramite %@.";
 "unlockVault.evaluatePolicy.reason" = "Sblocca la tua cassaforte";
