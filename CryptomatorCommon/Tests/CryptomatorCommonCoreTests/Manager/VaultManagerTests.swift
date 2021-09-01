@@ -109,7 +109,7 @@ class VaultManagerTests: XCTestCase {
 			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: "pw")
 
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
-			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat8ProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -183,7 +183,7 @@ class VaultManagerTests: XCTestCase {
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
-			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat8ShorteningProviderDecorator else {
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat8ProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -239,7 +239,7 @@ class VaultManagerTests: XCTestCase {
 		let legacyVaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: legacyVaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
-			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ShorteningProviderDecorator else {
+			guard VaultDBManager.cachedDecorators[vaultUID] is VaultFormat7ProviderDecorator else {
 				XCTFail("VaultDecorator has wrong type")
 				return
 			}
@@ -286,8 +286,8 @@ class VaultManagerTests: XCTestCase {
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
 		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
 		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
-		guard decorator is VaultFormat8ShorteningProviderDecorator else {
-			XCTFail("Decorator is not a VaultFormat8ShorteningProviderDecorator")
+		guard decorator is VaultFormat8ProviderDecorator else {
+			XCTFail("Decorator is not a VaultFormat8ProviderDecorator")
 			return
 		}
 		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
@@ -308,8 +308,8 @@ class VaultManagerTests: XCTestCase {
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
 		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
 		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
-		guard decorator is VaultFormat7ShorteningProviderDecorator else {
-			XCTFail("Decorator is not a VaultFormat7ShorteningProviderDecorator")
+		guard decorator is VaultFormat7ProviderDecorator else {
+			XCTFail("Decorator is not a VaultFormat7ProviderDecorator")
 			return
 		}
 		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
@@ -330,8 +330,8 @@ class VaultManagerTests: XCTestCase {
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
 		let kek = try masterkeyFile.deriveKey(passphrase: "asd")
 		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
-		guard decorator is VaultFormat6ShorteningProviderDecorator else {
-			XCTFail("Decorator is not a VaultFormat6ShorteningProviderDecorator")
+		guard decorator is VaultFormat6ProviderDecorator else {
+			XCTFail("Decorator is not a VaultFormat6ProviderDecorator")
 			return
 		}
 		XCTAssertNotNil(VaultDBManager.cachedDecorators[vaultUID])
