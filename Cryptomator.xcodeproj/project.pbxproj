@@ -595,6 +595,7 @@
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
+		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1441,6 +1442,7 @@
 				nl,
 				pl,
 				"pt-BR",
+				ro,
 				ru,
 				sk,
 				sv,
@@ -1937,6 +1939,7 @@
 				74267A0F26A5796C004C61BC /* nl */,
 				74267A1226A5797F004C61BC /* pl */,
 				74267A1326A57981004C61BC /* pt-BR */,
+				74DFF9DA26DF87A0009981ED /* ro */,
 				74267A1626A5798C004C61BC /* ru */,
 				74267A1726A57990004C61BC /* sk */,
 				74267A1A26A5799A004C61BC /* sv */,
