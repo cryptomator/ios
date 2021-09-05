@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Rimuovi";
 "common.button.signOut" = "Disconnettiti";
+"common.button.verify" = "Verifica";
+"common.cells.openInFilesApp" = "Apri nell'App File";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
