@@ -103,6 +103,10 @@
 
 "urlSession.error.httpError.401" = "Błędna nazwa użytkownika i/lub hasło.";
 "urlSession.error.httpError.403" = "Niewystarczające uprawnienia do żądanego zasobu.";
+"urlSession.error.httpError.404" = "Żądany zasób nie został znaleziony.";
+"urlSession.error.httpError.405" = "Żądana metoda nie jest obsługiwana przez docelowy zasób.";
+"urlSession.error.httpError.412" = "Odmowa dostępu do docelowego zasobu.";
+"urlSession.error.httpError.default" = "Połączenie sieciowe nie powiodło się z kodem stanu %ld.";
 "urlSession.error.unexpectedResponse" = "Nieoczekiwana odpowiedź z sieci.";
 
 "vaultDetail.button.lock" = "Zablokuj";
