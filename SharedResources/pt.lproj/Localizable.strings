@@ -1,7 +1,24 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Erro";
 "common.button.cancel" = "Cancelar";
 "common.button.choose" = "Escolher";
+"common.button.confirm" = "Confirmar";
+"common.button.create" = "Criar";
+"common.button.createFolder" = "Criar Pasta";
 "common.button.done" = "Ok";
+"common.button.edit" = "Editar";
+"common.button.enable" = "Ativar";
 "common.button.next" = "Seguinte";
+"common.button.ok" = "OK";
+"common.button.remove" = "Remover";
+"common.button.signOut" = "Terminar Sessão";
+"common.button.verify" = "Verificar";
 "common.cells.password" = "Senha";
 
 "addVault.title" = "Adicionar Cofre";
