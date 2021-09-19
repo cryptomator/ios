@@ -93,6 +93,7 @@
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Insira a palavra-passe para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Ativar %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com a sua palavra-passe, você pode desbloqueá-lo via %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloqueie o seu cofre";
 
 "untrustedTLSCertificate.title" = "Certificado TLS Inválido";
@@ -111,12 +112,21 @@
 
 "vaultDetail.button.lock" = "Bloquear Agora";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a palavra-passe do seu cofre será armazenada no Porta-chaves do iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Aceda o cofre através da aplicação Ficheiros.";
 "vaultDetail.info.footer.accountInfo" = "Sessão iniciada como %@ via %@.";
 "vaultDetail.locked.footer" = "O seu cofre está de momento bloqueado.";
+"vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
+"vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
+"vaultDetail.unlockVault.footer" = "Insira a palavra-passe de \"%@\" para a armazenar no Porta-chaves do iOS e para ativar %@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
 "vaultList.remove.alert.title" = "Remover Cofre?";
+"vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente de Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
