@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstranit";
 "common.button.signOut" = "Odhlásit se";
+"common.button.verify" = "Ověřit";
+"common.cells.openInFilesApp" = "Otevřít v aplikaci Soubory";
 "common.cells.password" = "Heslo";
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživatel";
