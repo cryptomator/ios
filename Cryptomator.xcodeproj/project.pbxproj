@@ -592,6 +592,7 @@
 		74267A1A26A5799A004C61BC /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A1C26A5799F004C61BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A1D26A579A4004C61BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		7460FFED26FB6C100018BCC4 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
@@ -1441,6 +1442,7 @@
 				ko,
 				nl,
 				pl,
+				pt,
 				"pt-BR",
 				ro,
 				ru,
@@ -1938,6 +1940,7 @@
 				74267A0C26A57963004C61BC /* ko */,
 				74267A0F26A5796C004C61BC /* nl */,
 				74267A1226A5797F004C61BC /* pl */,
+				7460FFED26FB6C100018BCC4 /* pt */,
 				74267A1326A57981004C61BC /* pt-BR */,
 				74DFF9DA26DF87A0009981ED /* ro */,
 				74267A1626A5798C004C61BC /* ru */,
