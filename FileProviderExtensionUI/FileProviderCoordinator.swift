@@ -16,9 +16,13 @@ class FileProviderCoordinator {
 	private let extensionContext: FPUIActionExtensionContext
 	private weak var hostViewController: UIViewController?
 	private lazy var navigationController: UINavigationController = {
+		let appearance = UINavigationBarAppearance()
+		appearance.configureWithOpaqueBackground()
+		appearance.backgroundColor = UIColor(named: "primary")
+		appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
 		let navigationController = UINavigationController()
-		navigationController.navigationBar.barTintColor = UIColor(named: "primary")
-		navigationController.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+		navigationController.navigationBar.standardAppearance = appearance
+		navigationController.navigationBar.scrollEdgeAppearance = appearance
 		navigationController.navigationBar.tintColor = .white
 		addViewControllerAsChildToHost(navigationController)
 		return navigationController
