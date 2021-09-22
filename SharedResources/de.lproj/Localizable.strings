@@ -19,7 +19,7 @@
 "common.button.remove" = "Entfernen";
 "common.button.signOut" = "Ausloggen";
 "common.button.verify" = "Verifizieren";
-"common.cells.openInFilesApp" = "In Dateien-App öffnen";
+"common.cells.openInFilesApp" = "In der App „Dateien“ öffnen";
 "common.cells.password" = "Passwort";
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
@@ -27,12 +27,12 @@
 
 "accountList.header.title" = "Authentifizierungen";
 "accountList.emptyList.message" = "Tipp hier, um einen Account hinzuzufügen";
-"accountList.signOut.alert.title" = "Verknüpfte Tresore entfernen?";
-"accountList.signOut.alert.message" = "Durch das Abmelden werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Sie können sich erneut anmelden und die Tresore später erneut hinzufügen.";
+"accountList.signOut.alert.title" = "Zugehörige Tresore entfernen?";
+"accountList.signOut.alert.message" = "Durch das Ausloggen werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst dich erneut anmelden und die Tresore später wieder hinzufügen.";
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
-"addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname muss ausgefüllt werden.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Tresorname sollte kein \\ / : * ? \" < > | beinhalten oder auf einem Punkt enden.";
@@ -96,8 +96,8 @@
 "unlockVault.enableBiometricalUnlock.footer" = "Anstatt deinen Tresor mit deinem Passwort zu entsperren, kannst du ihn über %@ entsperren.";
 "unlockVault.evaluatePolicy.reason" = "Entsperre deinen Tresor";
 
-"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
-"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.title" = "Ungültiges TLS-Zertifikat";
+"untrustedTLSCertificate.message" = "Das TLS-Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
 
