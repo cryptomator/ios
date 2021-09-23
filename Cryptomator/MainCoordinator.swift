@@ -23,6 +23,15 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		navigationController.pushViewController(vaultListViewController, animated: false)
 	}
 
+	func showOnboarding() {
+		let modalNavigationController = OnboardingNavigationController()
+		modalNavigationController.isModalInPresentation = true
+		let child = OnboardingCoordinator(navigationController: modalNavigationController)
+		childCoordinators.append(child)
+		navigationController.topViewController?.present(modalNavigationController, animated: true)
+		child.start()
+	}
+
 	func addVault() {
 		let modalNavigationController = BaseNavigationController()
 		let child = AddVaultCoordinator(navigationController: modalNavigationController)

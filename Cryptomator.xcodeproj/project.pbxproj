@@ -216,6 +216,7 @@
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
 		742679FC26A56CF9004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		742679FD26A56CFA004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
+		7460FFEF26FCC6FC0018BCC4 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */; };
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		7469AD9A266E26B0000DCD45 /* URL+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469AD99266E26B0000DCD45 /* URL+Zip.swift */; };
@@ -242,7 +243,18 @@
 		747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FF2587AEB60023FF53 /* FileSystemLock.swift */; };
 		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
 		747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376002587AEB60023FF53 /* LockNode.swift */; };
+		74C2BC4826E8E21D00BCAA03 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */; };
+		74C2BC4A26E8E24A00BCAA03 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4926E8E24A00BCAA03 /* OnboardingViewModel.swift */; };
+		74C2BC4C26E8E63700BCAA03 /* OnboardingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4B26E8E63700BCAA03 /* OnboardingCoordinator.swift */; };
+		74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */; };
+		74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */; };
+		74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */; };
+		74C2BC5426E9097E00BCAA03 /* UpgradeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */; };
+		74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */; };
+		74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */; };
 		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
+		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
+		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -593,10 +605,24 @@
 		74267A1C26A5799F004C61BC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A1D26A579A4004C61BC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7460FFED26FB6C100018BCC4 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
+		7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		74C2BC4926E8E24A00BCAA03 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		74C2BC4B26E8E63700BCAA03 /* OnboardingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCoordinator.swift; sourceTree = "<group>"; };
+		74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
+		74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
+		74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseCoordinator.swift; sourceTree = "<group>"; };
+		74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeCoordinator.swift; sourceTree = "<group>"; };
+		74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
+		74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
+		74F5DC1926D92A1D00AFE989 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
+		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
+		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -818,6 +844,7 @@
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				74D365BC268B965B005ECD69 /* SharedResources */,
+				74F5DC1826D929FC00AFE989 /* StoreKitTestConfiguration */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1093,6 +1120,8 @@
 				4A7BC0E825ADF13100F007B3 /* AddVault */,
 				4A8195E325ADB92600F7DDA1 /* Common */,
 				4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */,
+				74C2BC4626E8E1FD00BCAA03 /* Onboarding */,
+				74F5DC1A26DCD2E300AFE989 /* Purchase */,
 				7408E6C8267797DC00D7FAEA /* Resources */,
 				740D367C266A18C80058744D /* Settings */,
 				4A4B7E4026B2ABC4009BFDB1 /* VaultDetail */,
@@ -1237,6 +1266,17 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		74C2BC4626E8E1FD00BCAA03 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				74C2BC4B26E8E63700BCAA03 /* OnboardingCoordinator.swift */,
+				7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */,
+				74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */,
+				74C2BC4926E8E24A00BCAA03 /* OnboardingViewModel.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		74D365BC268B965B005ECD69 /* SharedResources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,6 +1285,30 @@
 				742679F926A56B33004C61BC /* Localizable.strings */,
 			);
 			path = SharedResources;
+			sourceTree = "<group>";
+		};
+		74F5DC1826D929FC00AFE989 /* StoreKitTestConfiguration */ = {
+			isa = PBXGroup;
+			children = (
+				74F5DC1726D928A100AFE989 /* Configuration.storekit */,
+				74F5DC1926D92A1D00AFE989 /* StoreKitTestCertificate.cer */,
+			);
+			path = StoreKitTestConfiguration;
+			sourceTree = "<group>";
+		};
+		74F5DC1A26DCD2E300AFE989 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
+				74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */,
+				74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */,
+				74F5DC1E26DD036D00AFE989 /* StoreManager.swift */,
+				74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */,
+				74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */,
+				74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */,
+				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
+			);
+			path = Purchase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1678,6 +1742,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74C2BC4A26E8E24A00BCAA03 /* OnboardingViewModel.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* SetVaultNameCoordinator.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
@@ -1686,6 +1751,7 @@
 				4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */,
 				4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */,
 				4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */,
+				74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */,
 				4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */,
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
@@ -1724,13 +1790,16 @@
 				4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */,
 				740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */,
 				7408E6C326778D9B00D7FAEA /* AboutCoordinator.swift in Sources */,
+				74C2BC4826E8E21D00BCAA03 /* OnboardingViewController.swift in Sources */,
 				4A1EB0D5268A5AA3006D072B /* VaultDetector.swift in Sources */,
 				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
 				4A4B7E7426B954D2009BFDB1 /* HeaderFooterViewModel.swift in Sources */,
+				74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */,
 				4A644B53267BAFDA008CBB9A /* CreateNewFolderViewModel.swift in Sources */,
 				4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */,
 				4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */,
 				4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */,
+				74C2BC5426E9097E00BCAA03 /* UpgradeCoordinator.swift in Sources */,
 				4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */,
 				4A1EB0CA2689C373006D072B /* LocalVaultAdding.swift in Sources */,
 				4A4B7E6D26B9462F009BFDB1 /* Bindable.swift in Sources */,
@@ -1742,6 +1811,7 @@
 				4AB8539626BA87A700555F00 /* VaultDetailUnlockVaultViewController.swift in Sources */,
 				4AB8539C26BA8A8200555F00 /* VaultPasswordVerifying.swift in Sources */,
 				4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */,
+				74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */,
 				4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */,
 				4A3D65662680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift in Sources */,
 				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
@@ -1753,6 +1823,7 @@
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
 				4A644B47267A3D43008CBB9A /* SetVaultNameViewModel.swift in Sources */,
 				4A1EB0D02689C7F8006D072B /* DetectedVaultFailureView.swift in Sources */,
+				74C2BC4C26E8E63700BCAA03 /* OnboardingCoordinator.swift in Sources */,
 				4A4B7E4C26B2FF41009BFDB1 /* TableViewCell.swift in Sources */,
 				4A53CC11267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift in Sources */,
 				4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */,
@@ -1760,6 +1831,7 @@
 				4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstalling.swift in Sources */,
 				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
+				74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */,
 				4A4B7E4426B2B1A5009BFDB1 /* TableViewCellViewModel.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */,
@@ -1776,9 +1848,11 @@
 				4A3D65642680A4B7000DA764 /* LocalFileSystemAuthenticationViewController.swift in Sources */,
 				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */,
+				74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */,
 				4A4B7E4826B2BAFB009BFDB1 /* SwitchCell.swift in Sources */,
 				4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */,
 				4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */,
+				7460FFEF26FCC6FC0018BCC4 /* OnboardingNavigationController.swift in Sources */,
 				4A1EB0D8268A6DE1006D072B /* AddLocalVaultViewController.swift in Sources */,
 				4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */,
 				4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */,
@@ -1795,6 +1869,8 @@
 				4A644B51267BAAF4008CBB9A /* CreateNewFolderViewController.swift in Sources */,
 				4A4B7E3F26B2ABC0009BFDB1 /* VaultDetailViewController.swift in Sources */,
 				4A644B5B267CA972008CBB9A /* DetectedVaultView.swift in Sources */,
+				74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */,
+				74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */,
 				4A21B49626BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

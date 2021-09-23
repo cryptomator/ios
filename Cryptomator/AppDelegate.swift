@@ -13,6 +13,7 @@ import CryptomatorCommon
 import CryptomatorCommonCore
 import MSAL
 import ObjectiveDropboxOfficial
+import StoreKit
 import UIKit
 
 @UIApplicationMain
@@ -57,6 +58,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 
+		// Set up payment queue
+		SKPaymentQueue.default().add(StoreObserver.shared)
+
 		// Create window
 		let navigationController = BaseNavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
@@ -90,5 +94,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
 		}
 		return false
+	}
+
+	func applicationWillTerminate(_ application: UIApplication) {
+		SKPaymentQueue.default().remove(StoreObserver.shared)
 	}
 }

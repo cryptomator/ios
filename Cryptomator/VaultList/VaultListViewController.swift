@@ -57,7 +57,6 @@ class VaultListViewController: UITableViewController {
 				self.tableView.contentInsetAdjustmentBehavior = .automatic
 			}
 		}
-
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.viewModel.refreshVaultLockStates().then {
 				self?.tableView.reloadData()
@@ -69,6 +68,13 @@ class VaultListViewController: UITableViewController {
 		super.viewWillAppear(animated)
 		viewModel.refreshVaultLockStates().then { [weak self] _ in
 			self?.tableView.reloadData()
+		}
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		if CryptomatorSettings.shared.showOnboardingAtStartup {
+			coordinator?.showOnboarding()
 		}
 	}
 

@@ -39,6 +39,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>cryptomator-legacy</string>
 		<string>dbapi-8-emm</string>
 		<string>dbapi-2</string>
 		<string>msauthv2</string>
