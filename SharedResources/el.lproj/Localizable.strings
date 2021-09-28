@@ -13,10 +13,13 @@
 "common.button.createFolder" = "Δημιουργία Φακέλου";
 "common.button.done" = "Κλείσιμο";
 "common.button.edit" = "Επεξεργασία";
+"common.button.enable" = "Ενεργοποίηση";
 "common.button.next" = "Επόμενο";
 "common.button.ok" = "ΟΚ";
 "common.button.remove" = "Αφαίρεση";
 "common.button.signOut" = "Αποσύνδεση";
+"common.button.verify" = "Επαλήθευση";
+"common.cells.openInFilesApp" = "Άνοιγμα στην εφαρμογή Αρχείων";
 "common.cells.password" = "Κωδικός πρόσβασης";
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
@@ -97,6 +100,15 @@
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
 "untrustedTLSCertificate.dismiss" = "Μην Εμπιστευτείτε";
+
+"urlSession.error.httpError.401" = "Λάθος όνομα χρήστη και/ή κωδικός πρόσβασης.";
+"urlSession.error.httpError.403" = "Ανεπαρκή δικαιώματα στον ζητούμενο πόρο.";
+"urlSession.error.httpError.404" = "Ο ζητούμενος πόρος δεν βρέθηκε.";
+"urlSession.error.httpError.405" = "Η μέθοδος αιτήματος δεν υποστηρίζεται από τον πόρο-στόχο.";
+"urlSession.error.httpError.409" = "Αίτηση σύγκρουσης με την τρέχουσα κατάσταση του πόρου στόχου.";
+"urlSession.error.httpError.412" = "Δεν επιτρέπεται η πρόσβαση στον πόρο-στόχο.";
+"urlSession.error.httpError.default" = "Η σύνδεση δικτύου απέτυχε με κωδικό κατάστασης %ld.";
+"urlSession.error.unexpectedResponse" = "Υπήρξε μια απροσδόκητη απόκριση δικτύου.";
 
 "vaultDetail.button.lock" = "Κλείδωμα τώρα";
 "vaultDetail.button.removeVault" = "Κατάργηση από την λίστα των Vault";
