@@ -25,20 +25,20 @@
 "common.cells.username" = "Όνομα χρήστη";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
 
-"accountList.header.title" = "Πιστοποιήσεις";
+"accountList.header.title" = "Ταυτοποιήσεις";
 "accountList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα λογαριασμό";
-"accountList.signOut.alert.title" = "Αφαίρεση Συσχετιζόμενων Vault;";
-"accountList.signOut.alert.message" = "Με την αποσύνδεση, όλα τα συνδεδεμένα vault θα αφαιρεθούν από τη λίστα vault. Δεν θα διαγραφούν τα κρυπτογραφημένα δεδομένα. Μπορείτε να συνδεθείτε ξανά και να προσθέσετε ξανά τα vault αργότερα.";
+"accountList.signOut.alert.title" = "Αφαίρεση Συσχετιζόμενων Κρυπτών;";
+"accountList.signOut.alert.message" = "Με την αποσύνδεση, όλες οι συνδεδεμένες κρύπτες θα αφαιρεθούν από τη λίστα κρυπτών. Δεν θα διαγραφούν τα κρυπτογραφημένα δεδομένα. Μπορείτε να συνδεθείτε ξανά και να προσθέσετε ξανά τις κρύπτες αργότερα.";
 
-"addVault.title" = "Προσθήκη Vault";
-"addVault.createNewVault.title" = "Δημιουργία νέου Vault";
-"addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για το vault.";
-"addVault.createNewVault.setVaultName.cells.name" = "Όνομα Vault";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα του Vault δεν μπορεί να είναι κενό.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Το όνομα του Vault δεν πρέπει να περιέχει \\ / : * ? \" < > | ή να τελειώνει με τελεία.";
-"addVault.createNewVault.chooseCloud.header" = "Που θα αποθηκεύσει το Cryptomator τα κωδικοποιημένα αρχεία του vault σου;";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" υπάρχει ήδη σε αυτή τη θέση. Επιλέξτε ένα διαφορετικό όνομα vault ή τοποθεσία.";
-"addVault.createNewVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε ένα υπάρχον valut σε αυτή τη θέση.\nΓια να δημιουργήσετε ένα νέο vault, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
+"addVault.title" = "Προσθήκη Κρύπτης";
+"addVault.createNewVault.title" = "Δημιουργία Νέας Κρύπτης";
+"addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για την κρύπτη.";
+"addVault.createNewVault.setVaultName.cells.name" = "Όνομα Κρύπτης";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα της κρύπτης δεν μπορεί να είναι κενό.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Το όνομα της κρύπτη δεν πρέπει να περιέχει \\ / : * ? \" < > | ή να τελειώνει με τελεία.";
+"addVault.createNewVault.chooseCloud.header" = "Που θα πρέπει να αποθηκεύσει το Cryptomator τα κωδικοποιημένα αρχεία της κρύπτης σου;";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" υπάρχει ήδη σε αυτή τη θέση. Επιλέξτε ένα διαφορετικό όνομα κρύπτης ή τοποθεσία.";
+"addVault.createNewVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε μια υπάρχον κρύπτη σε αυτή τη θέση.\nΓια να δημιουργήσετε μια νέα κρύπτη, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
 "addVault.createNewVault.password.enterPassword.header" = "Εισάγετε ένα νέο κωδικό.";
 "addVault.createNewVault.password.confirmPassword.header" = "Επιβεβαιώστε το νέο κωδικό.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Επιβεβαίωση κωδικού;";
@@ -46,12 +46,12 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Οι κωδικοί δεν ταιριάζουν.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.";
-"addVault.openExistingVault.title" = "Άνοιγμα υπάρχοντος Vault";
-"addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται το vault;";
-"addVault.openExistingVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε το vault \"%@\".\nΘα θέλατε να προσθέσετε αυτό το vault;";
-"addVault.openExistingVault.detectedMasterkey.add" = "Προσθήκη αυτού του vault";
+"addVault.openExistingVault.title" = "Άνοιγμα Υπάρχοντος Κρύπτης";
+"addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται η κρυπτή;";
+"addVault.openExistingVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε την κρύπτη \"%@\".\nΘα θέλατε να προσθέσετε αυτή την κρύπτη;";
+"addVault.openExistingVault.detectedMasterkey.add" = "Προσθήκη αυτής της κρύπτης";
 "addVault.openExistingVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
-"addVault.success.info" = "Προστέθηκε με επιτυχία το vault \"%@\".\nΠρόσβαση σε αυτό το vault μέσω της εφαρμογής Αρχείων.";
+"addVault.success.info" = "Προστέθηκε με επιτυχία η κρύπτη \"%@\".\nΠρόσβαση σε αυτή την κρύπτη μέσω της εφαρμογής Αρχείων.";
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
 "biometryType.faceID" = "Face ID";
@@ -73,15 +73,15 @@
 
 "cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
 
-"localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για το νέο vault σας.";
+"localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για τη νέα κρύπτη σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ένα vault υπάρχει ήδη σε αυτή τη θέση. Παρακαλώ δοκιμάστε ξανά με μια διαφορετική θέση αποθήκευσης.";
-"localFileSystemAuthentication.openExistingVault.header" = "Στην επόμενη οθόνη, επιλέξτε το φάκελο του υπάρχοντος vault σας.";
-"localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Vault";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ο επιλεγμένος φάκελος δεν είναι vault. Παρακαλώ προσπαθήστε ξανά με διαφορετικό φάκελο.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Μια κρύπτη υπάρχει ήδη σε αυτή τη θέση. Παρακαλώ δοκιμάστε ξανά με μια διαφορετική θέση αποθήκευσης.";
+"localFileSystemAuthentication.openExistingVault.header" = "Στην επόμενη οθόνη, επιλέξτε το φάκελο της υπάρχοντος κρύπτη σας.";
+"localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Κρύπτης";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ο επιλεγμένος φάκελος δεν είναι κρύπτη. Παρακαλώ προσπαθήστε ξανά με διαφορετικό φάκελο.";
 
 "onboarding.title" = "Καλώς ήρθατε";
-"onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε ένα vault.";
+"onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
 "onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";
 
 "settings.title" = "Ρυθμίσεις";
@@ -93,8 +93,8 @@
 "unlockVault.button.unlockVia" = "Ξεκλείδωμα μέσω %@";
 "unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Ενεργοποίηση %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Αντί να ξεκλειδώνετε το vault σας με τον κωδικό πρόσβασής σας, μπορείτε να το ξεκλειδώσετε μέσω %@.";
-"unlockVault.evaluatePolicy.reason" = "Ξεκλειδώστε το vault σας";
+"unlockVault.enableBiometricalUnlock.footer" = "Αντί να ξεκλειδώνετε την κρύπτη σας με τον κωδικό πρόσβασής σας, μπορείτε να το ξεκλειδώσετε μέσω %@.";
+"unlockVault.evaluatePolicy.reason" = "Ξεκλειδώστε την κρύπτη σας";
 
 "untrustedTLSCertificate.title" = "Μη έγκυρο πιστοποιητικό TLS";
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
@@ -111,22 +111,22 @@
 "urlSession.error.unexpectedResponse" = "Υπήρξε μια απροσδόκητη απόκριση δικτύου.";
 
 "vaultDetail.button.lock" = "Κλείδωμα τώρα";
-"vaultDetail.button.removeVault" = "Κατάργηση από την λίστα των Vault";
-"vaultDetail.disabledBiometricalUnlock.footer" = "Εάν ενεργοποιήσετε το %@, ο κωδικός πρόσβασης του Vault σας θα αποθηκευτεί στο iOS keychain.";
+"vaultDetail.button.removeVault" = "Κατάργηση από την Λίστα Κρύπτης";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Εάν ενεργοποιήσετε το %@, ο κωδικός πρόσβασης της κρύπτη σας θα αποθηκευτεί στο iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ο κωδικός πρόσβασης του Vault σας θα απαιτείται μόνο εάν αποτύχει η ταυτοποίηση %@.";
-"vaultDetail.info.footer.accessVault" = "Πρόσβαση στο Vault μέσω της εφαρμογής Αρχείων.";
+"vaultDetail.info.footer.accessVault" = "Πρόσβαση στην κρύπτη μέσω της εφαρμογής Αρχείων.";
 "vaultDetail.info.footer.accountInfo" = "Συνδεθήκατε ως %@ μέσω %@.";
-"vaultDetail.locked.footer" = "Το Vault σας είναι κλειδωμένο.";
-"vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο το Vault από τη λίστα των Vault και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
-"vaultDetail.unlocked.footer" = "Το Vault σας είναι ξεκλείδωτο αυτή τη στιγμή στην εφαρμογή Αρχείων.";
+"vaultDetail.locked.footer" = "Η κρύπτη σας είναι κλειδωμένη.";
+"vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρύπτης και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
+"vaultDetail.unlocked.footer" = "Η κρύπτη σας είναι ξεκλειδωμένη αυτή τη στιγμή στην εφαρμογή Αρχείων.";
 "vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για το \"%@\" για να τον αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %@.";
 
-"vaultList.header.title" = "Vaults";
-"vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα vault";
-"vaultList.remove.alert.title" = "Διαγραφή Vault;";
-"vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο τοvault από τη λίστα των vault. Δεν θα διαγραφούν κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά το vault αργότερα.";
+"vaultList.header.title" = "Κρύπτες";
+"vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε μια κρύπτη";
+"vaultList.remove.alert.title" = "Αφαίρεση Κρύπτης;";
+"vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρυπτών. Δεν θα αφαιρέσει κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά την κρύπτη αργότερα.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Η ρύθμιση παραμέτρων του vault δεν υποστηρίζεται. Παρακαλώ σιγουρευτείτε ότι εκτελείτε την τελευταία έκδοση του Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση του vault δεν υποστηρίζεται. Αυτό το vault έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Η ρύθμιση παραμέτρων της κρύπτης δεν υποστηρίζεται. Παρακαλώ σιγουρευτείτε ότι εκτελείτε την τελευταία έκδοση του Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
