@@ -38,10 +38,10 @@ class ErrorMapper<T>: WorkflowMiddleware {
 	}
 
 	private func mapError(_ error: Error) -> Error {
-		guard let error = error as? CloudProviderError else {
+		guard let cloudProviderError = error as? CloudProviderError else {
 			return error
 		}
-		switch error {
+		switch cloudProviderError {
 		case .itemNotFound, .parentFolderDoesNotExist:
 			return NSFileProviderError(.noSuchItem)
 		case .itemAlreadyExists:
@@ -55,7 +55,7 @@ class ErrorMapper<T>: WorkflowMiddleware {
 		case .noInternetConnection:
 			return NSFileProviderError(.serverUnreachable)
 		default:
-			return error
+			return cloudProviderError
 		}
 	}
 }
