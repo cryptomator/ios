@@ -34,11 +34,8 @@ class ErrorMapperTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		executeWorkflow(with: error).then {
 			XCTFail("Promise fulfilled, although expected mapped error: \(expectedMappedError) for original error: \(error)")
-		}.catch { error in
-			guard error as NSError == expectedMappedError as NSError else {
-				XCTFail("Throws the wrong error: \(error)")
-				return
-			}
+		}.catch { actualMappedError in
+			XCTAssertEqual(expectedMappedError as NSError, actualMappedError as NSError)
 		}.always {
 			expectation.fulfill()
 		}
