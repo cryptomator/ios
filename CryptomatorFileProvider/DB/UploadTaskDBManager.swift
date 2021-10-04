@@ -47,14 +47,14 @@ extension UploadTaskManager {
 }
 
 class UploadTaskDBManager: UploadTaskManager {
-	let dbPool: DatabasePool
+	private let database: DatabaseWriter
 
-	init(with dbPool: DatabasePool) {
-		self.dbPool = dbPool
+	init(database: DatabaseWriter) {
+		self.database = database
 	}
 
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
-		return try dbPool.write { db in
+		return try database.write { db in
 			let task = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 			try task.save(db)
 			return task
@@ -62,14 +62,14 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord? {
-		let uploadTask = try dbPool.read { db in
+		let uploadTask = try database.read { db in
 			return try UploadTaskRecord.fetchOne(db, key: id)
 		}
 		return uploadTask
 	}
 
 	func updateTaskRecord(with id: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
-		try dbPool.write { db in
+		try database.write { db in
 			if var task = try UploadTaskRecord.fetchOne(db, key: id) {
 				task.lastFailedUploadDate = lastFailedUploadDate
 				task.uploadErrorCode = uploadErrorCode
@@ -82,7 +82,7 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws {
-		_ = try dbPool.write { db in
+		_ = try database.write { db in
 			task.lastFailedUploadDate = Date()
 			task.uploadErrorCode = error.code
 			task.uploadErrorDomain = error.domain
@@ -91,7 +91,7 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?] {
-		let uploadTasks: [UploadTaskRecord?] = try dbPool.read { db in
+		let uploadTasks: [UploadTaskRecord?] = try database.read { db in
 			var tasks = [UploadTaskRecord?]()
 			for id in ids {
 				let task = try UploadTaskRecord.fetchOne(db, key: id)
@@ -103,13 +103,13 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func removeTaskRecord(for id: Int64) throws {
-		_ = try dbPool.write { db in
+		_ = try database.write { db in
 			try UploadTaskRecord.deleteOne(db, key: id)
 		}
 	}
 
 	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
-		try dbPool.read { db in
+		try database.read { db in
 			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}

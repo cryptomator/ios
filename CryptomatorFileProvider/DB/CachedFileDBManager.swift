@@ -25,28 +25,32 @@ extension CachedFileManager {
 }
 
 class CachedFileDBManager: CachedFileManager {
-	private let dbPool: DatabasePool
+	private let database: DatabaseWriter
 
-	init(with dbPool: DatabasePool) {
-		self.dbPool = dbPool
+	init(database: DatabaseWriter) {
+		self.database = database
 	}
 
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo? {
-		let fetchedEntry = try dbPool.read { db in
+		let fetchedEntry = try database.read { db in
 			return try LocalCachedFileInfo.fetchOne(db, key: id)
 		}
 		return fetchedEntry
 	}
 
 	func cacheLocalFileInfo(for id: Int64, localURL: URL, lastModifiedDate: Date?) throws {
-		try dbPool.write { db in
+		try database.write { db in
 			try LocalCachedFileInfo(lastModifiedDate: lastModifiedDate, correspondingItem: id, localLastModifiedDate: Date(), localURL: localURL).save(db)
 		}
 	}
 
 	func removeCachedFile(for id: Int64) throws {
-		return try dbPool.write { db in
-			try LocalCachedFileInfo.fetchOne(db, key: id)?.delete(db)
+		return try database.write { db in
+			guard let entry = try LocalCachedFileInfo.fetchOne(db, key: id) else {
+				return
+			}
+			try entry.delete(db)
+			try FileManager.default.removeItem(at: entry.localURL)
 		}
 	}
 }

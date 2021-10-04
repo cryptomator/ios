@@ -12,20 +12,19 @@ import XCTest
 
 class CachedFileManagerTests: XCTestCase {
 	var manager: CachedFileDBManager!
+	var metadataManager: ItemMetadataDBManager!
 	var tmpDirURL: URL!
-	var dbPool: DatabasePool!
 
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
-		manager = CachedFileDBManager(with: dbPool)
+		let inMemoryDB = DatabaseQueue()
+		try DatabaseHelper.migrate(inMemoryDB)
+		manager = CachedFileDBManager(database: inMemoryDB)
+		metadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
 	override func tearDownWithError() throws {
-		dbPool = nil
-		manager = nil
 		try FileManager.default.removeItem(at: tmpDirURL)
 	}
 
