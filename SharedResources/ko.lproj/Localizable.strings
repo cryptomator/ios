@@ -13,6 +13,7 @@
 "common.button.createFolder" = "폴더 생성";
 "common.button.done" = "완료";
 "common.button.edit" = "수정";
+"common.button.enable" = "활성화";
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
 "common.button.remove" = "제거";
