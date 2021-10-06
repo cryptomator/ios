@@ -1,13 +1,18 @@
 "common.button.cancel" = "रद्द करें";
 "common.button.choose" = "चुनें";
 "common.button.done" = "हो गया";
+"common.button.edit" = "संपादित करें";
 "common.button.next" = "अगला";
+"common.button.remove" = "हटाएँ";
 "common.cells.password" = "पासवर्ड";
+"common.cells.username" = "उपयोगकर्ता नाम";
 
 "addVault.title" = "वाउल्ट डालें";
 "addVault.createNewVault.title" = "नया वाउल्ट बनाएं";
 "addVault.createNewVault.setVaultName.cells.name" = "वॉल्ट का नाम";
 "addVault.createNewVault.chooseCloud.header" = "एन्क्रिप्ट कि गई वाउल्ट कि फाइलों Cryptomator कहांं रखें?";
 "addVault.openExistingVault.title" = "मौजूदा वाउल्ट खोलें";
+
+"settings.title" = "समायोजन";
 
 "unlockVault.button.unlock" = "अनलॉक करें";
