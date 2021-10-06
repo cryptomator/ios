@@ -1,17 +1,49 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "त्रुटि";
 "common.button.cancel" = "रद्द करें";
 "common.button.choose" = "चुनें";
+"common.button.confirm" = "पुष्टि करें";
+"common.button.create" = "बनाएं";
+"common.button.createFolder" = "फोल्डर बनाएं";
 "common.button.done" = "हो गया";
 "common.button.edit" = "संपादित करें";
+"common.button.enable" = "सक्षम करें";
 "common.button.next" = "अगला";
+"common.button.ok" = "ठीक है";
 "common.button.remove" = "हटाएँ";
+"common.button.signOut" = "साइन आउट करें";
+"common.button.verify" = "सत्यापित करें";
+"common.cells.openInFilesApp" = "दस्तावेज ऐप में खोलें";
 "common.cells.password" = "पासवर्ड";
+"common.cells.url" = "यूआरएल";
 "common.cells.username" = "उपयोगकर्ता नाम";
+"common.footer.learnMore" = "अधिक जानें";
+
+"accountList.header.title" = "प्रमाणीकरण";
+"accountList.emptyList.message" = "खाता खोलने के लिए यहाँ दबाएँ";
 
 "addVault.title" = "वाउल्ट डालें";
 "addVault.createNewVault.title" = "नया वाउल्ट बनाएं";
 "addVault.createNewVault.setVaultName.cells.name" = "वॉल्ट का नाम";
 "addVault.createNewVault.chooseCloud.header" = "एन्क्रिप्ट कि गई वाउल्ट कि फाइलों Cryptomator कहांं रखें?";
+"addVault.createNewVault.password.enterPassword.header" = "नया कूट शब्द भरें";
+"addVault.createNewVault.password.confirmPassword.header" = "नए कूट शब्द की पुष्टि करें";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "क्या कूट शब्द की पुष्टि करें?";
+"addVault.createNewVault.password.error.emptyPassword" = "कूट शब्द ख़ाली नहीं रख सकते।";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "कूट शब्द मेल नहीं खाते।";
+"addVault.createNewVault.password.error.tooShortPassword" = "कूट शब्द में कम से कम 8 अक्षर होने चाहिए।";
 "addVault.openExistingVault.title" = "मौजूदा वाउल्ट खोलें";
+"chooseFolder.createNewFolder.cells.name" = "फ़ोल्डर का नाम";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "फ़ोल्डर का नाम रिक्त नहीं हो सकता";
+
+"cloudProvider.error.itemNotFound" = "“%@“ नहीं मिला";
+"cloudProvider.error.itemAlreadyExists" = "“%@“ पहले से मौजूद है";
 
 "settings.title" = "समायोजन";
 
