@@ -401,9 +401,9 @@ public class FileProviderAdapter {
 	 */
 	func deleteItemLocally(withIdentifier itemIdentifier: NSFileProviderItemIdentifier) throws -> DeletionTaskRecord {
 		let itemMetadata = try getCachedMetadata(for: itemIdentifier)
-		let taskRecord = try deletionTaskManager.createTaskRecord(for: itemMetadata)
 		let deletionHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		try deletionHelper.removeItemFromCache(itemMetadata)
+		let taskRecord = try deletionTaskManager.createTaskRecord(for: itemMetadata)
 		return taskRecord
 	}
 
