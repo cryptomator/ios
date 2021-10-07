@@ -27,6 +27,7 @@
 
 "accountList.header.title" = "प्रमाणीकरण";
 "accountList.emptyList.message" = "खाता खोलने के लिए यहाँ दबाएँ";
+"accountList.signOut.alert.title" = "क्या जुड़े हुए कक्षों को हटाना चाहते हैं?";
 
 "addVault.title" = "वाउल्ट डालें";
 "addVault.createNewVault.title" = "नया वाउल्ट बनाएं";
