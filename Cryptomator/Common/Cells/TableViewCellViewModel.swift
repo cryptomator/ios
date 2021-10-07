@@ -8,22 +8,12 @@
 
 import UIKit
 
-protocol TableViewCellViewModel: AnyObject {
-	var type: TableViewCell.Type { get }
-	var title: Bindable<String?> { get }
-	var titleTextColor: Bindable<UIColor?> { get }
-	var detailTitle: Bindable<String?> { get }
-	var detailTitleTextColor: Bindable<UIColor?> { get }
-	var image: Bindable<UIImage?> { get }
-	var isEnabled: Bindable<Bool> { get }
-	var selectionStyle: Bindable<UITableViewCell.SelectionStyle> { get }
-}
-
-class DefaultTableCellViewModel: TableViewCellViewModel {
+class TableViewCellViewModel {
 	var type: TableViewCell.Type {
 		return TableViewCell.self
 	}
 
+	let identifier = UUID()
 	var title: Bindable<String?>
 	var titleTextColor: Bindable<UIColor?>
 	var detailTitle: Bindable<String?>
@@ -31,8 +21,9 @@ class DefaultTableCellViewModel: TableViewCellViewModel {
 	var image: Bindable<UIImage?>
 	var isEnabled: Bindable<Bool>
 	let selectionStyle: Bindable<UITableViewCell.SelectionStyle>
+	let accessoryType: Bindable<UITableViewCell.AccessoryType>
 
-	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = nil, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default) {
+	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = .secondaryLabel, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
 		self.title = Bindable(title)
 		self.titleTextColor = Bindable(titleTextColor)
 		self.detailTitle = Bindable(detailTitle)
@@ -40,5 +31,16 @@ class DefaultTableCellViewModel: TableViewCellViewModel {
 		self.image = Bindable(image)
 		self.isEnabled = Bindable(isEnabled)
 		self.selectionStyle = Bindable(selectionStyle)
+		self.accessoryType = Bindable(accessoryType)
+	}
+}
+
+extension TableViewCellViewModel: Hashable {
+	static func == (lhs: TableViewCellViewModel, rhs: TableViewCellViewModel) -> Bool {
+		return lhs.identifier == rhs.identifier
+	}
+
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(identifier)
 	}
 }
