@@ -1,14 +1,20 @@
 "common.button.cancel" = "الغاء";
 "common.button.choose" = "اختر";
+"common.button.create" = "إنشاء";
 "common.button.done" = "تم";
 "common.button.next" = "التالي";
+"common.button.ok" = "موافق";
 "common.button.remove" = "حذف";
 "common.cells.password" = "كلمة المرور";
+"common.cells.username" = "اسم المستخدم";
 
 "addVault.title" = "أضِف مخزنًا";
 "addVault.createNewVault.title" = "إنشاء مخزن جديد";
 "addVault.createNewVault.setVaultName.cells.name" = "اسم المخزن";
 "addVault.createNewVault.chooseCloud.header" = "أين يجب على Cryptomator تخزين الملفات المشفرة للمخزن الخاص بك؟";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "هام: إذا نسيت كلمة المرور الخاصة بك، لا توجد طريقة لاستعادة بياناتك.";
 "addVault.openExistingVault.title" = "افتح مخزن موجود";
+
+"settings.title" = "الإعدادات";
 
 "unlockVault.button.unlock" = "افتح";
