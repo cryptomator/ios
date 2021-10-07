@@ -2,6 +2,7 @@
 "common.button.choose" = "اختر";
 "common.button.create" = "إنشاء";
 "common.button.done" = "تم";
+"common.button.enable" = "تفعيل";
 "common.button.next" = "التالي";
 "common.button.ok" = "موافق";
 "common.button.remove" = "حذف";
