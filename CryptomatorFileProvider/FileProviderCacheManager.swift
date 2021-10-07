@@ -14,7 +14,7 @@ import Promises
 public class FileProviderCacheManager {
 	private let documentStorageURLProvider: DocumentStorageURLProvider
 
-	init(documentStorageURLProvider: DocumentStorageURLProvider = NSFileProviderManager.default) {
+	public init(documentStorageURLProvider: DocumentStorageURLProvider = NSFileProviderManager.default) {
 		self.documentStorageURLProvider = documentStorageURLProvider
 	}
 
