@@ -229,7 +229,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 */
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
-		guard let manager = self.manager, let domain = self.domain, let dbPath = dbPath, let notificator = notificator else {
+		guard let manager = manager, let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			// no domain ==> no installed vault
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
@@ -238,7 +238,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	func setUp() throws {
-		if let domain = self.domain {
+		if let domain = domain {
 			guard let manager = NSFileProviderManager(for: domain) else {
 				throw FileProviderDecoratorSetupError.fileProviderManagerIsNil
 			}
@@ -289,7 +289,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		if let cachedAdapter = adapter {
 			return cachedAdapter
 		}
-		guard let domain = self.domain, let dbPath = self.dbPath, let notificator = self.notificator else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
 		return try FileProviderAdapterManager.getAdapter(for: domain, dbPath: dbPath, delegate: self, notificator: notificator)

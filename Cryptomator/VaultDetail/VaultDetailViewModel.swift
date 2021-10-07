@@ -189,7 +189,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private func getSwitchCellViewModel(biometryTypeName: String) -> SwitchCellViewModel {
-		if let switchCellViewModel = self.switchCellViewModel {
+		if let switchCellViewModel = switchCellViewModel {
 			switchCellViewModel.isOn.value = biometricalUnlockEnabled
 			return switchCellViewModel
 		}

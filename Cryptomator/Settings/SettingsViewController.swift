@@ -99,7 +99,7 @@ class SettingsViewController: UITableViewController {
 	// MARK: - UITableViewDiffableDataSource
 
 	func setUpDataSource() {
-		dataSource = UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>(tableView: tableView) { (_, _, cellViewModel) -> UITableViewCell? in
+		dataSource = UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>(tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
 			let cell = cellViewModel.type.init()
 			cell.configure(with: cellViewModel)
 			return cell
