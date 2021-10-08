@@ -38,7 +38,7 @@ class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 			return WebDAVAuthenticator.verifyClient(client: client)
 		}.then { _ -> WebDAVCredential in
 			self.client = nil
-			try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: credential.identifier)
+			try WebDAVAuthenticator.saveCredentialToKeychain(credential)
 			return credential
 		}
 	}
