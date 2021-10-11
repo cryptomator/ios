@@ -56,6 +56,18 @@ class SettingsCoordinator: Coordinator {
 		navigationController.pushViewController(chooseCloudVC, animated: true)
 	}
 
+	func openContact() {
+		if let contactURL = URL(string: "https://cryptomator.org/contact/") {
+			UIApplication.shared.open(contactURL)
+		}
+	}
+
+	func openRateApp() {
+		if let rateAppURL = URL(string: "https://apps.apple.com/app/cryptomator/id953086535?action=write-review") {
+			UIApplication.shared.open(rateAppURL)
+		}
+	}
+
 	@objc func close() {
 		navigationController.dismiss(animated: true)
 		parentCoordinator?.childDidFinish(self)

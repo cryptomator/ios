@@ -81,6 +81,14 @@ class SettingsViewController: UITableViewController {
 		coordinator?.showCloudServices()
 	}
 
+	func showContact() {
+		coordinator?.openContact()
+	}
+
+	func showRateApp() {
+		coordinator?.openRateApp()
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -97,6 +105,10 @@ class SettingsViewController: UITableViewController {
 			clearCache()
 		case .showCloudServices:
 			showCloudServices()
+		case .showContact:
+			showContact()
+		case .showRateApp:
+			showRateApp()
 		case .unknown:
 			break
 		}

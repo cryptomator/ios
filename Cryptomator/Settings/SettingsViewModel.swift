@@ -11,13 +11,14 @@ import CryptomatorCommonCore
 import CryptomatorFileProvider
 import Foundation
 import Promises
-import UIKit
 
 enum SettingsButtonAction: String {
 	case showAbout
 	case sendLogFile
 	case clearCache
 	case showCloudServices
+	case showContact
+	case showRateApp
 	case unknown
 }
 
@@ -26,10 +27,11 @@ enum SettingsSection: Int {
 	case cacheSection
 	case aboutSection
 	case debugSection
+	case miscSection
 }
 
 class SettingsViewModel {
-	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection]
+	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection, .miscSection]
 	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
 		[
 			.cloudServiceSection: [
@@ -45,6 +47,10 @@ class SettingsViewModel {
 			.debugSection: [
 				debugModeViewModel,
 				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
+			],
+			.miscSection: [
+				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
+				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			]
 		]
 	}()
