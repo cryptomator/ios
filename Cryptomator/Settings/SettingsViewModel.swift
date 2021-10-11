@@ -16,19 +16,24 @@ enum SettingsButtonAction: String {
 	case showAbout
 	case sendLogFile
 	case clearCache
+	case showCloudServices
 	case unknown
 }
 
 enum SettingsSection: Int {
-	case cacheSection = 0
+	case cloudServiceSection = 0
+	case cacheSection
 	case aboutSection
 	case debugSection
 }
 
 class SettingsViewModel {
-	var sections: [SettingsSection] = [.cacheSection, .aboutSection, .debugSection]
+	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection]
 	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
 		[
+			.cloudServiceSection: [
+				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
+			],
 			.cacheSection: [
 				cacheSizeCellViewModel,
 				clearCacheButtonCellViewModel

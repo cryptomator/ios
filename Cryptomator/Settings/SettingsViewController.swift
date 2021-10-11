@@ -77,6 +77,10 @@ class SettingsViewController: UITableViewController {
 		}
 	}
 
+	func showCloudServices() {
+		coordinator?.showCloudServices()
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -91,6 +95,8 @@ class SettingsViewController: UITableViewController {
 			sendLogFile(sender: cell)
 		case .clearCache:
 			clearCache()
+		case .showCloudServices:
+			showCloudServices()
 		case .unknown:
 			break
 		}
