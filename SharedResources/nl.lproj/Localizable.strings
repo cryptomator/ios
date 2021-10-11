@@ -93,4 +93,40 @@
 "unlockVault.button.unlockVia" = "Ontgrendel via %@";
 "unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ inschakelen";
+"unlockVault.enableBiometricalUnlock.footer" = "In plaats van je kluis te ontgrendelen met je wachtwoord, kun je het ontgrendelen via %@.";
+"unlockVault.evaluatePolicy.reason" = "Ontgrendel je kluis";
+
+"untrustedTLSCertificate.title" = "Ongeldig TLS certificaat";
+"untrustedTLSCertificate.message" = "Het TLS certificaat van \"%@\" is ongeldig. Wilt u het toch vertrouwen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vertrouwen";
+"untrustedTLSCertificate.dismiss" = "Niet vertrouwen";
+
+"urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
+"urlSession.error.httpError.403" = "Verboden toegang.";
+"urlSession.error.httpError.404" = "Niet gevonden.";
+"urlSession.error.httpError.405" = "Aanvraagmethode niet ondersteund.";
+"urlSession.error.httpError.409" = "Conflict.";
+"urlSession.error.httpError.412" = "Niet voldaan aan vooraf gestelde voorwaarde.";
+"urlSession.error.httpError.default" = "Netwerkverbinding mislukt met statuscode %ld.";
+"urlSession.error.unexpectedResponse" = "Er is een onverwachte fout opgetreden.";
+
+"vaultDetail.button.lock" = "Nu vergrendelen";
+"vaultDetail.button.removeVault" = "Verwijder uit lijst";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
+"vaultDetail.info.footer.accessVault" = "Toegang tot de kluis via de Bestandenapp.";
+"vaultDetail.info.footer.accountInfo" = "Ingelogd als %@ via %@.";
+"vaultDetail.locked.footer" = "Je kluis is momenteel vergrendeld.";
+"vaultDetail.removeVault.footer" = "Dit verwijdert alleen de kluis uit de lijst en verwijdert geen versleutelde bestanden.";
+"vaultDetail.unlocked.footer" = "Je kluis is momenteel ontgrendeld in de Bestandenapp.";
+"vaultDetail.unlockVault.footer" = "Voer wachtwoord voor \"%@\" in om het in de iOS-sleutelhanger op te slaan en %@ in te schakelen.";
+
+"vaultList.header.title" = "Kluizen";
+"vaultList.emptyList.message" = "Klik hier om een kluis toe te voegen";
 "vaultList.remove.alert.title" = "Verwijder Kluis?";
+"vaultList.remove.alert.message" = "Dit verwijdert alleen de kluis uit de lijst. Er worden geen versleutelde gegevens verwijderd. U kunt de kluis later opnieuw toevoegen.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "De kluisversie wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
+
+"webDAVAuthentication.title" = "WebDAV";
