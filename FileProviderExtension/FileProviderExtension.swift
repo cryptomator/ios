@@ -262,6 +262,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#endif
 		serviceSources.append(VaultUnlockingServiceSource(fileprovider: self))
 		serviceSources.append(VaultLockingServiceSource())
+		serviceSources.append(LogLevelUpdatingServiceSource())
 		return serviceSources
 	}
 

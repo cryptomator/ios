@@ -90,6 +90,7 @@
 "settings.cacheSize" = "Cache Size";
 "settings.clearCache" = "Clear Cache";
 "settings.cloudServices" = "Cloud Services";
+"settings.debugMode" = "Debug Mode";
 "settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Unlock";
