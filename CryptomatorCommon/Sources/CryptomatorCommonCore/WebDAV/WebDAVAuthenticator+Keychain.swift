@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 
 public enum WebDAVAuthenticatorKeychainError: Error {
-	case credentialDuplicate
+	case credentialDuplicate(existingIdentifier: String)
 }
 
 public extension WebDAVAuthenticator {
@@ -23,11 +23,13 @@ public extension WebDAVAuthenticator {
 
 	 Checks for duplicates before saving the passed credential to the keychain.
 	 A duplicate is defined as any other WebDAV credential with the same `baseURL` and `username`.
+	 - Throws: An WebDAVAuthenticatorKeychainError.credentialDuplicate if a WebDAVCredential already exists in the keychain with the same `baseURL` and `username` but a different identifier.
+	 The error includes the identifier (`existingIdentifier`) of the WebDAVCredentials item, which is already stored in the keychain and caused the error.
 	 */
 	static func saveCredentialToKeychain(_ credential: WebDAVCredential) throws {
 		let existingCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
-		if existingCredentials.contains(where: { $0.baseURL == credential.baseURL && $0.username == credential.username && $0.identifier != credential.identifier }) {
-			throw WebDAVAuthenticatorKeychainError.credentialDuplicate
+		if let existingCredential = existingCredentials.first(where: { $0.baseURL == credential.baseURL && $0.username == credential.username && $0.identifier != credential.identifier }) {
+			throw WebDAVAuthenticatorKeychainError.credentialDuplicate(existingIdentifier: existingCredential.identifier)
 		}
 
 		let jsonEnccoder = JSONEncoder()
