@@ -87,6 +87,7 @@
 "settings.title" = "Nastavenia";
 "settings.aboutCryptomator" = "O aplikácii Cryptomator";
 "settings.aboutCryptomator.title" = "Verzia %@ (%@)";
+"settings.clearCache" = "Vyprázdniť vyrovnávaciu pamäť";
 "settings.sendLogFile" = "Zaslať Log súbor";
 
 "unlockVault.button.unlock" = "Odomknúť";
