@@ -87,6 +87,7 @@
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
 "settings.aboutCryptomator.title" = "Versie %@ (%@)";
+"settings.clearCache" = "Cache leegmaken";
 "settings.sendLogFile" = "Logbestand verzenden";
 
 "unlockVault.button.unlock" = "Ontgrendel";
