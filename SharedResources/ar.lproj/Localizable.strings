@@ -19,5 +19,6 @@
 "addVault.openExistingVault.title" = "افتح مخزن موجود";
 
 "settings.title" = "الإعدادات";
+"settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 
 "unlockVault.button.unlock" = "افتح";
