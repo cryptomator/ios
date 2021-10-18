@@ -16,5 +16,6 @@
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
 
 "settings.title" = "Innstillinger";
+"settings.clearCache" = "Tøm hurtigminnet";
 
 "unlockVault.button.unlock" = "Lås opp";
