@@ -28,7 +28,7 @@ public extension WebDAVAuthenticator {
 	 */
 	static func saveCredentialToKeychain(_ credential: WebDAVCredential) throws {
 		let existingCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
-		if let existingCredential = existingCredentials.first(where: { $0.baseURL == credential.baseURL && $0.username == credential.username && $0.identifier != credential.identifier }) {
+		if let existingCredential = existingCredentials.first(where: { $0 == credential && $0.identifier != credential.identifier }) {
 			throw WebDAVAuthenticatorKeychainError.credentialDuplicate(existingIdentifier: existingCredential.identifier)
 		}
 
@@ -39,6 +39,12 @@ public extension WebDAVAuthenticator {
 
 	static func removeCredentialFromKeychain(with accountUID: String) throws {
 		try CryptomatorKeychain.webDAV.delete(accountUID)
+	}
+}
+
+extension WebDAVCredential: Equatable {
+	public static func == (lhs: WebDAVCredential, rhs: WebDAVCredential) -> Bool {
+		return lhs.baseURL == rhs.baseURL && lhs.username == rhs.username
 	}
 }
 
