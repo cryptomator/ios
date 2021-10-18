@@ -87,6 +87,7 @@
 "settings.title" = "Ρυθμίσεις";
 "settings.aboutCryptomator" = "Σχετικά με το Cryptomator";
 "settings.aboutCryptomator.title" = "Έκδοση %@ (%@)";
+"settings.cacheSize" = "Μέγεθος προσωρινής μνήμης";
 "settings.clearCache" = "Εκκαθάριση προσωρινής μνήμης";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 
@@ -110,6 +111,8 @@
 "urlSession.error.httpError.412" = "Δεν επιτρέπεται η πρόσβαση στον πόρο-στόχο.";
 "urlSession.error.httpError.default" = "Η σύνδεση δικτύου απέτυχε με κωδικό κατάστασης %ld.";
 "urlSession.error.unexpectedResponse" = "Υπήρξε μια απροσδόκητη απόκριση δικτύου.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Έχετε ήδη προσθέσει αυτή τη κρύπτη.";
 
 "vaultDetail.button.lock" = "Κλείδωμα τώρα";
 "vaultDetail.button.removeVault" = "Κατάργηση από την Λίστα Κρύπτης";
