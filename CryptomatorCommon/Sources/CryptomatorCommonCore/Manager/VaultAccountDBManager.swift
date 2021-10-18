@@ -48,6 +48,10 @@ public protocol VaultAccountManager {
 	func getAllAccounts() throws -> [VaultAccount]
 }
 
+public enum VaultAccountManagerError: Error {
+	case vaultAccountAlreadyExists
+}
+
 public class VaultAccountDBManager: VaultAccountManager {
 	public static let shared = VaultAccountDBManager(dbPool: CryptomatorDatabase.shared.dbPool)
 	private let dbPool: DatabasePool
@@ -57,8 +61,12 @@ public class VaultAccountDBManager: VaultAccountManager {
 	}
 
 	public func saveNewAccount(_ account: VaultAccount) throws {
-		try dbPool.write { db in
-			try account.save(db)
+		do {
+			try dbPool.write { db in
+				try account.save(db)
+			}
+		} catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
+			throw VaultAccountManagerError.vaultAccountAlreadyExists
 		}
 	}
 

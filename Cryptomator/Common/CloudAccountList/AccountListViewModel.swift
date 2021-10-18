@@ -52,7 +52,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			let credential = DropboxCredential(tokenUID: accountInfo.accountUID)
 			return createAccountCellContentPlaceholder(for: credential)
 		case .googleDrive:
-			let credential = GoogleDriveCredential(tokenUID: accountInfo.accountUID)
+			let credential = GoogleDriveCredential(userID: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)
