@@ -33,10 +33,10 @@
 "addVault.title" = "Aggiungi Cassaforte";
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
-"addVault.createNewVault.setVaultName.cells.name" = "Nome Cassaforte";
+"addVault.createNewVault.setVaultName.cells.name" = "Nome della Cassaforte";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Il nome della cassaforte non deve contenere \\ / : * ? \" < > | o terminare con un punto.";
-"addVault.createNewVault.chooseCloud.header" = "Dove dovrebbe memorizzare Cryptomator i file crittografati della tua cassaforte?";
+"addVault.createNewVault.chooseCloud.header" = "Dove Cryptomator dovrebbe memorizzare i file crittografati della tua cassaforte?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" esiste già in questa posizione. Scegli un nome o una posizione della cassaforte diverso.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poterne creare una nuova, sei pregato di tornare indietro e scegliere una cartella differente.";
 "addVault.createNewVault.password.enterPassword.header" = "Inserisci una nuova password.";
@@ -87,6 +87,7 @@
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";
 "settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.clearCache" = "Svuota Cache";
 "settings.sendLogFile" = "Invia File di Registro";
 
 "unlockVault.button.unlock" = "Sblocca";
