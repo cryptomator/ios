@@ -87,6 +87,7 @@
 "settings.title" = "Ρυθμίσεις";
 "settings.aboutCryptomator" = "Σχετικά με το Cryptomator";
 "settings.aboutCryptomator.title" = "Έκδοση %@ (%@)";
+"settings.clearCache" = "Εκκαθάριση προσωρινής μνήμης";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
