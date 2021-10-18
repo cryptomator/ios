@@ -112,6 +112,8 @@
 "urlSession.error.httpError.default" = "Netwerkverbinding mislukt met statuscode %ld.";
 "urlSession.error.unexpectedResponse" = "Er is een onverwachte fout opgetreden.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Je hebt deze kluis al toegevoegd.";
+
 "vaultDetail.button.lock" = "Nu vergrendelen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
