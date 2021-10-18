@@ -87,6 +87,7 @@
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.clearCache" = "Önbelleği temizle";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
 "unlockVault.button.unlock" = "Kilidi Aç";
