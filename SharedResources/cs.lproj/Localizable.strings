@@ -87,6 +87,7 @@
 "settings.title" = "Nastavení";
 "settings.aboutCryptomator" = "O Cryptomatoru";
 "settings.aboutCryptomator.title" = "Verze %@ (%@)";
+"settings.clearCache" = "Vyčistit mezipaměť";
 "settings.sendLogFile" = "Odeslat log soubor";
 
 "unlockVault.button.unlock" = "Odemknout";
