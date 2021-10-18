@@ -87,6 +87,7 @@
 "settings.title" = "设置";
 "settings.aboutCryptomator" = "关于";
 "settings.aboutCryptomator.title" = "版本 %@ (%@)";
+"settings.clearCache" = "清除缓存";
 "settings.sendLogFile" = "发送日志文件";
 
 "unlockVault.button.unlock" = "解锁";
