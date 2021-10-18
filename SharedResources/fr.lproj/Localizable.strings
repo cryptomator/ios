@@ -87,6 +87,7 @@
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.clearCache" = "Vider le cache";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
