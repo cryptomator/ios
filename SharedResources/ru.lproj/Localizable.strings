@@ -87,6 +87,7 @@
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
 "settings.aboutCryptomator.title" = "Версия: %@ (%@)";
+"settings.clearCache" = "Очистить кэш";
 "settings.sendLogFile" = "Отправить журнал";
 
 "unlockVault.button.unlock" = "Разблокировать";
