@@ -46,7 +46,7 @@
 "addVault.createNewVault.password.error.emptyPassword" = "パスワードは空にできません。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "パスワードが一致しません。";
 "addVault.createNewVault.password.error.tooShortPassword" = "パスワードは8文字以上にする必要があります。";
-"addVault.openExistingVault.title" = "既存の金庫を開く";
+"addVault.openExistingVault.title" = "すでにある金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
@@ -87,6 +87,7 @@
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
+"settings.clearCache" = "キャッシュを削除する";
 "settings.sendLogFile" = "ログ ファイルを送信";
 
 "unlockVault.button.unlock" = "解錠";
