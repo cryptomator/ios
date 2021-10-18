@@ -111,6 +111,8 @@
 "urlSession.error.httpError.default" = "Connessione di rete non riuscita con codice di stato %ld.";
 "urlSession.error.unexpectedResponse" = "Si è verificata una risposta di rete imprevista.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Hai già aggiunto questa cassaforte.";
+
 "vaultDetail.button.lock" = "Blocca Ora";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
