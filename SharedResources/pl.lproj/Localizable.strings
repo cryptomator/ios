@@ -87,6 +87,7 @@
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
 "settings.aboutCryptomator.title" = "Wersja %@ (%@)";
+"settings.clearCache" = "Wyczyść pamięć podręczną";
 "settings.sendLogFile" = "Wyślij plik logów";
 
 "unlockVault.button.unlock" = "Odblokuj";
