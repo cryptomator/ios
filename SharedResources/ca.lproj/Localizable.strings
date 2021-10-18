@@ -66,6 +66,7 @@
 "settings.title" = "Configuració";
 "settings.aboutCryptomator" = "Quant a Cryptomator";
 "settings.aboutCryptomator.title" = "Versió %@ (%@)";
+"settings.clearCache" = "Esborra la memòria cau";
 
 "unlockVault.button.unlock" = "Desbloqueja";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
