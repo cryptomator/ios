@@ -70,6 +70,10 @@ class DatabaseHelper {
 				table.column("parentID", .integer).notNull()
 				table.column("itemType", .text).notNull()
 			}
+			try db.create(table: "itemEnumerationTasks") { table in
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
+				table.column("pageToken", .text)
+			}
 		}
 		try migrator.migrate(dbWriter)
 	}

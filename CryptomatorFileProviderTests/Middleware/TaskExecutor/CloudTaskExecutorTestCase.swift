@@ -18,6 +18,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var uploadTaskManagerMock: UploadTaskManagerMock!
 	var reparentTaskManagerMock: ReparentTaskManagerMock!
 	var deletionTaskManagerMock: DeletionTaskManagerMock!
+	var itemEnumerationTaskManagerMock: ItemEnumerationTaskManagerMock!
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
 
@@ -28,6 +29,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		uploadTaskManagerMock = UploadTaskManagerMock()
 		reparentTaskManagerMock = ReparentTaskManagerMock()
 		deletionTaskManagerMock = DeletionTaskManagerMock()
+		itemEnumerationTaskManagerMock = ItemEnumerationTaskManagerMock()
 		deleteItemHelper = DeleteItemHelper(itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
@@ -324,6 +326,22 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				throw DBManagerError.missingItemMetadata
 			}
 			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata)
+		}
+	}
+
+	class ItemEnumerationTaskManagerMock: ItemEnumerationTaskManager {
+		var removedTaskRecords = [ItemEnumerationTaskRecord]()
+		var createdTasks = [ItemEnumerationTask]()
+
+		func createTask(for item: ItemMetadata, pageToken: String?) throws -> ItemEnumerationTask {
+			let taskRecord = ItemEnumerationTaskRecord(correspondingItem: item.id!, pageToken: pageToken)
+			let task = ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item)
+			createdTasks.append(task)
+			return task
+		}
+
+		func removeTaskRecord(_ task: ItemEnumerationTaskRecord) throws {
+			removedTaskRecords.append(task)
 		}
 	}
 

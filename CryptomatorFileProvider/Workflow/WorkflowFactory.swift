@@ -55,10 +55,10 @@ enum WorkflowFactory {
 	}
 
 	// swiftlint:disable:next function_parameter_count
-	static func createWorkflow(for itemEnumerationTask: ItemEnumerationTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, reparentTaskManager: ReparentTaskManager, uploadTaskManager: UploadTaskManager, deletionTaskManager: DeletionTaskManager) -> Workflow<FileProviderItemList> {
+	static func createWorkflow(for itemEnumerationTask: ItemEnumerationTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, reparentTaskManager: ReparentTaskManager, uploadTaskManager: UploadTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager) -> Workflow<FileProviderItemList> {
 		let pathLockMiddleware = ReadingItemPathLockHandler<FileProviderItemList>()
 		let deleteItemHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager, deleteItemHelper: deleteItemHelper)
 		let errorMapper = ErrorMapper<FileProviderItemList>()
 
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())

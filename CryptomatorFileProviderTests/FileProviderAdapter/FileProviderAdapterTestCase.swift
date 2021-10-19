@@ -17,7 +17,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		localURLProviderMock = LocalURLProviderMock()
-		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 	}
 
 	class LocalURLProviderMock: LocalURLProvider {
