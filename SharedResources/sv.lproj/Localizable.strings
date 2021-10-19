@@ -87,7 +87,12 @@
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cachestorlek";
 "settings.clearCache" = "Rensa cachen";
+"settings.cloudServices" = "Molntjänster";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Felsökningsläge";
+"settings.rateApp" = "Betygsätt app";
 "settings.sendLogFile" = "Skicka loggfil";
 
 "unlockVault.button.unlock" = "Lås upp";
@@ -110,6 +115,8 @@
 "urlSession.error.httpError.412" = "Åtkomst till målresursen nekad.";
 "urlSession.error.httpError.default" = "Nätverksanslutning misslyckades med statuskoden %ld.";
 "urlSession.error.unexpectedResponse" = "Det fanns ett oväntat nätverkssvar.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har redan lagt till detta valv.";
 
 "vaultDetail.button.lock" = "Lås nu";
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
