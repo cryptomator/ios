@@ -88,6 +88,10 @@
 "settings.aboutCryptomator" = "À propos de Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.clearCache" = "Vider le cache";
+"settings.cloudServices" = "Services de stockage en ligne";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Mode de débogage";
+"settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
