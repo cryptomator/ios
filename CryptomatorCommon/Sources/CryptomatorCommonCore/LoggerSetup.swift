@@ -16,8 +16,13 @@ public enum LoggerSetup {
 		fileLogger.logFileManager.maximumNumberOfLogFiles = 7
 		DDLog.add(DDOSLogger.sharedInstance)
 		DDLog.add(fileLogger)
+		setDynamicLogLevel(debugModeEnabled: CryptomatorUserDefaults.shared.debugModeEnabled)
 		return {}
 	}()
+
+	public static func setDynamicLogLevel(debugModeEnabled: Bool) {
+		dynamicLogLevel = debugModeEnabled ? .debug : .error
+	}
 }
 
 public extension DDFileLogger {
