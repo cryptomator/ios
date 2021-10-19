@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Έκδοση %@ (%@)";
 "settings.cacheSize" = "Μέγεθος προσωρινής μνήμης";
 "settings.clearCache" = "Εκκαθάριση προσωρινής μνήμης";
+"settings.cloudServices" = "Υπηρεσίες Cloud";
+"settings.contact" = "Επικοινωνία";
+"settings.debugMode" = "Λειτουργία Αποσφαλμάτωσης";
+"settings.rateApp" = "Αξιολογήστε την Εφαρμογή";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
