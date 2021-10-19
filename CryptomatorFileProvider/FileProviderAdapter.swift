@@ -20,18 +20,20 @@ public class FileProviderAdapter {
 	private let reparentTaskManager: ReparentTaskManager
 	private let deletionTaskManager: DeletionTaskManager
 	private let itemEnumerationTaskManager: ItemEnumerationTaskManager
+	private let downloadTaskManager: DownloadTaskManager
 	private let scheduler: WorkflowScheduler
 	private let provider: CloudProvider
 	private weak var localURLProvider: LocalURLProvider?
 	private let notificator: FileProviderItemUpdateDelegate?
 
-	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil) {
+	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil) {
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
 		self.reparentTaskManager = reparentTaskManager
 		self.deletionTaskManager = deletionTaskManager
 		self.itemEnumerationTaskManager = itemEnumerationTaskManager
+		self.downloadTaskManager = downloadTaskManager
 		self.scheduler = scheduler
 		self.provider = provider
 		self.notificator = notificator
@@ -534,14 +536,14 @@ public class FileProviderAdapter {
 	}
 
 	func downloadFile(with identifier: NSFileProviderItemIdentifier, to localURL: URL, replaceExisting: Bool = false) -> Promise<Void> {
-		let itemMetadata: ItemMetadata
+		let task: DownloadTask
 		do {
-			itemMetadata = try getCachedMetadata(for: identifier)
+			let itemMetadata = try getCachedMetadata(for: identifier)
+			task = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: replaceExisting, localURL: localURL)
 		} catch {
 			return Promise(error)
 		}
-		let task = DownloadTask(replaceExisting: replaceExisting, localURL: localURL, itemMetadata: itemMetadata)
-		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, downloadTaskManager: downloadTaskManager)
 		return scheduler.schedule(workflow).then { item -> Void in
 			self.notificator?.signalUpdate(for: item)
 		}

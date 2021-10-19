@@ -147,7 +147,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		// Simulate a change of the item in the cloud
 		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkFlowSchedulerStartProvidingItemMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkFlowSchedulerStartProvidingItemMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 		adapter.startProvidingItem(at: url) { error in
 			XCTAssertNil(error)
 			XCTAssertEqual(1, self.uploadTaskManagerMock.uploadTasks.count)

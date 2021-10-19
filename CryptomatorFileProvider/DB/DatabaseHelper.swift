@@ -74,6 +74,11 @@ class DatabaseHelper {
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
 				table.column("pageToken", .text)
 			}
+			try db.create(table: "downloadTasks") { table in
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
+				table.column("replaceExisting", .boolean).notNull()
+				table.column("localURL", .text).notNull()
+			}
 		}
 		try migrator.migrate(dbWriter)
 	}

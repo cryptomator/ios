@@ -19,6 +19,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var reparentTaskManagerMock: ReparentTaskManagerMock!
 	var deletionTaskManagerMock: DeletionTaskManagerMock!
 	var itemEnumerationTaskManagerMock: ItemEnumerationTaskManagerMock!
+	var downloadTaskManagerMock: DownloadTaskManagerMock!
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
 
@@ -30,6 +31,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		reparentTaskManagerMock = ReparentTaskManagerMock()
 		deletionTaskManagerMock = DeletionTaskManagerMock()
 		itemEnumerationTaskManagerMock = ItemEnumerationTaskManagerMock()
+		downloadTaskManagerMock = DownloadTaskManagerMock()
 		deleteItemHelper = DeleteItemHelper(itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
@@ -348,6 +350,19 @@ class CloudTaskExecutorTestCase: XCTestCase {
 
 		func removeTaskRecord(_ task: ItemEnumerationTaskRecord) throws {
 			removedTaskRecords.append(task)
+		}
+	}
+
+	class DownloadTaskManagerMock: DownloadTaskManager {
+		var removedTasks = [DownloadTaskRecord]()
+
+		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL) throws -> DownloadTask {
+			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
+			return DownloadTask(taskRecord: taskRecord, itemMetadata: item)
+		}
+
+		func removeTaskRecord(_ task: DownloadTaskRecord) throws {
+			removedTasks.append(task)
 		}
 	}
 

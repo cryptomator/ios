@@ -32,9 +32,9 @@ enum WorkflowFactory {
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: uploadTask, constraint: .uploadConstrained)
 	}
 
-	static func createWorkflow(for downloadTask: DownloadTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) -> Workflow<FileProviderItem> {
+	static func createWorkflow(for downloadTask: DownloadTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, downloadTaskManager: DownloadTaskManager) -> Workflow<FileProviderItem> {
 		let pathLockMiddleware = ReadingItemPathLockHandler<FileProviderItem>()
-		let taskExecutor = DownloadTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let taskExecutor = DownloadTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, downloadTaskManager: downloadTaskManager)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())

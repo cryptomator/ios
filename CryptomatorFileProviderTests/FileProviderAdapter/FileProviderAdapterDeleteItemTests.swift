@@ -17,7 +17,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let cloudPath = CloudPath("/test.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
 		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
 			XCTAssertNil(error)
@@ -49,7 +49,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let localURLForItem = tmpDirectory.appendingPathComponent("/\(fileItemIdentifier)/test.txt")
 		try cachedFileManagerMock.cacheLocalFileInfo(for: fileItemID, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 		adapter.deleteItem(withIdentifier: folderItemIdentifier) { error in
 			XCTAssertNil(error)
 
@@ -71,7 +71,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let cloudPath = CloudPath("/test.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
 
 		let localURLForItem = tmpDirectory.appendingPathComponent("/\(itemIdentifier)/test.txt")
@@ -100,7 +100,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
 
 		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
 			XCTAssertNil(error)

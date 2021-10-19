@@ -36,6 +36,9 @@
 		4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49B26BD68C2000D13DF /* UIControl+Publisher.swift */; };
 		4A21B49E26BD6915000D13DF /* UISwitch+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49D26BD6915000D13DF /* UISwitch+Publisher.swift */; };
 		4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */; };
+		4A231B80271EF2CA00987492 /* DownloadTaskRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A231B7F271EF2CA00987492 /* DownloadTaskRecord.swift */; };
+		4A231B82271EF35400987492 /* DownloadTaskDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A231B81271EF35400987492 /* DownloadTaskDBManager.swift */; };
+		4A231B84271EFC6100987492 /* DownloadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A231B83271EFC6100987492 /* DownloadTaskManagerTests.swift */; };
 		4A24001A26AE9F3A009DBC2E /* VaultLockingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */; };
 		4A248221266B8D37002D9F59 /* FileProviderAdapterImportDocumentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248220266B8D37002D9F59 /* FileProviderAdapterImportDocumentTests.swift */; };
 		4A248223266E266E002D9F59 /* FolderCreationTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248222266E266E002D9F59 /* FolderCreationTask.swift */; };
@@ -383,6 +386,9 @@
 		4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorFileProviderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A2245D424A5E16300DBA437 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataManagerTests.swift; sourceTree = "<group>"; };
+		4A231B7F271EF2CA00987492 /* DownloadTaskRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskRecord.swift; sourceTree = "<group>"; };
+		4A231B81271EF35400987492 /* DownloadTaskDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskDBManager.swift; sourceTree = "<group>"; };
+		4A231B83271EFC6100987492 /* DownloadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultLockingServiceSource.swift; sourceTree = "<group>"; };
 		4A248220266B8D37002D9F59 /* FileProviderAdapterImportDocumentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterImportDocumentTests.swift; sourceTree = "<group>"; };
 		4A248222266E266E002D9F59 /* FolderCreationTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCreationTask.swift; sourceTree = "<group>"; };
@@ -1173,6 +1179,7 @@
 			children = (
 				4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */,
 				4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */,
+				4A231B83271EFC6100987492 /* DownloadTaskManagerTests.swift */,
 				4A49FABD271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift */,
 				4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */,
 				4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */,
@@ -1227,6 +1234,8 @@
 				4A2482342671110A002D9F59 /* DBManagerError.swift */,
 				740376082587AEB70023FF53 /* DeletionTaskDBManager.swift */,
 				4A511D5E26668E68000A0E01 /* DeletionTaskRecord.swift */,
+				4A231B81271EF35400987492 /* DownloadTaskDBManager.swift */,
+				4A231B7F271EF2CA00987492 /* DownloadTaskRecord.swift */,
 				4A49FABB271ECB680069A0CC /* ItemEnumerationTaskDBManager.swift */,
 				4A49FAB9271ECA530069A0CC /* ItemEnumerationTaskRecord.swift */,
 				740376032587AEB60023FF53 /* ItemMetadata.swift */,
@@ -1669,6 +1678,7 @@
 				4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */,
 				4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */,
 				4A1673E8270C675B0075C724 /* FileProviderCacheManagerTests.swift in Sources */,
+				4A231B84271EFC6100987492 /* DownloadTaskManagerTests.swift in Sources */,
 				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
 				4A511D45265EB13B000A0E01 /* ItemEnumerationTaskTests.swift in Sources */,
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
@@ -1871,9 +1881,11 @@
 			files = (
 				4A8F1498266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift in Sources */,
 				4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */,
+				4A231B82271EF35400987492 /* DownloadTaskDBManager.swift in Sources */,
 				747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */,
 				4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */,
 				747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */,
+				4A231B80271EF2CA00987492 /* DownloadTaskRecord.swift in Sources */,
 				4A511D592664F290000A0E01 /* DeleteItemHelper.swift in Sources */,
 				747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */,
 				747F2F3D2587BC4B0072FB30 /* LockNode.swift in Sources */,

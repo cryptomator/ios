@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Foundation
 import Promises
@@ -26,26 +27,35 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 
 	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
+	private let downloadTaskManager: DownloadTaskManager
 	private let provider: CloudProvider
 
-	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, downloadTaskManager: DownloadTaskManager) {
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
+		self.downloadTaskManager = downloadTaskManager
 	}
 
 	func execute(task: CloudTask) -> Promise<FileProviderItem> {
 		guard let downloadTask = task as? DownloadTask else {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
-		let downloadDestination = downloadTask.replaceExisting ? downloadTask.localURL.createCollisionURL() : downloadTask.localURL
+		let taskRecord = downloadTask.taskRecord
+		let downloadDestination = taskRecord.replaceExisting ? taskRecord.localURL.createCollisionURL() : taskRecord.localURL
 		var lastModifiedDate: Date?
 		let itemMetadata = task.itemMetadata
 		return provider.fetchItemMetadata(at: itemMetadata.cloudPath).then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
 			return self.provider.downloadFile(from: itemMetadata.cloudPath, to: downloadDestination)
 		}.then { _ -> FileProviderItem in
-			try self.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: downloadTask.localURL, downloadDestination: downloadDestination)
+			try self.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: taskRecord.localURL, downloadDestination: downloadDestination)
+		}.always {
+			do {
+				try self.downloadTaskManager.removeTaskRecord(taskRecord)
+			} catch {
+				DDLogError("Remove DownloadTask failed with error: \(error)")
+			}
 		}
 	}
 
