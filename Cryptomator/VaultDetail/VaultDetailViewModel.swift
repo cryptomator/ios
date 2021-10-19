@@ -74,7 +74,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
-				DefaultTableCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none),
+				TableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none),
 				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: LocalizedString.getValue("common.cells.openInFilesApp"))
 			],
 			.lockingSection: lockSectionCells,
@@ -142,7 +142,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
 		let vaultDetailSection = sections[indexPath.section]
 		guard let sectionCells = cells[vaultDetailSection] else {
-			return DefaultTableCellViewModel()
+			return TableViewCellViewModel()
 		}
 		return sectionCells[indexPath.row]
 	}
@@ -189,7 +189,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private func getSwitchCellViewModel(biometryTypeName: String) -> SwitchCellViewModel {
-		if let switchCellViewModel = self.switchCellViewModel {
+		if let switchCellViewModel = switchCellViewModel {
 			switchCellViewModel.isOn.value = biometricalUnlockEnabled
 			return switchCellViewModel
 		}

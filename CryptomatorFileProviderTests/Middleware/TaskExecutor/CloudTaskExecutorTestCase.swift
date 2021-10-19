@@ -140,6 +140,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	}
 
 	class CachedFileManagerMock: CachedFileManager {
+		func clearCache() throws {}
+
 		var cachedLocalFileInfo = [Int64: LocalCachedFileInfo]()
 		var removeCachedFile = [Int64]()
 
@@ -154,6 +156,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		func removeCachedFile(for identifier: Int64) throws {
 			cachedLocalFileInfo[identifier] = nil
 			removeCachedFile.append(identifier)
+		}
+
+		func getLocalCacheSizeInBytes() throws -> Int {
+			return 0
 		}
 	}
 

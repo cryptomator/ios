@@ -87,6 +87,8 @@
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cache Size";
+"settings.clearCache" = "Clear Cache";
 "settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Unlock";
@@ -109,6 +111,8 @@
 "urlSession.error.httpError.412" = "Access to the target resource denied.";
 "urlSession.error.httpError.default" = "Network connection failed with status code %ld.";
 "urlSession.error.unexpectedResponse" = "There was an unexpected network response.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "You have already added this vault.";
 
 "vaultDetail.button.lock" = "Lock Now";
 "vaultDetail.button.removeVault" = "Remove from Vault List";

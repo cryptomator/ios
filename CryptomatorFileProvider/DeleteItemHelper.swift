@@ -32,7 +32,7 @@ class DeleteItemHelper {
 
 	 - Precondition: The passed item is a folder
 	 */
-	func removeFolderFromCache(_ folder: ItemMetadata) throws {
+	private func removeFolderFromCache(_ folder: ItemMetadata) throws {
 		assert(folder.type == .folder)
 		let innerItems = try itemMetadataManager.getAllCachedMetadata(inside: folder)
 		for item in innerItems where item.type == .file {
@@ -42,7 +42,7 @@ class DeleteItemHelper {
 		try itemMetadataManager.removeItemMetadata(identifiers)
 	}
 
-	func removeFileFromCache(_ file: ItemMetadata) throws {
+	private func removeFileFromCache(_ file: ItemMetadata) throws {
 		assert(file.type == .file)
 		try cachedFileManager.removeCachedFile(for: file.id!)
 	}

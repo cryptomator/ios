@@ -53,6 +53,7 @@ public class CryptomatorDatabase {
 			table.column("delegateAccountUID", .text).notNull().references("cloudProviderAccounts", onDelete: .cascade)
 			table.column("vaultPath", .text).notNull()
 			table.column("vaultName", .text).notNull()
+			table.uniqueKey(["delegateAccountUID", "vaultPath"])
 		}
 		try db.create(table: "cachedVaults") { table in
 			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)

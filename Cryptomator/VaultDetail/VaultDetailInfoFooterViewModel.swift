@@ -50,7 +50,7 @@ class VaultDetailInfoFooterViewModel: AttributedTextHeaderFooterViewModel {
 			getUsername(for: credential)
 			return "(…)"
 		case .googleDrive:
-			let credential = GoogleDriveCredential(tokenUID: vault.delegateAccountUID)
+			let credential = GoogleDriveCredential(userID: vault.delegateAccountUID)
 			return try? credential.getUsername()
 		case .oneDrive:
 			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)

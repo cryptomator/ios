@@ -358,7 +358,7 @@ public class VaultDBManager: VaultManager {
 	}
 }
 
-extension NSFileProviderManager {
+public extension NSFileProviderManager {
 	static func getDomains() -> Promise<[NSFileProviderDomain]> {
 		return Promise<[NSFileProviderDomain]> { fulfill, reject in
 			NSFileProviderManager.getDomainsWithCompletionHandler { domains, error in
