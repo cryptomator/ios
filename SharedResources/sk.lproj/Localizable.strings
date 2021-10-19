@@ -112,6 +112,8 @@
 "urlSession.error.httpError.default" = "Sieťové pripojenie zlyhalo s kódom %ld.";
 "urlSession.error.unexpectedResponse" = "Udiala sa neočakávaná sieťová reakcia.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Už máte pridaný tento trezor.";
+
 "vaultDetail.button.lock" = "Uzamknúť teraz";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";
