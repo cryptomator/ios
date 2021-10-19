@@ -18,6 +18,12 @@ public class CryptomatorUserDefaults {
 
 	private var defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
 
+	#if DEBUG
+	private static let debugModeEnabledDefaultValue = true
+	#else
+	private static let debugModeEnabledDefaultValue = false
+	#endif
+
 	private func read<T>(property: String = #function) -> T? {
 		defaults.object(forKey: property) as? T
 	}
@@ -30,13 +36,7 @@ public class CryptomatorUserDefaults {
 
 extension CryptomatorUserDefaults: CryptomatorSettings {
 	public var debugModeEnabled: Bool {
-		get {
-			#if DEBUG
-			true
-			#else
-			read() ?? false
-			#endif
-		}
+		get { read() ?? CryptomatorUserDefaults.debugModeEnabledDefaultValue }
 		set { write(value: newValue) }
 	}
 }
