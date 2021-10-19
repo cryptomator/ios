@@ -17,20 +17,47 @@ class WebDAVKeychainTests: XCTestCase {
 		let username = "user"
 		let password = "pass"
 		let certificate = "CertificateData".data(using: .utf8)
-		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate)
-		let accountUID = UUID().uuidString
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: accountUID))
+		let identifier = UUID().uuidString
+		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 
-		guard let fetchedCredential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
-			XCTFail("No Credential found in Keychain for accountUID: \(accountUID)")
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential))
+
+		guard let fetchedCredential = WebDAVAuthenticator.getCredentialFromKeychain(with: identifier) else {
+			XCTFail("No Credential found in Keychain for accountUID: \(identifier)")
 			return
 		}
 		XCTAssertEqual(baseURL, fetchedCredential.baseURL)
 		XCTAssertEqual(username, fetchedCredential.username)
 		XCTAssertEqual(password, fetchedCredential.password)
 		XCTAssertEqual(certificate, fetchedCredential.allowedCertificate)
+		XCTAssertEqual(identifier, fetchedCredential.identifier)
 
-		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: accountUID))
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: identifier))
+	}
+
+	func testSaveCredentialDuplicatesToKeychain() throws {
+		let baseURL = URL(string: "www.testurl.com")!
+		let username = "user"
+		let password = "pass"
+		let certificate = "CertificateData".data(using: .utf8)
+		let identifier = UUID().uuidString
+		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
+
+		try WebDAVAuthenticator.saveCredentialToKeychain(credential)
+
+		// Different Identifier is a duplicate if baseURL and username already exists in the keychain
+		let duplicateCredential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: UUID().uuidString)
+		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: duplicateCredential, originalCredential: credential)
+
+		// Different Password is still a duplicate if baseURL and username already exists in the keychain and the identifier does not match
+		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password + "Foo", allowedCertificate: certificate, identifier: UUID().uuidString), originalCredential: credential)
+
+		// Different Certificate is still a duplicate if baseURL and username already exists in the keychain and the identifier does not match
+		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: "CertificateData1".data(using: .utf8), identifier: UUID().uuidString), originalCredential: credential)
+
+		// Missing Certificate is still a duplicate if baseURL and username already exists in the keychain and the identifier does not match
+		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: nil, identifier: UUID().uuidString), originalCredential: credential)
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: identifier))
 	}
 
 	func testRemoveCredentialFromKeychain() {
@@ -38,12 +65,12 @@ class WebDAVKeychainTests: XCTestCase {
 		let username = "user"
 		let password = "pass"
 		let certificate = "CertificateData".data(using: .utf8)
-		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate)
-		let accountUID = UUID().uuidString
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: accountUID))
+		let identifier = UUID().uuidString
+		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential))
 
-		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: accountUID))
-		XCTAssertNil(WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID))
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: identifier))
+		XCTAssertNil(WebDAVAuthenticator.getCredentialFromKeychain(with: identifier))
 	}
 
 	func testSaveUpdatesOverwritesCredentialInKeychain() {
@@ -51,18 +78,18 @@ class WebDAVKeychainTests: XCTestCase {
 		let username = "user"
 		let password = "pass"
 		let certificate = "CertificateData".data(using: .utf8)
-		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate)
-		let accountUID = UUID().uuidString
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: accountUID))
+		let identifier = UUID().uuidString
+		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(credential))
 
 		let updatedBaseURL = URL(string: "www.updated-testurl.com")!
 		let updatedUsername = "updatedUser"
 		let updatedPassword = "updatedPass"
-		let updatedCredential = WebDAVCredential(baseURL: updatedBaseURL, username: updatedUsername, password: updatedPassword, allowedCertificate: nil)
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(updatedCredential, with: accountUID))
+		let updatedCredential = WebDAVCredential(baseURL: updatedBaseURL, username: updatedUsername, password: updatedPassword, allowedCertificate: nil, identifier: identifier)
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(updatedCredential))
 
-		guard let fetchedCredential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
-			XCTFail("No Credential found in Keychain for accountUID: \(accountUID)")
+		guard let fetchedCredential = WebDAVAuthenticator.getCredentialFromKeychain(with: identifier) else {
+			XCTFail("No Credential found in Keychain for identifier: \(identifier)")
 			return
 		}
 		XCTAssertEqual(updatedBaseURL, fetchedCredential.baseURL)
@@ -70,7 +97,7 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertEqual(updatedPassword, fetchedCredential.password)
 		XCTAssertNil(fetchedCredential.allowedCertificate)
 
-		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: accountUID))
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: identifier))
 	}
 
 	func testMultipleCredentialSupport() {
@@ -78,18 +105,20 @@ class WebDAVKeychainTests: XCTestCase {
 		let firstUsername = "user"
 		let firstPassword = "pass"
 		let certificate = "CertificateData".data(using: .utf8)
-		let firstCredential = WebDAVCredential(baseURL: baseURL, username: firstUsername, password: firstPassword, allowedCertificate: certificate)
-		let firstAccountUID = UUID().uuidString
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(firstCredential, with: firstAccountUID))
+		let firstIdentifier = UUID().uuidString
+		let firstCredential = WebDAVCredential(baseURL: baseURL, username: firstUsername, password: firstPassword, allowedCertificate: certificate, identifier: firstIdentifier)
+
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(firstCredential))
 
 		let secondUsername = "user-2"
 		let secondPassword = "pass-2"
-		let secondCredential = WebDAVCredential(baseURL: baseURL, username: secondUsername, password: secondPassword, allowedCertificate: nil)
-		let secondAccountUID = UUID().uuidString
-		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(secondCredential, with: secondAccountUID))
+		let secondIdentifier = UUID().uuidString
+		let secondCredential = WebDAVCredential(baseURL: baseURL, username: secondUsername, password: secondPassword, allowedCertificate: nil, identifier: secondIdentifier)
 
-		guard let fetchedCredentialForFirstAccount = WebDAVAuthenticator.getCredentialFromKeychain(with: firstAccountUID) else {
-			XCTFail("No Credential found in Keychain for accountUID: \(firstAccountUID)")
+		XCTAssertNoThrow(try WebDAVAuthenticator.saveCredentialToKeychain(secondCredential))
+
+		guard let fetchedCredentialForFirstAccount = WebDAVAuthenticator.getCredentialFromKeychain(with: firstIdentifier) else {
+			XCTFail("No Credential found in Keychain for identifier: \(firstIdentifier)")
 			return
 		}
 		XCTAssertEqual(baseURL, fetchedCredentialForFirstAccount.baseURL)
@@ -97,8 +126,8 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertEqual(firstPassword, fetchedCredentialForFirstAccount.password)
 		XCTAssertEqual(certificate, fetchedCredentialForFirstAccount.allowedCertificate)
 
-		guard let fetchedCredentialForSecondAccount = WebDAVAuthenticator.getCredentialFromKeychain(with: secondAccountUID) else {
-			XCTFail("No Credential found in Keychain for accountUID: \(secondAccountUID)")
+		guard let fetchedCredentialForSecondAccount = WebDAVAuthenticator.getCredentialFromKeychain(with: secondIdentifier) else {
+			XCTFail("No Credential found in Keychain for identifier: \(secondIdentifier)")
 			return
 		}
 		XCTAssertEqual(baseURL, fetchedCredentialForSecondAccount.baseURL)
@@ -106,7 +135,22 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertEqual(secondPassword, fetchedCredentialForSecondAccount.password)
 		XCTAssertNil(fetchedCredentialForSecondAccount.allowedCertificate)
 
-		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: firstAccountUID))
-		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: secondAccountUID))
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: firstIdentifier))
+		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: secondIdentifier))
+	}
+
+	private func checkSaveThrowsDuplicateError(for credential: WebDAVCredential, originalIdentifier: String) {
+		XCTAssertThrowsError(try WebDAVAuthenticator.saveCredentialToKeychain(credential)) { error in
+			guard case let WebDAVAuthenticatorKeychainError.credentialDuplicate(identifier) = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
+			XCTAssertEqual(originalIdentifier, identifier)
+		}
+	}
+
+	private func checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for credential: WebDAVCredential, originalCredential: WebDAVCredential) {
+		checkSaveThrowsDuplicateError(for: credential, originalIdentifier: originalCredential.identifier)
+		XCTAssertNil(WebDAVAuthenticator.getCredentialFromKeychain(with: credential.identifier))
 	}
 }
