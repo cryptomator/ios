@@ -64,6 +64,8 @@
 		4A3D65662680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3D65652680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift */; };
 		4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3D658126838991000DA764 /* OpenExistingLocalVaultViewModel.swift */; };
 		4A3D658626847B11000DA764 /* CreateNewLocalVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3D658526847B11000DA764 /* CreateNewLocalVaultViewModel.swift */; };
+		4A3E2FEC271DC9670090BD44 /* MaintenanceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E2FEB271DC9670090BD44 /* MaintenanceManagerTests.swift */; };
+		4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */; };
 		4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DB225BEF68100D9520D /* CloudChoosing.swift */; };
 		4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */; };
 		4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */; };
@@ -414,6 +416,8 @@
 		4A3D65652680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileSystemAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		4A3D658126838991000DA764 /* OpenExistingLocalVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLocalVaultViewModel.swift; sourceTree = "<group>"; };
 		4A3D658526847B11000DA764 /* CreateNewLocalVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewLocalVaultViewModel.swift; sourceTree = "<group>"; };
+		4A3E2FEB271DC9670090BD44 /* MaintenanceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManagerTests.swift; sourceTree = "<group>"; };
+		4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDBManager.swift; sourceTree = "<group>"; };
 		4A447DB225BEF68100D9520D /* CloudChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChoosing.swift; sourceTree = "<group>"; };
 		4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewModel.swift; sourceTree = "<group>"; };
 		4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionTableViewController.swift; sourceTree = "<group>"; };
@@ -1181,6 +1185,7 @@
 				4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */,
 				4A231B83271EFC6100987492 /* DownloadTaskManagerTests.swift */,
 				4A49FABD271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift */,
+				4A3E2FEB271DC9670090BD44 /* MaintenanceManagerTests.swift */,
 				4A2245DB24A5E1C600DBA437 /* MetadataManagerTests.swift */,
 				4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */,
 				4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */,
@@ -1241,6 +1246,7 @@
 				740376032587AEB60023FF53 /* ItemMetadata.swift */,
 				7403760B2587AEB70023FF53 /* ItemMetadataDBManager.swift */,
 				4ADD233B267219E200374E4E /* LocalCachedFileInfo.swift */,
+				4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */,
 				740376072587AEB60023FF53 /* ReparentTaskDBManager.swift */,
 				4A511D5C26668E47000A0E01 /* ReparentTaskRecord.swift */,
 				740376052587AEB60023FF53 /* UploadTaskDBManager.swift */,
@@ -1688,6 +1694,7 @@
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4A8F149C266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift in Sources */,
 				4A8F14A2266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift in Sources */,
+				4A3E2FEC271DC9670090BD44 /* MaintenanceManagerTests.swift in Sources */,
 				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
 				4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */,
 				4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */,
@@ -1925,6 +1932,7 @@
 				4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */,
 				4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */,
 				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
+				4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */,
 				4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */,
 				4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */,
 				747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */,
