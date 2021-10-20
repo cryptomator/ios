@@ -15,7 +15,10 @@ protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtoco
 }
 
 class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
-	let headerTitle = LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
+	var headerTitle: String {
+		LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
+	}
+
 	let headerUppercased = false
 
 	var vaultName: String? {

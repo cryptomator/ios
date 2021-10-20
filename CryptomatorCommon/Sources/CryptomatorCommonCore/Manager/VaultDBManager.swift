@@ -306,12 +306,15 @@ public class VaultDBManager: VaultManager {
 		} catch {
 			return Promise(error)
 		}
-		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then {
+		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then { _ -> VaultAccount in
 			let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
 			                                       delegateAccountUID: account.delegateAccountUID,
 			                                       vaultPath: targetVaultPath,
 			                                       vaultName: targetVaultPath.lastPathComponent)
 			try self.vaultAccountManager.updateAccount(updatedVaultAccount)
+			return updatedVaultAccount
+		}.then { updatedVaultAccount in
+			self.addFileProviderDomain(forVaultUID: updatedVaultAccount.vaultUID, displayName: updatedVaultAccount.vaultName)
 		}
 	}
 
@@ -371,8 +374,7 @@ public class VaultDBManager: VaultManager {
 	}
 
 	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) -> Promise<Void> {
-		let identifier = NSFileProviderDomainIdentifier(vaultUID)
-		let domain = NSFileProviderDomain(identifier: identifier, displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
+		let domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: displayName)
 		return NSFileProviderManager.add(domain)
 	}
 }
@@ -415,5 +417,11 @@ public extension NSFileProviderManager {
 				}
 			}
 		}
+	}
+}
+
+public extension NSFileProviderDomain {
+	convenience init(vaultUID: String, displayName: String) {
+		self.init(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
 	}
 }

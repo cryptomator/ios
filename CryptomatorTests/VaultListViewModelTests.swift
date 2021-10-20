@@ -232,7 +232,7 @@ class VaultCacheMock: VaultCache {
 	}
 }
 
-private class VaultLockingMock: VaultLocking {
+class VaultLockingMock: VaultLocking {
 	var lockedVaults = [NSFileProviderDomainIdentifier]()
 	var unlockedVaults = [NSFileProviderDomainIdentifier]()
 
@@ -255,7 +255,7 @@ private class VaultLockingMock: VaultLocking {
 	}
 }
 
-private class FileProviderConnectorMock: FileProviderConnector {
+class FileProviderConnectorMock: FileProviderConnector {
 	var proxy: Any?
 	var passedServiceName: NSFileProviderServiceName?
 	var passedDomainIdentifier: NSFileProviderDomainIdentifier?
