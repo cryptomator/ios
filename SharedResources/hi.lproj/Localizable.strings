@@ -72,6 +72,8 @@
 "cloudProvider.error.noInternetConnection" = "इस कार्य तो करने की लिए इंटरनेट सम्पर्क की आवश्यकता है।";
 
 "cloudProviderType.localFileSystem" = "दस्तावेज़ों का अन्य प्रबंधक।";
+
+"localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
 "localFileSystemAuthentication.openExistingVault.header" = "अगली स्क्रीन पर अपने कक्ष के फ़ोल्डर का चयन कीजिए।";
 "localFileSystemAuthentication.openExistingVault.button" = "कक्ष स्थान का चयन करें";
@@ -84,6 +86,10 @@
 "settings.title" = "समायोजन";
 "settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
 "settings.aboutCryptomator.title" = "संस्करण %@ (%@)";
+"settings.cloudServices" = "क्लाउड सेवाएं";
+"settings.contact" = "संपर्क";
+"settings.debugMode" = "दोषमार्जक साधन";
+"settings.rateApp" = "एप्प का मूल्यांकन";
 "settings.sendLogFile" = "Log फ़ाइल भेजें";
 
 "unlockVault.button.unlock" = "अनलॉक करें";
