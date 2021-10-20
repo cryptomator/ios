@@ -87,7 +87,11 @@
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";
 "settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.cacheSize" = "Dimensione cache";
 "settings.clearCache" = "Svuota Cache";
+"settings.cloudServices" = "Servizi cloud";
+"settings.debugMode" = "Modalità Debug";
+"settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
 
 "unlockVault.button.unlock" = "Sblocca";
