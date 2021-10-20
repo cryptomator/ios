@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Версия: %@ (%@)";
 "settings.cacheSize" = "Размер кэша";
 "settings.clearCache" = "Очистить кэш";
+"settings.cloudServices" = "Облачные сервисы";
+"settings.contact" = "Контакты";
+"settings.debugMode" = "Режим отладки";
+"settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
 
 "unlockVault.button.unlock" = "Разблокировать";
