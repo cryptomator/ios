@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Verzia %@ (%@)";
 "settings.cacheSize" = "Veľkosť vyrovnávacej pamäte";
 "settings.clearCache" = "Vyprázdniť vyrovnávaciu pamäť";
+"settings.cloudServices" = "Cloudové služby";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Režim ladenia";
+"settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
 
 "unlockVault.button.unlock" = "Odomknúť";
