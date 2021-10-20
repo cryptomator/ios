@@ -46,6 +46,7 @@ public protocol VaultAccountManager {
 	func removeAccount(with vaultUID: String) throws
 	func getAccount(with vaultUID: String) throws -> VaultAccount
 	func getAllAccounts() throws -> [VaultAccount]
+	func updateAccount(_ account: VaultAccount) throws
 }
 
 public enum VaultAccountManagerError: Error {
@@ -91,6 +92,12 @@ public class VaultAccountDBManager: VaultAccountManager {
 	public func getAllAccounts() throws -> [VaultAccount] {
 		try dbPool.read { db in
 			try VaultAccount.fetchAll(db)
+		}
+	}
+
+	public func updateAccount(_ account: VaultAccount) throws {
+		try dbPool.write { db in
+			try account.update(db)
 		}
 	}
 }

@@ -27,6 +27,7 @@ public protocol VaultManager {
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 }
 
 public class VaultDBManager: VaultManager {
@@ -294,6 +295,24 @@ public class VaultDBManager: VaultManager {
 		}
 		VaultDBManager.cachedDecorators[vaultUID] = decorator
 		return decorator
+	}
+
+	// MARK: - Move Vault
+
+	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		let provider: CloudProvider
+		do {
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: account.delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then {
+			let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
+			                                       delegateAccountUID: account.delegateAccountUID,
+			                                       vaultPath: targetVaultPath,
+			                                       vaultName: targetVaultPath.lastPathComponent)
+			try self.vaultAccountManager.updateAccount(updatedVaultAccount)
+		}
 	}
 
 	// MARK: - Internal

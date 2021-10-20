@@ -181,6 +181,10 @@ private class DatabaseManagerMock: DatabaseManager {
 }
 
 private class VaultAccountManagerMock: VaultAccountManager {
+	func updateAccount(_ account: VaultAccount) throws {
+		throw MockError.notMocked
+	}
+
 	func saveNewAccount(_ account: VaultAccount) throws {
 		throw MockError.notMocked
 	}
