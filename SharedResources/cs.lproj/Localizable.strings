@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Verze %@ (%@)";
 "settings.cacheSize" = "Velikost mezipaměti";
 "settings.clearCache" = "Vyčistit mezipaměť";
+"settings.cloudServices" = "Cloudové služby";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Ladící režim";
+"settings.rateApp" = "Ohodnotit aplikaci";
 "settings.sendLogFile" = "Odeslat log soubor";
 
 "unlockVault.button.unlock" = "Odemknout";
