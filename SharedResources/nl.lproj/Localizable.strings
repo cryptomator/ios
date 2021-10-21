@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Versie %@ (%@)";
 "settings.cacheSize" = "Cachegrootte";
 "settings.clearCache" = "Cache leegmaken";
+"settings.cloudServices" = "Clouddiensten";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Foutopsporingsmodus";
+"settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
 
 "unlockVault.button.unlock" = "Ontgrendel";
