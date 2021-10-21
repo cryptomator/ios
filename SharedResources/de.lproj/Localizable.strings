@@ -87,7 +87,12 @@
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cache-Größe";
 "settings.clearCache" = "Zwischenspeicher leeren";
+"settings.cloudServices" = "Cloud-Dienste";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Debug Modus";
+"settings.rateApp" = "App Bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
 
 "unlockVault.button.unlock" = "Entsperren";
@@ -110,6 +115,8 @@
 "urlSession.error.httpError.412" = "Zugriff auf die Zielressource verweigert.";
 "urlSession.error.httpError.default" = "Netzwerkverbindung mit Statuscode %ld fehlgeschlagen.";
 "urlSession.error.unexpectedResponse" = "Ein unerwarteter Netzwerkfehler ist aufgetreten.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Dieser Vault wurde bereits hinzugefügt.";
 
 "vaultDetail.button.lock" = "Jetzt sperren";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
