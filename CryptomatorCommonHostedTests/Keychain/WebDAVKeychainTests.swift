@@ -12,6 +12,10 @@ import XCTest
 @testable import CryptomatorCommonCore
 
 class WebDAVKeychainTests: XCTestCase {
+	override func tearDownWithError() throws {
+		try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: [])
+	}
+
 	func testSaveCredentialToKeychain() {
 		let baseURL = URL(string: "www.testurl.com")!
 		let username = "user"
@@ -137,6 +141,30 @@ class WebDAVKeychainTests: XCTestCase {
 
 		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: firstIdentifier))
 		XCTAssertNoThrow(try WebDAVAuthenticator.removeCredentialFromKeychain(with: secondIdentifier))
+	}
+
+	func testRemoveUnusedCredentialsFromKeychain() throws {
+		let baseURL = URL(string: "www.testurl.com")!
+		let firstUsername = "user"
+		let firstPassword = "pass"
+		let certificate = "CertificateData".data(using: .utf8)
+		let firstIdentifier = UUID().uuidString
+		let firstCredential = WebDAVCredential(baseURL: baseURL, username: firstUsername, password: firstPassword, allowedCertificate: certificate, identifier: firstIdentifier)
+		try WebDAVAuthenticator.saveCredentialToKeychain(firstCredential)
+
+		let secondUsername = "user-2"
+		let secondPassword = "pass-2"
+		let secondIdentifier = UUID().uuidString
+		let secondCredential = WebDAVCredential(baseURL: baseURL, username: secondUsername, password: secondPassword, allowedCertificate: nil, identifier: secondIdentifier)
+		try WebDAVAuthenticator.saveCredentialToKeychain(secondCredential)
+
+		try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: [firstIdentifier])
+
+		let allWebDAVCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
+
+		XCTAssertEqual(1, allWebDAVCredentials.count)
+		XCTAssertEqual(firstCredential, allWebDAVCredentials[0])
+		try WebDAVAuthenticator.removeCredentialFromKeychain(with: firstIdentifier)
 	}
 
 	private func checkSaveThrowsDuplicateError(for credential: WebDAVCredential, originalIdentifier: String) {

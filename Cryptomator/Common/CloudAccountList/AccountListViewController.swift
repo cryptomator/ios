@@ -127,6 +127,7 @@ class AccountListViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		let accountInfo = viewModel.accountInfos[indexPath.row]
 		do {
 			try coordinator?.selectedAccont(accountInfo)

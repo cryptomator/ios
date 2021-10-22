@@ -89,6 +89,10 @@
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
 "settings.cacheSize" = "Cache Size";
 "settings.clearCache" = "Clear Cache";
+"settings.cloudServices" = "Cloud Services";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Debug Mode";
+"settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Unlock";

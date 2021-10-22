@@ -40,6 +40,14 @@ public extension WebDAVAuthenticator {
 	static func removeCredentialFromKeychain(with accountUID: String) throws {
 		try CryptomatorKeychain.webDAV.delete(accountUID)
 	}
+
+	static func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws {
+		let existingCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
+		let unusedCredentials = existingCredentials.filter { !existingAccountUIDs.contains($0.identifier) }
+		for unusedCredential in unusedCredentials {
+			try removeCredentialFromKeychain(with: unusedCredential.identifier)
+		}
+	}
 }
 
 extension WebDAVCredential: Equatable {
@@ -48,7 +56,7 @@ extension WebDAVCredential: Equatable {
 	}
 }
 
-private extension CryptomatorKeychain {
+extension CryptomatorKeychain {
 	func get(_ key: String) -> WebDAVCredential? {
 		guard let data = getAsData(key) else {
 			return nil

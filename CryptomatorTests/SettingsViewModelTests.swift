@@ -6,20 +6,26 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class SettingsViewModelTests: XCTestCase {
 	private var cacheManagerMock: FileProviderCacheManagerMock!
+	private var cryptomatorSettingsMock: CryptomatorSettingsMock!
+	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	var settingsViewModel: SettingsViewModel!
 
 	override func setUpWithError() throws {
 		cacheManagerMock = FileProviderCacheManagerMock()
-		settingsViewModel = SettingsViewModel(cacheManager: cacheManagerMock)
+		cryptomatorSettingsMock = CryptomatorSettingsMock()
+		fileProviderConnectorMock = FileProviderConnectorMock()
+		settingsViewModel = SettingsViewModel(cacheManager: cacheManagerMock, cryptomatorSetttings: cryptomatorSettingsMock, fileProviderConnector: fileProviderConnectorMock)
 	}
+
+	// - MARK: Cache Section
 
 	func testInitialStateOfCacheSection() throws {
 		guard let cacheSizeCellViewModel = settingsViewModel.cells[.cacheSection]?[0] as? LoadingWithLabelCellViewModel else {
@@ -97,6 +103,74 @@ class SettingsViewModelTests: XCTestCase {
 		}
 		XCTAssertFalse(clearCacheButtonCellViewModel.isEnabled.value)
 	}
+
+	// - MARK: Debug Section
+
+	func testDisabledDebugMode() {
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		cryptomatorSettingsMock.debugModeEnabled = false
+		guard let debugModeCellViewModel = settingsViewModel.cells[.debugSection]?[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+		XCTAssertFalse(debugModeCellViewModel.isOn.value)
+		XCTAssertTrue(debugModeCellViewModel.isEnabled.value)
+
+		checkSendLogFilesCellViewModel()
+
+		// Simulate Debug toggle
+		let expectation = XCTestExpectation()
+		debugModeCellViewModel.isOnButtonPublisher.send(true)
+		logLevelUpdatingMock.updated.then {
+			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+		checkSendLogFilesCellViewModel()
+	}
+
+	func testEnabledDebugMode() {
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		cryptomatorSettingsMock.debugModeEnabled = true
+		guard let debugModeCellViewModel = settingsViewModel.cells[.debugSection]?[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+		XCTAssertTrue(debugModeCellViewModel.isOn.value)
+		XCTAssertTrue(debugModeCellViewModel.isEnabled.value)
+
+		checkSendLogFilesCellViewModel()
+
+		// Simulate Debug toggle
+		let expectation = XCTestExpectation()
+		debugModeCellViewModel.isOnButtonPublisher.send(false)
+		logLevelUpdatingMock.updated.then {
+			XCTAssertFalse(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+		checkSendLogFilesCellViewModel()
+	}
+
+	private func checkSendLogFilesCellViewModel() {
+		guard let sendLogFilesCellViewModel = settingsViewModel.cells[.debugSection]?[1] as? ButtonCellViewModel<SettingsButtonAction> else {
+			XCTFail("Missing sendLogFilesCellViewModel")
+			return
+		}
+		XCTAssertTrue(sendLogFilesCellViewModel.isEnabled.value)
+		XCTAssertEqual(LocalizedString.getValue("Send Log File"), sendLogFilesCellViewModel.title.value)
+		XCTAssertEqual(.sendLogFile, sendLogFilesCellViewModel.action)
+	}
+
+	private func checkLogLevelUpdatingServiceSourceCall() {
+		XCTAssertEqual(LogLevelUpdatingService.name, fileProviderConnectorMock.passedServiceName)
+		XCTAssertNil(fileProviderConnectorMock.passedDomain)
+		XCTAssertNil(fileProviderConnectorMock.passedDomainIdentifier)
+	}
 }
 
 private class FileProviderCacheManagerMock: FileProviderCacheManager {
@@ -120,5 +194,25 @@ private class FileProviderCacheManagerMock: FileProviderCacheManager {
 private class DocumentStorageURLProviderStub: DocumentStorageURLProvider {
 	var documentStorageURL: URL {
 		fatalError("not implemented")
+	}
+}
+
+private class CryptomatorSettingsMock: CryptomatorSettings {
+	var debugModeEnabled: Bool = false
+}
+
+private class LogLevelUpdatingMock: LogLevelUpdating {
+	var serviceName: NSFileProviderServiceName {
+		fatalError("Not mocked")
+	}
+
+	let updated = Promise<Void>.pending()
+
+	func logLevelUpdated() {
+		updated.fulfill(())
+	}
+
+	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
+		throw MockError.notMocked
 	}
 }
