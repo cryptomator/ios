@@ -12,10 +12,10 @@ import Promises
 import UIKit
 
 class VaultDetailViewController: UITableViewController {
-	weak var coordinator: MainCoordinator?
+	weak var coordinator: VaultDetailCoordinator?
 	private let viewModel: VaultDetailViewModelProtocol
 	private var observer: NSObjectProtocol?
-	private var viewModelSubscriber: AnyCancellable?
+	private lazy var subscriber = Set<AnyCancellable>()
 
 	init(viewModel: VaultDetailViewModelProtocol) {
 		self.viewModel = viewModel
@@ -28,12 +28,17 @@ class VaultDetailViewController: UITableViewController {
 	}
 
 	override func viewDidLoad() {
+		viewModel.title.$value
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] title in
+				self?.title = title
+			}.store(in: &subscriber)
 		title = viewModel.vaultName
-		viewModelSubscriber = viewModel.actionPublisher
+		viewModel.actionPublisher
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: { [weak self] result in
 				self?.handleActionResult(result)
-			})
+			}).store(in: &subscriber)
 		refreshVaultLockStatus()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshVaultLockStatus()
@@ -93,6 +98,8 @@ class VaultDetailViewController: UITableViewController {
 			}.always { [weak self] in
 				_ = self?.viewModel.refreshVaultStatus()
 			}
+		case .showRenameVault:
+			coordinator?.renameVault()
 		}
 	}
 

@@ -7,11 +7,18 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 import GRDB
 
-class DatabaseHelper {
-	static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
+public enum DatabaseHelper {
+	public static func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
+		let documentStorageURL = NSFileProviderManager.default.documentStorageURL
+		let domainRootURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
+		return domainRootURL.appendingPathComponent("db.sqlite")
+	}
+
+	public static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
 		let dbPool = try openSharedDatabase(at: databaseURL)
 		try migrate(dbPool)
 		return dbPool
