@@ -90,6 +90,7 @@
 "settings.cacheSize" = "Dimensione cache";
 "settings.clearCache" = "Svuota Cache";
 "settings.cloudServices" = "Servizi cloud";
+"settings.contact" = "Contatto";
 "settings.debugMode" = "Modalità Debug";
 "settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
