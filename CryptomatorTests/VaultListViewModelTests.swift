@@ -19,7 +19,7 @@ class VaultListViewModelTests: XCTestCase {
 	var cryptomatorDB: CryptomatorDatabase!
 	private var vaultManagerMock: VaultManagerMock!
 	private var vaultAccountManagerMock: VaultAccountManagerMock!
-	private var passwordManager: VaultPasswordKeychainManager!
+	private var passwordManagerMock: VaultPasswordManagerMock!
 	private var vaultCacheMock: VaultCacheMock!
 	private var fileProviderConnectorMock: FileProviderConnectorMock!
 	override func setUpWithError() throws {
@@ -31,9 +31,9 @@ class VaultListViewModelTests: XCTestCase {
 
 		let cloudProviderManager = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager(dbPool: dbPool))
 		vaultAccountManagerMock = VaultAccountManagerMock()
-		passwordManager = VaultPasswordKeychainManager()
+		passwordManagerMock = VaultPasswordManagerMock()
 		vaultCacheMock = VaultCacheMock()
-		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManager)
+		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
@@ -80,7 +80,6 @@ class VaultListViewModelTests: XCTestCase {
 	func testRemoveRow() throws {
 		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: "".data(using: .utf8)!, vaultConfigToken: nil, lastUpToDateCheck: Date())
 		try vaultCacheMock.cache(cachedVault)
-		try passwordManager.setPassword("pw", forVaultUID: "vault2")
 
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
@@ -98,12 +97,9 @@ class VaultListViewModelTests: XCTestCase {
 		XCTAssertEqual("vault2", vaultAccountManagerMock.removedVaultUIDs[0])
 		XCTAssertEqual(1, vaultManagerMock.removedFileProviderDomains.count)
 		XCTAssertEqual("vault2", vaultManagerMock.removedFileProviderDomains[0])
-		XCTAssertThrowsError(try passwordManager.getPassword(forVaultUID: "vault2")) { error in
-			guard case VaultPasswordManagerError.passwordNotFound = error else {
-				XCTFail("Throws the wrong error: \(error)")
-				return
-			}
-		}
+
+		XCTAssertEqual(1, passwordManagerMock.removedPasswordForVaultUIDs.count)
+		XCTAssert(passwordManagerMock.removedPasswordForVaultUIDs.contains(where: { $0 == "vault2" }))
 	}
 
 	func testLockVault() throws {
@@ -251,28 +247,22 @@ private class VaultLockingMock: VaultLocking {
 	}
 }
 
-private class FileProviderConnectorMock: FileProviderConnector {
-	var proxy: Any?
-	var passedServiceName: NSFileProviderServiceName?
-	var passedDomainIdentifier: NSFileProviderDomainIdentifier?
-	var passedDomain: NSFileProviderDomain?
+private class VaultPasswordManagerMock: VaultPasswordManager {
+	var removedPasswordForVaultUIDs = [String]()
 
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
-		passedServiceName = serviceName
-		passedDomainIdentifier = domainIdentifier
-		return getCastedProxy()
+	func setPassword(_ password: String, forVaultUID vaultUID: String) throws {
+		throw MockError.notMocked
 	}
 
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<T> {
-		passedServiceName = serviceName
-		passedDomain = domain
-		return getCastedProxy()
+	func getPassword(forVaultUID vaultUID: String) throws -> String {
+		throw MockError.notMocked
 	}
 
-	private func getCastedProxy<T>() -> Promise<T> {
-		guard let castedProxy = proxy as? T else {
-			return Promise(FileProviderXPCConnectorError.typeMismatch)
-		}
-		return Promise(castedProxy)
+	func removePassword(forVaultUID vaultUID: String) throws {
+		removedPasswordForVaultUIDs.append(vaultUID)
+	}
+
+	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
+		throw MockError.notMocked
 	}
 }

@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "e5d7a3b3e9dec236c893214bb75df1eb95f8b49f",
-          "version": "0.13.3"
+          "revision": "15fcc6dc713481aae0cc25968da261b32d7a87dd",
+          "version": "0.13.4"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
         "state": {
           "branch": null,
-          "revision": "9560ecda2271a7fc3a653c388a3387f81d7862ab",
-          "version": "5.0.3-fork"
+          "revision": "f74da6cf58dfe078e1ddafa0673b69fa9d32de1a",
+          "version": "6.2.0-fork"
         }
       },
       {

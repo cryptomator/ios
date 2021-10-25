@@ -53,18 +53,7 @@ class VaultManagerTests: XCTestCase {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
 		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
-		try dbPool.write { db in
-			try db.create(table: CloudProviderAccount.databaseTableName) { table in
-				table.column(CloudProviderAccount.accountUIDKey, .text).primaryKey()
-				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
-			}
-			try db.create(table: VaultAccount.databaseTableName) { table in
-				table.column(VaultAccount.vaultUIDKey, .text).primaryKey()
-				table.column(VaultAccount.delegateAccountUIDKey, .text).notNull()
-				table.column(VaultAccount.vaultPathKey, .text).notNull()
-				table.column(VaultAccount.vaultNameKey, .text).notNull()
-			}
-		}
+		try CryptomatorDatabase.migrator.migrate(dbPool)
 
 		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		providerManager = CloudProviderManagerMock(accountManager: providerAccountManager)
@@ -358,6 +347,81 @@ class VaultManagerTests: XCTestCase {
 			}
 		}
 		XCTAssertNil(VaultDBManager.cachedDecorators[vaultUID])
+	}
+
+	// MARK: - Duplicate Vault prevention
+
+	func testDuplicateCreateNewVault() throws {
+		let createNewVaultExpectation = XCTestExpectation()
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		try providerAccountManager.saveNewAccount(account)
+		let vaultUID = UUID().uuidString
+		let vaultPath = CloudPath("/Vault/")
+		manager.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			createNewVaultExpectation.fulfill()
+		}
+		wait(for: [createNewVaultExpectation], timeout: 1.0)
+
+		let createNewVaultDuplicateExpectation = XCTestExpectation()
+		manager.createNewVault(withVaultUID: UUID().uuidString, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).then {
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case VaultAccountManagerError.vaultAccountAlreadyExists = error else {
+				XCTFail("Promise rejected but with the wrong error: \(error)")
+				return
+			}
+		}.always {
+			createNewVaultDuplicateExpectation.fulfill()
+		}
+		wait(for: [createNewVaultDuplicateExpectation], timeout: 1.0)
+	}
+
+	func testDuplicateCreateFromExisting() throws {
+		let createExistingVaultExpectation = XCTestExpectation()
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		try providerAccountManager.saveNewAccount(account)
+		let cloudProviderMock = providerManager.provider
+		let vaultPath = CloudPath("/ExistingVault/")
+		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
+		guard let managerMock = manager as? VaultManagerMock else {
+			XCTFail("Could not convert manager to VaultManagerMock")
+			return
+		}
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 999, password: "pw")
+
+		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
+		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
+		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token.data(using: .utf8)
+
+		let vaultUID = UUID().uuidString
+		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
+		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			createExistingVaultExpectation.fulfill()
+		}
+		wait(for: [createExistingVaultExpectation], timeout: 1.0)
+
+		let createExistingVaultDuplicateExpectation = XCTestExpectation()
+
+		manager.createFromExisting(withVaultUID: UUID().uuidString, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).then {
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case VaultAccountManagerError.vaultAccountAlreadyExists = error else {
+				XCTFail("Promise rejected but with the wrong error: \(error)")
+				return
+			}
+		}.always {
+			createExistingVaultDuplicateExpectation.fulfill()
+		}
+		wait(for: [createExistingVaultDuplicateExpectation], timeout: 1.0)
 	}
 }
 

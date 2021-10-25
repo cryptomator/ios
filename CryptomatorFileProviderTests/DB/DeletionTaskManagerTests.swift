@@ -7,26 +7,19 @@
 //
 
 import CryptomatorCloudAccessCore
+import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
 
 class DeletionTaskManagerTests: XCTestCase {
 	var manager: DeletionTaskDBManager!
 	var itemMetadataManager: ItemMetadataDBManager!
-	var tmpDirURL: URL!
-	override func setUpWithError() throws {
-		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		let dbQueue = try DatabaseHelper.getMigratedDB(at: dbURL)
-		manager = try DeletionTaskDBManager(with: dbQueue)
-		itemMetadataManager = ItemMetadataDBManager(with: dbQueue)
-	}
 
-	override func tearDownWithError() throws {
-		manager = nil
-		itemMetadataManager = nil
-		try FileManager.default.removeItem(at: tmpDirURL)
+	override func setUpWithError() throws {
+		let inMemoryDB = DatabaseQueue()
+		try DatabaseHelper.migrate(inMemoryDB)
+		manager = try DeletionTaskDBManager(database: inMemoryDB)
+		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
 	func testCreateAndGetTaskRecord() throws {

@@ -23,6 +23,7 @@ protocol WebDAVAuthenticationViewModelProtocol {
 
 class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 	private var client: WebDAVClient?
+
 	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential> {
 		// TODO: Add Input Validation
 		guard let url = url, let username = username, let password = password, let baseURL = URL(string: url) else {
@@ -38,8 +39,19 @@ class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 			return WebDAVAuthenticator.verifyClient(client: client)
 		}.then { _ -> WebDAVCredential in
 			self.client = nil
-			try WebDAVAuthenticator.saveCredentialToKeychain(credential, with: credential.identifier)
+			try WebDAVAuthenticator.saveCredentialToKeychain(credential)
 			return credential
+		}.recover { error -> WebDAVCredential in
+			guard case let WebDAVAuthenticatorKeychainError.credentialDuplicate(identifier) = error else {
+				throw error
+			}
+			let updatedCredential = WebDAVCredential(baseURL: credential.baseURL,
+			                                         username: credential.username,
+			                                         password: credential.password,
+			                                         allowedCertificate: credential.allowedCertificate,
+			                                         identifier: identifier)
+			try WebDAVAuthenticator.saveCredentialToKeychain(updatedCredential)
+			return updatedCredential
 		}
 	}
 

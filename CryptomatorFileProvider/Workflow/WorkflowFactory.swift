@@ -13,7 +13,10 @@ enum WorkflowFactory {
 	static func createWorkflow(for deletionTask: DeletionTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager) -> Workflow<Void> {
 		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<Void>()
 		let taskExecutor = DeletionTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager)
-		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		let errorMapper = ErrorMapper<Void>()
+
+		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: deletionTask, constraint: .unconstrained)
 	}
 
@@ -21,16 +24,21 @@ enum WorkflowFactory {
 		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<FileProviderItem>()
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
 		let taskExecutor = UploadTaskExecutor(provider: provider, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, uploadTaskManager: uploadTaskManager)
+		let errorMapper = ErrorMapper<FileProviderItem>()
 
+		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
-		pathLockMiddleware.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: uploadTask, constraint: .uploadConstrained)
 	}
 
 	static func createWorkflow(for downloadTask: DownloadTask, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) -> Workflow<FileProviderItem> {
 		let pathLockMiddleware = ReadingItemPathLockHandler<FileProviderItem>()
 		let taskExecutor = DownloadTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		let errorMapper = ErrorMapper<FileProviderItem>()
+
+		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: downloadTask, constraint: .downloadConstrained)
 	}
 
@@ -38,9 +46,11 @@ enum WorkflowFactory {
 		let pathLockMiddleware = MovingItemPathLockHandler()
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
 		let taskExecutor = ReparentTaskExecutor(provider: provider, reparentTaskManager: reparentTaskManager, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let errorMapper = ErrorMapper<FileProviderItem>()
 
+		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
-		pathLockMiddleware.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: reparenTask, constraint: .unconstrained)
 	}
 
@@ -49,7 +59,10 @@ enum WorkflowFactory {
 		let pathLockMiddleware = ReadingItemPathLockHandler<FileProviderItemList>()
 		let deleteItemHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		let taskExecutor = ItemEnumerationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, deleteItemHelper: deleteItemHelper)
-		pathLockMiddleware.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		let errorMapper = ErrorMapper<FileProviderItemList>()
+
+		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: itemEnumerationTask, constraint: .unconstrained)
 	}
 
@@ -57,9 +70,11 @@ enum WorkflowFactory {
 		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<FileProviderItem>()
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
 		let taskExecutor = FolderCreationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager)
+		let errorMapper = ErrorMapper<FileProviderItem>()
 
+		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
-		pathLockMiddleware.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
+		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 		return Workflow(middleware: pathLockMiddleware.eraseToAnyWorkflowMiddleware(), task: folderCreationTask, constraint: .unconstrained)
 	}
 }

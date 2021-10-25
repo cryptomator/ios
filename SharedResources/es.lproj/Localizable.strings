@@ -87,6 +87,12 @@
 "settings.title" = "Configuración";
 "settings.aboutCryptomator" = "Acerca de Cryptomator";
 "settings.aboutCryptomator.title" = "Versión %@ (%@)";
+"settings.cacheSize" = "Tamaño de caché";
+"settings.clearCache" = "Vaciar la caché";
+"settings.cloudServices" = "Servicios en la nube";
+"settings.contact" = "Contacto";
+"settings.debugMode" = "Modo de depuración";
+"settings.rateApp" = "Calificar app";
 "settings.sendLogFile" = "Enviar archivo de registro";
 
 "unlockVault.button.unlock" = "Desbloquear";
@@ -109,6 +115,8 @@
 "urlSession.error.httpError.412" = "Acceso al recurso de destino denegado.";
 "urlSession.error.httpError.default" = "La conexión de red ha fallado con el código de estado %ld.";
 "urlSession.error.unexpectedResponse" = "Hubo una respuesta de red inesperada.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Ya ha añadido esta bóveda.";
 
 "vaultDetail.button.lock" = "Bloquear ahora";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";

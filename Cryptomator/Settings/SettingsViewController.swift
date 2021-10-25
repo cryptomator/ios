@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
 import UIKit
@@ -14,6 +15,8 @@ class SettingsViewController: UITableViewController {
 	weak var coordinator: SettingsCoordinator?
 
 	private let viewModel: SettingsViewModel
+	private var dataSource: UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>?
+	private var observer: NSObjectProtocol?
 
 	init(viewModel: SettingsViewModel) {
 		self.viewModel = viewModel
@@ -35,7 +38,19 @@ class SettingsViewController: UITableViewController {
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
+		tableView.register(LoadingWithLabelCell.self, forCellReuseIdentifier: "LoadingWithLabelCell")
 		tableView.rowHeight = 44
+		setUpDataSource()
+		applySnapshot(sections: viewModel.sections, cells: viewModel.cells)
+		refreshCacheSize()
+		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+			self?.refreshCacheSize()
+		}
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
 	}
 
 	@objc func done() {
@@ -50,6 +65,30 @@ class SettingsViewController: UITableViewController {
 		try? coordinator?.sendLogFile(sourceView: sender)
 	}
 
+	func clearCache() {
+		viewModel.clearCache().catch { error in
+			DDLogError("Settings: clear cache failed with error: \(error)")
+		}
+	}
+
+	func refreshCacheSize() {
+		viewModel.refreshCacheSize().catch { error in
+			DDLogError("Settings: refresh cache size failed with error: \(error)")
+		}
+	}
+
+	func showCloudServices() {
+		coordinator?.showCloudServices()
+	}
+
+	func showContact() {
+		coordinator?.openContact()
+	}
+
+	func showRateApp() {
+		coordinator?.openRateApp()
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -62,26 +101,35 @@ class SettingsViewController: UITableViewController {
 				return
 			}
 			sendLogFile(sender: cell)
+		case .clearCache:
+			clearCache()
+		case .showCloudServices:
+			showCloudServices()
+		case .showContact:
+			showContact()
+		case .showRateApp:
+			showRateApp()
 		case .unknown:
 			break
 		}
 	}
 
-	// MARK: - UITableViewDataSource
+	// MARK: - UITableViewDiffableDataSource
 
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		return viewModel.numberOfSections
+	func setUpDataSource() {
+		dataSource = UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>(tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
+			let cell = cellViewModel.type.init()
+			cell.configure(with: cellViewModel)
+			return cell
+		}
 	}
 
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.numberOfRows(in: section)
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
-		cell.textLabel?.textColor = UIColor(named: "primary")
-		cell.textLabel?.text = viewModel.title(for: indexPath)
-		cell.accessoryType = viewModel.accessoryType(for: indexPath)
-		return cell
+	func applySnapshot(sections: [SettingsSection], cells: [SettingsSection: [TableViewCellViewModel]]) {
+		var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, TableViewCellViewModel>()
+		snapshot.appendSections(sections)
+		for (section, items) in cells {
+			snapshot.appendItems(items, toSection: section)
+		}
+		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 }

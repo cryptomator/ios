@@ -11,8 +11,12 @@ import UIKit
 class BaseNavigationController: UINavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		let appearance = UINavigationBarAppearance()
+		appearance.configureWithOpaqueBackground()
+		appearance.backgroundColor = UIColor(named: "primary")
+		appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+		navigationBar.standardAppearance = appearance
+		navigationBar.scrollEdgeAppearance = appearance
 		navigationBar.tintColor = .white
-		navigationBar.barTintColor = UIColor(named: "primary")
-		navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
 	}
 }

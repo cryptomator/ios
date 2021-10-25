@@ -1,13 +1,132 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Erro";
 "common.button.cancel" = "Cancelar";
 "common.button.choose" = "Escolher";
+"common.button.confirm" = "Confirmar";
+"common.button.create" = "Criar";
+"common.button.createFolder" = "Criar Pasta";
 "common.button.done" = "Ok";
+"common.button.edit" = "Editar";
+"common.button.enable" = "Ativar";
 "common.button.next" = "Seguinte";
+"common.button.ok" = "OK";
+"common.button.remove" = "Remover";
+"common.button.signOut" = "Terminar Sessão";
+"common.button.verify" = "Verificar";
+"common.cells.openInFilesApp" = "Abrir na app Ficheiros";
 "common.cells.password" = "Senha";
+"common.cells.url" = "URL";
+"common.cells.username" = "Nome de utilizador";
+"common.footer.learnMore" = "Saiba mais.";
+
+"accountList.header.title" = "Autenticações";
+"accountList.emptyList.message" = "Toque aqui para adicionar uma conta";
+"accountList.signOut.alert.title" = "Remover Cofres Associados?";
+"accountList.signOut.alert.message" = "Ao terminar sessão, todas os cofres associados serão removidos da sua lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode iniciar sessão novamente e voltar a adicionar os cofres mais tarde.";
 
 "addVault.title" = "Adicionar Cofre";
 "addVault.createNewVault.title" = "Criar Novo Cofre";
+"addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "O nome do cofre não deve conter \\ / : * ? \" < > | ou terminar com um período.";
 "addVault.createNewVault.chooseCloud.header" = "Onde deve o Cryptomator armazenar os arquivos criptografados do cofre?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" já existe nesta localização. Escolha um nome ou localização diferente para o cofre.";
+"addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detetou um cofre existente nesta localização.\nPara criar um cofre novo, por favor volte atrás e escolha uma pasta diferente.";
+"addVault.createNewVault.password.enterPassword.header" = "Insira uma palavra-passe nova.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirma a nova palavra-passe.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmar Palavra-passe?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se você se esquecer da sua senha, não há como recuperar os seus dados.";
+"addVault.createNewVault.password.error.emptyPassword" = "Palavra-passe não pode estar vazia.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Palavras-passe não coincidem.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Palavra-passe tem que conter pelo menos 8 caracteres.";
 "addVault.openExistingVault.title" = "Abrir Cofre Existente";
+"addVault.openExistingVault.chooseCloud.header" = "Onde está o cofre localizado?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detetou o cofre \"%@\".\nGostaria de adicionar este cofre?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.password.footer" = "Insira a palavra-passe para \"%@\".";
+"addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAccesse este cofre através da aplicação Ficherios.";
+"addVault.success.footer" = "Se já não o fez, ative o Cryptomator na aplicação Ficheiros.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "A pasta está vazia";
+"chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
+"chooseFolder.createNewFolder.cells.name" = "Nome da Pasta";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Nome da pasta não pode estar vazio.";
+
+"cloudProvider.error.itemNotFound" = "Não foi possível encontrar \"%@\".";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" já existe.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" tem um tipo de item inesperado.";
+"cloudProvider.error.parentFolderDoesNotExist" = "A pasta parente \"%@\" não existe.";
+"cloudProvider.error.pageTokenInvalid" = "Não foi possível continuar a procurar o conteúdo do diretório.";
+"cloudProvider.error.quotaInsufficient" = "O seu armazenamento não tem espaço suficiente.";
+"cloudProvider.error.unauthorized" = "Não foi possível executar a operação não autorizada.";
+"cloudProvider.error.noInternetConnection" = "Conexão à Internet é necessário para esta operação.";
+
+"cloudProviderType.localFileSystem" = "Outro Provedor de Ficheiros";
+
+"localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
+"localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
+"localFileSystemAuthentication.openExistingVault.header" = "No próximo ecrã, escolha a pasta do seu cofre existente.";
+"localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
+
+"onboarding.title" = "Bem-vindo(a)";
+"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
+"onboarding.openCryptomator.button" = "Abrir Cryptomator";
+
+"settings.title" = "Definições";
+"settings.aboutCryptomator" = "Sobre o Cryptomator";
+"settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.sendLogFile" = "Enviar ficheiro de registo";
 
 "unlockVault.button.unlock" = "Destrancar";
+"unlockVault.button.unlockVia" = "Desbloquear via %@";
+"unlockVault.password.footer" = "Insira a palavra-passe para \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Ativar %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com a sua palavra-passe, você pode desbloqueá-lo via %@.";
+"unlockVault.evaluatePolicy.reason" = "Desbloqueie o seu cofre";
+
+"untrustedTLSCertificate.title" = "Certificado TLS Inválido";
+"untrustedTLSCertificate.message" = "O Certificado TLS de \"%@\" é inválido. Quer confiar nele mesmo assim?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Confiar";
+"untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"urlSession.error.httpError.401" = "Nome de utilizador e/ou palavra-passe errada.";
+"urlSession.error.httpError.403" = "Direitos insuficientes para os recursos solicitados.";
+"urlSession.error.httpError.404" = "Não foi possível encontrar o recurso solicitado.";
+"urlSession.error.httpError.405" = "Método de requisição não suportado pelo recurso de destino.";
+"urlSession.error.httpError.409" = "Solicitar conflito com o estado atual do recurso de destino.";
+"urlSession.error.httpError.412" = "Acesso ao recurso alvo negado.";
+"urlSession.error.httpError.default" = "Falha na conexão de rede com o código de estado %ld.";
+"urlSession.error.unexpectedResponse" = "Ocorreu um erro de rede inesperado.";
+
+"vaultDetail.button.lock" = "Bloquear Agora";
+"vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a palavra-passe do seu cofre será armazenada no Porta-chaves do iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
+"vaultDetail.info.footer.accessVault" = "Aceda o cofre através da aplicação Ficheiros.";
+"vaultDetail.info.footer.accountInfo" = "Sessão iniciada como %@ via %@.";
+"vaultDetail.locked.footer" = "O seu cofre está de momento bloqueado.";
+"vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
+"vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
+"vaultDetail.unlockVault.footer" = "Insira a palavra-passe de \"%@\" para a armazenar no Porta-chaves do iOS e para ativar %@.";
+
+"vaultList.header.title" = "Cofres";
+"vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
+"vaultList.remove.alert.title" = "Remover Cofre?";
+"vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente de Cryptomator.";
+
+"webDAVAuthentication.title" = "WebDAV";

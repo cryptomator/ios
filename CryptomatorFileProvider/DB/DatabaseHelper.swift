@@ -17,26 +17,8 @@ class DatabaseHelper {
 		return dbPool
 	}
 
-	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
-		let coordinator = NSFileCoordinator(filePresenter: nil)
-		var coordinatorError: NSError?
-		var dbPool: DatabasePool?
-		var dbError: Error?
-		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
-			do {
-				dbPool = try DatabasePool(path: databaseURL.path)
-			} catch {
-				dbError = error
-			}
-		})
-		if let error = dbError ?? coordinatorError {
-			throw error
-		}
-		return dbPool!
-	}
-
 	// swiftlint:disable:next function_body_length
-	private static func migrate(_ dbPool: DatabasePool) throws {
+	static func migrate(_ dbWriter: DatabaseWriter) throws {
 		var migrator = DatabaseMigrator()
 		#if DEBUG
 		// Speed up development by nuking the database when migrations change
@@ -89,6 +71,24 @@ class DatabaseHelper {
 				table.column("itemType", .text).notNull()
 			}
 		}
-		try migrator.migrate(dbPool)
+		try migrator.migrate(dbWriter)
+	}
+
+	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
+		let coordinator = NSFileCoordinator(filePresenter: nil)
+		var coordinatorError: NSError?
+		var dbPool: DatabasePool?
+		var dbError: Error?
+		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
+			do {
+				dbPool = try DatabasePool(path: databaseURL.path)
+			} catch {
+				dbError = error
+			}
+		})
+		if let error = dbError ?? coordinatorError {
+			throw error
+		}
+		return dbPool!
 	}
 }

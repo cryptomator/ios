@@ -47,8 +47,49 @@ class SettingsCoordinator: Coordinator {
 		navigationController.present(activityController, animated: true)
 	}
 
-	func close() {
+	func showCloudServices() {
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV], headerTitle: "")
+		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
+		chooseCloudVC.title = LocalizedString.getValue("settings.cloudServices")
+		chooseCloudVC.coordinator = self
+		chooseCloudVC.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(close))
+		navigationController.pushViewController(chooseCloudVC, animated: true)
+	}
+
+	func openContact() {
+		if let contactURL = URL(string: "https://cryptomator.org/contact/") {
+			UIApplication.shared.open(contactURL)
+		}
+	}
+
+	func openRateApp() {
+		if let rateAppURL = URL(string: "https://apps.apple.com/app/cryptomator/id953086535?action=write-review") {
+			UIApplication.shared.open(rateAppURL)
+		}
+	}
+
+	@objc func close() {
 		navigationController.dismiss(animated: true)
 		parentCoordinator?.childDidFinish(self)
 	}
+}
+
+extension SettingsCoordinator: CloudChoosing {
+	func showAccountList(for cloudProviderType: CloudProviderType) {
+		let viewModel = AccountListViewModel(with: cloudProviderType)
+		let accountListVC = AccountListViewController(with: viewModel)
+		accountListVC.coordinator = self
+		navigationController.pushViewController(accountListVC, animated: true)
+	}
+}
+
+extension SettingsCoordinator: AccountListing {
+	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
+		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
+		_ = authenticator.authenticate(cloudProviderType, from: viewController)
+	}
+
+	func selectedAccont(_ account: AccountInfo) throws {}
+
+	func showEdit(for account: AccountInfo) {}
 }

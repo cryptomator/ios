@@ -18,17 +18,17 @@ protocol DeletionTaskManager {
 }
 
 class DeletionTaskDBManager: DeletionTaskManager {
-	let dbPool: DatabasePool
+	private let database: DatabaseWriter
 
-	init(with dbPool: DatabasePool) throws {
-		self.dbPool = dbPool
-		_ = try dbPool.write { db in
+	init(database: DatabaseWriter) throws {
+		self.database = database
+		_ = try database.write { db in
 			try DeletionTaskRecord.deleteAll(db)
 		}
 	}
 
 	func createTaskRecord(for item: ItemMetadata) throws -> DeletionTaskRecord {
-		try dbPool.write { db in
+		try database.write { db in
 			let task = DeletionTaskRecord(correspondingItem: item.id!, cloudPath: item.cloudPath, parentID: item.parentID, itemType: item.type)
 			try task.save(db)
 			return task
@@ -36,7 +36,7 @@ class DeletionTaskDBManager: DeletionTaskManager {
 	}
 
 	func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord {
-		try dbPool.read { db in
+		try database.read { db in
 			guard let task = try DeletionTaskRecord.fetchOne(db, key: id) else {
 				throw DBManagerError.taskNotFound
 			}
@@ -45,13 +45,13 @@ class DeletionTaskDBManager: DeletionTaskManager {
 	}
 
 	func removeTaskRecord(_ task: DeletionTaskRecord) throws {
-		_ = try dbPool.write { db in
+		_ = try database.write { db in
 			try task.delete(db)
 		}
 	}
 
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [DeletionTaskRecord] {
-		let tasks: [DeletionTaskRecord] = try dbPool.read { db in
+		let tasks: [DeletionTaskRecord] = try database.read { db in
 			return try DeletionTaskRecord
 				.filter(DeletionTaskRecord.Columns.parentID == parentID)
 				.fetchAll(db)
@@ -60,7 +60,7 @@ class DeletionTaskDBManager: DeletionTaskManager {
 	}
 
 	func getTask(for taskRecord: DeletionTaskRecord) throws -> DeletionTask {
-		try dbPool.read { db in
+		try database.read { db in
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
