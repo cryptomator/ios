@@ -6,6 +6,8 @@ We're looking forward to your feedback!
 
 ---
 
-## Changes Since 2.0.0 Beta 5
-- Added Romanian translation
-- Fixed missing files/folders with long names (#84)
+## Changes Since 2.0.0 Beta 6
+- Added Hindi and Portuguese translations
+- Improved settings screen (manage cloud services, clear cache, debug mode) (#9)
+- Improved error handling (#55 needs to be re-tested)
+- Vault and authentication duplicates are now prevented (#41)
