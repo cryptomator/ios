@@ -87,6 +87,12 @@
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
 "settings.aboutCryptomator.title" = "Wersja %@ (%@)";
+"settings.cacheSize" = "Rozmiar Cache";
+"settings.clearCache" = "Wyczyść Cache";
+"settings.cloudServices" = "Usługi w chmurze";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Tryb debugowania";
+"settings.rateApp" = "Oceń aplikację";
 "settings.sendLogFile" = "Wyślij plik logów";
 
 "unlockVault.button.unlock" = "Odblokuj";
@@ -100,6 +106,14 @@
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
+
+"urlSession.error.httpError.401" = "Błędna nazwa użytkownika i/lub hasło.";
+"urlSession.error.httpError.403" = "Niewystarczające uprawnienia do żądanego zasobu.";
+"urlSession.error.httpError.404" = "Żądany zasób nie został znaleziony.";
+"urlSession.error.httpError.405" = "Żądana metoda nie jest obsługiwana przez docelowy zasób.";
+"urlSession.error.httpError.409" = "Żądanie nie może być zrealizowane, konflikt z obecnym statusem zasobu.";
+"urlSession.error.httpError.412" = "Odmowa dostępu do docelowego zasobu.";
+"urlSession.error.httpError.default" = "Połączenie sieciowe nie powiodło się z kodem stanu %ld.";
 "urlSession.error.unexpectedResponse" = "Nieoczekiwana odpowiedź z sieci.";
 
 "vaultDetail.button.lock" = "Zablokuj";

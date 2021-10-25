@@ -19,7 +19,7 @@
 "common.button.remove" = "Entfernen";
 "common.button.signOut" = "Ausloggen";
 "common.button.verify" = "Verifizieren";
-"common.cells.openInFilesApp" = "In Dateien-App öffnen";
+"common.cells.openInFilesApp" = "In der App „Dateien“ öffnen";
 "common.cells.password" = "Passwort";
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
@@ -27,14 +27,14 @@
 
 "accountList.header.title" = "Authentifizierungen";
 "accountList.emptyList.message" = "Tipp hier, um einen Account hinzuzufügen";
-"accountList.signOut.alert.title" = "Verknüpfte Tresore entfernen?";
-"accountList.signOut.alert.message" = "Durch das Abmelden werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Sie können sich erneut anmelden und die Tresore später erneut hinzufügen.";
+"accountList.signOut.alert.title" = "Zugehörige Tresore entfernen?";
+"accountList.signOut.alert.message" = "Durch das Ausloggen werden alle zugehörigen Tresore aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst dich erneut anmelden und die Tresore später wieder hinzufügen.";
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
-"addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für deinen Tresor.";
+"addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname muss ausgefüllt werden.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname darf nicht leer sein.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Tresorname sollte kein \\ / : * ? \" < > | beinhalten oder auf einem Punkt enden.";
 "addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors ablegen?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "„%@“ existiert bereits an dieser Stelle. Wähle einen anderen Tresornamen oder einen anderen Ort.";
@@ -43,7 +43,7 @@
 "addVault.createNewVault.password.confirmPassword.header" = "Bestätige das neue Passwort.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Passwort bestätigen?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "WICHTIG: Falls du dein Passwort vergisst, können deine Daten nicht wiederhergestellt werden.";
-"addVault.createNewVault.password.error.emptyPassword" = "Passwort muss ausgefüllt werden.";
+"addVault.createNewVault.password.error.emptyPassword" = "Passwort darf nicht leer sein.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwörter stimmen nicht überein.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Passwort muss mindestens 8 Zeichen enthalten.";
 "addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
@@ -60,24 +60,24 @@
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "chooseFolder.createNewFolder.cells.name" = "Ordnername";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Ordnername muss ausgefüllt sein.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Ordnername darf nicht leer sein.";
 
 "cloudProvider.error.itemNotFound" = "„%@“ konnte nicht gefunden werden.";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ existiert bereits.";
-"cloudProvider.error.itemTypeMismatch" = "„%@“ hat einen unerwarteten Dateityp.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" hat einen unerwarteten Elementtyp.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Übergeordneter Ordner „%@“ existiert nicht.";
 "cloudProvider.error.pageTokenInvalid" = "Abrufen von Verzeichnisinhalten konnte nicht fortgesetzt werden.";
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
-"cloudProvider.error.unauthorized" = "Unautorisierte Operation konnte nicht ausgeführt werden.";
+"cloudProvider.error.unauthorized" = "Unautorisierte Operation kann nicht ausgeführt werden.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
 
-"cloudProviderType.localFileSystem" = "Anderer Datei-Anbieter";
+"cloudProviderType.localFileSystem" = "Anderer Speicher-Anbieter";
 
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An dieser Stelle existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
 "localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
-"localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
+"localFileSystemAuthentication.openExistingVault.button" = "Tresor-Ordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es mit einem anderen Ordner.";
 
 "onboarding.title" = "Willkommen";
@@ -87,6 +87,12 @@
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cache-Größe";
+"settings.clearCache" = "Zwischenspeicher leeren";
+"settings.cloudServices" = "Cloud-Dienste";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Debug Modus";
+"settings.rateApp" = "App Bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
 
 "unlockVault.button.unlock" = "Entsperren";
@@ -96,8 +102,8 @@
 "unlockVault.enableBiometricalUnlock.footer" = "Anstatt deinen Tresor mit deinem Passwort zu entsperren, kannst du ihn über %@ entsperren.";
 "unlockVault.evaluatePolicy.reason" = "Entsperre deinen Tresor";
 
-"untrustedTLSCertificate.title" = "Ungültiges TLS Zertifikate";
-"untrustedTLSCertificate.message" = "Das TLS Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.title" = "Ungültiges TLS-Zertifikat";
+"untrustedTLSCertificate.message" = "Das TLS-Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
 
@@ -109,6 +115,8 @@
 "urlSession.error.httpError.412" = "Zugriff auf die Zielressource verweigert.";
 "urlSession.error.httpError.default" = "Netzwerkverbindung mit Statuscode %ld fehlgeschlagen.";
 "urlSession.error.unexpectedResponse" = "Ein unerwarteter Netzwerkfehler ist aufgetreten.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Dieser Vault wurde bereits hinzugefügt.";
 
 "vaultDetail.button.lock" = "Jetzt sperren";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";

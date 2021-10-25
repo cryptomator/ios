@@ -87,6 +87,12 @@
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
+"settings.cacheSize" = "Önbellek Boyutu";
+"settings.clearCache" = "Önbelleği temizle";
+"settings.cloudServices" = "Bulut Servisleri";
+"settings.contact" = "İletişim";
+"settings.debugMode" = "Hata ayıklama Modu";
+"settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
 "unlockVault.button.unlock" = "Kilidi Aç";
@@ -109,6 +115,8 @@
 "urlSession.error.httpError.412" = "Hedef kaynağa erişim reddedildi.";
 "urlSession.error.httpError.default" = "Ağ bağlantısı %ld durum kodu ile başarısız oldu.";
 "urlSession.error.unexpectedResponse" = "Beklenmeyen bir ağ yanıtı oluştu.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Bu kasayı zaten eklediniz.";
 
 "vaultDetail.button.lock" = "Şimdi Kilitle";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";

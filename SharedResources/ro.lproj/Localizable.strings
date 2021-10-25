@@ -87,6 +87,7 @@
 "settings.title" = "Setări";
 "settings.aboutCryptomator" = "Despre Cryptomator";
 "settings.aboutCryptomator.title" = "Versiunea %@ (%@)";
+"settings.clearCache" = "Golește memoria cache";
 "settings.sendLogFile" = "Trimiteți fişierul jurnal";
 
 "unlockVault.button.unlock" = "Deblocați";
