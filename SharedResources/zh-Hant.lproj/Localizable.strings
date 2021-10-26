@@ -8,14 +8,22 @@
 "common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
 "common.button.choose" = "選擇";
+"common.button.confirm" = "確認";
 "common.button.create" = "創建";
+"common.button.createFolder" = "建立資料夾";
 "common.button.done" = "完成";
 "common.button.edit" = "編輯";
+"common.button.enable" = "啟用";
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.remove" = "移除";
+"common.button.signOut" = "登出";
+"common.button.verify" = "驗證";
+"common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
 "common.cells.password" = "密碼";
 "common.cells.url" = "網址";
+"common.cells.username" = "帳號名稱";
+"common.footer.learnMore" = "了解更多。";
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
@@ -24,15 +32,29 @@
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.openExistingVault.title" = "開啟現有加密檔案庫";
+"addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"chooseFolder.createNewFolder.cells.name" = "資料夾名稱";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
 
+"onboarding.title" = "歡迎";
+"onboarding.openCryptomator.button" = "打開 Cryptomator";
+
 "settings.title" = "設定";
+"settings.aboutCryptomator" = "關於 Cryptomator";
+"settings.rateApp" = "為應用程式評分";
 
 "unlockVault.button.unlock" = "解鎖";
+"unlockVault.password.footer" = "輸入 「%@」 的密碼：";
+"unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
+
+"vaultDetail.button.lock" = "立即鎖定";
+
+"vaultList.header.title" = "加密檔案庫";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
