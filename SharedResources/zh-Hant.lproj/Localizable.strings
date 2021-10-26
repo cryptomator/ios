@@ -8,6 +8,7 @@
 "common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
 "common.button.choose" = "選擇";
+"common.button.create" = "創建";
 "common.button.done" = "完成";
 "common.button.edit" = "編輯";
 "common.button.next" = "繼續";
