@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Už máte pridaný tento trezor.";
 
 "vaultDetail.button.lock" = "Uzamknúť teraz";
+"vaultDetail.button.moveVault" = "Presunúť";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
+"vaultDetail.button.renameVault" = "Premenovať";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše trezorové heslo bude požadované iba ak %@ autentikácia zlyhá.";
 "vaultDetail.info.footer.accessVault" = "Pristúpiť k trezoru prostredníctvom súborovej aplikácie.";
