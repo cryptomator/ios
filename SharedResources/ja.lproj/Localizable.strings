@@ -115,7 +115,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "この金庫はすでに追加されています。";
 
 "vaultDetail.button.lock" = "今すぐ施錠";
+"vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
+"vaultDetail.button.renameVault" = "名前の変更";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
