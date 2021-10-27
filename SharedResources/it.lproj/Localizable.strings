@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Hai già aggiunto questa cassaforte.";
 
 "vaultDetail.button.lock" = "Blocca Ora";
+"vaultDetail.button.moveVault" = "Sposta";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
+"vaultDetail.button.renameVault" = "Rinomina";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
 "vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
