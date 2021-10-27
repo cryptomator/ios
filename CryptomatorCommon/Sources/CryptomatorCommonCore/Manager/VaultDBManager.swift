@@ -301,7 +301,7 @@ public class VaultDBManager: VaultManager {
 	// MARK: - Move Vault
 
 	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
-		guard !targetVaultPath.path.starts(with: account.vaultPath.path) else {
+		guard !targetVaultPath.contains(account.vaultPath) else {
 			return Promise(VaultManagerError.moveVaultInsideItself)
 		}
 		let provider: CloudProvider

@@ -98,6 +98,33 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
+	func testRenameVaultWithOldNameAsSubstring() throws {
+		let expectation = XCTestExpectation()
+		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let vaultLockingMock = VaultLockingMock()
+		fileProviderConnectorMock.proxy = vaultLockingMock
+
+		vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
+
+		let newVaultName = "Bar1"
+		viewModel.vaultName = newVaultName
+		viewModel.renameVault().then {
+			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
+			XCTAssertEqual(CloudPath("/Foo/Bar1"), self.vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
+
+			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
+
+			self.checkMaintenanceModeEnabledThenDisabled()
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
 	func testRenameVaultWithSameName() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")

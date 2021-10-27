@@ -44,7 +44,7 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 		guard vaultEligibleForMove() else {
 			return Promise(MoveVaultViewModelError.vaultNotEligibleForMove)
 		}
-		guard !targetCloudPath.path.starts(with: vaultInfo.vaultPath.path) else {
+		guard pathIsNotInsideCurrentVaultPath(targetCloudPath) else {
 			return Promise(MoveVaultViewModelError.moveVaultInsideItselfNotAllowed)
 		}
 		do {
@@ -96,5 +96,9 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 		} catch let error as DatabaseError where error.message == "Running Task" {
 			throw MoveVaultViewModelError.runningCloudTask
 		}
+	}
+
+	private func pathIsNotInsideCurrentVaultPath(_ path: CloudPath) -> Bool {
+		return !path.contains(vaultInfo.vaultPath)
 	}
 }
