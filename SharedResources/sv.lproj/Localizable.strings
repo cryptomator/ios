@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har redan lagt till detta valv.";
 
 "vaultDetail.button.lock" = "Lås nu";
+"vaultDetail.button.moveVault" = "Flytta";
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
+"vaultDetail.button.renameVault" = "Byt namn";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Om du aktiverar %@lagras ditt valvlösenord i iOS-nyckelkedjan.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";
 "vaultDetail.info.footer.accessVault" = "Få tillgång till valvet via appen Filer.";
