@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "Πρόσβαση στην κρύπτη μέσω της εφαρμογής Αρχείων.";
 "vaultDetail.info.footer.accountInfo" = "Συνδεθήκατε ως %@ μέσω %@.";
 "vaultDetail.locked.footer" = "Η κρύπτη σας είναι κλειδωμένη.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε μια υπάρχον κρύπτη σε αυτή τη θέση.\nΓια να μετακινήσετε τη κρύπτη σας, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
 "vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρύπτης και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
 "vaultDetail.unlocked.footer" = "Η κρύπτη σας είναι ξεκλειδωμένη αυτή τη στιγμή στην εφαρμογή Αρχείων.";
 "vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για το \"%@\" για να τον αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %@.";
