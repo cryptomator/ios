@@ -73,6 +73,8 @@
 
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
+"vaultDetail.button.moveVault" = "Mou";
+"vaultDetail.button.renameVault" = "Canvia el nom";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
 
 "webDAVAuthentication.title" = "WebDAV";
