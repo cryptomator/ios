@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Ya ha añadido esta bóveda.";
 
 "vaultDetail.button.lock" = "Bloquear ahora";
+"vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
+"vaultDetail.button.renameVault" = "Renombrar";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
