@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "Přistoupit k trezoru prostřednictvím aplikace Soubory.";
 "vaultDetail.info.footer.accountInfo" = "Přihlášen jako %@ přes %@.";
 "vaultDetail.locked.footer" = "Váš trezor je momentálně uzamčen.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zjistil na tomto místě existující trezor.\nChcete-li trezor přesunout, vraťte se zpět a vyberte jinou složku.";
 "vaultDetail.removeVault.footer" = "Tímto odstraníte pouze trezor ze seznamu trezorů a neodstraníte žádné šifrované soubory.";
 "vaultDetail.unlocked.footer" = "Váš trezor je v současné době odemčen v aplikaci Soubory.";
 "vaultDetail.unlockVault.footer" = "Zadejte heslo pro \"%@\" pro uložení do iOS klíčenky a pro povolení %@.";
