@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Bu kasayı zaten eklediniz.";
 
 "vaultDetail.button.lock" = "Şimdi Kilitle";
+"vaultDetail.button.moveVault" = "Taşı";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
+"vaultDetail.button.renameVault" = "Yeniden adlandır";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
