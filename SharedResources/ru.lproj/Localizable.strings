@@ -117,7 +117,9 @@
 "urlSession.error.unexpectedResponse" = "Неожиданный ответ сети.";
 
 "vaultDetail.button.lock" = "Заблокировать";
+"vaultDetail.button.moveVault" = "Переместить";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
+"vaultDetail.button.renameVault" = "Переименовать";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
 "vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
