@@ -15,16 +15,10 @@ class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 		title = LocalizedString.getValue("addVault.createNewVault.title")
 		let chooseFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.choose"), style: .done, target: self, action: #selector(chooseFolder))
 		navigationItem.rightBarButtonItem = chooseFolderButton
-
-		let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-		let createFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.createFolder"), style: .plain, target: self, action: #selector(createNewFolder))
-		createFolderButton.tintColor = UIColor(named: "primary")
-		toolbarItems?.append(flexibleSpaceItem)
-		toolbarItems?.append(createFolderButton)
 	}
 
 	override func showDetectedVault(_ vault: VaultDetailItem) {
-		let failureView = DetectedVaultFailureView()
+		let failureView = DetectedVaultFailureView(text: LocalizedString.getValue("addVault.createNewVault.detectedMasterkey.text"))
 		let containerView = UIView()
 		failureView.translatesAutoresizingMaskIntoConstraints = false
 		containerView.addSubview(failureView)

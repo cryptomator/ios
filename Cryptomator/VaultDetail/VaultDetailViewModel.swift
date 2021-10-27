@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import Combine
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import GRDB
 import LocalAuthentication
@@ -37,6 +38,7 @@ enum VaultDetailButtonAction {
 	case removeVault
 	case showUnlockScreen(vault: VaultInfo, biometryTypeName: String)
 	case showRenameVault
+	case showMoveVault
 }
 
 private enum VaultDetailSection {
@@ -71,10 +73,20 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private let fileProviderConnector: FileProviderConnector
 	private let context = LAContext()
 	private let passwordManager: VaultPasswordManager
+	private var vaultPath: CloudPath {
+		return vaultInfo.vaultPath
+	}
 
 	private var subscribers = Set<AnyCancellable>()
 
-	private let sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection, .moveVaultSection, .removeVaultSection]
+	private lazy var sections: [VaultDetailSection] = {
+		if vaultIsEligibleToMove() {
+			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .removeVaultSection]
+		} else {
+			return [.vaultInfoSection, .lockingSection, .removeVaultSection]
+		}
+	}()
+
 	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: false)
 	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
 		return [
@@ -83,7 +95,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: LocalizedString.getValue("common.cells.openInFilesApp"))
 			],
 			.lockingSection: lockSectionCells,
-			.moveVaultSection: [renameVaultCellViewModel],
+			.moveVaultSection: vaultIsEligibleToMove() ? [
+				renameVaultCellViewModel,
+				moveVaultCellViewModel
+			] : [],
 			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: LocalizedString.getValue("vaultDetail.button.removeVault"), titleTextColor: .systemRed)]
 		]
 	}
@@ -131,6 +146,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var vaultInfoCellViewModel = TableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
+	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
@@ -241,5 +257,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private func updateViewModels() {
 		vaultInfoCellViewModel.title.value = vaultName
 		renameVaultCellViewModel.detailTitle.value = vaultName
+		moveVaultCellViewModel.detailTitle.value = vaultPath.path
+	}
+
+	private func vaultIsEligibleToMove() -> Bool {
+		return vaultInfo.cloudProviderType != .localFileSystem && vaultInfo.vaultPath != CloudPath("/")
 	}
 }

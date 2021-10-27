@@ -100,6 +100,8 @@ class VaultDetailViewController: UITableViewController {
 			}
 		case .showRenameVault:
 			coordinator?.renameVault()
+		case .showMoveVault:
+			coordinator?.moveVault()
 		}
 	}
 

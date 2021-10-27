@@ -20,7 +20,7 @@ protocol RenameVaultViewModelProtcol: SetVaultNameViewModelProtocol {
 
 enum RenameVaultViewModelError: Error {
 	case runningCloudTask
-	case vaultNotElligibleForRename
+	case vaultNotEligibleForRename
 }
 
 class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
@@ -28,65 +28,35 @@ class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
 		LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
 	}
 
-	private let maintenanceManager: MaintenanceManager
-	private let vaultManager: VaultManager
+	// swiftlint:disable:next weak_delegate
+	private let delegate: MoveVaultViewModel
 	private let vaultInfo: VaultInfo
-	private let fileProviderConnector: FileProviderConnector
 
-	init(vaultInfo: VaultInfo, maintenanceManager: MaintenanceManager, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(provider: CloudProvider, vaultInfo: VaultInfo, maintenanceManager: MaintenanceManager, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+		self.delegate = MoveVaultViewModel(provider: provider, currentFolderChoosingCloudPath: CloudPath("/"), vaultInfo: vaultInfo, maintenanceManager: maintenanceManager, vaultManager: vaultManager, fileProviderConnector: fileProviderConnector)
 		self.vaultInfo = vaultInfo
-		self.maintenanceManager = maintenanceManager
-		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 	}
 
 	func renameVault() -> Promise<Void> {
-		guard vaultElligibleForRename() else {
-			return Promise(RenameVaultViewModelError.vaultNotElligibleForRename)
-		}
 		let newVaultName: String
 		do {
 			newVaultName = try getValidatedVaultName()
-			try enableMaintenanceMode()
 		} catch {
 			return Promise(error)
 		}
-
-		return lockVault().then { () -> Promise<Void> in
-			let newVaultPath = self.vaultInfo.vaultPath.deletingLastPathComponent().appendingPathComponent(newVaultName)
-			return self.vaultManager.moveVault(account: self.vaultInfo.vaultAccount, to: newVaultPath)
-		}.always {
-			do {
-				try self.maintenanceManager.disableMaintenanceMode()
-			} catch {
-				DDLogError("RenameVaultViewModel: Disabling Maintenance Mode failed with error: \(error)")
+		let newVaultPath = vaultInfo.vaultPath.deletingLastPathComponent().appendingPathComponent(newVaultName)
+		return delegate.moveVault(to: newVaultPath).recover { error -> Void in
+			guard let moveVaultViewModelError = error as? MoveVaultViewModelError else {
+				throw error
 			}
-		}
-	}
-
-	private func lockVault() -> Promise<Void> {
-		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy -> Void in
-			proxy.lockVault(domainIdentifier: domainIdentifier)
-		}
-	}
-
-	private func vaultElligibleForRename() -> Bool {
-		if vaultInfo.vaultPath == CloudPath("/") {
-			return false
-		}
-		if vaultInfo.cloudProviderType == .localFileSystem {
-			return false
-		}
-		return true
-	}
-
-	private func enableMaintenanceMode() throws {
-		do {
-			try maintenanceManager.enableMaintenanceMode()
-		} catch let error as DatabaseError where error.message == "Running Task" {
-			throw RenameVaultViewModelError.runningCloudTask
+			switch moveVaultViewModelError {
+			case .runningCloudTask:
+				throw RenameVaultViewModelError.runningCloudTask
+			case .vaultNotEligibleForMove:
+				throw RenameVaultViewModelError.vaultNotEligibleForRename
+			case .moveVaultInsideItselfNotAllowed:
+				return
+			}
 		}
 	}
 }

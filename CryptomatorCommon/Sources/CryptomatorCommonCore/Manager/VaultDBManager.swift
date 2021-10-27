@@ -18,6 +18,7 @@ public enum VaultManagerError: Error {
 	case vaultAlreadyExists
 	case vaultVersionNotSupported
 	case fileProviderDomainNotFound
+	case moveVaultInsideItself
 }
 
 public protocol VaultManager {
@@ -300,6 +301,9 @@ public class VaultDBManager: VaultManager {
 	// MARK: - Move Vault
 
 	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		guard !targetVaultPath.path.starts(with: account.vaultPath.path) else {
+			return Promise(VaultManagerError.moveVaultInsideItself)
+		}
 		let provider: CloudProvider
 		do {
 			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: account.delegateAccountUID))

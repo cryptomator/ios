@@ -511,6 +511,54 @@ class VaultManagerTests: XCTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
+
+	func testMoveVaultInsideItself() throws {
+		let expectation = XCTestExpectation()
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		let cloudProviderMock = providerManager.provider
+		let vaultUID = UUID().uuidString
+		let vaultPath = CloudPath("/Vault/")
+		try providerAccountManager.saveNewAccount(account)
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
+		try accountManager.saveNewAccount(vaultAccount)
+		let newVaultPath = CloudPath("/Vault/Foo")
+
+		manager.moveVault(account: vaultAccount, to: newVaultPath).then {
+			XCTFail("Promise fulfilled")
+		}.catch { error in
+			guard case VaultManagerError.moveVaultInsideItself = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
+				return
+			}
+			XCTAssert(cloudProviderMock.movedFolder.isEmpty)
+			let fetchedVaultAccount: VaultAccount
+			do {
+				fetchedVaultAccount = try self.accountManager.getAccount(with: vaultUID)
+			} catch {
+				XCTFail("get vault account failed with error: \(error)")
+				return
+			}
+
+			guard let managerMock = self.manager as? VaultManagerMock else {
+				XCTFail("Could not convert manager to VaultManagerMock")
+				return
+			}
+
+			XCTAssert(managerMock.addedFileProviderDomainDisplayName.isEmpty)
+
+			// Check VaultAccount did not change
+			XCTAssertEqual(vaultUID, fetchedVaultAccount.vaultUID)
+			XCTAssertEqual(delegateAccountUID, fetchedVaultAccount.delegateAccountUID)
+			XCTAssertEqual(vaultPath, fetchedVaultAccount.vaultPath)
+			XCTAssertEqual("Vault", fetchedVaultAccount.vaultName)
+		}.always {
+			expectation.fulfill()
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
 }
 
 struct VaultDetails: VaultItem {

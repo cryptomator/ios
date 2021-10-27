@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import GRDB
@@ -43,20 +44,50 @@ class VaultDetailCoordinator: Coordinator {
 	}
 
 	func renameVault() {
-		let database: DatabaseWriter
+		let configuration: VaultMoveConfiguration
 		do {
-			let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
-			let fileproviderDatabaseURL = DatabaseHelper.getDatabaseURL(for: domain)
-			database = try DatabaseHelper.getMigratedDB(at: fileproviderDatabaseURL)
+			configuration = try createVaultMoveConfiguration()
 		} catch {
-			DDLogError("Get migrated fileprovider DB failed with error: \(error)")
+			handleError(error, for: navigationController.topViewController ?? navigationController)
 			return
 		}
-		let viewModel = RenameVaultViewModel(vaultInfo: vaultInfo, maintenanceManager: MaintenanceDBManager(database: database))
+		let viewModel = RenameVaultViewModel(provider: configuration.provider, vaultInfo: vaultInfo, maintenanceManager: configuration.maintenanceManager)
 		let renameVaultViewController = RenameVaultViewController(viewModel: viewModel)
 		renameVaultViewController.title = vaultInfo.vaultName
 		renameVaultViewController.coordinator = self
 		navigationController.pushViewController(renameVaultViewController, animated: true)
+	}
+
+	func moveVault() {
+		let configuration: VaultMoveConfiguration
+		do {
+			configuration = try createVaultMoveConfiguration()
+		} catch {
+			handleError(error, for: navigationController.topViewController ?? navigationController)
+			return
+		}
+		let child = MoveVaultCoordinator(vaultInfo: vaultInfo, provider: configuration.provider, maintenanceManager: configuration.maintenanceManager, navigationController: navigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		child.start()
+	}
+
+	private func getFileProviderDatabase() throws -> DatabaseWriter {
+		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
+		let fileproviderDatabaseURL = DatabaseHelper.getDatabaseURL(for: domain)
+		return try DatabaseHelper.getMigratedDB(at: fileproviderDatabaseURL)
+	}
+
+	private func createVaultMoveConfiguration() throws -> VaultMoveConfiguration {
+		let provider = try CloudProviderDBManager.shared.getProvider(with: vaultInfo.delegateAccountUID)
+		let database = try getFileProviderDatabase()
+		let maintenanceManager = MaintenanceDBManager(database: database)
+		return VaultMoveConfiguration(provider: provider, maintenanceManager: maintenanceManager)
+	}
+
+	private struct VaultMoveConfiguration {
+		let provider: CloudProvider
+		let maintenanceManager: MaintenanceManager
 	}
 }
 

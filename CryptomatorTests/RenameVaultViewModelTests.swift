@@ -37,11 +37,11 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case RenameVaultViewModelError.vaultNotElligibleForRename = error else {
+			guard case RenameVaultViewModelError.vaultNotEligibleForRename = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.vaultManagerMock.movedVaults.isEmpty)
+			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
 		}.always {
 			expectation.fulfill()
@@ -59,11 +59,11 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case RenameVaultViewModelError.vaultNotElligibleForRename = error else {
+			guard case RenameVaultViewModelError.vaultNotEligibleForRename = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.vaultManagerMock.movedVaults.isEmpty)
+			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
 		}.always {
 			expectation.fulfill()
@@ -78,16 +78,39 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
+		vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
+
 		let newVaultName = "Baz"
 		viewModel.vaultName = newVaultName
 		viewModel.renameVault().then {
-			XCTAssertEqual(1, self.vaultManagerMock.movedVaults.count)
-			XCTAssertEqual(CloudPath("/Foo/Baz"), self.vaultManagerMock.movedVaults[vaultAccount.vaultUID])
+			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
+			XCTAssertEqual(CloudPath("/Foo/Baz"), self.vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
 
 			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
 			self.checkMaintenanceModeEnabledThenDisabled()
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testRenameVaultWithSameName() throws {
+		let expectation = XCTestExpectation()
+		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let vaultLockingMock = VaultLockingMock()
+		fileProviderConnectorMock.proxy = vaultLockingMock
+
+		viewModel.vaultName = vaultAccount.vaultName
+		viewModel.renameVault().then {
+			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
+			XCTAssert(vaultLockingMock.lockedVaults.isEmpty)
+
+			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -114,7 +137,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssert(self.vaultManagerMock.movedVaults.isEmpty)
+			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
 		}.always {
 			expectation.fulfill()
@@ -133,13 +156,12 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		viewModel.vaultName = newVaultName
 
 		// Simulate vault move failure
-		let error = MockError.notMocked
-		vaultManagerMock.error = error
+		vaultManagerMock.moveVaultAccountToThrowableError = CloudProviderError.itemAlreadyExists
 
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case MockError.notMocked = error else {
+			guard case CloudProviderError.itemAlreadyExists = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
@@ -147,7 +169,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-			XCTAssert(self.vaultManagerMock.movedVaults.isEmpty)
+			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			self.checkMaintenanceModeEnabledThenDisabled()
 		}.always {
 			expectation.fulfill()
@@ -159,7 +181,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		let cloudProviderAccount = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: cloudProviderType)
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
-		return RenameVaultViewModel(vaultInfo: vaultInfo, maintenanceManager: maintenanceManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		return RenameVaultViewModel(provider: CloudProviderMock(), vaultInfo: vaultInfo, maintenanceManager: maintenanceManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 	}
 
 	private func checkMaintenanceModeEnabledThenDisabled() {
@@ -182,41 +204,5 @@ private class MaintenanceManagerMock: MaintenanceManager {
 
 	func disableMaintenanceMode() throws {
 		maintenanceModeChanges.append(false)
-	}
-}
-
-private class VaultManagerMock: VaultManager {
-	var movedVaults = [String: CloudPath]()
-	var error: Error?
-	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
-	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
-	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
-	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
-		throw MockError.notMocked
-	}
-
-	func removeVault(withUID vaultUID: String) throws -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
-	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
-	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
-		if let error = error {
-			return Promise(error)
-		}
-		movedVaults[account.vaultUID] = targetVaultPath
-		return Promise(())
 	}
 }
