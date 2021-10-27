@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Tento trezor jste již přidali.";
 
 "vaultDetail.button.lock" = "Uzamknout nyní";
+"vaultDetail.button.moveVault" = "Přesunout";
 "vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";
+"vaultDetail.button.renameVault" = "Přejmenovat";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Pokud povolíte %@, vaše heslo k trezoru bude uloženo v iOS klíčence.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše heslo k trezoru bude vyžadováno pouze v případě, že %@ ověření selže.";
 "vaultDetail.info.footer.accessVault" = "Přistoupit k trezoru prostřednictvím aplikace Soubory.";
