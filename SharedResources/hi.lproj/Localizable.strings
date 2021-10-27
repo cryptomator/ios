@@ -111,6 +111,7 @@
 
 "vaultDetail.button.lock" = "अभी ताला लगाएँ";
 "vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
+"vaultDetail.button.renameVault" = "नाम संपादन";
 "vaultDetail.info.footer.accessVault" = "\"फ़ाइल ऐप\" द्वारा प्रवेश करें।";
 "vaultDetail.info.footer.accountInfo" = "उपयोगकर्ता का नाम %@ है और %@ द्वारा प्रवेश हुए हैं।";
 "vaultDetail.locked.footer" = "आपका कक्ष अभी बंध है।";
