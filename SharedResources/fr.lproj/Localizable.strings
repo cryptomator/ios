@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Vous avez déjà ajouté cette coffre.";
 
 "vaultDetail.button.lock" = "Verrouiller maintenant";
+"vaultDetail.button.moveVault" = "Déplacer";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
+"vaultDetail.button.renameVault" = "Renommer";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si vous activez %@, votre mot de passe de coffre sera stocké dans porte-clés iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Le mot de passe de votre coffre ne sera requis que si l'authentification de %@ échoue.";
 "vaultDetail.info.footer.accessVault" = "Accédez au coffre via l'application Fichiers.";
