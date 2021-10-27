@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Dieser Vault wurde bereits hinzugefügt.";
 
 "vaultDetail.button.lock" = "Jetzt sperren";
+"vaultDetail.button.moveVault" = "Verschieben";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
+"vaultDetail.button.renameVault" = "Umbenennen";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Wenn du %@ aktivierst, wird dein Tresor-Passwort im iOS-Schlüsselbund gespeichert.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";
 "vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
