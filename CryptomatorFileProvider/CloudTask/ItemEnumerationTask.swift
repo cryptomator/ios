@@ -10,6 +10,11 @@ import Foundation
 import GRDB
 
 struct ItemEnumerationTask: CloudTask {
-	let pageToken: String?
+	let taskRecord: ItemEnumerationTaskRecord
 	let itemMetadata: ItemMetadata
+
+	enum CodingKeys: String, CodingKey {
+		case taskRecord = "itemEnumerationTask"
+		case itemMetadata
+	}
 }

@@ -17,7 +17,7 @@ class VaultListViewModelTests: XCTestCase {
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	var cryptomatorDB: CryptomatorDatabase!
-	private var vaultManagerMock: VaultManagerMock!
+	private var vaultManagerMock: VaultDBManagerMock!
 	private var vaultAccountManagerMock: VaultAccountManagerMock!
 	private var passwordManagerMock: VaultPasswordManagerMock!
 	private var vaultCacheMock: VaultCacheMock!
@@ -33,7 +33,7 @@ class VaultListViewModelTests: XCTestCase {
 		vaultAccountManagerMock = VaultAccountManagerMock()
 		passwordManagerMock = VaultPasswordManagerMock()
 		vaultCacheMock = VaultCacheMock()
-		vaultManagerMock = VaultManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
+		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
@@ -177,6 +177,10 @@ private class DatabaseManagerMock: DatabaseManager {
 }
 
 private class VaultAccountManagerMock: VaultAccountManager {
+	func updateAccount(_ account: VaultAccount) throws {
+		throw MockError.notMocked
+	}
+
 	func saveNewAccount(_ account: VaultAccount) throws {
 		throw MockError.notMocked
 	}
@@ -196,7 +200,7 @@ private class VaultAccountManagerMock: VaultAccountManager {
 	}
 }
 
-private class VaultManagerMock: VaultDBManager {
+private class VaultDBManagerMock: VaultDBManager {
 	var removedFileProviderDomains = [String]()
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
 		removedFileProviderDomains.append(vaultUID)
@@ -224,7 +228,7 @@ class VaultCacheMock: VaultCache {
 	}
 }
 
-private class VaultLockingMock: VaultLocking {
+class VaultLockingMock: VaultLocking {
 	var lockedVaults = [NSFileProviderDomainIdentifier]()
 	var unlockedVaults = [NSFileProviderDomainIdentifier]()
 

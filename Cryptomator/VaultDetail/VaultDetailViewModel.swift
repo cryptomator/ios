@@ -8,7 +8,9 @@
 
 import CocoaLumberjackSwift
 import Combine
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import GRDB
 import LocalAuthentication
 import Promises
 import UIKit
@@ -17,6 +19,7 @@ protocol VaultDetailViewModelProtocol {
 	var numberOfSections: Int { get }
 	var vaultUID: String { get }
 	var vaultName: String { get }
+	var title: Bindable<String> { get }
 	var actionPublisher: AnyPublisher<Result<VaultDetailButtonAction, Error>, Never> { get }
 
 	func numberOfRows(in section: Int) -> Int
@@ -34,15 +37,19 @@ enum VaultDetailButtonAction {
 	case lockVault
 	case removeVault
 	case showUnlockScreen(vault: VaultInfo, biometryTypeName: String)
+	case showRenameVault
+	case showMoveVault
 }
 
 private enum VaultDetailSection {
 	case vaultInfoSection
 	case lockingSection
 	case removeVaultSection
+	case moveVaultSection
 }
 
 class VaultDetailViewModel: VaultDetailViewModelProtocol {
+	let title: Bindable<String>
 	var numberOfSections: Int {
 		return sections.count
 	}
@@ -66,18 +73,32 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private let fileProviderConnector: FileProviderConnector
 	private let context = LAContext()
 	private let passwordManager: VaultPasswordManager
+	private var vaultPath: CloudPath {
+		return vaultInfo.vaultPath
+	}
 
 	private var subscribers = Set<AnyCancellable>()
 
-	private let sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection, .removeVaultSection]
+	private lazy var sections: [VaultDetailSection] = {
+		if vaultIsEligibleToMove() {
+			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .removeVaultSection]
+		} else {
+			return [.vaultInfoSection, .lockingSection, .removeVaultSection]
+		}
+	}()
+
 	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: false)
 	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
-				TableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none),
+				vaultInfoCellViewModel,
 				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: LocalizedString.getValue("common.cells.openInFilesApp"))
 			],
 			.lockingSection: lockSectionCells,
+			.moveVaultSection: vaultIsEligibleToMove() ? [
+				renameVaultCellViewModel,
+				moveVaultCellViewModel
+			] : [],
 			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: LocalizedString.getValue("vaultDetail.button.removeVault"), titleTextColor: .systemRed)]
 		]
 	}
@@ -123,11 +144,31 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return viewModel
 	}()
 
-	init(vaultInfo: VaultInfo, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared, passwordManager: VaultPasswordManager = VaultPasswordKeychainManager()) {
+	private lazy var vaultInfoCellViewModel = TableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
+	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
+	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
+	private var observation: TransactionObserver?
+
+	convenience init(vaultInfo: VaultInfo) {
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+	}
+
+	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager) {
 		self.vaultInfo = vaultInfo
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		self.passwordManager = passwordManager
+		self.title = Bindable(vaultInfo.vaultName)
+		self.observation = dbManager.observeVaultAccount(withVaultUID: vaultInfo.vaultUID, onError: { error in
+			DDLogError("Observe Vault Account error: \(error)")
+		}, onChange: { [weak self] vaultAccount in
+			guard let vaultAccount = vaultAccount else {
+				return
+			}
+			self?.vaultInfo.vaultAccount = vaultAccount
+			self?.title.value = vaultAccount.vaultName
+			self?.updateViewModels()
+		})
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -211,5 +252,15 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 			}
 		})
 		return viewModel
+	}
+
+	private func updateViewModels() {
+		vaultInfoCellViewModel.title.value = vaultName
+		renameVaultCellViewModel.detailTitle.value = vaultName
+		moveVaultCellViewModel.detailTitle.value = vaultPath.path
+	}
+
+	private func vaultIsEligibleToMove() -> Bool {
+		return vaultInfo.cloudProviderType != .localFileSystem && vaultInfo.vaultPath != CloudPath("/")
 	}
 }

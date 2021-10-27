@@ -21,9 +21,10 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		let downloadTask = DownloadTask(replaceExisting: false, localURL: localURL, itemMetadata: itemMetadata)
+		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
+		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			let localContent = try Data(contentsOf: localURL)
@@ -35,6 +36,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
+			XCTAssertEqual(1, self.downloadTaskManagerMock.removedTasks.count)
+			XCTAssertEqual(downloadTaskRecord, self.downloadTaskManagerMock.removedTasks[0])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -57,9 +60,10 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 			Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let downloadTask = DownloadTask(replaceExisting: false, localURL: localURL, itemMetadata: itemMetadata)
+		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
+		let taskExecutor = DownloadTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
@@ -69,6 +73,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 				return
 			}
 			XCTAssert(self.metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
+			XCTAssertEqual(1, self.downloadTaskManagerMock.removedTasks.count)
+			XCTAssertEqual(downloadTaskRecord, self.downloadTaskManagerMock.removedTasks[0])
 		}.always {
 			expectation.fulfill()
 		}
@@ -85,9 +91,10 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemID: Int64 = 2
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		let downloadTask = DownloadTask(replaceExisting: true, localURL: localURL, itemMetadata: itemMetadata)
+		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: true, localURL: localURL)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
+		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			let localContent = try Data(contentsOf: localURL)
@@ -101,6 +108,8 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
+			XCTAssertEqual(1, self.downloadTaskManagerMock.removedTasks.count)
+			XCTAssertEqual(downloadTaskRecord, self.downloadTaskManagerMock.removedTasks[0])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -124,7 +133,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let lastModifiedDate = Date(timeIntervalSince1970: 0)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
+		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		let item = try taskExecutor.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
 		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
@@ -154,7 +163,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let lastModifiedDate = Date(timeIntervalSince1970: 0)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
+		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		let item = try taskExecutor.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: localURL)
 		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
@@ -170,5 +179,11 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}
 		XCTAssertEqual(lastModifiedDate, localCachedFileInfo.lastModifiedDate)
 		XCTAssertEqual(localURL, localCachedFileInfo.localURL)
+	}
+}
+
+extension DownloadTaskRecord: Equatable {
+	public static func == (lhs: DownloadTaskRecord, rhs: DownloadTaskRecord) -> Bool {
+		return lhs.correspondingItem == rhs.correspondingItem && lhs.replaceExisting == rhs.replaceExisting && lhs.localURL == rhs.localURL
 	}
 }
