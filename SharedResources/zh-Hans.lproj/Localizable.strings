@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已添加了此保险库";
 
 "vaultDetail.button.lock" = "立即锁定";
+"vaultDetail.button.moveVault" = "移动";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
+"vaultDetail.button.renameVault" = "重命名";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
