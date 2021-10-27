@@ -60,6 +60,8 @@
 "unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
 
 "vaultDetail.button.lock" = "立即鎖定";
+"vaultDetail.button.moveVault" = "移動";
+"vaultDetail.button.renameVault" = "重新命名";
 
 "vaultList.header.title" = "加密檔案庫";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
