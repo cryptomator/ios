@@ -112,7 +112,9 @@
 "urlSession.error.unexpectedResponse" = "Houve uma resposta inesperada à rede.";
 
 "vaultDetail.button.lock" = "Bloquear Agora";
+"vaultDetail.button.moveVault" = "Mover ";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
+"vaultDetail.button.renameVault" = "Renomear";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a senha do seu cofre será armazenada no keychain do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A sua senha do cofre só será obrigatória se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Acesse o cofre através do app Arquivos.";
