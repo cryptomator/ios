@@ -121,12 +121,13 @@
 "vaultDetail.button.lock" = "Nu vergrendelen";
 "vaultDetail.button.moveVault" = "Verplaatsen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
-"vaultDetail.button.renameVault" = "Wijzig naam";
+"vaultDetail.button.renameVault" = "Naam wijzigen";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
 "vaultDetail.info.footer.accessVault" = "Toegang tot de kluis via de Bestandenapp.";
 "vaultDetail.info.footer.accountInfo" = "Ingelogd als %@ via %@.";
 "vaultDetail.locked.footer" = "Je kluis is momenteel vergrendeld.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm uw kluis te verplaatsen, ga terug en kies een andere map.";
 "vaultDetail.removeVault.footer" = "Dit verwijdert alleen de kluis uit de lijst en verwijdert geen versleutelde bestanden.";
 "vaultDetail.unlocked.footer" = "Je kluis is momenteel ontgrendeld in de Bestandenapp.";
 "vaultDetail.unlockVault.footer" = "Voer wachtwoord voor \"%@\" in om het in de iOS-sleutelhanger op te slaan en %@ in te schakelen.";
