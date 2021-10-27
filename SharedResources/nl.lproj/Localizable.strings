@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Je hebt deze kluis al toegevoegd.";
 
 "vaultDetail.button.lock" = "Nu vergrendelen";
+"vaultDetail.button.moveVault" = "Verplaatsen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
+"vaultDetail.button.renameVault" = "Wijzig naam";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
 "vaultDetail.info.footer.accessVault" = "Toegang tot de kluis via de Bestandenapp.";
