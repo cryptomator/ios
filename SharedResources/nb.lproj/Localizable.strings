@@ -19,3 +19,5 @@
 "settings.clearCache" = "Tøm hurtigminnet";
 
 "unlockVault.button.unlock" = "Lås opp";
+"vaultDetail.button.moveVault" = "Flytt";
+"vaultDetail.button.renameVault" = "Endre navn";
