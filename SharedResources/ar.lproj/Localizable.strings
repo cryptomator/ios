@@ -22,3 +22,5 @@
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 
 "unlockVault.button.unlock" = "افتح";
+"vaultDetail.button.moveVault" = "نقل";
+"vaultDetail.button.renameVault" = "إعادة تسمية";
