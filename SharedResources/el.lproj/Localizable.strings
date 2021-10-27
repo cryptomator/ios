@@ -119,7 +119,9 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Έχετε ήδη προσθέσει αυτή τη κρύπτη.";
 
 "vaultDetail.button.lock" = "Κλείδωμα τώρα";
+"vaultDetail.button.moveVault" = "Μετακίνηση";
 "vaultDetail.button.removeVault" = "Κατάργηση από την Λίστα Κρύπτης";
+"vaultDetail.button.renameVault" = "Μετονομασία";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Εάν ενεργοποιήσετε το %@, ο κωδικός πρόσβασης της κρύπτη σας θα αποθηκευτεί στο iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ο κωδικός πρόσβασης του Vault σας θα απαιτείται μόνο εάν αποτύχει η ταυτοποίηση %@.";
 "vaultDetail.info.footer.accessVault" = "Πρόσβαση στην κρύπτη μέσω της εφαρμογής Αρχείων.";
