@@ -71,6 +71,8 @@
 "untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
+"vaultDetail.button.moveVault" = "이동";
+"vaultDetail.button.renameVault" = "이름 변경";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
