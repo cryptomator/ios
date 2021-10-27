@@ -112,7 +112,9 @@
 "urlSession.error.unexpectedResponse" = "A existat un răspuns neașteptat în rețea.";
 
 "vaultDetail.button.lock" = "Blochează acum";
+"vaultDetail.button.moveVault" = "Mută";
 "vaultDetail.button.removeVault" = "Eliminați din lista de seifuri";
+"vaultDetail.button.renameVault" = "Redenumește";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Dacă activați %@, parola de seif va fi stocată în iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Parola dvs. de seif va fi necesară doar dacă autentificarea %@ eșuează.";
 "vaultDetail.info.footer.accessVault" = "Accesați seiful prin intermediul aplicației fișiere.";
