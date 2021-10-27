@@ -35,11 +35,16 @@
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.openExistingVault.title" = "開啟現有加密檔案庫";
+"addVault.openExistingVault.detectedMasterkey.add" = "添加這個加密檔案庫";
 "addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "資料夾是空的";
+"chooseFolder.createNewFolder.header.title" = "為資料夾命名。";
 "chooseFolder.createNewFolder.cells.name" = "資料夾名稱";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "資料夾名稱不能留空。";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
 
