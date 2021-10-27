@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
 "vaultDetail.info.footer.accountInfo" = "Accesso effettuato come %@ tramite %@.";
 "vaultDetail.locked.footer" = "La tua cassaforte è attualmente bloccata.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poter spostare la tua cassaforte, sei pregato di tornare indietro e scegliere una cartella differente.";
 "vaultDetail.removeVault.footer" = "Questo rimuoverà solo la cassaforte dall'elenco della cassaforte e non eliminerà alcun file crittografato.";
 "vaultDetail.unlocked.footer" = "La tua cassaforte è attualmente sbloccata nell'app File.";
 "vaultDetail.unlockVault.footer" = "Inserisci la password per \"%@\" per memorizzarla nel portachiavi iOS e per abilitare %@.";
