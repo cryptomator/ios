@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "Pristúpiť k trezoru prostredníctvom súborovej aplikácie.";
 "vaultDetail.info.footer.accountInfo" = "Prihlásený ako %@ prostredníctvom %@.";
 "vaultDetail.locked.footer" = "Váš trezor je aktuálne uzamknutý.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zdetekoval existujúci trezor na tejto lokalite.\n V prípade vytvorenia nového trezoru sa prosím vráťte späť a zvoľte iný adresár.";
 "vaultDetail.removeVault.footer" = "Toto iba odstráni trezor zo zoznamu trezorov a nezmaže žiadne zakódované súbory.";
 "vaultDetail.unlocked.footer" = "Váš trezor je aktuálne odomknutý v súborovej aplikácii.";
 "vaultDetail.unlockVault.footer" = "Vložte heslo pre \"%@\" pre jeho uloženie v iOS keychain a pre povolenie %@.";
