@@ -12,7 +12,7 @@ import Foundation
 import GRDB
 
 public class VaultInfo: Decodable, FetchableRecord {
-	let vaultAccount: VaultAccount
+	var vaultAccount: VaultAccount
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var vaultListPosition: VaultListPosition
 	var vaultIsUnlocked = false

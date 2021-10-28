@@ -19,7 +19,7 @@ class TableViewCell: UITableViewCell {
 	}
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
 	}
 
 	@available(*, unavailable)
@@ -41,6 +41,7 @@ class TableViewCell: UITableViewCell {
 			self?.textLabel?.textColor = isEnabled ? viewModel.titleTextColor.value : .label
 			self?.contentView.alpha = isEnabled ? 1.0 : 0.25
 		}).store(in: &subscribers)
+		viewModel.accessoryType.$value.assign(to: \.accessoryType, on: self).store(in: &subscribers)
 	}
 
 	func removeAllBindings() {

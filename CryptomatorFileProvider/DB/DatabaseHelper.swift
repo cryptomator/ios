@@ -7,36 +7,25 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 import GRDB
 
-class DatabaseHelper {
-	static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
+public enum DatabaseHelper {
+	public static func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
+		let documentStorageURL = NSFileProviderManager.default.documentStorageURL
+		let domainRootURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
+		return domainRootURL.appendingPathComponent("db.sqlite")
+	}
+
+	public static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
 		let dbPool = try openSharedDatabase(at: databaseURL)
 		try migrate(dbPool)
 		return dbPool
 	}
 
-	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
-		let coordinator = NSFileCoordinator(filePresenter: nil)
-		var coordinatorError: NSError?
-		var dbPool: DatabasePool?
-		var dbError: Error?
-		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
-			do {
-				dbPool = try DatabasePool(path: databaseURL.path)
-			} catch {
-				dbError = error
-			}
-		})
-		if let error = dbError ?? coordinatorError {
-			throw error
-		}
-		return dbPool!
-	}
-
 	// swiftlint:disable:next function_body_length
-	private static func migrate(_ dbPool: DatabasePool) throws {
+	static func migrate(_ dbWriter: DatabaseWriter) throws {
 		var migrator = DatabaseMigrator()
 		#if DEBUG
 		// Speed up development by nuking the database when migrations change
@@ -88,7 +77,122 @@ class DatabaseHelper {
 				table.column("parentID", .integer).notNull()
 				table.column("itemType", .text).notNull()
 			}
+			try db.create(table: "itemEnumerationTasks") { table in
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
+				table.column("pageToken", .text)
+			}
+			try db.create(table: "downloadTasks") { table in
+				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata", onDelete: .cascade)
+				table.column("replaceExisting", .boolean).notNull()
+				table.column("localURL", .text).notNull()
+			}
+
+			// Single-Row Table (see: https://github.com/groue/GRDB.swift/blob/32b2923e890df320906e64cbd0faca22a8bfda14/Documentation/SingleRowTables.md)
+			try db.create(table: "maintenanceMode") { table in
+				table.column("id", .integer).primaryKey(onConflict: .replace).check { $0 == 1 }
+				table.column("flag", .boolean).notNull()
+			}
+
+			try db.execute(sql: """
+			CREATE TRIGGER uploadTasks_prevent_insert_on_maintenance_mode
+			BEFORE INSERT
+			ON uploadTasks
+			BEGIN
+				SELECT RAISE(ABORT, 'Maintenance Mode')
+				WHERE EXISTS (SELECT 1 FROM maintenanceMode WHERE flag = 1);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER reparentTasks_prevent_insert_on_maintenance_mode
+			BEFORE INSERT
+			ON reparentTasks
+			BEGIN
+				SELECT RAISE(ABORT, 'Maintenance Mode')
+				WHERE EXISTS (SELECT 1 FROM maintenanceMode WHERE flag = 1);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER deletionTasks_prevent_insert_on_maintenance_mode
+			BEFORE INSERT
+			ON deletionTasks
+			BEGIN
+				SELECT RAISE(ABORT, 'Maintenance Mode')
+				WHERE EXISTS (SELECT 1 FROM maintenanceMode WHERE flag = 1);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER itemEnumerationTasks_prevent_insert_on_maintenance_mode
+			BEFORE INSERT
+			ON itemEnumerationTasks
+			BEGIN
+				SELECT RAISE(ABORT, 'Maintenance Mode')
+				WHERE EXISTS (SELECT 1 FROM maintenanceMode WHERE flag = 1);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER downloadTasks_prevent_insert_on_maintenance_mode
+			BEFORE INSERT
+			ON downloadTasks
+			BEGIN
+				SELECT RAISE(ABORT, 'Maintenance Mode')
+				WHERE EXISTS (SELECT 1 FROM maintenanceMode WHERE flag = 1);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER maintenanceMode_prevent_insert_true_on_running_task
+			BEFORE INSERT
+			ON maintenanceMode
+			FOR EACH ROW
+			WHEN NEW.flag = 1
+			BEGIN
+				SELECT RAISE(ABORT, 'Running Task')
+				WHERE EXISTS (SELECT 1 FROM uploadTasks WHERE uploadErrorCode IS NULL)
+				OR EXISTS (SELECT 1 FROM reparentTasks)
+				OR EXISTS (SELECT 1 FROM deletionTasks)
+				OR EXISTS (SELECT 1 FROM itemEnumerationTasks)
+				OR EXISTS (SELECT 1 FROM downloadTasks);
+			END;
+			""")
+
+			try db.execute(sql: """
+			CREATE TRIGGER maintenanceMode_prevent_update_to_true_on_running_task
+			BEFORE UPDATE
+			ON maintenanceMode
+			FOR EACH ROW
+			WHEN NEW.flag = 1
+			BEGIN
+				SELECT RAISE(ABORT, 'Running Task')
+				WHERE EXISTS (SELECT 1 FROM uploadTasks WHERE uploadErrorCode IS NULL)
+				OR EXISTS (SELECT 1 FROM reparentTasks)
+				OR EXISTS (SELECT 1 FROM deletionTasks)
+				OR EXISTS (SELECT 1 FROM itemEnumerationTasks)
+				OR EXISTS (SELECT 1 FROM downloadTasks);
+			END;
+			""")
 		}
-		try migrator.migrate(dbPool)
+		try migrator.migrate(dbWriter)
+	}
+
+	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
+		let coordinator = NSFileCoordinator(filePresenter: nil)
+		var coordinatorError: NSError?
+		var dbPool: DatabasePool?
+		var dbError: Error?
+		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
+			do {
+				dbPool = try DatabasePool(path: databaseURL.path)
+			} catch {
+				dbError = error
+			}
+		})
+		if let error = dbError ?? coordinatorError {
+			throw error
+		}
+		return dbPool!
 	}
 }

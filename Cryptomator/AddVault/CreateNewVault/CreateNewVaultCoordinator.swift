@@ -157,7 +157,7 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 	}
 }
 
-private class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoordinator {
+class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoordinator {
 	weak var parentCoordinator: Coordinator?
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController

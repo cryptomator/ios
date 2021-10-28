@@ -51,21 +51,9 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}
 
 	func showVaultDetail(for vaultInfo: VaultInfo) {
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo)
-		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
-		vaultDetailViewController.coordinator = self
-		navigationController.pushViewController(vaultDetailViewController, animated: true)
-	}
-
-	func unlockVault(_ vault: VaultInfo, biometryTypeName: String) -> Promise<Void> {
-		let modalNavigationController = BaseNavigationController()
-		let pendingAuthentication = Promise<Void>.pending()
-		let child = VaultDetailUnlockCoordinator(navigationController: modalNavigationController, vault: vault, biometryTypeName: biometryTypeName, pendingAuthentication: pendingAuthentication)
-		child.parentCoordinator = self
+		let child = VaultDetailCoordinator(vaultInfo: vaultInfo, navigationController: navigationController)
 		childCoordinators.append(child)
-		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
-		return pendingAuthentication
 	}
 
 	// MARK: - UINavigationControllerDelegate

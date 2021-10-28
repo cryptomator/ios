@@ -1,13 +1,125 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "त्रुटि";
 "common.button.cancel" = "रद्द करें";
 "common.button.choose" = "चुनें";
+"common.button.confirm" = "पुष्टि करें";
+"common.button.create" = "बनाएं";
+"common.button.createFolder" = "फोल्डर बनाएं";
 "common.button.done" = "हो गया";
+"common.button.edit" = "संपादित करें";
+"common.button.enable" = "सक्षम करें";
 "common.button.next" = "अगला";
-"common.cells.password" = "पासवर्ड";
+"common.button.ok" = "ठीक है";
+"common.button.remove" = "हटाएँ";
+"common.button.signOut" = "साइन आउट करें";
+"common.button.verify" = "सत्यापित करें";
+"common.cells.openInFilesApp" = "दस्तावेज ऐप में खोलें";
+"common.cells.password" = "कूट शब्द";
+"common.cells.url" = "यूआरएल";
+"common.cells.username" = "उपयोगकर्ता नाम";
+"common.footer.learnMore" = "अधिक जानें";
+
+"accountList.header.title" = "प्रमाणीकरण";
+"accountList.emptyList.message" = "खाता खोलने के लिए यहाँ दबाएँ";
+"accountList.signOut.alert.title" = "क्या जुड़े हुए कक्षों को हटाना चाहते हैं?";
+"accountList.signOut.alert.message" = "सत्रांत करने से सारे जुड़े हुए कक्ष कक्ष-तालिका से हटा दिए जाएँगे। कूट-डेटा को नहीं हटाया जाएगा। आप पुनः सत्रारम्भ कर के कक्षों को पुनः जोड़ सकते हैं।";
 
 "addVault.title" = "वाउल्ट डालें";
 "addVault.createNewVault.title" = "नया वाउल्ट बनाएं";
+"addVault.createNewVault.setVaultName.header.title" = "कक्ष का नाम चुने।";
 "addVault.createNewVault.setVaultName.cells.name" = "वॉल्ट का नाम";
-"addVault.createNewVault.chooseCloud.header" = "एन्क्रिप्ट कि गई वाउल्ट कि फाइलों Cryptomator कहांं रखें?";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "कक्ष का नाम रिक्त नहीं हो सकता।";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "कक्ष के नाम में \\ / : * ? \" < > | नहीं हो सकता और नाम . से अंत नहीं हो सकता।";
+"addVault.createNewVault.chooseCloud.header" = "आपके कक्ष के कूट किए हुए दस्तावेज़ों को क्रिप्टोमेटर कहाँ संग्रह करें?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" इस जगह पहले से ही मौजूद है। या तो कक्ष का नाम नहीं तो जगह बदलें।";
+"addVault.createNewVault.detectedMasterkey.text" = "क्रिप्टोमेटर में, इस जगह एक कक्ष पहले से ही मौजूद है।\n अगर एक नया कक्ष बनाना चाहते हैं तो जगह या फ़ोल्डर बदलें।";
+"addVault.createNewVault.password.enterPassword.header" = "नया कूट शब्द भरें";
+"addVault.createNewVault.password.confirmPassword.header" = "नए कूट शब्द की पुष्टि करें";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "क्या कूट शब्द की पुष्टि करें?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "महत्वपूर्ण: अगर आप अपना कूट शब्द भूल जाते हैं, तो डेटा किसी भी हाल में बहाल नहीं कर पाएँगे।";
+"addVault.createNewVault.password.error.emptyPassword" = "कूट शब्द ख़ाली नहीं रख सकते।";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "कूट शब्द मेल नहीं खाते।";
+"addVault.createNewVault.password.error.tooShortPassword" = "कूट शब्द में कम से कम 8 अक्षर होने चाहिए।";
 "addVault.openExistingVault.title" = "मौजूदा वाउल्ट खोलें";
+"addVault.openExistingVault.chooseCloud.header" = "कक्ष कहाँ पर स्थित है?";
+"addVault.openExistingVault.detectedMasterkey.text" = "क्रिप्टोमेटर ने नया कक्ष \"%@\" खोजा।\nक्या आप उस कक्ष को जोड़ना चाहेंगे?";
+"addVault.openExistingVault.detectedMasterkey.add" = "कक्ष को जोड़ें";
+"addVault.openExistingVault.password.footer" = "\"%@\" का कूट शब्द प्रविष्ट करें।";
+"addVault.success.info" = "कक्ष \"%@\" को सफलतापूर्वक जोड़ा।\nइस कक्ष में \"फ़ाइल एप\" द्वारा प्रवेश करें।";
+"addVault.success.footer" = "अगर आपने पहले नहीं किया तो क्रिप्टोमेटर को \"फ़ाइल एप\" में अधिकार दें।";
+
+"biometryType.faceID" = "चेहरा पहचान";
+"biometryType.touchID" = "अंगुल चिन्ह पहचान";
+
+"chooseFolder.emptyFolder.footer" = "फ़ोल्डर रिक्त है";
+"chooseFolder.createNewFolder.header.title" = "फ़ोल्डर का नाम चुने।";
+"chooseFolder.createNewFolder.cells.name" = "फ़ोल्डर का नाम";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "फ़ोल्डर का नाम रिक्त नहीं हो सकता";
+
+"cloudProvider.error.itemNotFound" = "“%@“ नहीं मिला";
+"cloudProvider.error.itemAlreadyExists" = "“%@“ पहले से मौजूद है";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" में अप्रत्याशित प्रकार की चीज है।";
+"cloudProvider.error.parentFolderDoesNotExist" = "मूल फ़ोल्डर \"%@\" उपलब्ध नहीं ह।";
+"cloudProvider.error.pageTokenInvalid" = "निदेशिका से जानकारी हासिल नहीं हुई।";
+"cloudProvider.error.quotaInsufficient" = "आपके स्टोरेज में अपर्याप्त मात्रा में जगह है।";
+"cloudProvider.error.unauthorized" = "अनधिकृत कार्य को नहीं कर पाए।";
+"cloudProvider.error.noInternetConnection" = "इस कार्य तो करने की लिए इंटरनेट सम्पर्क की आवश्यकता है।";
+
+"cloudProviderType.localFileSystem" = "दस्तावेज़ों का अन्य प्रबंधक।";
+
+"localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
+"localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
+"localFileSystemAuthentication.openExistingVault.header" = "अगली स्क्रीन पर अपने कक्ष के फ़ोल्डर का चयन कीजिए।";
+"localFileSystemAuthentication.openExistingVault.button" = "कक्ष स्थान का चयन करें";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "चयन किया फ़ोल्डर आपके कक्ष में उपलब्ध नहीं है। कृपया दूसरे फ़ोल्डर का चयन कीजिए।";
+
+"onboarding.title" = "स्वागत है";
+"onboarding.info" = "आपके दस्तावेज़ों की सुरक्षा के हेतु क्रिप्टोमेटर का चयन करने के लिए आपका धन्यवाद। शुरू करने के लिए मुख्य ऐप में जाएँ और एक कक्ष तो जोड़ें।";
+"onboarding.openCryptomator.button" = "क्रिप्टोमेटर खोलें";
+
+"settings.title" = "समायोजन";
+"settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
+"settings.aboutCryptomator.title" = "संस्करण %@ (%@)";
+"settings.cloudServices" = "क्लाउड सेवाएं";
+"settings.contact" = "संपर्क";
+"settings.debugMode" = "दोषमार्जक साधन";
+"settings.rateApp" = "एप्प का मूल्यांकन";
+"settings.sendLogFile" = "Log फ़ाइल भेजें";
 
 "unlockVault.button.unlock" = "अनलॉक करें";
+"unlockVault.button.unlockVia" = "%@ के द्वारा खोलें";
+"unlockVault.password.footer" = "\"%@\" का कूट शब्द प्रविष्ट करें।";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ को अधिकार दें";
+"unlockVault.enableBiometricalUnlock.footer" = "कक्ष को खोलने के लिए कूट शब्द का इस्तेमाल ना करके %@ इस्तेमाल करें।";
+"unlockVault.evaluatePolicy.reason" = "कक्ष खोलें";
+
+"untrustedTLSCertificate.title" = "अवैध TLS प्रमाणपत्र";
+"untrustedTLSCertificate.message" = "\"%@\" का TLS प्रमाणपत्र अवैध है। क्या आप इस प्रमाणपत्र का फिर भी भरोसा करना चाहेंगे?\n\nSHA-256: %@";
+"untrustedTLSCertificate.add" = "भरोसा करे";
+"untrustedTLSCertificate.dismiss" = "भरोसा ना करें";
+
+"urlSession.error.httpError.401" = "उपयोगकर्ता का नाम या कूट शब्द ग़लत है।";
+"urlSession.error.httpError.404" = "यह अनुरोध किया गया संसाधन नहीं मिला";
+"urlSession.error.httpError.default" = "नेटवर्क सम्पर्क नहीं हो पा रहा है। हालत संख्या %ld।";
+"urlSession.error.unexpectedResponse" = "अप्रत्याशित नेटवर्क प्रतिक्रिया हुई।";
+
+"vaultDetail.button.lock" = "अभी ताला लगाएँ";
+"vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
+"vaultDetail.info.footer.accessVault" = "\"फ़ाइल ऐप\" द्वारा प्रवेश करें।";
+"vaultDetail.info.footer.accountInfo" = "उपयोगकर्ता का नाम %@ है और %@ द्वारा प्रवेश हुए हैं।";
+"vaultDetail.locked.footer" = "आपका कक्ष अभी बंध है।";
+"vaultDetail.removeVault.footer" = "यह केवल कक्ष का नाम कक्ष-तालिका से हटा देगा। आपके कूट दस्तावेज नहीं मिटेंगे।";
+"vaultDetail.unlocked.footer" = "आपका कक्ष अभी \"फ़ाइल एप\" में खुला है।";
+"vaultDetail.unlockVault.footer" = "\"%@\" के कूट शब्द को iOS कूट शृंखला में संग्रह करने के लिए और %@ संचालित करने के लिए कूट शब्द भरें।";
+
+"vaultList.header.title" = "कक्षों का नाम";
+"vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";
+"vaultList.remove.alert.title" = "कक्ष हटाना चाहेंगे?";
+
+"webDAVAuthentication.title" = "WebDAV";

@@ -37,12 +37,14 @@ public enum FileProviderAdapterManager {
 		}
 		let provider = try VaultDBManager.shared.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
-		let itemMetadataManager = ItemMetadataDBManager(with: database)
-		let cachedFileManager = CachedFileDBManager(with: database)
-		let uploadTaskManager = UploadTaskDBManager(with: database)
-		let reparentTaskManager = try ReparentTaskDBManager(with: database)
-		let deletionTaskManager = try DeletionTaskDBManager(with: database)
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
+		let itemMetadataManager = ItemMetadataDBManager(database: database)
+		let cachedFileManager = CachedFileDBManager(database: database)
+		let uploadTaskManager = UploadTaskDBManager(database: database)
+		let reparentTaskManager = try ReparentTaskDBManager(database: database)
+		let deletionTaskManager = try DeletionTaskDBManager(database: database)
+		let itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: database)
+		let downloadTaskManager = try DownloadTaskDBManager(database: database)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager, downloadTaskManager: downloadTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
 		queue.sync(flags: .barrier) {
 			cachedAdapters[domainIdentifier] = adapter
 		}

@@ -19,10 +19,11 @@ protocol ReparentTaskManager {
 }
 
 class ReparentTaskDBManager: ReparentTaskManager {
-	let dbPool: DatabasePool
-	init(with dbPool: DatabasePool) throws {
-		self.dbPool = dbPool
-		_ = try dbPool.write { db in
+	private let database: DatabaseWriter
+
+	init(database: DatabaseWriter) throws {
+		self.database = database
+		_ = try database.write { db in
 			try ReparentTaskRecord.deleteAll(db)
 		}
 	}
@@ -31,7 +32,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 		guard let id = itemMetadata.id else {
 			throw DBManagerError.nonSavedItemMetadata
 		}
-		return try dbPool.write { db in
+		return try database.write { db in
 			let task = ReparentTaskRecord(correspondingItem: id, sourceCloudPath: itemMetadata.cloudPath, targetCloudPath: targetCloudPath, oldParentID: itemMetadata.parentID, newParentID: newParentID)
 			try task.save(db)
 			return task
@@ -39,13 +40,13 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	}
 
 	func removeTaskRecord(_ task: ReparentTaskRecord) throws {
-		_ = try dbPool.write { db in
+		_ = try database.write { db in
 			try task.delete(db)
 		}
 	}
 
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [ReparentTaskRecord] {
-		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
+		let tasks: [ReparentTaskRecord] = try database.read { db in
 			return try ReparentTaskRecord
 				.filter(ReparentTaskRecord.Columns.oldParentID == parentID)
 				.fetchAll(db)
@@ -54,7 +55,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	}
 
 	func getTaskRecordsForItemsWhichAreSoon(in parentID: Int64) throws -> [ReparentTaskRecord] {
-		let tasks: [ReparentTaskRecord] = try dbPool.read { db in
+		let tasks: [ReparentTaskRecord] = try database.read { db in
 			return try ReparentTaskRecord
 				.filter(ReparentTaskRecord.Columns.newParentID == parentID)
 				.fetchAll(db)
@@ -63,7 +64,7 @@ class ReparentTaskDBManager: ReparentTaskManager {
 	}
 
 	func getTask(for taskRecord: ReparentTaskRecord) throws -> ReparentTask {
-		try dbPool.read { db in
+		try database.read { db in
 			guard let itemMetadata = try taskRecord.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}

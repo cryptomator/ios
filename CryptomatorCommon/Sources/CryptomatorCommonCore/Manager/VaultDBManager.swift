@@ -18,6 +18,7 @@ public enum VaultManagerError: Error {
 	case vaultAlreadyExists
 	case vaultVersionNotSupported
 	case fileProviderDomainNotFound
+	case moveVaultInsideItself
 }
 
 public protocol VaultManager {
@@ -27,6 +28,7 @@ public protocol VaultManager {
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 }
 
 public class VaultDBManager: VaultManager {
@@ -296,6 +298,30 @@ public class VaultDBManager: VaultManager {
 		return decorator
 	}
 
+	// MARK: - Move Vault
+
+	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		guard !targetVaultPath.contains(account.vaultPath) else {
+			return Promise(VaultManagerError.moveVaultInsideItself)
+		}
+		let provider: CloudProvider
+		do {
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: account.delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then { _ -> VaultAccount in
+			let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
+			                                       delegateAccountUID: account.delegateAccountUID,
+			                                       vaultPath: targetVaultPath,
+			                                       vaultName: targetVaultPath.lastPathComponent)
+			try self.vaultAccountManager.updateAccount(updatedVaultAccount)
+			return updatedVaultAccount
+		}.then { updatedVaultAccount in
+			self.addFileProviderDomain(forVaultUID: updatedVaultAccount.vaultUID, displayName: updatedVaultAccount.vaultName)
+		}
+	}
+
 	// MARK: - Internal
 
 	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: String, password: String, storePasswordInKeychain: Bool) throws {
@@ -352,13 +378,12 @@ public class VaultDBManager: VaultManager {
 	}
 
 	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) -> Promise<Void> {
-		let identifier = NSFileProviderDomainIdentifier(vaultUID)
-		let domain = NSFileProviderDomain(identifier: identifier, displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
+		let domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: displayName)
 		return NSFileProviderManager.add(domain)
 	}
 }
 
-extension NSFileProviderManager {
+public extension NSFileProviderManager {
 	static func getDomains() -> Promise<[NSFileProviderDomain]> {
 		return Promise<[NSFileProviderDomain]> { fulfill, reject in
 			NSFileProviderManager.getDomainsWithCompletionHandler { domains, error in
@@ -396,5 +421,11 @@ extension NSFileProviderManager {
 				}
 			}
 		}
+	}
+}
+
+public extension NSFileProviderDomain {
+	convenience init(vaultUID: String, displayName: String) {
+		self.init(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
 	}
 }

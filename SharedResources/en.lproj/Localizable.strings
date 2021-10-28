@@ -113,6 +113,12 @@
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cache Size";
+"settings.clearCache" = "Clear Cache";
+"settings.cloudServices" = "Cloud Services";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Debug Mode";
+"settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
 
 "unlockVault.button.unlock" = "Unlock";
@@ -149,13 +155,18 @@
 "urlSession.error.httpError.default" = "Network connection failed with status code %ld.";
 "urlSession.error.unexpectedResponse" = "There was an unexpected network response.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "You have already added this vault.";
+
 "vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.button.renameVault" = "Rename";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
 "vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
 "vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
 "vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";

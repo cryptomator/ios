@@ -7,26 +7,20 @@
 //
 
 import CryptomatorCloudAccessCore
+import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
 
 class ReparentTaskManagerTests: XCTestCase {
 	var manager: ReparentTaskDBManager!
 	var itemMetadataManager: ItemMetadataDBManager!
-	var tmpDirURL: URL!
-	override func setUpWithError() throws {
-		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		let dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
-		manager = try ReparentTaskDBManager(with: dbPool)
-		itemMetadataManager = ItemMetadataDBManager(with: dbPool)
-	}
+	var inMemoryDB: DatabaseQueue!
 
-	override func tearDownWithError() throws {
-		itemMetadataManager = nil
-		manager = nil
-		try FileManager.default.removeItem(at: tmpDirURL)
+	override func setUpWithError() throws {
+		inMemoryDB = DatabaseQueue()
+		try DatabaseHelper.migrate(inMemoryDB)
+		manager = try ReparentTaskDBManager(database: inMemoryDB)
+		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
 	func testCreateAndGetTask() throws {
@@ -37,7 +31,7 @@ class ReparentTaskManagerTests: XCTestCase {
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let newParentID: Int64 = 3
 		let createdTask = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: newParentID)
-		let fetchedTask = try manager.getTaskRecord(for: itemID)
+		let fetchedTask = try getTaskRecord(for: itemID)
 		XCTAssertEqual(createdTask, fetchedTask)
 		XCTAssertEqual(itemID, fetchedTask.correspondingItem)
 		XCTAssertEqual(sourceCloudPath, fetchedTask.sourceCloudPath)
@@ -53,9 +47,9 @@ class ReparentTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createTaskRecord(for: itemMetadata, targetCloudPath: targetCloudPath, newParentID: 3)
-		let task = try manager.getTaskRecord(for: itemID)
+		let task = try getTaskRecord(for: itemID)
 		try manager.removeTaskRecord(task)
-		XCTAssertThrowsError(try manager.getTaskRecord(for: itemID)) { error in
+		XCTAssertThrowsError(try getTaskRecord(for: itemID)) { error in
 			guard case DBManagerError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -142,11 +136,9 @@ class ReparentTaskManagerTests: XCTestCase {
 		XCTAssertEqual(itemMetadataManager.getRootContainerID(), retrievedTasks[0].oldParentID)
 		XCTAssertEqual(itemMetadataManager.getRootContainerID(), retrievedTasks[0].newParentID)
 	}
-}
 
-extension ReparentTaskDBManager {
-	func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord {
-		try dbPool.read { db in
+	private func getTaskRecord(for id: Int64) throws -> ReparentTaskRecord {
+		try inMemoryDB.read { db in
 			guard let task = try ReparentTaskRecord.fetchOne(db, key: id) else {
 				throw DBManagerError.taskNotFound
 			}

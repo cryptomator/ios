@@ -49,7 +49,7 @@ class UpgradeCoordinator: Coordinator {
 			return
 		}
 		StoreObserver.shared.buy(product).then { _ in
-			CryptomatorSettings.shared.fullVersionUnlocked = true
+			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			return self.showAlert(title: LocalizedString.getValue("upgrade.paidUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.paidUpgrade.alert.message"))
 		}.then {
 			self.close()
@@ -64,7 +64,7 @@ class UpgradeCoordinator: Coordinator {
 			return
 		}
 		StoreObserver.shared.buy(product).then { _ in
-			CryptomatorSettings.shared.fullVersionUnlocked = true
+			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			return self.showAlert(title: LocalizedString.getValue("upgrade.freeUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.freeUpgrade.alert.message"))
 		}.then {
 			self.close()

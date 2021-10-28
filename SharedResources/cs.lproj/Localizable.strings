@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstranit";
 "common.button.signOut" = "Odhlásit se";
+"common.button.verify" = "Ověřit";
+"common.cells.openInFilesApp" = "Otevřít v aplikaci Soubory";
 "common.cells.password" = "Heslo";
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživatel";
@@ -85,6 +87,12 @@
 "settings.title" = "Nastavení";
 "settings.aboutCryptomator" = "O Cryptomatoru";
 "settings.aboutCryptomator.title" = "Verze %@ (%@)";
+"settings.cacheSize" = "Velikost mezipaměti";
+"settings.clearCache" = "Vyčistit mezipaměť";
+"settings.cloudServices" = "Cloudové služby";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Ladící režim";
+"settings.rateApp" = "Ohodnotit aplikaci";
 "settings.sendLogFile" = "Odeslat log soubor";
 
 "unlockVault.button.unlock" = "Odemknout";
@@ -107,6 +115,8 @@
 "urlSession.error.httpError.412" = "Přístup k cílovému zdroji byl odepřen.";
 "urlSession.error.httpError.default" = "Připojení k síti selhalo se stavovým kódem %ld.";
 "urlSession.error.unexpectedResponse" = "Došlo k neočekávané odpovědi sítě.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Tento trezor jste již přidali.";
 
 "vaultDetail.button.lock" = "Uzamknout nyní";
 "vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";

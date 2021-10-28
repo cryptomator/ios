@@ -31,10 +31,19 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 		super.viewDidLoad()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		cancelButton.tintColor = UIColor(named: "primary")
-		let toolbarItems = [cancelButton]
+		var toolbarItems = [cancelButton]
+		if viewModel.canCreateFolder {
+			let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+			let createFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.createFolder"), style: .plain, target: self, action: #selector(createNewFolder))
+			createFolderButton.tintColor = UIColor(named: "primary")
+			toolbarItems.append(flexibleSpaceItem)
+			toolbarItems.append(createFolderButton)
+		}
 		setToolbarItems(toolbarItems, animated: false)
+
 		tableView.register(FolderCell.self, forCellReuseIdentifier: "FolderCell")
 		tableView.register(FileCell.self, forCellReuseIdentifier: "FileCell")
+
 		// pull to refresh
 		initRefreshControl()
 		viewModel.startListenForChanges { [weak self] error in

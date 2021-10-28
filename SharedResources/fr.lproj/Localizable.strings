@@ -87,6 +87,12 @@
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Taille du cache";
+"settings.clearCache" = "Vider le cache";
+"settings.cloudServices" = "Services de stockage en ligne";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Mode de débogage";
+"settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
 "unlockVault.button.unlock" = "Déverrouiller";
@@ -109,6 +115,8 @@
 "urlSession.error.httpError.412" = "Accès à la ressource cible refusé.";
 "urlSession.error.httpError.default" = "La connexion au réseau a échoué avec le code %ld.";
 "urlSession.error.unexpectedResponse" = "Une erreur réseau inattendue s'est produite.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Vous avez déjà ajouté cette coffre.";
 
 "vaultDetail.button.lock" = "Verrouiller maintenant";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";

@@ -18,6 +18,8 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Rimuovi";
 "common.button.signOut" = "Disconnettiti";
+"common.button.verify" = "Verifica";
+"common.cells.openInFilesApp" = "Apri nell'App File";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
@@ -31,10 +33,10 @@
 "addVault.title" = "Aggiungi Cassaforte";
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
-"addVault.createNewVault.setVaultName.cells.name" = "Nome Cassaforte";
+"addVault.createNewVault.setVaultName.cells.name" = "Nome della Cassaforte";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Il nome della cassaforte non deve contenere \\ / : * ? \" < > | o terminare con un punto.";
-"addVault.createNewVault.chooseCloud.header" = "Dove dovrebbe memorizzare Cryptomator i file crittografati della tua cassaforte?";
+"addVault.createNewVault.chooseCloud.header" = "Dove Cryptomator dovrebbe memorizzare i file crittografati della tua cassaforte?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" esiste già in questa posizione. Scegli un nome o una posizione della cassaforte diverso.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poterne creare una nuova, sei pregato di tornare indietro e scegliere una cartella differente.";
 "addVault.createNewVault.password.enterPassword.header" = "Inserisci una nuova password.";
@@ -85,6 +87,12 @@
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";
 "settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.cacheSize" = "Dimensione cache";
+"settings.clearCache" = "Svuota Cache";
+"settings.cloudServices" = "Servizi cloud";
+"settings.contact" = "Contatto";
+"settings.debugMode" = "Modalità Debug";
+"settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
 
 "unlockVault.button.unlock" = "Sblocca";
@@ -107,6 +115,8 @@
 "urlSession.error.httpError.412" = "Accesso alla risorsa di destinazione negato.";
 "urlSession.error.httpError.default" = "Connessione di rete non riuscita con codice di stato %ld.";
 "urlSession.error.unexpectedResponse" = "Si è verificata una risposta di rete imprevista.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Hai già aggiunto questa cassaforte.";
 
 "vaultDetail.button.lock" = "Blocca Ora";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";

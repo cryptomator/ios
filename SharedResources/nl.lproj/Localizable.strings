@@ -13,14 +13,20 @@
 "common.button.createFolder" = "Map aanmaken";
 "common.button.done" = "Klaar";
 "common.button.edit" = "Bewerken";
+"common.button.enable" = "Inschakelen";
 "common.button.next" = "Volgende";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Verwijderen";
 "common.button.signOut" = "Uitloggen";
+"common.button.verify" = "Verifiëren";
+"common.cells.openInFilesApp" = "Open in Bestanden App";
 "common.cells.password" = "Wachtwoord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Gebruikersnaam";
 "common.footer.learnMore" = "Meer weten.";
+
+"accountList.header.title" = "Authenticaties";
+"accountList.emptyList.message" = "Tik hier om een account toe te voegen";
 "accountList.signOut.alert.title" = "Bijbehorende kluizen verwijderen?";
 "accountList.signOut.alert.message" = "Door uit te loggen worden alle bijbehorende kluizen uit de kluislijst verwijderd. Er worden geen versleutelde gegevens verwijderd. U kunt opnieuw inloggen en later de kluis opnieuw toevoegen.";
 
@@ -28,13 +34,18 @@
 "addVault.createNewVault.title" = "Nieuwe Kluis Aanmaken";
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kluis naam mag niet leeg zijn.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "De kluisnaam mag geen \\ / : *? \" < > | bevatten of eindigen met een punt.";
 "addVault.createNewVault.chooseCloud.header" = "Waar moet Cryptomator de versleutelde bestanden van je kluis opslaan?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bestaat al op deze locatie. Kies een andere kluisnaam of locatie.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm een nieuwe kluis te maken, ga terug en kies een andere map.";
 "addVault.createNewVault.password.enterPassword.header" = "Voer een nieuw wachtwoord in.";
 "addVault.createNewVault.password.confirmPassword.header" = "Bevestig het nieuwe wachtwoord.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Bevestig Wachtwoord?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "BELANGRIJK: Als u uw wachtwoord vergeet, is er geen manier om uw gegevens te herstellen.";
+"addVault.createNewVault.password.error.emptyPassword" = "Wachtwoord mag niet leeg zijn.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Wachtwoorden komen niet overeen.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Het wachtwoord moet minstens 8 karakters bevatten.";
 "addVault.openExistingVault.title" = "Open Bestaande Kluis";
 "addVault.openExistingVault.chooseCloud.header" = "Wat is de locatie van de kluis?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detecteerde de kluis \"%@\".\nWilt u deze kluis toevoegen?";
@@ -43,20 +54,87 @@
 "addVault.success.info" = "Kluis succesvol toegevoegd \"%@\".\nToegang tot deze kluis via de bestandsapp.";
 "addVault.success.footer" = "Schakel Cryptomator in in de Verkenner als u dat nog niet gedaan hebt.";
 
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
 "chooseFolder.emptyFolder.footer" = "Map is leeg";
 "chooseFolder.createNewFolder.header.title" = "Kies een naam voor de map.";
 "chooseFolder.createNewFolder.cells.name" = "Naam van de Map";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Naam van de map mag niet leeg zijn.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" niet gevonden.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" bestaat al.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" heeft een onverwachts item type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Bovenliggende map \"%@\" bestaat niet.";
+"cloudProvider.error.pageTokenInvalid" = "Ophalen van de inhoud van directory kon niet worden voortgezet.";
+"cloudProvider.error.quotaInsufficient" = "Uw opslag heeft onvoldoende ruimte beschikbaar.";
+"cloudProvider.error.unauthorized" = "Niet mogelijk om ongeautoriseerde bewerking uit te voeren.";
+"cloudProvider.error.noInternetConnection" = "Internet verbinding nodig voor deze actie.";
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Er bestaat al een kluis op deze locatie. Probeer het opnieuw met een andere opslaglocatie.";
 "localFileSystemAuthentication.openExistingVault.header" = "Kies in het volgende scherm de map van uw bestaande kluis.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "De geselecteerde map is geen kluis. Probeer het opnieuw met een andere map.";
+
+"onboarding.title" = "Welkom";
+"onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
+"onboarding.openCryptomator.button" = "Open Cryptomator";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
+"settings.aboutCryptomator.title" = "Versie %@ (%@)";
+"settings.cacheSize" = "Cachegrootte";
+"settings.clearCache" = "Cache leegmaken";
+"settings.cloudServices" = "Clouddiensten";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Foutopsporingsmodus";
+"settings.rateApp" = "Beoordeel App";
+"settings.sendLogFile" = "Logbestand verzenden";
 
 "unlockVault.button.unlock" = "Ontgrendel";
+"unlockVault.button.unlockVia" = "Ontgrendel via %@";
 "unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ inschakelen";
+"unlockVault.enableBiometricalUnlock.footer" = "In plaats van je kluis te ontgrendelen met je wachtwoord, kun je het ontgrendelen via %@.";
+"unlockVault.evaluatePolicy.reason" = "Ontgrendel je kluis";
+
+"untrustedTLSCertificate.title" = "Ongeldig TLS certificaat";
+"untrustedTLSCertificate.message" = "Het TLS certificaat van \"%@\" is ongeldig. Wilt u het toch vertrouwen?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vertrouwen";
+"untrustedTLSCertificate.dismiss" = "Niet vertrouwen";
+
+"urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
+"urlSession.error.httpError.403" = "Verboden toegang.";
+"urlSession.error.httpError.404" = "Niet gevonden.";
+"urlSession.error.httpError.405" = "Aanvraagmethode niet ondersteund.";
+"urlSession.error.httpError.409" = "Conflict.";
+"urlSession.error.httpError.412" = "Niet voldaan aan vooraf gestelde voorwaarde.";
+"urlSession.error.httpError.default" = "Netwerkverbinding mislukt met statuscode %ld.";
+"urlSession.error.unexpectedResponse" = "Er is een onverwachte fout opgetreden.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Je hebt deze kluis al toegevoegd.";
+
+"vaultDetail.button.lock" = "Nu vergrendelen";
+"vaultDetail.button.removeVault" = "Verwijder uit lijst";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
+"vaultDetail.info.footer.accessVault" = "Toegang tot de kluis via de Bestandenapp.";
+"vaultDetail.info.footer.accountInfo" = "Ingelogd als %@ via %@.";
+"vaultDetail.locked.footer" = "Je kluis is momenteel vergrendeld.";
+"vaultDetail.removeVault.footer" = "Dit verwijdert alleen de kluis uit de lijst en verwijdert geen versleutelde bestanden.";
+"vaultDetail.unlocked.footer" = "Je kluis is momenteel ontgrendeld in de Bestandenapp.";
+"vaultDetail.unlockVault.footer" = "Voer wachtwoord voor \"%@\" in om het in de iOS-sleutelhanger op te slaan en %@ in te schakelen.";
+
+"vaultList.header.title" = "Kluizen";
+"vaultList.emptyList.message" = "Klik hier om een kluis toe te voegen";
 "vaultList.remove.alert.title" = "Verwijder Kluis?";
+"vaultList.remove.alert.message" = "Dit verwijdert alleen de kluis uit de lijst. Er worden geen versleutelde gegevens verwijderd. U kunt de kluis later opnieuw toevoegen.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "De kluisversie wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
+
+"webDAVAuthentication.title" = "WebDAV";

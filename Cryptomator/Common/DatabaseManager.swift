@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import GRDB
@@ -49,6 +50,13 @@ class DatabaseManager {
 	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> TransactionObserver {
 		let observation = ValueObservation.tracking { db in
 			try VaultAccount.fetchAll(db)
+		}
+		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+	}
+
+	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping (Error) -> Void, onChange: @escaping (VaultAccount?) -> Void) -> TransactionObserver {
+		let observation = ValueObservation.tracking { db in
+			try VaultAccount.fetchOne(db, key: vaultUID)
 		}
 		return observation.start(in: dbPool, onError: onError, onChange: onChange)
 	}

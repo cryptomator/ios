@@ -9,24 +9,20 @@
 import UIKit
 
 class ButtonCellViewModel<T>: TableViewCellViewModel {
-	var type: TableViewCell.Type {
-		return TableViewCell.self
+	override var type: TableViewCell.Type { ButtonTableViewCell.self }
+	let action: T
+	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), detailTitle: String? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
+		self.action = action
+		super.init(title: title, titleTextColor: titleTextColor, detailTitle: detailTitle, isEnabled: isEnabled, selectionStyle: selectionStyle, accessoryType: accessoryType)
 	}
 
-	let title: Bindable<String?>
-	let titleTextColor: Bindable<UIColor?>
-	let detailTitle: Bindable<String?> = Bindable(nil)
-	let detailTitleTextColor: Bindable<UIColor?> = Bindable(nil)
-	let image: Bindable<UIImage?> = Bindable(nil)
-	var isEnabled: Bindable<Bool>
-	let selectionStyle: Bindable<UITableViewCell.SelectionStyle>
+	static func createDisclosureButton(action: T, title: String, detailTitle: String? = nil, accessoryType: UITableViewCell.AccessoryType = .disclosureIndicator, isEnabled: Bool = true) -> ButtonCellViewModel<T> {
+		return ButtonCellViewModel(action: action, title: title, titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: accessoryType)
+	}
+}
 
-	let action: T
-	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default) {
-		self.action = action
-		self.title = Bindable(title)
-		self.titleTextColor = Bindable(titleTextColor)
-		self.isEnabled = Bindable(isEnabled)
-		self.selectionStyle = Bindable(selectionStyle)
+class ButtonTableViewCell: TableViewCell {
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: .value1, reuseIdentifier: reuseIdentifier)
 	}
 }

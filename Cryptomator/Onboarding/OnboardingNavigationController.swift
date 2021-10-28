@@ -12,6 +12,6 @@ import Foundation
 class OnboardingNavigationController: BaseNavigationController {
 	override func viewDidDisappear(_ animated: Bool) {
 		super.viewDidDisappear(animated)
-		CryptomatorSettings.shared.showOnboardingAtStartup = false
+		CryptomatorUserDefaults.shared.showOnboardingAtStartup = false
 	}
 }

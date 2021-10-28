@@ -73,7 +73,7 @@ class VaultListViewController: UITableViewController {
 
 	override func viewDidAppear(_ animated: Bool) {
 		super.viewDidAppear(animated)
-		if CryptomatorSettings.shared.showOnboardingAtStartup {
+		if CryptomatorUserDefaults.shared.showOnboardingAtStartup {
 			coordinator?.showOnboarding()
 		}
 	}

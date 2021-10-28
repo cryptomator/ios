@@ -46,6 +46,11 @@ public protocol VaultAccountManager {
 	func removeAccount(with vaultUID: String) throws
 	func getAccount(with vaultUID: String) throws -> VaultAccount
 	func getAllAccounts() throws -> [VaultAccount]
+	func updateAccount(_ account: VaultAccount) throws
+}
+
+public enum VaultAccountManagerError: Error {
+	case vaultAccountAlreadyExists
 }
 
 public class VaultAccountDBManager: VaultAccountManager {
@@ -57,8 +62,12 @@ public class VaultAccountDBManager: VaultAccountManager {
 	}
 
 	public func saveNewAccount(_ account: VaultAccount) throws {
-		try dbPool.write { db in
-			try account.save(db)
+		do {
+			try dbPool.write { db in
+				try account.save(db)
+			}
+		} catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
+			throw VaultAccountManagerError.vaultAccountAlreadyExists
 		}
 	}
 
@@ -83,6 +92,12 @@ public class VaultAccountDBManager: VaultAccountManager {
 	public func getAllAccounts() throws -> [VaultAccount] {
 		try dbPool.read { db in
 			try VaultAccount.fetchAll(db)
+		}
+	}
+
+	public func updateAccount(_ account: VaultAccount) throws {
+		try dbPool.write { db in
+			try account.update(db)
 		}
 	}
 }

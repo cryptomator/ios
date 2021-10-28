@@ -6,67 +6,118 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
+import CryptomatorFileProvider
 import Foundation
-import UIKit
+import Promises
 
 enum SettingsButtonAction: String {
 	case showAbout
 	case sendLogFile
+	case clearCache
+	case showCloudServices
+	case showContact
+	case showRateApp
 	case unknown
 }
 
-private enum SettingsSection: Int {
-	case aboutSection = 0
+enum SettingsSection: Int {
+	case cloudServiceSection = 0
+	case cacheSection
+	case aboutSection
 	case debugSection
+	case miscSection
 }
 
-struct SettingsViewModel {
-	var numberOfSections: Int {
-		return 2
-	}
+class SettingsViewModel {
+	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection, .miscSection]
+	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
+		[
+			.cloudServiceSection: [
+				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
+			],
+			.cacheSection: [
+				cacheSizeCellViewModel,
+				clearCacheButtonCellViewModel
+			],
+			.aboutSection: [
+				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
+			],
+			.debugSection: [
+				debugModeViewModel,
+				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
+			],
+			.miscSection: [
+				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
+				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
+			]
+		]
+	}()
 
-	func numberOfRows(in section: Int) -> Int {
-		switch SettingsSection(rawValue: section) {
-		case .aboutSection:
-			return 1
-		case .debugSection:
-			return 1
-		case nil:
-			return 0
-		}
-	}
+	private let cacheManager: FileProviderCacheManager
+	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
+	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
 
-	func title(for indexPath: IndexPath) -> String {
-		switch SettingsSection(rawValue: indexPath.section) {
-		case .aboutSection:
-			return LocalizedString.getValue("settings.aboutCryptomator")
-		case .debugSection:
-			return LocalizedString.getValue("settings.sendLogFile")
-		case nil:
-			return ""
-		}
+	private var cryptomatorSettings: CryptomatorSettings
+	private lazy var debugModeViewModel: SwitchCellViewModel = {
+		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.debugMode"), isOn: cryptomatorSettings.debugModeEnabled)
+		bindDebugModeViewModel(viewModel)
+		return viewModel
+	}()
+
+	private let fileProviderConnector: FileProviderConnector
+	private var subscribers = Set<AnyCancellable>()
+
+	init(cacheManager: FileProviderCacheManager = FileProviderCacheManager(), cryptomatorSetttings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+		self.cacheManager = cacheManager
+		self.cryptomatorSettings = cryptomatorSetttings
+		self.fileProviderConnector = fileProviderConnector
 	}
 
 	func buttonAction(for indexPath: IndexPath) -> SettingsButtonAction {
-		switch SettingsSection(rawValue: indexPath.section) {
-		case .aboutSection:
-			return .showAbout
-		case .debugSection:
-			return .sendLogFile
-		case nil:
+		let section = sections[indexPath.section]
+		guard let cell = cells[section]?[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
 			return .unknown
+		}
+		return cell.action
+	}
+
+	func refreshCacheSize() -> Promise<Void> {
+		var loading = true
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+			if loading {
+				self.cacheSizeCellViewModel.isLoading.value = true
+				self.clearCacheButtonCellViewModel.isEnabled.value = false
+			}
+		}
+		return cacheManager.getTotalLocalCacheSizeInBytes().then { totalCacheSizeInBytes -> Void in
+			loading = false
+			self.cacheSizeCellViewModel.isLoading.value = false
+			self.clearCacheButtonCellViewModel.isEnabled.value = totalCacheSizeInBytes > 0
+			let formattedString = ByteCountFormatter().string(fromByteCount: Int64(totalCacheSizeInBytes))
+			self.cacheSizeCellViewModel.detailTitle.value = formattedString
 		}
 	}
 
-	func accessoryType(for indexPath: IndexPath) -> UITableViewCell.AccessoryType {
-		switch SettingsSection(rawValue: indexPath.section) {
-		case .aboutSection:
-			return .disclosureIndicator
-		case .debugSection:
-			return .none
-		case nil:
-			return .none
+	func clearCache() -> Promise<Void> {
+		return cacheManager.clearCache().then {
+			self.refreshCacheSize()
+		}
+	}
+
+	private func bindDebugModeViewModel(_ viewModel: SwitchCellViewModel) {
+		viewModel.isOnButtonPublisher.sink { [weak self] isOn in
+			self?.cryptomatorSettings.debugModeEnabled = isOn
+			LoggerSetup.setDynamicLogLevel(debugModeEnabled: isOn)
+			self?.notifyFileProviderAboutLogLevelUpdate()
+		}.store(in: &subscribers)
+	}
+
+	private func notifyFileProviderAboutLogLevelUpdate() {
+		let getProxyPromise: Promise<LogLevelUpdating> = fileProviderConnector.getProxy(serviceName: LogLevelUpdatingService.name, domain: nil)
+		getProxyPromise.then { proxy in
+			proxy.logLevelUpdated()
 		}
 	}
 }

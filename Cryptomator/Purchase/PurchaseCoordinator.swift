@@ -63,7 +63,7 @@ class PurchaseCoordinator: Coordinator {
 			return
 		}
 		StoreObserver.shared.buy(product).then { transaction in
-			CryptomatorSettings.shared.trialExpirationDate = self.trialExpirationDate(transaction)
+			CryptomatorUserDefaults.shared.trialExpirationDate = self.trialExpirationDate(transaction)
 			return self.showAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), message: LocalizedString.getValue("purchase.beginFreeTrial.alert.message"))
 		}.then {
 			self.close()
@@ -78,7 +78,7 @@ class PurchaseCoordinator: Coordinator {
 			return
 		}
 		StoreObserver.shared.buy(product).then { _ in
-			CryptomatorSettings.shared.fullVersionUnlocked = true
+			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			return self.showAlert(title: LocalizedString.getValue("purchase.purchaseFullVersion.alert.title"), message: LocalizedString.getValue("purchase.purchaseFullVersion.alert.message"))
 		}.then {
 			self.close()
@@ -113,12 +113,12 @@ class PurchaseCoordinator: Coordinator {
 
 	private func handleRestoredTransactions(_ transactions: [SKPaymentTransaction]) {
 		if transactionsContainFullVersion(transactions) {
-			CryptomatorSettings.shared.fullVersionUnlocked = true
+			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.message")).then {
 				self.close()
 			}
 		} else if transactionsContainValidTrial(transactions) {
-			CryptomatorSettings.shared.trialExpirationDate = trialExpirationDate(transactions)
+			CryptomatorUserDefaults.shared.trialExpirationDate = trialExpirationDate(transactions)
 			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"), message: String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), numberOfDaysLeftForTrial(transactions))).then {
 				self.close()
 			}

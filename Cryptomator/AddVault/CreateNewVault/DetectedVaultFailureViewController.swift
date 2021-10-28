@@ -6,11 +6,12 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class DetectedVaultFailureViewController: UIViewController {
 	override func viewDidLoad() {
-		let failureView = DetectedVaultFailureView()
+		let failureView = DetectedVaultFailureView(text: LocalizedString.getValue("addVault.createNewVault.detectedMasterkey.text"))
 		let containerView = UIView()
 		containerView.backgroundColor = .systemGroupedBackground
 		view.addSubview(containerView)

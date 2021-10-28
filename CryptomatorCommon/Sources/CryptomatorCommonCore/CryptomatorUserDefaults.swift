@@ -1,5 +1,5 @@
 //
-//  CryptomatorSettings.swift
+//  CryptomatorUserDefaults.swift
 //  CryptomatorCommonCore
 //
 //  Created by Tobias Hagemann on 22.09.21.
@@ -9,10 +9,20 @@
 import CocoaLumberjackSwift
 import Foundation
 
-public class CryptomatorSettings {
-	public static let shared = CryptomatorSettings()
+public protocol CryptomatorSettings {
+	var debugModeEnabled: Bool { get set }
+}
+
+public class CryptomatorUserDefaults {
+	public static let shared = CryptomatorUserDefaults()
 
 	private var defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
+
+	#if DEBUG
+	private static let debugModeEnabledDefaultValue = true
+	#else
+	private static let debugModeEnabledDefaultValue = false
+	#endif
 
 	private func read<T>(property: String = #function) -> T? {
 		defaults.object(forKey: property) as? T
@@ -24,19 +34,24 @@ public class CryptomatorSettings {
 	}
 }
 
-public extension CryptomatorSettings {
-	var showOnboardingAtStartup: Bool {
+extension CryptomatorUserDefaults: CryptomatorSettings {
+	public var showOnboardingAtStartup: Bool {
 		get { read() ?? true }
 		set { write(value: newValue) }
 	}
 
-	var fullVersionUnlocked: Bool {
+	public var fullVersionUnlocked: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}
 
-	var trialExpirationDate: Date? {
+	public var trialExpirationDate: Date? {
 		get { read() }
+		set { write(value: newValue) }
+	}
+
+	public var debugModeEnabled: Bool {
+		get { read() ?? CryptomatorUserDefaults.debugModeEnabledDefaultValue }
 		set { write(value: newValue) }
 	}
 }
