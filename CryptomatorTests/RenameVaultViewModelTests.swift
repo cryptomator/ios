@@ -42,7 +42,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				return
 			}
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
+			self.checkMaintenanceModeNeitherEnabledNorDisabled()
 		}.always {
 			expectation.fulfill()
 		}
@@ -64,7 +64,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				return
 			}
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
+			self.checkMaintenanceModeNeitherEnabledNorDisabled()
 		}.always {
 			expectation.fulfill()
 		}
@@ -137,7 +137,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			XCTAssert(vaultLockingMock.lockedVaults.isEmpty)
 
-			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
+			self.checkMaintenanceModeNeitherEnabledNorDisabled()
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -155,7 +155,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		viewModel.vaultName = newVaultName
 
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.error = MaintenanceModeError.runningCloudTask
+		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
 
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
@@ -165,7 +165,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 				return
 			}
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssert(self.maintenanceManagerMock.maintenanceModeChanges.isEmpty)
+			self.checkMaintenanceModeNeitherEnabledNorDisabled()
 		}.always {
 			expectation.fulfill()
 		}
@@ -212,24 +212,12 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	}
 
 	private func checkMaintenanceModeEnabledThenDisabled() {
-		XCTAssertEqual(2, maintenanceManagerMock.maintenanceModeChanges.count)
-		XCTAssert(maintenanceManagerMock.maintenanceModeChanges[0])
-		XCTAssertFalse(maintenanceManagerMock.maintenanceModeChanges[1])
-	}
-}
-
-private class MaintenanceManagerMock: MaintenanceManager {
-	var maintenanceModeChanges = [Bool]()
-	var error: Error?
-
-	func enableMaintenanceMode() throws {
-		if let error = error {
-			throw error
-		}
-		maintenanceModeChanges.append(true)
+		XCTAssertEqual(1, maintenanceManagerMock.enableMaintenanceModeCallsCount)
+		XCTAssertEqual(1, maintenanceManagerMock.disableMaintenanceModeCallsCount)
 	}
 
-	func disableMaintenanceMode() throws {
-		maintenanceModeChanges.append(false)
+	private func checkMaintenanceModeNeitherEnabledNorDisabled() {
+		XCTAssertFalse(maintenanceManagerMock.enableMaintenanceModeCalled)
+		XCTAssertFalse(maintenanceManagerMock.disableMaintenanceModeCalled)
 	}
 }
