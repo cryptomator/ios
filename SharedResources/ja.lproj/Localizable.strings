@@ -123,6 +123,7 @@
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.removeVault.footer" = "暗号化されたファイルは削除されずに、金庫のリストから金庫が削除されます。";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
 "vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";
