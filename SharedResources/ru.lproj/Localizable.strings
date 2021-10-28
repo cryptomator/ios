@@ -125,6 +125,7 @@
 "vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
 "vaultDetail.info.footer.accountInfo" = "Вы вошли как %@ через %@.";
 "vaultDetail.locked.footer" = "Хранилище сейчас заблокировано.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator обнаружил существующее хранилище в этом месте.\nЧтобы переместить хранилище, вернитесь и выберите другую папку.";
 "vaultDetail.removeVault.footer" = "Это только удалит хранилище из списка, но не удалит зашифрованные файлы.";
 "vaultDetail.unlocked.footer" = "Сейчас хранилище разблокировано в приложении \"Файлы\".";
 "vaultDetail.unlockVault.footer" = "Введите пароль для \"%@\", чтобы сохранить его в Связке ключей iOS и включить %@.";
