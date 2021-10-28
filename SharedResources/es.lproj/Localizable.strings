@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
 
+"maintenanceModeError.runningCloudTask" = "La operación no puede realizarse porque otras operaciones en segundo plano para esta bóveda deben finalizar primero. Intente de nuevo más tarde.";
+
 "onboarding.title" = "Bienvenido";
 "onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "onboarding.openCryptomator.button" = "Abrir Cryptomator";
