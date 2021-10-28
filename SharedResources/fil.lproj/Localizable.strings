@@ -1,6 +1,12 @@
+"common.button.choose" = "Pumili";
+"common.button.edit" = "I-edit";
+"common.button.enable" = "I-enable";
 "common.button.ok" = "OK";
 "common.button.remove" = "Tanggalin";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Walang paraan para maisalba ang iyong datos kapag nakalimutan ang iyong password.";
+
+"settings.title" = "Settings";
 "settings.clearCache" = "Linisin ang Cache";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
