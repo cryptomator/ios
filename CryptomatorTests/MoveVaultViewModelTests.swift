@@ -118,12 +118,12 @@ class MoveVaultViewModelTests: XCTestCase {
 		let expectation = XCTestExpectation()
 
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.enableMaintenanceModeThrowableError = DatabaseError(resultCode: .SQLITE_CONSTRAINT_TRIGGER, message: "Running Task", sql: nil, arguments: nil)
+		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
 
 		viewModel.moveVault(to: CloudPath("/Test")).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case MoveVaultViewModelError.runningCloudTask = error else {
+			guard case MaintenanceModeError.runningCloudTask = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}

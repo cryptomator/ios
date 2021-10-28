@@ -19,7 +19,6 @@ protocol RenameVaultViewModelProtcol: SetVaultNameViewModelProtocol {
 }
 
 enum RenameVaultViewModelError: Error {
-	case runningCloudTask
 	case vaultNotEligibleForRename
 }
 
@@ -50,8 +49,6 @@ class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
 				throw error
 			}
 			switch moveVaultViewModelError {
-			case .runningCloudTask:
-				throw RenameVaultViewModelError.runningCloudTask
 			case .vaultNotEligibleForMove:
 				throw RenameVaultViewModelError.vaultNotEligibleForRename
 			case .moveVaultInsideItselfNotAllowed:

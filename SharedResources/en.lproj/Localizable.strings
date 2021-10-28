@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
+"maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
+
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "onboarding.openCryptomator.button" = "Open Cryptomator";

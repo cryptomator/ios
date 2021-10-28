@@ -155,12 +155,12 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		viewModel.vaultName = newVaultName
 
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.error = DatabaseError(resultCode: .SQLITE_CONSTRAINT_TRIGGER, message: "Running Task", sql: nil, arguments: nil)
+		maintenanceManagerMock.error = MaintenanceModeError.runningCloudTask
 
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case RenameVaultViewModelError.runningCloudTask = error else {
+			guard case MaintenanceModeError.runningCloudTask = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}

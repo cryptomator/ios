@@ -109,6 +109,7 @@
 		4A53CC13267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC12267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift */; };
 		4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */; };
 		4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */; };
+		4A5F48EE272AA02A0084135F /* MaintenanceModeError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */; };
 		4A644B44267A3BEC008CBB9A /* SetVaultNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B43267A3BEC008CBB9A /* SetVaultNameViewController.swift */; };
 		4A644B47267A3D43008CBB9A /* SetVaultNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B46267A3D43008CBB9A /* SetVaultNameViewModel.swift */; };
 		4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */; };
@@ -475,6 +476,7 @@
 		4A53CC12267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewController.swift; sourceTree = "<group>"; };
 		4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultChooseFolderViewModel.swift; sourceTree = "<group>"; };
+		4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceModeError+Localization.swift"; sourceTree = "<group>"; };
 		4A644B43267A3BEC008CBB9A /* SetVaultNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetVaultNameViewController.swift; sourceTree = "<group>"; };
 		4A644B46267A3D43008CBB9A /* SetVaultNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetVaultNameViewModel.swift; sourceTree = "<group>"; };
 		4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetVaultNameViewModelTests.swift; sourceTree = "<group>"; };
@@ -1016,6 +1018,7 @@
 				4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */,
 				74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
+				4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */,
 				4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */,
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
@@ -1910,6 +1913,7 @@
 				4A4B7E4826B2BAFB009BFDB1 /* SwitchCell.swift in Sources */,
 				4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */,
 				4A447E5625BF1F6A00D9520D /* CloudItemCell.swift in Sources */,
+				4A5F48EE272AA02A0084135F /* MaintenanceModeError+Localization.swift in Sources */,
 				4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */,
 				4A1EB0D8268A6DE1006D072B /* AddLocalVaultViewController.swift in Sources */,
 				4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */,
