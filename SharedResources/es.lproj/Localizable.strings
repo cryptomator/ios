@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
 "vaultDetail.info.footer.accountInfo" = "Sesión iniciada como %@ vía %@.";
 "vaultDetail.locked.footer" = "Su bóveda está bloqueada actualmente.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara mover su bóveda, por favor vuelva atrás y elija una carpeta diferente.";
 "vaultDetail.removeVault.footer" = "Esto solo eliminará la bóveda de la lista de bóvedas y no eliminará ningún archivo cifrado.";
 "vaultDetail.unlocked.footer" = "Su bóveda está actualmente desbloqueada en la aplicación Archivos.";
 "vaultDetail.unlockVault.footer" = "Ingrese la contraseña para \"%@\" para guardarla en el llavero de iOS y para habilitar %@.";
