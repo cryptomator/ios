@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Κρύπτης";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ο επιλεγμένος φάκελος δεν είναι κρύπτη. Παρακαλώ προσπαθήστε ξανά με διαφορετικό φάκελο.";
 
+"maintenanceModeError.runningCloudTask" = "Η λειτουργία δεν μπορεί να εκτελεστεί επειδή άλλες λειτουργίες στο παρασκήνιο αυτής της κρύπτης πρέπει να τελειώσουν πρώτα. Παρακαλώ δοκιμάστε ξανά αργότερα.";
+
 "onboarding.title" = "Καλώς ήρθατε";
 "onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
 "onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";
