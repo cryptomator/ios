@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Wybierz folder sejfu";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Wybrany folder nie jest sejfem. Spróbuj ponownie z innym katalogiem.";
 
+"maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
+
 "onboarding.title" = "Witamy";
 "onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
 "onboarding.openCryptomator.button" = "Otwórz Cryptomator";
