@@ -27,7 +27,7 @@
 
 "accountList.header.title" = "Authentifications";
 "accountList.emptyList.message" = "Appuyez ici pour ajouter un compte";
-"accountList.signOut.alert.title" = "Enlever les coffres associés?";
+"accountList.signOut.alert.title" = "Supprimer les coffres associés ?";
 "accountList.signOut.alert.message" = "En vous déconnectant, tous les coffres associés seront supprimés de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pouvez vous reconnecter et ré-ajouter les coffres plus tard.";
 
 "addVault.title" = "Ajouter un coffre";
@@ -58,7 +58,7 @@
 "biometryType.touchID" = "Touch ID";
 
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
-"chooseFolder.createNewFolder.header.title" = "Choisissez un nouveau nom pour ce classeur.";
+"chooseFolder.createNewFolder.header.title" = "Choisissez un nom pour le dossier.";
 "chooseFolder.createNewFolder.cells.name" = "Nom de classeur";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Le nom de dossier ne peut pas être vide.";
 
@@ -79,6 +79,8 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Le dossier sélectionné n'est pas un coffre. Veuillez réessayer avec un dossier différent.";
+
+"maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
 "onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
@@ -127,6 +129,7 @@
 "vaultDetail.info.footer.accessVault" = "Accédez au coffre via l'application Fichiers.";
 "vaultDetail.info.footer.accountInfo" = "Connecté en tant que %@ via %@.";
 "vaultDetail.locked.footer" = "Votre coffre est actuellement verrouillé.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de déplacer votre coffre, veuillez revenir en arrière et choisir un dossier différent.";
 "vaultDetail.removeVault.footer" = "Cela ne supprimera que le coffre de la liste des coffres et ne supprimera aucun fichier chiffré.";
 "vaultDetail.unlocked.footer" = "Votre coffre est actuellement déverrouillé dans l'application Fichiers.";
 "vaultDetail.unlockVault.footer" = "Entrez le mot de passe pour \"%@\" pour le stocker dans le porte-clés iOS et pour activer %@.";
