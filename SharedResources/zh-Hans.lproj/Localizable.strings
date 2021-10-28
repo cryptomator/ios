@@ -127,6 +127,7 @@
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
 "vaultDetail.info.footer.accountInfo" = "已登录账户：%@ (%@).";
 "vaultDetail.locked.footer" = "您的保险库目前已锁定。";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator 检测到当前路径已经存在一个保险库。\n如果您不想对其进行修改，请返回并选择另一个文件夹。";
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
 "vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 密钥链并启用 %@。";
