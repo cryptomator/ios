@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "De geselecteerde map is geen kluis. Probeer het opnieuw met een andere map.";
 
+"maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
+
 "onboarding.title" = "Welkom";
 "onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
 "onboarding.openCryptomator.button" = "Open Cryptomator";
