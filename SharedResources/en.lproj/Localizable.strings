@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancel";
+"common.button.change" = "Change";
 "common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
@@ -86,6 +87,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
 
+"MasterkeyFileError.invalidPassphrase" = "Invalid Password";
+
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "onboarding.openCryptomator.button" = "Open Cryptomator";
@@ -124,6 +127,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "You have already added this vault.";
 
+"vaultDetail.button.changeVaultPassword" = "Change Password";
 "vaultDetail.button.lock" = "Lock Now";
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";

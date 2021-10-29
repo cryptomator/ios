@@ -72,6 +72,21 @@ class VaultDetailCoordinator: Coordinator {
 		child.start()
 	}
 
+	func changeVaultPassword() {
+		let maintenanceManager: MaintenanceManager
+		do {
+			let database = try getFileProviderDatabase()
+			maintenanceManager = MaintenanceDBManager(database: database)
+		} catch {
+			handleError(error, for: navigationController.topViewController ?? navigationController)
+			return
+		}
+		let viewModel = ChangePasswordViewModel(vaultAccount: vaultInfo.vaultAccount, maintenanceManager: maintenanceManager)
+		let changePasswordViewController = ChangePasswordViewController(viewModel: viewModel)
+		changePasswordViewController.coordinator = self
+		navigationController.pushViewController(changePasswordViewController, animated: true)
+	}
+
 	private func getFileProviderDatabase() throws -> DatabaseWriter {
 		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
 		let fileproviderDatabaseURL = DatabaseHelper.getDatabaseURL(for: domain)
@@ -94,6 +109,15 @@ class VaultDetailCoordinator: Coordinator {
 extension VaultDetailCoordinator: VaultNaming {
 	func setVaultName(_ name: String) {
 		guard let topViewController = navigationController.topViewController, topViewController is RenameVaultViewController else {
+			return
+		}
+		navigationController.popViewController(animated: true)
+	}
+}
+
+extension VaultDetailCoordinator: VaultPasswordChanging {
+	func changedPassword() {
+		guard let topViewController = navigationController.topViewController, topViewController is ChangePasswordViewController else {
 			return
 		}
 		navigationController.popViewController(animated: true)
