@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Tresor-Ordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es mit einem anderen Ordner.";
 
+"maintenanceModeError.runningCloudTask" = "Der Vorgang kann nicht durchgeführt werden, da zuerst andere Hintergrundprozesse für diesen Tresor beendet werden müssen. Bitte versuche es später erneut.";
+
 "onboarding.title" = "Willkommen";
 "onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast. Um loszulegen, gehe zur Haupt-App und füge einen Tresor hinzu.";
 "onboarding.openCryptomator.button" = "Cryptomator öffnen";
@@ -127,6 +129,7 @@
 "vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
 "vaultDetail.info.footer.accountInfo" = "Eingeloggt als %@ über %@.";
 "vaultDetail.locked.footer" = "Dein Tresor ist zurzeit gesperrt.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm Deinen Tresor zu verschieben, gehe bitte zurück und wähle einen anderen Ordner.";
 "vaultDetail.removeVault.footer" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt und keine verschlüsselten Daten gelöscht.";
 "vaultDetail.unlocked.footer" = "Dein Tresor ist in der App „Dateien“ zurzeit entsperrt.";
 "vaultDetail.unlockVault.footer" = "Gib das Passwort für „%@“ ein, um es im iOS-Schlüsselbund zu speichern und %@ zu aktivieren.";
