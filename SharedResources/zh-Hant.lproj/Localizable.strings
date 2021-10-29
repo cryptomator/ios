@@ -54,6 +54,7 @@
 "cloudProvider.error.itemNotFound" = "無法找到「%@」。";
 "cloudProvider.error.itemAlreadyExists" = "「%@」已經存在。";
 "cloudProvider.error.quotaInsufficient" = "您的存儲已空間不足";
+"cloudProvider.error.unauthorized" = "無法執行未授權的操作";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
@@ -64,6 +65,8 @@
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
+"settings.cacheSize" = "緩存大小";
+"settings.clearCache" = "清除緩存";
 "settings.cloudServices" = "雲端服務";
 "settings.contact" = "聯絡方式";
 "settings.debugMode" = "調試模式";
@@ -78,11 +81,16 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
+
 "vaultDetail.button.lock" = "立即鎖定";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.locked.footer" = "您的加密檔案庫當前已鎖定。";
 
 "vaultList.header.title" = "加密檔案庫";
 "vaultList.emptyList.message" = "點擊此處以添加加密檔案庫";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
+
+"webDAVAuthentication.title" = "WebDAV";
