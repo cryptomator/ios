@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
 
+"maintenanceModeError.runningCloudTask" = "この金庫に対する他のバックグラウンド操作を最初に完了する必要があるため、操作を実行できません。あとでもう一度やり直してください。";
+
 "onboarding.title" = "ようこそ";
 "onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
 "onboarding.openCryptomator.button" = "Cryptomator を開く";
