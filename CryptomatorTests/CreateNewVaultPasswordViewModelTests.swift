@@ -206,6 +206,10 @@ private class PasswordVaultManagerMock: VaultManager {
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
+
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
 }
 
 private struct CreatedVault {

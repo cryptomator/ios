@@ -173,6 +173,29 @@ final class VaultManagerMock: VaultManager {
 		moveVaultAccountToReceivedInvocations.append((account: account, targetVaultPath: targetVaultPath))
 		return moveVaultAccountToClosure.map({ $0(account, targetVaultPath) }) ?? moveVaultAccountToReturnValue
 	}
+
+	// MARK: - changePassphrase
+
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDThrowableError: Error?
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount = 0
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDCalled: Bool {
+		changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount > 0
+	}
+
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments: (oldPassphrase: String, newPassphrase: String, vaultUID: String)?
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedInvocations: [(oldPassphrase: String, newPassphrase: String, vaultUID: String)] = []
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue: Promise<Void>!
+	var changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure: ((String, String, String) -> Promise<Void>)?
+
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
+		if let error = changePassphraseOldPassphraseNewPassphraseForVaultUIDThrowableError {
+			return Promise(error)
+		}
+		changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount += 1
+		changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments = (oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, vaultUID: vaultUID)
+		changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedInvocations.append((oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, vaultUID: vaultUID))
+		return changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure.map({ $0(oldPassphrase, newPassphrase, vaultUID) }) ?? changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue
+	}
 }
 
 // swiftlint:enable all
