@@ -24,6 +24,8 @@
 "common.cells.url" = "網址";
 "common.cells.username" = "帳號名稱";
 "common.footer.learnMore" = "了解更多。";
+
+"accountList.header.title" = "認證";
 "accountList.emptyList.message" = "點擊此處添加帳號";
 "accountList.signOut.alert.title" = "移除關聯的加密檔案庫？";
 
@@ -38,6 +40,7 @@
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
 "addVault.createNewVault.password.error.emptyPassword" = "密碼不可留空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
+"addVault.createNewVault.password.error.tooShortPassword" = "密碼必須包含至少8個字符。";
 "addVault.openExistingVault.title" = "開啟現有加密檔案庫";
 "addVault.openExistingVault.chooseCloud.header" = "加密檔案庫位於什麼地方？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加這個加密檔案庫";
@@ -65,6 +68,7 @@
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
+"settings.aboutCryptomator.title" = "版本號%@（%@）";
 "settings.cacheSize" = "緩存大小";
 "settings.clearCache" = "清除緩存";
 "settings.cloudServices" = "雲端服務";
@@ -73,6 +77,7 @@
 "settings.rateApp" = "為應用程式評分";
 
 "unlockVault.button.unlock" = "解鎖";
+"unlockVault.button.unlockVia" = "使用%@解鎖";
 "unlockVault.password.footer" = "輸入 「%@」 的密碼：";
 "unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
 "unlockVault.evaluatePolicy.reason" = "解鎖您的加密檔案庫";
@@ -81,12 +86,15 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"urlSession.error.httpError.401" = "用戶名或密碼錯誤";
+
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
 
 "vaultDetail.button.lock" = "立即鎖定";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.info.footer.accountInfo" = "已經使用 %@ 登入 %@。";
 "vaultDetail.locked.footer" = "您的加密檔案庫當前已鎖定。";
 
 "vaultList.header.title" = "加密檔案庫";
