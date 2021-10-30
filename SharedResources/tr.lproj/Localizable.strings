@@ -80,6 +80,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Seçilen klasör bir kasa değil. Lütfen farklı bir klasörle tekrar deneyin.";
 
+"maintenanceModeError.runningCloudTask" = "Bu kasa için diğer arka plan işlemlerinin önce tamamlanması gerektiğinden işlem gerçekleştirilemez. Lütfen daha sonra tekrar deneyiniz.";
+
 "onboarding.title" = "Hoş geldiniz";
 "onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
 "onboarding.openCryptomator.button" = "Cryptomator'ı aç";
@@ -127,6 +129,7 @@
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
 "vaultDetail.info.footer.accountInfo" = "%@ aracılığıyla %@ olarak oturum açıldı.";
 "vaultDetail.locked.footer" = "Kasanız şu anda kilitli.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa algıladı.\n Kasanızı taşımak için lütfen geri dönün ve farklı bir klasör seçin.";
 "vaultDetail.removeVault.footer" = "Bu, yalnızca kasayı kasa listesinden kaldırır ve şifrelenmiş dosyaları silmez.";
 "vaultDetail.unlocked.footer" = "Kasanızın kilidi şu anda Dosyalar uygulamasında açık.";
 "vaultDetail.unlockVault.footer" = "iOS anahtar zincirinde saklamak ve %@'yi etkinleştirmek için \"%@\" parolasını girin.";
