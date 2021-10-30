@@ -129,7 +129,7 @@
 "vaultDetail.info.footer.accessVault" = "Accédez au coffre via l'application Fichiers.";
 "vaultDetail.info.footer.accountInfo" = "Connecté en tant que %@ via %@.";
 "vaultDetail.locked.footer" = "Votre coffre est actuellement verrouillé.";
-"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de déplacer votre coffre, veuillez revenir en arrière et choisir un dossier différent.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet emplacement.\nAfin de déplacer votre coffre, veuillez revenir en arrière et choisir un dossier différent.";
 "vaultDetail.removeVault.footer" = "Cela ne supprimera que le coffre de la liste des coffres et ne supprimera aucun fichier chiffré.";
 "vaultDetail.unlocked.footer" = "Votre coffre est actuellement déverrouillé dans l'application Fichiers.";
 "vaultDetail.unlockVault.footer" = "Entrez le mot de passe pour \"%@\" pour le stocker dans le porte-clés iOS et pour activer %@.";
