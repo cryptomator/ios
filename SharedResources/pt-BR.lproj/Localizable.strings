@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Erro";
 "common.button.cancel" = "Cancelar";
+"common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "ID do toque";
+"changePassword.header.newPassword.title" = "Digite a nova senha.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirme a nova senha.";
 
 "chooseFolder.emptyFolder.footer" = "A pasta está vazia";
 "chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
@@ -111,6 +114,7 @@
 "urlSession.error.httpError.default" = "Falha na conexão de rede com o código de status %ld.";
 "urlSession.error.unexpectedResponse" = "Houve uma resposta inesperada à rede.";
 
+"vaultDetail.button.changeVaultPassword" = "Alterar Senha";
 "vaultDetail.button.lock" = "Bloquear Agora";
 "vaultDetail.button.moveVault" = "Mover ";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
