@@ -1,4 +1,5 @@
 "common.button.cancel" = "Avbryt";
+"common.button.change" = "Endre";
 "common.button.choose" = "Velg";
 "common.button.create" = "Opprett";
 "common.button.done" = "Ferdig";
@@ -19,5 +20,7 @@
 "settings.clearCache" = "Tøm hurtigminnet";
 
 "unlockVault.button.unlock" = "Lås opp";
+
+"vaultDetail.button.changeVaultPassword" = "Endre passord";
 "vaultDetail.button.moveVault" = "Flytt";
 "vaultDetail.button.renameVault" = "Endre navn";
