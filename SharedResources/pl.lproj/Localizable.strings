@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Błąd";
 "common.button.cancel" = "Anuluj";
+"common.button.change" = "Zmień";
 "common.button.choose" = "Wybierz";
 "common.button.confirm" = "Zatwierdź";
 "common.button.create" = "Utwórz";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Wprowadź nowe hasło.";
+"changePassword.header.newPasswordConfirmation.title" = "Potwierdź nowe hasło.";
 
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
 "chooseFolder.createNewFolder.header.title" = "Wybierz nazwę katalogu.";
@@ -118,6 +121,7 @@
 "urlSession.error.httpError.default" = "Połączenie sieciowe nie powiodło się z kodem stanu %ld.";
 "urlSession.error.unexpectedResponse" = "Nieoczekiwana odpowiedź z sieci.";
 
+"vaultDetail.button.changeVaultPassword" = "Zmiana Hasła";
 "vaultDetail.button.lock" = "Zablokuj";
 "vaultDetail.button.moveVault" = "Przenieś";
 "vaultDetail.button.removeVault" = "Usuń z listy sejfów";
