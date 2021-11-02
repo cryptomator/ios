@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Chyba";
 "common.button.cancel" = "Zrušiť";
+"common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
 "common.button.confirm" = "Potvrdiť";
 "common.button.create" = "Vytvoriť";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Tvárové ID";
 "biometryType.touchID" = "Dotykové ID";
+"changePassword.header.newPassword.title" = "Zadajte nové heslo.";
+"changePassword.header.newPasswordConfirmation.title" = "Porvrďte nové heslo.";
 
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
@@ -120,6 +123,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Už máte pridaný tento trezor.";
 
+"vaultDetail.button.changeVaultPassword" = "Zmeniť heslo";
 "vaultDetail.button.lock" = "Uzamknúť teraz";
 "vaultDetail.button.moveVault" = "Presunúť";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
