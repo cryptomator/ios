@@ -1,4 +1,5 @@
 "common.button.cancel" = "ਰੱਦ ਕਰੋ";
+"common.button.change" = "ਬਦਲੋ";
 "common.button.choose" = "ਚੁਣੋ";
 "common.button.done" = "ਮੁਕੰਮਲ";
 "common.button.next" = "ਅੱਗੇ";
@@ -11,3 +12,5 @@
 "addVault.openExistingVault.title" = "ਮੌਜੂਦਾ ਵਾਲਟ ਖੋਲ੍ਹੋ";
 
 "unlockVault.button.unlock" = "ਅਣ-ਲਾਕ ਕਰੋ";
+
+"vaultDetail.button.changeVaultPassword" = "ਪਾਸਵਰਡ ਬਦਲੋ";
