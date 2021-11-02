@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Eroare";
 "common.button.cancel" = "Anulează";
+"common.button.change" = "Modifică";
 "common.button.choose" = "Alegeți";
 "common.button.confirm" = "Confirmați";
 "common.button.create" = "Creează";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Introduceți o parolă nouă.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirmați noua parolă.";
 
 "chooseFolder.emptyFolder.footer" = "Dosarul este gol";
 "chooseFolder.createNewFolder.header.title" = "Alegeți un nume pentru dosar.";
@@ -111,6 +114,7 @@
 "urlSession.error.httpError.default" = "Conexiunea la rețea a eșuat cu codul de stare %ld.";
 "urlSession.error.unexpectedResponse" = "A existat un răspuns neașteptat în rețea.";
 
+"vaultDetail.button.changeVaultPassword" = "Schimbați parola";
 "vaultDetail.button.lock" = "Blochează acum";
 "vaultDetail.button.moveVault" = "Mută";
 "vaultDetail.button.removeVault" = "Eliminați din lista de seifuri";
