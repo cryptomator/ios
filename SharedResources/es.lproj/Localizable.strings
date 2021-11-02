@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancelar";
+"common.button.change" = "Modificar";
 "common.button.choose" = "Seleccionar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Crear";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Ingrese una contraseña nueva.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirmar la contraseña nueva.";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
 "chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
@@ -120,6 +123,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Ya ha añadido esta bóveda.";
 
+"vaultDetail.button.changeVaultPassword" = "Cambiar contraseña";
 "vaultDetail.button.lock" = "Bloquear ahora";
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
