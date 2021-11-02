@@ -1,4 +1,5 @@
 "common.button.cancel" = "Otkaži";
+"common.button.change" = "Izmeni";
 "common.button.choose" = "Izaberi";
 "common.button.done" = "Završeno";
 "common.button.next" = "Dalje";
@@ -10,3 +11,5 @@
 "addVault.openExistingVault.title" = "Otvori postojeći sef";
 
 "unlockVault.button.unlock" = "Otključaj";
+
+"vaultDetail.button.changeVaultPassword" = "Promena lozinke";
