@@ -1,4 +1,5 @@
 "common.button.cancel" = "الغاء";
+"common.button.change" = "تغيير";
 "common.button.choose" = "اختر";
 "common.button.create" = "إنشاء";
 "common.button.done" = "تم";
@@ -22,5 +23,7 @@
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 
 "unlockVault.button.unlock" = "افتح";
+
+"vaultDetail.button.changeVaultPassword" = "تغيير كلمة المرور";
 "vaultDetail.button.moveVault" = "نقل";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
