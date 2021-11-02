@@ -7,9 +7,10 @@
 
 "common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
+"common.button.change" = "修改";
 "common.button.choose" = "選擇";
 "common.button.confirm" = "確認";
-"common.button.create" = "創建";
+"common.button.create" = "新建";
 "common.button.createFolder" = "建立資料夾";
 "common.button.done" = "完成";
 "common.button.edit" = "編輯";
@@ -48,6 +49,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "輸入新密碼.";
+"changePassword.header.newPasswordConfirmation.title" = "確認新密碼.";
 
 "chooseFolder.emptyFolder.footer" = "資料夾是空的";
 "chooseFolder.createNewFolder.header.title" = "為資料夾命名。";
@@ -90,6 +93,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
 
+"vaultDetail.button.changeVaultPassword" = "變更密碼";
 "vaultDetail.button.lock" = "立即鎖定";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
