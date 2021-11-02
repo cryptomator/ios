@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Fehler";
 "common.button.cancel" = "Abbrechen";
+"common.button.change" = "Ändern";
 "common.button.choose" = "Auswählen";
 "common.button.confirm" = "Bestätigen";
 "common.button.create" = "Erstellen";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Gib ein neues Passwort ein.";
+"changePassword.header.newPasswordConfirmation.title" = "Bestätige das neue Passwort.";
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
@@ -120,6 +123,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Dieser Vault wurde bereits hinzugefügt.";
 
+"vaultDetail.button.changeVaultPassword" = "Passwort ändern";
 "vaultDetail.button.lock" = "Jetzt sperren";
 "vaultDetail.button.moveVault" = "Verschieben";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
