@@ -1,4 +1,5 @@
 "common.button.cancel" = "Откажи";
+"common.button.change" = "Измени";
 "common.button.choose" = "Изабери";
 "common.button.done" = "Завршено";
 "common.button.next" = "Даље";
@@ -12,3 +13,5 @@
 "addVault.openExistingVault.title" = "Отвори постојећи сеф";
 
 "unlockVault.button.unlock" = "Откључај";
+
+"vaultDetail.button.changeVaultPassword" = "Промена лозинке";
