@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Errore";
 "common.button.cancel" = "Annulla";
+"common.button.change" = "Modifica";
 "common.button.choose" = "Scegli";
 "common.button.confirm" = "Conferma";
 "common.button.create" = "Crea";
@@ -56,6 +57,11 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Password attuale è errata. Riprova.";
+"changePassword.header.currentPassword.title" = "Inserisci la password corrente.";
+"changePassword.header.newPassword.title" = "Inserisci una nuova password.";
+"changePassword.header.newPasswordConfirmation.title" = "Conferma la nuova password.";
 
 "chooseFolder.emptyFolder.footer" = "La Cartella è Vuota";
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
@@ -120,6 +126,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Hai già aggiunto questa cassaforte.";
 
+"vaultDetail.button.changeVaultPassword" = "Modifica la Password";
 "vaultDetail.button.lock" = "Blocca Ora";
 "vaultDetail.button.moveVault" = "Sposta";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
