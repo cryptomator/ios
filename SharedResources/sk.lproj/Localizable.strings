@@ -57,8 +57,11 @@
 
 "biometryType.faceID" = "Tvárové ID";
 "biometryType.touchID" = "Dotykové ID";
+
+"changePassword.error.invalidOldPassword" = "Aktuálne heslo je nesprávne. Prosím skúste znovu.";
+"changePassword.header.currentPassword.title" = "Vložťe aktuálne heslo.";
 "changePassword.header.newPassword.title" = "Zadajte nové heslo.";
-"changePassword.header.newPasswordConfirmation.title" = "Porvrďte nové heslo.";
+"changePassword.header.newPasswordConfirmation.title" = "Potvrďte nové heslo.";
 
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
