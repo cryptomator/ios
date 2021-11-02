@@ -58,9 +58,10 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
-"changePassword.currentPassword.header" = "Enter the current password.";
-"changePassword.newPassword.header" = "Enter a new password.";
-"changePassword.newPasswordConfirmation.header" = "Confirm the new password.";
+"changePassword.error.invalidOldPassword" = "Current password is wrong. Please try again.";
+"changePassword.header.currentPassword.title" = "Enter the current password.";
+"changePassword.header.newPassword.title" = "Enter a new password.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirm the new password.";
 
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
@@ -86,8 +87,6 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
-
-"MasterkeyFileError.invalidPassphrase" = "Invalid Password";
 
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";

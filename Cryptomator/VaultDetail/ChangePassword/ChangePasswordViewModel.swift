@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
+import CryptomatorCryptoLib
 import CryptomatorFileProvider
 import Foundation
 import Promises
@@ -17,16 +18,31 @@ protocol ChangePasswordViewModelProtocol {
 	var title: String { get }
 	var cells: [ChangePasswordSection: [TableViewCellViewModel]] { get }
 	var sections: [ChangePasswordSection] { get }
-	var changeButtonEnabled: Bindable<Bool> { get }
 	func changePassword() -> Promise<Void>
+	func validatePasswords() throws
 	func getHeaderTitle(for section: Int) -> String?
 }
 
 enum ChangePasswordViewModelError: Error {
 	case emptyPassword
 	case newPasswordsDoNotMatch
-	case invalidNewPassword
+	case invalidOldPassword
 	case tooShortPassword
+}
+
+extension ChangePasswordViewModelError: LocalizedError {
+	public var errorDescription: String? {
+		switch self {
+		case .emptyPassword:
+			return LocalizedString.getValue("addVault.createNewVault.password.error.emptyPassword")
+		case .newPasswordsDoNotMatch:
+			return LocalizedString.getValue("addVault.createNewVault.password.error.nonMatchingPasswords")
+		case .invalidOldPassword:
+			return LocalizedString.getValue("changePassword.error.invalidOldPassword")
+		case .tooShortPassword:
+			return LocalizedString.getValue("addVault.createNewVault.password.error.tooShortPassword")
+		}
+	}
 }
 
 enum ChangePasswordSection: Int {
@@ -36,7 +52,6 @@ enum ChangePasswordSection: Int {
 }
 
 class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
-	let changeButtonEnabled: Bindable<Bool>
 	var title: String {
 		return vaultAccount.vaultName
 	}
@@ -59,7 +74,6 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password)
 	private let newPasswordCellViewModel = TextFieldCellViewModel(type: .password)
 	private let newPasswordConfirmationCellViewModel = TextFieldCellViewModel(type: .password)
-	private lazy var subscriber = Set<AnyCancellable>()
 
 	private var oldPassword: String {
 		return oldPasswordCellViewModel.input.value
@@ -78,8 +92,6 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 		self.maintenanceManager = maintenanceManager
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
-		self.changeButtonEnabled = Bindable(false)
-		bindInputViewModels()
 	}
 
 	func changePassword() -> Promise<Void> {
@@ -92,6 +104,12 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 		}
 		return lockVault().then {
 			return self.vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: self.vaultAccount.vaultUID)
+		}.recover { error -> Void in
+			if case MasterkeyFileError.invalidPassphrase = error {
+				throw ChangePasswordViewModelError.invalidOldPassword
+			} else {
+				throw error
+			}
 		}.always {
 			do {
 				try self.maintenanceManager.disableMaintenanceMode()
@@ -101,21 +119,21 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 		}
 	}
 
+	func validatePasswords() throws {
+		_ = try getValidatedPasswords()
+	}
+
 	func getHeaderTitle(for section: Int) -> String? {
 		switch ChangePasswordSection(rawValue: section) {
 		case .oldPassword:
-			return LocalizedString.getValue("changePassword.currentPassword.header")
+			return LocalizedString.getValue("changePassword.header.currentPassword.title")
 		case .newPassword:
-			return LocalizedString.getValue("changePassword.newPassword.header")
+			return LocalizedString.getValue("changePassword.header.newPassword.title")
 		case .newPasswordConfirmation:
-			return LocalizedString.getValue("changePassword.newPasswordConfirmation.header")
+			return LocalizedString.getValue("changePassword.header.newPasswordConfirmation.title")
 		case nil:
 			return nil
 		}
-	}
-
-	private func passwordsAreValid(oldPassword: String, newPassword: String, newPasswordConfirmation: String) -> Bool {
-		return (try? getValidatedPasswords(oldPassword: oldPassword, newPassword: newPassword, newPasswordConfirmation: newPasswordConfirmation)) != nil
 	}
 
 	private func getValidatedPasswords() throws -> ValidatedPasswords {
@@ -133,15 +151,6 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 			throw ChangePasswordViewModelError.newPasswordsDoNotMatch
 		}
 		return ValidatedPasswords(oldPassword: oldPassword, newPassword: newPassword)
-	}
-
-	private func bindInputViewModels() {
-		Publishers.CombineLatest3(oldPasswordCellViewModel.input.$value, newPasswordCellViewModel.input.$value, newPasswordConfirmationCellViewModel.input.$value)
-			.receive(on: DispatchQueue.main)
-			.dropFirst()
-			.sink { oldPassword, newPassword, newPasswordConfirmation in
-				self.changeButtonEnabled.value = self.passwordsAreValid(oldPassword: oldPassword, newPassword: newPassword, newPasswordConfirmation: newPasswordConfirmation)
-			}.store(in: &subscriber)
 	}
 
 	private func lockVault() -> Promise<Void> {

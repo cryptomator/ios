@@ -103,7 +103,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 		viewModel.changePassword().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+			XCTAssertEqual(.invalidOldPassword, error as? ChangePasswordViewModelError)
 			XCTAssertEqual(1, self.maintenanceManagerMock.enableMaintenanceModeCallsCount)
 			XCTAssertEqual(1, self.maintenanceManagerMock.disableMaintenanceModeCallsCount)
 			XCTAssertEqual(1, self.vaultLockingMock.lockedVaults.count)
@@ -153,47 +153,6 @@ class ChangePasswordViewModelTests: XCTestCase {
 		setNewPassword("Password")
 		setNewPasswordConfirmation("NewPassword1")
 		checkChangePasswordFail(with: ChangePasswordViewModelError.newPasswordsDoNotMatch)
-	}
-
-	// MARK: - ChangeButtonEnabled Tests
-
-	func testChangeButtonInitallyDisabled() {
-		XCTAssertFalse(viewModel.changeButtonEnabled.value)
-	}
-
-	func testChangeButtonEnabledForValidPassword() throws {
-		let changeButtonEnabledPublisher = viewModel.changeButtonEnabled.$value.collectNext(3)
-
-		let oldPassword = "OldPassword"
-		let newPassword = "Password"
-		setOldPassword(oldPassword)
-		setNewPassword(newPassword)
-		setNewPasswordConfirmation(newPassword)
-
-		let changeButtonEnabledHistory = try awaitPublisher(changeButtonEnabledPublisher)
-		XCTAssertEqual([false, false, true], changeButtonEnabledHistory)
-	}
-
-	func testChangeButtonDisabledForNonMatchingNewPasswordConfirmation() throws {
-		let changeButtonEnabledPublisher = viewModel.changeButtonEnabled.$value.collectNext(3)
-
-		setOldPassword("OldPassword")
-		setNewPassword("Password")
-		setNewPasswordConfirmation("NewPassword1")
-
-		let changeButtonEnabledHistory = try awaitPublisher(changeButtonEnabledPublisher)
-		XCTAssertEqual([false, false, false], changeButtonEnabledHistory)
-	}
-
-	func testChangeButtonDisabledForTooShortNewPassword() throws {
-		let changeButtonEnabledPublisher = viewModel.changeButtonEnabled.$value.collectNext(3)
-
-		setOldPassword("OldPassword")
-		setNewPassword("NewPass")
-		setNewPasswordConfirmation("NewPass")
-
-		let changeButtonEnabledHistory = try awaitPublisher(changeButtonEnabledPublisher)
-		XCTAssertEqual([false, false, false], changeButtonEnabledHistory)
 	}
 
 	private func checkChangePasswordFail(with expectedError: Error) {

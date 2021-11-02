@@ -31,16 +31,17 @@ class ChangePasswordViewController: UITableViewController {
 		super.viewDidLoad()
 		title = viewModel.title
 		navigationItem.rightBarButtonItem = changePasswordButton
-		viewModel.changeButtonEnabled.$value
-			.receive(on: DispatchQueue.main)
-			.sink(receiveValue: { [weak self] result in
-				self?.changePasswordButton.isEnabled = result
-			}).store(in: &subscriber)
 		setUpDataSource()
 		applySnapshot(sections: viewModel.sections, cells: viewModel.cells)
 	}
 
 	@objc func changePassword() {
+		do {
+			try viewModel.validatePasswords()
+		} catch {
+			coordinator?.handleError(error, for: self)
+			return
+		}
 		let alertController = UIAlertController(title: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.title"), message: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.message"), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.confirm"), style: .default) { _ in
 			self.userConfirmedPassword()

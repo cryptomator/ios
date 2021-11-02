@@ -40,7 +40,6 @@ class TextFieldCell: TableViewCell {
 		NotificationCenter.default
 			.publisher(for: UITextField.textDidChangeNotification, object: textField)
 			.map { ($0.object as? UITextField)?.text ?? "" }
-			.debounce(for: .milliseconds(500), scheduler: RunLoop.main)
 			.receive(on: RunLoop.main)
 			.assign(to: \.input.value, on: viewModel)
 			.store(in: &subscribers)
