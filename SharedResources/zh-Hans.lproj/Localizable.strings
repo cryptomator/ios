@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "错误";
 "common.button.cancel" = "取消";
+"common.button.change" = "更改";
 "common.button.choose" = "选择";
 "common.button.confirm" = "确认";
 "common.button.create" = "新建";
@@ -56,6 +57,11 @@
 
 "biometryType.faceID" = "面部 ID";
 "biometryType.touchID" = "触控 ID";
+
+"changePassword.error.invalidOldPassword" = "当前密码错误，请重试。";
+"changePassword.header.currentPassword.title" = "请输入当前密码";
+"changePassword.header.newPassword.title" = "输入新密码。";
+"changePassword.header.newPasswordConfirmation.title" = "确认新密码。";
 
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称。";
@@ -120,6 +126,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已添加了此保险库";
 
+"vaultDetail.button.changeVaultPassword" = "更改密码";
 "vaultDetail.button.lock" = "立即锁定";
 "vaultDetail.button.moveVault" = "移动";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
