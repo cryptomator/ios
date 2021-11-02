@@ -39,10 +39,14 @@ class VaultDetailViewController: UITableViewController {
 			.sink(receiveValue: { [weak self] result in
 				self?.handleActionResult(result)
 			}).store(in: &subscriber)
-		refreshVaultLockStatus()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshVaultLockStatus()
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		refreshVaultLockStatus()
 	}
 
 	private func refreshVaultLockStatus() {
@@ -102,6 +106,8 @@ class VaultDetailViewController: UITableViewController {
 			coordinator?.renameVault()
 		case .showMoveVault:
 			coordinator?.moveVault()
+		case .showChangeVaultPassword:
+			coordinator?.changeVaultPassword()
 		}
 	}
 

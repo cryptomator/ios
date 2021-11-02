@@ -39,6 +39,7 @@ enum VaultDetailButtonAction {
 	case showUnlockScreen(vault: VaultInfo, biometryTypeName: String)
 	case showRenameVault
 	case showMoveVault
+	case showChangeVaultPassword
 }
 
 private enum VaultDetailSection {
@@ -46,6 +47,7 @@ private enum VaultDetailSection {
 	case lockingSection
 	case removeVaultSection
 	case moveVaultSection
+	case changeVaultPasswordSection
 }
 
 class VaultDetailViewModel: VaultDetailViewModelProtocol {
@@ -81,9 +83,9 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var sections: [VaultDetailSection] = {
 		if vaultIsEligibleToMove() {
-			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .removeVaultSection]
+			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .changeVaultPasswordSection, .removeVaultSection]
 		} else {
-			return [.vaultInfoSection, .lockingSection, .removeVaultSection]
+			return [.vaultInfoSection, .lockingSection, .changeVaultPasswordSection, .removeVaultSection]
 		}
 	}()
 
@@ -99,6 +101,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 				renameVaultCellViewModel,
 				moveVaultCellViewModel
 			] : [],
+			.changeVaultPasswordSection: [ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showChangeVaultPassword, title: LocalizedString.getValue("vaultDetail.button.changeVaultPassword"))],
 			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: LocalizedString.getValue("vaultDetail.button.removeVault"), titleTextColor: .systemRed)]
 		]
 	}

@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancel";
+"common.button.change" = "Change";
 "common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
@@ -56,6 +57,11 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Current password is wrong. Please try again.";
+"changePassword.header.currentPassword.title" = "Enter the current password.";
+"changePassword.header.newPassword.title" = "Enter a new password.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirm the new password.";
 
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
@@ -120,6 +126,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "You have already added this vault.";
 
+"vaultDetail.button.changeVaultPassword" = "Change Password";
 "vaultDetail.button.lock" = "Lock Now";
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";

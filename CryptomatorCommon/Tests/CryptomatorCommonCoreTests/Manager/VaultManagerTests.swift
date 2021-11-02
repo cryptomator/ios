@@ -22,6 +22,10 @@ class VaultManagerMock: VaultDBManager {
 		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: vaultVersion, passphrase: password, pepper: [UInt8](), scryptCostParam: 2)
 	}
 
+	override func changePassphrase(masterkeyFileData: Data, oldPassphrase: String, newPassphrase: String) throws -> Data {
+		return try MasterkeyFile.changePassphrase(masterkeyFileData: masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, pepper: [UInt8](), scryptCostParam: 2)
+	}
+
 	override func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
 		removedVaultUIDs.append(vaultUID)
 		return Promise(())
@@ -554,6 +558,141 @@ class VaultManagerTests: XCTestCase {
 			XCTAssertEqual("Vault", fetchedVaultAccount.vaultName)
 		}.always {
 			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	// MARK: - Change Passphrase
+
+	// swiftlint:disable:next function_body_length
+	func testChangePassphrase() throws {
+		let expectation = XCTestExpectation()
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		let cloudProviderMock = providerManager.provider
+		let vaultUID = UUID().uuidString
+		let vaultPath = CloudPath("/Vault/")
+		try providerAccountManager.saveNewAccount(account)
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
+		try accountManager.saveNewAccount(vaultAccount)
+
+		let oldPassphrase = "Password"
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: oldPassphrase, pepper: [UInt8](), scryptCostParam: 2)
+
+		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
+
+		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
+		vaultCacheMock.cachedVaults[vaultUID] = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck)
+
+		let newPassphrase = "NewPassword"
+
+		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
+			XCTAssertEqual(1, cloudProviderMock.createdFiles.count)
+			guard let uploadedMasterkeyFileData = cloudProviderMock.createdFiles["/Vault/masterkey.cryptomator"] else {
+				XCTFail("Masterkey file not uploaded")
+				return
+			}
+			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: uploadedMasterkeyFileData)
+			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: newPassphrase)
+			XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
+				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+			}
+			XCTAssertEqual(masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
+			XCTAssertEqual(masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
+
+			// Check cached vault has the updated masterkey file data
+			guard let cachedVault = self.vaultCacheMock.cachedVaults[vaultUID] else {
+				XCTFail("Vault not cached for \(vaultUID)")
+				return
+			}
+			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: newPassphrase)
+			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
+
+			XCTAssertThrowsError(try cachedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
+				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+			}
+
+			// Check cached vault vault config token did not change
+			XCTAssertEqual(token, cachedVault.vaultConfigToken)
+
+			// Check last up to date check updated
+			XCTAssert(oldLastUpToDateCheck < cachedVault.lastUpToDateCheck)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	// swiftlint:disable:next function_body_length
+	func testChangePassphraseWithSavedPassword() throws {
+		let expectation = XCTestExpectation()
+		let delegateAccountUID = UUID().uuidString
+		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
+		let cloudProviderMock = providerManager.provider
+		let vaultUID = UUID().uuidString
+		let vaultPath = CloudPath("/Vault/")
+		try providerAccountManager.saveNewAccount(account)
+		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
+		try accountManager.saveNewAccount(vaultAccount)
+
+		let oldPassphrase = "Password"
+		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: oldPassphrase, pepper: [UInt8](), scryptCostParam: 2)
+
+		passwordManagerMock.savedPasswords[vaultUID] = oldPassphrase
+
+		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
+
+		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
+		vaultCacheMock.cachedVaults[vaultUID] = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck)
+
+		let newPassphrase = "NewPassword"
+
+		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
+			XCTAssertEqual(1, cloudProviderMock.createdFiles.count)
+			guard let uploadedMasterkeyFileData = cloudProviderMock.createdFiles["/Vault/masterkey.cryptomator"] else {
+				XCTFail("Masterkey file not uploaded")
+				return
+			}
+			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: uploadedMasterkeyFileData)
+			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: newPassphrase)
+			XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
+				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+			}
+			XCTAssertEqual(masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
+			XCTAssertEqual(masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
+
+			// Check cached vault has the updated masterkey file data
+			guard let cachedVault = self.vaultCacheMock.cachedVaults[vaultUID] else {
+				XCTFail("Vault not cached for \(vaultUID)")
+				return
+			}
+			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: newPassphrase)
+			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
+
+			XCTAssertThrowsError(try cachedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
+				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+			}
+
+			// Check cached vault vault config token did not change
+			XCTAssertEqual(token, cachedVault.vaultConfigToken)
+
+			// Check last up to date check updated
+			XCTAssert(oldLastUpToDateCheck < cachedVault.lastUpToDateCheck)
+
+			XCTAssertEqual(1, self.passwordManagerMock.savedPasswords.count)
+			XCTAssertEqual(newPassphrase, self.passwordManagerMock.savedPasswords[vaultUID])
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
 		}.always {
 			expectation.fulfill()
 		}
@@ -592,7 +731,7 @@ class VaultPasswordManagerMock: VaultPasswordManager {
 	}
 
 	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
-		return false
+		return savedPasswords[vaultUID] != nil
 	}
 }
 
