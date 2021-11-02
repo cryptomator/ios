@@ -1,4 +1,5 @@
 "common.button.cancel" = "Atcelt";
+"common.button.change" = "Mainīt";
 "common.button.done" = "Darīts";
 "common.button.next" = "Tālāk";
 "common.cells.password" = "Parole";
@@ -10,3 +11,5 @@
 "addVault.openExistingVault.title" = "Atvērt esošu glabātuvi";
 
 "unlockVault.button.unlock" = "Atslēgt";
+
+"vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
