@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Chyba";
 "common.button.cancel" = "Zrušit";
+"common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
 "common.button.confirm" = "Potvrdit";
 "common.button.create" = "Vytvořit";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Zadejte nové heslo.";
+"changePassword.header.newPasswordConfirmation.title" = "Potvrď nové heslo.";
 
 "chooseFolder.emptyFolder.footer" = "Složka je prázdná";
 "chooseFolder.createNewFolder.header.title" = "Zvolte název složky.";
@@ -120,6 +123,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Tento trezor jste již přidali.";
 
+"vaultDetail.button.changeVaultPassword" = "Změnit heslo";
 "vaultDetail.button.lock" = "Uzamknout nyní";
 "vaultDetail.button.moveVault" = "Přesunout";
 "vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";
