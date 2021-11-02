@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "त्रुटि";
 "common.button.cancel" = "रद्द करें";
+"common.button.change" = "बदलें";
 "common.button.choose" = "चुनें";
 "common.button.confirm" = "पुष्टि करें";
 "common.button.create" = "बनाएं";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "चेहरा पहचान";
 "biometryType.touchID" = "अंगुल चिन्ह पहचान";
+"changePassword.header.newPassword.title" = "नया कूट शब्द भरें";
+"changePassword.header.newPasswordConfirmation.title" = "नए कूट शब्द की पुष्टि करें";
 
 "chooseFolder.emptyFolder.footer" = "फ़ोल्डर रिक्त है";
 "chooseFolder.createNewFolder.header.title" = "फ़ोल्डर का नाम चुने।";
@@ -109,6 +112,7 @@
 "urlSession.error.httpError.default" = "नेटवर्क सम्पर्क नहीं हो पा रहा है। हालत संख्या %ld।";
 "urlSession.error.unexpectedResponse" = "अप्रत्याशित नेटवर्क प्रतिक्रिया हुई।";
 
+"vaultDetail.button.changeVaultPassword" = "पासवर्ड बदलें";
 "vaultDetail.button.lock" = "अभी ताला लगाएँ";
 "vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
 "vaultDetail.button.renameVault" = "नाम संपादन";
