@@ -57,6 +57,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Текущий пароль неверен. Попробуйте ещё раз.";
+"changePassword.header.currentPassword.title" = "Введите текущий пароль.";
 "changePassword.header.newPassword.title" = "Введите новый пароль.";
 "changePassword.header.newPasswordConfirmation.title" = "Подтвердите новый пароль.";
 
