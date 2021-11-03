@@ -12,7 +12,7 @@
 "common.button.confirm" = "Confirmer";
 "common.button.create" = "Créer";
 "common.button.createFolder" = "Créer un répertoire";
-"common.button.done" = "Terminé";
+"common.button.done" = "Ok";
 "common.button.edit" = "Éditer";
 "common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
@@ -57,6 +57,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Le mot de passe actuel est incorrect. Veuillez réessayer.";
+"changePassword.header.currentPassword.title" = "Entrez votre mot de passe actuel.";
 "changePassword.header.newPassword.title" = "Entrer un nouveau mot de passe.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirmez le nouveau mot de passe.";
 
