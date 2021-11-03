@@ -57,6 +57,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Det nuvarande lösenordet är felaktigt, försök igen.";
+"changePassword.header.currentPassword.title" = "Ange nuvarande lösenord.";
 "changePassword.header.newPassword.title" = "Ange ett nytt lösenord.";
 "changePassword.header.newPasswordConfirmation.title" = "Bekräfta nytt lösenord.";
 
@@ -82,6 +85,8 @@
 "localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
+
+"maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
 
 "onboarding.title" = "Välkommen";
 "onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
@@ -131,6 +136,7 @@
 "vaultDetail.info.footer.accessVault" = "Få tillgång till valvet via appen Filer.";
 "vaultDetail.info.footer.accountInfo" = "Inloggad som %@ via %@.";
 "vaultDetail.locked.footer" = "Ditt valv är för närvarande låst.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
 "vaultDetail.removeVault.footer" = "Detta kommer bara att ta bort valvet från valvlistan och inte ta bort några krypterade filer.";
 "vaultDetail.unlocked.footer" = "Ditt valv är för närvarande upplåst i appen Filer.";
 "vaultDetail.unlockVault.footer" = "Ange lösenord för \"%@\" för att lagra det i iOS nyckelring och för att aktivera %@.";
