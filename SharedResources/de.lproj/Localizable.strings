@@ -58,7 +58,7 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
-"changePassword.error.invalidOldPassword" = "Das aktuelle Passwort ist falsch. Bitte versuchen Sie es erneut.";
+"changePassword.error.invalidOldPassword" = "Das aktuelle Passwort ist falsch. Bitte versuche es erneut.";
 "changePassword.header.currentPassword.title" = "Das aktuelle Passwort eingeben.";
 "changePassword.header.newPassword.title" = "Gib ein neues Passwort ein.";
 "changePassword.header.newPasswordConfirmation.title" = "Bestätige das neue Passwort.";
