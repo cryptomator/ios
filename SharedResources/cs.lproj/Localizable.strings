@@ -57,6 +57,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Nesprávné heslo. Prosím, zkus to znovu.";
+"changePassword.header.currentPassword.title" = "Zadejte stávající heslo.";
 "changePassword.header.newPassword.title" = "Zadejte nové heslo.";
 "changePassword.header.newPasswordConfirmation.title" = "Potvrď nové heslo.";
 
