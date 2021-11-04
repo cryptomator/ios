@@ -8,8 +8,16 @@
 "common.button.remove" = "Прибрати";
 "common.cells.url" = "Адреса посилання";
 "common.cells.username" = "Ім'я користувача";
+
+"addVault.title" = "Додати сховище";
+"addVault.createNewVault.title" = "Створити нове сховище";
+"addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
+"addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
+"addVault.openExistingVault.title" = "Відкрити існуюче сховище";
 
 "settings.title" = "Налаштування";
+
+"unlockVault.button.unlock" = "Розблокувати";
 "vaultDetail.button.moveVault" = "Перемістити";
 "vaultDetail.button.renameVault" = "Перейменувати";
