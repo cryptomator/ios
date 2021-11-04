@@ -156,8 +156,12 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func removeCachedFile(for identifier: Int64) throws {
+			let localFileInfo = cachedLocalFileInfo[identifier]
 			cachedLocalFileInfo[identifier] = nil
 			removeCachedFile.append(identifier)
+			if let localURL = localFileInfo?.localURL {
+				try? FileManager.default.removeItem(at: localURL)
+			}
 		}
 
 		func getLocalCacheSizeInBytes() throws -> Int {
@@ -274,7 +278,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord {
-			throw MockError.notMocked
+			guard let record = deletionTasks[id] else {
+				throw DBManagerError.taskNotFound
+			}
+			return record
 		}
 
 		func removeTaskRecord(_ task: DeletionTaskRecord) throws {
