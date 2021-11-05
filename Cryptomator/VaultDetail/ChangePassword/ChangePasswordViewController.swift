@@ -52,13 +52,16 @@ class ChangePasswordViewController: UITableViewController {
 	}
 
 	private func userConfirmedPassword() {
-		viewModel.changePassword().then { [weak self] in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("changePassword.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		viewModel.changePassword().then {
+			hud.transformToSelfDismissingSuccess()
+		}.then { [weak self] in
 			self?.coordinator?.changedPassword()
 		}.catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
-			self.coordinator?.handleError(error, for: self)
+			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
 	}
 

@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.progress" = "Creating Vault…";
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
+"addVault.openExistingVault.progress" = "Adding Vault…";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Enter the current password.";
 "changePassword.header.newPassword.title" = "Enter a new password.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirm the new password.";
+"changePassword.progress" = "Changing Password…";
 
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
 "unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.progress" = "Unlocking…";
 
 "untrustedTLSCertificate.title" = "Invalid TLS Certificate";
 "untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
@@ -137,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
+"vaultDetail.moveVault.progress" = "Moving…";
 "vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.renameVault.progress" = "Renaming…";
 "vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
 "vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
 
