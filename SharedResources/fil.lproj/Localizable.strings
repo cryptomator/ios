@@ -22,4 +22,5 @@
 "settings.clearCache" = "Linisin ang Cache";
 
 "unlockVault.button.unlock" = "I-unlock";
+"vaultDetail.button.moveVault" = "Ilipat";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
