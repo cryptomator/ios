@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Hasło nie może być puste.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Hasła nie są identyczne.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Hasło musi zawierać co najmniej 8 znaków";
+"addVault.createNewVault.progress" = "Tworzenie sejfu…";
 "addVault.openExistingVault.title" = "Otwórz istniejący sejf";
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator wykrył sejf \"%@\".\nCzy chcesz dodać ten sejf?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ten sejf";
 "addVault.openExistingVault.password.footer" = "Wprowadź hasło dla \"%@\".";
+"addVault.openExistingVault.progress" = "Dodawanie sejfu…";
 "addVault.success.info" = "Dodano sejf \"%@\".\nUzyskaj dostęp do tego sejfu poprzez aplikację Pliki.";
 "addVault.success.footer" = "Jeśli jeszcze tego nie zrobiłeś, włącz Cryptomator w aplikacji Pliki.";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Wprowadź obecne hasło.";
 "changePassword.header.newPassword.title" = "Wprowadź nowe hasło.";
 "changePassword.header.newPasswordConfirmation.title" = "Potwierdź nowe hasło.";
+"changePassword.progress" = "Zmiana hasła…";
 
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
 "chooseFolder.createNewFolder.header.title" = "Wybierz nazwę katalogu.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Włącz %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Zamiast hasłem możesz odblokować sejf za pomocą %@.";
 "unlockVault.evaluatePolicy.reason" = "Odblokuj swój sejf";
+"unlockVault.progress" = "Odblokowywanie…";
 
 "untrustedTLSCertificate.title" = "Błędny certyfikat TLS";
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
@@ -135,7 +139,9 @@
 "vaultDetail.info.footer.accountInfo" = "Zalogowano jako %@ przez %@.";
 "vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tym miejscu.\nAby zmienić miejsce docelowe, wróć i wybierz inny folder.";
+"vaultDetail.moveVault.progress" = "Przenoszenie…";
 "vaultDetail.removeVault.footer" = "Spowoduje to wyłącznie usunięcie sejfu z listy, zaszyfrowane pliki nie zostaną skasowane.";
+"vaultDetail.renameVault.progress" = "Zmiana nazwy…";
 "vaultDetail.unlocked.footer" = "Twój sejf jest obecnie odblokowany w aplikacji Pliki.";
 "vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%@\", aby zapisać je w pęku kluczy iOS i aktywować %@.";
 
@@ -148,3 +154,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Uwierzytelnianie…";
