@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Οι κωδικοί δεν ταιριάζουν.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Ο κωδικός πρόσβασης πρέπει να περιέχει τουλάχιστον 8 χαρακτήρες.";
+"addVault.createNewVault.progress" = "Δημιουργία Κρύπτης…";
 "addVault.openExistingVault.title" = "Άνοιγμα Υπάρχοντος Κρύπτης";
 "addVault.openExistingVault.chooseCloud.header" = "Πού βρίσκεται η κρυπτή;";
 "addVault.openExistingVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε την κρύπτη \"%@\".\nΘα θέλατε να προσθέσετε αυτή την κρύπτη;";
 "addVault.openExistingVault.detectedMasterkey.add" = "Προσθήκη αυτής της κρύπτης";
 "addVault.openExistingVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
+"addVault.openExistingVault.progress" = "Προσθήκη Κρύπτης…";
 "addVault.success.info" = "Προστέθηκε με επιτυχία η κρύπτη \"%@\".\nΠρόσβαση σε αυτή την κρύπτη μέσω της εφαρμογής Αρχείων.";
 "addVault.success.footer" = "Αν δεν το έχετε κάνεΙ ήδη, ενεργοποιήστε τον Cryptomator στην εφαρμογή Αρχείων.";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Εισάγετε τον τρέχοντα κωδικό πρόσβασης.";
 "changePassword.header.newPassword.title" = "Εισάγετε ένα νέο κωδικό.";
 "changePassword.header.newPasswordConfirmation.title" = "Επιβεβαιώστε το νέο κωδικό.";
+"changePassword.progress" = "Αλλαγή Κωδικού πρόσβασης…";
 
 "chooseFolder.emptyFolder.footer" = "Ο φάκελος είναι κενός";
 "chooseFolder.createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Ενεργοποίηση %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Αντί να ξεκλειδώνετε την κρύπτη σας με τον κωδικό πρόσβασής σας, μπορείτε να το ξεκλειδώσετε μέσω %@.";
 "unlockVault.evaluatePolicy.reason" = "Ξεκλειδώστε την κρύπτη σας";
+"unlockVault.progress" = "Ξεκλείδωμα…";
 
 "untrustedTLSCertificate.title" = "Μη έγκυρο πιστοποιητικό TLS";
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
@@ -137,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "Συνδεθήκατε ως %@ μέσω %@.";
 "vaultDetail.locked.footer" = "Η κρύπτη σας είναι κλειδωμένη.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε μια υπάρχον κρύπτη σε αυτή τη θέση.\nΓια να μετακινήσετε τη κρύπτη σας, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
+"vaultDetail.moveVault.progress" = "Μετακίνηση…";
 "vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρύπτης και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
+"vaultDetail.renameVault.progress" = "Μετονομασία…";
 "vaultDetail.unlocked.footer" = "Η κρύπτη σας είναι ξεκλειδωμένη αυτή τη στιγμή στην εφαρμογή Αρχείων.";
 "vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για το \"%@\" για να τον αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %@.";
 
@@ -150,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Ταυτοποίηση…";
