@@ -87,6 +87,12 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	// MARK: - Internal
 
 	private func handleError(_ error: Error, hud: ProgressHUD) {
+		hud.dismiss(animated: true).then { [weak self] in
+			self?.handleError(error)
+		}
+	}
+
+	private func handleError(_ error: Error) {
 		if case MasterkeyFileError.invalidPassphrase = error {
 			viewToShake?.shake()
 		} else {
