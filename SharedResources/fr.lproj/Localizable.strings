@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Le mot de passe ne peut pas être vide.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Les mots de passe ne sont pas identiques.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Le mot de passe doit contenir au moins 8 caractères.";
+"addVault.createNewVault.progress" = "Création du Coffre-fort…";
 "addVault.openExistingVault.title" = "Ouvrir un coffre existant";
 "addVault.openExistingVault.chooseCloud.header" = "Où se situe le coffre ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a détecté le coffre \"%@\".\nVoulez-vous ajouter ce coffre ?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Ajouter ce coffre";
 "addVault.openExistingVault.password.footer" = "Entrez le mot de passe pour “%@”.";
+"addVault.openExistingVault.progress" = "Ajout du Coffre-fort…";
 "addVault.success.info" = "Le coffre \"%@\" a été ajouté avec succès.\nAccédez à ce coffre via l'application Fichiers.";
 "addVault.success.footer" = "Si vous ne l'avez pas déjà fait, activez Cryptomator dans l'application Fichiers.";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Entrez votre mot de passe actuel.";
 "changePassword.header.newPassword.title" = "Entrer un nouveau mot de passe.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirmez le nouveau mot de passe.";
+"changePassword.progress" = "Changement du mot de passe…";
 
 "chooseFolder.emptyFolder.footer" = "Le dossier est vide";
 "chooseFolder.createNewFolder.header.title" = "Choisissez un nom pour le dossier.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Activer %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Au lieu de déverrouiller votre coffre avec votre mot de passe, vous pouvez le déverrouiller via %@.";
 "unlockVault.evaluatePolicy.reason" = "Déverrouiller votre coffre";
+"unlockVault.progress" = "Déverrouillage…";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalide";
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
@@ -137,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "Connecté en tant que %@ via %@.";
 "vaultDetail.locked.footer" = "Votre coffre est actuellement verrouillé.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet emplacement.\nAfin de déplacer votre coffre, veuillez revenir en arrière et choisir un dossier différent.";
+"vaultDetail.moveVault.progress" = "Déplacement…";
 "vaultDetail.removeVault.footer" = "Cela ne supprimera que le coffre de la liste des coffres et ne supprimera aucun fichier chiffré.";
+"vaultDetail.renameVault.progress" = "Renommage…";
 "vaultDetail.unlocked.footer" = "Votre coffre est actuellement déverrouillé dans l'application Fichiers.";
 "vaultDetail.unlockVault.footer" = "Entrez le mot de passe pour \"%@\" pour le stocker dans le porte-clés iOS et pour activer %@.";
 
@@ -150,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Version de coffre non prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Authentification…";
