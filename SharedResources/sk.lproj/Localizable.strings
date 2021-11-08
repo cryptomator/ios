@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Heslo nemôže byť prázdne.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Heslá sa nezhodujú.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Heslo musí obsahovať aspoň 8 znakov.";
+"addVault.createNewVault.progress" = "Vytváranie trezora…";
 "addVault.openExistingVault.title" = "Otvoriť existujúci trezor";
 "addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umiestnený?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator zdetekoval trezor \"%@\".\n Prejete si pridať tento trezor?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Pridať tento trezor";
 "addVault.openExistingVault.password.footer" = "Zadajte heslo pre \"%@\".";
+"addVault.openExistingVault.progress" = "Pridávanie trezora…";
 "addVault.success.info" = "Úspešne pridaný trezor \"%@\".\n Sprístupnený tento trezor prostredníctvom Súborovej aplikácie.";
 "addVault.success.footer" = "Ak ešte nemáte, povoľte Cryptomator v Súborovej aplikácii.";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Vložťe aktuálne heslo.";
 "changePassword.header.newPassword.title" = "Zadajte nové heslo.";
 "changePassword.header.newPasswordConfirmation.title" = "Potvrďte nové heslo.";
+"changePassword.progress" = "Zmena hesla…";
 
 "chooseFolder.emptyFolder.footer" = "Adresár je prázdny";
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Povoliť %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Namiesto odomknutia Vášho trezora s Vašim heslom, môžte ho odomknúť cez %@.";
 "unlockVault.evaluatePolicy.reason" = "Odomknúť Váš trezor";
+"unlockVault.progress" = "Odomykanie…";
 
 "untrustedTLSCertificate.title" = "Neplatný TLS certifikát";
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
@@ -137,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "Prihlásený ako %@ prostredníctvom %@.";
 "vaultDetail.locked.footer" = "Váš trezor je aktuálne uzamknutý.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zdetekoval existujúci trezor na tejto lokalite.\n V prípade vytvorenia nového trezoru sa prosím vráťte späť a zvoľte iný adresár.";
+"vaultDetail.moveVault.progress" = "Presúvanie…";
 "vaultDetail.removeVault.footer" = "Toto iba odstráni trezor zo zoznamu trezorov a nezmaže žiadne zakódované súbory.";
+"vaultDetail.renameVault.progress" = "Premenovanie…";
 "vaultDetail.unlocked.footer" = "Váš trezor je aktuálne odomknutý v súborovej aplikácii.";
 "vaultDetail.unlockVault.footer" = "Vložte heslo pre \"%@\" pre jeho uloženie v iOS keychain a pre povolenie %@.";
 
@@ -150,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Konfigurácia trezora je nepodporovaná. Tento trezor bol vytvorený staršou alebo novšou verziou Cryptomator-a.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Overovanie…";
