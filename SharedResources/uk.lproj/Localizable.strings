@@ -14,10 +14,17 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
+"addVault.createNewVault.progress" = "Створення сховища…";
 "addVault.openExistingVault.title" = "Відкрити існуюче сховище";
+"addVault.openExistingVault.progress" = "Додавання сховища…";
+"changePassword.progress" = "Зміна пароля…";
 
 "settings.title" = "Налаштування";
 
 "unlockVault.button.unlock" = "Розблокувати";
+"unlockVault.progress" = "Розблокування…";
 "vaultDetail.button.moveVault" = "Перемістити";
 "vaultDetail.button.renameVault" = "Перейменувати";
+"vaultDetail.moveVault.progress" = "Переміщення…";
+"vaultDetail.renameVault.progress" = "Перейменування…";
+"webDAVAuthentication.progress" = "Аутентифікація…";
