@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Пароль не может быть пустым.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Пароли не совпадают.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Пароль должен содержать не менее 8 символов.";
+"addVault.createNewVault.progress" = "Создание хранилища…";
 "addVault.openExistingVault.title" = "Открыть имеющееся хранилище";
 "addVault.openExistingVault.chooseCloud.header" = "Где находится хранилище?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище \"%@\".\nДобавить это хранилище?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Добавить это хранилище";
 "addVault.openExistingVault.password.footer" = "Введите пароль для \"%@\".";
+"addVault.openExistingVault.progress" = "Добавление хранилища…";
 "addVault.success.info" = "Хранилище \"%@\" добавлено.\nДоступ к нему - через приложение \"Файлы\".";
 "addVault.success.footer" = "Если вы ещё этого не сделали, включите Cryptomator в приложении \"Файлы\".";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "Введите текущий пароль.";
 "changePassword.header.newPassword.title" = "Введите новый пароль.";
 "changePassword.header.newPasswordConfirmation.title" = "Подтвердите новый пароль.";
+"changePassword.progress" = "Изменение пароля…";
 
 "chooseFolder.emptyFolder.footer" = "Папка пуста";
 "chooseFolder.createNewFolder.header.title" = "Выберите имя для папки.";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Включить %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Вместо разблокирования хранилища с помощью пароля, его можно разблокировать через %@.";
 "unlockVault.evaluatePolicy.reason" = "Разблокировка хранилища";
+"unlockVault.progress" = "Разблокировка…";
 
 "untrustedTLSCertificate.title" = "Неверный TLS-сертификат";
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
@@ -135,7 +139,9 @@
 "vaultDetail.info.footer.accountInfo" = "Вы вошли как %@ через %@.";
 "vaultDetail.locked.footer" = "Хранилище сейчас заблокировано.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator обнаружил существующее хранилище в этом месте.\nЧтобы переместить хранилище, вернитесь и выберите другую папку.";
+"vaultDetail.moveVault.progress" = "Перемещение…";
 "vaultDetail.removeVault.footer" = "Это только удалит хранилище из списка, но не удалит зашифрованные файлы.";
+"vaultDetail.renameVault.progress" = "Переименование…";
 "vaultDetail.unlocked.footer" = "Сейчас хранилище разблокировано в приложении \"Файлы\".";
 "vaultDetail.unlockVault.footer" = "Введите пароль для \"%@\", чтобы сохранить его в Связке ключей iOS и включить %@.";
 
@@ -148,3 +154,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища не поддерживается. Это хранилище было создано в устаревшей или более новой версии Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Аутентификация…";
