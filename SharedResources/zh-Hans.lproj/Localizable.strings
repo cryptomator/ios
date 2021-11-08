@@ -47,11 +47,13 @@
 "addVault.createNewVault.password.error.emptyPassword" = "密码不能为空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密码不匹配。";
 "addVault.createNewVault.password.error.tooShortPassword" = "密码必须至少包含 8 个字符。";
+"addVault.createNewVault.progress" = "正在创建保险库……";
 "addVault.openExistingVault.title" = "打开现有的保险库";
 "addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪？";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"。\n您想要添加它吗？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
 "addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码。";
+"addVault.openExistingVault.progress" = "正在添加保险库……";
 "addVault.success.info" = "成功添加保险库 \"%@\"。\n现在可通过文管应用访问它。";
 "addVault.success.footer" = "如果您还没有，请在文管应用中启用 Cryptomator。";
 
@@ -62,6 +64,7 @@
 "changePassword.header.currentPassword.title" = "请输入当前密码";
 "changePassword.header.newPassword.title" = "输入新密码。";
 "changePassword.header.newPasswordConfirmation.title" = "确认新密码。";
+"changePassword.progress" = "正在修改密码……";
 
 "chooseFolder.emptyFolder.footer" = "文件夹为空";
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称。";
@@ -109,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "启用 %@";
 "unlockVault.enableBiometricalUnlock.footer" = "用 %@ 替代密码解锁保险库。";
 "unlockVault.evaluatePolicy.reason" = "解锁保险库";
+"unlockVault.progress" = "解锁中……";
 
 "untrustedTLSCertificate.title" = "TLS 证书无效";
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
@@ -137,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "已登录账户：%@ (%@).";
 "vaultDetail.locked.footer" = "您的保险库目前已锁定。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator 检测到当前路径已经存在一个保险库。\n如果您不想对其进行修改，请返回并选择另一个文件夹。";
+"vaultDetail.moveVault.progress" = "正在转移……";
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
+"vaultDetail.renameVault.progress" = "正在重命名……";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
 "vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 密钥链并启用 %@。";
 
@@ -150,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的。";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "正在验证……";
