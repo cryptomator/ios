@@ -164,16 +164,13 @@ class UnlockVaultViewModel {
 	// MARK: Unlock Vault
 
 	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let kek: [UInt8]
-		do {
-			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
-			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-			kek = try masterkeyFile.deriveKey(passphrase: password)
-		} catch {
-			return Promise(error)
+		let kekPromise = Promise<[UInt8]>(on: .global(qos: .userInitiated)) { fulfill, _ in
+			fulfill(try self.getKek(password: password))
 		}
-		return fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain).then { proxy -> Promise<Void> in
-			return self.proxyUnlockVault(proxy, kek: kek)
+		return kekPromise.then { _ in
+			all(kekPromise, self.fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: self.domain))
+		}.then { kek, proxy -> Promise<Void> in
+			self.proxyUnlockVault(proxy, kek: kek)
 		}.then {
 			if storePasswordInKeychain {
 				do {
@@ -275,6 +272,13 @@ class UnlockVaultViewModel {
 				}
 			})
 		}
+	}
+
+	private func getKek(password: String) throws -> [UInt8] {
+		let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+		let kek = try masterkeyFile.deriveKey(passphrase: password)
+		return kek
 	}
 }
 

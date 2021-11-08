@@ -76,21 +76,36 @@ class UnlockVaultViewController: UITableViewController {
 	}
 
 	@objc func unlock() {
-		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then { [weak self] in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("unlockVault.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then {
+			hud.transformToSelfDismissingSuccess()
+		}.then { [weak self] in
 			self?.coordinator?.done()
 		}.catch { [weak self] error in
-			guard let self = self else { return }
-			switch error {
-			case let error as NSError where error.isEqual(MasterkeyFileError.invalidPassphrase as NSError):
-				self.viewToShake?.shake()
-			default:
-				self.coordinator?.handleError(error, for: self)
-			}
+			self?.handleError(error, hud: hud)
 		}
 	}
 
 	@objc func cancel() {
 		coordinator?.userCancelled()
+	}
+
+	func handleError(_ error: Error, hud: ProgressHUD) {
+		hud.dismiss(animated: true).then { [weak self] in
+			self?.handleError(error)
+		}
+	}
+
+	func handleError(_ error: Error) {
+		switch error {
+		case let error as NSError where error.isEqual(MasterkeyFileError.invalidPassphrase as NSError):
+			viewToShake?.shake()
+		default:
+			coordinator?.handleError(error, for: self)
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

@@ -43,16 +43,17 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 	}
 
 	@objc func verify() {
-		viewModel.addVault().then { [weak self] in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("addVault.openExistingVault.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		viewModel.addVault().then {
+			hud.transformToSelfDismissingSuccess()
+		}.then { [weak self] in
 			guard let self = self else { return }
 			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
 		}.catch { [weak self] error in
-			guard let self = self else { return }
-			if case MasterkeyFileError.invalidPassphrase = error {
-				self.viewToShake?.shake()
-			} else {
-				self.coordinator?.handleError(error, for: self)
-			}
+			self?.handleError(error, hud: hud)
 		}
 	}
 
@@ -81,6 +82,16 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
 		return viewModel.footerTitle
+	}
+
+	// MARK: - Internal
+
+	private func handleError(_ error: Error, hud: ProgressHUD) {
+		if case MasterkeyFileError.invalidPassphrase = error {
+			viewToShake?.shake()
+		} else {
+			coordinator?.handleError(error, for: self)
+		}
 	}
 }
 

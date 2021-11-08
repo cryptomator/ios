@@ -78,12 +78,17 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 	}
 
 	private func userConfirmedPassword() {
-		viewModel.createNewVault().then { [weak self] in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("addVault.createNewVault.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		viewModel.createNewVault().then {
+			hud.transformToSelfDismissingSuccess()
+		}.then { [weak self] in
 			guard let self = self else { return }
 			self.coordinator?.showSuccessfullyAddedVault(withName: self.viewModel.vaultName, vaultUID: self.viewModel.vaultUID)
 		}.catch { [weak self] error in
-			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
+			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
 	}
 

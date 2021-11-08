@@ -24,16 +24,19 @@ class RenameVaultViewController: SetVaultNameViewController {
 	}
 
 	@objc private func renameButtonClicked() {
-		viewModel.renameVault().then { [weak self] in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("vaultDetail.renameVault.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		viewModel.renameVault().then {
+			hud.transformToSelfDismissingSuccess()
+		}.then { [weak self] in
 			guard let self = self else {
 				return
 			}
 			self.coordinator?.setVaultName(self.viewModel.vaultName ?? "")
 		}.catch { [weak self] error in
-			guard let self = self else {
-				return
-			}
-			self.coordinator?.handleError(error, for: self)
+			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
 	}
 }
