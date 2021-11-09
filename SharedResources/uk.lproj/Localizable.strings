@@ -1,0 +1,30 @@
+"common.button.cancel" = "Відмінити";
+"common.button.change" = "Змінити";
+"common.button.choose" = "Оберіть";
+"common.button.create" = "Створити";
+"common.button.done" = "Готово";
+"common.button.edit" = "Редагувати";
+"common.button.next" = "Далі";
+"common.button.remove" = "Прибрати";
+"common.cells.url" = "Адреса посилання";
+"common.cells.username" = "Ім'я користувача";
+
+"addVault.title" = "Додати сховище";
+"addVault.createNewVault.title" = "Створити нове сховище";
+"addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
+"addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
+"addVault.createNewVault.progress" = "Створення сховища…";
+"addVault.openExistingVault.title" = "Відкрити існуюче сховище";
+"addVault.openExistingVault.progress" = "Додавання сховища…";
+"changePassword.progress" = "Зміна пароля…";
+
+"settings.title" = "Налаштування";
+
+"unlockVault.button.unlock" = "Розблокувати";
+"unlockVault.progress" = "Розблокування…";
+"vaultDetail.button.moveVault" = "Перемістити";
+"vaultDetail.button.renameVault" = "Перейменувати";
+"vaultDetail.moveVault.progress" = "Переміщення…";
+"vaultDetail.renameVault.progress" = "Перейменування…";
+"webDAVAuthentication.progress" = "Аутентифікація…";

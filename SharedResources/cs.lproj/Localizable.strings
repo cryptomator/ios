@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Chyba";
 "common.button.cancel" = "Zrušit";
+"common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
 "common.button.confirm" = "Potvrdit";
 "common.button.create" = "Vytvořit";
@@ -57,6 +58,11 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
+"changePassword.error.invalidOldPassword" = "Nesprávné heslo. Prosím, zkus to znovu.";
+"changePassword.header.currentPassword.title" = "Zadejte stávající heslo.";
+"changePassword.header.newPassword.title" = "Zadejte nové heslo.";
+"changePassword.header.newPasswordConfirmation.title" = "Potvrď nové heslo.";
+
 "chooseFolder.emptyFolder.footer" = "Složka je prázdná";
 "chooseFolder.createNewFolder.header.title" = "Zvolte název složky.";
 "chooseFolder.createNewFolder.cells.name" = "Název složky";
@@ -79,6 +85,8 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Na další obrazovce vyberte složku vašeho existujícího trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vybrat složku trezoru";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Vybraná složka není trezor. Zkuste to prosím znovu s jinou složkou.";
+
+"maintenanceModeError.runningCloudTask" = "Operace nemůže být provedena, protože musí být pro tento trezor nejdříve dokončeny ostatní operace na pozadí. Opakujte akci později.";
 
 "onboarding.title" = "Vítejte";
 "onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
@@ -118,13 +126,17 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Tento trezor jste již přidali.";
 
+"vaultDetail.button.changeVaultPassword" = "Změnit heslo";
 "vaultDetail.button.lock" = "Uzamknout nyní";
+"vaultDetail.button.moveVault" = "Přesunout";
 "vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";
+"vaultDetail.button.renameVault" = "Přejmenovat";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Pokud povolíte %@, vaše heslo k trezoru bude uloženo v iOS klíčence.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše heslo k trezoru bude vyžadováno pouze v případě, že %@ ověření selže.";
 "vaultDetail.info.footer.accessVault" = "Přistoupit k trezoru prostřednictvím aplikace Soubory.";
 "vaultDetail.info.footer.accountInfo" = "Přihlášen jako %@ přes %@.";
 "vaultDetail.locked.footer" = "Váš trezor je momentálně uzamčen.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zjistil na tomto místě existující trezor.\nChcete-li trezor přesunout, vraťte se zpět a vyberte jinou složku.";
 "vaultDetail.removeVault.footer" = "Tímto odstraníte pouze trezor ze seznamu trezorů a neodstraníte žádné šifrované soubory.";
 "vaultDetail.unlocked.footer" = "Váš trezor je v současné době odemčen v aplikaci Soubory.";
 "vaultDetail.unlockVault.footer" = "Zadejte heslo pro \"%@\" pro uložení do iOS klíčenky a pro povolení %@.";

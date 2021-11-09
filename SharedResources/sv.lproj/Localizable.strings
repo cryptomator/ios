@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Fel";
 "common.button.cancel" = "Avbryt";
+"common.button.change" = "Ändra";
 "common.button.choose" = "Välj";
 "common.button.confirm" = "Bekräfta";
 "common.button.create" = "Skapa";
@@ -46,16 +47,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Du måste ange ett lösenord.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Lösenorden överensstämmer inte.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Lösenordet måste innehålla minst 8 tecken.";
+"addVault.createNewVault.progress" = "Skapar valvet…";
 "addVault.openExistingVault.title" = "Öppna befintligt valv";
 "addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Lägg till detta valv";
 "addVault.openExistingVault.password.footer" = "Ange lösenord för \"%@\".";
+"addVault.openExistingVault.progress" = "Lägger till valvet…";
 "addVault.success.info" = "Framgångsrikt lagt till valvet \"%@\".\nKom åt detta valv via Fil-appen.";
 "addVault.success.footer" = "Om du inte redan har aktiverat Cryptomator i appen Filer.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Det nuvarande lösenordet är felaktigt, försök igen.";
+"changePassword.header.currentPassword.title" = "Ange nuvarande lösenord.";
+"changePassword.header.newPassword.title" = "Ange ett nytt lösenord.";
+"changePassword.header.newPasswordConfirmation.title" = "Bekräfta nytt lösenord.";
+"changePassword.progress" = "Ändrar lösenord…";
 
 "chooseFolder.emptyFolder.footer" = "Mappen är tom";
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
@@ -80,6 +89,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
 
+"maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
+
 "onboarding.title" = "Välkommen";
 "onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
 "onboarding.openCryptomator.button" = "Öppna Cryptomator";
@@ -101,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Aktivera %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Istället för att låsa upp ditt valv med ditt lösenord kan du låsa upp det via %@.";
 "unlockVault.evaluatePolicy.reason" = "Lås upp ditt valv";
+"unlockVault.progress" = "Låser upp…";
 
 "untrustedTLSCertificate.title" = "Ogiltigt certifikat";
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
@@ -118,14 +130,20 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har redan lagt till detta valv.";
 
+"vaultDetail.button.changeVaultPassword" = "Ändra lösenord";
 "vaultDetail.button.lock" = "Lås nu";
+"vaultDetail.button.moveVault" = "Flytta";
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
+"vaultDetail.button.renameVault" = "Byt namn";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Om du aktiverar %@lagras ditt valvlösenord i iOS-nyckelkedjan.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";
 "vaultDetail.info.footer.accessVault" = "Få tillgång till valvet via appen Filer.";
 "vaultDetail.info.footer.accountInfo" = "Inloggad som %@ via %@.";
 "vaultDetail.locked.footer" = "Ditt valv är för närvarande låst.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
+"vaultDetail.moveVault.progress" = "Flyttar…";
 "vaultDetail.removeVault.footer" = "Detta kommer bara att ta bort valvet från valvlistan och inte ta bort några krypterade filer.";
+"vaultDetail.renameVault.progress" = "Döper om…";
 "vaultDetail.unlocked.footer" = "Ditt valv är för närvarande upplåst i appen Filer.";
 "vaultDetail.unlockVault.footer" = "Ange lösenord för \"%@\" för att lagra det i iOS nyckelring och för att aktivera %@.";
 
@@ -138,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Valvversionen stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Autentiserar…";

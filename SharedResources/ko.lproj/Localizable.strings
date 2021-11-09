@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "에러";
 "common.button.cancel" = "취소";
+"common.button.change" = "변경";
 "common.button.choose" = "선택";
 "common.button.confirm" = "확인";
 "common.button.create" = "생성";
@@ -42,6 +43,8 @@
 "addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
 "addVault.success.info" = "\"%@\" Vault가 성공적으로 추가되었습니다.\n파일 앱을 통해 이 Vault에 접근할 수 있습니다.";
 "addVault.success.footer" = "아직 Cryptomator를 파일 앱에서 사용가능토록 설정하지 않은 경우, 사용가능하게 설정바랍니다.";
+"changePassword.header.newPassword.title" = "새 비밀번호를 입력하세요.";
+"changePassword.header.newPasswordConfirmation.title" = "새 비밀번호 확인.";
 
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 "chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
@@ -71,6 +74,10 @@
 "untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
+
+"vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
+"vaultDetail.button.moveVault" = "이동";
+"vaultDetail.button.renameVault" = "이름 변경";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";

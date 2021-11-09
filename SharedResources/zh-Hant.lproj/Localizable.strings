@@ -7,31 +7,109 @@
 
 "common.alert.error.title" = "錯誤";
 "common.button.cancel" = "取消";
+"common.button.change" = "修改";
 "common.button.choose" = "選擇";
+"common.button.confirm" = "確認";
+"common.button.create" = "新建";
+"common.button.createFolder" = "建立資料夾";
 "common.button.done" = "完成";
 "common.button.edit" = "編輯";
+"common.button.enable" = "啟用";
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.remove" = "移除";
+"common.button.signOut" = "登出";
+"common.button.verify" = "驗證";
+"common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
 "common.cells.password" = "密碼";
 "common.cells.url" = "網址";
+"common.cells.username" = "帳號名稱";
+"common.footer.learnMore" = "了解更多。";
+
+"accountList.header.title" = "認證";
+"accountList.emptyList.message" = "點擊此處添加帳號";
+"accountList.signOut.alert.title" = "移除關聯的加密檔案庫？";
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
 "addVault.createNewVault.setVaultName.header.title" = "為加密檔案庫命名.";
 "addVault.createNewVault.setVaultName.cells.name" = "加密檔案庫名稱";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "加密檔案庫名稱不可留空。";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
+"addVault.createNewVault.password.error.emptyPassword" = "密碼不可留空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
+"addVault.createNewVault.password.error.tooShortPassword" = "密碼必須包含至少8個字符。";
+"addVault.createNewVault.progress" = "正在創建加密檔案庫……";
 "addVault.openExistingVault.title" = "開啟現有加密檔案庫";
+"addVault.openExistingVault.chooseCloud.header" = "加密檔案庫位於什麼地方？";
+"addVault.openExistingVault.detectedMasterkey.add" = "添加這個加密檔案庫";
+"addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
+"addVault.openExistingVault.progress" = "正在添加加密檔案庫……";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "輸入新密碼.";
+"changePassword.header.newPasswordConfirmation.title" = "確認新密碼.";
+"changePassword.progress" = "正在變更密碼……";
+
+"chooseFolder.emptyFolder.footer" = "資料夾是空的";
+"chooseFolder.createNewFolder.header.title" = "為資料夾命名。";
+"chooseFolder.createNewFolder.cells.name" = "資料夾名稱";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "資料夾名稱不能留空。";
+
+"cloudProvider.error.itemNotFound" = "無法找到「%@」。";
+"cloudProvider.error.itemAlreadyExists" = "「%@」已經存在。";
+"cloudProvider.error.quotaInsufficient" = "您的存儲已空間不足";
+"cloudProvider.error.unauthorized" = "無法執行未授權的操作";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+"localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
+"localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
+
+"onboarding.title" = "歡迎";
+"onboarding.openCryptomator.button" = "打開 Cryptomator";
 
 "settings.title" = "設定";
+"settings.aboutCryptomator" = "關於 Cryptomator";
+"settings.aboutCryptomator.title" = "版本號%@（%@）";
+"settings.cacheSize" = "緩存大小";
+"settings.clearCache" = "清除緩存";
+"settings.cloudServices" = "雲端服務";
+"settings.contact" = "聯絡方式";
+"settings.debugMode" = "調試模式";
+"settings.rateApp" = "為應用程式評分";
 
 "unlockVault.button.unlock" = "解鎖";
+"unlockVault.button.unlockVia" = "使用%@解鎖";
+"unlockVault.password.footer" = "輸入 「%@」 的密碼：";
+"unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
+"unlockVault.evaluatePolicy.reason" = "解鎖您的加密檔案庫";
+"unlockVault.progress" = "正在解鎖……";
+
+"untrustedTLSCertificate.title" = "無效的 TLS 憑證";
+"untrustedTLSCertificate.add" = "信任";
+"untrustedTLSCertificate.dismiss" = "不信任";
+
+"urlSession.error.httpError.401" = "用戶名或密碼錯誤";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
+
+"vaultDetail.button.changeVaultPassword" = "變更密碼";
+"vaultDetail.button.lock" = "立即鎖定";
+"vaultDetail.button.moveVault" = "移動";
+"vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
+"vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.info.footer.accountInfo" = "已經使用 %@ 登入 %@。";
+"vaultDetail.locked.footer" = "您的加密檔案庫當前已鎖定。";
+"vaultDetail.moveVault.progress" = "正在移動……";
+"vaultDetail.renameVault.progress" = "正在重命名……";
+
+"vaultList.header.title" = "加密檔案庫";
+"vaultList.emptyList.message" = "點擊此處以添加加密檔案庫";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
+
+"webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "正在驗證……";

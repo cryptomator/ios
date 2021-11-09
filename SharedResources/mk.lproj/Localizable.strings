@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Грешка";
+"common.button.cancel" = "Излез";
+"common.button.choose" = "Избор";
+"common.button.confirm" = "Потврди";
+"common.button.create" = "Создади";
+"common.button.createFolder" = "Креирај папка";
+"common.button.done" = "Прифати";
+"common.button.edit" = "Промени";
+"common.button.enable" = "Овозможи";
+"common.button.next" = "Следно";
+"common.button.ok" = "ОК";
+"common.button.remove" = "Отстрани";
+"common.button.signOut" = "Одјави се";
+"common.button.verify" = "Верифицирај";
+"common.cells.openInFilesApp" = "Отвори со Files апликацијата";
+"common.cells.password" = "Лозинка";
+"common.cells.url" = "Линк (URL)";
+"common.cells.username" = "Корисничко име";
+"common.footer.learnMore" = "Дознајте повеќе.";
+
+"accountList.header.title" = "Автентикација";
+"accountList.emptyList.message" = "Клик овде да додадете нова сметка";
+"accountList.signOut.alert.title" = "Одјави се?";
+"accountList.signOut.alert.message" = "Ако се одјавите, сите сефови ќе бидат избришани од листата. Енкриптираните податоци нема да бидат избришани. Може да се најавите подоцна и да ги додадете сефовите повторно.";
+
+"addVault.title" = "Додај сеф";
+"addVault.createNewVault.title" = "Додај нов сеф";
+"addVault.createNewVault.setVaultName.header.title" = "Одберете име за сефот.";
+"addVault.createNewVault.setVaultName.cells.name" = "Име на сеф";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Името не може да биде празно.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Името на сефот неможе да содржи \\ / : * ? \" < > или да завршува со точка.";
+"addVault.createNewVault.chooseCloud.header" = "Каде би сакале Cryptomator да ги зачува шифрираните фајлови на Вашиот сеф?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" веќе постои на оваа локација. Изберете друго име за сефот или нова локација.";
