@@ -18,6 +18,7 @@ public enum VaultManagerError: Error {
 	case vaultAlreadyExists
 	case vaultVersionNotSupported
 	case fileProviderDomainNotFound
+	case moveVaultInsideItself
 }
 
 public protocol VaultManager {
@@ -27,6 +28,8 @@ public protocol VaultManager {
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
 }
 
 public class VaultDBManager: VaultManager {
@@ -96,11 +99,19 @@ public class VaultDBManager: VaultManager {
 	}
 
 	private func uploadMasterkey(_ masterkey: Masterkey, password: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
-		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		let masterkeyData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
-		try masterkeyData.write(to: localMasterkeyURL)
+		return uploadMasterkeyFileData(masterkeyData, vaultPath: vaultPath, replaceExisting: false, provider: provider, tmpDirURL: tmpDirURL)
+	}
+
+	private func uploadMasterkeyFileData(_ data: Data, vaultPath: CloudPath, replaceExisting: Bool, provider: CloudProvider, tmpDirURL: URL) -> Promise<CloudItemMetadata> {
+		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		do {
+			try data.write(to: localMasterkeyURL)
+		} catch {
+			return Promise(error)
+		}
 		let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: false)
+		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting)
 	}
 
 	private func uploadVaultConfigToken(_ token: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
@@ -296,6 +307,52 @@ public class VaultDBManager: VaultManager {
 		return decorator
 	}
 
+	// MARK: - Move Vault
+
+	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		guard !targetVaultPath.contains(account.vaultPath) else {
+			return Promise(VaultManagerError.moveVaultInsideItself)
+		}
+		let provider: CloudProvider
+		do {
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: account.delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		return provider.moveFolder(from: account.vaultPath, to: targetVaultPath).then { _ -> VaultAccount in
+			let updatedVaultAccount = VaultAccount(vaultUID: account.vaultUID,
+			                                       delegateAccountUID: account.delegateAccountUID,
+			                                       vaultPath: targetVaultPath,
+			                                       vaultName: targetVaultPath.lastPathComponent)
+			try self.vaultAccountManager.updateAccount(updatedVaultAccount)
+			return updatedVaultAccount
+		}.then { updatedVaultAccount in
+			self.addFileProviderDomain(forVaultUID: updatedVaultAccount.vaultUID, displayName: updatedVaultAccount.vaultName)
+		}
+	}
+
+	// MARK: - Change Passphrase
+
+	public func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
+		let tmpDirURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
+		let provider: LocalizedCloudProviderDecorator
+		let vaultAccount: VaultAccount
+		let masterkeyFileData: Data
+		let cachedVault: CachedVault
+		do {
+			cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+			masterkeyFileData = try changePassphrase(masterkeyFileData: cachedVault.masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
+			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: vaultAccount.delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		return uploadMasterkeyFileData(masterkeyFileData, vaultPath: vaultAccount.vaultPath, replaceExisting: true, provider: provider, tmpDirURL: tmpDirURL).then { _ -> Void in
+			try self.postProcessChangePassphrase(masterkeyFileData: masterkeyFileData, forVaultUID: vaultUID, vaultConfigToken: cachedVault.vaultConfigToken, newPassphrase: newPassphrase)
+		}
+	}
+
 	// MARK: - Internal
 
 	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: String, password: String, storePasswordInKeychain: Bool) throws {
@@ -317,6 +374,14 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
+	func postProcessChangePassphrase(masterkeyFileData: Data, forVaultUID vaultUID: String, vaultConfigToken: String?, newPassphrase: String) throws {
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
+		try vaultCache.cache(cachedVault)
+		if try passwordManager.hasPassword(forVaultUID: vaultUID) {
+			try passwordManager.setPassword(newPassphrase, forVaultUID: vaultUID)
+		}
+	}
+
 	static func getRootDirectoryPath(for cryptor: Cryptor, vaultPath: CloudPath) throws -> CloudPath {
 		let digest = try cryptor.encryptDirId(Data())
 		let i = digest.index(digest.startIndex, offsetBy: 2)
@@ -325,6 +390,10 @@ public class VaultDBManager: VaultManager {
 
 	func exportMasterkey(_ masterkey: Masterkey, vaultVersion: Int, password: String) throws -> Data {
 		return try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: vaultVersion, passphrase: password)
+	}
+
+	func changePassphrase(masterkeyFileData: Data, oldPassphrase: String, newPassphrase: String) throws -> Data {
+		return try MasterkeyFile.changePassphrase(masterkeyFileData: masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
 	}
 
 	func removeFileProviderDomain(withVaultUID vaultUID: String) -> Promise<Void> {
@@ -352,8 +421,7 @@ public class VaultDBManager: VaultManager {
 	}
 
 	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) -> Promise<Void> {
-		let identifier = NSFileProviderDomainIdentifier(vaultUID)
-		let domain = NSFileProviderDomain(identifier: identifier, displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
+		let domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: displayName)
 		return NSFileProviderManager.add(domain)
 	}
 }
@@ -396,5 +464,11 @@ public extension NSFileProviderManager {
 				}
 			}
 		}
+	}
+}
+
+public extension NSFileProviderDomain {
+	convenience init(vaultUID: String, displayName: String) {
+		self.init(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
 	}
 }

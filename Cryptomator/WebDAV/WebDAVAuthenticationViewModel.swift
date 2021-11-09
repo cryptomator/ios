@@ -18,22 +18,26 @@ enum WebDAVAuthenticationError: Error {
 }
 
 protocol WebDAVAuthenticationViewModelProtocol {
-	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential>
+	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential
+	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
 }
 
 class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 	private var client: WebDAVClient?
 
-	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential> {
+	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
 		// TODO: Add Input Validation
 		guard let url = url, let username = username, let password = password, let baseURL = URL(string: url) else {
-			return Promise(WebDAVAuthenticationError.invalidInput)
+			throw WebDAVAuthenticationError.invalidInput
 		}
 		guard !username.isEmpty, !password.isEmpty else {
-			return Promise(WebDAVAuthenticationError.invalidInput)
+			throw WebDAVAuthenticationError.invalidInput
 		}
-		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
-		return checkTLSCertificate(for: baseURL, allowedCertificate: allowedCertificate).then { _ -> Promise<Void> in
+		return WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
+	}
+
+	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
+		return checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate).then { _ -> Promise<Void> in
 			let client = WebDAVClient(credential: credential)
 			self.client = client
 			return WebDAVAuthenticator.verifyClient(client: client)

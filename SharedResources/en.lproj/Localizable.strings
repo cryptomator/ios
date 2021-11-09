@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancel";
+"common.button.change" = "Change";
 "common.button.choose" = "Choose";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
@@ -46,16 +47,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
+"addVault.createNewVault.progress" = "Creating Vault…";
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
+"addVault.openExistingVault.progress" = "Adding Vault…";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Current password is wrong. Please try again.";
+"changePassword.header.currentPassword.title" = "Enter the current password.";
+"changePassword.header.newPassword.title" = "Enter a new password.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirm the new password.";
+"changePassword.progress" = "Changing Password…";
 
 "chooseFolder.emptyFolder.footer" = "Folder is Empty";
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
@@ -80,6 +89,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 
+"maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
+
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "onboarding.openCryptomator.button" = "Open Cryptomator";
@@ -101,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
 "unlockVault.evaluatePolicy.reason" = "Unlock your vault";
+"unlockVault.progress" = "Unlocking…";
 
 "untrustedTLSCertificate.title" = "Invalid TLS Certificate";
 "untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
@@ -118,14 +130,20 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "You have already added this vault.";
 
+"vaultDetail.button.changeVaultPassword" = "Change Password";
 "vaultDetail.button.lock" = "Lock Now";
+"vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
+"vaultDetail.button.renameVault" = "Rename";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
+"vaultDetail.moveVault.progress" = "Moving…";
 "vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
+"vaultDetail.renameVault.progress" = "Renaming…";
 "vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
 "vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
 
@@ -138,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Authenticating…";

@@ -13,6 +13,8 @@ import Promises
 class CloudProviderMock: CloudProvider {
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]
+	var movedFolder: [String: String] = [:]
+	var error: Error?
 
 	var filesToDownload = [String: Data]()
 
@@ -66,6 +68,10 @@ class CloudProviderMock: CloudProvider {
 	}
 
 	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
-		return Promise(CloudProviderError.noInternetConnection)
+		if let error = error {
+			return Promise(error)
+		}
+		movedFolder[sourceCloudPath.path] = targetCloudPath.path
+		return Promise(())
 	}
 }

@@ -1,13 +1,12 @@
 Welcome to the public beta test of the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS.
 
-Keep in mind that this is a pre-release version intended for testing and that some features like auto-lock are still missing. Check out our open-source repository on GitHub: https://github.com/cryptomator/ios
+Keep in mind that this is a pre-release version intended for testing. Check out our open-source repository on GitHub: https://github.com/cryptomator/ios
 
 We're looking forward to your feedback!
 
 ---
 
-## Changes Since 2.0.0 Beta 6
-- Added Hindi and Portuguese translations
-- Improved settings screen (manage cloud services, clear cache, debug mode) (#9)
-- Improved error handling (#55 needs to be re-tested)
-- Vault and authentication duplicates are now prevented (#41)
+## Changes Since 2.0.0 Beta 7
+- Added "Rename", "Move", and "Change Password" to vault detail screen (#65, #66)
+- Fixed replacing existing file (#98)
+- Fixed crash when uploading hundreds of files (#55)

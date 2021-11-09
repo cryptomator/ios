@@ -42,7 +42,9 @@ public enum FileProviderAdapterManager {
 		let uploadTaskManager = UploadTaskDBManager(database: database)
 		let reparentTaskManager = try ReparentTaskDBManager(database: database)
 		let deletionTaskManager = try DeletionTaskDBManager(database: database)
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
+		let itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: database)
+		let downloadTaskManager = try DownloadTaskDBManager(database: database)
+		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager, downloadTaskManager: downloadTaskManager, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2), provider: provider, notificator: notificator, localURLProvider: delegate)
 		queue.sync(flags: .barrier) {
 			cachedAdapters[domainIdentifier] = adapter
 		}

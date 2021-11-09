@@ -12,10 +12,10 @@ import XCTest
 @testable import Cryptomator
 
 class CreateNewFolderViewModelTests: XCTestCase {
-	private var cloudProviderMock: CloudProviderMock!
+	private var cloudProviderMock: CloudProviderMockOld!
 
 	override func setUpWithError() throws {
-		cloudProviderMock = CloudProviderMock()
+		cloudProviderMock = CloudProviderMockOld()
 	}
 
 	func testCreateNewFolder() throws {
@@ -70,7 +70,7 @@ class CreateNewFolderViewModelTests: XCTestCase {
 	}
 }
 
-private class CloudProviderMock: CloudProvider {
+private class CloudProviderMockOld: CloudProvider {
 	var createdFolders = [CloudPath]()
 	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
 		return Promise(CloudProviderError.noInternetConnection)

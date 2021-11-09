@@ -12,10 +12,10 @@ import Promises
 import UIKit
 
 class VaultDetailViewController: UITableViewController {
-	weak var coordinator: MainCoordinator?
+	weak var coordinator: VaultDetailCoordinator?
 	private let viewModel: VaultDetailViewModelProtocol
 	private var observer: NSObjectProtocol?
-	private var viewModelSubscriber: AnyCancellable?
+	private lazy var subscriber = Set<AnyCancellable>()
 
 	init(viewModel: VaultDetailViewModelProtocol) {
 		self.viewModel = viewModel
@@ -28,16 +28,25 @@ class VaultDetailViewController: UITableViewController {
 	}
 
 	override func viewDidLoad() {
+		viewModel.title.$value
+			.receive(on: DispatchQueue.main)
+			.sink { [weak self] title in
+				self?.title = title
+			}.store(in: &subscriber)
 		title = viewModel.vaultName
-		viewModelSubscriber = viewModel.actionPublisher
+		viewModel.actionPublisher
 			.receive(on: DispatchQueue.main)
 			.sink(receiveValue: { [weak self] result in
 				self?.handleActionResult(result)
-			})
-		refreshVaultLockStatus()
+			}).store(in: &subscriber)
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshVaultLockStatus()
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		refreshVaultLockStatus()
 	}
 
 	private func refreshVaultLockStatus() {
@@ -93,6 +102,12 @@ class VaultDetailViewController: UITableViewController {
 			}.always { [weak self] in
 				_ = self?.viewModel.refreshVaultStatus()
 			}
+		case .showRenameVault:
+			coordinator?.renameVault()
+		case .showMoveVault:
+			coordinator?.moveVault()
+		case .showChangeVaultPassword:
+			coordinator?.changeVaultPassword()
 		}
 	}
 

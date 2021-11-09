@@ -18,6 +18,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var uploadTaskManagerMock: UploadTaskManagerMock!
 	var reparentTaskManagerMock: ReparentTaskManagerMock!
 	var deletionTaskManagerMock: DeletionTaskManagerMock!
+	var itemEnumerationTaskManagerMock: ItemEnumerationTaskManagerMock!
+	var downloadTaskManagerMock: DownloadTaskManagerMock!
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
 
@@ -28,6 +30,8 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		uploadTaskManagerMock = UploadTaskManagerMock()
 		reparentTaskManagerMock = ReparentTaskManagerMock()
 		deletionTaskManagerMock = DeletionTaskManagerMock()
+		itemEnumerationTaskManagerMock = ItemEnumerationTaskManagerMock()
+		downloadTaskManagerMock = DownloadTaskManagerMock()
 		deleteItemHelper = DeleteItemHelper(itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock)
 		tmpDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirectory, withIntermediateDirectories: false, attributes: nil)
@@ -152,8 +156,12 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func removeCachedFile(for identifier: Int64) throws {
+			let localFileInfo = cachedLocalFileInfo[identifier]
 			cachedLocalFileInfo[identifier] = nil
 			removeCachedFile.append(identifier)
+			if let localURL = localFileInfo?.localURL {
+				try? FileManager.default.removeItem(at: localURL)
+			}
 		}
 
 		func getLocalCacheSizeInBytes() throws -> Int {
@@ -270,7 +278,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func getTaskRecord(for id: Int64) throws -> DeletionTaskRecord {
-			throw MockError.notMocked
+			guard let record = deletionTasks[id] else {
+				throw DBManagerError.taskNotFound
+			}
+			return record
 		}
 
 		func removeTaskRecord(_ task: DeletionTaskRecord) throws {
@@ -330,6 +341,35 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				throw DBManagerError.missingItemMetadata
 			}
 			return ReparentTask(taskRecord: reparentTask, itemMetadata: itemMetadata)
+		}
+	}
+
+	class ItemEnumerationTaskManagerMock: ItemEnumerationTaskManager {
+		var removedTaskRecords = [ItemEnumerationTaskRecord]()
+		var createdTasks = [ItemEnumerationTask]()
+
+		func createTask(for item: ItemMetadata, pageToken: String?) throws -> ItemEnumerationTask {
+			let taskRecord = ItemEnumerationTaskRecord(correspondingItem: item.id!, pageToken: pageToken)
+			let task = ItemEnumerationTask(taskRecord: taskRecord, itemMetadata: item)
+			createdTasks.append(task)
+			return task
+		}
+
+		func removeTaskRecord(_ task: ItemEnumerationTaskRecord) throws {
+			removedTaskRecords.append(task)
+		}
+	}
+
+	class DownloadTaskManagerMock: DownloadTaskManager {
+		var removedTasks = [DownloadTaskRecord]()
+
+		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL) throws -> DownloadTask {
+			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
+			return DownloadTask(taskRecord: taskRecord, itemMetadata: item)
+		}
+
+		func removeTaskRecord(_ task: DownloadTaskRecord) throws {
+			removedTasks.append(task)
 		}
 	}
 

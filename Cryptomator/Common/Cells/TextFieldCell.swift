@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TextFieldCell: UITableViewCell {
+class TextFieldCell: TableViewCell {
 	let textField: UITextField = {
 		let textField = UITextField()
 		textField.clearButtonMode = .whileEditing
@@ -30,5 +30,18 @@ class TextFieldCell: UITableViewCell {
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	override func configure(with viewModel: TableViewCellViewModel) {
+		super.configure(with: viewModel)
+		guard let viewModel = viewModel as? TextFieldCellViewModel else {
+			return
+		}
+		NotificationCenter.default
+			.publisher(for: UITextField.textDidChangeNotification, object: textField)
+			.map { ($0.object as? UITextField)?.text ?? "" }
+			.receive(on: RunLoop.main)
+			.assign(to: \.input.value, on: viewModel)
+			.store(in: &subscribers)
 	}
 }

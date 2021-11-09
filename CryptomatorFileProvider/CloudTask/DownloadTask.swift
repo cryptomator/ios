@@ -10,7 +10,11 @@ import Foundation
 import GRDB
 
 struct DownloadTask: CloudTask {
-	let replaceExisting: Bool
-	let localURL: URL
+	let taskRecord: DownloadTaskRecord
 	let itemMetadata: ItemMetadata
+
+	enum CodingKeys: String, CodingKey {
+		case taskRecord = "downloadTask"
+		case itemMetadata
+	}
 }

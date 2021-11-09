@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
@@ -58,21 +59,47 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 	}
 
 	func addAccount(allowedCertificate: Data?) {
-		viewModel.addAccount(url: urlCell.textField.text, username: usernameCell.textField.text, password: passwordCell.textField.text, allowedCertificate: allowedCertificate).then { [weak self] credential in
+		let credential: WebDAVCredential
+		do {
+			credential = try viewModel.createWebDAVCredentialFromInput(url: urlCell.textField.text, username: usernameCell.textField.text, password: passwordCell.textField.text, allowedCertificate: allowedCertificate)
+		} catch {
+			coordinator?.handleError(error, for: self)
+			return
+		}
+
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("webDAVAuthentication.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		let addAccountPromise = viewModel.addAccount(credential: credential)
+		addAccountPromise.then { _ in
+			hud.transformToSelfDismissingSuccess()
+		}.then {
+			addAccountPromise
+		}.then { [weak self] credential in
 			guard let self = self else { return }
 			self.coordinator?.authenticated(with: credential)
 		}.catch { [weak self] error in
-			guard let self = self else { return }
-			if case let WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url) = error {
-				self.coordinator?.handleUntrustedCertificate(certificate, url: url, for: self, viewModel: self.viewModel)
-			} else {
-				self.coordinator?.handleError(error, for: self)
-			}
+			self?.handleError(error, hud: hud)
 		}
 	}
 
 	@objc func cancel() {
 		coordinator?.cancel()
+	}
+
+	private func handleError(_ error: Error, hud: ProgressHUD) {
+		hud.dismiss(animated: true).then { [weak self] in
+			self?.handleError(error)
+		}
+	}
+
+	private func handleError(_ error: Error) {
+		if case let WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url) = error {
+			coordinator?.handleUntrustedCertificate(certificate, url: url, for: self, viewModel: viewModel)
+		} else {
+			coordinator?.handleError(error, for: self)
+		}
 	}
 
 	// MARK: - UITableViewDataSource
@@ -92,7 +119,11 @@ import Promises
 import SwiftUI
 
 class WebDAVAuthenticationViewModelMock: WebDAVAuthenticationViewModelProtocol {
-	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential> {
+	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
+		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
+	}
+
+	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
 		return Promise(WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil))
 	}
 }

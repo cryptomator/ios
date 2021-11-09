@@ -13,10 +13,10 @@ import XCTest
 @testable import Cryptomator
 
 class CreateNewVaultPasswordViewModelTests: XCTestCase {
-	private var vaultManagerMock: VaultManagerMock!
+	private var vaultManagerMock: PasswordVaultManagerMock!
 
 	override func setUpWithError() throws {
-		vaultManagerMock = VaultManagerMock()
+		vaultManagerMock = PasswordVaultManagerMock()
 	}
 
 	func testCreateNewVault() throws {
@@ -170,7 +170,7 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	}
 }
 
-private class VaultManagerMock: VaultManager {
+private class PasswordVaultManagerMock: VaultManager {
 	var createdVaults = [CreatedVault]()
 
 	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
@@ -200,6 +200,14 @@ private class VaultManagerMock: VaultManager {
 	}
 
 	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
+
+	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
+
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 }

@@ -32,16 +32,18 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	private let uploadTaskManager: UploadTaskManager
 	private let reparentTaskManager: ReparentTaskManager
 	private let deletionTaskManager: DeletionTaskManager
+	private let itemEnumerationTaskManager: ItemEnumerationTaskManager
 	private let deleteItemHelper: DeleteItemHelper
 	private let provider: CloudProvider
 
-	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, uploadTaskManager: UploadTaskManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, deleteItemHelper: DeleteItemHelper) {
+	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, uploadTaskManager: UploadTaskManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, deleteItemHelper: DeleteItemHelper) {
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
 		self.uploadTaskManager = uploadTaskManager
 		self.reparentTaskManager = reparentTaskManager
 		self.deletionTaskManager = deletionTaskManager
+		self.itemEnumerationTaskManager = itemEnumerationTaskManager
 		self.deleteItemHelper = deleteItemHelper
 	}
 
@@ -50,15 +52,25 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
 		let itemMetadata = enumerationTask.itemMetadata
+		let promise: Promise<FileProviderItemList>
 		switch itemMetadata.type {
 		case .folder:
-			return fetchItemList(folderMetadata: itemMetadata, pageToken: enumerationTask.pageToken)
+			let taskRecord = enumerationTask.taskRecord
+			promise = fetchItemList(folderMetadata: itemMetadata, pageToken: taskRecord.pageToken)
 		case .file:
-			return fetchItemMetadata(fileMetadata: itemMetadata)
+			promise = fetchItemMetadata(fileMetadata: itemMetadata)
 		default:
 			DDLogError("Unable to enumerate items on metadata type: \(itemMetadata.type)")
-			return Promise(NSFileProviderError(.noSuchItem))
+			promise = Promise(NSFileProviderError(.noSuchItem))
 		}
+		promise.always {
+			do {
+				try self.itemEnumerationTaskManager.removeTaskRecord(enumerationTask.taskRecord)
+			} catch {
+				DDLogError("Remove ItemEnumerationTask failed with error: \(error)")
+			}
+		}
+		return promise
 	}
 
 	func fetchItemList(folderMetadata: ItemMetadata, pageToken: String?) -> Promise<FileProviderItemList> {
