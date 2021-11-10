@@ -47,18 +47,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Şifre boş bırakılamaz.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Şifreler eşleşmiyor.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Şifre en az 8 karakter içermelidir.";
+"addVault.createNewVault.progress" = "Kasa oluşturuluyor…";
 "addVault.openExistingVault.title" = "Varolan Kasayı Aç";
 "addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
 "addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin.";
+"addVault.openExistingVault.progress" = "Kasa ekleniyor…";
 "addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
 
 "biometryType.faceID" = "Yüz kimliği";
 "biometryType.touchID" = "Dokunmatik kimlik";
+
+"changePassword.error.invalidOldPassword" = "Mevcut şifre yanlış. Lütfen tekrar deneyin.";
+"changePassword.header.currentPassword.title" = "Mevcut şifreyi girin.";
 "changePassword.header.newPassword.title" = "Yeni bir şifre girin.";
 "changePassword.header.newPasswordConfirmation.title" = "Yeni şifreyi onaylayın.";
+"changePassword.progress" = "Şifre değiştiriliyor…";
 
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
 "chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
@@ -106,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
 "unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
 "unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
+"unlockVault.progress" = "Kilit açılıyor…";
 
 "untrustedTLSCertificate.title" = "TLS Sertifikası Geçersiz";
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
@@ -134,7 +141,9 @@
 "vaultDetail.info.footer.accountInfo" = "%@ aracılığıyla %@ olarak oturum açıldı.";
 "vaultDetail.locked.footer" = "Kasanız şu anda kilitli.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa algıladı.\n Kasanızı taşımak için lütfen geri dönün ve farklı bir klasör seçin.";
+"vaultDetail.moveVault.progress" = "Taşınıyor…";
 "vaultDetail.removeVault.footer" = "Bu, yalnızca kasayı kasa listesinden kaldırır ve şifrelenmiş dosyaları silmez.";
+"vaultDetail.renameVault.progress" = "Yeniden adlandırılıyor…";
 "vaultDetail.unlocked.footer" = "Kasanızın kilidi şu anda Dosyalar uygulamasında açık.";
 "vaultDetail.unlockVault.footer" = "iOS anahtar zincirinde saklamak ve %@'yi etkinleştirmek için \"%@\" parolasını girin.";
 
@@ -147,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Kasa sürümü desteklenmiyor. Bu kasa, Cryptomator'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Kimlik doğrulanıyor…";
