@@ -27,11 +27,10 @@ public enum DatabaseHelper {
 	// swiftlint:disable:next function_body_length
 	static func migrate(_ dbWriter: DatabaseWriter) throws {
 		var migrator = DatabaseMigrator()
-		#if DEBUG
 		// Speed up development by nuking the database when migrations change
 		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
 		migrator.eraseDatabaseOnSchemaChange = true
-		#endif
+
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "itemMetadata") { table in
 				table.autoIncrementedPrimaryKey("id")
