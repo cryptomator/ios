@@ -47,18 +47,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "パスワードは空にできません。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "パスワードが一致しません。";
 "addVault.createNewVault.password.error.tooShortPassword" = "パスワードは8文字以上にする必要があります。";
+"addVault.createNewVault.progress" = "金庫を作成しています...";
 "addVault.openExistingVault.title" = "すでにある金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
 "addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください。";
+"addVault.openExistingVault.progress" = "保管庫を追加しています…";
 "addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
 "addVault.success.footer" = "まだ開いていない場合は、ファイル アプリで Cryptomator を有効にしてください。";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "現在のパスワードが異なります。もう一度やり直してください。";
+"changePassword.header.currentPassword.title" = "現在のパスワードを入力してください。";
 "changePassword.header.newPassword.title" = "新しいパスワードを入力してください。";
 "changePassword.header.newPasswordConfirmation.title" = "新しいパスワードの確認。";
+"changePassword.progress" = "パスワードを変更しています...";
 
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
@@ -94,8 +100,10 @@
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
 "settings.cacheSize" = "キャッシュのサイズ";
 "settings.clearCache" = "キャッシュを削除する";
+"settings.cloudServices" = "クラウド サービス";
 "settings.contact" = "連絡先";
 "settings.debugMode" = "デバッグ モード";
+"settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
 
 "unlockVault.button.unlock" = "解錠";
@@ -104,7 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ を有効にする";
 "unlockVault.enableBiometricalUnlock.footer" = "金庫をパスワードで解錠する代わりに、%@ を利用して解錠できます。";
 "unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
-"unlockVault.progress" = "解錠中...";
+"unlockVault.progress" = "解錠しています...";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
@@ -135,7 +143,7 @@
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.moveVault.progress" = "移動中...";
 "vaultDetail.removeVault.footer" = "暗号化されたファイルは削除されずに、金庫のリストから金庫が削除されます。";
-"vaultDetail.renameVault.progress" = "名前を変更中…";
+"vaultDetail.renameVault.progress" = "名前を変更しています…";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
 "vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";
 
