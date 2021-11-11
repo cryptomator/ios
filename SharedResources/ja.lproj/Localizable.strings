@@ -94,6 +94,8 @@
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
 "settings.cacheSize" = "キャッシュのサイズ";
 "settings.clearCache" = "キャッシュを削除する";
+"settings.contact" = "連絡先";
+"settings.debugMode" = "デバッグ モード";
 "settings.sendLogFile" = "ログ ファイルを送信";
 
 "unlockVault.button.unlock" = "解錠";
@@ -102,6 +104,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ を有効にする";
 "unlockVault.enableBiometricalUnlock.footer" = "金庫をパスワードで解錠する代わりに、%@ を利用して解錠できます。";
 "unlockVault.evaluatePolicy.reason" = "金庫を解錠する";
+"unlockVault.progress" = "解錠中...";
 
 "untrustedTLSCertificate.title" = "不正な TLS 証明書です";
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
@@ -130,7 +133,9 @@
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
+"vaultDetail.moveVault.progress" = "移動中...";
 "vaultDetail.removeVault.footer" = "暗号化されたファイルは削除されずに、金庫のリストから金庫が削除されます。";
+"vaultDetail.renameVault.progress" = "名前を変更中…";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
 "vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";
 
@@ -143,3 +148,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "認証中…";
