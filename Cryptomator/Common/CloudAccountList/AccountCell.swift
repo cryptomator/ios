@@ -14,8 +14,10 @@ class AccountCellButton: UIButton {
 	init(cell: AccountCell) {
 		super.init(frame: .zero)
 		self.cell = cell
-		setImage(UIImage(named: "actions"), for: .normal)
-		setImage(UIImage(named: "actions-selected"), for: .selected)
+		let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .title2))
+		setImage(UIImage(systemName: "chevron.down.circle", withConfiguration: imageConfiguration), for: .normal)
+		setImage(UIImage(systemName: "chevron.down.circle.fill", withConfiguration: imageConfiguration), for: .selected)
+		tintColor = .secondaryLabel
 		sizeToFit()
 	}
 

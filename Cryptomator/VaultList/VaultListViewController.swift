@@ -34,7 +34,13 @@ class VaultListViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = "Cryptomator"
-		let settingsButton = UIBarButtonItem(image: UIImage(named: "740-gear"), style: .plain, target: self, action: #selector(showSettings))
+		let settingsSymbol: UIImage?
+		if #available(iOS 14, *) {
+			settingsSymbol = UIImage(systemName: "gearshape")
+		} else {
+			settingsSymbol = UIImage(systemName: "gear")
+		}
+		let settingsButton = UIBarButtonItem(image: settingsSymbol, style: .plain, target: self, action: #selector(showSettings))
 		navigationItem.leftBarButtonItem = settingsButton
 		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewVault))
 		navigationItem.rightBarButtonItem = addNewVaulButton

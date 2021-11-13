@@ -26,8 +26,8 @@ class FileCell: UITableViewCell, CloudItemCell {
 		textLabel?.text = item.name
 		detailTextLabel?.text = FileCell.formattedTextForSize(from: item)
 		detailTextLabel?.textColor = .secondaryLabel
-		imageView?.image = UIImage(named: "file-type-unknown")
-		imageView?.highlightedImage = UIImage(named: "file-type-unknown-selected")
+		imageView?.image = UIImage(systemName: "doc") // UIImage(named: "file-type-unknown")
+		imageView?.highlightedImage = UIImage(systemName: "doc.fill")
 	}
 
 	@available(iOS 14, *)
@@ -37,9 +37,9 @@ class FileCell: UITableViewCell, CloudItemCell {
 		}
 		var content = defaultContentConfiguration().updated(for: state)
 		if state.isHighlighted || state.isSelected {
-			content.image = UIImage(named: "file-type-unknown-selected")
+			content.image = UIImage(systemName: "doc.fill")
 		} else {
-			content.image = UIImage(named: "file-type-unknown")
+			content.image = UIImage(systemName: "doc")
 		}
 		content.text = item.name
 		content.secondaryText = FileCell.formattedTextForSize(from: item)
