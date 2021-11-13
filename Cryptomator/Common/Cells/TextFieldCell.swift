@@ -17,6 +17,7 @@ class TextFieldCell: TableViewCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		selectionStyle = .none
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(textField)
 		NSLayoutConstraint.activate([
