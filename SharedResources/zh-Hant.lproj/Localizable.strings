@@ -39,6 +39,7 @@
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要：如果您遺忘了密碼，您的數據將無法被恢復。";
 "addVault.createNewVault.password.error.emptyPassword" = "密碼不可留空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.createNewVault.password.error.tooShortPassword" = "密碼必須包含至少8個字符。";
