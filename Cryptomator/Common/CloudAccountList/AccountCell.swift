@@ -8,11 +8,11 @@
 
 import UIKit
 
-class AccountCellButton: UIButton {
+class AccountCellButton: ActionButton {
 	weak var cell: AccountCell?
 
 	init(cell: AccountCell) {
-		super.init(frame: .zero)
+		super.init()
 		self.cell = cell
 		let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .title2))
 		setImage(UIImage(systemName: "chevron.down.circle", withConfiguration: imageConfiguration), for: .normal)
@@ -33,20 +33,27 @@ class AccountCellButton: UIButton {
 	}
 }
 
-class AccountCell: UITableViewCell {
+class AccountCell: UITableViewCell, ConfigurableTableViewCell {
 	var account: AccountCellContent?
 	lazy var accessoryButton: AccountCellButton = {
 		return AccountCellButton(cell: self)
 	}()
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 		accessoryView = accessoryButton
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configure(with viewModel: TableViewCellViewModel) {
+		guard let viewModel = viewModel as? AccountCellContent else {
+			return
+		}
+		configure(with: viewModel)
 	}
 
 	func configure(with account: AccountCellContent) {
@@ -65,6 +72,7 @@ class AccountCell: UITableViewCell {
 		content.text = account.mainLabelText
 		content.secondaryText = account.detailLabelText
 		content.secondaryTextProperties.color = .secondaryLabel
+		accessoryButton.tintColor = .secondaryLabel
 		contentConfiguration = content
 	}
 }

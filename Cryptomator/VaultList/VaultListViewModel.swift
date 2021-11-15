@@ -19,6 +19,11 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		errorPublisher.eraseToAnyPublisher()
 	}
 
+	let headerTitle = LocalizedString.getValue("vaultList.header.title")
+	let emptyListMessage = LocalizedString.getValue("vaultList.emptyList.message")
+	let removeAlert = ListViewModelAlertContent(title: LocalizedString.getValue("vaultList.remove.alert.title"),
+	                                            message: LocalizedString.getValue("vaultList.remove.alert.message"),
+	                                            confirmButtonText: LocalizedString.getValue("common.button.remove"))
 	var vaultCellViewModels: [VaultCellViewModel]
 	private let dbManager: DatabaseManager
 	private let vaultManager: VaultDBManager
@@ -26,7 +31,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	private var observation: TransactionObserver?
 	private lazy var subscribers = Set<AnyCancellable>()
 	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
-	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[VaultCellViewModel], Error>, Never>(.success([]))
+	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
 	private var removedRow = false
 
 	convenience init() {
@@ -40,10 +45,9 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		self.vaultCellViewModels = [VaultCellViewModel]()
 	}
 
-	func startListenForChanges() -> AnyPublisher<Result<[VaultCellViewModel], Error>, Never> {
+	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
 		observation = dbManager.observeVaultAccounts(onError: { error in
 			DDLogError("Observe vault accounts failed with error: \(error)")
-			self.errorPublisher.send(error)
 			self.databaseChangedPublisher.send(.failure(error))
 		}, onChange: { _ in
 			do {
