@@ -47,11 +47,11 @@ class VaultListViewModelTests: XCTestCase {
 	func testRefreshVaultsIsSorted() throws {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
-		XCTAssert(vaultListViewModel.vaults.isEmpty)
+		XCTAssert(vaultListViewModel.getVaults().isEmpty)
 		try vaultListViewModel.refreshItems()
-		XCTAssertEqual(2, vaultListViewModel.vaults.count)
-		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
-		XCTAssertEqual(1, vaultListViewModel.vaults[1].listPosition)
+		XCTAssertEqual(2, vaultListViewModel.getVaults().count)
+		XCTAssertEqual(0, vaultListViewModel.getVaults()[0].listPosition)
+		XCTAssertEqual(1, vaultListViewModel.getVaults()[1].listPosition)
 
 		XCTAssertEqual(1, dbManagerMock.vaults[0].listPosition)
 		XCTAssertEqual(0, dbManagerMock.vaults[1].listPosition)
@@ -62,14 +62,14 @@ class VaultListViewModelTests: XCTestCase {
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
-		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
-		XCTAssertEqual(1, vaultListViewModel.vaults[1].listPosition)
+		XCTAssertEqual(0, vaultListViewModel.getVaults()[0].listPosition)
+		XCTAssertEqual(1, vaultListViewModel.getVaults()[1].listPosition)
 
 		try vaultListViewModel.moveRow(at: 0, to: 1)
-		XCTAssertEqual("vault1", vaultListViewModel.vaults[0].vaultListPosition.vaultUID)
-		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
-		XCTAssertEqual("vault2", vaultListViewModel.vaults[1].vaultListPosition.vaultUID)
-		XCTAssertEqual(1, vaultListViewModel.vaults[1].listPosition)
+		XCTAssertEqual("vault1", vaultListViewModel.getVaults()[0].vaultListPosition.vaultUID)
+		XCTAssertEqual(0, vaultListViewModel.getVaults()[0].listPosition)
+		XCTAssertEqual("vault2", vaultListViewModel.getVaults()[1].vaultListPosition.vaultUID)
+		XCTAssertEqual(1, vaultListViewModel.getVaults()[1].listPosition)
 
 		XCTAssertEqual("vault1", dbManagerMock.updatedPositions[0].vaultUID)
 		XCTAssertEqual(0, dbManagerMock.updatedPositions[0].position)
@@ -85,8 +85,8 @@ class VaultListViewModelTests: XCTestCase {
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
-		XCTAssertEqual(0, vaultListViewModel.vaults[0].listPosition)
-		XCTAssertEqual(1, vaultListViewModel.vaults[1].listPosition)
+		XCTAssertEqual(0, vaultListViewModel.getVaults()[0].listPosition)
+		XCTAssertEqual(1, vaultListViewModel.getVaults()[1].listPosition)
 
 		try vaultListViewModel.removeRow(at: 0)
 
@@ -133,7 +133,7 @@ class VaultListViewModelTests: XCTestCase {
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
-		XCTAssertTrue(vaultListViewModel.vaults.allSatisfy({ !$0.vaultIsUnlocked }))
+		XCTAssertTrue(vaultListViewModel.getVaults().allSatisfy({ !$0.vaultIsUnlocked }))
 
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
@@ -146,7 +146,7 @@ class VaultListViewModelTests: XCTestCase {
 			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
 
 			XCTAssertEqual(1, vaultLockingMock.unlockedVaults.count)
-			let unlockedVaults = vaultListViewModel.vaults.filter({ $0.vaultIsUnlocked })
+			let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked })
 			XCTAssertEqual(1, unlockedVaults.count)
 			XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
 		}.catch { error in
@@ -155,6 +155,12 @@ class VaultListViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+	}
+}
+
+extension VaultListViewModel {
+	func getVaults() -> [VaultInfo] {
+		return vaultCellViewModels.map { $0.vault }
 	}
 }
 

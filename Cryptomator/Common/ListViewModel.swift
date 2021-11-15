@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import Promises
@@ -13,13 +14,11 @@ import Promises
 protocol ListViewModel {
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
 	func removeRow(at index: Int) throws
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
 }
 
 protocol VaultListViewModelProtocol: ListViewModel {
-	var vaults: [VaultInfo] { get }
-	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void>
 	func refreshVaultLockStates() -> Promise<Void>
+	func startListenForChanges() -> AnyPublisher<Result<[VaultCellViewModel], Error>, Never>
 }
 
 protocol AccountListViewModelProtocol: ListViewModel {
@@ -27,4 +26,5 @@ protocol AccountListViewModelProtocol: ListViewModel {
 	var accountInfos: [AccountInfo] { get }
 	var title: String { get }
 	var cloudProviderType: CloudProviderType { get }
+	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
 }
