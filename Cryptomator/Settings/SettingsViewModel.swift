@@ -32,7 +32,7 @@ enum SettingsSection: Int {
 
 class SettingsViewModel {
 	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection, .miscSection]
-	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
+	lazy var cells: [SettingsSection: [BindableTableViewCellViewModel]] = {
 		[
 			.cloudServiceSection: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))

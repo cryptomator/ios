@@ -16,7 +16,7 @@ import Promises
 
 protocol ChangePasswordViewModelProtocol {
 	var title: String { get }
-	var cells: [ChangePasswordSection: [TableViewCellViewModel]] { get }
+	var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] { get }
 	var sections: [ChangePasswordSection] { get }
 	func changePassword() -> Promise<Void>
 	func validatePasswords() throws
@@ -57,7 +57,7 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 	}
 
 	let sections: [ChangePasswordSection] = [.oldPassword, .newPassword, .newPasswordConfirmation]
-	lazy var cells: [ChangePasswordSection: [TableViewCellViewModel]] = {
+	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = {
 		return [
 			.oldPassword: [oldPasswordCellViewModel],
 			.newPassword: [newPasswordCellViewModel],

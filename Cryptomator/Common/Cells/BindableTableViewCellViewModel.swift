@@ -8,12 +8,11 @@
 
 import UIKit
 
-class TableViewCellViewModel {
-	var type: TableViewCell.Type {
+class BindableTableViewCellViewModel: TableViewCellViewModel {
+	override var type: ConfigurableTableViewCell.Type {
 		return TableViewCell.self
 	}
 
-	let identifier = UUID()
 	var title: Bindable<String?>
 	var titleTextColor: Bindable<UIColor?>
 	var detailTitle: Bindable<String?>
@@ -35,7 +34,13 @@ class TableViewCellViewModel {
 	}
 }
 
-extension TableViewCellViewModel: Hashable {
+class TableViewCellViewModel: Hashable {
+	var type: ConfigurableTableViewCell.Type {
+		fatalError("not implemented")
+	}
+
+	private let identifier = UUID()
+
 	static func == (lhs: TableViewCellViewModel, rhs: TableViewCellViewModel) -> Bool {
 		return lhs.identifier == rhs.identifier
 	}
@@ -43,4 +48,13 @@ extension TableViewCellViewModel: Hashable {
 	func hash(into hasher: inout Hasher) {
 		hasher.combine(identifier)
 	}
+}
+
+protocol ConfigurableTableViewCell: UITableViewCell {
+	func configure(with viewModel: TableViewCellViewModel)
+}
+
+import Combine
+protocol ViewModel {
+	var error: AnyPublisher<Error, Never> { get }
 }

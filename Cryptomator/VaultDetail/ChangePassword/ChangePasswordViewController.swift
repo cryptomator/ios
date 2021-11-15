@@ -14,7 +14,7 @@ class ChangePasswordViewController: UITableViewController {
 	private let viewModel: ChangePasswordViewModelProtocol
 	private lazy var subscriber = Set<AnyCancellable>()
 	private lazy var changePasswordButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.change"), style: .done, target: self, action: #selector(changePassword))
-	private var dataSource: UITableViewDiffableDataSource<ChangePasswordSection, TableViewCellViewModel>?
+	private var dataSource: UITableViewDiffableDataSource<ChangePasswordSection, BindableTableViewCellViewModel>?
 	weak var coordinator: (Coordinator & VaultPasswordChanging)?
 
 	init(viewModel: ChangePasswordViewModelProtocol) {
@@ -83,8 +83,8 @@ class ChangePasswordViewController: UITableViewController {
 		}
 	}
 
-	func applySnapshot(sections: [ChangePasswordSection], cells: [ChangePasswordSection: [TableViewCellViewModel]]) {
-		var snapshot = NSDiffableDataSourceSnapshot<ChangePasswordSection, TableViewCellViewModel>()
+	func applySnapshot(sections: [ChangePasswordSection], cells: [ChangePasswordSection: [BindableTableViewCellViewModel]]) {
+		var snapshot = NSDiffableDataSourceSnapshot<ChangePasswordSection, BindableTableViewCellViewModel>()
 		snapshot.appendSections(sections)
 		for (section, items) in cells {
 			snapshot.appendItems(items, toSection: section)
@@ -94,10 +94,10 @@ class ChangePasswordViewController: UITableViewController {
 }
 
 // swiftlint:disable:next generic_type_name
-private class DataSource<SectionIdentifierType: Hashable>: UITableViewDiffableDataSource<SectionIdentifierType, TableViewCellViewModel> {
+private class DataSource<SectionIdentifierType: Hashable>: UITableViewDiffableDataSource<SectionIdentifierType, BindableTableViewCellViewModel> {
 	private let viewModel: ChangePasswordViewModelProtocol
 
-	init(viewModel: ChangePasswordViewModelProtocol, tableView: UITableView, cellProvider: @escaping UITableViewDiffableDataSource<SectionIdentifierType, TableViewCellViewModel>.CellProvider) {
+	init(viewModel: ChangePasswordViewModelProtocol, tableView: UITableView, cellProvider: @escaping UITableViewDiffableDataSource<SectionIdentifierType, BindableTableViewCellViewModel>.CellProvider) {
 		self.viewModel = viewModel
 		super.init(tableView: tableView, cellProvider: cellProvider)
 	}

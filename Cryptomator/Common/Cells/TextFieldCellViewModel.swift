@@ -15,9 +15,9 @@ enum TextFieldCellType {
 	case url
 }
 
-class TextFieldCellViewModel: TableViewCellViewModel {
+class TextFieldCellViewModel: BindableTableViewCellViewModel {
 	let textFielCellType: TextFieldCellType
-	override var type: TableViewCell.Type {
+	override var type: ConfigurableTableViewCell.Type {
 		switch textFielCellType {
 		case .normal:
 			return TextFieldCell.self

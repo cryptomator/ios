@@ -85,7 +85,7 @@
 		4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */; };
 		4A4B7E3F26B2ABC0009BFDB1 /* VaultDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E3E26B2ABC0009BFDB1 /* VaultDetailViewController.swift */; };
 		4A4B7E4226B2AD6F009BFDB1 /* VaultDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4126B2AD6F009BFDB1 /* VaultDetailViewModel.swift */; };
-		4A4B7E4426B2B1A5009BFDB1 /* TableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4326B2B1A5009BFDB1 /* TableViewCellViewModel.swift */; };
+		4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4326B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift */; };
 		4A4B7E4626B2B6A0009BFDB1 /* SwitchCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4526B2B6A0009BFDB1 /* SwitchCellViewModel.swift */; };
 		4A4B7E4826B2BAFB009BFDB1 /* SwitchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4726B2BAFB009BFDB1 /* SwitchCell.swift */; };
 		4A4B7E4A26B2C071009BFDB1 /* ButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4B7E4926B2C071009BFDB1 /* ButtonCellViewModel.swift */; };
@@ -459,7 +459,7 @@
 		4A4A3863253F2B1900EE3828 /* CachedFileManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerTests.swift; sourceTree = "<group>"; };
 		4A4B7E3E26B2ABC0009BFDB1 /* VaultDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailViewController.swift; sourceTree = "<group>"; };
 		4A4B7E4126B2AD6F009BFDB1 /* VaultDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailViewModel.swift; sourceTree = "<group>"; };
-		4A4B7E4326B2B1A5009BFDB1 /* TableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellViewModel.swift; sourceTree = "<group>"; };
+		4A4B7E4326B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		4A4B7E4526B2B6A0009BFDB1 /* SwitchCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCellViewModel.swift; sourceTree = "<group>"; };
 		4A4B7E4726B2BAFB009BFDB1 /* SwitchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchCell.swift; sourceTree = "<group>"; };
 		4A4B7E4926B2C071009BFDB1 /* ButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCellViewModel.swift; sourceTree = "<group>"; };
@@ -1121,7 +1121,7 @@
 				4A4B7E4726B2BAFB009BFDB1 /* SwitchCell.swift */,
 				4A4B7E4526B2B6A0009BFDB1 /* SwitchCellViewModel.swift */,
 				4A4B7E4B26B2FF41009BFDB1 /* TableViewCell.swift */,
-				4A4B7E4326B2B1A5009BFDB1 /* TableViewCellViewModel.swift */,
+				4A4B7E4326B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift */,
 				4A66F57825C47BB2001BE15E /* TextFieldCell.swift */,
 				4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */,
 				4AA22C15261CA8D800A17486 /* URLFieldCell.swift */,
@@ -1932,7 +1932,7 @@
 				4A2FD08225B5E2BA008565C8 /* VaultInstalling.swift in Sources */,
 				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
 				4A53B6D32722F92D000DC367 /* MoveVaultViewModel.swift in Sources */,
-				4A4B7E4426B2B1A5009BFDB1 /* TableViewCellViewModel.swift in Sources */,
+				4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */,
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */,
