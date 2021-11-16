@@ -57,6 +57,25 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		}
 		sender.setSelected(true)
 		#warning("TODO: Add Coordinator")
+
+		let alertController = UIAlertController(title: viewModel.removeAlert.title, message: nil, preferredStyle: .actionSheet)
+		let removeAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in
+			guard let accountCellContent = sender.cell?.account, let indexPath = self.dataSource?.indexPath(for: accountCellContent) else {
+				return
+			}
+			do {
+				try self.removeRow(at: indexPath)
+			} catch {
+				self.handleError(error)
+			}
+			sender.setSelected(false)
+		})
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in
+			sender.setSelected(false)
+		})
+		alertController.addAction(removeAction)
+		alertController.addAction(cancelAction)
+		present(alertController, animated: true)
 	}
 
 	@objc func addNewAccount() {

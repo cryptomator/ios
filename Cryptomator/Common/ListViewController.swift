@@ -127,6 +127,8 @@ class ListViewController<T: TableViewCellViewModel>: UITableViewController {
 		return configuration
 	}
 
+	// MARK: - Internal
+
 	func removeRow(at indexPath: IndexPath) throws {
 		try viewModel.removeRow(at: indexPath.row)
 		guard let itemIdentifier = dataSource?.itemIdentifier(for: indexPath), var snapshot = dataSource?.snapshot() else {
