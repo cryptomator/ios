@@ -105,6 +105,10 @@ class ListViewController<T: TableViewCellViewModel>: UITableViewController {
 		return header
 	}
 
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		return 44
+	}
+
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		let deleteAction = UIContextualAction(style: .destructive, title: viewModel.removeAlert.confirmButtonText) { _, _, completion in
 			let alertController = UIAlertController(title: self.viewModel.removeAlert.title, message: self.viewModel.removeAlert.message, preferredStyle: .alert)

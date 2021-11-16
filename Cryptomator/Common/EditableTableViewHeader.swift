@@ -42,13 +42,10 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 
 		NSLayoutConstraint.activate([
 			title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			title.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			title.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor),
+			title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
 
 			editButton.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			editButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-			editButton.heightAnchor.constraint(equalTo: contentView.layoutMarginsGuide.heightAnchor)
-
+			editButton.lastBaselineAnchor.constraint(equalTo: title.lastBaselineAnchor)
 		])
 	}
 
