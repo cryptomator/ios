@@ -22,7 +22,7 @@ class BindableTableViewCellViewModel: TableViewCellViewModel {
 	let selectionStyle: Bindable<UITableViewCell.SelectionStyle>
 	let accessoryType: Bindable<UITableViewCell.AccessoryType>
 
-	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = .secondaryLabel, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
+	init(title: String? = nil, titleTextColor: UIColor? = nil, detailTitle: String? = nil, detailTitleTextColor: UIColor? = .secondaryLabel, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .none, accessoryType: UITableViewCell.AccessoryType = .none) {
 		self.title = Bindable(title)
 		self.titleTextColor = Bindable(titleTextColor)
 		self.detailTitle = Bindable(detailTitle)
