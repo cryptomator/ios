@@ -11,6 +11,7 @@ import UIKit
 
 class AddVaultSuccessViewController: SingleSectionTableViewController {
 	private let viewModel: AddVaultSuccessViewModel
+	private lazy var openInFilesAppButtonViewModel = ButtonCellViewModel(action: "OpenInFilesApp", title: LocalizedString.getValue("common.cells.openInFilesApp"))
 	weak var coordinator: AddVaultSuccesing?
 
 	init(viewModel: AddVaultSuccessViewModel) {
@@ -22,15 +23,13 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 		super.viewDidLoad()
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
-		tableView.rowHeight = 44
 	}
 
 	@objc func done() {
 		coordinator?.done()
 	}
 
-	@objc func openFilesApp() {
+	func openFilesApp() {
 		coordinator?.showFilesApp(forVaultUID: viewModel.vaultUID)
 	}
 
@@ -45,14 +44,17 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// swiftlint:disable:next force_cast
-		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(LocalizedString.getValue("common.cells.openInFilesApp"), for: .normal)
-		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)
+		let cell = openInFilesAppButtonViewModel.type.init()
+		cell.configure(with: openInFilesAppButtonViewModel)
 		return cell
 	}
 
 	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		openFilesApp()
+	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return VaultSuccessHeaderView(vaultName: viewModel.vaultName)

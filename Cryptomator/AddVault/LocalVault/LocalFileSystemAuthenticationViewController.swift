@@ -15,19 +15,14 @@ import UniformTypeIdentifiers
 class LocalFileSystemAuthenticationViewController: SingleSectionTableViewController, UIDocumentPickerDelegate {
 	weak var coordinator: (LocalFileSystemAuthenticating & LocalVaultAdding & Coordinator)?
 	private let viewModel: LocalFileSystemAuthenticationViewModelProtocol
-	private lazy var openDocumentPickerCell: ButtonCell = {
-		let cell = ButtonCell()
-		cell.button.setTitle(viewModel.documentPickerButtonText, for: .normal)
-		cell.button.addTarget(self, action: #selector(openDocumentPicker), for: .touchUpInside)
-		return cell
-	}()
+	private lazy var openDocumentPickerCellViewModel = ButtonCellViewModel(action: "openDocumentPicker", title: viewModel.documentPickerButtonText)
 
 	init(viewModel: LocalFileSystemAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
 		super.init()
 	}
 
-	@objc func openDocumentPicker() {
+	func openDocumentPicker() {
 		let documentPicker: UIDocumentPickerViewController
 		if #available(iOS 14, *) {
 			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
@@ -57,13 +52,20 @@ class LocalFileSystemAuthenticationViewController: SingleSectionTableViewControl
 	}
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return openDocumentPickerCell
+		let cell = openDocumentPickerCellViewModel.type.init()
+		cell.configure(with: openDocumentPickerCellViewModel)
+		return cell
 	}
 
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return LocalFileSystemAuthenticationHeaderView(text: viewModel.headerText)
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		openDocumentPicker()
 	}
 }
 

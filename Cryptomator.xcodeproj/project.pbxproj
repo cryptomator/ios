@@ -156,7 +156,6 @@
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
 		4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */; };
 		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
-		4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */; };
 		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
 		4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */; };
 		4A8F1498266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F1497266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift */; };
@@ -533,7 +532,6 @@
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
 		4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
-		4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonCell.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
 		4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionHeaderTableViewController.swift; sourceTree = "<group>"; };
 		4A8F1497266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineItemNameCollisionHandler.swift; sourceTree = "<group>"; };
@@ -1122,7 +1120,6 @@
 		4AA22C25261CA96600A17486 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4A8D05DE25C5CD210082C5F7 /* ButtonCell.swift */,
 				4A4B7E4926B2C071009BFDB1 /* ButtonCellViewModel.swift */,
 				4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */,
 				4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */,
@@ -1941,7 +1938,6 @@
 				4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */,
 				4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstalling.swift in Sources */,
-				4A8D05DF25C5CD210082C5F7 /* ButtonCell.swift in Sources */,
 				4A53B6D32722F92D000DC367 /* MoveVaultViewModel.swift in Sources */,
 				4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */,
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
