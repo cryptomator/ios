@@ -9,7 +9,7 @@
 import CryptomatorCommonCore
 import UIKit
 
-class CreateNewVaultPasswordViewController: UITableViewController {
+class CreateNewVaultPasswordViewController: BaseUITableViewController {
 	weak var coordinator: (Coordinator & VaultInstalling)?
 	private var viewModel: CreateNewVaultPasswordViewModelProtocol
 	private lazy var cells: [UITableViewCell] = {
@@ -31,11 +31,7 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 
 	init(viewModel: CreateNewVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init()
 	}
 
 	override func viewDidLoad() {
@@ -44,11 +40,6 @@ class CreateNewVaultPasswordViewController: UITableViewController {
 		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
 	}
 
 	@objc func passwordFieldDidChange(_ textField: UITextField) {

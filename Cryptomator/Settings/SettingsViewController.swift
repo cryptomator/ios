@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: BaseUITableViewController {
 	weak var coordinator: SettingsCoordinator?
 
 	private let viewModel: SettingsViewModel
@@ -20,16 +20,7 @@ class SettingsViewController: UITableViewController {
 
 	init(viewModel: SettingsViewModel) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init()
 	}
 
 	override func viewDidLoad() {

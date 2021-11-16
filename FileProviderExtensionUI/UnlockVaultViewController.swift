@@ -46,7 +46,7 @@ class UnlockVaultViewController: UITableViewController {
 
 	init(viewModel: UnlockVaultViewModel) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
+		super.init(style: .insetGrouped)
 	}
 
 	@available(*, unavailable)

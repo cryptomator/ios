@@ -10,7 +10,7 @@ import Combine
 import CryptomatorCommonCore
 import UIKit
 
-class ChangePasswordViewController: UITableViewController {
+class ChangePasswordViewController: BaseUITableViewController {
 	private let viewModel: ChangePasswordViewModelProtocol
 	private lazy var subscriber = Set<AnyCancellable>()
 	private lazy var changePasswordButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.change"), style: .done, target: self, action: #selector(changePassword))
@@ -19,12 +19,7 @@ class ChangePasswordViewController: UITableViewController {
 
 	init(viewModel: ChangePasswordViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func viewDidLoad() {

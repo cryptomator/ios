@@ -12,7 +12,7 @@ import CryptomatorCommonCore
 import Promises
 import UIKit
 
-class ListViewController<T: TableViewCellViewModel>: UITableViewController {
+class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 	enum Section {
 		case main
 	}
@@ -25,12 +25,7 @@ class ListViewController<T: TableViewCellViewModel>: UITableViewController {
 
 	init(viewModel: ListViewModel) {
 		self.viewModel = viewModel
-		super.init(style: .insetGrouped)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func viewDidLoad() {

@@ -20,10 +20,6 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 		super.init(with: viewModel)
 	}
 
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.register(CloudCell.self, forCellReuseIdentifier: "ChooseCloudCell")

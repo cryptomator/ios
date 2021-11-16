@@ -155,6 +155,7 @@
 		4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */; };
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
 		4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */; };
+		4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */; };
 		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
 		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
 		4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */; };
@@ -531,6 +532,7 @@
 		4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListPosition.swift; sourceTree = "<group>"; };
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
 		4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultCoordinator.swift; sourceTree = "<group>"; };
+		4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewController.swift; sourceTree = "<group>"; };
 		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
 		4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionHeaderTableViewController.swift; sourceTree = "<group>"; };
@@ -1034,6 +1036,7 @@
 			children = (
 				4A79E26826B16993008C9959 /* ActionButton.swift */,
 				4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */,
+				4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */,
 				4A4B7E6C26B9462F009BFDB1 /* Bindable.swift */,
 				4A644B56267C958F008CBB9A /* ChildCoordinator.swift */,
 				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
@@ -1967,6 +1970,7 @@
 				4A447E3D25BF1AD400D9520D /* FolderCell.swift in Sources */,
 				4A644B4B267B4C08008CBB9A /* CreateNewVaultChooseFolderViewController.swift in Sources */,
 				4A447E1B25BF0DE300D9520D /* ChooseFolderViewController.swift in Sources */,
+				4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
 				4A3C5DDA272BF52600EB7C7A /* TextFieldCellViewModel.swift in Sources */,
 				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
