@@ -1,7 +1,9 @@
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
+"common.button.create" = "Buat";
 "common.button.done" = "Selesai";
+"common.button.enable" = "Aktif";
 "common.button.next" = "Lanjut";
 
 "addVault.title" = "Tambah Brankas";
@@ -9,6 +11,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan brankas berkas terenkripsi kamu?";
 "addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
+"settings.clearCache" = "Bersihkan Cache";
 
 "unlockVault.button.unlock" = "Buka Gembok";
 
