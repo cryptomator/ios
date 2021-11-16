@@ -3,6 +3,8 @@
 "common.button.edit" = "మార్పు";
 "common.button.enable" = "ప్రారంభించు";
 "common.button.ok" = "సరే";
+"common.button.remove" = "తొలగించు";
 "common.cells.url" = "URL";
+"common.cells.username" = "వినియోగదారు పేరు";
 "settings.clearCache" = "కాష్ తొలగించండి";
 "vaultDetail.button.moveVault" = "కదలిక";
