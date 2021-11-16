@@ -56,15 +56,104 @@
 "addVault.openExistingVault.progress" = "Menambahkan Vault…";
 "addVault.success.info" = "Berhasil menambahkan vault \"%@\".\nAkses vault ini melalui aplikasi Files.";
 "addVault.success.footer" = "Jika belum, aktifkan Cryptomator di aplikasi Files.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Kata Sandi salah. Silahkan coba lagi.";
+"changePassword.header.currentPassword.title" = "Masukkan kata sandi.";
 "changePassword.header.newPassword.title" = "Masukkan kata sandi baru.";
 "changePassword.header.newPasswordConfirmation.title" = "Konfirmasi kata sandi baru.";
+"changePassword.progress" = "Mengubah Kata Sandi…";
+
+"chooseFolder.emptyFolder.footer" = "Folder Kosong";
+"chooseFolder.createNewFolder.header.title" = "Pilih nama folder.";
+"chooseFolder.createNewFolder.cells.name" = "Nama Folder";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Nama Folder tidak boleh kosong.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" tidak ditemukan.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" sudah ada.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" memiliki jenis item yang tidak terduga.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Folder induk \"%@\" tidak ada.";
+"cloudProvider.error.pageTokenInvalid" = "Tidak dapat mengambil isi direktori.";
+"cloudProvider.error.quotaInsufficient" = "Penyimpanan Anda tidak memiliki cukup ruang.";
+"cloudProvider.error.unauthorized" = "Tidak dapat melakukan operasi yang tidak sah.";
+"cloudProvider.error.noInternetConnection" = "Diperlukan koneksi internet.";
+
+"cloudProviderType.localFileSystem" = "Provider Lainnya";
+
+"localFileSystemAuthentication.createNewVault.header" = "Di layar berikutnya, pilih lokasi penyimpanan untuk vault baru Anda.";
+"localFileSystemAuthentication.createNewVault.button" = "Pilih Lokasi Penyimpanan";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sudah ada vault di lokasi ini. Coba lagi dengan lokasi penyimpanan yang berbeda.";
+"localFileSystemAuthentication.openExistingVault.header" = "Di layar berikutnya, pilih folder vault Anda yang ada.";
+"localFileSystemAuthentication.openExistingVault.button" = "Pilih Folder Vault";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Folder yang dipilih bukanlah sebuah vault. Silahkan coba lagi dengan folder berbeda.";
+
+"maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
+
+"onboarding.title" = "Selamat Datang";
+"onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda. Untuk memulai, buka aplikasi utama dan tambahkan vault.";
+"onboarding.openCryptomator.button" = "Buka Cryptomator";
 
 "settings.title" = "Pengaturan";
+"settings.aboutCryptomator" = "Tentang Cryptomator";
+"settings.aboutCryptomator.title" = "Versi %@ (%@)";
+"settings.cacheSize" = "Ukuran Cache";
 "settings.clearCache" = "Bersihkan Cache";
+"settings.cloudServices" = "Layanan Cloud";
+"settings.contact" = "Kontak";
+"settings.debugMode" = "Mode Debug";
+"settings.rateApp" = "Beri Rating";
+"settings.sendLogFile" = "Kirim File Log";
 
 "unlockVault.button.unlock" = "Buka Gembok";
+"unlockVault.button.unlockVia" = "Buka memalui %@";
 "unlockVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Aktifkan %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Alih-alih membuka vault Anda dengan kata sandi, Anda dapat membukanya melalui %@.";
+"unlockVault.evaluatePolicy.reason" = "Buka vault Anda";
+"unlockVault.progress" = "Membuka…";
+
+"untrustedTLSCertificate.title" = "Sertifikat TLS tidak valid";
+"untrustedTLSCertificate.message" = "Sertifikat TLS of \"%@\" tidak valid. Apakah Anda yakin?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Percayai";
+"untrustedTLSCertificate.dismiss" = "Jangan Percaya";
+
+"urlSession.error.httpError.401" = "Nama pengguna dan/atau kata sandi salah.";
+"urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
+"urlSession.error.httpError.404" = "Sumber yang diminta tidam ditemukan.";
+"urlSession.error.httpError.405" = "Metode sumber tidak didukung oleh target.";
+"urlSession.error.httpError.409" = "Terjadi konflik dengan status sumber daya target saat ini.";
+"urlSession.error.httpError.412" = "Akses ke sumber target ditolak.";
+"urlSession.error.httpError.default" = "Koneksi jaringan gagal dengan status kode %ld.";
+"urlSession.error.unexpectedResponse" = "Ada respons jaringan yang tidak terduga.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Anda sudah menambahkan vault ini.";
 
 "vaultDetail.button.changeVaultPassword" = "Ubah Kata Sandi";
+"vaultDetail.button.lock" = "Kunci Sekarang";
 "vaultDetail.button.moveVault" = "Pindah";
+"vaultDetail.button.removeVault" = "Hapus dari Daftar Vault";
 "vaultDetail.button.renameVault" = "Ganti nama";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Jika diaktifkan %@, kata sandi vault akan di dimpan di iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Kata Sandi vault hanya dibutuhkan jika otentikasi %@ gagal.";
+"vaultDetail.info.footer.accessVault" = "Akses vault melalui aplikasi Files.";
+"vaultDetail.info.footer.accountInfo" = "Masuk sebagai %@ melalui %@.";
+"vaultDetail.locked.footer" = "Vault saat ini terkunci.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator mendeteksi sebuah vault di lokasi ini.\nUntuk memindah vault, mohon kembali dan pilih folder berbeda.";
+"vaultDetail.moveVault.progress" = "Memindahkan…";
+"vaultDetail.removeVault.footer" = "Hanya menghapus vault dari daftar vault dan tidak menghapus file terenkripsi yang ada.";
+"vaultDetail.renameVault.progress" = "Mengubah nama…";
+"vaultDetail.unlocked.footer" = "Vault Anda saat ini tidak terkunci di aplikasi File.";
+"vaultDetail.unlockVault.footer" = "Masukkan kata sandi untuk \"%@\" untuk mengaktifkan dan menyimpannya di iOS keychain %@.";
+
+"vaultList.header.title" = "Vault";
+"vaultList.emptyList.message" = "Ketuk di sini untuk menambahkan vault";
+"vaultList.remove.alert.title" = "Hapus Vault?";
+"vaultList.remove.alert.message" = "Ini hanya akan menghapus vault dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat menambahkan kembali vault nanti.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Versi Vault tidak didukung. Ault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
+
+"webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Mengotentikasi…";
