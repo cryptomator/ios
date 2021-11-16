@@ -5,6 +5,7 @@
 "common.button.done" = "Готово";
 "common.button.edit" = "Редагувати";
 "common.button.next" = "Далі";
+"common.button.ok" = "Гаразд";
 "common.button.remove" = "Прибрати";
 "common.cells.url" = "Адреса посилання";
 "common.cells.username" = "Ім'я користувача";
