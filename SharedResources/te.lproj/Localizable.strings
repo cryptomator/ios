@@ -1,6 +1,8 @@
 "common.button.choose" = "ఎంచుకోండి";
 "common.button.create" = "సృష్టించు";
 "common.button.edit" = "మార్పు";
+"common.button.enable" = "ప్రారంభించు";
 "common.button.ok" = "సరే";
 "common.cells.url" = "URL";
 "settings.clearCache" = "కాష్ తొలగించండి";
+"vaultDetail.button.moveVault" = "కదలిక";
