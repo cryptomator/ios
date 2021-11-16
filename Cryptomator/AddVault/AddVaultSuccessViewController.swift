@@ -96,12 +96,15 @@ private class VaultSuccessHeaderView: UIView {
 	}
 }
 
-private class VaultSuccessFooterView: UIView {
+private class VaultSuccessFooterView: UITableViewHeaderFooterView {
 	private lazy var textView: UITextView = {
 		let textView = UITextView()
 		textView.backgroundColor = .clear
 		textView.isEditable = false
 		textView.isScrollEnabled = false
+
+		textView.textContainerInset = .zero
+		textView.textContainer.lineFragmentPadding = 0
 
 		let text = NSMutableAttributedString(string: LocalizedString.getValue("addVault.success.footer"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
 		text.append(NSAttributedString(string: " "))
@@ -114,16 +117,25 @@ private class VaultSuccessFooterView: UIView {
 		return textView
 	}()
 
-	convenience init() {
-		self.init(frame: .zero)
+	override init(reuseIdentifier: String?) {
+		super.init(reuseIdentifier: reuseIdentifier)
+		configureContents()
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configureContents() {
 		textView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(textView)
+		contentView.addSubview(textView)
 
 		NSLayoutConstraint.activate([
-			textView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			textView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			textView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+			textView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			textView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			textView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			textView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 }
