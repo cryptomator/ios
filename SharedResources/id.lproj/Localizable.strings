@@ -1,18 +1,70 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Kesalahan";
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
+"common.button.confirm" = "Konfirmasi";
 "common.button.create" = "Buat";
+"common.button.createFolder" = "Buat Folder";
 "common.button.done" = "Selesai";
+"common.button.edit" = "Ubah";
 "common.button.enable" = "Aktif";
 "common.button.next" = "Lanjut";
+"common.button.ok" = "OK";
+"common.button.remove" = "Hapus";
+"common.button.signOut" = "Keluar";
+"common.button.verify" = "Buka";
+"common.cells.openInFilesApp" = "Buka di Aplikasi File";
+"common.cells.password" = "Kata Sandi";
+"common.cells.url" = "URL";
+"common.cells.username" = "Nama pengguna";
+"common.footer.learnMore" = "Selengkapnya.";
+
+"accountList.header.title" = "Otentikasi";
+"accountList.emptyList.message" = "Klik untuk menambah akun";
+"accountList.signOut.alert.title" = "Hapus Vault Terkait?";
+"accountList.signOut.alert.message" = "Dengan keluar, semua vault terkait akan dihapus dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat masuk lagi dan menambahkan kembali vault nanti.";
 
 "addVault.title" = "Tambah Brankas";
 "addVault.createNewVault.title" = "Buat Brankas Baru";
+"addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
+"addVault.createNewVault.setVaultName.error.invalidInput" = "Nama Vault tidak boleh mengandung \\ / : * ? \" < > | atau diakhiri tanda titik.";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan brankas berkas terenkripsi kamu?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi ada vault di lokasi ini.\nUntuk membuat vaukt baru, silakan kembali dan pilih folder lain.";
+"addVault.createNewVault.password.enterPassword.header" = "Masukkan kata sandi baru.";
+"addVault.createNewVault.password.confirmPassword.header" = "Konfirmasi kata sandi baru.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Konfirmasi Kata Sandi?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "PENTING: Jika Anda lupa kata sandi, tidak ada cara untuk memulihkan data Anda.";
+"addVault.createNewVault.password.error.emptyPassword" = "Kata Sandi tidak boleh kosong.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Kata Sandi tidak sama.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Kata Sandi minimal harus 8 karakter.";
+"addVault.createNewVault.progress" = "Membuat Vault…";
 "addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
+"addVault.openExistingVault.chooseCloud.header" = "Dimana lokasi vault berada?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault \"%@\".\nApakah Anda ingin menambahkan vault ini?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Tambah Vault Ini";
+"addVault.openExistingVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
+"addVault.openExistingVault.progress" = "Menambahkan Vault…";
+"addVault.success.info" = "Berhasil menambahkan vault \"%@\".\nAkses vault ini melalui aplikasi Files.";
+"addVault.success.footer" = "Jika belum, aktifkan Cryptomator di aplikasi Files.";
+"changePassword.header.newPassword.title" = "Masukkan kata sandi baru.";
+"changePassword.header.newPasswordConfirmation.title" = "Konfirmasi kata sandi baru.";
+
+"settings.title" = "Pengaturan";
 "settings.clearCache" = "Bersihkan Cache";
 
 "unlockVault.button.unlock" = "Buka Gembok";
+"unlockVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
 
 "vaultDetail.button.changeVaultPassword" = "Ubah Kata Sandi";
+"vaultDetail.button.moveVault" = "Pindah";
+"vaultDetail.button.renameVault" = "Ganti nama";
