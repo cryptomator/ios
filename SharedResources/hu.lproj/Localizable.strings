@@ -5,6 +5,7 @@
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
 "common.button.next" = "Következő";
+"common.button.ok" = "OK";
 "common.button.remove" = "Eltávolítás";
 "common.cells.password" = "Jelszó";
 "common.cells.url" = "ULR";
@@ -19,6 +20,7 @@
 "onboarding.openCryptomator.button" = "Cryptomator megnyitása";
 
 "settings.title" = "Beállítások";
+"settings.clearCache" = "Gyorsítótár törlése";
 
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
