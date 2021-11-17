@@ -1,12 +1,27 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Помилка";
 "common.button.cancel" = "Відмінити";
 "common.button.change" = "Змінити";
 "common.button.choose" = "Оберіть";
+"common.button.confirm" = "Підтвердити";
 "common.button.create" = "Створити";
+"common.button.createFolder" = "Створити теку";
 "common.button.done" = "Готово";
 "common.button.edit" = "Редагувати";
+"common.button.enable" = "Увімкнути";
 "common.button.next" = "Далі";
 "common.button.ok" = "Гаразд";
 "common.button.remove" = "Прибрати";
+"common.button.signOut" = "Вийти";
+"common.button.verify" = "Перевірити";
+"common.cells.openInFilesApp" = "Відкрити в Files";
+"common.cells.password" = "Пароль";
 "common.cells.url" = "Адреса посилання";
 "common.cells.username" = "Ім'я користувача";
 
