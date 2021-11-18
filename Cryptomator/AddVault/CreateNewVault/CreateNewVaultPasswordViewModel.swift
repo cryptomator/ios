@@ -14,8 +14,6 @@ import Promises
 protocol CreateNewVaultPasswordViewModelProtocol: TableViewModel<CreateNewVaultPasswordSection> {
 	var vaultUID: String { get }
 	var vaultName: String { get }
-	// var password: String? { get set }
-	// var confirmingPassword: String? { get set }
 	func validatePassword() throws
 	func createNewVault() -> Promise<Void>
 }
