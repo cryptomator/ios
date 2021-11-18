@@ -123,7 +123,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 			return
 		}
 		if vaultItem.isLegacyVault {
-			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultID: UUID().uuidString)
+			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
 		} else {
 			viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
 		}

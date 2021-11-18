@@ -10,7 +10,7 @@ import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import UIKit
 
-class OpenExistingVaultPasswordViewController: SingleSectionTableViewController {
+class OpenExistingVaultPasswordViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (Coordinator & VaultInstalling)?
 	lazy var verifyButton: UIBarButtonItem = {
 		let button = UIBarButtonItem(title: LocalizedString.getValue("common.button.verify"), style: .done, target: self, action: #selector(verify))
@@ -24,17 +24,19 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		return navigationController?.view.superview // shake the whole modal dialog
 	}
 
+	private var verifyButtonEnabledSubscriber: AnyCancellable?
+
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = LocalizedString.getValue("addVault.openExistingVault.title")
 		navigationItem.rightBarButtonItem = verifyButton
-		tableView.register(PasswordFieldCell.self, forCellReuseIdentifier: "PasswordFieldCell")
-		tableView.rowHeight = 44
+		verifyButtonEnabledSubscriber = viewModel.enableVerifyButton.sink { [weak self] isEnabled in
+			self?.verifyButton.isEnabled = isEnabled
+		}
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -57,33 +59,6 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 		}
 	}
 
-	@objc func textFieldDidChange(_ textField: UITextField) {
-		viewModel.password = textField.text
-		if textField.text?.isEmpty ?? true {
-			verifyButton.isEnabled = false
-		} else {
-			verifyButton.isEnabled = true
-		}
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// swiftlint:disable:next force_cast
-		let cell = tableView.dequeueReusableCell(withIdentifier: "PasswordFieldCell", for: indexPath) as! PasswordFieldCell
-		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-		cell.textField.becomeFirstResponder()
-		return cell
-	}
-
-	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return viewModel.footerTitle
-	}
-
 	// MARK: - Internal
 
 	private func handleError(_ error: Error, hud: ProgressHUD) {
@@ -102,10 +77,15 @@ class OpenExistingVaultPasswordViewController: SingleSectionTableViewController 
 }
 
 #if DEBUG
+import Combine
 import Promises
 import SwiftUI
 
-private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVaultPasswordViewModelProtocol {
+private class OpenExistingVaultMasterkeyProcessingViewModelMock: SingleSectionTableViewModel, OpenExistingVaultPasswordViewModelProtocol {
+	var enableVerifyButton: AnyPublisher<Bool, Never> {
+		Just(false).eraseToAnyPublisher()
+	}
+
 	let vaultUID = ""
 
 	var password: String?
@@ -117,6 +97,10 @@ private class OpenExistingVaultMasterkeyProcessingViewModelMock: OpenExistingVau
 
 	func addVault() -> Promise<Void> {
 		Promise(())
+	}
+
+	override func getFooterTitle(for section: Int) -> String? {
+		return footerTitle
 	}
 }
 
