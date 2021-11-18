@@ -173,7 +173,6 @@ class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoordinator {
 	func start() {
 		let viewModel = CreateNewFolderViewModel(parentPath: parentPath, provider: provider)
 		let createNewFolderVC = CreateNewFolderViewController(viewModel: viewModel)
-		createNewFolderVC.title = LocalizedString.getValue("common.button.createFolder")
 		createNewFolderVC.coordinator = self
 		navigationController.pushViewController(createNewFolderVC, animated: false)
 	}
