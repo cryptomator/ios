@@ -57,16 +57,6 @@ class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNe
 			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
 	}
-
-	// MARK: - UITableViewDelegate
-
-	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		// Prevents the header title from being displayed in uppercase
-		guard let headerView = view as? UITableViewHeaderFooterView else {
-			return
-		}
-		headerView.textLabel?.text = viewModel.getHeaderTitle(for: section)
-	}
 }
 
 #if DEBUG
