@@ -56,7 +56,6 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		return _sections
 	}
 
-	// let sections: [ChangePasswordSection] = [.oldPassword, .newPassword, .newPasswordConfirmation]
 	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = {
 		return [
 			.oldPassword: [oldPasswordCellViewModel],
