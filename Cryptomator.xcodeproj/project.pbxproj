@@ -160,7 +160,6 @@
 		4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */; };
 		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
 		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
-		4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */; };
 		4A8F1498266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F1497266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift */; };
 		4A8F149A266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F1499266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift */; };
 		4A8F149C266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F149B266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift */; };
@@ -539,7 +538,6 @@
 		4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewController.swift; sourceTree = "<group>"; };
 		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
-		4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionHeaderTableViewController.swift; sourceTree = "<group>"; };
 		4A8F1497266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineItemNameCollisionHandler.swift; sourceTree = "<group>"; };
 		4A8F1499266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddlewareMock.swift; sourceTree = "<group>"; };
 		4A8F149B266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineItemNameCollisionHandlerTests.swift; sourceTree = "<group>"; };
@@ -1053,7 +1051,6 @@
 				4A63E4662742A8CB00026989 /* ListViewController.swift */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
 				4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */,
-				4A8D061B25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift */,
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */,
 				4A61F6B62745353E007AA422 /* TableViewModel.swift */,
@@ -1929,7 +1926,6 @@
 				4AB8539626BA87A700555F00 /* VaultDetailUnlockVaultViewController.swift in Sources */,
 				4AB8539C26BA8A8200555F00 /* VaultPasswordVerifying.swift in Sources */,
 				4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */,
-				4A8D061C25C84C450082C5F7 /* SingleSectionHeaderTableViewController.swift in Sources */,
 				4A3D65662680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift in Sources */,
 				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
 				4AA22BFB261CA69F00A17486 /* WebDAVAuthenticationViewController.swift in Sources */,
