@@ -33,9 +33,9 @@ class TextFieldCellViewModel: BindableTableViewCellViewModel {
 	let input: Bindable<String>
 	let placeholder: String?
 
-	init(type: TextFieldCellType, placeholder: String? = nil) {
+	init(type: TextFieldCellType, text: String = "", placeholder: String? = nil) {
 		self.textFielCellType = type
-		self.input = Bindable("")
+		self.input = Bindable(text)
 		self.placeholder = placeholder
 	}
 }

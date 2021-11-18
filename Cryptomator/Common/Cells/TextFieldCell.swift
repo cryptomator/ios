@@ -38,6 +38,7 @@ class TextFieldCell: TableViewCell {
 		guard let viewModel = viewModel as? TextFieldCellViewModel else {
 			return
 		}
+		textField.text = viewModel.input.value
 		textField.placeholder = viewModel.placeholder
 		NotificationCenter.default
 			.publisher(for: UITextField.textDidChangeNotification, object: textField)
