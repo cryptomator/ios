@@ -11,28 +11,21 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class SettingsViewController: BaseUITableViewController {
+class SettingsViewController: StaticUITableViewController<SettingsSection> {
 	weak var coordinator: SettingsCoordinator?
 
 	private let viewModel: SettingsViewModel
-	private var dataSource: UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>?
 	private var observer: NSObjectProtocol?
 
 	init(viewModel: SettingsViewModel) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = LocalizedString.getValue("settings.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
-		tableView.register(LoadingWithLabelCell.self, forCellReuseIdentifier: "LoadingWithLabelCell")
-		tableView.rowHeight = 44
-		setUpDataSource()
-		applySnapshot(sections: viewModel.sections, cells: viewModel.cells)
 		refreshCacheSize()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshCacheSize()
@@ -103,24 +96,5 @@ class SettingsViewController: BaseUITableViewController {
 		case .unknown:
 			break
 		}
-	}
-
-	// MARK: - UITableViewDiffableDataSource
-
-	func setUpDataSource() {
-		dataSource = UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>(tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
-			let cell = cellViewModel.type.init()
-			cell.configure(with: cellViewModel)
-			return cell
-		}
-	}
-
-	func applySnapshot(sections: [SettingsSection], cells: [SettingsSection: [TableViewCellViewModel]]) {
-		var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, TableViewCellViewModel>()
-		snapshot.appendSections(sections)
-		for (section, items) in cells {
-			snapshot.appendItems(items, toSection: section)
-		}
-		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 }

@@ -6,20 +6,31 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import Foundation
 
-class VaultDetailUnlockVaultViewModel {
-	var title: String {
+class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel {
+	override var title: String? {
 		return vault.vaultName
 	}
 
-	var footerTitle: String {
-		return String(format: LocalizedString.getValue("vaultDetail.unlockVault.footer"), vault.vaultName, biometryTypeName)
+	override var cells: [TableViewCellViewModel] {
+		return [passwordCellViewModel]
 	}
 
-	var password: String?
+	var enableVerifyButton: AnyPublisher<Bool, Never> {
+		return passwordCellViewModel.input.$value.map { input in
+			return !input.isEmpty
+		}.eraseToAnyPublisher()
+	}
+
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
+	private var password: String {
+		return passwordCellViewModel.input.value
+	}
+
 	private let vault: VaultInfo
 	private let biometryTypeName: String
 	private let passwordManager: VaultPasswordManager
@@ -31,12 +42,16 @@ class VaultDetailUnlockVaultViewModel {
 	}
 
 	func unlockVault() throws {
-		guard let password = password else {
-			throw MasterkeyProcessingViewModelError.noPasswordSet
-		}
 		let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vault.vaultUID)
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 		_ = try masterkeyFile.unlock(passphrase: password)
 		try passwordManager.setPassword(password, forVaultUID: vault.vaultUID)
+	}
+
+	override func getFooterTitle(for section: Int) -> String? {
+		guard section == 0 else {
+			return nil
+		}
+		return String(format: LocalizedString.getValue("vaultDetail.unlockVault.footer"), vault.vaultName, biometryTypeName)
 	}
 }

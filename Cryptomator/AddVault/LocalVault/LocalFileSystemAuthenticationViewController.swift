@@ -12,14 +12,13 @@ import UIKit
 import UniformTypeIdentifiers
 #endif
 
-class LocalFileSystemAuthenticationViewController: SingleSectionTableViewController, UIDocumentPickerDelegate {
+class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableViewController, UIDocumentPickerDelegate {
 	weak var coordinator: (LocalFileSystemAuthenticating & LocalVaultAdding & Coordinator)?
 	private let viewModel: LocalFileSystemAuthenticationViewModelProtocol
-	private lazy var openDocumentPickerCellViewModel = ButtonCellViewModel(action: "openDocumentPicker", title: viewModel.documentPickerButtonText)
 
 	init(viewModel: LocalFileSystemAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	func openDocumentPicker() {
@@ -43,18 +42,6 @@ class LocalFileSystemAuthenticationViewController: SingleSectionTableViewControl
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = openDocumentPickerCellViewModel.type.init()
-		cell.configure(with: openDocumentPickerCellViewModel)
-		return cell
 	}
 
 	// MARK: - UITableViewDelegate
@@ -106,22 +93,3 @@ private class LocalFileSystemAuthenticationHeaderView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
-
-#if DEBUG
-import CryptomatorCommonCore
-import SwiftUI
-
-struct LocalFileSystemViewModelMock: LocalFileSystemAuthenticationViewModelProtocol {
-	let documentPickerButtonText = "Select Storage Location"
-	let headerText = "In the next screen, choose the storage location for your new vault."
-	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential {
-		fatalError("Not mocked")
-	}
-}
-
-struct LocalFileSystemAuthenticationVCPreview: PreviewProvider {
-	static var previews: some View {
-		LocalFileSystemAuthenticationViewController(viewModel: LocalFileSystemViewModelMock()).toPreview()
-	}
-}
-#endif

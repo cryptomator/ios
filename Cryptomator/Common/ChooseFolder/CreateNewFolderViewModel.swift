@@ -11,16 +11,24 @@ import CryptomatorCommonCore
 import Foundation
 import Promises
 
-protocol CreateNewFolderViewModelProtocol: SingleSectionHeaderTableViewModelProtocol {
-	var folderName: String? { get set }
+protocol CreateNewFolderViewModelProtocol: SingleSectionTableViewModel {
 	func createFolder() -> Promise<CloudPath>
 }
 
-class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
-	let headerTitle = LocalizedString.getValue("chooseFolder.createNewFolder.header.title")
-	let headerUppercased = false
+class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
+	override var cells: [TableViewCellViewModel] {
+		return [folderNameCellViewModel]
+	}
 
-	var folderName: String?
+	override var title: String? {
+		return LocalizedString.getValue("common.button.createFolder")
+	}
+
+	let folderNameCellViewModel = TextFieldCellViewModel(type: .normal, isInitialFirstResponder: true)
+	var folderName: String {
+		return folderNameCellViewModel.input.value
+	}
+
 	private let parentPath: CloudPath
 	private let provider: CloudProvider
 
@@ -30,13 +38,20 @@ class CreateNewFolderViewModel: CreateNewFolderViewModelProtocol {
 	}
 
 	func createFolder() -> Promise<CloudPath> {
-		guard let folderName = folderName, !folderName.isEmpty else {
+		guard !folderName.isEmpty else {
 			return Promise(CreateNewFolderViewModelError.emptyFolderName)
 		}
 		let folderPath = parentPath.appendingPathComponent(folderName)
 		return provider.createFolder(at: folderPath).then {
 			folderPath
 		}
+	}
+
+	override func getHeaderTitle(for section: Int) -> String? {
+		guard section == 0 else {
+			return nil
+		}
+		return LocalizedString.getValue("chooseFolder.createNewFolder.header.title")
 	}
 }
 

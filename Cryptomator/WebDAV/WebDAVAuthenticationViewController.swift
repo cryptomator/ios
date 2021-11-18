@@ -10,39 +10,14 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
-class WebDAVAuthenticationViewController: SingleSectionTableViewController {
+class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
-
 	private var viewModel: WebDAVAuthenticationViewModelProtocol
 
 	init(viewModel: WebDAVAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
-
-	private var cells: [TextFieldCell] {
-		return [urlCell, usernameCell, passwordCell]
-	}
-
-	private lazy var urlCell: URLFieldCell = {
-		let urlCell = URLFieldCell(style: .default, reuseIdentifier: "URLFieldCell")
-		urlCell.textField.placeholder = LocalizedString.getValue("common.cells.url")
-		urlCell.textField.text = "https://"
-		urlCell.textField.becomeFirstResponder()
-		return urlCell
-	}()
-
-	private lazy var usernameCell: UsernameFieldCell = {
-		let usernameCell = UsernameFieldCell(style: .default, reuseIdentifier: "UsernameFieldCell")
-		usernameCell.textField.placeholder = LocalizedString.getValue("common.cells.username")
-		return usernameCell
-	}()
-
-	private lazy var passwordCell: PasswordFieldCell = {
-		let passwordCell = PasswordFieldCell(style: .default, reuseIdentifier: "PasswordFieldCell")
-		passwordCell.textField.placeholder = LocalizedString.getValue("common.cells.password")
-		return passwordCell
-	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -61,7 +36,7 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 	func addAccount(allowedCertificate: Data?) {
 		let credential: WebDAVCredential
 		do {
-			credential = try viewModel.createWebDAVCredentialFromInput(url: urlCell.textField.text, username: usernameCell.textField.text, password: passwordCell.textField.text, allowedCertificate: allowedCertificate)
+			credential = try viewModel.createWebDAVCredentialFromInput(allowedCertificate: allowedCertificate)
 		} catch {
 			coordinator?.handleError(error, for: self)
 			return
@@ -101,16 +76,6 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 			coordinator?.handleError(error, for: self)
 		}
 	}
-
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 3
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return cells[indexPath.row]
-	}
 }
 
 #if DEBUG
@@ -118,8 +83,8 @@ import CryptomatorCloudAccessCore
 import Promises
 import SwiftUI
 
-class WebDAVAuthenticationViewModelMock: WebDAVAuthenticationViewModelProtocol {
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
+class WebDAVAuthenticationViewModelMock: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
 		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
 	}
 

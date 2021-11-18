@@ -9,28 +9,24 @@
 import CryptomatorCommonCore
 import Foundation
 
-protocol SetVaultNameViewModelProtocol: SingleSectionHeaderTableViewModelProtocol {
-	var vaultName: String? { get set }
+protocol SetVaultNameViewModelProtocol: SingleSectionTableViewModel {
 	func getValidatedVaultName() throws -> String
 }
 
-class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
-	var headerTitle: String {
-		LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
+class SetVaultNameViewModel: SingleSectionTableViewModel, SetVaultNameViewModelProtocol {
+	override var cells: [TableViewCellViewModel] {
+		return [vaultNameCellViewModel]
 	}
 
-	let headerUppercased = false
-
-	var vaultName: String? {
-		get {
-			return trimmedVaultName
-		}
-		set {
-			trimmedVaultName = newValue?.trimmingCharacters(in: .whitespacesAndNewlines)
-		}
+	override var title: String? {
+		return LocalizedString.getValue("addVault.createNewVault.title")
 	}
 
-	private var trimmedVaultName: String?
+	let vaultNameCellViewModel = TextFieldCellViewModel(type: .normal, placeholder: LocalizedString.getValue("addVault.createNewVault.setVaultName.cells.name"), isInitialFirstResponder: true)
+
+	var trimmedVaultName: String {
+		return vaultNameCellViewModel.input.value.trimmingCharacters(in: .whitespacesAndNewlines)
+	}
 
 	// disallowed characters \ / : * ? " < > |
 	// cannot end with .
@@ -38,7 +34,7 @@ class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
 	private let regex = try! NSRegularExpression(pattern: "[\\\\/:\\*\\?\"<>\\|]|\\.$")
 
 	func getValidatedVaultName() throws -> String {
-		guard let trimmedVaultName = trimmedVaultName, !trimmedVaultName.isEmpty else {
+		guard !trimmedVaultName.isEmpty else {
 			throw SetVaultNameViewModelError.emptyVaultName
 		}
 		let range = NSRange(location: 0, length: trimmedVaultName.utf16.count)
@@ -46,6 +42,13 @@ class SetVaultNameViewModel: SetVaultNameViewModelProtocol {
 			throw SetVaultNameViewModelError.invalidInput
 		}
 		return trimmedVaultName
+	}
+
+	override func getHeaderTitle(for section: Int) -> String? {
+		guard section == 0 else {
+			return nil
+		}
+		return LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
 	}
 }
 

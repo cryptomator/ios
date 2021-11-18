@@ -16,74 +16,77 @@ class SetVaultNameViewModelTests: XCTestCase {
 	}
 
 	func testAutoTrimWhitespaces() throws {
-		viewModel.vaultName = " foo"
-		XCTAssertEqual("foo", viewModel.vaultName)
-		viewModel.vaultName = "foo "
-		XCTAssertEqual("foo", viewModel.vaultName)
-		viewModel.vaultName = " foo "
-		XCTAssertEqual("foo", viewModel.vaultName)
+		setVaultName(" foo")
+		XCTAssertEqual("foo", viewModel.trimmedVaultName)
+		setVaultName("foo ")
+		XCTAssertEqual("foo", viewModel.trimmedVaultName)
+		setVaultName(" foo ")
+		XCTAssertEqual("foo", viewModel.trimmedVaultName)
 
 		// Check preserves inner whitespace
-		viewModel.vaultName = "fo o"
-		XCTAssertEqual("fo o", viewModel.vaultName)
+		setVaultName("fo o")
+		XCTAssertEqual("fo o", viewModel.trimmedVaultName)
 	}
 
 	func testValidateInputForValidName() throws {
-		viewModel.vaultName = "foo"
+		setVaultName("foo")
 		let validatedVaultName = try viewModel.getValidatedVaultName()
 		XCTAssertEqual("foo", validatedVaultName)
 	}
 
-	func testValidateInputForEmptyString() throws {
-		viewModel.vaultName = ""
-		getValidatetVaultNameThrowsEmptyVaultNameError()
-	}
-
-	func testValidateInputForNotSetVaultName() throws {
-		XCTAssertNil(viewModel.vaultName)
+	func testValidateInputForEmptyVaultName() throws {
+		XCTAssert(viewModel.vaultNameCellViewModel.input.value.isEmpty)
 		getValidatetVaultNameThrowsEmptyVaultNameError()
 	}
 
 	func testValidateInputForDisallowedCharacters() throws {
 		// \ inside name
-		viewModel.vaultName = "fo\\o"
+		setVaultName("fo\\o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// / inside name
-		viewModel.vaultName = "fo/o"
+		setVaultName("fo/o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// : inside name
-		viewModel.vaultName = "fo:o"
+		setVaultName("fo:o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// * inside name
-		viewModel.vaultName = "fo*o"
+		setVaultName("fo*o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// ? inside name
-		viewModel.vaultName = "fo?o"
+		setVaultName("fo?o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// " inside name
-		viewModel.vaultName = "fo\"o"
+		setVaultName("fo\"o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// < inside name
-		viewModel.vaultName = "fo<o"
+		setVaultName("fo<o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// > inside name
-		viewModel.vaultName = "fo>o"
+		setVaultName("fo>o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// | inside name
-		viewModel.vaultName = "fo|o"
+		setVaultName("fo|o")
 		getValidatedVaultNameThrowsInvalidInputError()
 
 		// Point at the end
-		viewModel.vaultName = "foo."
+		setVaultName("foo.")
 		getValidatedVaultNameThrowsInvalidInputError()
+	}
+
+	func setVaultName(_ name: String, viewModel: SetVaultNameViewModel) {
+		viewModel.vaultNameCellViewModel.input.value = name
+	}
+
+	func setVaultName(_ name: String) {
+		setVaultName(name, viewModel: viewModel)
 	}
 
 	private func getValidatedVaultNameThrowsInvalidInputError() {
