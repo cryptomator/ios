@@ -70,27 +70,12 @@ class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNe
 }
 
 #if DEBUG
-/*
- import Promises
- import SwiftUI
+import CryptomatorCloudAccessCore
+import SwiftUI
 
- private class CreateNewVaultPasswordViewModelMock: CreateNewVaultPasswordViewModelProtocol {
- 	let vaultUID = ""
- 	let vaultName = ""
-
- 	let headerTitles = ["Enter a new password.", "Confirm the new password."]
- 	var password: String?
- 	var confirmingPassword: String?
- 	func createNewVault() -> Promise<Void> {
- 		return Promise(())
- 	}
-
- 	func validatePassword() throws {}
- }
-
- struct CreateNewVaultPasswordVC_Preview: PreviewProvider {
- 	static var previews: some View {
- 		CreateNewVaultPasswordViewController(viewModel: CreateNewVaultPasswordViewModelMock()).toPreview()
- 	}
- }*/
+struct CreateNewVaultPasswordVC_Preview: PreviewProvider {
+	static var previews: some View {
+		CreateNewVaultPasswordViewController(viewModel: CreateNewVaultPasswordViewModel(vaultPath: CloudPath("/"), account: CloudProviderAccount(accountUID: "123", cloudProviderType: .webDAV), vaultUID: "456")).toPreview()
+	}
+}
 #endif
