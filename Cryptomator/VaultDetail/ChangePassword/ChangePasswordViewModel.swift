@@ -14,13 +14,9 @@ import CryptomatorFileProvider
 import Foundation
 import Promises
 
-protocol ChangePasswordViewModelProtocol {
-	var title: String { get }
-	var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] { get }
-	var sections: [ChangePasswordSection] { get }
+protocol ChangePasswordViewModelProtocol: TableViewModel<ChangePasswordSection> {
 	func changePassword() -> Promise<Void>
 	func validatePasswords() throws
-	func getHeaderTitle(for section: Int) -> String?
 }
 
 enum ChangePasswordViewModelError: Error {
@@ -51,17 +47,29 @@ enum ChangePasswordSection: Int {
 	case newPasswordConfirmation
 }
 
-class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
-	var title: String {
+class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePasswordViewModelProtocol {
+	override var title: String? {
 		return vaultAccount.vaultName
 	}
 
-	let sections: [ChangePasswordSection] = [.oldPassword, .newPassword, .newPasswordConfirmation]
+	override var sections: [Section<ChangePasswordSection>] {
+		return _sections
+	}
+
+	// let sections: [ChangePasswordSection] = [.oldPassword, .newPassword, .newPasswordConfirmation]
 	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = {
 		return [
 			.oldPassword: [oldPasswordCellViewModel],
 			.newPassword: [newPasswordCellViewModel],
 			.newPasswordConfirmation: [newPasswordConfirmationCellViewModel]
+		]
+	}()
+
+	private lazy var _sections: [Section<ChangePasswordSection>] = {
+		return [
+			Section(id: .oldPassword, elements: [oldPasswordCellViewModel]),
+			Section(id: .newPassword, elements: [newPasswordCellViewModel]),
+			Section(id: .newPasswordConfirmation, elements: [newPasswordConfirmationCellViewModel])
 		]
 	}()
 
@@ -123,7 +131,7 @@ class ChangePasswordViewModel: ChangePasswordViewModelProtocol {
 		_ = try getValidatedPasswords()
 	}
 
-	func getHeaderTitle(for section: Int) -> String? {
+	override func getHeaderTitle(for section: Int) -> String? {
 		switch ChangePasswordSection(rawValue: section) {
 		case .oldPassword:
 			return LocalizedString.getValue("changePassword.header.currentPassword.title")
