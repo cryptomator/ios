@@ -9,14 +9,14 @@
 import CryptomatorCommonCore
 import UIKit
 
-class AddVaultSuccessViewController: SingleSectionTableViewController {
+class AddVaultSuccessViewController: SingleSectionStaticUITableViewController {
 	private let viewModel: AddVaultSuccessViewModel
-	private lazy var openInFilesAppButtonViewModel = ButtonCellViewModel(action: "OpenInFilesApp", title: LocalizedString.getValue("common.cells.openInFilesApp"))
+
 	weak var coordinator: AddVaultSuccesing?
 
 	init(viewModel: AddVaultSuccessViewModel) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
@@ -31,22 +31,6 @@ class AddVaultSuccessViewController: SingleSectionTableViewController {
 
 	func openFilesApp() {
 		coordinator?.showFilesApp(forVaultUID: viewModel.vaultUID)
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = openInFilesAppButtonViewModel.type.init()
-		cell.configure(with: openInFilesAppButtonViewModel)
-		return cell
 	}
 
 	// MARK: - UITableViewDelegate
