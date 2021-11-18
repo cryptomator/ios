@@ -53,7 +53,6 @@ class VaultDetailCoordinator: Coordinator {
 		}
 		let viewModel = RenameVaultViewModel(provider: configuration.provider, vaultInfo: vaultInfo, maintenanceManager: configuration.maintenanceManager)
 		let renameVaultViewController = RenameVaultViewController(viewModel: viewModel)
-		renameVaultViewController.title = vaultInfo.vaultName
 		renameVaultViewController.coordinator = self
 		navigationController.pushViewController(renameVaultViewController, animated: true)
 	}

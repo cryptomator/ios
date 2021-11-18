@@ -15,6 +15,7 @@ import GRDB
 import Promises
 
 protocol RenameVaultViewModelProtcol: SetVaultNameViewModelProtocol {
+	var trimmedVaultName: String { get }
 	func renameVault() -> Promise<Void>
 }
 
@@ -23,8 +24,8 @@ enum RenameVaultViewModelError: Error {
 }
 
 class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
-	override var headerTitle: String {
-		LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
+	override var title: String? {
+		return vaultInfo.vaultName
 	}
 
 	// swiftlint:disable:next weak_delegate
@@ -55,5 +56,12 @@ class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
 				return
 			}
 		}
+	}
+
+	override func getHeaderTitle(for section: Int) -> String? {
+		guard section == 0 else {
+			return nil
+		}
+		return LocalizedString.getValue("addVault.createNewVault.setVaultName.header.title")
 	}
 }

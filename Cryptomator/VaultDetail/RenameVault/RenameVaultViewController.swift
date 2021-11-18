@@ -34,7 +34,7 @@ class RenameVaultViewController: SetVaultNameViewController {
 			guard let self = self else {
 				return
 			}
-			self.coordinator?.setVaultName(self.viewModel.vaultName ?? "")
+			self.coordinator?.setVaultName(self.viewModel.trimmedVaultName)
 		}.catch { [weak self] error in
 			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
