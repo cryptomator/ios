@@ -44,7 +44,7 @@ class OpenExistingVaultPasswordViewModel: SingleSectionTableViewModel, OpenExist
 	}
 
 	let vaultUID: String
-	let passwordCellViewModel = TextFieldCellViewModel(type: .password)
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	var password: String {
 		return passwordCellViewModel.input.value
 	}

@@ -26,7 +26,7 @@ class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel {
 		}.eraseToAnyPublisher()
 	}
 
-	let passwordCellViewModel = TextFieldCellViewModel(type: .password)
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private var password: String {
 		return passwordCellViewModel.input.value
 	}

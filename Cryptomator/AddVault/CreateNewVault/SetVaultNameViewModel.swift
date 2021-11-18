@@ -22,7 +22,7 @@ class SetVaultNameViewModel: SingleSectionTableViewModel, SetVaultNameViewModelP
 		return LocalizedString.getValue("addVault.createNewVault.title")
 	}
 
-	let vaultNameCellViewModel = TextFieldCellViewModel(type: .normal, placeholder: LocalizedString.getValue("addVault.createNewVault.setVaultName.cells.name"))
+	let vaultNameCellViewModel = TextFieldCellViewModel(type: .normal, placeholder: LocalizedString.getValue("addVault.createNewVault.setVaultName.cells.name"), isInitialFirstResponder: true)
 
 	var trimmedVaultName: String {
 		return vaultNameCellViewModel.input.value.trimmingCharacters(in: .whitespacesAndNewlines)

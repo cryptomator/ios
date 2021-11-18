@@ -46,7 +46,7 @@ class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSect
 	private let vaultPath: CloudPath
 	private let account: CloudProviderAccount
 	private static let minimumPasswordLength = 8
-	private lazy var passwordCellViewModel = TextFieldCellViewModel(type: .password)
+	private lazy var passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private lazy var confirmPasswordCellViewModel = TextFieldCellViewModel(type: .password)
 
 	private var password: String {

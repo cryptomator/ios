@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 enum TextFieldCellType {
@@ -32,10 +33,12 @@ class TextFieldCellViewModel: BindableTableViewCellViewModel {
 
 	let input: Bindable<String>
 	let placeholder: String?
+	let isInitialFirstResponder: Bool
 
-	init(type: TextFieldCellType, text: String = "", placeholder: String? = nil) {
+	init(type: TextFieldCellType, text: String = "", placeholder: String? = nil, isInitialFirstResponder: Bool = false) {
 		self.textFielCellType = type
 		self.input = Bindable(text)
 		self.placeholder = placeholder
+		self.isInitialFirstResponder = isInitialFirstResponder
 	}
 }

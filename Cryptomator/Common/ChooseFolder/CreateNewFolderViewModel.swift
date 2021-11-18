@@ -24,7 +24,7 @@ class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderView
 		return LocalizedString.getValue("common.button.createFolder")
 	}
 
-	let folderNameCellViewModel = TextFieldCellViewModel(type: .normal)
+	let folderNameCellViewModel = TextFieldCellViewModel(type: .normal, isInitialFirstResponder: true)
 	var folderName: String {
 		return folderNameCellViewModel.input.value
 	}

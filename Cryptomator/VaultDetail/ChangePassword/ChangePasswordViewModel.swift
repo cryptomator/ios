@@ -79,7 +79,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 	private let maintenanceManager: MaintenanceManager
 	private let fileProviderConnector: FileProviderConnector
 
-	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password)
+	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private let newPasswordCellViewModel = TextFieldCellViewModel(type: .password)
 	private let newPasswordConfirmationCellViewModel = TextFieldCellViewModel(type: .password)
 
