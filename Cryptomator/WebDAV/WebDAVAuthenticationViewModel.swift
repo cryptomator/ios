@@ -17,17 +17,41 @@ enum WebDAVAuthenticationError: Error {
 	case userCanceled
 }
 
-protocol WebDAVAuthenticationViewModelProtocol {
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential
+protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel {
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
 }
 
-class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
+class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	override var cells: [TableViewCellViewModel] {
+		[
+			urlCellViewModel,
+			usernameCellViewModel,
+			passwordCellViewModel
+		]
+	}
+
+	let urlCellViewModel = TextFieldCellViewModel(type: .url, text: "https://", placeholder: LocalizedString.getValue("common.cells.url"))
+	let usernameCellViewModel = TextFieldCellViewModel(type: .username, placeholder: LocalizedString.getValue("common.cells.username"))
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, placeholder: LocalizedString.getValue("common.cells.password"))
+
+	var url: String {
+		return urlCellViewModel.input.value
+	}
+
+	var username: String {
+		return usernameCellViewModel.input.value
+	}
+
+	var password: String {
+		return passwordCellViewModel.input.value
+	}
+
 	private var client: WebDAVClient?
 
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
 		// TODO: Add Input Validation
-		guard let url = url, let username = username, let password = password, let baseURL = URL(string: url) else {
+		guard let baseURL = URL(string: url) else {
 			throw WebDAVAuthenticationError.invalidInput
 		}
 		guard !username.isEmpty, !password.isEmpty else {
