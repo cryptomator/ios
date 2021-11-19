@@ -6,14 +6,19 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import Foundation
 
-protocol SetVaultNameViewModelProtocol: SingleSectionTableViewModel {
+protocol SetVaultNameViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
 	func getValidatedVaultName() throws -> String
 }
 
 class SetVaultNameViewModel: SingleSectionTableViewModel, SetVaultNameViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [vaultNameCellViewModel], subscribers: &subscribers)
+	}
+
 	override var cells: [TableViewCellViewModel] {
 		return [vaultNameCellViewModel]
 	}
@@ -32,6 +37,8 @@ class SetVaultNameViewModel: SingleSectionTableViewModel, SetVaultNameViewModelP
 	// cannot end with .
 	// swiftlint:disable:next force_try
 	private let regex = try! NSRegularExpression(pattern: "[\\\\/:\\*\\?\"<>\\|]|\\.$")
+
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	func getValidatedVaultName() throws -> String {
 		guard !trimmedVaultName.isEmpty else {

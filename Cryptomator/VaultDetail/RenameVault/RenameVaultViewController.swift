@@ -23,6 +23,10 @@ class RenameVaultViewController: SetVaultNameViewController {
 		navigationItem.rightBarButtonItem = renameButton
 	}
 
+	override func lastReturnButtonPressedAction() {
+		renameButtonClicked()
+	}
+
 	@objc private func renameButtonClicked() {
 		let hud = ProgressHUD()
 		hud.text = LocalizedString.getValue("vaultDetail.renameVault.progress")

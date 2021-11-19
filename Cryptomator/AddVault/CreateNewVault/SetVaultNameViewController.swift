@@ -6,12 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import UIKit
 
 class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (VaultNaming & Coordinator)?
 	private var viewModel: SetVaultNameViewModelProtocol
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: SetVaultNameViewModelProtocol) {
 		self.viewModel = viewModel
@@ -23,6 +25,9 @@ class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 		let doneButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.next"), style: .done, target: self, action: #selector(nextButtonClicked))
 		navigationItem.rightBarButtonItem = doneButton
 		tableView.rowHeight = 44
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.lastReturnButtonPressedAction()
+		}
 	}
 
 	@objc func nextButtonClicked() {
@@ -31,6 +36,10 @@ class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}
+	}
+
+	func lastReturnButtonPressedAction() {
+		nextButtonClicked()
 	}
 }
 
