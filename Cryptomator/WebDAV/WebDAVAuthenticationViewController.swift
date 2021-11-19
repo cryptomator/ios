@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
@@ -13,6 +14,7 @@ import UIKit
 class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
 	private var viewModel: WebDAVAuthenticationViewModelProtocol
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: WebDAVAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
@@ -27,6 +29,9 @@ class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewControll
 		navigationItem.leftBarButtonItem = cancelButton
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.done()
+		}
 	}
 
 	@objc func done() {
@@ -84,6 +89,10 @@ import Promises
 import SwiftUI
 
 class WebDAVAuthenticationViewModelMock: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
+	}
+
 	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
 		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
 	}
