@@ -24,7 +24,7 @@ class OpenExistingVaultPasswordViewController: SingleSectionStaticUITableViewCon
 		return navigationController?.view.superview // shake the whole modal dialog
 	}
 
-	private var verifyButtonEnabledSubscriber: AnyCancellable?
+	private var subscribers = Set<AnyCancellable>()
 
 	init(viewModel: OpenExistingVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
@@ -34,9 +34,12 @@ class OpenExistingVaultPasswordViewController: SingleSectionStaticUITableViewCon
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.rightBarButtonItem = verifyButton
-		verifyButtonEnabledSubscriber = viewModel.enableVerifyButton.sink { [weak self] isEnabled in
+		viewModel.enableVerifyButton.sink { [weak self] isEnabled in
 			self?.verifyButton.isEnabled = isEnabled
-		}
+		}.store(in: &subscribers)
+		viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.verify()
+		}.store(in: &subscribers)
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -84,6 +87,10 @@ import SwiftUI
 private class OpenExistingVaultMasterkeyProcessingViewModelMock: SingleSectionTableViewModel, OpenExistingVaultPasswordViewModelProtocol {
 	var enableVerifyButton: AnyPublisher<Bool, Never> {
 		Just(false).eraseToAnyPublisher()
+	}
+
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
 	}
 
 	let vaultUID = ""
