@@ -49,6 +49,10 @@ extension XCTestCase {
 
 		return try unwrappedResult.get()
 	}
+
+	func wait<Input, Failure>(for recorder: Recorder<Input, Failure>, timeout: TimeInterval = 1) {
+		wait(for: [recorder.completed], timeout: timeout)
+	}
 }
 
 extension Published.Publisher {
@@ -59,4 +63,53 @@ extension Published.Publisher {
 			.first()
 			.eraseToAnyPublisher()
 	}
+}
+
+extension Publisher {
+	func recordNext(_ count: Int) -> Recorder<Output, Failure> {
+		let recorder = Recorder<Output, Failure>(expectedElementCount: count)
+		subscribe(recorder)
+		return recorder
+	}
+}
+
+class Recorder<Input, Failure: Error> {
+	let completed = XCTestExpectation()
+	private var elements = [Input]()
+	private let lock = NSLock()
+	private let expectedElementCount: Int
+
+	init(expectedElementCount: Int) {
+		self.expectedElementCount = expectedElementCount
+	}
+
+	func getElements() -> [Input] {
+		return synchronized {
+			elements
+		}
+	}
+
+	private func synchronized<T>(_ execute: () throws -> T) rethrows -> T {
+		lock.lock()
+		defer { lock.unlock() }
+		return try execute()
+	}
+}
+
+extension Recorder: Subscriber {
+	func receive(subscription: Subscription) {
+		subscription.request(.unlimited)
+	}
+
+	func receive(_ input: Input) -> Subscribers.Demand {
+		synchronized {
+			elements.append(input)
+			if elements.count == expectedElementCount {
+				completed.fulfill()
+			}
+		}
+		return .none
+	}
+
+	func receive(completion: Subscribers.Completion<Failure>) {}
 }
