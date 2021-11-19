@@ -25,7 +25,7 @@ class VaultDetailUnlockVaultViewController: SingleSectionStaticUITableViewContro
 		return navigationController?.view.superview // shake the whole modal dialog
 	}
 
-	private var verifyButtonEnabledSubscriber: AnyCancellable?
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	init(viewModel: VaultDetailUnlockVaultViewModel) {
 		self.viewModel = viewModel
@@ -38,9 +38,12 @@ class VaultDetailUnlockVaultViewController: SingleSectionStaticUITableViewContro
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.rightBarButtonItem = enableButton
 		tableView.rowHeight = 44
-		verifyButtonEnabledSubscriber = viewModel.enableVerifyButton.sink { [weak self] isEnabled in
+		viewModel.enableVerifyButton.sink { [weak self] isEnabled in
 			self?.enableButton.isEnabled = isEnabled
-		}
+		}.store(in: &subscribers)
+		viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.verify()
+		}.store(in: &subscribers)
 	}
 
 	override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
