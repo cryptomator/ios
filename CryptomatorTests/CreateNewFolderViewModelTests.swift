@@ -51,6 +51,14 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
+	func testReturnButtonSupport() {
+		let folderNameCellViewModel = viewModel.folderNameCellViewModel
+		XCTAssert(folderNameCellViewModel.isInitialFirstResponder)
+		let lastReturnButtonPressedRecorder = viewModel.lastReturnButtonPressed.recordNext(1)
+		folderNameCellViewModel.returnButtonPressed()
+		wait(for: lastReturnButtonPressedRecorder)
+	}
+
 	func setFolderName(_ name: String) {
 		viewModel.folderNameCellViewModel.input.value = name
 	}

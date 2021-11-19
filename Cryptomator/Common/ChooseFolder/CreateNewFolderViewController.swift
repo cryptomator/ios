@@ -6,12 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import UIKit
 
 class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (FolderCreating & Coordinator)?
 	private var viewModel: CreateNewFolderViewModelProtocol
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: CreateNewFolderViewModelProtocol) {
 		self.viewModel = viewModel
@@ -25,6 +27,9 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.createButtonClicked()
+		}
 	}
 
 	override func configureDataSource() {
@@ -67,6 +72,10 @@ import Promises
 import SwiftUI
 
 private class CreateNewFolderViewModelMock: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
+	}
+
 	override var cells: [TableViewCellViewModel] {
 		return [folderNameCellViewModel]
 	}
