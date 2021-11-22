@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import UIKit
@@ -16,6 +17,7 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 
 	private let viewModel: SettingsViewModel
 	private var observer: NSObjectProtocol?
+	private var subscriber: AnyCancellable?
 
 	init(viewModel: SettingsViewModel) {
 		self.viewModel = viewModel
@@ -29,6 +31,9 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		refreshCacheSize()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshCacheSize()
+		}
+		subscriber = viewModel.showDebugModeWarning.sink { [weak self] in
+			self?.showDebugModeAlert()
 		}
 	}
 
@@ -71,6 +76,20 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 
 	func showRateApp() {
 		coordinator?.openRateApp()
+	}
+
+	func showDebugModeAlert() {
+		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.attention.title"), message: LocalizedString.getValue("settings.debugMode.alert.message"), preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.enable"), style: .default) { _ in
+			self.viewModel.enableDebugMode()
+		}
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel) { _ in
+			self.viewModel.disableDebugMode()
+		}
+		alertController.addAction(okAction)
+		alertController.addAction(cancelAction)
+
+		present(alertController, animated: true, completion: nil)
 	}
 
 	// MARK: - UITableViewDelegate

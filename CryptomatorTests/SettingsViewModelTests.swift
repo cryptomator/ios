@@ -121,8 +121,6 @@ class SettingsViewModelTests: XCTestCase {
 	// - MARK: Debug Section
 
 	func testDisabledDebugMode() {
-		let logLevelUpdatingMock = LogLevelUpdatingMock()
-		fileProviderConnectorMock.proxy = logLevelUpdatingMock
 		cryptomatorSettingsMock.debugModeEnabled = false
 		guard let debugSection = getSection(for: .debugSection) else {
 			XCTFail("Missing debugSection")
@@ -137,15 +135,15 @@ class SettingsViewModelTests: XCTestCase {
 
 		checkSendLogFilesCellViewModel()
 
+		let showDebugModeWarningRecorder = settingsViewModel.showDebugModeWarning.recordNext(1)
+
 		// Simulate Debug toggle
-		let expectation = XCTestExpectation()
 		debugModeCellViewModel.isOnButtonPublisher.send(true)
-		logLevelUpdatingMock.updated.then {
-			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
-			self.checkLogLevelUpdatingServiceSourceCall()
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+
+		// Check showDebugModeWarning fired
+		wait(for: showDebugModeWarningRecorder)
+
+		XCTAssertFalse(cryptomatorSettingsMock.debugModeEnabled)
 		checkSendLogFilesCellViewModel()
 	}
 
@@ -176,6 +174,43 @@ class SettingsViewModelTests: XCTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 		checkSendLogFilesCellViewModel()
+	}
+
+	func testEnableDebugMode() {
+		let expectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		settingsViewModel.enableDebugMode()
+		logLevelUpdatingMock.updated.then {
+			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testDisableDebugMode() {
+		let expectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+
+		settingsViewModel.disableDebugMode()
+
+		XCTAssertFalse(debugModeCellViewModel.isOn.value)
+		logLevelUpdatingMock.updated.then {
+			XCTAssertFalse(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
 	}
 
 	private func checkSendLogFilesCellViewModel() {
