@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
@@ -17,12 +18,16 @@ enum WebDAVAuthenticationError: Error {
 	case userCanceled
 }
 
-protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel {
+protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
 	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
 }
 
 class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [urlCellViewModel, usernameCellViewModel, passwordCellViewModel], subscribers: &subscribers)
+	}
+
 	override var cells: [TableViewCellViewModel] {
 		[
 			urlCellViewModel,
@@ -48,6 +53,7 @@ class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenti
 	}
 
 	private var client: WebDAVClient?
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
 		// TODO: Add Input Validation

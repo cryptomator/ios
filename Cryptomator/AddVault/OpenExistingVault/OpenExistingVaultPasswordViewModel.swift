@@ -12,7 +12,7 @@ import CryptomatorCommonCore
 import Foundation
 import Promises
 
-protocol OpenExistingVaultPasswordViewModelProtocol: SingleSectionTableViewModel {
+protocol OpenExistingVaultPasswordViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
 	var vaultName: String { get }
 	var vaultUID: String { get }
 	var enableVerifyButton: AnyPublisher<Bool, Never> { get }
@@ -21,6 +21,10 @@ protocol OpenExistingVaultPasswordViewModelProtocol: SingleSectionTableViewModel
 }
 
 class OpenExistingVaultPasswordViewModel: SingleSectionTableViewModel, OpenExistingVaultPasswordViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [passwordCellViewModel], subscribers: &subscribers)
+	}
+
 	override var title: String? {
 		return LocalizedString.getValue("addVault.openExistingVault.title")
 	}
@@ -48,6 +52,8 @@ class OpenExistingVaultPasswordViewModel: SingleSectionTableViewModel, OpenExist
 	var password: String {
 		return passwordCellViewModel.input.value
 	}
+
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	init(provider: CloudProvider, account: CloudProviderAccount, vault: VaultItem, vaultUID: String) {
 		self.provider = provider

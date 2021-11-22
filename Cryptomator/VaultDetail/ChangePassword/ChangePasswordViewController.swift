@@ -24,6 +24,9 @@ class ChangePasswordViewController: StaticUITableViewController<ChangePasswordSe
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		navigationItem.rightBarButtonItem = changePasswordButton
+		viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.changePassword()
+		}.store(in: &subscriber)
 	}
 
 	@objc func changePassword() {

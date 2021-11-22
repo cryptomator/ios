@@ -14,7 +14,7 @@ import CryptomatorFileProvider
 import Foundation
 import Promises
 
-protocol ChangePasswordViewModelProtocol: TableViewModel<ChangePasswordSection> {
+protocol ChangePasswordViewModelProtocol: TableViewModel<ChangePasswordSection>, ReturnButtonSupport {
 	func changePassword() -> Promise<Void>
 	func validatePasswords() throws
 }
@@ -50,6 +50,10 @@ enum ChangePasswordSection: Int {
 class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePasswordViewModelProtocol {
 	override var title: String? {
 		return vaultAccount.vaultName
+	}
+
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [oldPasswordCellViewModel, newPasswordCellViewModel, newPasswordConfirmationCellViewModel], subscribers: &subscribers)
 	}
 
 	override var sections: [Section<ChangePasswordSection>] {
@@ -94,11 +98,14 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		return newPasswordConfirmationCellViewModel.input.value
 	}
 
+	private lazy var subscribers = Set<AnyCancellable>()
+
 	init(vaultAccount: VaultAccount, maintenanceManager: MaintenanceManager, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.vaultAccount = vaultAccount
 		self.maintenanceManager = maintenanceManager
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
+		super.init()
 	}
 
 	func changePassword() -> Promise<Void> {

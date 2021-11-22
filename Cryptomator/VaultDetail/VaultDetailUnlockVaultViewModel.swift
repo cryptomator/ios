@@ -11,7 +11,11 @@ import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import Foundation
 
-class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel {
+class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel, ReturnButtonSupport {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [passwordCellViewModel], subscribers: &subscribers)
+	}
+
 	override var title: String? {
 		return vault.vaultName
 	}
@@ -34,6 +38,7 @@ class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel {
 	private let vault: VaultInfo
 	private let biometryTypeName: String
 	private let passwordManager: VaultPasswordManager
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	init(vault: VaultInfo, biometryTypeName: String, passwordManager: VaultPasswordManager) {
 		self.vault = vault

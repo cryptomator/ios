@@ -8,12 +8,15 @@
 
 import UIKit
 
-class TextFieldCell: TableViewCell {
-	let textField: UITextField = {
+class TextFieldCell: TableViewCell, UITextFieldDelegate {
+	lazy var textField: UITextField = {
 		let textField = UITextField()
 		textField.clearButtonMode = .whileEditing
+		textField.delegate = self
 		return textField
 	}()
+
+	private weak var viewModel: TextFieldCellViewModel?
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,11 +41,16 @@ class TextFieldCell: TableViewCell {
 		guard let viewModel = viewModel as? TextFieldCellViewModel else {
 			return
 		}
+		self.viewModel = viewModel
 		textField.text = viewModel.input.value
 		textField.placeholder = viewModel.placeholder
 		if viewModel.isInitialFirstResponder {
 			textField.becomeFirstResponder()
 		}
+
+		viewModel.startListeningToBecomeFirstResponder().sink { [weak self] in
+			self?.textField.becomeFirstResponder()
+		}.store(in: &subscribers)
 
 		NotificationCenter.default
 			.publisher(for: UITextField.textDidChangeNotification, object: textField)
@@ -50,5 +58,13 @@ class TextFieldCell: TableViewCell {
 			.receive(on: RunLoop.main)
 			.assign(to: \.input.value, on: viewModel)
 			.store(in: &subscribers)
+	}
+
+	// MARK: - UITextFieldDelegate
+
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		viewModel?.returnButtonPressed()
+		// Prevents adding a line break
+		return false
 	}
 }

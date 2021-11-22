@@ -6,16 +6,21 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
 
-protocol CreateNewFolderViewModelProtocol: SingleSectionTableViewModel {
+protocol CreateNewFolderViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
 	func createFolder() -> Promise<CloudPath>
 }
 
 class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [folderNameCellViewModel], subscribers: &subscribers)
+	}
+
 	override var cells: [TableViewCellViewModel] {
 		return [folderNameCellViewModel]
 	}
@@ -31,6 +36,7 @@ class CreateNewFolderViewModel: SingleSectionTableViewModel, CreateNewFolderView
 
 	private let parentPath: CloudPath
 	private let provider: CloudProvider
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	init(parentPath: CloudPath, provider: CloudProvider) {
 		self.parentPath = parentPath

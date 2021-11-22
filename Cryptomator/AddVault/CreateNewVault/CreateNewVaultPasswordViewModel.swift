@@ -6,12 +6,13 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import Promises
 
-protocol CreateNewVaultPasswordViewModelProtocol: TableViewModel<CreateNewVaultPasswordSection> {
+protocol CreateNewVaultPasswordViewModelProtocol: TableViewModel<CreateNewVaultPasswordSection>, ReturnButtonSupport {
 	var vaultUID: String { get }
 	var vaultName: String { get }
 	func validatePassword() throws
@@ -24,6 +25,10 @@ enum CreateNewVaultPasswordSection: Int {
 }
 
 class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSection>, CreateNewVaultPasswordViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [passwordCellViewModel, confirmPasswordCellViewModel], subscribers: &subscribers)
+	}
+
 	var vaultName: String {
 		return vaultPath.lastPathComponent
 	}
@@ -46,6 +51,7 @@ class CreateNewVaultPasswordViewModel: TableViewModel<CreateNewVaultPasswordSect
 	private static let minimumPasswordLength = 8
 	private lazy var passwordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private lazy var confirmPasswordCellViewModel = TextFieldCellViewModel(type: .password)
+	private lazy var subscribers = Set<AnyCancellable>()
 
 	private var password: String {
 		return passwordCellViewModel.input.value

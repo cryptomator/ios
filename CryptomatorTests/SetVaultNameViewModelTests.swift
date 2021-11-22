@@ -81,6 +81,14 @@ class SetVaultNameViewModelTests: XCTestCase {
 		getValidatedVaultNameThrowsInvalidInputError()
 	}
 
+	func testReturnButtonSupport() {
+		let vaultNameCellViewModel = viewModel.vaultNameCellViewModel
+		XCTAssert(vaultNameCellViewModel.isInitialFirstResponder)
+		let lastReturnButtonPressedRecorder = viewModel.lastReturnButtonPressed.recordNext(1)
+		vaultNameCellViewModel.returnButtonPressed()
+		wait(for: lastReturnButtonPressedRecorder)
+	}
+
 	func setVaultName(_ name: String, viewModel: SetVaultNameViewModel) {
 		viewModel.vaultNameCellViewModel.input.value = name
 	}

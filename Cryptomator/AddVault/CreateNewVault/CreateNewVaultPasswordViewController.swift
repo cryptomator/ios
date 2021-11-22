@@ -6,12 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import UIKit
 
 class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNewVaultPasswordSection> {
 	weak var coordinator: (Coordinator & VaultInstalling)?
 	private let viewModel: CreateNewVaultPasswordViewModelProtocol
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: CreateNewVaultPasswordViewModelProtocol) {
 		self.viewModel = viewModel
@@ -23,6 +25,9 @@ class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNe
 		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
 		navigationItem.rightBarButtonItem = createButton
 		tableView.rowHeight = 44
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.createNewVault()
+		}
 	}
 
 	@objc func createNewVault() {
