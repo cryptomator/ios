@@ -59,6 +59,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Het wachtwoord is onjuist. Probeer het opnieuw.";
+"changePassword.header.currentPassword.title" = "Voer het huidige wachtwoord in.";
 "changePassword.header.newPassword.title" = "Voer een nieuw wachtwoord in.";
 "changePassword.header.newPasswordConfirmation.title" = "Bevestig het nieuwe wachtwoord.";
 "changePassword.progress" = "Wachtwoord wijzigen…";
