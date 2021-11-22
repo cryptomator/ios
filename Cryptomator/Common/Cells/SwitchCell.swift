@@ -22,11 +22,14 @@ class SwitchCell: TableViewCell {
 		guard let switchCellViewModel = viewModel as? SwitchCellViewModel else {
 			return
 		}
+		switchControl.setOn(switchCellViewModel.isOn.value, animated: false)
 		twoWayBinding(viewModel: switchCellViewModel)
 	}
 
 	private func twoWayBinding(viewModel: SwitchCellViewModel) {
-		viewModel.isOn.$value.receive(on: DispatchQueue.main).assign(to: \.isOn, on: switchControl).store(in: &subscribers)
+		viewModel.isOn.$value.receive(on: DispatchQueue.main).sink { [weak self] value in
+			self?.switchControl.setOn(value, animated: true)
+		}.store(in: &subscribers)
 		switchControl.publisher(for: .valueChanged)
 			.sink(receiveValue: {
 				viewModel.isOnButtonPublisher.send($0)
