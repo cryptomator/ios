@@ -8,7 +8,7 @@
 
 import CryptomatorCommonCore
 
-struct ChooseCloudViewModel: SingleSectionHeaderTableViewModelProtocol {
+struct ChooseCloudViewModel {
 	let clouds: [CloudProviderType]
 	let headerTitle: String
 	let headerUppercased = false

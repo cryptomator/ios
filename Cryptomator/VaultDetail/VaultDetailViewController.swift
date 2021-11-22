@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Promises
 import UIKit
 
-class VaultDetailViewController: UITableViewController {
+class VaultDetailViewController: BaseUITableViewController {
 	weak var coordinator: VaultDetailCoordinator?
 	private let viewModel: VaultDetailViewModelProtocol
 	private var observer: NSObjectProtocol?
@@ -19,12 +19,7 @@ class VaultDetailViewController: UITableViewController {
 
 	init(viewModel: VaultDetailViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func viewDidLoad() {
@@ -39,10 +34,14 @@ class VaultDetailViewController: UITableViewController {
 			.sink(receiveValue: { [weak self] result in
 				self?.handleActionResult(result)
 			}).store(in: &subscriber)
-		refreshVaultLockStatus()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshVaultLockStatus()
 		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		refreshVaultLockStatus()
 	}
 
 	private func refreshVaultLockStatus() {
@@ -102,6 +101,8 @@ class VaultDetailViewController: UITableViewController {
 			coordinator?.renameVault()
 		case .showMoveVault:
 			coordinator?.moveVault()
+		case .showChangeVaultPassword:
+			coordinator?.changeVaultPassword()
 		}
 	}
 

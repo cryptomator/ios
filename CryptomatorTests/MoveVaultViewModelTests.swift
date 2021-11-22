@@ -118,12 +118,12 @@ class MoveVaultViewModelTests: XCTestCase {
 		let expectation = XCTestExpectation()
 
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.enableMaintenanceModeThrowableError = DatabaseError(resultCode: .SQLITE_CONSTRAINT_TRIGGER, message: "Running Task", sql: nil, arguments: nil)
+		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
 
 		viewModel.moveVault(to: CloudPath("/Test")).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case MoveVaultViewModelError.runningCloudTask = error else {
+			guard case MaintenanceModeError.runningCloudTask = error else {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
@@ -184,45 +184,5 @@ class MoveVaultViewModelTests: XCTestCase {
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
 		return MoveVaultViewModel(provider: cloudProviderMock, currentFolderChoosingCloudPath: currentFolderChoosingCloudPath, vaultInfo: vaultInfo, maintenanceManager: maintenanceManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
-	}
-}
-
-// MARK: - MaintenanceManagerMock -
-
-private final class MaintenanceManagerMock: MaintenanceManager {
-	// MARK: - enableMaintenanceMode
-
-	var enableMaintenanceModeThrowableError: Error?
-	var enableMaintenanceModeCallsCount = 0
-	var enableMaintenanceModeCalled: Bool {
-		enableMaintenanceModeCallsCount > 0
-	}
-
-	var enableMaintenanceModeClosure: (() throws -> Void)?
-
-	func enableMaintenanceMode() throws {
-		if let error = enableMaintenanceModeThrowableError {
-			throw error
-		}
-		enableMaintenanceModeCallsCount += 1
-		try enableMaintenanceModeClosure?()
-	}
-
-	// MARK: - disableMaintenanceMode
-
-	var disableMaintenanceModeThrowableError: Error?
-	var disableMaintenanceModeCallsCount = 0
-	var disableMaintenanceModeCalled: Bool {
-		disableMaintenanceModeCallsCount > 0
-	}
-
-	var disableMaintenanceModeClosure: (() throws -> Void)?
-
-	func disableMaintenanceMode() throws {
-		if let error = disableMaintenanceModeThrowableError {
-			throw error
-		}
-		disableMaintenanceModeCallsCount += 1
-		try disableMaintenanceModeClosure?()
 	}
 }

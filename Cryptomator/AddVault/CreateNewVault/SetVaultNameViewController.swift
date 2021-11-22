@@ -6,23 +6,18 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import UIKit
 
-class SetVaultNameViewController: SingleSectionHeaderTableViewController {
+class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (VaultNaming & Coordinator)?
 	private var viewModel: SetVaultNameViewModelProtocol
-	private lazy var nameCell: TextFieldCell = {
-		let cell = TextFieldCell()
-		cell.textField.placeholder = LocalizedString.getValue("addVault.createNewVault.setVaultName.cells.name")
-		cell.textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-		cell.textField.becomeFirstResponder()
-		return cell
-	}()
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: SetVaultNameViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(with: viewModel)
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
@@ -30,6 +25,9 @@ class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 		let doneButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.next"), style: .done, target: self, action: #selector(nextButtonClicked))
 		navigationItem.rightBarButtonItem = doneButton
 		tableView.rowHeight = 44
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.lastReturnButtonPressedAction()
+		}
 	}
 
 	@objc func nextButtonClicked() {
@@ -40,18 +38,8 @@ class SetVaultNameViewController: SingleSectionHeaderTableViewController {
 		}
 	}
 
-	@objc func textFieldDidChange(_ textField: UITextField) {
-		viewModel.vaultName = textField.text
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return nameCell
+	func lastReturnButtonPressedAction() {
+		nextButtonClicked()
 	}
 }
 

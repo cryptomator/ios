@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "エラー";
 "common.button.cancel" = "キャンセル";
+"common.button.change" = "変更";
 "common.button.choose" = "選択";
 "common.button.confirm" = "確認";
 "common.button.create" = "作成";
@@ -56,6 +57,8 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "新しいパスワードを入力してください。";
+"changePassword.header.newPasswordConfirmation.title" = "新しいパスワードの確認。";
 
 "chooseFolder.emptyFolder.footer" = "フォルダが空です";
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
@@ -79,6 +82,8 @@
 "localFileSystemAuthentication.openExistingVault.header" = "次の画面で、既存の金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
+
+"maintenanceModeError.runningCloudTask" = "この金庫に対する他のバックグラウンド操作を最初に完了する必要があるため、操作を実行できません。あとでもう一度やり直してください。";
 
 "onboarding.title" = "ようこそ";
 "onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
@@ -114,13 +119,17 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "この金庫はすでに追加されています。";
 
+"vaultDetail.button.changeVaultPassword" = "パスワードの変更";
 "vaultDetail.button.lock" = "今すぐ施錠";
+"vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
+"vaultDetail.button.renameVault" = "名前の変更";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.removeVault.footer" = "暗号化されたファイルは削除されずに、金庫のリストから金庫が削除されます。";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
 "vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";

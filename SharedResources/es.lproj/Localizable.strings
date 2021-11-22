@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancelar";
+"common.button.change" = "Modificar";
 "common.button.choose" = "Seleccionar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Crear";
@@ -46,16 +47,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "La contraseña no puede estar vacía.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Las contraseñas no coinciden.";
 "addVault.createNewVault.password.error.tooShortPassword" = "La contraseña debe contener al menos 8 caracteres.";
+"addVault.createNewVault.progress" = "Creando bóveda…";
 "addVault.openExistingVault.title" = "Abrir bóveda existente";
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
 "addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\".";
+"addVault.openExistingVault.progress" = "Añadiendo bóveda…";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
 "addVault.success.footer" = "Si aún no lo ha hecho, active Cryptomator en la aplicación de archivos.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "La contraseña actual es incorrecta. Intente de nuevo.";
+"changePassword.header.currentPassword.title" = "Ingrese la contraseña actual.";
+"changePassword.header.newPassword.title" = "Ingrese una contraseña nueva.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirmar la contraseña nueva.";
+"changePassword.progress" = "Cambiando contraseña…";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
 "chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
@@ -80,6 +89,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
 
+"maintenanceModeError.runningCloudTask" = "La operación no puede realizarse porque otras operaciones en segundo plano para esta bóveda deben finalizar primero. Intente de nuevo más tarde.";
+
 "onboarding.title" = "Bienvenido";
 "onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "onboarding.openCryptomator.button" = "Abrir Cryptomator";
@@ -101,6 +112,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "En lugar de desbloquear su bóveda con su contraseña, puede desbloquearla a través de %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloquee su bóveda";
+"unlockVault.progress" = "Desbloqueando…";
 
 "untrustedTLSCertificate.title" = "Certificado TLS inválido";
 "untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
@@ -118,14 +130,20 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Ya ha añadido esta bóveda.";
 
+"vaultDetail.button.changeVaultPassword" = "Cambiar contraseña";
 "vaultDetail.button.lock" = "Bloquear ahora";
+"vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
+"vaultDetail.button.renameVault" = "Renombrar";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
 "vaultDetail.info.footer.accountInfo" = "Sesión iniciada como %@ vía %@.";
 "vaultDetail.locked.footer" = "Su bóveda está bloqueada actualmente.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara mover su bóveda, por favor vuelva atrás y elija una carpeta diferente.";
+"vaultDetail.moveVault.progress" = "Moviendo…";
 "vaultDetail.removeVault.footer" = "Esto solo eliminará la bóveda de la lista de bóvedas y no eliminará ningún archivo cifrado.";
+"vaultDetail.renameVault.progress" = "Renombrando…";
 "vaultDetail.unlocked.footer" = "Su bóveda está actualmente desbloqueada en la aplicación Archivos.";
 "vaultDetail.unlockVault.footer" = "Ingrese la contraseña para \"%@\" para guardarla en el llavero de iOS y para habilitar %@.";
 
@@ -138,3 +156,4 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "La versión de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "Autenticando…";

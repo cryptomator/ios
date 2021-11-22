@@ -19,8 +19,13 @@ class OnboardingViewController: UITableViewController {
 		return cell
 	}()
 
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+	init() {
+		super.init(style: .insetGrouped)
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	override func viewDidLoad() {

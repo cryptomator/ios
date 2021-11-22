@@ -10,12 +10,8 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class AddVaultViewController: UITableViewController {
+class AddVaultViewController: BaseUITableViewController {
 	weak var coordinator: AddVaultCoordinator?
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
-	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()

@@ -23,7 +23,7 @@ protocol VaultDetailViewModelProtocol {
 	var actionPublisher: AnyPublisher<Result<VaultDetailButtonAction, Error>, Never> { get }
 
 	func numberOfRows(in section: Int) -> Int
-	func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel
+	func cellViewModel(for indexPath: IndexPath) -> BindableTableViewCellViewModel
 	func footerViewModel(for section: Int) -> HeaderFooterViewModel?
 	func didSelectRow(at indexPath: IndexPath)
 
@@ -39,6 +39,7 @@ enum VaultDetailButtonAction {
 	case showUnlockScreen(vault: VaultInfo, biometryTypeName: String)
 	case showRenameVault
 	case showMoveVault
+	case showChangeVaultPassword
 }
 
 private enum VaultDetailSection {
@@ -46,6 +47,7 @@ private enum VaultDetailSection {
 	case lockingSection
 	case removeVaultSection
 	case moveVaultSection
+	case changeVaultPasswordSection
 }
 
 class VaultDetailViewModel: VaultDetailViewModelProtocol {
@@ -81,14 +83,14 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var sections: [VaultDetailSection] = {
 		if vaultIsEligibleToMove() {
-			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .removeVaultSection]
+			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .changeVaultPasswordSection, .removeVaultSection]
 		} else {
-			return [.vaultInfoSection, .lockingSection, .removeVaultSection]
+			return [.vaultInfoSection, .lockingSection, .changeVaultPasswordSection, .removeVaultSection]
 		}
 	}()
 
 	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: false)
-	private var cells: [VaultDetailSection: [TableViewCellViewModel]] {
+	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
 				vaultInfoCellViewModel,
@@ -99,11 +101,12 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 				renameVaultCellViewModel,
 				moveVaultCellViewModel
 			] : [],
+			.changeVaultPasswordSection: [ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showChangeVaultPassword, title: LocalizedString.getValue("vaultDetail.button.changeVaultPassword"))],
 			.removeVaultSection: [ButtonCellViewModel<VaultDetailButtonAction>(action: .removeVault, title: LocalizedString.getValue("vaultDetail.button.removeVault"), titleTextColor: .systemRed)]
 		]
 	}
 
-	private var lockSectionCells: [TableViewCellViewModel] {
+	private var lockSectionCells: [BindableTableViewCellViewModel] {
 		if let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
 			let switchCellViewModel = getSwitchCellViewModel(biometryTypeName: biometryTypeName)
 			return [
@@ -144,7 +147,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return viewModel
 	}()
 
-	private lazy var vaultInfoCellViewModel = TableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
+	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
 	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
 	private var observation: TransactionObserver?
@@ -180,10 +183,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}
 
-	func cellViewModel(for indexPath: IndexPath) -> TableViewCellViewModel {
+	func cellViewModel(for indexPath: IndexPath) -> BindableTableViewCellViewModel {
 		let vaultDetailSection = sections[indexPath.section]
 		guard let sectionCells = cells[vaultDetailSection] else {
-			return TableViewCellViewModel()
+			return BindableTableViewCellViewModel()
 		}
 		return sectionCells[indexPath.row]
 	}

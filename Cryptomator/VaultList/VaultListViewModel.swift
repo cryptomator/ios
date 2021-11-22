@@ -6,19 +6,33 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
+import Combine
 import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import GRDB
 import Promises
 
-class VaultListViewModel: VaultListViewModelProtocol {
-	var vaults = [VaultInfo]()
+class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
+	var error: AnyPublisher<Error, Never> {
+		errorPublisher.eraseToAnyPublisher()
+	}
 
+	let headerTitle = LocalizedString.getValue("vaultList.header.title")
+	let emptyListMessage = LocalizedString.getValue("vaultList.emptyList.message")
+	let removeAlert = ListViewModelAlertContent(title: LocalizedString.getValue("vaultList.remove.alert.title"),
+	                                            message: LocalizedString.getValue("vaultList.remove.alert.message"),
+	                                            confirmButtonText: LocalizedString.getValue("common.button.remove"))
+	var vaultCellViewModels: [VaultCellViewModel]
 	private let dbManager: DatabaseManager
 	private let vaultManager: VaultDBManager
 	private let fileProviderConnector: FileProviderConnector
 	private var observation: TransactionObserver?
+	private lazy var subscribers = Set<AnyCancellable>()
+	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
+	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
+	private var removedRow = false
 
 	convenience init() {
 		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared)
@@ -28,37 +42,53 @@ class VaultListViewModel: VaultListViewModelProtocol {
 		self.dbManager = dbManager
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
+		self.vaultCellViewModels = [VaultCellViewModel]()
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
-		observation = dbManager.observeVaultAccounts(onError: onError, onChange: { _ in
+	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
+		observation = dbManager.observeVaultAccounts(onError: { error in
+			DDLogError("Observe vault accounts failed with error: \(error)")
+			self.databaseChangedPublisher.send(.failure(error))
+		}, onChange: { _ in
 			do {
 				try self.refreshItems()
-				onChange()
-				self.refreshVaultLockStates().then {
-					onChange()
+				_ = self.refreshVaultLockStates()
+				if !self.removedRow {
+					self.databaseChangedPublisher.send(.success(self.vaultCellViewModels))
 				}
 			} catch {
-				onError(error)
+				DDLogError("RefreshItems failed with error: \(error)")
+				self.databaseChangedPublisher.send(.failure(error))
 			}
+			self.removedRow = false
 		})
+		return databaseChangedPublisher.eraseToAnyPublisher()
 	}
 
 	func refreshItems() throws {
-		vaults = try dbManager.getAllVaults()
+		var vaults = try dbManager.getAllVaults()
 		vaults.sort { $0.listPosition < $1.listPosition }
+		_ = refreshVaultLockStates()
+		vaultCellViewModels = vaults.map { VaultCellViewModel(vault: $0) }
 	}
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {
-		let movedVault = vaults.remove(at: sourceIndex)
-		vaults.insert(movedVault, at: destinationIndex)
+		let movedVault = vaultCellViewModels.remove(at: sourceIndex)
+		vaultCellViewModels.insert(movedVault, at: destinationIndex)
 		try updateVaultListPositions()
+		databaseChangedPublisher.send(.success(vaultCellViewModels))
 	}
 
 	func removeRow(at index: Int) throws {
-		let removedVault = vaults.remove(at: index)
-		_ = try vaultManager.removeVault(withUID: removedVault.vaultUID)
-		try updateVaultListPositions()
+		removedRow = true
+		let removedVaultCell = vaultCellViewModels.remove(at: index)
+		do {
+			_ = try vaultManager.removeVault(withUID: removedVaultCell.vault.vaultUID)
+			try updateVaultListPositions()
+		} catch {
+			removedRow = false
+			throw error
+		}
 	}
 
 	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
@@ -77,19 +107,26 @@ class VaultListViewModel: VaultListViewModelProtocol {
 			return wrap { handler in
 				proxy.getUnlockedVaultDomainIdentifiers(reply: handler)
 			}
-		}.then { unlockedVaultDomainIdentifiers in
+		}.then { unlockedVaultDomainIdentifiers -> Void in
 			unlockedVaultDomainIdentifiers.forEach { domainIdentifier in
-				let vaultInfo = self.vaults.first { $0.vaultUID == domainIdentifier.rawValue }
-				vaultInfo?.vaultIsUnlocked = true
+				let vaultInfo = self.vaultCellViewModels.first { $0.vault.vaultUID == domainIdentifier.rawValue }
+				vaultInfo?.setVaultUnlockStatus(unlocked: true)
+			}
+			self.vaultCellViewModels.filter { vaultCellViewModel in
+				unlockedVaultDomainIdentifiers.allSatisfy { domainIdentifier in
+					vaultCellViewModel.vault.vaultUID != domainIdentifier.rawValue
+				}
+			}.forEach { vaultCellViewModel in
+				vaultCellViewModel.setVaultUnlockStatus(unlocked: false)
 			}
 		}
 	}
 
 	private func updateVaultListPositions() throws {
-		for i in vaults.indices {
-			vaults[i].listPosition = i
+		for i in vaultCellViewModels.indices {
+			vaultCellViewModels[i].vault.listPosition = i
 		}
-		let updatedVaultListPositions = vaults.map { $0.vaultListPosition }
+		let updatedVaultListPositions = vaultCellViewModels.map { $0.vault.vaultListPosition }
 		try dbManager.updateVaultListPositions(updatedVaultListPositions)
 	}
 }

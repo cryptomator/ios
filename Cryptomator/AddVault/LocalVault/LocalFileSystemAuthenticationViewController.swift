@@ -12,22 +12,16 @@ import UIKit
 import UniformTypeIdentifiers
 #endif
 
-class LocalFileSystemAuthenticationViewController: SingleSectionTableViewController, UIDocumentPickerDelegate {
+class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableViewController, UIDocumentPickerDelegate {
 	weak var coordinator: (LocalFileSystemAuthenticating & LocalVaultAdding & Coordinator)?
 	private let viewModel: LocalFileSystemAuthenticationViewModelProtocol
-	private lazy var openDocumentPickerCell: ButtonCell = {
-		let cell = ButtonCell()
-		cell.button.setTitle(viewModel.documentPickerButtonText, for: .normal)
-		cell.button.addTarget(self, action: #selector(openDocumentPicker), for: .touchUpInside)
-		return cell
-	}()
 
 	init(viewModel: LocalFileSystemAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
-	@objc func openDocumentPicker() {
+	func openDocumentPicker() {
 		let documentPicker: UIDocumentPickerViewController
 		if #available(iOS 14, *) {
 			documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.folder])
@@ -50,20 +44,15 @@ class LocalFileSystemAuthenticationViewController: SingleSectionTableViewControl
 		}
 	}
 
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return openDocumentPickerCell
-	}
-
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return LocalFileSystemAuthenticationHeaderView(text: viewModel.headerText)
+	}
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		openDocumentPicker()
 	}
 }
 
@@ -104,22 +93,3 @@ private class LocalFileSystemAuthenticationHeaderView: UIView {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
-
-#if DEBUG
-import CryptomatorCommonCore
-import SwiftUI
-
-struct LocalFileSystemViewModelMock: LocalFileSystemAuthenticationViewModelProtocol {
-	let documentPickerButtonText = "Select Storage Location"
-	let headerText = "In the next screen, choose the storage location for your new vault."
-	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential {
-		fatalError("Not mocked")
-	}
-}
-
-struct LocalFileSystemAuthenticationVCPreview: PreviewProvider {
-	static var previews: some View {
-		LocalFileSystemAuthenticationViewController(viewModel: LocalFileSystemViewModelMock()).toPreview()
-	}
-}
-#endif

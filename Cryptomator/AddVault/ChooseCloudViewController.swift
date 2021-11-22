@@ -10,18 +10,14 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class ChooseCloudViewController: SingleSectionHeaderTableViewController {
+class ChooseCloudViewController: BaseUITableViewController {
 	weak var coordinator: CloudChoosing?
 
 	private let viewModel: ChooseCloudViewModel
 
 	init(viewModel: ChooseCloudViewModel) {
 		self.viewModel = viewModel
-		super.init(with: viewModel)
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init()
 	}
 
 	override func viewDidLoad() {
@@ -53,6 +49,14 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let cloudProviderType = viewModel.clouds[indexPath.row]
 		coordinator?.showAccountList(for: cloudProviderType)
+	}
+
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		// Prevents the header title from being displayed in uppercase
+		guard let headerView = view as? UITableViewHeaderFooterView else {
+			return
+		}
+		headerView.textLabel?.text = viewModel.headerTitle
 	}
 }
 

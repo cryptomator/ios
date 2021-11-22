@@ -9,8 +9,8 @@
 import Combine
 import UIKit
 
-class SwitchCellViewModel: TableViewCellViewModel {
-	override var type: TableViewCell.Type {
+class SwitchCellViewModel: BindableTableViewCellViewModel {
+	override var type: ConfigurableTableViewCell.Type {
 		SwitchCell.self
 	}
 

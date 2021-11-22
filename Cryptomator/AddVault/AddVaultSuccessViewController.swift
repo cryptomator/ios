@@ -9,50 +9,36 @@
 import CryptomatorCommonCore
 import UIKit
 
-class AddVaultSuccessViewController: SingleSectionTableViewController {
+class AddVaultSuccessViewController: SingleSectionStaticUITableViewController {
 	private let viewModel: AddVaultSuccessViewModel
+
 	weak var coordinator: AddVaultSuccesing?
 
 	init(viewModel: AddVaultSuccessViewModel) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
-		tableView.rowHeight = 44
 	}
 
 	@objc func done() {
 		coordinator?.done()
 	}
 
-	@objc func openFilesApp() {
+	func openFilesApp() {
 		coordinator?.showFilesApp(forVaultUID: viewModel.vaultUID)
 	}
 
-	// MARK: - UITableViewDataSource
-
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 1
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		// swiftlint:disable:next force_cast
-		let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-		cell.button.setTitle(LocalizedString.getValue("common.cells.openInFilesApp"), for: .normal)
-		cell.button.addTarget(self, action: #selector(openFilesApp), for: .touchUpInside)
-		return cell
-	}
-
 	// MARK: - UITableViewDelegate
+
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		openFilesApp()
+	}
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		return VaultSuccessHeaderView(vaultName: viewModel.vaultName)
@@ -96,12 +82,15 @@ private class VaultSuccessHeaderView: UIView {
 	}
 }
 
-private class VaultSuccessFooterView: UIView {
+private class VaultSuccessFooterView: UITableViewHeaderFooterView {
 	private lazy var textView: UITextView = {
 		let textView = UITextView()
 		textView.backgroundColor = .clear
 		textView.isEditable = false
 		textView.isScrollEnabled = false
+
+		textView.textContainerInset = .zero
+		textView.textContainer.lineFragmentPadding = 0
 
 		let text = NSMutableAttributedString(string: LocalizedString.getValue("addVault.success.footer"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
 		text.append(NSAttributedString(string: " "))
@@ -114,16 +103,25 @@ private class VaultSuccessFooterView: UIView {
 		return textView
 	}()
 
-	convenience init() {
-		self.init(frame: .zero)
+	override init(reuseIdentifier: String?) {
+		super.init(reuseIdentifier: reuseIdentifier)
+		configureContents()
+	}
+
+	@available(*, unavailable)
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+
+	func configureContents() {
 		textView.translatesAutoresizingMaskIntoConstraints = false
-		addSubview(textView)
+		contentView.addSubview(textView)
 
 		NSLayoutConstraint.activate([
-			textView.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
-			textView.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
-			textView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor),
-			textView.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor)
+			textView.leadingAnchor.constraint(equalTo: contentView.readableContentGuide.leadingAnchor),
+			textView.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			textView.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			textView.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 }

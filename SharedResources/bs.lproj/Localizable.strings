@@ -1,4 +1,5 @@
 "common.button.cancel" = "Odustani";
+"common.button.change" = "Izmjeni";
 "common.button.choose" = "Odaberi";
 "common.button.confirm" = "Potvrdi";
 "common.button.create" = "Dodaj";
@@ -32,6 +33,8 @@
 "unlockVault.button.unlock" = "Otključaj";
 "untrustedTLSCertificate.add" = "Povjerenje";
 "untrustedTLSCertificate.dismiss" = "Ne vjeruj";
+
+"vaultDetail.button.changeVaultPassword" = "Promjeni lozinku";
 
 "vaultList.header.title" = "Sef";
 "vaultList.emptyList.message" = "Kliknite ovdje da dodate sef";

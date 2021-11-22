@@ -348,6 +348,7 @@ public class FileProviderAdapter {
 		}
 
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: itemMetadata.type)
+		try checkLocalItemCollision(for: cloudPath)
 		let taskRecord = try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: cloudPath, newParentID: parentID)
 
 		itemMetadata.name = name
@@ -576,6 +577,7 @@ public class FileProviderAdapter {
 			throw FileProviderAdapterError.folderUploadNotSupported
 		}
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentID, type: .file)
+		try checkLocalItemCollision(for: cloudPath)
 		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return placeholderMetadata
@@ -591,6 +593,7 @@ public class FileProviderAdapter {
 	func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentID = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
 		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .folder)
+		try checkLocalItemCollision(for: cloudPath)
 		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true)
@@ -607,11 +610,23 @@ public class FileProviderAdapter {
 		}
 		let parentCloudPath = parentItemMetadata.cloudPath
 		let cloudPath = parentCloudPath.appendingPathComponent(name)
-
-		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: cloudPath) {
-			throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
-		}
 		return cloudPath
+	}
+
+	/**
+	 Checks if there is a local item collision.
+
+	 A local item collision occurs if there is already an item in the DB that has the passed `path` as path and there is no existing `DeleteItemTask` for this item.
+	 Because in case of an existing `DeleteItemTask`, there is no conflict as the item can be considered as deleted.
+	 */
+	func checkLocalItemCollision(for path: CloudPath) throws {
+		if let existingItemMetadata = try itemMetadataManager.getCachedMetadata(for: path) {
+			do {
+				_ = try deletionTaskManager.getTaskRecord(for: existingItemMetadata.id!)
+			} catch DBManagerError.taskNotFound {
+				throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
+			}
+		}
 	}
 
 	// MARK: Internal

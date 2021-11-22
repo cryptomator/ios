@@ -1,4 +1,5 @@
 "common.button.cancel" = "Mégse";
+"common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
 "common.button.create" = "Létrehozás";
 "common.button.done" = "Kész";
@@ -21,3 +22,5 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ engedélyezése";
 "unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a széfet, a %@ segítségével is feloldhatja azt.";
 "unlockVault.evaluatePolicy.reason" = "Széf kinyitása";
+
+"vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";

@@ -6,19 +6,27 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import Promises
 
 protocol ListViewModel {
+	var headerTitle: String { get }
+	var emptyListMessage: String { get }
+	var removeAlert: ListViewModelAlertContent { get }
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws
 	func removeRow(at index: Int) throws
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void)
+	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never>
+}
+
+struct ListViewModelAlertContent {
+	let title: String
+	let message: String
+	let confirmButtonText: String
 }
 
 protocol VaultListViewModelProtocol: ListViewModel {
-	var vaults: [VaultInfo] { get }
-	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void>
 	func refreshVaultLockStates() -> Promise<Void>
 }
 

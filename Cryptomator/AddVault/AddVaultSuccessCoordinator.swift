@@ -27,7 +27,6 @@ class AddVaultSuccessCoordinator: AddVaultSuccesing, Coordinator {
 	func start() {
 		let viewModel = AddVaultSuccessViewModel(vaultName: vaultName, vaultUID: vaultUID)
 		let successVC = AddVaultSuccessViewController(viewModel: viewModel)
-		successVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		successVC.coordinator = self
 		navigationController.pushViewController(successVC, animated: true)
 		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.

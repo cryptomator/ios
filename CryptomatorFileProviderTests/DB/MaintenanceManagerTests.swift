@@ -139,11 +139,10 @@ class MaintenanceManagerTests: XCTestCase {
 
 	func checkThrowsRunningTaskError<T>(_ expression: @autoclosure () throws -> T) {
 		XCTAssertThrowsError(try expression()) { error in
-			guard let databaseError = error as? DatabaseError else {
-				XCTFail("Throws the wrong error: \(error)")
+			guard case MaintenanceModeError.runningCloudTask = error else {
+				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssertEqual("Running Task", databaseError.message)
 		}
 	}
 

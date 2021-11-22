@@ -1,4 +1,5 @@
 "common.button.cancel" = "Batalkan";
+"common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
 "common.button.done" = "Selesai";
 "common.button.next" = "Lanjut";
@@ -10,3 +11,5 @@
 "addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
 
 "unlockVault.button.unlock" = "Buka Gembok";
+
+"vaultDetail.button.changeVaultPassword" = "Ubah Kata Sandi";

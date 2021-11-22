@@ -30,28 +30,35 @@ enum SettingsSection: Int {
 	case miscSection
 }
 
-class SettingsViewModel {
-	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection, .miscSection]
-	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
-		[
-			.cloudServiceSection: [
+class SettingsViewModel: TableViewModel<SettingsSection> {
+	override var title: String? {
+		return LocalizedString.getValue("settings.title")
+	}
+
+	override var sections: [Section<SettingsSection>] {
+		return _sections
+	}
+
+	private lazy var _sections: [Section<SettingsSection>] = {
+		return [
+			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
-			],
-			.cacheSection: [
+			]),
+			Section(id: .cacheSection, elements: [
 				cacheSizeCellViewModel,
 				clearCacheButtonCellViewModel
-			],
-			.aboutSection: [
+			]),
+			Section(id: .aboutSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
-			],
-			.debugSection: [
+			]),
+			Section(id: .debugSection, elements: [
 				debugModeViewModel,
 				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
-			],
-			.miscSection: [
+			]),
+			Section(id: .miscSection, elements: [
 				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
-			]
+			])
 		]
 	}()
 
@@ -77,7 +84,7 @@ class SettingsViewModel {
 
 	func buttonAction(for indexPath: IndexPath) -> SettingsButtonAction {
 		let section = sections[indexPath.section]
-		guard let cell = cells[section]?[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
+		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
 			return .unknown
 		}
 		return cell.action

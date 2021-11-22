@@ -7,6 +7,7 @@
 
 "common.alert.error.title" = "Error";
 "common.button.cancel" = "Cancel·la";
+"common.button.change" = "Canvia";
 "common.button.choose" = "Trieu";
 "common.button.confirm" = "Confirma";
 "common.button.create" = "Crear";
@@ -48,6 +49,8 @@
 
 "biometryType.faceID" = "ID de cara";
 "biometryType.touchID" = "ID tàctil";
+"changePassword.header.newPassword.title" = "Introduïu una nova contrasenya.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirma la nova contrasenya.";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta és buida";
 "chooseFolder.createNewFolder.header.title" = "Trieu el nom de la carpeta.";
@@ -73,6 +76,10 @@
 
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
+
+"vaultDetail.button.changeVaultPassword" = "Canvia la contrasenya";
+"vaultDetail.button.moveVault" = "Mou";
+"vaultDetail.button.renameVault" = "Canvia el nom";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
 
 "webDAVAuthentication.title" = "WebDAV";

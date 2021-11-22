@@ -22,7 +22,6 @@ protocol MoveVaultViewModelProtocol: ChooseFolderViewModelProtocol {
 
 enum MoveVaultViewModelError: Error {
 	case moveVaultInsideItselfNotAllowed
-	case runningCloudTask
 	case vaultNotEligibleForMove
 }
 
@@ -48,7 +47,7 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 			return Promise(MoveVaultViewModelError.moveVaultInsideItselfNotAllowed)
 		}
 		do {
-			try enableMaintenanceMode()
+			try maintenanceManager.enableMaintenanceMode()
 		} catch {
 			return Promise(error)
 		}
@@ -88,14 +87,6 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 			return false
 		}
 		return true
-	}
-
-	private func enableMaintenanceMode() throws {
-		do {
-			try maintenanceManager.enableMaintenanceMode()
-		} catch let error as DatabaseError where error.message == "Running Task" {
-			throw MoveVaultViewModelError.runningCloudTask
-		}
 	}
 
 	private func pathIsNotInsideCurrentVaultPath(_ path: CloudPath) -> Bool {

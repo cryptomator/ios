@@ -9,12 +9,15 @@
 import Combine
 import UIKit
 
-class TableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell, ConfigurableTableViewCell {
 	lazy var subscribers = Set<AnyCancellable>()
-	private var viewModel: TableViewCellViewModel?
+//	private var viewModel: BindableTableViewCellViewModel?
 
 	func configure(with viewModel: TableViewCellViewModel) {
-		self.viewModel = viewModel
+//		self.viewModel = viewModel
+		guard let viewModel = viewModel as? BindableTableViewCellViewModel else {
+			return
+		}
 		bind(viewModel: viewModel)
 	}
 
@@ -27,7 +30,7 @@ class TableViewCell: UITableViewCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 
-	private func bind(viewModel: TableViewCellViewModel) {
+	private func bind(viewModel: BindableTableViewCellViewModel) {
 		viewModel.title.$value.assign(to: \.text, on: textLabel).store(in: &subscribers)
 		viewModel.titleTextColor.$value.assign(to: \.textColor, on: textLabel).store(in: &subscribers)
 

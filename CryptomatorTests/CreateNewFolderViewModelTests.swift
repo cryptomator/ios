@@ -13,15 +13,16 @@ import XCTest
 
 class CreateNewFolderViewModelTests: XCTestCase {
 	private var cloudProviderMock: CloudProviderMockOld!
+	var viewModel: CreateNewFolderViewModel!
 
 	override func setUpWithError() throws {
 		cloudProviderMock = CloudProviderMockOld()
+		viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
 	}
 
 	func testCreateNewFolder() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
-		viewModel.folderName = "Foo"
+		setFolderName("Foo")
 		viewModel.createFolder().then { folderPath in
 			let expectedFolderPath = CloudPath("/Foo")
 			XCTAssertEqual(expectedFolderPath, folderPath)
@@ -33,10 +34,9 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testCreateNewFolderForNotSetFolderName() throws {
+	func testCreateNewFolderForEmptyFolderName() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
-		XCTAssertNil(viewModel.folderName)
+		XCTAssert(viewModel.folderName.isEmpty)
 		viewModel.createFolder().then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -51,22 +51,16 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testCreateNewFolderForEmptyFolderName() throws {
-		let expectation = XCTestExpectation()
-		let viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
-		viewModel.folderName = ""
-		viewModel.createFolder().then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			XCTAssertEqual(0, self.cloudProviderMock.createdFolders.count)
-			guard case CreateNewFolderViewModelError.emptyFolderName = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+	func testReturnButtonSupport() {
+		let folderNameCellViewModel = viewModel.folderNameCellViewModel
+		XCTAssert(folderNameCellViewModel.isInitialFirstResponder)
+		let lastReturnButtonPressedRecorder = viewModel.lastReturnButtonPressed.recordNext(1)
+		folderNameCellViewModel.returnButtonPressed()
+		wait(for: lastReturnButtonPressedRecorder)
+	}
+
+	func setFolderName(_ name: String) {
+		viewModel.folderNameCellViewModel.input.value = name
 	}
 }
 

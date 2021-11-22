@@ -16,7 +16,7 @@ public protocol MaintenanceManager {
 	 Maintenance Mode prevents the creation of new `CloudTasks` so that vault-level operations (e.g. moving the entire vault) can be performed and consistency can be guaranteed.
 	 Maintenance Mode is only successfully activated if there are no running / waiting `CloudTasks`, failed `CloudTasks` are ignored.
 
-	 - Throws: An `GRDB.DatabaseError` with the `message` property set to `Running Task` if there is at least one running / pending `CloudTask`
+	 - Throws: An `MaintenanceModeError.runningCloudTask` if there is at least one running / pending `CloudTask`
 	 */
 	func enableMaintenanceMode() throws
 
@@ -24,6 +24,10 @@ public protocol MaintenanceManager {
 	 Disables the maintenance mode for the FileProviderAdapter.
 	 */
 	func disableMaintenanceMode() throws
+}
+
+public enum MaintenanceModeError: Error {
+	case runningCloudTask
 }
 
 public class MaintenanceDBManager: MaintenanceManager {
@@ -43,8 +47,12 @@ public class MaintenanceDBManager: MaintenanceManager {
 
 	private func updateMaintenanceMode(enabled: Bool) throws {
 		let entry = MaintenanceModeEntry(id: 1, flag: enabled)
-		try database.write { db in
-			try entry.save(db)
+		do {
+			try database.write { db in
+				try entry.save(db)
+			}
+		} catch let error as DatabaseError where error.message == "Running Task" {
+			throw MaintenanceModeError.runningCloudTask
 		}
 	}
 }

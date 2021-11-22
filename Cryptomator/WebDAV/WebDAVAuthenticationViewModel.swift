@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
@@ -17,23 +18,56 @@ enum WebDAVAuthenticationError: Error {
 	case userCanceled
 }
 
-protocol WebDAVAuthenticationViewModelProtocol {
-	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential>
+protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential
+	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
 }
 
-class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
-	private var client: WebDAVClient?
+class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [urlCellViewModel, usernameCellViewModel, passwordCellViewModel], subscribers: &subscribers)
+	}
 
-	func addAccount(url: String?, username: String?, password: String?, allowedCertificate: Data?) -> Promise<WebDAVCredential> {
+	override var cells: [TableViewCellViewModel] {
+		[
+			urlCellViewModel,
+			usernameCellViewModel,
+			passwordCellViewModel
+		]
+	}
+
+	let urlCellViewModel = TextFieldCellViewModel(type: .url, text: "https://", placeholder: LocalizedString.getValue("common.cells.url"), isInitialFirstResponder: true)
+	let usernameCellViewModel = TextFieldCellViewModel(type: .username, placeholder: LocalizedString.getValue("common.cells.username"))
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, placeholder: LocalizedString.getValue("common.cells.password"))
+
+	var url: String {
+		return urlCellViewModel.input.value
+	}
+
+	var username: String {
+		return usernameCellViewModel.input.value
+	}
+
+	var password: String {
+		return passwordCellViewModel.input.value
+	}
+
+	private var client: WebDAVClient?
+	private lazy var subscribers = Set<AnyCancellable>()
+
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
 		// TODO: Add Input Validation
-		guard let url = url, let username = username, let password = password, let baseURL = URL(string: url) else {
-			return Promise(WebDAVAuthenticationError.invalidInput)
+		guard let baseURL = URL(string: url) else {
+			throw WebDAVAuthenticationError.invalidInput
 		}
 		guard !username.isEmpty, !password.isEmpty else {
-			return Promise(WebDAVAuthenticationError.invalidInput)
+			throw WebDAVAuthenticationError.invalidInput
 		}
-		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
-		return checkTLSCertificate(for: baseURL, allowedCertificate: allowedCertificate).then { _ -> Promise<Void> in
+		return WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
+	}
+
+	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
+		return checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate).then { _ -> Promise<Void> in
 			let client = WebDAVClient(credential: credential)
 			self.client = client
 			return WebDAVAuthenticator.verifyClient(client: client)

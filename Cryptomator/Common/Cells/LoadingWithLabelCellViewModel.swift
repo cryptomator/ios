@@ -8,8 +8,8 @@
 
 import UIKit
 
-class LoadingWithLabelCellViewModel: TableViewCellViewModel {
-	override var type: TableViewCell.Type {
+class LoadingWithLabelCellViewModel: BindableTableViewCellViewModel {
+	override var type: ConfigurableTableViewCell.Type {
 		LoadingWithLabelCell.self
 	}
 

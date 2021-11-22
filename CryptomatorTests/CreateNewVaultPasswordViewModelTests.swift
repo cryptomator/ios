@@ -14,27 +14,28 @@ import XCTest
 
 class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: PasswordVaultManagerMock!
+	private var viewModel: CreateNewVaultPasswordViewModel!
+	private let vaultPath = CloudPath("/Vault")
+	private let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
+	private let vaultUID = "12345"
 
 	override func setUpWithError() throws {
 		vaultManagerMock = PasswordVaultManagerMock()
+		viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
 	}
 
 	func testCreateNewVault() throws {
 		let expectation = XCTestExpectation()
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
 		let password = "TestPassword"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		viewModel.confirmingPassword = password
+		setPassword(password)
+		setConfirmPassword(password)
 		viewModel.createNewVault().then {
 			XCTAssertEqual(1, self.vaultManagerMock.createdVaults.count)
 			let createdVault = self.vaultManagerMock.createdVaults[0]
-			XCTAssertEqual(vaultUID, createdVault.vaultUID)
+			XCTAssertEqual(self.vaultUID, createdVault.vaultUID)
 			XCTAssertEqual("1", createdVault.delegateAccountUID)
-			XCTAssertEqual(vaultPath, createdVault.vaultPath)
+			XCTAssertEqual(self.vaultPath, createdVault.vaultPath)
 			XCTAssertEqual(password, createdVault.password)
 			XCTAssert(createdVault.storePasswordInKeychain)
 		}.always {
@@ -43,14 +44,14 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testCreateNewVaultWithNotSetPassword() throws {
+	func testCreateNewVaultWithEmptyPassword() throws {
 		let expectation = XCTestExpectation()
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		XCTAssertNil(viewModel.password)
+		guard let passwordCellViewModel = viewModel.sections[0].elements.first as? TextFieldCellViewModel else {
+			XCTFail("No passwordCellViewModel")
+			return
+		}
+		XCTAssert(passwordCellViewModel.input.value.isEmpty)
 		viewModel.createNewVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -68,60 +69,22 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	// MARK: - validatePassword
 
 	func testValidatePassword() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
 		let password = "TestPassword"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		viewModel.confirmingPassword = password
+		setPassword(password)
+		setConfirmPassword(password)
 		try viewModel.validatePassword()
 	}
 
-	func testValidatePasswordWithNotSetConfirmingPassword() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
+	func testValidatePasswordWithEmptyConfirmingPassword() throws {
 		let password = "TestPassword"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		XCTAssertNil(viewModel.confirmingPassword)
-		XCTAssertThrowsError(try viewModel.validatePassword()) { error in
-			guard case CreateNewVaultPasswordViewModelError.nonMatchingPasswords = error else {
-				XCTFail("Throws the wrong error: \(error)")
-				return
-			}
-			XCTAssertEqual(0, self.vaultManagerMock.createdVaults.count)
+		setPassword(password)
+		guard let confirmPasswordCellViewModel = viewModel.sections[1].elements.first as? TextFieldCellViewModel else {
+			XCTFail("No confirmPasswordCellViewModel")
+			return
 		}
-	}
-
-	func testCreateNewVaultWithEmptyPassword() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
-
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = ""
-		XCTAssertThrowsError(try viewModel.validatePassword()) { error in
-			guard case CreateNewVaultPasswordViewModelError.emptyPassword = error else {
-				XCTFail("Throws the wrong error: \(error)")
-				return
-			}
-			XCTAssertEqual(0, self.vaultManagerMock.createdVaults.count)
-		}
-	}
-
-	func testCreateNewVaultWithEmptyConfirmingPassword() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
-		let password = "TestPassword"
-
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		viewModel.confirmingPassword = ""
+		XCTAssert(confirmPasswordCellViewModel.input.value.isEmpty)
 		XCTAssertThrowsError(try viewModel.validatePassword()) { error in
 			guard case CreateNewVaultPasswordViewModelError.nonMatchingPasswords = error else {
 				XCTFail("Throws the wrong error: \(error)")
@@ -132,14 +95,10 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	}
 
 	func testCreateNewVaultWithNonMatchingNonEmptyPasswords() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
 		let password = "TestPassword"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		viewModel.confirmingPassword = "\(password)a"
+		setPassword(password)
+		setConfirmPassword("\(password)a")
 		XCTAssertThrowsError(try viewModel.validatePassword()) { error in
 			guard case CreateNewVaultPasswordViewModelError.nonMatchingPasswords = error else {
 				XCTFail("Throws the wrong error: \(error)")
@@ -152,14 +111,10 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	// MARK: Password Length
 
 	func testCreateNewVaultWithTooShortPassword() throws {
-		let vaultPath = CloudPath("/Vault")
-		let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
-		let vaultUID = "12345"
 		let password = "1234567"
 
-		let viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
-		viewModel.password = password
-		viewModel.confirmingPassword = password
+		setPassword(password)
+		setConfirmPassword(password)
 		XCTAssertThrowsError(try viewModel.validatePassword()) { error in
 			guard case CreateNewVaultPasswordViewModelError.tooShortPassword = error else {
 				XCTFail("Throws the wrong error: \(error)")
@@ -167,6 +122,22 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 			}
 			XCTAssertEqual(0, self.vaultManagerMock.createdVaults.count)
 		}
+	}
+
+	private func setPassword(_ password: String) {
+		guard let passwordCellViewModel = viewModel.sections[0].elements.first as? TextFieldCellViewModel else {
+			XCTFail("No passwordCellViewModel")
+			return
+		}
+		passwordCellViewModel.input.value = password
+	}
+
+	private func setConfirmPassword(_ password: String) {
+		guard let confirmPasswordCellViewModel = viewModel.sections[1].elements.first as? TextFieldCellViewModel else {
+			XCTFail("No confirmPasswordCellViewModel")
+			return
+		}
+		confirmPasswordCellViewModel.input.value = password
 	}
 }
 
@@ -204,6 +175,10 @@ private class PasswordVaultManagerMock: VaultManager {
 	}
 
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
+
+	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}
 }
