@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Kesalahan";
+"common.alert.attention.title" = "Perhatian";
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Layanan Cloud";
 "settings.contact" = "Kontak";
 "settings.debugMode" = "Mode Debug";
+"settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
 
