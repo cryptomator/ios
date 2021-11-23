@@ -6,7 +6,7 @@
 */
 
 "common.alert.error.title" = "Chyba";
-"common.alert.attention.title" = "Upozornenie";
+"common.alert.attention.title" = "Výstraha";
 "common.button.cancel" = "Zrušiť";
 "common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
