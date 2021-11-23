@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Chyba";
+"common.alert.attention.title" = "Upozornění";
 "common.button.cancel" = "Zrušit";
 "common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Cloudové služby";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Ladící režim";
+"settings.debugMode.alert.message" = "V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.";
 "settings.rateApp" = "Ohodnotit aplikaci";
 "settings.sendLogFile" = "Odeslat log soubor";
 
