@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Error";
+"common.alert.attention.title" = "Atenció";
 "common.button.cancel" = "Cancel·la";
 "common.button.change" = "Canvia";
 "common.button.choose" = "Trieu";
@@ -70,6 +71,7 @@
 "settings.aboutCryptomator" = "Quant a Cryptomator";
 "settings.aboutCryptomator.title" = "Versió %@ (%@)";
 "settings.clearCache" = "Esborra la memòria cau";
+"settings.debugMode.alert.message" = "En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.";
 
 "unlockVault.button.unlock" = "Desbloqueja";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
