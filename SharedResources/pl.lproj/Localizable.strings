@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Błąd";
+"common.alert.attention.title" = "Uwaga";
 "common.button.cancel" = "Anuluj";
 "common.button.change" = "Zmień";
 "common.button.choose" = "Wybierz";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Usługi w chmurze";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Tryb debugowania";
+"settings.debugMode.alert.message" = "W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.";
 "settings.rateApp" = "Oceń aplikację";
 "settings.sendLogFile" = "Wyślij plik logów";
 
