@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Ошибка";
+"common.alert.attention.title" = "Внимание";
 "common.button.cancel" = "Отмена";
 "common.button.change" = "Изменить";
 "common.button.choose" = "Выбрать";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Облачные сервисы";
 "settings.contact" = "Контакты";
 "settings.debugMode" = "Режим отладки";
+"settings.debugMode.alert.message" = "В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
 
