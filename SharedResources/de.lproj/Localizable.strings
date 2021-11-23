@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Fehler";
+"common.alert.attention.title" = "Achtung";
 "common.button.cancel" = "Abbrechen";
 "common.button.change" = "Ändern";
 "common.button.choose" = "Auswählen";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Cloud-Dienste";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Debug Modus";
+"settings.debugMode.alert.message" = "In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.";
 "settings.rateApp" = "App Bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
 
