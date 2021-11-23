@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "エラー";
+"common.alert.attention.title" = "注意";
 "common.button.cancel" = "キャンセル";
 "common.button.change" = "変更";
 "common.button.choose" = "選択";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "クラウド サービス";
 "settings.contact" = "連絡先";
 "settings.debugMode" = "デバッグ モード";
+"settings.debugMode.alert.message" = "このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
 
