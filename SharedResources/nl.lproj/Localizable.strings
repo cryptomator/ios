@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Fout";
+"common.alert.attention.title" = "Aandacht";
 "common.button.cancel" = "Annuleren";
 "common.button.change" = "Wijzig";
 "common.button.choose" = "Kies";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Clouddiensten";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Foutopsporingsmodus";
+"settings.debugMode.alert.message" = "In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.";
 "settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
 
