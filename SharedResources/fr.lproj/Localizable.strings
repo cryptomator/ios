@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Erreur";
+"common.alert.attention.title" = "Avertissement";
 "common.button.cancel" = "Annuler";
 "common.button.change" = "Modifier";
 "common.button.choose" = "Choisir";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Services de stockage en ligne";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Mode de débogage";
+"settings.debugMode.alert.message" = "Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN'oubliez pas de désactiver le mode de débogage dès que possible.";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
