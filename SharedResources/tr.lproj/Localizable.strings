@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Hata";
+"common.alert.attention.title" = "Dikkat";
 "common.button.cancel" = "İptal";
 "common.button.change" = "Değiştir";
 "common.button.choose" = "Seç";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Bulut Servisleri";
 "settings.contact" = "İletişim";
 "settings.debugMode" = "Hata ayıklama Modu";
+"settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
 "settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
