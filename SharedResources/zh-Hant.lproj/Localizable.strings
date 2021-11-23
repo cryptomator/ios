@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "錯誤";
+"common.alert.attention.title" = "注意";
 "common.button.cancel" = "取消";
 "common.button.change" = "修改";
 "common.button.choose" = "選擇";
