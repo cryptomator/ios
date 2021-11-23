@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Chyba";
+"common.alert.attention.title" = "Upozornenie";
 "common.button.cancel" = "Zrušiť";
 "common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Cloudové služby";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Režim ladenia";
+"settings.debugMode.alert.message" = "V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.";
 "settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
 
