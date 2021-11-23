@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Erro";
+"common.alert.attention.title" = "Atenção";
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Serviços em nuvem";
 "settings.contact" = "Contato";
 "settings.debugMode" = "Modo depuração";
+"settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.rateApp" = "Avaliar App";
 "settings.sendLogFile" = "Enviar arquivo de log";
 
