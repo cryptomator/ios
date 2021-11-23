@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Fel";
+"common.alert.attention.title" = "Observera";
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Ändra";
 "common.button.choose" = "Välj";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Molntjänster";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Felsökningsläge";
+"settings.debugMode.alert.message" = "I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.";
 "settings.rateApp" = "Betygsätt app";
 "settings.sendLogFile" = "Skicka loggfil";
 
