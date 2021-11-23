@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Errore";
+"common.alert.attention.title" = "Attenzione";
 "common.button.cancel" = "Annulla";
 "common.button.change" = "Modifica";
 "common.button.choose" = "Scegli";
@@ -103,6 +104,7 @@
 "settings.cloudServices" = "Servizi cloud";
 "settings.contact" = "Contatto";
 "settings.debugMode" = "Modalità Debug";
+"settings.debugMode.alert.message" = "In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.";
 "settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
 
