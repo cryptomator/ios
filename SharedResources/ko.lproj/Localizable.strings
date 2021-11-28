@@ -66,6 +66,7 @@
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
 "settings.clearCache" = "캐시 지우기";
+"settings.cloudServices" = "클라우드 서비스";
 "settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.";
 "settings.sendLogFile" = "로그파일 전송";
 

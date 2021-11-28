@@ -92,6 +92,7 @@
 "settings.aboutCryptomator" = "Despre Cryptomator";
 "settings.aboutCryptomator.title" = "Versiunea %@ (%@)";
 "settings.clearCache" = "Golește memoria cache";
+"settings.cloudServices" = "Servicii Cloud";
 "settings.debugMode.alert.message" = "În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.";
 "settings.sendLogFile" = "Trimiteți fişierul jurnal";
 
