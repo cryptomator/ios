@@ -11,6 +11,8 @@ import Foundation
 
 public protocol CryptomatorSettings {
 	var debugModeEnabled: Bool { get set }
+	var trialExpirationDate: Date? { get set }
+	var fullVersionUnlocked: Bool { get set }
 }
 
 public class CryptomatorUserDefaults {

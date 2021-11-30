@@ -13,17 +13,9 @@ import Promises
 import StoreKit
 import UIKit
 
-enum PurchaseError: Error {
-	case unavailableProduct
-}
-
 class PurchaseCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
-
-	private let upgradeURL = URL(string: "cryptomator-legacy:upgrade")!
-	private var products = [ProductIdentifier: SKProduct]()
-	private var invalidProductIdentifiers = [String]()
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
@@ -33,65 +25,50 @@ class PurchaseCoordinator: Coordinator {
 		let purchaseViewController = PurchaseViewController(viewModel: PurchaseViewModel())
 		purchaseViewController.coordinator = self
 		navigationController.pushViewController(purchaseViewController, animated: true)
-		StoreManager.shared.fetchProducts(with: [.thirtyDayTrial, .fullVersion]).then { response in
-			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
-				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
-					self.invalidProductIdentifiers.append($1.productIdentifier)
-					return
-				}
-				$0[productIdentifier] = $1
-			}
-			self.invalidProductIdentifiers.append(contentsOf: response.invalidProductIdentifiers)
-		}
 	}
 
 	func showUpgrade() {
-		if UpgradeChecker.isEligibleForUpgrade() {
+		if UpgradeChecker.shared.isEligibleForUpgrade() {
 			let child = UpgradeCoordinator(navigationController: navigationController)
 			childCoordinators.append(child) // TODO: remove missing?
 			child.start()
-		} else if UIApplication.shared.canOpenURL(upgradeURL) {
-			UIApplication.shared.open(upgradeURL)
+		} else if UIApplication.shared.canOpenURL(UpgradeChecker.upgradeURL) {
+			UIApplication.shared.open(UpgradeChecker.upgradeURL)
 		} else {
 			DDLogError("Preconditions for showing upgrade screen are not met")
 		}
 	}
 
-	func beginFreeTrial() {
-		guard let product = products[.thirtyDayTrial] else {
-			handleError(PurchaseError.unavailableProduct, for: navigationController)
-			return
-		}
-		StoreObserver.shared.buy(product).then { transaction in
-			CryptomatorUserDefaults.shared.trialExpirationDate = self.trialExpirationDate(transaction)
-			return self.showAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), message: LocalizedString.getValue("purchase.beginFreeTrial.alert.message"))
-		}.then {
+	func freeTrialStarted() {
+		showAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), message: LocalizedString.getValue("purchase.beginFreeTrial.alert.message")).then {
 			self.close()
-		}.catch { error in
-			self.handleError(error, for: self.navigationController)
 		}
 	}
 
-	func purchaseFullVersion() {
-		guard let product = products[.fullVersion] else {
-			handleError(PurchaseError.unavailableProduct, for: navigationController)
-			return
-		}
-		StoreObserver.shared.buy(product).then { _ in
-			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
-			return self.showAlert(title: LocalizedString.getValue("purchase.purchaseFullVersion.alert.title"), message: LocalizedString.getValue("purchase.purchaseFullVersion.alert.message"))
-		}.then {
+	func fullVersionPurchased() {
+		showAlert(title: LocalizedString.getValue("purchase.purchaseFullVersion.alert.title"), message: LocalizedString.getValue("purchase.purchaseFullVersion.alert.message")).then {
 			self.close()
-		}.catch { error in
-			self.handleError(error, for: self.navigationController)
 		}
 	}
 
-	func restorePurchase() {
-		StoreObserver.shared.restore().then { transactions in
-			self.handleRestoredTransactions(transactions)
-		}.catch { error in
-			self.handleError(error, for: self.navigationController)
+	func handleRestoreResult(_ result: RestoreTransactionsResult) {
+		switch result {
+		case .restoredFullVersion:
+			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.message")).then {
+				self.close()
+			}
+		case let .restoredFreeTrial(expiresOn):
+			let formatter = DateFormatter()
+			formatter.dateStyle = .short
+			let formattedExpireDate = formatter.string(for: expiresOn) ?? "Invalid Date"
+			showAlert(
+				title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
+				message: String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
+			).then {
+				self.close()
+			}
+		case .noRestorablePurchases:
+			_ = showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"))
 		}
 	}
 
@@ -109,54 +86,5 @@ class PurchaseCoordinator: Coordinator {
 		alertController.addAction(okAction)
 		navigationController.present(alertController, animated: true)
 		return pendingPromise
-	}
-
-	private func handleRestoredTransactions(_ transactions: [SKPaymentTransaction]) {
-		if transactionsContainFullVersion(transactions) {
-			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
-			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.message")).then {
-				self.close()
-			}
-		} else if transactionsContainValidTrial(transactions) {
-			CryptomatorUserDefaults.shared.trialExpirationDate = trialExpirationDate(transactions)
-			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"), message: String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), numberOfDaysLeftForTrial(transactions))).then {
-				self.close()
-			}
-		} else {
-			_ = showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"))
-		}
-	}
-
-	private func transactionsContainFullVersion(_ transactions: [SKPaymentTransaction]) -> Bool {
-		return transactions.contains(where: { $0.payment.productIdentifier == ProductIdentifier.fullVersion.rawValue || $0.payment.productIdentifier == ProductIdentifier.paidUpgrade.rawValue || $0.payment.productIdentifier == ProductIdentifier.freeUpgrade.rawValue })
-	}
-
-	private func transactionsContainValidTrial(_ transactions: [SKPaymentTransaction]) -> Bool {
-		guard let trialExpirationDate = trialExpirationDate(transactions) else {
-			return false
-		}
-		return Date() < trialExpirationDate
-	}
-
-	private func numberOfDaysLeftForTrial(_ transactions: [SKPaymentTransaction]) -> Int {
-		guard let trialExpirationDate = trialExpirationDate(transactions) else {
-			return 0
-		}
-		let difference = Calendar.current.dateComponents([.day], from: Date(), to: trialExpirationDate)
-		return difference.day ?? 0
-	}
-
-	private func trialExpirationDate(_ transactions: [SKPaymentTransaction]) -> Date? {
-		guard let transaction = transactions.first(where: { $0.payment.productIdentifier == ProductIdentifier.thirtyDayTrial.rawValue }) else {
-			return nil
-		}
-		return trialExpirationDate(transaction)
-	}
-
-	private func trialExpirationDate(_ transaction: SKPaymentTransaction) -> Date? {
-		guard let original = transaction.original, let transactionDate = original.transactionDate else {
-			return nil
-		}
-		return Calendar.current.date(byAdding: .day, value: 30, to: transactionDate)
 	}
 }

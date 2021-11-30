@@ -48,7 +48,7 @@ class UpgradeCoordinator: Coordinator {
 			handleError(UpgradeError.unavailableProduct, for: navigationController)
 			return
 		}
-		StoreObserver.shared.buy(product).then { _ in
+		StoreObserver.shared.buy(product).then { _ -> Promise<Void> in
 			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			return self.showAlert(title: LocalizedString.getValue("upgrade.paidUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.paidUpgrade.alert.message"))
 		}.then {
@@ -63,7 +63,7 @@ class UpgradeCoordinator: Coordinator {
 			handleError(UpgradeError.unavailableProduct, for: navigationController)
 			return
 		}
-		StoreObserver.shared.buy(product).then { _ in
+		StoreObserver.shared.buy(product).then { _ -> Promise<Void> in
 			CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 			return self.showAlert(title: LocalizedString.getValue("upgrade.freeUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.freeUpgrade.alert.message"))
 		}.then {

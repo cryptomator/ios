@@ -10,52 +10,23 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class PurchaseViewController: UITableViewController {
+class PurchaseViewController: StaticUITableViewController<PurchaseSection> {
 	weak var coordinator: PurchaseCoordinator?
 
 	private let viewModel: PurchaseViewModel
 
 	init(viewModel: PurchaseViewModel) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = LocalizedString.getValue("purchase.title")
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "PurchaseCell")
-		tableView.rowHeight = 44
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func numberOfSections(in tableView: UITableView) -> Int {
-		return viewModel.numberOfSections
-	}
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return viewModel.numberOfRows(in: section)
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCell(withIdentifier: "PurchaseCell", for: indexPath)
-		cell.textLabel?.text = viewModel.title(for: indexPath)
-		cell.textLabel?.textColor = viewModel.textColor(for: indexPath)
-		cell.accessoryType = viewModel.accessoryType(for: indexPath)
-		return cell
-	}
-
-	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-		return viewModel.footerTitle(for: section)
+		let viewModel = viewModel
+		dataSource?.defaultRowAnimation = .fade
+		viewModel.fetchProducts().then { [weak self] in
+			self?.applySnapshot(sections: viewModel.sections)
+		}
 	}
 
 	// MARK: - UITableViewDelegate
@@ -68,19 +39,49 @@ class PurchaseViewController: UITableViewController {
 		}
 	}
 
+	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+		if section == 1 {
+			// workaround to remove the header for the empty section (in combination with the missing bottom padding for the PurchaseHeaderView)
+			// empty section is required to exclude the PurchaseHeaderView from the animated dataSource update
+			return .leastNormalMagnitude
+		} else {
+			return UITableView.automaticDimension
+		}
+	}
+
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		switch viewModel.buttonAction(for: indexPath) {
 		case .showUpgrade:
 			coordinator?.showUpgrade()
 		case .beginFreeTrial:
-			coordinator?.beginFreeTrial()
+			viewModel.beginFreeTrial().then { [weak self] in
+				self?.coordinator?.freeTrialStarted()
+			}.catch { [weak self] error in
+				self?.handleError(error)
+			}
 		case .purchaseFullVersion:
-			coordinator?.purchaseFullVersion()
+			viewModel.purchaseFullVersion().then { [weak self] in
+				self?.coordinator?.fullVersionPurchased()
+			}.catch { [weak self] error in
+				self?.handleError(error)
+			}
 		case .restorePurchase:
-			coordinator?.restorePurchase()
+			viewModel.restorePurchase().then { [weak self] result in
+				self?.coordinator?.handleRestoreResult(result)
+			}
 		case .decideLater:
 			coordinator?.close()
+		case .unknown:
+			break
 		}
+	}
+
+	private func handleError(_ error: Error) {
+		if case PurchaseError.paymentCancelled = error {
+			return
+		}
+		coordinator?.handleError(error, for: self)
 	}
 }
 
@@ -99,8 +100,12 @@ private class PurchaseHeaderView: UITableViewHeaderFooterView {
 		return label
 	}()
 
-	init() {
-		super.init(reuseIdentifier: nil)
+	override init(reuseIdentifier: String?) {
+		super.init(reuseIdentifier: reuseIdentifier)
+		configure()
+	}
+
+	func configure() {
 		infoLabel.text = LocalizedString.getValue("purchase.info")
 		let stack = UIStackView(arrangedSubviews: [imageView, infoLabel])
 		stack.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +117,7 @@ private class PurchaseHeaderView: UITableViewHeaderFooterView {
 			stack.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			stack.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
 			stack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 20),
-			stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -20)
+			stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 

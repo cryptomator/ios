@@ -6,15 +6,32 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-public enum UpgradeChecker {
-	public static func isEligibleForUpgrade() -> Bool {
+public protocol UpgradeCheckerProtocol {
+	func isEligibleForUpgrade() -> Bool
+	func couldBeEligibleForUpgrade() -> Bool
+}
+
+public class UpgradeChecker: UpgradeCheckerProtocol {
+	public static var shared = UpgradeChecker()
+	public static let upgradeURL = URL(string: "cryptomator-legacy:upgrade")!
+
+	public func isEligibleForUpgrade() -> Bool {
 		guard let data = CryptomatorKeychain.upgrade.getAsData("eligibleForUpgrade") as NSData? else {
 			return false
 		}
 		var eligible = false
 		data.getBytes(&eligible, length: MemoryLayout<Bool>.size)
 		return eligible
+	}
+
+	@available(iOSApplicationExtension, unavailable)
+	public func couldBeEligibleForUpgrade() -> Bool {
+		if isEligibleForUpgrade() {
+			return true
+		} else {
+			return UIApplication.shared.canOpenURL(UpgradeChecker.upgradeURL)
+		}
 	}
 }

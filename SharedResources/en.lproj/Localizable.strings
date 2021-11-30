@@ -113,7 +113,7 @@
 "purchase.restorePurchase.button" = "Restore Purchase";
 "purchase.restorePurchase.footer" = "If you have already purchased the full version of Cryptomator, you can restore the purchase.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Trial Continued";
-"purchase.restorePurchase.validTrialFound.alert.message" = "You can now use the full version of Cryptomator for a limited time. After %ld days, your vaults will still be accessible in read-only mode.";
+"purchase.restorePurchase.validTrialFound.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restore Successful";
 "purchase.restorePurchase.fullVersionFound.alert.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "No Full Version";
