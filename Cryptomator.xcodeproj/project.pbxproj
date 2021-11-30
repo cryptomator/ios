@@ -80,6 +80,7 @@
 		4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */; };
 		4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4246F1275640C9005BE82D /* IAPViewController.swift */; };
 		4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */; };
+		4A4246F827565D87005BE82D /* PoppingCloseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */; };
 		4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DB225BEF68100D9520D /* CloudChoosing.swift */; };
 		4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */; };
 		4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */; };
@@ -480,6 +481,7 @@
 		4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDBManager.swift; sourceTree = "<group>"; };
 		4A4246F1275640C9005BE82D /* IAPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
 		4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModelTests.swift; sourceTree = "<group>"; };
+		4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoppingCloseCoordinator.swift; sourceTree = "<group>"; };
 		4A447DB225BEF68100D9520D /* CloudChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChoosing.swift; sourceTree = "<group>"; };
 		4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewModel.swift; sourceTree = "<group>"; };
 		4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionTableViewController.swift; sourceTree = "<group>"; };
@@ -1124,6 +1126,7 @@
 				4A4B7E7526B95552009BFDB1 /* HeaderFooter */,
 				7408E6BD2677835C00D7FAEA /* LocalWeb */,
 				4A8195E425ADB94500F7DDA1 /* Previews */,
+				4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1992,6 +1995,7 @@
 				4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */,
 				4A91D8CE272ADC78003F8BD8 /* ChangePasswordViewModel.swift in Sources */,
 				4A09BFC62684D599000E40AB /* VaultDetailItem.swift in Sources */,
+				4A4246F827565D87005BE82D /* PoppingCloseCoordinator.swift in Sources */,
 				4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */,
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
 				4A21B49226BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift in Sources */,

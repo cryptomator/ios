@@ -129,8 +129,10 @@
 "settings.cloudServices" = "Cloud Services";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Debug Mode";
+"settings.purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access with unlimited number of vaults for a limited time. Consider unlocking the full version after the trial.";
 "settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
+"settings.unlockFullVersion" = "Unlock Full Version";
 
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";

@@ -29,7 +29,7 @@ class PurchaseCoordinator: Coordinator {
 
 	func showUpgrade() {
 		if UpgradeChecker.shared.isEligibleForUpgrade() {
-			let child = UpgradeCoordinator(navigationController: navigationController)
+			let child = getUpgradeCoordinator()
 			childCoordinators.append(child) // TODO: remove missing?
 			child.start()
 		} else if UIApplication.shared.canOpenURL(UpgradeChecker.upgradeURL) {
@@ -41,13 +41,13 @@ class PurchaseCoordinator: Coordinator {
 
 	func freeTrialStarted() {
 		showAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), message: LocalizedString.getValue("purchase.beginFreeTrial.alert.message")).then {
-			self.close()
+			self.unlockedPro()
 		}
 	}
 
 	func fullVersionPurchased() {
 		showAlert(title: LocalizedString.getValue("purchase.purchaseFullVersion.alert.title"), message: LocalizedString.getValue("purchase.purchaseFullVersion.alert.message")).then {
-			self.close()
+			self.unlockedPro()
 		}
 	}
 
@@ -55,7 +55,7 @@ class PurchaseCoordinator: Coordinator {
 		switch result {
 		case .restoredFullVersion:
 			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.message")).then {
-				self.close()
+				self.unlockedPro()
 			}
 		case let .restoredFreeTrial(expiresOn):
 			let formatter = DateFormatter()
@@ -65,16 +65,24 @@ class PurchaseCoordinator: Coordinator {
 				title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
 				message: String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
 			).then {
-				self.close()
+				self.unlockedPro()
 			}
 		case .noRestorablePurchases:
 			_ = showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"))
 		}
 	}
 
+	func unlockedPro() {
+		close()
+	}
+
 	func close() {
 		navigationController.dismiss(animated: true)
 //		parentCoordinator?.childDidFinish(self)
+	}
+
+	func getUpgradeCoordinator() -> UpgradeCoordinator {
+		return UpgradeCoordinator(navigationController: navigationController)
 	}
 
 	private func showAlert(title: String, message: String) -> Promise<Void> {
