@@ -37,7 +37,7 @@ enum PurchaseError: Error {
 	case paymentCancelled
 }
 
-class PurchaseViewModel: TableViewModel<PurchaseSection> {
+class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	lazy var upgradeButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>.createDisclosureButton(action: .showUpgrade, title: LocalizedString.getValue("upgrade.title"))
 	lazy var freeTrialButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .beginFreeTrial, title: LocalizedString.getValue("purchase.beginFreeTrial.button"))
 	lazy var purchaseButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .purchaseFullVersion, title: LocalizedString.getValue("purchase.purchaseFullVersion.button"))
@@ -50,6 +50,10 @@ class PurchaseViewModel: TableViewModel<PurchaseSection> {
 
 	override var title: String? {
 		return LocalizedString.getValue("purchase.title")
+	}
+
+	var headerTitle: String {
+		return LocalizedString.getValue("purchase.info")
 	}
 
 	private lazy var _sections: [Section<PurchaseSection>] = {

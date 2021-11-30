@@ -8,7 +8,8 @@
 
 import CryptomatorCommonCore
 import Foundation
-import UIKit
+import Promises
+import StoreKit
 
 enum UpgradeButtonAction {
 	case paidUpgrade
@@ -16,60 +17,140 @@ enum UpgradeButtonAction {
 	case decideLater
 }
 
-private enum UpgradeSection {
+enum UpgradeSection {
 	case paidUpgradeSection
 	case freeUpgradeSection
 	case decideLaterSection
+	case emptySection
+	case loadingSection
 }
 
-struct UpgradeViewModel {
-	private var sections: [UpgradeSection] = [.paidUpgradeSection, .freeUpgradeSection, .decideLaterSection]
-
-	var numberOfSections: Int {
-		return sections.count
+class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
+	override var title: String? {
+		return LocalizedString.getValue("upgrade.title")
 	}
 
-	func numberOfRows(in section: Int) -> Int {
-		switch sections[section] {
-		case .paidUpgradeSection:
-			return 1
-		case .freeUpgradeSection:
-			return 1
-		case .decideLaterSection:
-			return 1
+	var headerTitle: String {
+		return LocalizedString.getValue("upgrade.info")
+	}
+
+	override var sections: [Section<UpgradeSection>] {
+		return _sections
+	}
+
+	lazy var freeUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .freeUpgrade, title: LocalizedString.getValue("upgrade.freeUpgrade.button"))
+	lazy var paidUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .paidUpgrade, title: LocalizedString.getValue("upgrade.paidUpgrade.button"))
+	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .decideLater, title: LocalizedString.getValue("upgrade.decideLater.button"))
+	lazy var loadingCellViewModel = LoadingCellViewModel()
+
+	private lazy var _sections: [Section<UpgradeSection>] = {
+		return [
+			Section(id: .emptySection, elements: []),
+			Section(id: .loadingSection, elements: [loadingCellViewModel]),
+			Section(id: .decideLaterSection, elements: [decideLaterButtonCellViewModel])
+		]
+	}()
+
+	private let storeManager: StoreManager
+	private let iapManager: IAPManager
+	private var fetchProductsStart: CFAbsoluteTime = 0.0
+	private let minimumDisplayTime: TimeInterval = 1.0
+	private var products = [ProductIdentifier: SKProduct]()
+
+	init(storeManager: StoreManager = StoreManager.shared, iapManager: IAPManager = StoreObserver.shared) {
+		self.storeManager = storeManager
+		self.iapManager = iapManager
+	}
+
+	func fetchProducts() -> Promise<Void> {
+		fetchProductsStart = CFAbsoluteTimeGetCurrent()
+		return storeManager.fetchProducts(with: [.paidUpgrade, .freeUpgrade]).then { response in
+			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
+				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
+					return
+				}
+				$0[productIdentifier] = $1
+			}
+		}.delay(getDelay()).then { _ -> Void in
+			self.removeLoadingSection()
+			self.addPaidUpgradeSection()
+			self.addFreeUpgradeSection()
 		}
 	}
 
-	func title(for indexPath: IndexPath) -> String {
-		switch sections[indexPath.section] {
-		case .paidUpgradeSection:
-			return LocalizedString.getValue("upgrade.paidUpgrade.button")
-		case .freeUpgradeSection:
-			return LocalizedString.getValue("upgrade.freeUpgrade.button")
-		case .decideLaterSection:
-			return LocalizedString.getValue("upgrade.decideLater.button")
+	func purchaseUpgrade() -> Promise<Void> {
+		guard let product = products[.paidUpgrade] else {
+			return Promise(UpgradeError.unavailableProduct)
 		}
+		return buyProduct(product)
 	}
 
-	func buttonAction(for indexPath: IndexPath) -> UpgradeButtonAction {
-		switch sections[indexPath.section] {
-		case .paidUpgradeSection:
-			return .paidUpgrade
-		case .freeUpgradeSection:
-			return .freeUpgrade
-		case .decideLaterSection:
-			return .decideLater
+	func getFreeUpgrade() -> Promise<Void> {
+		guard let product = products[.freeUpgrade] else {
+			return Promise(UpgradeError.unavailableProduct)
 		}
+		return buyProduct(product)
 	}
 
-	func footerTitle(for section: Int) -> String? {
-		switch sections[section] {
+	func buttonAction(for indexPath: IndexPath) -> UpgradeButtonAction? {
+		let section = sections[indexPath.section]
+		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<UpgradeButtonAction> else {
+			return nil
+		}
+		return cell.action
+	}
+
+	override func getFooterTitle(for section: Int) -> String? {
+		switch sections[section].id {
 		case .paidUpgradeSection:
 			return LocalizedString.getValue("upgrade.paidUpgrade.footer")
 		case .freeUpgradeSection:
 			return LocalizedString.getValue("upgrade.freeUpgrade.footer")
 		case .decideLaterSection:
 			return LocalizedString.getValue("upgrade.decideLater.footer")
+		case .emptySection, .loadingSection:
+			return nil
+		}
+	}
+
+	private func removeLoadingSection() {
+		if let index = _sections.firstIndex(where: { $0.id == .loadingSection }) {
+			_sections.remove(at: index)
+		}
+	}
+
+	private func addPaidUpgradeSection() {
+		if let product = products[.paidUpgrade], let index = getDecideLaterSectionIndex(), let localizedPrice = product.localizedPrice {
+			paidUpgradeButtonCellViewModel.title.value = String(format: LocalizedString.getValue("upgrade.paidUpgrade.button"), localizedPrice)
+			_sections.insert(Section(id: .paidUpgradeSection, elements: [paidUpgradeButtonCellViewModel]), at: index)
+		}
+	}
+
+	private func addFreeUpgradeSection() {
+		if products[.freeUpgrade] != nil, let index = getDecideLaterSectionIndex() {
+			_sections.insert(Section(id: .freeUpgradeSection, elements: [freeUpgradeButtonCellViewModel]), at: index)
+		}
+	}
+
+	private func getDecideLaterSectionIndex() -> Int? {
+		return _sections.firstIndex(where: { $0.id == .decideLaterSection })
+	}
+
+	private func getDelay() -> TimeInterval {
+		if fetchProductsStart > 0 {
+			return fetchProductsStart - CFAbsoluteTimeGetCurrent() + minimumDisplayTime
+		} else {
+			return 0
+		}
+	}
+
+	private func buyProduct(_ product: SKProduct) -> Promise<Void> {
+		return iapManager.buy(product).recover { error -> Void in
+			if (error as? SKError)?.code == .paymentCancelled {
+				throw PurchaseError.paymentCancelled
+			} else {
+				throw error
+			}
 		}
 	}
 }

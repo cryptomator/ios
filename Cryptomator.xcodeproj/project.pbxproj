@@ -78,6 +78,8 @@
 		4A3D658626847B11000DA764 /* CreateNewLocalVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3D658526847B11000DA764 /* CreateNewLocalVaultViewModel.swift */; };
 		4A3E2FEC271DC9670090BD44 /* MaintenanceManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E2FEB271DC9670090BD44 /* MaintenanceManagerTests.swift */; };
 		4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */; };
+		4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4246F1275640C9005BE82D /* IAPViewController.swift */; };
+		4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */; };
 		4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DB225BEF68100D9520D /* CloudChoosing.swift */; };
 		4A447DBC25BF003400D9520D /* ChooseCloudViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */; };
 		4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */; };
@@ -476,6 +478,8 @@
 		4A3D658526847B11000DA764 /* CreateNewLocalVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewLocalVaultViewModel.swift; sourceTree = "<group>"; };
 		4A3E2FEB271DC9670090BD44 /* MaintenanceManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManagerTests.swift; sourceTree = "<group>"; };
 		4A3E2FED271DCA160090BD44 /* MaintenanceDBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceDBManager.swift; sourceTree = "<group>"; };
+		4A4246F1275640C9005BE82D /* IAPViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewController.swift; sourceTree = "<group>"; };
+		4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModelTests.swift; sourceTree = "<group>"; };
 		4A447DB225BEF68100D9520D /* CloudChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudChoosing.swift; sourceTree = "<group>"; };
 		4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewModel.swift; sourceTree = "<group>"; };
 		4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleSectionTableViewController.swift; sourceTree = "<group>"; };
@@ -810,6 +814,7 @@
 			children = (
 				4A1C6D59274D225500B41FFF /* PurchaseViewModelTests.swift */,
 				4A5580542755226100E525B8 /* StoreObserverTests.swift */,
+				4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -1508,6 +1513,7 @@
 				74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */,
 				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
 				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
+				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -1963,6 +1969,7 @@
 				4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */,
 				74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */,
 				4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */,
+				4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */,
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
@@ -2133,6 +2140,7 @@
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
+				4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */,
 				4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
