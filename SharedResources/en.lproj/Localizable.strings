@@ -33,6 +33,7 @@
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
+"addVault.createNewVault.purchase" = "Creating a new vault requires the full version of Cryptomator. Consider unlocking the full version for write access to your vaults.";
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
