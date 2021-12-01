@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Erro";
+"common.alert.attention.title" = "Atenção";
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
@@ -90,6 +91,7 @@
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
 
 "unlockVault.button.unlock" = "Destrancar";
