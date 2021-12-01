@@ -21,7 +21,7 @@ class UpgradeViewModelTests: XCTestCase {
 	override func setUpWithError() throws {
 		session = try SKTestSession(configurationFileNamed: "Configuration")
 		iapManagerMock = IAPManagerMock()
-		iapManagerMock.buyReturnValue = Promise(())
+		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
 		viewModel = UpgradeViewModel(iapManager: iapManagerMock)
 	}
 

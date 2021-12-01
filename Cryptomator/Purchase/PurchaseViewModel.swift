@@ -56,6 +56,10 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		return LocalizedString.getValue("purchase.info")
 	}
 
+	var trialExpirationDate: Date? {
+		return cryptomatorSettings.trialExpirationDate
+	}
+
 	private lazy var _sections: [Section<PurchaseSection>] = {
 		let sections: [Section<PurchaseSection>?] = [
 			Section(id: .emptySection, elements: []),
@@ -73,11 +77,13 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	private var products = [ProductIdentifier: SKProduct]()
 	private var fetchProductsStart: CFAbsoluteTime = 0.0
 	private let minimumDisplayTime: TimeInterval = 1.0
+	private let cryptomatorSettings: CryptomatorSettings
 
-	init(storeManager: StoreManager = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared) {
+	init(storeManager: StoreManager = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared) {
 		self.storeManager = storeManager
 		self.upgradeChecker = upgradeChecker
 		self.iapManager = iapManager
+		self.cryptomatorSettings = cryptomatorSettings
 	}
 
 	override func getFooterTitle(for section: Int) -> String? {
@@ -121,18 +127,25 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		return cell.action
 	}
 
-	func beginFreeTrial() -> Promise<Void> {
+	func beginFreeTrial() -> Promise<Date> {
 		guard let product = products[.thirtyDayTrial] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
-		return buyProduct(product)
+		return buyProduct(product).then { result -> Date in
+			guard case let PurchaseTransaction.freeTrial(trialExpirationDate) = result else {
+				throw PurchaseError.unavailableProduct
+			}
+			return trialExpirationDate
+		}
 	}
 
 	func purchaseFullVersion() -> Promise<Void> {
 		guard let product = products[.fullVersion] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
-		return buyProduct(product)
+		return buyProduct(product).then { _ in
+			// no-op
+		}
 	}
 
 	func restorePurchase() -> Promise<RestoreTransactionsResult> {
@@ -146,6 +159,9 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	}
 
 	private func addTrialSection() {
+		guard cryptomatorSettings.trialExpirationDate == nil else {
+			return
+		}
 		if products[.thirtyDayTrial] != nil, let index = getRestoreSectionIndex() {
 			_sections.insert(Section(id: .trialSection, elements: [freeTrialButtonCellViewModel]), at: index)
 		}
@@ -178,8 +194,8 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		}
 	}
 
-	private func buyProduct(_ product: SKProduct) -> Promise<Void> {
-		return iapManager.buy(product).recover { error -> Void in
+	private func buyProduct(_ product: SKProduct) -> Promise<PurchaseTransaction> {
+		return iapManager.buy(product).recover { error -> PurchaseTransaction in
 			if (error as? SKError)?.code == .paymentCancelled {
 				throw PurchaseError.paymentCancelled
 			} else {

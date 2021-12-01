@@ -40,7 +40,7 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 
 	lazy var freeUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .freeUpgrade, title: LocalizedString.getValue("upgrade.freeUpgrade.button"))
 	lazy var paidUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .paidUpgrade, title: LocalizedString.getValue("upgrade.paidUpgrade.button"))
-	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .decideLater, title: LocalizedString.getValue("upgrade.decideLater.button"))
+	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .decideLater, title: LocalizedString.getValue("purchase.decideLater.button"))
 	lazy var loadingCellViewModel = LoadingCellViewModel()
 
 	private lazy var _sections: [Section<UpgradeSection>] = {
@@ -145,12 +145,14 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 	}
 
 	private func buyProduct(_ product: SKProduct) -> Promise<Void> {
-		return iapManager.buy(product).recover { error -> Void in
+		return iapManager.buy(product).recover { error -> PurchaseTransaction in
 			if (error as? SKError)?.code == .paymentCancelled {
 				throw PurchaseError.paymentCancelled
 			} else {
 				throw error
 			}
+		}.then { _ in
+			// no-op
 		}
 	}
 }

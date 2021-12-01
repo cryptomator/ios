@@ -39,14 +39,14 @@ class PurchaseCoordinator: Coordinator {
 		}
 	}
 
-	func freeTrialStarted() {
-		showAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), message: LocalizedString.getValue("purchase.beginFreeTrial.alert.message")).then {
+	func freeTrialStarted(expirationDate: Date) {
+		showTrialAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate).then {
 			self.unlockedPro()
 		}
 	}
 
 	func fullVersionPurchased() {
-		showAlert(title: LocalizedString.getValue("purchase.purchaseFullVersion.alert.title"), message: LocalizedString.getValue("purchase.purchaseFullVersion.alert.message")).then {
+		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
 			self.unlockedPro()
 		}
 	}
@@ -54,17 +54,11 @@ class PurchaseCoordinator: Coordinator {
 	func handleRestoreResult(_ result: RestoreTransactionsResult) {
 		switch result {
 		case .restoredFullVersion:
-			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.message")).then {
+			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
 				self.unlockedPro()
 			}
 		case let .restoredFreeTrial(expiresOn):
-			let formatter = DateFormatter()
-			formatter.dateStyle = .short
-			let formattedExpireDate = formatter.string(for: expiresOn) ?? "Invalid Date"
-			showAlert(
-				title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
-				message: String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
-			).then {
+			showTrialAlert(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"), expirationDate: expiresOn).then {
 				self.unlockedPro()
 			}
 		case .noRestorablePurchases:
@@ -94,5 +88,13 @@ class PurchaseCoordinator: Coordinator {
 		alertController.addAction(okAction)
 		navigationController.present(alertController, animated: true)
 		return pendingPromise
+	}
+
+	private func showTrialAlert(title: String, expirationDate: Date) -> Promise<Void> {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		let formattedExpireDate = formatter.string(for: expirationDate) ?? "Invalid Date"
+		let message = String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
+		return showAlert(title: title, message: message)
 	}
 }

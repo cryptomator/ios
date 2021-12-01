@@ -29,13 +29,13 @@ class UpgradeCoordinator: Coordinator {
 	}
 
 	func paidUpgradePurchased() {
-		showAlert(title: LocalizedString.getValue("upgrade.paidUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.paidUpgrade.alert.message")).then {
+		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
 			self.close()
 		}
 	}
 
 	func freeUpgradePurchased() {
-		showAlert(title: LocalizedString.getValue("upgrade.freeUpgrade.alert.title"), message: LocalizedString.getValue("upgrade.freeUpgrade.alert.message")).then {
+		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
 			self.close()
 		}
 	}

@@ -17,15 +17,13 @@ class PurchaseViewModelTests: XCTestCase {
 	var viewModel: PurchaseViewModel!
 	var iapManagerMock: IAPManagerMock!
 	var upgradeCheckerMock: UpgradeCheckerMock!
+	var cryptomatorSettingsMock: CryptomatorSettingsMock!
 	var session: SKTestSession!
 
 	override func setUpWithError() throws {
 		session = try SKTestSession(configurationFileNamed: "Configuration")
-		iapManagerMock = IAPManagerMock()
-		iapManagerMock.buyReturnValue = Promise(())
-		upgradeCheckerMock = UpgradeCheckerMock()
-		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = false
-		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock)
+		setUpMocks()
+		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
 	// MARK: Sections
@@ -74,6 +72,26 @@ class PurchaseViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	func testOrderAfterFetchProductsWithRunningTrial() {
+		let expectation = XCTestExpectation()
+		let expectedSections: [Section<PurchaseSection>] = [
+			Section(id: .emptySection, elements: []),
+			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
+			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
+			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+		]
+
+		cryptomatorSettingsMock.trialExpirationDate = .distantFuture
+		viewModel.fetchProducts().then {
+			XCTAssertEqual(expectedSections, self.viewModel.sections)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
+
 	func testFullVersionPriceFromStoreKit() {
 		let expectation = XCTestExpectation()
 		let expectedTitle = String(format: LocalizedString.getValue("purchase.purchaseFullVersion.button"), "$11.99")
@@ -91,9 +109,12 @@ class PurchaseViewModelTests: XCTestCase {
 
 	func testBeginFreeTrial() {
 		let expectation = XCTestExpectation()
+		let trialExpirationDate = Date()
+		setUpIAPManagerMockForBeginTrial(trialExpirationDate: trialExpirationDate)
 		viewModel.fetchProducts().then {
 			self.viewModel.beginFreeTrial()
-		}.then {
+		}.then { actualTrialExpirationDate in
+			XCTAssertEqual(trialExpirationDate, actualTrialExpirationDate)
 			self.assertBuyProduct(with: .thirtyDayTrial)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -108,7 +129,7 @@ class PurchaseViewModelTests: XCTestCase {
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
 		viewModel.fetchProducts().then {
 			self.viewModel.beginFreeTrial()
-		}.then {
+		}.then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			XCTAssertEqual(.paymentCancelled, error as? PurchaseError)
@@ -123,6 +144,7 @@ class PurchaseViewModelTests: XCTestCase {
 
 	func testPurchaseFullVersion() {
 		let expectation = XCTestExpectation()
+		setUpIAPManagerMockForFullVersionPurchase()
 		viewModel.fetchProducts().then {
 			self.viewModel.purchaseFullVersion()
 		}.then {
@@ -193,6 +215,21 @@ class PurchaseViewModelTests: XCTestCase {
 		XCTAssertEqual(1, iapManagerMock.buyCallsCount)
 		let buyReceivedProduct = iapManagerMock.buyReceivedProduct
 		XCTAssertEqual(identifier.rawValue, buyReceivedProduct?.productIdentifier)
+	}
+
+	private func setUpMocks() {
+		iapManagerMock = IAPManagerMock()
+		upgradeCheckerMock = UpgradeCheckerMock()
+		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = false
+		cryptomatorSettingsMock = CryptomatorSettingsMock()
+	}
+
+	private func setUpIAPManagerMockForFullVersionPurchase() {
+		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
+	}
+
+	private func setUpIAPManagerMockForBeginTrial(trialExpirationDate: Date) {
+		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.freeTrial(expiresOn: trialExpirationDate))
 	}
 }
 

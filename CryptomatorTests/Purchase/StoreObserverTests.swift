@@ -41,11 +41,11 @@ class StoreObserverTests: XCTestCase {
 
 	func testBuyFreeTrial() throws {
 		let expectation = XCTestExpectation()
-		storeManager.fetchProducts(with: [.thirtyDayTrial]).then { response -> Promise<Void> in
+		storeManager.fetchProducts(with: [.thirtyDayTrial]).then { response -> Promise<PurchaseTransaction> in
 			XCTAssertEqual(1, response.products.count)
 			return self.storeObserver.buy(response.products[0])
-		}.then {
-			self.assertTrialStarted()
+		}.then { purchaseTransaction in
+			self.assertTrialStarted(purchaseTransaction: purchaseTransaction)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -97,10 +97,11 @@ class StoreObserverTests: XCTestCase {
 
 	private func assertFullVersionUnlockedWhenBuying(product: ProductIdentifier) {
 		let expectation = XCTestExpectation()
-		storeManager.fetchProducts(with: [product]).then { response -> Promise<Void> in
+		storeManager.fetchProducts(with: [product]).then { response -> Promise<PurchaseTransaction> in
 			XCTAssertEqual(1, response.products.count)
 			return self.storeObserver.buy(response.products[0])
-		}.then {
+		}.then { purchaseTransaction in
+			XCTAssertEqual(.fullVersion, purchaseTransaction)
 			XCTAssert(self.cryptomatorSettingsMock.fullVersionUnlocked)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -110,11 +111,17 @@ class StoreObserverTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	private func assertTrialStarted() {
+	private func assertTrialStarted(purchaseTransaction: PurchaseTransaction) {
 		guard let excpectedDate = Calendar.current.date(byAdding: .day, value: 30, to: Date()) else {
 			XCTFail("Could not create excpectedDate")
 			return
 		}
+		guard case let PurchaseTransaction.freeTrial(expiresOn) = purchaseTransaction else {
+			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
+			return
+		}
+		XCTAssertEqual(excpectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 2.0)
+
 		guard let actualDate = cryptomatorSettingsMock.trialExpirationDate else {
 			XCTFail("trialExpirationDate is nil")
 			return
@@ -125,10 +132,10 @@ class StoreObserverTests: XCTestCase {
 	private func assertBuyFailsWithDeferredTransactionError() {
 		let askToBuyExpectation = XCTestExpectation()
 		let fetchProductPromise = storeManager.fetchProducts(with: [.thirtyDayTrial])
-		fetchProductPromise.then { response -> Promise<Void> in
+		fetchProductPromise.then { response -> Promise<PurchaseTransaction> in
 			XCTAssertEqual(1, response.products.count)
 			return self.storeObserver.buy(response.products[0])
-		}.then {
+		}.then { _ in
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			XCTAssertEqual(.deferredTransaction, error as? StoreObserverError)

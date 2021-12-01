@@ -101,26 +101,26 @@
 "onboarding.button.continue" = "Continue";
 
 "purchase.title" = "Unlock Full Version";
-"purchase.info" = "You can use Cryptomator in read-only mode for free with one vault. Consider unlocking the full version for write access with unlimited number of vaults.";
+"purchase.info" = "You can use Cryptomator in read-only mode for free. Consider unlocking the full version for write access to your vaults.";
 "purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
 "purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
 "purchase.beginFreeTrial.footer" = "Try out the full version of Cryptomator for a limited time for free. You can unlock this trial only once.";
 "purchase.beginFreeTrial.alert.title" = "Trial Unlocked";
-"purchase.beginFreeTrial.alert.message" = "You can now use the full version of Cryptomator for a limited time. After 30 days, your vaults will still be accessible in read-only mode.";
+"purchase.beginFreeTrial.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
 "purchase.purchaseFullVersion.button" = "Purchase Full Version for %@";
-"purchase.purchaseFullVersion.footer" = "Pay once and unlock write access with unlimited number of vaults for the lifetime of Cryptomator.";
-"purchase.purchaseFullVersion.alert.title" = "Thank You";
-"purchase.purchaseFullVersion.alert.message" = "You can now use the full version of Cryptomator. Happy crypting!";
+"purchase.purchaseFullVersion.footer" = "Pay once and unlock write access to your vaults for the lifetime of Cryptomator.";
 "purchase.restorePurchase.button" = "Restore Purchase";
 "purchase.restorePurchase.footer" = "If you have already purchased the full version of Cryptomator, you can restore the purchase.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Trial Continued";
 "purchase.restorePurchase.validTrialFound.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restore Successful";
-"purchase.restorePurchase.fullVersionFound.alert.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "No Full Version";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We were unable to find a previously purchased full version that could be restored. Please try another option.";
 "purchase.decideLater.button" = "Decide Later";
 "purchase.decideLater.footer" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
+
+"purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
+"purchase.unlockedFullVersion.title" = "Thank You";
 
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
@@ -152,13 +152,8 @@
 "upgrade.info" = "You are eligible for an upgrade from an older version of Cryptomator to unlock the full version. Thank you for supporting Cryptomator in the past!";
 "upgrade.paidUpgrade.button" = "Upgrade for %@";
 "upgrade.paidUpgrade.footer" = "It would help the ongoing open-source development and be a big support for us.";
-"upgrade.paidUpgrade.alert.title" = "Thank You";
-"upgrade.paidUpgrade.alert.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "upgrade.freeUpgrade.button" = "Upgrade for Free";
 "upgrade.freeUpgrade.footer" = "No worries, you can also upgrade to the full version for free without any limitations.";
-"upgrade.freeUpgrade.alert.title" = "Thank You";
-"upgrade.freeUpgrade.alert.message" = "You can now use the full version of Cryptomator. Happy crypting!";
-"upgrade.decideLater.button" = "Decide Later";
 "upgrade.decideLater.footer" = "You can upgrade to the full version of Cryptomator later in the settings and use it in read-only mode for now.";
 
 "urlSession.error.httpError.401" = "Wrong username and/or password.";

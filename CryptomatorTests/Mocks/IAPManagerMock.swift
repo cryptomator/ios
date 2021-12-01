@@ -11,6 +11,8 @@ import Promises
 import StoreKit
 @testable import Cryptomator
 
+// MARK: - IAPManagerMock -
+
 // swiftlint:disable all
 
 final class IAPManagerMock: IAPManager {
@@ -33,10 +35,10 @@ final class IAPManagerMock: IAPManager {
 
 	var buyReceivedProduct: SKProduct?
 	var buyReceivedInvocations: [SKProduct] = []
-	var buyReturnValue: Promise<Void>!
-	var buyClosure: ((SKProduct) -> Promise<Void>)?
+	var buyReturnValue: Promise<PurchaseTransaction>!
+	var buyClosure: ((SKProduct) -> Promise<PurchaseTransaction>)?
 
-	func buy(_ product: SKProduct) -> Promise<Void> {
+	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction> {
 		if let error = buyThrowableError {
 			return Promise(error)
 		}

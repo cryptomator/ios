@@ -144,7 +144,7 @@ class SettingsPurchaseViewModel: PurchaseViewModel {
 	}
 
 	override var headerTitle: String {
-		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
+		if let trialExpirationDate = trialExpirationDate, trialExpirationDate > Date() {
 			let formatter = DateFormatter()
 			formatter.dateStyle = .short
 			let formattedExpireDate = formatter.string(for: trialExpirationDate) ?? "Invalid Date"
@@ -152,13 +152,6 @@ class SettingsPurchaseViewModel: PurchaseViewModel {
 		} else {
 			return LocalizedString.getValue("purchase.info")
 		}
-	}
-
-	private let cryptomatorSettings: CryptomatorSettings
-
-	init(cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, storeManager: StoreManager = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared) {
-		self.cryptomatorSettings = cryptomatorSettings
-		super.init(storeManager: storeManager, upgradeChecker: upgradeChecker, iapManager: iapManager)
 	}
 }
 

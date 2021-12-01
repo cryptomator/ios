@@ -31,8 +31,8 @@ class PurchaseViewController: IAPViewController<PurchaseSection> {
 		case .showUpgrade:
 			coordinator?.showUpgrade()
 		case .beginFreeTrial:
-			viewModel.beginFreeTrial().then { [weak self] in
-				self?.coordinator?.freeTrialStarted()
+			viewModel.beginFreeTrial().then { [weak self] trialExpirationDate in
+				self?.coordinator?.freeTrialStarted(expirationDate: trialExpirationDate)
 			}.catch { [weak self] error in
 				self?.handleError(error)
 			}

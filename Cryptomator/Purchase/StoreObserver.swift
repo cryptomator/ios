@@ -15,7 +15,7 @@ import StoreKit
 
 protocol IAPManager {
 	var isAuthorizedForPayments: Bool { get }
-	func buy(_ product: SKProduct) -> Promise<Void>
+	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction>
 	func restore() -> Promise<RestoreTransactionsResult>
 }
 
@@ -34,6 +34,12 @@ enum RestoreTransactionsResult: Equatable {
 	case noRestorablePurchases
 }
 
+enum PurchaseTransaction: Equatable {
+	case fullVersion
+	case freeTrial(expiresOn: Date)
+	case unknown
+}
+
 class StoreObserver: NSObject, IAPManager {
 	static let shared = StoreObserver(cryptomatorSettings: CryptomatorUserDefaults.shared)
 
@@ -45,7 +51,7 @@ class StoreObserver: NSObject, IAPManager {
 
 	fileprivate var hasRestorablePurchases = false
 
-	private var runningPayments = [String: Promise<Void>]()
+	private var runningPayments = [String: Promise<PurchaseTransaction>]()
 	private var runningRestore: Promise<RestoreTransactionsResult>?
 	private var cryptomatorSettings: CryptomatorSettings
 
@@ -53,10 +59,10 @@ class StoreObserver: NSObject, IAPManager {
 		self.cryptomatorSettings = cryptomatorSettings
 	}
 
-	func buy(_ product: SKProduct) -> Promise<Void> {
+	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction> {
 		DDLogInfo("Buy product: \(product.productIdentifier)")
 		let payment = SKMutablePayment(product: product)
-		let pendingPromise = Promise<Void>.pending()
+		let pendingPromise = Promise<PurchaseTransaction>.pending()
 		runningPayments[payment.productIdentifier] = pendingPromise
 		SKPaymentQueue.default().add(payment)
 		return pendingPromise
@@ -71,20 +77,24 @@ class StoreObserver: NSObject, IAPManager {
 	}
 
 	fileprivate func handlePurchased(_ transaction: SKPaymentTransaction) {
-		DDLogInfo("Purchased \(transaction.payment.productIdentifier) \(self) - Transaction: \(transaction)")
+		DDLogInfo("Purchased \(transaction.payment.productIdentifier)")
 
 		let maybeProductIdentifier = ProductIdentifier(rawValue: transaction.payment.productIdentifier)
+		let transactionType: PurchaseTransaction
 		switch maybeProductIdentifier {
-		case .fullVersion:
+		case .fullVersion, .paidUpgrade, .freeUpgrade:
 			unlockFullVersion()
+			transactionType = .fullVersion
 		case .thirtyDayTrial:
 			beginFreeTrial(transaction: transaction)
-		case .paidUpgrade:
-			unlockFullVersion()
-		case .freeUpgrade:
-			unlockFullVersion()
+			if let expirationDate = trialExpirationDate(transaction) {
+				transactionType = .freeTrial(expiresOn: expirationDate)
+			} else {
+				transactionType = .unknown
+				DDLogError("Purchased a free trial without a transaction date - this should never happen!")
+			}
 		case .none:
-			break
+			transactionType = .unknown
 		}
 		SKPaymentQueue.default().finishTransaction(transaction)
 		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
@@ -93,7 +103,7 @@ class StoreObserver: NSObject, IAPManager {
 			}
 			return
 		}
-		promise.fulfill(())
+		promise.fulfill(transactionType)
 	}
 
 	fileprivate func handleFailed(_ transaction: SKPaymentTransaction) {
@@ -112,15 +122,19 @@ class StoreObserver: NSObject, IAPManager {
 	fileprivate func handleRestored(_ transactions: [SKPaymentTransaction]) {
 		DDLogInfo("Restored \(transactions.map { $0.payment.productIdentifier }.joined(separator: ", "))")
 
-		if transactionsContainFullVersion(transactions) {
+		let restoredTransactionsResult = reduceTransactionsToRestoreResult(transactions)
+		switch restoredTransactionsResult {
+		case .restoredFullVersion:
 			unlockFullVersion()
-		} else if transactionsContainValidTrial(transactions) {
-			let trialExpirationDate = trialExpirationDate(transactions)
-			cryptomatorSettings.trialExpirationDate = trialExpirationDate
+		case let .restoredFreeTrial(expiresOn):
+			beginFreeTrial(expirationDate: expiresOn)
+		case .noRestorablePurchases:
+			break
 		}
 		for transaction in transactions {
 			SKPaymentQueue.default().finishTransaction(transaction)
 		}
+		runningRestore?.fulfill(restoredTransactionsResult)
 	}
 
 	fileprivate func handleDeferred(_ transaction: SKPaymentTransaction) {
@@ -178,7 +192,22 @@ class StoreObserver: NSObject, IAPManager {
 	}
 
 	private func beginFreeTrial(transaction: SKPaymentTransaction) {
-		cryptomatorSettings.trialExpirationDate = trialExpirationDate(transaction)
+		beginFreeTrial(expirationDate: trialExpirationDate(transaction))
+	}
+
+	private func beginFreeTrial(expirationDate: Date?) {
+		cryptomatorSettings.trialExpirationDate = expirationDate
+	}
+
+	private func reduceTransactionsToRestoreResult(_ transactions: [SKPaymentTransaction]) -> RestoreTransactionsResult {
+		if transactionsContainFullVersion(transactions) {
+			return .restoredFullVersion
+		}
+		if let trialExpirationDate = trialExpirationDate(transactions), trialExpirationDate > Date() {
+			return .restoredFreeTrial(expiresOn: trialExpirationDate)
+		} else {
+			return .noRestorablePurchases
+		}
 	}
 }
 
