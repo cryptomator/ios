@@ -147,6 +147,19 @@ class StoreObserver: NSObject, IAPManager {
 		promise.reject(StoreObserverError.deferredTransaction)
 	}
 
+	fileprivate func handleRevokedEntitlements(for productIdentifiers: [String]) {
+		DDLogInfo("Revoke entitlements for product identifiers: \(productIdentifiers)")
+		let productIdentifiers = productIdentifiers.compactMap { ProductIdentifier(rawValue: $0) }
+		for productIdentifier in productIdentifiers {
+			switch productIdentifier {
+			case .fullVersion, .paidUpgrade, .freeUpgrade:
+				revokeFullVersion()
+			case .thirtyDayTrial:
+				revokeFreeTrial()
+			}
+		}
+	}
+
 	// MARK: - Store Logic
 
 	private func transactionsContainFullVersion(_ transactions: [SKPaymentTransaction]) -> Bool {
@@ -209,6 +222,14 @@ class StoreObserver: NSObject, IAPManager {
 			return .noRestorablePurchases
 		}
 	}
+
+	private func revokeFullVersion() {
+		cryptomatorSettings.fullVersionUnlocked = false
+	}
+
+	private func revokeFreeTrial() {
+		cryptomatorSettings.trialExpirationDate = nil
+	}
 }
 
 // MARK: - SKPaymentTransactionObserver
@@ -263,5 +284,9 @@ extension StoreObserver: SKPaymentTransactionObserver {
 			}
 			promise.fulfill(.noRestorablePurchases)
 		}
+	}
+
+	func paymentQueue(_ queue: SKPaymentQueue, didRevokeEntitlementsForProductIdentifiers productIdentifiers: [String]) {
+		handleRevokedEntitlements(for: productIdentifiers)
 	}
 }

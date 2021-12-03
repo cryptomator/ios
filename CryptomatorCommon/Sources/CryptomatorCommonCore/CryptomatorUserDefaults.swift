@@ -34,6 +34,15 @@ public class CryptomatorUserDefaults {
 		defaults.set(value, forKey: property)
 		DDLogDebug("Setting \(property) was written with value \(value)")
 	}
+
+	private func write<T>(value: T?, to property: String = #function) {
+		if let value = value {
+			write(value: value, to: property)
+		} else {
+			defaults.removeObject(forKey: property)
+			DDLogDebug("Setting \(property) was removed")
+		}
+	}
 }
 
 extension CryptomatorUserDefaults: CryptomatorSettings {
