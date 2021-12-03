@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Promises
 import UIKit
 
@@ -74,6 +75,46 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 
 		// Check whether our view controller array already contains that view controller. If it does it means we’re pushing a different view controller on top rather than popping it, so exit.
 		if navigationController.viewControllers.contains(fromViewController) {
+			return
+		}
+	}
+}
+
+extension MainCoordinator: StoreObserverDelegate {
+	func purchaseDidSucceed(transaction: PurchaseTransaction) {
+		switch transaction {
+		case .fullVersion:
+			showFullVersionAlert()
+		case let .freeTrial(expiresOn):
+			showTrialAlert(expirationDate: expiresOn)
+		case .unknown:
+			break
+		}
+	}
+
+	private func showFullVersionAlert() {
+		showAlert { [weak self] in
+			guard let navigationController = self?.navigationController else {
+				return
+			}
+			_ = PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController)
+		}
+	}
+
+	private func showTrialAlert(expirationDate: Date) {
+		showAlert { [weak self] in
+			guard let navigationController = self?.navigationController else {
+				return
+			}
+			_ = PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController)
+		}
+	}
+
+	private func showAlert(_ showAlertCall: @escaping () -> Void) {
+		guard navigationController.presentedViewController == nil else {
+			DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) { [weak self] in
+				self?.showAlert(showAlertCall)
+			}
 			return
 		}
 	}

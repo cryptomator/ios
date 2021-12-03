@@ -70,8 +70,8 @@ class StoreObserverTests: XCTestCase {
 
 		let fallbackCalledExpectation = XCTestExpectation()
 		let fallbackDelegateMock = StoreObserverDelegateMock()
-		fallbackDelegateMock.purchaseDidSucceedProductClosure = { product in
-			XCTAssertEqual(.thirtyDayTrial, product)
+		fallbackDelegateMock.purchaseDidSucceedTransactionClosure = { transaction in
+			self.assertTrialStarted(purchaseTransaction: transaction)
 			fallbackCalledExpectation.fulfill()
 		}
 		storeObserver.fallbackDelegate = fallbackDelegateMock
@@ -80,7 +80,7 @@ class StoreObserverTests: XCTestCase {
 		try approveAskToBuyTransaction()
 
 		wait(for: [fallbackCalledExpectation], timeout: 1.0)
-		XCTAssertEqual(1, fallbackDelegateMock.purchaseDidSucceedProductCallsCount)
+		XCTAssertEqual(1, fallbackDelegateMock.purchaseDidSucceedTransactionCallsCount)
 	}
 
 	// MARK: - Internal
@@ -149,19 +149,19 @@ class StoreObserverTests: XCTestCase {
 private class StoreObserverDelegateMock: StoreObserverDelegate {
 	// MARK: - purchaseDidSucceed
 
-	var purchaseDidSucceedProductCallsCount = 0
-	var purchaseDidSucceedProductCalled: Bool {
-		purchaseDidSucceedProductCallsCount > 0
+	var purchaseDidSucceedTransactionCallsCount = 0
+	var purchaseDidSucceedTransactionCalled: Bool {
+		purchaseDidSucceedTransactionCallsCount > 0
 	}
 
-	var purchaseDidSucceedProductReceivedProduct: ProductIdentifier?
-	var purchaseDidSucceedProductReceivedInvocations: [ProductIdentifier] = []
-	var purchaseDidSucceedProductClosure: ((ProductIdentifier) -> Void)?
+	var purchaseDidSucceedTransactionReceivedTransaction: PurchaseTransaction?
+	var purchaseDidSucceedTransactionReceivedInvocations: [PurchaseTransaction] = []
+	var purchaseDidSucceedTransactionClosure: ((PurchaseTransaction) -> Void)?
 
-	func purchaseDidSucceed(product: ProductIdentifier) {
-		purchaseDidSucceedProductCallsCount += 1
-		purchaseDidSucceedProductReceivedProduct = product
-		purchaseDidSucceedProductReceivedInvocations.append(product)
-		purchaseDidSucceedProductClosure?(product)
+	func purchaseDidSucceed(transaction: PurchaseTransaction) {
+		purchaseDidSucceedTransactionCallsCount += 1
+		purchaseDidSucceedTransactionReceivedTransaction = transaction
+		purchaseDidSucceedTransactionReceivedInvocations.append(transaction)
+		purchaseDidSucceedTransactionClosure?(transaction)
 	}
 }

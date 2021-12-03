@@ -25,7 +25,7 @@ enum StoreObserverError: Error {
 }
 
 protocol StoreObserverDelegate: AnyObject {
-	func purchaseDidSucceed(product: ProductIdentifier)
+	func purchaseDidSucceed(transaction: PurchaseTransaction)
 }
 
 enum RestoreTransactionsResult: Equatable {
@@ -98,9 +98,7 @@ class StoreObserver: NSObject, IAPManager {
 		}
 		SKPaymentQueue.default().finishTransaction(transaction)
 		guard let promise = runningPayments.removeValue(forKey: transaction.payment.productIdentifier) else {
-			if let productIdentifier = maybeProductIdentifier {
-				fallbackDelegate?.purchaseDidSucceed(product: productIdentifier)
-			}
+			fallbackDelegate?.purchaseDidSucceed(transaction: transactionType)
 			return
 		}
 		promise.fulfill(transactionType)

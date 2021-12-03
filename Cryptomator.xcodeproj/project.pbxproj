@@ -129,6 +129,7 @@
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
 		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
+		4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */; };
 		4A5F48EE272AA02A0084135F /* MaintenanceModeError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */; };
 		4A61F6B72745353E007AA422 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B62745353E007AA422 /* TableViewModel.swift */; };
 		4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */; };
@@ -536,6 +537,7 @@
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
 		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
+		4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseAlert.swift; sourceTree = "<group>"; };
 		4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceModeError+Localization.swift"; sourceTree = "<group>"; };
 		4A61F6B62745353E007AA422 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticUITableViewController.swift; sourceTree = "<group>"; };
@@ -1517,18 +1519,19 @@
 		74F5DC1A26DCD2E300AFE989 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
+				4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */,
 				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
 				74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */,
 				74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */,
+				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
 				74F5DC1E26DD036D00AFE989 /* StoreManager.swift */,
 				74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */,
+				4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */,
+				4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */,
 				74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */,
 				74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */,
 				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
-				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
-				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
-				4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */,
-				4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -2032,6 +2035,7 @@
 				4A1EB0D5268A5AA3006D072B /* VaultDetector.swift in Sources */,
 				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
 				4A4B7E7426B954D2009BFDB1 /* HeaderFooterViewModel.swift in Sources */,
+				4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */,
 				74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */,
 				4A644B53267BAFDA008CBB9A /* CreateNewFolderViewModel.swift in Sources */,
 				4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */,

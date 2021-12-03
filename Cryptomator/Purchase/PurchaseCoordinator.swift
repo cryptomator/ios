@@ -40,13 +40,13 @@ class PurchaseCoordinator: Coordinator {
 	}
 
 	func freeTrialStarted(expirationDate: Date) {
-		showTrialAlert(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate).then {
+		PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.beginFreeTrial.alert.title"), expirationDate: expirationDate, on: navigationController).then {
 			self.unlockedPro()
 		}
 	}
 
 	func fullVersionPurchased() {
-		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
+		PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController).then {
 			self.unlockedPro()
 		}
 	}
@@ -54,15 +54,17 @@ class PurchaseCoordinator: Coordinator {
 	func handleRestoreResult(_ result: RestoreTransactionsResult) {
 		switch result {
 		case .restoredFullVersion:
-			showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
+			PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionFound.alert.title"), on: navigationController).then {
 				self.unlockedPro()
 			}
 		case let .restoredFreeTrial(expiresOn):
-			showTrialAlert(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"), expirationDate: expiresOn).then {
+			PurchaseAlert.showForTrial(title: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.title"),
+			                           expirationDate: expiresOn,
+			                           on: navigationController).then {
 				self.unlockedPro()
 			}
 		case .noRestorablePurchases:
-			_ = showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"), message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"))
+			_ = PurchaseAlert.showForNoRestorablePurchases(on: navigationController)
 		}
 	}
 
@@ -77,24 +79,5 @@ class PurchaseCoordinator: Coordinator {
 
 	func getUpgradeCoordinator() -> UpgradeCoordinator {
 		return UpgradeCoordinator(navigationController: navigationController)
-	}
-
-	private func showAlert(title: String, message: String) -> Promise<Void> {
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		let pendingPromise = Promise<Void>.pending()
-		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
-			pendingPromise.fulfill(())
-		}
-		alertController.addAction(okAction)
-		navigationController.present(alertController, animated: true)
-		return pendingPromise
-	}
-
-	private func showTrialAlert(title: String, expirationDate: Date) -> Promise<Void> {
-		let formatter = DateFormatter()
-		formatter.dateStyle = .short
-		let formattedExpireDate = formatter.string(for: expirationDate) ?? "Invalid Date"
-		let message = String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
-		return showAlert(title: title, message: message)
 	}
 }

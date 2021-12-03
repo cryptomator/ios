@@ -29,13 +29,13 @@ class UpgradeCoordinator: Coordinator {
 	}
 
 	func paidUpgradePurchased() {
-		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
+		showAlert().then {
 			self.close()
 		}
 	}
 
 	func freeUpgradePurchased() {
-		showAlert(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), message: LocalizedString.getValue("purchase.unlockedFullVersion.message")).then {
+		showAlert().then {
 			self.close()
 		}
 	}
@@ -45,14 +45,7 @@ class UpgradeCoordinator: Coordinator {
 //		parentCoordinator?.childDidFinish(self)
 	}
 
-	private func showAlert(title: String, message: String) -> Promise<Void> {
-		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-		let pendingPromise = Promise<Void>.pending()
-		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
-			pendingPromise.fulfill(())
-		}
-		alertController.addAction(okAction)
-		navigationController.present(alertController, animated: true)
-		return pendingPromise
+	private func showAlert() -> Promise<Void> {
+		return PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController)
 	}
 }

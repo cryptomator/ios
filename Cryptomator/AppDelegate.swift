@@ -71,6 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let navigationController = BaseNavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
 		coordinator?.start()
+		StoreObserver.shared.fallbackDelegate = coordinator
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.tintColor = UIColor(named: "primary")
 		window?.rootViewController = navigationController
