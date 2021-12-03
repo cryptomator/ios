@@ -142,17 +142,6 @@ class SettingsPurchaseViewModel: PurchaseViewModel {
 			$0.id != .decideLaterSection
 		}
 	}
-
-	override var headerTitle: String {
-		if let trialExpirationDate = trialExpirationDate, trialExpirationDate > Date() {
-			let formatter = DateFormatter()
-			formatter.dateStyle = .short
-			let formattedExpireDate = formatter.string(for: trialExpirationDate) ?? "Invalid Date"
-			return String(format: LocalizedString.getValue("settings.purchase.infoRunningTrial"), formattedExpireDate)
-		} else {
-			return LocalizedString.getValue("purchase.info")
-		}
-	}
 }
 
 class SettingsUpgradeViewModel: UpgradeViewModel {

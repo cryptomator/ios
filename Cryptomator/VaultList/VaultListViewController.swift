@@ -60,6 +60,8 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		super.viewDidAppear(animated)
 		if CryptomatorUserDefaults.shared.showOnboardingAtStartup {
 			coordinator?.showOnboarding()
+		} else if UserDefaultsFullVersionChecker.shared.hasExpiredTrial, !CryptomatorUserDefaults.shared.showedTrialExpiredAtStartup {
+			coordinator?.showTrialExpired()
 		}
 	}
 

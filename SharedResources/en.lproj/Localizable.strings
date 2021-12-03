@@ -102,6 +102,8 @@
 
 "purchase.title" = "Unlock Full Version";
 "purchase.info" = "You can use Cryptomator in read-only mode for free. Consider unlocking the full version for write access to your vaults.";
+"purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access with unlimited number of vaults for a limited time. Consider unlocking the full version after the trial.";
+"purchase.infoExpiredTrial" = "Your trial has expired. Consider unlocking the full version to regain write access to your vaults.";
 "purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
 "purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
 "purchase.beginFreeTrial.footer" = "Try out the full version of Cryptomator for a limited time for free. You can unlock this trial only once.";
@@ -130,7 +132,6 @@
 "settings.cloudServices" = "Cloud Services";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Debug Mode";
-"settings.purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access with unlimited number of vaults for a limited time. Consider unlocking the full version after the trial.";
 "settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
 "settings.unlockFullVersion" = "Unlock Full Version";

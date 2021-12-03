@@ -11,4 +11,5 @@ import Foundation
 
 final class FullVersionCheckerMock: FullVersionChecker {
 	var isFullVersion: Bool = false
+	var hasExpiredTrial: Bool = false
 }

@@ -9,6 +9,7 @@
 import Foundation
 public protocol FullVersionChecker {
 	var isFullVersion: Bool { get }
+	var hasExpiredTrial: Bool { get }
 }
 
 public class UserDefaultsFullVersionChecker: FullVersionChecker {
@@ -24,6 +25,14 @@ public class UserDefaultsFullVersionChecker: FullVersionChecker {
 			return true
 		}
 		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	public var hasExpiredTrial: Bool {
+		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate <= Date() {
 			return true
 		} else {
 			return false

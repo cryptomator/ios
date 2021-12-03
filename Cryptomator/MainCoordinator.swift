@@ -32,6 +32,14 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		child.start()
 	}
 
+	func showTrialExpired() {
+		let modalNavigationController = TrialExpiredNavigationController()
+		let child = TrialExpiredCoordinator(navigationController: modalNavigationController)
+		childCoordinators.append(child)
+		navigationController.topViewController?.present(modalNavigationController, animated: true)
+		child.start()
+	}
+
 	func addVault() {
 		let modalNavigationController = BaseNavigationController()
 		let child = AddVaultCoordinator(navigationController: modalNavigationController)

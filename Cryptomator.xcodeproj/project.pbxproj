@@ -127,6 +127,8 @@
 		4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5580542755226100E525B8 /* StoreObserverTests.swift */; };
 		4A5AC4392758EC9400342AA7 /* FullVersionCheckerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */; };
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
+		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
+		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
 		4A5F48EE272AA02A0084135F /* MaintenanceModeError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */; };
 		4A61F6B72745353E007AA422 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B62745353E007AA422 /* TableViewModel.swift */; };
 		4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */; };
@@ -532,6 +534,8 @@
 		4A5580542755226100E525B8 /* StoreObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserverTests.swift; sourceTree = "<group>"; };
 		4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullVersionCheckerMock.swift; sourceTree = "<group>"; };
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
+		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
+		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
 		4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceModeError+Localization.swift"; sourceTree = "<group>"; };
 		4A61F6B62745353E007AA422 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticUITableViewController.swift; sourceTree = "<group>"; };
@@ -1523,6 +1527,8 @@
 				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
 				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
 				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
+				4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */,
+				4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -1970,6 +1976,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74C2BC4A26E8E24A00BCAA03 /* OnboardingViewModel.swift in Sources */,
+				4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
@@ -2055,6 +2062,7 @@
 				4AA22BFB261CA69F00A17486 /* WebDAVAuthenticationViewController.swift in Sources */,
 				4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */,
 				4A4B7E7926B961F0009BFDB1 /* UnlockSectionFooterViewModel.swift in Sources */,
+				4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */,
 				4A53CC13267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift in Sources */,
 				4A6A51FF268B1BEB006F7368 /* OpenExistingLocalVaultCoordinator.swift in Sources */,
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,

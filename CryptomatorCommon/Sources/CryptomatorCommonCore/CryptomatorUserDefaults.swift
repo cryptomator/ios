@@ -42,6 +42,11 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 		set { write(value: newValue) }
 	}
 
+	public var showedTrialExpiredAtStartup: Bool {
+		get { read() ?? false }
+		set { write(value: newValue) }
+	}
+
 	public var fullVersionUnlocked: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }

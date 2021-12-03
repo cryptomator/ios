@@ -53,10 +53,14 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	}
 
 	var headerTitle: String {
-		return LocalizedString.getValue("purchase.info")
+		if let trialExpirationDate = trialExpirationDate {
+			return getHeaderTitle(for: trialExpirationDate)
+		} else {
+			return LocalizedString.getValue("purchase.info")
+		}
 	}
 
-	var trialExpirationDate: Date? {
+	private var trialExpirationDate: Date? {
 		return cryptomatorSettings.trialExpirationDate
 	}
 
@@ -201,6 +205,17 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 			} else {
 				throw error
 			}
+		}
+	}
+
+	private func getHeaderTitle(for trialExpirationDate: Date) -> String {
+		if trialExpirationDate > Date() {
+			let formatter = DateFormatter()
+			formatter.dateStyle = .short
+			let formattedExpireDate = formatter.string(for: trialExpirationDate) ?? "Invalid Date"
+			return String(format: LocalizedString.getValue("purchase.infoRunningTrial"), formattedExpireDate)
+		} else {
+			return LocalizedString.getValue("purchase.infoExpiredTrial")
 		}
 	}
 }

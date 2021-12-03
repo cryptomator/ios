@@ -105,6 +105,32 @@ class PurchaseViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	// MARK: Header Title
+
+	func testHeaderTitle() {
+		cryptomatorSettingsMock.trialExpirationDate = nil
+		cryptomatorSettingsMock.fullVersionUnlocked = false
+		XCTAssertEqual(LocalizedString.getValue("purchase.info"), viewModel.headerTitle)
+	}
+
+	func testHeaderTitleForRunningTrial() {
+		let trialExpirationDate = Date.distantFuture
+		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
+		cryptomatorSettingsMock.fullVersionUnlocked = false
+
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		let formattedExpireDate = formatter.string(for: trialExpirationDate)!
+		let expectedHeaderTitle = String(format: LocalizedString.getValue("purchase.infoRunningTrial"), formattedExpireDate)
+		XCTAssertEqual(expectedHeaderTitle, viewModel.headerTitle)
+	}
+
+	func testHeaderTitleForExpiredTrial() {
+		cryptomatorSettingsMock.trialExpirationDate = .distantPast
+		cryptomatorSettingsMock.fullVersionUnlocked = false
+		XCTAssertEqual(LocalizedString.getValue("purchase.infoExpiredTrial"), viewModel.headerTitle)
+	}
+
 	// MARK: Begin Free Trial
 
 	func testBeginFreeTrial() {
