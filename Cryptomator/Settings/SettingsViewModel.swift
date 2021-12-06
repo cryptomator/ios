@@ -40,7 +40,11 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return _sections
 	}
 
-	private var _sections: [Section<SettingsSection>] {
+	var showDebugModeWarning: AnyPublisher<Void, Never> {
+		return showDebugModeWarningPublisher.eraseToAnyPublisher()
+	}
+
+	private lazy var _sections: [Section<SettingsSection>] = {
 		return [
 			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
@@ -82,6 +86,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 
 	private let fileProviderConnector: FileProviderConnector
 	private var subscribers = Set<AnyCancellable>()
+	private lazy var showDebugModeWarningPublisher = PassthroughSubject<Void, Never>()
 
 	init(cacheManager: FileProviderCacheManager = FileProviderCacheManager(), cryptomatorSetttings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.cacheManager = cacheManager
@@ -120,11 +125,28 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		}
 	}
 
+	func enableDebugMode() {
+		setDebugMode(enabled: true)
+	}
+
+	func disableDebugMode() {
+		setDebugMode(enabled: false)
+		debugModeViewModel.isOn.value = false
+	}
+
+	private func setDebugMode(enabled: Bool) {
+		cryptomatorSettings.debugModeEnabled = enabled
+		LoggerSetup.setDynamicLogLevel(debugModeEnabled: enabled)
+		notifyFileProviderAboutLogLevelUpdate()
+	}
+
 	private func bindDebugModeViewModel(_ viewModel: SwitchCellViewModel) {
 		viewModel.isOnButtonPublisher.sink { [weak self] isOn in
-			self?.cryptomatorSettings.debugModeEnabled = isOn
-			LoggerSetup.setDynamicLogLevel(debugModeEnabled: isOn)
-			self?.notifyFileProviderAboutLogLevelUpdate()
+			if isOn {
+				self?.showDebugModeWarningPublisher.send()
+			} else {
+				self?.setDebugMode(enabled: false)
+			}
 		}.store(in: &subscribers)
 	}
 

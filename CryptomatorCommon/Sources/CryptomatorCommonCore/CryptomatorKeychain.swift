@@ -99,7 +99,7 @@ class CryptomatorUserPresenceKeychain: CryptomatorKeychain {
 	static let vaultPassword = CryptomatorUserPresenceKeychain(service: "cryptomatorVaultPassword")
 	private static var access = SecAccessControlCreateWithFlags(nil, // Use the default allocator.
 	                                                            kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-	                                                            .biometryAny,
+	                                                            .biometryCurrentSet,
 	                                                            nil) // Ignore any error.
 
 	override func setQuery(key: String, value: Data) -> [String: Any] {

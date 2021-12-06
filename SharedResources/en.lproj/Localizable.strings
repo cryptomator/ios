@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Error";
+"common.alert.attention.title" = "Attention";
 "common.button.cancel" = "Cancel";
 "common.button.change" = "Change";
 "common.button.choose" = "Choose";
@@ -132,6 +133,7 @@
 "settings.cloudServices" = "Cloud Services";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Debug Mode";
+"settings.debugMode.alert.message" = "In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.";
 "settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
 "settings.unlockFullVersion" = "Unlock Full Version";
