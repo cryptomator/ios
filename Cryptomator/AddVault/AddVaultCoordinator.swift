@@ -76,14 +76,7 @@ class AddVaultCoordinator: Coordinator {
 	}
 
 	private func isAllowedToCreateNewVault() -> Bool {
-		if CryptomatorUserDefaults.shared.fullVersionUnlocked {
-			return true
-		}
-		if let trialExpirationDate = CryptomatorUserDefaults.shared.trialExpirationDate, trialExpirationDate > Date() {
-			return true
-		} else {
-			return false
-		}
+		return UserDefaultsFullVersionChecker.shared.isFullVersion
 	}
 }
 

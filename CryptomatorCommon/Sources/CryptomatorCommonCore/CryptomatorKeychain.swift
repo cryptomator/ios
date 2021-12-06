@@ -19,7 +19,6 @@ class CryptomatorKeychain {
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
 	static let upgrade = CryptomatorKeychain(service: "upgrade")
-	static let vault = CryptomatorKeychain(service: "cryptomatorVault") // TODO: deprecated?
 
 	init(service: String) {
 		self.service = service
