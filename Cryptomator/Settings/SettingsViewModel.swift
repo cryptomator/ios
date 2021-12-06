@@ -63,7 +63,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])
 		]
-	}
+	}()
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
 		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
