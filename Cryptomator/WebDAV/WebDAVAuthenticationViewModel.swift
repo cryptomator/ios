@@ -16,11 +16,13 @@ enum WebDAVAuthenticationError: Error {
 	case invalidInput
 	case untrustedCertificate(certificate: TLSCertificate, url: URL)
 	case userCanceled
+	case httpConnection
 }
 
 protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
-	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool) throws -> WebDAVCredential
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
+	func transformURLToHTTPS() throws
 }
 
 class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
@@ -41,7 +43,12 @@ class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenti
 	let passwordCellViewModel = TextFieldCellViewModel(type: .password, placeholder: LocalizedString.getValue("common.cells.password"))
 
 	var url: String {
-		return urlCellViewModel.input.value
+		get {
+			return urlCellViewModel.input.value
+		}
+		set {
+			urlCellViewModel.input.value = newValue
+		}
 	}
 
 	var username: String {
@@ -55,10 +62,12 @@ class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenti
 	private var client: WebDAVClient?
 	private lazy var subscribers = Set<AnyCancellable>()
 
-	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
-		// TODO: Add Input Validation
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool = false) throws -> WebDAVCredential {
 		guard let baseURL = URL(string: url) else {
 			throw WebDAVAuthenticationError.invalidInput
+		}
+		if !allowHTTPConnection, baseURL.scheme == "http" {
+			throw WebDAVAuthenticationError.httpConnection
 		}
 		guard !username.isEmpty, !password.isEmpty else {
 			throw WebDAVAuthenticationError.invalidInput
@@ -66,8 +75,23 @@ class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenti
 		return WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
 	}
 
+	func transformURLToHTTPS() throws {
+		var components = URLComponents(string: url)
+		components?.scheme = "https"
+		guard let transformedURL = components?.string else {
+			throw WebDAVAuthenticationError.invalidInput
+		}
+		url = transformedURL
+	}
+
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
-		return checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate).then { _ -> Promise<Void> in
+		let checkTLSCertificatePromise: Promise<Void>
+		if credential.baseURL.scheme == "http" {
+			checkTLSCertificatePromise = Promise(())
+		} else {
+			checkTLSCertificatePromise = checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate)
+		}
+		return checkTLSCertificatePromise.then { _ -> Promise<Void> in
 			let client = WebDAVClient(credential: credential)
 			self.client = client
 			return WebDAVAuthenticator.verifyClient(client: client)

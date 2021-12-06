@@ -58,6 +58,9 @@ class TextFieldCell: TableViewCell, UITextFieldDelegate {
 			.receive(on: RunLoop.main)
 			.assign(to: \.input.value, on: viewModel)
 			.store(in: &subscribers)
+		viewModel.input.$value.sink { [weak self] inputValue in
+			self?.textField.text = inputValue
+		}.store(in: &subscribers)
 	}
 
 	// MARK: - UITextFieldDelegate
