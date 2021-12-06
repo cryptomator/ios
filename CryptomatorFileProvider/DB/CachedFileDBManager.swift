@@ -34,7 +34,7 @@ class CachedFileManagerHelper {
 	/**
 	 Removes the file or directory at the specified URL.
 
-	 This set the `.immutable` attribute of the file or directory at the specified URL to `false` prior the deletion.
+	 This sets the `.immutable` attribute of the file or directory at the specified URL to `false` prior to deletion.
 	 */
 	func removeItem(at url: URL) throws {
 		var fileManagerError: NSError?

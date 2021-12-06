@@ -1,5 +1,5 @@
 //
-//  OnboardingWelcomeViewModel.swift
+//  OnboardingViewModel.swift
 //  Cryptomator
 //
 //  Created by Tobias Hagemann on 08.09.21.
