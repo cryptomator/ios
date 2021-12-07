@@ -119,6 +119,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restore Successful";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "No Full Version";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We were unable to find a previously purchased full version that could be restored. Please try another option.";
+"purchase.retry.button" = "Retry";
+"purchase.retry.footer" = "Could not load the available products.";
 "purchase.decideLater.button" = "Decide Later";
 "purchase.decideLater.footer" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
 

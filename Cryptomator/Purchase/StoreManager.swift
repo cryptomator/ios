@@ -18,7 +18,11 @@ enum ProductIdentifier: String, CaseIterable {
 	case freeUpgrade = "org.cryptomator.ios.iap.free_upgrade"
 }
 
-class StoreManager: NSObject {
+protocol IAPStore {
+	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<SKProductsResponse>
+}
+
+class StoreManager: NSObject, IAPStore {
 	static let shared = StoreManager()
 
 	private var runningRequests = [SKProductsRequest: Promise<SKProductsResponse>]()

@@ -105,6 +105,21 @@ class PurchaseViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	func testShowRefreshSectionIfFetchProductsFailed() {
+		let expectation = XCTestExpectation()
+		let iapStoreMock = IAPStoreMock()
+		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
+		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
+		viewModel.fetchProducts().then {
+			self.assertShowReloadSectionAfterFetchProductFailed(viewModel: viewModel)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
+
 	// MARK: Header Title
 
 	func testHeaderTitle() {
@@ -256,6 +271,18 @@ class PurchaseViewModelTests: XCTestCase {
 
 	private func setUpIAPManagerMockForBeginTrial(trialExpirationDate: Date) {
 		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.freeTrial(expiresOn: trialExpirationDate))
+	}
+
+	private func assertShowReloadSectionAfterFetchProductFailed(viewModel: PurchaseViewModel) {
+		let expectedSections: [Section<PurchaseSection>] = [
+			Section(id: .emptySection, elements: []),
+			Section(id: .retrySection, elements: [viewModel.retryButtonCellViewModel]),
+			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
+			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+		]
+		XCTAssertEqual(expectedSections, viewModel.sections)
+		XCTAssertEqual(LocalizedString.getValue("purchase.retry.button"), viewModel.retryButtonCellViewModel.title.value)
+		XCTAssertEqual(LocalizedString.getValue("purchase.retry.footer"), viewModel.getFooterTitle(for: 1))
 	}
 }
 

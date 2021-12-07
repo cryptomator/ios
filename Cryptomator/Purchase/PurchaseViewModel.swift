@@ -20,6 +20,7 @@ enum PurchaseButtonAction {
 	case restorePurchase
 	case decideLater
 	case unknown
+	case refreshProducts
 }
 
 enum PurchaseSection {
@@ -30,6 +31,7 @@ enum PurchaseSection {
 	case decideLaterSection
 	case loadingSection
 	case emptySection
+	case retrySection
 }
 
 enum PurchaseError: Error {
@@ -39,10 +41,11 @@ enum PurchaseError: Error {
 
 class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	lazy var upgradeButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>.createDisclosureButton(action: .showUpgrade, title: LocalizedString.getValue("upgrade.title"))
-	lazy var freeTrialButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .beginFreeTrial, title: LocalizedString.getValue("purchase.beginFreeTrial.button"))
-	lazy var purchaseButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .purchaseFullVersion, title: LocalizedString.getValue("purchase.purchaseFullVersion.button"))
+	lazy var freeTrialButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .beginFreeTrial, title: LocalizedString.getValue("purchase.beginFreeTrial.button"))
+	lazy var purchaseButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .purchaseFullVersion, title: LocalizedString.getValue("purchase.purchaseFullVersion.button"))
 	lazy var restorePurchaseButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button"))
 	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .decideLater, title: LocalizedString.getValue("purchase.decideLater.button"))
+	lazy var retryButtonCellViewModel = SystemSymbolButtonCellViewModel<PurchaseButtonAction>(action: .refreshProducts, title: LocalizedString.getValue("purchase.retry.button"), symbolName: "arrow.clockwise")
 	lazy var loadingCellViewModel = LoadingCellViewModel()
 	override var sections: [Section<PurchaseSection>] {
 		return _sections
@@ -75,7 +78,7 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		return sections.compactMap { $0 }
 	}()
 
-	private let storeManager: StoreManager
+	private let storeManager: IAPStore
 	private let upgradeChecker: UpgradeCheckerProtocol
 	private let iapManager: IAPManager
 	private var products = [ProductIdentifier: SKProduct]()
@@ -83,7 +86,7 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	private let minimumDisplayTime: TimeInterval = 1.0
 	private let cryptomatorSettings: CryptomatorSettings
 
-	init(storeManager: StoreManager = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared) {
+	init(storeManager: IAPStore = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared) {
 		self.storeManager = storeManager
 		self.upgradeChecker = upgradeChecker
 		self.iapManager = iapManager
@@ -102,6 +105,8 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 			return LocalizedString.getValue("purchase.restorePurchase.footer")
 		case .decideLaterSection:
 			return LocalizedString.getValue("purchase.decideLater.footer")
+		case .retrySection:
+			return LocalizedString.getValue("purchase.retry.footer")
 		case .loadingSection, .emptySection:
 			return nil
 		}
@@ -116,10 +121,13 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 				}
 				$0[productIdentifier] = $1
 			}
-		}.delay(getDelay()).then { _ -> Void in
-			self.removeLoadingSection()
+		}.then { _ -> Void in
 			self.addTrialSection()
 			self.addPurchaseFullVersionSection()
+		}.recover { _ -> Void in
+			self.addRetrySection()
+		}.delay(getDelay()).always {
+			self.removeLoadingSection()
 		}
 	}
 
@@ -135,11 +143,14 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		guard let product = products[.thirtyDayTrial] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
+		freeTrialButtonCellViewModel.isLoading.value = true
 		return buyProduct(product).then { result -> Date in
 			guard case let PurchaseTransaction.freeTrial(trialExpirationDate) = result else {
 				throw PurchaseError.unavailableProduct
 			}
 			return trialExpirationDate
+		}.always {
+			self.freeTrialButtonCellViewModel.isLoading.value = false
 		}
 	}
 
@@ -147,13 +158,22 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		guard let product = products[.fullVersion] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
+		purchaseButtonCellViewModel.isLoading.value = true
 		return buyProduct(product).then { _ in
 			// no-op
+		}.always {
+			self.purchaseButtonCellViewModel.isLoading.value = false
 		}
 	}
 
 	func restorePurchase() -> Promise<RestoreTransactionsResult> {
 		return iapManager.restore()
+	}
+
+	func replaceRetrySectionWithLoadingSection() {
+		if let index = _sections.firstIndex(where: { $0.id == .retrySection }) {
+			_sections[index] = Section(id: .loadingSection, elements: [loadingCellViewModel])
+		}
 	}
 
 	private func removeLoadingSection() {
@@ -216,6 +236,12 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 			return String(format: LocalizedString.getValue("purchase.infoRunningTrial"), formattedExpireDate)
 		} else {
 			return LocalizedString.getValue("purchase.infoExpiredTrial")
+		}
+	}
+
+	private func addRetrySection() {
+		if let index = getRestoreSectionIndex() {
+			_sections.insert(Section(id: .retrySection, elements: [retryButtonCellViewModel]), at: index)
 		}
 	}
 }

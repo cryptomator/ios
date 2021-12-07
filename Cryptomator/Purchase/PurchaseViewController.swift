@@ -48,6 +48,13 @@ class PurchaseViewController: IAPViewController<PurchaseSection> {
 			}
 		case .decideLater:
 			coordinator?.close()
+		case .refreshProducts:
+			let viewModel = viewModel
+			viewModel.replaceRetrySectionWithLoadingSection()
+			applySnapshot(sections: viewModel.sections)
+			viewModel.fetchProducts().then { [weak self] in
+				self?.applySnapshot(sections: viewModel.sections)
+			}
 		case .unknown:
 			break
 		}
