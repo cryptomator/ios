@@ -44,7 +44,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return showDebugModeWarningPublisher.eraseToAnyPublisher()
 	}
 
-	private lazy var _sections: [Section<SettingsSection>] = {
+	private var _sections: [Section<SettingsSection>] {
 		return [
 			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
@@ -63,7 +63,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])
 		]
-	}()
+	}
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
 		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
