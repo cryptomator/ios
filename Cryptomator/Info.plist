@@ -37,6 +37,10 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<true/>
+	<key>ITSEncryptionExportComplianceCode</key>
+	<string>0ecbe108-6127-46e6-8bb0-e9a0cc424582</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>dbapi-8-emm</string>
