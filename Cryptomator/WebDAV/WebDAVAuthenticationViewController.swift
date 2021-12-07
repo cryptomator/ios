@@ -35,15 +35,15 @@ class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewControll
 	}
 
 	@objc func done() {
-		addAccount(allowedCertificate: nil)
+		addAccount(allowedCertificate: nil, allowHTTPConnection: false)
 	}
 
-	func addAccount(allowedCertificate: Data?) {
+	func addAccount(allowedCertificate: Data?, allowHTTPConnection: Bool) {
 		let credential: WebDAVCredential
 		do {
-			credential = try viewModel.createWebDAVCredentialFromInput(allowedCertificate: allowedCertificate)
+			credential = try viewModel.createWebDAVCredentialFromInput(allowedCertificate: allowedCertificate, allowHTTPConnection: allowHTTPConnection)
 		} catch {
-			coordinator?.handleError(error, for: self)
+			handleError(error)
 			return
 		}
 
@@ -77,6 +77,8 @@ class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewControll
 	private func handleError(_ error: Error) {
 		if case let WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url) = error {
 			coordinator?.handleUntrustedCertificate(certificate, url: url, for: self, viewModel: viewModel)
+		} else if case WebDAVAuthenticationError.httpConnection = error {
+			coordinator?.handleInsecureConnection(for: self, viewModel: viewModel)
 		} else {
 			coordinator?.handleError(error, for: self)
 		}
@@ -93,7 +95,9 @@ class WebDAVAuthenticationViewModelMock: SingleSectionTableViewModel, WebDAVAuth
 		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
 	}
 
-	func createWebDAVCredentialFromInput(allowedCertificate: Data?) throws -> WebDAVCredential {
+	func transformURLToHTTPS() throws {}
+
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool) throws -> WebDAVCredential {
 		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
 	}
 
