@@ -27,11 +27,11 @@ public class CryptomatorUserDefaults {
 	#endif
 
 	private func read<T>(property: String = #function) -> T? {
-		defaults.object(forKey: property) as? T
+		return defaults.object(forKey: key(from: property)) as? T
 	}
 
 	private func write<T>(value: T, to property: String = #function) {
-		defaults.set(value, forKey: property)
+		defaults.set(value, forKey: key(from: property))
 		DDLogDebug("Setting \(property) was written with value \(value)")
 	}
 
@@ -39,9 +39,17 @@ public class CryptomatorUserDefaults {
 		if let value = value {
 			write(value: value, to: property)
 		} else {
-			defaults.removeObject(forKey: property)
+			defaults.removeObject(forKey: key(from: property))
 			DDLogDebug("Setting \(property) was removed")
 		}
+	}
+
+	private func key(from property: String) -> String {
+		#if TESTFLIGHT
+		return "\(property)-TestFlight"
+		#else
+		return property
+		#endif
 	}
 }
 

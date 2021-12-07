@@ -16,7 +16,7 @@ platform :ios do
 
   desc "Submit a new internal beta build to TestFlight"
   lane :beta do
-    gym(scheme: "Cryptomator")
+    gym(scheme: "Cryptomator", xcargs: "TESTFLIGHT='1'")
     changelog = File.read("changelog.txt")
     pilot(changelog: changelog, distribute_external: false, groups: ["App Store Connect Users"], skip_waiting_for_build_processing: true)
     version = get_version_number(target: "Cryptomator")
