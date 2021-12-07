@@ -12,10 +12,10 @@ import Promises
 import StoreKit
 
 enum ProductIdentifier: String, CaseIterable {
-	case fullVersion = "org.cryptomator.ios.iap.full-version"
-	case thirtyDayTrial = "org.cryptomator.ios.iap.30-day-trial"
-	case paidUpgrade = "org.cryptomator.ios.iap.paid-upgrade"
-	case freeUpgrade = "org.cryptomator.ios.iap.free-upgrade"
+	case fullVersion = "org.cryptomator.ios.iap.full_version"
+	case thirtyDayTrial = "org.cryptomator.ios.iap.30_day_trial"
+	case paidUpgrade = "org.cryptomator.ios.iap.paid_upgrade"
+	case freeUpgrade = "org.cryptomator.ios.iap.free_upgrade"
 }
 
 class StoreManager: NSObject {

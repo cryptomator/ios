@@ -10,12 +10,12 @@
       "internalID" : "1568C728",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Upgrade from Cryptomator 1.x for free",
+          "displayName" : "Free Upgrade",
           "locale" : "en_US"
         }
       ],
-      "productID" : "org.cryptomator.ios.iap.free-upgrade",
+      "productID" : "org.cryptomator.ios.iap.free_upgrade",
       "referenceName" : "Free Upgrade",
       "type" : "NonConsumable"
     },
@@ -25,12 +25,12 @@
       "internalID" : "22493192",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Upgrade from Cryptomator 1.x and contribute",
+          "displayName" : "Paid Upgrade",
           "locale" : "en_US"
         }
       ],
-      "productID" : "org.cryptomator.ios.iap.paid-upgrade",
+      "productID" : "org.cryptomator.ios.iap.paid_upgrade",
       "referenceName" : "Paid Upgrade",
       "type" : "NonConsumable"
     },
@@ -40,12 +40,12 @@
       "internalID" : "6CE869AF",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Unlock the full version for a limited time",
+          "displayName" : "30-Day Trial",
           "locale" : "en_US"
         }
       ],
-      "productID" : "org.cryptomator.ios.iap.30-day-trial",
+      "productID" : "org.cryptomator.ios.iap.30_day_trial",
       "referenceName" : "30-Day Trial",
       "type" : "NonConsumable"
     },
@@ -55,12 +55,12 @@
       "internalID" : "225A67DC",
       "localizations" : [
         {
-          "description" : "",
-          "displayName" : "",
+          "description" : "Grant write access to your vaults",
+          "displayName" : "Full Version",
           "locale" : "en_US"
         }
       ],
-      "productID" : "org.cryptomator.ios.iap.full-version",
+      "productID" : "org.cryptomator.ios.iap.full_version",
       "referenceName" : "Full Version",
       "type" : "NonConsumable"
     }
