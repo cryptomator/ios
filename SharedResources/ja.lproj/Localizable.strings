@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
 
+"fileProvider.onboarding.title" = "ようこそ";
+
 "localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "この金庫に対する他のバックグラウンド操作を最初に完了する必要があるため、操作を実行できません。あとでもう一度やり直してください。";
 
 "onboarding.title" = "ようこそ";
-"onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。始めるには、アプリから金庫を追加してください。";
-"onboarding.openCryptomator.button" = "Cryptomator を開く";
+"purchase.retry.button" = "再試行";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "認証中…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
+"webDAVAuthentication.httpConnection.change" = "HTTPS に変更";
