@@ -65,40 +65,8 @@ class OnboardingViewController: UITableViewController {
 	}
 }
 
-private class OnboardingHeaderView: UIView {
-	private lazy var imageView: UIImageView = {
-		let image = UIImage(named: "bot")
-		let imageView = UIImageView(image: image)
-		imageView.contentMode = .scaleAspectFit
-		return imageView
-	}()
-
-	private lazy var infoLabel: UILabel = {
-		let label = UILabel()
-		label.textAlignment = .center
-		label.numberOfLines = 0
-		return label
-	}()
-
+private class OnboardingHeaderView: CryptoBotHeaderFooterView {
 	init() {
-		super.init(frame: .zero)
-		infoLabel.text = LocalizedString.getValue("fileProvider.onboarding.info")
-		let stack = UIStackView(arrangedSubviews: [imageView, infoLabel])
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		stack.spacing = 20
-		addSubview(stack)
-
-		NSLayoutConstraint.activate([
-			stack.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-			stack.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-			stack.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-			stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
-		])
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init(infoText: LocalizedString.getValue("fileProvider.onboarding.info"))
 	}
 }

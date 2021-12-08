@@ -13,6 +13,8 @@ class TextFieldCell: TableViewCell, UITextFieldDelegate {
 		let textField = UITextField()
 		textField.clearButtonMode = .whileEditing
 		textField.delegate = self
+		textField.font = .preferredFont(forTextStyle: .body)
+		textField.adjustsFontForContentSizeCategory = true
 		return textField
 	}()
 
@@ -26,8 +28,8 @@ class TextFieldCell: TableViewCell, UITextFieldDelegate {
 		NSLayoutConstraint.activate([
 			textField.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
 			textField.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			textField.topAnchor.constraint(equalTo: topAnchor),
-			textField.bottomAnchor.constraint(equalTo: bottomAnchor)
+			textField.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
+			textField.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
 		])
 	}
 

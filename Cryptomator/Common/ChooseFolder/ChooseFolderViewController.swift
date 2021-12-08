@@ -138,26 +138,13 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	// MARK: - UITableViewDelegate
 
-	/* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	 	if viewModel.foundMasterkey {
-	 		return nil
-	 	}
-	 	return header
-	 } */
-
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if viewModel.foundMasterkey {
 			return nil
 		}
-		return viewModel.headerTitle
-	}
-
-	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		// Prevents the header title from being displayed in uppercase
-		guard let headerView = view as? UITableViewHeaderFooterView else {
-			return
-		}
-		headerView.textLabel?.text = viewModel.headerTitle
+		let header = UITableViewHeaderFooterView()
+		header.textLabel?.text = viewModel.headerTitle
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

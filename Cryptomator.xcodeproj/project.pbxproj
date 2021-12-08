@@ -149,7 +149,6 @@
 		4A644B55267C926A008CBB9A /* FolderCreating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B54267C926A008CBB9A /* FolderCreating.swift */; };
 		4A644B57267C958F008CBB9A /* ChildCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B56267C958F008CBB9A /* ChildCoordinator.swift */; };
 		4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B58267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift */; };
-		4A644B5B267CA972008CBB9A /* DetectedVaultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A644B5A267CA972008CBB9A /* DetectedVaultView.swift */; };
 		4A66F57925C47BB2001BE15E /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F57825C47BB2001BE15E /* TextFieldCell.swift */; };
 		4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */; };
 		4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */; };
@@ -564,7 +563,6 @@
 		4A644B54267C926A008CBB9A /* FolderCreating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderCreating.swift; sourceTree = "<group>"; };
 		4A644B56267C958F008CBB9A /* ChildCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildCoordinator.swift; sourceTree = "<group>"; };
 		4A644B58267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewFolderViewModelTests.swift; sourceTree = "<group>"; };
-		4A644B5A267CA972008CBB9A /* DetectedVaultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedVaultView.swift; sourceTree = "<group>"; };
 		4A66F57825C47BB2001BE15E /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		4A66F58125C487C9001BE15E /* PasswordFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordFieldCell.swift; sourceTree = "<group>"; };
 		4A66F58A25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewModel.swift; sourceTree = "<group>"; };
@@ -1096,7 +1094,6 @@
 				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
 				4A2FD07825B5D98B008565C8 /* CloudCell.swift */,
 				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
-				4A644B5A267CA972008CBB9A /* DetectedVaultView.swift */,
 				4A3D655E268099F9000DA764 /* VaultCoordinatorError.swift */,
 				4A2FD08125B5E2BA008565C8 /* VaultInstalling.swift */,
 				4A644B45267A3D21008CBB9A /* CreateNewVault */,
@@ -2156,7 +2153,6 @@
 				4A644B51267BAAF4008CBB9A /* CreateNewFolderViewController.swift in Sources */,
 				4A0337CA2726FF46001753B7 /* MoveVaultCoordinator.swift in Sources */,
 				4A4B7E3F26B2ABC0009BFDB1 /* VaultDetailViewController.swift in Sources */,
-				4A644B5B267CA972008CBB9A /* DetectedVaultView.swift in Sources */,
 				74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */,
 				74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */,
 				4A21B49626BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift in Sources */,

@@ -17,12 +17,17 @@ class EmptyListMessage: UIView {
 		addSubview(arrow)
 
 		let messageLabel = UILabel()
+		messageLabel.font = .preferredFont(forTextStyle: .body)
+		messageLabel.numberOfLines = 0
+		messageLabel.adjustsFontForContentSizeCategory = true
 		messageLabel.text = message
 		messageLabel.translatesAutoresizingMaskIntoConstraints = false
+		messageLabel.textAlignment = .center
 		addSubview(messageLabel)
 
 		NSLayoutConstraint.activate([
-			messageLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+			messageLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+			messageLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
 			messageLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
 		])
 

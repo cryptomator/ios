@@ -10,8 +10,14 @@ import CryptomatorCommonCore
 import UIKit
 
 class EditableTableViewHeader: UITableViewHeaderFooterView {
-	let editButton = UIButton(type: .system)
-	let title = UILabel()
+	lazy var editButton: UIButton = {
+		let button = UIButton(type: .system)
+		button.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
+		button.titleLabel?.adjustsFontForContentSizeCategory = true
+		button.setTitle(LocalizedString.getValue("common.button.edit"), for: .normal)
+		return button
+	}()
+
 	var isEditing: Bool = false {
 		didSet {
 			if oldValue != isEditing {
@@ -20,19 +26,21 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 		}
 	}
 
+	private lazy var title: UILabel = {
+		let label = UILabel()
+		label.adjustsFontForContentSizeCategory = true
+		label.font = .preferredFont(forTextStyle: .footnote)
+		label.textColor = .secondaryLabel
+		return label
+	}()
+
 	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
-		editButton.setTitle(LocalizedString.getValue("common.button.edit"), for: .normal)
 	}
 
 	convenience init() {
 		self.init(reuseIdentifier: nil)
-
-		editButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .footnote)
-
-		title.font = UIFont.preferredFont(forTextStyle: .footnote)
-		title.textColor = .secondaryLabel
 
 		editButton.translatesAutoresizingMaskIntoConstraints = false
 		title.translatesAutoresizingMaskIntoConstraints = false
@@ -41,11 +49,15 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 		contentView.addSubview(title)
 
 		NSLayoutConstraint.activate([
+			title.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
+			title.trailingAnchor.constraint(lessThanOrEqualTo: editButton.leadingAnchor, constant: -10),
 			title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+			title.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor),
 
+			editButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
 			editButton.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			editButton.lastBaselineAnchor.constraint(equalTo: title.lastBaselineAnchor)
+			editButton.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor)
 		])
 	}
 

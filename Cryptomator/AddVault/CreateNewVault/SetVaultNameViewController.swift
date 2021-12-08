@@ -24,7 +24,6 @@ class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 		super.viewDidLoad()
 		let doneButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.next"), style: .done, target: self, action: #selector(nextButtonClicked))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.rowHeight = 44
 		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
 			self?.lastReturnButtonPressedAction()
 		}

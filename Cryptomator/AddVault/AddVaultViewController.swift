@@ -60,21 +60,7 @@ class AddVaultViewController: BaseUITableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		let headerView = UIView()
-		let cryptoBotImage = UIImage(named: "bot")
-		let imageView = UIImageView(image: cryptoBotImage)
-		headerView.addSubview(imageView)
-
-		imageView.contentMode = .scaleAspectFit
-		imageView.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			imageView.leadingAnchor.constraint(equalTo: headerView.readableContentGuide.leadingAnchor),
-			imageView.trailingAnchor.constraint(equalTo: headerView.readableContentGuide.trailingAnchor),
-			imageView.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 20),
-			imageView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor, constant: -20)
-		])
-
-		return headerView
+		return CryptoBotHeaderFooterView(infoText: nil)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

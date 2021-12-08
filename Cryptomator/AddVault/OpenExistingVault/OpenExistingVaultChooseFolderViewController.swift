@@ -73,12 +73,11 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	}
 }
 
-private class SuccessView: DetectedVaultView {
-	init(vaultName: String) {
+private class SuccessView: LargeHeaderFooterView {
+	convenience init(vaultName: String) {
 		let botVaultImage = UIImage(named: "bot-vault")
-		let imageView = UIImageView(image: botVaultImage)
 		let text = String(format: LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.text"), vaultName)
-		super.init(imageView: imageView, text: text)
+		self.init(image: botVaultImage, infoText: text)
 	}
 }
 
