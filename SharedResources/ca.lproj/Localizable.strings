@@ -62,10 +62,12 @@
 "cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
 
 "cloudProviderType.localFileSystem" = "Un altre proveïdor de fitxers";
+
+"fileProvider.onboarding.title" = "Us donem la benvinguda";
 "localFileSystemAuthentication.createNewVault.button" = "Tria la localització de l'emmagatzematge";
 
 "onboarding.title" = "Us donem la benvinguda";
-"onboarding.openCryptomator.button" = "Obre Cryptomator";
+"purchase.retry.button" = "Reintenta";
 
 "settings.title" = "Configuració";
 "settings.aboutCryptomator" = "Quant a Cryptomator";
@@ -85,3 +87,7 @@
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
 
 "webDAVAuthentication.title" = "WebDAV";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Utilizar HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
