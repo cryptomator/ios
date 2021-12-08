@@ -26,7 +26,6 @@ class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: Stat
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		let viewModel = viewModel
 		dataSource?.defaultRowAnimation = .fade
 		defaultIsModalInPresentation = isModalInPresentation
 		subscriber = viewModel.hasRunningTransaction.sink { [weak self] hasRunningTransaction in
@@ -38,9 +37,7 @@ class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: Stat
 				self?.enableNavigationBarItems()
 			}
 		}
-		viewModel.fetchProducts().then { [weak self] in
-			self?.applySnapshot(sections: viewModel.sections)
-		}
+		fetchProducts()
 	}
 
 	func setCoordinator(_ coordinator: Coordinator?) {
@@ -52,6 +49,13 @@ class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: Stat
 			return
 		}
 		coordinator?.handleError(error, for: self)
+	}
+
+	func fetchProducts() {
+		let viewModel = viewModel
+		viewModel.fetchProducts().then { [weak self] in
+			self?.applySnapshot(sections: viewModel.sections)
+		}
 	}
 
 	// MARK: - UITableViewDelegate

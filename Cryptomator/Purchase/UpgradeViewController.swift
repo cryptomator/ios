@@ -44,6 +44,7 @@ class UpgradeViewController: IAPViewController<UpgradeSection, UpgradeButtonActi
 		case .refreshProducts:
 			viewModel.replaceRetrySectionWithLoadingSection()
 			applySnapshot(sections: viewModel.sections)
+			fetchProducts()
 		case .decideLater:
 			coordinator?.close()
 		case .none:

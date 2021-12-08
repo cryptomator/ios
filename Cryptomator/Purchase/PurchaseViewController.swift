@@ -46,6 +46,8 @@ class PurchaseViewController: IAPViewController<PurchaseSection, PurchaseButtonA
 		case .restorePurchase:
 			viewModel.restorePurchase().then { [weak self] result in
 				self?.coordinator?.handleRestoreResult(result)
+			}.catch { [weak self] error in
+				self?.handleError(error)
 			}
 		case .decideLater:
 			coordinator?.close()
@@ -53,9 +55,7 @@ class PurchaseViewController: IAPViewController<PurchaseSection, PurchaseButtonA
 			let viewModel = viewModel
 			viewModel.replaceRetrySectionWithLoadingSection()
 			applySnapshot(sections: viewModel.sections)
-			viewModel.fetchProducts().then { [weak self] in
-				self?.applySnapshot(sections: viewModel.sections)
-			}
+			fetchProducts()
 		case .unknown, .none:
 			break
 		}
