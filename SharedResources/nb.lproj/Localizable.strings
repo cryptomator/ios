@@ -15,6 +15,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
+"purchase.retry.button" = "Prøv igjen";
 
 "settings.title" = "Innstillinger";
 "settings.clearCache" = "Tøm hurtigminnet";
