@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "その他のファイル プロバイダー";
 
 "fileProvider.onboarding.title" = "ようこそ";
+"fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
 
 "localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
@@ -95,6 +97,10 @@
 "maintenanceModeError.runningCloudTask" = "この金庫に対する他のバックグラウンド操作を最初に完了する必要があるため、操作を実行できません。あとでもう一度やり直してください。";
 
 "onboarding.title" = "ようこそ";
+"onboarding.button.continue" = "続行";
+
+"purchase.title" = "フル バージョンのロックを解除";
+"purchase.info" = "無料の Cryptomator では読み取りモード専用で使用いただけます。金庫への書き込みができるフルバージョンをご検討ください。";
 "purchase.retry.button" = "再試行";
 
 "settings.title" = "設定";
@@ -108,6 +114,7 @@
 "settings.debugMode.alert.message" = "このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
+"settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
@@ -164,3 +171,4 @@
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
 "webDAVAuthentication.httpConnection.change" = "HTTPS に変更";
+"webDAVAuthentication.httpConnection.continue" = "HTTP を保持";
