@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 
+"fileProvider.onboarding.title" = "Hoş geldiniz";
+
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Bu kasa için diğer arka plan işlemlerinin önce tamamlanması gerektiğinden işlem gerçekleştirilemez. Lütfen daha sonra tekrar deneyiniz.";
 
 "onboarding.title" = "Hoş geldiniz";
-"onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
-"onboarding.openCryptomator.button" = "Cryptomator'ı aç";
+"purchase.retry.button" = "Yeniden dene";
 
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Kimlik doğrulanıyor…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS kullanılsın mı?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS'ye geç";
