@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
 
+"fileProvider.onboarding.title" = "Bem vindo";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na próxima tela, escolha o local de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar local de armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesse local. Por favor, tente novamente com um local de armazenamento diferente.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "A operação não pode ser realizada porque outras operações em segundo plano para este cofre têm que terminar primeiro. Por favor, tente novamente mais tarde.";
 
 "onboarding.title" = "Bem vindo";
-"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
-"onboarding.openCryptomator.button" = "Abrir Cryptomator";
+"purchase.retry.button" = "Tentar Novamente";
 
 "settings.title" = "Configurações";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
@@ -158,3 +159,7 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autenticando…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
