@@ -77,6 +77,8 @@
 
 "cloudProviderType.localFileSystem" = "Alt furnizor de fisiere";
 
+"fileProvider.onboarding.title" = "Bine ați venit";
+
 "localFileSystemAuthentication.createNewVault.header" = "În ecranul următor, alegeți locația de stocare pentru seiful dvs. nou.";
 "localFileSystemAuthentication.createNewVault.button" = "Selectați locația de stocare";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un seif există deja în această locație. Vă rugăm să încercați din nou cu o altă locație de stocare.";
@@ -85,8 +87,7 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Dosarul selectat nu este un seif. Vă rugăm să încercaţi din nou cu un alt dosar.";
 
 "onboarding.title" = "Bine ați venit";
-"onboarding.info" = "Vă mulțumim că ați ales Cryptomator pentru a vă proteja fișierele. Pentru a începe, mergeți la aplicația principală și adăugați un seif.";
-"onboarding.openCryptomator.button" = "Deschideți Cryptomator";
+"purchase.retry.button" = "Încercați din nou";
 
 "settings.title" = "Setări";
 "settings.aboutCryptomator" = "Despre Cryptomator";
@@ -139,3 +140,7 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Versiunea seif nu este acceptată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.";
 
 "webDAVAuthentication.title" = "WebDAV";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Folosiți HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Schimbare la HTTPS";
