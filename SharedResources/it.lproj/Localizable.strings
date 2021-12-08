@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Altro Fornitore di File";
 
+"fileProvider.onboarding.title" = "Benvenuto";
+
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una cassaforte esiste già in questa posizione. Riprova con un'altra posizione di archiviazione.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "L'operazione non può essere eseguita perché altre operazioni in background per questa cassaforte devono prima terminare. Riprova più tardi.";
 
 "onboarding.title" = "Benvenuto";
-"onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file. Per iniziare, vai all'app principale e aggiungi una cassaforte.";
-"onboarding.openCryptomator.button" = "Apri Cryptomator";
+"purchase.retry.button" = "Riprova";
 
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autenticando…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Usare HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "L'utilizzo di HTTP non è sicuro. Si consiglia invece di utilizzare HTTPS. Se conosci i rischi, puoi continuare con HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Cambia in HTTPS";
