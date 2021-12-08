@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Anderer Speicher-Anbieter";
 
+"fileProvider.onboarding.title" = "Willkommen";
+
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An dieser Stelle existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Der Vorgang kann nicht durchgeführt werden, da zuerst andere Hintergrundprozesse für diesen Tresor beendet werden müssen. Bitte versuche es später erneut.";
 
 "onboarding.title" = "Willkommen";
-"onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast. Um loszulegen, gehe zur Haupt-App und füge einen Tresor hinzu.";
-"onboarding.openCryptomator.button" = "Cryptomator öffnen";
+"purchase.retry.button" = "Wiederholen";
 
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authentifiziere…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
+"webDAVAuthentication.httpConnection.alert.message" = "Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.";
+"webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
