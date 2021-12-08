@@ -7,5 +7,10 @@
 "common.button.remove" = "తొలగించు";
 "common.cells.url" = "URL";
 "common.cells.username" = "వినియోగదారు పేరు";
+"purchase.retry.button" = "మళ్ళీ చేయండి";
 "settings.clearCache" = "కాష్ తొలగించండి";
 "vaultDetail.button.moveVault" = "కదలిక";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPSని ఉపయోగించాలా?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP వినియోగం అసురక్షితమైనది. బదులుగా HTTPSని ఉపయోగించమని మేము సిఫార్సు చేస్తున్నాము. మీకు ప్రమాదాలు తెలిస్తే, మీరు HTTPతో కొనసాగవచ్చు.";
+"webDAVAuthentication.httpConnection.change" = "HTTPSకి మార్చండి";
