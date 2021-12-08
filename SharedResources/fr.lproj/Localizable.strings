@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
 
+"fileProvider.onboarding.title" = "Bienvenue";
+
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
-"onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
-"onboarding.openCryptomator.button" = "Ouvrir Cryptomator";
+"purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authentification…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Utiliser le HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "L'utilisation du HTTP n'est pas sûre. Nous recommandons d'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Passage au HTTPS";
