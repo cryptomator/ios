@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Annan filleverantör";
 
+"fileProvider.onboarding.title" = "Välkommen";
+
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ett valv finns redan på denna plats. Försök igen med en annan lagringsplats.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
 
 "onboarding.title" = "Välkommen";
-"onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
-"onboarding.openCryptomator.button" = "Öppna Cryptomator";
+"purchase.retry.button" = "Försök igen";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autentiserar…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Använd HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Ändra till HTTPS";
