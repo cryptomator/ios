@@ -77,6 +77,8 @@
 
 "cloudProviderType.localFileSystem" = "Outro Provedor de Ficheiros";
 
+"fileProvider.onboarding.title" = "Bem-vindo(a)";
+
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
@@ -85,8 +87,6 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
-"onboarding.openCryptomator.button" = "Abrir Cryptomator";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
