@@ -24,7 +24,6 @@ class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewControll
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("webDAVAuthentication.title")
-		tableView.rowHeight = 44
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
