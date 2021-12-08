@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Другой файл-провайдер";
 
+"fileProvider.onboarding.title" = "Добро пожаловать";
+
 "localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
 "onboarding.title" = "Добро пожаловать";
-"onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
-"onboarding.openCryptomator.button" = "Открыть Cryptomator";
+"purchase.retry.button" = "Повторить";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Аутентификация…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.";
+"webDAVAuthentication.httpConnection.change" = "Изменить на HTTPS";
