@@ -27,7 +27,8 @@ class UpgradeViewController: IAPViewController<UpgradeSection> {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		switch viewModel.buttonAction(for: indexPath) {
+		let cellViewModel = dataSource?.itemIdentifier(for: indexPath) as? ButtonCellViewModel<UpgradeButtonAction>
+		switch cellViewModel?.action {
 		case .paidUpgrade:
 			viewModel.purchaseUpgrade().then { [weak self] in
 				self?.coordinator?.paidUpgradePurchased()

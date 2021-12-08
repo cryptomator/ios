@@ -27,7 +27,8 @@ class PurchaseViewController: IAPViewController<PurchaseSection> {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		switch viewModel.buttonAction(for: indexPath) {
+		let cellViewModel = dataSource?.itemIdentifier(for: indexPath) as? ButtonCellViewModel<PurchaseButtonAction>
+		switch cellViewModel?.action {
 		case .showUpgrade:
 			coordinator?.showUpgrade()
 		case .beginFreeTrial:
@@ -55,7 +56,7 @@ class PurchaseViewController: IAPViewController<PurchaseSection> {
 			viewModel.fetchProducts().then { [weak self] in
 				self?.applySnapshot(sections: viewModel.sections)
 			}
-		case .unknown:
+		case .unknown, .none:
 			break
 		}
 	}
