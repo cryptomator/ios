@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
+"fileProvider.onboarding.title" = "Witamy";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sejf już istnieje w tej lokalizacji. Spróbuj ponownie z inną lokalizacją.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
 "onboarding.title" = "Witamy";
-"onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
-"onboarding.openCryptomator.button" = "Otwórz Cryptomator";
+"purchase.retry.button" = "Ponów";
 
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
@@ -157,3 +158,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Uwierzytelnianie…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Używać HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Zmień na HTTPS";
