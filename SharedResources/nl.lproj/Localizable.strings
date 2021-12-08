@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
 
+"fileProvider.onboarding.title" = "Welkom";
+
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Er bestaat al een kluis op deze locatie. Probeer het opnieuw met een andere opslaglocatie.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
 
 "onboarding.title" = "Welkom";
-"onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
-"onboarding.openCryptomator.button" = "Open Cryptomator";
+"purchase.retry.button" = "Opnieuw proberen";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authenticatie verwerken…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
+"webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
