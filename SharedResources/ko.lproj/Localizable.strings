@@ -53,14 +53,15 @@
 
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
 
+"fileProvider.onboarding.title" = "환영합니다";
+
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
 
 "onboarding.title" = "환영합니다";
-"onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
-"onboarding.openCryptomator.button" = "Cryptomator 열기";
+"purchase.retry.button" = "재시도";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
@@ -87,3 +88,7 @@
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
 
 "webDAVAuthentication.title" = "WebDAV";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니가?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
