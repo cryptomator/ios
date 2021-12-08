@@ -207,8 +207,16 @@ class BaseIAPViewModel<SectionType: Hashable, ButtonActionType: Hashable>: Table
 		}.delay(getDelay())
 	}
 
+	/**
+	 Called when `storeManager.fetchProducts(with:)` succeeds.
+	 You can implement this method in your subclass if you want to perform further actions in this case.
+	 */
 	func fetchProductsSuccess() {}
 
+	/**
+	 Called when `storeManager.fetchProducts(with:)` fails.
+	 You can implement this method in your subclass if you want to perform further actions in this case.
+	 */
 	func fetchProductsRecover() {}
 
 	func restorePurchase(isLoadingBinding: Bindable<Bool>) -> Promise<RestoreTransactionsResult> {
