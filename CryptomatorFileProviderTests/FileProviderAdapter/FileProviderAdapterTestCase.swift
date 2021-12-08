@@ -14,10 +14,13 @@ import XCTest
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	var adapter: FileProviderAdapter!
 	var localURLProviderMock: LocalURLProviderMock!
+	var fullVersionCheckerMock: FullVersionCheckerMock!
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		localURLProviderMock = LocalURLProviderMock()
-		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		fullVersionCheckerMock = FullVersionCheckerMock()
+		fullVersionCheckerMock.isFullVersion = true
+		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock, fullVersionChecker: fullVersionCheckerMock)
 	}
 
 	class LocalURLProviderMock: LocalURLProvider {

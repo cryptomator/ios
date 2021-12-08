@@ -56,6 +56,15 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		}
 	}
 
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		if CryptomatorUserDefaults.shared.showOnboardingAtStartup {
+			coordinator?.showOnboarding()
+		} else if UserDefaultsFullVersionChecker.shared.hasExpiredTrial, !CryptomatorUserDefaults.shared.showedTrialExpiredAtStartup {
+			coordinator?.showTrialExpired()
+		}
+	}
+
 	override func registerCells() {
 		tableView.register(VaultCell.self, forCellReuseIdentifier: "VaultCell")
 	}

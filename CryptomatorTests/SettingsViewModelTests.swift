@@ -262,10 +262,6 @@ private class DocumentStorageURLProviderStub: DocumentStorageURLProvider {
 	}
 }
 
-private class CryptomatorSettingsMock: CryptomatorSettings {
-	var debugModeEnabled: Bool = false
-}
-
 private class LogLevelUpdatingMock: LogLevelUpdating {
 	var serviceName: NSFileProviderServiceName {
 		fatalError("Not mocked")

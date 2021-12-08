@@ -19,6 +19,7 @@ enum SettingsButtonAction: String {
 	case showCloudServices
 	case showContact
 	case showRateApp
+	case showUnlockFullVersion
 	case unknown
 }
 
@@ -43,7 +44,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return showDebugModeWarningPublisher.eraseToAnyPublisher()
 	}
 
-	private lazy var _sections: [Section<SettingsSection>] = {
+	private var _sections: [Section<SettingsSection>] {
 		return [
 			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
@@ -52,9 +53,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				cacheSizeCellViewModel,
 				clearCacheButtonCellViewModel
 			]),
-			Section(id: .aboutSection, elements: [
-				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
-			]),
+			Section(id: .aboutSection, elements: aboutSectionElements),
 			Section(id: .debugSection, elements: [
 				debugModeViewModel,
 				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
@@ -64,7 +63,15 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])
 		]
-	}()
+	}
+
+	private var aboutSectionElements: [TableViewCellViewModel] {
+		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
+		if !cryptomatorSettings.fullVersionUnlocked {
+			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
+		}
+		return elements
+	}
 
 	private let cacheManager: FileProviderCacheManager
 	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
@@ -147,6 +154,22 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		let getProxyPromise: Promise<LogLevelUpdating> = fileProviderConnector.getProxy(serviceName: LogLevelUpdatingService.name, domain: nil)
 		getProxyPromise.then { proxy in
 			proxy.logLevelUpdated()
+		}
+	}
+}
+
+class SettingsPurchaseViewModel: PurchaseViewModel {
+	override var sections: [Section<PurchaseSection>] {
+		super.sections.filter {
+			$0.id != .decideLaterSection
+		}
+	}
+}
+
+class SettingsUpgradeViewModel: UpgradeViewModel {
+	override var sections: [Section<UpgradeSection>] {
+		super.sections.filter {
+			$0.id != .decideLaterSection
 		}
 	}
 }

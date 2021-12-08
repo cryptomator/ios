@@ -14,7 +14,7 @@ class OnboardingViewController: UITableViewController {
 
 	private lazy var openCryptomatorCell: UITableViewCell = {
 		let cell = UITableViewCell()
-		cell.textLabel?.text = LocalizedString.getValue("onboarding.openCryptomator.button")
+		cell.textLabel?.text = LocalizedString.getValue("fileProvider.onboarding.button.openCryptomator")
 		cell.textLabel?.textColor = UIColor(named: "primary")
 		return cell
 	}()
@@ -30,7 +30,7 @@ class OnboardingViewController: UITableViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = LocalizedString.getValue("onboarding.title")
+		title = LocalizedString.getValue("fileProvider.onboarding.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 	}
@@ -82,7 +82,7 @@ private class OnboardingHeaderView: UIView {
 
 	init() {
 		super.init(frame: .zero)
-		infoLabel.text = LocalizedString.getValue("onboarding.info")
+		infoLabel.text = LocalizedString.getValue("fileProvider.onboarding.info")
 		let stack = UIStackView(arrangedSubviews: [imageView, infoLabel])
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		stack.axis = .vertical

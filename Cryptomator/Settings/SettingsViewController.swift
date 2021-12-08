@@ -37,6 +37,11 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		}
 	}
 
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		applySnapshot(sections: viewModel.sections, animatingDifferences: false)
+	}
+
 	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		NotificationCenter.default.removeObserver(self, name: UIApplication.willEnterForegroundNotification, object: nil)
@@ -112,6 +117,8 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			showContact()
 		case .showRateApp:
 			showRateApp()
+		case .showUnlockFullVersion:
+			coordinator?.showUnlockFullVersion()
 		case .unknown:
 			break
 		}

@@ -110,10 +110,18 @@ class CachedFileManagerTests: CacheTestCase {
 		let url = tmpDirURL.appendingPathComponent("foo")
 		let metadata = ItemMetadata(id: 1, name: "Foo", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
 		let data = getRandomData(sizeInBytes: 256)
-		try createTestData(localURL: url, data: data, metadata: metadata)
 
-		// Set local file foo to read-only to provoke an error when deleting inside the clearCache function
-		try FileManager.default.setAttributes([.immutable: 1], ofItemAtPath: url.path)
+		let cachedFileManagerHelperMock = CachedFileManagerHelperMock()
+		var removedFiles = [URL]()
+		let manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: cachedFileManagerHelperMock)
+
+		try createTestData(localURL: url, data: data, metadata: metadata, cacheManager: manager)
+
+		cachedFileManagerHelperMock.removeItemClosure = { passedURL in
+			XCTAssertEqual(url, passedURL)
+			removedFiles.append(passedURL)
+			throw CocoaError(.fileWriteNoPermission)
+		}
 
 		XCTAssertThrowsError(try manager.removeCachedFile(for: metadata.id!)) { error in
 			guard case CocoaError.fileWriteNoPermission = error else {
@@ -122,9 +130,7 @@ class CachedFileManagerTests: CacheTestCase {
 			}
 		}
 		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: metadata.id!))
-
-		// Remove read-only flag so the file can be deleted in the tear down
-		try FileManager.default.setAttributes([.immutable: 0], ofItemAtPath: url.path)
+		XCTAssertEqual([url], removedFiles)
 	}
 
 	func testGetLocalCacheSizeInBytes() throws {
@@ -182,28 +188,39 @@ class CachedFileManagerTests: CacheTestCase {
 		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0), name: "Item", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
 		let data = getRandomData(sizeInBytes: 256)
 
+		let cachedFileManagerHelperMock = CachedFileManagerHelperMock()
+		var removedFiles = [URL]()
+		let manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: cachedFileManagerHelperMock)
+
 		for (index, url) in urls.enumerated() {
-			try createTestData(localURL: url, data: data, metadata: metadata[index])
+			try createTestData(localURL: url, data: data, metadata: metadata[index], cacheManager: manager)
 		}
 
-		// Set local file bar to read-only to provoke an error when deleting inside the clearCache function
-		try FileManager.default.setAttributes([.immutable: 1], ofItemAtPath: urls[1].path)
+		cachedFileManagerHelperMock.removeItemClosure = { url in
+			if url == urls[1] {
+				throw CocoaError(.fileWriteNoPermission)
+			} else {
+				removedFiles.append(url)
+			}
+		}
 
 		try manager.clearCache()
 
 		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata[0].id!))
-		XCTAssertFalse(FileManager.default.fileExists(atPath: urls[0].path))
+		XCTAssert(removedFiles.contains(urls[0]))
 		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata[2].id!))
-		XCTAssertFalse(FileManager.default.fileExists(atPath: urls[2].path))
+		XCTAssert(removedFiles.contains(urls[2]))
 
 		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: metadata[1].id!))
-
-		// Remove read-only flag so the file can be deleted in the tear down
-		try FileManager.default.setAttributes([.immutable: 0], ofItemAtPath: urls[1].path)
+		XCTAssertFalse(removedFiles.contains(urls[1]))
 	}
 
 	private func createTestData(localURL: URL, data: Data, metadata: ItemMetadata) throws {
-		try createTestData(localURL: localURL, data: data, metadata: metadata, cacheManager: manager, metadataManager: metadataManager)
+		try createTestData(localURL: localURL, data: data, metadata: metadata, cacheManager: manager)
+	}
+
+	private func createTestData(localURL: URL, data: Data, metadata: ItemMetadata, cacheManager: CachedFileManager) throws {
+		try createTestData(localURL: localURL, data: data, metadata: metadata, cacheManager: cacheManager, metadataManager: metadataManager)
 	}
 }
 
@@ -230,5 +247,13 @@ class CacheTestCase: XCTestCase {
 		let bytes = [UInt32](repeating: 0, count: sizeInBytes).map { _ in arc4random() }
 		let data = Data(bytes: bytes, count: sizeInBytes)
 		return data
+	}
+}
+
+private class CachedFileManagerHelperMock: CachedFileManagerHelper {
+	var removeItemClosure: ((URL) throws -> Void)?
+
+	override func removeItem(at url: URL) throws {
+		try removeItemClosure?(url)
 	}
 }

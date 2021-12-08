@@ -7,23 +7,28 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import MobileCoreServices
 
 public class FileProviderItem: NSObject, NSFileProviderItem {
+	static let readOnlyCapabilities: NSFileProviderItemCapabilities = .allowsReading
+
 	// TODO: implement an initializer to create an item from your extension's backing model
 	// TODO: implement the accessors to return the values from your extension's backing model
 	let metadata: ItemMetadata
 	let error: Error?
 	let newestVersionLocallyCached: Bool
 	let localURL: URL?
+	private let fullVersionChecker: FullVersionChecker
 
-	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil) {
+	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.metadata = metadata
 		self.error = error
 		self.newestVersionLocallyCached = newestVersionLocallyCached
 		self.localURL = localURL
+		self.fullVersionChecker = fullVersionChecker
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
@@ -44,6 +49,9 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	public var capabilities: NSFileProviderItemCapabilities {
 		if metadata.statusCode == .uploadError {
 			return .allowsDeleting
+		}
+		if !fullVersionChecker.isFullVersion {
+			return FileProviderItem.readOnlyCapabilities
 		}
 		if metadata.type == .folder {
 			return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]

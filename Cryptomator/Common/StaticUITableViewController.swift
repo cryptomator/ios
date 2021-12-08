@@ -11,6 +11,7 @@ import UIKit
 class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewController {
 	var dataSource: BaseDiffableDataSource<SectionType, TableViewCellViewModel>?
 	private let viewModel: TableViewModel<SectionType>
+	private var isVisible = false
 
 	init(viewModel: TableViewModel<SectionType>) {
 		self.viewModel = viewModel
@@ -38,7 +39,9 @@ class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewControl
 		sections.forEach { section in
 			snapshot.appendItems(section.elements, toSection: section.id)
 		}
-		dataSource?.apply(snapshot, animatingDifferences: animatingDifferences)
+		// A snapshot can only be applied animated when the view is visible.
+		// Fixes the warning regarding `UITableViewAlertForLayoutOutsideViewHierarchy`.
+		dataSource?.apply(snapshot, animatingDifferences: isVisible ? animatingDifferences : false)
 	}
 
 	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -47,6 +50,16 @@ class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewControl
 			return
 		}
 		headerView.textLabel?.text = viewModel.getHeaderTitle(for: section)
+	}
+
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+		isVisible = true
+	}
+
+	override func viewWillDisappear(_ animated: Bool) {
+		super.viewWillDisappear(animated)
+		isVisible = false
 	}
 }
 

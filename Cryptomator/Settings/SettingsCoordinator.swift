@@ -68,6 +68,12 @@ class SettingsCoordinator: Coordinator {
 		}
 	}
 
+	func showUnlockFullVersion() {
+		let child = SettingsPurchaseCoordinator(navigationController: navigationController)
+		childCoordinators.append(child) // TODO: remove missing?
+		child.start()
+	}
+
 	@objc func close() {
 		navigationController.dismiss(animated: true)
 		parentCoordinator?.childDidFinish(self)
@@ -92,4 +98,56 @@ extension SettingsCoordinator: AccountListing {
 	func selectedAccont(_ account: AccountInfo) throws {}
 
 	func showEdit(for account: AccountInfo) {}
+}
+
+private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoordinator {
+	let oldTopViewController: UIViewController?
+
+	override init(navigationController: UINavigationController) {
+		self.oldTopViewController = navigationController.topViewController
+		super.init(navigationController: navigationController)
+	}
+
+	override func start() {
+		let purchaseViewController = PurchaseViewController(viewModel: SettingsPurchaseViewModel())
+		purchaseViewController.coordinator = self
+		purchaseViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+		navigationController.pushViewController(purchaseViewController, animated: true)
+	}
+
+	override func getUpgradeCoordinator() -> UpgradeCoordinator {
+		return SettingsUpgradeCoordinator(navigationController: navigationController, oldTopViewController: oldTopViewController)
+	}
+
+	override func close() {
+		popToOldTopViewController()
+	}
+
+	@objc private func done() {
+		super.close()
+	}
+}
+
+private class SettingsUpgradeCoordinator: UpgradeCoordinator, PoppingCloseCoordinator {
+	let oldTopViewController: UIViewController?
+
+	init(navigationController: UINavigationController, oldTopViewController: UIViewController?) {
+		self.oldTopViewController = oldTopViewController
+		super.init(navigationController: navigationController)
+	}
+
+	override func close() {
+		popToOldTopViewController()
+	}
+
+	override func start() {
+		let upgradeViewController = UpgradeViewController(viewModel: SettingsUpgradeViewModel())
+		upgradeViewController.coordinator = self
+		upgradeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
+		navigationController.pushViewController(upgradeViewController, animated: true)
+	}
+
+	@objc private func done() {
+		super.close()
+	}
 }

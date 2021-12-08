@@ -1,5 +1,5 @@
 //
-//  CryptomatorSettings.swift
+//  CryptomatorUserDefaults.swift
 //  CryptomatorCommonCore
 //
 //  Created by Tobias Hagemann on 22.09.21.
@@ -11,6 +11,8 @@ import Foundation
 
 public protocol CryptomatorSettings {
 	var debugModeEnabled: Bool { get set }
+	var trialExpirationDate: Date? { get set }
+	var fullVersionUnlocked: Bool { get set }
 }
 
 public class CryptomatorUserDefaults {
@@ -25,16 +27,53 @@ public class CryptomatorUserDefaults {
 	#endif
 
 	private func read<T>(property: String = #function) -> T? {
-		defaults.object(forKey: property) as? T
+		return defaults.object(forKey: key(from: property)) as? T
 	}
 
 	private func write<T>(value: T, to property: String = #function) {
-		defaults.set(value, forKey: property)
+		defaults.set(value, forKey: key(from: property))
 		DDLogDebug("Setting \(property) was written with value \(value)")
+	}
+
+	private func write<T>(value: T?, to property: String = #function) {
+		if let value = value {
+			write(value: value, to: property)
+		} else {
+			defaults.removeObject(forKey: key(from: property))
+			DDLogDebug("Setting \(property) was removed")
+		}
+	}
+
+	private func key(from property: String) -> String {
+		#if TESTFLIGHT
+		return "\(property)-TestFlight"
+		#else
+		return property
+		#endif
 	}
 }
 
 extension CryptomatorUserDefaults: CryptomatorSettings {
+	public var showOnboardingAtStartup: Bool {
+		get { read() ?? true }
+		set { write(value: newValue) }
+	}
+
+	public var showedTrialExpiredAtStartup: Bool {
+		get { read() ?? false }
+		set { write(value: newValue) }
+	}
+
+	public var fullVersionUnlocked: Bool {
+		get { read() ?? false }
+		set { write(value: newValue) }
+	}
+
+	public var trialExpirationDate: Date? {
+		get { read() }
+		set { write(value: newValue) }
+	}
+
 	public var debugModeEnabled: Bool {
 		get { read() ?? CryptomatorUserDefaults.debugModeEnabledDefaultValue }
 		set { write(value: newValue) }
