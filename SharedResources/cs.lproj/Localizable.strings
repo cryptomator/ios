@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Další poskytovatel souborů";
 
+"fileProvider.onboarding.title" = "Vítejte";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na další obrazovce vyberte umístění úložiště pro váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Vyberte umístění úložiště";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "V tomto umístění již trezor existuje. Zkuste to prosím znovu s jiným umístěním.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Operace nemůže být provedena, protože musí být pro tento trezor nejdříve dokončeny ostatní operace na pozadí. Opakujte akci později.";
 
 "onboarding.title" = "Vítejte";
-"onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
-"onboarding.openCryptomator.button" = "Otevřít Cryptomator";
+"purchase.retry.button" = "Opakovat";
 
 "settings.title" = "Nastavení";
 "settings.aboutCryptomator" = "O Cryptomatoru";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Ověřování…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Použít HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Změnit na HTTPS";
