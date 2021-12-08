@@ -68,11 +68,13 @@
 "cloudProvider.error.unauthorized" = "無法執行未授權的操作";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+
+"fileProvider.onboarding.title" = "歡迎";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 
 "onboarding.title" = "歡迎";
-"onboarding.openCryptomator.button" = "打開 Cryptomator";
+"purchase.retry.button" = "重試";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
@@ -115,3 +117,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在驗證……";
+
+"webDAVAuthentication.httpConnection.alert.title" = "是否使用 HTTPS？";
+"webDAVAuthentication.httpConnection.alert.message" = "使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
+"webDAVAuthentication.httpConnection.change" = "更換為 HTTPS";
