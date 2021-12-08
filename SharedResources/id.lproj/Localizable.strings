@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "Provider Lainnya";
 
+"fileProvider.onboarding.title" = "Selamat Datang";
+
 "localFileSystemAuthentication.createNewVault.header" = "Di layar berikutnya, pilih lokasi penyimpanan untuk vault baru Anda.";
 "localFileSystemAuthentication.createNewVault.button" = "Pilih Lokasi Penyimpanan";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sudah ada vault di lokasi ini. Coba lagi dengan lokasi penyimpanan yang berbeda.";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
 
 "onboarding.title" = "Selamat Datang";
-"onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda. Untuk memulai, buka aplikasi utama dan tambahkan vault.";
-"onboarding.openCryptomator.button" = "Buka Cryptomator";
+"purchase.retry.button" = "Coba lagi";
 
 "settings.title" = "Pengaturan";
 "settings.aboutCryptomator" = "Tentang Cryptomator";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Mengotentikasi…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Ubah ke HTTPS";
