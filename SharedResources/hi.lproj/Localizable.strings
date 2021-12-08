@@ -76,6 +76,8 @@
 
 "cloudProviderType.localFileSystem" = "दस्तावेज़ों का अन्य प्रबंधक।";
 
+"fileProvider.onboarding.title" = "स्वागत है";
+
 "localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
 "localFileSystemAuthentication.openExistingVault.header" = "अगली स्क्रीन पर अपने कक्ष के फ़ोल्डर का चयन कीजिए।";
@@ -83,8 +85,7 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "चयन किया फ़ोल्डर आपके कक्ष में उपलब्ध नहीं है। कृपया दूसरे फ़ोल्डर का चयन कीजिए।";
 
 "onboarding.title" = "स्वागत है";
-"onboarding.info" = "आपके दस्तावेज़ों की सुरक्षा के हेतु क्रिप्टोमेटर का चयन करने के लिए आपका धन्यवाद। शुरू करने के लिए मुख्य ऐप में जाएँ और एक कक्ष तो जोड़ें।";
-"onboarding.openCryptomator.button" = "क्रिप्टोमेटर खोलें";
+"purchase.retry.button" = "पुन: प्रयास करें";
 
 "settings.title" = "समायोजन";
 "settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
