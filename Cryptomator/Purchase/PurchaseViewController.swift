@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PurchaseViewController: IAPViewController<PurchaseSection> {
+class PurchaseViewController: IAPViewController<PurchaseSection, PurchaseButtonAction> {
 	weak var coordinator: PurchaseCoordinator? {
 		didSet {
 			setCoordinator(coordinator)

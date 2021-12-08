@@ -13,14 +13,11 @@ import XCTest
 @testable import Cryptomator
 
 @available(iOS 14.0, *)
-class UpgradeViewModelTests: XCTestCase {
+class UpgradeViewModelTests: IAPViewModelTestCase<UpgradeSection, UpgradeButtonAction> {
 	var viewModel: UpgradeViewModel!
-	var iapManagerMock: IAPManagerMock!
-	var session: SKTestSession!
 
 	override func setUpWithError() throws {
-		session = try SKTestSession(configurationFileNamed: "Configuration")
-		iapManagerMock = IAPManagerMock()
+		try super.setUpWithError()
 		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
 		viewModel = UpgradeViewModel(iapManager: iapManagerMock)
 	}
@@ -67,10 +64,28 @@ class UpgradeViewModelTests: XCTestCase {
 		wait(for: [expectation], timeout: 2.0)
 	}
 
+	func testShowRefreshSectionIfFetchProductsFailed() {
+		let expectation = XCTestExpectation()
+		let iapStoreMock = IAPStoreMock()
+		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
+		let viewModel = UpgradeViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock)
+		viewModel.fetchProducts().then {
+			self.assertShowReloadSectionAfterFetchProductFailed(viewModel: viewModel)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 2.0)
+	}
+
 	// MARK: Paid Upgrade
 
 	func testPaidUpgrade() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.paidUpgradeButtonCellViewModel.isLoading.$value.recordNext(3)
 		viewModel.fetchProducts().then {
 			self.viewModel.purchaseUpgrade()
 		}.then {
@@ -81,10 +96,15 @@ class UpgradeViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	func testPaidUpgradeCancelled() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.paidUpgradeButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
 		viewModel.fetchProducts().then {
 			self.viewModel.purchaseUpgrade()
@@ -97,12 +117,17 @@ class UpgradeViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	// MARK: Free Upgrade
 
 	func testFreeUpgrade() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.freeUpgradeButtonCellViewModel.isLoading.$value.recordNext(3)
 		viewModel.fetchProducts().then {
 			self.viewModel.getFreeUpgrade()
 		}.then {
@@ -113,10 +138,15 @@ class UpgradeViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	func testFreeUpgradeCancelled() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.freeUpgradeButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
 		viewModel.fetchProducts().then {
 			self.viewModel.getFreeUpgrade()
@@ -129,11 +159,18 @@ class UpgradeViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
-	private func assertCalledBuyProduct(with identifier: ProductIdentifier) {
-		XCTAssertEqual(1, iapManagerMock.buyCallsCount)
-		let buyReceivedProduct = iapManagerMock.buyReceivedProduct
-		XCTAssertEqual(identifier.rawValue, buyReceivedProduct?.productIdentifier)
+	private func assertShowReloadSectionAfterFetchProductFailed(viewModel: UpgradeViewModel) {
+		let expectedSections: [Section<UpgradeSection>] = [
+			Section(id: .emptySection, elements: []),
+			Section(id: .retrySection, elements: [viewModel.retryButtonCellViewModel]),
+			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+		]
+		XCTAssertEqual(expectedSections, viewModel.sections)
+		XCTAssertEqual(LocalizedString.getValue("purchase.retry.button"), viewModel.retryButtonCellViewModel.title.value)
+		XCTAssertEqual(LocalizedString.getValue("purchase.retry.footer"), viewModel.getFooterTitle(for: 1))
 	}
 }

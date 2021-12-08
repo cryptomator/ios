@@ -13,15 +13,13 @@ import XCTest
 @testable import Cryptomator
 
 @available(iOS 14.0, *)
-class PurchaseViewModelTests: XCTestCase {
+class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButtonAction> {
 	var viewModel: PurchaseViewModel!
-	var iapManagerMock: IAPManagerMock!
 	var upgradeCheckerMock: UpgradeCheckerMock!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!
-	var session: SKTestSession!
 
 	override func setUpWithError() throws {
-		session = try SKTestSession(configurationFileNamed: "Configuration")
+		try super.setUpWithError()
 		setUpMocks()
 		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
 	}
@@ -151,22 +149,30 @@ class PurchaseViewModelTests: XCTestCase {
 	func testBeginFreeTrial() {
 		let expectation = XCTestExpectation()
 		let trialExpirationDate = Date()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.freeTrialButtonCellViewModel.isLoading.$value.recordNext(3)
 		setUpIAPManagerMockForBeginTrial(trialExpirationDate: trialExpirationDate)
 		viewModel.fetchProducts().then {
 			self.viewModel.beginFreeTrial()
 		}.then { actualTrialExpirationDate in
 			XCTAssertEqual(trialExpirationDate, actualTrialExpirationDate)
-			self.assertBuyProduct(with: .thirtyDayTrial)
+			self.assertCalledBuyProduct(with: .thirtyDayTrial)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	func testBeginFreeTrialCancelled() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.freeTrialButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
 		viewModel.fetchProducts().then {
 			self.viewModel.beginFreeTrial()
@@ -174,32 +180,42 @@ class PurchaseViewModelTests: XCTestCase {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			XCTAssertEqual(.paymentCancelled, error as? PurchaseError)
-			self.assertBuyProduct(with: .thirtyDayTrial)
+			self.assertCalledBuyProduct(with: .thirtyDayTrial)
 		}.always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	// MARK: Purchase Full Version
 
 	func testPurchaseFullVersion() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.purchaseButtonCellViewModel.isLoading.$value.recordNext(3)
 		setUpIAPManagerMockForFullVersionPurchase()
 		viewModel.fetchProducts().then {
 			self.viewModel.purchaseFullVersion()
 		}.then {
-			self.assertBuyProduct(with: .fullVersion)
+			self.assertCalledBuyProduct(with: .fullVersion)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	func testPurchaseFullVersionCancelled() {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.purchaseButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
 		viewModel.fetchProducts().then {
 			self.viewModel.purchaseFullVersion()
@@ -207,11 +223,13 @@ class PurchaseViewModelTests: XCTestCase {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			XCTAssertEqual(.paymentCancelled, error as? PurchaseError)
-			self.assertBuyProduct(with: .fullVersion)
+			self.assertCalledBuyProduct(with: .fullVersion)
 		}.always {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	// MARK: - Restore Purchase
@@ -222,6 +240,9 @@ class PurchaseViewModelTests: XCTestCase {
 			XCTFail("Could not create excpectedTrialExpirationDate")
 			return
 		}
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.restorePurchaseButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.restoreReturnValue = Promise(.restoredFreeTrial(expiresOn: excpectedTrialExpirationDate))
 		viewModel.fetchProducts().then {
 			self.viewModel.restorePurchase()
@@ -234,10 +255,15 @@ class PurchaseViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	func testRestoreFullVersion() throws {
 		let expectation = XCTestExpectation()
+		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
+		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
+		let isLoadingRecorder = viewModel.restorePurchaseButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.restoreReturnValue = Promise(.restoredFullVersion)
 		viewModel.fetchProducts().then {
 			self.viewModel.restorePurchase()
@@ -250,16 +276,11 @@ class PurchaseViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 2.0)
-	}
-
-	private func assertBuyProduct(with identifier: ProductIdentifier) {
-		XCTAssertEqual(1, iapManagerMock.buyCallsCount)
-		let buyReceivedProduct = iapManagerMock.buyReceivedProduct
-		XCTAssertEqual(identifier.rawValue, buyReceivedProduct?.productIdentifier)
+		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
+		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
 	}
 
 	private func setUpMocks() {
-		iapManagerMock = IAPManagerMock()
 		upgradeCheckerMock = UpgradeCheckerMock()
 		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = false
 		cryptomatorSettingsMock = CryptomatorSettingsMock()

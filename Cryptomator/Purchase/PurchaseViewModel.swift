@@ -39,11 +39,11 @@ enum PurchaseError: Error {
 	case paymentCancelled
 }
 
-class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
+class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>, ProductFetching {
 	lazy var upgradeButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>.createDisclosureButton(action: .showUpgrade, title: LocalizedString.getValue("upgrade.title"))
 	lazy var freeTrialButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .beginFreeTrial, title: LocalizedString.getValue("purchase.beginFreeTrial.button"))
 	lazy var purchaseButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .purchaseFullVersion, title: LocalizedString.getValue("purchase.purchaseFullVersion.button"))
-	lazy var restorePurchaseButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button"))
+	lazy var restorePurchaseButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button"))
 	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .decideLater, title: LocalizedString.getValue("purchase.decideLater.button"))
 	lazy var retryButtonCellViewModel = SystemSymbolButtonCellViewModel<PurchaseButtonAction>(action: .refreshProducts, title: LocalizedString.getValue("purchase.retry.button"), symbolName: "arrow.clockwise")
 	lazy var loadingCellViewModel = LoadingCellViewModel()
@@ -55,7 +55,7 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		return LocalizedString.getValue("purchase.title")
 	}
 
-	var headerTitle: String {
+	override var headerTitle: String? {
 		if let trialExpirationDate = trialExpirationDate {
 			return getHeaderTitle(for: trialExpirationDate)
 		} else {
@@ -78,19 +78,13 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		return sections.compactMap { $0 }
 	}()
 
-	private let storeManager: IAPStore
 	private let upgradeChecker: UpgradeCheckerProtocol
-	private let iapManager: IAPManager
-	private var products = [ProductIdentifier: SKProduct]()
-	private var fetchProductsStart: CFAbsoluteTime = 0.0
-	private let minimumDisplayTime: TimeInterval = 1.0
 	private let cryptomatorSettings: CryptomatorSettings
 
 	init(storeManager: IAPStore = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared) {
-		self.storeManager = storeManager
 		self.upgradeChecker = upgradeChecker
-		self.iapManager = iapManager
 		self.cryptomatorSettings = cryptomatorSettings
+		super.init(storeManager: storeManager, iapManager: iapManager)
 	}
 
 	override func getFooterTitle(for section: Int) -> String? {
@@ -113,44 +107,29 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 	}
 
 	func fetchProducts() -> Promise<Void> {
-		fetchProductsStart = CFAbsoluteTimeGetCurrent()
-		return storeManager.fetchProducts(with: [.thirtyDayTrial, .fullVersion]).then { response in
-			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
-				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
-					return
-				}
-				$0[productIdentifier] = $1
-			}
-		}.then { _ -> Void in
-			self.addTrialSection()
-			self.addPurchaseFullVersionSection()
-		}.recover { _ -> Void in
-			self.addRetrySection()
-		}.delay(getDelay()).always {
+		return fetchProducts(with: [.thirtyDayTrial, .fullVersion]).always {
 			self.removeLoadingSection()
 		}
 	}
 
-	func buttonAction(for indexPath: IndexPath) -> PurchaseButtonAction {
-		let section = sections[indexPath.section]
-		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<PurchaseButtonAction> else {
-			return .unknown
-		}
-		return cell.action
+	override func fetchProductsSuccess() {
+		addTrialSection()
+		addPurchaseFullVersionSection()
+	}
+
+	override func fetchProductsRecover() {
+		addRetrySection()
 	}
 
 	func beginFreeTrial() -> Promise<Date> {
 		guard let product = products[.thirtyDayTrial] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
-		freeTrialButtonCellViewModel.isLoading.value = true
-		return buyProduct(product).then { result -> Date in
+		return buyProduct(product, isLoadingBinding: freeTrialButtonCellViewModel.isLoading).then { result -> Date in
 			guard case let PurchaseTransaction.freeTrial(trialExpirationDate) = result else {
 				throw PurchaseError.unavailableProduct
 			}
 			return trialExpirationDate
-		}.always {
-			self.freeTrialButtonCellViewModel.isLoading.value = false
 		}
 	}
 
@@ -158,16 +137,13 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 		guard let product = products[.fullVersion] else {
 			return Promise(PurchaseError.unavailableProduct)
 		}
-		purchaseButtonCellViewModel.isLoading.value = true
-		return buyProduct(product).then { _ in
+		return buyProduct(product, isLoadingBinding: purchaseButtonCellViewModel.isLoading).then { _ in
 			// no-op
-		}.always {
-			self.purchaseButtonCellViewModel.isLoading.value = false
 		}
 	}
 
 	func restorePurchase() -> Promise<RestoreTransactionsResult> {
-		return iapManager.restore()
+		return restorePurchase(isLoadingBinding: restorePurchaseButtonCellViewModel.isLoading)
 	}
 
 	func replaceRetrySectionWithLoadingSection() {
@@ -200,32 +176,6 @@ class PurchaseViewModel: TableViewModel<PurchaseSection>, BaseIAPViewModel {
 
 	private func getRestoreSectionIndex() -> Int? {
 		return _sections.firstIndex(where: { $0.id == .restoreSection })
-	}
-
-	private func getDelay() -> TimeInterval {
-		if fetchProductsStart > 0 {
-			return fetchProductsStart - CFAbsoluteTimeGetCurrent() + minimumDisplayTime
-		} else {
-			return 0
-		}
-	}
-
-	private func delaySectionChange() -> Promise<Void> {
-		return Promise<Void> { fulfill, _ in
-			DispatchQueue.main.asyncAfter(deadline: .now() + self.getDelay()) {
-				fulfill(())
-			}
-		}
-	}
-
-	private func buyProduct(_ product: SKProduct) -> Promise<PurchaseTransaction> {
-		return iapManager.buy(product).recover { error -> PurchaseTransaction in
-			if (error as? SKError)?.code == .paymentCancelled {
-				throw PurchaseError.paymentCancelled
-			} else {
-				throw error
-			}
-		}
 	}
 
 	private func getHeaderTitle(for trialExpirationDate: Date) -> String {

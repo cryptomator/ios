@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class UpgradeViewController: IAPViewController<UpgradeSection> {
+class UpgradeViewController: IAPViewController<UpgradeSection, UpgradeButtonAction> {
 	weak var coordinator: UpgradeCoordinator? {
 		didSet {
 			setCoordinator(coordinator)
@@ -41,6 +41,9 @@ class UpgradeViewController: IAPViewController<UpgradeSection> {
 			}.catch { [weak self] error in
 				self?.handleError(error)
 			}
+		case .refreshProducts:
+			viewModel.replaceRetrySectionWithLoadingSection()
+			applySnapshot(sections: viewModel.sections)
 		case .decideLater:
 			coordinator?.close()
 		case .none:

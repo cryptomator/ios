@@ -6,13 +6,18 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import Foundation
+import Promises
+import StoreKit
 import UIKit
 
-class IAPViewController<T: Hashable>: StaticUITableViewController<T> {
-	typealias IAPViewModel = BaseIAPViewModel & TableViewModel<T>
+class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: StaticUITableViewController<SectionType> {
+	typealias IAPViewModel = BaseIAPViewModel<SectionType, ButtonActionType> & ProductFetching
 	private let viewModel: IAPViewModel
 	private weak var coordinator: Coordinator?
+	private var subscriber: AnyCancellable?
+	private var defaultIsModalInPresentation: Bool?
 
 	init(viewModel: IAPViewModel) {
 		self.viewModel = viewModel
@@ -23,6 +28,16 @@ class IAPViewController<T: Hashable>: StaticUITableViewController<T> {
 		super.viewDidLoad()
 		let viewModel = viewModel
 		dataSource?.defaultRowAnimation = .fade
+		defaultIsModalInPresentation = isModalInPresentation
+		subscriber = viewModel.hasRunningTransaction.sink { [weak self] hasRunningTransaction in
+			if hasRunningTransaction {
+				self?.isModalInPresentation = true
+				self?.disableNavigationBarItems()
+			} else {
+				self?.isModalInPresentation = self?.defaultIsModalInPresentation ?? false
+				self?.enableNavigationBarItems()
+			}
+		}
 		viewModel.fetchProducts().then { [weak self] in
 			self?.applySnapshot(sections: viewModel.sections)
 		}
@@ -59,6 +74,25 @@ class IAPViewController<T: Hashable>: StaticUITableViewController<T> {
 		} else {
 			return UITableView.automaticDimension
 		}
+	}
+
+	private func disableNavigationBarItems() {
+		navigationItem.hidesBackButton = true
+		setEnabledFlagForNavigationBarItems(to: false)
+	}
+
+	private func enableNavigationBarItems() {
+		navigationItem.hidesBackButton = false
+		setEnabledFlagForNavigationBarItems(to: true)
+	}
+
+	private func setEnabledFlagForNavigationBarItems(to enabled: Bool) {
+		setEnabledFlagForBarButtonItems(navigationItem.leftBarButtonItems, to: enabled)
+		setEnabledFlagForBarButtonItems(navigationItem.rightBarButtonItems, to: enabled)
+	}
+
+	private func setEnabledFlagForBarButtonItems(_ barButtonItems: [UIBarButtonItem]?, to enabled: Bool) {
+		barButtonItems?.forEach({ $0.isEnabled = enabled })
 	}
 }
 
@@ -112,9 +146,109 @@ private class IAPHeaderView: UITableViewHeaderFooterView {
 	}
 }
 
-import Promises
-
-protocol BaseIAPViewModel {
-	var headerTitle: String { get }
+protocol ProductFetching {
 	func fetchProducts() -> Promise<Void>
+}
+
+class BaseIAPViewModel<SectionType: Hashable, ButtonActionType: Hashable>: TableViewModel<SectionType> {
+	var headerTitle: String? { return nil }
+	var hasRunningTransaction: AnyPublisher<Bool, Never> {
+		return hasRunningTransactionPublisher.eraseToAnyPublisher()
+	}
+
+	private(set) var products = [ProductIdentifier: SKProduct]()
+	private var fetchProductsStart: CFAbsoluteTime = 0.0
+	private let minimumDisplayTime: TimeInterval = 1.0
+	private lazy var hasRunningTransactionPublisher = PassthroughSubject<Bool, Never>()
+	private var subscriber: AnyCancellable?
+
+	private let iapManager: IAPManager
+	private let storeManager: IAPStore
+
+	init(storeManager: IAPStore, iapManager: IAPManager) {
+		self.storeManager = storeManager
+		self.iapManager = iapManager
+		super.init()
+		setupRunningTransactionSubscription()
+	}
+
+	func buyProduct(_ product: SKProduct, isLoadingBinding: Bindable<Bool>) -> Promise<PurchaseTransaction> {
+		hasRunningTransactionPublisher.send(true)
+		isLoadingBinding.value = true
+		return iapManager.buy(product).recover { error -> PurchaseTransaction in
+			if (error as? SKError)?.code == .paymentCancelled {
+				throw PurchaseError.paymentCancelled
+			} else {
+				throw error
+			}
+		}.always {
+			self.hasRunningTransactionPublisher.send(false)
+			isLoadingBinding.value = false
+		}
+	}
+
+	func fetchProducts(with identifiers: [ProductIdentifier]) -> Promise<Void> {
+		fetchProductsStart = CFAbsoluteTimeGetCurrent()
+		return storeManager.fetchProducts(with: identifiers).then { response in
+			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
+				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
+					return
+				}
+				$0[productIdentifier] = $1
+			}
+		}.then { _ -> Void in
+			self.fetchProductsSuccess()
+		}.recover { _ -> Void in
+			self.fetchProductsRecover()
+		}.delay(getDelay())
+	}
+
+	func fetchProductsSuccess() {}
+
+	func fetchProductsRecover() {}
+
+	func restorePurchase(isLoadingBinding: Bindable<Bool>) -> Promise<RestoreTransactionsResult> {
+		hasRunningTransactionPublisher.send(true)
+		isLoadingBinding.value = true
+		return iapManager.restore().always {
+			self.hasRunningTransactionPublisher.send(false)
+			isLoadingBinding.value = false
+		}
+	}
+
+	private func getDelay() -> TimeInterval {
+		if fetchProductsStart > 0 {
+			return fetchProductsStart - CFAbsoluteTimeGetCurrent() + minimumDisplayTime
+		} else {
+			return 0
+		}
+	}
+
+	private func setupRunningTransactionSubscription() {
+		subscriber = hasRunningTransaction.sink(receiveValue: { [weak self] hasRunningTransaction in
+			if hasRunningTransaction {
+				self?.disableAllButtonCellViewModels()
+			} else {
+				self?.enableAllButtonCellViewModels()
+			}
+		})
+	}
+
+	private func disableAllButtonCellViewModels() {
+		setEnabledFlagForAllButtonCellViewModels(to: false)
+	}
+
+	private func enableAllButtonCellViewModels() {
+		setEnabledFlagForAllButtonCellViewModels(to: true)
+	}
+
+	private func setEnabledFlagForAllButtonCellViewModels(to enabled: Bool) {
+		sections.forEach({ section in
+			section.elements.forEach({
+				if let buttonCellVM = $0 as? ButtonCellViewModel<ButtonActionType> {
+					buttonCellVM.isEnabled.value = enabled
+				}
+			})
+		})
+	}
 }

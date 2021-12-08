@@ -62,6 +62,7 @@
 		4A248231266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */; };
 		4A2482332670D6FB002D9F59 /* FileProviderAdapterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */; };
 		4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2482342671110A002D9F59 /* DBManagerError.swift */; };
+		4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2C1E7A2760B09A000CD726 /* IAPViewModelTestCase.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */; };
 		4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */; };
@@ -474,6 +475,7 @@
 		4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemTests.swift; sourceTree = "<group>"; };
 		4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterManager.swift; sourceTree = "<group>"; };
 		4A2482342671110A002D9F59 /* DBManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManagerError.swift; sourceTree = "<group>"; };
+		4A2C1E7A2760B09A000CD726 /* IAPViewModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewModelTestCase.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListMessage.swift; sourceTree = "<group>"; };
 		4A2FD06F25B5D5FB008565C8 /* ChooseCloudViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseCloudViewController.swift; sourceTree = "<group>"; };
@@ -836,6 +838,7 @@
 		4A1C6D5B274D225A00B41FFF /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				4A2C1E7A2760B09A000CD726 /* IAPViewModelTestCase.swift */,
 				4A1C6D59274D225500B41FFF /* PurchaseViewModelTests.swift */,
 				4A5580542755226100E525B8 /* StoreObserverTests.swift */,
 				4A4246F3275646A0005BE82D /* UpgradeViewModelTests.swift */,
@@ -2187,6 +2190,7 @@
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
+				4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
 				4A4246F4275646A0005BE82D /* UpgradeViewModelTests.swift in Sources */,
 				4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */,

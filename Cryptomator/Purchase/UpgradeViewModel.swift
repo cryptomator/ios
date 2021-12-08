@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import Promises
@@ -15,6 +16,7 @@ enum UpgradeButtonAction {
 	case paidUpgrade
 	case freeUpgrade
 	case decideLater
+	case refreshProducts
 }
 
 enum UpgradeSection {
@@ -23,14 +25,15 @@ enum UpgradeSection {
 	case decideLaterSection
 	case emptySection
 	case loadingSection
+	case retrySection
 }
 
-class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
+class UpgradeViewModel: BaseIAPViewModel<UpgradeSection, UpgradeButtonAction>, ProductFetching {
 	override var title: String? {
 		return LocalizedString.getValue("upgrade.title")
 	}
 
-	var headerTitle: String {
+	override var headerTitle: String? {
 		return LocalizedString.getValue("upgrade.info")
 	}
 
@@ -38,9 +41,10 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 		return _sections
 	}
 
-	lazy var freeUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .freeUpgrade, title: LocalizedString.getValue("upgrade.freeUpgrade.button"))
-	lazy var paidUpgradeButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .paidUpgrade, title: LocalizedString.getValue("upgrade.paidUpgrade.button"))
+	lazy var freeUpgradeButtonCellViewModel = LoadingButtonCellViewModel<UpgradeButtonAction>(action: .freeUpgrade, title: LocalizedString.getValue("upgrade.freeUpgrade.button"))
+	lazy var paidUpgradeButtonCellViewModel = LoadingButtonCellViewModel<UpgradeButtonAction>(action: .paidUpgrade, title: LocalizedString.getValue("upgrade.paidUpgrade.button"))
 	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<UpgradeButtonAction>(action: .decideLater, title: LocalizedString.getValue("purchase.decideLater.button"))
+	lazy var retryButtonCellViewModel = SystemSymbolButtonCellViewModel<UpgradeButtonAction>(action: .refreshProducts, title: LocalizedString.getValue("purchase.retry.button"), symbolName: "arrow.clockwise")
 	lazy var loadingCellViewModel = LoadingCellViewModel()
 
 	private lazy var _sections: [Section<UpgradeSection>] = {
@@ -51,53 +55,44 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 		]
 	}()
 
-	private let storeManager: StoreManager
-	private let iapManager: IAPManager
-	private var fetchProductsStart: CFAbsoluteTime = 0.0
-	private let minimumDisplayTime: TimeInterval = 1.0
-	private var products = [ProductIdentifier: SKProduct]()
-
-	init(storeManager: StoreManager = StoreManager.shared, iapManager: IAPManager = StoreObserver.shared) {
-		self.storeManager = storeManager
-		self.iapManager = iapManager
+	override init(storeManager: IAPStore = StoreManager.shared, iapManager: IAPManager = StoreObserver.shared) {
+		super.init(storeManager: storeManager, iapManager: iapManager)
 	}
 
 	func fetchProducts() -> Promise<Void> {
-		fetchProductsStart = CFAbsoluteTimeGetCurrent()
-		return storeManager.fetchProducts(with: [.paidUpgrade, .freeUpgrade]).then { response in
-			self.products = response.products.reduce(into: [ProductIdentifier: SKProduct]()) {
-				guard let productIdentifier = ProductIdentifier(rawValue: $1.productIdentifier) else {
-					return
-				}
-				$0[productIdentifier] = $1
-			}
-		}.delay(getDelay()).then { _ -> Void in
+		return fetchProducts(with: [.paidUpgrade, .freeUpgrade]).always {
 			self.removeLoadingSection()
-			self.addPaidUpgradeSection()
-			self.addFreeUpgradeSection()
 		}
+	}
+
+	override func fetchProductsSuccess() {
+		removeLoadingSection()
+		addPaidUpgradeSection()
+		addFreeUpgradeSection()
+	}
+
+	override func fetchProductsRecover() {
+		addRetrySection()
 	}
 
 	func purchaseUpgrade() -> Promise<Void> {
 		guard let product = products[.paidUpgrade] else {
 			return Promise(UpgradeError.unavailableProduct)
 		}
-		return buyProduct(product)
+		return buyProduct(product, isLoadingBinding: paidUpgradeButtonCellViewModel.isLoading)
 	}
 
 	func getFreeUpgrade() -> Promise<Void> {
 		guard let product = products[.freeUpgrade] else {
 			return Promise(UpgradeError.unavailableProduct)
 		}
-		return buyProduct(product)
+		return buyProduct(product, isLoadingBinding: freeUpgradeButtonCellViewModel.isLoading)
 	}
 
-	func buttonAction(for indexPath: IndexPath) -> UpgradeButtonAction? {
-		let section = sections[indexPath.section]
-		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<UpgradeButtonAction> else {
-			return nil
+	func replaceRetrySectionWithLoadingSection() {
+		if let index = _sections.firstIndex(where: { $0.id == .retrySection }) {
+			_sections[index] = Section(id: .loadingSection, elements: [loadingCellViewModel])
 		}
-		return cell.action
 	}
 
 	override func getFooterTitle(for section: Int) -> String? {
@@ -108,6 +103,8 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 			return LocalizedString.getValue("upgrade.freeUpgrade.footer")
 		case .decideLaterSection:
 			return LocalizedString.getValue("upgrade.decideLater.footer")
+		case .retrySection:
+			return LocalizedString.getValue("purchase.retry.footer")
 		case .emptySection, .loadingSection:
 			return nil
 		}
@@ -132,26 +129,18 @@ class UpgradeViewModel: TableViewModel<UpgradeSection>, BaseIAPViewModel {
 		}
 	}
 
+	private func addRetrySection() {
+		if let index = getDecideLaterSectionIndex() {
+			_sections.insert(Section(id: .retrySection, elements: [retryButtonCellViewModel]), at: index)
+		}
+	}
+
 	private func getDecideLaterSectionIndex() -> Int? {
 		return _sections.firstIndex(where: { $0.id == .decideLaterSection })
 	}
 
-	private func getDelay() -> TimeInterval {
-		if fetchProductsStart > 0 {
-			return fetchProductsStart - CFAbsoluteTimeGetCurrent() + minimumDisplayTime
-		} else {
-			return 0
-		}
-	}
-
-	private func buyProduct(_ product: SKProduct) -> Promise<Void> {
-		return iapManager.buy(product).recover { error -> PurchaseTransaction in
-			if (error as? SKError)?.code == .paymentCancelled {
-				throw PurchaseError.paymentCancelled
-			} else {
-				throw error
-			}
-		}.then { _ in
+	private func buyProduct(_ product: SKProduct, isLoadingBinding: Bindable<Bool>) -> Promise<Void> {
+		super.buyProduct(product, isLoadingBinding: isLoadingBinding).then { _ in
 			// no-op
 		}
 	}
