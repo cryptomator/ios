@@ -83,6 +83,8 @@
 
 "cloudProviderType.localFileSystem" = "其他文件提供商";
 
+"fileProvider.onboarding.title" = "欢迎使用";
+
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试。";
@@ -93,8 +95,7 @@
 "maintenanceModeError.runningCloudTask" = "操作无法进行，因为此保险库仍有后台任务在进行，请稍后再试。";
 
 "onboarding.title" = "欢迎使用";
-"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧。";
-"onboarding.openCryptomator.button" = "打开 Cryptomator";
+"purchase.retry.button" = "重试";
 
 "settings.title" = "设置";
 "settings.aboutCryptomator" = "关于";
@@ -159,3 +160,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在验证……";
+
+"webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
+"webDAVAuthentication.httpConnection.change" = "换成 HTTPS";
