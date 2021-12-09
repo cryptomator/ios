@@ -97,6 +97,7 @@
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
+"purchase.infoRunningTrial" = "Votre période d'essai expire le %@ et vous accorde un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après la période d'essai.";
 "purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
