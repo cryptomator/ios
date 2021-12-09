@@ -103,7 +103,7 @@
 
 "purchase.title" = "Vollversion freischalten";
 "purchase.info" = "Du kannst Cryptomator kostenlos im reinen Lesemodus verwenden. Schalte die Vollversion frei für den Schreibzugriff auf deine Tresore.";
-"purchase.infoRunningTrial" = "Deine Testversion läuft am %@ ab und gewährt dir Schreibzugriff auf deine Tresore für eine begrenzte Zeit. Schalte die Vollversion nach der Testversion frei, um die Funktionalität beizubehalten.";
+"purchase.infoRunningTrial" = "Deine Testversion läuft am %@ ab und gewährt dir Schreibzugriff auf deine Tresore für eine begrenzte Zeit. Schalte die Vollversion nach der Testphase frei, um die Funktionalität beizubehalten.";
 "purchase.infoExpiredTrial" = "Deine Testversion ist abgelaufen. Schalte die Vollversion frei, um wieder Schreibzugriff auf deine Tresore zu erhalten.";
 "purchase.upgrade.footer" = "Cryptomator hat eine ältere Version erkannt. Du hast Anspruch auf ein Upgrade, um die Vollversion freizuschalten.";
 "purchase.beginFreeTrial.button" = "Kostenlose 30-Tage-Testversion starten";
