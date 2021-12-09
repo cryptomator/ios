@@ -103,6 +103,7 @@
 
 "purchase.title" = "Desbloquear versión completa";
 "purchase.info" = "Puede usar Cryptomator gratis en modo de sólo lectura. Considere desbloquear la versión completa para acceder a sus bóvedas de escritura.";
+"purchase.infoRunningTrial" = "Su prueba expira el %@ y le otorga acceso de escritura a sus bóvedas por un tiempo limitado. Considere desbloquear la versión completa después de la prueba.";
 "purchase.infoExpiredTrial" = "Su prueba ha expirado. Considere desbloquear la versión completa para recuperar el acceso de escritura a sus bóvedas.";
 "purchase.upgrade.footer" = "Cryptomator detectó una versión anterior. Es elegible para una actualización para desbloquear la versión completa.";
 "purchase.beginFreeTrial.button" = "Comenzar prueba gratuita de 30 días";
