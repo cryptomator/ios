@@ -47,7 +47,6 @@ open class LargeHeaderFooterView: UITableViewHeaderFooterView {
 	public init(image: UIImage?, infoText: String?) {
 		super.init(reuseIdentifier: nil)
 		configureContents()
-		textLabel?.text = nil
 		self.image = image
 		self.infoText = infoText
 	}
