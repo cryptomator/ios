@@ -94,6 +94,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresor-Ordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es mit einem anderen Ordner.";
+"localFileSystemAuthentication.info.footer" = "Speicher-Anbieter, die ausgegraut sind, unterstützen keine „Ordnerauswahl“. Dies ist keine Einschränkung von Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Der Vorgang kann nicht durchgeführt werden, da zuerst andere Hintergrundprozesse für diesen Tresor beendet werden müssen. Bitte versuche es später erneut.";
 
@@ -151,6 +152,14 @@
 "untrustedTLSCertificate.message" = "Das TLS-Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"upgrade.title" = "Upgrade von Version 1.x";
+"upgrade.info" = "Du hast Anspruch auf ein Upgrade von einer älteren Version von Cryptomator, um die Vollversion freizuschalten. Danke, dass du Cryptomator in der Vergangenheit unterstützt hast!";
+"upgrade.paidUpgrade.button" = "Upgrade für %@";
+"upgrade.paidUpgrade.footer" = "Dies würde der laufenden Open-Source-Entwicklung helfen und eine große Unterstützung für uns sein.";
+"upgrade.freeUpgrade.button" = "Kostenloses Upgrade";
+"upgrade.freeUpgrade.footer" = "Keine Sorge, du kannst auch kostenlos auf die Vollversion upgraden, ohne jegliche Einschränkungen.";
+"upgrade.decideLater.footer" = "Du kannst später in den Einstellungen auf die Vollversion von Cryptomator upgraden und vorerst nur im Lesemodus verwenden.";
 
 "urlSession.error.httpError.401" = "Benutzername und/oder Passwort falsch.";
 "urlSession.error.httpError.403" = "Unzureichende Rechte für die angeforderte Ressource.";
