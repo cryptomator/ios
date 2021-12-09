@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
 
 "fileProvider.onboarding.title" = "Bienvenue";
+"fileProvider.onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
+"fileProvider.onboarding.button.openCryptomator" = "Ouvrir Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
