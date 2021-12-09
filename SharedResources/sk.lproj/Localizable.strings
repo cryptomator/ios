@@ -34,6 +34,7 @@
 
 "addVault.title" = "Pridať trezor";
 "addVault.createNewVault.title" = "Vytvoriť nový trezor";
+"addVault.createNewVault.purchase" = "Vytvorenie nového trezora vyžaduje plnú verziu Cryptomator-a. Zvážte odomknúť plnú verziu pre prístup zápisu Vašich trezorov.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvoľte názov pre trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Názov trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Meno trezora nemôže byť prázdne.";
@@ -84,6 +85,7 @@
 "cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
 
 "fileProvider.onboarding.title" = "Vitajte";
+"fileProvider.onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator k ochrane Vašich súborov. Pre začatie vstúpte do hlavnej aplikácie a pridajte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otvoriť Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
@@ -99,10 +101,19 @@
 "onboarding.button.continue" = "Pokračovať";
 
 "purchase.title" = "Odomknúť plnú verziu";
+"purchase.info" = "Môžte používať Cryptomator-a v read-only móde bezplatne. Zvážte odomknutie plnej verzie pre prístup zápisu do Vašich trezorov.";
+"purchase.infoExpiredTrial" = "Vaša skúšobná doba uplynula. Zvážte odomknutie plnej verzie k znovu získaniu možnosti zápisu do Vašich trezorov.";
+"purchase.upgrade.footer" = "Cryptomator detekoval staršiu verziu. Pre jej aktualizáciu je potrebné odomknúť plnú verziu.";
 "purchase.beginFreeTrial.button" = "Začať 30-dňovú skúšobnú dobu zdarma";
 "purchase.beginFreeTrial.alert.title" = "Skúška udomknutá";
+"purchase.purchaseFullVersion.button" = "Zakúpiť plnú verziu pre %@";
 "purchase.restorePurchase.button" = "Obnoviť nákup";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Skúška pokračuje";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovenie úspešné";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nie Plná Verzia";
 "purchase.retry.button" = "Skúsiť znovu";
+"purchase.decideLater.button" = "Rozhodnúť neskôr";
+"purchase.unlockedFullVersion.title" = "Ďakujeme";
 
 "settings.title" = "Nastavenia";
 "settings.aboutCryptomator" = "O aplikácii Cryptomator";
@@ -129,7 +140,11 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
+
+"upgrade.title" = "Aktualizovať z verzie 1.x";
+"upgrade.paidUpgrade.button" = "Aktualizácia pre %@";
 "upgrade.freeUpgrade.button" = "Voľná aktualizácia";
+"upgrade.decideLater.footer" = "Môžte aktualizovať na plnú verziu Cryptomator-a neskôr v nastaveniach a používať v read-only móde nateraz.";
 
 "urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
