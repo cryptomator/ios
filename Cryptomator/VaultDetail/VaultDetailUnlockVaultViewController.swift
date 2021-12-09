@@ -37,7 +37,6 @@ class VaultDetailUnlockVaultViewController: SingleSectionStaticUITableViewContro
 		title = viewModel.title
 		navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.rightBarButtonItem = enableButton
-		tableView.rowHeight = 44
 		viewModel.enableVerifyButton.sink { [weak self] isEnabled in
 			self?.enableButton.isEnabled = isEnabled
 		}.store(in: &subscribers)

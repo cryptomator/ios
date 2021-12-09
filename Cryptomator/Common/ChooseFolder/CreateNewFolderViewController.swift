@@ -26,7 +26,6 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createButtonClicked))
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = createButton
-		tableView.rowHeight = 44
 		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
 			self?.createButtonClicked()
 		}

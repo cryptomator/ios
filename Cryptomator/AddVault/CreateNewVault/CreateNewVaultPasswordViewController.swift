@@ -24,7 +24,6 @@ class CreateNewVaultPasswordViewController: StaticUITableViewController<CreateNe
 		super.viewDidLoad()
 		let createButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.create"), style: .done, target: self, action: #selector(createNewVault))
 		navigationItem.rightBarButtonItem = createButton
-		tableView.rowHeight = 44
 		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
 			self?.createNewVault()
 		}

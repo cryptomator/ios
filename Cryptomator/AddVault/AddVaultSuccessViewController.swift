@@ -49,36 +49,10 @@ class AddVaultSuccessViewController: SingleSectionStaticUITableViewController {
 	}
 }
 
-private class VaultSuccessHeaderView: UIView {
-	private lazy var successImage: UIImageView = {
-		let image = UIImage(named: "bot")
-		let imageView = UIImageView(image: image)
-		imageView.contentMode = .scaleAspectFit
-		return imageView
-	}()
-
-	private lazy var infoLabel: UILabel = {
-		let label = UILabel()
-		label.textAlignment = .center
-		label.numberOfLines = 0
-		return label
-	}()
-
-	convenience init(vaultName: String) {
-		self.init(frame: .zero)
-		infoLabel.text = String(format: LocalizedString.getValue("addVault.success.info"), vaultName)
-		let stack = UIStackView(arrangedSubviews: [successImage, infoLabel])
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		stack.spacing = 20
-		addSubview(stack)
-
-		NSLayoutConstraint.activate([
-			stack.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
-			stack.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
-			stack.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-			stack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
-		])
+private class VaultSuccessHeaderView: CryptoBotHeaderFooterView {
+	init(vaultName: String) {
+		let infoText = String(format: LocalizedString.getValue("addVault.success.info"), vaultName)
+		super.init(infoText: infoText)
 	}
 }
 
