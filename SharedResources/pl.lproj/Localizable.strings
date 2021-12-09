@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
 "fileProvider.onboarding.title" = "Witamy";
+"fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
+"fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
