@@ -14,12 +14,12 @@ import XCTest
 class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 	func testAddVault() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", accountManager: accountManagerMock)
+		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
 		viewModel.addVault(for: credential).then { result in
 			XCTAssertEqual(credential, result.credential)
 			XCTAssertEqual(credential.identifier, result.account.accountUID)
-			XCTAssertEqual(CloudProviderType.localFileSystem, result.account.cloudProviderType)
+			XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
 
 			guard let chosenFolder = result.item as? Folder else {
 				XCTFail("result item is not a Folder")
@@ -39,7 +39,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 
 	func testAddVaultWithNameCollision() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", accountManager: accountManagerMock)
+		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 		try FileManager.default.createDirectory(at: tmpDirURL.appendingPathComponent("MyVault"), withIntermediateDirectories: false)
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
 		viewModel.addVault(for: credential).then { _ in
@@ -58,7 +58,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 
 	func testAddVaultWithExistingVaultAtChosenURL() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", accountManager: accountManagerMock)
+		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 		try createVault(at: tmpDirURL)
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
 		viewModel.addVault(for: credential).then { _ in
@@ -77,7 +77,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 
 	func testAddVaultWithExistingLegacyVaultAtChosenURL() throws {
 		let expectation = XCTestExpectation()
-		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", accountManager: accountManagerMock)
+		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 		try createLegacyVault(at: tmpDirURL)
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
 		viewModel.addVault(for: credential).then { _ in

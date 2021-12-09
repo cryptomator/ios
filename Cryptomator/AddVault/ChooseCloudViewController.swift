@@ -65,7 +65,7 @@ import SwiftUI
 
 struct ChooseCloudVCPreview: PreviewProvider {
 	static var previews: some View {
-		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV, .localFileSystem], headerTitle: "Preview Header Title")).toPreview()
+		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV(type: .custom), .localFileSystem(type: .iCloudDrive)], headerTitle: "Preview Header Title")).toPreview()
 	}
 }
 #endif

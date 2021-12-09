@@ -14,14 +14,16 @@ class CreateNewLocalVaultCoordinator: LocalVaultAdding, LocalFileSystemAuthentic
 	var navigationController: UINavigationController
 	weak var parentCoordinator: CreateNewVaultCoordinator?
 	private let vaultName: String
+	private let selectedLocalFileSystem: LocalFileSystemType
 
-	init(vaultName: String, navigationController: UINavigationController) {
+	init(vaultName: String, navigationController: UINavigationController, selectedLocalFileSystem: LocalFileSystemType) {
 		self.vaultName = vaultName
+		self.selectedLocalFileSystem = selectedLocalFileSystem
 		self.navigationController = navigationController
 	}
 
 	func start() {
-		let viewModel = CreateNewLocalVaultViewModel(vaultName: vaultName)
+		let viewModel = CreateNewLocalVaultViewModel(vaultName: vaultName, selectedLocalFileSystemType: selectedLocalFileSystem)
 		let localFSAuthVC = AddLocalVaultViewController(viewModel: viewModel)
 		localFSAuthVC.coordinator = self
 		navigationController.pushViewController(localFSAuthVC, animated: true)

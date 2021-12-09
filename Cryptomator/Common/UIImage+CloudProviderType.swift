@@ -26,13 +26,22 @@ extension UIImage {
 			assetName = "onedrive-vault"
 		case .webDAV:
 			assetName = "webdav-vault"
-		case .localFileSystem:
-			assetName = "file-provider-vault"
+		case let .localFileSystem(localFileSystemType):
+			assetName = UIImage.getVaultIcon(for: localFileSystemType)
 		}
 		if state == .highlighted {
 			assetName += "-selected"
 		}
 		self.init(named: assetName)
+	}
+
+	private static func getVaultIcon(for type: LocalFileSystemType) -> String {
+		switch type {
+		case .custom:
+			return "file-provider-vault"
+		case .iCloudDrive:
+			return "icloud-drive-vault"
+		}
 	}
 
 	convenience init?(storageIconFor cloudProviderType: CloudProviderType) {
@@ -44,11 +53,20 @@ extension UIImage {
 			assetName = "google-drive"
 		case .oneDrive:
 			assetName = "onedrive"
-		case .localFileSystem:
-			assetName = "file-provider"
+		case let .localFileSystem(localFileSystemType):
+			assetName = UIImage.getStorageIcon(for: localFileSystemType)
 		case .webDAV:
 			assetName = "webdav"
 		}
 		self.init(named: assetName)
+	}
+
+	private static func getStorageIcon(for type: LocalFileSystemType) -> String {
+		switch type {
+		case .custom:
+			return "file-provider"
+		case .iCloudDrive:
+			return "icloud-drive"
+		}
 	}
 }

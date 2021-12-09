@@ -16,7 +16,7 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: PasswordVaultManagerMock!
 	private var viewModel: CreateNewVaultPasswordViewModel!
 	private let vaultPath = CloudPath("/Vault")
-	private let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
+	private let account = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 	private let vaultUID = "12345"
 
 	override func setUpWithError() throws {

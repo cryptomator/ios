@@ -28,7 +28,7 @@ class MoveVaultViewModelTests: XCTestCase {
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		cloudProviderMock = CloudProviderMock()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 	}
 
 	func testMoveVault() throws {
@@ -58,7 +58,7 @@ class MoveVaultViewModelTests: XCTestCase {
 	func testRejectVaultsInTheLocalFileSystem() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .localFileSystem)
+		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .localFileSystem(type: .custom))
 		viewModel.moveVault(to: CloudPath("Baz")).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -78,7 +78,7 @@ class MoveVaultViewModelTests: XCTestCase {
 	func testRejectMoveRootVault() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/"), vaultName: "Foo")
-		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		viewModel.moveVault(to: CloudPath("/Bar")).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -139,7 +139,7 @@ class MoveVaultViewModelTests: XCTestCase {
 	func testDisableMaintenanceModeAfterVaultMoveFailure() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
@@ -167,15 +167,15 @@ class MoveVaultViewModelTests: XCTestCase {
 	}
 
 	func testIsAllowedToMove() throws {
-		let moveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/Test"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let moveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/Test"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		XCTAssert(moveVaultViewModel.isAllowedToMove())
 
 		// allowed to move for root path
-		let rootMoveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let rootMoveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		XCTAssert(rootMoveVaultViewModel.isAllowedToMove())
 
 		// not allowed to move for same location
-		let sameLocationMoveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/Foo"), vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let sameLocationMoveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/Foo"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		XCTAssertFalse(sameLocationMoveVaultViewModel.isAllowedToMove())
 	}
 

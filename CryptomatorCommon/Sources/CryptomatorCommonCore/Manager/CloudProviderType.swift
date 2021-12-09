@@ -7,11 +7,39 @@
 //
 
 import Foundation
+import GRDB
 
-public enum CloudProviderType: String, Codable {
+public enum CloudProviderType: Codable, Equatable, Hashable {
 	case googleDrive
 	case dropbox
 	case oneDrive
-	case webDAV
-	case localFileSystem
+	case webDAV(type: WebDAVType)
+	case localFileSystem(type: LocalFileSystemType)
+}
+
+extension CloudProviderType: DatabaseValueConvertible {
+	public var databaseValue: DatabaseValue {
+		let jsonEncoder = JSONEncoder()
+		guard let data = try? jsonEncoder.encode(self) else {
+			return .null
+		}
+		let string = String(data: data, encoding: .utf8)
+		return string?.databaseValue ?? .null
+	}
+
+	public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> Self? {
+		guard let string = String.fromDatabaseValue(dbValue) else { return nil }
+		guard let data = string.data(using: .utf8) else { return nil }
+		let jsonDecoder = JSONDecoder()
+		return try? jsonDecoder.decode(CloudProviderType.self, from: data)
+	}
+}
+
+public enum LocalFileSystemType: Codable {
+	case custom
+	case iCloudDrive
+}
+
+public enum WebDAVType: Codable {
+	case custom
 }

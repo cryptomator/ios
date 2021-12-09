@@ -16,12 +16,17 @@ public enum CryptomatorDatabaseError: Error {
 
 public class CryptomatorDatabase {
 	public static var shared: CryptomatorDatabase!
+
 	public static var sharedDBURL: URL? {
 		let sharedContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName)
-		return sharedContainer?.appendingPathComponent("main.sqlite")
+		return sharedContainer?.appendingPathComponent("db.sqlite")
 	}
 
 	public let dbPool: DatabasePool
+	private static var oldSharedDBURL: URL? {
+		let sharedContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName)
+		return sharedContainer?.appendingPathComponent("main.sqlite")
+	}
 
 	public init(_ dbPool: DatabasePool) throws {
 		self.dbPool = dbPool
@@ -29,12 +34,9 @@ public class CryptomatorDatabase {
 	}
 
 	static var migrator: DatabaseMigrator {
+		CryptomatorDatabase.cleanupOldDatabase()
+
 		var migrator = DatabaseMigrator()
-
-		// Speed up development by nuking the database when migrations change
-		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
-		migrator.eraseDatabaseOnSchemaChange = true
-
 		migrator.registerMigration("v1") { db in
 			try v1Migration(db)
 		}
@@ -171,5 +173,20 @@ public class CryptomatorDatabase {
 				throw CryptomatorDatabaseError.dbDoesNotExist
 			}
 		}
+	}
+
+	/**
+	 Removes the old shared database (prior 2.0.0-beta9).
+
+	 The old shared database prior 2.0.0-beta9 does not support the new CloudProviderType with associated values for WebDAV and LocalFileSystem.
+	 Instead of simply nuking the existing database, we remove the old database (and change the path of the new database) as this also resolves issues when upgrading from an older testflight version to the release version.
+	 This function will be removed in the future.
+	 */
+	private static func cleanupOldDatabase() {
+		#warning("TODO (after April 2022): Remove this function")
+		guard let url = oldSharedDBURL else {
+			return
+		}
+		try? FileManager.default.removeItem(at: url)
 	}
 }
