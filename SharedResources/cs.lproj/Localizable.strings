@@ -84,6 +84,7 @@
 "cloudProviderType.localFileSystem" = "Další poskytovatel souborů";
 
 "fileProvider.onboarding.title" = "Vítejte";
+"fileProvider.onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otevřít Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na další obrazovce vyberte umístění úložiště pro váš nový trezor.";
