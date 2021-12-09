@@ -103,7 +103,7 @@
 
 "purchase.title" = "Unlock Full Version";
 "purchase.info" = "You can use Cryptomator in read-only mode for free. Consider unlocking the full version for write access to your vaults.";
-"purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access with unlimited number of vaults for a limited time. Consider unlocking the full version after the trial.";
+"purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access to your vaults for a limited time. Consider unlocking the full version after the trial.";
 "purchase.infoExpiredTrial" = "Your trial has expired. Consider unlocking the full version to regain write access to your vaults.";
 "purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
 "purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
@@ -123,7 +123,6 @@
 "purchase.retry.footer" = "Could not load the available products.";
 "purchase.decideLater.button" = "Decide Later";
 "purchase.decideLater.footer" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
-
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.unlockedFullVersion.title" = "Thank You";
 
