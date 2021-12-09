@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Annan filleverantör";
 
 "fileProvider.onboarding.title" = "Välkommen";
+"fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
+"fileProvider.onboarding.button.openCryptomator" = "Öppna Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
