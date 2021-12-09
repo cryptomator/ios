@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Andere File Provider";
 
 "fileProvider.onboarding.title" = "Welkom";
+"fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
+"fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
