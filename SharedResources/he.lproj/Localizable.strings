@@ -1,0 +1,12 @@
+"common.button.cancel" = "ביטול";
+"common.button.change" = "שנה";
+"common.button.done" = "סיום";
+"common.button.next" = "המשך";
+
+"addVault.title" = "הוסף כספת";
+"addVault.createNewVault.title" = "צור כספת חדשה";
+"addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
+"addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
+"addVault.openExistingVault.title" = "פתח כספת קיימת";
+
+"unlockVault.button.unlock" = "בטל נעילה";

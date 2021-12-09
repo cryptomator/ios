@@ -6,6 +6,8 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
@@ -13,10 +15,17 @@ import GRDB
 import Promises
 
 class AccountListViewModel: AccountListViewModelProtocol {
+	let headerTitle = LocalizedString.getValue("accountList.header.title")
+	let emptyListMessage = LocalizedString.getValue("accountList.emptyList.message")
+	let removeAlert = ListViewModelAlertContent(title: LocalizedString.getValue("accountList.signOut.alert.title"),
+	                                            message: LocalizedString.getValue("accountList.signOut.alert.message"),
+	                                            confirmButtonText: LocalizedString.getValue("common.button.signOut"))
 	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
 	private var observation: TransactionObserver?
+	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
+	private var removedRow = false
 
 	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) {
 		self.cloudProviderType = cloudProviderType
@@ -104,32 +113,49 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		accounts.insert(movedAccountCell, at: destinationIndex)
 		accountInfos.insert(movedAccountInfo, at: destinationIndex)
 		try updateAccountListPositions()
+		databaseChangedPublisher.send(.success(accounts))
 	}
 
 	func removeRow(at index: Int) throws {
+		removedRow = true
 		_ = accounts.remove(at: index)
 		let removedAccountInfo = accountInfos.remove(at: index)
-		try cloudAuthenticator.deauthenticate(account: removedAccountInfo.cloudProviderAccount)
-		try updateAccountListPositions()
+		do {
+			try cloudAuthenticator.deauthenticate(account: removedAccountInfo.cloudProviderAccount)
+			try updateAccountListPositions()
+		} catch {
+			removedRow = false
+			throw error
+		}
 	}
 
-	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {
-		observation = dbManager.observeCloudProviderAccounts(onError: onError, onChange: { _ in
+	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
+		observation = dbManager.observeCloudProviderAccounts(onError: { error in
+			DDLogError("Observe vault accounts failed with error: \(error)")
+			self.databaseChangedPublisher.send(.failure(error))
+		}, onChange: { _ in
+			defer {
+				self.removedRow = false
+			}
 			do {
 				try self.refreshItems()
-				onChange()
+				if !self.removedRow {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}
 			} catch {
-				onError(error)
+				DDLogError("RefreshItems failed with error: \(error)")
+				self.databaseChangedPublisher.send(.failure(error))
 				return
 			}
-			if self.cloudProviderType == .dropbox {
+			if self.cloudProviderType == .dropbox, !self.removedRow {
 				self.refreshDropboxItems().then {
-					onChange()
+					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
-					onError(error)
+					self.databaseChangedPublisher.send(.failure(error))
 				}
 			}
 		})
+		return databaseChangedPublisher.eraseToAnyPublisher()
 	}
 
 	private func updateAccountListPositions() throws {

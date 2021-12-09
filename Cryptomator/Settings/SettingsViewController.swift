@@ -7,45 +7,39 @@
 //
 
 import CocoaLumberjackSwift
+import Combine
 import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsViewController: StaticUITableViewController<SettingsSection> {
 	weak var coordinator: SettingsCoordinator?
 
 	private let viewModel: SettingsViewModel
-	private var dataSource: UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>?
 	private var observer: NSObjectProtocol?
+	private var subscriber: AnyCancellable?
 
 	init(viewModel: SettingsViewModel) {
 		self.viewModel = viewModel
-		super.init(nibName: nil, bundle: nil)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		title = LocalizedString.getValue("settings.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingsCell")
-		tableView.register(LoadingWithLabelCell.self, forCellReuseIdentifier: "LoadingWithLabelCell")
-		tableView.rowHeight = 44
-		setUpDataSource()
-		applySnapshot(sections: viewModel.sections, cells: viewModel.cells)
 		refreshCacheSize()
 		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.refreshCacheSize()
 		}
+		subscriber = viewModel.showDebugModeWarning.sink { [weak self] in
+			self?.showDebugModeAlert()
+		}
+	}
+
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		applySnapshot(sections: viewModel.sections, animatingDifferences: false)
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -89,6 +83,20 @@ class SettingsViewController: UITableViewController {
 		coordinator?.openRateApp()
 	}
 
+	func showDebugModeAlert() {
+		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.attention.title"), message: LocalizedString.getValue("settings.debugMode.alert.message"), preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.enable"), style: .default) { _ in
+			self.viewModel.enableDebugMode()
+		}
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel) { _ in
+			self.viewModel.disableDebugMode()
+		}
+		alertController.addAction(okAction)
+		alertController.addAction(cancelAction)
+
+		present(alertController, animated: true, completion: nil)
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -109,27 +117,10 @@ class SettingsViewController: UITableViewController {
 			showContact()
 		case .showRateApp:
 			showRateApp()
+		case .showUnlockFullVersion:
+			coordinator?.showUnlockFullVersion()
 		case .unknown:
 			break
 		}
-	}
-
-	// MARK: - UITableViewDiffableDataSource
-
-	func setUpDataSource() {
-		dataSource = UITableViewDiffableDataSource<SettingsSection, TableViewCellViewModel>(tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
-			let cell = cellViewModel.type.init()
-			cell.configure(with: cellViewModel)
-			return cell
-		}
-	}
-
-	func applySnapshot(sections: [SettingsSection], cells: [SettingsSection: [TableViewCellViewModel]]) {
-		var snapshot = NSDiffableDataSourceSnapshot<SettingsSection, TableViewCellViewModel>()
-		snapshot.appendSections(sections)
-		for (section, items) in cells {
-			snapshot.appendItems(items, toSection: section)
-		}
-		dataSource?.apply(snapshot, animatingDifferences: true)
 	}
 }

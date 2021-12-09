@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "錯誤";
+"common.alert.attention.title" = "注意";
 "common.button.cancel" = "取消";
 "common.button.change" = "修改";
 "common.button.choose" = "選擇";
@@ -39,6 +40,7 @@
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要：如果您遺忘了密碼，您的數據將無法被恢復。";
 "addVault.createNewVault.password.error.emptyPassword" = "密碼不可留空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.createNewVault.password.error.tooShortPassword" = "密碼必須包含至少8個字符。";
@@ -66,11 +68,14 @@
 "cloudProvider.error.unauthorized" = "無法執行未授權的操作";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+
+"fileProvider.onboarding.title" = "歡迎";
+"fileProvider.onboarding.button.openCryptomator" = "打開 Cryptomator";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 
 "onboarding.title" = "歡迎";
-"onboarding.openCryptomator.button" = "打開 Cryptomator";
+"purchase.retry.button" = "重試";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
@@ -113,3 +118,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在驗證……";
+
+"webDAVAuthentication.httpConnection.alert.title" = "是否使用 HTTPS？";
+"webDAVAuthentication.httpConnection.alert.message" = "使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
+"webDAVAuthentication.httpConnection.change" = "更換為 HTTPS";

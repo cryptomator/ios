@@ -10,18 +10,14 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class ChooseCloudViewController: SingleSectionHeaderTableViewController {
+class ChooseCloudViewController: BaseUITableViewController {
 	weak var coordinator: CloudChoosing?
 
 	private let viewModel: ChooseCloudViewModel
 
 	init(viewModel: ChooseCloudViewModel) {
 		self.viewModel = viewModel
-		super.init(with: viewModel)
-	}
-
-	override func loadView() {
-		tableView = UITableView(frame: .zero, style: .grouped)
+		super.init()
 	}
 
 	override func viewDidLoad() {
@@ -54,6 +50,14 @@ class ChooseCloudViewController: SingleSectionHeaderTableViewController {
 		let cloudProviderType = viewModel.clouds[indexPath.row]
 		coordinator?.showAccountList(for: cloudProviderType)
 	}
+
+	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+		// Prevents the header title from being displayed in uppercase
+		guard let headerView = view as? UITableViewHeaderFooterView else {
+			return
+		}
+		headerView.textLabel?.text = viewModel.headerTitle
+	}
 }
 
 #if DEBUG
@@ -61,7 +65,7 @@ import SwiftUI
 
 struct ChooseCloudVCPreview: PreviewProvider {
 	static var previews: some View {
-		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV, .localFileSystem], headerTitle: "Preview Header Title")).toPreview()
+		ChooseCloudViewController(viewModel: ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .webDAV(type: .custom), .localFileSystem(type: .iCloudDrive)], headerTitle: "Preview Header Title")).toPreview()
 	}
 }
 #endif

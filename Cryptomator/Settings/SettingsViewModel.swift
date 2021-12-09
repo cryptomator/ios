@@ -19,6 +19,7 @@ enum SettingsButtonAction: String {
 	case showCloudServices
 	case showContact
 	case showRateApp
+	case showUnlockFullVersion
 	case unknown
 }
 
@@ -30,30 +31,47 @@ enum SettingsSection: Int {
 	case miscSection
 }
 
-class SettingsViewModel {
-	var sections: [SettingsSection] = [.cloudServiceSection, .cacheSection, .aboutSection, .debugSection, .miscSection]
-	lazy var cells: [SettingsSection: [TableViewCellViewModel]] = {
-		[
-			.cloudServiceSection: [
+class SettingsViewModel: TableViewModel<SettingsSection> {
+	override var title: String? {
+		return LocalizedString.getValue("settings.title")
+	}
+
+	override var sections: [Section<SettingsSection>] {
+		return _sections
+	}
+
+	var showDebugModeWarning: AnyPublisher<Void, Never> {
+		return showDebugModeWarningPublisher.eraseToAnyPublisher()
+	}
+
+	private var _sections: [Section<SettingsSection>] {
+		return [
+			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
-			],
-			.cacheSection: [
+			]),
+			Section(id: .cacheSection, elements: [
 				cacheSizeCellViewModel,
 				clearCacheButtonCellViewModel
-			],
-			.aboutSection: [
-				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
-			],
-			.debugSection: [
+			]),
+			Section(id: .aboutSection, elements: aboutSectionElements),
+			Section(id: .debugSection, elements: [
 				debugModeViewModel,
 				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
-			],
-			.miscSection: [
+			]),
+			Section(id: .miscSection, elements: [
 				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
-			]
+			])
 		]
-	}()
+	}
+
+	private var aboutSectionElements: [TableViewCellViewModel] {
+		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
+		if !cryptomatorSettings.fullVersionUnlocked {
+			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
+		}
+		return elements
+	}
 
 	private let cacheManager: FileProviderCacheManager
 	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
@@ -68,6 +86,7 @@ class SettingsViewModel {
 
 	private let fileProviderConnector: FileProviderConnector
 	private var subscribers = Set<AnyCancellable>()
+	private lazy var showDebugModeWarningPublisher = PassthroughSubject<Void, Never>()
 
 	init(cacheManager: FileProviderCacheManager = FileProviderCacheManager(), cryptomatorSetttings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.cacheManager = cacheManager
@@ -77,7 +96,7 @@ class SettingsViewModel {
 
 	func buttonAction(for indexPath: IndexPath) -> SettingsButtonAction {
 		let section = sections[indexPath.section]
-		guard let cell = cells[section]?[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
+		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
 			return .unknown
 		}
 		return cell.action
@@ -106,11 +125,28 @@ class SettingsViewModel {
 		}
 	}
 
+	func enableDebugMode() {
+		setDebugMode(enabled: true)
+	}
+
+	func disableDebugMode() {
+		setDebugMode(enabled: false)
+		debugModeViewModel.isOn.value = false
+	}
+
+	private func setDebugMode(enabled: Bool) {
+		cryptomatorSettings.debugModeEnabled = enabled
+		LoggerSetup.setDynamicLogLevel(debugModeEnabled: enabled)
+		notifyFileProviderAboutLogLevelUpdate()
+	}
+
 	private func bindDebugModeViewModel(_ viewModel: SwitchCellViewModel) {
 		viewModel.isOnButtonPublisher.sink { [weak self] isOn in
-			self?.cryptomatorSettings.debugModeEnabled = isOn
-			LoggerSetup.setDynamicLogLevel(debugModeEnabled: isOn)
-			self?.notifyFileProviderAboutLogLevelUpdate()
+			if isOn {
+				self?.showDebugModeWarningPublisher.send()
+			} else {
+				self?.setDebugMode(enabled: false)
+			}
 		}.store(in: &subscribers)
 	}
 
@@ -118,6 +154,22 @@ class SettingsViewModel {
 		let getProxyPromise: Promise<LogLevelUpdating> = fileProviderConnector.getProxy(serviceName: LogLevelUpdatingService.name, domain: nil)
 		getProxyPromise.then { proxy in
 			proxy.logLevelUpdated()
+		}
+	}
+}
+
+class SettingsPurchaseViewModel: PurchaseViewModel {
+	override var sections: [Section<PurchaseSection>] {
+		super.sections.filter {
+			$0.id != .decideLaterSection
+		}
+	}
+}
+
+class SettingsUpgradeViewModel: UpgradeViewModel {
+	override var sections: [Section<UpgradeSection>] {
+		super.sections.filter {
+			$0.id != .decideLaterSection
 		}
 	}
 }

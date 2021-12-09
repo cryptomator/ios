@@ -6,64 +6,43 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
-class WebDAVAuthenticationViewController: SingleSectionTableViewController {
+class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewController {
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
-
 	private var viewModel: WebDAVAuthenticationViewModelProtocol
+	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
 	init(viewModel: WebDAVAuthenticationViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
-
-	private var cells: [TextFieldCell] {
-		return [urlCell, usernameCell, passwordCell]
-	}
-
-	private lazy var urlCell: URLFieldCell = {
-		let urlCell = URLFieldCell(style: .default, reuseIdentifier: "URLFieldCell")
-		urlCell.textField.placeholder = LocalizedString.getValue("common.cells.url")
-		urlCell.textField.text = "https://"
-		urlCell.textField.becomeFirstResponder()
-		return urlCell
-	}()
-
-	private lazy var usernameCell: UsernameFieldCell = {
-		let usernameCell = UsernameFieldCell(style: .default, reuseIdentifier: "UsernameFieldCell")
-		usernameCell.textField.placeholder = LocalizedString.getValue("common.cells.username")
-		return usernameCell
-	}()
-
-	private lazy var passwordCell: PasswordFieldCell = {
-		let passwordCell = PasswordFieldCell(style: .default, reuseIdentifier: "PasswordFieldCell")
-		passwordCell.textField.placeholder = LocalizedString.getValue("common.cells.password")
-		return passwordCell
-	}()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("webDAVAuthentication.title")
-		tableView.rowHeight = 44
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
+		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
+			self?.done()
+		}
 	}
 
 	@objc func done() {
-		addAccount(allowedCertificate: nil)
+		addAccount(allowedCertificate: nil, allowHTTPConnection: false)
 	}
 
-	func addAccount(allowedCertificate: Data?) {
+	func addAccount(allowedCertificate: Data?, allowHTTPConnection: Bool) {
 		let credential: WebDAVCredential
 		do {
-			credential = try viewModel.createWebDAVCredentialFromInput(url: urlCell.textField.text, username: usernameCell.textField.text, password: passwordCell.textField.text, allowedCertificate: allowedCertificate)
+			credential = try viewModel.createWebDAVCredentialFromInput(allowedCertificate: allowedCertificate, allowHTTPConnection: allowHTTPConnection)
 		} catch {
-			coordinator?.handleError(error, for: self)
+			handleError(error)
 			return
 		}
 
@@ -97,19 +76,11 @@ class WebDAVAuthenticationViewController: SingleSectionTableViewController {
 	private func handleError(_ error: Error) {
 		if case let WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url) = error {
 			coordinator?.handleUntrustedCertificate(certificate, url: url, for: self, viewModel: viewModel)
+		} else if case WebDAVAuthenticationError.httpConnection = error {
+			coordinator?.handleInsecureConnection(for: self, viewModel: viewModel)
 		} else {
 			coordinator?.handleError(error, for: self)
 		}
-	}
-
-	// MARK: - UITableViewDataSource
-
-	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return 3
-	}
-
-	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		return cells[indexPath.row]
 	}
 }
 
@@ -118,8 +89,14 @@ import CryptomatorCloudAccessCore
 import Promises
 import SwiftUI
 
-class WebDAVAuthenticationViewModelMock: WebDAVAuthenticationViewModelProtocol {
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
+class WebDAVAuthenticationViewModelMock: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
+	}
+
+	func transformURLToHTTPS() throws {}
+
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool) throws -> WebDAVCredential {
 		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
 	}
 

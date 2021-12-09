@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
@@ -15,20 +16,58 @@ enum WebDAVAuthenticationError: Error {
 	case invalidInput
 	case untrustedCertificate(certificate: TLSCertificate, url: URL)
 	case userCanceled
+	case httpConnection
 }
 
-protocol WebDAVAuthenticationViewModelProtocol {
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential
+protocol WebDAVAuthenticationViewModelProtocol: SingleSectionTableViewModel, ReturnButtonSupport {
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool) throws -> WebDAVCredential
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential>
+	func transformURLToHTTPS() throws
 }
 
-class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
-	private var client: WebDAVClient?
+class WebDAVAuthenticationViewModel: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
+	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
+		return setupReturnButtonSupport(for: [urlCellViewModel, usernameCellViewModel, passwordCellViewModel], subscribers: &subscribers)
+	}
 
-	func createWebDAVCredentialFromInput(url: String?, username: String?, password: String?, allowedCertificate: Data?) throws -> WebDAVCredential {
-		// TODO: Add Input Validation
-		guard let url = url, let username = username, let password = password, let baseURL = URL(string: url) else {
+	override var cells: [TableViewCellViewModel] {
+		[
+			urlCellViewModel,
+			usernameCellViewModel,
+			passwordCellViewModel
+		]
+	}
+
+	let urlCellViewModel = TextFieldCellViewModel(type: .url, text: "https://", placeholder: LocalizedString.getValue("common.cells.url"), isInitialFirstResponder: true)
+	let usernameCellViewModel = TextFieldCellViewModel(type: .username, placeholder: LocalizedString.getValue("common.cells.username"))
+	let passwordCellViewModel = TextFieldCellViewModel(type: .password, placeholder: LocalizedString.getValue("common.cells.password"))
+
+	var url: String {
+		get {
+			return urlCellViewModel.input.value
+		}
+		set {
+			urlCellViewModel.input.value = newValue
+		}
+	}
+
+	var username: String {
+		return usernameCellViewModel.input.value
+	}
+
+	var password: String {
+		return passwordCellViewModel.input.value
+	}
+
+	private var client: WebDAVClient?
+	private lazy var subscribers = Set<AnyCancellable>()
+
+	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool = false) throws -> WebDAVCredential {
+		guard let baseURL = URL(string: url) else {
 			throw WebDAVAuthenticationError.invalidInput
+		}
+		if !allowHTTPConnection, baseURL.scheme == "http" {
+			throw WebDAVAuthenticationError.httpConnection
 		}
 		guard !username.isEmpty, !password.isEmpty else {
 			throw WebDAVAuthenticationError.invalidInput
@@ -36,8 +75,23 @@ class WebDAVAuthenticationViewModel: WebDAVAuthenticationViewModelProtocol {
 		return WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: allowedCertificate)
 	}
 
+	func transformURLToHTTPS() throws {
+		var components = URLComponents(string: url)
+		components?.scheme = "https"
+		guard let transformedURL = components?.string else {
+			throw WebDAVAuthenticationError.invalidInput
+		}
+		url = transformedURL
+	}
+
 	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
-		return checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate).then { _ -> Promise<Void> in
+		let checkTLSCertificatePromise: Promise<Void>
+		if credential.baseURL.scheme == "http" {
+			checkTLSCertificatePromise = Promise(())
+		} else {
+			checkTLSCertificatePromise = checkTLSCertificate(for: credential.baseURL, allowedCertificate: credential.allowedCertificate)
+		}
+		return checkTLSCertificatePromise.then { _ -> Promise<Void> in
 			let client = WebDAVClient(credential: credential)
 			self.client = client
 			return WebDAVAuthenticator.verifyClient(client: client)

@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class VaultDetailInfoFooterViewModel: AttributedTextHeaderFooterViewModel {
+class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewModel {
 	private let vault: VaultInfo
 
 	init(vault: VaultInfo) {

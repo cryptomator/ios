@@ -18,7 +18,7 @@ class CryptomatorKeychain {
 	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
-	static let vault = CryptomatorKeychain(service: "cryptomatorVault")
+	static let upgrade = CryptomatorKeychain(service: "upgrade")
 
 	init(service: String) {
 		self.service = service
@@ -98,7 +98,7 @@ class CryptomatorUserPresenceKeychain: CryptomatorKeychain {
 	static let vaultPassword = CryptomatorUserPresenceKeychain(service: "cryptomatorVaultPassword")
 	private static var access = SecAccessControlCreateWithFlags(nil, // Use the default allocator.
 	                                                            kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly,
-	                                                            .biometryAny,
+	                                                            .biometryCurrentSet,
 	                                                            nil) // Ignore any error.
 
 	override func setQuery(key: String, value: Data) -> [String: Any] {

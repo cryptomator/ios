@@ -12,11 +12,11 @@ import UIKit
 
 class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 	private var vault: VaultDetailItem?
+	private lazy var addVaultButtonViewModel = ButtonCellViewModel(action: "addVault", title: LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.add"))
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("addVault.openExistingVault.title")
-		tableView.register(ButtonCell.self, forCellReuseIdentifier: "ButtonCell")
 	}
 
 	override func showDetectedVault(_ vault: VaultDetailItem) {
@@ -45,10 +45,8 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if viewModel.foundMasterkey {
-			// swiftlint:disable:next force_cast
-			let cell = tableView.dequeueReusableCell(withIdentifier: "ButtonCell", for: indexPath) as! ButtonCell
-			cell.button.setTitle(LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.add"), for: .normal)
-			cell.button.addTarget(self, action: #selector(addVault), for: .touchUpInside)
+			let cell = addVaultButtonViewModel.type.init()
+			cell.configure(with: addVaultButtonViewModel)
 			return cell
 		} else {
 			return super.tableView(tableView, cellForRowAt: indexPath)
@@ -67,19 +65,19 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		if viewModel.foundMasterkey {
-			// do nothing
+			tableView.deselectRow(at: indexPath, animated: true)
+			addVault()
 		} else {
 			super.tableView(tableView, didSelectRowAt: indexPath)
 		}
 	}
 }
 
-private class SuccessView: DetectedVaultView {
-	init(vaultName: String) {
+private class SuccessView: LargeHeaderFooterView {
+	convenience init(vaultName: String) {
 		let botVaultImage = UIImage(named: "bot-vault")
-		let imageView = UIImageView(image: botVaultImage)
 		let text = String(format: LocalizedString.getValue("addVault.openExistingVault.detectedMasterkey.text"), vaultName)
-		super.init(imageView: imageView, text: text)
+		self.init(image: botVaultImage, infoText: text)
 	}
 }
 

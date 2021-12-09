@@ -28,7 +28,11 @@ class SettingsViewModelTests: XCTestCase {
 	// - MARK: Cache Section
 
 	func testInitialStateOfCacheSection() throws {
-		guard let cacheSizeCellViewModel = settingsViewModel.cells[.cacheSection]?[0] as? LoadingWithLabelCellViewModel else {
+		guard let cacheSection = getSection(for: .cacheSection) else {
+			XCTFail("Missing cacheSection")
+			return
+		}
+		guard let cacheSizeCellViewModel = cacheSection.elements[0] as? LoadingWithLabelCellViewModel else {
 			XCTFail("Missing cacheSizeCellViewModel")
 			return
 		}
@@ -37,10 +41,11 @@ class SettingsViewModelTests: XCTestCase {
 		XCTAssertEqual(LocalizedString.getValue("settings.cacheSize"), cacheSizeCellViewModel.title.value)
 		XCTAssertNil(cacheSizeCellViewModel.detailTitle.value)
 
-		guard let clearCacheButtonCellViewModel = settingsViewModel.cells[.cacheSection]?[1] else {
+		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing clearCacheButtonCellViewModel")
 			return
 		}
+		XCTAssertEqual(.clearCache, clearCacheButtonCellViewModel.action)
 		XCTAssertFalse(clearCacheButtonCellViewModel.isEnabled.value)
 		XCTAssertEqual(LocalizedString.getValue("settings.clearCache"), clearCacheButtonCellViewModel.title.value)
 		XCTAssertNil(clearCacheButtonCellViewModel.detailTitle.value)
@@ -53,17 +58,21 @@ class SettingsViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
-
-		guard let cacheSizeCellViewModel = settingsViewModel.cells[.cacheSection]?[0] as? LoadingWithLabelCellViewModel else {
+		guard let cacheSection = getSection(for: .cacheSection) else {
+			XCTFail("Missing cacheSection")
+			return
+		}
+		guard let cacheSizeCellViewModel = cacheSection.elements[0] as? LoadingWithLabelCellViewModel else {
 			XCTFail("Missing cacheSizeCellViewModel")
 			return
 		}
 		XCTAssertEqual("1 MB", cacheSizeCellViewModel.detailTitle.value)
 
-		guard let clearCacheButtonCellViewModel = settingsViewModel.cells[.cacheSection]?[1] else {
+		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing clearCacheButtonCellViewModel")
 			return
 		}
+		XCTAssertEqual(.clearCache, clearCacheButtonCellViewModel.action)
 		XCTAssertTrue(clearCacheButtonCellViewModel.isEnabled.value)
 		XCTAssertFalse(cacheSizeCellViewModel.isLoading.value)
 	}
@@ -91,26 +100,33 @@ class SettingsViewModelTests: XCTestCase {
 	}
 
 	func checkEmptyCacheBehaviour() {
-		guard let cacheSizeCellViewModel = settingsViewModel.cells[.cacheSection]?[0] else {
+		guard let cacheSection = getSection(for: .cacheSection) else {
+			XCTFail("Missing cacheSection")
+			return
+		}
+		guard let cacheSizeCellViewModel = cacheSection.elements[0] as? LoadingWithLabelCellViewModel else {
 			XCTFail("Missing cacheSizeCellViewModel")
 			return
 		}
 		XCTAssertEqual("Zero KB", cacheSizeCellViewModel.detailTitle.value)
 
-		guard let clearCacheButtonCellViewModel = settingsViewModel.cells[.cacheSection]?[1] else {
+		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing clearCacheButtonCellViewModel")
 			return
 		}
+		XCTAssertEqual(.clearCache, clearCacheButtonCellViewModel.action)
 		XCTAssertFalse(clearCacheButtonCellViewModel.isEnabled.value)
 	}
 
 	// - MARK: Debug Section
 
 	func testDisabledDebugMode() {
-		let logLevelUpdatingMock = LogLevelUpdatingMock()
-		fileProviderConnectorMock.proxy = logLevelUpdatingMock
 		cryptomatorSettingsMock.debugModeEnabled = false
-		guard let debugModeCellViewModel = settingsViewModel.cells[.debugSection]?[0] as? SwitchCellViewModel else {
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
 			XCTFail("Missing debugModeCellViewModel")
 			return
 		}
@@ -119,15 +135,15 @@ class SettingsViewModelTests: XCTestCase {
 
 		checkSendLogFilesCellViewModel()
 
+		let showDebugModeWarningRecorder = settingsViewModel.showDebugModeWarning.recordNext(1)
+
 		// Simulate Debug toggle
-		let expectation = XCTestExpectation()
 		debugModeCellViewModel.isOnButtonPublisher.send(true)
-		logLevelUpdatingMock.updated.then {
-			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
-			self.checkLogLevelUpdatingServiceSourceCall()
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+
+		// Check showDebugModeWarning fired
+		wait(for: showDebugModeWarningRecorder)
+
+		XCTAssertFalse(cryptomatorSettingsMock.debugModeEnabled)
 		checkSendLogFilesCellViewModel()
 	}
 
@@ -135,7 +151,11 @@ class SettingsViewModelTests: XCTestCase {
 		let logLevelUpdatingMock = LogLevelUpdatingMock()
 		fileProviderConnectorMock.proxy = logLevelUpdatingMock
 		cryptomatorSettingsMock.debugModeEnabled = true
-		guard let debugModeCellViewModel = settingsViewModel.cells[.debugSection]?[0] as? SwitchCellViewModel else {
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
 			XCTFail("Missing debugModeCellViewModel")
 			return
 		}
@@ -156,8 +176,49 @@ class SettingsViewModelTests: XCTestCase {
 		checkSendLogFilesCellViewModel()
 	}
 
+	func testEnableDebugMode() {
+		let expectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		settingsViewModel.enableDebugMode()
+		logLevelUpdatingMock.updated.then {
+			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testDisableDebugMode() {
+		let expectation = XCTestExpectation()
+		let logLevelUpdatingMock = LogLevelUpdatingMock()
+		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let debugModeCellViewModel = debugSection.elements[0] as? SwitchCellViewModel else {
+			XCTFail("Missing debugModeCellViewModel")
+			return
+		}
+
+		settingsViewModel.disableDebugMode()
+
+		XCTAssertFalse(debugModeCellViewModel.isOn.value)
+		logLevelUpdatingMock.updated.then {
+			XCTAssertFalse(self.cryptomatorSettingsMock.debugModeEnabled)
+			self.checkLogLevelUpdatingServiceSourceCall()
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
 	private func checkSendLogFilesCellViewModel() {
-		guard let sendLogFilesCellViewModel = settingsViewModel.cells[.debugSection]?[1] as? ButtonCellViewModel<SettingsButtonAction> else {
+		guard let debugSection = getSection(for: .debugSection) else {
+			XCTFail("Missing debugSection")
+			return
+		}
+		guard let sendLogFilesCellViewModel = debugSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing sendLogFilesCellViewModel")
 			return
 		}
@@ -170,6 +231,10 @@ class SettingsViewModelTests: XCTestCase {
 		XCTAssertEqual(LogLevelUpdatingService.name, fileProviderConnectorMock.passedServiceName)
 		XCTAssertNil(fileProviderConnectorMock.passedDomain)
 		XCTAssertNil(fileProviderConnectorMock.passedDomainIdentifier)
+	}
+
+	private func getSection(for identifier: SettingsSection) -> Section<SettingsSection>? {
+		return settingsViewModel.sections.filter({ $0.id == identifier }).first
 	}
 }
 
@@ -195,10 +260,6 @@ private class DocumentStorageURLProviderStub: DocumentStorageURLProvider {
 	var documentStorageURL: URL {
 		fatalError("not implemented")
 	}
-}
-
-private class CryptomatorSettingsMock: CryptomatorSettings {
-	var debugModeEnabled: Bool = false
 }
 
 private class LogLevelUpdatingMock: LogLevelUpdating {

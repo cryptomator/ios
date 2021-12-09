@@ -107,6 +107,8 @@ private class HUDController: UIViewController {
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
 		textLabel.textAlignment = .center
 		textLabel.numberOfLines = 0
+		textLabel.adjustsFontForContentSizeCategory = true
+		textLabel.font = .preferredFont(forTextStyle: .body)
 		return textLabel
 	}()
 

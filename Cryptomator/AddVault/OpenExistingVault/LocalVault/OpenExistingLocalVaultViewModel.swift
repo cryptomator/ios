@@ -13,11 +13,11 @@ import Promises
 
 class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let validator: OpenExistingLocalVaultValidationLogic
-	init(accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
+	init(selectedLocalFileSystemType: LocalFileSystemType, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
 		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.button")
 		let headerText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.header")
 		self.validator = OpenExistingLocalVaultValidationLogic()
-		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, validationLogic: validator, accountManager: accountManager)
+		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: validator, accountManager: accountManager)
 	}
 
 	func addVault(for credential: LocalFileSystemCredential) -> Promise<LocalFileSystemAuthenticationResult> {

@@ -13,6 +13,7 @@ import CryptomatorCommon
 import CryptomatorCommonCore
 import MSAL
 import ObjectiveDropboxOfficial
+import StoreKit
 import UIKit
 
 @UIApplicationMain
@@ -45,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Clean up
 		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {
-			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV)
+			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
 			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
 		} catch {
 			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")
@@ -63,10 +64,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 
+		// Set up payment queue
+		SKPaymentQueue.default().add(StoreObserver.shared)
+
 		// Create window
 		let navigationController = BaseNavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
 		coordinator?.start()
+		StoreObserver.shared.fallbackDelegate = coordinator
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.tintColor = UIColor(named: "primary")
 		window?.rootViewController = navigationController
@@ -96,5 +101,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
 		}
 		return false
+	}
+
+	func applicationWillTerminate(_ application: UIApplication) {
+		SKPaymentQueue.default().remove(StoreObserver.shared)
 	}
 }

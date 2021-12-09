@@ -11,9 +11,9 @@ import Foundation
 class AttributedTextHeaderFooterViewModel: HeaderFooterViewModel {
 	var viewType: HeaderFooterViewModelConfiguring.Type { return AttributedTextHeaderFooterView.self }
 	var title: Bindable<String?> { return Bindable(nil) }
-	let attributedText: Bindable<NSAttributedString>
+	let attributedText: NSAttributedString
 
 	init(attributedText: NSAttributedString) {
-		self.attributedText = Bindable(attributedText)
+		self.attributedText = attributedText
 	}
 }

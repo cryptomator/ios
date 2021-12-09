@@ -32,5 +32,7 @@ class LogLevelUpdatingServiceSourceTests: XCTestCase {
 }
 
 private class CryptomatorSettingsMock: CryptomatorSettings {
+	var trialExpirationDate: Date?
+	var fullVersionUnlocked: Bool = false
 	var debugModeEnabled: Bool = false
 }

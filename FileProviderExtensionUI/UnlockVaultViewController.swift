@@ -19,6 +19,7 @@ class UnlockVaultViewController: UITableViewController {
 		let cell = PasswordFieldCell()
 		cell.textField.becomeFirstResponder()
 		cell.textField.tintColor = UIColor(named: "primary")
+		cell.textField.delegate = self
 		cell.selectionStyle = .none
 		return cell
 	}()
@@ -46,7 +47,7 @@ class UnlockVaultViewController: UITableViewController {
 
 	init(viewModel: UnlockVaultViewModel) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
+		super.init(style: .insetGrouped)
 	}
 
 	@available(*, unavailable)
@@ -149,6 +150,13 @@ class UnlockVaultViewController: UITableViewController {
 		case .unknown:
 			return UITableViewCell()
 		}
+	}
+}
+
+extension UnlockVaultViewController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		unlock()
+		return false
 	}
 }
 

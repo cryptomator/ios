@@ -24,8 +24,9 @@ class FolderCell: UITableViewCell, CloudItemCell {
 
 	func configure(with item: CloudItemMetadata) {
 		textLabel?.text = item.name
-		imageView?.image = UIImage(named: "folder")
-		imageView?.highlightedImage = UIImage(named: "folder-selected")
+		imageView?.image = UIImage(systemName: "folder")
+		imageView?.highlightedImage = UIImage(systemName: "folder.fill")
+		imageView?.tintColor = UIColor(named: "primary")
 	}
 
 	@available(iOS 14, *)
@@ -35,9 +36,12 @@ class FolderCell: UITableViewCell, CloudItemCell {
 		}
 		var content = defaultContentConfiguration().updated(for: state)
 		if state.isHighlighted || state.isSelected {
-			content.image = UIImage(named: "folder-selected")
+			content.image = UIImage(systemName: "folder.fill")
 		} else {
-			content.image = UIImage(named: "folder")
+			content.image = UIImage(systemName: "folder")
+		}
+		if let color = UIColor(named: "primary") {
+			content.image = content.image?.withTintColor(color)
 		}
 		content.text = item.name
 		contentConfiguration = content

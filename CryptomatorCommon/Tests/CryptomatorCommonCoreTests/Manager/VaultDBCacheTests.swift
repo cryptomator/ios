@@ -15,14 +15,8 @@ import XCTest
 class VaultDBCacheTests: XCTestCase {
 	private var vaultCache: VaultDBCache!
 	private let vaultUID = UUID().uuidString
-	private lazy var account: CloudProviderAccount = {
-		CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
-	}()
-
-	private lazy var vaultAccount: VaultAccount = {
-		VaultAccount(vaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: CloudPath("/Vault"), vaultName: "Vault")
-	}()
-
+	private lazy var account: CloudProviderAccount = .init(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
+	private lazy var vaultAccount: VaultAccount = .init(vaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: CloudPath("/Vault"), vaultName: "Vault")
 	private var inMemoryDB: DatabaseQueue!
 
 	override func setUpWithError() throws {

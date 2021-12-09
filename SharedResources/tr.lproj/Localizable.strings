@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Hata";
+"common.alert.attention.title" = "Dikkat";
 "common.button.cancel" = "İptal";
 "common.button.change" = "Değiştir";
 "common.button.choose" = "Seç";
@@ -82,6 +83,10 @@
 
 "cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 
+"fileProvider.onboarding.title" = "Hoş geldiniz";
+"fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
+
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
@@ -92,8 +97,7 @@
 "maintenanceModeError.runningCloudTask" = "Bu kasa için diğer arka plan işlemlerinin önce tamamlanması gerektiğinden işlem gerçekleştirilemez. Lütfen daha sonra tekrar deneyiniz.";
 
 "onboarding.title" = "Hoş geldiniz";
-"onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
-"onboarding.openCryptomator.button" = "Cryptomator'ı aç";
+"purchase.retry.button" = "Yeniden dene";
 
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
@@ -103,6 +107,7 @@
 "settings.cloudServices" = "Bulut Servisleri";
 "settings.contact" = "İletişim";
 "settings.debugMode" = "Hata ayıklama Modu";
+"settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
 "settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 
@@ -157,3 +162,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Kimlik doğrulanıyor…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS kullanılsın mı?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS'ye geç";

@@ -25,18 +25,8 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 		adapter.startProvidingItem(at: url) { error in
 			XCTAssertNil(error)
-			XCTAssert(FileManager.default.fileExists(atPath: url.path))
-
-			let localContent = try? Data(contentsOf: url)
-			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
-
-			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
-			XCTAssertNotNil(localCachedFileInfo)
-			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
-			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
-			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
-			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
+			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+			self.assertMetadataUpdated()
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
@@ -58,17 +48,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
 		adapter.startProvidingItem(at: url) { error in
 			XCTAssertNil(error)
-			XCTAssert(FileManager.default.fileExists(atPath: url.path))
-
-			let localContent = try? Data(contentsOf: url)
-			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
-
-			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
-			XCTAssertNotNil(localCachedFileInfo)
-			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
-			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
+			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
 			XCTAssert(self.metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
 			expectation.fulfill()
 		}
@@ -93,19 +73,8 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
 		adapter.startProvidingItem(at: url) { error in
 			XCTAssertNil(error)
-			XCTAssert(FileManager.default.fileExists(atPath: url.path))
-
-			let localContent = try? Data(contentsOf: url)
-			XCTAssertEqual(self.cloudProviderMock.files[cloudPath.path], localContent)
-
-			let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID]
-			XCTAssertNotNil(localCachedFileInfo)
-			let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
-			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertNotNil(lastModifiedDate)
-			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
-			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
-			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
+			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+			self.assertMetadataUpdated()
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
@@ -147,9 +116,9 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		// Simulate a change of the item in the cloud
 		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkFlowSchedulerStartProvidingItemMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 		adapter.startProvidingItem(at: url) { error in
 			XCTAssertNil(error)
+			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
 			XCTAssertEqual(1, self.uploadTaskManagerMock.uploadTasks.count)
 			guard let uploadTaskRecord = self.uploadTaskManagerMock.uploadTasks[3] else {
 				XCTFail("uploadTaskRecord is nil")
@@ -170,6 +139,24 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func assertNewestVersionDownloaded(localURL: URL, cloudPath: CloudPath, itemID: Int64) {
+		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
+
+		let localContent = try? Data(contentsOf: localURL)
+		XCTAssertEqual(cloudProviderMock.files[cloudPath.path], localContent)
+
+		let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[itemID]
+		XCTAssertNotNil(localCachedFileInfo)
+		let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
+		XCTAssertNotNil(lastModifiedDate)
+		XCTAssertEqual(cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
+	}
+
+	func assertMetadataUpdated() {
+		XCTAssertEqual(1, metadataManagerMock.updatedMetadata.count)
+		XCTAssertEqual(ItemStatus.isUploaded, metadataManagerMock.updatedMetadata[0].statusCode)
 	}
 
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {

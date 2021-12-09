@@ -155,6 +155,38 @@ class ChangePasswordViewModelTests: XCTestCase {
 		checkChangePasswordFail(with: ChangePasswordViewModelError.newPasswordsDoNotMatch)
 	}
 
+	// MARK: Return Button Support
+
+	func testReturnButtonSupport() throws {
+		guard let oldPasswordViewModel = viewModel.cells[.oldPassword]?.first as? TextFieldCellViewModel else {
+			XCTFail("oldPasswordViewModel not found")
+			return
+		}
+		guard let newPasswordViewModel = viewModel.cells[.newPassword]?.first as? TextFieldCellViewModel else {
+			XCTFail("newPasswordViewModel not found")
+			return
+		}
+		guard let newPasswordConfirmationViewModel = viewModel.cells[.newPasswordConfirmation]?.first as? TextFieldCellViewModel else {
+			XCTFail("newPasswordConfirmationViewModel not found")
+			return
+		}
+		XCTAssert(oldPasswordViewModel.isInitialFirstResponder)
+		XCTAssertFalse(newPasswordViewModel.isInitialFirstResponder)
+		XCTAssertFalse(newPasswordConfirmationViewModel.isInitialFirstResponder)
+		let lastReturnButtonPressedRecorder = viewModel.lastReturnButtonPressed.recordNext(1)
+
+		let newPWBecomeFirstResponderRecorder = newPasswordViewModel.startListeningToBecomeFirstResponder().recordNext(1)
+		let newPWConfirmationBecomeFirstResponderRecorder = newPasswordConfirmationViewModel.startListeningToBecomeFirstResponder().recordNext(1)
+
+		oldPasswordViewModel.returnButtonPressed()
+		wait(for: newPWBecomeFirstResponderRecorder)
+
+		newPasswordViewModel.returnButtonPressed()
+		wait(for: newPWConfirmationBecomeFirstResponderRecorder)
+		newPasswordConfirmationViewModel.returnButtonPressed()
+		wait(for: lastReturnButtonPressedRecorder)
+	}
+
 	private func checkChangePasswordFail(with expectedError: Error) {
 		let expectation = XCTestExpectation()
 		viewModel.changePassword().then {
@@ -168,6 +200,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 			XCTAssertFalse(self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCalled)
 
 			XCTAssert(self.vaultLockingMock.lockedVaults.isEmpty)
+
 		}.always {
 			expectation.fulfill()
 		}
@@ -192,5 +225,13 @@ class ChangePasswordViewModelTests: XCTestCase {
 			return
 		}
 		passwordViewModel.input.value = password
+	}
+
+	private func simulateReturnButtonPressed(forFirstViewModelInSection section: ChangePasswordSection) {
+		guard let passwordViewModel = viewModel.cells[section]?.first as? TextFieldCellViewModel else {
+			XCTFail("ViewModel not found for section: \(section)")
+			return
+		}
+		passwordViewModel.returnButtonPressed()
 	}
 }

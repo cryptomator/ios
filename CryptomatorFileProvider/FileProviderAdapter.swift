@@ -25,8 +25,9 @@ public class FileProviderAdapter {
 	private let provider: CloudProvider
 	private weak var localURLProvider: LocalURLProvider?
 	private let notificator: FileProviderItemUpdateDelegate?
+	private let fullVersionChecker: FullVersionChecker
 
-	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil) {
+	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -38,6 +39,7 @@ public class FileProviderAdapter {
 		self.provider = provider
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
+		self.fullVersionChecker = fullVersionChecker
 	}
 
 	public func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
@@ -414,8 +416,15 @@ public class FileProviderAdapter {
 
 	// MARK: Start Providing Item
 
+	/**
+	 Ensures that the actual file is at the position specified by `URLForItemWithPersistentIdentifier:`.
+
+	 The file is immutable unless the full version of Cryptomator has been unlocked. Otherwise, it would still be possible to edit the file locally with a third-party app.
+	 */
 	public func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		startProvidingItem(at: url).then {
+			try FileManager.default.setAttributes([.immutable: !self.fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
+		}.then {
 			completionHandler(nil)
 		}.catch { error in
 			completionHandler(error)

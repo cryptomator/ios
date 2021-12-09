@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import Promises
 import UIKit
 
-class VaultDetailViewController: UITableViewController {
+class VaultDetailViewController: BaseUITableViewController {
 	weak var coordinator: VaultDetailCoordinator?
 	private let viewModel: VaultDetailViewModelProtocol
 	private var observer: NSObjectProtocol?
@@ -19,12 +19,7 @@ class VaultDetailViewController: UITableViewController {
 
 	init(viewModel: VaultDetailViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
-	}
-
-	@available(*, unavailable)
-	required init?(coder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
+		super.init()
 	}
 
 	override func viewDidLoad() {

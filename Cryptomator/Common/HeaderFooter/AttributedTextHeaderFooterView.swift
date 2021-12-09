@@ -53,6 +53,18 @@ class AttributedTextHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterV
 		guard let viewModel = viewModel as? AttributedTextHeaderFooterViewModel else {
 			return
 		}
+		textView.attributedText = viewModel.attributedText
+	}
+}
+
+class BindableAttributedTextHeaderFooterView: AttributedTextHeaderFooterView {
+	private var subscriber = Set<AnyCancellable>()
+
+	override func configure(with viewModel: HeaderFooterViewModel) {
+		super.configure(with: viewModel)
+		guard let viewModel = viewModel as? BindableAttributedTextHeaderFooterViewModel else {
+			return
+		}
 		viewModel.attributedText.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] attributedText in
 			UIView.setAnimationsEnabled(false)
 			self?.tableView?.performBatchUpdates({

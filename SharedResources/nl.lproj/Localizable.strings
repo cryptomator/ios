@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Fout";
+"common.alert.attention.title" = "Aandacht";
 "common.button.cancel" = "Annuleren";
 "common.button.change" = "Wijzig";
 "common.button.choose" = "Kies";
@@ -59,6 +60,9 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Het wachtwoord is onjuist. Probeer het opnieuw.";
+"changePassword.header.currentPassword.title" = "Voer het huidige wachtwoord in.";
 "changePassword.header.newPassword.title" = "Voer een nieuw wachtwoord in.";
 "changePassword.header.newPasswordConfirmation.title" = "Bevestig het nieuwe wachtwoord.";
 "changePassword.progress" = "Wachtwoord wijzigen…";
@@ -79,6 +83,10 @@
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
 
+"fileProvider.onboarding.title" = "Welkom";
+"fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
+"fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Er bestaat al een kluis op deze locatie. Probeer het opnieuw met een andere opslaglocatie.";
@@ -89,8 +97,7 @@
 "maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
 
 "onboarding.title" = "Welkom";
-"onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
-"onboarding.openCryptomator.button" = "Open Cryptomator";
+"purchase.retry.button" = "Opnieuw proberen";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
@@ -100,6 +107,7 @@
 "settings.cloudServices" = "Clouddiensten";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Foutopsporingsmodus";
+"settings.debugMode.alert.message" = "In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.";
 "settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
 
@@ -154,3 +162,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authenticatie verwerken…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
+"webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";

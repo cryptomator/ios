@@ -58,3 +58,21 @@ public class VaultInfo: Decodable, FetchableRecord {
 		}
 	}
 }
+
+extension VaultInfo: Equatable {
+	public static func == (lhs: VaultInfo, rhs: VaultInfo) -> Bool {
+		return lhs.vaultPath == rhs.vaultPath && lhs.vaultName == rhs.vaultName && lhs.vaultUID == rhs.vaultUID && lhs.cloudProviderType == rhs.cloudProviderType && lhs.delegateAccountUID == rhs.delegateAccountUID && lhs.listPosition == rhs.listPosition && lhs.vaultIsUnlocked == rhs.vaultIsUnlocked
+	}
+}
+
+extension VaultInfo: Hashable {
+	public func hash(into hasher: inout Hasher) {
+		hasher.combine(vaultIsUnlocked)
+		hasher.combine(vaultPath.path)
+		hasher.combine(vaultName)
+		hasher.combine(vaultUID)
+		hasher.combine(cloudProviderType)
+		hasher.combine(delegateAccountUID)
+		hasher.combine(listPosition)
+	}
+}

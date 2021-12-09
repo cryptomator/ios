@@ -12,15 +12,41 @@
 
 "addVault.title" = "Legg til hvelv";
 "addVault.createNewVault.title" = "Lag et nytt hvelv";
+"addVault.createNewVault.purchase" = "Å lage et nytt hvelv krever fullversjonen av Cryptomator. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
 
+"fileProvider.onboarding.title" = "Velkommen";
+"fileProvider.onboarding.info" = "Takk for at du valgte Cryptomator til å beskytte filene dine. For å komme i gang, gå til hovedappen og legg til et hvelv.";
+"fileProvider.onboarding.button.openCryptomator" = "Åpne Cryptomator";
+"onboarding.button.continue" = "Fortsett";
+
+"purchase.title" = "Lås opp fullversjonen";
+"purchase.beginFreeTrial.footer" = "Prøv fullversjonen av Cryptomator gratis i en begrenset periode. Du kan kun låse opp denne prøveperioden én gang.";
+"purchase.purchaseFullVersion.button" = "Kjøp fullversjon for %@";
+"purchase.restorePurchase.button" = "Gjenopprett kjøp";
+"purchase.restorePurchase.footer" = "Hvis du allerede har kjøpt fullversjonen av Cryptomator, kan du gjenopprette kjøpet.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Gjenoppretting vellykket";
+"purchase.retry.button" = "Prøv igjen";
+"purchase.retry.footer" = "Kunne ikke laste tilgjengelige produkter.";
+"purchase.decideLater.button" = "Bestem senere";
+"purchase.unlockedFullVersion.message" = "Du kan nå bruke fullversjonen av Cryptomator. God kryptering!";
+"purchase.unlockedFullVersion.title" = "Takk";
+
 "settings.title" = "Innstillinger";
 "settings.clearCache" = "Tøm hurtigminnet";
+"settings.unlockFullVersion" = "Lås opp fullversjonen";
 
 "unlockVault.button.unlock" = "Lås opp";
+
+"upgrade.title" = "Oppgrader fra versjon 1.x";
+"upgrade.freeUpgrade.button" = "Oppgrader gratis";
 
 "vaultDetail.button.changeVaultPassword" = "Endre passord";
 "vaultDetail.button.moveVault" = "Flytt";
 "vaultDetail.button.renameVault" = "Endre navn";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
+"webDAVAuthentication.httpConnection.change" = "Bytt til HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Behold HTTP";

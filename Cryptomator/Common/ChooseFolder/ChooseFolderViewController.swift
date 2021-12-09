@@ -14,17 +14,12 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
 	weak var coordinator: (Coordinator & FolderChoosing)?
 
-	private lazy var header: HeaderWithSearchbar = {
-		return HeaderWithSearchbar(title: viewModel.headerTitle, searchBar: searchController.searchBar)
-	}()
-
-	private lazy var searchController: UISearchController = {
-		return UISearchController()
-	}()
+	private lazy var header: HeaderWithSearchbar = .init(title: viewModel.headerTitle, searchBar: searchController.searchBar)
+	private lazy var searchController: UISearchController = .init()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(style: .grouped)
 	}
 
 	override func viewDidLoad() {
@@ -138,26 +133,13 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	// MARK: - UITableViewDelegate
 
-	/* override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-	 	if viewModel.foundMasterkey {
-	 		return nil
-	 	}
-	 	return header
-	 } */
-
-	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if viewModel.foundMasterkey {
 			return nil
 		}
-		return viewModel.headerTitle
-	}
-
-	override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-		// Prevents the header title from being displayed in uppercase
-		guard let headerView = view as? UITableViewHeaderFooterView else {
-			return
-		}
-		headerView.textLabel?.text = viewModel.headerTitle
+		let header = UITableViewHeaderFooterView()
+		header.textLabel?.text = viewModel.headerTitle
+		return header
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -167,9 +149,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 }
 
 private class HeaderWithSearchbar: UITableViewHeaderFooterView {
-	lazy var title: UILabel = {
-		return UILabel()
-	}()
+	lazy var title: UILabel = .init()
 
 	convenience init(title: String, searchBar: UISearchBar) {
 		self.init(reuseIdentifier: nil)

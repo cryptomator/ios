@@ -29,8 +29,6 @@ extension CloudProviderAccount: PersistableRecord {
 	}
 }
 
-extension CloudProviderType: DatabaseValueConvertible {}
-
 public enum CloudProviderAccountError: Error {
 	case accountNotFoundError
 }

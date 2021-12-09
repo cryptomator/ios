@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "错误";
+"common.alert.attention.title" = "请注意";
 "common.button.cancel" = "取消";
 "common.button.change" = "更改";
 "common.button.choose" = "选择";
@@ -33,6 +34,7 @@
 
 "addVault.title" = "添加保险库";
 "addVault.createNewVault.title" = "创建新的保险库";
+"addVault.createNewVault.purchase" = "创建一个新的保险库需要 Cryptomator 完整版，请解锁完整版以获得保险库的写入权限。";
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
@@ -82,6 +84,10 @@
 
 "cloudProviderType.localFileSystem" = "其他文件提供商";
 
+"fileProvider.onboarding.title" = "欢迎使用";
+"fileProvider.onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。若要开始，请前往主应用程序并添加一个保险库。";
+"fileProvider.onboarding.button.openCryptomator" = "打开 Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试。";
@@ -92,8 +98,33 @@
 "maintenanceModeError.runningCloudTask" = "操作无法进行，因为此保险库仍有后台任务在进行，请稍后再试。";
 
 "onboarding.title" = "欢迎使用";
-"onboarding.info" = "感谢您选用 Cryptomator 来保护您的文件。现在，请前往主应用并添加保险库吧。";
-"onboarding.openCryptomator.button" = "打开 Cryptomator";
+"onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。\n\n使用 Cryptomator，您的数据安全完全处于您的掌控。Cryptomator 能够快速和轻松地加密您的数据。\n\n此应用已完全整合到文件应用中。 请确保稍后在文件应用中启用 Cryptomator 以访问您的保险库。";
+"onboarding.button.continue" = "继续";
+
+"purchase.title" = "解锁完整版";
+"purchase.info" = "您可以在只读模式下免费使用 Cryptomator。请考虑解锁完整版本以获得密码库的写入权限。";
+"purchase.infoRunningTrial" = "您的试用期于 %@ 过期，您可以在有限时间内写入您的保险库。 请考虑在试用结束后解锁完整版本。";
+"purchase.infoExpiredTrial" = "您的试用期已结束。请解锁完整版本以重新获取您的保险库的写入权限。";
+"purchase.upgrade.footer" = "Cryptomator 检测到旧版本。您有资格升级以解锁完整版本。";
+"purchase.beginFreeTrial.button" = "开始30天的免费试用";
+"purchase.beginFreeTrial.footer" = "尝试免费试用完整版的 Cryptomator。您只有一次试用机会。";
+"purchase.beginFreeTrial.alert.title" = "试用已解锁";
+"purchase.beginFreeTrial.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
+"purchase.purchaseFullVersion.button" = "为 %@ 购买完整版本";
+"purchase.purchaseFullVersion.footer" = "只需一次支付即可让您永久获得 Cryptomator 保险库的写入权限。";
+"purchase.restorePurchase.button" = "恢复购买";
+"purchase.restorePurchase.footer" = "如果您已经购买了完整版的 Cryptomator，您可以恢复购买";
+"purchase.restorePurchase.validTrialFound.alert.title" = "仍在试用";
+"purchase.restorePurchase.validTrialFound.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "恢复成功";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "未购买完整版";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "我们无法找到可供恢复的完整版本。请尝试其他选项。";
+"purchase.retry.button" = "重试";
+"purchase.retry.footer" = "无法加载可用产品。";
+"purchase.decideLater.button" = "稍后决定";
+"purchase.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
+"purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
+"purchase.unlockedFullVersion.title" = "谢谢";
 
 "settings.title" = "设置";
 "settings.aboutCryptomator" = "关于";
@@ -103,8 +134,10 @@
 "settings.cloudServices" = "云服务";
 "settings.contact" = "联系";
 "settings.debugMode" = "调试模式";
+"settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式";
 "settings.rateApp" = "给应用评分";
 "settings.sendLogFile" = "发送日志文件";
+"settings.unlockFullVersion" = "解锁完整版";
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
@@ -118,6 +151,14 @@
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
+
+"upgrade.title" = "从 1.x 版本升级";
+"upgrade.info" = "您有资格从旧版本的 Cryptomator 升级来解锁完整版本。感谢您支持Cryptomator！";
+"upgrade.paidUpgrade.button" = "为 %@ 升级";
+"upgrade.paidUpgrade.footer" = "它将有助于目前正在进行的开源开发，并且是对我们的大力支持。";
+"upgrade.freeUpgrade.button" = "免费升级";
+"upgrade.freeUpgrade.footer" = "不用担心，您也可以不受任何限制地免费升级到完整版";
+"upgrade.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
 
 "urlSession.error.httpError.401" = "用户名或密码错误。";
 "urlSession.error.httpError.403" = "对请求的资源权限不足。";
@@ -157,3 +198,8 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在验证……";
+
+"webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
+"webDAVAuthentication.httpConnection.change" = "换成 HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "保持 HTTP";

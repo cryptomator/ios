@@ -8,8 +8,8 @@
 
 import UIKit
 
-class ButtonCellViewModel<T>: TableViewCellViewModel {
-	override var type: TableViewCell.Type { ButtonTableViewCell.self }
+class ButtonCellViewModel<T>: BindableTableViewCellViewModel {
+	override var type: ConfigurableTableViewCell.Type { ButtonTableViewCell.self }
 	let action: T
 	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), detailTitle: String? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
 		self.action = action

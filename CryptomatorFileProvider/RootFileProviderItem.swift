@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import MobileCoreServices
@@ -16,5 +17,20 @@ public class RootFileProviderItem: NSObject, NSFileProviderItem {
 	public let filename = "Cryptomator"
 	public let typeIdentifier = kUTTypeFolder as String
 	public let documentSize: NSNumber? = nil
-	public let capabilities: NSFileProviderItemCapabilities = [.allowsAll]
+	public var capabilities: NSFileProviderItemCapabilities {
+		if fullVersionChecker.isFullVersion {
+			return [.allowsAll]
+		} else {
+			return FileProviderItem.readOnlyCapabilities
+		}
+	}
+
+	private let fullVersionChecker: FullVersionChecker
+	override public convenience init() {
+		self.init(fullVersionChecker: UserDefaultsFullVersionChecker.shared)
+	}
+
+	init(fullVersionChecker: FullVersionChecker) {
+		self.fullVersionChecker = fullVersionChecker
+	}
 }

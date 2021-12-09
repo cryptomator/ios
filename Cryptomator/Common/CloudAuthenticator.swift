@@ -50,7 +50,7 @@ class CloudAuthenticator {
 
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV)
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}

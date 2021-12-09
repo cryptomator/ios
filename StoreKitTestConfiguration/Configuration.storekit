@@ -1,0 +1,78 @@
+{
+  "identifier" : "31EDF08C",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0",
+      "familyShareable" : true,
+      "internalID" : "1568C728",
+      "localizations" : [
+        {
+          "description" : "Upgrade from Cryptomator 1.x for free",
+          "displayName" : "Free Upgrade",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "org.cryptomator.ios.iap.free_upgrade",
+      "referenceName" : "Free Upgrade",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "22493192",
+      "localizations" : [
+        {
+          "description" : "Upgrade from Cryptomator 1.x and contribute",
+          "displayName" : "Paid Upgrade",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "org.cryptomator.ios.iap.paid_upgrade",
+      "referenceName" : "Paid Upgrade",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "0",
+      "familyShareable" : false,
+      "internalID" : "6CE869AF",
+      "localizations" : [
+        {
+          "description" : "Unlock the full version for a limited time",
+          "displayName" : "30-Day Trial",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "org.cryptomator.ios.iap.30_day_trial",
+      "referenceName" : "30-Day Trial",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "11.99",
+      "familyShareable" : true,
+      "internalID" : "225A67DC",
+      "localizations" : [
+        {
+          "description" : "Grant write access to your vaults",
+          "displayName" : "Full Version",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "org.cryptomator.ios.iap.full_version",
+      "referenceName" : "Full Version",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_storefront" : "USA"
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}

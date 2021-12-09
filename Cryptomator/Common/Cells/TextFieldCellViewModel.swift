@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import Foundation
 
 enum TextFieldCellType {
@@ -15,9 +16,9 @@ enum TextFieldCellType {
 	case url
 }
 
-class TextFieldCellViewModel: TableViewCellViewModel {
+class TextFieldCellViewModel: BindableTableViewCellViewModel {
 	let textFielCellType: TextFieldCellType
-	override var type: TableViewCell.Type {
+	override var type: ConfigurableTableViewCell.Type {
 		switch textFielCellType {
 		case .normal:
 			return TextFieldCell.self
@@ -31,9 +32,31 @@ class TextFieldCellViewModel: TableViewCellViewModel {
 	}
 
 	let input: Bindable<String>
+	let placeholder: String?
+	let isInitialFirstResponder: Bool
+	private lazy var returnButtonPressedPublisher = PassthroughSubject<Void, Never>()
+	private lazy var becomeFirstResponderPublisher = PassthroughSubject<Void, Never>()
 
-	init(type: TextFieldCellType) {
+	init(type: TextFieldCellType, text: String = "", placeholder: String? = nil, isInitialFirstResponder: Bool = false) {
 		self.textFielCellType = type
-		self.input = Bindable("")
+		self.input = Bindable(text)
+		self.placeholder = placeholder
+		self.isInitialFirstResponder = isInitialFirstResponder
+	}
+
+	func returnButtonPressed() {
+		returnButtonPressedPublisher.send()
+	}
+
+	func startListeningToReturnButtonPressedEvents() -> AnyPublisher<Void, Never> {
+		return returnButtonPressedPublisher.eraseToAnyPublisher()
+	}
+
+	func becomeFirstResponder() {
+		becomeFirstResponderPublisher.send()
+	}
+
+	func startListeningToBecomeFirstResponder() -> AnyPublisher<Void, Never> {
+		return becomeFirstResponderPublisher.eraseToAnyPublisher()
 	}
 }

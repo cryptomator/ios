@@ -24,16 +24,16 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		vaultManagerMock = VaultManagerMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 	}
 
 	func testRejectsVaultsInTheLocalFileSystem() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .localFileSystem)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .localFileSystem(type: .custom))
 
 		let newVaultName = "Baz"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -52,10 +52,10 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	func testRejectsRootVault() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 
 		let newVaultName = "Baz"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
 		viewModel.renameVault().then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
@@ -73,15 +73,18 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 
 	func testRenameVault() throws {
 		let expectation = XCTestExpectation()
-		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let oldVaultName = "Bar"
+		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: oldVaultName)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
 		vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
 
+		XCTAssertEqual("Bar", viewModel.title)
 		let newVaultName = "Baz"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
+		XCTAssertEqual("Bar", viewModel.title)
 		viewModel.renameVault().then {
 			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
 			XCTAssertEqual(CloudPath("/Foo/Baz"), self.vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
@@ -101,14 +104,14 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	func testRenameVaultWithOldNameAsSubstring() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
 		vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
 
 		let newVaultName = "Bar1"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
 		viewModel.renameVault().then {
 			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
 			XCTAssertEqual(CloudPath("/Foo/Bar1"), self.vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
@@ -128,11 +131,11 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	func testRenameVaultWithSameName() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
-		viewModel.vaultName = vaultAccount.vaultName
+		setVaultName(vaultAccount.vaultName, viewModel: viewModel)
 		viewModel.renameVault().then {
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
 			XCTAssert(vaultLockingMock.lockedVaults.isEmpty)
@@ -149,10 +152,10 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	func testEnableMaintenanceModeFailed() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 
 		let newVaultName = "Baz"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
 
 		// Simulate enable maintenance mode failure
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
@@ -175,12 +178,12 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	func testDisableMaintenanceModeAfterVaultMoveFailure() throws {
 		let expectation = XCTestExpectation()
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .webDAV)
+		let viewModel = createViewModel(vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
 
 		let newVaultName = "Baz"
-		viewModel.vaultName = newVaultName
+		setVaultName(newVaultName, viewModel: viewModel)
 
 		// Simulate vault move failure
 		vaultManagerMock.moveVaultAccountToThrowableError = CloudProviderError.itemAlreadyExists
@@ -204,7 +207,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	private func createViewModel(vaultAccount: VaultAccount, cloudProviderType: CloudProviderType) -> RenameVaultViewModel {
+	private func createViewModel(vaultAccount: VaultAccount, cloudProviderType: CloudProviderType, viewControllerTitle: String? = nil) -> RenameVaultViewModel {
 		let cloudProviderAccount = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: cloudProviderType)
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)

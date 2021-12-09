@@ -30,11 +30,36 @@ enum CachedFileManagerError: Error {
 	case fileHasUnsyncedEdits
 }
 
+class CachedFileManagerHelper {
+	/**
+	 Removes the file or directory at the specified URL.
+
+	 This sets the `.immutable` attribute of the file or directory at the specified URL to `false` prior to deletion.
+	 */
+	func removeItem(at url: URL) throws {
+		var fileManagerError: NSError?
+		var fileCoordinatorError: NSError?
+		NSFileCoordinator().coordinate(writingItemAt: url, options: .forDeleting, error: &fileCoordinatorError) { url in
+			do {
+				try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
+				try FileManager.default.removeItem(at: url)
+			} catch let error as NSError {
+				fileManagerError = error as NSError
+			}
+		}
+		if let error = fileManagerError ?? fileCoordinatorError {
+			throw error
+		}
+	}
+}
+
 class CachedFileDBManager: CachedFileManager {
 	private let database: DatabaseWriter
+	private let fileManagerHelper: CachedFileManagerHelper
 
-	init(database: DatabaseWriter) {
+	init(database: DatabaseWriter, fileManagerHelper: CachedFileManagerHelper = CachedFileManagerHelper()) {
 		self.database = database
+		self.fileManagerHelper = fileManagerHelper
 	}
 
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo? {
@@ -60,7 +85,7 @@ class CachedFileDBManager: CachedFileManager {
 			}
 			try entry.delete(db)
 			do {
-				try FileManager.default.removeItem(at: entry.localURL)
+				try fileManagerHelper.removeItem(at: entry.localURL)
 			} catch CocoaError.fileNoSuchFile {
 				// no-op the local cached file is already removed and therefore it is okay to remove the entry from the DB
 			}
@@ -80,7 +105,7 @@ class CachedFileDBManager: CachedFileManager {
 				try? db.inSavepoint({
 					try entry.delete(db)
 					do {
-						try FileManager.default.removeItem(at: entry.localURL)
+						try fileManagerHelper.removeItem(at: entry.localURL)
 					} catch CocoaError.fileNoSuchFile {
 						// the local cached file is already removed and therefore it is okay to remove the entry from the DB
 						return .commit

@@ -22,7 +22,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .webDAV(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		chooseCloudVC.coordinator = self
@@ -30,8 +30,8 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func showAccountList(for cloudProviderType: CloudProviderType) {
-		if cloudProviderType == .localFileSystem {
-			startLocalFileSystemAuthenticationFlow()
+		if case let CloudProviderType.localFileSystem(localFileSystemType) = cloudProviderType {
+			startLocalFileSystemAuthenticationFlow(for: localFileSystemType)
 		} else {
 			let viewModel = AccountListViewModel(with: cloudProviderType)
 			let accountListVC = AccountListViewController(with: viewModel)
@@ -69,8 +69,8 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	// MARK: - LocalFileSystemProvider Flow
 
-	private func startLocalFileSystemAuthenticationFlow() {
-		let child = OpenExistingLocalVaultCoordinator(navigationController: navigationController)
+	private func startLocalFileSystemAuthenticationFlow(for localFileSystemType: LocalFileSystemType) {
+		let child = OpenExistingLocalVaultCoordinator(navigationController: navigationController, selectedLocalFileSystem: localFileSystemType)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
 		child.start()
@@ -123,7 +123,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 			return
 		}
 		if vaultItem.isLegacyVault {
-			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultID: UUID().uuidString)
+			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
 		} else {
 			viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
 		}
