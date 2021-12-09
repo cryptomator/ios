@@ -103,9 +103,27 @@
 
 "purchase.title" = "Vollversion freischalten";
 "purchase.info" = "Du kannst Cryptomator kostenlos im reinen Lesemodus verwenden. Schalte die Vollversion frei für den Schreibzugriff auf deine Tresore.";
+"purchase.infoRunningTrial" = "Deine Testversion läuft am %@ ab und gewährt dir Schreibzugriff auf deine Tresore für eine begrenzte Zeit. Schalte die Vollversion nach der Testversion frei, um die Funktionalität beizubehalten.";
+"purchase.infoExpiredTrial" = "Deine Testversion ist abgelaufen. Schalte die Vollversion frei, um wieder Schreibzugriff auf deine Tresore zu erhalten.";
+"purchase.upgrade.footer" = "Cryptomator hat eine ältere Version erkannt. Du hast Anspruch auf ein Upgrade, um die Vollversion freizuschalten.";
+"purchase.beginFreeTrial.button" = "Kostenlose 30-Tage-Testversion starten";
+"purchase.beginFreeTrial.footer" = "Probiere die Vollversion von Cryptomator für eine begrenzte Zeit kostenlos aus. Du kannst diese Testversion nur einmal freischalten.";
+"purchase.beginFreeTrial.alert.title" = "Testversion freigeschaltet";
+"purchase.beginFreeTrial.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
+"purchase.purchaseFullVersion.button" = "Vollversion für %@ kaufen";
+"purchase.purchaseFullVersion.footer" = "Durch eine Einmalzahlung kannst du den Schreibzugriff auf deine Tresore für die gesamte Lebensdauer von Cryptomator freischalten.";
+"purchase.restorePurchase.button" = "Käufe wiederherstellen";
+"purchase.restorePurchase.footer" = "Wenn du bereits die Vollversion von Cryptomator erworben hast, kannst du den Kauf hiermit wiederherstellen.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Testversion fortgesetzt";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Wiederherstellung erfolgreich";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Keine Vollversion";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Wir konnten keine zuvor gekaufte Vollversion finden, die wiederhergestellt werden kann. Bitte versuche eine andere Option.";
 "purchase.retry.button" = "Wiederholen";
+"purchase.retry.footer" = "Verfügbare Produkte konnten nicht geladen werden.";
 "purchase.decideLater.button" = "Später entscheiden";
+"purchase.decideLater.footer" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
+"purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
 
 "settings.title" = "Einstellungen";
