@@ -46,7 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Clean up
 		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {
-			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV)
+			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
 			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
 		} catch {
 			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")

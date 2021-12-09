@@ -107,7 +107,7 @@ class VaultListViewModelTests: XCTestCase {
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		let vaultInfo = VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault1", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vault1"),
-		                          cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
+		                          cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox),
 		                          vaultListPosition: VaultListPosition(position: 1, vaultUID: "vault1"))
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
@@ -167,10 +167,10 @@ extension VaultListViewModel {
 private class DatabaseManagerMock: DatabaseManager {
 	var updatedPositions = [VaultListPosition]()
 	let vaults = [VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault1", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vault1"),
-	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
+	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox),
 	                        vaultListPosition: VaultListPosition(position: 1, vaultUID: "vault1")),
 	              VaultInfo(vaultAccount: VaultAccount(vaultUID: "vault2", delegateAccountUID: "1", vaultPath: CloudPath("/vault1"), vaultName: "vautlt1"),
-	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV),
+	                        cloudProviderAccount: CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox),
 	                        vaultListPosition: VaultListPosition(position: 0, vaultUID: "vault2"))]
 
 	override func getAllVaults() throws -> [VaultInfo] {

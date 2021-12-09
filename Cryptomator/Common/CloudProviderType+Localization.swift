@@ -20,8 +20,19 @@ extension CloudProviderType {
 			return "OneDrive"
 		case .webDAV:
 			return "WebDAV"
-		case .localFileSystem:
+		case let .localFileSystem(localFileSystemType):
+			return localFileSystemType.localizedString()
+		}
+	}
+}
+
+extension LocalFileSystemType {
+	func localizedString() -> String {
+		switch self {
+		case .custom:
 			return LocalizedString.getValue("cloudProviderType.localFileSystem")
+		case .iCloudDrive:
+			return "iCloud Drive"
 		}
 	}
 }

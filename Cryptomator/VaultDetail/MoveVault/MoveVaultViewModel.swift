@@ -83,7 +83,7 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 		if vaultInfo.vaultPath == CloudPath("/") {
 			return false
 		}
-		if vaultInfo.cloudProviderType == .localFileSystem {
+		if case CloudProviderType.localFileSystem = vaultInfo.cloudProviderType {
 			return false
 		}
 		return true

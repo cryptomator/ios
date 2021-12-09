@@ -39,7 +39,7 @@ class DatabaseManagerTests: XCTestCase {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
-		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
+		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
 		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
@@ -65,7 +65,7 @@ class DatabaseManagerTests: XCTestCase {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
-		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
+		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
 		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
@@ -100,7 +100,7 @@ class DatabaseManagerTests: XCTestCase {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 		let vaultAccountManager = VaultAccountDBManager(dbPool: dbPool)
 
-		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .webDAV)
+		let cloudProviderAccount = CloudProviderAccount(accountUID: "1", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(cloudProviderAccount)
 		let vaultAccount = VaultAccount(vaultUID: "Vault1", delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: CloudPath("/Vault1"), vaultName: "Vault1")
 		try vaultAccountManager.saveNewAccount(vaultAccount)
@@ -132,31 +132,31 @@ class DatabaseManagerTests: XCTestCase {
 	func testCreateAccountListPositionTrigger() throws {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
-		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
 
-		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(secondWebdavCloudProviderAccount)
 
 		let firstDropboxCloudProviderAccount = CloudProviderAccount(accountUID: "firstDropboxCloudProviderAccount", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(firstDropboxCloudProviderAccount)
 
 		let firstWebDAVAccountListPosition = try dbPool.read { db in
-			try AccountListPosition.filter(Column("accountUID") == "firstWebdavCloudProviderAccount" && Column("cloudProviderType") == "webDAV").fetchOne(db)
+			try AccountListPosition.filter(Column("accountUID") == "firstWebdavCloudProviderAccount" && Column("cloudProviderType") == CloudProviderType.webDAV(type: .custom)).fetchOne(db)
 		}
 		XCTAssertNotNil(firstWebDAVAccountListPosition)
 		XCTAssertEqual(0, firstWebDAVAccountListPosition?.position)
 		XCTAssertEqual(1, firstWebDAVAccountListPosition?.id)
 
 		let secondWebDAVAccountListPosition = try dbPool.read { db in
-			try AccountListPosition.filter(Column("accountUID") == "secondWebdavCloudProviderAccount" && Column("cloudProviderType") == "webDAV").fetchOne(db)
+			try AccountListPosition.filter(Column("accountUID") == "secondWebdavCloudProviderAccount" && Column("cloudProviderType") == CloudProviderType.webDAV(type: .custom)).fetchOne(db)
 		}
 		XCTAssertNotNil(secondWebDAVAccountListPosition)
 		XCTAssertEqual(1, secondWebDAVAccountListPosition?.position)
 		XCTAssertEqual(2, secondWebDAVAccountListPosition?.id)
 
 		let firstDropboxAccountListPosition = try dbPool.read { db in
-			try AccountListPosition.filter(Column("accountUID") == "firstDropboxCloudProviderAccount" && Column("cloudProviderType") == "dropbox").fetchOne(db)
+			try AccountListPosition.filter(Column("accountUID") == "firstDropboxCloudProviderAccount" && Column("cloudProviderType") == CloudProviderType.dropbox).fetchOne(db)
 		}
 		XCTAssertNotNil(firstDropboxAccountListPosition)
 		XCTAssertEqual(0, firstDropboxAccountListPosition?.position)
@@ -166,13 +166,13 @@ class DatabaseManagerTests: XCTestCase {
 	func testDeleteCloudProviderAccountUpdatesPositions() throws {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
-		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
 
-		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(secondWebdavCloudProviderAccount)
 
-		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(thirdWebdavCloudProviderAccount)
 
 		let firstDropboxCloudProviderAccount = CloudProviderAccount(accountUID: "firstDropboxCloudProviderAccount", cloudProviderType: .dropbox)
@@ -209,16 +209,16 @@ class DatabaseManagerTests: XCTestCase {
 	func testUpdateAccountListPositions() throws {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
-		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
 
-		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(secondWebdavCloudProviderAccount)
 
-		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(thirdWebdavCloudProviderAccount)
 
-		let accounts = try dbManager.getAllAccounts(for: .webDAV)
+		let accounts = try dbManager.getAllAccounts(for: .webDAV(type: .custom))
 
 		XCTAssertEqual(3, accounts.count)
 
@@ -230,7 +230,7 @@ class DatabaseManagerTests: XCTestCase {
 		}
 		try dbManager.updateAccountListPositions(updatedAccountListPositions)
 
-		let updatedAccounts = try dbManager.getAllAccounts(for: .webDAV)
+		let updatedAccounts = try dbManager.getAllAccounts(for: .webDAV(type: .custom))
 		let fetchedAccountListPositions = updatedAccounts.map { $0.accountListPosition }
 
 		let sortedUpdatedAccountListPositions = updatedAccountListPositions.sorted { $0.position! < $1.position! }
@@ -241,19 +241,19 @@ class DatabaseManagerTests: XCTestCase {
 	func testGetAllAccountsIsFiltered() throws {
 		let cloudAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
 
-		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let firstWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "firstWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(firstWebdavCloudProviderAccount)
 
-		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let secondWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "secondWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(secondWebdavCloudProviderAccount)
 
-		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV)
+		let thirdWebdavCloudProviderAccount = CloudProviderAccount(accountUID: "thirdWebdavCloudProviderAccount", cloudProviderType: .webDAV(type: .custom))
 		try cloudAccountManager.saveNewAccount(thirdWebdavCloudProviderAccount)
 
 		let firstDropboxCloudProviderAccount = CloudProviderAccount(accountUID: "firstDropboxCloudProviderAccount", cloudProviderType: .dropbox)
 		try cloudAccountManager.saveNewAccount(firstDropboxCloudProviderAccount)
 
-		let webDAVAccounts = try dbManager.getAllAccounts(for: .webDAV)
+		let webDAVAccounts = try dbManager.getAllAccounts(for: .webDAV(type: .custom))
 
 		let expectedWebDAVAccountListPositions = [AccountListPosition(id: 1, position: 0, accountUID: firstWebdavCloudProviderAccount.accountUID),
 		                                          AccountListPosition(id: 2, position: 1, accountUID: secondWebdavCloudProviderAccount.accountUID),

@@ -14,11 +14,11 @@ import Promises
 class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, LocalFileSystemVaultInstallingViewModelProtocol {
 	private let vaultName: String
 
-	init(vaultName: String, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
+	init(vaultName: String, selectedLocalFileSystemType: LocalFileSystemType, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
 		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.button")
 		let headerText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.header")
 		self.vaultName = vaultName
-		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, validationLogic: CreateNewLocalVaultValidationLogic(vaultName: vaultName), accountManager: accountManager)
+		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: CreateNewLocalVaultValidationLogic(vaultName: vaultName), accountManager: accountManager)
 	}
 
 	func addVault(for credential: LocalFileSystemCredential) -> Promise<LocalFileSystemAuthenticationResult> {

@@ -13,6 +13,7 @@ import Promises
 
 protocol LocalFileSystemAuthenticationViewModelProtocol: SingleSectionTableViewModel {
 	var headerText: String { get }
+	var documentPickerStartDirectoryURL: URL? { get }
 	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential
 }
 
@@ -29,16 +30,29 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		return [openDocumentPickerCellViewModel]
 	}
 
+	var documentPickerStartDirectoryURL: URL? {
+		switch selectedLocalFileSystemType {
+		case .iCloudDrive:
+			return LocalFileSystemAuthenticationViewModel.iCloudDriveRootDirectory
+		case .custom:
+			return nil
+		}
+	}
+
+	public static let iCloudDriveRootDirectory = URL(fileURLWithPath: "\(iCloudDrivePrefix)/com~apple~CloudDocs/")
+	private static let iCloudDrivePrefix = "/private/var/mobile/Library/Mobile Documents"
 	let documentPickerButtonText: String
 	let headerText: String
 	lazy var openDocumentPickerCellViewModel = ButtonCellViewModel(action: "openDocumentPicker", title: documentPickerButtonText)
 
 	private let validationLogic: LocalFileSystemAuthenticationValidationLogic
 	private let accountManager: CloudProviderAccountManager
+	private let selectedLocalFileSystemType: LocalFileSystemType
 
-	init(documentPickerButtonText: String, headerText: String, validationLogic: LocalFileSystemAuthenticationValidationLogic, accountManager: CloudProviderAccountManager) {
+	init(documentPickerButtonText: String, headerText: String, selectedLocalFileSystemType: LocalFileSystemType, validationLogic: LocalFileSystemAuthenticationValidationLogic, accountManager: CloudProviderAccountManager) {
 		self.documentPickerButtonText = documentPickerButtonText
 		self.headerText = headerText
+		self.selectedLocalFileSystemType = selectedLocalFileSystemType
 		self.validationLogic = validationLogic
 		self.accountManager = accountManager
 	}
@@ -66,9 +80,20 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 
 	private func save(credential: LocalFileSystemCredential) throws -> CloudProviderAccount {
 		try LocalFileSystemBookmarkManager.saveBookmarkForRootURL(credential.rootURL, for: credential.identifier)
-		let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .localFileSystem)
+		let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .localFileSystem(type: getLocalFileSystemType(for: credential.rootURL)))
 		try accountManager.saveNewAccount(account)
 		return account
+	}
+
+	/**
+
+	 */
+	private func getLocalFileSystemType(for url: URL) -> LocalFileSystemType {
+		if url.path.hasPrefix(LocalFileSystemAuthenticationViewModel.iCloudDrivePrefix) {
+			return .iCloudDrive
+		} else {
+			return .custom
+		}
 	}
 }
 

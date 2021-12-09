@@ -24,7 +24,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV, .localFileSystem], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .webDAV(type: .custom), .localFileSystem(type: .iCloudDrive), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 		chooseCloudVC.coordinator = self
@@ -32,8 +32,8 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func showAccountList(for cloudProviderType: CloudProviderType) {
-		if cloudProviderType == .localFileSystem {
-			startLocalFileSystemAuthenticationFlow()
+		if case let CloudProviderType.localFileSystem(localFileSystemType) = cloudProviderType {
+			startLocalFileSystemAuthenticationFlow(for: localFileSystemType)
 		} else {
 			let viewModel = AccountListViewModel(with: cloudProviderType)
 			let accountListVC = AccountListViewController(with: viewModel)
@@ -71,8 +71,8 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 
 	// MARK: - LocalFileSystemProvider Flow
 
-	private func startLocalFileSystemAuthenticationFlow() {
-		let child = CreateNewLocalVaultCoordinator(vaultName: vaultName, navigationController: navigationController)
+	private func startLocalFileSystemAuthenticationFlow(for localFileSystemType: LocalFileSystemType) {
+		let child = CreateNewLocalVaultCoordinator(vaultName: vaultName, navigationController: navigationController, selectedLocalFileSystem: localFileSystemType)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
 		child.start()

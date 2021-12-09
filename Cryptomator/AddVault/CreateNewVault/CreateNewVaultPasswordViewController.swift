@@ -69,7 +69,7 @@ import SwiftUI
 
 struct CreateNewVaultPasswordVC_Preview: PreviewProvider {
 	static var previews: some View {
-		CreateNewVaultPasswordViewController(viewModel: CreateNewVaultPasswordViewModel(vaultPath: CloudPath("/"), account: CloudProviderAccount(accountUID: "123", cloudProviderType: .webDAV), vaultUID: "456")).toPreview()
+		CreateNewVaultPasswordViewController(viewModel: CreateNewVaultPasswordViewModel(vaultPath: CloudPath("/"), account: CloudProviderAccount(accountUID: "123", cloudProviderType: .webDAV(type: .custom)), vaultUID: "456")).toPreview()
 	}
 }
 #endif

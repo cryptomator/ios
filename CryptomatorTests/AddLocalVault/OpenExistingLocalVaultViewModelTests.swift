@@ -16,7 +16,7 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		viewModel = OpenExistingLocalVaultViewModel(accountManager: accountManagerMock)
+		viewModel = OpenExistingLocalVaultViewModel(selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 	}
 
 	func testAddVault() throws {
@@ -28,7 +28,7 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		viewModel.addVault(for: credential).then { result in
 			XCTAssertEqual(credential, result.credential)
 			XCTAssertEqual(credential.identifier, result.account.accountUID)
-			XCTAssertEqual(CloudProviderType.localFileSystem, result.account.cloudProviderType)
+			XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
 
 			guard let vaultDetailItem = result.item as? VaultDetailItem else {
 				XCTFail("result item is not a VaultDetailItem")
@@ -57,7 +57,7 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		viewModel.addVault(for: credential).then { result in
 			XCTAssertEqual(credential, result.credential)
 			XCTAssertEqual(credential.identifier, result.account.accountUID)
-			XCTAssertEqual(CloudProviderType.localFileSystem, result.account.cloudProviderType)
+			XCTAssertEqual(CloudProviderType.localFileSystem(type: .custom), result.account.cloudProviderType)
 
 			guard let vaultDetailItem = result.item as? VaultDetailItem else {
 				XCTFail("result item is not a VaultDetailItem")

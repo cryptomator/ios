@@ -264,6 +264,9 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private func vaultIsEligibleToMove() -> Bool {
-		return vaultInfo.cloudProviderType != .localFileSystem && vaultInfo.vaultPath != CloudPath("/")
+		if case CloudProviderType.localFileSystem = vaultInfo.cloudProviderType {
+			return false
+		}
+		return vaultInfo.vaultPath != CloudPath("/")
 	}
 }

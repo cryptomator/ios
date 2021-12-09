@@ -6,19 +6,22 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
 
 class OpenExistingLocalVaultCoordinator: LocalVaultAdding, LocalFileSystemAuthenticating, Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
 	weak var parentCoordinator: OpenExistingVaultCoordinator?
+	private let selectedLocalFileSystem: LocalFileSystemType
 
-	init(navigationController: UINavigationController) {
+	init(navigationController: UINavigationController, selectedLocalFileSystem: LocalFileSystemType) {
 		self.navigationController = navigationController
+		self.selectedLocalFileSystem = selectedLocalFileSystem
 	}
 
 	func start() {
-		let viewModel = OpenExistingLocalVaultViewModel()
+		let viewModel = OpenExistingLocalVaultViewModel(selectedLocalFileSystemType: selectedLocalFileSystem)
 		let localFSAuthVC = AddLocalVaultViewController(viewModel: viewModel)
 		localFSAuthVC.coordinator = self
 		navigationController.pushViewController(localFSAuthVC, animated: true)
