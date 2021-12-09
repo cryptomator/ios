@@ -84,6 +84,7 @@
 "cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
 
 "fileProvider.onboarding.title" = "Vitajte";
+"fileProvider.onboarding.button.openCryptomator" = "Otvoriť Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
@@ -95,6 +96,12 @@
 "maintenanceModeError.runningCloudTask" = "Operáciu nie je možné vykonať pretože iné operácie na pozadí v tomto trezore musia skončit prvé. Prosím skúste neskôr.";
 
 "onboarding.title" = "Vitajte";
+"onboarding.button.continue" = "Pokračovať";
+
+"purchase.title" = "Odomknúť plnú verziu";
+"purchase.beginFreeTrial.button" = "Začať 30-dňovú skúšobnú dobu zdarma";
+"purchase.beginFreeTrial.alert.title" = "Skúška udomknutá";
+"purchase.restorePurchase.button" = "Obnoviť nákup";
 "purchase.retry.button" = "Skúsiť znovu";
 
 "settings.title" = "Nastavenia";
@@ -108,6 +115,7 @@
 "settings.debugMode.alert.message" = "V tomto móde, môžu byť zapisované citlivé dáta do logovacieho súboru na Vašom zariadení (ako napr. mená súborov a cesty). Heslá, cookies, a pod. sú explicitne vynechané.\n\nPamätajte na vypnutie debug módu ako najskôr to pôjde.";
 "settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
+"settings.unlockFullVersion" = "Odomknúť plnú verziu";
 
 "unlockVault.button.unlock" = "Odomknúť";
 "unlockVault.button.unlockVia" = "Odomknúť prostredníctvom %@";
@@ -121,6 +129,7 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
+"upgrade.freeUpgrade.button" = "Voľná aktualizácia";
 
 "urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
@@ -164,3 +173,4 @@
 "webDAVAuthentication.httpConnection.alert.title" = "Použiť HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmeniť na HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Podržať HTTP";
