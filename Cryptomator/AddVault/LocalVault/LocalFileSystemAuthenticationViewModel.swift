@@ -39,8 +39,8 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		}
 	}
 
-	public static let iCloudDriveRootDirectory = URL(fileURLWithPath: "\(iCloudDrivePrefix)/com~apple~CloudDocs/")
-	private static let iCloudDrivePrefix = "/private/var/mobile/Library/Mobile Documents"
+	public static let iCloudDriveRootDirectory = URL(fileURLWithPath: "\(iCloudDrivePrefix)com~apple~CloudDocs/")
+	private static let iCloudDrivePrefix = "/private/var/mobile/Library/Mobile Documents/"
 	let documentPickerButtonText: String
 	let headerText: String
 	lazy var openDocumentPickerCellViewModel = ButtonCellViewModel(action: "openDocumentPicker", title: documentPickerButtonText)
