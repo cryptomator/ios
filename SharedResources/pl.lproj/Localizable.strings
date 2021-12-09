@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Błąd";
+"common.alert.attention.title" = "Uwaga";
 "common.button.cancel" = "Anuluj";
 "common.button.change" = "Zmień";
 "common.button.choose" = "Wybierz";
@@ -33,6 +34,7 @@
 
 "addVault.title" = "Dodaj sejf";
 "addVault.createNewVault.title" = "Utwórz nowy sejf";
+"addVault.createNewVault.purchase" = "Tworzenie nowego sejfu wymaga pełnej wersji Cryptomator. Rozważ odblokowanie pełnej wersji, aby uzyskać dostęp do Twoich sejfów.";
 "addVault.createNewVault.setVaultName.header.title" = "Wybierz nazwę sejfu.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nazwa sejfu";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nazwa sejfu nie może być pusta.";
@@ -82,6 +84,10 @@
 
 "cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
+"fileProvider.onboarding.title" = "Witamy";
+"fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
+"fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sejf już istnieje w tej lokalizacji. Spróbuj ponownie z inną lokalizacją.";
@@ -92,8 +98,33 @@
 "maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
 "onboarding.title" = "Witamy";
-"onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
-"onboarding.openCryptomator.button" = "Otwórz Cryptomator";
+"onboarding.info" = "Dziękujemy za wybranie Cryptomator w celu ochrony plików.\n\nZa pomocą Cryptomator klucz do Twoich danych znajduje się w Twoich rękach. Cryptomator szybko i łatwo szyfruje Twoje dane.\n\nTa aplikacja jest w pełni zintegrowana z aplikacją Pliki. Upewnij się, że włączono Cryptomator w aplikacji Pliki, aby uzyskać dostęp do sejfów.";
+"onboarding.button.continue" = "Kontynuuj";
+
+"purchase.title" = "Odblokuj pełną wersję";
+"purchase.info" = "Możesz użyć Cryptomator w trybie tylko do odczytu za darmo. Rozważ odblokowanie pełnej wersji aby móc zapisywać dane w sejfach.";
+"purchase.infoRunningTrial" = "Twój okres próbny wygasa w dniu %@ i zapewnia Ci dostęp do twoich sejfów przez ograniczony czas. Rozważ odblokowanie pełnej wersji po zakończeniu okresu próbnego.";
+"purchase.infoExpiredTrial" = "Twój okres próbny wygasł. Rozważ odblokowanie pełnej wersji, aby móc zapisywać do sejfów.";
+"purchase.upgrade.footer" = "Cryptomator wykrył starszą wersję. Kwalifikujesz się do uaktualnienia, aby odblokować pełną wersję.";
+"purchase.beginFreeTrial.button" = "Wypróbuj przez 30 dni za darmo";
+"purchase.beginFreeTrial.footer" = "Wypróbuj pełną wersję Cryptomator na określony czas za darmo. Możesz odblokować ten okres próbny tylko raz.";
+"purchase.beginFreeTrial.alert.title" = "Wersja próbna odblokowana";
+"purchase.beginFreeTrial.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
+"purchase.purchaseFullVersion.button" = "Kup pełną wersję za %@";
+"purchase.purchaseFullVersion.footer" = "Zapłać raz i odblokuj dostęp do zapisu do swoich sejfów bezterminowo.";
+"purchase.restorePurchase.button" = "Przywróć zakup";
+"purchase.restorePurchase.footer" = "Jeśli kupiłeś już pełną wersję Cryptomator, możesz przywrócić zakup.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Kontynuacja okresu próbnego";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Przywrócono pomyślnie";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Brak pełnej wersji";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nie mogliśmy znaleźć wcześniej zakupionej pełnej wersji, która mogłaby zostać przywrócona. Proszę spróbować innej opcji.";
+"purchase.retry.button" = "Ponów";
+"purchase.retry.footer" = "Nie można załadować dostępnych produktów.";
+"purchase.decideLater.button" = "Zdecyduj później";
+"purchase.decideLater.footer" = "Możesz odblokować pełną wersję Cryptomator później w ustawieniach i na razie używać trybu tylko do odczytu.";
+"purchase.unlockedFullVersion.message" = "Możesz teraz użyć pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
+"purchase.unlockedFullVersion.title" = "Dziękujemy";
 
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
@@ -103,8 +134,10 @@
 "settings.cloudServices" = "Usługi w chmurze";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Tryb debugowania";
+"settings.debugMode.alert.message" = "W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.";
 "settings.rateApp" = "Oceń aplikację";
 "settings.sendLogFile" = "Wyślij plik logów";
+"settings.unlockFullVersion" = "Odblokuj pełną wersję";
 
 "unlockVault.button.unlock" = "Odblokuj";
 "unlockVault.button.unlockVia" = "Odblokuj przez %@";
@@ -118,6 +151,14 @@
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
+
+"upgrade.title" = "Uaktualnij wersję 1.x";
+"upgrade.info" = "Masz dostęp do aktualizacji ze starszej wersji Cryptomator, aby odblokować pełną wersję. Dziękujemy za wsparcie Cryptomator w przeszłości!";
+"upgrade.paidUpgrade.button" = "Aktualizacja za %@";
+"upgrade.paidUpgrade.footer" = "Pomogłoby to stałemu rozwojowi open-source i stanowiłoby dla nas duże wsparcie.";
+"upgrade.freeUpgrade.button" = "Aktualizacja za darmo";
+"upgrade.freeUpgrade.footer" = "Bez obaw, możesz również zaktualizować do pełnej wersji za darmo bez żadnych ograniczeń.";
+"upgrade.decideLater.footer" = "Możesz zaktualizować do pełnej wersji Cryptomator później w ustawieniach i na razie używać trybu tylko do odczytu.";
 
 "urlSession.error.httpError.401" = "Błędna nazwa użytkownika i/lub hasło.";
 "urlSession.error.httpError.403" = "Niewystarczające uprawnienia do żądanego zasobu.";
@@ -155,3 +196,8 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Uwierzytelnianie…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Używać HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Zmień na HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Zostaw HTTP";

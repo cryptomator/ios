@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Erreur";
+"common.alert.attention.title" = "Avertissement";
 "common.button.cancel" = "Annuler";
 "common.button.change" = "Modifier";
 "common.button.choose" = "Choisir";
@@ -82,6 +83,10 @@
 
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
 
+"fileProvider.onboarding.title" = "Bienvenue";
+"fileProvider.onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
+"fileProvider.onboarding.button.openCryptomator" = "Ouvrir Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
@@ -92,8 +97,8 @@
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
-"onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
-"onboarding.openCryptomator.button" = "Ouvrir Cryptomator";
+"purchase.infoRunningTrial" = "Votre période d'essai expire le %@ et vous accorde un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après la période d'essai.";
+"purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
@@ -103,6 +108,7 @@
 "settings.cloudServices" = "Services de stockage en ligne";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Mode de débogage";
+"settings.debugMode.alert.message" = "Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN'oubliez pas de désactiver le mode de débogage dès que possible.";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 
@@ -157,3 +163,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authentification…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Utiliser le HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "L'utilisation du HTTP n'est pas sûre. Nous recommandons d'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Passage au HTTPS";

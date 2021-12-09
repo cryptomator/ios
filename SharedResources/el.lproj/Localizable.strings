@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Σφάλμα";
+"common.alert.attention.title" = "Προσοχή";
 "common.button.cancel" = "Ακύρωση";
 "common.button.change" = "Αλλαγή";
 "common.button.choose" = "Επιλογή";
@@ -33,6 +34,7 @@
 
 "addVault.title" = "Προσθήκη Κρύπτης";
 "addVault.createNewVault.title" = "Δημιουργία Νέας Κρύπτης";
+"addVault.createNewVault.purchase" = "Η δημιουργία μιας νέα κρύπτης απαιτεί την πλήρη έκδοση του Cryptomator. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
 "addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για την κρύπτη.";
 "addVault.createNewVault.setVaultName.cells.name" = "Όνομα Κρύπτης";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα της κρύπτης δεν μπορεί να είναι κενό.";
@@ -82,6 +84,10 @@
 
 "cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
 
+"fileProvider.onboarding.title" = "Καλώς ήρθατε";
+"fileProvider.onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
+"fileProvider.onboarding.button.openCryptomator" = "Άνοιγμα Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για τη νέα κρύπτη σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Μια κρύπτη υπάρχει ήδη σε αυτή τη θέση. Παρακαλώ δοκιμάστε ξανά με μια διαφορετική θέση αποθήκευσης.";
@@ -92,8 +98,32 @@
 "maintenanceModeError.runningCloudTask" = "Η λειτουργία δεν μπορεί να εκτελεστεί επειδή άλλες λειτουργίες στο παρασκήνιο αυτής της κρύπτης πρέπει να τελειώσουν πρώτα. Παρακαλώ δοκιμάστε ξανά αργότερα.";
 
 "onboarding.title" = "Καλώς ήρθατε";
-"onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
-"onboarding.openCryptomator.button" = "Άνοιγμα Cryptomator";
+"onboarding.info" = "Ευχαριστούμε που επιλέξατε Cryptomator για την προστασία των αρχείων σας.\n\nΜε το Cryptomator, το κλειδί για τα δεδομένα σας είναι στα χέρια σας. Το Cryptomator κρυπτογραφεί τα δεδομένα σας γρήγορα και εύκολα.\n\nΑυτή η εφαρμογή είναι πλήρως ενσωματωμένη στην εφαρμογή Αρχεία. Σιγουρευτείτε ότι θα ενεργοποιήσετε τον Cryptomator στην εφαρμογή Αρχεία αργότερα για να αποκτήσετε πρόσβαση στις κρύπτες σας.";
+"onboarding.button.continue" = "Συνέχεια";
+
+"purchase.title" = "Ξεκλείδωμα Πλήρους Έκδοσης";
+"purchase.info" = "Μπορείτε να χρησιμοποιήσετε Cryptomator σε λειτουργία μόνο για ανάγνωση δωρεάν. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
+"purchase.infoExpiredTrial" = "Η δοκιμή σας έχει λήξει. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
+"purchase.upgrade.footer" = "To Cryptomator εντόπισε μια παλαιότερη έκδοση. Πληροίτε τα κριτήρια για αναβάθμιση για να ξεκλειδώσετε την πλήρη έκδοση.";
+"purchase.beginFreeTrial.button" = "Έναρξη δοκιμής 30 ημερών δωρεάν";
+"purchase.beginFreeTrial.footer" = "Δοκιμάστε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα δωρεάν. Μπορείτε να ξεκλειδώσετε αυτή τη δοκιμή μόνο μία φορά.";
+"purchase.beginFreeTrial.alert.title" = "Η Δοκιμαστική περίοδος ξεκλειδώθηκε";
+"purchase.beginFreeTrial.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
+"purchase.purchaseFullVersion.button" = "Αγορά Πλήρους Έκδοσης για %@";
+"purchase.purchaseFullVersion.footer" = "Πληρώστε μία φορά και ξεκλειδώσετε την πρόσβαση εγγραφής στις κρύπες σας για τη διάρκεια ζωής του Cryptomator.";
+"purchase.restorePurchase.button" = "Επαναφορά Αγοράς";
+"purchase.restorePurchase.footer" = "Αν έχετε ήδη αγοράσει την πλήρη έκδοση του Cryptomator, μπορείτε να επαναφέρετε την αγορά.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Η δοκιμαστική περίοδος συνεχίστηκε";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Επιτυχής Επαναφορά";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Χωρίς Πλήρη Έκδοση";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Δεν ήταν δυνατή η εύρεση μιας προηγούμενης πλήρους έκδοσης που θα μπορούσε να αποκατασταθεί. Παρακαλώ δοκιμάστε μια άλλη επιλογή.";
+"purchase.retry.button" = "Επανάληψη";
+"purchase.retry.footer" = "Δεν ήταν δυνατή η φόρτωση των διαθέσιμων προϊόντων.";
+"purchase.decideLater.button" = "Αποφασίστε Αργότερα";
+"purchase.decideLater.footer" = "Μπορείτε να ξεκλειδώσετε την πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να την χρησιμοποιήσετε σε λειτουργία μόνο ανάγνωσης για τώρα.";
+"purchase.unlockedFullVersion.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator. Καλή κρυπτογράφηση!";
+"purchase.unlockedFullVersion.title" = "Σας Ευχαριστούμε";
 
 "settings.title" = "Ρυθμίσεις";
 "settings.aboutCryptomator" = "Σχετικά με το Cryptomator";
@@ -103,8 +133,10 @@
 "settings.cloudServices" = "Υπηρεσίες Cloud";
 "settings.contact" = "Επικοινωνία";
 "settings.debugMode" = "Λειτουργία Αποσφαλμάτωσης";
+"settings.debugMode.alert.message" = "Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.";
 "settings.rateApp" = "Αξιολογήστε την Εφαρμογή";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
+"settings.unlockFullVersion" = "Ξεκλείδωμα Πλήρους Έκδοσης";
 
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
 "unlockVault.button.unlockVia" = "Ξεκλείδωμα μέσω %@";
@@ -118,6 +150,14 @@
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
 "untrustedTLSCertificate.dismiss" = "Μην Εμπιστευτείτε";
+
+"upgrade.title" = "Αναβάθμιση Από Την Έκδοση 1.x";
+"upgrade.info" = "Πληροίτε τα κριτήρια για αναβάθμιση από παλαιότερη έκδοση του Cryptomator για να ξεκλειδώσετε την πλήρη έκδοση. Σας ευχαριστούμε για την υποστήριξη του Cryptomator στο παρελθόν!";
+"upgrade.paidUpgrade.button" = "Αναβάθμιση για %@";
+"upgrade.paidUpgrade.footer" = "Θα βοηθούσε τη συνεχή ανάπτυξη ανοιχτού κώδικα και θα ήταν μια μεγάλη υποστήριξη για εμάς.";
+"upgrade.freeUpgrade.button" = "Αναβάθμιση δωρεάν";
+"upgrade.freeUpgrade.footer" = "Μην ανησυχείτε, μπορείτε επίσης να κάνετε αναβάθμιση στην πλήρη έκδοση δωρεάν χωρίς περιορισμούς.";
+"upgrade.decideLater.footer" = "Μπορείτε να κάνετε αναβάθμιση στην πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να το χρησιμοποιήσετε σε λειτουργία μόνο για ανάγνωση προς το παρόν.";
 
 "urlSession.error.httpError.401" = "Λάθος όνομα χρήστη και/ή κωδικός πρόσβασης.";
 "urlSession.error.httpError.403" = "Ανεπαρκή δικαιώματα στον ζητούμενο πόρο.";
@@ -157,3 +197,8 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Ταυτοποίηση…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Χρήση HTTPS;";
+"webDAVAuthentication.httpConnection.alert.message" = "Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ 'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Αλλαγή σε HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Διατήρηση HTTP";

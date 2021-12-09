@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Erro";
+"common.alert.attention.title" = "Atenção";
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
@@ -76,6 +77,10 @@
 
 "cloudProviderType.localFileSystem" = "Outro Provedor de Ficheiros";
 
+"fileProvider.onboarding.title" = "Bem-vindo(a)";
+"fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
+"fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
@@ -84,12 +89,11 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
-"onboarding.openCryptomator.button" = "Abrir Cryptomator";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
 
 "unlockVault.button.unlock" = "Destrancar";

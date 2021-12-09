@@ -24,9 +24,11 @@
 
 "chooseFolder.emptyFolder.footer" = "Folder je prazan";
 
+"fileProvider.onboarding.title" = "Dobrodošli,";
+"fileProvider.onboarding.info" = "Hvala što ste izabrali Cryptomator za zaštitu podataka. Za početak idite na glavnu aplikaciju i dodajte sef.";
+"fileProvider.onboarding.button.openCryptomator" = "Otvori Cryptomator";
+
 "onboarding.title" = "Dobrodošli,";
-"onboarding.info" = "Hvala što ste izabrali Cryptomator za zaštitu podataka. Za početak idite na glavnu aplikaciju i dodajte sef.";
-"onboarding.openCryptomator.button" = "Otvori Cryptomator";
 
 "settings.title" = "Postavke";
 

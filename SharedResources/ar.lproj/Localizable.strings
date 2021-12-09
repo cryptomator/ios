@@ -1,3 +1,4 @@
+"common.alert.attention.title" = "انتباه";
 "common.button.cancel" = "الغاء";
 "common.button.change" = "تغيير";
 "common.button.choose" = "اختر";
@@ -18,12 +19,18 @@
 "addVault.createNewVault.chooseCloud.header" = "أين يجب على Cryptomator تخزين الملفات المشفرة للمخزن الخاص بك؟";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "هام: إذا نسيت كلمة المرور الخاصة بك، لا توجد طريقة لاستعادة بياناتك.";
 "addVault.openExistingVault.title" = "افتح مخزن موجود";
+"purchase.retry.button" = "اعد المحاولة";
 
 "settings.title" = "الإعدادات";
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
+"settings.debugMode.alert.message" = "في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.";
 
 "unlockVault.button.unlock" = "افتح";
 
 "vaultDetail.button.changeVaultPassword" = "تغيير كلمة المرور";
 "vaultDetail.button.moveVault" = "نقل";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
+
+"webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
+"webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
+"webDAVAuthentication.httpConnection.change" = "تغيير إلى HTTPS";

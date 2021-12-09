@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Ошибка";
+"common.alert.attention.title" = "Внимание";
 "common.button.cancel" = "Отмена";
 "common.button.change" = "Изменить";
 "common.button.choose" = "Выбрать";
@@ -33,6 +34,7 @@
 
 "addVault.title" = "Добавить хранилище";
 "addVault.createNewVault.title" = "Создать хранилище";
+"addVault.createNewVault.purchase" = "Создание нового хранилища требует полной версии Cryptomator. Попробуйте разблокировать полную версию для доступа на запись в ваши хранилища.";
 "addVault.createNewVault.setVaultName.header.title" = "Выберите имя для хранилища.";
 "addVault.createNewVault.setVaultName.cells.name" = "Имя хранилища";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Имя хранилища не может быть пустым.";
@@ -82,6 +84,10 @@
 
 "cloudProviderType.localFileSystem" = "Другой файл-провайдер";
 
+"fileProvider.onboarding.title" = "Добро пожаловать";
+"fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
+"fileProvider.onboarding.button.openCryptomator" = "Открыть Cryptomator";
+
 "localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
@@ -92,8 +98,17 @@
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
 "onboarding.title" = "Добро пожаловать";
-"onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
-"onboarding.openCryptomator.button" = "Открыть Cryptomator";
+"onboarding.info" = "Спасибо за выбор Cryptomator для защиты ваших файлов.\n\nС Cryptomator ключ к вашим данным в ваших руках. Криптоматор шифрует ваши данные быстро и легко.\n\nЭто приложение полностью интегрировано в приложение Files. Убедитесь в том, что Cryptopmator включен в приложении Files для доступа к вашим хранилищам.";
+"onboarding.button.continue" = "Далее";
+
+"purchase.title" = "Разблокировать Полную Версию";
+"purchase.info" = "Вы можете бесплатно использовать Cryptomator только в режиме \"для чтения\". Рассмотрите возможность разблокирования полной версии для доступа на запись в ваши хранилища.";
+"purchase.infoExpiredTrial" = "Пробный период истек. Рассмотрите возможность разблокировки полной версии, чтобы восстановить доступ на запись к вашим хранилищам.";
+"purchase.upgrade.footer" = "Cryptomator обнаружил более старую версию. Вы можете обновиться, чтобы разблокировать полную версию.";
+"purchase.beginFreeTrial.button" = "Начать 30-ти дневный Пробный период Бесплатно";
+"purchase.beginFreeTrial.footer" = "Попробуйте полную версию Cryptomator в течение ограниченного времени бесплатно. Вы можете разблокировать эту пробную версию только один раз.";
+"purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
+"purchase.retry.button" = "Повторить";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
@@ -103,8 +118,10 @@
 "settings.cloudServices" = "Облачные сервисы";
 "settings.contact" = "Контакты";
 "settings.debugMode" = "Режим отладки";
+"settings.debugMode.alert.message" = "В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
+"settings.unlockFullVersion" = "Разблокировать Полную Версию";
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
@@ -127,6 +144,8 @@
 "urlSession.error.httpError.412" = "Доступ к целевому ресурсу запрещён.";
 "urlSession.error.httpError.default" = "Не удалось подключиться к сети с кодом статуса %ld.";
 "urlSession.error.unexpectedResponse" = "Неожиданный ответ сети.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Вы уже добавили себе это хранилище.";
 
 "vaultDetail.button.changeVaultPassword" = "Изменить пароль";
 "vaultDetail.button.lock" = "Заблокировать";
@@ -155,3 +174,7 @@
 
 "webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Аутентификация…";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.";
+"webDAVAuthentication.httpConnection.change" = "Изменить на HTTPS";

@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "에러";
+"common.alert.attention.title" = "주의";
 "common.button.cancel" = "취소";
 "common.button.change" = "변경";
 "common.button.choose" = "선택";
@@ -52,19 +53,23 @@
 
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
 
+"fileProvider.onboarding.title" = "환영합니다";
+"fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator 열기";
+
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
 "localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
 
 "onboarding.title" = "환영합니다";
-"onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
-"onboarding.openCryptomator.button" = "Cryptomator 열기";
+"purchase.retry.button" = "재시도";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
 "settings.clearCache" = "캐시 지우기";
+"settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.";
 "settings.sendLogFile" = "로그파일 전송";
 
 "unlockVault.button.unlock" = "잠금해제";
@@ -85,3 +90,7 @@
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
 
 "webDAVAuthentication.title" = "WebDAV";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니가?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
