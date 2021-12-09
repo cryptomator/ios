@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 
 "fileProvider.onboarding.title" = "Hoş geldiniz";
+"fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
 
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
