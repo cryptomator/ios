@@ -103,7 +103,6 @@
 
 "purchase.title" = "解锁完整版";
 "purchase.info" = "您可以在只读模式下免费使用 Cryptomator。请考虑解锁完整版本以获得密码库的写入权限。";
-"purchase.infoRunningTrial" = "您的试用期于 %@ 过期，在此期间对保险库的写入不会受到数量限制。 请考虑在试用结束后解锁完整版本。";
 "purchase.infoExpiredTrial" = "您的试用期已结束。请解锁完整版本以重新获取您的保险库的写入权限。";
 "purchase.upgrade.footer" = "Cryptomator 检测到旧版本。您有资格升级以解锁完整版本。";
 "purchase.beginFreeTrial.button" = "开始30天的免费试用";
@@ -123,7 +122,6 @@
 "purchase.retry.footer" = "无法加载可用产品。";
 "purchase.decideLater.button" = "稍后决定";
 "purchase.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
-
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
 
