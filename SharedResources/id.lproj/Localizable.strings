@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Provider Lainnya";
 
 "fileProvider.onboarding.title" = "Selamat Datang";
+"fileProvider.onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda. Untuk memulai, buka aplikasi utama dan tambahkan vault.";
+"fileProvider.onboarding.button.openCryptomator" = "Buka Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Di layar berikutnya, pilih lokasi penyimpanan untuk vault baru Anda.";
 "localFileSystemAuthentication.createNewVault.button" = "Pilih Lokasi Penyimpanan";
