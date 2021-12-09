@@ -14,6 +14,7 @@ import Promises
 protocol LocalFileSystemAuthenticationViewModelProtocol: SingleSectionTableViewModel {
 	var headerText: String { get }
 	var documentPickerStartDirectoryURL: URL? { get }
+	func footerViewModel(for section: Int) -> HeaderFooterViewModel?
 	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential
 }
 
@@ -55,6 +56,15 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		self.selectedLocalFileSystemType = selectedLocalFileSystemType
 		self.validationLogic = validationLogic
 		self.accountManager = accountManager
+	}
+
+	func footerViewModel(for section: Int) -> HeaderFooterViewModel? {
+		switch selectedLocalFileSystemType {
+		case .iCloudDrive:
+			return nil
+		case .custom:
+			return LocalFileSystemAuthenticationInfoFooterViewModel()
+		}
 	}
 
 	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential {
@@ -110,4 +120,15 @@ struct LocalFileSystemAuthenticationResult {
 
 enum LocalFileSystemAuthenticationViewModelError: Error {
 	case invalidURL
+}
+
+class LocalFileSystemAuthenticationInfoFooterViewModel: AttributedTextHeaderFooterViewModel {
+	init() {
+		let infoText = LocalizedString.getValue("localFileSystemAuthentication.info.footer")
+		let text = NSMutableAttributedString(string: infoText)
+		text.append(NSAttributedString(string: " "))
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
+		text.append(learnMoreLink)
+		super.init(attributedText: text)
+	}
 }

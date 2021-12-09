@@ -42,7 +42,7 @@
 		4A1EB0D5268A5AA3006D072B /* VaultDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EB0D4268A5AA3006D072B /* VaultDetector.swift */; };
 		4A1EB0D8268A6DE1006D072B /* AddLocalVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1EB0D7268A6DE1006D072B /* AddLocalVaultViewController.swift */; };
 		4A21B49226BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49126BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift */; };
-		4A21B49426BC0127000D13DF /* AttributedTextHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49326BC0127000D13DF /* AttributedTextHeaderFooterViewModel.swift */; };
+		4A21B49426BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49326BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift */; };
 		4A21B49626BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49526BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift */; };
 		4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49B26BD68C2000D13DF /* UIControl+Publisher.swift */; };
 		4A21B49E26BD6915000D13DF /* UISwitch+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A21B49D26BD6915000D13DF /* UISwitch+Publisher.swift */; };
@@ -286,6 +286,7 @@
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		7469AD9A266E26B0000DCD45 /* URL+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469AD99266E26B0000DCD45 /* URL+Zip.swift */; };
+		747C35172762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */; };
 		747F2EB52587B7780072FB30 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		747F2F1F2587BC250072FB30 /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F02587AEB40023FF53 /* FileProviderNotificator.swift */; };
 		747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */; };
@@ -452,7 +453,7 @@
 		4A1EB0D4268A5AA3006D072B /* VaultDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetector.swift; sourceTree = "<group>"; };
 		4A1EB0D7268A6DE1006D072B /* AddLocalVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddLocalVaultViewController.swift; sourceTree = "<group>"; };
 		4A21B49126BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextHeaderFooterView.swift; sourceTree = "<group>"; };
-		4A21B49326BC0127000D13DF /* AttributedTextHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextHeaderFooterViewModel.swift; sourceTree = "<group>"; };
+		4A21B49326BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableAttributedTextHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		4A21B49526BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailInfoFooterViewModel.swift; sourceTree = "<group>"; };
 		4A21B49B26BD68C2000D13DF /* UIControl+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+Publisher.swift"; sourceTree = "<group>"; };
 		4A21B49D26BD6915000D13DF /* UISwitch+Publisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISwitch+Publisher.swift"; sourceTree = "<group>"; };
@@ -744,6 +745,7 @@
 		7460FFED26FB6C100018BCC4 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
+		747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		74A1B13D2726A9E60098224B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -935,8 +937,9 @@
 			isa = PBXGroup;
 			children = (
 				4A21B49126BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift */,
-				4A21B49326BC0127000D13DF /* AttributedTextHeaderFooterViewModel.swift */,
+				747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */,
 				4A4B7E7626B95576009BFDB1 /* BaseHeaderFooterView.swift */,
+				4A21B49326BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift */,
 				4A4B7E7326B954D2009BFDB1 /* HeaderFooterViewModel.swift */,
 			);
 			path = HeaderFooter;
@@ -2027,6 +2030,7 @@
 				4A644B57267C958F008CBB9A /* ChildCoordinator.swift in Sources */,
 				4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */,
 				4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */,
+				747C35172762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift in Sources */,
 				7408E6BF267783F100D7FAEA /* LocalWebViewController.swift in Sources */,
 				4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */,
 				4A644B44267A3BEC008CBB9A /* SetVaultNameViewController.swift in Sources */,
@@ -2075,7 +2079,7 @@
 				4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */,
 				4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */,
 				4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */,
-				4A21B49426BC0127000D13DF /* AttributedTextHeaderFooterViewModel.swift in Sources */,
+				4A21B49426BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift in Sources */,
 				740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */,
 				4AF45356271F2A8300CF1919 /* RenameVaultViewModel.swift in Sources */,
 				4A4B7E4626B2B6A0009BFDB1 /* SwitchCellViewModel.swift in Sources */,

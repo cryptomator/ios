@@ -94,6 +94,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
+"localFileSystemAuthentication.info.footer" = "File providers that are grayed out don't support \"picking folders\". This is not a limitation of Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
 

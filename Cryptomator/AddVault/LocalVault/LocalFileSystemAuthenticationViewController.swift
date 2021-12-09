@@ -56,4 +56,16 @@ class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableVie
 		tableView.deselectRow(at: indexPath, animated: true)
 		openDocumentPicker()
 	}
+
+	// MARK: - UITableViewDataSource
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		guard let footerViewModel = viewModel.footerViewModel(for: section) else {
+			return nil
+		}
+		let footerView = footerViewModel.viewType.init()
+		footerView.configure(with: footerViewModel)
+		footerView.tableView = tableView
+		return footerView
+	}
 }
