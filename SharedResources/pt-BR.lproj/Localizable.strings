@@ -84,6 +84,8 @@
 "cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
 
 "fileProvider.onboarding.title" = "Bem vindo";
+"fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
+"fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na próxima tela, escolha o local de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar local de armazenamento";
