@@ -103,7 +103,6 @@
 
 "purchase.title" = "Sblocca la Versione Completa";
 "purchase.info" = "Puoi usare Cryptomator in modalità di sola lettura gratis. Considera di sbloccare la versione completa per l'accesso di scrittura alle tue cassaforti.";
-"purchase.infoRunningTrial" = "La tua prova scade il %@ e ti concede accesso di scrittura con un numero illimitato di cassaforti per un tempo limitato. Considera di sbloccare la versione completa dopo la prova.";
 "purchase.infoExpiredTrial" = "La tua prova è scaduta. Considera lo sblocco della versione completa per recuperare l'accesso di scrittura alle tue cassaforti.";
 "purchase.upgrade.footer" = "Cryptomator ha rilevato una versione precedente. Sei idoneo per un aggiornamento per sbloccare la versione completa.";
 "purchase.beginFreeTrial.button" = "Inizia la Prova di 30 Giorni Gratis";
@@ -123,7 +122,6 @@
 "purchase.retry.footer" = "Impossibile caricare i prodotti disponibili.";
 "purchase.decideLater.button" = "Decidi Dopo";
 "purchase.decideLater.footer" = "Puoi sbloccare la versione completa di Cryptomator in seguito, nelle impostazioni e usala in modalità di sola lettura per ora.";
-
 "purchase.unlockedFullVersion.message" = "Puoi ora usare la versione completa di Cryptomator. Buona crittografazione!";
 "purchase.unlockedFullVersion.title" = "Grazie";
 
