@@ -1,7 +1,8 @@
---minversion 0.47.10
+--minversion 0.49.0
 
 # format options
 
+--closurevoid preserve
 --commas inline
 --ifdef no-indent
 --importgrouping testable-bottom

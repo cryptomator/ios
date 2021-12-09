@@ -14,13 +14,8 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	let viewModel: ChooseFolderViewModelProtocol
 	weak var coordinator: (Coordinator & FolderChoosing)?
 
-	private lazy var header: HeaderWithSearchbar = {
-		return HeaderWithSearchbar(title: viewModel.headerTitle, searchBar: searchController.searchBar)
-	}()
-
-	private lazy var searchController: UISearchController = {
-		return UISearchController()
-	}()
+	private lazy var header: HeaderWithSearchbar = .init(title: viewModel.headerTitle, searchBar: searchController.searchBar)
+	private lazy var searchController: UISearchController = .init()
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
 		self.viewModel = viewModel
@@ -167,9 +162,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 }
 
 private class HeaderWithSearchbar: UITableViewHeaderFooterView {
-	lazy var title: UILabel = {
-		return UILabel()
-	}()
+	lazy var title: UILabel = .init()
 
 	convenience init(title: String, searchBar: UISearchBar) {
 		self.init(reuseIdentifier: nil)

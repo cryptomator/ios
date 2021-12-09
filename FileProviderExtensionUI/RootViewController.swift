@@ -12,9 +12,7 @@ import FileProviderUI
 import UIKit
 
 class RootViewController: FPUIActionExtensionViewController {
-	private lazy var coordinator: FileProviderCoordinator = {
-		return FileProviderCoordinator(extensionContext: extensionContext, hostViewController: self)
-	}()
+	private lazy var coordinator: FileProviderCoordinator = .init(extensionContext: extensionContext, hostViewController: self)
 
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)

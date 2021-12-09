@@ -35,9 +35,7 @@ class AccountCellButton: ActionButton {
 
 class AccountCell: UITableViewCell, ConfigurableTableViewCell {
 	var account: AccountCellContent?
-	lazy var accessoryButton: AccountCellButton = {
-		return AccountCellButton(cell: self)
-	}()
+	lazy var accessoryButton: AccountCellButton = .init(cell: self)
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
