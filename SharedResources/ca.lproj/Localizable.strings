@@ -64,6 +64,7 @@
 "cloudProviderType.localFileSystem" = "Un altre proveïdor de fitxers";
 
 "fileProvider.onboarding.title" = "Us donem la benvinguda";
+"fileProvider.onboarding.button.openCryptomator" = "Obre Cryptomator";
 "localFileSystemAuthentication.createNewVault.button" = "Tria la localització de l'emmagatzematge";
 
 "onboarding.title" = "Us donem la benvinguda";
