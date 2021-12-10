@@ -50,3 +50,11 @@ let package = Package(
 		)
 	]
 )
+
+import Foundation
+
+if ProcessInfo.processInfo.environment["TESTFLIGHT"] == "1" {
+	for target in package.targets {
+		target.swiftSettings?.append(.define("TESTFLIGHT"))
+	}
+}
