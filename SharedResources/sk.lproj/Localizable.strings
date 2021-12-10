@@ -94,6 +94,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "V nasledujúcej obrazovke zvoľte adresár Vášho existujúceho trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Zvolený adresár nie je trezor. Prosím skúste znovu s iným adresárom.";
+"localFileSystemAuthentication.info.footer" = "Poskytovatelia súborov ktorí sú vyšedený nepodporujú \"zber adresárov\". Toto nie je limitácia Cryptomator-om.";
 
 "maintenanceModeError.runningCloudTask" = "Operáciu nie je možné vykonať pretože iné operácie na pozadí v tomto trezore musia skončit prvé. Prosím skúste neskôr.";
 
