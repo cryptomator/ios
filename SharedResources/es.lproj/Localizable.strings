@@ -94,6 +94,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
+"localFileSystemAuthentication.info.footer" = "Los proveedores de archivos que están en gris no admiten \"seleccionar carpetas\". Esto no es una limitación de Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "La operación no puede realizarse porque otras operaciones en segundo plano para esta bóveda deben finalizar primero. Intente de nuevo más tarde.";
 

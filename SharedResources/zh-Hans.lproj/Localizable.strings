@@ -94,6 +94,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹。";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次。";
+"localFileSystemAuthentication.info.footer" = "灰色显示的文件提供者不支持“选择文件夹”。 这并非是 Cryptomator 的限制。";
 
 "maintenanceModeError.runningCloudTask" = "操作无法进行，因为此保险库仍有后台任务在进行，请稍后再试。";
 

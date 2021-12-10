@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "chooseFolder.createNewFolder.cells.name" = "Ordnername";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Ordnername darf nicht leer sein.";
+"chooseFolder.createNewFolder.progress" = "Erstelle Ordner…";
 
 "cloudProvider.error.itemNotFound" = "„%@“ konnte nicht gefunden werden.";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ existiert bereits.";
