@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Promises
 import UIKit
@@ -73,7 +74,6 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 }
 
 #if DEBUG
-import CryptomatorCloudAccessCore
 import SwiftUI
 
 private class CreateNewFolderViewModelMock: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
