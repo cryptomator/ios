@@ -8,6 +8,7 @@
 
 import Combine
 import CryptomatorCommonCore
+import Promises
 import UIKit
 
 class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
@@ -61,7 +62,7 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
 		let createFolderPromise = viewModel.createFolder()
-		createFolderPromise.then { _ in
+		createFolderPromise.then { _ -> Promise<(CloudPath, Void)> in
 			return all(createFolderPromise, hud.transformToSelfDismissingSuccess())
 		}.then { [weak self] folderPath, _ in
 			self?.coordinator?.createdNewFolder(at: folderPath)
@@ -73,7 +74,6 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 
 #if DEBUG
 import CryptomatorCloudAccessCore
-import Promises
 import SwiftUI
 
 private class CreateNewFolderViewModelMock: SingleSectionTableViewModel, CreateNewFolderViewModelProtocol {
