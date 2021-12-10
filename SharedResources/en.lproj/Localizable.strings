@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
 "chooseFolder.createNewFolder.cells.name" = "Folder Name";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
+"chooseFolder.createNewFolder.progress" = "Creating Folder…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";

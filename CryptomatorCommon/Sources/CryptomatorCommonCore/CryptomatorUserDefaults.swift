@@ -20,6 +20,7 @@ public class CryptomatorUserDefaults {
 
 	private var defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
 
+	private static let isTestFlightEnvironment = ProcessInfo.processInfo.environment["TESTFLIGHT"] == "1"
 	#if DEBUG
 	private static let debugModeEnabledDefaultValue = true
 	#else
@@ -45,11 +46,11 @@ public class CryptomatorUserDefaults {
 	}
 
 	private func key(from property: String) -> String {
-		#if TESTFLIGHT
-		return "\(property)-TestFlight"
-		#else
-		return property
-		#endif
+		if CryptomatorUserDefaults.isTestFlightEnvironment {
+			return "\(property)-TestFlight"
+		} else {
+			return property
+		}
 	}
 }
 
