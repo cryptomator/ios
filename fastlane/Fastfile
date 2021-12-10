@@ -16,9 +16,10 @@ platform :ios do
 
   desc "Submit a new internal beta build to TestFlight"
   lane :beta do
-    gym(scheme: "Cryptomator", xcargs: "TESTFLIGHT='1'")
+    ENV["TESTFLIGHT"] = "1"
+    gym(scheme: "Cryptomator")
     changelog = File.read("changelog.txt")
-    pilot(changelog: changelog, distribute_external: false, groups: ["App Store Connect Users"], skip_waiting_for_build_processing: true)
+    pilot(changelog: changelog, distribute_external: false, groups: ["App Store Connect Users"], skip_waiting_for_build_processing: true)
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
