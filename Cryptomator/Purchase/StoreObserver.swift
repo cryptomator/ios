@@ -268,9 +268,7 @@ extension StoreObserver: SKPaymentTransactionObserver {
 			DDLogError("Missing running restore for rejecting promise")
 			return
 		}
-		if let error = error as? SKError, error.code != .paymentCancelled {
-			promise.reject(error)
-		}
+		promise.reject(error)
 	}
 
 	func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {

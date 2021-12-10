@@ -222,7 +222,13 @@ class BaseIAPViewModel<SectionType: Hashable, ButtonActionType: Hashable>: Table
 	func restorePurchase(isLoadingBinding: Bindable<Bool>) -> Promise<RestoreTransactionsResult> {
 		hasRunningTransactionPublisher.send(true)
 		isLoadingBinding.value = true
-		return iapManager.restore().always {
+		return iapManager.restore().recover { error -> RestoreTransactionsResult in
+			if (error as? SKError)?.code == .paymentCancelled {
+				throw PurchaseError.paymentCancelled
+			} else {
+				throw error
+			}
+		}.always {
 			self.hasRunningTransactionPublisher.send(false)
 			isLoadingBinding.value = false
 		}
