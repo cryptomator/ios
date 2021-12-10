@@ -34,6 +34,7 @@
 
 "addVault.title" = "Ajouter un coffre";
 "addVault.createNewVault.title" = "Créer un nouveau coffre";
+"addVault.createNewVault.purchase" = "La création d'un nouveau coffre nécessite la version complète de Cryptomator. Envisagez de déverrouiller la version complète pour accéder en écriture à vos coffres.";
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
@@ -93,11 +94,16 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Le dossier sélectionné n'est pas un coffre. Veuillez réessayer avec un dossier différent.";
+"localFileSystemAuthentication.info.footer" = "Les fournisseurs de fichiers qui sont grisés ne permettent pas de sélectionner des dossiers en entier. Ce n'est pas une limitation de Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
-"purchase.infoRunningTrial" = "Votre période d'essai expire le %@ et vous accorde un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après la période d'essai.";
+"onboarding.button.continue" = "Continuer";
+
+"purchase.title" = "Débloquer la version complète";
+"purchase.info" = "Vous pouvez utiliser Cryptomator en mode lecture seule gratuitement. Pensez à déverrouiller la version complète pour accéder en écriture à vos coffres.";
+"purchase.infoRunningTrial" = "Votre période d'essai expire le %@, elle vous permet un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après l'essai.";
 "purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
@@ -111,6 +117,7 @@
 "settings.debugMode.alert.message" = "Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN'oubliez pas de désactiver le mode de débogage dès que possible.";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
+"settings.unlockFullVersion" = "Débloquer la version complète";
 
 "unlockVault.button.unlock" = "Déverrouiller";
 "unlockVault.button.unlockVia" = "Débloquer via %@";
