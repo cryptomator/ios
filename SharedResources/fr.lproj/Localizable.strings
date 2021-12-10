@@ -34,6 +34,7 @@
 
 "addVault.title" = "Ajouter un coffre";
 "addVault.createNewVault.title" = "Créer un nouveau coffre";
+"addVault.createNewVault.purchase" = "La création d'un nouveau coffre nécessite la version complète de Cryptomator. Envisagez de déverrouiller la version complète pour accéder en écriture à vos coffres.";
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
@@ -97,7 +98,7 @@
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
-"purchase.infoRunningTrial" = "Votre période d'essai expire le %@ et vous accorde un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après la période d'essai.";
+"purchase.infoRunningTrial" = "Votre période d'essai expire le %@, elle vous permet un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après l'essai.";
 "purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
