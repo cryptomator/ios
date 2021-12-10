@@ -56,11 +56,17 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 	}
 
 	@objc func createButtonClicked() {
-		viewModel.createFolder().then { [weak self] folderPath in
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("chooseFolder.createNewFolder.progress")
+		hud.show(presentingViewController: self)
+		hud.showLoadingIndicator()
+		let createFolderPromise = viewModel.createFolder()
+		createFolderPromise.then { _ in
+			return all(createFolderPromise, hud.transformToSelfDismissingSuccess())
+		}.then { [weak self] folderPath, _ in
 			self?.coordinator?.createdNewFolder(at: folderPath)
 		}.catch { [weak self] error in
-			guard let self = self else { return }
-			self.coordinator?.handleError(error, for: self)
+			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
 		}
 	}
 }
