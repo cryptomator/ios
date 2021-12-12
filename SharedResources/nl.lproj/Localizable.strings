@@ -34,6 +34,7 @@
 
 "addVault.title" = "Kluis toevoegen";
 "addVault.createNewVault.title" = "Nieuwe Kluis Aanmaken";
+"addVault.createNewVault.purchase" = "Het creëren van een nieuwe kluis vereist de volledige versie van Cryptomator. Overweeg om de volledige versie te ontgrendelen voor het schrijven van toegang tot uw kluis.";
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kluis naam mag niet leeg zijn.";
@@ -71,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Kies een naam voor de map.";
 "chooseFolder.createNewFolder.cells.name" = "Naam van de Map";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Naam van de map mag niet leeg zijn.";
+"chooseFolder.createNewFolder.progress" = "Map aanmaken…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" niet gevonden.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" bestaat al.";
@@ -93,11 +95,38 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Kies in het volgende scherm de map van uw bestaande kluis.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "De geselecteerde map is geen kluis. Probeer het opnieuw met een andere map.";
+"localFileSystemAuthentication.info.footer" = "Bestandsproviders die grijs zijn ondersteunen geen \"mappen kiezen\". Dit is geen beperking van Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
 
 "onboarding.title" = "Welkom";
+"onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen.\n\nMet Cryptomator is de sleutel tot uw gegevens in uw handen. Cryptomator versleutelt uw gegevens snel en eenvoudig.\n\nDeze app is volledig geïntegreerd in de bestandsapp. Zorg ervoor dat u Cryptomator later inschakelt in de Files app om toegang te krijgen tot uw kluizen.";
+"onboarding.button.continue" = "Doorgaan";
+
+"purchase.title" = "Volledige versie ontgrendelen";
+"purchase.info" = "U kunt Cryptomator gratis in alleen-lezen modus gebruiken. Overweeg om de volledige versie te ontgrendelen voor schrijftoegang naar uw kluizen.";
+"purchase.infoRunningTrial" = "Uw proefperiode verloopt op %@ en verleent u een beperkte tijd schrijftoegang tot uw kluizen. Overweeg om de volledige versie te ontgrendelen na de proefperiode.";
+"purchase.infoExpiredTrial" = "Uw proefperiode is verlopen. Overweeg om de volledige versie te ontgrendelen om de schrijftoegang tot uw kluis te herwinnen.";
+"purchase.upgrade.footer" = "Cryptomator heeft een oudere versie ontdekt. U komt in aanmerking voor een upgrade om de volledige versie te ontgrendelen.";
+"purchase.beginFreeTrial.button" = "Begin 30 dagen gratis proefperiode";
+"purchase.beginFreeTrial.footer" = "Probeer de volledige versie van Cryptomator tijdelijk gratis. U kunt deze proefversie maar één keer deblokkeren.";
+"purchase.beginFreeTrial.alert.title" = "Proefperiode ontgrendeld";
+"purchase.beginFreeTrial.alert.message" = "U kunt nu de volledige versie van Cryptomator voor een beperkte tijd gebruiken. Uw proefperiode verloopt op %@. Daarna is je kluis nog steeds toegankelijk in alleen-lezen modus.";
+"purchase.purchaseFullVersion.button" = "Koop volledige versie voor %@";
+"purchase.purchaseFullVersion.footer" = "Betaal eenmalig en ontgrendel schrijftoegang tot uw kluis voor levenslang.";
+"purchase.restorePurchase.button" = "Aankoop herstellen";
+"purchase.restorePurchase.footer" = "Als u de volledige versie van Cryptomator al hebt aangeschaft, kunt u deze aankoop herstellen.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Proefperiode voortgezet";
+"purchase.restorePurchase.validTrialFound.alert.message" = "U kunt nu de volledige versie van Cryptomator voor een beperkte tijd gebruiken. Uw proefperiode verloopt op %@. Daarna is je kluis nog steeds toegankelijk in alleen-lezen modus.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Herstellen geslaagd";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Geen volledige versie";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "We konden geen eerder aangeschafte volledige versie vinden die hersteld kon worden. Probeer een andere optie.";
 "purchase.retry.button" = "Opnieuw proberen";
+"purchase.retry.footer" = "De beschikbare producten konden niet worden geladen.";
+"purchase.decideLater.button" = "Beslis later";
+"purchase.decideLater.footer" = "U kunt later upgraden naar de volledige versie van Cryptomator in de instellingen en deze nu gebruiken in alleen-lezen modus.";
+"purchase.unlockedFullVersion.message" = "U kunt nu de volledige versie van Cryptomator gebruiken. Veel plezier met encrypteren!";
+"purchase.unlockedFullVersion.title" = "Dank u";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
@@ -110,6 +139,7 @@
 "settings.debugMode.alert.message" = "In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.";
 "settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
+"settings.unlockFullVersion" = "Volledige versie ontgrendelen";
 
 "unlockVault.button.unlock" = "Ontgrendel";
 "unlockVault.button.unlockVia" = "Ontgrendel via %@";
@@ -123,8 +153,14 @@
 "untrustedTLSCertificate.message" = "Het TLS certificaat van \"%@\" is ongeldig. Wilt u het toch vertrouwen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrouwen";
 "untrustedTLSCertificate.dismiss" = "Niet vertrouwen";
+
+"upgrade.title" = "Upgrade van versie 1.x";
+"upgrade.info" = "U komt in aanmerking voor een upgrade van een oudere versie van Cryptomator om de volledige versie te ontgrendelen. Bedankt voor het steunen van Cryptomator in het verleden!";
 "upgrade.paidUpgrade.button" = "Upgrade voor %@";
+"upgrade.paidUpgrade.footer" = "Het zou de huidige open source-ontwikkeling helpen en een grote steun voor ons zijn.";
 "upgrade.freeUpgrade.button" = "Gratis upgraden";
+"upgrade.freeUpgrade.footer" = "Geen zorgen, u kunt gratis upgraden naar de volledige versie zonder beperkingen.";
+"upgrade.decideLater.footer" = "U kunt later upgraden naar de volledige versie van Cryptomator in de instellingen en deze nu gebruiken in alleen-lezen modus.";
 
 "urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
 "urlSession.error.httpError.403" = "Verboden toegang.";
@@ -168,3 +204,4 @@
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "HTTP behouden";
