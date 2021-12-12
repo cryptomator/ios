@@ -123,6 +123,8 @@
 "untrustedTLSCertificate.message" = "Het TLS certificaat van \"%@\" is ongeldig. Wilt u het toch vertrouwen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrouwen";
 "untrustedTLSCertificate.dismiss" = "Niet vertrouwen";
+"upgrade.paidUpgrade.button" = "Upgrade voor %@";
+"upgrade.freeUpgrade.button" = "Gratis upgraden";
 
 "urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
 "urlSession.error.httpError.403" = "Verboden toegang.";
