@@ -11,6 +11,7 @@ import UIKit
 
 class DetectedVaultFailureViewController: UIViewController {
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		let failureView = DetectedVaultFailureView(text: LocalizedString.getValue("addVault.createNewVault.detectedMasterkey.text"))
 		let containerView = UIView()
 		containerView.backgroundColor = .systemGroupedBackground

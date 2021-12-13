@@ -23,6 +23,7 @@ class VaultDetailViewController: BaseUITableViewController {
 	}
 
 	override func viewDidLoad() {
+		super.viewDidLoad()
 		viewModel.title.$value
 			.receive(on: DispatchQueue.main)
 			.sink { [weak self] title in
