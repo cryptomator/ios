@@ -10,3 +10,5 @@
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
 
 "unlockVault.button.unlock" = "בטל נעילה";
+
+"vaultDetail.button.changeVaultPassword" = "שנה סיסמה";
