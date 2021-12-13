@@ -145,8 +145,13 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	func cleanUpNoLongerInTheCloudExistingItems(insideParentID parentID: Int64) throws {
 		let outdatedItems = try itemMetadataManager.getMaybeOutdatedItems(withParentID: parentID)
 		for outdatedItem in outdatedItems {
-			try deleteItemHelper.removeItemFromCache(outdatedItem)
-			try itemMetadataManager.removeItemMetadata(with: outdatedItem.id!)
+			do {
+				try deleteItemHelper.removeItemFromCache(outdatedItem)
+				try itemMetadataManager.removeItemMetadata(with: outdatedItem.id!)
+			} catch CachedFileManagerError.fileHasUnsyncedEdits {
+				// TODO: If this happens, it shouldn't be just "ignored". The outdated item is probably a folder, which contains files with unsynced edits. If that's true, they will never successfully sync and need a recovery strategy.
+				DDLogError("Removing outdated item \(outdatedItem.id!) with type \(outdatedItem.type) failed due to having unsynced edits")
+			}
 		}
 	}
 
