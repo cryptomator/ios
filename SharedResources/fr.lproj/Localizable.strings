@@ -100,11 +100,14 @@
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
 "onboarding.title" = "Bienvenue";
+"onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers.\n\nAvec Cryptomator, la clé de vos données est entre vos mains. Cryptomator crypte vos données rapidement et facilement.\n\nCette application est entièrement intégrée dans l'application Fichiers. Assurez-vous d'activer Cryptomator dans l'application Fichiers plus tard pour accéder à vos coffres.";
 "onboarding.button.continue" = "Continuer";
 
 "purchase.title" = "Débloquer la version complète";
 "purchase.info" = "Vous pouvez utiliser Cryptomator en mode lecture seule gratuitement. Pensez à déverrouiller la version complète pour accéder en écriture à vos coffres.";
 "purchase.infoRunningTrial" = "Votre période d'essai expire le %@, elle vous permet un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après l'essai.";
+"purchase.infoExpiredTrial" = "Votre période d'essai a expiré. Pensez à déverrouiller la version complète pour récupérer l'accès en écriture à vos coffres.";
+"purchase.upgrade.footer" = "Cryptomator a détecté une ancienne version. Vous êtes éligible à une mise à niveau pour débloquer la version complète.";
 "purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
