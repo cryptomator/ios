@@ -35,6 +35,8 @@ class LocalWebViewController: UIViewController, WKNavigationDelegate {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = viewModel.title
+		view.isOpaque = false
+		view.backgroundColor = UIColor(named: "background")
 		do {
 			let htmlString = try viewModel.loadHTMLString()
 			guard let webView = view as? WKWebView else { return }

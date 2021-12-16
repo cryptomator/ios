@@ -14,6 +14,7 @@ class SwitchCell: TableViewCell {
 
 	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		switchControl.onTintColor = UIColor(named: "primary")
 		accessoryView = switchControl
 	}
 

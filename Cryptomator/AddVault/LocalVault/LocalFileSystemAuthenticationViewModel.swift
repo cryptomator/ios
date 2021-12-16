@@ -127,7 +127,7 @@ class LocalFileSystemAuthenticationInfoFooterViewModel: AttributedTextHeaderFoot
 		let infoText = LocalizedString.getValue("localFileSystemAuthentication.info.footer")
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/cloud-management/")!])
 		text.append(learnMoreLink)
 		super.init(attributedText: text)
 	}

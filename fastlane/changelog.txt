@@ -1,4 +1,4 @@
-This will probably be the last public beta version before the release of the new Cryptomator for iOS app in the App Store!
+This is the release candidate of the new Cryptomator for iOS app. It's almost ready for the App Store!
 
 Feel free to also test the in-app purchases in this TestFlight version. If you're not already familiar with it, this _will not_ trigger actual purchases.
 
@@ -6,12 +6,7 @@ We're looking forward to your feedback! Check out our open-source repository on 
 
 ---
 
-## Changes Since 2.0.0 Beta 8
-- Added onboarding and in-app purchases while free version grants read-only access to your vaults (#116)
-- Added iCloud Drive (#40); fyi, you were already able to use iCloud Drive via "Other File Provider"
-- Added explanation for "Other File Provider" of why file providers may be grayed out (#51)
-- Added HTTP support for WebDAV connections (#109)
-- Improved dynamic type support (#119)
-- Constraint access of biometry keychain items to currently enrolled user (#110)
-- Fixed crash due to memory limit during encryption/decryption of large files (cryptolib-swift#8)
-- Cleaned up the UI with a modernized look
+## Changes Since 2.0.0 Beta 9
+- Added more detailed description about upgrading from the legacy app (#125)
+- Fixed creation of new vaults on certain file servers via SMB (#123)
+- Further cleaned up the UI with a modernized look

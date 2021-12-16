@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Zvoľte meno pre adresár.";
 "chooseFolder.createNewFolder.cells.name" = "Meno adresára";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Meno adresára nemôže byť prázdne.";
+"chooseFolder.createNewFolder.progress" = "Vytvára sa priečinok…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" nie je možné nájsť.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" už existuje.";

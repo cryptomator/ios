@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Wybierz nazwę katalogu.";
 "chooseFolder.createNewFolder.cells.name" = "Nazwa katalogu";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Nazwa folderu nie może być pusta";
+"chooseFolder.createNewFolder.progress" = "Tworzenie katalogu…";
 
 "cloudProvider.error.itemNotFound" = "'%s' nie został odnaleziony.";
 "cloudProvider.error.itemAlreadyExists" = "już istnieje.";

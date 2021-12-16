@@ -19,7 +19,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 
 	init(with viewModel: ChooseFolderViewModelProtocol) {
 		self.viewModel = viewModel
-		super.init(style: .grouped)
+		super.init()
 	}
 
 	override func viewDidLoad() {

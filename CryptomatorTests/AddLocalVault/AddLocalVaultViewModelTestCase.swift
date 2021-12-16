@@ -37,7 +37,7 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 		try masterkeyData.write(to: masterkeyURL)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		let vaultConfigURL = url.appendingPathComponent("vault.cryptomator")
-		try token.write(to: vaultConfigURL, atomically: true, encoding: .utf8)
+		try token.write(to: vaultConfigURL)
 	}
 
 	func createLegacyVault(at url: URL) throws {

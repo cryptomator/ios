@@ -67,7 +67,7 @@ public class VaultDBManager: VaultManager {
 		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let masterkey: Masterkey
 		let provider: LocalizedCloudProviderDecorator
-		let vaultConfigToken: String
+		let vaultConfigToken: Data
 		do {
 			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 			masterkey = try Masterkey.createNew()
@@ -114,9 +114,9 @@ public class VaultDBManager: VaultManager {
 		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting)
 	}
 
-	private func uploadVaultConfigToken(_ token: String, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
+	private func uploadVaultConfigToken(_ token: Data, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
-		try token.write(to: localVaultConfigURL, atomically: true, encoding: .utf8)
+		try token.write(to: localVaultConfigURL)
 		let vaultConfigCloudPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
 	}
@@ -165,8 +165,8 @@ public class VaultDBManager: VaultManager {
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		return provider.downloadFile(from: vaultConfigPath, to: localVaultConfigURL).then {
 			provider.downloadFile(from: masterkeyPath, to: localMasterkeyURL)
-		}.then { _ -> Promise<(Masterkey, String, Void)> in
-			let token = try String(contentsOf: localVaultConfigURL, encoding: .utf8)
+		}.then { _ -> Promise<(Masterkey, Data, Void)> in
+			let token = try Data(contentsOf: localVaultConfigURL)
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: token)
 			let masterkeyFile = try MasterkeyFile.withContentFromURL(url: localMasterkeyURL)
 			let masterkey = try masterkeyFile.unlock(passphrase: password)
@@ -355,7 +355,7 @@ public class VaultDBManager: VaultManager {
 
 	// MARK: - Internal
 
-	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: String, password: String, storePasswordInKeychain: Bool) throws {
+	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: Data, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
 		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
 		try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
@@ -374,7 +374,7 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	func postProcessChangePassphrase(masterkeyFileData: Data, forVaultUID vaultUID: String, vaultConfigToken: String?, newPassphrase: String) throws {
+	func postProcessChangePassphrase(masterkeyFileData: Data, forVaultUID vaultUID: String, vaultConfigToken: Data?, newPassphrase: String) throws {
 		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
 		try vaultCache.cache(cachedVault)
 		if try passwordManager.hasPassword(forVaultUID: vaultUID) {

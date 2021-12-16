@@ -27,26 +27,19 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 	// MARK: Sections
 
 	func testDefaultCellViewModelsNonEligibleUpgrade() {
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .loadingSection, elements: [viewModel.loadingCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
-		]
-		XCTAssertEqual(expectedSections, viewModel.sections)
+		assertHasInitialSections(viewModel: viewModel)
+
+		let upgradeSectionFooterTitle = viewModel.getFooterTitle(for: 1)
+		XCTAssertEqual(LocalizedString.getValue("purchase.upgrade.notEligible.footer"), upgradeSectionFooterTitle)
 		XCTAssertEqual(1, upgradeCheckerMock.couldBeEligibleForUpgradeCallsCount)
 	}
 
 	func testDefaultCellViewModelsEligibleUpgrade() {
 		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = true
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
-			Section(id: .loadingSection, elements: [viewModel.loadingCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
-		]
-		XCTAssertEqual(expectedSections, viewModel.sections)
+		assertHasInitialSections(viewModel: viewModel)
+
+		let upgradeSectionFooterTitle = viewModel.getFooterTitle(for: 1)
+		XCTAssertEqual(LocalizedString.getValue("purchase.upgrade.footer"), upgradeSectionFooterTitle)
 		XCTAssertEqual(1, upgradeCheckerMock.couldBeEligibleForUpgradeCallsCount)
 	}
 
@@ -54,6 +47,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 		let expectation = XCTestExpectation()
 		let expectedSections: [Section<PurchaseSection>] = [
 			Section(id: .emptySection, elements: []),
+			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
 			Section(id: .trialSection, elements: [viewModel.freeTrialButtonCellViewModel]),
 			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
 			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
@@ -74,6 +68,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 		let expectation = XCTestExpectation()
 		let expectedSections: [Section<PurchaseSection>] = [
 			Section(id: .emptySection, elements: []),
+			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
 			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
 			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
 			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
@@ -297,13 +292,25 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 	private func assertShowReloadSectionAfterFetchProductFailed(viewModel: PurchaseViewModel) {
 		let expectedSections: [Section<PurchaseSection>] = [
 			Section(id: .emptySection, elements: []),
+			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
 			Section(id: .retrySection, elements: [viewModel.retryButtonCellViewModel]),
 			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
 			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
 		]
 		XCTAssertEqual(expectedSections, viewModel.sections)
 		XCTAssertEqual(LocalizedString.getValue("purchase.retry.button"), viewModel.retryButtonCellViewModel.title.value)
-		XCTAssertEqual(LocalizedString.getValue("purchase.retry.footer"), viewModel.getFooterTitle(for: 1))
+		XCTAssertEqual(LocalizedString.getValue("purchase.retry.footer"), viewModel.getFooterTitle(for: 2))
+	}
+
+	private func assertHasInitialSections(viewModel: PurchaseViewModel) {
+		let expectedSections: [Section<PurchaseSection>] = [
+			Section(id: .emptySection, elements: []),
+			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
+			Section(id: .loadingSection, elements: [viewModel.loadingCellViewModel]),
+			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
+			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+		]
+		XCTAssertEqual(expectedSections, viewModel.sections)
 	}
 }
 

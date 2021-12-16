@@ -71,6 +71,7 @@
 "chooseFolder.createNewFolder.header.title" = "Zvolte název složky.";
 "chooseFolder.createNewFolder.cells.name" = "Název složky";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Název složky nemůže být prázdný.";
+"chooseFolder.createNewFolder.progress" = "Vytváření složky…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" nebylo nalezeno.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" již existuje.";

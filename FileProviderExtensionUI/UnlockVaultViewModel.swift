@@ -86,7 +86,7 @@ class UnlockVaultViewModel {
 	]
 
 	private let context: LAContext
-	private let passwordManager: VaultPasswordKeychainManager
+	private let passwordManager: VaultPasswordManager
 	private lazy var canEvaluatePolicy: Bool = {
 		var error: NSError?
 		if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
@@ -99,14 +99,14 @@ class UnlockVaultViewModel {
 
 	private let fileProviderConnector: FileProviderConnector
 
-	init(domain: NSFileProviderDomain, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(domain: NSFileProviderDomain, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared, passwordManager: VaultPasswordManager = VaultPasswordKeychainManager()) {
 		self.domain = domain
 		self.fileProviderConnector = fileProviderConnector
 		let context = LAContext()
 		// Remove fallback title because "Enter password" also closes the FileProviderExtensionUI and does not display the password input
 		context.localizedFallbackTitle = ""
 		self.context = context
-		self.passwordManager = VaultPasswordKeychainManager()
+		self.passwordManager = passwordManager
 	}
 
 	func numberOfRows(in section: Int) -> Int {

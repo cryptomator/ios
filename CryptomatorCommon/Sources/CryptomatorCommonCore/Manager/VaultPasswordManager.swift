@@ -11,7 +11,7 @@ import LocalAuthentication
 
 public protocol VaultPasswordManager {
 	func setPassword(_ password: String, forVaultUID vaultUID: String) throws
-	func getPassword(forVaultUID vaultUID: String) throws -> String
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String
 	func removePassword(forVaultUID vaultUID: String) throws
 	func hasPassword(forVaultUID vaultUID: String) throws -> Bool
 }
@@ -28,16 +28,6 @@ public class VaultPasswordKeychainManager: VaultPasswordManager {
 			throw VaultPasswordManagerError.encodingError
 		}
 		try CryptomatorUserPresenceKeychain.vaultPassword.set(vaultUID, value: data)
-	}
-
-	public func getPassword(forVaultUID vaultUID: String) throws -> String {
-		guard let data = CryptomatorUserPresenceKeychain.vaultPassword.getAsData(vaultUID) else {
-			throw VaultPasswordManagerError.passwordNotFound
-		}
-		guard let password = String(data: data, encoding: .utf8) else {
-			throw VaultPasswordManagerError.encodingError
-		}
-		return password
 	}
 
 	public func removePassword(forVaultUID vaultUID: String) throws {

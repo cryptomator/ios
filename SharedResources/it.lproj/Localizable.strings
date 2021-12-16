@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Scegli un nome per la cartella.";
 "chooseFolder.createNewFolder.cells.name" = "Nome della Cartella";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Il nome della cartella non può essere vuoto.";
+"chooseFolder.createNewFolder.progress" = "Creando la Cartella…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" non è stato trovato.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" esiste già.";
@@ -94,6 +95,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Nella prossima schermata, scegli la cartella della tua cassaforte esistente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La cartella selezionata non è una cassaforte. Riprova con una cartella diversa.";
+"localFileSystemAuthentication.info.footer" = "I fornitori di file ingrigiti non supportano le \"cartelle di selezione\". Questa non è una limitazione di Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "L'operazione non può essere eseguita perché altre operazioni in background per questa cassaforte devono prima terminare. Riprova più tardi.";
 

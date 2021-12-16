@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+import LocalAuthentication
 import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
@@ -128,11 +129,10 @@ class VaultManagerTests: XCTestCase {
 
 			// Vault config checks
 			let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
-			guard let uploadedVaultConfigData = cloudProviderMock.createdFiles[vaultConfigPath.path] else {
+			guard let uploadedVaultConfigToken = cloudProviderMock.createdFiles[vaultConfigPath.path] else {
 				XCTFail("Vault config not uploaded")
 				return
 			}
-			let uploadedVaultConfigToken = String(data: uploadedVaultConfigData, encoding: .utf8)
 
 			guard let savedVaultConfigToken = cachedVault.vaultConfigToken else {
 				XCTFail("savedVaultConfigToken is nil")
@@ -170,7 +170,7 @@ class VaultManagerTests: XCTestCase {
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
 		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token.data(using: .utf8)
+		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 
 		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
@@ -402,7 +402,7 @@ class VaultManagerTests: XCTestCase {
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
 		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token.data(using: .utf8)
+		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 
 		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
@@ -719,7 +719,7 @@ class VaultPasswordManagerMock: VaultPasswordManager {
 		savedPasswords[vaultUID] = password
 	}
 
-	func getPassword(forVaultUID vaultUID: String) throws -> String {
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String {
 		guard let password = savedPasswords[vaultUID] else {
 			throw VaultPasswordManagerError.passwordNotFound
 		}

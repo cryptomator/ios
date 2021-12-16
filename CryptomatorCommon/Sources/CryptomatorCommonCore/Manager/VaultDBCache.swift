@@ -19,7 +19,7 @@ public protocol VaultCache {
 public struct CachedVault: Codable {
 	let vaultUID: String
 	public let masterkeyFileData: Data
-	let vaultConfigToken: String?
+	let vaultConfigToken: Data?
 	let lastUpToDateCheck: Date
 }
 
