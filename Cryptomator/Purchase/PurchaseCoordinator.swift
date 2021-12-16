@@ -35,7 +35,7 @@ class PurchaseCoordinator: Coordinator {
 		} else if UIApplication.shared.canOpenURL(UpgradeChecker.upgradeURL) {
 			UIApplication.shared.open(UpgradeChecker.upgradeURL)
 		} else {
-			DDLogError("Preconditions for showing upgrade screen are not met")
+			showUpgradeFailedAlert()
 		}
 	}
 
@@ -79,5 +79,23 @@ class PurchaseCoordinator: Coordinator {
 
 	func getUpgradeCoordinator() -> UpgradeCoordinator {
 		return UpgradeCoordinator(navigationController: navigationController)
+	}
+
+	private func showUpgradeFailedAlert() {
+		let alertController = UIAlertController(title: LocalizedString.getValue("upgrade.notEligible.alert.title"),
+		                                        message: LocalizedString.getValue("upgrade.notEligible.alert.message"),
+		                                        preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.download"), style: .default) { _ in
+			self.showCryptomatorLegacyAppInAppStore()
+		}
+		alertController.addAction(okAction)
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
+		alertController.preferredAction = okAction
+		navigationController.present(alertController, animated: true)
+	}
+
+	private func showCryptomatorLegacyAppInAppStore() {
+		let cryptomatorLegacyAppStoreURL = URL(string: "itms-apps://apple.com/app/id953086535")!
+		UIApplication.shared.open(cryptomatorLegacyAppStoreURL)
 	}
 }
