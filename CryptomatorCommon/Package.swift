@@ -54,6 +54,7 @@ let package = Package(
 import Foundation
 
 if ProcessInfo.processInfo.environment["TESTFLIGHT"] == "1" {
+	print("Enabled TestFlight environment")
 	for target in package.targets {
 		target.swiftSettings = [.define("TESTFLIGHT")]
 	}
