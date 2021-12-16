@@ -143,18 +143,18 @@
 "settings.sendLogFile" = "Enviar archivo de registro";
 "settings.unlockFullVersion" = "Desbloquear versión completa";
 
-"snapshots.fileprovider.file1" = "/Accounting.numbers";
-"snapshots.fileprovider.file2" = "/Final Presentation.key";
-"snapshots.fileprovider.file3" = "/Product Trailer.mov";
-"snapshots.fileprovider.file4" = "/Proposal.docx";
-"snapshots.fileprovider.file5" = "/Report.pdf";
-"snapshots.fileprovider.folder3" = "/Secret Project";
-"snapshots.fileprovider.folder2" = "/Invoices";
-"snapshots.fileprovider.folder1" = "/Certificates";
-"snapshots.main.vault1" = "/Work";
-"snapshots.main.vault2" = "/Family";
-"snapshots.main.vault3" = "/Documents";
-"snapshots.main.vault4" = "/Trip to California";
+"snapshots.fileprovider.file1" = "/Números.contables";
+"snapshots.fileprovider.file2" = "/Presentación final.key";
+"snapshots.fileprovider.file3" = "/Trailer de producto.mov";
+"snapshots.fileprovider.file4" = "/Propuesta.docx";
+"snapshots.fileprovider.file5" = "/Informe.pdf";
+"snapshots.fileprovider.folder3" = "/Proyecto Secreto";
+"snapshots.fileprovider.folder2" = "/Facturas";
+"snapshots.fileprovider.folder1" = "/Certificados";
+"snapshots.main.vault1" = "/Trabajo";
+"snapshots.main.vault2" = "/Familia";
+"snapshots.main.vault3" = "/Documentos";
+"snapshots.main.vault4" = "/Viaje a California";
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
