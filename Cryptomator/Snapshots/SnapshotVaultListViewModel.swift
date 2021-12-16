@@ -52,10 +52,10 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .localFileSystem(type: .iCloudDrive))
 		]
 		let vaultPaths = [
-			CloudPath("/Work"),
-			CloudPath("/Family"),
-			CloudPath("/Documents"),
-			CloudPath("/Trip to California")
+			CloudPath(LocalizedString.getValue("snapshots.main.vault1")),
+			CloudPath(LocalizedString.getValue("snapshots.main.vault2")),
+			CloudPath(LocalizedString.getValue("snapshots.main.vault3")),
+			CloudPath(LocalizedString.getValue("snapshots.main.vault4"))
 		]
 		let vaults = cloudProviderAccounts.enumerated().map { index, cloudProviderAccount -> VaultInfo in
 			let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: vaultPaths[index], vaultName: vaultPaths[index].lastPathComponent)
