@@ -9,6 +9,16 @@ platform :ios do
     match(type: "development", force_for_new_devices: true)
   end
 
+  desc "Create screenshots in every language with every device"
+  lane :create_screenshots do
+    snapshot()
+  end
+
+  desc "Upload screenshots to App Store Connect"
+  lane :upload_screenshots do
+    deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false, submit_for_review: false)
+  end
+
   desc "Update metadata in App Store Connect"
   lane :update_metadata do
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)

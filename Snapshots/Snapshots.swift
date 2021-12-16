@@ -32,7 +32,7 @@ class Snapshots: XCTestCase {
 	}
 
 	private func mainAppSnapshots() {
-		setupSnapshot(app)
+		setupSnapshot(app, waitForAnimations: false)
 		app.launch()
 		switch UIDevice.current.userInterfaceIdiom {
 		case .phone:
@@ -80,11 +80,6 @@ class Snapshots: XCTestCase {
 		let continueButton = onboardingTable.cells.firstMatch
 		XCTAssert(continueButton.waitForIsHittable(timeout: 3.0))
 		continueButton.tap()
-
-		let purchaseTable = app.tables["Snapshot_PurchaseViewController"]
-		let decideLaterButton = purchaseTable.cells.element(boundBy: 3)
-		XCTAssert(decideLaterButton.waitForIsHittable(timeout: 10.0))
-		decideLaterButton.tap()
 	}
 
 	private func vaultListSnapshot() {

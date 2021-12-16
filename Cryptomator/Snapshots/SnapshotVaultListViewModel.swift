@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+#if SNAPSHOTS
 import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -64,3 +65,4 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 		return vaults.map { VaultCellViewModel(vault: $0) }
 	}
 }
+#endif

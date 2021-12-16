@@ -6,10 +6,12 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+#if SNAPSHOTS
 import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import Promises
+import UIKit
 
 class SnapshotCoordinator: MainCoordinator {
 	private static let vaultListViewModel = SnapshotVaultListViewModel()
@@ -45,6 +47,7 @@ class SnapshotCoordinator: MainCoordinator {
 
 	private func swizzleViewController() {
 		BaseUITableViewController.setSnapshotAccessibilityIdentifier
+		OnboardingViewController.skipPurchaseViewController
 		OnboardingNavigationController.informAboutDisappear
 	}
 }
@@ -99,6 +102,19 @@ extension BaseUITableViewController {
 	}
 }
 
+extension OnboardingViewController {
+	static let skipPurchaseViewController: Void = {
+		guard let originalMethod = class_getInstanceMethod(OnboardingViewController.self, #selector(tableView(_:didSelectRowAt:))),
+		      let swizzledMethod = class_getInstanceMethod(OnboardingViewController.self, #selector(swizzled_tableView(_:didSelectRowAt:)))
+		else { return }
+		method_exchangeImplementations(originalMethod, swizzledMethod)
+	}()
+
+	@objc func swizzled_tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		dismiss(animated: false)
+	}
+}
+
 extension OnboardingNavigationController {
 	static let informAboutDisappear: Void = {
 		guard let originalMethod = class_getInstanceMethod(OnboardingNavigationController.self, #selector(viewWillDisappear(_:))),
@@ -112,3 +128,4 @@ extension OnboardingNavigationController {
 		SnapshotCoordinator.startShowingMockVaults()
 	}
 }
+#endif

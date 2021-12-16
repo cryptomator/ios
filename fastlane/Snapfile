@@ -1,15 +1,15 @@
 # A list of devices you want to take the screenshots from
- devices([
-"iPhone 13 Pro Max",
-"iPhone 8 Plus"
-"iPad Pro (12.9-inch) (4th generation)",
-"iPad Pro (12.9-inch) (2nd generation)"
- ])
+devices([
+  "iPhone 13 Pro Max",
+  "iPhone 8 Plus",
+  "iPad Pro (12.9-inch) (4th generation)",
+  "iPad Pro (12.9-inch) (2nd generation)",
+])
 
- languages([
-   "en-US",
-   "de-DE",
- ])
+languages([
+  "en-US",
+  "de-DE",
+])
 
 # The name of the scheme which contains the UI Tests
 scheme("Snapshots")
@@ -25,7 +25,6 @@ xcargs "SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) SNAPSHOTS'"
 
 # Erasing the simulator is necessary to bring the Files App to its original state
 erase_simulator(true)
-
 
 # Uncomment below for debugging
 # clear_previous_screenshots(true)

@@ -1060,10 +1060,10 @@
 				4AE97DC024572E4A00452814 /* CryptomatorTests */,
 				4AA621D7249A6A8400A0BCBD /* FileProviderExtension */,
 				4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */,
-				4A136122276767D60077EB7F /* Snapshots */,
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				74D365BC268B965B005ECD69 /* SharedResources */,
+				4A136122276767D60077EB7F /* Snapshots */,
 				74F5DC1826D929FC00AFE989 /* StoreKitTestConfiguration */,
 			);
 			sourceTree = "<group>";
@@ -1405,10 +1405,10 @@
 				74F5DC1A26DCD2E300AFE989 /* Purchase */,
 				7408E6C8267797DC00D7FAEA /* Resources */,
 				740D367C266A18C80058744D /* Settings */,
+				4A13613027676F610077EB7F /* Snapshots */,
 				4A4B7E4026B2ABC4009BFDB1 /* VaultDetail */,
 				4A8195DB25ADB8AD00F7DDA1 /* VaultList */,
 				4AA22C08261CA71300A17486 /* WebDAV */,
-				4A13613027676F610077EB7F /* Snapshots */,
 			);
 			path = Cryptomator;
 			sourceTree = "<group>";
@@ -2476,27 +2476,16 @@
 		4A136129276767D60077EB7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FZ53285T8H;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.Snapshots;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Debug;
@@ -2504,23 +2493,16 @@
 		4A13612A276767D60077EB7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = FZ53285T8H;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.Snapshots;
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Release;
@@ -2538,8 +2520,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.fileprovider-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2556,8 +2536,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.fileprovider-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2575,8 +2553,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.common-hostedtests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Debug;
@@ -2595,8 +2571,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.common-hostedtests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
@@ -2661,6 +2635,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2718,6 +2694,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2741,8 +2719,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.cryptomator.ios.fileprovider-ui";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2765,8 +2741,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios.fileprovider-ui";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2792,8 +2766,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2818,8 +2790,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios.fileprovider";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2841,8 +2811,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.cryptomator.ios";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2864,8 +2832,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2883,8 +2849,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Debug;
@@ -2903,8 +2867,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
@@ -2918,8 +2880,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2932,8 +2892,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
