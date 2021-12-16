@@ -15,8 +15,9 @@ class RootViewController: FPUIActionExtensionViewController {
 	private lazy var coordinator: FileProviderCoordinator = {
 		#if SNAPSHOTS
 		return FileProviderCoordinatorSnapshotMock(extensionContext: extensionContext, hostViewController: self)
-		#endif
+		#else
 		return .init(extensionContext: extensionContext, hostViewController: self)
+		#endif
 	}()
 
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {

@@ -229,7 +229,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 */
 		#if SNAPSHOTS
 		return FileProviderEnumeratorSnapshotMock()
-		#endif
+		#else
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
 		guard let manager = manager, let domain = domain, let dbPath = dbPath, let notificator = notificator else {
@@ -238,6 +238,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			throw NSFileProviderError(.notAuthenticated)
 		}
 		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, manager: manager, dbPath: dbPath, localURLProvider: self)
+		#endif
 	}
 
 	func setUp() throws {
