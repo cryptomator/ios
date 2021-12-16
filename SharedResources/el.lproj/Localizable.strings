@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Επιλέξτε ένα όνομα για το φάκελο.";
 "chooseFolder.createNewFolder.cells.name" = "Όνομα Φακέλου";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Το όνομα φακέλου δεν μπορεί να είναι κενό.";
+"chooseFolder.createNewFolder.progress" = "Δημιουργία Φακέλου…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" δεν βρέθηκε.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" υπάρχει ήδη.";
@@ -94,6 +95,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Στην επόμενη οθόνη, επιλέξτε το φάκελο της υπάρχοντος κρύπτη σας.";
 "localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Κρύπτης";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ο επιλεγμένος φάκελος δεν είναι κρύπτη. Παρακαλώ προσπαθήστε ξανά με διαφορετικό φάκελο.";
+"localFileSystemAuthentication.info.footer" = "Οι πάροχοι αρχείων που είναι γκριζαρισμένοι δεν υποστηρίζουν \"επιλογή φακέλων\". Αυτό δεν είναι περιορισμός του Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Η λειτουργία δεν μπορεί να εκτελεστεί επειδή άλλες λειτουργίες στο παρασκήνιο αυτής της κρύπτης πρέπει να τελειώσουν πρώτα. Παρακαλώ δοκιμάστε ξανά αργότερα.";
 
@@ -103,6 +105,7 @@
 
 "purchase.title" = "Ξεκλείδωμα Πλήρους Έκδοσης";
 "purchase.info" = "Μπορείτε να χρησιμοποιήσετε Cryptomator σε λειτουργία μόνο για ανάγνωση δωρεάν. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
+"purchase.infoRunningTrial" = "Η δοκιμαστική περίοδος λήγει στις %@ και σας δίνει άδεια πρόσβασης με απεριόριστο αριθμό κρυπτών για περιορισμένο χρονικό διάστημα. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση μετά τη δοκιμή.";
 "purchase.infoExpiredTrial" = "Η δοκιμή σας έχει λήξει. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
 "purchase.upgrade.footer" = "To Cryptomator εντόπισε μια παλαιότερη έκδοση. Πληροίτε τα κριτήρια για αναβάθμιση για να ξεκλειδώσετε την πλήρη έκδοση.";
 "purchase.beginFreeTrial.button" = "Έναρξη δοκιμής 30 ημερών δωρεάν";

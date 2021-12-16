@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "为文件夹创建一个名称。";
 "chooseFolder.createNewFolder.cells.name" = "文件夹名称";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "文件夹名称不能为空。";
+"chooseFolder.createNewFolder.progress" = "正在创建文件夹...";
 
 "cloudProvider.error.itemNotFound" = "找不到 %@\"。";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在。";

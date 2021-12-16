@@ -14,6 +14,7 @@
 "common.button.create" = "Создать";
 "common.button.createFolder" = "Создать папку";
 "common.button.done" = "Готово";
+"common.button.download" = "Скачать";
 "common.button.edit" = "Изменить";
 "common.button.enable" = "Включить";
 "common.button.next" = "Далее";
@@ -105,6 +106,7 @@
 "purchase.info" = "Вы можете бесплатно использовать Cryptomator только в режиме \"для чтения\". Рассмотрите возможность разблокирования полной версии для доступа на запись в ваши хранилища.";
 "purchase.infoExpiredTrial" = "Пробный период истек. Рассмотрите возможность разблокировки полной версии, чтобы восстановить доступ на запись к вашим хранилищам.";
 "purchase.upgrade.footer" = "Cryptomator обнаружил более старую версию. Вы можете обновиться, чтобы разблокировать полную версию.";
+"purchase.upgrade.notEligible.footer" = "Если вы уже купили старую версию Cryptomator, скачайте её заново из App Store.";
 "purchase.beginFreeTrial.button" = "Начать 30-ти дневный Пробный период Бесплатно";
 "purchase.beginFreeTrial.footer" = "Попробуйте полную версию Cryptomator в течение ограниченного времени бесплатно. Вы можете разблокировать эту пробную версию только один раз.";
 "purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
@@ -122,6 +124,8 @@
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
 "settings.unlockFullVersion" = "Разблокировать Полную Версию";
+
+"snapshots.fileprovider.file1" = "/Учет.числа";
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";

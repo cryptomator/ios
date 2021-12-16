@@ -72,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Elija un nombre para la carpeta.";
 "chooseFolder.createNewFolder.cells.name" = "Nombre de la carpeta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "El nombre de la carpeta no puede estar vacío.";
+"chooseFolder.createNewFolder.progress" = "Creando carpeta…";
 
 "cloudProvider.error.itemNotFound" = "No se pudo encontrar \"%@\".";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" ya existe.";
