@@ -24,10 +24,9 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 
 	func createAttributedText(loggedInText: String) -> NSAttributedString {
 		let infoText = loggedInText + LocalizedString.getValue("vaultDetail.info.footer.accessVault")
-
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://cryptomator.org")!]) // TODO: replace link
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/access-vault/")!])
 		text.append(learnMoreLink)
 		return text
 	}
