@@ -8,6 +8,7 @@
 
 import Foundation
 import GRDB
+import LocalAuthentication
 import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
@@ -718,7 +719,7 @@ class VaultPasswordManagerMock: VaultPasswordManager {
 		savedPasswords[vaultUID] = password
 	}
 
-	func getPassword(forVaultUID vaultUID: String) throws -> String {
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String {
 		guard let password = savedPasswords[vaultUID] else {
 			throw VaultPasswordManagerError.passwordNotFound
 		}

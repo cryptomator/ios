@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import LocalAuthentication
 import XCTest
 @testable import CryptomatorCommonCore
 
@@ -18,7 +19,7 @@ class VaultPasswordKeychainManagerTests: XCTestCase {
 		let password = "pw"
 		let vaultUID = UUID().uuidString
 		try passwordManager.setPassword(password, forVaultUID: vaultUID)
-		let fetchedPassword = try passwordManager.getPassword(forVaultUID: vaultUID)
+		let fetchedPassword = try passwordManager.getPassword(forVaultUID: vaultUID, context: LAContext())
 		XCTAssertEqual(password, fetchedPassword)
 		try passwordManager.removePassword(forVaultUID: vaultUID)
 	}
@@ -33,7 +34,7 @@ class VaultPasswordKeychainManagerTests: XCTestCase {
 		try passwordManager.setPassword(oldPassword, forVaultUID: vaultUID)
 		let newPassword = "newPW"
 		try passwordManager.setPassword(newPassword, forVaultUID: vaultUID)
-		let fetchedPassword = try passwordManager.getPassword(forVaultUID: vaultUID)
+		let fetchedPassword = try passwordManager.getPassword(forVaultUID: vaultUID, context: LAContext())
 		XCTAssertEqual(newPassword, fetchedPassword)
 		try passwordManager.removePassword(forVaultUID: vaultUID)
 	}
@@ -47,7 +48,7 @@ class VaultPasswordKeychainManagerTests: XCTestCase {
 		let vaultUID = UUID().uuidString
 		try passwordManager.setPassword(password, forVaultUID: vaultUID)
 		try passwordManager.removePassword(forVaultUID: vaultUID)
-		XCTAssertThrowsError(try passwordManager.getPassword(forVaultUID: vaultUID)) { error in
+		XCTAssertThrowsError(try passwordManager.getPassword(forVaultUID: vaultUID, context: LAContext())) { error in
 			guard case VaultPasswordManagerError.passwordNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return

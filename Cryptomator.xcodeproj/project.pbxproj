@@ -18,6 +18,10 @@
 		4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07E125AC80C100B83211 /* UIView+Preview.swift */; };
 		4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07EA25AC832900B83211 /* VaultListPosition.swift */; };
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
+		4A136124276767D60077EB7F /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A136123276767D60077EB7F /* Snapshots.swift */; };
+		4A13612D276768000077EB7F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13612C276768000077EB7F /* SnapshotHelper.swift */; };
+		4A13612F27676F5C0077EB7F /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13612E27676F5C0077EB7F /* SnapshotCoordinator.swift */; };
+		4A136132276770BB0077EB7F /* SnapshotVaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A136131276770BB0077EB7F /* SnapshotVaultListViewModel.swift */; };
 		4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */; };
 		4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */; };
 		4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */; };
@@ -177,6 +181,10 @@
 		4A7B97E525B6F86E0044B7FB /* AccountListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */; };
 		4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */; };
 		4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */; };
+		4A80407B2769201400D7D999 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
+		4A80407D27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80407C27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift */; };
+		4A80408027694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80407F27694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift */; };
+		4A804082276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A804081276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift */; };
 		4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */; };
 		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
 		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
@@ -326,6 +334,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4A136127276767D60077EB7F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4AE97DA724572E4900452814;
+			remoteInfo = Cryptomator;
+		};
 		4A1673EE270DE4600075C724 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
@@ -431,6 +446,11 @@
 		4A0C07E125AC80C100B83211 /* UIView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Preview.swift"; sourceTree = "<group>"; };
 		4A0C07EA25AC832900B83211 /* VaultListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListPosition.swift; sourceTree = "<group>"; };
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
+		4A136121276767D60077EB7F /* Snapshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Snapshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A136123276767D60077EB7F /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
+		4A13612C276768000077EB7F /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotHelper.swift; sourceTree = "<group>"; };
+		4A13612E27676F5C0077EB7F /* SnapshotCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotCoordinator.swift; sourceTree = "<group>"; };
+		4A136131276770BB0077EB7F /* SnapshotVaultListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVaultListViewModel.swift; sourceTree = "<group>"; };
 		4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWithLabelCell.swift; sourceTree = "<group>"; };
 		4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWithLabelCellViewModel.swift; sourceTree = "<group>"; };
 		4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCacheManager.swift; sourceTree = "<group>"; };
@@ -590,6 +610,9 @@
 		4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListPosition.swift; sourceTree = "<group>"; };
 		4A7BC0DF25ADF12D00F007B3 /* AddVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultViewController.swift; sourceTree = "<group>"; };
 		4A7BC0F025ADFAD600F007B3 /* AddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultCoordinator.swift; sourceTree = "<group>"; };
+		4A80407C27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderEnumeratorSnapshotMock.swift; sourceTree = "<group>"; };
+		4A80407F27694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingServiceSourceSnapshotMock.swift; sourceTree = "<group>"; };
+		4A804081276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorSnapshotMock.swift; sourceTree = "<group>"; };
 		4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewController.swift; sourceTree = "<group>"; };
 		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
@@ -767,6 +790,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A13611E276767D60077EB7F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A2245CD24A5E16300DBA437 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -833,6 +863,24 @@
 				4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */,
 			);
 			path = MoveVault;
+			sourceTree = "<group>";
+		};
+		4A136122276767D60077EB7F /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				4A13612C276768000077EB7F /* SnapshotHelper.swift */,
+				4A136123276767D60077EB7F /* Snapshots.swift */,
+			);
+			path = Snapshots;
+			sourceTree = "<group>";
+		};
+		4A13613027676F610077EB7F /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				4A13612E27676F5C0077EB7F /* SnapshotCoordinator.swift */,
+				4A136131276770BB0077EB7F /* SnapshotVaultListViewModel.swift */,
+			);
+			path = Snapshots;
 			sourceTree = "<group>";
 		};
 		4A1C6D5B274D225A00B41FFF /* Purchase */ = {
@@ -1015,6 +1063,7 @@
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				74D365BC268B965B005ECD69 /* SharedResources */,
+				4A136122276767D60077EB7F /* Snapshots */,
 				74F5DC1826D929FC00AFE989 /* StoreKitTestConfiguration */,
 			);
 			sourceTree = "<group>";
@@ -1029,6 +1078,7 @@
 				4A2245D024A5E16300DBA437 /* CryptomatorFileProviderTests.xctest */,
 				740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */,
 				4A51E5FC261C9A7000CC8C9B /* CryptomatorCommonHostedTests.xctest */,
+				4A136121276767D60077EB7F /* Snapshots.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1104,6 +1154,23 @@
 				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
 			);
 			path = AddVault;
+			sourceTree = "<group>";
+		};
+		4A80407E27692A0900D7D999 /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				4A80407C27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift */,
+				4A80407F27694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift */,
+			);
+			path = Snapshots;
+			sourceTree = "<group>";
+		};
+		4A804083276952C600D7D999 /* Snapshots */ = {
+			isa = PBXGroup;
+			children = (
+				4A804081276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift */,
+			);
+			path = Snapshots;
 			sourceTree = "<group>";
 		};
 		4A8195DB25ADB8AD00F7DDA1 /* VaultList */ = {
@@ -1251,6 +1318,7 @@
 				4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */,
 				4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */,
 				4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */,
+				4A80407E27692A0900D7D999 /* Snapshots */,
 			);
 			path = FileProviderExtension;
 			sourceTree = "<group>";
@@ -1265,6 +1333,7 @@
 				4A6A520C268B5EF7006F7368 /* RootViewController.swift */,
 				4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */,
 				4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */,
+				4A804083276952C600D7D999 /* Snapshots */,
 			);
 			path = FileProviderExtensionUI;
 			sourceTree = "<group>";
@@ -1336,6 +1405,7 @@
 				74F5DC1A26DCD2E300AFE989 /* Purchase */,
 				7408E6C8267797DC00D7FAEA /* Resources */,
 				740D367C266A18C80058744D /* Settings */,
+				4A13613027676F610077EB7F /* Snapshots */,
 				4A4B7E4026B2ABC4009BFDB1 /* VaultDetail */,
 				4A8195DB25ADB8AD00F7DDA1 /* VaultList */,
 				4AA22C08261CA71300A17486 /* WebDAV */,
@@ -1560,6 +1630,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		4A136120276767D60077EB7F /* Snapshots */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A13612B276767D60077EB7F /* Build configuration list for PBXNativeTarget "Snapshots" */;
+			buildPhases = (
+				4A13611D276767D60077EB7F /* Sources */,
+				4A13611E276767D60077EB7F /* Frameworks */,
+				4A13611F276767D60077EB7F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4A136128276767D60077EB7F /* PBXTargetDependency */,
+			);
+			name = Snapshots;
+			packageProductDependencies = (
+			);
+			productName = Snapshots;
+			productReference = 4A136121276767D60077EB7F /* Snapshots.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		4A2245CF24A5E16300DBA437 /* CryptomatorFileProviderTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A2245D824A5E16300DBA437 /* Build configuration list for PBXNativeTarget "CryptomatorFileProviderTests" */;
@@ -1706,10 +1796,14 @@
 		4A5E5B212453119100BD6298 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 1310;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Skymatic GmbH";
 				TargetAttributes = {
+					4A136120276767D60077EB7F = {
+						CreatedOnToolsVersion = 13.1;
+						TestTargetID = 4AE97DA724572E4900452814;
+					};
 					4A2245CF24A5E16300DBA437 = {
 						CreatedOnToolsVersion = 11.5;
 					};
@@ -1777,11 +1871,19 @@
 				4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				740375D62587AE7A0023FF53 /* CryptomatorFileProvider */,
 				4A2245CF24A5E16300DBA437 /* CryptomatorFileProviderTests */,
+				4A136120276767D60077EB7F /* Snapshots */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A13611F276767D60077EB7F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A2245CE24A5E16300DBA437 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1800,6 +1902,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A80407B2769201400D7D999 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1917,6 +2020,15 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A13611D276767D60077EB7F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A136124276767D60077EB7F /* Snapshots.swift in Sources */,
+				4A13612D276768000077EB7F /* SnapshotHelper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A2245CC24A5E16300DBA437 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1974,8 +2086,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A80408027694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift in Sources */,
 				4AFD8C112693204900F77BA6 /* ErrorWrapper.swift in Sources */,
 				4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */,
+				4A80407D27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift in Sources */,
 				4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */,
 				4A24001A26AE9F3A009DBC2E /* VaultLockingServiceSource.swift in Sources */,
 				4A9BED64268F1DB000721BAA /* VaultUnlockingServiceSource.swift in Sources */,
@@ -1989,6 +2103,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */,
+				4A804082276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift in Sources */,
 				4A9BED66268F2D9D00721BAA /* UnlockVaultViewController.swift in Sources */,
 				4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */,
 				4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */,
@@ -2030,6 +2145,7 @@
 				4A644B57267C958F008CBB9A /* ChildCoordinator.swift in Sources */,
 				4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */,
 				4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */,
+				4A136132276770BB0077EB7F /* SnapshotVaultListViewModel.swift in Sources */,
 				747C35172762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift in Sources */,
 				7408E6BF267783F100D7FAEA /* LocalWebViewController.swift in Sources */,
 				4A447E4D25BF1E8B00D9520D /* FileCell.swift in Sources */,
@@ -2076,6 +2192,7 @@
 				4A1EB0CA2689C373006D072B /* LocalVaultAdding.swift in Sources */,
 				4A4B7E6D26B9462F009BFDB1 /* Bindable.swift in Sources */,
 				4A512D6A274277FF00DC26F8 /* EditableDataSource.swift in Sources */,
+				4A13612F27676F5C0077EB7F /* SnapshotCoordinator.swift in Sources */,
 				4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */,
 				4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */,
 				4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */,
@@ -2266,6 +2383,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		4A136128276767D60077EB7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4AE97DA724572E4900452814 /* Cryptomator */;
+			targetProxy = 4A136127276767D60077EB7F /* PBXContainerItemProxy */;
+		};
 		4A1673EF270DE4600075C724 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
@@ -2351,6 +2473,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4A136129276767D60077EB7F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Cryptomator;
+			};
+			name = Debug;
+		};
+		4A13612A276767D60077EB7F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = YZQJQUHA3L;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = Cryptomator;
+			};
+			name = Release;
+		};
 		4A2245D924A5E16300DBA437 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -2364,8 +2520,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.fileprovider-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2382,8 +2536,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.fileprovider-tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2401,8 +2553,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.common-hostedtests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Debug;
@@ -2421,8 +2571,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cryptomator.ios.common-hostedtests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
@@ -2487,6 +2635,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2544,6 +2694,8 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -2567,8 +2719,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.cryptomator.ios.fileprovider-ui";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2591,8 +2741,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios.fileprovider-ui";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2618,8 +2766,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2644,8 +2790,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios.fileprovider";
 				SKIP_INSTALL = YES;
 				SWIFT_OBJC_BRIDGING_HEADER = "FileProviderExtension/FileProviderExtension-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2667,8 +2811,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.cryptomator.ios";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2690,8 +2832,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -2709,8 +2849,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Debug;
@@ -2729,8 +2867,6 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Cryptomator.app/Cryptomator";
 			};
 			name = Release;
@@ -2744,8 +2880,6 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2758,14 +2892,21 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A13612B276767D60077EB7F /* Build configuration list for PBXNativeTarget "Snapshots" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A136129276767D60077EB7F /* Debug */,
+				4A13612A276767D60077EB7F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4A2245D824A5E16300DBA437 /* Build configuration list for PBXNativeTarget "CryptomatorFileProviderTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

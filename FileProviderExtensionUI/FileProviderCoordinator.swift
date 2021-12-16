@@ -13,9 +13,7 @@ import FileProviderUI
 import UIKit
 
 class FileProviderCoordinator {
-	private let extensionContext: FPUIActionExtensionContext
-	private weak var hostViewController: UIViewController?
-	private lazy var navigationController: UINavigationController = {
+	lazy var navigationController: UINavigationController = {
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
 		appearance.backgroundColor = UIColor(named: "primary")
@@ -27,6 +25,9 @@ class FileProviderCoordinator {
 		addViewControllerAsChildToHost(navigationController)
 		return navigationController
 	}()
+
+	private let extensionContext: FPUIActionExtensionContext
+	private weak var hostViewController: UIViewController?
 
 	init(extensionContext: FPUIActionExtensionContext, hostViewController: UIViewController) {
 		self.extensionContext = extensionContext
