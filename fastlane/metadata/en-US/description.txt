@@ -7,13 +7,14 @@ Cryptomator is a simple tool for digital self-defense. It allows you to protect 
 • Simply create a vault and assign a password
 • No additional account or configuration needed
 • Unlock vaults with Face ID / Touch ID
+• Fully integrated into the Files app
 
 COMPATIBLE
 
 Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
 
 • Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, and WebDAV-based cloud storage services
-• Create vaults in any location via other File Providers (e.g., works with third-party apps)
+• Create vaults in any location via other File Providers (third-party apps must support this)
 • Access your vaults on all your mobile devices and computers
 
 SECURE
@@ -22,7 +23,6 @@ You don't have to trust Cryptomator blindly, because it is open source software.
 
 • File content and filename encryption with AES and 256 bit key length
 • Vault password is secured with scrypt for enhanced brute-force resistance
-• Vaults are automatically locked after sending app to background
 • Crypto implementation is publicly documented
 
 AWARD-WINNING
