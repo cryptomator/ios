@@ -65,9 +65,10 @@ class UnlockVaultViewController: UITableViewController {
 		title = viewModel.title
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		let unlockButton = UIBarButtonItem(title: LocalizedString.getValue("unlockVault.button.unlock"), style: .done, target: self, action: #selector(unlock))
-
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = unlockButton
+		tableView.backgroundColor = UIColor(named: "background")
+		tableView.cellLayoutMarginsFollowReadableWidth = true
 	}
 
 	private func biometricalUnlock() {

@@ -33,6 +33,8 @@ class OnboardingViewController: UITableViewController {
 		title = LocalizedString.getValue("fileProvider.onboarding.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
+		tableView.backgroundColor = UIColor(named: "background")
+		tableView.cellLayoutMarginsFollowReadableWidth = true
 	}
 
 	@objc func done() {

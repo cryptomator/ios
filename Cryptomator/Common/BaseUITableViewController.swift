@@ -25,5 +25,6 @@ class BaseUITableViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView.backgroundColor = UIColor(named: "background")
+		tableView.cellLayoutMarginsFollowReadableWidth = true
 	}
 }
