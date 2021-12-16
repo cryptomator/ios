@@ -14,6 +14,7 @@
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crear carpeta";
 "common.button.done" = "Hecho";
+"common.button.download" = "Descargar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Activar";
 "common.button.next" = "Continuar";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Su prueba expira el %@ y le otorga acceso de escritura a sus bóvedas por un tiempo limitado. Considere desbloquear la versión completa después de la prueba.";
 "purchase.infoExpiredTrial" = "Su prueba ha expirado. Considere desbloquear la versión completa para recuperar el acceso de escritura a sus bóvedas.";
 "purchase.upgrade.footer" = "Cryptomator detectó una versión anterior. Es elegible para una actualización para desbloquear la versión completa.";
+"purchase.upgrade.notEligible.footer" = "Si ya ha comprado una versión anterior de Cryptomator, vuelva a descargarla desde la App Store.";
 "purchase.beginFreeTrial.button" = "Comenzar prueba gratuita de 30 días";
 "purchase.beginFreeTrial.footer" = "Pruebe la versión completa de Cryptomator por un tiempo limitado gratis. Puede desbloquear esta prueba una sola vez.";
 "purchase.beginFreeTrial.alert.title" = "Prueba desbloqueada";
@@ -141,6 +143,19 @@
 "settings.sendLogFile" = "Enviar archivo de registro";
 "settings.unlockFullVersion" = "Desbloquear versión completa";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
+
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
 "unlockVault.password.footer" = "Ingresar contraseña para \"%@\".";
@@ -161,6 +176,8 @@
 "upgrade.freeUpgrade.button" = "Actualizar gratis";
 "upgrade.freeUpgrade.footer" = "No se preocupe, también puede actualizar gratis a la versión completa sin limitaciones.";
 "upgrade.decideLater.footer" = "Puede actualizar a la versión completa de Cryptomator más adelante en los ajustes y usarlo en modo de solo lectura por ahora.";
+"upgrade.notEligible.alert.title" = "Error al actualizar";
+"upgrade.notEligible.alert.message" = "Cryptomator no pudo detectar una versión anterior instalada en su dispositivo. Si la compró, vuelva a descargarla desde la App Store e intente de nuevo.";
 
 "urlSession.error.httpError.401" = "Usuario y/o contraseña incorrectos.";
 "urlSession.error.httpError.403" = "Derechos insuficientes para el recurso solicitado.";
