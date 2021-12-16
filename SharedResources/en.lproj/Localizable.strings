@@ -109,7 +109,7 @@
 "purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access to your vaults for a limited time. Consider unlocking the full version after the trial.";
 "purchase.infoExpiredTrial" = "Your trial has expired. Consider unlocking the full version to regain write access to your vaults.";
 "purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
-"purchase.upgrade.notEligible.footer" = "If you already bought an older version of Cryptomator, please re-download it from the App Store.";
+"purchase.upgrade.notEligible.footer" = "If you already bought an older version of Cryptomator, re-download it from the App Store.";
 "purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
 "purchase.beginFreeTrial.footer" = "Try out the full version of Cryptomator for a limited time for free. You can unlock this trial only once.";
 "purchase.beginFreeTrial.alert.title" = "Trial Unlocked";
