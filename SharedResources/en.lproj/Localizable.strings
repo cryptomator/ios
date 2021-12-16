@@ -14,6 +14,7 @@
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
 "common.button.done" = "Done";
+"common.button.download" = "Download";
 "common.button.edit" = "Edit";
 "common.button.enable" = "Enable";
 "common.button.next" = "Next";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access to your vaults for a limited time. Consider unlocking the full version after the trial.";
 "purchase.infoExpiredTrial" = "Your trial has expired. Consider unlocking the full version to regain write access to your vaults.";
 "purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
+"purchase.upgrade.notEligible.footer" = "If you already bought an older version of Cryptomator, re-download it from the App Store.";
 "purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
 "purchase.beginFreeTrial.footer" = "Try out the full version of Cryptomator for a limited time for free. You can unlock this trial only once.";
 "purchase.beginFreeTrial.alert.title" = "Trial Unlocked";
@@ -174,6 +176,8 @@
 "upgrade.freeUpgrade.button" = "Upgrade for Free";
 "upgrade.freeUpgrade.footer" = "No worries, you can also upgrade to the full version for free without any limitations.";
 "upgrade.decideLater.footer" = "You can upgrade to the full version of Cryptomator later in the settings and use it in read-only mode for now.";
+"upgrade.notEligible.alert.title" = "Upgrade Failed";
+"upgrade.notEligible.alert.message" = "Cryptomator couldn't detect an older version installed on your device. If you bought it, please re-download it from the App Store and try again.";
 
 "urlSession.error.httpError.401" = "Wrong username and/or password.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";

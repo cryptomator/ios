@@ -70,7 +70,7 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 	private lazy var _sections: [Section<PurchaseSection>] = {
 		let sections: [Section<PurchaseSection>?] = [
 			Section(id: .emptySection, elements: []),
-			upgradeChecker.couldBeEligibleForUpgrade() ? Section(id: .upgradeSection, elements: [upgradeButtonCellViewModel]) : nil,
+			Section(id: .upgradeSection, elements: [upgradeButtonCellViewModel]),
 			Section(id: .loadingSection, elements: [loadingCellViewModel]),
 			Section(id: .restoreSection, elements: [restorePurchaseButtonCellViewModel]),
 			Section(id: .decideLaterSection, elements: [decideLaterButtonCellViewModel])
@@ -90,7 +90,11 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 	override func getFooterTitle(for section: Int) -> String? {
 		switch sections[section].id {
 		case .upgradeSection:
-			return LocalizedString.getValue("purchase.upgrade.footer")
+			if upgradeChecker.couldBeEligibleForUpgrade() {
+				return LocalizedString.getValue("purchase.upgrade.footer")
+			} else {
+				return LocalizedString.getValue("purchase.upgrade.notEligible.footer")
+			}
 		case .trialSection:
 			return LocalizedString.getValue("purchase.beginFreeTrial.footer")
 		case .purchaseSection:
