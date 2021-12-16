@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import GRDB
+import LocalAuthentication
 import Promises
 import XCTest
 @testable import Cryptomator
@@ -264,7 +265,7 @@ private class VaultPasswordManagerMock: VaultPasswordManager {
 		throw MockError.notMocked
 	}
 
-	func getPassword(forVaultUID vaultUID: String) throws -> String {
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String {
 		throw MockError.notMocked
 	}
 

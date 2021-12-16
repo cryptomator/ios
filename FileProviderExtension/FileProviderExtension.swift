@@ -227,6 +227,9 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 }
 		 return enumerator
 		 */
+		#if SNAPSHOTS
+		return FileProviderEnumeratorSnapshotMock()
+		#endif
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
 		guard let manager = manager, let domain = domain, let dbPath = dbPath, let notificator = notificator else {
@@ -260,7 +263,11 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#if DEBUG
 		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
+		#if SNAPSHOTS
+		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(fileprovider: self))
+		#else
 		serviceSources.append(VaultUnlockingServiceSource(fileprovider: self))
+		#endif
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())
 		return serviceSources

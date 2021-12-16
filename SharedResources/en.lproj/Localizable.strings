@@ -141,6 +141,19 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.unlockFullVersion" = "Unlock Full Version";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
+
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Enter password for \"%@\".";

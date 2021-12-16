@@ -70,6 +70,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Create window
 		let navigationController = BaseNavigationController()
 		coordinator = MainCoordinator(navigationController: navigationController)
+		#if SNAPSHOTS
+		coordinator = SnapshotCoordinator(navigationController: navigationController)
+		UIView.setAnimationsEnabled(false)
+		#endif
 		coordinator?.start()
 		StoreObserver.shared.fallbackDelegate = coordinator
 		window = UIWindow(frame: UIScreen.main.bounds)
