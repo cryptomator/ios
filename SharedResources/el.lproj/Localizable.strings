@@ -14,6 +14,7 @@
 "common.button.create" = "Δημιουργία";
 "common.button.createFolder" = "Δημιουργία Φακέλου";
 "common.button.done" = "Κλείσιμο";
+"common.button.download" = "Λήψη";
 "common.button.edit" = "Επεξεργασία";
 "common.button.enable" = "Ενεργοποίηση";
 "common.button.next" = "Επόμενο";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Η δοκιμαστική περίοδος λήγει στις %@ και σας δίνει άδεια πρόσβασης με απεριόριστο αριθμό κρυπτών για περιορισμένο χρονικό διάστημα. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση μετά τη δοκιμή.";
 "purchase.infoExpiredTrial" = "Η δοκιμή σας έχει λήξει. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
 "purchase.upgrade.footer" = "To Cryptomator εντόπισε μια παλαιότερη έκδοση. Πληροίτε τα κριτήρια για αναβάθμιση για να ξεκλειδώσετε την πλήρη έκδοση.";
+"purchase.upgrade.notEligible.footer" = "Εάν έχετε ήδη αγοράσει μια παλαιότερη έκδοση του Cryptomator, κατεβάστε το ξανά από το App Store.";
 "purchase.beginFreeTrial.button" = "Έναρξη δοκιμής 30 ημερών δωρεάν";
 "purchase.beginFreeTrial.footer" = "Δοκιμάστε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα δωρεάν. Μπορείτε να ξεκλειδώσετε αυτή τη δοκιμή μόνο μία φορά.";
 "purchase.beginFreeTrial.alert.title" = "Η Δοκιμαστική περίοδος ξεκλειδώθηκε";
