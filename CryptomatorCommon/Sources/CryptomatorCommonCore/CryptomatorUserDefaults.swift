@@ -45,9 +45,9 @@ public class CryptomatorUserDefaults {
 	}
 
 	private func key(from property: String) -> String {
-		#warning("TestFlight environment is enabled")
-		return "\(property)-TestFlight"
-//		return property
+//		#warning("TestFlight environment is enabled")
+//		return "\(property)-TestFlight"
+		return property
 	}
 }
 
