@@ -40,6 +40,22 @@ platform :ios do
     )
   end
 
+  desc "Deploy a new version to the App Store"
+  lane :app_store do
+    gym(scheme: "Cryptomator", clean: true)
+    changelog = File.read("changelog.txt")
+    deliver(skip_screenshots: true)
+    version = get_version_number(target: "Cryptomator")
+    build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
+    slack(
+      default_payloads: [], # reduce the notification to the minimum
+      message: "Successfully deployed version #{version} (#{build}) to the App Store :cryptomator:",
+      payload: {
+        "Changes" => changelog
+      }
+    )
+  end
+
   error do |lane, exception|
     # slack(message: exception.to_s, success: false)
   end

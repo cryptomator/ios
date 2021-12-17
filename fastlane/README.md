@@ -55,6 +55,14 @@ Update metadata in App Store Connect
 
 Submit a new internal beta build to TestFlight
 
+### ios app_store
+
+```sh
+[bundle exec] fastlane ios app_store
+```
+
+Deploy a new version to the App Store
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.

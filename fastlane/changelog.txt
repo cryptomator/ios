@@ -1,12 +1,1 @@
-This is the release candidate of the new Cryptomator for iOS app. It's almost ready for the App Store!
-
-Feel free to also test the in-app purchases in this TestFlight version. If you're not already familiar with it, this _will not_ trigger actual purchases.
-
-We're looking forward to your feedback! Check out our open-source repository on GitHub: https://github.com/cryptomator/ios
-
----
-
-## Changes Since 2.0.0 Beta 9
-- Added more detailed description about upgrading from the legacy app (#125)
-- Fixed creation of new vaults on certain file servers via SMB (#123)
-- Further cleaned up the UI with a modernized look
+Welcome to the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS. Happy crypting!
