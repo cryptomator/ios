@@ -8,16 +8,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
 import PackageDescription
-
-let swiftSettings: [SwiftSetting]?
-if ProcessInfo.processInfo.environment["TESTFLIGHT"] == "1" {
-	print("Enabled TestFlight environment")
-	swiftSettings = [.define("TESTFLIGHT")]
-} else {
-	swiftSettings = nil
-}
 
 let package = Package(
 	name: "CryptomatorCommon",
@@ -44,21 +35,18 @@ let package = Package(
 			dependencies: [
 				"CryptomatorCommonCore",
 				"CryptomatorCloudAccess"
-			],
-			swiftSettings: swiftSettings
+			]
 		),
 		.target(
 			name: "CryptomatorCommonCore",
 			dependencies: [
 				"CocoaLumberjackSwift",
 				"CryptomatorCloudAccessCore"
-			],
-			swiftSettings: swiftSettings
+			]
 		),
 		.testTarget(
 			name: "CryptomatorCommonCoreTests",
-			dependencies: ["CryptomatorCommonCore"],
-			swiftSettings: swiftSettings
+			dependencies: ["CryptomatorCommonCore"]
 		)
 	]
 )
