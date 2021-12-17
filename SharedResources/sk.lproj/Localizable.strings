@@ -14,6 +14,7 @@
 "common.button.create" = "Vytvoriť";
 "common.button.createFolder" = "Vytvoriť adresár";
 "common.button.done" = "Hotovo";
+"common.button.download" = "Stiahnuť";
 "common.button.edit" = "Upraviť";
 "common.button.enable" = "Povoliť";
 "common.button.next" = "Ďalej";
@@ -140,6 +141,14 @@
 "settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
+"snapshots.fileprovider.file5" = "/Hlásenie.pdf";
+"snapshots.fileprovider.folder3" = "/Tajný projekt";
+"snapshots.fileprovider.folder2" = "/Faktúry";
+"snapshots.fileprovider.folder1" = "/Certifikáty";
+"snapshots.main.vault1" = "/Práca";
+"snapshots.main.vault2" = "/Rodina";
+"snapshots.main.vault3" = "/Dokumenty";
+"snapshots.main.vault4" = "/Výlet do Kalifornie";
 
 "unlockVault.button.unlock" = "Odomknúť";
 "unlockVault.button.unlockVia" = "Odomknúť prostredníctvom %@";
@@ -161,6 +170,7 @@
 "upgrade.freeUpgrade.button" = "Voľná aktualizácia";
 "upgrade.freeUpgrade.footer" = "Žiadne starosti, môžte tiež aktualizovať na plnú verziu zadarmo bez obmedzeni.";
 "upgrade.decideLater.footer" = "Môžte aktualizovať na plnú verziu Cryptomator-a neskôr v nastaveniach a používať v read-only móde nateraz.";
+"upgrade.notEligible.alert.title" = "Aktualizácia zlyhala";
 
 "urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
