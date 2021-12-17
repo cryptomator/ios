@@ -14,6 +14,7 @@
 "common.button.create" = "Créer";
 "common.button.createFolder" = "Créer un répertoire";
 "common.button.done" = "Ok";
+"common.button.download" = "Télécharger";
 "common.button.edit" = "Éditer";
 "common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Votre période d'essai expire le %@, elle vous permet un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après l'essai.";
 "purchase.infoExpiredTrial" = "Votre période d'essai a expiré. Pensez à déverrouiller la version complète pour récupérer l'accès en écriture à vos coffres.";
 "purchase.upgrade.footer" = "Cryptomator a détecté une ancienne version. Vous êtes éligible à une mise à niveau pour débloquer la version complète.";
+"purchase.upgrade.notEligible.footer" = "Si vous avez déjà acheté une ancienne version de Cryptomator, téléchargez-la à nouveau sur l'App Store.";
 "purchase.retry.button" = "Réessayer";
 
 "settings.title" = "Paramètres";
@@ -123,6 +125,19 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 "settings.unlockFullVersion" = "Débloquer la version complète";
 
+"snapshots.fileprovider.file1" = "Compte.numéros";
+"snapshots.fileprovider.file2" = "Présentation Finale.key";
+"snapshots.fileprovider.file3" = "Présentation du produit.mov";
+"snapshots.fileprovider.file4" = "Proposition.docx";
+"snapshots.fileprovider.file5" = "/Rapport.pdf";
+"snapshots.fileprovider.folder3" = "/Projet Secret";
+"snapshots.fileprovider.folder2" = "Factures";
+"snapshots.fileprovider.folder1" = "Certificats";
+"snapshots.main.vault1" = "Professionnel";
+"snapshots.main.vault2" = "Famille";
+"snapshots.main.vault3" = "Documents";
+"snapshots.main.vault4" = "/Voyage en Californie";
+
 "unlockVault.button.unlock" = "Déverrouiller";
 "unlockVault.button.unlockVia" = "Débloquer via %@";
 "unlockVault.password.footer" = "Entrez le mot de passe pour “%@”.";
@@ -135,6 +150,8 @@
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
 "untrustedTLSCertificate.add" = "Approuver";
 "untrustedTLSCertificate.dismiss" = "Ne pas faire confiance";
+"upgrade.notEligible.alert.title" = "Échec de la mise à jour";
+"upgrade.notEligible.alert.message" = "Cryptomator n'a pas pu détecter une ancienne version installée sur votre appareil. Si vous l'avez achetée, veuillez la télécharger à nouveau depuis l'App Store et réessayer.";
 
 "urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
 "urlSession.error.httpError.403" = "Vous n'avez pas les droits pour accéder à cette ressource.";

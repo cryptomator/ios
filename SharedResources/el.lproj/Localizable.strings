@@ -14,6 +14,7 @@
 "common.button.create" = "Δημιουργία";
 "common.button.createFolder" = "Δημιουργία Φακέλου";
 "common.button.done" = "Κλείσιμο";
+"common.button.download" = "Λήψη";
 "common.button.edit" = "Επεξεργασία";
 "common.button.enable" = "Ενεργοποίηση";
 "common.button.next" = "Επόμενο";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Η δοκιμαστική περίοδος λήγει στις %@ και σας δίνει άδεια πρόσβασης με απεριόριστο αριθμό κρυπτών για περιορισμένο χρονικό διάστημα. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση μετά τη δοκιμή.";
 "purchase.infoExpiredTrial" = "Η δοκιμή σας έχει λήξει. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
 "purchase.upgrade.footer" = "To Cryptomator εντόπισε μια παλαιότερη έκδοση. Πληροίτε τα κριτήρια για αναβάθμιση για να ξεκλειδώσετε την πλήρη έκδοση.";
+"purchase.upgrade.notEligible.footer" = "Εάν έχετε ήδη αγοράσει μια παλαιότερη έκδοση του Cryptomator, κατεβάστε το ξανά από το App Store.";
 "purchase.beginFreeTrial.button" = "Έναρξη δοκιμής 30 ημερών δωρεάν";
 "purchase.beginFreeTrial.footer" = "Δοκιμάστε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα δωρεάν. Μπορείτε να ξεκλειδώσετε αυτή τη δοκιμή μόνο μία φορά.";
 "purchase.beginFreeTrial.alert.title" = "Η Δοκιμαστική περίοδος ξεκλειδώθηκε";
@@ -141,6 +143,19 @@
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 "settings.unlockFullVersion" = "Ξεκλείδωμα Πλήρους Έκδοσης";
 
+"snapshots.fileprovider.file1" = "/Λογιστική.αριθμοί";
+"snapshots.fileprovider.file2" = "/Τελική Παρουσίαση.key";
+"snapshots.fileprovider.file3" = "/Trailer προϊόντος.mov";
+"snapshots.fileprovider.file4" = "/Πρόταση.docx";
+"snapshots.fileprovider.file5" = "/Αναφορά.pdf";
+"snapshots.fileprovider.folder3" = "/Μυστικό Project";
+"snapshots.fileprovider.folder2" = "/Τιμολόγια";
+"snapshots.fileprovider.folder1" = "/Πιστοποιητικά";
+"snapshots.main.vault1" = "/Εργασία";
+"snapshots.main.vault2" = "/Οικογένεια";
+"snapshots.main.vault3" = "/Έγγραφα";
+"snapshots.main.vault4" = "/Ταξίδι στην Καλιφόρνια";
+
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
 "unlockVault.button.unlockVia" = "Ξεκλείδωμα μέσω %@";
 "unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
@@ -161,6 +176,8 @@
 "upgrade.freeUpgrade.button" = "Αναβάθμιση δωρεάν";
 "upgrade.freeUpgrade.footer" = "Μην ανησυχείτε, μπορείτε επίσης να κάνετε αναβάθμιση στην πλήρη έκδοση δωρεάν χωρίς περιορισμούς.";
 "upgrade.decideLater.footer" = "Μπορείτε να κάνετε αναβάθμιση στην πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να το χρησιμοποιήσετε σε λειτουργία μόνο για ανάγνωση προς το παρόν.";
+"upgrade.notEligible.alert.title" = "Η Αναβάθμιση Απέτυχε";
+"upgrade.notEligible.alert.message" = "Το Cryptomator δεν μπόρεσε να εντοπίσει μια παλαιότερη έκδοση που είναι εγκατεστημένη στη συσκευή σας. Εάν το αγοράσατε, κατεβάστε το ξανά από το App Store και δοκιμάστε ξανά.";
 
 "urlSession.error.httpError.401" = "Λάθος όνομα χρήστη και/ή κωδικός πρόσβασης.";
 "urlSession.error.httpError.403" = "Ανεπαρκή δικαιώματα στον ζητούμενο πόρο.";

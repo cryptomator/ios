@@ -14,6 +14,7 @@
 "common.button.create" = "Vytvoriť";
 "common.button.createFolder" = "Vytvoriť adresár";
 "common.button.done" = "Hotovo";
+"common.button.download" = "Stiahnuť";
 "common.button.edit" = "Upraviť";
 "common.button.enable" = "Povoliť";
 "common.button.next" = "Ďalej";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "Vaša skúšobná doba uplynie %@ a tým možnosť zápisu s neobmedzeným počtom trezorov v limitovanom čase. Zvážte odomknutie plnej verzie po uplynutí skúšobnej doby.";
 "purchase.infoExpiredTrial" = "Vaša skúšobná doba uplynula. Zvážte odomknutie plnej verzie k znovu získaniu možnosti zápisu do Vašich trezorov.";
 "purchase.upgrade.footer" = "Cryptomator detekoval staršiu verziu. Pre jej aktualizáciu je potrebné odomknúť plnú verziu.";
+"purchase.upgrade.notEligible.footer" = "Ak už máte kúpenú staršiu verziu Cryptomator-a, znovu ho stiahnite z App Store.";
 "purchase.beginFreeTrial.button" = "Začať 30-dňovú skúšobnú dobu zdarma";
 "purchase.beginFreeTrial.footer" = "Vyskúšajte plnú verziu Cryptomator-a zadarmo na obmedzený čas. Môžte odomknúť túto skúšobnú dobu len raz.";
 "purchase.beginFreeTrial.alert.title" = "Skúška udomknutá";
@@ -141,6 +143,19 @@
 "settings.sendLogFile" = "Zaslať Log súbor";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
 
+"snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
+"snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
+"snapshots.fileprovider.file3" = "/Reklama produktu.mov";
+"snapshots.fileprovider.file4" = "/Návrh.docx";
+"snapshots.fileprovider.file5" = "/Hlásenie.pdf";
+"snapshots.fileprovider.folder3" = "/Tajný projekt";
+"snapshots.fileprovider.folder2" = "/Faktúry";
+"snapshots.fileprovider.folder1" = "/Certifikáty";
+"snapshots.main.vault1" = "/Práca";
+"snapshots.main.vault2" = "/Rodina";
+"snapshots.main.vault3" = "/Dokumenty";
+"snapshots.main.vault4" = "/Výlet do Kalifornie";
+
 "unlockVault.button.unlock" = "Odomknúť";
 "unlockVault.button.unlockVia" = "Odomknúť prostredníctvom %@";
 "unlockVault.password.footer" = "Zadajte heslo pre \"%@\".";
@@ -161,6 +176,8 @@
 "upgrade.freeUpgrade.button" = "Voľná aktualizácia";
 "upgrade.freeUpgrade.footer" = "Žiadne starosti, môžte tiež aktualizovať na plnú verziu zadarmo bez obmedzeni.";
 "upgrade.decideLater.footer" = "Môžte aktualizovať na plnú verziu Cryptomator-a neskôr v nastaveniach a používať v read-only móde nateraz.";
+"upgrade.notEligible.alert.title" = "Aktualizácia zlyhala";
+"upgrade.notEligible.alert.message" = "Cryptomator evie detekovať staršiu verziu nainštalovanú vo Vašom zariadení. Ak s te si ju kúpili, prosím znovu si ju stiahnite z App Store a skúste znovu.";
 
 "urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
