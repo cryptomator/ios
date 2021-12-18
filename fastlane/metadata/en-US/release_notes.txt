@@ -1,0 +1,1 @@
+Welcome to the new Cryptomator for iOS app! This new app is fully integrated into the Files app of iOS. Happy crypting!
