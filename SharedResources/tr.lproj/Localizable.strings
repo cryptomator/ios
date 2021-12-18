@@ -14,6 +14,7 @@
 "common.button.create" = "Oluştur";
 "common.button.createFolder" = "Klasör Oluştur";
 "common.button.done" = "Tamam";
+"common.button.download" = "İndir";
 "common.button.edit" = "Düzenle";
 "common.button.enable" = "Etkinleştir";
 "common.button.next" = "Sonraki";
