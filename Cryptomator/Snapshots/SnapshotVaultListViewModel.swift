@@ -60,7 +60,11 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 		let vaults = cloudProviderAccounts.enumerated().map { index, cloudProviderAccount -> VaultInfo in
 			let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: cloudProviderAccount.accountUID, vaultPath: vaultPaths[index], vaultName: vaultPaths[index].lastPathComponent)
 			let vaultListPosition = VaultListPosition(id: nil, position: index, vaultUID: vaultAccount.vaultUID)
-			return VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
+			let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
+			if index == 0 {
+				vaultInfo.vaultIsUnlocked = true
+			}
+			return vaultInfo
 		}
 		return vaults.map { VaultCellViewModel(vault: $0) }
 	}
