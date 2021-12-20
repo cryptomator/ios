@@ -16,6 +16,12 @@ class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelCo
 
 	func configure(with viewModel: HeaderFooterViewModel) {
 		textLabel?.numberOfLines = 0
-		subscriber = viewModel.title.$value.assign(to: \.text, on: textLabel)
+		subscriber = viewModel.title.$value.sink(receiveValue: { [weak self] text in
+			UIView.setAnimationsEnabled(false)
+			self?.tableView?.performBatchUpdates({
+				self?.textLabel?.text = text
+			})
+			UIView.setAnimationsEnabled(true)
+		})
 	}
 }
