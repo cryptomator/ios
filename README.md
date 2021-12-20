@@ -8,11 +8,7 @@
 
 Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
 
-This is the repository for the new iOS app of Cryptomator, which has been rewritten from the ground up and is currently in a beta phase.
-
-Try it out for free via TestFlight: https://testflight.apple.com/join/WMtYSrzD
-
-If you're looking for the current App Store version and would like to report an issue, check out the other repository: https://github.com/cryptomator/cryptomator-ios
+Pre-order on the App Store: https://apps.apple.com/app/cryptomator-2/id1560822163
 
 ## Building
 
