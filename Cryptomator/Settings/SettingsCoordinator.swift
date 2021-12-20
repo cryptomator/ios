@@ -63,7 +63,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func openRateApp() {
-		if let rateAppURL = URL(string: "https://apps.apple.com/app/cryptomator/id953086535?action=write-review") {
+		if let rateAppURL = URL(string: "https://apps.apple.com/app/cryptomator-2/id1560822163?action=write-review") {
 			UIApplication.shared.open(rateAppURL)
 		}
 	}

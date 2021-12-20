@@ -26,9 +26,9 @@ class SnapshotCoordinator: MainCoordinator {
 	}
 
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
-		let snapshotFileProviderConnectorMock = SnapshotFileProviderConntectorMock()
+		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: SnapshotFileProviderConntectorMock(), passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
 		navigationController.pushViewController(vaultDetailViewController, animated: true)
 	}
@@ -52,7 +52,7 @@ class SnapshotCoordinator: MainCoordinator {
 	}
 }
 
-private class SnapshotFileProviderConntectorMock: FileProviderConnector {
+private class SnapshotFileProviderConnectorMock: FileProviderConnector {
 	var proxy: Any?
 	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
 		return getCastedProxy()
