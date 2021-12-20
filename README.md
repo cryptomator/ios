@@ -8,7 +8,7 @@
 
 Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
 
-Pre-order on the App Store: https://apps.apple.com/app/cryptomator-2/id1560822163
+Download on the App Store: https://apps.apple.com/app/cryptomator-2/id1560822163
 
 ## Building
 
