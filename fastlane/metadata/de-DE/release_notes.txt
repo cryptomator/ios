@@ -1,1 +1,2 @@
-Willkommen bei der neuen Cryptomator für iOS-App! Diese neue App ist vollständig in die App „Dateien“ von iOS integriert. Viel Spaß beim Verschlüsseln!
+- Upload-Fehler in Google Drive behoben (#134)
+- Unterstützung von selbstsignierten Zertifikaten und HTTP für WebDAV-Verbindungen behoben (#133)
