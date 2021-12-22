@@ -73,6 +73,7 @@
 "chooseFolder.createNewFolder.header.title" = "Выберите имя для папки.";
 "chooseFolder.createNewFolder.cells.name" = "Имя папки";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Имя папки не может быть пустым.";
+"chooseFolder.createNewFolder.progress" = "Создание папки…";
 
 "cloudProvider.error.itemNotFound" = "Не удалось найти \"%@\".";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" уже существует.";
