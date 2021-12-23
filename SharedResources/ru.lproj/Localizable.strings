@@ -111,7 +111,20 @@
 "purchase.beginFreeTrial.button" = "Начать 30-ти дневный Пробный период Бесплатно";
 "purchase.beginFreeTrial.footer" = "Попробуйте полную версию Cryptomator в течение ограниченного времени бесплатно. Вы можете разблокировать эту пробную версию только один раз.";
 "purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
+"purchase.beginFreeTrial.alert.message" = "Теперь вы можете использовать полную версию Cryptomator в течение ограниченного времени. Пробная версия истекает %@. После этого ваши хранилища по-прежнему будут доступны в режиме только для чтения.";
+"purchase.purchaseFullVersion.button" = "Купить полную версию за %@";
+"purchase.purchaseFullVersion.footer" = "Оплатите один раз и разблокируйте бессрочный доступ к записи в хранилища.";
+"purchase.restorePurchase.button" = "Восстановить покупку";
+"purchase.restorePurchase.footer" = "Если вы уже купили полную версию Cryptomator, то можете восстановить покупку.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Продолжение опробования";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Теперь вы можете использовать полную версию Cryptomator в течение ограниченного времени. Пробная версия истекает %@. После этого ваши хранилища по-прежнему будут доступны в режиме только для чтения.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Успешно восстановлено";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Полной версии нет";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Не удалось найти ранее приобретённую полную версию, которая может быть восстановлена. Попробуйте другой вариант.";
 "purchase.retry.button" = "Повторить";
+"purchase.retry.footer" = "Не удалось загрузить доступные продукты.";
+"purchase.decideLater.button" = "Решу позже";
+"purchase.decideLater.footer" = "Вы можете разблокировать полную версию Cryptomator позже в настройках, а пока использовать режим только для чтения.";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
