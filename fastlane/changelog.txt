@@ -1,2 +1,1 @@
-- Fixed upload errors in Google Drive (#134)
-- Fixed support of self-signed certificates and HTTP for WebDAV connections (#133)
+- Fixed security vulnerability by excluding cache from iCloud Backup (#139)
