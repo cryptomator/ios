@@ -1,2 +1,1 @@
-- Upload-Fehler in Google Drive behoben (#134)
-- Unterstützung von selbstsignierten Zertifikaten und HTTP für WebDAV-Verbindungen behoben (#133)
+- Sicherheitslücke behoben, indem der Cache aus dem iCloud Backup ausgeschlossen wird (#139)

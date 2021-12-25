@@ -283,6 +283,12 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		}
 		let domainDocumentStorage = domain.pathRelativeToDocumentStorage
 		let manager = NSFileProviderManager.default
+		do {
+			try excludeFileProviderDocumentStorageFromiCloudBackup()
+		} catch {
+			DDLogError("Exclude FileProviderDocumentStorage from iCloud backup failed with error: \(error)")
+			return nil
+		}
 		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
@@ -310,6 +316,13 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		} catch {
 			throw ErrorWrapper.wrapError(error, domain: domain)
 		}
+	}
+
+	private func excludeFileProviderDocumentStorageFromiCloudBackup() throws {
+		var values = URLResourceValues()
+		values.isExcludedFromBackup = true
+		var documentStorageURL = NSFileProviderManager.default.documentStorageURL
+		try documentStorageURL.setResourceValues(values)
 	}
 }
 
