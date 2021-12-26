@@ -14,6 +14,7 @@
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crea una carpeta";
 "common.button.done" = "Fet";
+"common.button.download" = "Descarrega";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Activar";
 "common.button.next" = "Següent";
@@ -29,6 +30,7 @@
 
 "accountList.header.title" = "Autenticacions";
 "accountList.emptyList.message" = "Feu clic ací per a afegir un compte";
+"accountList.signOut.alert.title" = "Eliminar les caixes fortes associades?";
 
 "addVault.title" = "Afegir una caixa forta";
 "addVault.createNewVault.title" = "Crea una caixa forta nova";
@@ -37,6 +39,7 @@
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "El nom de la caixa forta no hauria de contenir \\ / : * ? \" < > | ni acabar amb un punt.";
 "addVault.createNewVault.chooseCloud.header" = "On deu emmagatzemar Cryptomator els fitxers xifrats de la vostra caixa forta?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ja existeix en aquest lloc. Trieu un nom o una localització diferent.";
 "addVault.createNewVault.password.enterPassword.header" = "Introduïu una nova contrasenya.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirma la nova contrasenya.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmeu la contrasenya?";
@@ -44,20 +47,35 @@
 "addVault.createNewVault.password.error.emptyPassword" = "La contrasenya no es pot deixar en blanc.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Les contrasenyes no coincideixen.";
 "addVault.createNewVault.password.error.tooShortPassword" = "La contrasenya ha de tenir, si més no, 8 caràcters.";
+"addVault.createNewVault.progress" = "Es crea la caixa forta…";
 "addVault.openExistingVault.title" = "Obri una caixa forta existent";
+"addVault.openExistingVault.chooseCloud.header" = "On es troba la caixa forta?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha detectat la caixa forta \"%@\".\nVoleu afegir aquesta caixa forta?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
+"addVault.openExistingVault.progress" = "Ara s'afegeix la caixa forta…";
+"addVault.success.info" = "S'ha afegit la caixa forta \"%@\".\nAccediu a la caixa forta via l'app de fitxers.";
+"addVault.success.footer" = "Si no ho heu fet ja, habilita Cryptomator en l'app de fitxers.";
 
 "biometryType.faceID" = "ID de cara";
 "biometryType.touchID" = "ID tàctil";
+
+"changePassword.error.invalidOldPassword" = "La contrasenya actual és errònia. Per favor, torneu a intentar-ho.";
+"changePassword.header.currentPassword.title" = "Introduïu la contrasenya actual.";
 "changePassword.header.newPassword.title" = "Introduïu una nova contrasenya.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirma la nova contrasenya.";
+"changePassword.progress" = "Ara es canvia la contrasenya…";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta és buida";
 "chooseFolder.createNewFolder.header.title" = "Trieu el nom de la carpeta.";
 "chooseFolder.createNewFolder.cells.name" = "Nom de la carpeta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "No es pot deixar buit el nom de la carpeta.";
+"chooseFolder.createNewFolder.progress" = "Ara es crea la carpeta…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" no s'ha pogut trobat.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" ja existeix.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" té un tipus d'element inesperat.";
+"cloudProvider.error.parentFolderDoesNotExist" = "La carpeta mare \"%@\" no existeix.";
 "cloudProvider.error.quotaInsufficient" = "No hi ha prou espai d'emmagatzematge.";
 "cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
 
