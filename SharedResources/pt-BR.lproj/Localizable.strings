@@ -14,6 +14,7 @@
 "common.button.create" = "Criar";
 "common.button.createFolder" = "Criar pasta";
 "common.button.done" = "Concluído";
+"common.button.download" = "Baixar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Habilitar";
 "common.button.next" = "Próximo";
@@ -71,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
 "chooseFolder.createNewFolder.cells.name" = "Nome de Pasta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "O nome da pasta não pode estar vazio.";
+"chooseFolder.createNewFolder.progress" = "Criando pasta…";
 
 "cloudProvider.error.itemNotFound" = "\"%@não pôde ser encontrado.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@já existe.";
@@ -93,10 +95,21 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Na próxima tela, escolha a pasta do seu cofre existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor, tente novamente com uma pasta diferente.";
+"localFileSystemAuthentication.info.footer" = "Provedores de arquivos em meio tom não tem o recurso \"escolher pastas\". Isso não é uma limitação do Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "A operação não pode ser realizada porque outras operações em segundo plano para este cofre têm que terminar primeiro. Por favor, tente novamente mais tarde.";
 
 "onboarding.title" = "Bem vindo";
+"onboarding.button.continue" = "Avançar";
+
+"purchase.title" = "Desbloqueie a Versão Completa";
+"purchase.infoRunningTrial" = "Seu período de teste expira em %@ e permite acesso de escrita a seus cofres por tempo limitado. Considere desbloquear a versão completa após a conclusão deste tempo.";
+"purchase.infoExpiredTrial" = "Seu teste expirou. Considere desbloquear a versão completa para recuperar o acesso de escrita aos seus cofres.";
+"purchase.upgrade.footer" = "O Cryptomator detectou uma versão mais antiga. Você é elegível para um upgrade para desbloquear a versão completa.";
+"purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, baixe-o novamente na App Store.";
+"purchase.beginFreeTrial.button" = "Começar período de teste de 30 dias grátis";
+"purchase.beginFreeTrial.footer" = "Experimente a versão completa do Cryptomator por um tempo limitado de graça. Você só pode desbloquear esse teste uma vez.";
+"purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
 "purchase.retry.button" = "Tentar Novamente";
 
 "settings.title" = "Configurações";
@@ -110,6 +123,7 @@
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.rateApp" = "Avaliar App";
 "settings.sendLogFile" = "Enviar arquivo de log";
+"settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
