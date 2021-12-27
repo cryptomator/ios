@@ -57,7 +57,7 @@
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
 "addVault.openExistingVault.progress" = "Ara s'afegeix la caixa forta…";
 "addVault.success.info" = "S'ha afegit la caixa forta \"%@\".\nAccediu a la caixa forta via l'app de fitxers.";
-"addVault.success.footer" = "Si no ho heu fet ja, habilita Cryptomator en l'app de fitxers.";
+"addVault.success.footer" = "Si no ho heu fet ja, habiliteu Cryptomator en l'app de fitxers.";
 
 "biometryType.faceID" = "ID de cara";
 "biometryType.touchID" = "ID tàctil";
