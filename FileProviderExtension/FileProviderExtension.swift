@@ -55,7 +55,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			\.domain,
 			options: [.old, .new]
 		) { _, change in
-			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue)")
+			DDLogInfo("domain changed from: \(String(describing: change.oldValue)) to: \(String(describing: change.newValue))")
 			do {
 				try self.setUp()
 			} catch {
