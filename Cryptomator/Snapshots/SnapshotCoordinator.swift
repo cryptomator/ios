@@ -10,6 +10,7 @@
 import CryptomatorCommonCore
 import FileProvider
 import Foundation
+import LocalAuthentication
 import Promises
 import UIKit
 
@@ -32,7 +33,7 @@ class SnapshotCoordinator: MainCoordinator {
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
 		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared)
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
 		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
@@ -89,6 +90,20 @@ private class SnapshotVaultLockingMock: VaultLocking {
 
 	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
 		fatalError()
+	}
+}
+
+class SnapshotVaultPasswordManagerMock: VaultPasswordManager {
+	func setPassword(_ password: String, forVaultUID vaultUID: String) throws {}
+
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String {
+		return ""
+	}
+
+	func removePassword(forVaultUID vaultUID: String) throws {}
+
+	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
+		return true
 	}
 }
 

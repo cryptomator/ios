@@ -133,6 +133,7 @@
 		4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */; };
 		4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */; };
 		4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5580542755226100E525B8 /* StoreObserverTests.swift */; };
+		4A5811602779E1E000E89A62 /* SnapshotBiometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */; };
 		4A5AC4392758EC9400342AA7 /* FullVersionCheckerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */; };
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
@@ -563,6 +564,9 @@
 		4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultChooseFolderViewModel.swift; sourceTree = "<group>"; };
 		4A5580542755226100E525B8 /* StoreObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserverTests.swift; sourceTree = "<group>"; };
+		4A58115D2779E1B700E89A62 /* Snapshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snapshots-Bridging-Header.h"; sourceTree = "<group>"; };
+		4A58115E2779E1B700E89A62 /* SnapshotBiometrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapshotBiometrics.h; sourceTree = "<group>"; };
+		4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnapshotBiometrics.m; sourceTree = "<group>"; };
 		4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullVersionCheckerMock.swift; sourceTree = "<group>"; };
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
@@ -868,6 +872,9 @@
 			children = (
 				4A13612C276768000077EB7F /* SnapshotHelper.swift */,
 				4A136123276767D60077EB7F /* Snapshots.swift */,
+				4A58115E2779E1B700E89A62 /* SnapshotBiometrics.h */,
+				4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */,
+				4A58115D2779E1B700E89A62 /* Snapshots-Bridging-Header.h */,
 			);
 			path = Snapshots;
 			sourceTree = "<group>";
@@ -1799,6 +1806,7 @@
 				TargetAttributes = {
 					4A136120276767D60077EB7F = {
 						CreatedOnToolsVersion = 13.1;
+						LastSwiftMigration = 1320;
 						TestTargetID = 4AE97DA724572E4900452814;
 					};
 					4A2245CF24A5E16300DBA437 = {
@@ -2021,6 +2029,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A5811602779E1E000E89A62 /* SnapshotBiometrics.m in Sources */,
 				4A136124276767D60077EB7F /* Snapshots.swift in Sources */,
 				4A13612D276768000077EB7F /* SnapshotHelper.swift in Sources */,
 			);
@@ -2472,6 +2481,7 @@
 		4A136129276767D60077EB7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2482,6 +2492,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Snapshots/Snapshots-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Debug;
@@ -2489,6 +2502,7 @@
 		4A13612A276767D60077EB7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2499,6 +2513,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Snapshots/Snapshots-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Release;

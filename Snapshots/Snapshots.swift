@@ -27,6 +27,7 @@ class Snapshots: XCTestCase {
 	}
 
 	func testSnapshots() throws {
+		enableBiometrics()
 		filesAppSnapshots()
 		mainAppSnapshots()
 	}
@@ -255,6 +256,10 @@ class Snapshots: XCTestCase {
 		let cryptomatorJPGFile = vaultRootFolderView.cells["Cryptomator, jpg"]
 		XCTAssert(cryptomatorJPGFile.waitForIsHittable(timeout: 10.0))
 		snapshot("07-Files-DirectoryList")
+	}
+
+	private func enableBiometrics() {
+		SnapshotBiometrics.enrolled()
 	}
 }
 
