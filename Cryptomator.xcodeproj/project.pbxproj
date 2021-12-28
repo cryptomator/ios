@@ -313,7 +313,6 @@
 		747F2F2E2587BC260072FB30 /* FileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F32587AEB50023FF53 /* FileProviderItem.swift */; };
 		747F2F2F2587BC260072FB30 /* FileProviderAdapterError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F12587AEB40023FF53 /* FileProviderAdapterError.swift */; };
 		747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F42587AEB50023FF53 /* ItemStatus.swift */; };
-		747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */; };
 		747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740376012587AEB60023FF53 /* LockManager.swift */; };
 		747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FF2587AEB60023FF53 /* FileSystemLock.swift */; };
 		747F2F3C2587BC4B0072FB30 /* RWLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375FE2587AEB60023FF53 /* RWLock.swift */; };
@@ -723,7 +722,6 @@
 		740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+NameCollisionExtension.swift"; sourceTree = "<group>"; };
 		740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CryptomatorFileProvider.h; sourceTree = "<group>"; };
 		740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+NameCollision.swift"; sourceTree = "<group>"; };
-		740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNetworkTask.swift; sourceTree = "<group>"; };
 		740375FC2587AEB50023FF53 /* FileProviderItemList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemList.swift; sourceTree = "<group>"; };
 		740375FE2587AEB60023FF53 /* RWLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RWLock.swift; sourceTree = "<group>"; };
 		740375FF2587AEB60023FF53 /* FileSystemLock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileSystemLock.swift; sourceTree = "<group>"; };
@@ -1488,7 +1486,6 @@
 				4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */,
 				740375F32587AEB50023FF53 /* FileProviderItem.swift */,
 				740375FC2587AEB50023FF53 /* FileProviderItemList.swift */,
-				740375FB2587AEB50023FF53 /* FileProviderNetworkTask.swift */,
 				740375F02587AEB40023FF53 /* FileProviderNotificator.swift */,
 				740375F42587AEB50023FF53 /* ItemStatus.swift */,
 				4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */,
@@ -2376,7 +2373,6 @@
 				4A248225266E26D7002D9F59 /* FolderCreationTaskExecutor.swift in Sources */,
 				747F2F2F2587BC260072FB30 /* FileProviderAdapterError.swift in Sources */,
 				747F2F302587BC260072FB30 /* ItemStatus.swift in Sources */,
-				747F2F312587BC260072FB30 /* FileProviderNetworkTask.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
