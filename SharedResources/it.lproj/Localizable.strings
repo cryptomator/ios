@@ -14,6 +14,7 @@
 "common.button.create" = "Crea";
 "common.button.createFolder" = "Crea Cartella";
 "common.button.done" = "Fatto";
+"common.button.download" = "Download";
 "common.button.edit" = "Modifica";
 "common.button.enable" = "Abilita";
 "common.button.next" = "Avanti";
@@ -108,6 +109,7 @@
 "purchase.infoRunningTrial" = "La tua prova scade il %@ e ti concede accesso di scrittura alle tue cassaforti per un tempo limitato. Considera di sbloccare la versione completa dopo la prova.";
 "purchase.infoExpiredTrial" = "La tua prova è scaduta. Considera lo sblocco della versione completa per recuperare l'accesso di scrittura alle tue cassaforti.";
 "purchase.upgrade.footer" = "Cryptomator ha rilevato una versione precedente. Sei idoneo per un aggiornamento per sbloccare la versione completa.";
+"purchase.upgrade.notEligible.footer" = "Se hai già acquistato una versione precedente di Cryptomator, riscaricala dall'App Store.";
 "purchase.beginFreeTrial.button" = "Inizia la Prova di 30 Giorni Gratis";
 "purchase.beginFreeTrial.footer" = "Prova la versione completa di Cryptomator per un tempo limitato gratis. Puoi sbloccare questa prova solo una volta.";
 "purchase.beginFreeTrial.alert.title" = "Prova Sbloccata";
@@ -141,6 +143,8 @@
 "settings.sendLogFile" = "Invia File di Registro";
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+
 "unlockVault.button.unlock" = "Sblocca";
 "unlockVault.button.unlockVia" = "Sblocca tramite %@";
 "unlockVault.password.footer" = "Inserisci la password per \"%@\".";
@@ -161,6 +165,8 @@
 "upgrade.freeUpgrade.button" = "Aggiorna Gratis";
 "upgrade.freeUpgrade.footer" = "Non preoccuparti, puoi anche aggiornare alla versione completa gratuitamente senza alcun limite.";
 "upgrade.decideLater.footer" = "Puoi aggiornare alla versione completa di Cryptomator in seguito nelle impostazioni e usarla in modalità di sola lettura per ora.";
+"upgrade.notEligible.alert.title" = "Aggiornamento non riuscito";
+"upgrade.notEligible.alert.message" = "Cryptomator non è riuscito a rilevare una versione precedente installata sul tuo dispositivo. Se l'hai acquistata, riscaricala dall'App Store e riprova.";
 
 "urlSession.error.httpError.401" = "Nome utente e/o password errati.";
 "urlSession.error.httpError.403" = "Diritti insufficienti per la risorsa richiesta.";
