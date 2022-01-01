@@ -117,10 +117,18 @@
 "untrustedTLSCertificate.dismiss" = "No hi confiïs";
 
 "upgrade.title" = "Actualitza de la versió 1.x";
+"upgrade.freeUpgrade.button" = "Actualitza de franc";
+"upgrade.freeUpgrade.footer" = "Cap problema, podeu actualitzar a la versió completa de franc sense cap limitació.";
+"upgrade.decideLater.footer" = "Podeu actualitzar a la versió de Cryptomator més endavant en la configuració i usar-la en mode de lectura per ara.";
+"upgrade.notEligible.alert.title" = "Ha fallat l'actualització";
+"upgrade.notEligible.alert.message" = "Cryptomator no ha pogut trobar una versió antiga en el dispositiu. Si la vau comprar, si us plau torneu-la a descarregar de la botiga d'aplicacions i torneu a intentar-ho.";
 
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
+"urlSession.error.httpError.412" = "Accés denegat al recurs sol·licitat.";
 "urlSession.error.httpError.default" = "La connexió ha fallat amb codi d'estat %ld.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Ja heu afegit aquesta caixa forta.";
 
 "vaultDetail.button.changeVaultPassword" = "Canvia la contrasenya";
 "vaultDetail.button.lock" = "Bloca ara";
@@ -128,9 +136,17 @@
 "vaultDetail.button.removeVault" = "Elimina de la llista de caixes fortes";
 "vaultDetail.button.renameVault" = "Canvia el nom";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
+"vaultDetail.locked.footer" = "La vostra caixa està blocada actualment.";
+
+"vaultList.header.title" = "Caixes fortes";
+"vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";
+"vaultList.remove.alert.title" = "Elimina la caixa forta?";
+"vaultList.remove.alert.message" = "Això només eliminarà la caixa forta de la llista. No se suprimiran dades encriptades. Podreu re-afegir la caixa més endavant.";
 
 "webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "S'està autenticant…";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Utilizar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Manté HTTP";
