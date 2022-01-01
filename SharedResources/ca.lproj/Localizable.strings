@@ -112,11 +112,20 @@
 "unlockVault.button.unlock" = "Desbloqueja";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
 
+"untrustedTLSCertificate.title" = "Certificat TSL no vàlid";
+"untrustedTLSCertificate.add" = "Confia-hi";
+"untrustedTLSCertificate.dismiss" = "No hi confiïs";
+
+"upgrade.title" = "Actualitza de la versió 1.x";
+
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
+"urlSession.error.httpError.default" = "La connexió ha fallat amb codi d'estat %ld.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
 
 "vaultDetail.button.changeVaultPassword" = "Canvia la contrasenya";
+"vaultDetail.button.lock" = "Bloca ara";
 "vaultDetail.button.moveVault" = "Mou";
+"vaultDetail.button.removeVault" = "Elimina de la llista de caixes fortes";
 "vaultDetail.button.renameVault" = "Canvia el nom";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
 
