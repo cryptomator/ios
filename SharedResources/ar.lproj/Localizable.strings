@@ -4,6 +4,7 @@
 "common.button.choose" = "اختر";
 "common.button.create" = "إنشاء";
 "common.button.done" = "تم";
+"common.button.download" = "تحميل";
 "common.button.edit" = "تعديل";
 "common.button.enable" = "تفعيل";
 "common.button.next" = "التالي";
@@ -19,6 +20,7 @@
 "addVault.createNewVault.chooseCloud.header" = "أين يجب على Cryptomator تخزين الملفات المشفرة للمخزن الخاص بك؟";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "هام: إذا نسيت كلمة المرور الخاصة بك، لا توجد طريقة لاستعادة بياناتك.";
 "addVault.openExistingVault.title" = "افتح مخزن موجود";
+"purchase.upgrade.notEligible.footer" = "إذا كنت قد اشتريت بالفعل إصدار قديم من Cryptomator ، قم بإعادة تنزيله من متجر التطبيقات.";
 "purchase.retry.button" = "اعد المحاولة";
 
 "settings.title" = "الإعدادات";
