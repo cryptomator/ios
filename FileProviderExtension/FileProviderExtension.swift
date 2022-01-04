@@ -14,9 +14,6 @@ import FileProvider
 import MSAL
 
 class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
-	var fileManager = FileManager()
-	let fileCoordinator = NSFileCoordinator()
-	var adapter: FileProviderAdapter?
 	var observation: NSKeyValueObservation?
 	var manager: NSFileProviderManager?
 	var dbPath: URL?
@@ -66,7 +63,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 
 	deinit {
 		observation?.invalidate()
-		fileCoordinator.cancel()
 	}
 
 	/**
@@ -301,9 +297,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	private func getAdapter() throws -> FileProviderAdapter {
-		if let cachedAdapter = adapter {
-			return cachedAdapter
-		}
 		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
