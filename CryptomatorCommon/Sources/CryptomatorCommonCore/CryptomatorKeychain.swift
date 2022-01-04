@@ -13,7 +13,13 @@ enum CryptomatorKeychainError: Error {
 	case unhandledError(status: OSStatus)
 }
 
-class CryptomatorKeychain {
+protocol CryptomatorKeychainType {
+	func set(_ key: String, value: Data) throws
+	func getAsData(_ key: String) -> Data?
+	func delete(_ key: String) throws
+}
+
+class CryptomatorKeychain: CryptomatorKeychainType {
 	let service: String
 	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
