@@ -41,11 +41,20 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	}
 
 	func set(_ key: String, value: Data) throws {
-		let query = setQuery(key: key, value: value) as CFDictionary
-		SecItemDelete(query)
-		let status = SecItemAdd(query, nil)
-		guard status == noErr else {
-			throw CryptomatorKeychainError.unhandledError(status: status)
+		let setQuery = setQuery(key: key, value: value) as CFDictionary
+		let getQuery = getQuery(key: key) as CFDictionary
+		let currentData: Data?
+		do {
+			currentData = try getAsData(query: getQuery)
+		} catch let CryptomatorKeychainError.unhandledError(status: statusCode) where statusCode == errSecItemNotFound {
+			let status = SecItemAdd(setQuery, nil)
+			guard status == noErr else {
+				throw CryptomatorKeychainError.unhandledError(status: status)
+			}
+			return
+		}
+		if currentData != value {
+			try update(data: value, query: setQuery)
 		}
 	}
 
@@ -97,6 +106,13 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 			throw CryptomatorKeychainError.unhandledError(status: status)
 		}
 		return dataResult as? Data
+	}
+
+	private func update(data: Data, query: CFDictionary) throws {
+		let status = SecItemUpdate(query, [kSecValueData: data as AnyObject] as NSDictionary)
+		guard status == noErr else {
+			throw CryptomatorKeychainError.unhandledError(status: status)
+		}
 	}
 }
 
