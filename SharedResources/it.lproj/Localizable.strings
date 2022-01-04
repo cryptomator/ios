@@ -144,6 +144,17 @@
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Presentatione Finale.Key";
+"snapshots.fileprovider.file3" = "/Trailer Prodotto.mov";
+"snapshots.fileprovider.file4" = "/Proposta.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Progetto Segreto";
+"snapshots.fileprovider.folder2" = "/Fatture";
+"snapshots.fileprovider.folder1" = "/Certificati";
+"snapshots.main.vault1" = "/Lavoro";
+"snapshots.main.vault2" = "/Famiglia";
+"snapshots.main.vault3" = "/Documenti";
+"snapshots.main.vault4" = "/Viaggio in California";
 
 "unlockVault.button.unlock" = "Sblocca";
 "unlockVault.button.unlockVia" = "Sblocca tramite %@";
