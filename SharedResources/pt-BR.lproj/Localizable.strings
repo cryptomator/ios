@@ -143,6 +143,19 @@
 "settings.sendLogFile" = "Enviar arquivo de log";
 "settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Projeto Secreto";
+"snapshots.fileprovider.folder2" = "/Faturas";
+"snapshots.fileprovider.folder1" = "/Certificados";
+"snapshots.main.vault1" = "/Trabalho";
+"snapshots.main.vault2" = "/Família";
+"snapshots.main.vault3" = "/Documentos";
+"snapshots.main.vault4" = "/Viagem pra Califórnia";
+
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Digite a senha para \"%@\".";
