@@ -20,7 +20,7 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 	lazy var header = EditableTableViewHeader(title: viewModel.headerTitle)
 	lazy var subscribers = Set<AnyCancellable>()
 	var dataSource: EditableDataSource<Section, T>?
-	private var viewModel: ListViewModel
+	private let viewModel: ListViewModel
 	private lazy var emptyListMessage = EmptyListMessage(message: viewModel.emptyListMessage)
 	private var firstTimeLoading = true
 	private var lastSelectedCellViewModel: T?
