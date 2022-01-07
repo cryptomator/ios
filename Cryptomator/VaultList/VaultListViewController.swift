@@ -82,6 +82,14 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		header.isEditing = editing
 	}
 
+	override func removeRow(at indexPath: IndexPath) throws {
+		guard let vaultCellViewModel = dataSource?.itemIdentifier(for: indexPath) else {
+			return
+		}
+		try super.removeRow(at: indexPath)
+		coordinator?.removedVault(vaultCellViewModel.vault)
+	}
+
 	@objc func addNewVault() {
 		setEditing(false, animated: true)
 		coordinator?.addVault()
@@ -93,7 +101,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
+		super.tableView(tableView, didSelectRowAt: indexPath)
 		if let vaultCellViewModel = dataSource?.itemIdentifier(for: indexPath) {
 			coordinator?.showVaultDetail(for: vaultCellViewModel.vault)
 		}

@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		StoreObserver.shared.fallbackDelegate = coordinator
 		window = UIWindow(frame: UIScreen.main.bounds)
 		window?.tintColor = UIColor(named: "primary")
-		window?.rootViewController = navigationController
+		window?.rootViewController = coordinator?.rootViewController
 		window?.makeKeyAndVisible()
 		return true
 	}
