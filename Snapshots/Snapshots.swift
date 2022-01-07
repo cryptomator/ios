@@ -103,9 +103,10 @@ class Snapshots: XCTestCase {
 
 	private func navigateFromVaultDetailToOpenExistingVault() {
 		let tablesQuery = app.tables
-		// Tap on Back
-		app.navigationBars.buttons.element(boundBy: 0).tap()
-
+		if UIDevice.current.userInterfaceIdiom == .phone {
+			// Tap on Back
+			app.navigationBars.buttons.element(boundBy: 0).tap()
+		}
 		// Tap on the + symbol
 		app.navigationBars.buttons.element(boundBy: 1).tap()
 
