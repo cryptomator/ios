@@ -14,6 +14,7 @@
 "common.button.create" = "作成";
 "common.button.createFolder" = "フォルダーを作成";
 "common.button.done" = "完了";
+"common.button.download" = "ダウンロード";
 "common.button.edit" = "編集";
 "common.button.enable" = "有効";
 "common.button.next" = "次へ";
@@ -71,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "フォルダ名は空にできません。";
+"chooseFolder.createNewFolder.progress" = "フォルダーを作成中...";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" が見つかりませんでした。";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" が既に存在します。";
@@ -101,7 +103,14 @@
 
 "purchase.title" = "フル バージョンのロックを解除";
 "purchase.info" = "無料の Cryptomator では読み取りモード専用で使用いただけます。金庫への書き込みができるフルバージョンをご検討ください。";
+"purchase.upgrade.notEligible.footer" = "すでに古いバージョンの Cryptomator を購入している場合は、App Store から再ダウンロードしてください。";
+"purchase.beginFreeTrial.button" = "30日間の無料トライアルを開始";
+"purchase.beginFreeTrial.footer" = "Cryptomator のフルバージョンを無料でお試しください。この試用版のロックは一度だけ解除できます。";
+"purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "正常に復元されました";
 "purchase.retry.button" = "再試行";
+"purchase.decideLater.button" = "後で決める";
+"purchase.unlockedFullVersion.title" = "ありがとうございます";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
@@ -116,6 +125,19 @@
 "settings.sendLogFile" = "ログ ファイルを送信";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
+
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください。";
@@ -128,6 +150,11 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
+
+"upgrade.title" = "バージョン 1.x からアップグレード";
+"upgrade.paidUpgrade.button" = "%@ でアップグレード";
+"upgrade.freeUpgrade.button" = "無料でアップグレード";
+"upgrade.notEligible.alert.title" = "アップグレードできませんでした";
 
 "urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
 "urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
