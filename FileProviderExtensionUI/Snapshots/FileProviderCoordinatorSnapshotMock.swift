@@ -18,7 +18,6 @@ class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
 		UnlockVaultViewController.changeUnlock
 		UnlockVaultViewController.setSnapshotAccessibilityIdentifier
 		UITextField.changePasswordFielCell
-		LAContext.activateFaceID
 		super.init(extensionContext: extensionContext, hostViewController: hostViewController)
 	}
 
@@ -92,28 +91,6 @@ extension UITextField {
 	@objc func swizzled_layoutSubviews() {
 		swizzled_layoutSubviews()
 		isSecureTextEntry = false
-	}
-}
-
-extension LAContext {
-	static let activateFaceID: Void = {
-		guard let originalMethod = class_getInstanceMethod(LAContext.self, #selector(canEvaluatePolicy(_:error:))),
-		      let swizzledMethod = class_getInstanceMethod(LAContext.self, #selector(swizzled_canEvaluatePolicy(_:error:)))
-		else { return }
-		method_exchangeImplementations(originalMethod, swizzledMethod)
-
-		guard let originalMethod2 = class_getInstanceMethod(LAContext.self, #selector(getter: biometryType)),
-		      let swizzledMethod2 = class_getInstanceMethod(LAContext.self, #selector(swizzled_getBiometryType))
-		else { return }
-		method_exchangeImplementations(originalMethod2, swizzledMethod2)
-	}()
-
-	@objc func swizzled_canEvaluatePolicy(_ policy: LAPolicy, error: NSErrorPointer) -> Bool {
-		return true
-	}
-
-	@objc func swizzled_getBiometryType() -> LABiometryType {
-		return .faceID
 	}
 }
 #endif
