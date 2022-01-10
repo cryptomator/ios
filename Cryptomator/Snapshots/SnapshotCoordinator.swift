@@ -34,8 +34,7 @@ class SnapshotCoordinator: MainCoordinator {
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
 		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
-		let detailNavigationController = BaseNavigationController()
-		detailNavigationController.pushViewController(vaultDetailViewController, animated: false)
+		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
 	}
 

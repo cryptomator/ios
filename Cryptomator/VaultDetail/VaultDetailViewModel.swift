@@ -91,7 +91,6 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var lockButton: ButtonCellViewModel<VaultDetailButtonAction> = {
 		let viewModel = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: vaultInfo.vaultIsUnlocked.value)
-		vaultInfo.vaultIsUnlocked.$value.assign(to: \.isEnabled.value, on: viewModel).store(in: &subscribers)
 		return viewModel
 	}()
 
@@ -142,15 +141,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 	}()
 
-	private lazy var unlockSectionFooterViewModel: UnlockSectionFooterViewModel = {
-		let viewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
-
-		// Binding
-		vaultInfo.vaultIsUnlocked.$value.assign(to: \.vaultUnlocked, on: viewModel).store(in: &subscribers)
-		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: viewModel).store(in: &subscribers)
-
-		return viewModel
-	}()
+	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
 
 	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
@@ -177,6 +168,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 			self?.title.value = vaultAccount.vaultName
 			self?.updateViewModels()
 		})
+		setupBinding()
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -271,5 +263,19 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 			return false
 		}
 		return vaultInfo.vaultPath != CloudPath("/")
+	}
+
+	private func setupBinding() {
+		bindUnlockSectionFooterViewModel()
+		bindLockButton()
+	}
+
+	private func bindUnlockSectionFooterViewModel() {
+		vaultInfo.vaultIsUnlocked.$value.assign(to: \.vaultUnlocked, on: unlockSectionFooterViewModel).store(in: &subscribers)
+		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: unlockSectionFooterViewModel).store(in: &subscribers)
+	}
+
+	private func bindLockButton() {
+		vaultInfo.vaultIsUnlocked.$value.assign(to: \.isEnabled.value, on: lockButton).store(in: &subscribers)
 	}
 }

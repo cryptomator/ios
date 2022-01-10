@@ -18,11 +18,12 @@ class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelCo
 		textLabel?.numberOfLines = 0
 		textLabel?.text = viewModel.title.value
 		subscriber = viewModel.title.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] text in
-			UIView.setAnimationsEnabled(false)
-			self?.tableView?.performBatchUpdates({
-				self?.textLabel?.text = text
-			})
-			UIView.setAnimationsEnabled(true)
+			UIView.performWithoutAnimation {
+				self?.tableView?.performBatchUpdates({
+					self?.textLabel?.text = text
+					self?.sizeToFit()
+				})
+			}
 		})
 	}
 }
