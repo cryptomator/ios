@@ -16,7 +16,8 @@ class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelCo
 
 	func configure(with viewModel: HeaderFooterViewModel) {
 		textLabel?.numberOfLines = 0
-		subscriber = viewModel.title.$value.sink(receiveValue: { [weak self] text in
+		textLabel?.text = viewModel.title.value
+		subscriber = viewModel.title.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] text in
 			UIView.setAnimationsEnabled(false)
 			self?.tableView?.performBatchUpdates({
 				self?.textLabel?.text = text

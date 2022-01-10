@@ -18,6 +18,7 @@ class VaultDetailCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 
 	var navigationController: UINavigationController
+	weak var removedVaultDelegate: RemoveVaultDelegate?
 	private let vaultInfo: VaultInfo
 
 	init(vaultInfo: VaultInfo, navigationController: UINavigationController) {
@@ -71,6 +72,10 @@ class VaultDetailCoordinator: Coordinator {
 		child.start()
 	}
 
+	func removedVault() {
+		removedVaultDelegate?.removedVault(vaultInfo)
+	}
+
 	func changeVaultPassword() {
 		let maintenanceManager: MaintenanceManager
 		do {
@@ -121,4 +126,8 @@ extension VaultDetailCoordinator: VaultPasswordChanging {
 		}
 		navigationController.popViewController(animated: true)
 	}
+}
+
+protocol RemoveVaultDelegate: AnyObject {
+	func removedVault(_ vault: VaultInfo)
 }

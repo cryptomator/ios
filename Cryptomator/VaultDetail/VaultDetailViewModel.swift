@@ -89,7 +89,12 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}()
 
-	private let lockButton = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: false)
+	private lazy var lockButton: ButtonCellViewModel<VaultDetailButtonAction> = {
+		let viewModel = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: vaultInfo.vaultIsUnlocked.value)
+		vaultInfo.vaultIsUnlocked.$value.assign(to: \.isEnabled.value, on: viewModel).store(in: &subscribers)
+		return viewModel
+	}()
+
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
@@ -138,10 +143,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}()
 
 	private lazy var unlockSectionFooterViewModel: UnlockSectionFooterViewModel = {
-		let viewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
+		let viewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
 
 		// Binding
-		lockButton.isEnabled.$value.assign(to: \.vaultUnlocked, on: viewModel).store(in: &subscribers)
+		vaultInfo.vaultIsUnlocked.$value.assign(to: \.vaultUnlocked, on: viewModel).store(in: &subscribers)
 		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: viewModel).store(in: &subscribers)
 
 		return viewModel
@@ -213,8 +218,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
 		return getProxyPromise.then { proxy -> Void in
 			proxy.lockVault(domainIdentifier: domainIdentifier)
-			self.vaultInfo.vaultIsUnlocked = false
-			self.lockButton.isEnabled.value = false
+			self.vaultInfo.vaultIsUnlocked.value = false
 		}
 	}
 
@@ -227,8 +231,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 				proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: handler)
 			}
 		}.then { isUnlocked -> Void in
-			self.vaultInfo.vaultIsUnlocked = isUnlocked
-			self.lockButton.isEnabled.value = isUnlocked
+			self.vaultInfo.vaultIsUnlocked.value = isUnlocked
 		}
 	}
 

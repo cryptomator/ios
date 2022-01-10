@@ -65,14 +65,15 @@ class BindableAttributedTextHeaderFooterView: AttributedTextHeaderFooterView {
 		guard let viewModel = viewModel as? BindableAttributedTextHeaderFooterViewModel else {
 			return
 		}
+		textView.attributedText = viewModel.attributedText.value
 		viewModel.attributedText.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] attributedText in
-			UIView.setAnimationsEnabled(false)
-			self?.tableView?.performBatchUpdates({
-				self?.textView.attributedText = attributedText
-				self?.textView.font = self?.textLabel?.font
-				self?.textView.textColor = self?.textLabel?.textColor
-			})
-			UIView.setAnimationsEnabled(true)
+			UIView.performWithoutAnimation {
+				self?.tableView?.performBatchUpdates({
+					self?.textView.attributedText = attributedText
+					self?.textView.font = self?.textLabel?.font
+					self?.textView.textColor = self?.textLabel?.textColor
+				})
+			}
 		}).store(in: &subscriber)
 	}
 }

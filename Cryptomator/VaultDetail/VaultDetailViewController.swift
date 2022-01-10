@@ -77,7 +77,7 @@ class VaultDetailViewController: BaseUITableViewController {
 			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
 				do {
 					try self.viewModel.removeVault()
-					self.navigationController?.popViewController(animated: true)
+					self.coordinator?.removedVault()
 				} catch {
 					self.coordinator?.handleError(error, for: self)
 				}
