@@ -2481,7 +2481,6 @@
 		4A136129276767D60077EB7F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2493,8 +2492,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Snapshots/Snapshots-Bridging-Header.h";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Debug;
@@ -2502,7 +2499,6 @@
 		4A13612A276767D60077EB7F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -2514,7 +2510,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.snapshots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Snapshots/Snapshots-Bridging-Header.h";
-				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = Cryptomator;
 			};
 			name = Release;

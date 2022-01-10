@@ -10,8 +10,10 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SnapshotBiometrics: NSObject
+@interface SnapshotBiometrics : NSObject
+
 + (void)enrolled;
+
 @end
 
 NS_ASSUME_NONNULL_END

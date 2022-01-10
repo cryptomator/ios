@@ -12,10 +12,12 @@
 
 // Taken from: https://github.com/KaneCheshire/BiometricAutomationDemo/blob/main/BiometricsAutomationDemoUITests/Biometrics.m
 @implementation SnapshotBiometrics
-+ (void) enrolled {
+
++ (void)enrolled {
 	int token;
 	notify_register_check("com.apple.BiometricKit.enrollmentChanged", &token);
 	notify_set_state(token, 1);
 	notify_post("com.apple.BiometricKit.enrollmentChanged");
 }
+
 @end
