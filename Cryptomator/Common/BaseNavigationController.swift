@@ -13,6 +13,21 @@ class BaseNavigationController: UINavigationController {
 		return .lightContent
 	}
 
+	override var modalPresentationStyle: UIModalPresentationStyle {
+		get {
+			if useDefaultModalPresentationStyle {
+				return .formSheet
+			}
+			return super.modalPresentationStyle
+		}
+		set {
+			useDefaultModalPresentationStyle = false
+			super.modalPresentationStyle = newValue
+		}
+	}
+
+	private var useDefaultModalPresentationStyle = true
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let appearance = UINavigationBarAppearance()

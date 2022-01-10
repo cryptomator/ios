@@ -68,10 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		SKPaymentQueue.default().add(StoreObserver.shared)
 
 		// Create window
-		let navigationController = BaseNavigationController()
-		coordinator = MainCoordinator(navigationController: navigationController)
+		coordinator = MainCoordinator()
 		#if SNAPSHOTS
-		coordinator = SnapshotCoordinator(navigationController: navigationController)
+		coordinator = SnapshotCoordinator()
 		UIView.setAnimationsEnabled(false)
 		#endif
 		coordinator?.start()

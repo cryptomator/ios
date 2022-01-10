@@ -11,7 +11,7 @@ import Promises
 import UIKit
 
 class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
-	var navigationController: UINavigationController
+	var navigationController: UINavigationController = BaseNavigationController()
 	var childCoordinators = [Coordinator]()
 	lazy var rootViewController: UISplitViewController = {
 		let splitViewController = UISplitViewController()
@@ -21,11 +21,6 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}()
 
 	private weak var lastVaultInfo: VaultInfo?
-
-	init(navigationController: UINavigationController) {
-		self.navigationController = navigationController
-		super.init()
-	}
 
 	func start() {
 		let vaultListViewController = VaultListViewController(with: VaultListViewModel())
