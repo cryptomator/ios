@@ -60,6 +60,10 @@
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
+"autoLockTimeout.never.description" = "Forever";
+"autoLockTimeout.off.description" = "Off";
+
+
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
@@ -199,6 +203,7 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Keep Unlocked";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
 "vaultDetail.moveVault.progress" = "Moving…";

@@ -44,6 +44,13 @@ class VaultDetailCoordinator: Coordinator {
 		return pendingAuthentication
 	}
 
+	func showAutoLockSettings(currentAutoLockTimeout: Bindable<AutoLockTimeout>) {
+		let viewModel = VaultKeepUnlockedViewModel(currentAutoLockTimeout: currentAutoLockTimeout, vaultUID: vaultInfo.vaultUID)
+		let autoLockViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
+		autoLockViewController.coordinator = self
+		navigationController.pushViewController(autoLockViewController, animated: true)
+	}
+
 	func renameVault() {
 		let configuration: VaultMoveConfiguration
 		do {

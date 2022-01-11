@@ -40,6 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
+	case showAutoLockScreen(currentAutoLockTimeout: Bindable<AutoLockTimeout>)
 }
 
 private enum VaultDetailSection {
@@ -74,6 +75,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private let vaultManager: VaultManager
 	private let fileProviderConnector: FileProviderConnector
 	private let context = LAContext()
+	private let vaultAutoLockSettings: VaultAutoLockingSettings
 	private let passwordManager: VaultPasswordManager
 	private var vaultPath: CloudPath {
 		return vaultInfo.vaultPath
@@ -94,6 +96,11 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return viewModel
 	}()
 
+	private lazy var keepUnlockedCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> = {
+		let currentAutoLockTimeout = vaultAutoLockSettings.getAutoLockTimeout(forVaultUID: vaultUID)
+		return KeepUnlockedButtonCellViewModel(currentAutoLockTimeout: currentAutoLockTimeout)
+	}()
+
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
@@ -111,15 +118,12 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private var lockSectionCells: [BindableTableViewCellViewModel] {
+		var cells: [BindableTableViewCellViewModel] = [lockButton, keepUnlockedCellViewModel]
 		if let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
 			let switchCellViewModel = getSwitchCellViewModel(biometryTypeName: biometryTypeName)
-			return [
-				lockButton,
-				switchCellViewModel
-			]
-		} else {
-			return [lockButton]
+			cells.append(switchCellViewModel)
 		}
+		return cells
 	}
 
 	private var switchCellViewModel: SwitchCellViewModel?
@@ -149,15 +153,16 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
-		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultAutoLockSettings: VaultAutoLockingManager.shared)
 	}
 
-	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager) {
+	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultAutoLockSettings: VaultAutoLockingSettings) {
 		self.vaultInfo = vaultInfo
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		self.passwordManager = passwordManager
 		self.title = Bindable(vaultInfo.vaultName)
+		self.vaultAutoLockSettings = vaultAutoLockSettings
 		self.observation = dbManager.observeVaultAccount(withVaultUID: vaultInfo.vaultUID, onError: { error in
 			DDLogError("Observe Vault Account error: \(error)")
 		}, onChange: { [weak self] vaultAccount in
@@ -277,5 +282,23 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private func bindLockButton() {
 		vaultInfo.vaultIsUnlocked.$value.assign(to: \.isEnabled.value, on: lockButton).store(in: &subscribers)
+	}
+}
+
+private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> {
+	private let currentAutoLockTimeout: Bindable<AutoLockTimeout>
+	private var subscriber: AnyCancellable?
+
+	init(currentAutoLockTimeout: AutoLockTimeout, isEnabled: Bool = true) {
+		let currentAutoLockTimeoutBinding = Bindable(currentAutoLockTimeout)
+		self.currentAutoLockTimeout = currentAutoLockTimeoutBinding
+		super.init(action: .showAutoLockScreen(currentAutoLockTimeout: currentAutoLockTimeoutBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentAutoLockTimeout.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+		setupBinding()
+	}
+
+	private func setupBinding() {
+		subscriber = currentAutoLockTimeout.$value.sink { [weak self] currentAutoLockTimeout in
+			self?.detailTitle.value = currentAutoLockTimeout.description
+		}
 	}
 }
