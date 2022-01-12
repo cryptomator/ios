@@ -255,6 +255,8 @@
 		4AE791CA278F168E00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */; };
 		4AE791CC278F16BD00525913 /* VaultAutoLockingHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CB278F16BD00525913 /* VaultAutoLockingHelperMock.swift */; };
 		4AE791CE278F172E00525913 /* VaultAutoLockingSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CD278F172E00525913 /* VaultAutoLockingSettingsMock.swift */; };
+		4AE791D0278F1EAD00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */; };
+		4AE791D2278F1F2600525913 /* MasterkeyCacheHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */; };
 		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */; };
@@ -701,6 +703,8 @@
 		4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
 		4AE791CB278F16BD00525913 /* VaultAutoLockingHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultAutoLockingHelperMock.swift; sourceTree = "<group>"; };
 		4AE791CD278F172E00525913 /* VaultAutoLockingSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultAutoLockingSettingsMock.swift; sourceTree = "<group>"; };
+		4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
+		4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheHelperMock.swift; sourceTree = "<group>"; };
 		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProviderValidationServiceSource.h; sourceTree = "<group>"; };
 		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
@@ -1424,11 +1428,13 @@
 				4ABA985B2729557A004BB717 /* CloudProviderMock.swift */,
 				4A1C6D5D274D299200B41FFF /* CryptomatorSettingsMock.swift */,
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
-				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
-				4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */,
-				4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
+				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
+				4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */,
+				4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */,
+				4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */,
 				4A707805278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift */,
+				4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2360,6 +2366,7 @@
 				4ADD9DBE272967E400B73FB9 /* VaultManagerMock.swift in Sources */,
 				4A6A5208268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift in Sources */,
 				4A1C6D5A274D225500B41FFF /* PurchaseViewModelTests.swift in Sources */,
+				4AE791D2278F1F2600525913 /* MasterkeyCacheHelperMock.swift in Sources */,
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4A3D6554267CF17B000DA764 /* CreateNewVaultPasswordViewModelTests.swift in Sources */,
 				4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */,
@@ -2368,6 +2375,7 @@
 				4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */,
 				4A1C6D5E274D299200B41FFF /* CryptomatorSettingsMock.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
+				4AE791D0278F1EAD00525913 /* MasterkeyCacheManagerMock.swift in Sources */,
 				4A91D8CC272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift in Sources */,
 				4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */,
 				4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */,

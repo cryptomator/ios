@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import CryptomatorCryptoLib
 import Foundation
 import Promises
 
@@ -104,6 +105,29 @@ final class VaultManagerMock: VaultManager {
 		manualUnlockVaultWithUIDKekReceivedArguments = (vaultUID: vaultUID, kek: kek)
 		manualUnlockVaultWithUIDKekReceivedInvocations.append((vaultUID: vaultUID, kek: kek))
 		return try manualUnlockVaultWithUIDKekClosure.map({ try $0(vaultUID, kek) }) ?? manualUnlockVaultWithUIDKekReturnValue
+	}
+
+	// MARK: - createVaultProvider
+
+	var createVaultProviderWithUIDMasterkeyThrowableError: Error?
+	var createVaultProviderWithUIDMasterkeyCallsCount = 0
+	var createVaultProviderWithUIDMasterkeyCalled: Bool {
+		createVaultProviderWithUIDMasterkeyCallsCount > 0
+	}
+
+	var createVaultProviderWithUIDMasterkeyReceivedArguments: (vaultUID: String, masterkey: Masterkey)?
+	var createVaultProviderWithUIDMasterkeyReceivedInvocations: [(vaultUID: String, masterkey: Masterkey)] = []
+	var createVaultProviderWithUIDMasterkeyReturnValue: CloudProvider!
+	var createVaultProviderWithUIDMasterkeyClosure: ((String, Masterkey) throws -> CloudProvider)?
+
+	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
+		if let error = createVaultProviderWithUIDMasterkeyThrowableError {
+			throw error
+		}
+		createVaultProviderWithUIDMasterkeyCallsCount += 1
+		createVaultProviderWithUIDMasterkeyReceivedArguments = (vaultUID: vaultUID, masterkey: masterkey)
+		createVaultProviderWithUIDMasterkeyReceivedInvocations.append((vaultUID: vaultUID, masterkey: masterkey))
+		return try createVaultProviderWithUIDMasterkeyClosure.map({ try $0(vaultUID, masterkey) }) ?? createVaultProviderWithUIDMasterkeyReturnValue
 	}
 
 	// MARK: - removeVault
