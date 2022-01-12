@@ -58,6 +58,7 @@
 "addVault.openExistingVault.password.footer" = "أدخل كلمة المرور ل \"%@\".";
 "addVault.openExistingVault.progress" = "جاري إضافة مخزن…";
 "addVault.success.info" = "تمت إضافة مخزن%@بنجاح.\nالوصول إلى هذا المخزن عبر تطبيق الملفات.";
+"addVault.success.footer" = "فعّل Cryptomator في تطبيق الملفات، إذا لم تفعّله مسبقاً.";
 
 "changePassword.error.invalidOldPassword" = "كلمة المرور الحالية خاطئة. الرجاء المحاولة مرة أخرى.";
 "changePassword.header.currentPassword.title" = "أدخل كلمة المرور الحالية.";
@@ -75,14 +76,33 @@
 "cloudProvider.error.itemAlreadyExists" = "%@\" موجود مسبقاً.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" يحتوي على نوع عنصر غير متوقع.";
 "cloudProvider.error.parentFolderDoesNotExist" = "المجلد الأصل \"%@\" غير موجود.";
+"cloudProvider.error.pageTokenInvalid" = "لا يمكن متابعة جلب محتويات الدليل.";
 "cloudProvider.error.quotaInsufficient" = "مساحة التخزين الخاصة بك غير كافية.";
 "cloudProvider.error.unauthorized" = "غير قادر على تنفيذ عملية غير مصرح بها.";
+"cloudProvider.error.noInternetConnection" = "الاتصال بشبكة الإنترنت لازم لهذه العملية.";
+
+"cloudProviderType.localFileSystem" = "موفر ملفات آخر";
+
+"fileProvider.onboarding.title" = "مرحباً بك";
+"fileProvider.onboarding.info" = "شكراً لاختيار Cryptomator لحماية ملفاتك. للبدء، اذهب إلى التطبيق الرئيس وأضف مخزن.";
+"fileProvider.onboarding.button.openCryptomator" = "فتح Cryptomator";
+
+"localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
+"localFileSystemAuthentication.createNewVault.button" = "حدد موقع التخزين";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "يوجد مخزن بالفعل في هذا الموقع. الرجاء المحاولة مرة أخرى مع موقع تخزين مختلف.";
+"localFileSystemAuthentication.openExistingVault.header" = "في الشاشة التالية، اختر مجلد المخزن الموجود لديك.";
+"localFileSystemAuthentication.openExistingVault.button" = "حدد مجلد المخزن";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
 "purchase.upgrade.notEligible.footer" = "إذا كنت قد اشتريت بالفعل إصدار قديم من Cryptomator ، قم بإعادة تنزيله من متجر التطبيقات.";
 "purchase.retry.button" = "اعد المحاولة";
 
 "settings.title" = "الإعدادات";
+"settings.aboutCryptomator.title" = "الإصدار %@ (%@)";
+"settings.cacheSize" = "حجم ذاكرة التخزين المؤقت";
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
+"settings.cloudServices" = "الخدمات السحابية";
 "settings.debugMode.alert.message" = "في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.";
+"settings.rateApp" = "تقييم التطبيق";
 "settings.sendLogFile" = "إرسال ملف السجل";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
 
@@ -101,10 +121,26 @@
 
 "upgrade.title" = "الترقية من الإصدار 1.x";
 "upgrade.info" = "أنت مؤهل للترقية من إصدار قديم من Cryptomator لفتح الإصدار الكامل. شكرا لك على دعم Cryptomator في الماضي!";
+"upgrade.notEligible.alert.title" = "فشل الترقية";
+
+"urlSession.error.httpError.401" = "خطأ في اسم المستخدم و/أو كلمة المرور.";
+"urlSession.error.httpError.404" = "لم يتم العثور على المورد المطلوب.";
+"urlSession.error.httpError.412" = "تم رفض الوصول إلى المورد المستهدف.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "لقد أضفت هذا المخزن مسبقاً.";
 
 "vaultDetail.button.changeVaultPassword" = "تغيير كلمة المرور";
+"vaultDetail.button.lock" = "قفل الآن";
 "vaultDetail.button.moveVault" = "نقل";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
+"vaultDetail.disabledBiometricalUnlock.footer" = "إذا مكّنت %@، سيتم تخزين كلمة المرور الخاصة بك في سلسلة مفاتيح iOS.";
+"vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%@\" لتخزينها في سلسلة مفاتيح iOS وتمكين %@.";
+
+"vaultList.header.title" = "المخازن";
+"vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
+
+"webDAVAuthentication.title" = "WebDAV";
+"webDAVAuthentication.progress" = "المصادقة…";
 
 "webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
 "webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
