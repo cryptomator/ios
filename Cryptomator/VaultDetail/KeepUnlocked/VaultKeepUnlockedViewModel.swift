@@ -27,12 +27,14 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 
 	private var autoLockItems = [AutoLockItem]()
 	private let vaultAutoLockSettings: VaultAutoLockingSettings
+	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultUID: String
 	private let currentAutoLockTimeout: Bindable<AutoLockTimeout>
 
-	init(currentAutoLockTimeout: Bindable<AutoLockTimeout>, vaultUID: String, vaultAutoLockSettings: VaultAutoLockingSettings = VaultAutoLockingManager.shared) {
+	init(currentAutoLockTimeout: Bindable<AutoLockTimeout>, vaultUID: String, vaultAutoLockSettings: VaultAutoLockingSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultUID = vaultUID
 		self.vaultAutoLockSettings = vaultAutoLockSettings
+		self.masterkeyCacheManager = masterkeyCacheManager
 		self.currentAutoLockTimeout = currentAutoLockTimeout
 
 		self.autoLockItems = AutoLockTimeout.allCases.map {
@@ -50,6 +52,9 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 		}
 		if let selectedAutoLockItem = items.first(where: { $0.selected }) {
 			try vaultAutoLockSettings.setAutoLockTimeout(selectedAutoLockItem.timeout, forVaultUID: vaultUID)
+			if case AutoLockTimeout.off = selectedAutoLockItem.timeout {
+				try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
+			}
 			currentAutoLockTimeout.value = selectedAutoLockItem.timeout
 		}
 	}
