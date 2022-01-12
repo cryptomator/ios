@@ -57,7 +57,7 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 				return
 			}
 			do {
-				try FileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
+				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
 				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)
 			} catch {
@@ -68,10 +68,10 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 	}
 
 	func startBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
+		FileProviderAdapterManager.shared.semaphore.runningBiometricalUnlock = true
 	}
 
 	func endBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.signal()
+		FileProviderAdapterManager.shared.semaphore.signal()
 	}
 }

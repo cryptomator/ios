@@ -14,7 +14,7 @@ import Foundation
 extension FileProviderExtension {
 	override func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DDLogDebug("FPExt: importDocument(at: \(fileURL), toParentItemIdentifier: \(parentItemIdentifier.rawValue)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -25,7 +25,7 @@ extension FileProviderExtension {
 
 	override func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DDLogDebug("FPExt: createDirectory(withName: \(directoryName), inParentItemIdentifier: \(parentItemIdentifier.rawValue)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -36,7 +36,7 @@ extension FileProviderExtension {
 
 	override func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DDLogDebug("FPExt: renameItem(withIdentifier: \(itemIdentifier.rawValue), toName: \(itemName)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -47,7 +47,7 @@ extension FileProviderExtension {
 
 	override func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
 		DDLogInfo("FPExt: reparentItem(withIdentifier: \(itemIdentifier.rawValue), toParentItemWithIdentifier: \(parentItemIdentifier.rawValue)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -58,7 +58,7 @@ extension FileProviderExtension {
 
 	override func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void) {
 		DDLogDebug("FPExt: deleteItem(withIdentifier: \(itemIdentifier.rawValue)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
