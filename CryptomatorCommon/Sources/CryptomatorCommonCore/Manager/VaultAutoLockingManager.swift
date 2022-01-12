@@ -120,3 +120,15 @@ extension VaultAutoLockingManager: VaultAutoLockingSettings {
 		return "\(vaultUID)-lastUsedDate"
 	}
 }
+
+extension VaultAutoLockingManager: MasterkeyCacheHelper {
+	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool {
+		let autoLockTimeout = getAutoLockTimeout(forVaultUID: vaultUID)
+		switch autoLockTimeout {
+		case .off:
+			return false
+		case .never, .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:
+			return true
+		}
+	}
+}
