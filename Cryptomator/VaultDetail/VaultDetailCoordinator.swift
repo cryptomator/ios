@@ -46,9 +46,9 @@ class VaultDetailCoordinator: Coordinator {
 
 	func showAutoLockSettings(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>) {
 		let viewModel = VaultKeepUnlockedViewModel(currentKeepUnlockedSetting: currentKeepUnlockedSetting, vaultUID: vaultInfo.vaultUID)
-		let autoLockViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
-		autoLockViewController.coordinator = self
-		navigationController.pushViewController(autoLockViewController, animated: true)
+		let keepUnlockedViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
+		keepUnlockedViewController.coordinator = self
+		navigationController.pushViewController(keepUnlockedViewController, animated: true)
 	}
 
 	func renameVault() {
