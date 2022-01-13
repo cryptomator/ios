@@ -1,5 +1,5 @@
 //
-//  AutoLockTimeout.swift
+//  KeepUnlockedSetting.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 11.01.22.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-public enum AutoLockTimeout: CaseIterable, Codable {
+public enum KeepUnlockedSetting: CaseIterable, Codable {
 	case off
 	case oneMinute
 	case twoMinutes
@@ -26,10 +26,10 @@ public enum AutoLockTimeout: CaseIterable, Codable {
 			return formatter.string(from: timeInterval)?.capitalized
 		}
 		if case .off = self {
-			return LocalizedString.getValue("autoLockTimeout.off.description")
+			return LocalizedString.getValue("keepUnlockedSetting.off.description")
 		}
 		if case .never = self {
-			return LocalizedString.getValue("autoLockTimeout.never.description")
+			return LocalizedString.getValue("keepUnlockedSetting.never.description")
 		}
 		return nil
 	}

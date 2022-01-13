@@ -12,17 +12,17 @@ public protocol VaultAutoLockingSettings {
 	/**
 	 Returns the Auto-Lock timeout for the passed `vaultUID`.
 
-	 If no Auto-Lock timeout is set the `defaultAutoLockTimeout` will be returned.
+	 If no Auto-Lock timeout is set the `defaultKeepUnlockedSetting` will be returned.
 	 */
-	func getAutoLockTimeout(forVaultUID vaultUID: String) -> AutoLockTimeout
-	func setAutoLockTimeout(_ timeout: AutoLockTimeout, forVaultUID vaultUID: String) throws
+	func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting
+	func setKeepUnlockedSetting(_ timeout: KeepUnlockedSetting, forVaultUID vaultUID: String) throws
 
 	func getLastUsedDate(forVaultUID vaultUID: String) -> Date?
 	func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws
 }
 
 extension VaultAutoLockingSettings {
-	var defaultAutoLockTimeout: AutoLockTimeout {
+	var defaultKeepUnlockedSetting: KeepUnlockedSetting {
 		return .fiveMinutes
 	}
 }
@@ -31,7 +31,7 @@ public protocol VaultAutoLockingHelper {
 	/**
 	 Returns if the vault should be automatically locked.
 
-	 A vault should never be automatically locked  if the corresponding Auto-Lock timeout is `AutoLockTimeout.off` or `AutoLockTimeout.never`.
+	 A vault should never be automatically locked  if the corresponding Auto-Lock timeout is `KeepUnlockedSetting.off` or `KeepUnlockedSetting.never`.
 	 The vault corresponding to the `vaultUID` should be locked if the last activity of the vault + the time interval of the corresponding Auto-Lock timeout `<=` the current date or if the vault was not yet used.
 	 */
 	func shouldAutoLockVault(withVaultUID vaultUID: String) -> Bool
@@ -39,7 +39,7 @@ public protocol VaultAutoLockingHelper {
 	/**
 	 Returns if the vault corresponding to the `vaultUID` should be automatically unlocked.
 
-	 A vault should never be automatically unlocked if the corresponding Auto-Lock timeout is `AutoLockTimeout.off`.
+	 A vault should never be automatically unlocked if the corresponding Auto-Lock timeout is `KeepUnlockedSetting.off`.
 	 Otherwise a vault should be automatically unlocked if it is not supposed to be automatically locked.
 	 */
 	func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool
@@ -54,19 +54,19 @@ public class VaultAutoLockingManager: VaultAutoLockingHelper {
 	}
 
 	public func shouldAutoLockVault(withVaultUID vaultUID: String) -> Bool {
-		let autoLockTimeout = getAutoLockTimeout(forVaultUID: vaultUID)
-		guard let autoLockTimeoutTimeInterval = autoLockTimeout.timeInterval else {
+		let keepUnlockedSetting = getKeepUnlockedSetting(forVaultUID: vaultUID)
+		guard let keepUnlockedSettingTimeInterval = keepUnlockedSetting.timeInterval else {
 			return false
 		}
 		guard let lastUsedDate = getLastUsedDate(forVaultUID: vaultUID) else {
 			return true
 		}
-		return lastUsedDate.addingTimeInterval(autoLockTimeoutTimeInterval) <= Date()
+		return lastUsedDate.addingTimeInterval(keepUnlockedSettingTimeInterval) <= Date()
 	}
 
 	public func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool {
-		let autoLockTimeout = getAutoLockTimeout(forVaultUID: vaultUID)
-		switch autoLockTimeout {
+		let keepUnlockedSetting = getKeepUnlockedSetting(forVaultUID: vaultUID)
+		switch keepUnlockedSetting {
 		case .off:
 			return false
 		case .never:
@@ -78,24 +78,24 @@ public class VaultAutoLockingManager: VaultAutoLockingHelper {
 }
 
 extension VaultAutoLockingManager: VaultAutoLockingSettings {
-	public func getAutoLockTimeout(forVaultUID vaultUID: String) -> AutoLockTimeout {
+	public func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
 		guard let data = keychain.getAsData(getAutoLockKey(forVaultUID: vaultUID)) else {
-			return defaultAutoLockTimeout
+			return defaultKeepUnlockedSetting
 		}
 		let jsonDecoder = JSONDecoder()
 		do {
-			return try jsonDecoder.decode(AutoLockTimeout.self, from: data)
+			return try jsonDecoder.decode(KeepUnlockedSetting.self, from: data)
 		} catch {
-			return defaultAutoLockTimeout
+			return defaultKeepUnlockedSetting
 		}
 	}
 
-	public func setAutoLockTimeout(_ timeout: AutoLockTimeout, forVaultUID vaultUID: String) throws {
+	public func setKeepUnlockedSetting(_ timeout: KeepUnlockedSetting, forVaultUID vaultUID: String) throws {
 		let jsonEncoder = JSONEncoder()
 		try keychain.set(getAutoLockKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(timeout))
 	}
 
-	public func removeAutoLockTimeout(forVaultUID vaultUID: String) throws {
+	public func removeKeepUnlockedSetting(forVaultUID vaultUID: String) throws {
 		try keychain.delete(getAutoLockKey(forVaultUID: vaultUID))
 	}
 
@@ -123,8 +123,8 @@ extension VaultAutoLockingManager: VaultAutoLockingSettings {
 
 extension VaultAutoLockingManager: MasterkeyCacheHelper {
 	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool {
-		let autoLockTimeout = getAutoLockTimeout(forVaultUID: vaultUID)
-		switch autoLockTimeout {
+		let keepUnlockedSetting = getKeepUnlockedSetting(forVaultUID: vaultUID)
+		switch keepUnlockedSetting {
 		case .off:
 			return false
 		case .never, .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:

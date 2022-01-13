@@ -13,7 +13,7 @@ import Foundation
 protocol VaultAutoLockViewModelType {
 	var title: String { get }
 	var items: [AutoLockItem] { get }
-	func setAutoLockTimeout(to timeout: AutoLockTimeout) throws
+	func setKeepUnlockedSetting(to timeout: KeepUnlockedSetting) throws
 }
 
 class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
@@ -29,20 +29,20 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 	private let vaultAutoLockSettings: VaultAutoLockingSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultUID: String
-	private let currentAutoLockTimeout: Bindable<AutoLockTimeout>
+	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
 
-	init(currentAutoLockTimeout: Bindable<AutoLockTimeout>, vaultUID: String, vaultAutoLockSettings: VaultAutoLockingSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
+	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultAutoLockSettings: VaultAutoLockingSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultUID = vaultUID
 		self.vaultAutoLockSettings = vaultAutoLockSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
-		self.currentAutoLockTimeout = currentAutoLockTimeout
+		self.currentKeepUnlockedSetting = currentKeepUnlockedSetting
 
-		self.autoLockItems = AutoLockTimeout.allCases.map {
-			return AutoLockItem(timeout: $0, selected: $0 == currentAutoLockTimeout.value)
+		self.autoLockItems = KeepUnlockedSetting.allCases.map {
+			return AutoLockItem(timeout: $0, selected: $0 == currentKeepUnlockedSetting.value)
 		}
 	}
 
-	func setAutoLockTimeout(to timeout: AutoLockTimeout) throws {
+	func setKeepUnlockedSetting(to timeout: KeepUnlockedSetting) throws {
 		autoLockItems.forEach { autoLockItem in
 			if autoLockItem.timeout == timeout {
 				autoLockItem.selected = true
@@ -51,20 +51,20 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 			}
 		}
 		if let selectedAutoLockItem = items.first(where: { $0.selected }) {
-			try vaultAutoLockSettings.setAutoLockTimeout(selectedAutoLockItem.timeout, forVaultUID: vaultUID)
-			if case AutoLockTimeout.off = selectedAutoLockItem.timeout {
+			try vaultAutoLockSettings.setKeepUnlockedSetting(selectedAutoLockItem.timeout, forVaultUID: vaultUID)
+			if case KeepUnlockedSetting.off = selectedAutoLockItem.timeout {
 				try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			}
-			currentAutoLockTimeout.value = selectedAutoLockItem.timeout
+			currentKeepUnlockedSetting.value = selectedAutoLockItem.timeout
 		}
 	}
 }
 
 class AutoLockItem: Hashable, Equatable {
-	let timeout: AutoLockTimeout
+	let timeout: KeepUnlockedSetting
 	var selected: Bool
 
-	init(timeout: AutoLockTimeout, selected: Bool) {
+	init(timeout: KeepUnlockedSetting, selected: Bool) {
 		self.timeout = timeout
 		self.selected = selected
 	}

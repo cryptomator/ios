@@ -282,7 +282,7 @@ public class VaultDBManager: VaultManager {
 	/**
 	 Manually unlock a vault via KEK.
 
-	 The masterkey gets cached in the keychain if the corresponding Auto-Lock timeout is not `AutoLockTimeout.off`.
+	 The masterkey gets cached in the keychain if the corresponding Auto-Lock timeout is not `KeepUnlockedSetting.off`.
 	 */
 	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)

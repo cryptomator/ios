@@ -40,7 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
-	case showAutoLockScreen(currentAutoLockTimeout: Bindable<AutoLockTimeout>)
+	case showAutoLockScreen(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>)
 }
 
 private enum VaultDetailSection {
@@ -97,8 +97,8 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}()
 
 	private lazy var keepUnlockedCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> = {
-		let currentAutoLockTimeout = vaultAutoLockSettings.getAutoLockTimeout(forVaultUID: vaultUID)
-		return KeepUnlockedButtonCellViewModel(currentAutoLockTimeout: currentAutoLockTimeout)
+		let currentKeepUnlockedSetting = vaultAutoLockSettings.getKeepUnlockedSetting(forVaultUID: vaultUID)
+		return KeepUnlockedButtonCellViewModel(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
 	}()
 
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
@@ -286,19 +286,19 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 }
 
 private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> {
-	private let currentAutoLockTimeout: Bindable<AutoLockTimeout>
+	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
 	private var subscriber: AnyCancellable?
 
-	init(currentAutoLockTimeout: AutoLockTimeout, isEnabled: Bool = true) {
-		let currentAutoLockTimeoutBinding = Bindable(currentAutoLockTimeout)
-		self.currentAutoLockTimeout = currentAutoLockTimeoutBinding
-		super.init(action: .showAutoLockScreen(currentAutoLockTimeout: currentAutoLockTimeoutBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentAutoLockTimeout.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+	init(currentKeepUnlockedSetting: KeepUnlockedSetting, isEnabled: Bool = true) {
+		let currentKeepUnlockedSettingBinding = Bindable(currentKeepUnlockedSetting)
+		self.currentKeepUnlockedSetting = currentKeepUnlockedSettingBinding
+		super.init(action: .showAutoLockScreen(currentKeepUnlockedSetting: currentKeepUnlockedSettingBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentKeepUnlockedSetting.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
 		setupBinding()
 	}
 
 	private func setupBinding() {
-		subscriber = currentAutoLockTimeout.$value.sink { [weak self] currentAutoLockTimeout in
-			self?.detailTitle.value = currentAutoLockTimeout.description
+		subscriber = currentKeepUnlockedSetting.$value.sink { [weak self] currentKeepUnlockedSetting in
+			self?.detailTitle.value = currentKeepUnlockedSetting.description
 		}
 	}
 }

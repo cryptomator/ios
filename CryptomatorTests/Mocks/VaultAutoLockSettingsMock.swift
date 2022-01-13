@@ -9,46 +9,47 @@
 import CryptomatorCommonCore
 import Foundation
 
+// swiftlint:disable all
 final class VaultAutoLockingSettingsMock: VaultAutoLockingSettings {
-	// MARK: - getAutoLockTimeout
+	// MARK: - getKeepUnlockedSetting
 
-	var getAutoLockTimeoutForVaultUIDCallsCount = 0
-	var getAutoLockTimeoutForVaultUIDCalled: Bool {
-		getAutoLockTimeoutForVaultUIDCallsCount > 0
+	var getKeepUnlockedSettingForVaultUIDCallsCount = 0
+	var getKeepUnlockedSettingForVaultUIDCalled: Bool {
+		getKeepUnlockedSettingForVaultUIDCallsCount > 0
 	}
 
-	var getAutoLockTimeoutForVaultUIDReceivedVaultUID: String?
-	var getAutoLockTimeoutForVaultUIDReceivedInvocations: [String] = []
-	var getAutoLockTimeoutForVaultUIDReturnValue: AutoLockTimeout!
-	var getAutoLockTimeoutForVaultUIDClosure: ((String) -> AutoLockTimeout)?
+	var getKeepUnlockedSettingForVaultUIDReceivedVaultUID: String?
+	var getKeepUnlockedSettingForVaultUIDReceivedInvocations: [String] = []
+	var getKeepUnlockedSettingForVaultUIDReturnValue: KeepUnlockedSetting!
+	var getKeepUnlockedSettingForVaultUIDClosure: ((String) -> KeepUnlockedSetting)?
 
-	func getAutoLockTimeout(forVaultUID vaultUID: String) -> AutoLockTimeout {
-		getAutoLockTimeoutForVaultUIDCallsCount += 1
-		getAutoLockTimeoutForVaultUIDReceivedVaultUID = vaultUID
-		getAutoLockTimeoutForVaultUIDReceivedInvocations.append(vaultUID)
-		return getAutoLockTimeoutForVaultUIDClosure.map({ $0(vaultUID) }) ?? getAutoLockTimeoutForVaultUIDReturnValue
+	func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
+		getKeepUnlockedSettingForVaultUIDCallsCount += 1
+		getKeepUnlockedSettingForVaultUIDReceivedVaultUID = vaultUID
+		getKeepUnlockedSettingForVaultUIDReceivedInvocations.append(vaultUID)
+		return getKeepUnlockedSettingForVaultUIDClosure.map({ $0(vaultUID) }) ?? getKeepUnlockedSettingForVaultUIDReturnValue
 	}
 
-	// MARK: - setAutoLockTimeout
+	// MARK: - setKeepUnlockedSetting
 
-	var setAutoLockTimeoutForVaultUIDThrowableError: Error?
-	var setAutoLockTimeoutForVaultUIDCallsCount = 0
-	var setAutoLockTimeoutForVaultUIDCalled: Bool {
-		setAutoLockTimeoutForVaultUIDCallsCount > 0
+	var setKeepUnlockedSettingForVaultUIDThrowableError: Error?
+	var setKeepUnlockedSettingForVaultUIDCallsCount = 0
+	var setKeepUnlockedSettingForVaultUIDCalled: Bool {
+		setKeepUnlockedSettingForVaultUIDCallsCount > 0
 	}
 
-	var setAutoLockTimeoutForVaultUIDReceivedArguments: (timeout: AutoLockTimeout, vaultUID: String)?
-	var setAutoLockTimeoutForVaultUIDReceivedInvocations: [(timeout: AutoLockTimeout, vaultUID: String)] = []
-	var setAutoLockTimeoutForVaultUIDClosure: ((AutoLockTimeout, String) throws -> Void)?
+	var setKeepUnlockedSettingForVaultUIDReceivedArguments: (timeout: KeepUnlockedSetting, vaultUID: String)?
+	var setKeepUnlockedSettingForVaultUIDReceivedInvocations: [(timeout: KeepUnlockedSetting, vaultUID: String)] = []
+	var setKeepUnlockedSettingForVaultUIDClosure: ((KeepUnlockedSetting, String) throws -> Void)?
 
-	func setAutoLockTimeout(_ timeout: AutoLockTimeout, forVaultUID vaultUID: String) throws {
-		if let error = setAutoLockTimeoutForVaultUIDThrowableError {
+	func setKeepUnlockedSetting(_ timeout: KeepUnlockedSetting, forVaultUID vaultUID: String) throws {
+		if let error = setKeepUnlockedSettingForVaultUIDThrowableError {
 			throw error
 		}
-		setAutoLockTimeoutForVaultUIDCallsCount += 1
-		setAutoLockTimeoutForVaultUIDReceivedArguments = (timeout: timeout, vaultUID: vaultUID)
-		setAutoLockTimeoutForVaultUIDReceivedInvocations.append((timeout: timeout, vaultUID: vaultUID))
-		try setAutoLockTimeoutForVaultUIDClosure?(timeout, vaultUID)
+		setKeepUnlockedSettingForVaultUIDCallsCount += 1
+		setKeepUnlockedSettingForVaultUIDReceivedArguments = (timeout: timeout, vaultUID: vaultUID)
+		setKeepUnlockedSettingForVaultUIDReceivedInvocations.append((timeout: timeout, vaultUID: vaultUID))
+		try setKeepUnlockedSettingForVaultUIDClosure?(timeout, vaultUID)
 	}
 
 	// MARK: - getLastUsedDate
@@ -92,3 +93,5 @@ final class VaultAutoLockingSettingsMock: VaultAutoLockingSettings {
 		try setLastUsedDateForVaultUIDClosure?(date, vaultUID)
 	}
 }
+
+// swiftlint:enable all

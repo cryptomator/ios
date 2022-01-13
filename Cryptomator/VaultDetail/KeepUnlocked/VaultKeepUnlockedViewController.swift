@@ -65,7 +65,7 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 			previousSelectedIndexPath = dataSource?.indexPath(for: previousSelectedItem)
 		}
 		do {
-			try viewModel.setAutoLockTimeout(to: itemIdentifier.timeout)
+			try viewModel.setKeepUnlockedSetting(to: itemIdentifier.timeout)
 		} catch {
 			coordinator?.handleError(error, for: self)
 			return
