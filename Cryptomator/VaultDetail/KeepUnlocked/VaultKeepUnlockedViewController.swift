@@ -15,7 +15,7 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 	}
 
 	weak var coordinator: Coordinator?
-	private var dataSource: UITableViewDiffableDataSource<Section, AutoLockItem>?
+	private var dataSource: UITableViewDiffableDataSource<Section, KeepUnlockedItem>?
 	private var viewModel: VaultKeepUnlockedViewModelType
 
 	init(viewModel: VaultKeepUnlockedViewModelType) {
@@ -48,8 +48,8 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 		})
 	}
 
-	func applySnapshot(items: [AutoLockItem]) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, AutoLockItem>()
+	func applySnapshot(items: [KeepUnlockedItem]) {
+		var snapshot = NSDiffableDataSourceSnapshot<Section, KeepUnlockedItem>()
 		snapshot.appendSections([.main])
 		snapshot.appendItems(items)
 		dataSource?.apply(snapshot, animatingDifferences: false)

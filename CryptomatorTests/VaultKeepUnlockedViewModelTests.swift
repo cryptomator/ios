@@ -23,7 +23,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 	func testDefaultConfiguration() {
 		let currentKeepUnlockedSetting = Bindable(KeepUnlockedSetting.twoMinutes)
 		let viewModel = createViewModel(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
-		let expectedAutoLockItems: [AutoLockItem] = [
+		let expectedKeepUnlockedItems: [KeepUnlockedItem] = [
 			.init(timeout: .off, selected: false),
 			.init(timeout: .oneMinute, selected: false),
 			.init(timeout: .twoMinutes, selected: true),
@@ -34,7 +34,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			.init(timeout: .oneHour, selected: false),
 			.init(timeout: .never, selected: false)
 		]
-		XCTAssertEqual(expectedAutoLockItems, viewModel.items)
+		XCTAssertEqual(expectedKeepUnlockedItems, viewModel.items)
 		XCTAssertEqual(.twoMinutes, currentKeepUnlockedSetting.value)
 		XCTAssertEqual(LocalizedString.getValue("vaultDetail.keepUnlocked.title"), viewModel.title)
 	}
@@ -45,7 +45,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 
 		try viewModel.setKeepUnlockedSetting(to: .oneMinute)
 
-		let expectedAutoLockItems: [AutoLockItem] = [
+		let expectedKeepUnlockedItems: [KeepUnlockedItem] = [
 			.init(timeout: .off, selected: false),
 			.init(timeout: .oneMinute, selected: true),
 			.init(timeout: .twoMinutes, selected: false),
@@ -56,7 +56,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			.init(timeout: .oneHour, selected: false),
 			.init(timeout: .never, selected: false)
 		]
-		XCTAssertEqual(expectedAutoLockItems, viewModel.items)
+		XCTAssertEqual(expectedKeepUnlockedItems, viewModel.items)
 		XCTAssertEqual(.oneMinute, currentKeepUnlockedSetting.value)
 		XCTAssertEqual(1, vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDCallsCount)
 		let receivedArguments = vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDReceivedArguments
@@ -71,7 +71,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 
 		try viewModel.setKeepUnlockedSetting(to: .oneMinute)
 
-		let expectedAutoLockItems: [AutoLockItem] = [
+		let expectedKeepUnlockedItems: [KeepUnlockedItem] = [
 			.init(timeout: .off, selected: false),
 			.init(timeout: .oneMinute, selected: true),
 			.init(timeout: .twoMinutes, selected: false),
@@ -82,7 +82,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			.init(timeout: .oneHour, selected: false),
 			.init(timeout: .never, selected: false)
 		]
-		XCTAssertEqual(expectedAutoLockItems, viewModel.items)
+		XCTAssertEqual(expectedKeepUnlockedItems, viewModel.items)
 		XCTAssertEqual(.oneMinute, currentKeepUnlockedSetting.value)
 		XCTAssertEqual(1, vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDCallsCount)
 		let receivedArguments = vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDReceivedArguments
@@ -97,7 +97,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 
 		try viewModel.setKeepUnlockedSetting(to: .off)
 
-		let expectedAutoLockItems: [AutoLockItem] = [
+		let expectedKeepUnlockedItems: [KeepUnlockedItem] = [
 			.init(timeout: .off, selected: true),
 			.init(timeout: .oneMinute, selected: false),
 			.init(timeout: .twoMinutes, selected: false),
@@ -108,7 +108,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			.init(timeout: .oneHour, selected: false),
 			.init(timeout: .never, selected: false)
 		]
-		XCTAssertEqual(expectedAutoLockItems, viewModel.items)
+		XCTAssertEqual(expectedKeepUnlockedItems, viewModel.items)
 		XCTAssertEqual(.off, currentKeepUnlockedSetting.value)
 		XCTAssertEqual(1, vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDCallsCount)
 		let receivedArguments = vaultKeepUnlockedSettingsMock.setKeepUnlockedSettingForVaultUIDReceivedArguments
