@@ -153,7 +153,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
-		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultAutoLockingManager.shared)
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
 	}
 
 	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings) {

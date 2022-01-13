@@ -31,8 +31,7 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 	private let vaultUID: String
 	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
 
-
-	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
+	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultUID = vaultUID
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager

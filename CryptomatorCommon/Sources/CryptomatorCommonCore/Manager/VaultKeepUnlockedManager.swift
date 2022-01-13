@@ -1,5 +1,5 @@
 //
-//  VaultAutoLockingManager.swift
+//  VaultKeepUnlockedManager.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 04.01.22.
@@ -45,8 +45,8 @@ public protocol VaultKeepUnlockedHelper {
 	func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool
 }
 
-public class VaultAutoLockingManager: VaultKeepUnlockedHelper {
-	public static let shared = VaultAutoLockingManager(keychain: CryptomatorKeychain.autoLock)
+public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
+	public static let shared = VaultKeepUnlockedManager(keychain: CryptomatorKeychain.autoLock)
 	private let keychain: CryptomatorKeychainType
 
 	init(keychain: CryptomatorKeychainType) {
@@ -77,7 +77,7 @@ public class VaultAutoLockingManager: VaultKeepUnlockedHelper {
 	}
 }
 
-extension VaultAutoLockingManager: VaultKeepUnlockedSettings {
+extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 	public func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
 		guard let data = keychain.getAsData(getAutoLockKey(forVaultUID: vaultUID)) else {
 			return defaultKeepUnlockedSetting
@@ -121,7 +121,7 @@ extension VaultAutoLockingManager: VaultKeepUnlockedSettings {
 	}
 }
 
-extension VaultAutoLockingManager: MasterkeyCacheHelper {
+extension VaultKeepUnlockedManager: MasterkeyCacheHelper {
 	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool {
 		let keepUnlockedSetting = getKeepUnlockedSetting(forVaultUID: vaultUID)
 		switch keepUnlockedSetting {

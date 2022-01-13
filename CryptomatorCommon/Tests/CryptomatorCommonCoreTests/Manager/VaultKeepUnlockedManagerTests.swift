@@ -1,5 +1,5 @@
 //
-//  VaultAutoLockingManagerTests.swift
+//  VaultKeepUnlockedManagerTests.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 04.01.22.
@@ -9,9 +9,9 @@
 import XCTest
 @testable import CryptomatorCommonCore
 
-class VaultAutoLockingManagerTests: XCTestCase {
+class VaultKeepUnlockedManagerTests: XCTestCase {
 	var cryptomatorKeychainMock: CryptomatorKeychainMock!
-	var vaultAutoLockingManager: VaultAutoLockingManager!
+	var vaultKeepUnlockedManager: VaultKeepUnlockedManager!
 	let vaultUID = "VaultUID-12345"
 	var autoLockKey: String {
 		return "\(vaultUID)-autoLockDuration"
@@ -23,14 +23,14 @@ class VaultAutoLockingManagerTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		cryptomatorKeychainMock = CryptomatorKeychainMock()
-		vaultAutoLockingManager = VaultAutoLockingManager(keychain: cryptomatorKeychainMock)
+		vaultKeepUnlockedManager = VaultKeepUnlockedManager(keychain: cryptomatorKeychainMock)
 	}
 
 	// MARK: Auto-Lock timeout
 
 	func testSetKeepUnlockedSetting() throws {
 		let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
-		try vaultAutoLockingManager.setKeepUnlockedSetting(keepUnlockedSetting, forVaultUID: vaultUID)
+		try vaultKeepUnlockedManager.setKeepUnlockedSetting(keepUnlockedSetting, forVaultUID: vaultUID)
 
 		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
 		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.setValueReceivedArguments?.key)
@@ -42,7 +42,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 		let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 		let keepUnlockedSettingJSON = try JSONEncoder().encode(keepUnlockedSetting)
 		cryptomatorKeychainMock.getAsDataReturnValue = keepUnlockedSettingJSON
-		let retrievedKeepUnlockedSetting = vaultAutoLockingManager.getKeepUnlockedSetting(forVaultUID: vaultUID)
+		let retrievedKeepUnlockedSetting = vaultKeepUnlockedManager.getKeepUnlockedSetting(forVaultUID: vaultUID)
 
 		XCTAssertEqual(keepUnlockedSetting, retrievedKeepUnlockedSetting)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
@@ -51,15 +51,15 @@ class VaultAutoLockingManagerTests: XCTestCase {
 
 	func testGetKeepUnlockedSettingNotSet() throws {
 		cryptomatorKeychainMock.getAsDataReturnValue = nil
-		let retrievedKeepUnlockedSetting = vaultAutoLockingManager.getKeepUnlockedSetting(forVaultUID: vaultUID)
+		let retrievedKeepUnlockedSetting = vaultKeepUnlockedManager.getKeepUnlockedSetting(forVaultUID: vaultUID)
 
-		XCTAssertEqual(vaultAutoLockingManager.defaultKeepUnlockedSetting, retrievedKeepUnlockedSetting)
+		XCTAssertEqual(vaultKeepUnlockedManager.defaultKeepUnlockedSetting, retrievedKeepUnlockedSetting)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}
 
 	func testRemoveKeepUnlockedSetting() throws {
-		try vaultAutoLockingManager.removeKeepUnlockedSetting(forVaultUID: vaultUID)
+		try vaultKeepUnlockedManager.removeKeepUnlockedSetting(forVaultUID: vaultUID)
 		XCTAssertEqual(1, cryptomatorKeychainMock.deleteCallsCount)
 		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.deleteReceivedKey)
 	}
@@ -68,7 +68,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 
 	func testSetLastUsedDate() throws {
 		let lastUsedDate = Date(timeIntervalSince1970: 0)
-		try vaultAutoLockingManager.setLastUsedDate(lastUsedDate, forVaultUID: vaultUID)
+		try vaultKeepUnlockedManager.setLastUsedDate(lastUsedDate, forVaultUID: vaultUID)
 
 		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
 		XCTAssertEqual(lastUsedDateKey, cryptomatorKeychainMock.setValueReceivedArguments?.key)
@@ -81,7 +81,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 		let lastUsedDateJSON = try JSONEncoder().encode(lastUsedDate)
 		cryptomatorKeychainMock.getAsDataReturnValue = lastUsedDateJSON
 
-		let retrievedLastUsedDate = vaultAutoLockingManager.getLastUsedDate(forVaultUID: vaultUID)
+		let retrievedLastUsedDate = vaultKeepUnlockedManager.getLastUsedDate(forVaultUID: vaultUID)
 		XCTAssertEqual(lastUsedDate, retrievedLastUsedDate)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual(lastUsedDateKey, cryptomatorKeychainMock.getAsDataReceivedKey)
@@ -90,7 +90,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 	func testGetLastUsedDateNoEntry() throws {
 		cryptomatorKeychainMock.getAsDataReturnValue = nil
 
-		let retrievedLastUsedDate = vaultAutoLockingManager.getLastUsedDate(forVaultUID: vaultUID)
+		let retrievedLastUsedDate = vaultKeepUnlockedManager.getLastUsedDate(forVaultUID: vaultUID)
 		XCTAssertNil(retrievedLastUsedDate)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual(lastUsedDateKey, cryptomatorKeychainMock.getAsDataReceivedKey)
@@ -111,7 +111,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssertFalse(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -128,7 +128,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssert(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -146,7 +146,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssert(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -164,7 +164,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssert(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -181,7 +181,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssertFalse(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -198,7 +198,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssertFalse(vaultAutoLockingManager.shouldAutoLockVault(withVaultUID: vaultUID))
+		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -217,7 +217,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssertFalse(vaultAutoLockingManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
+		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -234,7 +234,7 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		XCTAssert(vaultAutoLockingManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
+		XCTAssert(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -251,8 +251,8 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		let vaultAutoLockingManager = VaultAutoLockingManagerShouldAutoLockMocked(shouldAutoLockVault: true, keychain: cryptomatorKeychainMock)
-		XCTAssertFalse(vaultAutoLockingManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
+		let vaultKeepUnlockedManager = VaultKeepUnlockedManagerShouldAutoLockMocked(shouldAutoLockVault: true, keychain: cryptomatorKeychainMock)
+		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
@@ -269,14 +269,14 @@ class VaultAutoLockingManagerTests: XCTestCase {
 				return nil
 			}
 		}
-		let vaultAutoLockingManager = VaultAutoLockingManagerShouldAutoLockMocked(shouldAutoLockVault: false, keychain: cryptomatorKeychainMock)
-		XCTAssert(vaultAutoLockingManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
+		let vaultKeepUnlockedManager = VaultKeepUnlockedManagerShouldAutoLockMocked(shouldAutoLockVault: false, keychain: cryptomatorKeychainMock)
+		XCTAssert(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 }
 
-private class VaultAutoLockingManagerShouldAutoLockMocked: VaultAutoLockingManager {
+private class VaultKeepUnlockedManagerShouldAutoLockMocked: VaultKeepUnlockedManager {
 	private let shouldAutoLockVaultReturnValue: Bool
 
 	init(shouldAutoLockVault: Bool, keychain: CryptomatorKeychainType) {

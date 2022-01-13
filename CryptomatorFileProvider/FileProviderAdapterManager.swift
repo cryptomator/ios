@@ -30,7 +30,7 @@ public class FileProviderAdapterManager {
 	private let adapterCache: FileProviderAdapterCacheType
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultAutoLockingManager.shared, vaultKeepUnlockedSettings: VaultAutoLockingManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
 	}
 
 	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {

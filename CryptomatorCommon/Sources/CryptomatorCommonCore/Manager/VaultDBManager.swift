@@ -39,7 +39,7 @@ public class VaultDBManager: VaultManager {
 	                                          vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool),
 	                                          passwordManager: VaultPasswordKeychainManager(),
 	                                          masterkeyCacheManager: MasterkeyCacheKeychainManager.shared,
-	                                          masterkeyCacheHelper: VaultAutoLockingManager.shared)
+	                                          masterkeyCacheHelper: VaultKeepUnlockedManager.shared)
 	let providerManager: CloudProviderDBManager
 	let vaultAccountManager: VaultAccountManager
 	private static let fakeVaultVersion = 999
