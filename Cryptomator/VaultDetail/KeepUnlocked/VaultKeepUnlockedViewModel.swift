@@ -10,13 +10,13 @@ import Combine
 import CryptomatorCommonCore
 import Foundation
 
-protocol VaultAutoLockViewModelType {
+protocol VaultKeepUnlockedViewModelType {
 	var title: String { get }
 	var items: [AutoLockItem] { get }
 	func setKeepUnlockedSetting(to timeout: KeepUnlockedSetting) throws
 }
 
-class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
+class VaultKeepUnlockedViewModel: VaultKeepUnlockedViewModelType {
 	var title: String {
 		return LocalizedString.getValue("vaultDetail.keepUnlocked.title")
 	}

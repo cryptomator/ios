@@ -16,9 +16,9 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 
 	weak var coordinator: Coordinator?
 	private var dataSource: UITableViewDiffableDataSource<Section, AutoLockItem>?
-	private var viewModel: VaultAutoLockViewModelType
+	private var viewModel: VaultKeepUnlockedViewModelType
 
-	init(viewModel: VaultAutoLockViewModelType) {
+	init(viewModel: VaultKeepUnlockedViewModelType) {
 		self.viewModel = viewModel
 		super.init()
 	}
