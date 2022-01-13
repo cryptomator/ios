@@ -1,5 +1,5 @@
 //
-//  VaultAutoLockingHelperMock.swift
+//  VaultKeepUnlockedHelperMock.swift
 //  CryptomatorFileProviderTests
 //
 //  Created by Philipp Schmid on 12.01.22.
@@ -10,7 +10,7 @@ import CryptomatorCommonCore
 import Foundation
 
 // swiftlint:disable all
-final class VaultAutoLockingHelperMock: VaultAutoLockingHelper {
+final class VaultKeepUnlockedHelperMock: VaultKeepUnlockedHelper {
 	// MARK: - shouldAutoLockVault
 
 	var shouldAutoLockVaultWithVaultUIDCallsCount = 0

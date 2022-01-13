@@ -24,18 +24,18 @@ public class FileProviderAdapterManager {
 	public let semaphore = BiometricalUnlockSemaphore()
 
 	private let masterkeyCacheManager: MasterkeyCacheManager
-	private let vaultAutoLockingHelper: VaultAutoLockingHelper
+	private let vaultKeepUnlockedHelper: VaultKeepUnlockedHelper
 	private let vaultAutoLockingSettings: VaultAutoLockingSettings
 	private let vaultManager: VaultManager
 	private let adapterCache: FileProviderAdapterCacheType
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultAutoLockingHelper: VaultAutoLockingManager.shared, vaultAutoLockingSettings: VaultAutoLockingManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultAutoLockingManager.shared, vaultAutoLockingSettings: VaultAutoLockingManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultAutoLockingHelper: VaultAutoLockingHelper, vaultAutoLockingSettings: VaultAutoLockingSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {
+	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultAutoLockingSettings: VaultAutoLockingSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {
 		self.masterkeyCacheManager = masterkeyCacheManager
-		self.vaultAutoLockingHelper = vaultAutoLockingHelper
+		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
 		self.vaultAutoLockingSettings = vaultAutoLockingSettings
 		self.vaultManager = vaultManager
 		self.adapterCache = adapterCache
@@ -46,7 +46,7 @@ public class FileProviderAdapterManager {
 		let vaultUID = domain.identifier.rawValue
 		let adapter: FileProviderAdapterType
 		if let cachedAdapter = cachedAdapterItem?.adapter {
-			if vaultAutoLockingHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
+			if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
 				DDLogDebug("Try to automatically lock \(domain.displayName) - \(domain.identifier)")
 				gracefulLockVault(with: domain.identifier)
 				throw FileProviderAdapterManagerError.cachedAdapterNotFound
@@ -110,7 +110,7 @@ public class FileProviderAdapterManager {
 	}
 
 	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws -> AdapterCacheItem {
-		guard vaultAutoLockingHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
+		guard vaultKeepUnlockedHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			throw FileProviderAdapterManagerError.cachedAdapterNotFound
 		}

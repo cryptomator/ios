@@ -27,7 +27,7 @@ extension VaultAutoLockingSettings {
 	}
 }
 
-public protocol VaultAutoLockingHelper {
+public protocol VaultKeepUnlockedHelper {
 	/**
 	 Returns if the vault should be automatically locked.
 
@@ -45,7 +45,7 @@ public protocol VaultAutoLockingHelper {
 	func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool
 }
 
-public class VaultAutoLockingManager: VaultAutoLockingHelper {
+public class VaultAutoLockingManager: VaultKeepUnlockedHelper {
 	public static let shared = VaultAutoLockingManager(keychain: CryptomatorKeychain.autoLock)
 	private let keychain: CryptomatorKeychainType
 

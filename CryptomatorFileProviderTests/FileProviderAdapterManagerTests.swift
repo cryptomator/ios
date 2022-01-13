@@ -21,7 +21,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	var vaultManagerMock: VaultManagerMock!
 	var adapterCacheMock: FileProviderAdapterCacheTypeMock!
 	var masterkeyCacheManagerMock: MasterkeyCacheManagerMock!
-	var vaultAutoLockingHelperMock: VaultAutoLockingHelperMock!
+	var vaultKeepUnlockedHelperMock: VaultKeepUnlockedHelperMock!
 	var vaultAutoLockingSettingsMock: VaultAutoLockingSettingsMock!
 	private enum ErrorMock: Error {
 		case test
@@ -29,11 +29,11 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
-		vaultAutoLockingHelperMock = VaultAutoLockingHelperMock()
+		vaultKeepUnlockedHelperMock = VaultKeepUnlockedHelperMock()
 		vaultAutoLockingSettingsMock = VaultAutoLockingSettingsMock()
 		vaultManagerMock = VaultManagerMock()
 		adapterCacheMock = FileProviderAdapterCacheTypeMock()
-		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultAutoLockingHelper: vaultAutoLockingHelperMock, vaultAutoLockingSettings: vaultAutoLockingSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock)
+		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultAutoLockingSettings: vaultAutoLockingSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock)
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try FileManager.default.createDirectory(at: tmpURL, withIntermediateDirectories: false)
@@ -47,21 +47,21 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	// MARK: Get Adapter - Auto Unlock
 
 	func testGetAdapterNotCachedNoAutoUnlock() throws {
-		vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = false
+		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = false
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: nil)) { error in
 			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
 		}
-		XCTAssertEqual([vaultUID], vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
+		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 	}
 
 	func testGetAdapterNotCachedAutoUnlock() throws {
-		vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
+		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyReturnValue = CloudProviderMock()
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
 		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: nil)
-		XCTAssertEqual([vaultUID], vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
+		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 
 		XCTAssertEqual(1, adapterCacheMock.cacheItemIdentifierCallsCount)
@@ -75,26 +75,26 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	func testGetAdapterNotCachedAutoUnlockVaultManagerFailed() throws {
-		vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
+		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyThrowableError = ErrorMock.test
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: nil)) { error in
 			XCTAssertEqual(.test, error as? ErrorMock)
 		}
-		XCTAssertEqual([vaultUID], vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
+		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 		XCTAssertFalse(adapterCacheMock.cacheItemIdentifierCalled)
 		XCTAssertFalse(vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDCalled)
 	}
 
 	func testGetAdapterNotCachedAutoUnlockMissingMasterkey() throws {
-		vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
+		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = nil
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: nil)) { error in
 			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
 		}
-		XCTAssertEqual([vaultUID], vaultAutoLockingHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
+		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 		XCTAssertFalse(adapterCacheMock.cacheItemIdentifierCalled)
 		XCTAssertFalse(vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDCalled)
@@ -103,7 +103,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	// MARK: Get Adapter - Cached
 
 	func testGetAdapterCachedNoAutoLock() throws {
-		vaultAutoLockingHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: MaintenanceManagerMock())
 		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: nil)
@@ -112,7 +112,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	func testGetAdapterCachedShouldAutoLock() throws {
-		vaultAutoLockingHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock)
@@ -126,7 +126,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	func testGetAdapterCachedShouldAutoLockEnableMaintenanceModeFailed() throws {
-		vaultAutoLockingHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
+		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = true
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
