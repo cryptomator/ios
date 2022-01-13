@@ -173,7 +173,7 @@
 		4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7077FE278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift */; };
 		4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */; };
 		4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */; };
-		4A707806278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707805278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift */; };
+		4A707806278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
@@ -254,7 +254,7 @@
 		4AE0D8DE2653F18900DF5D22 /* DeletionTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */; };
 		4AE791CA278F168E00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */; };
 		4AE791CC278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */; };
-		4AE791CE278F172E00525913 /* VaultAutoLockingSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CD278F172E00525913 /* VaultAutoLockingSettingsMock.swift */; };
+		4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */; };
 		4AE791D0278F1EAD00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */; };
 		4AE791D2278F1F2600525913 /* MasterkeyCacheHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */; };
 		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
@@ -618,7 +618,7 @@
 		4A7077FE278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewController.swift; sourceTree = "<group>"; };
 		4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModel.swift; sourceTree = "<group>"; };
 		4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModelTests.swift; sourceTree = "<group>"; };
-		4A707805278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultAutoLockSettingsMock.swift; sourceTree = "<group>"; };
+		4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedSettingsMock.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
@@ -702,7 +702,7 @@
 		4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
 		4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedHelperMock.swift; sourceTree = "<group>"; };
-		4AE791CD278F172E00525913 /* VaultAutoLockingSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultAutoLockingSettingsMock.swift; sourceTree = "<group>"; };
+		4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedSettingsMock.swift; sourceTree = "<group>"; };
 		4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
 		4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheHelperMock.swift; sourceTree = "<group>"; };
 		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -1415,8 +1415,8 @@
 				4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */,
 				4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */,
 				4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */,
-				4AE791CD278F172E00525913 /* VaultAutoLockingSettingsMock.swift */,
 				4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */,
+				4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */,
 				4AB6A891278EFC730016B01E /* VaultManagerMock.swift */,
 			);
 			path = Mocks;
@@ -1433,7 +1433,7 @@
 				4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */,
 				4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */,
 				4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */,
-				4A707805278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift */,
+				4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */,
 				4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */,
 			);
 			path = Mocks;
@@ -2131,7 +2131,7 @@
 				4A248221266B8D37002D9F59 /* FileProviderAdapterImportDocumentTests.swift in Sources */,
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
 				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
-				4AE791CE278F172E00525913 /* VaultAutoLockingSettingsMock.swift in Sources */,
+				4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4A8F149C266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift in Sources */,
 				4A8F14A2266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift in Sources */,
@@ -2370,7 +2370,7 @@
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4A3D6554267CF17B000DA764 /* CreateNewVaultPasswordViewModelTests.swift in Sources */,
 				4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */,
-				4A707806278DC39E00AEF4CE /* VaultAutoLockSettingsMock.swift in Sources */,
+				4A707806278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift in Sources */,
 				4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */,
 				4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */,
 				4A1C6D5E274D299200B41FFF /* CryptomatorSettingsMock.swift in Sources */,

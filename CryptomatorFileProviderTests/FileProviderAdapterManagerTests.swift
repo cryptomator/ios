@@ -22,7 +22,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	var adapterCacheMock: FileProviderAdapterCacheTypeMock!
 	var masterkeyCacheManagerMock: MasterkeyCacheManagerMock!
 	var vaultKeepUnlockedHelperMock: VaultKeepUnlockedHelperMock!
-	var vaultAutoLockingSettingsMock: VaultAutoLockingSettingsMock!
+	var vaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettingsMock!
 	private enum ErrorMock: Error {
 		case test
 	}
@@ -30,10 +30,10 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	override func setUpWithError() throws {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
 		vaultKeepUnlockedHelperMock = VaultKeepUnlockedHelperMock()
-		vaultAutoLockingSettingsMock = VaultAutoLockingSettingsMock()
+		vaultKeepUnlockedSettingsMock = VaultKeepUnlockedSettingsMock()
 		vaultManagerMock = VaultManagerMock()
 		adapterCacheMock = FileProviderAdapterCacheTypeMock()
-		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultAutoLockingSettings: vaultAutoLockingSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock)
+		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock)
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try FileManager.default.createDirectory(at: tmpURL, withIntermediateDirectories: false)
@@ -69,8 +69,8 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual(domain.identifier, cacheItemIdentifierReceivedArguments.identifier)
 		XCTAssert(cacheItemIdentifierReceivedArguments.item.adapter === adapter)
 
-		XCTAssertEqual(1, vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDCallsCount)
-		XCTAssertEqual(vaultUID, vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDReceivedArguments?.vaultUID)
+		XCTAssertEqual(1, vaultKeepUnlockedSettingsMock.setLastUsedDateForVaultUIDCallsCount)
+		XCTAssertEqual(vaultUID, vaultKeepUnlockedSettingsMock.setLastUsedDateForVaultUIDReceivedArguments?.vaultUID)
 		try assertLastUsedDateSet()
 	}
 
@@ -85,7 +85,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 		XCTAssertFalse(adapterCacheMock.cacheItemIdentifierCalled)
-		XCTAssertFalse(vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDCalled)
+		XCTAssertFalse(vaultKeepUnlockedSettingsMock.setLastUsedDateForVaultUIDCalled)
 	}
 
 	func testGetAdapterNotCachedAutoUnlockMissingMasterkey() throws {
@@ -97,7 +97,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 		XCTAssertFalse(adapterCacheMock.cacheItemIdentifierCalled)
-		XCTAssertFalse(vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDCalled)
+		XCTAssertFalse(vaultKeepUnlockedSettingsMock.setLastUsedDateForVaultUIDCalled)
 	}
 
 	// MARK: Get Adapter - Cached
@@ -148,7 +148,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	private func assertLastUsedDateSet() throws {
-		let passedLastUsedDate = try XCTUnwrap(vaultAutoLockingSettingsMock.setLastUsedDateForVaultUIDReceivedArguments?.date)
+		let passedLastUsedDate = try XCTUnwrap(vaultKeepUnlockedSettingsMock.setLastUsedDateForVaultUIDReceivedArguments?.date)
 		XCTAssert(passedLastUsedDate <= Date())
 		XCTAssert(passedLastUsedDate > Date().addingTimeInterval(-10))
 	}

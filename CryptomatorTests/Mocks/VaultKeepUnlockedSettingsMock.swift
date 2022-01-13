@@ -1,8 +1,8 @@
 //
-//  VaultAutoLockingSettingsMock.swift
-//  CryptomatorFileProviderTests
+//  VaultKeepUnlockedSettingsMock.swift
+//  CryptomatorTests
 //
-//  Created by Philipp Schmid on 12.01.22.
+//  Created by Philipp Schmid on 04.01.22.
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
@@ -10,7 +10,7 @@ import CryptomatorCommonCore
 import Foundation
 
 // swiftlint:disable all
-final class VaultAutoLockingSettingsMock: VaultAutoLockingSettings {
+final class VaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettings {
 	// MARK: - getKeepUnlockedSetting
 
 	var getKeepUnlockedSettingForVaultUIDCallsCount = 0

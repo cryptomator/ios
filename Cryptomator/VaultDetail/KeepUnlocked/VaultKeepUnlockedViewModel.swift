@@ -26,14 +26,15 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 	}
 
 	private var autoLockItems = [AutoLockItem]()
-	private let vaultAutoLockSettings: VaultAutoLockingSettings
+	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultUID: String
 	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
 
-	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultAutoLockSettings: VaultAutoLockingSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
+
+	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultAutoLockingManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultUID = vaultUID
-		self.vaultAutoLockSettings = vaultAutoLockSettings
+		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.currentKeepUnlockedSetting = currentKeepUnlockedSetting
 
@@ -51,7 +52,7 @@ class VaultKeepUnlockedViewModel: VaultAutoLockViewModelType {
 			}
 		}
 		if let selectedAutoLockItem = items.first(where: { $0.selected }) {
-			try vaultAutoLockSettings.setKeepUnlockedSetting(selectedAutoLockItem.timeout, forVaultUID: vaultUID)
+			try vaultKeepUnlockedSettings.setKeepUnlockedSetting(selectedAutoLockItem.timeout, forVaultUID: vaultUID)
 			if case KeepUnlockedSetting.off = selectedAutoLockItem.timeout {
 				try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			}

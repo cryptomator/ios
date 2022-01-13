@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol VaultAutoLockingSettings {
+public protocol VaultKeepUnlockedSettings {
 	/**
 	 Returns the Auto-Lock timeout for the passed `vaultUID`.
 
@@ -21,7 +21,7 @@ public protocol VaultAutoLockingSettings {
 	func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws
 }
 
-extension VaultAutoLockingSettings {
+extension VaultKeepUnlockedSettings {
 	var defaultKeepUnlockedSetting: KeepUnlockedSetting {
 		return .fiveMinutes
 	}
@@ -77,7 +77,7 @@ public class VaultAutoLockingManager: VaultKeepUnlockedHelper {
 	}
 }
 
-extension VaultAutoLockingManager: VaultAutoLockingSettings {
+extension VaultAutoLockingManager: VaultKeepUnlockedSettings {
 	public func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
 		guard let data = keychain.getAsData(getAutoLockKey(forVaultUID: vaultUID)) else {
 			return defaultKeepUnlockedSetting

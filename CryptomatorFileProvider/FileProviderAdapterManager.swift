@@ -25,18 +25,18 @@ public class FileProviderAdapterManager {
 
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultKeepUnlockedHelper: VaultKeepUnlockedHelper
-	private let vaultAutoLockingSettings: VaultAutoLockingSettings
+	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let vaultManager: VaultManager
 	private let adapterCache: FileProviderAdapterCacheType
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultAutoLockingManager.shared, vaultAutoLockingSettings: VaultAutoLockingManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultAutoLockingManager.shared, vaultKeepUnlockedSettings: VaultAutoLockingManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultAutoLockingSettings: VaultAutoLockingSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {
+	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
-		self.vaultAutoLockingSettings = vaultAutoLockingSettings
+		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.vaultManager = vaultManager
 		self.adapterCache = adapterCache
 	}
@@ -58,7 +58,7 @@ public class FileProviderAdapterManager {
 			adapterCache.cacheItem(autoUnlockItem, identifier: domain.identifier)
 			adapter = autoUnlockItem.adapter
 		}
-		try vaultAutoLockingSettings.setLastUsedDate(Date(), forVaultUID: vaultUID)
+		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: vaultUID)
 		return adapter
 	}
 
@@ -68,7 +68,7 @@ public class FileProviderAdapterManager {
 		}
 		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
 		let item = try createAdapterCacheItem(cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
-		try vaultAutoLockingSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
+		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
 		adapterCache.cacheItem(item, identifier: domainIdentifier)
 	}
 

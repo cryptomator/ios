@@ -75,7 +75,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private let vaultManager: VaultManager
 	private let fileProviderConnector: FileProviderConnector
 	private let context = LAContext()
-	private let vaultAutoLockSettings: VaultAutoLockingSettings
+	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let passwordManager: VaultPasswordManager
 	private var vaultPath: CloudPath {
 		return vaultInfo.vaultPath
@@ -97,7 +97,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}()
 
 	private lazy var keepUnlockedCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> = {
-		let currentKeepUnlockedSetting = vaultAutoLockSettings.getKeepUnlockedSetting(forVaultUID: vaultUID)
+		let currentKeepUnlockedSetting = vaultKeepUnlockedSettings.getKeepUnlockedSetting(forVaultUID: vaultUID)
 		return KeepUnlockedButtonCellViewModel(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
 	}()
 
@@ -153,16 +153,16 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
-		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultAutoLockSettings: VaultAutoLockingManager.shared)
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultAutoLockingManager.shared)
 	}
 
-	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultAutoLockSettings: VaultAutoLockingSettings) {
+	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings) {
 		self.vaultInfo = vaultInfo
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		self.passwordManager = passwordManager
 		self.title = Bindable(vaultInfo.vaultName)
-		self.vaultAutoLockSettings = vaultAutoLockSettings
+		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.observation = dbManager.observeVaultAccount(withVaultUID: vaultInfo.vaultUID, onError: { error in
 			DDLogError("Observe Vault Account error: \(error)")
 		}, onChange: { [weak self] vaultAccount in
