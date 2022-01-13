@@ -12,18 +12,22 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
+	private let itemID: Int64 = 2
+	private let cloudPath = CloudPath("/File 1")
+	private lazy var itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+	private lazy var itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
+	private lazy var url = itemDirectory.appendingPathComponent("File 1")
+
+	override func setUpWithError() throws {
+		try super.setUpWithError()
+		try metadataManagerMock.cacheMetadata(itemMetadata)
+		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
+	}
+
 	func testStartProvidingItemNoLocalVersion() throws {
 		let expectation = XCTestExpectation()
-		let itemID: Int64 = 2
-		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-
-		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
-		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
-		let url = itemDirectory.appendingPathComponent("File 1")
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
-		adapter.startProvidingItem(at: url) { error in
+		adapter.startProvidingItem(at: url) { [self] error in
 			XCTAssertNil(error)
 			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
 			self.assertMetadataUpdated()
@@ -33,54 +37,34 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	}
 
 	func testStartProvidingItemWithUpToDateLocalVersion() throws {
+		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
-		let itemID: Int64 = 2
-		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-
-		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
-		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
-		let url = itemDirectory.appendingPathComponent("File 1")
-		try String(data: cloudProviderMock.files[cloudPath.path]!!, encoding: .utf8)?.write(to: url, atomically: true, encoding: .utf8)
-		let lastModifiedDateInCloud = cloudProviderMock.lastModifiedDate[cloudPath.path] ?? nil
-		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: url, lastModifiedDate: lastModifiedDateInCloud)
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
-		adapter.startProvidingItem(at: url) { error in
+		adapter.startProvidingItem(at: url) { [self] error in
 			XCTAssertNil(error)
 			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssert(self.metadataManagerMock.updatedMetadata.isEmpty, "Unexpected change of cached metadata.")
+			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count, "Unexpected change of cached metadata.")
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
 
 	func testStartProvidingItemWithOlderLocalVersion() throws {
+		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
-		let itemID: Int64 = 2
-		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
-		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
-		let url = itemDirectory.appendingPathComponent("File 1")
-		try "Old file content".write(to: url, atomically: true, encoding: .utf8)
-		// Enforce newer lastModifiedDate in cloud
-		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
-		// Cache older lastModifiedDate for local version
-		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: url, lastModifiedDate: Date(timeIntervalSince1970: 0))
-		XCTAssert(FileManager.default.fileExists(atPath: url.path))
-		adapter.startProvidingItem(at: url) { error in
+		simulateFileChangeInTheCloud()
+
+		adapter.startProvidingItem(at: url) { [self] error in
 			XCTAssertNil(error)
 			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			self.assertMetadataUpdated()
+			XCTAssertEqual(2, self.metadataManagerMock.updatedMetadata.count)
+			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testStartProvidingItemWithConflictingLocalVersion() throws {
 		let expectation = XCTestExpectation()
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
@@ -97,14 +81,6 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			return conflictingItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
 		}
 
-		let itemID: Int64 = 2
-		let cloudPath = CloudPath("/File 1")
-		let itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: Date(timeIntervalSince1970: 0), statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-
-		try metadataManagerMock.cacheMetadata(itemMetadata)
-		let itemDirectory = tmpDirectory.appendingPathComponent("\(itemID)")
-		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
-		let url = itemDirectory.appendingPathComponent("File 1")
 		try "Local changed file content".write(to: url, atomically: true, encoding: .utf8)
 
 		// Simulate a failed upload
@@ -113,14 +89,13 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
 		uploadTaskManagerMock.uploadTasks[itemID] = uploadTaskRecord
 
-		// Simulate a change of the item in the cloud
-		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
+		simulateFileChangeInTheCloud()
 
-		adapter.startProvidingItem(at: url) { error in
+		adapter.startProvidingItem(at: url) { [self] error in
 			XCTAssertNil(error)
-			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(1, self.uploadTaskManagerMock.uploadTasks.count)
-			guard let uploadTaskRecord = self.uploadTaskManagerMock.uploadTasks[3] else {
+			assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+			XCTAssertEqual(1, uploadTaskManagerMock.uploadTasks.count)
+			guard let uploadTaskRecord = uploadTaskManagerMock.uploadTasks[3] else {
 				XCTFail("uploadTaskRecord is nil")
 				return
 			}
@@ -130,7 +105,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertNil(uploadTaskRecord.uploadErrorCode)
 			XCTAssertNil(uploadTaskRecord.uploadErrorDomain)
 
-			guard let localCachedFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[3] else {
+			guard let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[3] else {
 				XCTFail("localCachedFileInfo is nil")
 				return
 			}
@@ -157,6 +132,22 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	func assertMetadataUpdated() {
 		XCTAssertEqual(1, metadataManagerMock.updatedMetadata.count)
 		XCTAssertEqual(ItemStatus.isUploaded, metadataManagerMock.updatedMetadata[0].statusCode)
+	}
+
+	private func simulateExistingLocalFileByDownloadingFile() {
+		let expectation = XCTestExpectation()
+		adapter.startProvidingItem(at: url) { [self] error in
+			XCTAssertNil(error)
+			XCTAssert(FileManager.default.fileExists(atPath: url.path))
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+	}
+
+	private func simulateFileChangeInTheCloud() {
+		// Simulate an file update in the cloud by enforce an newer lastModifiedDate in the cloud and change the file content in the cloud
+		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
+		cloudProviderMock.files[cloudPath.path] = "Updated File 1 content".data(using: .utf8)
 	}
 
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {

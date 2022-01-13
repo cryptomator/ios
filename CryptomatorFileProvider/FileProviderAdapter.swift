@@ -452,6 +452,7 @@ public class FileProviderAdapter {
 		let hasVersioningConflict: Bool
 		do {
 			hasVersioningConflict = try hasPossibleVersioningConflictForItem(withIdentifier: identifier)
+			try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
 		} catch {
 			return Promise(error)
 		}
