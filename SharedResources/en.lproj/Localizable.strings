@@ -204,6 +204,10 @@
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Keep Unlocked";
+"vaultDetail.keepUnlocked.footer.duration.password" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it with your vault password";
+"vaultDetail.keepUnlocked.footer.main.on" = "If you disable this setting, your vault may lock prematurely when Cryptomator has been terminated by the Files app. Learn more.";
+"vaultDetail.keepUnlocked.footer.main.off" = "If you enable this setting, your vault will be guaranteed to be unlocked for and locked after a certain amount of time.";
+"vaultDetail.keepUnlocked.footer.duration" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
 "vaultDetail.moveVault.progress" = "Moving…";

@@ -9,73 +9,65 @@
 import Combine
 import UIKit
 
-class VaultKeepUnlockedViewController: BaseUITableViewController {
-	enum Section {
-		case main
-	}
-
+class VaultKeepUnlockedViewController: StaticUITableViewController<VaultKeepUnlockedSection> {
 	weak var coordinator: Coordinator?
-	private var dataSource: UITableViewDiffableDataSource<Section, KeepUnlockedItem>?
 	private var viewModel: VaultKeepUnlockedViewModelType
+	private var firstTimeLoading = true
+	private var subscribers = Set<AnyCancellable>()
 
 	init(viewModel: VaultKeepUnlockedViewModelType) {
 		self.viewModel = viewModel
-		super.init()
+		super.init(viewModel: viewModel)
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		configureDataSource()
-		applySnapshot(items: viewModel.items)
-		title = viewModel.title
+		dataSource?.defaultRowAnimation = .fade
+		viewModel.sectionsPublisher.receive(on: DispatchQueue.main).sink { [weak self] sections in
+			self?.applySnapshot(sections: sections)
+		}.store(in: &subscribers)
+		viewModel.keepUnlockedIsEnabled.receive(on: DispatchQueue.main).sink { [weak self] keepUnlockIsEnabled in
+			self?.handleKeepUnlockedIsEnabled(keepUnlockIsEnabled)
+		}.store(in: &subscribers)
 	}
 
-	func configureDataSource() {
-		let cellIdentifier = "Cell"
-		tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-		dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, _, itemIdentifier in
-			let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
-			cell?.accessoryType = itemIdentifier.selected ? .checkmark : .none
-			let text = itemIdentifier.duration.description
-			if #available(iOS 14, *) {
-				var content = cell?.defaultContentConfiguration()
-				content?.text = text
-				cell?.contentConfiguration = content
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		guard let footerViewModel = viewModel.getFooterViewModel(for: section) else {
+			return nil
+		}
+		let footerView = footerViewModel.viewType.init()
+		footerView.configure(with: footerViewModel)
+		footerView.tableView = tableView
+		return footerView
+	}
+
+	private func applySnapshot(sections: [Section<VaultKeepUnlockedSection>]) {
+		super.applySnapshot(sections: sections, animatingDifferences: firstTimeLoading ? false : true)
+		firstTimeLoading = false
+	}
+
+	private func handleKeepUnlockedIsEnabled(_ keepUnlockIsEnabled: Bool) {
+		do {
+			if keepUnlockIsEnabled {
+				try viewModel.enableKeepUnlocked()
 			} else {
-				cell?.textLabel?.text = text
+				try viewModel.disableKeepUnlocked()
 			}
-			return cell
-		})
-	}
-
-	func applySnapshot(items: [KeepUnlockedItem]) {
-		var snapshot = NSDiffableDataSourceSnapshot<Section, KeepUnlockedItem>()
-		snapshot.appendSections([.main])
-		snapshot.appendItems(items)
-		dataSource?.apply(snapshot, animatingDifferences: false)
+		} catch {
+			coordinator?.handleError(error, for: self)
+		}
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
-		guard let itemIdentifier = dataSource?.itemIdentifier(for: indexPath) else {
+		guard let keepUnlockedDurationItem = dataSource?.itemIdentifier(for: indexPath) as? KeepUnlockedDurationItem else {
 			return
 		}
-		var previousSelectedIndexPath: IndexPath?
-		if let previousSelectedItem = viewModel.items.first(where: { $0.selected }) {
-			previousSelectedIndexPath = dataSource?.indexPath(for: previousSelectedItem)
-		}
 		do {
-			try viewModel.setKeepUnlockedDuration(to: itemIdentifier.duration)
+			try viewModel.setKeepUnlockedDuration(to: keepUnlockedDurationItem.duration)
 		} catch {
 			coordinator?.handleError(error, for: self)
 			return
 		}
-		if let previousSelectedIndexPath = previousSelectedIndexPath, let previousSelectedCell = tableView.cellForRow(at: previousSelectedIndexPath) {
-			previousSelectedCell.accessoryType = .none
-		}
-		guard let cell = tableView.cellForRow(at: indexPath) else {
-			return
-		}
-		cell.accessoryType = itemIdentifier.selected ? .checkmark : .none
 	}
 }

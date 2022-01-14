@@ -20,7 +20,7 @@ public protocol VaultKeepUnlockedSettings {
 	func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws
 }
 
-extension VaultKeepUnlockedSettings {
+public extension VaultKeepUnlockedSettings {
 	var defaultKeepUnlockedDuration: KeepUnlockedDuration {
 		return .fiveMinutes
 	}
@@ -93,7 +93,9 @@ extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 	}
 
 	public func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws {
-		try keychain.delete(getKeepUnlockedDurationKey(forVaultUID: vaultUID))
+		do {
+			try keychain.delete(getKeepUnlockedDurationKey(forVaultUID: vaultUID))
+		} catch let CryptomatorKeychainError.unhandledError(statuscode) where statuscode == errSecItemNotFound {}
 	}
 
 	public func getLastUsedDate(forVaultUID vaultUID: String) -> Date? {

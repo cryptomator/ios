@@ -224,6 +224,8 @@
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
 		4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */; };
 		4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */; };
+		4AB2E7ED2791A97B00BDBB18 /* CheckMarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */; };
+		4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedMainSectionFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedMainSectionFooterViewModel.swift */; };
 		4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */; };
 		4AB5233A275F7B97009B8D99 /* LoadingButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52339275F7B97009B8D99 /* LoadingButtonCell.swift */; };
 		4AB6A890278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A88F278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift */; };
@@ -672,6 +674,8 @@
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTaskExecutorTestCase.swift; sourceTree = "<group>"; };
+		4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkCell.swift; sourceTree = "<group>"; };
+		4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedMainSectionFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepUnlockedMainSectionFooterViewModel.swift; sourceTree = "<group>"; };
 		4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCellViewModel.swift; sourceTree = "<group>"; };
 		4AB52339275F7B97009B8D99 /* LoadingButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCell.swift; sourceTree = "<group>"; };
 		4AB6A88F278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterManagerTests.swift; sourceTree = "<group>"; };
@@ -1154,6 +1158,7 @@
 		4A707800278DC2F000AEF4CE /* KeepUnlocked */ = {
 			isa = PBXGroup;
 			children = (
+				4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedMainSectionFooterViewModel.swift */,
 				4A7077FE278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift */,
 				4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */,
 			);
@@ -1340,6 +1345,7 @@
 				4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */,
 				4AA22C15261CA8D800A17486 /* URLFieldCell.swift */,
 				4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */,
+				4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2321,6 +2327,7 @@
 				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */,
 				74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */,
+				4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedMainSectionFooterViewModel.swift in Sources */,
 				4A4B7E4826B2BAFB009BFDB1 /* SwitchCell.swift in Sources */,
 				4A6C36D6274525E100F247A9 /* ReturnButtonSupport.swift in Sources */,
 				4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */,
@@ -2340,6 +2347,7 @@
 				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
 				4A447E0425BF0B0F00D9520D /* SingleSectionTableViewController.swift in Sources */,
 				4A3D65612680A3CB000DA764 /* LocalFileSystemAuthenticating.swift in Sources */,
+				4AB2E7ED2791A97B00BDBB18 /* CheckMarkCell.swift in Sources */,
 				4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */,
 				4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */,
 				7408E6C126778C7A00D7FAEA /* LocalWebViewModel.swift in Sources */,
