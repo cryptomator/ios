@@ -40,7 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
-	case showKeepUnlockedScreen(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>)
+	case showKeepUnlockedScreen(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>)
 }
 
 private enum VaultDetailSection {
@@ -97,8 +97,8 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}()
 
 	private lazy var keepUnlockedCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> = {
-		let currentKeepUnlockedSetting = vaultKeepUnlockedSettings.getKeepUnlockedSetting(forVaultUID: vaultUID)
-		return KeepUnlockedButtonCellViewModel(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
+		let currentKeepUnlockedDuration = vaultKeepUnlockedSettings.getKeepUnlockedDuration(forVaultUID: vaultUID)
+		return KeepUnlockedButtonCellViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
 	}()
 
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
@@ -286,19 +286,28 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 }
 
 private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> {
-	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
+	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
 	private var subscriber: AnyCancellable?
 
-	init(currentKeepUnlockedSetting: KeepUnlockedSetting, isEnabled: Bool = true) {
-		let currentKeepUnlockedSettingBinding = Bindable(currentKeepUnlockedSetting)
-		self.currentKeepUnlockedSetting = currentKeepUnlockedSettingBinding
-		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedSetting: currentKeepUnlockedSettingBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentKeepUnlockedSetting.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+	init(currentKeepUnlockedDuration: KeepUnlockedDuration?, isEnabled: Bool = true) {
+		let currentKeepUnlockedDurationBinding = Bindable(currentKeepUnlockedDuration)
+		self.currentKeepUnlockedDuration = currentKeepUnlockedDurationBinding
+		let detailTitle = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration)
+		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedDuration: currentKeepUnlockedDurationBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
 		setupBinding()
 	}
 
 	private func setupBinding() {
-		subscriber = currentKeepUnlockedSetting.$value.sink { [weak self] currentKeepUnlockedSetting in
-			self?.detailTitle.value = currentKeepUnlockedSetting.description
+		subscriber = currentKeepUnlockedDuration.$value.sink { [weak self] currentKeepUnlockedDuration in
+			self?.detailTitle.value = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration)
+		}
+	}
+
+	private static func getDescription(forDuration duration: KeepUnlockedDuration?) -> String? {
+		if let duration = duration {
+			return duration.description
+		} else {
+			return LocalizedString.getValue("keepUnlockedDuration.off.description")
 		}
 	}
 }

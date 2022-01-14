@@ -60,8 +60,8 @@
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
-"keepUnlockedSetting.never.description" = "Forever";
-"keepUnlockedSetting.off.description" = "Off";
+"keepUnlockedDuration.forever.description" = "Forever";
+"keepUnlockedDuration.off.description" = "Off";
 
 
 "biometryType.faceID" = "Face ID";

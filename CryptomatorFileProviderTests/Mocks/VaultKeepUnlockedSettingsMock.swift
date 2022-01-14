@@ -11,45 +11,67 @@ import Foundation
 
 // swiftlint:disable all
 final class VaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettings {
-	// MARK: - getKeepUnlockedSetting
+	// MARK: - getKeepUnlockedDuration
 
-	var getKeepUnlockedSettingForVaultUIDCallsCount = 0
-	var getKeepUnlockedSettingForVaultUIDCalled: Bool {
-		getKeepUnlockedSettingForVaultUIDCallsCount > 0
+	var getKeepUnlockedDurationForVaultUIDCallsCount = 0
+	var getKeepUnlockedDurationForVaultUIDCalled: Bool {
+		getKeepUnlockedDurationForVaultUIDCallsCount > 0
 	}
 
-	var getKeepUnlockedSettingForVaultUIDReceivedVaultUID: String?
-	var getKeepUnlockedSettingForVaultUIDReceivedInvocations: [String] = []
-	var getKeepUnlockedSettingForVaultUIDReturnValue: KeepUnlockedSetting!
-	var getKeepUnlockedSettingForVaultUIDClosure: ((String) -> KeepUnlockedSetting)?
+	var getKeepUnlockedDurationForVaultUIDReceivedVaultUID: String?
+	var getKeepUnlockedDurationForVaultUIDReceivedInvocations: [String] = []
+	var getKeepUnlockedDurationForVaultUIDReturnValue: KeepUnlockedDuration?
+	var getKeepUnlockedDurationForVaultUIDClosure: ((String) -> KeepUnlockedDuration?)?
 
-	func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
-		getKeepUnlockedSettingForVaultUIDCallsCount += 1
-		getKeepUnlockedSettingForVaultUIDReceivedVaultUID = vaultUID
-		getKeepUnlockedSettingForVaultUIDReceivedInvocations.append(vaultUID)
-		return getKeepUnlockedSettingForVaultUIDClosure.map({ $0(vaultUID) }) ?? getKeepUnlockedSettingForVaultUIDReturnValue
+	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration? {
+		getKeepUnlockedDurationForVaultUIDCallsCount += 1
+		getKeepUnlockedDurationForVaultUIDReceivedVaultUID = vaultUID
+		getKeepUnlockedDurationForVaultUIDReceivedInvocations.append(vaultUID)
+		return getKeepUnlockedDurationForVaultUIDClosure.map({ $0(vaultUID) }) ?? getKeepUnlockedDurationForVaultUIDReturnValue
 	}
 
-	// MARK: - setKeepUnlockedSetting
+	// MARK: - setKeepUnlockedDuration
 
-	var setKeepUnlockedSettingForVaultUIDThrowableError: Error?
-	var setKeepUnlockedSettingForVaultUIDCallsCount = 0
-	var setKeepUnlockedSettingForVaultUIDCalled: Bool {
-		setKeepUnlockedSettingForVaultUIDCallsCount > 0
+	var setKeepUnlockedDurationForVaultUIDThrowableError: Error?
+	var setKeepUnlockedDurationForVaultUIDCallsCount = 0
+	var setKeepUnlockedDurationForVaultUIDCalled: Bool {
+		setKeepUnlockedDurationForVaultUIDCallsCount > 0
 	}
 
-	var setKeepUnlockedSettingForVaultUIDReceivedArguments: (timeout: KeepUnlockedSetting, vaultUID: String)?
-	var setKeepUnlockedSettingForVaultUIDReceivedInvocations: [(timeout: KeepUnlockedSetting, vaultUID: String)] = []
-	var setKeepUnlockedSettingForVaultUIDClosure: ((KeepUnlockedSetting, String) throws -> Void)?
+	var setKeepUnlockedDurationForVaultUIDReceivedArguments: (duration: KeepUnlockedDuration, vaultUID: String)?
+	var setKeepUnlockedDurationForVaultUIDReceivedInvocations: [(duration: KeepUnlockedDuration, vaultUID: String)] = []
+	var setKeepUnlockedDurationForVaultUIDClosure: ((KeepUnlockedDuration, String) throws -> Void)?
 
-	func setKeepUnlockedSetting(_ timeout: KeepUnlockedSetting, forVaultUID vaultUID: String) throws {
-		if let error = setKeepUnlockedSettingForVaultUIDThrowableError {
+	func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws {
+		if let error = setKeepUnlockedDurationForVaultUIDThrowableError {
 			throw error
 		}
-		setKeepUnlockedSettingForVaultUIDCallsCount += 1
-		setKeepUnlockedSettingForVaultUIDReceivedArguments = (timeout: timeout, vaultUID: vaultUID)
-		setKeepUnlockedSettingForVaultUIDReceivedInvocations.append((timeout: timeout, vaultUID: vaultUID))
-		try setKeepUnlockedSettingForVaultUIDClosure?(timeout, vaultUID)
+		setKeepUnlockedDurationForVaultUIDCallsCount += 1
+		setKeepUnlockedDurationForVaultUIDReceivedArguments = (duration: duration, vaultUID: vaultUID)
+		setKeepUnlockedDurationForVaultUIDReceivedInvocations.append((duration: duration, vaultUID: vaultUID))
+		try setKeepUnlockedDurationForVaultUIDClosure?(duration, vaultUID)
+	}
+
+	// MARK: - removeKeepUnlockedDuration
+
+	var removeKeepUnlockedDurationForVaultUIDThrowableError: Error?
+	var removeKeepUnlockedDurationForVaultUIDCallsCount = 0
+	var removeKeepUnlockedDurationForVaultUIDCalled: Bool {
+		removeKeepUnlockedDurationForVaultUIDCallsCount > 0
+	}
+
+	var removeKeepUnlockedDurationForVaultUIDReceivedVaultUID: String?
+	var removeKeepUnlockedDurationForVaultUIDReceivedInvocations: [String] = []
+	var removeKeepUnlockedDurationForVaultUIDClosure: ((String) throws -> Void)?
+
+	func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws {
+		if let error = removeKeepUnlockedDurationForVaultUIDThrowableError {
+			throw error
+		}
+		removeKeepUnlockedDurationForVaultUIDCallsCount += 1
+		removeKeepUnlockedDurationForVaultUIDReceivedVaultUID = vaultUID
+		removeKeepUnlockedDurationForVaultUIDReceivedInvocations.append(vaultUID)
+		try removeKeepUnlockedDurationForVaultUIDClosure?(vaultUID)
 	}
 
 	// MARK: - getLastUsedDate

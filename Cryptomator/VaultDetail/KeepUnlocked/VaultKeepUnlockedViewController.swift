@@ -36,7 +36,7 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 		dataSource = UITableViewDiffableDataSource(tableView: tableView, cellProvider: { tableView, _, itemIdentifier in
 			let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier)
 			cell?.accessoryType = itemIdentifier.selected ? .checkmark : .none
-			let text = itemIdentifier.timeout.description
+			let text = itemIdentifier.duration.description
 			if #available(iOS 14, *) {
 				var content = cell?.defaultContentConfiguration()
 				content?.text = text
@@ -65,7 +65,7 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 			previousSelectedIndexPath = dataSource?.indexPath(for: previousSelectedItem)
 		}
 		do {
-			try viewModel.setKeepUnlockedSetting(to: itemIdentifier.timeout)
+			try viewModel.setKeepUnlockedDuration(to: itemIdentifier.duration)
 		} catch {
 			coordinator?.handleError(error, for: self)
 			return

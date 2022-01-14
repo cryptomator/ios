@@ -13,7 +13,7 @@ import Foundation
 protocol VaultKeepUnlockedViewModelType {
 	var title: String { get }
 	var items: [KeepUnlockedItem] { get }
-	func setKeepUnlockedSetting(to timeout: KeepUnlockedSetting) throws
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) throws
 }
 
 class VaultKeepUnlockedViewModel: VaultKeepUnlockedViewModelType {
@@ -29,52 +29,49 @@ class VaultKeepUnlockedViewModel: VaultKeepUnlockedViewModelType {
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultUID: String
-	private let currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>
+	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
 
-	init(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultUID = vaultUID
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
-		self.currentKeepUnlockedSetting = currentKeepUnlockedSetting
+		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
 
-		self.keepUnlockedItems = KeepUnlockedSetting.allCases.map {
-			return KeepUnlockedItem(timeout: $0, selected: $0 == currentKeepUnlockedSetting.value)
+		self.keepUnlockedItems = KeepUnlockedDuration.allCases.map {
+			return KeepUnlockedItem(duration: $0, selected: $0 == currentKeepUnlockedDuration.value)
 		}
 	}
 
-	func setKeepUnlockedSetting(to timeout: KeepUnlockedSetting) throws {
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) throws {
 		keepUnlockedItems.forEach { keepUnlockedItem in
-			if keepUnlockedItem.timeout == timeout {
+			if keepUnlockedItem.duration == duration {
 				keepUnlockedItem.selected = true
 			} else {
 				keepUnlockedItem.selected = false
 			}
 		}
 		if let selectedKeepUnlockedItem = items.first(where: { $0.selected }) {
-			try vaultKeepUnlockedSettings.setKeepUnlockedSetting(selectedKeepUnlockedItem.timeout, forVaultUID: vaultUID)
-			if case KeepUnlockedSetting.off = selectedKeepUnlockedItem.timeout {
-				try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-			}
-			currentKeepUnlockedSetting.value = selectedKeepUnlockedItem.timeout
+			try vaultKeepUnlockedSettings.setKeepUnlockedDuration(selectedKeepUnlockedItem.duration, forVaultUID: vaultUID)
+			currentKeepUnlockedDuration.value = selectedKeepUnlockedItem.duration
 		}
 	}
 }
 
 class KeepUnlockedItem: Hashable, Equatable {
-	let timeout: KeepUnlockedSetting
+	let duration: KeepUnlockedDuration
 	var selected: Bool
 
-	init(timeout: KeepUnlockedSetting, selected: Bool) {
-		self.timeout = timeout
+	init(duration: KeepUnlockedDuration, selected: Bool) {
+		self.duration = duration
 		self.selected = selected
 	}
 
 	func hash(into hasher: inout Hasher) {
-		hasher.combine(timeout)
+		hasher.combine(duration)
 		hasher.combine(selected)
 	}
 
 	static func == (lhs: KeepUnlockedItem, rhs: KeepUnlockedItem) -> Bool {
-		lhs.timeout == rhs.timeout && lhs.selected == rhs.selected
+		lhs.duration == rhs.duration && lhs.selected == rhs.selected
 	}
 }

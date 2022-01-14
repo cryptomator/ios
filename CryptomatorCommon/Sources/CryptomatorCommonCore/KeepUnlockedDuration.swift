@@ -1,5 +1,5 @@
 //
-//  KeepUnlockedSetting.swift
+//  KeepUnlockedDuration.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 11.01.22.
@@ -7,8 +7,7 @@
 //
 
 import Foundation
-public enum KeepUnlockedSetting: CaseIterable, Codable {
-	case off
+public enum KeepUnlockedDuration: CaseIterable, Codable {
 	case oneMinute
 	case twoMinutes
 	case fiveMinutes
@@ -16,7 +15,7 @@ public enum KeepUnlockedSetting: CaseIterable, Codable {
 	case fifteenMinutes
 	case thirtyMinutes
 	case oneHour
-	case never
+	case forever
 
 	public var description: String? {
 		if let timeInterval = timeInterval {
@@ -25,11 +24,8 @@ public enum KeepUnlockedSetting: CaseIterable, Codable {
 			formatter.allowedUnits = [.minute, .hour]
 			return formatter.string(from: timeInterval)?.capitalized
 		}
-		if case .off = self {
-			return LocalizedString.getValue("keepUnlockedSetting.off.description")
-		}
-		if case .never = self {
-			return LocalizedString.getValue("keepUnlockedSetting.never.description")
+		if case .forever = self {
+			return LocalizedString.getValue("keepUnlockedDuration.forever.description")
 		}
 		return nil
 	}
@@ -50,7 +46,7 @@ public enum KeepUnlockedSetting: CaseIterable, Codable {
 			return 1800
 		case .oneHour:
 			return 3600
-		case .off, .never:
+		case .forever:
 			return nil
 		}
 	}
