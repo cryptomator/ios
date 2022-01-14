@@ -77,8 +77,8 @@ class VaultDetailViewController: BaseUITableViewController {
 			coordinator?.moveVault()
 		case .showChangeVaultPassword:
 			coordinator?.changeVaultPassword()
-		case let .showAutoLockScreen(currentKeepUnlockedSetting):
-			coordinator?.showAutoLockSettings(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
+		case let .showKeepUnlockedScreen(currentKeepUnlockedSetting):
+			coordinator?.showKeepUnlockedSettings(currentKeepUnlockedSetting: currentKeepUnlockedSetting)
 		}
 	}
 

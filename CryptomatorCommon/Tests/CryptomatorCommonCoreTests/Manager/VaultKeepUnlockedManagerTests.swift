@@ -13,8 +13,8 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	var cryptomatorKeychainMock: CryptomatorKeychainMock!
 	var vaultKeepUnlockedManager: VaultKeepUnlockedManager!
 	let vaultUID = "VaultUID-12345"
-	var autoLockKey: String {
-		return "\(vaultUID)-autoLockDuration"
+	var keepUnlockedSettingKey: String {
+		return "\(vaultUID)-keepUnlockedSetting"
 	}
 
 	var lastUsedDateKey: String {
@@ -33,7 +33,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		try vaultKeepUnlockedManager.setKeepUnlockedSetting(keepUnlockedSetting, forVaultUID: vaultUID)
 
 		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
-		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.setValueReceivedArguments?.key)
+		XCTAssertEqual(keepUnlockedSettingKey, cryptomatorKeychainMock.setValueReceivedArguments?.key)
 		let passedValue = try XCTUnwrap(cryptomatorKeychainMock.setValueReceivedArguments?.value)
 		XCTAssertEqual(keepUnlockedSetting, try JSONDecoder().decode(KeepUnlockedSetting.self, from: passedValue))
 	}
@@ -46,7 +46,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 
 		XCTAssertEqual(keepUnlockedSetting, retrievedKeepUnlockedSetting)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.getAsDataReceivedKey)
+		XCTAssertEqual(keepUnlockedSettingKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}
 
 	func testGetKeepUnlockedSettingNotSet() throws {
@@ -55,13 +55,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 
 		XCTAssertEqual(vaultKeepUnlockedManager.defaultKeepUnlockedSetting, retrievedKeepUnlockedSetting)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.getAsDataReceivedKey)
+		XCTAssertEqual(keepUnlockedSettingKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}
 
 	func testRemoveKeepUnlockedSetting() throws {
 		try vaultKeepUnlockedManager.removeKeepUnlockedSetting(forVaultUID: vaultUID)
 		XCTAssertEqual(1, cryptomatorKeychainMock.deleteCallsCount)
-		XCTAssertEqual(autoLockKey, cryptomatorKeychainMock.deleteReceivedKey)
+		XCTAssertEqual(keepUnlockedSettingKey, cryptomatorKeychainMock.deleteReceivedKey)
 	}
 
 	// MARK: Last used date
@@ -101,7 +101,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	func testShouldAutoLockVault() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = 60
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -113,13 +113,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoLockVaultNoLastUsedDateSet() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -130,13 +130,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoLockVaultLastUsedDateDistantPast() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -148,13 +148,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoLockVaultLastUsedDateTooLate() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -166,13 +166,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssert(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(2, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoLockVaultWithKeepUnlockedSettingOff() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.off
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -183,13 +183,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoLockVaultWithKeepUnlockedSettingNever() throws {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.never
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -200,7 +200,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoLockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	// MARK: Should Auto-Unlock Vault
@@ -208,7 +208,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	func testShouldAutoUnlockVaultWithKeepUnlockedSettingOff() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.off
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -219,13 +219,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoUnlockVaultWithKeepUnlockedSettingNever() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.never
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -236,13 +236,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		}
 		XCTAssert(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoUnlockVaultWithShouldAutoLock() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -254,13 +254,13 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		let vaultKeepUnlockedManager = VaultKeepUnlockedManagerShouldAutoLockMocked(shouldAutoLockVault: true, keychain: cryptomatorKeychainMock)
 		XCTAssertFalse(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
 	func testShouldAutoUnlockVaultWithShouldNotAutoLock() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
-			case self.autoLockKey:
+			case self.keepUnlockedSettingKey:
 				let keepUnlockedSetting = KeepUnlockedSetting.oneMinute
 				return try? JSONEncoder().encode(keepUnlockedSetting)
 			case self.lastUsedDateKey:
@@ -272,7 +272,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		let vaultKeepUnlockedManager = VaultKeepUnlockedManagerShouldAutoLockMocked(shouldAutoLockVault: false, keychain: cryptomatorKeychainMock)
 		XCTAssert(vaultKeepUnlockedManager.shouldAutoUnlockVault(withVaultUID: vaultUID))
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
-		XCTAssertEqual([autoLockKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
+		XCTAssertEqual([keepUnlockedSettingKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 }
 

@@ -40,7 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
-	case showAutoLockScreen(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>)
+	case showKeepUnlockedScreen(currentKeepUnlockedSetting: Bindable<KeepUnlockedSetting>)
 }
 
 private enum VaultDetailSection {
@@ -292,7 +292,7 @@ private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailBu
 	init(currentKeepUnlockedSetting: KeepUnlockedSetting, isEnabled: Bool = true) {
 		let currentKeepUnlockedSettingBinding = Bindable(currentKeepUnlockedSetting)
 		self.currentKeepUnlockedSetting = currentKeepUnlockedSettingBinding
-		super.init(action: .showAutoLockScreen(currentKeepUnlockedSetting: currentKeepUnlockedSettingBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentKeepUnlockedSetting.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedSetting: currentKeepUnlockedSettingBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: currentKeepUnlockedSetting.description, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
 		setupBinding()
 	}
 

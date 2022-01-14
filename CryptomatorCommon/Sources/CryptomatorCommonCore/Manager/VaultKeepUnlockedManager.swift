@@ -46,7 +46,7 @@ public protocol VaultKeepUnlockedHelper {
 }
 
 public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
-	public static let shared = VaultKeepUnlockedManager(keychain: CryptomatorKeychain.autoLock)
+	public static let shared = VaultKeepUnlockedManager(keychain: CryptomatorKeychain.keepUnlocked)
 	private let keychain: CryptomatorKeychainType
 
 	init(keychain: CryptomatorKeychainType) {
@@ -79,7 +79,7 @@ public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
 
 extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 	public func getKeepUnlockedSetting(forVaultUID vaultUID: String) -> KeepUnlockedSetting {
-		guard let data = keychain.getAsData(getAutoLockKey(forVaultUID: vaultUID)) else {
+		guard let data = keychain.getAsData(getKeepUnlockedSettingKey(forVaultUID: vaultUID)) else {
 			return defaultKeepUnlockedSetting
 		}
 		let jsonDecoder = JSONDecoder()
@@ -92,11 +92,11 @@ extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 
 	public func setKeepUnlockedSetting(_ timeout: KeepUnlockedSetting, forVaultUID vaultUID: String) throws {
 		let jsonEncoder = JSONEncoder()
-		try keychain.set(getAutoLockKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(timeout))
+		try keychain.set(getKeepUnlockedSettingKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(timeout))
 	}
 
 	public func removeKeepUnlockedSetting(forVaultUID vaultUID: String) throws {
-		try keychain.delete(getAutoLockKey(forVaultUID: vaultUID))
+		try keychain.delete(getKeepUnlockedSettingKey(forVaultUID: vaultUID))
 	}
 
 	public func getLastUsedDate(forVaultUID vaultUID: String) -> Date? {
@@ -112,8 +112,8 @@ extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 		try keychain.set(getLastUsedDateKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(date))
 	}
 
-	private func getAutoLockKey(forVaultUID vaultUID: String) -> String {
-		return "\(vaultUID)-autoLockDuration"
+	private func getKeepUnlockedSettingKey(forVaultUID vaultUID: String) -> String {
+		return "\(vaultUID)-keepUnlockedSetting"
 	}
 
 	private func getLastUsedDateKey(forVaultUID vaultUID: String) -> String {
