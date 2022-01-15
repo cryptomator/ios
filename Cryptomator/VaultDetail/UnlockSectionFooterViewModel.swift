@@ -24,27 +24,43 @@ class UnlockSectionFooterViewModel: HeaderFooterViewModel {
 		}
 	}
 
+	var keepUnlockedDuration: KeepUnlockedDuration? {
+		didSet {
+			updateTitle()
+		}
+	}
+
 	var biometryTypeName: String?
 
-	init(vaultUnlocked: Bool, biometricalUnlockEnabled: Bool, biometryTypeName: String?) {
+	init(vaultUnlocked: Bool, biometricalUnlockEnabled: Bool, biometryTypeName: String?, keepUnlockedDuration: KeepUnlockedDuration?) {
 		self.vaultUnlocked = vaultUnlocked
 		self.biometricalUnlockEnabled = biometricalUnlockEnabled
 		self.biometryTypeName = biometryTypeName
-		let titleText = UnlockSectionFooterViewModel.getTitleText(vaultUnlocked: vaultUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: biometryTypeName)
+		let titleText = UnlockSectionFooterViewModel.getTitleText(vaultUnlocked: vaultUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: biometryTypeName, keepUnlockedDuration: keepUnlockedDuration)
 		self.title = Bindable(titleText)
 	}
 
 	private func updateTitle() {
-		title.value = UnlockSectionFooterViewModel.getTitleText(vaultUnlocked: vaultUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: biometryTypeName)
+		title.value = UnlockSectionFooterViewModel.getTitleText(vaultUnlocked: vaultUnlocked, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: biometryTypeName, keepUnlockedDuration: keepUnlockedDuration)
 	}
 
-	private static func getTitleText(vaultUnlocked: Bool, biometricalUnlockEnabled: Bool, biometryTypeName: String?) -> String {
+	private static func getTitleText(vaultUnlocked: Bool, biometricalUnlockEnabled: Bool, biometryTypeName: String?, keepUnlockedDuration: KeepUnlockedDuration?) -> String {
 		let unlockedText: String
 		if vaultUnlocked {
 			unlockedText = LocalizedString.getValue("vaultDetail.unlocked.footer")
 		} else {
 			unlockedText = LocalizedString.getValue("vaultDetail.locked.footer")
 		}
+		let keepUnlockedText: String
+		switch keepUnlockedDuration {
+		case .none:
+			keepUnlockedText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.off")
+		case .forever:
+			keepUnlockedText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.unlimitedDuration")
+		case let .some(duration):
+			keepUnlockedText = String(format: LocalizedString.getValue("vaultDetail.keepUnlocked.footer.limitedDuration"), duration.description ?? "")
+		}
+		var footerText = "\(unlockedText)\n\n\(keepUnlockedText)"
 		if let biometryTypeName = biometryTypeName {
 			let biometricalUnlockText: String
 			if biometricalUnlockEnabled {
@@ -52,9 +68,8 @@ class UnlockSectionFooterViewModel: HeaderFooterViewModel {
 			} else {
 				biometricalUnlockText = String(format: LocalizedString.getValue("vaultDetail.disabledBiometricalUnlock.footer"), biometryTypeName)
 			}
-			return "\(unlockedText)\n\n\(biometricalUnlockText)"
-		} else {
-			return "\(unlockedText)"
+			footerText += "\n\n\(biometricalUnlockText)"
 		}
+		return footerText
 	}
 }

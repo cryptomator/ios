@@ -96,10 +96,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return viewModel
 	}()
 
-	private lazy var keepUnlockedCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> = {
-		let currentKeepUnlockedDuration = vaultKeepUnlockedSettings.getKeepUnlockedDuration(forVaultUID: vaultUID)
-		return KeepUnlockedButtonCellViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
-	}()
+	private lazy var keepUnlockedCellViewModel = KeepUnlockedButtonCellViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
 
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
 		return [
@@ -145,11 +142,16 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 	}()
 
-	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
+	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value)
 
 	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
 	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
+	private lazy var currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?> = {
+		let currentKeepUnlockedDuration = vaultKeepUnlockedSettings.getKeepUnlockedDuration(forVaultUID: vaultUID)
+		return Bindable(currentKeepUnlockedDuration)
+	}()
+
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
@@ -278,6 +280,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private func bindUnlockSectionFooterViewModel() {
 		vaultInfo.vaultIsUnlocked.$value.assign(to: \.vaultUnlocked, on: unlockSectionFooterViewModel).store(in: &subscribers)
 		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: unlockSectionFooterViewModel).store(in: &subscribers)
+		currentKeepUnlockedDuration.$value.assign(to: \.keepUnlockedDuration, on: unlockSectionFooterViewModel).store(in: &subscribers)
 	}
 
 	private func bindLockButton() {
@@ -289,11 +292,10 @@ private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailBu
 	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
 	private var subscriber: AnyCancellable?
 
-	init(currentKeepUnlockedDuration: KeepUnlockedDuration?, isEnabled: Bool = true) {
-		let currentKeepUnlockedDurationBinding = Bindable(currentKeepUnlockedDuration)
-		self.currentKeepUnlockedDuration = currentKeepUnlockedDurationBinding
-		let detailTitle = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration)
-		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedDuration: currentKeepUnlockedDurationBinding), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, isEnabled: Bool = true) {
+		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
+		let detailTitle = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration.value)
+		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedDuration: currentKeepUnlockedDuration), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
 		setupBinding()
 	}
 

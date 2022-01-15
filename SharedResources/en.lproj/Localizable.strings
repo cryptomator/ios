@@ -206,7 +206,9 @@
 "vaultDetail.keepUnlocked.alert.title" = "Lock Vault?";
 "vaultDetail.keepUnlocked.alert.message" = "Your vault is currently unlocked. To enable this option, your vault has to be locked.";
 "vaultDetail.keepUnlocked.title" = "Keep Unlocked";
-"vaultDetail.keepUnlocked.footer.duration.password" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it with your vault password";
+"vaultDetail.keepUnlocked.footer.off" = "Authentication will be required when Cryptomator has been terminated by the Files app";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Authentication will be required when your vault has been unused for %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Authentication will be required when your vault has been manually locked.";
 "vaultDetail.keepUnlocked.footer.main.on" = "If you disable this setting, your vault may lock prematurely when Cryptomator has been terminated by the Files app. Learn more.";
 "vaultDetail.keepUnlocked.footer.main.off" = "If you enable this setting, your vault will be guaranteed to be unlocked for and locked after a certain amount of time.";
 "vaultDetail.keepUnlocked.footer.duration" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
