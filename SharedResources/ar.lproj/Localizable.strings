@@ -60,6 +60,9 @@
 "addVault.success.info" = "تمت إضافة مخزن%@بنجاح.\nالوصول إلى هذا المخزن عبر تطبيق الملفات.";
 "addVault.success.footer" = "فعّل Cryptomator في تطبيق الملفات، إذا لم تفعّله مسبقاً.";
 
+"biometryType.faceID" = "بصمة الوجه";
+"biometryType.touchID" = "بصمة الإصبع";
+
 "changePassword.error.invalidOldPassword" = "كلمة المرور الحالية خاطئة. الرجاء المحاولة مرة أخرى.";
 "changePassword.header.currentPassword.title" = "أدخل كلمة المرور الحالية.";
 "changePassword.header.newPassword.title" = "أدخل كلمة مرور جديدة.";
@@ -93,6 +96,8 @@
 "localFileSystemAuthentication.openExistingVault.header" = "في الشاشة التالية، اختر مجلد المخزن الموجود لديك.";
 "localFileSystemAuthentication.openExistingVault.button" = "حدد مجلد المخزن";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
+
+"onboarding.title" = "أهلاً وسهلاً";
 "purchase.upgrade.notEligible.footer" = "إذا كنت قد اشتريت بالفعل إصدار قديم من Cryptomator ، قم بإعادة تنزيله من متجر التطبيقات.";
 "purchase.retry.button" = "اعد المحاولة";
 
