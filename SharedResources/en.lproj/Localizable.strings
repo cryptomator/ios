@@ -236,4 +236,3 @@
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Keep HTTP";
-
