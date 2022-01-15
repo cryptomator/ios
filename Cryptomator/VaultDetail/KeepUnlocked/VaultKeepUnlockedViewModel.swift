@@ -8,21 +8,27 @@
 
 import Combine
 import CryptomatorCommonCore
+import FileProvider
 import Foundation
-import LocalAuthentication
+import Promises
 
 protocol VaultKeepUnlockedViewModelType: TableViewModel<VaultKeepUnlockedSection> {
 	var keepUnlockedIsEnabled: AnyPublisher<Bool, Never> { get }
 	var sectionsPublisher: AnyPublisher<[Section<VaultKeepUnlockedSection>], Never> { get }
 	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) throws
-	func enableKeepUnlocked() throws
+	func enableKeepUnlocked() -> Promise<Void>
 	func disableKeepUnlocked() throws
+	func gracefulLockVault() -> Promise<Void>
 	func getFooterViewModel(for section: Int) -> HeaderFooterViewModel?
 }
 
 enum VaultKeepUnlockedSection: Hashable {
 	case main(unlocked: Bool)
 	case keepUnlockedDurations
+}
+
+enum VaultKeepUnlockedViewModelError: Error {
+	case vaultIsUnlocked
 }
 
 class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, VaultKeepUnlockedViewModelType {
@@ -35,7 +41,7 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 	}
 
 	var keepUnlockedIsEnabled: AnyPublisher<Bool, Never> {
-		return enableKeepUnlockedViewModel.isOn.$value.eraseToAnyPublisher()
+		return enableKeepUnlockedViewModel.isOnButtonPublisher.eraseToAnyPublisher()
 	}
 
 	var sectionsPublisher: AnyPublisher<[Section<VaultKeepUnlockedSection>], Never> {
@@ -54,14 +60,19 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 	private(set) var keepUnlockedItems = [KeepUnlockedDurationItem]()
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
-	private let vaultUID: String
+	private let fileProviderConnector: FileProviderConnector
+	private let vaultInfo: VaultInfo
 	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
 	private var subscriber: AnyCancellable?
+	private var vaultUID: String {
+		return vaultInfo.vaultUID
+	}
 
-	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, vaultUID: String, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
-		self.vaultUID = vaultUID
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, vaultInfo: VaultInfo, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+		self.vaultInfo = vaultInfo
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
+		self.fileProviderConnector = fileProviderConnector
 		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
 
 		self.keepUnlockedItems = KeepUnlockedDuration.allCases.map {
@@ -78,19 +89,34 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		}
 	}
 
-	func enableKeepUnlocked() throws {
+	func enableKeepUnlocked() -> Promise<Void> {
+		let promise: Promise<Void>
 		if currentKeepUnlockedDuration.value == nil {
-			// TODO: Graceful Lock Vault
-			try setKeepUnlockedDuration(to: vaultKeepUnlockedSettings.defaultKeepUnlockedDuration)
+			promise = setDefaultKeepUnlockedDurationGracefully()
+		} else {
+			promise = Promise(())
 		}
-		updateSections(keepUnlockedIsEnabled: true)
+		return promise.then {
+			self.updateSections(keepUnlockedIsEnabled: true)
+		}
 	}
 
 	func disableKeepUnlocked() throws {
 		try vaultKeepUnlockedSettings.removeKeepUnlockedDuration(forVaultUID: vaultUID)
 		try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 		currentKeepUnlockedDuration.value = nil
+		enableKeepUnlockedViewModel.isOn.value = false
 		updateSections(keepUnlockedIsEnabled: false)
+	}
+
+	func gracefulLockVault() -> Promise<Void> {
+		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
+		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getProxyPromise.then { proxy in
+			proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
+		}.then {
+			self.vaultInfo.vaultIsUnlocked.value = false
+		}
 	}
 
 	func getFooterViewModel(for section: Int) -> HeaderFooterViewModel? {
@@ -137,6 +163,33 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	private func createMainSection(keepUnlockedIsEnabled: Bool) -> Section<VaultKeepUnlockedSection> {
 		return Section(id: VaultKeepUnlockedSection.main(unlocked: keepUnlockedIsEnabled), elements: [enableKeepUnlockedViewModel])
+	}
+
+	private func getVaultIsUnlocked() -> Promise<Bool> {
+		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
+		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getProxyPromise.then { proxy in
+			proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
+		}
+	}
+
+	private func getVaultLockingProxy() -> Promise<VaultLocking> {
+		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
+		return fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+	}
+
+	private func assertVaultIsLocked() -> Promise<Void> {
+		return getVaultIsUnlocked().then { vaultIsUnlocked -> Void in
+			if vaultIsUnlocked {
+				throw VaultKeepUnlockedViewModelError.vaultIsUnlocked
+			}
+		}
+	}
+
+	private func setDefaultKeepUnlockedDurationGracefully() -> Promise<Void> {
+		return assertVaultIsLocked().then {
+			try self.setKeepUnlockedDuration(to: self.vaultKeepUnlockedSettings.defaultKeepUnlockedDuration)
+		}
 	}
 }
 

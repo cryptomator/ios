@@ -243,6 +243,11 @@ class VaultLockingMock: VaultLocking {
 		lockedVaults.append(domainIdentifier)
 	}
 
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		lockedVaults.append(domainIdentifier)
+		reply(nil)
+	}
+
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
 		reply(unlockedVaults.contains(domainIdentifier))
 	}

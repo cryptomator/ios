@@ -48,7 +48,7 @@ public class FileProviderAdapterManager {
 		if let cachedAdapter = cachedAdapterItem?.adapter {
 			if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
 				DDLogDebug("Try to automatically lock \(domain.displayName) - \(domain.identifier)")
-				gracefulLockVault(with: domain.identifier)
+				try? gracefulLockVault(with: domain.identifier)
 				throw FileProviderAdapterManagerError.cachedAdapterNotFound
 			}
 			adapter = cachedAdapter
@@ -94,19 +94,15 @@ public class FileProviderAdapterManager {
 
 	 A vault will be locked only if it is possible to enable the maintenance mode for the vault belonging to the passed `domainIdentifier`.
 	 */
-	private func gracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
+	public func gracefulLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
 		guard let cachedAdapter = adapterCache.getItem(identifier: domainIdentifier) else {
 			return
 		}
 		let maintenanceManager = cachedAdapter.maintenanceManager
-		do {
-			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
-			try maintenanceManager.enableMaintenanceMode()
-			adapterCache.removeItem(identifier: domainIdentifier)
-			try maintenanceManager.disableMaintenanceMode()
-		} catch {
-			return
-		}
+		try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
+		try maintenanceManager.enableMaintenanceMode()
+		adapterCache.removeItem(identifier: domainIdentifier)
+		try maintenanceManager.disableMaintenanceMode()
 	}
 
 	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws -> AdapterCacheItem {

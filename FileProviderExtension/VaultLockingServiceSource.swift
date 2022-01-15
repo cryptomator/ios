@@ -48,6 +48,15 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 		DDLogInfo("Locked vault \(domainIdentifier.rawValue)")
 	}
 
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		do {
+			try FileProviderAdapterManager.shared.gracefulLockVault(with: domainIdentifier)
+			reply(nil)
+		} catch {
+			reply(error)
+		}
+	}
+
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
 		reply(FileProviderAdapterManager.shared.vaultIsUnlocked(domainIdentifier: domainIdentifier))
 	}

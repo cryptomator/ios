@@ -45,7 +45,7 @@ class VaultDetailCoordinator: Coordinator {
 	}
 
 	func showKeepUnlockedSettings(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>) {
-		let viewModel = VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration, vaultUID: vaultInfo.vaultUID)
+		let viewModel = VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration, vaultInfo: vaultInfo)
 		let keepUnlockedViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
 		keepUnlockedViewController.coordinator = self
 		navigationController.pushViewController(keepUnlockedViewController, animated: true)
