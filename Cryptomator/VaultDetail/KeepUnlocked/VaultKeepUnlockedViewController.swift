@@ -83,7 +83,7 @@ class VaultKeepUnlockedViewController: StaticUITableViewController<VaultKeepUnlo
 	}
 
 	private func askForLockConfirmation() {
-		let alertController = UIAlertController(title: LocalizedString.getValue("vaultDetail.keepUnlocked.alert.title"), message: LocalizedString.getValue("vaultDetail.keepUnlocked.alert.message"), preferredStyle: .alert)
+		let alertController = UIAlertController(title: LocalizedString.getValue("keepUnlocked.alert.title"), message: LocalizedString.getValue("keepUnlocked.alert.message"), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.confirm"), style: .default) { [weak self] _ in
 			self?.lockConfirmed()
 		}

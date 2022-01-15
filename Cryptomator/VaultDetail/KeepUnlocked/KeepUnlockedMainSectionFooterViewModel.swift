@@ -14,9 +14,9 @@ class KeepUnlockedMainSectionFooterViewModel: AttributedTextHeaderFooterViewMode
 	init(keepUnlockedIsEnabled: Bool) {
 		let infoText: String
 		if keepUnlockedIsEnabled {
-			infoText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.main.on")
+			infoText = LocalizedString.getValue("keepUnlocked.footer.main.on")
 		} else {
-			infoText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.main.off")
+			infoText = LocalizedString.getValue("keepUnlocked.footer.main.off")
 		}
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))

@@ -129,7 +129,7 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	override func getFooterTitle(for section: Int) -> String? {
 		if section == 1 {
-			return LocalizedString.getValue("vaultDetail.keepUnlocked.footer.duration")
+			return LocalizedString.getValue("keepUnlocked.footer.duration")
 		} else {
 			return nil
 		}
