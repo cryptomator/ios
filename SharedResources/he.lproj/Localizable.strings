@@ -1,14 +1,26 @@
+"common.alert.attention.title" = "שים לב";
 "common.button.cancel" = "ביטול";
 "common.button.change" = "שנה";
+"common.button.choose" = "בחר";
+"common.button.create" = "צור";
 "common.button.done" = "סיום";
+"common.button.edit" = "ערוך";
 "common.button.next" = "המשך";
+"common.button.remove" = "מחק";
+"common.cells.url" = "כתובת URL";
+"common.cells.username" = "שם משתמש";
 
-"addVault.title" = "הוסף כספת";
+"addVault.title" = "יצירת כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
 "addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
+"purchase.retry.button" = "נסה שוב";
+
+"settings.title" = "הגדרות";
 
 "unlockVault.button.unlock" = "בטל נעילה";
 
 "vaultDetail.button.changeVaultPassword" = "שנה סיסמה";
+"vaultDetail.button.moveVault" = "שנה מיקום";
+"vaultDetail.button.renameVault" = "שנה שם";
