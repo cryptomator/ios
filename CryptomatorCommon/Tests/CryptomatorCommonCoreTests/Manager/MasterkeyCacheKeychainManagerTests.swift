@@ -31,8 +31,7 @@ class MasterkeyCacheKeychainManagerTests: XCTestCase {
 		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
 		let passedValue = try XCTUnwrap(cryptomatorKeychainMock.setValueReceivedArguments?.value)
 		let cachedMasterkey = try JSONDecoder().decode(CachedMasterkey.self, from: passedValue)
-		XCTAssertEqual(aesMasterkey, cachedMasterkey.aesMasterKey)
-		XCTAssertEqual(macMasterkey, cachedMasterkey.macMasterKey)
+		XCTAssertEqual(aesMasterkey + macMasterkey, cachedMasterkey.rawKey)
 		XCTAssertEqual(vaultUID, cryptomatorKeychainMock.setValueReceivedArguments?.key)
 	}
 
@@ -54,7 +53,7 @@ class MasterkeyCacheKeychainManagerTests: XCTestCase {
 		let aesMasterkey = [UInt8](repeating: 0x55, count: 32)
 		let macMasterkey = [UInt8](repeating: 0x77, count: 32)
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: aesMasterkey, macMasterKey: macMasterkey)
-		let cachedMasterkey = CachedMasterkey(aesMasterKey: aesMasterkey, macMasterKey: macMasterkey)
+		let cachedMasterkey = CachedMasterkey(rawKey: masterkey.rawKey)
 		let encodedCachedMasterkey = try JSONEncoder().encode(cachedMasterkey)
 
 		cryptomatorKeychainMock.getAsDataClosure = { _ in

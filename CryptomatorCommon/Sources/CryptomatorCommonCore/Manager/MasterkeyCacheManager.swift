@@ -6,7 +6,6 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CommonCrypto
 import CryptomatorCryptoLib
 import Foundation
 
@@ -29,9 +28,7 @@ public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
 	}
 
 	public func cacheMasterkey(_ masterkey: Masterkey, forVaultUID vaultUID: String) throws {
-		let aesMasterkey = Array(masterkey.rawKey[0 ..< kCCKeySizeAES256])
-		let macMasterKey = Array(masterkey.rawKey[kCCKeySizeAES256 ..< (2 * kCCKeySizeAES256)])
-		let cachedMasterkey = CachedMasterkey(aesMasterKey: aesMasterkey, macMasterKey: macMasterKey)
+		let cachedMasterkey = CachedMasterkey(rawKey: masterkey.rawKey)
 		let jsonEncoder = JSONEncoder()
 		try keychain.set(vaultUID, value: try jsonEncoder.encode(cachedMasterkey))
 	}
@@ -42,7 +39,7 @@ public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
 		}
 		let jsonDecoder = JSONDecoder()
 		let cachedMasterkey = try jsonDecoder.decode(CachedMasterkey.self, from: data)
-		return Masterkey.createFromRaw(aesMasterKey: cachedMasterkey.aesMasterKey, macMasterKey: cachedMasterkey.macMasterKey)
+		return Masterkey.createFromRaw(rawKey: cachedMasterkey.rawKey)
 	}
 
 	public func removeCachedMasterkey(forVaultUID vaultUID: String) throws {
@@ -53,6 +50,5 @@ public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
 }
 
 struct CachedMasterkey: Codable {
-	let aesMasterKey: [UInt8]
-	let macMasterKey: [UInt8]
+	let rawKey: [UInt8]
 }

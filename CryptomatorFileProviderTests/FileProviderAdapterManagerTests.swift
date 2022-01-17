@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCommonCore
-import CryptomatorCryptoLib
 import FileProvider
 import XCTest
+@testable import CryptomatorCryptoLib
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterManagerTests: XCTestCase {
