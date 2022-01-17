@@ -33,14 +33,14 @@
 "accountList.signOut.alert.title" = "Hapus Vault Terkait?";
 "accountList.signOut.alert.message" = "Dengan keluar, semua vault terkait akan dihapus dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat masuk lagi dan menambahkan kembali vault nanti.";
 
-"addVault.title" = "Tambah Brankas";
-"addVault.createNewVault.title" = "Buat Brankas Baru";
+"addVault.title" = "Tambah Vault";
+"addVault.createNewVault.title" = "Buat Vault Baru";
 "addVault.createNewVault.purchase" = "Membuat vault baru membutuhkan Cryptomator versi lengkap. Pertimbangkan untuk membuka versi lengkap untuk akses tulis ke vault Anda.";
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
-"addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
+"addVault.createNewVault.setVaultName.cells.name" = "Nama Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
 "addVault.createNewVault.setVaultName.error.invalidInput" = "Nama Vault tidak boleh mengandung \\ / : * ? \" < > | atau diakhiri tanda titik.";
-"addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan brankas berkas terenkripsi kamu?";
+"addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi ada vault di lokasi ini.\nUntuk membuat vaukt baru, silakan kembali dan pilih folder lain.";
 "addVault.createNewVault.password.enterPassword.header" = "Masukkan kata sandi baru.";
@@ -51,7 +51,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Kata Sandi tidak sama.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Kata Sandi minimal harus 8 karakter.";
 "addVault.createNewVault.progress" = "Membuat Vault…";
-"addVault.openExistingVault.title" = "Buka Brankas yg Sudah Ada";
+"addVault.openExistingVault.title" = "Buka Vault yang Tersedia";
 "addVault.openExistingVault.chooseCloud.header" = "Dimana lokasi vault berada?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault \"%@\".\nApakah Anda ingin menambahkan vault ini?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Tambah Vault Ini";
@@ -106,7 +106,29 @@
 
 "purchase.title" = "Buka Versi Lengkap";
 "purchase.info" = "Anda bisa menggunakan Cryptomator dalam mode read-only secara gratis. Pertimbangkan untuk membuka versi lengkap agar memperoleh akses tulis ke vault Anda.";
+"purchase.infoRunningTrial" = "Masa percobaan Anda berakhir pada %@ serta memberi Anda akses tulis ke vault Anda dalam waktu yang terbatas. Pertimbangkan untuk membuka versi lengkap setelah masa percobaan habis.";
+"purchase.infoExpiredTrial" = "Masa percobaan Anda telah berakhir. Pertimbangkan untuk membuka versi lengkap untuk memperoleh kembali akses tulis ke vault Anda.";
+"purchase.upgrade.footer" = "Cryptomator mendeteksi Anda menggunakan versi lama. Anda dapat melakukan upgrade untuk membuka versi yang lebih lengkap.";
+"purchase.upgrade.notEligible.footer" = "Jika Anda sudah membeli Cryptomator versi lama, silahkan unduh kembali melalui App Store.";
+"purchase.beginFreeTrial.button" = "Mulai 30-Hari Masa Percobaan secara Gratis";
+"purchase.beginFreeTrial.footer" = "Coba Cryptomator versi lengkap untuk waktu yang terbatas secara gratis. Anda dapat membuka masa percobaan ini hanya sekali.";
+"purchase.beginFreeTrial.alert.title" = "Masa Percobaan Terbuka";
+"purchase.beginFreeTrial.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
+"purchase.purchaseFullVersion.button" = "Beli Versi Lengkap seharga %@";
+"purchase.purchaseFullVersion.footer" = "Bayar sekali dan buka akses tulis ke vault Anda seumur hidup Cryptomator.";
+"purchase.restorePurchase.button" = "Pulihkan Pembelian";
+"purchase.restorePurchase.footer" = "Jika Anda sudah membeli versi lengkap Cryptomator, anda bisa memulihkan pembelian tersebut.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Masa Percobaan Diperpanjang";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Pemulihan Berhasil";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Versi Lengkap Tidak Tersedia";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Kami tidak dapat menemukan versi lengkap yang sudah dibeli untuk dipulihkan. Silahkan coba opsi lain.";
 "purchase.retry.button" = "Coba lagi";
+"purchase.retry.footer" = "Tidak dapat memuat produk yang tersedia.";
+"purchase.decideLater.button" = "Pertimbangkan Nanti";
+"purchase.decideLater.footer" = "Anda bisa membuka versi lengkap Cryptomator nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
+"purchase.unlockedFullVersion.message" = "Sekarang Anda bisa menggunakan Cryptomator versi lengkap. Selamat berenkripsi ria!";
+"purchase.unlockedFullVersion.title" = "Terima Kasih";
 
 "settings.title" = "Pengaturan";
 "settings.aboutCryptomator" = "Tentang Cryptomator";
@@ -121,7 +143,20 @@
 "settings.sendLogFile" = "Kirim File Log";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
 
-"unlockVault.button.unlock" = "Buka Gembok";
+"snapshots.fileprovider.file1" = "/Akuntansi.numbers";
+"snapshots.fileprovider.file2" = "/Presentasi Akhir.key";
+"snapshots.fileprovider.file3" = "/Cuplikan Produk.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Laporan.pdf";
+"snapshots.fileprovider.folder3" = "/Proyek Rahasia";
+"snapshots.fileprovider.folder2" = "/Tagihan";
+"snapshots.fileprovider.folder1" = "/Sertifikat";
+"snapshots.main.vault1" = "/Pekerjaan";
+"snapshots.main.vault2" = "/Keluarga";
+"snapshots.main.vault3" = "/Dokumen";
+"snapshots.main.vault4" = "/Perjalanan ke California";
+
+"unlockVault.button.unlock" = "Buka Kunci";
 "unlockVault.button.unlockVia" = "Buka memalui %@";
 "unlockVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Aktifkan %@";
@@ -133,6 +168,16 @@
 "untrustedTLSCertificate.message" = "Sertifikat TLS of \"%@\" tidak valid. Apakah Anda yakin?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Percayai";
 "untrustedTLSCertificate.dismiss" = "Jangan Percaya";
+
+"upgrade.title" = "Peningkatan Dari Versi 1.x";
+"upgrade.info" = "Anda berhak untuk upgrade dari Cryptomator versi terdahulu untuk membuka versi lengkap. Terima kasih sudah mendukung Cryptomator di masa lampau!";
+"upgrade.paidUpgrade.button" = "Tingkatkan seharga %@";
+"upgrade.paidUpgrade.footer" = "Ini akan membantu pengembangan open-source yang sedang berlangsung dan menjadi dukungan yang tak ternilai untuk kami.";
+"upgrade.freeUpgrade.button" = "Tingkatkan secara gratis";
+"upgrade.freeUpgrade.footer" = "Tidak perlu khawatir, Anda juga bisa melakukan peningkatan ke versi lengkap secara gratis tanpa batasan apapun.";
+"upgrade.decideLater.footer" = "Anda bisa meningkatkan Cryptomator ke versi lengkap nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
+"upgrade.notEligible.alert.title" = "Upgrade gagal";
+"upgrade.notEligible.alert.message" = "Cryptomator tidak bisa menemukan versi yang lebih lama terpasang di perangkat Anda saat ini. Jika Anda sudah membelinya, silahkan download kembali melalui App Store dan coba kembali.";
 
 "urlSession.error.httpError.401" = "Nama pengguna dan/atau kata sandi salah.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
@@ -176,3 +221,4 @@
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ubah ke HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Pertahankan HTTP";
