@@ -41,7 +41,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			return
 		}
 
-		let footerInfoText = LocalizedString.getValue("keepUnlocked.footer.main.off")
+		let footerInfoText = LocalizedString.getValue("keepUnlocked.main.footer.off")
 		let learnMoreText = LocalizedString.getValue("common.footer.learnMore")
 		let expectedFooterText = "\(footerInfoText) \(learnMoreText)"
 		XCTAssertEqual(expectedFooterText, attributedTextViewModel.attributedText.string)
@@ -62,7 +62,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			return
 		}
 
-		let footerInfoText = LocalizedString.getValue("keepUnlocked.footer.main.on")
+		let footerInfoText = LocalizedString.getValue("keepUnlocked.main.footer.on")
 		let learnMoreText = LocalizedString.getValue("common.footer.learnMore")
 		let expectedFooterText = "\(footerInfoText) \(learnMoreText)"
 		XCTAssertEqual(expectedFooterText, attributedTextViewModel.attributedText.string)

@@ -60,10 +60,6 @@
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
-"keepUnlockedDuration.forever.description" = "Forever";
-"keepUnlockedDuration.off.description" = "Off";
-
-
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
@@ -96,9 +92,11 @@
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "Your vault is currently unlocked. To enable this option, your vault has to be locked.";
-"keepUnlocked.footer.main.on" = "If you disable this setting, your vault may lock prematurely when Cryptomator has been terminated by the Files app. Learn more.";
-"keepUnlocked.footer.main.off" = "If you enable this setting, your vault will be guaranteed to be unlocked for and locked after a certain amount of time.";
-"keepUnlocked.footer.duration" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
+"keepUnlocked.main.footer.off" = "If you enable this setting, your vault will be guaranteed to be unlocked for and locked after a certain amount of time.";
+"keepUnlocked.main.footer.on" = "If you disable this setting, your vault may lock prematurely when Cryptomator has been terminated by the Files app. Learn more.";
+"keepUnlocked.duration.footer" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
+"keepUnlockedDuration.off" = "Off";
+"keepUnlockedDuration.forever" = "Forever";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";

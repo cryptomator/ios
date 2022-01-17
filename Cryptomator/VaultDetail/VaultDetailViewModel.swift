@@ -309,7 +309,7 @@ private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailBu
 		if let duration = duration {
 			return duration.description
 		} else {
-			return LocalizedString.getValue("keepUnlockedDuration.off.description")
+			return LocalizedString.getValue("keepUnlockedDuration.off")
 		}
 	}
 }

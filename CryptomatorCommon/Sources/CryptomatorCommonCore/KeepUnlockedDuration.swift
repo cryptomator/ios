@@ -25,7 +25,7 @@ public enum KeepUnlockedDuration: CaseIterable, Codable {
 			return formatter.string(from: timeInterval)?.capitalized
 		}
 		if case .forever = self {
-			return LocalizedString.getValue("keepUnlockedDuration.forever.description")
+			return LocalizedString.getValue("keepUnlockedDuration.forever")
 		}
 		return nil
 	}
