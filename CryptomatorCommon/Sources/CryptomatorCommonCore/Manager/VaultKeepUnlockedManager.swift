@@ -22,7 +22,7 @@ public protocol VaultKeepUnlockedSettings {
 
 public extension VaultKeepUnlockedSettings {
 	var defaultKeepUnlockedDuration: KeepUnlockedDuration {
-		return .fiveMinutes
+		return .tenMinutes
 	}
 }
 
