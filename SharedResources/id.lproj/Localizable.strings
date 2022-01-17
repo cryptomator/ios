@@ -14,6 +14,7 @@
 "common.button.create" = "Buat";
 "common.button.createFolder" = "Buat Folder";
 "common.button.done" = "Selesai";
+"common.button.download" = "Unduh";
 "common.button.edit" = "Ubah";
 "common.button.enable" = "Aktif";
 "common.button.next" = "Lanjut";
@@ -34,6 +35,7 @@
 
 "addVault.title" = "Tambah Brankas";
 "addVault.createNewVault.title" = "Buat Brankas Baru";
+"addVault.createNewVault.purchase" = "Membuat vault baru membutuhkan Cryptomator versi lengkap. Pertimbangkan untuk membuka versi lengkap untuk akses tulis ke vault Anda.";
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
@@ -71,6 +73,7 @@
 "chooseFolder.createNewFolder.header.title" = "Pilih nama folder.";
 "chooseFolder.createNewFolder.cells.name" = "Nama Folder";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Nama Folder tidak boleh kosong.";
+"chooseFolder.createNewFolder.progress" = "Membuat Folder…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" tidak ditemukan.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" sudah ada.";
@@ -93,10 +96,16 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Di layar berikutnya, pilih folder vault Anda yang ada.";
 "localFileSystemAuthentication.openExistingVault.button" = "Pilih Folder Vault";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Folder yang dipilih bukanlah sebuah vault. Silahkan coba lagi dengan folder berbeda.";
+"localFileSystemAuthentication.info.footer" = "File provider yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
 
 "onboarding.title" = "Selamat Datang";
+"onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda.\n\nDengan Cryptomator, kunci data Anda berada di tangan Anda sendiri. Cryptomator mengenkripsi data Anda dengan cepat dan mudah.\n\nAplikasi ini terintegrasi penuh ke dalam aplikasi Files. Pastikan untuk mengaktifkan Cryptomator di aplikasi File untuk mengakses vault Anda.";
+"onboarding.button.continue" = "Lanjut";
+
+"purchase.title" = "Buka Versi Lengkap";
+"purchase.info" = "Anda bisa menggunakan Cryptomator dalam mode read-only secara gratis. Pertimbangkan untuk membuka versi lengkap agar memperoleh akses tulis ke vault Anda.";
 "purchase.retry.button" = "Coba lagi";
 
 "settings.title" = "Pengaturan";
@@ -110,6 +119,7 @@
 "settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
+"settings.unlockFullVersion" = "Buka Versi Lengkap";
 
 "unlockVault.button.unlock" = "Buka Gembok";
 "unlockVault.button.unlockVia" = "Buka memalui %@";
