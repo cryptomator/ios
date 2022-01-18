@@ -192,9 +192,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "認証中…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
 "webDAVAuthentication.httpConnection.change" = "HTTPS に変更";
