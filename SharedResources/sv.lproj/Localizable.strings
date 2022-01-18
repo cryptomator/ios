@@ -160,9 +160,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Valvkonfigurationen stöds inte. Se till att du kör den senaste versionen av Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Valvversionen stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autentiserar…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Använd HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ändra till HTTPS";
