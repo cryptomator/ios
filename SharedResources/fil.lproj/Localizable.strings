@@ -26,7 +26,6 @@
 "unlockVault.button.unlock" = "I-unlock";
 "vaultDetail.button.moveVault" = "Ilipat";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Gamiting ang HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Ang pag-gamit ng HTTP ay hindi ligtas. Kung alam mo ang mga panganib, maaari kang tumuloy gamit ang HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Gawing HTTPS";
