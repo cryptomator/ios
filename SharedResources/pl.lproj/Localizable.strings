@@ -212,9 +212,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracja sejfu jest nieobsługiwana. Upewnij się, że używasz najnowszej wersji Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Uwierzytelnianie…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Używać HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmień na HTTPS";
