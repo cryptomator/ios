@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Η ρύθμιση παραμέτρων της κρύπτης δεν υποστηρίζεται. Παρακαλώ σιγουρευτείτε ότι εκτελείτε την τελευταία έκδοση του Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Ταυτοποίηση…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Χρήση HTTPS;";
 "webDAVAuthentication.httpConnection.alert.message" = "Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ 'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Αλλαγή σε HTTPS";
