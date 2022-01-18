@@ -171,9 +171,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurace trezoru není podporována. Ujistěte se, že používáte nejnovější verzi Cryptomatoru.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomatoru.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Ověřování…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Použít HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Změnit na HTTPS";
