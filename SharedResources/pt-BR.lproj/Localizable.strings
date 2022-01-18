@@ -216,9 +216,7 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "vaultProviderFactory.error.unsupportedVaultConfig" = "A configuração do Cofre não é suportada. Por favor, certifique-se de estar executando a versão mais recente do Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autenticando…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
