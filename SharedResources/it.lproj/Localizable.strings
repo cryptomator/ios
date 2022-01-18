@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configurazione della cassaforte non è supportata. Assicurati di stare eseguendo l'ultima versione di Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "La versione della cassaforte non è supportata. Questa cassaforte è stata creata con una versione più vecchia o più recente di Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autenticando…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Usare HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'utilizzo di HTTP non è sicuro. Si consiglia invece di utilizzare HTTPS. Se conosci i rischi, puoi continuare con HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Cambia in HTTPS";
