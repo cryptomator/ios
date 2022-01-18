@@ -26,6 +26,5 @@
 "vaultDetail.button.changeVaultPassword" = "שנה סיסמה";
 "vaultDetail.button.moveVault" = "שנה מיקום";
 "vaultDetail.button.renameVault" = "שנה שם";
-
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.change" = "עבור ל-HTTPS";
