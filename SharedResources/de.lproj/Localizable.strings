@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authentifiziere…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
 "webDAVAuthentication.httpConnection.alert.message" = "Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.";
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
