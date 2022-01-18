@@ -129,5 +129,3 @@
 "vaultList.header.title" = "कक्षों का नाम";
 "vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";
 "vaultList.remove.alert.title" = "कक्ष हटाना चाहेंगे?";
-
-"webDAVAuthentication.title" = "WebDAV";
