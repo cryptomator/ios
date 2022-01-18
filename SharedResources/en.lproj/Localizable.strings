@@ -211,7 +211,7 @@
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Unlock Duration";
 "vaultDetail.keepUnlocked.footer.off" = "Unlock will be required when Cryptomator has been terminated by the Files app.";
-"vaultDetail.keepUnlocked.footer.limitedDuration" = "Unlock will be required when your vault has been unused for %@.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Unlock will be required when your vault has been idle for %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No unlock will be required unless manually locked.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
