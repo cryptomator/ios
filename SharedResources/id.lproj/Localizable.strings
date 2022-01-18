@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Versi Vault tidak didukung. Ault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Mengotentikasi…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ubah ke HTTPS";
