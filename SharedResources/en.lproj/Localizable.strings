@@ -99,7 +99,7 @@
 "keepUnlocked.duration.footer" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
 "keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
-"keepUnlockedDuration.forever" = "Forever";
+"keepUnlockedDuration.indefinite" = "Indefinite";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";

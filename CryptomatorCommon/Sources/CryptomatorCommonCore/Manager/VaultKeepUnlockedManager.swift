@@ -32,7 +32,7 @@ public protocol VaultKeepUnlockedHelper {
 	/**
 	 Returns if the vault should be automatically locked.
 
-	 A vault should never be automatically locked  if the corresponding keep unlocked duration is  `KeepUnlockedDuration.auto` or `KeepUnlockedDuration.forever`.
+	 A vault should never be automatically locked  if the corresponding keep unlocked duration is  `KeepUnlockedDuration.auto` or `KeepUnlockedDuration.indefinite`.
 	 The vault corresponding to the `vaultUID` should be locked if the last activity of the vault + the time interval of the corresponding Auto-Lock timeout `<=` the current date or if the vault was not yet used.
 	 */
 	func shouldAutoLockVault(withVaultUID vaultUID: String) -> Bool
@@ -70,9 +70,9 @@ public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
 		switch keepUnlockedDuration {
 		case .auto:
 			return false
-		case .forever:
+		case .indefinite:
 			return true
-		case .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:
+		case .fiveMinutes, .tenMinutes, .thirtyMinutes, .oneHour:
 			return !shouldAutoLockVault(withVaultUID: vaultUID)
 		}
 	}
@@ -130,7 +130,7 @@ extension VaultKeepUnlockedManager: MasterkeyCacheHelper {
 		switch keepUnlockedDuration {
 		case .auto:
 			return false
-		case .forever, .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:
+		case .indefinite, .fiveMinutes, .tenMinutes, .thirtyMinutes, .oneHour:
 			return true
 		}
 	}

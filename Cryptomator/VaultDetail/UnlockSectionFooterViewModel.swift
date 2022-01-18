@@ -56,9 +56,9 @@ class UnlockSectionFooterViewModel: HeaderFooterViewModel {
 		switch keepUnlockedDuration {
 		case .auto:
 			keepUnlockedText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.off")
-		case .forever:
+		case .indefinite:
 			keepUnlockedText = LocalizedString.getValue("vaultDetail.keepUnlocked.footer.unlimitedDuration")
-		case .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:
+		case .fiveMinutes, .tenMinutes, .thirtyMinutes, .oneHour:
 			keepUnlockedText = String(format: LocalizedString.getValue("vaultDetail.keepUnlocked.footer.limitedDuration"), keepUnlockedDuration.description ?? "")
 		}
 		var footerText = "\(unlockedText)\n\n\(keepUnlockedText)"

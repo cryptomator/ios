@@ -29,7 +29,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	// MARK: Auto-Lock timeout
 
 	func testSetKeepUnlockedDuration() throws {
-		let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+		let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 		try vaultKeepUnlockedManager.setKeepUnlockedDuration(keepUnlockedDuration, forVaultUID: vaultUID)
 
 		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
@@ -39,7 +39,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 	}
 
 	func testGetKeepUnlockedDuration() throws {
-		let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+		let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 		let keepUnlockedDurationJSON = try JSONEncoder().encode(keepUnlockedDuration)
 		cryptomatorKeychainMock.getAsDataReturnValue = keepUnlockedDurationJSON
 		let retrievedKeepUnlockedDuration = vaultKeepUnlockedManager.getKeepUnlockedDuration(forVaultUID: vaultUID)
@@ -102,7 +102,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				let lastUsedDate = Date().addingTimeInterval(-59)
@@ -120,7 +120,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				return nil
@@ -137,7 +137,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				let lastUsedDate = Date.distantPast
@@ -155,10 +155,10 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
-				let lastUsedDate = Date().addingTimeInterval(-60)
+				let lastUsedDate = Date().addingTimeInterval(-60 * 5)
 				return try? JSONEncoder().encode(lastUsedDate)
 			default:
 				return nil
@@ -189,7 +189,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.forever
+				let keepUnlockedDuration = KeepUnlockedDuration.indefinite
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				return nil
@@ -224,7 +224,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.forever
+				let keepUnlockedDuration = KeepUnlockedDuration.indefinite
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				return nil
@@ -241,7 +241,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				return nil
@@ -259,7 +259,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
-				let keepUnlockedDuration = KeepUnlockedDuration.oneMinute
+				let keepUnlockedDuration = KeepUnlockedDuration.fiveMinutes
 				return try? JSONEncoder().encode(keepUnlockedDuration)
 			case self.lastUsedDateKey:
 				return nil

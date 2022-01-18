@@ -9,14 +9,11 @@
 import Foundation
 public enum KeepUnlockedDuration: CaseIterable, Codable {
 	case auto
-	case oneMinute
-	case twoMinutes
 	case fiveMinutes
 	case tenMinutes
-	case fifteenMinutes
 	case thirtyMinutes
 	case oneHour
-	case forever
+	case indefinite
 
 	public var description: String? {
 		if let timeInterval = timeInterval {
@@ -28,8 +25,8 @@ public enum KeepUnlockedDuration: CaseIterable, Codable {
 		if case .auto = self {
 			return LocalizedString.getValue("keepUnlockedDuration.auto")
 		}
-		if case .forever = self {
-			return LocalizedString.getValue("keepUnlockedDuration.forever")
+		if case .indefinite = self {
+			return LocalizedString.getValue("keepUnlockedDuration.indefinite")
 		}
 		return nil
 	}
@@ -44,21 +41,15 @@ public enum KeepUnlockedDuration: CaseIterable, Codable {
 
 	var timeInterval: TimeInterval? {
 		switch self {
-		case .oneMinute:
-			return 60
-		case .twoMinutes:
-			return 120
 		case .fiveMinutes:
 			return 300
 		case .tenMinutes:
 			return 600
-		case .fifteenMinutes:
-			return 900
 		case .thirtyMinutes:
 			return 1800
 		case .oneHour:
 			return 3600
-		case .forever, .auto:
+		case .indefinite, .auto:
 			return nil
 		}
 	}

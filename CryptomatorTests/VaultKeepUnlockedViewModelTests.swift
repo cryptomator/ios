@@ -91,7 +91,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		fileProviderConnectorMock.proxy = vaultLockingMock
 		vaultLockingMock.unlockedVaults.append(NSFileProviderDomainIdentifier(vaultUID))
 
-		viewModel.setKeepUnlockedDuration(to: .oneMinute).then {
+		viewModel.setKeepUnlockedDuration(to: .fiveMinutes).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
 			XCTAssertEqual(.vaultIsUnlocked, error as? VaultKeepUnlockedViewModelError)
@@ -207,14 +207,11 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 	private func assertSectionsAreCorrect(selectedKeepUnlockedDuration: KeepUnlockedDuration, viewModel: VaultKeepUnlockedViewModel) {
 		let expectedKeepUnlockedItems: [KeepUnlockedDurationItem] = [
 			.init(duration: .auto, isSelected: false),
-			.init(duration: .oneMinute, isSelected: false),
-			.init(duration: .twoMinutes, isSelected: false),
 			.init(duration: .fiveMinutes, isSelected: false),
 			.init(duration: .tenMinutes, isSelected: false),
-			.init(duration: .fifteenMinutes, isSelected: false),
 			.init(duration: .thirtyMinutes, isSelected: false),
 			.init(duration: .oneHour, isSelected: false),
-			.init(duration: .forever, isSelected: false)
+			.init(duration: .indefinite, isSelected: false)
 		]
 		expectedKeepUnlockedItems.forEach {
 			$0.isSelected.value = $0.duration == selectedKeepUnlockedDuration

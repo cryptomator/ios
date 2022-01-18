@@ -32,7 +32,7 @@ class KeepUnlockedSectionFooterViewModel: BindableAttributedTextHeaderFooterView
 		switch keepUnlockedDuration {
 		case .auto:
 			infoText = LocalizedString.getValue("keepUnlocked.footer.auto")
-		case .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour, .forever:
+		case .fiveMinutes, .tenMinutes, .thirtyMinutes, .oneHour, .indefinite:
 			infoText = LocalizedString.getValue("keepUnlocked.footer.on")
 		}
 		let text = NSMutableAttributedString(string: infoText)
