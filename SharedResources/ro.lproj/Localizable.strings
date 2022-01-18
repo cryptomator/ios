@@ -140,9 +140,6 @@
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configurarea seifului nu este suportată. Vă rugăm să vă asigurați că rulați cea mai noua versiune de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Versiunea seif nu este acceptată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.";
-
-"webDAVAuthentication.title" = "WebDAV";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Folosiți HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Schimbare la HTTPS";
