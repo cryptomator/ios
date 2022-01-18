@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的。";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在验证……";
-
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
 "webDAVAuthentication.httpConnection.change" = "换成 HTTPS";
