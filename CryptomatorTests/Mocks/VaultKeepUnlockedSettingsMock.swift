@@ -20,10 +20,10 @@ final class VaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettings {
 
 	var getKeepUnlockedDurationForVaultUIDReceivedVaultUID: String?
 	var getKeepUnlockedDurationForVaultUIDReceivedInvocations: [String] = []
-	var getKeepUnlockedDurationForVaultUIDReturnValue: KeepUnlockedDuration?
-	var getKeepUnlockedDurationForVaultUIDClosure: ((String) -> KeepUnlockedDuration?)?
+	var getKeepUnlockedDurationForVaultUIDReturnValue: KeepUnlockedDuration!
+	var getKeepUnlockedDurationForVaultUIDClosure: ((String) -> KeepUnlockedDuration)?
 
-	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration? {
+	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration {
 		getKeepUnlockedDurationForVaultUIDCallsCount += 1
 		getKeepUnlockedDurationForVaultUIDReceivedVaultUID = vaultUID
 		getKeepUnlockedDurationForVaultUIDReceivedInvocations.append(vaultUID)

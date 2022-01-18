@@ -13,18 +13,13 @@ import Foundation
 import Promises
 
 protocol VaultKeepUnlockedViewModelType: TableViewModel<VaultKeepUnlockedSection> {
-	var keepUnlockedIsEnabled: AnyPublisher<Bool, Never> { get }
-	var sectionsPublisher: AnyPublisher<[Section<VaultKeepUnlockedSection>], Never> { get }
-	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) throws
-	func enableKeepUnlocked() -> Promise<Void>
-	func disableKeepUnlocked() throws
+	func getFooterViewModel(forSection section: Int) -> HeaderFooterViewModel?
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) -> Promise<Void>
 	func gracefulLockVault() -> Promise<Void>
-	func getFooterViewModel(for section: Int) -> HeaderFooterViewModel?
 }
 
 enum VaultKeepUnlockedSection: Hashable {
-	case main(unlocked: Bool)
-	case keepUnlockedDurations
+	case main
 }
 
 enum VaultKeepUnlockedViewModelError: Error {
@@ -37,38 +32,23 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 	}
 
 	override var sections: [Section<VaultKeepUnlockedSection>] {
-		return _sections.value
+		return [Section<VaultKeepUnlockedSection>(id: .main, elements: keepUnlockedItems)]
 	}
 
-	var keepUnlockedIsEnabled: AnyPublisher<Bool, Never> {
-		return enableKeepUnlockedViewModel.isOnButtonPublisher.eraseToAnyPublisher()
-	}
+	private lazy var sectionFooterViewModel = KeepUnlockedSectionFooterViewModel(keepUnlockedDuration: currentKeepUnlockedDuration)
 
-	var sectionsPublisher: AnyPublisher<[Section<VaultKeepUnlockedSection>], Never> {
-		return _sections.$value.eraseToAnyPublisher()
-	}
-
-	lazy var enableKeepUnlockedViewModel = SwitchCellViewModel(title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"),
-	                                                           isOn: currentKeepUnlockedDuration.value != nil)
-	private lazy var keepUnlockedDurationSection = Section(id: VaultKeepUnlockedSection.keepUnlockedDurations, elements: keepUnlockedItems)
-	private lazy var _sections: Bindable<[Section<VaultKeepUnlockedSection>]> = {
-		let sections = createSections(keepUnlockedIsEnabled: enableKeepUnlockedViewModel.isOn.value)
-		return Bindable(sections)
-	}()
-
-	private lazy var mainSectionFooterViewModel = KeepUnlockedMainSectionFooterViewModel(keepUnlockedIsEnabled: enableKeepUnlockedViewModel.isOn.value)
 	private(set) var keepUnlockedItems = [KeepUnlockedDurationItem]()
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let fileProviderConnector: FileProviderConnector
 	private let vaultInfo: VaultInfo
-	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
+	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>
 	private var subscriber: AnyCancellable?
 	private var vaultUID: String {
 		return vaultInfo.vaultUID
 	}
 
-	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, vaultInfo: VaultInfo, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>, vaultInfo: VaultInfo, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.vaultInfo = vaultInfo
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
@@ -82,31 +62,22 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		setupBinding()
 	}
 
-	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) throws {
-		if let selectedKeepUnlockedItem = keepUnlockedItems.first(where: { $0.duration == duration }) {
-			try vaultKeepUnlockedSettings.setKeepUnlockedDuration(selectedKeepUnlockedItem.duration, forVaultUID: vaultUID)
-			currentKeepUnlockedDuration.value = selectedKeepUnlockedItem.duration
-		}
-	}
-
-	func enableKeepUnlocked() -> Promise<Void> {
+	func setKeepUnlockedDuration(to duration: KeepUnlockedDuration) -> Promise<Void> {
 		let promise: Promise<Void>
-		if currentKeepUnlockedDuration.value == nil {
-			promise = setDefaultKeepUnlockedDurationGracefully()
+		if currentKeepUnlockedDuration.value == .auto, duration != .auto {
+			promise = assertVaultIsLocked()
 		} else {
 			promise = Promise(())
 		}
-		return promise.then {
-			self.updateSections(keepUnlockedIsEnabled: true)
+		return promise.then { [self] in
+			if let selectedKeepUnlockedItem = keepUnlockedItems.first(where: { $0.duration == duration }) {
+				try vaultKeepUnlockedSettings.setKeepUnlockedDuration(selectedKeepUnlockedItem.duration, forVaultUID: vaultUID)
+				currentKeepUnlockedDuration.value = selectedKeepUnlockedItem.duration
+				if case KeepUnlockedDuration.auto = duration {
+					try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
+				}
+			}
 		}
-	}
-
-	func disableKeepUnlocked() throws {
-		try vaultKeepUnlockedSettings.removeKeepUnlockedDuration(forVaultUID: vaultUID)
-		try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-		currentKeepUnlockedDuration.value = nil
-		enableKeepUnlockedViewModel.isOn.value = false
-		updateSections(keepUnlockedIsEnabled: false)
 	}
 
 	func gracefulLockVault() -> Promise<Void> {
@@ -119,20 +90,16 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		}
 	}
 
-	func getFooterViewModel(for section: Int) -> HeaderFooterViewModel? {
+	func getFooterViewModel(forSection section: Int) -> HeaderFooterViewModel? {
 		if section == 0 {
-			return mainSectionFooterViewModel
+			return sectionFooterViewModel
 		} else {
 			return nil
 		}
 	}
 
-	override func getFooterTitle(for section: Int) -> String? {
-		if section == 1 {
-			return LocalizedString.getValue("keepUnlocked.duration.footer")
-		} else {
-			return nil
-		}
+	override func getHeaderTitle(for section: Int) -> String? {
+		return LocalizedString.getValue("keepUnlocked.header")
 	}
 
 	private func setupBinding() {
@@ -145,24 +112,6 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 				}
 			}
 		}
-	}
-
-	private func createSections(keepUnlockedIsEnabled: Bool) -> [Section<VaultKeepUnlockedSection>] {
-		let mainSection = createMainSection(keepUnlockedIsEnabled: keepUnlockedIsEnabled)
-		if keepUnlockedIsEnabled {
-			return [mainSection, keepUnlockedDurationSection]
-		} else {
-			return [mainSection]
-		}
-	}
-
-	private func updateSections(keepUnlockedIsEnabled: Bool) {
-		_sections.value = createSections(keepUnlockedIsEnabled: keepUnlockedIsEnabled)
-		mainSectionFooterViewModel = KeepUnlockedMainSectionFooterViewModel(keepUnlockedIsEnabled: keepUnlockedIsEnabled)
-	}
-
-	private func createMainSection(keepUnlockedIsEnabled: Bool) -> Section<VaultKeepUnlockedSection> {
-		return Section(id: VaultKeepUnlockedSection.main(unlocked: keepUnlockedIsEnabled), elements: [enableKeepUnlockedViewModel])
 	}
 
 	private func getVaultIsUnlocked() -> Promise<Bool> {
@@ -183,12 +132,6 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 			if vaultIsUnlocked {
 				throw VaultKeepUnlockedViewModelError.vaultIsUnlocked
 			}
-		}
-	}
-
-	private func setDefaultKeepUnlockedDurationGracefully() -> Promise<Void> {
-		return assertVaultIsLocked().then {
-			try self.setKeepUnlockedDuration(to: self.vaultKeepUnlockedSettings.defaultKeepUnlockedDuration)
 		}
 	}
 }

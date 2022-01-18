@@ -91,11 +91,14 @@
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
-"keepUnlocked.alert.message" = "Your vault is currently unlocked. To enable this option, your vault has to be locked.";
-"keepUnlocked.main.footer.off" = "If you enable this setting, your vault will be guaranteed to be unlocked for and locked after a certain amount of time.";
-"keepUnlocked.main.footer.on" = "If you disable this setting, your vault may lock prematurely when Cryptomator has been terminated by the Files app. Learn more.";
+"keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect after your next unlock.";
+"keepUnlocked.alert.confirm" = "Confirm & Lock Now";
+"keepUnlocked.header" = "Specify how long you want this vault to be unlocked.";
+"keepUnlocked.footer.auto" = "The selected option means that Cryptomator may be terminated in the background by iOS to free up memory, which automatically locks the vault.";
+"keepUnlocked.footer.on" = "The selected option requires to store your key in the iOS keychain.";
 "keepUnlocked.duration.footer" = "Specify how long your vault should be unlocked after last activity. After the duration has passed, your vault will be automatically locked. If you manually lock your vault, you have to unlock it the next time.";
-"keepUnlockedDuration.off" = "Off";
+"keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.forever" = "Forever";
 
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
@@ -207,7 +210,7 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.keepUnlocked.title" = "Keep Unlocked";
+"vaultDetail.keepUnlocked.title" = "Unlock Duration";
 "vaultDetail.keepUnlocked.footer.off" = "Authentication will be required when Cryptomator has been terminated by the Files app";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Authentication will be required when your vault has been unused for %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Authentication will be required when your vault has been manually locked.";

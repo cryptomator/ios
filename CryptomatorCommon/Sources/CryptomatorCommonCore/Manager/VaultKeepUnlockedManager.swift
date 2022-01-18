@@ -11,8 +11,10 @@ import Foundation
 public protocol VaultKeepUnlockedSettings {
 	/**
 	 Returns the keep unlocked duration for the passed `vaultUID`.
+
+	 If no keep unlocked duration is set the `defaultKeepUnlockedDuration` will be returned.
 	 */
-	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration?
+	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration
 	func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws
 	func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws
 
@@ -22,7 +24,7 @@ public protocol VaultKeepUnlockedSettings {
 
 public extension VaultKeepUnlockedSettings {
 	var defaultKeepUnlockedDuration: KeepUnlockedDuration {
-		return .tenMinutes
+		return .auto
 	}
 }
 
@@ -30,7 +32,7 @@ public protocol VaultKeepUnlockedHelper {
 	/**
 	 Returns if the vault should be automatically locked.
 
-	 A vault should never be automatically locked  if the corresponding keep unlocked duration is `KeepUnlockedDuration.forever` or not set.
+	 A vault should never be automatically locked  if the corresponding keep unlocked duration is  `KeepUnlockedDuration.auto` or `KeepUnlockedDuration.forever`.
 	 The vault corresponding to the `vaultUID` should be locked if the last activity of the vault + the time interval of the corresponding Auto-Lock timeout `<=` the current date or if the vault was not yet used.
 	 */
 	func shouldAutoLockVault(withVaultUID vaultUID: String) -> Bool
@@ -53,9 +55,7 @@ public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
 	}
 
 	public func shouldAutoLockVault(withVaultUID vaultUID: String) -> Bool {
-		guard let keepUnlockedDuration = getKeepUnlockedDuration(forVaultUID: vaultUID) else {
-			return false
-		}
+		let keepUnlockedDuration = getKeepUnlockedDuration(forVaultUID: vaultUID)
 		guard let keepUnlockedDurationTimeInterval = keepUnlockedDuration.timeInterval else {
 			return false
 		}
@@ -68,7 +68,7 @@ public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
 	public func shouldAutoUnlockVault(withVaultUID vaultUID: String) -> Bool {
 		let keepUnlockedDuration = getKeepUnlockedDuration(forVaultUID: vaultUID)
 		switch keepUnlockedDuration {
-		case .none:
+		case .auto:
 			return false
 		case .forever:
 			return true
@@ -79,12 +79,16 @@ public class VaultKeepUnlockedManager: VaultKeepUnlockedHelper {
 }
 
 extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
-	public func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration? {
+	public func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration {
 		guard let data = keychain.getAsData(getKeepUnlockedDurationKey(forVaultUID: vaultUID)) else {
-			return nil
+			return defaultKeepUnlockedDuration
 		}
 		let jsonDecoder = JSONDecoder()
-		return try? jsonDecoder.decode(KeepUnlockedDuration.self, from: data)
+		do {
+			return try jsonDecoder.decode(KeepUnlockedDuration.self, from: data)
+		} catch {
+			return defaultKeepUnlockedDuration
+		}
 	}
 
 	public func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws {
@@ -124,7 +128,7 @@ extension VaultKeepUnlockedManager: MasterkeyCacheHelper {
 	func shouldCacheMasterkey(forVaultUID vaultUID: String) -> Bool {
 		let keepUnlockedDuration = getKeepUnlockedDuration(forVaultUID: vaultUID)
 		switch keepUnlockedDuration {
-		case .none:
+		case .auto:
 			return false
 		case .forever, .oneMinute, .twoMinutes, .fiveMinutes, .tenMinutes, .fifteenMinutes, .thirtyMinutes, .oneHour:
 			return true

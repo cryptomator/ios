@@ -8,6 +8,7 @@
 
 import Foundation
 public enum KeepUnlockedDuration: CaseIterable, Codable {
+	case auto
 	case oneMinute
 	case twoMinutes
 	case fiveMinutes
@@ -24,10 +25,21 @@ public enum KeepUnlockedDuration: CaseIterable, Codable {
 			formatter.allowedUnits = [.minute, .hour]
 			return formatter.string(from: timeInterval)?.capitalized
 		}
+		if case .auto = self {
+			return LocalizedString.getValue("keepUnlockedDuration.auto")
+		}
 		if case .forever = self {
 			return LocalizedString.getValue("keepUnlockedDuration.forever")
 		}
 		return nil
+	}
+
+	public var shortDisplayName: String? {
+		if case .auto = self {
+			return LocalizedString.getValue("keepUnlockedDuration.auto.shortDisplayName")
+		} else {
+			return description
+		}
 	}
 
 	var timeInterval: TimeInterval? {
@@ -46,7 +58,7 @@ public enum KeepUnlockedDuration: CaseIterable, Codable {
 			return 1800
 		case .oneHour:
 			return 3600
-		case .forever:
+		case .forever, .auto:
 			return nil
 		}
 	}

@@ -53,7 +53,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		cryptomatorKeychainMock.getAsDataReturnValue = nil
 		let retrievedKeepUnlockedDuration = vaultKeepUnlockedManager.getKeepUnlockedDuration(forVaultUID: vaultUID)
 
-		XCTAssertNil(retrievedKeepUnlockedDuration)
+		XCTAssertEqual(.auto, retrievedKeepUnlockedDuration)
 		XCTAssertEqual(1, cryptomatorKeychainMock.getAsDataCallsCount)
 		XCTAssertEqual(keepUnlockedDurationKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}

@@ -40,7 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
-	case showKeepUnlockedScreen(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>)
+	case showKeepUnlockedScreen(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>)
 }
 
 private enum VaultDetailSection {
@@ -147,7 +147,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
 	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
-	private lazy var currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?> = {
+	private lazy var currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration> = {
 		let currentKeepUnlockedDuration = vaultKeepUnlockedSettings.getKeepUnlockedDuration(forVaultUID: vaultUID)
 		return Bindable(currentKeepUnlockedDuration)
 	}()
@@ -289,10 +289,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 }
 
 private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> {
-	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>
+	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>
 	private var subscriber: AnyCancellable?
 
-	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>, isEnabled: Bool = true) {
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>, isEnabled: Bool = true) {
 		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
 		let detailTitle = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration.value)
 		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedDuration: currentKeepUnlockedDuration), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
@@ -305,11 +305,7 @@ private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailBu
 		}
 	}
 
-	private static func getDescription(forDuration duration: KeepUnlockedDuration?) -> String? {
-		if let duration = duration {
-			return duration.description
-		} else {
-			return LocalizedString.getValue("keepUnlockedDuration.off")
-		}
+	private static func getDescription(forDuration duration: KeepUnlockedDuration) -> String? {
+		return duration.shortDisplayName
 	}
 }

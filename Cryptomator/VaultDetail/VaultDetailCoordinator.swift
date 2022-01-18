@@ -44,7 +44,7 @@ class VaultDetailCoordinator: Coordinator {
 		return pendingAuthentication
 	}
 
-	func showKeepUnlockedSettings(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration?>) {
+	func showKeepUnlockedSettings(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>) {
 		let viewModel = VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration, vaultInfo: vaultInfo)
 		let keepUnlockedViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
 		keepUnlockedViewController.coordinator = self
