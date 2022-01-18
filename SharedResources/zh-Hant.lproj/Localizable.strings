@@ -116,9 +116,7 @@
 "vaultList.emptyList.message" = "點擊此處以添加加密檔案庫";
 "vaultList.remove.alert.title" = "移除加密檔案庫?";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "正在驗證……";
-
 "webDAVAuthentication.httpConnection.alert.title" = "是否使用 HTTPS？";
 "webDAVAuthentication.httpConnection.alert.message" = "使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
 "webDAVAuthentication.httpConnection.change" = "更換為 HTTPS";
