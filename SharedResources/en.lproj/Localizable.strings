@@ -95,7 +95,7 @@
 "keepUnlocked.alert.confirm" = "Confirm & Lock Now";
 "keepUnlocked.header" = "Specify for how long you want this vault to stay unlocked when idle.";
 "keepUnlocked.footer.auto" = "Letting iOS decide means that Cryptomator may be terminated any time to free up memory, which automatically locks the vault.";
-"keepUnlocked.footer.on" = Using the selected option, a copy of your key needs to be stored in the iOS keychain, as long as the vault is unlocked.";
+"keepUnlocked.footer.on" = "Using the selected option, a copy of your key needs to be stored in the iOS keychain, as long as the vault is unlocked.";
 "keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinite";
