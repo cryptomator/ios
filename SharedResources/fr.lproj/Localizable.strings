@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuration de ce coffre n'est pas prise en charge. Veuillez vous assurer d'utiliser la version la plus récente de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Version de coffre non prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authentification…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Utiliser le HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'utilisation du HTTP n'est pas sûre. Nous recommandons d'utiliser plutôt le HTTPS. Si vous connaissez les risques, vous pouvez continuer à utiliser HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Passage au HTTPS";
