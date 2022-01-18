@@ -215,9 +215,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authenticating…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Use HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";
