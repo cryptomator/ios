@@ -71,19 +71,26 @@ class VaultKeepUnlockedViewController: BaseUITableViewController {
 			guard case VaultKeepUnlockedViewModelError.vaultIsUnlocked = error, let self = self else {
 				return Promise(error)
 			}
-			return self.askForLockConfirmation()
-		}.then { [weak self] in
-			self?.lockConfirmed(with: selectedDuration)
-		}.catch { [weak self] error in
-			if case CocoaError.userCancelled = error {
-				return
-			}
-			self?.handleError(error)
+			return self.handleUnlockedVault(selectedDuration: selectedDuration)
 		}.always {
 			// Workaround to animate row deselection (see https://stackoverflow.com/a/69165547 for more details)
 			UIView.animate(withDuration: 0.3, animations: {
 				tableView.deselectRow(at: indexPath, animated: true)
 			})
+		}
+	}
+
+	private func handleUnlockedVault(selectedDuration: KeepUnlockedDuration) -> Promise<Void> {
+		return askForLockConfirmation().then { [weak self] _ -> Promise<Void> in
+			guard let self = self else {
+				return Promise(())
+			}
+			return self.lockConfirmed(with: selectedDuration)
+		}.catch { [weak self] error in
+			if case CocoaError.userCancelled = error {
+				return
+			}
+			self?.handleError(error)
 		}
 	}
 
