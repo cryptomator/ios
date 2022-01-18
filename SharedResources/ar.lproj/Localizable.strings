@@ -144,9 +144,7 @@
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "المصادقة…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
 "webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
 "webDAVAuthentication.httpConnection.change" = "تغيير إلى HTTPS";
