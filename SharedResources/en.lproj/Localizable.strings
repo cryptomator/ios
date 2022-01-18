@@ -91,11 +91,11 @@
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
-"keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect after your next unlock.";
+"keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
 "keepUnlocked.alert.confirm" = "Confirm & Lock Now";
-"keepUnlocked.header" = "Specify how long you want this vault to be unlocked after last activity.";
-"keepUnlocked.footer.auto" = "The selected option means that Cryptomator may be terminated in the background by the Files app to free up memory, which automatically locks the vault.";
-"keepUnlocked.footer.on" = "The selected option requires to store your key in the iOS keychain while unlocked.";
+"keepUnlocked.header" = "Specify for how long you want this vault to stay unlocked when idle.";
+"keepUnlocked.footer.auto" = "Letting iOS decide means that Cryptomator may be terminated any time to free up memory, which automatically locks the vault.";
+"keepUnlocked.footer.on" = Using the selected option, a copy of your key needs to be stored in the iOS keychain, as long as the vault is unlocked.";
 "keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinite";
