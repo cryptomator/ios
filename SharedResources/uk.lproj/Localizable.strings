@@ -44,4 +44,5 @@
 "vaultDetail.button.renameVault" = "Перейменувати";
 "vaultDetail.moveVault.progress" = "Переміщення…";
 "vaultDetail.renameVault.progress" = "Перейменування…";
+
 "webDAVAuthentication.progress" = "Аутентифікація…";
