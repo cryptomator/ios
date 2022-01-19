@@ -93,6 +93,12 @@
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
 "keepUnlocked.alert.confirm" = "Confirmar y bloquear ahora";
+"keepUnlocked.header" = "Indique durante cuánto tiempo desea que esta bóveda permanezca desbloqueada cuando esté inactiva.";
+"keepUnlocked.footer.auto" = "Dejar que iOS decida significa que Cryptomator puede ser terminado en cualquier momento para liberar memoria, lo que bloquea la bóveda automáticamente.";
+"keepUnlocked.footer.on" = "Usando la opción seleccionada, debe almacenarse una copia de su clave en el llavero de iOS, siempre que la bóveda esté desbloqueada.";
+"keepUnlockedDuration.auto" = "Dejar que iOS decida automáticamente";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinido";
 
 "localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
@@ -203,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
 "vaultDetail.info.footer.accountInfo" = "Sesión iniciada como %@ vía %@.";
+"vaultDetail.keepUnlocked.title" = "Duración del desbloqueo";
+"vaultDetail.keepUnlocked.footer.off" = "Se requerirá el desbloqueo cuando Cryptomator haya sido terminado por la aplicación Archivos.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Se requerirá el desbloqueo cuando la bóveda esté inactiva durante %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No se requerirá el desbloqueo a menos que se bloquee manualmente.";
 "vaultDetail.locked.footer" = "Su bóveda está bloqueada actualmente.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara mover su bóveda, por favor vuelva atrás y elija una carpeta diferente.";
 "vaultDetail.moveVault.progress" = "Moviendo…";
