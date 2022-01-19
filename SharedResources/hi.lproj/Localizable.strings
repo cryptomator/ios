@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "त्रुटि";
+"common.alert.attention.title" = "ध्यान दें";
 "common.button.cancel" = "रद्द करें";
 "common.button.change" = "बदलें";
 "common.button.choose" = "चुनें";
@@ -13,6 +14,7 @@
 "common.button.create" = "बनाएं";
 "common.button.createFolder" = "फोल्डर बनाएं";
 "common.button.done" = "हो गया";
+"common.button.download" = "डाउनलोड करें";
 "common.button.edit" = "संपादित करें";
 "common.button.enable" = "सक्षम करें";
 "common.button.next" = "अगला";
@@ -87,7 +89,10 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "चयन किया फ़ोल्डर आपके कक्ष में उपलब्ध नहीं है। कृपया दूसरे फ़ोल्डर का चयन कीजिए।";
 
 "onboarding.title" = "स्वागत है";
+"onboarding.button.continue" = "जारी रखें";
 "purchase.retry.button" = "पुन: प्रयास करें";
+"purchase.decideLater.button" = "बाद में तय करें";
+"purchase.unlockedFullVersion.title" = "धन्यवाद";
 
 "settings.title" = "समायोजन";
 "settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
@@ -117,6 +122,7 @@
 
 "vaultDetail.button.changeVaultPassword" = "पासवर्ड बदलें";
 "vaultDetail.button.lock" = "अभी ताला लगाएँ";
+"vaultDetail.button.moveVault" = "मूव करें";
 "vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
 "vaultDetail.button.renameVault" = "नाम संपादन";
 "vaultDetail.info.footer.accessVault" = "\"फ़ाइल ऐप\" द्वारा प्रवेश करें।";
