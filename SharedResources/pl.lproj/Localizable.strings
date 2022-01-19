@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
 "fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
 
+"keepUnlocked.alert.title" = "Zablokować sejf?";
+"keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
+"keepUnlocked.alert.confirm" = "Potwierdź i zablokuj teraz";
+"keepUnlocked.header" = "Określ na jak długo ten sejf ma być odblokowany podczas bezczynności.";
+"keepUnlocked.footer.auto" = "Pozostawienie decyzji iOS oznacza, że Cryptomator może zostać zamknięty w każdym momencie w celu zwolnienia pamięci, co automatycznie blokuje sejf.";
+"keepUnlocked.footer.on" = "Używając tej opcji, kopia klucza będzie przechowywana w pęku kluczy iOS póki sejf jest odblokowany.";
+"keepUnlockedDuration.auto" = "Pozwól iOS decydować automatycznie";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Bez końca";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sejf już istnieje w tej lokalizacji. Spróbuj ponownie z inną lokalizacją.";
@@ -196,6 +206,9 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";
 "vaultDetail.info.footer.accessVault" = "Uzyskaj dostęp do sejfu przez aplikację Pliki.";
 "vaultDetail.info.footer.accountInfo" = "Zalogowano jako %@ przez %@.";
+"vaultDetail.keepUnlocked.title" = "Czas odblokowania";
+"vaultDetail.keepUnlocked.footer.off" = "Odblokowanie będzie wymagane, gdy Cryptomator zostanie zakończony przez aplikację Pliki.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Odblokowanie będzie wymagane, gdy Twój sejf będzie bezczynny przez %@.";
 "vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tym miejscu.\nAby zmienić miejsce docelowe, wróć i wybierz inny folder.";
 "vaultDetail.moveVault.progress" = "Przenoszenie…";
