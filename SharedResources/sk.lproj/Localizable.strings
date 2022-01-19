@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator k ochrane Vašich súborov. Pre začatie vstúpte do hlavnej aplikácie a pridajte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otvoriť Cryptomator";
 
+"keepUnlocked.alert.title" = "Zamknúť trezor?";
+"keepUnlocked.alert.message" = "Táto zmena vyžaduje Váš trezor uzamknúť aby sa príkaz uplatnil.";
+"keepUnlocked.alert.confirm" = "Potvrdiť & uzamknúť teraz";
+"keepUnlocked.header" = "Zadefinujte prosím, ako dlho má zostať trezor odomknutý počas nečinnosti.";
+"keepUnlocked.footer.auto" = "Ponechať iOS rozhodnúť znamená že Cryptomator smie byť kedykoľvek ukončený pre uvolnenie pamäte, čo automaticky uzamkne trezor.";
+"keepUnlocked.footer.on" = "Použitím vybranej voľby, bude potreba Váš kľúč uložiť do iOS kľúčenky na tak dlho pokiaľ bude trezor odomknutý.";
+"keepUnlockedDuration.auto" = "Nechať rozhodnúť iOS automaticky";
+"keepUnlockedDuration.auto.shortDisplayName" = "Automaticky";
+"keepUnlockedDuration.indefinite" = "Nekonečne";
+
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Trezor už existuje na tomto úložisku. Prosím skúste znovu s iným dátovým úložiskom.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše trezorové heslo bude požadované iba ak %@ autentikácia zlyhá.";
 "vaultDetail.info.footer.accessVault" = "Pristúpiť k trezoru prostredníctvom súborovej aplikácie.";
 "vaultDetail.info.footer.accountInfo" = "Prihlásený ako %@ prostredníctvom %@.";
+"vaultDetail.keepUnlocked.title" = "Trvanie odomknutia";
+"vaultDetail.keepUnlocked.footer.off" = "Odomknutie bude požadované keď bol Cryptomator zrušený Súborovou aplikáciou.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Odomknutie bude požadované keď Váš trezor bude bez činnosti po %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Žiadne odomknutie sa nebude vyžadovať počas manuálneho zamknutia.";
 "vaultDetail.locked.footer" = "Váš trezor je aktuálne uzamknutý.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zdetekoval existujúci trezor na tejto lokalite.\n V prípade vytvorenia nového trezoru sa prosím vráťte späť a zvoľte iný adresár.";
 "vaultDetail.moveVault.progress" = "Presúvanie…";
