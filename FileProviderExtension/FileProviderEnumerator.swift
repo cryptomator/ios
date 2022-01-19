@@ -61,10 +61,10 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			pageToken = String(data: page.rawValue, encoding: .utf8)!
 		}
 		DispatchQueue.global(qos: .userInitiated).async {
-			FileProviderAdapterManager.semaphore.wait()
-			let adapter: FileProviderAdapter
+			FileProviderAdapterManager.shared.semaphore.wait()
+			let adapter: FileProviderAdapterType
 			do {
-				adapter = try FileProviderAdapterManager.getAdapter(for: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
+				adapter = try FileProviderAdapterManager.shared.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
 			} catch {
 				DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
 				DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {

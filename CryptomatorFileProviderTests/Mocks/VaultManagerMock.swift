@@ -1,9 +1,9 @@
 //
 //  VaultManagerMock.swift
-//  CryptomatorTests
+//  CryptomatorFileProviderTests
 //
-//  Created by Philipp Schmid on 27.10.21.
-//  Copyright © 2021 Skymatic GmbH. All rights reserved.
+//  Created by Philipp Schmid on 12.01.22.
+//  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
 import CryptomatorCloudAccessCore

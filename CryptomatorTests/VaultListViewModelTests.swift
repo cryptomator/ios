@@ -34,7 +34,7 @@ class VaultListViewModelTests: XCTestCase {
 		vaultAccountManagerMock = VaultAccountManagerMock()
 		passwordManagerMock = VaultPasswordManagerMock()
 		vaultCacheMock = VaultCacheMock()
-		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
+		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock, masterkeyCacheManager: MasterkeyCacheManagerMock(), masterkeyCacheHelper: MasterkeyCacheHelperMock())
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
@@ -241,6 +241,11 @@ class VaultLockingMock: VaultLocking {
 
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
 		lockedVaults.append(domainIdentifier)
+	}
+
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		lockedVaults.append(domainIdentifier)
+		reply(nil)
 	}
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {

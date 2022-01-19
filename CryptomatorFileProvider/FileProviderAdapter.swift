@@ -13,7 +13,21 @@ import FileProvider
 import Foundation
 import Promises
 
-public class FileProviderAdapter {
+public protocol FileProviderAdapterType: AnyObject {
+	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier?
+	func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem
+	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList>
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func itemChanged(at url: URL)
+	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func stopProvidingItem(at url: URL)
+	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void)
+	func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void))
+}
+
+public class FileProviderAdapter: FileProviderAdapterType {
 	private let uploadTaskManager: UploadTaskManager
 	private let cachedFileManager: CachedFileManager
 	private let itemMetadataManager: ItemMetadataManager

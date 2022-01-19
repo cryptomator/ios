@@ -8,8 +8,11 @@
 
 import FileProvider
 import Foundation
+import Promises
+
 @objc public protocol VaultLocking: NSFileProviderServiceSource {
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier)
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void)
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void)
 	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void)
 }
@@ -17,5 +20,33 @@ import Foundation
 public enum VaultLockingService {
 	public static var name: NSFileProviderServiceName {
 		return NSFileProviderServiceName("org.cryptomator.ios.vault-locking")
+	}
+}
+
+// MARK: Convenience
+
+public extension VaultLocking {
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<Void> {
+		return wrap { replyHandler in
+			self.gracefulLockVault(domainIdentifier: domainIdentifier, reply: replyHandler)
+		}.then { maybeError in
+			if let error = maybeError {
+				return Promise(error)
+			} else {
+				return Promise(())
+			}
+		}
+	}
+
+	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<Bool> {
+		return wrap { replyHandler in
+			self.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: replyHandler)
+		}
+	}
+
+	func getUnlockedVaultDomainIdentifiers() -> Promise<[NSFileProviderDomainIdentifier]> {
+		return wrap { replyHandler in
+			self.getUnlockedVaultDomainIdentifiers(reply: replyHandler)
+		}
 	}
 }

@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import CryptomatorCryptoLib
 import Promises
 import XCTest
 @testable import Cryptomator
@@ -180,6 +181,10 @@ private class PasswordVaultManagerMock: VaultManager {
 
 	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void> {
 		return Promise(MockError.notMocked)
+	}
+
+	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
+		throw MockError.notMocked
 	}
 }
 

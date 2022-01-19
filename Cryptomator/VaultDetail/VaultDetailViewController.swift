@@ -66,44 +66,19 @@ class VaultDetailViewController: BaseUITableViewController {
 		case .openVaultInFilesApp:
 			FilesAppUtil.showFilesApp(forVaultUID: viewModel.vaultUID)
 		case .lockVault:
-			viewModel.lockVault().then {
-				let feedbackGenerator = UINotificationFeedbackGenerator()
-				feedbackGenerator.notificationOccurred(.success)
-			}.catch { error in
-				self.coordinator?.handleError(error, for: self)
-			}
+			lockVault()
 		case .removeVault:
-			let alertController = UIAlertController(title: LocalizedString.getValue("vaultList.remove.alert.title"), message: LocalizedString.getValue("vaultList.remove.alert.message"), preferredStyle: .alert)
-			let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
-				do {
-					try self.viewModel.removeVault()
-					self.coordinator?.removedVault()
-				} catch {
-					self.coordinator?.handleError(error, for: self)
-				}
-			}
-			alertController.addAction(okAction)
-			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
-			present(alertController, animated: true, completion: nil)
+			removeVault()
 		case let .showUnlockScreen(vault: vault, biometryTypeName: biometryType):
-			coordinator?.unlockVault(vault, biometryTypeName: biometryType).recover { error -> Void in
-				guard case VaultDetailUnlockError.userCanceled = error else {
-					throw error
-				}
-			}.catch { [weak self] error in
-				guard let self = self else {
-					return
-				}
-				self.coordinator?.handleError(error, for: self)
-			}.always { [weak self] in
-				_ = self?.viewModel.refreshVaultStatus()
-			}
+			showUnlockScreen(for: vault, biometryTypeName: biometryType)
 		case .showRenameVault:
 			coordinator?.renameVault()
 		case .showMoveVault:
 			coordinator?.moveVault()
 		case .showChangeVaultPassword:
 			coordinator?.changeVaultPassword()
+		case let .showKeepUnlockedScreen(currentKeepUnlockedDuration):
+			coordinator?.showKeepUnlockedSettings(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
 		}
 	}
 
@@ -142,5 +117,46 @@ class VaultDetailViewController: BaseUITableViewController {
 		footerView.configure(with: footerViewModel)
 		footerView.tableView = tableView
 		return footerView
+	}
+
+	// MARK: Internal
+
+	private func showUnlockScreen(for vault: VaultInfo, biometryTypeName: String) {
+		coordinator?.unlockVault(vault, biometryTypeName: biometryTypeName).recover { error -> Void in
+			guard case VaultDetailUnlockError.userCanceled = error else {
+				throw error
+			}
+		}.catch { [weak self] error in
+			guard let self = self else {
+				return
+			}
+			self.coordinator?.handleError(error, for: self)
+		}.always { [weak self] in
+			_ = self?.viewModel.refreshVaultStatus()
+		}
+	}
+
+	private func removeVault() {
+		let alertController = UIAlertController(title: LocalizedString.getValue("vaultList.remove.alert.title"), message: LocalizedString.getValue("vaultList.remove.alert.message"), preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
+			do {
+				try self.viewModel.removeVault()
+				self.coordinator?.removedVault()
+			} catch {
+				self.coordinator?.handleError(error, for: self)
+			}
+		}
+		alertController.addAction(okAction)
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
+		present(alertController, animated: true, completion: nil)
+	}
+
+	private func lockVault() {
+		viewModel.lockVault().then {
+			let feedbackGenerator = UINotificationFeedbackGenerator()
+			feedbackGenerator.notificationOccurred(.success)
+		}.catch { error in
+			self.coordinator?.handleError(error, for: self)
+		}
 	}
 }

@@ -40,6 +40,7 @@ enum VaultDetailButtonAction {
 	case showRenameVault
 	case showMoveVault
 	case showChangeVaultPassword
+	case showKeepUnlockedScreen(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>)
 }
 
 private enum VaultDetailSection {
@@ -74,6 +75,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private let vaultManager: VaultManager
 	private let fileProviderConnector: FileProviderConnector
 	private let context = LAContext()
+	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let passwordManager: VaultPasswordManager
 	private var vaultPath: CloudPath {
 		return vaultInfo.vaultPath
@@ -94,6 +96,8 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return viewModel
 	}()
 
+	private lazy var keepUnlockedCellViewModel = KeepUnlockedButtonCellViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
+
 	private var cells: [VaultDetailSection: [BindableTableViewCellViewModel]] {
 		return [
 			.vaultInfoSection: [
@@ -111,15 +115,12 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	}
 
 	private var lockSectionCells: [BindableTableViewCellViewModel] {
+		var cells: [BindableTableViewCellViewModel] = [lockButton, keepUnlockedCellViewModel]
 		if let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
 			let switchCellViewModel = getSwitchCellViewModel(biometryTypeName: biometryTypeName)
-			return [
-				lockButton,
-				switchCellViewModel
-			]
-		} else {
-			return [lockButton]
+			cells.append(switchCellViewModel)
 		}
+		return cells
 	}
 
 	private var switchCellViewModel: SwitchCellViewModel?
@@ -141,23 +142,29 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 	}()
 
-	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName())
+	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value)
 
 	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)
 	private lazy var moveVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showMoveVault, title: LocalizedString.getValue("vaultDetail.button.moveVault"), detailTitle: vaultPath.path)
+	private lazy var currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration> = {
+		let currentKeepUnlockedDuration = vaultKeepUnlockedSettings.getKeepUnlockedDuration(forVaultUID: vaultUID)
+		return Bindable(currentKeepUnlockedDuration)
+	}()
+
 	private var observation: TransactionObserver?
 
 	convenience init(vaultInfo: VaultInfo) {
-		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
 	}
 
-	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager) {
+	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings) {
 		self.vaultInfo = vaultInfo
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		self.passwordManager = passwordManager
 		self.title = Bindable(vaultInfo.vaultName)
+		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.observation = dbManager.observeVaultAccount(withVaultUID: vaultInfo.vaultUID, onError: { error in
 			DDLogError("Observe Vault Account error: \(error)")
 		}, onChange: { [weak self] vaultAccount in
@@ -273,9 +280,32 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private func bindUnlockSectionFooterViewModel() {
 		vaultInfo.vaultIsUnlocked.$value.assign(to: \.vaultUnlocked, on: unlockSectionFooterViewModel).store(in: &subscribers)
 		switchCellViewModel?.isOn.$value.assign(to: \.biometricalUnlockEnabled, on: unlockSectionFooterViewModel).store(in: &subscribers)
+		currentKeepUnlockedDuration.$value.assign(to: \.keepUnlockedDuration, on: unlockSectionFooterViewModel).store(in: &subscribers)
 	}
 
 	private func bindLockButton() {
 		vaultInfo.vaultIsUnlocked.$value.assign(to: \.isEnabled.value, on: lockButton).store(in: &subscribers)
+	}
+}
+
+private class KeepUnlockedButtonCellViewModel: ButtonCellViewModel<VaultDetailButtonAction> {
+	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>
+	private var subscriber: AnyCancellable?
+
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>, isEnabled: Bool = true) {
+		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
+		let detailTitle = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration.value)
+		super.init(action: .showKeepUnlockedScreen(currentKeepUnlockedDuration: currentKeepUnlockedDuration), title: LocalizedString.getValue("vaultDetail.keepUnlocked.title"), titleTextColor: nil, detailTitle: detailTitle, isEnabled: isEnabled, accessoryType: .disclosureIndicator)
+		setupBinding()
+	}
+
+	private func setupBinding() {
+		subscriber = currentKeepUnlockedDuration.$value.sink { [weak self] currentKeepUnlockedDuration in
+			self?.detailTitle.value = KeepUnlockedButtonCellViewModel.getDescription(forDuration: currentKeepUnlockedDuration)
+		}
+	}
+
+	private static func getDescription(forDuration duration: KeepUnlockedDuration) -> String? {
+		return duration.shortDisplayName
 	}
 }

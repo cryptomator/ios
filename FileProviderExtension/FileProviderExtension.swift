@@ -155,7 +155,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 */
 		// TODO: Register DownloadTask
 		DDLogDebug("FPExt: startProvidingItem(at: \(url)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -288,7 +288,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
-	private func getFailableAdapter() -> FileProviderAdapter? {
+	private func getFailableAdapter() -> FileProviderAdapterType? {
 		do {
 			return try getAdapter()
 		} catch {
@@ -296,14 +296,14 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		}
 	}
 
-	private func getAdapter() throws -> FileProviderAdapter {
+	private func getAdapter() throws -> FileProviderAdapterType {
 		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
-		return try FileProviderAdapterManager.getAdapter(for: domain, dbPath: dbPath, delegate: self, notificator: notificator)
+		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: self, notificator: notificator)
 	}
 
-	func getAdapterWithWrappedError() throws -> FileProviderAdapter {
+	func getAdapterWithWrappedError() throws -> FileProviderAdapterType {
 		do {
 			return try getAdapter()
 		} catch {

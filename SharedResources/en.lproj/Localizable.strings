@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
 
+"keepUnlocked.alert.title" = "Lock Vault?";
+"keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
+"keepUnlocked.alert.confirm" = "Confirm & Lock Now";
+"keepUnlocked.header" = "Specify for how long you want this vault to stay unlocked when idle.";
+"keepUnlocked.footer.auto" = "Letting iOS decide means that Cryptomator may be terminated any time to free up memory, which automatically locks the vault.";
+"keepUnlocked.footer.on" = "Using the selected option, a copy of your key needs to be stored in the iOS keychain, as long as the vault is unlocked.";
+"keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinite";
+
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Unlock Duration";
+"vaultDetail.keepUnlocked.footer.off" = "Unlock will be required when Cryptomator has been terminated by the Files app.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Unlock will be required when your vault has been idle for %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No unlock will be required unless manually locked.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
 "vaultDetail.moveVault.progress" = "Moving…";
@@ -220,4 +234,3 @@
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Keep HTTP";
-
