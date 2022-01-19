@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
 "fileProvider.onboarding.button.openCryptomator" = "Ouvrir Cryptomator";
 
+"keepUnlocked.alert.title" = "Verrouiller le coffre ?";
+"keepUnlocked.alert.message" = "Cette modification nécessite que votre coffre soit verrouillé.";
+"keepUnlocked.alert.confirm" = "Confirmer & Verrouiller maintenant";
+"keepUnlocked.header" = "Indiquez pendant combien de temps ce coffre restera déverrouillé en cas d'inactivité.";
+"keepUnlocked.footer.auto" = "Laisser iOS décider signifie que Cryptomator peut être arrêté à tout moment pour libérer de la mémoire, ce qui verrouille automatiquement le coffre.";
+"keepUnlocked.footer.on" = "En utilisant l'option sélectionnée, une copie de votre clé doit être stockée dans la troussette iOS, tant que le coffre est déverrouillé.";
+"keepUnlockedDuration.auto" = "Laisser iOS décider automatiquement";
+"keepUnlockedDuration.auto.shortDisplayName" = "Automatiquement";
+"keepUnlockedDuration.indefinite" = "Indéfini";
+
 "localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Le mot de passe de votre coffre ne sera requis que si l'authentification de %@ échoue.";
 "vaultDetail.info.footer.accessVault" = "Accédez au coffre via l'application Fichiers.";
 "vaultDetail.info.footer.accountInfo" = "Connecté en tant que %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Durée de Déverrouillage";
+"vaultDetail.keepUnlocked.footer.off" = "Le déverrouillage sera nécessaire lorsque le Cryptomator aura été terminé par l'application Fichiers.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Le déverrouillage sera nécessaire lorsque votre coffre aura été inactif pendant %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Aucun déverrouillage ne sera nécessaire sauf si verrouillé manuellement.";
 "vaultDetail.locked.footer" = "Votre coffre est actuellement verrouillé.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet emplacement.\nAfin de déplacer votre coffre, veuillez revenir en arrière et choisir un dossier différent.";
 "vaultDetail.moveVault.progress" = "Déplacement…";
