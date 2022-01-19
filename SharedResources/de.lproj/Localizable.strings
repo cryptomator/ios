@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast. Um loszulegen, gehe zur Haupt-App und füge einen Tresor hinzu.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator öffnen";
 
+"keepUnlocked.alert.title" = "Tresor sperren?";
+"keepUnlocked.alert.message" = "Diese Änderung erfordert, dass dein Tresor gesperrt wird, um wirksam zu werden.";
+"keepUnlocked.alert.confirm" = "Bestätigen & Jetzt sperren";
+"keepUnlocked.header" = "Lege fest, wie lange dieser Tresor im inaktiven Zustand entsperrt bleiben soll.";
+"keepUnlocked.footer.auto" = "Die Steuerung durch iOS bedeutet, dass Cryptomator jederzeit beendet werden kann, um Speicher freizugeben, was den Tresor automatisch sperrt.";
+"keepUnlocked.footer.on" = "Mit der ausgewählten Option muss eine Kopie deines Schlüssels im iOS-Schlüsselbund gespeichert werden, solange der Tresor entsperrt ist.";
+"keepUnlockedDuration.auto" = "Automatisch durch iOS gesteuert";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Unbefristet";
+
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An dieser Stelle existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";
 "vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
 "vaultDetail.info.footer.accountInfo" = "Eingeloggt als %@ über %@.";
+"vaultDetail.keepUnlocked.title" = "Entsperr-Dauer";
+"vaultDetail.keepUnlocked.footer.off" = "Entsperren wird benötigt, wenn Cryptomator durch die App „Dateien“ beendet wurde.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Entsperren wird benötigt, wenn dein Tresor für %@ inaktiv war.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Kein Entsperren wird benötigt, außer nach einem manuellen Sperren.";
 "vaultDetail.locked.footer" = "Dein Tresor ist zurzeit gesperrt.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm Deinen Tresor zu verschieben, gehe bitte zurück und wähle einen anderen Ordner.";
 "vaultDetail.moveVault.progress" = "Verschiebe…";
