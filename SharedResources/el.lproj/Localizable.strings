@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
 "fileProvider.onboarding.button.openCryptomator" = "Άνοιγμα Cryptomator";
 
+"keepUnlocked.alert.title" = "Κλείδωμα Κρύπτης;";
+"keepUnlocked.alert.message" = "Αυτή η αλλαγή απαιτεί η κρύπτη σας να κλειδωθεί για να τεθεί σε ισχύ.";
+"keepUnlocked.alert.confirm" = "Επιβεβαίωση & Κλείδωμα Τώρα";
+"keepUnlocked.header" = "Καθορίστε για πόσο χρονικό διάστημα θέλετε αυτή η κρύπτη να παραμένει ξεκλείδωτη όταν είναι σε αδράνεια.";
+"keepUnlocked.footer.auto" = "Αφήνοντας το iOS να αποφασίσει σημαίνει ότι το Cryptomator μπορεί να τερματιστεί οποιαδήποτε στιγμή για να ελευθερώσει μνήμη, η οποία κλειδώνει αυτόματα την κρύπτη.";
+"keepUnlocked.footer.on" = "Χρησιμοποιώντας την επιλεγμένη επιλογή, ένα αντίγραφο του κλειδιού σας πρέπει να αποθηκεύεται στο iOS keychain, εφόσον η κρύπτη είναι ξεκλείδωτη.";
+"keepUnlockedDuration.auto" = "Αφήστε το iOS να αποφασίζει αυτόματα";
+"keepUnlockedDuration.auto.shortDisplayName" = "Αυτόματο";
+"keepUnlockedDuration.indefinite" = "Αόριστο";
+
 "localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για τη νέα κρύπτη σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Μια κρύπτη υπάρχει ήδη σε αυτή τη θέση. Παρακαλώ δοκιμάστε ξανά με μια διαφορετική θέση αποθήκευσης.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ο κωδικός πρόσβασης του Vault σας θα απαιτείται μόνο εάν αποτύχει η ταυτοποίηση %@.";
 "vaultDetail.info.footer.accessVault" = "Πρόσβαση στην κρύπτη μέσω της εφαρμογής Αρχείων.";
 "vaultDetail.info.footer.accountInfo" = "Συνδεθήκατε ως %@ μέσω %@.";
+"vaultDetail.keepUnlocked.title" = "Διάρκεια Ξεκλειδώματος";
+"vaultDetail.keepUnlocked.footer.off" = "Το ξεκλείδωμα θα απαιτείται όταν το Cryptomator τερματιστεί από την εφαρμογή Άρχεια.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Το ξεκλείδωμα θα απαιτείται όταν η κρύπτη σας είναι σε αδράνεια για %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Δεν θα απαιτείται ξεκλείδωμα εκτός εάν κλειδωθεί χειροκίνητα.";
 "vaultDetail.locked.footer" = "Η κρύπτη σας είναι κλειδωμένη.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε μια υπάρχον κρύπτη σε αυτή τη θέση.\nΓια να μετακινήσετε τη κρύπτη σας, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
 "vaultDetail.moveVault.progress" = "Μετακίνηση…";
