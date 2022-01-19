@@ -90,6 +90,12 @@
 "fileProvider.onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。若要开始，请前往主应用程序并添加一个保险库。";
 "fileProvider.onboarding.button.openCryptomator" = "打开 Cryptomator";
 
+"keepUnlocked.alert.title" = "锁定保险库？";
+"keepUnlocked.alert.message" = "此更改需要锁定您的保险库才能生效。";
+"keepUnlocked.header" = "指定您希望此保险库的解锁状态在空闲时最长持续多久。";
+"keepUnlocked.footer.auto" = "交由 iOS 决定意味着 Cryptomator 可能随时被终止以释放内存，释放将自动锁定保险库。";
+"keepUnlocked.footer.on" = "选中此选项后，保险库解锁时会将您的密钥副本在 iOS 密钥链中存储。";
+
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试。";
@@ -199,6 +205,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
 "vaultDetail.info.footer.accountInfo" = "已登录账户：%@ (%@).";
+"vaultDetail.keepUnlocked.title" = "解锁持续时间";
+"vaultDetail.keepUnlocked.footer.off" = "Cryptomator 被终止后，通过“文件”应用使用时需要解锁。";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "您的保险库闲置 %@ 后将需要解锁。";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "除非手动锁定，否则不需要解锁。";
 "vaultDetail.locked.footer" = "您的保险库目前已锁定。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator 检测到当前路径已经存在一个保险库。\n如果您不想对其进行修改，请返回并选择另一个文件夹。";
 "vaultDetail.moveVault.progress" = "正在转移……";
