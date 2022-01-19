@@ -96,7 +96,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Di layar berikutnya, pilih folder vault Anda yang ada.";
 "localFileSystemAuthentication.openExistingVault.button" = "Pilih Folder Vault";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Folder yang dipilih bukanlah sebuah vault. Silahkan coba lagi dengan folder berbeda.";
-"localFileSystemAuthentication.info.footer" = "File provider yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";
+"localFileSystemAuthentication.info.footer" = "Penyedia layanan file yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
 
@@ -170,9 +170,9 @@
 "untrustedTLSCertificate.dismiss" = "Jangan Percaya";
 
 "upgrade.title" = "Peningkatan Dari Versi 1.x";
-"upgrade.info" = "Anda berhak untuk upgrade dari Cryptomator versi terdahulu untuk membuka versi lengkap. Terima kasih sudah mendukung Cryptomator di masa lampau!";
+"upgrade.info" = "Anda memenuhi syarat untuk mendapatkan upgrade versi lengkap melalui Cryptomator versi terdahulu. Terima kasih sudah mendukung Cryptomator di masa lampau!";
 "upgrade.paidUpgrade.button" = "Tingkatkan seharga %@";
-"upgrade.paidUpgrade.footer" = "Ini akan membantu pengembangan open-source yang sedang berlangsung dan menjadi dukungan yang tak ternilai untuk kami.";
+"upgrade.paidUpgrade.footer" = "Ini akan membantu pengembangan open-source yang sedang berlangsung dan akan menjadi dukungan yang tak ternilai bagi kami.";
 "upgrade.freeUpgrade.button" = "Tingkatkan secara gratis";
 "upgrade.freeUpgrade.footer" = "Tidak perlu khawatir, Anda juga bisa melakukan peningkatan ke versi lengkap secara gratis tanpa batasan apapun.";
 "upgrade.decideLater.footer" = "Anda bisa meningkatkan Cryptomator ke versi lengkap nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
@@ -182,7 +182,7 @@
 "urlSession.error.httpError.401" = "Nama pengguna dan/atau kata sandi salah.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
 "urlSession.error.httpError.404" = "Sumber yang diminta tidam ditemukan.";
-"urlSession.error.httpError.405" = "Metode sumber tidak didukung oleh target.";
+"urlSession.error.httpError.405" = "Metode request tidak didukung oleh sumber tujuan.";
 "urlSession.error.httpError.409" = "Terjadi konflik dengan status sumber daya target saat ini.";
 "urlSession.error.httpError.412" = "Akses ke sumber target ditolak.";
 "urlSession.error.httpError.default" = "Koneksi jaringan gagal dengan status kode %ld.";
@@ -213,7 +213,7 @@
 "vaultList.remove.alert.message" = "Ini hanya akan menghapus vault dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat menambahkan kembali vault nanti.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Versi Vault tidak didukung. Ault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Versi vault tidak didukung. Vault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
 
 "webDAVAuthentication.progress" = "Mengotentikasi…";
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
