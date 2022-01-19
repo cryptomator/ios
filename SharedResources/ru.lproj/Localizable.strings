@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
 "fileProvider.onboarding.button.openCryptomator" = "Открыть Cryptomator";
 
+"keepUnlocked.alert.title" = "Заблокировать хранилище?";
+"keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать ваше хранилище.";
+"keepUnlocked.alert.confirm" = "Подтвердить и заблокировать";
+"keepUnlocked.header" = "Укажите, сколько это хранилище должно оставаться разблокированным, пока не используется.";
+"keepUnlocked.footer.auto" = "Разрешить решать iOS значит, что Cryptomator может быть закрыт в любой момент для освобождения памяти, что автоматически заблокирует хранилище.";
+"keepUnlocked.footer.on" = "Используя выбранную опцию, необходимо сохранить копию ключа в связке ключей iOS, пока хранилище будет разблокировано.";
+"keepUnlockedDuration.auto" = "Разрешить iOS решать автоматически";
+"keepUnlockedDuration.auto.shortDisplayName" = "Авто";
+"keepUnlockedDuration.indefinite" = "Неопределенное";
+
 "localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
@@ -198,6 +208,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
 "vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
 "vaultDetail.info.footer.accountInfo" = "Вы вошли как %@ через %@.";
+"vaultDetail.keepUnlocked.title" = "Разблокировать длительность";
+"vaultDetail.keepUnlocked.footer.off" = "Разблокировка необходима после того, как приложение Файлы завершит работу Cryptomator.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Разблокировка необходима после того, как хранилище неактивно в течение %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Разблокировка не нужна, пока не заблокировано вручную.";
 "vaultDetail.locked.footer" = "Хранилище сейчас заблокировано.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator обнаружил существующее хранилище в этом месте.\nЧтобы переместить хранилище, вернитесь и выберите другую папку.";
 "vaultDetail.moveVault.progress" = "Перемещение…";
