@@ -209,6 +209,7 @@
 "vaultDetail.keepUnlocked.title" = "Czas odblokowania";
 "vaultDetail.keepUnlocked.footer.off" = "Odblokowanie będzie wymagane, gdy Cryptomator zostanie zakończony przez aplikację Pliki.";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Odblokowanie będzie wymagane, gdy Twój sejf będzie bezczynny przez %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Odblokowanie nie będzie wymagane, chyba że nastąpi zablokowanie ręcznie.";
 "vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tym miejscu.\nAby zmienić miejsce docelowe, wróć i wybierz inny folder.";
 "vaultDetail.moveVault.progress" = "Przenoszenie…";
