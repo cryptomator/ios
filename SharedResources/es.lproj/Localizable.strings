@@ -90,6 +90,10 @@
 "fileProvider.onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
 
+"keepUnlocked.alert.title" = "¿Bloquear bóveda?";
+"keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
+"keepUnlocked.alert.confirm" = "Confirmar y bloquear ahora";
+
 "localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ya existe una bóveda en esta ubicación. Intente de nuevo con una ubicación de almacenamiento diferente.";
