@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
 
+"keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
+"keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
+"keepUnlocked.alert.confirm" = "Onayla & Şimdi kilitle";
+"keepUnlocked.header" = "Boştayken, bu kasanın kilidinin ne kadar süreyle açık kalmasını istediğinizi belirtin.";
+"keepUnlocked.footer.auto" = "iOS'un karar vermesine izin vermek, Cryptomator'ın hafızayı boşaltmak için kasayı otomatik olarak kilitleyerek herhangi bir zamanda sonlandırılabileceği anlamına gelir.";
+"keepUnlocked.footer.on" = "Belirtilen seçenek kullanılırken, kasanın kilidi açık olduğu sürece anahtarınızın bir kopyasının iOS anahtar zincirinde saklanması gerekmektedir.";
+"keepUnlockedDuration.auto" = "iOS'un otomatik olarak karar vermesine izin ver";
+"keepUnlockedDuration.auto.shortDisplayName" = "Otomatik";
+"keepUnlockedDuration.indefinite" = "Süresiz";
+
 "localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
 "vaultDetail.info.footer.accountInfo" = "%@ aracılığıyla %@ olarak oturum açıldı.";
+"vaultDetail.keepUnlocked.title" = "Kilidin açık kalma süresi";
+"vaultDetail.keepUnlocked.footer.off" = "Cryptomator, Dosyalar uygulaması tarafından sonlandırıldığında kilidi açmak gerekecektir.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Kasanız %@ boyunca boşta durduğunda kilidi açmak gerekecektir.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Elle kilitlenmedikçe kilidi açmak gerekmeyecektir.";
 "vaultDetail.locked.footer" = "Kasanız şu anda kilitli.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa algıladı.\n Kasanızı taşımak için lütfen geri dönün ve farklı bir klasör seçin.";
 "vaultDetail.moveVault.progress" = "Taşınıyor…";
