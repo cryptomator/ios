@@ -34,6 +34,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertItemRemovedFromWorkingSet()
 	}
 
 	func testStartProvidingItemWithUpToDateLocalVersion() throws {
@@ -47,6 +48,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertItemRemovedFromWorkingSet()
 	}
 
 	func testStartProvidingItemWithOlderLocalVersion() throws {
@@ -63,6 +65,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertItemRemovedFromWorkingSet()
 	}
 
 	func testStartProvidingItemWithConflictingLocalVersion() throws {
@@ -114,6 +117,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertItemRemovedFromWorkingSet()
 	}
 
 	func assertNewestVersionDownloaded(localURL: URL, cloudPath: CloudPath, itemID: Int64) {
@@ -127,11 +131,16 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
 		XCTAssertNotNil(lastModifiedDate)
 		XCTAssertEqual(cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
+		assertItemRemovedFromWorkingSet()
 	}
 
 	func assertMetadataUpdated() {
 		XCTAssertEqual(1, metadataManagerMock.updatedMetadata.count)
 		XCTAssertEqual(ItemStatus.isUploaded, metadataManagerMock.updatedMetadata[0].statusCode)
+	}
+
+	private func assertItemRemovedFromWorkingSet() {
+		XCTAssertEqual([String(itemID)], fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations.map { $0.rawValue })
 	}
 
 	private func simulateExistingLocalFileByDownloadingFile() {
@@ -142,6 +151,9 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertItemRemovedFromWorkingSet()
+		// Reset fileProviderItemUpdateDelegateMock
+		fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations = []
 	}
 
 	private func simulateFileChangeInTheCloud() {
