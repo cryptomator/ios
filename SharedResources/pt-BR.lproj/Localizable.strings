@@ -90,6 +90,16 @@
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
 
+"keepUnlocked.alert.title" = "Trancar cofre?";
+"keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
+"keepUnlocked.alert.confirm" = "Confirmar e trancar agora";
+"keepUnlocked.header" = "Por quanto tempo este cofre pode permanecer destrancado quando inativo.";
+"keepUnlocked.footer.auto" = "Permitir que o iOS decida significa que o Cryptomator pode terminar a qualquer momento para liberar memória, o que tranca automaticamente o cofre.";
+"keepUnlocked.footer.on" = "Com essa opção, uma cópia da sua chave precisa ser armazenada no chaveiro do iOS, enquanto o cofre estiver destrancado.";
+"keepUnlockedDuration.auto" = "Deixe o iOS decidir";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinidamente";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na próxima tela, escolha o local de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecione o local de armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesse local. Por favor, tente novamente com um local de armazenamento diferente.";
@@ -199,6 +209,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "A sua senha do cofre só será obrigatória se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Acesse o cofre através do app Arquivos.";
 "vaultDetail.info.footer.accountInfo" = "Conectado como %@ (%@)";
+"vaultDetail.keepUnlocked.title" = "Duração de desbloqueio";
+"vaultDetail.keepUnlocked.footer.off" = "Sera necessário destrancar novamente quando Cryptomator for encerrado pelo app Arquivos.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Será necessário destrancar seu cofre se ele estiver ocioso por %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário destrancar a não ser que tenha sido trancado manualmente.";
 "vaultDetail.locked.footer" = "O seu cofre está bloqueado no momento.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.
 Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
