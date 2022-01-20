@@ -91,7 +91,7 @@
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator öffnen";
 
 "keepUnlocked.alert.title" = "Tresor sperren?";
-"keepUnlocked.alert.message" = "Diese Änderung erfordert, dass dein Tresor gesperrt wird, um wirksam zu werden.";
+"keepUnlocked.alert.message" = "Damit diese Ändernung wirksam werden kann, muss dein Tresor gesperrt werden.";
 "keepUnlocked.alert.confirm" = "Bestätigen & Jetzt sperren";
 "keepUnlocked.header" = "Lege fest, wie lange dieser Tresor im inaktiven Zustand entsperrt bleiben soll.";
 "keepUnlocked.footer.auto" = "Die Steuerung durch iOS bedeutet, dass Cryptomator jederzeit beendet werden kann, um Speicher freizugeben, was den Tresor automatisch sperrt.";
