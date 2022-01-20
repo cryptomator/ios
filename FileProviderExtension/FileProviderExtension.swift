@@ -51,10 +51,10 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		self.observation = observe(
 			\.domain,
 			options: [.old, .new]
-		) { _, change in
+		) { [weak self] _, change in
 			DDLogInfo("domain changed from: \(String(describing: change.oldValue)) to: \(String(describing: change.newValue))")
 			do {
-				try self.setUp()
+				try self?.setUp()
 			} catch {
 				DDLogError("setUp decorator from kvo failed: \(error)")
 			}
