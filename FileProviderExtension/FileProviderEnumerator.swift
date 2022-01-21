@@ -12,17 +12,15 @@ import FileProvider
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	private let enumeratedItemIdentifier: NSFileProviderItemIdentifier
-	private let notificator: FileProviderNotificator
+	private let notificator: FileProviderNotificatorType
 	private let domain: NSFileProviderDomain
-	private let manager: NSFileProviderManager
 	private let dbPath: URL
 	private weak var localURLProvider: LocalURLProvider?
 
-	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificator, domain: NSFileProviderDomain, manager: NSFileProviderManager, dbPath: URL, localURLProvider: LocalURLProvider?) {
+	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProvider?) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
 		self.notificator = notificator
 		self.domain = domain
-		self.manager = manager
 		self.dbPath = dbPath
 		self.localURLProvider = localURLProvider
 		super.init()
@@ -55,22 +53,19 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer about the items returned by the server (possibly multiple times)
 		 - inform the observer that you are finished with this page
 		 */
-		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier)")
+
 		var pageToken: String?
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
-			pageToken = String(data: page.rawValue, encoding: .utf8)!
+			pageToken = String(data: page.rawValue, encoding: .utf8)
 		}
+		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier) - initialPage \(pageToken == nil)")
 		DispatchQueue.global(qos: .userInitiated).async {
 			FileProviderAdapterManager.shared.semaphore.wait()
 			let adapter: FileProviderAdapterType
 			do {
 				adapter = try FileProviderAdapterManager.shared.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
 			} catch {
-				DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(self.enumeratedItemIdentifier)")
-				DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
-					let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
-					observer.finishEnumeratingWithError(wrappedError)
-				}
+				self.handleEnumerateItemsError(error, for: observer)
 				return
 			}
 			adapter.enumerateItems(for: self.enumeratedItemIdentifier, withPageToken: pageToken).then { itemList in
@@ -94,44 +89,61 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer when you have finished enumerating up to a subsequent sync anchor
 		 */
 
-		DDLogDebug("FPExt: enumerate now changes for: \(enumeratedItemIdentifier)")
+		DDLogDebug("Enumerate changes for: \(enumeratedItemIdentifier.rawValue)")
 		var itemsDelete = [NSFileProviderItemIdentifier]()
-		var itemsUpdate = [FileProviderItem]()
+		var itemsUpdate = [NSFileProviderItem]()
 
 		// Report the deleted items
 		if enumeratedItemIdentifier == .workingSet {
-			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteWorkingSetItemIdentifier {
-				itemsDelete.append(itemIdentifier)
+			do {
+				_ = try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
+			} catch {
+				DDLogDebug("Invalidate working set because the vault \(domain.displayName) is locked")
+				observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
+				return
 			}
-			notificator.fileProviderSignalDeleteWorkingSetItemIdentifier.removeAll()
+			itemsDelete.append(contentsOf: notificator.getItemIdentifiersToDeleteFromWorkingSet())
+			DDLogDebug("Remove \(itemsDelete.count) items from the working set")
 		} else {
-			for (itemIdentifier, _) in notificator.fileProviderSignalDeleteContainerItemIdentifier {
-				itemsDelete.append(itemIdentifier)
-			}
-			notificator.fileProviderSignalDeleteContainerItemIdentifier.removeAll()
+			itemsDelete.append(contentsOf: notificator.popDeleteContainerItemIdentifiers())
 		}
 
 		// Report the updated items
 		if enumeratedItemIdentifier == .workingSet {
-			for (_, item) in notificator.fileProviderSignalUpdateWorkingSetItem {
-				itemsUpdate.append(item)
-			}
-			notificator.fileProviderSignalUpdateWorkingSetItem.removeAll()
+			itemsUpdate.append(contentsOf: notificator.popUpdateWorkingSetItems())
 		} else {
-			for (_, item) in notificator.fileProviderSignalUpdateContainerItem {
-				itemsUpdate.append(item)
-			}
-			notificator.fileProviderSignalUpdateContainerItem.removeAll()
+			itemsUpdate.append(contentsOf: notificator.popUpdateContainerItems())
 		}
 		observer.didDeleteItems(withIdentifiers: itemsDelete)
 		observer.didUpdate(itemsUpdate)
 
-		let data = "\(notificator.currentAnchor)".data(using: .utf8)
-		observer.finishEnumeratingChanges(upTo: NSFileProviderSyncAnchor(data!), moreComing: false)
+		let syncAnchor = NSFileProviderSyncAnchor(notificator.currentSyncAnchor)
+		observer.finishEnumeratingChanges(upTo: syncAnchor, moreComing: false)
 	}
 
 	func currentSyncAnchor(completionHandler: @escaping (NSFileProviderSyncAnchor?) -> Void) {
-		let data = "\(notificator.currentAnchor)".data(using: .utf8)
-		completionHandler(NSFileProviderSyncAnchor(data!))
+		let syncAnchor = NSFileProviderSyncAnchor(notificator.currentSyncAnchor)
+		completionHandler(syncAnchor)
+	}
+
+	/**
+	 Handle errors from `enumerateItems(for:, startingAt:)` calls.
+
+	 If this gets called for an working set enumerator, the working set cache gets invalidated by calling `finishEnumeratingWithError` with `NSFileProviderErrorSyncAnchorExpired`.
+	 Invalidating the working set cache is necessary as otherwise recently accessed items can be found in the global siri search even if the vault is locked.
+
+	 For all other enumerators the error gets wrapped and reported with 1s delay as the Files app has problems with too fast reporting of an `notAuthenticated` error.
+	 */
+	private func handleEnumerateItemsError(_ error: Error, for observer: NSFileProviderEnumerationObserver) {
+		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
+		guard enumeratedItemIdentifier != .workingSet else {
+			observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
+			notificator.invalidatedWorkingSet()
+			return
+		}
+		DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+			let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
+			observer.finishEnumeratingWithError(wrappedError)
+		}
 	}
 }

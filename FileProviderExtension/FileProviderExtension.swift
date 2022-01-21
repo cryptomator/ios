@@ -15,9 +15,8 @@ import MSAL
 
 class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	var observation: NSKeyValueObservation?
-	var manager: NSFileProviderManager?
 	var dbPath: URL?
-	var notificator: FileProviderNotificator?
+	var notificator: FileProviderNotificatorType?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
 	override init() {
@@ -62,6 +61,8 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	deinit {
+		DDLogDebug("Deinit called for \(String(describing: domain))")
+		notificator?.refreshWorkingSet()
 		observation?.invalidate()
 	}
 
@@ -228,12 +229,12 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#else
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
-		guard let manager = manager, let domain = domain, let dbPath = dbPath, let notificator = notificator else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			// no domain ==> no installed vault
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, manager: manager, dbPath: dbPath, localURLProvider: self)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: self)
 		#endif
 	}
 
@@ -242,11 +243,11 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			guard let manager = NSFileProviderManager(for: domain) else {
 				throw FileProviderDecoratorSetupError.fileProviderManagerIsNil
 			}
-			self.manager = manager
 			let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
 			self.dbPath = dbPath
-			let notificator = FileProviderNotificator(manager: manager)
+			let notificator = try FileProviderNotificatorManager.shared.getFileProviderNotificator(for: domain)
 			self.notificator = notificator
+			notificator.refreshWorkingSet()
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil

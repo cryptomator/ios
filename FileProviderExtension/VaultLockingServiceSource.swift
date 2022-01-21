@@ -44,7 +44,7 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 	// MARK: - VaultLocking
 
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
-		FileProviderAdapterManager.shared.lockVault(with: domainIdentifier)
+		FileProviderAdapterManager.shared.forceLockVault(with: domainIdentifier)
 		DDLogInfo("Locked vault \(domainIdentifier.rawValue)")
 	}
 

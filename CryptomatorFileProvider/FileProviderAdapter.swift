@@ -437,7 +437,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 */
 	public func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		startProvidingItem(at: url).then {
-			try FileManager.default.setAttributes([.immutable: !self.fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
+			try self.postProcessStartProvidingItem(at: url)
 		}.then {
 			completionHandler(nil)
 		}.catch { error in
@@ -572,6 +572,20 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		return scheduler.schedule(workflow).then { item -> Void in
 			self.notificator?.signalUpdate(for: item)
 		}
+	}
+
+	/**
+	 Post-processing `startProvidingitem(at:)` calls.
+
+	 The file located at `url` is immutable unless the full version of Cryptomator has been unlocked. Otherwise, it would still be possible to edit the file locally with a third-party app.
+	 The `NSFileProviderItemIdentifier` associated with the URL, gets registered for removal from the working set, which is necessary because the Files app adds it to the working set when calling `startProvidingitem(at:)`.
+	 */
+	func postProcessStartProvidingItem(at url: URL) throws {
+		try FileManager.default.setAttributes([.immutable: !fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
+		guard let identifier = persistentIdentifierForItem(at: url) else {
+			throw NSFileProviderError(.noSuchItem)
+		}
+		notificator?.removeItemFromWorkingSet(with: identifier)
 	}
 
 	// MARK: Stop Providing Item
