@@ -28,20 +28,22 @@ public class FileProviderAdapterManager {
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let vaultManager: VaultManager
 	private let adapterCache: FileProviderAdapterCacheType
+	private let notificatorManager: FileProviderNotificatorManagerType
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache())
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared)
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType) {
+	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType) {
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.vaultManager = vaultManager
 		self.adapterCache = adapterCache
+		self.notificatorManager = notificatorManager
 	}
 
-	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws -> FileProviderAdapterType {
+	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType?) throws -> FileProviderAdapterType {
 		let cachedAdapterItem = adapterCache.getItem(identifier: domain.identifier)
 		let vaultUID = domain.identifier.rawValue
 		let adapter: FileProviderAdapterType
@@ -62,7 +64,7 @@ public class FileProviderAdapterManager {
 		return adapter
 	}
 
-	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws {
+	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType?) throws {
 		guard let dbPath = dbPath else {
 			return
 		}
@@ -72,10 +74,9 @@ public class FileProviderAdapterManager {
 		adapterCache.cacheItem(item, identifier: domainIdentifier)
 	}
 
-	public func lockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
-		adapterCache.removeItem(identifier: domainIdentifier)
+	public func forceLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
 		do {
-			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
+			try lockVault(with: domainIdentifier)
 		} catch {
 			DDLogError("Lock vault failed with error: \(error)")
 		}
@@ -105,7 +106,7 @@ public class FileProviderAdapterManager {
 		try maintenanceManager.disableMaintenanceMode()
 	}
 
-	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws -> AdapterCacheItem {
+	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType?) throws -> AdapterCacheItem {
 		guard vaultKeepUnlockedHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			throw FileProviderAdapterManagerError.cachedAdapterNotFound
@@ -117,7 +118,7 @@ public class FileProviderAdapterManager {
 		return try createAdapterCacheItem(cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
 	}
 
-	private func createAdapterCacheItem(cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificator?) throws -> AdapterCacheItem {
+	private func createAdapterCacheItem(cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType?) throws -> AdapterCacheItem {
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		let itemMetadataManager = ItemMetadataDBManager(database: database)
 		let cachedFileManager = CachedFileDBManager(database: database)
@@ -139,6 +140,19 @@ public class FileProviderAdapterManager {
 		                                  notificator: notificator,
 		                                  localURLProvider: delegate)
 		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager)
+	}
+
+	/**
+	 Locks the vault.
+
+	 Locks the vault associated with the `domainIdentifier` by removing the adapter and, if present, the cached masterkey from the cache.
+	 Additionally an update of the working set is triggered to invalidate the working set cache.
+	 */
+	private func lockVault(with domainIdentifier: NSFileProviderDomainIdentifier) throws {
+		adapterCache.removeItem(identifier: domainIdentifier)
+		try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
+		let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
+		notificator.refreshWorkingSet()
 	}
 }
 

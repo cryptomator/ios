@@ -10,7 +10,16 @@ import CocoaLumberjackSwift
 import FileProvider
 import Foundation
 
-public class FileProviderNotificator: FileProviderItemUpdateDelegate {
+public protocol FileProviderNotificatorType: FileProviderItemUpdateDelegate {
+	var currentSyncAnchor: Data { get }
+	func invalidatedWorkingSet()
+	func getItemIdentifiersToDeleteFromWorkingSet() -> [NSFileProviderItemIdentifier]
+	func popDeleteContainerItemIdentifiers() -> [NSFileProviderItemIdentifier]
+	func popUpdateWorkingSetItems() -> [NSFileProviderItem]
+	func popUpdateContainerItems() -> [NSFileProviderItem]
+}
+
+public class FileProviderNotificator: FileProviderNotificatorType {
 	private var signalDeleteContainerItemIdentifier = Set<NSFileProviderItemIdentifier>()
 	private var signalUpdateContainerItem = [NSFileProviderItemIdentifier: NSFileProviderItem]()
 	private var signalDeleteWorkingSetItemIdentifier = Set<NSFileProviderItemIdentifier>()
@@ -33,10 +42,7 @@ public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 	}
 
 	private(set) var currentAnchor: Date
-	private var invalidateWorkingSetCount = 0
-
 	private let queue = DispatchQueue(label: "FileProviderNotificator", attributes: .concurrent)
-
 	private let manager: NSFileProviderManager
 
 	public init(manager: NSFileProviderManager) {
@@ -85,29 +91,12 @@ public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 		}
 	}
 
-	/**
-	 Signal the enumerator with a small delay of 0.2 seconds, because otherwise some items in the `FileProvider` are not updated correctly.
-	 */
-	public func signalEnumerator(for containerItemIdentifiers: [NSFileProviderItemIdentifier]) {
-		DDLogDebug("Signal enumerator for: \(containerItemIdentifiers)")
-		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-			self.currentAnchor = Date()
-			for containerItemIdentifier in containerItemIdentifiers {
-				self.manager.signalEnumerator(for: containerItemIdentifier) { error in
-					if let error = error {
-						DDLogDebug("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
-					}
-				}
-			}
-		}
-	}
-
-	func signalUpdate(for item: NSFileProviderItem) {
+	public func signalUpdate(for item: NSFileProviderItem) {
 		appendItemToUpdateContainer(item)
 		signalEnumerator(for: [item.parentItemIdentifier, item.itemIdentifier])
 	}
 
-	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier) {
+	public func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier) {
 		appendIdentifierToDeleteWorkingSet(identifier)
 		signalEnumerator(for: [.workingSet])
 	}
@@ -123,9 +112,26 @@ public class FileProviderNotificator: FileProviderItemUpdateDelegate {
 			signalUpdateContainerItem[item.itemIdentifier] = item
 		}
 	}
+
+	/**
+	 Signal the enumerator with a small delay of 0.2 seconds, because otherwise some items in the `FileProvider` are not updated correctly.
+	 */
+	private func signalEnumerator(for containerItemIdentifiers: [NSFileProviderItemIdentifier]) {
+		DDLogDebug("Signal enumerator for: \(containerItemIdentifiers)")
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+			self.currentAnchor = Date()
+			for containerItemIdentifier in containerItemIdentifiers {
+				self.manager.signalEnumerator(for: containerItemIdentifier) { error in
+					if let error = error {
+						DDLogDebug("SignalEnumerator for \(containerItemIdentifier) returned error: \(error)")
+					}
+				}
+			}
+		}
+	}
 }
 
-protocol FileProviderItemUpdateDelegate: AnyObject {
+public protocol FileProviderItemUpdateDelegate: AnyObject {
 	func signalUpdate(for item: NSFileProviderItem)
 	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier)
 	func refreshWorkingSet()

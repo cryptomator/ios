@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 
 protocol FileProviderNotificatorManagerType {
-	func getFileProviderNotificator(for domain: NSFileProviderDomain) throws -> FileProviderNotificator
+	func getFileProviderNotificator(for domain: NSFileProviderDomain) throws -> FileProviderNotificatorType
 }
 
 enum FileProviderNotificatorManagerError: Error {
@@ -20,9 +20,9 @@ enum FileProviderNotificatorManagerError: Error {
 public class FileProviderNotificatorManager: FileProviderNotificatorManagerType {
 	public static let shared = FileProviderNotificatorManager()
 	private let queue = DispatchQueue(label: "FileProviderNotificatorManager")
-	private var cache = [NSFileProviderDomainIdentifier: FileProviderNotificator]()
+	private var cache = [NSFileProviderDomainIdentifier: FileProviderNotificatorType]()
 
-	public func getFileProviderNotificator(for domain: NSFileProviderDomain) throws -> FileProviderNotificator {
+	public func getFileProviderNotificator(for domain: NSFileProviderDomain) throws -> FileProviderNotificatorType {
 		let domainIdentifier = domain.identifier
 		return try queue.sync {
 			if let cachedNotificator = cache[domainIdentifier] {

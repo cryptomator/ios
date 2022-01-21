@@ -23,6 +23,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	var masterkeyCacheManagerMock: MasterkeyCacheManagerMock!
 	var vaultKeepUnlockedHelperMock: VaultKeepUnlockedHelperMock!
 	var vaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettingsMock!
+	var notificatorManagerMock: FileProviderNotificatorManagerTypeMock!
 	private enum ErrorMock: Error {
 		case test
 	}
@@ -33,7 +34,8 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultKeepUnlockedSettingsMock = VaultKeepUnlockedSettingsMock()
 		vaultManagerMock = VaultManagerMock()
 		adapterCacheMock = FileProviderAdapterCacheTypeMock()
-		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock)
+		notificatorManagerMock = FileProviderNotificatorManagerTypeMock()
+		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock)
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try FileManager.default.createDirectory(at: tmpURL, withIntermediateDirectories: false)
@@ -142,9 +144,14 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	// MARK: Lock Vault
 
 	func testLockVault() throws {
-		fileProviderAdapterManager.lockVault(with: domain.identifier)
+		let notificactorMock = FileProviderNotificatorTypeMock()
+		notificatorManagerMock.getFileProviderNotificatorForReturnValue = notificactorMock
+		fileProviderAdapterManager.forceLockVault(with: domain.identifier)
 		XCTAssertEqual([domain.identifier], adapterCacheMock.removeItemIdentifierReceivedInvocations)
 		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
+		XCTAssertEqual(1, notificatorManagerMock.getFileProviderNotificatorForCallsCount)
+		XCTAssertEqual(domain.identifier, notificatorManagerMock.getFileProviderNotificatorForReceivedDomain?.identifier)
+		XCTAssertEqual(1, notificactorMock.refreshWorkingSetCallsCount)
 	}
 
 	private func assertLastUsedDateSet() throws {

@@ -17,7 +17,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	var observation: NSKeyValueObservation?
 	var managerFoo: NSFileProviderManager?
 	var dbPath: URL?
-	var notificator: FileProviderNotificator?
+	var notificator: FileProviderNotificatorType?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
 	override init() {

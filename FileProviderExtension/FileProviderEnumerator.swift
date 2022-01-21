@@ -12,12 +12,12 @@ import FileProvider
 
 class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	private let enumeratedItemIdentifier: NSFileProviderItemIdentifier
-	private let notificator: FileProviderNotificator
+	private let notificator: FileProviderNotificatorType
 	private let domain: NSFileProviderDomain
 	private let dbPath: URL
 	private weak var localURLProvider: LocalURLProvider?
 
-	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificator, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProvider?) {
+	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProvider?) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
 		self.notificator = notificator
 		self.domain = domain
@@ -95,6 +95,13 @@ class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 
 		// Report the deleted items
 		if enumeratedItemIdentifier == .workingSet {
+			do {
+				_ = try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
+			} catch {
+				DDLogDebug("Invalidate working set because the vault \(domain.displayName) is locked")
+				observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
+				return
+			}
 			itemsDelete.append(contentsOf: notificator.getItemIdentifiersToDeleteFromWorkingSet())
 			DDLogDebug("Remove \(itemsDelete.count) items from the working set")
 		} else {
