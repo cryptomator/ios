@@ -15,7 +15,6 @@ import MSAL
 
 class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	var observation: NSKeyValueObservation?
-	var managerFoo: NSFileProviderManager?
 	var dbPath: URL?
 	var notificator: FileProviderNotificatorType?
 	static var databaseError: Error?
