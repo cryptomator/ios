@@ -89,6 +89,8 @@
 "fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
 
+"keepUnlocked.alert.title" = "金庫を施錠しますか？";
+
 "localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
