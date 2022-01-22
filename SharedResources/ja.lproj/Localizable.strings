@@ -26,7 +26,7 @@
 "common.cells.password" = "パスワード";
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
-"common.footer.learnMore" = "さらに詳しく。";
+"common.footer.learnMore" = "さらに詳しく";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -90,6 +90,12 @@
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
+"keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
+"keepUnlocked.alert.confirm" = "施錠して適用";
+"keepUnlocked.header" = "アイドル時にこの金庫を解錠しておく時間を指定します。";
+"keepUnlockedDuration.auto" = "iOSに委ねる";
+"keepUnlockedDuration.auto.shortDisplayName" = "自動";
+"keepUnlockedDuration.indefinite" = "無期限";
 
 "localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
@@ -173,11 +179,12 @@
 "vaultDetail.button.lock" = "今すぐ施錠";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
-"vaultDetail.button.renameVault" = "名前の変更";
+"vaultDetail.button.renameVault" = "名前を変更";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
+"vaultDetail.keepUnlocked.footer.off" = "Cryptomatorがファイルアプリによって終了された場合、ロック解除が必要になります。";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.moveVault.progress" = "移動中...";
@@ -195,7 +202,7 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
 "webDAVAuthentication.progress" = "認証中…";
-"webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか?";
-"webDAVAuthentication.httpConnection.alert.message" = "HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
-"webDAVAuthentication.httpConnection.change" = "HTTPS に変更";
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか？";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
+"webDAVAuthentication.httpConnection.change" = "HTTPS を使用";
 "webDAVAuthentication.httpConnection.continue" = "HTTP を保持";
