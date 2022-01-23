@@ -14,6 +14,7 @@
 "common.button.create" = "Skapa";
 "common.button.createFolder" = "Skapa mapp";
 "common.button.done" = "Klar";
+"common.button.download" = "Ladda ner";
 "common.button.edit" = "Redigera";
 "common.button.enable" = "Aktivera";
 "common.button.next" = "Nästa";
@@ -34,6 +35,7 @@
 
 "addVault.title" = "Lägg till valv";
 "addVault.createNewVault.title" = "Skapa nytt valv";
+"addVault.createNewVault.purchase" = "Att skapa ett nytt valv kräver den fullständiga versionen av Cryptomator. Överväg att låsa upp den fullständiga versionen för skrivåtkomst till dina valv.";
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Valvets namn får inte vara tomt.";
@@ -71,6 +73,7 @@
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
 "chooseFolder.createNewFolder.cells.name" = "Namn på mappen";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Mappens namn får inte vara tomt.";
+"chooseFolder.createNewFolder.progress" = "Skapar mapp…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" kunde inte hittas.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" finns redan.";
@@ -86,6 +89,16 @@
 "fileProvider.onboarding.title" = "Välkommen";
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
 "fileProvider.onboarding.button.openCryptomator" = "Öppna Cryptomator";
+
+"keepUnlocked.alert.title" = "Lås valv?";
+"keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
+"keepUnlocked.alert.confirm" = "Bekräfta och lås nu";
+"keepUnlocked.header" = "Ange hur länge du vill att detta valv ska tillåtas vara olåst vid inaktivtet.";
+"keepUnlocked.footer.auto" = "Att låta iOS bestämma innebär att Cryptomator kan avslutas när som helst för att frigöra minne, vilket automatiskt låser valvet.";
+"keepUnlocked.footer.on" = "Med det valda alternativet måste en kopia av din nyckel lagras i iOS-nyckelkedja, så länge valvet är olåst.";
+"keepUnlockedDuration.auto" = "Låt iOS bestämma automatiskt";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Permanent";
 
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
