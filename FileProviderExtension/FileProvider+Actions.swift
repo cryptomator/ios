@@ -66,4 +66,26 @@ extension FileProviderExtension {
 		}
 		adapter.deleteItem(withIdentifier: itemIdentifier, completionHandler: completionHandler)
 	}
+
+	override func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		DDLogDebug("FPExt: setFavoriteRank(_: \(String(describing: favoriteRank)), forItemIdentifier: \(itemIdentifier.rawValue)) called")
+		let adapter: FileProviderAdapterType
+		do {
+			adapter = try getAdapterWithWrappedError()
+		} catch {
+			return completionHandler(nil, error)
+		}
+		adapter.setFavoriteRank(favoriteRank, forItemIdentifier: itemIdentifier, completionHandler: completionHandler)
+	}
+
+	override func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		DDLogDebug("FPExt: setTagData(_: \(String(describing: tagData)), forItemIdentifier: \(itemIdentifier.rawValue)) called")
+		let adapter: FileProviderAdapterType
+		do {
+			adapter = try getAdapterWithWrappedError()
+		} catch {
+			return completionHandler(nil, error)
+		}
+		adapter.setTagData(tagData, forItemIdentifier: itemIdentifier, completionHandler: completionHandler)
+	}
 }

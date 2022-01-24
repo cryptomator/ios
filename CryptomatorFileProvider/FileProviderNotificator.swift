@@ -129,10 +129,35 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 			}
 		}
 	}
+
+	public func signalWorkingSetUpdate(for item: NSFileProviderItem) {
+		queue.sync(flags: .barrier) {
+			signalDeleteWorkingSetItemIdentifier.remove(item.itemIdentifier)
+			signalUpdateWorkingSetItem[item.itemIdentifier] = item
+		}
+		signalEnumerator(for: [.workingSet])
+	}
+
+	public func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier]) {
+		identifiers.forEach { appendIdentifierToDeleteWorkingSet($0) }
+	}
+
+	public func updateWorkingSetItem(_ item: NSFileProviderItem) {
+		appendItemToWorkingSet(item)
+	}
+
+	private func appendItemToWorkingSet(_ item: NSFileProviderItem) {
+		queue.sync(flags: .barrier) {
+			signalUpdateWorkingSetItem[item.itemIdentifier] = item
+		}
+	}
 }
 
 public protocol FileProviderItemUpdateDelegate: AnyObject {
+	func signalWorkingSetUpdate(for item: NSFileProviderItem)
 	func signalUpdate(for item: NSFileProviderItem)
 	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier)
+	func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier])
 	func refreshWorkingSet()
+	func updateWorkingSetItem(_ item: NSFileProviderItem)
 }

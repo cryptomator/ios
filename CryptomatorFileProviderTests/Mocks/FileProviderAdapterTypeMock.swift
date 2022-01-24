@@ -14,6 +14,15 @@ import Promises
 // swiftlint:disable all
 
 final class FileProviderAdapterTypeMock: FileProviderAdapterType {
+	// MARK: - lastUnlockedDate
+
+	var lastUnlockedDate: Date {
+		get { underlyingLastUnlockedDate }
+		set(value) { underlyingLastUnlockedDate = value }
+	}
+
+	private var underlyingLastUnlockedDate: Date!
+
 	// MARK: - persistentIdentifierForItem
 
 	var persistentIdentifierForItemAtCallsCount = 0
@@ -58,7 +67,6 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 
 	// MARK: - enumerateItems
 
-	var enumerateItemsForWithPageTokenThrowableError: Error?
 	var enumerateItemsForWithPageTokenCallsCount = 0
 	var enumerateItemsForWithPageTokenCalled: Bool {
 		enumerateItemsForWithPageTokenCallsCount > 0
@@ -70,9 +78,6 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 	var enumerateItemsForWithPageTokenClosure: ((NSFileProviderItemIdentifier, String?) -> Promise<FileProviderItemList>)?
 
 	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
-		if let error = enumerateItemsForWithPageTokenThrowableError {
-			return Promise(error)
-		}
 		enumerateItemsForWithPageTokenCallsCount += 1
 		enumerateItemsForWithPageTokenReceivedArguments = (identifier: identifier, pageToken: pageToken)
 		enumerateItemsForWithPageTokenReceivedInvocations.append((identifier: identifier, pageToken: pageToken))
@@ -221,6 +226,42 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		startProvidingItemAtCompletionHandlerReceivedArguments = (url: url, completionHandler: completionHandler)
 		startProvidingItemAtCompletionHandlerReceivedInvocations.append((url: url, completionHandler: completionHandler))
 		startProvidingItemAtCompletionHandlerClosure?(url, completionHandler)
+	}
+
+	// MARK: - setFavoriteRank
+
+	var setFavoriteRankForItemIdentifierCompletionHandlerCallsCount = 0
+	var setFavoriteRankForItemIdentifierCompletionHandlerCalled: Bool {
+		setFavoriteRankForItemIdentifierCompletionHandlerCallsCount > 0
+	}
+
+	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments: (favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
+	var setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations: [(favoriteRank: NSNumber?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
+	var setFavoriteRankForItemIdentifierCompletionHandlerClosure: ((NSNumber?, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+
+	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		setFavoriteRankForItemIdentifierCompletionHandlerCallsCount += 1
+		setFavoriteRankForItemIdentifierCompletionHandlerReceivedArguments = (favoriteRank: favoriteRank, itemIdentifier: itemIdentifier, completionHandler: completionHandler)
+		setFavoriteRankForItemIdentifierCompletionHandlerReceivedInvocations.append((favoriteRank: favoriteRank, itemIdentifier: itemIdentifier, completionHandler: completionHandler))
+		setFavoriteRankForItemIdentifierCompletionHandlerClosure?(favoriteRank, itemIdentifier, completionHandler)
+	}
+
+	// MARK: - setTagData
+
+	var setTagDataForItemIdentifierCompletionHandlerCallsCount = 0
+	var setTagDataForItemIdentifierCompletionHandlerCalled: Bool {
+		setTagDataForItemIdentifierCompletionHandlerCallsCount > 0
+	}
+
+	var setTagDataForItemIdentifierCompletionHandlerReceivedArguments: (tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)?
+	var setTagDataForItemIdentifierCompletionHandlerReceivedInvocations: [(tagData: Data?, itemIdentifier: NSFileProviderItemIdentifier, completionHandler: (NSFileProviderItem?, Error?) -> Void)] = []
+	var setTagDataForItemIdentifierCompletionHandlerClosure: ((Data?, NSFileProviderItemIdentifier, @escaping (NSFileProviderItem?, Error?) -> Void) -> Void)?
+
+	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		setTagDataForItemIdentifierCompletionHandlerCallsCount += 1
+		setTagDataForItemIdentifierCompletionHandlerReceivedArguments = (tagData: tagData, itemIdentifier: itemIdentifier, completionHandler: completionHandler)
+		setTagDataForItemIdentifierCompletionHandlerReceivedInvocations.append((tagData: tagData, itemIdentifier: itemIdentifier, completionHandler: completionHandler))
+		setTagDataForItemIdentifierCompletionHandlerClosure?(tagData, itemIdentifier, completionHandler)
 	}
 }
 

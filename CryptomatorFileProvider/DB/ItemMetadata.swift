@@ -90,6 +90,10 @@ public class ItemMetadata: Record, Codable {
 	enum Columns: String, ColumnExpression {
 		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData
 	}
+
+	static func filterWorkingSet() -> QueryInterfaceRequest<ItemMetadata> {
+		return ItemMetadata.filter(ItemMetadata.Columns.tagData != nil || ItemMetadata.Columns.favoriteRank != nil)
+	}
 }
 
 extension ItemStatus: DatabaseValueConvertible {}

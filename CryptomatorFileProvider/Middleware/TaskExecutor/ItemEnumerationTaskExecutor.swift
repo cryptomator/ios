@@ -81,7 +81,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 			var metadataList = [ItemMetadata]()
 			for cloudItem in itemList.items {
-				let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentID: folderMetadata.id!)
+				let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: folderMetadata.id!)
 				metadataList.append(fileProviderItemMetadata)
 			}
 			metadataList = try self.filterOutWaitingReparentTasks(parentID: folderMetadata.id!, for: metadataList)
@@ -129,7 +129,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 	func fetchItemMetadata(fileMetadata: ItemMetadata) -> Promise<FileProviderItemList> {
 		return provider.fetchItemMetadata(at: fileMetadata.cloudPath).then { cloudItem -> FileProviderItemList in
-			let fileProviderItemMetadata = ItemEnumerationTaskExecutor.createItemMetadata(for: cloudItem, withParentID: fileMetadata.parentID)
+			let fileProviderItemMetadata = ItemMetadata(item: cloudItem, withParentID: fileMetadata.parentID)
 			try self.itemMetadataManager.cacheMetadata(fileProviderItemMetadata)
 			assert(fileProviderItemMetadata.id == fileMetadata.id)
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: fileProviderItemMetadata)
@@ -153,9 +153,5 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				DDLogError("Removing outdated item \(outdatedItem.id!) with type \(outdatedItem.type) failed due to having unsynced edits")
 			}
 		}
-	}
-
-	static func createItemMetadata(for item: CloudItemMetadata, withParentID parentID: Int64, isPlaceholderItem: Bool = false) -> ItemMetadata {
-		ItemMetadata(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
 	}
 }
