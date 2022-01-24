@@ -232,31 +232,20 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		try adapter.validateItemName("Foo Bar.pages")
 		try adapter.validateItemName("Foo")
 		try adapter.validateItemName(".foo")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo."), localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithPeriod"))
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo "), localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithSpace"))
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\\o"), illegalCharacter: "\\")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo/o"), illegalCharacter: "/")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo:o"), illegalCharacter: ":")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo*o"), illegalCharacter: "*")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo?o"), illegalCharacter: "?")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\"o"), illegalCharacter: "\"")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo<o"), illegalCharacter: "<")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo>o"), illegalCharacter: ">")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo|o"), illegalCharacter: "|")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo."), localizedDescription: ItemNameValidatorError.nameEndsWithPeriod.localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo "), localizedDescription: ItemNameValidatorError.nameEndsWithSpace.localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\\o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\\").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo/o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("/").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo:o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(":").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo*o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("*").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo?o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("?").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\"o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\"").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo<o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("<").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo>o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(">").localizedDescription)
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo|o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("|").localizedDescription)
 	}
 
 	private func assertThrowsInvalidNameCocoaError(_ expression: @autoclosure () throws -> Void, localizedDescription: String) {
-		let expectedError = CocoaError(.fileWriteInvalidFileName, userInfo: [
-			NSLocalizedDescriptionKey: localizedDescription,
-			NSLocalizedFailureReasonErrorKey: ""
-		])
-		XCTAssertThrowsError(try expression()) { error in
-			XCTAssertEqual(expectedError, error as? CocoaError)
-		}
-	}
-
-	private func assertThrowsInvalidNameCocoaError(_ expression: @autoclosure () throws -> Void, illegalCharacter: String) {
-		let localizedDescription = String(format: LocalizedString.getValue("fileProvider.rename.error.containsIllegalCharacter"), illegalCharacter)
 		let expectedError = CocoaError(.fileWriteInvalidFileName, userInfo: [
 			NSLocalizedDescriptionKey: localizedDescription,
 			NSLocalizedFailureReasonErrorKey: ""

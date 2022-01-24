@@ -381,24 +381,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func validateItemName(_ name: String) throws {
-		if name.hasSuffix(".") {
-			throw createInvalidNameError(localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithPeriod"))
+		do {
+			try ItemNameValidator.validateName(name)
+		} catch let error as ItemNameValidatorError {
+			throw CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription, NSLocalizedFailureReasonErrorKey: ""])
 		}
-		if name.hasSuffix(" ") {
-			throw createInvalidNameError(localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithSpace"))
-		}
-
-		let regex = try NSRegularExpression(pattern: "[\\\\/:\\*\\?\"<>\\|]")
-		let range = NSRange(location: 0, length: name.utf16.count)
-		if let match = regex.firstMatch(in: name, options: [], range: range) {
-			let illegalCharacter = String(name[Range(match.range, in: name)!])
-			let localizedDescription = String(format: LocalizedString.getValue("fileProvider.rename.error.containsIllegalCharacter"), illegalCharacter)
-			throw createInvalidNameError(localizedDescription: localizedDescription)
-		}
-	}
-
-	private func createInvalidNameError(localizedDescription: String) -> CocoaError {
-		return CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: localizedDescription, NSLocalizedFailureReasonErrorKey: ""])
 	}
 
 	// MARK: Delete Item

@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
+
 "addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
@@ -89,9 +89,6 @@
 "fileProvider.onboarding.title" = "Welcome";
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
-"fileProvider.rename.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
-"fileProvider.rename.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
-"fileProvider.rename.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
@@ -112,6 +109,10 @@
 "localFileSystemAuthentication.info.footer" = "File providers that are grayed out don't support \"picking folders\". This is not a limitation of Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
+
+"nameValidation.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
+"nameValidation.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
+"nameValidation.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";
 
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files.\n\nWith Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily.\n\nThis app is fully integrated into the Files app. Make sure to enable Cryptomator in the Files app later to access your vaults.";

@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import XCTest
 @testable import Cryptomator
 
@@ -36,49 +37,49 @@ class SetVaultNameViewModelTests: XCTestCase {
 
 	func testValidateInputForEmptyVaultName() throws {
 		XCTAssert(viewModel.vaultNameCellViewModel.input.value.isEmpty)
-		getValidatetVaultNameThrowsEmptyVaultNameError()
+		getValidatedVaultNameThrowsEmptyVaultNameError()
 	}
 
 	func testValidateInputForDisallowedCharacters() throws {
 		// \ inside name
 		setVaultName("fo\\o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("\\"))
 
 		// / inside name
 		setVaultName("fo/o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("/"))
 
 		// : inside name
 		setVaultName("fo:o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter(":"))
 
 		// * inside name
 		setVaultName("fo*o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("*"))
 
 		// ? inside name
 		setVaultName("fo?o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("?"))
 
 		// " inside name
 		setVaultName("fo\"o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("\""))
 
 		// < inside name
 		setVaultName("fo<o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("<"))
 
 		// > inside name
 		setVaultName("fo>o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter(">"))
 
 		// | inside name
 		setVaultName("fo|o")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("|"))
 
 		// Point at the end
 		setVaultName("foo.")
-		getValidatedVaultNameThrowsInvalidInputError()
+		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameEndsWithPeriod)
 	}
 
 	func testReturnButtonSupport() {
@@ -97,16 +98,13 @@ class SetVaultNameViewModelTests: XCTestCase {
 		setVaultName(name, viewModel: viewModel)
 	}
 
-	private func getValidatedVaultNameThrowsInvalidInputError() {
+	private func getValidatedVaultNameThrowsError(_ expectedError: ItemNameValidatorError) {
 		XCTAssertThrowsError(try viewModel.getValidatedVaultName()) { error in
-			guard case SetVaultNameViewModelError.invalidInput = error else {
-				XCTFail("Throws the wrong error: \(error)")
-				return
-			}
+			XCTAssertEqual(expectedError, error as? ItemNameValidatorError)
 		}
 	}
 
-	private func getValidatetVaultNameThrowsEmptyVaultNameError() {
+	private func getValidatedVaultNameThrowsEmptyVaultNameError() {
 		XCTAssertThrowsError(try viewModel.getValidatedVaultName()) { error in
 			guard case SetVaultNameViewModelError.emptyVaultName = error else {
 				XCTFail("Throws the wrong error: \(error)")
