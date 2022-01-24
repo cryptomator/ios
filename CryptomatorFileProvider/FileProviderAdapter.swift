@@ -358,6 +358,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 		let name: String
 		if let newName = newName {
+			try validateItemName(newName)
 			name = newName
 		} else {
 			name = itemMetadata.name
@@ -377,6 +378,27 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let item = FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
+	}
+
+	func validateItemName(_ name: String) throws {
+		if name.hasSuffix(".") {
+			throw createInvalidNameError(localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithPeriod"))
+		}
+		if name.hasSuffix(" ") {
+			throw createInvalidNameError(localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithSpace"))
+		}
+
+		let regex = try NSRegularExpression(pattern: "[\\\\/:\\*\\?\"<>\\|]")
+		let range = NSRange(location: 0, length: name.utf16.count)
+		if let match = regex.firstMatch(in: name, options: [], range: range) {
+			let illegalCharacter = String(name[Range(match.range, in: name)!])
+			let localizedDescription = String(format: LocalizedString.getValue("fileProvider.rename.error.containsIllegalCharacter"), illegalCharacter)
+			throw createInvalidNameError(localizedDescription: localizedDescription)
+		}
+	}
+
+	private func createInvalidNameError(localizedDescription: String) -> CocoaError {
+		return CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: localizedDescription, NSLocalizedFailureReasonErrorKey: ""])
 	}
 
 	// MARK: Delete Item

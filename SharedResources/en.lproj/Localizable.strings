@@ -89,6 +89,9 @@
 "fileProvider.onboarding.title" = "Welcome";
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+"fileProvider.rename.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
+"fileProvider.rename.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
+"fileProvider.rename.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";

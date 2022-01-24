@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 import XCTest
@@ -223,5 +224,45 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+	}
+
+	func testValidateItemName() throws {
+		try adapter.validateItemName("Foo.pages")
+		try adapter.validateItemName("Foo..pages")
+		try adapter.validateItemName("Foo Bar.pages")
+		try adapter.validateItemName("Foo")
+		try adapter.validateItemName(".foo")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo."), localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithPeriod"))
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo "), localizedDescription: LocalizedString.getValue("fileProvider.rename.error.endsWithSpace"))
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\\o"), illegalCharacter: "\\")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo/o"), illegalCharacter: "/")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo:o"), illegalCharacter: ":")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo*o"), illegalCharacter: "*")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo?o"), illegalCharacter: "?")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\"o"), illegalCharacter: "\"")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo<o"), illegalCharacter: "<")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo>o"), illegalCharacter: ">")
+		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo|o"), illegalCharacter: "|")
+	}
+
+	private func assertThrowsInvalidNameCocoaError(_ expression: @autoclosure () throws -> Void, localizedDescription: String) {
+		let expectedError = CocoaError(.fileWriteInvalidFileName, userInfo: [
+			NSLocalizedDescriptionKey: localizedDescription,
+			NSLocalizedFailureReasonErrorKey: ""
+		])
+		XCTAssertThrowsError(try expression()) { error in
+			XCTAssertEqual(expectedError, error as? CocoaError)
+		}
+	}
+
+	private func assertThrowsInvalidNameCocoaError(_ expression: @autoclosure () throws -> Void, illegalCharacter: String) {
+		let localizedDescription = String(format: LocalizedString.getValue("fileProvider.rename.error.containsIllegalCharacter"), illegalCharacter)
+		let expectedError = CocoaError(.fileWriteInvalidFileName, userInfo: [
+			NSLocalizedDescriptionKey: localizedDescription,
+			NSLocalizedFailureReasonErrorKey: ""
+		])
+		XCTAssertThrowsError(try expression()) { error in
+			XCTAssertEqual(expectedError, error as? CocoaError)
+		}
 	}
 }
