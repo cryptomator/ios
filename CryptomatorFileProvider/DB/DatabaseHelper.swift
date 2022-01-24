@@ -27,9 +27,6 @@ public enum DatabaseHelper {
 	// swiftlint:disable:next function_body_length
 	static func migrate(_ dbWriter: DatabaseWriter) throws {
 		var migrator = DatabaseMigrator()
-		// Speed up development by nuking the database when migrations change
-		// See https://github.com/groue/GRDB.swift/blob/master/Documentation/Migrations.md#the-erasedatabaseonschemachange-option
-		migrator.eraseDatabaseOnSchemaChange = true
 
 		migrator.registerMigration("v1") { db in
 			try db.create(table: "itemMetadata") { table in
@@ -45,9 +42,11 @@ public enum DatabaseHelper {
 				table.column("isMaybeOutdated", .boolean).notNull().defaults(to: false)
 			}
 
-			let rootCloudPath = CloudPath("/")
-			let rootFolderMetadata = ItemMetadata(name: "Home", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: rootCloudPath, isPlaceholderItem: true)
-			try rootFolderMetadata.save(db)
+			try db.execute(sql: """
+			               		 INSERT INTO itemMetadata (id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated)
+			               		 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+			               """,
+			               arguments: [1, "Home", "folder", nil, 1, nil, "isUploaded", "/", true, false])
 			try db.create(table: "cachedFiles") { table in
 				table.column("correspondingItem", .integer).primaryKey(onConflict: .replace).references("itemMetadata")
 				table.column("lastModifiedDate", .text)
@@ -173,6 +172,12 @@ public enum DatabaseHelper {
 				OR EXISTS (SELECT 1 FROM downloadTasks);
 			END;
 			""")
+		}
+		migrator.registerMigration("v2") { db in
+			try db.alter(table: "itemMetadata", body: { table in
+				table.add(column: "favoriteRank", .integer)
+				table.add(column: "tagData", .blob)
+			})
 		}
 		try migrator.migrate(dbWriter)
 	}

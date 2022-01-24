@@ -222,6 +222,86 @@ class MetadataManagerTests: XCTestCase {
 		XCTAssertEqual(fetchedMetadataForSensitivePath, fetchedMetadataForInSensitivePath)
 		XCTAssertEqual(cloudPath, fetchedMetadataForInSensitivePath.cloudPath)
 	}
+
+	// MARK: Set Tag Data
+
+	func testSetTagData() throws {
+		let cloudPath = CloudPath("/File.txt")
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadata)
+		let tagData = "Foo".data(using: .utf8)!
+		let id = try XCTUnwrap(itemMetadata.id)
+		try manager.setTagData(to: tagData, forItemWithID: id)
+
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertEqual(tagData, cachedMetadata.tagData)
+	}
+
+	func testSetTagDataToNil() throws {
+		let cloudPath = CloudPath("/File.txt")
+		let tagData = "Foo".data(using: .utf8)!
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
+		try manager.cacheMetadata(itemMetadata)
+
+		let id = try XCTUnwrap(itemMetadata.id)
+		try manager.setTagData(to: nil, forItemWithID: id)
+
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertNil(cachedMetadata.tagData)
+	}
+
+	func testCacheMetadataDoesNotOverwriteExistingTagData() throws {
+		let cloudPath = CloudPath("/File.txt")
+		let tagData = "Foo".data(using: .utf8)!
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
+		try manager.cacheMetadata(itemMetadata)
+
+		itemMetadata.tagData = nil
+		try manager.cacheMetadata(itemMetadata)
+
+		let id = try XCTUnwrap(itemMetadata.id)
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertEqual(tagData, cachedMetadata.tagData)
+	}
+
+	// MARK: Set Favorite Rank
+
+	func testSetFavoriteRank() throws {
+		let cloudPath = CloudPath("/Folder")
+		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadata)
+		let favoriteRank: Int64 = 100
+		let id = try XCTUnwrap(itemMetadata.id)
+		try manager.setFavoriteRank(to: favoriteRank, forItemWithID: id)
+
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertEqual(favoriteRank, cachedMetadata.favoriteRank)
+	}
+
+	func testSetFavoriteRankToNil() throws {
+		let cloudPath = CloudPath("/Folder")
+		let itemMetadata = ItemMetadata(name: "Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, favoriteRank: 100)
+		try manager.cacheMetadata(itemMetadata)
+		let id = try XCTUnwrap(itemMetadata.id)
+		try manager.setFavoriteRank(to: nil, forItemWithID: id)
+
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertNil(cachedMetadata.favoriteRank)
+	}
+
+	func testCacheMetadataDoesNotOverwriteExistingFavoriteRank() throws {
+		let cloudPath = CloudPath("/Folder")
+		let favoriteRank: Int64 = 100
+		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, favoriteRank: favoriteRank)
+		try manager.cacheMetadata(itemMetadata)
+
+		itemMetadata.favoriteRank = nil
+		try manager.cacheMetadata(itemMetadata)
+
+		let id = try XCTUnwrap(itemMetadata.id)
+		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		XCTAssertEqual(favoriteRank, cachedMetadata.favoriteRank)
+	}
 }
 
 extension ItemMetadata: Comparable {
