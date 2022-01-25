@@ -97,6 +97,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Operace nemůže být provedena, protože musí být pro tento trezor nejdříve dokončeny ostatní operace na pozadí. Opakujte akci později.";
 
+"nameValidation.error.endsWithPeriod" = "Nelze použít název, který končí tečkou. Zvolte prosím jiný název.";
+"nameValidation.error.endsWithSpace" = "Nelze použít název, který končí mezerou. Zvolte prosím jiný název.";
+"nameValidation.error.containsIllegalCharacter" = "Nelze použít název, který obsahuje \"%@\". Zvolte prosím jiný název.";
+
 "onboarding.title" = "Vítejte";
 "onboarding.button.continue" = "Pokračovat";
 
