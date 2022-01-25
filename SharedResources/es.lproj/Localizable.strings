@@ -109,6 +109,10 @@
 
 "maintenanceModeError.runningCloudTask" = "La operación no puede realizarse porque otras operaciones en segundo plano para esta bóveda deben finalizar primero. Intente de nuevo más tarde.";
 
+"nameValidation.error.endsWithPeriod" = "No puede usar un nombre que termine con un punto. Elija otro nombre.";
+"nameValidation.error.endsWithSpace" = "No puede usar un nombre que termine con un espacio. Elija otro nombre.";
+"nameValidation.error.containsIllegalCharacter" = "No puede usar un nombre que contenga \"%@\". Elija otro nombre.";
+
 "onboarding.title" = "Bienvenido";
 "onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos.\n\nCon Cryptomator, la clave de sus datos está en sus manos. Cryptomator cifra sus datos de forma rápida y sencilla.\n\nEsta aplicación está totalmente integrada en la aplicación Archivos. Asegúrese de habilitar Cryptomator en la aplicación Archivos más tarde para acceder a sus bóvedas.";
 "onboarding.button.continue" = "Continuar";
@@ -204,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
 "vaultDetail.button.renameVault" = "Renombrar";
+"vaultDetail.changePassword.footer" = "Seleccione una contraseña segura para su bóveda que solo conozca usted y manténgala en un lugar seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
