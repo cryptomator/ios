@@ -145,4 +145,12 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		}
 		return error
 	}
+
+	public var favoriteRank: NSNumber? {
+		return metadata.favoriteRank as NSNumber?
+	}
+
+	public var tagData: Data? {
+		return metadata.tagData
+	}
 }

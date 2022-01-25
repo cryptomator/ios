@@ -43,16 +43,16 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 
 	private(set) var currentAnchor: Date
 	private let queue = DispatchQueue(label: "FileProviderNotificator", attributes: .concurrent)
-	private let manager: NSFileProviderManager
+	private let manager: EnumerationSignaling
 
-	public init(manager: NSFileProviderManager) {
+	public init(manager: EnumerationSignaling) {
 		self.manager = manager
 		self.currentAnchor = Date()
 	}
 
 	public func invalidatedWorkingSet() {
 		queue.sync(flags: .barrier) {
-			signalDeleteContainerItemIdentifier.removeAll()
+			signalDeleteWorkingSetItemIdentifier.removeAll()
 			signalUpdateWorkingSetItem.removeAll()
 		}
 	}
@@ -129,10 +129,31 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 			}
 		}
 	}
+
+	public func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier]) {
+		identifiers.forEach { appendIdentifierToDeleteWorkingSet($0) }
+	}
+
+	public func updateWorkingSetItems(_ items: [NSFileProviderItem]) {
+		queue.sync(flags: .barrier) {
+			items.forEach { item in
+				signalDeleteWorkingSetItemIdentifier.remove(item.itemIdentifier)
+				signalUpdateWorkingSetItem[item.itemIdentifier] = item
+			}
+		}
+	}
 }
 
 public protocol FileProviderItemUpdateDelegate: AnyObject {
 	func signalUpdate(for item: NSFileProviderItem)
 	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier)
+	func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier])
 	func refreshWorkingSet()
+	func updateWorkingSetItems(_ items: [NSFileProviderItem])
 }
+
+public protocol EnumerationSignaling {
+	func signalEnumerator(for containerItemIdentifier: NSFileProviderItemIdentifier, completionHandler completion: @escaping (Error?) -> Void)
+}
+
+extension NSFileProviderManager: EnumerationSignaling {}

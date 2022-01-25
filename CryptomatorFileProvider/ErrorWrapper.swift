@@ -1,6 +1,6 @@
 //
 //  ErrorWrapper.swift
-//  FileProviderExtension
+//  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 05.07.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
@@ -9,11 +9,11 @@
 import FileProvider
 import Foundation
 
-enum ErrorWrapper {
+public enum ErrorWrapper {
 	/**
 	 Wraps an  error in a NSFileProviderError.notAuthenticated object as only with this error the FileProvider UI (FPUIActionExtensionViewController) is called with a prepare(forError error: Error).
 	 */
-	static func wrapError(_ error: Error, domain: NSFileProviderDomain?) -> NSFileProviderError {
+	public static func wrapError(_ error: Error, domain: NSFileProviderDomain?) -> NSFileProviderError {
 		var userInfo = [String: Any]()
 		userInfo["internalError"] = error
 		if let vaultName = domain?.displayName {

@@ -120,6 +120,25 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		assertItemRemovedFromWorkingSet()
 	}
 
+	func testStartProvidingItemWithTagData() throws {
+		simulateExistingLocalFileByDownloadingFile()
+		let expectation = XCTestExpectation()
+
+		metadataManagerMock.cachedMetadata[2]?.tagData = Data()
+		simulateFileChangeInTheCloud()
+		resetFileProviderItemUpdateDelegateMockRemoveItem()
+
+		adapter.startProvidingItem(at: url) { [self] error in
+			XCTAssertNil(error)
+			self.assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
+			XCTAssertEqual(2, self.metadataManagerMock.updatedMetadata.count)
+			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
+		XCTAssertFalse(fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithCalled)
+	}
+
 	func assertNewestVersionDownloaded(localURL: URL, cloudPath: CloudPath, itemID: Int64) {
 		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
 
@@ -131,7 +150,6 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let lastModifiedDate = localCachedFileInfo?.lastModifiedDate
 		XCTAssertNotNil(lastModifiedDate)
 		XCTAssertEqual(cloudProviderMock.lastModifiedDate[cloudPath.path], lastModifiedDate)
-		assertItemRemovedFromWorkingSet()
 	}
 
 	func assertMetadataUpdated() {
@@ -153,7 +171,13 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		wait(for: [expectation], timeout: 1.0)
 		assertItemRemovedFromWorkingSet()
 		// Reset fileProviderItemUpdateDelegateMock
+		resetFileProviderItemUpdateDelegateMockRemoveItem()
+	}
+
+	private func resetFileProviderItemUpdateDelegateMockRemoveItem() {
 		fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations = []
+		fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithCallsCount = 0
+		fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedIdentifier = nil
 	}
 
 	private func simulateFileChangeInTheCloud() {

@@ -11,10 +11,10 @@ import FileProvider
 import Foundation
 
 // swiftlint:disable all
-public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType {
+final class FileProviderNotificatorTypeMock: FileProviderNotificatorType {
 	// MARK: - currentSyncAnchor
 
-	public var currentSyncAnchor: Data {
+	var currentSyncAnchor: Data {
 		get { underlyingCurrentSyncAnchor }
 		set(value) { underlyingCurrentSyncAnchor = value }
 	}
@@ -30,7 +30,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 
 	var invalidatedWorkingSetClosure: (() -> Void)?
 
-	public func invalidatedWorkingSet() {
+	func invalidatedWorkingSet() {
 		invalidatedWorkingSetCallsCount += 1
 		invalidatedWorkingSetClosure?()
 	}
@@ -45,7 +45,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var getItemIdentifiersToDeleteFromWorkingSetReturnValue: [NSFileProviderItemIdentifier]!
 	var getItemIdentifiersToDeleteFromWorkingSetClosure: (() -> [NSFileProviderItemIdentifier])?
 
-	public func getItemIdentifiersToDeleteFromWorkingSet() -> [NSFileProviderItemIdentifier] {
+	func getItemIdentifiersToDeleteFromWorkingSet() -> [NSFileProviderItemIdentifier] {
 		getItemIdentifiersToDeleteFromWorkingSetCallsCount += 1
 		return getItemIdentifiersToDeleteFromWorkingSetClosure.map({ $0() }) ?? getItemIdentifiersToDeleteFromWorkingSetReturnValue
 	}
@@ -60,7 +60,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var popDeleteContainerItemIdentifiersReturnValue: [NSFileProviderItemIdentifier]!
 	var popDeleteContainerItemIdentifiersClosure: (() -> [NSFileProviderItemIdentifier])?
 
-	public func popDeleteContainerItemIdentifiers() -> [NSFileProviderItemIdentifier] {
+	func popDeleteContainerItemIdentifiers() -> [NSFileProviderItemIdentifier] {
 		popDeleteContainerItemIdentifiersCallsCount += 1
 		return popDeleteContainerItemIdentifiersClosure.map({ $0() }) ?? popDeleteContainerItemIdentifiersReturnValue
 	}
@@ -75,7 +75,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var popUpdateWorkingSetItemsReturnValue: [NSFileProviderItem]!
 	var popUpdateWorkingSetItemsClosure: (() -> [NSFileProviderItem])?
 
-	public func popUpdateWorkingSetItems() -> [NSFileProviderItem] {
+	func popUpdateWorkingSetItems() -> [NSFileProviderItem] {
 		popUpdateWorkingSetItemsCallsCount += 1
 		return popUpdateWorkingSetItemsClosure.map({ $0() }) ?? popUpdateWorkingSetItemsReturnValue
 	}
@@ -90,7 +90,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var popUpdateContainerItemsReturnValue: [NSFileProviderItem]!
 	var popUpdateContainerItemsClosure: (() -> [NSFileProviderItem])?
 
-	public func popUpdateContainerItems() -> [NSFileProviderItem] {
+	func popUpdateContainerItems() -> [NSFileProviderItem] {
 		popUpdateContainerItemsCallsCount += 1
 		return popUpdateContainerItemsClosure.map({ $0() }) ?? popUpdateContainerItemsReturnValue
 	}
@@ -106,7 +106,7 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var signalUpdateForReceivedInvocations: [NSFileProviderItem] = []
 	var signalUpdateForClosure: ((NSFileProviderItem) -> Void)?
 
-	public func signalUpdate(for item: NSFileProviderItem) {
+	func signalUpdate(for item: NSFileProviderItem) {
 		signalUpdateForCallsCount += 1
 		signalUpdateForReceivedItem = item
 		signalUpdateForReceivedInvocations.append(item)
@@ -124,11 +124,29 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 	var removeItemFromWorkingSetWithReceivedInvocations: [NSFileProviderItemIdentifier] = []
 	var removeItemFromWorkingSetWithClosure: ((NSFileProviderItemIdentifier) -> Void)?
 
-	public func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier) {
+	func removeItemFromWorkingSet(with identifier: NSFileProviderItemIdentifier) {
 		removeItemFromWorkingSetWithCallsCount += 1
 		removeItemFromWorkingSetWithReceivedIdentifier = identifier
 		removeItemFromWorkingSetWithReceivedInvocations.append(identifier)
 		removeItemFromWorkingSetWithClosure?(identifier)
+	}
+
+	// MARK: - removeItemsFromWorkingSet
+
+	var removeItemsFromWorkingSetWithCallsCount = 0
+	var removeItemsFromWorkingSetWithCalled: Bool {
+		removeItemsFromWorkingSetWithCallsCount > 0
+	}
+
+	var removeItemsFromWorkingSetWithReceivedIdentifiers: [NSFileProviderItemIdentifier]?
+	var removeItemsFromWorkingSetWithReceivedInvocations: [[NSFileProviderItemIdentifier]] = []
+	var removeItemsFromWorkingSetWithClosure: (([NSFileProviderItemIdentifier]) -> Void)?
+
+	func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier]) {
+		removeItemsFromWorkingSetWithCallsCount += 1
+		removeItemsFromWorkingSetWithReceivedIdentifiers = identifiers
+		removeItemsFromWorkingSetWithReceivedInvocations.append(identifiers)
+		removeItemsFromWorkingSetWithClosure?(identifiers)
 	}
 
 	// MARK: - refreshWorkingSet
@@ -140,9 +158,27 @@ public final class FileProviderNotificatorTypeMock: FileProviderNotificatorType 
 
 	var refreshWorkingSetClosure: (() -> Void)?
 
-	public func refreshWorkingSet() {
+	func refreshWorkingSet() {
 		refreshWorkingSetCallsCount += 1
 		refreshWorkingSetClosure?()
+	}
+
+	// MARK: - updateWorkingSetItems
+
+	var updateWorkingSetItemsCallsCount = 0
+	var updateWorkingSetItemsCalled: Bool {
+		updateWorkingSetItemsCallsCount > 0
+	}
+
+	var updateWorkingSetItemsReceivedItems: [NSFileProviderItem]?
+	var updateWorkingSetItemsReceivedInvocations: [[NSFileProviderItem]] = []
+	var updateWorkingSetItemsClosure: (([NSFileProviderItem]) -> Void)?
+
+	func updateWorkingSetItems(_ items: [NSFileProviderItem]) {
+		updateWorkingSetItemsCallsCount += 1
+		updateWorkingSetItemsReceivedItems = items
+		updateWorkingSetItemsReceivedInvocations.append(items)
+		updateWorkingSetItemsClosure?(items)
 	}
 }
 

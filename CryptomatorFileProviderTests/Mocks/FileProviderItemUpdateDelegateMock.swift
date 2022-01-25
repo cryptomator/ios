@@ -47,6 +47,24 @@ final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate {
 		removeItemFromWorkingSetWithClosure?(identifier)
 	}
 
+	// MARK: - removeItemsFromWorkingSet
+
+	var removeItemsFromWorkingSetWithCallsCount = 0
+	var removeItemsFromWorkingSetWithCalled: Bool {
+		removeItemsFromWorkingSetWithCallsCount > 0
+	}
+
+	var removeItemsFromWorkingSetWithReceivedIdentifiers: [NSFileProviderItemIdentifier]?
+	var removeItemsFromWorkingSetWithReceivedInvocations: [[NSFileProviderItemIdentifier]] = []
+	var removeItemsFromWorkingSetWithClosure: (([NSFileProviderItemIdentifier]) -> Void)?
+
+	func removeItemsFromWorkingSet(with identifiers: [NSFileProviderItemIdentifier]) {
+		removeItemsFromWorkingSetWithCallsCount += 1
+		removeItemsFromWorkingSetWithReceivedIdentifiers = identifiers
+		removeItemsFromWorkingSetWithReceivedInvocations.append(identifiers)
+		removeItemsFromWorkingSetWithClosure?(identifiers)
+	}
+
 	// MARK: - refreshWorkingSet
 
 	var refreshWorkingSetCallsCount = 0
@@ -59,5 +77,23 @@ final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate {
 	func refreshWorkingSet() {
 		refreshWorkingSetCallsCount += 1
 		refreshWorkingSetClosure?()
+	}
+
+	// MARK: - updateWorkingSetItems
+
+	var updateWorkingSetItemsCallsCount = 0
+	var updateWorkingSetItemsCalled: Bool {
+		updateWorkingSetItemsCallsCount > 0
+	}
+
+	var updateWorkingSetItemsReceivedItems: [NSFileProviderItem]?
+	var updateWorkingSetItemsReceivedInvocations: [[NSFileProviderItem]] = []
+	var updateWorkingSetItemsClosure: (([NSFileProviderItem]) -> Void)?
+
+	func updateWorkingSetItems(_ items: [NSFileProviderItem]) {
+		updateWorkingSetItemsCallsCount += 1
+		updateWorkingSetItemsReceivedItems = items
+		updateWorkingSetItemsReceivedInvocations.append(items)
+		updateWorkingSetItemsClosure?(items)
 	}
 }
