@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-
 "addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
