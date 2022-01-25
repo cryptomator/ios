@@ -38,7 +38,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Trieu el nom de la caixa forta.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom de la caixa forta";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
-
 "addVault.createNewVault.chooseCloud.header" = "On deu emmagatzemar Cryptomator els fitxers xifrats de la vostra caixa forta?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ja existeix en aquest lloc. Trieu un nom o una localització diferent.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha detectat una caixa forta en aquesta localització.\nPer tal de crear una nova caixa forta, si us plau, aneu enrere i trieu una altra carpeta.";
