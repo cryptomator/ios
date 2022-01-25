@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Wybierz nazwę sejfu.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nazwa sejfu";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nazwa sejfu nie może być pusta.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Nazwa sejfu nie powinna zawierać \\ / : * ? \" < > | lub kończyć się okresem.";
 "addVault.createNewVault.chooseCloud.header" = "Gdzie Cryptomator powinien przechowywać zaszyfrowane pliki twojego sejfu?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" już istnieje w tej lokalizacji. Wybierz inną nazwę lub lokalizację sejfu.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tej lokalizacji.\nAby utworzyć nowy sejf, wróć i wybierz inny folder.";
@@ -89,6 +88,16 @@
 "fileProvider.onboarding.title" = "Witamy";
 "fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
 "fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
+
+"keepUnlocked.alert.title" = "Zablokować sejf?";
+"keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
+"keepUnlocked.alert.confirm" = "Potwierdź i zablokuj teraz";
+"keepUnlocked.header" = "Określ na jak długo ten sejf ma być odblokowany podczas bezczynności.";
+"keepUnlocked.footer.auto" = "Pozostawienie decyzji iOS oznacza, że Cryptomator może zostać zamknięty w każdym momencie w celu zwolnienia pamięci, co automatycznie blokuje sejf.";
+"keepUnlocked.footer.on" = "Używając tej opcji, kopia klucza będzie przechowywana w pęku kluczy iOS póki sejf jest odblokowany.";
+"keepUnlockedDuration.auto" = "Pozwól iOS decydować automatycznie";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Bez końca";
 
 "localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
@@ -196,6 +205,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";
 "vaultDetail.info.footer.accessVault" = "Uzyskaj dostęp do sejfu przez aplikację Pliki.";
 "vaultDetail.info.footer.accountInfo" = "Zalogowano jako %@ przez %@.";
+"vaultDetail.keepUnlocked.title" = "Czas odblokowania";
+"vaultDetail.keepUnlocked.footer.off" = "Odblokowanie będzie wymagane, gdy Cryptomator zostanie zakończony przez aplikację Pliki.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Odblokowanie będzie wymagane, gdy Twój sejf będzie bezczynny przez %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Odblokowanie nie będzie wymagane, chyba że nastąpi zablokowanie ręcznie.";
 "vaultDetail.locked.footer" = "Twój sejf jest obecnie zablokowany.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tym miejscu.\nAby zmienić miejsce docelowe, wróć i wybierz inny folder.";
 "vaultDetail.moveVault.progress" = "Przenoszenie…";
@@ -212,9 +225,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracja sejfu jest nieobsługiwana. Upewnij się, że używasz najnowszej wersji Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Uwierzytelnianie…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Używać HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmień na HTTPS";

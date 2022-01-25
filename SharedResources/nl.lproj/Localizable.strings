@@ -14,6 +14,7 @@
 "common.button.create" = "Maak";
 "common.button.createFolder" = "Map aanmaken";
 "common.button.done" = "Klaar";
+"common.button.download" = "Download";
 "common.button.edit" = "Bewerken";
 "common.button.enable" = "Inschakelen";
 "common.button.next" = "Volgende";
@@ -38,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kluis naam mag niet leeg zijn.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "De kluisnaam mag geen \\ / : *? \" < > | bevatten of eindigen met een punt.";
 "addVault.createNewVault.chooseCloud.header" = "Waar moet Cryptomator de versleutelde bestanden van je kluis opslaan?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bestaat al op deze locatie. Kies een andere kluisnaam of locatie.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm een nieuwe kluis te maken, ga terug en kies een andere map.";
@@ -108,6 +108,7 @@
 "purchase.infoRunningTrial" = "Uw proefperiode verloopt op %@ en verleent u een beperkte tijd schrijftoegang tot uw kluizen. Overweeg om de volledige versie te ontgrendelen na de proefperiode.";
 "purchase.infoExpiredTrial" = "Uw proefperiode is verlopen. Overweeg om de volledige versie te ontgrendelen om de schrijftoegang tot uw kluis te herwinnen.";
 "purchase.upgrade.footer" = "Cryptomator heeft een oudere versie ontdekt. U komt in aanmerking voor een upgrade om de volledige versie te ontgrendelen.";
+"purchase.upgrade.notEligible.footer" = "Als u al een oudere versie van Cryptomator heeft gekocht, download deze dan opnieuw in de App Store.";
 "purchase.beginFreeTrial.button" = "Begin 30 dagen gratis proefperiode";
 "purchase.beginFreeTrial.footer" = "Probeer de volledige versie van Cryptomator tijdelijk gratis. U kunt deze proefversie maar één keer deblokkeren.";
 "purchase.beginFreeTrial.alert.title" = "Proefperiode ontgrendeld";
@@ -141,6 +142,19 @@
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
 
+"snapshots.fileprovider.file1" = "/Rekening.getallen";
+"snapshots.fileprovider.file2" = "/Laatste presentatie.key";
+"snapshots.fileprovider.file3" = "/Product trailer.mov";
+"snapshots.fileprovider.file4" = "/Voorstel.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Geheim Project";
+"snapshots.fileprovider.folder2" = "/Facturen";
+"snapshots.fileprovider.folder1" = "/Certificaten";
+"snapshots.main.vault1" = "/Werk";
+"snapshots.main.vault2" = "/Familie";
+"snapshots.main.vault3" = "Documenten";
+"snapshots.main.vault4" = "/reis naar Californië";
+
 "unlockVault.button.unlock" = "Ontgrendel";
 "unlockVault.button.unlockVia" = "Ontgrendel via %@";
 "unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
@@ -161,6 +175,8 @@
 "upgrade.freeUpgrade.button" = "Gratis upgraden";
 "upgrade.freeUpgrade.footer" = "Geen zorgen, u kunt gratis upgraden naar de volledige versie zonder beperkingen.";
 "upgrade.decideLater.footer" = "U kunt later upgraden naar de volledige versie van Cryptomator in de instellingen en deze nu gebruiken in alleen-lezen modus.";
+"upgrade.notEligible.alert.title" = "Upgrade mislukt";
+"upgrade.notEligible.alert.message" = "Cryptomator kon geen oudere versie op uw apparaat detecteren. Als u Cryptomator gekocht heeft, download deze dan opnieuw vanuit de App Store en probeer het opnieuw.";
 
 "urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
 "urlSession.error.httpError.403" = "Verboden toegang.";
@@ -198,9 +214,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "De kluisversie wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authenticatie verwerken…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";

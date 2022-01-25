@@ -37,7 +37,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Název trezoru by nesmí obsahovat \\ / : * ? \" < > | nebo končit tečkou.";
 "addVault.createNewVault.chooseCloud.header" = "Kde by měl Cryptomator ukládat šifrované soubory vašeho trezoru?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" již v tomtom umístění existuje. Vyberte jiný trezor nebo umístění.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
@@ -96,6 +95,10 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Vybraná složka není trezor. Zkuste to prosím znovu s jinou složkou.";
 
 "maintenanceModeError.runningCloudTask" = "Operace nemůže být provedena, protože musí být pro tento trezor nejdříve dokončeny ostatní operace na pozadí. Opakujte akci později.";
+
+"nameValidation.error.endsWithPeriod" = "Nelze použít název, který končí tečkou. Zvolte prosím jiný název.";
+"nameValidation.error.endsWithSpace" = "Nelze použít název, který končí mezerou. Zvolte prosím jiný název.";
+"nameValidation.error.containsIllegalCharacter" = "Nelze použít název, který obsahuje \"%@\". Zvolte prosím jiný název.";
 
 "onboarding.title" = "Vítejte";
 "onboarding.button.continue" = "Pokračovat";
@@ -171,9 +174,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurace trezoru není podporována. Ujistěte se, že používáte nejnovější verzi Cryptomatoru.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomatoru.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Ověřování…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Použít HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Změnit na HTTPS";

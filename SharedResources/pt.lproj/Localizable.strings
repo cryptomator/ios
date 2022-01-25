@@ -14,6 +14,7 @@
 "common.button.create" = "Criar";
 "common.button.createFolder" = "Criar Pasta";
 "common.button.done" = "Ok";
+"common.button.download" = "Descarregar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Ativar";
 "common.button.next" = "Seguinte";
@@ -37,7 +38,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "O nome do cofre não deve conter \\ / : * ? \" < > | ou terminar com um período.";
 "addVault.createNewVault.chooseCloud.header" = "Onde deve o Cryptomator armazenar os arquivos criptografados do cofre?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" já existe nesta localização. Escolha um nome ou localização diferente para o cofre.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detetou um cofre existente nesta localização.\nPara criar um cofre novo, por favor volte atrás e escolha uma pasta diferente.";
@@ -65,6 +65,7 @@
 "chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
 "chooseFolder.createNewFolder.cells.name" = "Nome da Pasta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Nome da pasta não pode estar vazio.";
+"chooseFolder.createNewFolder.progress" = "Criar pasta";
 
 "cloudProvider.error.itemNotFound" = "Não foi possível encontrar \"%@\".";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" já existe.";
@@ -89,12 +90,26 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
 
 "onboarding.title" = "Bem-vindo(a)";
+"purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, descarregue-a novamente na App Store.";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
+
+"snapshots.fileprovider.file1" = "/Contabilidade.números";
+"snapshots.fileprovider.file2" = "/Apresentação Final.key";
+"snapshots.fileprovider.file3" = "/Trailer do Produto.mov";
+"snapshots.fileprovider.file4" = "/Proposta.docx";
+"snapshots.fileprovider.file5" = "/Relatório";
+"snapshots.fileprovider.folder3" = "/Projeto Secreto";
+"snapshots.fileprovider.folder2" = "/Faturas";
+"snapshots.fileprovider.folder1" = "/Certificados";
+"snapshots.main.vault1" = "/Trabalho";
+"snapshots.main.vault2" = "/Família";
+"snapshots.main.vault3" = "/Documentos";
+"snapshots.main.vault4" = "/ Viagem à Califórnia";
 
 "unlockVault.button.unlock" = "Destrancar";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
@@ -107,6 +122,8 @@
 "untrustedTLSCertificate.message" = "O Certificado TLS de \"%@\" é inválido. Quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
+"upgrade.notEligible.alert.title" = "A atualização falhou";
+"upgrade.notEligible.alert.message" = "Cryptomator não conseguiu detectar uma versão mais antiga instalada no seu dispositivo. Se você o comprou, por favor descarregue-a novamente na App Store e tente novamente.";
 
 "urlSession.error.httpError.401" = "Nome de utilizador e/ou palavra-passe errada.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para os recursos solicitados.";
@@ -136,5 +153,3 @@
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente de Cryptomator.";
-
-"webDAVAuthentication.title" = "WebDAV";

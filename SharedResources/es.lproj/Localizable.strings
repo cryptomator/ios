@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "El nombre de la bóveda no debe contener \\ / : * ? \" < > | o terminar con un punto.";
 "addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
@@ -89,6 +88,16 @@
 "fileProvider.onboarding.title" = "Bienvenido";
 "fileProvider.onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+
+"keepUnlocked.alert.title" = "¿Bloquear bóveda?";
+"keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
+"keepUnlocked.alert.confirm" = "Confirmar y bloquear ahora";
+"keepUnlocked.header" = "Indique durante cuánto tiempo desea que esta bóveda permanezca desbloqueada cuando esté inactiva.";
+"keepUnlocked.footer.auto" = "Dejar que iOS decida significa que Cryptomator puede ser terminado en cualquier momento para liberar memoria, lo que bloquea la bóveda automáticamente.";
+"keepUnlocked.footer.on" = "Usando la opción seleccionada, debe almacenarse una copia de su clave en el llavero de iOS, siempre que la bóveda esté desbloqueada.";
+"keepUnlockedDuration.auto" = "Dejar que iOS decida automáticamente";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinido";
 
 "localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
@@ -199,6 +208,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
 "vaultDetail.info.footer.accessVault" = "Acceder a la bóveda a través de la aplicación Archivos.";
 "vaultDetail.info.footer.accountInfo" = "Sesión iniciada como %@ vía %@.";
+"vaultDetail.keepUnlocked.title" = "Duración del desbloqueo";
+"vaultDetail.keepUnlocked.footer.off" = "Se requerirá el desbloqueo cuando Cryptomator haya sido terminado por la aplicación Archivos.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Se requerirá el desbloqueo cuando la bóveda esté inactiva durante %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No se requerirá el desbloqueo a menos que se bloquee manualmente.";
 "vaultDetail.locked.footer" = "Su bóveda está bloqueada actualmente.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara mover su bóveda, por favor vuelva atrás y elija una carpeta diferente.";
 "vaultDetail.moveVault.progress" = "Moviendo…";
@@ -215,9 +228,7 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuración de la bóveda no es compatible. Por favor, asegúrese de que está ejecutando la última versión de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "La versión de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autenticando…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "¿Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Cambiar a HTTPS";
