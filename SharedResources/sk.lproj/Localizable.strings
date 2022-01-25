@@ -98,7 +98,7 @@
 "keepUnlocked.footer.on" = "Použitím vybranej voľby, bude potreba Váš kľúč uložiť do iOS kľúčenky na tak dlho pokiaľ bude trezor odomknutý.";
 "keepUnlockedDuration.auto" = "Nechať rozhodnúť iOS automaticky";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automaticky";
-"keepUnlockedDuration.indefinite" = "Nekonečne";
+"keepUnlockedDuration.indefinite" = "Bez časového obmedzenia";
 
 "localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
