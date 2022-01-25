@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
-
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库。\n若想创建一个新的保险库，请返回并选择其他路径。";
