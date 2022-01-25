@@ -14,7 +14,6 @@
 "addVault.title" = "יצירת כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
 "addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
-
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "שים לב שאינך שוכח את סיסמתך! לא ניתן לשחזר את המידע שלך בחזרה מבלי הסיסמה.";
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
