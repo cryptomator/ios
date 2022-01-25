@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
-
 "addVault.createNewVault.chooseCloud.header" = "Où Cryptomator doit-il stocker les fichiers chiffrés de votre coffre ?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" existe déjà à cet emplacement. Choisissez un autre nom de coffre ou un autre emplacement.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de créer un nouveau coffre, veuillez revenir en arrière et choisir un dossier différent.";
