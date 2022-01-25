@@ -108,6 +108,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
+"nameValidation.error.endsWithPeriod" = "Nazwa kończąca się kropką jest niedozwolona. Proszę wybrać inną nazwę.";
+"nameValidation.error.endsWithSpace" = "Nazwa kończąca się spacją jest niedozwolona. Proszę wybrać inną nazwę.";
+"nameValidation.error.containsIllegalCharacter" = "Nazwa zawierająca \"%@\" jest niedozwolona. Proszę wybrać inną nazwę.";
+
 "onboarding.title" = "Witamy";
 "onboarding.info" = "Dziękujemy za wybranie Cryptomator w celu ochrony plików.\n\nZa pomocą Cryptomator klucz do Twoich danych znajduje się w Twoich rękach. Cryptomator szybko i łatwo szyfruje Twoje dane.\n\nTa aplikacja jest w pełni zintegrowana z aplikacją Pliki. Upewnij się, że włączono Cryptomator w aplikacji Pliki, aby uzyskać dostęp do sejfów.";
 "onboarding.button.continue" = "Kontynuuj";
