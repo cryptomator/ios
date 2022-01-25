@@ -109,6 +109,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Operáciu nie je možné vykonať pretože iné operácie na pozadí v tomto trezore musia skončit prvé. Prosím skúste neskôr.";
 
+"nameValidation.error.endsWithPeriod" = "Nemôžte použiť meno ktoré končí znakom bodka. Prosím zvoľte iné meno.";
+"nameValidation.error.endsWithSpace" = "Nemôžte použiť meno ktoré končí znakom medzera. Prosím zvoľte iné meno.";
+"nameValidation.error.containsIllegalCharacter" = "Nemôžte použiť meno ktoré končí znakom \"%@\". Prosím zvoľte iné meno.";
+
 "onboarding.title" = "Vitajte";
 "onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator na ochranu Vašich súborov. \n\nS Cryptomator-om je kľúč k dátam pevne vo Vašich rukách. Cryptomator šifruje Vaše dáta rýchlo a ľahko. \n\nTáto aplikácia je plne integrovaná súborového prieskumníka. Uistite sa o povolení Cryptomator-a v súborovom prieskumníkovi pre prístup do Vašich trezorov.";
 "onboarding.button.continue" = "Pokračovať";
@@ -204,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Presunúť";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
 "vaultDetail.button.renameVault" = "Premenovať";
+"vaultDetail.changePassword.footer" = "Zvoľte silné heslo pre Váš trezor, také ktoré viete len Vy a uchovajte ho na bezpečnom mieste.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše trezorové heslo bude požadované iba ak %@ autentikácia zlyhá.";
 "vaultDetail.info.footer.accessVault" = "Pristúpiť k trezoru prostredníctvom súborovej aplikácie.";
