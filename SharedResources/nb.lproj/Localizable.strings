@@ -14,7 +14,6 @@
 "addVault.createNewVault.title" = "Lag et nytt hvelv";
 "addVault.createNewVault.purchase" = "Å lage et nytt hvelv krever fullversjonen av Cryptomator. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
-
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
 
