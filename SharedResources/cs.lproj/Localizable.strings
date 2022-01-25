@@ -37,7 +37,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Název trezoru by nesmí obsahovat \\ / : * ? \" < > | nebo končit tečkou.";
+
 "addVault.createNewVault.chooseCloud.header" = "Kde by měl Cryptomator ukládat šifrované soubory vašeho trezoru?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" již v tomtom umístění existuje. Vyberte jiný trezor nebo umístění.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator v tomto umístění zjistil existující trezor.\nChcete-li vytvořit nový trezor, vraťte se zpět a vyberte jinou složku.";
