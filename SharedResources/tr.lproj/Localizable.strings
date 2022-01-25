@@ -109,6 +109,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Bu kasa için diğer arka plan işlemlerinin önce tamamlanması gerektiğinden işlem gerçekleştirilemez. Lütfen daha sonra tekrar deneyiniz.";
 
+"nameValidation.error.endsWithPeriod" = "Nokta ile biten bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
+"nameValidation.error.endsWithSpace" = "Boşluk ile biten bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
+"nameValidation.error.containsIllegalCharacter" = "\"%@\" içeren bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
+
 "onboarding.title" = "Hoş geldiniz";
 "onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz.\n\nCryptomator ile verilerinizin anahtarı sizin elinizde. Cryptomator, verilerinizi hızlı ve kolay bir şekilde şifreler.\n\nBu uygulama, Dosyalar uygulamasına tamamen entegredir. Kasalarınıza erişmek için daha sonra Dosyalar uygulamasında Cryptomator'ı etkinleştirdiğinizden emin olun.";
 "onboarding.button.continue" = "Devam et";
@@ -204,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Taşı";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
 "vaultDetail.button.renameVault" = "Yeniden adlandır";
+"vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir şifre seçin.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
