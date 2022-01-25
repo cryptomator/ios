@@ -58,7 +58,7 @@ class WorkingSetObserver: WorkingSetObserving {
 			notificator.removeItemsFromWorkingSet(with: removedItems)
 		}
 		if currentWorkingSetItems != newWorkingSet {
-			newWorkingSet.forEach { notificator.updateWorkingSetItem($0) }
+			notificator.updateWorkingSetItems(Array(newWorkingSet))
 		}
 		if !removedItems.isEmpty || currentWorkingSetItems != newWorkingSet {
 			notificator.refreshWorkingSet()

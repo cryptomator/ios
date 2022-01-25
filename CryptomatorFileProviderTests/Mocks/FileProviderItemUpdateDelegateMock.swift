@@ -11,24 +11,6 @@ import Foundation
 @testable import CryptomatorFileProvider
 
 final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate {
-	// MARK: - signalWorkingSetUpdate
-
-	var signalWorkingSetUpdateForCallsCount = 0
-	var signalWorkingSetUpdateForCalled: Bool {
-		signalWorkingSetUpdateForCallsCount > 0
-	}
-
-	var signalWorkingSetUpdateForReceivedItem: NSFileProviderItem?
-	var signalWorkingSetUpdateForReceivedInvocations: [NSFileProviderItem] = []
-	var signalWorkingSetUpdateForClosure: ((NSFileProviderItem) -> Void)?
-
-	func signalWorkingSetUpdate(for item: NSFileProviderItem) {
-		signalWorkingSetUpdateForCallsCount += 1
-		signalWorkingSetUpdateForReceivedItem = item
-		signalWorkingSetUpdateForReceivedInvocations.append(item)
-		signalWorkingSetUpdateForClosure?(item)
-	}
-
 	// MARK: - signalUpdate
 
 	var signalUpdateForCallsCount = 0
@@ -97,21 +79,21 @@ final class FileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegate {
 		refreshWorkingSetClosure?()
 	}
 
-	// MARK: - updateWorkingSetItem
+	// MARK: - updateWorkingSetItems
 
-	var updateWorkingSetItemCallsCount = 0
-	var updateWorkingSetItemCalled: Bool {
-		updateWorkingSetItemCallsCount > 0
+	var updateWorkingSetItemsCallsCount = 0
+	var updateWorkingSetItemsCalled: Bool {
+		updateWorkingSetItemsCallsCount > 0
 	}
 
-	var updateWorkingSetItemReceivedItem: NSFileProviderItem?
-	var updateWorkingSetItemReceivedInvocations: [NSFileProviderItem] = []
-	var updateWorkingSetItemClosure: ((NSFileProviderItem) -> Void)?
+	var updateWorkingSetItemsReceivedItems: [NSFileProviderItem]?
+	var updateWorkingSetItemsReceivedInvocations: [[NSFileProviderItem]] = []
+	var updateWorkingSetItemsClosure: (([NSFileProviderItem]) -> Void)?
 
-	func updateWorkingSetItem(_ item: NSFileProviderItem) {
-		updateWorkingSetItemCallsCount += 1
-		updateWorkingSetItemReceivedItem = item
-		updateWorkingSetItemReceivedInvocations.append(item)
-		updateWorkingSetItemClosure?(item)
+	func updateWorkingSetItems(_ items: [NSFileProviderItem]) {
+		updateWorkingSetItemsCallsCount += 1
+		updateWorkingSetItemsReceivedItems = items
+		updateWorkingSetItemsReceivedInvocations.append(items)
+		updateWorkingSetItemsClosure?(items)
 	}
 }

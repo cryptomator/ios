@@ -211,6 +211,9 @@
 		4A9BED64268F1DB000721BAA /* VaultUnlockingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */; };
 		4A9BED66268F2D9D00721BAA /* UnlockVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */; };
 		4A9BED67268F379300721BAA /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
+		4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8DFC27A007C2000063E4 /* FileProviderNotificatorTests.swift */; };
+		4A9C8E0127A0104E000063E4 /* EnumerationSignalingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */; };
+		4A9C8E0327A016CF000063E4 /* WorkingSetObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9C8E0227A016CF000063E4 /* WorkingSetObserverTests.swift */; };
 		4A9CD5622699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */; };
 		4A9D1237261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */; };
 		4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */; };
@@ -666,6 +669,9 @@
 		4A91D8CD272ADC78003F8BD8 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingServiceSource.swift; sourceTree = "<group>"; };
 		4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockVaultViewController.swift; sourceTree = "<group>"; };
+		4A9C8DFC27A007C2000063E4 /* FileProviderNotificatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderNotificatorTests.swift; sourceTree = "<group>"; };
+		4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumerationSignalingMock.swift; sourceTree = "<group>"; };
+		4A9C8E0227A016CF000063E4 /* WorkingSetObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingSetObserverTests.swift; sourceTree = "<group>"; };
 		4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordKeychainManagerTests.swift; sourceTree = "<group>"; };
 		4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewModel.swift; sourceTree = "<group>"; };
 		4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticating.swift; sourceTree = "<group>"; };
@@ -995,8 +1001,10 @@
 				4A1673E7270C675B0075C724 /* FileProviderCacheManagerTests.swift */,
 				4AEECD38279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift */,
 				4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */,
+				4A9C8DFC27A007C2000063E4 /* FileProviderNotificatorTests.swift */,
 				4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */,
 				4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */,
+				4A9C8E0227A016CF000063E4 /* WorkingSetObserverTests.swift */,
 				4AF69E2924ACCED000A7174C /* DB */,
 				4A8F14A3266A302E00ADBCE4 /* FileProviderAdapter */,
 				4AB1C32E265CF59100DC7A49 /* Middleware */,
@@ -1456,6 +1464,7 @@
 				4AB6A891278EFC730016B01E /* VaultManagerMock.swift */,
 				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
 				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
+				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2180,18 +2189,21 @@
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
 				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
 				4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */,
+				4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4AEECD3B279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift in Sources */,
 				4A8F149C266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift in Sources */,
 				4A8F14A2266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift in Sources */,
 				4A3E2FEC271DC9670090BD44 /* MaintenanceManagerTests.swift in Sources */,
 				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
+				4A9C8E0327A016CF000063E4 /* WorkingSetObserverTests.swift in Sources */,
 				4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */,
 				4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */,
 				4AB6A896278F07B20016B01E /* FileProviderAdapterTypeMock.swift in Sources */,
 				4AEECD39279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift in Sources */,
 				4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */,
 				4A5AC4392758EC9400342AA7 /* FullVersionCheckerMock.swift in Sources */,
+				4A9C8E0127A0104E000063E4 /* EnumerationSignalingMock.swift in Sources */,
 				4AEECD2F279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift in Sources */,
 				4AEECD3D279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift in Sources */,
 			);
