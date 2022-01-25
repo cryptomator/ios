@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
-
 "addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
