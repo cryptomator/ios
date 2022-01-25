@@ -37,7 +37,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Alege un nume pentru seif.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nume seif";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Numele seifului nu poate fi gol.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Numele seifului nu trebuie să conțină \\ / : * ? \" < > | , sau să se termine cu un punct.";
+
 "addVault.createNewVault.chooseCloud.header" = "Unde ar trebui Cryptomator să stocheze fișierele criptate din seiful dumneavoastră?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" există deja la această locație. Alegeți un alt nume de seif sau o locație nouă.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a detectat un seif existent în această locație.\nPentru a crea un nou seif, vă rugăm să mergeți înapoi și să alegeți un alt folder.";
