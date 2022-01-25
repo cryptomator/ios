@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Выберите имя для хранилища.";
 "addVault.createNewVault.setVaultName.cells.name" = "Имя хранилища";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Имя хранилища не может быть пустым.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Имя хранилища не должно содержать \\ / : * ? \" < > | или заканчиваться точкой.";
+
 "addVault.createNewVault.chooseCloud.header" = "Где Cryptomator должен хранить зашифрованные файлы хранилища?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "«%@» здесь уже существует. Выберите другое имя хранилища или место.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище в этом месте.\nЧтобы создать новое хранилище, вернитесь назад и выберите другую папку.";
