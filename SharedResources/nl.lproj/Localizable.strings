@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kluis naam mag niet leeg zijn.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "De kluisnaam mag geen \\ / : *? \" < > | bevatten of eindigen met een punt.";
+
 "addVault.createNewVault.chooseCloud.header" = "Waar moet Cryptomator de versleutelde bestanden van je kluis opslaan?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bestaat al op deze locatie. Kies een andere kluisnaam of locatie.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm een nieuwe kluis te maken, ga terug en kies een andere map.";
