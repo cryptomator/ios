@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "اختر اسماً للمخزن.";
 "addVault.createNewVault.setVaultName.cells.name" = "اسم المخزن";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "اسم المخزن لا يمكن أن يكون فارغاً.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "يجب ألا يحتوي اسم المستودع على \\ / : * ? \" < > <unk> أو ينتهي بنقطة.";
+
 "addVault.createNewVault.chooseCloud.header" = "أين يجب على Cryptomator تخزين الملفات المشفرة للمخزن الخاص بك؟";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" موجود مسبقاً في هذا الموقع. اختر اسم مخزن أو موقع مختلف.";
 "addVault.createNewVault.detectedMasterkey.text" = "اكتشف Cryptomator خزانة موجودة في هذا الموقع.\nمن أجل إنشاء خزانة جديدة، يرجى العودة واختيار مجلد مختلف.";
