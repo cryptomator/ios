@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
-
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi ada vault di lokasi ini.\nUntuk membuat vaukt baru, silakan kembali dan pilih folder lain.";
