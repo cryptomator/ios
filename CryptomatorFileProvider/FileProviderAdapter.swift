@@ -383,6 +383,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 		let name: String
 		if let newName = newName {
+			try validateItemName(newName)
 			name = newName
 		} else {
 			name = itemMetadata.name
@@ -402,6 +403,14 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let item = FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
+	}
+
+	func validateItemName(_ name: String) throws {
+		do {
+			try ItemNameValidator.validateName(name)
+		} catch let error as ItemNameValidatorError {
+			throw CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription, NSLocalizedFailureReasonErrorKey: ""])
+		}
 	}
 
 	// MARK: Delete Item
