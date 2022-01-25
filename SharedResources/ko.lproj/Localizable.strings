@@ -31,6 +31,7 @@
 "addVault.createNewVault.title" = "새 Vault 생성";
 "addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
+
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault 내 암호화 파일을 어느 경로에 저장하시겠습니까?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
