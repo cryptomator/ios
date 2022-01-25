@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για την κρύπτη.";
 "addVault.createNewVault.setVaultName.cells.name" = "Όνομα Κρύπτης";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα της κρύπτης δεν μπορεί να είναι κενό.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Το όνομα της κρύπτη δεν πρέπει να περιέχει \\ / : * ? \" < > | ή να τελειώνει με τελεία.";
+
 "addVault.createNewVault.chooseCloud.header" = "Που θα πρέπει να αποθηκεύσει το Cryptomator τα κωδικοποιημένα αρχεία της κρύπτης σου;";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" υπάρχει ήδη σε αυτή τη θέση. Επιλέξτε ένα διαφορετικό όνομα κρύπτης ή τοποθεσία.";
 "addVault.createNewVault.detectedMasterkey.text" = "Το Cryptomator εντόπισε μια υπάρχον κρύπτη σε αυτή τη θέση.\nΓια να δημιουργήσετε μια νέα κρύπτη, παρακαλώ επιστρέψτε και επιλέξτε ένα διαφορετικό φάκελο.";
