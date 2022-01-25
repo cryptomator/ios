@@ -8,6 +8,7 @@
 "addVault.title" = "ਵਾਲਟ ਜੋੜੋ";
 "addVault.createNewVault.title" = "ਨਵਾਂ ਵਾਲਟ ਬਣਾਓ";
 "addVault.createNewVault.setVaultName.cells.name" = "ਵਾਲਟ ਦਾ ਨਾਂ";
+
 "addVault.createNewVault.chooseCloud.header" = "ਤੁਹਾਡੇ ਵਾਲੇਟ ਲਈ ਇੰਕ੍ਰਿਪਟ ਕੀਤੀਆਂ ਫ਼ਾਇਲਾਂ Cryptomator ਕਿੱਥੇ ਸਟੋਰ ਕਰੇ?";
 "addVault.openExistingVault.title" = "ਮੌਜੂਦਾ ਵਾਲਟ ਖੋਲ੍ਹੋ";
 
