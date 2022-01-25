@@ -14,7 +14,6 @@
 "addVault.title" = "Széf hozzáadása";
 "addVault.createNewVault.title" = "Új széf létrehozása";
 "addVault.createNewVault.setVaultName.cells.name" = "A széf neve";
-
 "addVault.createNewVault.chooseCloud.header" = "Hova mentse a Cryptomator a széf titkosított fájljait?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "FONTOS: Ha elfelejti a jelszavát, nincs mód az adatok helyreállítására.";
 "addVault.openExistingVault.title" = "Meglévő széf megnyitása";
