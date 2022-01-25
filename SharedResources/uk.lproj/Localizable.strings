@@ -28,7 +28,6 @@
 "addVault.title" = "Додати сховище";
 "addVault.createNewVault.title" = "Створити нове сховище";
 "addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
-
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
 "addVault.createNewVault.progress" = "Створення сховища…";
