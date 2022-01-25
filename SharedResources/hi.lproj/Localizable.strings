@@ -38,7 +38,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "कक्ष का नाम चुने।";
 "addVault.createNewVault.setVaultName.cells.name" = "वॉल्ट का नाम";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "कक्ष का नाम रिक्त नहीं हो सकता।";
-
 "addVault.createNewVault.chooseCloud.header" = "आपके कक्ष के कूट किए हुए दस्तावेज़ों को क्रिप्टोमेटर कहाँ संग्रह करें?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" इस जगह पहले से ही मौजूद है। या तो कक्ष का नाम नहीं तो जगह बदलें।";
 "addVault.createNewVault.detectedMasterkey.text" = "क्रिप्टोमेटर में, इस जगह एक कक्ष पहले से ही मौजूद है।\n अगर एक नया कक्ष बनाना चाहते हैं तो जगह या फ़ोल्डर बदलें।";
