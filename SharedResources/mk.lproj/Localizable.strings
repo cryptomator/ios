@@ -35,6 +35,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Одберете име за сефот.";
 "addVault.createNewVault.setVaultName.cells.name" = "Име на сеф";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Името не може да биде празно.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Името на сефот неможе да содржи \\ / : * ? \" < > или да завршува со точка.";
+
 "addVault.createNewVault.chooseCloud.header" = "Каде би сакале Cryptomator да ги зачува шифрираните фајлови на Вашиот сеф?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" веќе постои на оваа локација. Изберете друго име за сефот или нова локација.";
