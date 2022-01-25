@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Wybierz nazwę sejfu.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nazwa sejfu";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nazwa sejfu nie może być pusta.";
-
 "addVault.createNewVault.chooseCloud.header" = "Gdzie Cryptomator powinien przechowywać zaszyfrowane pliki twojego sejfu?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" już istnieje w tej lokalizacji. Wybierz inną nazwę lub lokalizację sejfu.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator wykrył istniejący sejf w tej lokalizacji.\nAby utworzyć nowy sejf, wróć i wybierz inny folder.";
