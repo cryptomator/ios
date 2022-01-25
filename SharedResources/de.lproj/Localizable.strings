@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname darf nicht leer sein.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Tresorname sollte kein \\ / : * ? \" < > | beinhalten oder auf einem Punkt enden.";
+
 "addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors ablegen?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "„%@“ existiert bereits an dieser Stelle. Wähle einen anderen Tresornamen oder einen anderen Ort.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
