@@ -36,7 +36,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "為加密檔案庫命名.";
 "addVault.createNewVault.setVaultName.cells.name" = "加密檔案庫名稱";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "加密檔案庫名稱不可留空。";
-
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
