@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Kasa için bir ad seçin.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kasa Adı";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kasa adı boş olamaz.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Kasa adını, \\ / : * ? \" < > | veya nokta ile bitirin.";
+
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator kasanızın şifreli dosyalarını nerede depolasın?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bu konumda mevcut. Farklı bir kasa adı veya konum seçin.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
