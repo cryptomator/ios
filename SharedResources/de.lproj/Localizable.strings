@@ -110,6 +110,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Der Vorgang kann nicht durchgeführt werden, da zuerst andere Hintergrundprozesse für diesen Tresor beendet werden müssen. Bitte versuche es später erneut.";
 
+"nameValidation.error.endsWithPeriod" = "Namen dürfen nicht mit einem Punkt enden. Wähle einen anderen Namen.";
+"nameValidation.error.endsWithSpace" = "Namen dürfen nicht mit einem Leerzeichen enden. Wähle einen anderen Namen.";
+"nameValidation.error.containsIllegalCharacter" = "Namen dürfen kein „%@“ beinhalten. Wähle einen anderen Namen.";
+
 "onboarding.title" = "Willkommen";
 "onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast.\n\nMit Cryptomator liegt der Schlüssel zu deinen Daten in deinen Händen. Cryptomator verschlüsselt deine Daten schnell und einfach.\n\nDiese App ist vollständig in der App „Dateien“ integriert. Stelle sicher, dass du Cryptomator später in der App „Dateien“ aktivierst, um auf deine Tresore zuzugreifen.";
 "onboarding.button.continue" = "Weiter";
