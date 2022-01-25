@@ -38,7 +38,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "金庫は \\ / : * ? \" < > | や 末尾がピリオドの名前にすることができません。";
+
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" がすでにこの場所に存在します。別の名前か別の場所を選択してください。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
