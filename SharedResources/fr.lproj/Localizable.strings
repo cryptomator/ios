@@ -109,6 +109,10 @@
 
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
+"nameValidation.error.endsWithPeriod" = "Vous ne pouvez pas utiliser un nom qui se termine par un point. Veuillez choisir un autre nom.";
+"nameValidation.error.endsWithSpace" = "Vous ne pouvez pas utiliser un nom qui se termine par un espace. Veuillez choisir un autre nom.";
+"nameValidation.error.containsIllegalCharacter" = "Vous ne pouvez pas utiliser un nom qui contient \"%@\". Veuillez choisir un autre nom.";
+
 "onboarding.title" = "Bienvenue";
 "onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers.\n\nAvec Cryptomator, la clé de vos données est entre vos mains. Cryptomator crypte vos données rapidement et facilement.\n\nCette application est entièrement intégrée dans l'application Fichiers. Assurez-vous d'activer Cryptomator dans l'application Fichiers plus tard pour accéder à vos coffres.";
 "onboarding.button.continue" = "Continuer";
