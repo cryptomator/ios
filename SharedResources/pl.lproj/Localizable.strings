@@ -205,6 +205,7 @@
 "vaultDetail.button.moveVault" = "Przenieś";
 "vaultDetail.button.removeVault" = "Usuń z listy sejfów";
 "vaultDetail.button.renameVault" = "Zmień nazwę";
+"vaultDetail.changePassword.footer" = "Wybierz silne hasło dla swojego sejfu, nikomu go nie podawaj i trzymaj je w bezpiecznym miejscu.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Jeśli włączysz %@, hasło sejfu będzie przechowywane w pęku kluczy iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";
 "vaultDetail.info.footer.accessVault" = "Uzyskaj dostęp do sejfu przez aplikację Pliki.";
