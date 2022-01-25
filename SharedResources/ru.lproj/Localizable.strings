@@ -108,6 +108,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
+"nameValidation.error.endsWithPeriod" = "Нельзя использовать имя, оканчивающееся точкой. Выберите другое имя.";
+"nameValidation.error.endsWithSpace" = "Нельзя использовать имя, оканчивающееся пробелом. Выберите другое имя.";
+"nameValidation.error.containsIllegalCharacter" = "Нельзя использовать имя, содержащее \"%@\". Выберите другое имя.";
+
 "onboarding.title" = "Добро пожаловать";
 "onboarding.info" = "Спасибо за выбор Cryptomator для защиты ваших файлов.\n\nС Cryptomator ключ к вашим данным в ваших руках. Криптоматор шифрует ваши данные быстро и легко.\n\nЭто приложение полностью интегрировано в приложение Files. Убедитесь в том, что Cryptopmator включен в приложении Files для доступа к вашим хранилищам.";
 "onboarding.button.continue" = "Далее";
@@ -203,6 +207,7 @@
 "vaultDetail.button.moveVault" = "Переместить";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
 "vaultDetail.button.renameVault" = "Переименовать";
+"vaultDetail.changePassword.footer" = "Выберите надежный пароль для вашего хранилища, который знаете только вы, и храните его в надежном месте.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
 "vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
