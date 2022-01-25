@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Valvets namn får inte vara tomt.";
-
 "addVault.createNewVault.chooseCloud.header" = "Var ska Cryptomator lagra de krypterade filerna för ditt valv?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" finns redan på denna plats. Välj ett annat valvnamn eller plats.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
