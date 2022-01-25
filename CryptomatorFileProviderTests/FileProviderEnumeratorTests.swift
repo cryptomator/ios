@@ -45,10 +45,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 1.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
@@ -64,10 +64,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let itemList = FileProviderItemList(items: items, nextPageToken: nextFileProviderPage)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 1.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
@@ -82,10 +82,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 1.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
@@ -98,10 +98,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(CloudProviderError.noInternetConnection)
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 1.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemsObserverFailed(with: .noInternetConnection)
@@ -113,10 +113,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let enumerator = createEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = FileProviderAdapterManagerError.cachedAdapterNotFound
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 2.0)
 		assertWaitForSemaphoreCalled()
 		assertErrorWrapped(.cachedAdapterNotFound)
@@ -127,10 +127,10 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let enumerator = createEnumerator(for: .workingSet)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = FileProviderAdapterManagerError.cachedAdapterNotFound
-		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
+		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 2.0)
 		assertWaitForSemaphoreCalled()
 		assertWorkingSetInvalidated()
