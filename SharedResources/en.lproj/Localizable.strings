@@ -208,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
 "vaultDetail.button.renameVault" = "Rename";
+"vaultDetail.changePassword.footer" = "Select a strong password for your vault that only you know and keep it in a safe place.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";

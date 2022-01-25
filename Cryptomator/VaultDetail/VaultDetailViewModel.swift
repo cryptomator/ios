@@ -138,6 +138,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = {
 		[.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
+		 .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
 		 .lockingSection: unlockSectionFooterViewModel,
 		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 	}()
