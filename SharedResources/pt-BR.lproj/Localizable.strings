@@ -39,7 +39,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "O nome do cofre não deve conter \\ / : * ? \" < > |, ou terminar com um período.";
+
 "addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos encriptados do seu cofre?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@já existe neste local. Escolha um nome ou local de um cofre diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
