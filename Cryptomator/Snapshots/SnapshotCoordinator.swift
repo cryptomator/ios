@@ -33,7 +33,7 @@ class SnapshotCoordinator: MainCoordinator {
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
 		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared)
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
 		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
@@ -76,6 +76,10 @@ private class SnapshotFileProviderConnectorMock: FileProviderConnector {
 }
 
 private class SnapshotVaultLockingMock: VaultLocking {
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		reply(nil)
+	}
+
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {}
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
