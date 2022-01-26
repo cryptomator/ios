@@ -208,7 +208,7 @@
 "vaultDetail.button.moveVault" = "移动";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
 "vaultDetail.button.renameVault" = "重命名";
-"vaultDetail.changePassword.footer" = "为您的保险库选择一个强壮的密码，确保只有您一个人知道并将它保存在一个安全的地方。";
+"vaultDetail.changePassword.footer" = "为您的保险库选择一个强壮的密码，确保只有您知道并做妥善保管。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
 "vaultDetail.info.footer.accessVault" = "通过文件应用访问保险库。";
