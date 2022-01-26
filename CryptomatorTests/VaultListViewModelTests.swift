@@ -34,7 +34,7 @@ class VaultListViewModelTests: XCTestCase {
 		vaultAccountManagerMock = VaultAccountManagerMock()
 		passwordManagerMock = VaultPasswordManagerMock()
 		vaultCacheMock = VaultCacheMock()
-		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock)
+		vaultManagerMock = VaultDBManagerMock(providerManager: cloudProviderManager, vaultAccountManager: vaultAccountManagerMock, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock, masterkeyCacheManager: MasterkeyCacheManagerMock(), masterkeyCacheHelper: MasterkeyCacheHelperMock())
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		_ = try DatabaseManager(dbPool: dbPool)
 	}
@@ -134,7 +134,7 @@ class VaultListViewModelTests: XCTestCase {
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 		try vaultListViewModel.refreshItems()
 
-		XCTAssertTrue(vaultListViewModel.getVaults().allSatisfy({ !$0.vaultIsUnlocked }))
+		XCTAssertTrue(vaultListViewModel.getVaults().allSatisfy({ !$0.vaultIsUnlocked.value }))
 
 		let vaultLockingMock = VaultLockingMock()
 		fileProviderConnectorMock.proxy = vaultLockingMock
@@ -147,7 +147,7 @@ class VaultListViewModelTests: XCTestCase {
 			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
 
 			XCTAssertEqual(1, vaultLockingMock.unlockedVaults.count)
-			let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked })
+			let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked.value })
 			XCTAssertEqual(1, unlockedVaults.count)
 			XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
 		}.catch { error in
@@ -241,6 +241,11 @@ class VaultLockingMock: VaultLocking {
 
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
 		lockedVaults.append(domainIdentifier)
+	}
+
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		lockedVaults.append(domainIdentifier)
+		reply(nil)
 	}
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {

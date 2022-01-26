@@ -36,6 +36,10 @@ protocol ItemMetadataManager {
 	 Returns the items that have the item as parent because of its cloud path. This also includes all subfolders including their items.
 	 */
 	func getAllCachedMetadata(inside parent: ItemMetadata) throws -> [ItemMetadata]
+	// Returns all items that have a `favoriteRank` or `tagData`.
+	func getAllCachedMetadataInsideWorkingSet() throws -> [ItemMetadata]
+	func setFavoriteRank(to favoriteRank: Int64?, forItemWithID id: Int64) throws
+	func setTagData(to tagData: Data?, forItemWithID id: Int64) throws
 }
 
 extension ItemMetadataManager {
@@ -60,6 +64,8 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		if let cachedMetadata = try getCachedMetadata(for: metadata.cloudPath) {
 			metadata.id = cachedMetadata.id
 			metadata.statusCode = cachedMetadata.statusCode
+			metadata.tagData = cachedMetadata.tagData
+			metadata.favoriteRank = cachedMetadata.favoriteRank
 			try updateMetadata(metadata)
 		} else {
 			try database.write { db in
@@ -81,6 +87,8 @@ class ItemMetadataDBManager: ItemMetadataManager {
 				if let cachedMetadata = try ItemMetadata.fetchOne(db, key: ["cloudPath": metadata.cloudPath]) {
 					metadata.id = cachedMetadata.id
 					metadata.statusCode = cachedMetadata.statusCode
+					metadata.tagData = cachedMetadata.tagData
+					metadata.favoriteRank = cachedMetadata.favoriteRank
 					try metadata.update(db)
 				} else {
 					try metadata.insert(db)
@@ -98,7 +106,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 
 	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata? {
 		let itemMetadata: ItemMetadata? = try database.read { db in
-			return try ItemMetadata.fetchOne(db, key: identifier)
+			return try getCachedMetadata(for: identifier, database: db)
 		}
 		return itemMetadata
 	}
@@ -171,5 +179,31 @@ class ItemMetadataDBManager: ItemMetadataManager {
 			}
 			return try request.fetchAll(db)
 		}
+	}
+
+	func getAllCachedMetadataInsideWorkingSet() throws -> [ItemMetadata] {
+		return try database.read { db in
+			try ItemMetadata.filter(ItemMetadata.Columns.tagData != nil || ItemMetadata.Columns.favoriteRank != nil).fetchAll(db)
+		}
+	}
+
+	func setFavoriteRank(to favoriteRank: Int64?, forItemWithID id: Int64) throws {
+		try database.write { db in
+			let cachedMetadata = try getCachedMetadata(for: id, database: db)
+			cachedMetadata?.favoriteRank = favoriteRank
+			try cachedMetadata?.update(db)
+		}
+	}
+
+	func setTagData(to tagData: Data?, forItemWithID id: Int64) throws {
+		try database.write { db in
+			let cachedMetadata = try getCachedMetadata(for: id, database: db)
+			cachedMetadata?.tagData = tagData
+			try cachedMetadata?.update(db)
+		}
+	}
+
+	private func getCachedMetadata(for id: Int64, database: Database) throws -> ItemMetadata? {
+		return try ItemMetadata.fetchOne(database, key: id)
 	}
 }

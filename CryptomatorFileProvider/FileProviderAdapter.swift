@@ -13,7 +13,25 @@ import FileProvider
 import Foundation
 import Promises
 
-public class FileProviderAdapter {
+public protocol FileProviderAdapterType: AnyObject {
+	var lastUnlockedDate: Date { get }
+	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier?
+	func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem
+	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList>
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func itemChanged(at url: URL)
+	func createDirectory(withName directoryName: String, inParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func stopProvidingItem(at url: URL)
+	func renameItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toName itemName: String, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func deleteItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (Error?) -> Void)
+	func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void))
+	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+}
+
+public class FileProviderAdapter: FileProviderAdapterType {
+	public let lastUnlockedDate: Date
 	private let uploadTaskManager: UploadTaskManager
 	private let cachedFileManager: CachedFileManager
 	private let itemMetadataManager: ItemMetadataManager
@@ -28,6 +46,7 @@ public class FileProviderAdapter {
 	private let fullVersionChecker: FullVersionChecker
 
 	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+		self.lastUnlockedDate = Date()
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -96,7 +115,7 @@ public class FileProviderAdapter {
 	public func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList> {
 		// TODO: Check for internet connection here
 		if identifier == .workingSet {
-			return Promise(FileProviderItemList(items: [], nextPageToken: nil))
+			return enumerateWorkingSet()
 		}
 		let enumerationTask: ItemEnumerationTask
 		do {
@@ -111,6 +130,25 @@ public class FileProviderAdapter {
 		}
 		let workflow = WorkflowFactory.createWorkflow(for: enumerationTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager, uploadTaskManager: uploadTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager)
 		return scheduler.schedule(workflow)
+	}
+
+	private func enumerateWorkingSet() -> Promise<FileProviderItemList> {
+		let items: [FileProviderItem]
+		do {
+			var metadataList: [ItemMetadata]
+			let uploadTasks: [UploadTaskRecord?]
+			metadataList = try itemMetadataManager.getAllCachedMetadataInsideWorkingSet()
+			uploadTasks = try uploadTaskManager.getTaskRecords(for: metadataList)
+			items = try metadataList.enumerated().map { index, metadata -> FileProviderItem in
+				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
+				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
+				let localURL = localCachedFileInfo?.localURL
+				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+			}
+		} catch {
+			return Promise(error)
+		}
+		return Promise(FileProviderItemList(items: items, nextPageToken: nil))
 	}
 
 	// MARK: UploadFile
@@ -264,6 +302,7 @@ public class FileProviderAdapter {
 		do {
 			placeholderItem = try createPlaceholderItemForFolder(withName: directoryName, in: parentItemIdentifier)
 		} catch {
+			DDLogError("Create directory: createPlaceholderItemForFolder failed with error: \(error) ")
 			return completionHandler(nil, error)
 		}
 		completionHandler(placeholderItem, nil)
@@ -344,6 +383,7 @@ public class FileProviderAdapter {
 		}
 		let name: String
 		if let newName = newName {
+			try validateItemName(newName)
 			name = newName
 		} else {
 			name = itemMetadata.name
@@ -363,6 +403,14 @@ public class FileProviderAdapter {
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let item = FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
+	}
+
+	func validateItemName(_ name: String) throws {
+		do {
+			try ItemNameValidator.validateName(name)
+		} catch let error as ItemNameValidatorError {
+			throw CocoaError(.fileWriteInvalidFileName, userInfo: [NSLocalizedDescriptionKey: error.localizedDescription, NSLocalizedFailureReasonErrorKey: ""])
+		}
 	}
 
 	// MARK: Delete Item
@@ -423,7 +471,7 @@ public class FileProviderAdapter {
 	 */
 	public func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void)) {
 		startProvidingItem(at: url).then {
-			try FileManager.default.setAttributes([.immutable: !self.fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
+			try self.postProcessStartProvidingItem(at: url)
 		}.then {
 			completionHandler(nil)
 		}.catch { error in
@@ -452,6 +500,7 @@ public class FileProviderAdapter {
 		let hasVersioningConflict: Bool
 		do {
 			hasVersioningConflict = try hasPossibleVersioningConflictForItem(withIdentifier: identifier)
+			try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
 		} catch {
 			return Promise(error)
 		}
@@ -559,6 +608,25 @@ public class FileProviderAdapter {
 		}
 	}
 
+	/**
+	 Post-processing `startProvidingitem(at:)` calls.
+
+	 The file located at `url` is immutable unless the full version of Cryptomator has been unlocked. Otherwise, it would still be possible to edit the file locally with a third-party app.
+
+	 The `NSFileProviderItemIdentifier` associated with the URL, gets registered for removal from the working set, which is necessary because the Files app adds it to the working set when calling `startProvidingitem(at:)`.
+	 `NSFileProviderItemIdentifier` associated with an item, which should be in the working set (marked as favorite or has associated tag data), are excluded from the removal.
+	 */
+	func postProcessStartProvidingItem(at url: URL) throws {
+		try FileManager.default.setAttributes([.immutable: !fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
+		guard let identifier = persistentIdentifierForItem(at: url) else {
+			throw NSFileProviderError(.noSuchItem)
+		}
+		let metadata = try getCachedMetadata(for: identifier)
+		if metadata.favoriteRank == nil, metadata.tagData == nil {
+			notificator?.removeItemFromWorkingSet(with: identifier)
+		}
+	}
+
 	// MARK: Stop Providing Item
 
 	public func stopProvidingItem(at url: URL) {
@@ -638,7 +706,52 @@ public class FileProviderAdapter {
 		}
 	}
 
+	// MARK: Favorite Rank
+
+	public func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		let fileProviderItem: NSFileProviderItem
+		do {
+			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
+			try itemMetadataManager.setFavoriteRank(to: favoriteRank?.int64Value, forItemWithID: id)
+			fileProviderItem = try item(for: itemIdentifier)
+		} catch {
+			completionHandler(nil, error)
+			return
+		}
+		completionHandler(fileProviderItem, nil)
+	}
+
+	// MARK: Tag Data
+
+	public func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
+		let fileProviderItem: NSFileProviderItem
+		do {
+			let id = try convertFileProviderItemIdentifierToInt64(itemIdentifier)
+
+			try itemMetadataManager.setTagData(to: cleanTagData(tagData), forItemWithID: id)
+			fileProviderItem = try item(for: itemIdentifier)
+		} catch {
+			completionHandler(nil, error)
+			return
+		}
+		completionHandler(fileProviderItem, nil)
+	}
+
 	// MARK: Internal
+
+	/**
+	 Clean the tagData.
+
+	 Helper function for `setTagData(_: forItemIdentifier:, completionHandler:)`.
+	 Sets `tagData` to nil as according to the documentation the Files app should pass`nil` as tagData argument for `setTagData(_: forItemIdentifier:, completionHandler:)` if the tag gets removed, but actually passes empty data.
+	 */
+	func cleanTagData(_ tagData: Data?) -> Data? {
+		var maybeTagData = tagData
+		if let tagData = tagData, tagData.isEmpty {
+			maybeTagData = nil
+		}
+		return maybeTagData
+	}
 
 	func getCachedMetadata(for identifier: NSFileProviderItemIdentifier) throws -> ItemMetadata {
 		let id = try convertFileProviderItemIdentifierToInt64(identifier)

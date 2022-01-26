@@ -28,11 +28,10 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 	}
 
 	var lockButtonIsHidden: AnyPublisher<Bool, Never> {
-		return lockButtonIsHiddenPublisher.eraseToAnyPublisher()
+		return vault.vaultIsUnlocked.$value.map { !$0 }.eraseToAnyPublisher()
 	}
 
 	let vault: VaultInfo
-	private lazy var lockButtonIsHiddenPublisher = CurrentValueSubject<Bool, Never>(!vault.vaultIsUnlocked)
 	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
 	private let fileProviderConnector: FileProviderConnector
 
@@ -54,12 +53,11 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 	}
 
 	func setVaultUnlockStatus(unlocked: Bool) {
-		vault.vaultIsUnlocked = unlocked
-		lockButtonIsHiddenPublisher.send(!unlocked)
+		vault.vaultIsUnlocked.value = unlocked
 	}
 
 	override func hash(into hasher: inout Hasher) {
-		hasher.combine(vault)
+		hasher.combine(vault.vaultUID)
 	}
 
 	static func == (lhs: VaultCellViewModel, rhs: VaultCellViewModel) -> Bool {

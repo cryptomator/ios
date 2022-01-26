@@ -97,7 +97,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		return getProxyPromise.then { proxy in
 			proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.then {
-			vaultInfo.vaultIsUnlocked = false
+			vaultInfo.vaultIsUnlocked.value = false
 		}
 	}
 

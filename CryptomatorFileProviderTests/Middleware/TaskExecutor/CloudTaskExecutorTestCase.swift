@@ -45,11 +45,16 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		var cachedMetadata = [Int64: ItemMetadata]()
 		var removedMetadataID = [Int64]()
 		var updatedMetadata = [ItemMetadata]()
+		var workingSetMetadata = [ItemMetadata]()
+		var setTagData = [Int64: Data?]()
+		var setFavoriteRank = [Int64: Int64?]()
 
 		func cacheMetadata(_ metadata: ItemMetadata) throws {
 			if let cachedItemMetadata = try getCachedMetadata(for: metadata.cloudPath) {
 				metadata.id = cachedItemMetadata.id
 				metadata.statusCode = cachedItemMetadata.statusCode
+				metadata.tagData = cachedItemMetadata.tagData
+				metadata.favoriteRank = cachedItemMetadata.favoriteRank
 				cachedMetadata[cachedItemMetadata.id!] = metadata
 				return
 			}
@@ -138,6 +143,24 @@ class CloudTaskExecutorTestCase: XCTestCase {
 				}
 			}
 			return result
+		}
+
+		func getAllCachedMetadataInsideWorkingSet() throws -> [ItemMetadata] {
+			return workingSetMetadata
+		}
+
+		func setTagData(to tagData: Data?, forItemWithID id: Int64) throws {
+			let metadata = cachedMetadata[id]
+			metadata?.tagData = tagData
+			cachedMetadata[id] = metadata
+			setTagData[id] = tagData
+		}
+
+		func setFavoriteRank(to favoriteRank: Int64?, forItemWithID id: Int64) throws {
+			let metadata = cachedMetadata[id]
+			metadata?.favoriteRank = favoriteRank
+			cachedMetadata[id] = metadata
+			setFavoriteRank[id] = favoriteRank
 		}
 	}
 

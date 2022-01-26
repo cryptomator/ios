@@ -16,3 +16,15 @@ class Bindable<Value> {
 		self.value = value
 	}
 }
+
+extension Bindable: Equatable where Value: Equatable {
+	static func == (lhs: Bindable<Value>, rhs: Bindable<Value>) -> Bool {
+		return lhs.value == rhs.value
+	}
+}
+
+extension Bindable: Hashable where Value: Hashable {
+	func hash(into hasher: inout Hasher) {
+		hasher.combine(value)
+	}
+}

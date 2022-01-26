@@ -5,12 +5,13 @@
 //  Created by Philipp Schmid on 10.07.21.
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
-import CryptomatorCryptoLib
+
 import Foundation
 import GRDB
 import XCTest
 @testable import CryptomatorCloudAccessCore
 @testable import CryptomatorCommonCore
+@testable import CryptomatorCryptoLib
 
 class VaultDBCacheTests: XCTestCase {
 	private var vaultCache: VaultDBCache!

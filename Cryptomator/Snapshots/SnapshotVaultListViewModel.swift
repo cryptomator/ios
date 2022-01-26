@@ -62,7 +62,7 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 			let vaultListPosition = VaultListPosition(id: nil, position: index, vaultUID: vaultAccount.vaultUID)
 			let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
 			if index == 0 {
-				vaultInfo.vaultIsUnlocked = true
+				vaultInfo.vaultIsUnlocked.value = true
 			}
 			return vaultInfo
 		}

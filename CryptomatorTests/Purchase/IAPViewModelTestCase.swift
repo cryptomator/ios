@@ -17,11 +17,15 @@ class IAPViewModelTestCase<SectionType: Hashable, ButtonAction: Hashable>: XCTes
 
 	override func setUpWithError() throws {
 		session = try SKTestSession(configurationFileNamed: "Configuration")
+		session.resetToDefaultState()
+		session.disableDialogs = true
+		session.clearTransactions()
 		iapManagerMock = IAPManagerMock()
 	}
 
 	override func tearDown() {
 		session.resetToDefaultState()
+		session.clearTransactions()
 	}
 
 	func assertCalledBuyProduct(with identifier: ProductIdentifier) {

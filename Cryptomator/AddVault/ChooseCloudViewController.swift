@@ -44,6 +44,10 @@ class ChooseCloudViewController: BaseUITableViewController {
 		return cell
 	}
 
+	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+		return viewModel.headerTitle
+	}
+
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -16,12 +16,18 @@ class BaseHeaderFooterView: UITableViewHeaderFooterView, HeaderFooterViewModelCo
 
 	func configure(with viewModel: HeaderFooterViewModel) {
 		textLabel?.numberOfLines = 0
-		subscriber = viewModel.title.$value.sink(receiveValue: { [weak self] text in
-			UIView.setAnimationsEnabled(false)
-			self?.tableView?.performBatchUpdates({
-				self?.textLabel?.text = text
-			})
-			UIView.setAnimationsEnabled(true)
+		textLabel?.text = viewModel.title.value
+		subscriber = viewModel.title.$value.receive(on: DispatchQueue.main).sink(receiveValue: { [weak self] text in
+			self?.textLabel?.text = text
+			self?.setNeedsLayout()
+			guard self?.tableView?.window != nil else {
+				return
+			}
+			UIView.performWithoutAnimation {
+				self?.tableView?.performBatchUpdates({
+					// performBatchUpdates call is needed to actually trigger an tableView (layout) update
+				})
+			}
 		})
 	}
 }

@@ -10,6 +10,7 @@
 import CryptomatorCommonCore
 import FileProvider
 import Foundation
+import LocalAuthentication
 import Promises
 import UIKit
 
@@ -20,17 +21,22 @@ class SnapshotCoordinator: MainCoordinator {
 		swizzleViewController()
 		resetOnboarding()
 		unlockFullVersion()
+		super.start()
+		guard navigationController.topViewController is VaultListViewController else {
+			fatalError("NavigationController has different topViewController: \(String(describing: navigationController.topViewController))")
+		}
 		let vaultListViewController = VaultListViewController(with: SnapshotCoordinator.vaultListViewModel)
 		vaultListViewController.coordinator = self
-		navigationController.pushViewController(vaultListViewController, animated: false)
+		navigationController.viewControllers = [vaultListViewController]
 	}
 
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
 		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared)
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: SnapshotVaultKeepUnlockedSettings())
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
-		navigationController.pushViewController(vaultDetailViewController, animated: true)
+		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
+		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
 	}
 
 	static func startShowingMockVaults() {
@@ -48,7 +54,6 @@ class SnapshotCoordinator: MainCoordinator {
 	private func swizzleViewController() {
 		BaseUITableViewController.setSnapshotAccessibilityIdentifier
 		OnboardingViewController.skipPurchaseViewController
-		OnboardingNavigationController.informAboutDisappear
 	}
 }
 
@@ -71,6 +76,10 @@ private class SnapshotFileProviderConnectorMock: FileProviderConnector {
 }
 
 private class SnapshotVaultLockingMock: VaultLocking {
+	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+		reply(nil)
+	}
+
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {}
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
@@ -86,6 +95,36 @@ private class SnapshotVaultLockingMock: VaultLocking {
 	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
 		fatalError()
 	}
+}
+
+class SnapshotVaultPasswordManagerMock: VaultPasswordManager {
+	func setPassword(_ password: String, forVaultUID vaultUID: String) throws {}
+
+	func getPassword(forVaultUID vaultUID: String, context: LAContext) throws -> String {
+		return ""
+	}
+
+	func removePassword(forVaultUID vaultUID: String) throws {}
+
+	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
+		return true
+	}
+}
+
+private class SnapshotVaultKeepUnlockedSettings: VaultKeepUnlockedSettings {
+	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration {
+		return .tenMinutes
+	}
+
+	func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws {}
+
+	func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws {}
+
+	func getLastUsedDate(forVaultUID vaultUID: String) -> Date? {
+		return nil
+	}
+
+	func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws {}
 }
 
 extension BaseUITableViewController {
@@ -111,21 +150,8 @@ extension OnboardingViewController {
 	}()
 
 	@objc func swizzled_tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		dismiss(animated: false)
-	}
-}
-
-extension OnboardingNavigationController {
-	static let informAboutDisappear: Void = {
-		guard let originalMethod = class_getInstanceMethod(OnboardingNavigationController.self, #selector(viewWillDisappear(_:))),
-		      let swizzledMethod = class_getInstanceMethod(OnboardingNavigationController.self, #selector(swizzled_viewWillDisappear(_:)))
-		else { return }
-		method_exchangeImplementations(originalMethod, swizzledMethod)
-	}()
-
-	@objc func swizzled_viewWillDisappear(_ animated: Bool) {
-		swizzled_viewWillDisappear(animated)
 		SnapshotCoordinator.startShowingMockVaults()
+		dismiss(animated: false)
 	}
 }
 #endif

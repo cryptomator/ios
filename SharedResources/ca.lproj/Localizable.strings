@@ -14,6 +14,7 @@
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crea una carpeta";
 "common.button.done" = "Fet";
+"common.button.download" = "Descarrega";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Activar";
 "common.button.next" = "Següent";
@@ -29,14 +30,17 @@
 
 "accountList.header.title" = "Autenticacions";
 "accountList.emptyList.message" = "Feu clic ací per a afegir un compte";
+"accountList.signOut.alert.title" = "Eliminar les caixes fortes associades?";
 
 "addVault.title" = "Afegir una caixa forta";
 "addVault.createNewVault.title" = "Crea una caixa forta nova";
+"addVault.createNewVault.purchase" = "Crear una nova caixa forta requereix la versió completa de Cryptomator. Considereu desblocar la versió completa per a tenir accés d'escriptura a les vostres caixes fortes.";
 "addVault.createNewVault.setVaultName.header.title" = "Trieu el nom de la caixa forta.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom de la caixa forta";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "El nom de la caixa forta no hauria de contenir \\ / : * ? \" < > | ni acabar amb un punt.";
 "addVault.createNewVault.chooseCloud.header" = "On deu emmagatzemar Cryptomator els fitxers xifrats de la vostra caixa forta?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ja existeix en aquest lloc. Trieu un nom o una localització diferent.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator ha detectat una caixa forta en aquesta localització.\nPer tal de crear una nova caixa forta, si us plau, aneu enrere i trieu una altra carpeta.";
 "addVault.createNewVault.password.enterPassword.header" = "Introduïu una nova contrasenya.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirma la nova contrasenya.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmeu la contrasenya?";
@@ -44,20 +48,35 @@
 "addVault.createNewVault.password.error.emptyPassword" = "La contrasenya no es pot deixar en blanc.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Les contrasenyes no coincideixen.";
 "addVault.createNewVault.password.error.tooShortPassword" = "La contrasenya ha de tenir, si més no, 8 caràcters.";
+"addVault.createNewVault.progress" = "Es crea la caixa forta…";
 "addVault.openExistingVault.title" = "Obri una caixa forta existent";
+"addVault.openExistingVault.chooseCloud.header" = "On es troba la caixa forta?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha detectat la caixa forta \"%@\".\nVoleu afegir aquesta caixa forta?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
+"addVault.openExistingVault.progress" = "Ara s'afegeix la caixa forta…";
+"addVault.success.info" = "S'ha afegit la caixa forta \"%@\".\nAccediu a la caixa forta via l'app de fitxers.";
+"addVault.success.footer" = "Si no ho heu fet ja, habiliteu Cryptomator en l'app de fitxers.";
 
 "biometryType.faceID" = "ID de cara";
 "biometryType.touchID" = "ID tàctil";
+
+"changePassword.error.invalidOldPassword" = "La contrasenya actual és errònia. Per favor, torneu a intentar-ho.";
+"changePassword.header.currentPassword.title" = "Introduïu la contrasenya actual.";
 "changePassword.header.newPassword.title" = "Introduïu una nova contrasenya.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirma la nova contrasenya.";
+"changePassword.progress" = "Ara es canvia la contrasenya…";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta és buida";
 "chooseFolder.createNewFolder.header.title" = "Trieu el nom de la carpeta.";
 "chooseFolder.createNewFolder.cells.name" = "Nom de la carpeta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "No es pot deixar buit el nom de la carpeta.";
+"chooseFolder.createNewFolder.progress" = "Ara es crea la carpeta…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" no s'ha pogut trobat.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" ja existeix.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" té un tipus d'element inesperat.";
+"cloudProvider.error.parentFolderDoesNotExist" = "La carpeta mare \"%@\" no existeix.";
 "cloudProvider.error.quotaInsufficient" = "No hi ha prou espai d'emmagatzematge.";
 "cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
 
@@ -66,29 +85,65 @@
 "fileProvider.onboarding.title" = "Us donem la benvinguda";
 "fileProvider.onboarding.button.openCryptomator" = "Obre Cryptomator";
 "localFileSystemAuthentication.createNewVault.button" = "Tria la localització de l'emmagatzematge";
+"localFileSystemAuthentication.openExistingVault.button" = "Selecciona la carpeta de la caixa forta";
 
 "onboarding.title" = "Us donem la benvinguda";
+"onboarding.button.continue" = "Continua";
+
+"purchase.title" = "Desbloca la versió completa";
 "purchase.retry.button" = "Reintenta";
+"purchase.unlockedFullVersion.message" = "Ja podeu fer servir la versió completa de Cryptomator. Feliç encriptació!";
+"purchase.unlockedFullVersion.title" = "Gràcies";
 
 "settings.title" = "Configuració";
 "settings.aboutCryptomator" = "Quant a Cryptomator";
 "settings.aboutCryptomator.title" = "Versió %@ (%@)";
+"settings.cacheSize" = "Mida de la memòria cau";
 "settings.clearCache" = "Esborra la memòria cau";
+"settings.cloudServices" = "Serveis al núvol";
+"settings.contact" = "Contacte";
+"settings.debugMode" = "Mode de depuració";
 "settings.debugMode.alert.message" = "En aquest mode, informació sensible pot ser escrita en un arxiu de registre al teu dispositiu (per exemple, noms d'arxius i rutes). Contrasenyes, galetes, etc. són explícitament excloses.\n\nRecorda desactivar el mode de depuració tan aviat com sigui possible.";
+"settings.rateApp" = "Valora l'aplicació";
+"settings.sendLogFile" = "Envia el fitxer de registre";
+"settings.unlockFullVersion" = "Desbloca la versió completa";
 
 "unlockVault.button.unlock" = "Desbloqueja";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
 
+"untrustedTLSCertificate.title" = "Certificat TSL no vàlid";
+"untrustedTLSCertificate.add" = "Confia-hi";
+"untrustedTLSCertificate.dismiss" = "No hi confiïs";
+
+"upgrade.title" = "Actualitza de la versió 1.x";
+"upgrade.freeUpgrade.button" = "Actualitza de franc";
+"upgrade.freeUpgrade.footer" = "Cap problema, podeu actualitzar a la versió completa de franc sense cap limitació.";
+"upgrade.decideLater.footer" = "Podeu actualitzar a la versió de Cryptomator més endavant en la configuració i usar-la en mode de lectura per ara.";
+"upgrade.notEligible.alert.title" = "Ha fallat l'actualització";
+"upgrade.notEligible.alert.message" = "Cryptomator no ha pogut trobar una versió antiga en el dispositiu. Si la vau comprar, si us plau torneu-la a descarregar de la botiga d'aplicacions i torneu a intentar-ho.";
+
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
+"urlSession.error.httpError.412" = "Accés denegat al recurs sol·licitat.";
+"urlSession.error.httpError.default" = "La connexió ha fallat amb codi d'estat %ld.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Ja heu afegit aquesta caixa forta.";
+
 "vaultDetail.button.changeVaultPassword" = "Canvia la contrasenya";
+"vaultDetail.button.lock" = "Bloca ara";
 "vaultDetail.button.moveVault" = "Mou";
+"vaultDetail.button.removeVault" = "Elimina de la llista de caixes fortes";
 "vaultDetail.button.renameVault" = "Canvia el nom";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
+"vaultDetail.locked.footer" = "La vostra caixa està blocada actualment.";
 
-"webDAVAuthentication.title" = "WebDAV";
+"vaultList.header.title" = "Caixes fortes";
+"vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";
+"vaultList.remove.alert.title" = "Elimina la caixa forta?";
+"vaultList.remove.alert.message" = "Això només eliminarà la caixa forta de la llista. No se suprimiran dades encriptades. Podreu re-afegir la caixa més endavant.";
 
+"webDAVAuthentication.progress" = "S'està autenticant…";
 "webDAVAuthentication.httpConnection.alert.title" = "Utilizar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Manté HTTP";

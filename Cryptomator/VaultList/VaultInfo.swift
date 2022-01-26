@@ -15,7 +15,7 @@ public class VaultInfo: Decodable, FetchableRecord {
 	var vaultAccount: VaultAccount
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var vaultListPosition: VaultListPosition
-	var vaultIsUnlocked = false
+	let vaultIsUnlocked = Bindable(false)
 
 	enum CodingKeys: String, CodingKey {
 		case vaultAccount

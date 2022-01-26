@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "त्रुटि";
+"common.alert.attention.title" = "ध्यान दें";
 "common.button.cancel" = "रद्द करें";
 "common.button.change" = "बदलें";
 "common.button.choose" = "चुनें";
@@ -13,6 +14,7 @@
 "common.button.create" = "बनाएं";
 "common.button.createFolder" = "फोल्डर बनाएं";
 "common.button.done" = "हो गया";
+"common.button.download" = "डाउनलोड करें";
 "common.button.edit" = "संपादित करें";
 "common.button.enable" = "सक्षम करें";
 "common.button.next" = "अगला";
@@ -36,7 +38,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "कक्ष का नाम चुने।";
 "addVault.createNewVault.setVaultName.cells.name" = "वॉल्ट का नाम";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "कक्ष का नाम रिक्त नहीं हो सकता।";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "कक्ष के नाम में \\ / : * ? \" < > | नहीं हो सकता और नाम . से अंत नहीं हो सकता।";
 "addVault.createNewVault.chooseCloud.header" = "आपके कक्ष के कूट किए हुए दस्तावेज़ों को क्रिप्टोमेटर कहाँ संग्रह करें?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" इस जगह पहले से ही मौजूद है। या तो कक्ष का नाम नहीं तो जगह बदलें।";
 "addVault.createNewVault.detectedMasterkey.text" = "क्रिप्टोमेटर में, इस जगह एक कक्ष पहले से ही मौजूद है।\n अगर एक नया कक्ष बनाना चाहते हैं तो जगह या फ़ोल्डर बदलें।";
@@ -87,7 +88,10 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "चयन किया फ़ोल्डर आपके कक्ष में उपलब्ध नहीं है। कृपया दूसरे फ़ोल्डर का चयन कीजिए।";
 
 "onboarding.title" = "स्वागत है";
+"onboarding.button.continue" = "जारी रखें";
 "purchase.retry.button" = "पुन: प्रयास करें";
+"purchase.decideLater.button" = "बाद में तय करें";
+"purchase.unlockedFullVersion.title" = "धन्यवाद";
 
 "settings.title" = "समायोजन";
 "settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
@@ -117,6 +121,7 @@
 
 "vaultDetail.button.changeVaultPassword" = "पासवर्ड बदलें";
 "vaultDetail.button.lock" = "अभी ताला लगाएँ";
+"vaultDetail.button.moveVault" = "मूव करें";
 "vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
 "vaultDetail.button.renameVault" = "नाम संपादन";
 "vaultDetail.info.footer.accessVault" = "\"फ़ाइल ऐप\" द्वारा प्रवेश करें।";
@@ -129,5 +134,3 @@
 "vaultList.header.title" = "कक्षों का नाम";
 "vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";
 "vaultList.remove.alert.title" = "कक्ष हटाना चाहेंगे?";
-
-"webDAVAuthentication.title" = "WebDAV";

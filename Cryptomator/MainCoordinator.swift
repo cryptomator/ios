@@ -11,17 +11,25 @@ import Promises
 import UIKit
 
 class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
-	var navigationController: UINavigationController
+	var navigationController: UINavigationController = BaseNavigationController()
 	var childCoordinators = [Coordinator]()
+	lazy var rootViewController: UISplitViewController = {
+		let splitViewController = UISplitViewController()
+		splitViewController.preferredDisplayMode = .oneBesideSecondary
+		splitViewController.delegate = self
+		return splitViewController
+	}()
 
-	init(navigationController: UINavigationController) {
-		self.navigationController = navigationController
-	}
+	private weak var lastVaultInfo: VaultInfo?
 
 	func start() {
 		let vaultListViewController = VaultListViewController(with: VaultListViewModel())
 		vaultListViewController.coordinator = self
-		navigationController.pushViewController(vaultListViewController, animated: false)
+		navigationController.viewControllers = [vaultListViewController]
+		rootViewController.viewControllers = [
+			navigationController,
+			EmptyDetailViewController()
+		]
 	}
 
 	func showOnboarding() {
@@ -60,9 +68,13 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 	}
 
 	func showVaultDetail(for vaultInfo: VaultInfo) {
-		let child = VaultDetailCoordinator(vaultInfo: vaultInfo, navigationController: navigationController)
+		lastVaultInfo = vaultInfo
+		let detailNavigationController = BaseNavigationController()
+		let child = VaultDetailCoordinator(vaultInfo: vaultInfo, navigationController: detailNavigationController)
 		childCoordinators.append(child)
 		child.start()
+		child.removedVaultDelegate = self
+		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
 	}
 
 	// MARK: - UINavigationControllerDelegate
@@ -77,6 +89,23 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		if navigationController.viewControllers.contains(fromViewController) {
 			return
 		}
+	}
+
+	// MARK: - Internal
+
+	private func hideVaultDetail() {
+		rootViewController.showDetailViewController(EmptyDetailViewController(), sender: nil)
+	}
+}
+
+extension MainCoordinator: RemoveVaultDelegate {
+	func removedVault(_ vault: VaultInfo) {
+		if !rootViewController.isCollapsed, vault == lastVaultInfo {
+			hideVaultDetail()
+		} else if let navigationController = rootViewController.viewControllers.first as? UINavigationController {
+			navigationController.popToRootViewController(animated: true)
+		}
+		lastVaultInfo = nil
 	}
 }
 
@@ -117,5 +146,42 @@ extension MainCoordinator: StoreObserverDelegate {
 			}
 			return
 		}
+	}
+}
+
+extension MainCoordinator: UISplitViewControllerDelegate {
+	func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+		return true
+	}
+}
+
+private class CryptoBotViewController: UIViewController {
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		view.backgroundColor = UIColor(named: "background")
+		let imageView = UIImageView(image: UIImage(named: "bot"))
+		imageView.contentMode = .scaleAspectFit
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(imageView)
+
+		NSLayoutConstraint.activate([
+			imageView.centerXAnchor.constraint(equalTo: view.layoutMarginsGuide.centerXAnchor),
+			imageView.centerYAnchor.constraint(equalTo: view.layoutMarginsGuide.centerYAnchor),
+			imageView.topAnchor.constraint(greaterThanOrEqualTo: view.layoutMarginsGuide.topAnchor),
+			imageView.bottomAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor),
+			imageView.leadingAnchor.constraint(greaterThanOrEqualTo: view.readableContentGuide.leadingAnchor),
+			imageView.trailingAnchor.constraint(lessThanOrEqualTo: view.readableContentGuide.trailingAnchor)
+		])
+	}
+}
+
+private class EmptyDetailViewController: BaseNavigationController {
+	init() {
+		super.init(rootViewController: CryptoBotViewController())
+	}
+
+	@available(*, unavailable)
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 }

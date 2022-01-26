@@ -18,6 +18,7 @@ class VaultDetailCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 
 	var navigationController: UINavigationController
+	weak var removedVaultDelegate: RemoveVaultDelegate?
 	private let vaultInfo: VaultInfo
 
 	init(vaultInfo: VaultInfo, navigationController: UINavigationController) {
@@ -41,6 +42,13 @@ class VaultDetailCoordinator: Coordinator {
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
 		return pendingAuthentication
+	}
+
+	func showKeepUnlockedSettings(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>) {
+		let viewModel = VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration, vaultInfo: vaultInfo)
+		let keepUnlockedViewController = VaultKeepUnlockedViewController(viewModel: viewModel)
+		keepUnlockedViewController.coordinator = self
+		navigationController.pushViewController(keepUnlockedViewController, animated: true)
 	}
 
 	func renameVault() {
@@ -69,6 +77,10 @@ class VaultDetailCoordinator: Coordinator {
 		child.parentCoordinator = self
 		childCoordinators.append(child)
 		child.start()
+	}
+
+	func removedVault() {
+		removedVaultDelegate?.removedVault(vaultInfo)
 	}
 
 	func changeVaultPassword() {
@@ -121,4 +133,8 @@ extension VaultDetailCoordinator: VaultPasswordChanging {
 		}
 		navigationController.popViewController(animated: true)
 	}
+}
+
+protocol RemoveVaultDelegate: AnyObject {
+	func removedVault(_ vault: VaultInfo)
 }

@@ -22,6 +22,8 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 	var dataSource: EditableDataSource<Section, T>?
 	private let viewModel: ListViewModel
 	private lazy var emptyListMessage = EmptyListMessage(message: viewModel.emptyListMessage)
+	private var firstTimeLoading = true
+	private var lastSelectedCellViewModel: T?
 
 	init(viewModel: ListViewModel) {
 		self.viewModel = viewModel
@@ -60,23 +62,22 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 		snapshot.appendItems(cells.compactMap({ $0 as? T }))
 		dataSource?.apply(snapshot, animatingDifferences: false) { [weak self] in
 			if snapshot.numberOfItems == 0 {
-				self?.header.isHidden = true
-				self?.tableView.backgroundView = self?.emptyListMessage
-				// Prevents `EmptyListMessage` from being placed under the navigation bar
-				self?.tableView.contentInsetAdjustmentBehavior = .never
-				self?.tableView.separatorStyle = .none
+				self?.hideHeaderAndShowEmptyListMessage()
 			} else {
 				self?.header.isHidden = false
 				self?.tableView.backgroundView = nil
 				self?.tableView.separatorStyle = .singleLine
 				self?.tableView.contentInsetAdjustmentBehavior = .automatic
+				self?.restoreSelection()
 			}
+			self?.firstTimeLoading = false
 		}
 	}
 
 	override func setEditing(_ editing: Bool, animated: Bool) {
 		super.setEditing(editing, animated: animated)
 		header.isEditing = editing
+		restoreSelection()
 	}
 
 	@objc func editButtonToggled() {
@@ -126,6 +127,10 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 		return configuration
 	}
 
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		lastSelectedCellViewModel = dataSource?.itemIdentifier(for: indexPath)
+	}
+
 	// MARK: - Internal
 
 	func removeRow(at indexPath: IndexPath) throws {
@@ -164,6 +169,33 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 			}), completion: handler)
 		}.then { _ in
 			// no-op
+		}
+	}
+
+	func hideHeaderAndShowEmptyListMessage() {
+		hideHeaderAndShowEmptyListMessage(animated: !firstTimeLoading)
+	}
+
+	func hideHeaderAndShowEmptyListMessage(animated: Bool) {
+		if animated {
+			hideHeaderAnimated().then(showEmptyListMessageAnimated)
+		} else {
+			header.isHidden = true
+			tableView.backgroundView = emptyListMessage
+			// Prevents `EmptyListMessage` from being placed under the navigation bar
+			tableView.contentInsetAdjustmentBehavior = .never
+			tableView.separatorStyle = .none
+		}
+	}
+
+	private func restoreSelection() {
+		guard let splitViewController = splitViewController, !splitViewController.isCollapsed else {
+			return
+		}
+		let snapshot = dataSource?.snapshot()
+		let maybeLastSelectedCellViewModel = snapshot?.itemIdentifiers.first(where: { $0.hashValue == lastSelectedCellViewModel?.hashValue })
+		if let lastSelectedCellViewModel = maybeLastSelectedCellViewModel, let lastSelectedIndexPath = dataSource?.indexPath(for: lastSelectedCellViewModel) {
+			tableView.selectRow(at: lastSelectedIndexPath, animated: true, scrollPosition: .none)
 		}
 	}
 }

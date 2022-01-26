@@ -14,13 +14,9 @@ import FileProvider
 import MSAL
 
 class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
-	var fileManager = FileManager()
-	let fileCoordinator = NSFileCoordinator()
-	var adapter: FileProviderAdapter?
 	var observation: NSKeyValueObservation?
-	var manager: NSFileProviderManager?
 	var dbPath: URL?
-	var notificator: FileProviderNotificator?
+	var notificator: FileProviderNotificatorType?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
 	override init() {
@@ -54,10 +50,10 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		self.observation = observe(
 			\.domain,
 			options: [.old, .new]
-		) { _, change in
-			DDLogInfo("domain changed from: \(change.oldValue) to: \(change.newValue)")
+		) { [weak self] _, change in
+			DDLogInfo("domain changed from: \(String(describing: change.oldValue)) to: \(String(describing: change.newValue))")
 			do {
-				try self.setUp()
+				try self?.setUp()
 			} catch {
 				DDLogError("setUp decorator from kvo failed: \(error)")
 			}
@@ -65,8 +61,9 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	deinit {
+		DDLogDebug("Deinit called for \(String(describing: domain))")
+		notificator?.refreshWorkingSet()
 		observation?.invalidate()
-		fileCoordinator.cancel()
 	}
 
 	/**
@@ -159,7 +156,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		 */
 		// TODO: Register DownloadTask
 		DDLogDebug("FPExt: startProvidingItem(at: \(url)) called")
-		let adapter: FileProviderAdapter
+		let adapter: FileProviderAdapterType
 		do {
 			adapter = try getAdapterWithWrappedError()
 		} catch {
@@ -232,12 +229,12 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#else
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
-		guard let manager = manager, let domain = domain, let dbPath = dbPath, let notificator = notificator else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			// no domain ==> no installed vault
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, manager: manager, dbPath: dbPath, localURLProvider: self)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: self)
 		#endif
 	}
 
@@ -246,11 +243,11 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			guard let manager = NSFileProviderManager(for: domain) else {
 				throw FileProviderDecoratorSetupError.fileProviderManagerIsNil
 			}
-			self.manager = manager
 			let dbPath = manager.documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true).appendingPathComponent("db.sqlite")
 			self.dbPath = dbPath
-			let notificator = FileProviderNotificator(manager: manager)
+			let notificator = try FileProviderNotificatorManager.shared.getFileProviderNotificator(for: domain)
 			self.notificator = notificator
+			notificator.refreshWorkingSet()
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil
@@ -292,7 +289,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
-	private func getFailableAdapter() -> FileProviderAdapter? {
+	private func getFailableAdapter() -> FileProviderAdapterType? {
 		do {
 			return try getAdapter()
 		} catch {
@@ -300,17 +297,14 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		}
 	}
 
-	private func getAdapter() throws -> FileProviderAdapter {
-		if let cachedAdapter = adapter {
-			return cachedAdapter
-		}
+	private func getAdapter() throws -> FileProviderAdapterType {
 		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
-		return try FileProviderAdapterManager.getAdapter(for: domain, dbPath: dbPath, delegate: self, notificator: notificator)
+		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: self, notificator: notificator)
 	}
 
-	func getAdapterWithWrappedError() throws -> FileProviderAdapter {
+	func getAdapterWithWrappedError() throws -> FileProviderAdapterType {
 		do {
 			return try getAdapter()
 		} catch {

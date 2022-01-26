@@ -14,6 +14,7 @@
 "common.button.create" = "Skapa";
 "common.button.createFolder" = "Skapa mapp";
 "common.button.done" = "Klar";
+"common.button.download" = "Ladda ner";
 "common.button.edit" = "Redigera";
 "common.button.enable" = "Aktivera";
 "common.button.next" = "Nästa";
@@ -34,10 +35,10 @@
 
 "addVault.title" = "Lägg till valv";
 "addVault.createNewVault.title" = "Skapa nytt valv";
+"addVault.createNewVault.purchase" = "Att skapa ett nytt valv kräver den fullständiga versionen av Cryptomator. Överväg att låsa upp den fullständiga versionen för skrivåtkomst till dina valv.";
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Valvets namn får inte vara tomt.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Valvnamnet får inte innehålla \\ / : * ? \" < > | eller avslutas med en punkt.";
 "addVault.createNewVault.chooseCloud.header" = "Var ska Cryptomator lagra de krypterade filerna för ditt valv?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" finns redan på denna plats. Välj ett annat valvnamn eller plats.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
@@ -71,6 +72,7 @@
 "chooseFolder.createNewFolder.header.title" = "Välj namn för valvet.";
 "chooseFolder.createNewFolder.cells.name" = "Namn på mappen";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Mappens namn får inte vara tomt.";
+"chooseFolder.createNewFolder.progress" = "Skapar mapp…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" kunde inte hittas.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" finns redan.";
@@ -87,17 +89,55 @@
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
 "fileProvider.onboarding.button.openCryptomator" = "Öppna Cryptomator";
 
+"keepUnlocked.alert.title" = "Lås valv?";
+"keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
+"keepUnlocked.alert.confirm" = "Bekräfta och lås nu";
+"keepUnlocked.header" = "Ange hur länge du vill att detta valv ska tillåtas vara olåst vid inaktivtet.";
+"keepUnlocked.footer.auto" = "Att låta iOS bestämma innebär att Cryptomator kan avslutas när som helst för att frigöra minne, vilket automatiskt låser valvet.";
+"keepUnlocked.footer.on" = "Med det valda alternativet måste en kopia av din nyckel lagras i iOS-nyckelkedja, så länge valvet är olåst.";
+"keepUnlockedDuration.auto" = "Låt iOS bestämma automatiskt";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Permanent";
+
 "localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ett valv finns redan på denna plats. Försök igen med en annan lagringsplats.";
 "localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
+"localFileSystemAuthentication.info.footer" = "Filleverantörer som är utgråade stöder inte mappar i iOS. Detta är inte en begränsning i Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
 
 "onboarding.title" = "Välkommen";
+"onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer.\n\nMed Cryptomator är nyckeln till dina data i dina händer. Cryptomator krypterar dina data snabbt och enkelt.\n\nDenna app är helt integrerad i appen Filer. Se till att aktivera Cryptomator i appen Files senare för att komma åt dina valv.";
+"onboarding.button.continue" = "Fortsätt";
+
+"purchase.title" = "Lås upp fullversion";
+"purchase.info" = "Du kan använda Cryptomator i skrivskyddat läge gratis. Överväg att låsa upp den fullständiga versionen för skrivåtkomst till dina valv.";
+"purchase.infoRunningTrial" = "Din provperiod går ut på %@ och ger dig åtkomst till dina valv under en begränsad tid. Överväg att låsa upp den fullständiga versionen efter provversionen.";
+"purchase.infoExpiredTrial" = "Din provperiod har löpt ut. Överväg att låsa upp den fullständiga versionen för att återfå skrivrättigheter till dina valv.";
+"purchase.upgrade.footer" = "Cryptomator upptäckte en äldre version. Du är berättigad till en uppgradering för att låsa upp den fullständiga versionen.";
+"purchase.upgrade.notEligible.footer" = "Om du redan köpt en äldre version av Cryptomator, ladda ner den igen från App Store.";
+"purchase.beginFreeTrial.button" = "Börja 30-dagars provperiod gratis";
+"purchase.beginFreeTrial.footer" = "Prova den fullständiga versionen av Cryptomator under en begränsad tid gratis. Du kan låsa upp denna provperiod endast en gång.";
+"purchase.beginFreeTrial.alert.title" = "Provperiod upplåst";
+"purchase.beginFreeTrial.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
+"purchase.purchaseFullVersion.button" = "Köp fullversion för %@";
+"purchase.purchaseFullVersion.footer" = "Betala en gång och lås upp skrivrättigheter till dina valv under Cryptomators livstid.";
+"purchase.restorePurchase.button" = "Återställ köp";
+"purchase.restorePurchase.footer" = "Om du redan har köpt den fullständiga versionen av Cryptomator kan du återställa köpet.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Provperiod Fortsatt";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Återställning lyckades";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fullversion";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi kunde inte hitta en tidigare köpt fullversion som kunde återställas. Försök med ett annat alternativ.";
 "purchase.retry.button" = "Försök igen";
+"purchase.retry.footer" = "Kunde inte ladda tillgängliga produkter.";
+"purchase.decideLater.button" = "Bestäm senare";
+"purchase.decideLater.footer" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
+"purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
+"purchase.unlockedFullVersion.title" = "Tackar";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
@@ -110,6 +150,20 @@
 "settings.debugMode.alert.message" = "I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.";
 "settings.rateApp" = "Betygsätt app";
 "settings.sendLogFile" = "Skicka loggfil";
+"settings.unlockFullVersion" = "Lås upp fullversion";
+
+"snapshots.fileprovider.file1" = "/Budget.numbers";
+"snapshots.fileprovider.file2" = "/Slutlig presentation.key";
+"snapshots.fileprovider.file3" = "/Produkt Trailer.mov";
+"snapshots.fileprovider.file4" = "/Förslag.docx";
+"snapshots.fileprovider.file5" = "/Rapport.pdf";
+"snapshots.fileprovider.folder3" = "/Hemligt projekt";
+"snapshots.fileprovider.folder2" = "/Fakturor";
+"snapshots.fileprovider.folder1" = "/Certifikat";
+"snapshots.main.vault1" = "/Arbete";
+"snapshots.main.vault2" = "/Familj";
+"snapshots.main.vault3" = "/Dokument";
+"snapshots.main.vault4" = "/Resa till Kalifornien";
 
 "unlockVault.button.unlock" = "Lås upp";
 "unlockVault.button.unlockVia" = "Lås upp via %@";
@@ -123,6 +177,16 @@
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Ange som betrott";
 "untrustedTLSCertificate.dismiss" = "Lita inte på";
+
+"upgrade.title" = "Uppgradera från version 1.x";
+"upgrade.info" = "Du är berättigad till en uppgradering från en äldre version av Cryptomator för att låsa upp den fullständiga versionen. Tack för att du stödde Cryptomator tidigare!";
+"upgrade.paidUpgrade.button" = "Uppgradera för %@";
+"upgrade.paidUpgrade.footer" = "Det skulle hjälpa den pågående utvecklingen med öppen källkod och vara ett stort stöd för oss.";
+"upgrade.freeUpgrade.button" = "Uppgradera gratis";
+"upgrade.freeUpgrade.footer" = "Inga bekymmer, du kan också uppgradera till den fullständiga versionen gratis utan några begränsningar.";
+"upgrade.decideLater.footer" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
+"upgrade.notEligible.alert.title" = "Uppgradering misslyckades";
+"upgrade.notEligible.alert.message" = "Cryptomator kunde inte upptäcka en äldre version installerad på din enhet. Om du köpte den, ladda ner den igen från App Store och försök igen.";
 
 "urlSession.error.httpError.401" = "Fel användarnamn och/eller lösenord.";
 "urlSession.error.httpError.403" = "Otillräckliga rättigheter till begärd resurs.";
@@ -144,6 +208,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";
 "vaultDetail.info.footer.accessVault" = "Få tillgång till valvet via appen Filer.";
 "vaultDetail.info.footer.accountInfo" = "Inloggad som %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Varaktighet för upplåsning";
+"vaultDetail.keepUnlocked.footer.off" = "Upplåsning kommer att krävas när Cryptomator har avslutats av appen Filer.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Upplåsning kommer att krävas när ditt valv har varit inaktiv i %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Ingen upplåsning kommer att krävas om inte manuell låsning görs.";
 "vaultDetail.locked.footer" = "Ditt valv är för närvarande låst.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator upptäckte ett befintligt valv på denna plats.\nFör att skapa ett nytt valv, gå tillbaka och välj en annan mapp.";
 "vaultDetail.moveVault.progress" = "Flyttar…";
@@ -160,9 +228,8 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Valvkonfigurationen stöds inte. Se till att du kör den senaste versionen av Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Valvversionen stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Autentiserar…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Använd HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ändra till HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Behåll HTTP";

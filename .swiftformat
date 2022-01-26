@@ -1,4 +1,4 @@
---minversion 0.49.0
+--minversion 0.49.2
 
 # format options
 
@@ -15,4 +15,4 @@
 # rules
 
 --enable isEmpty
---disable redundantReturn,trailingClosures
+--disable redundantReturn,trailingClosures,wrapMultilineStatementBraces

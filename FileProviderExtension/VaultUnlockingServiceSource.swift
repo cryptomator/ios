@@ -51,13 +51,13 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 
 	func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void) {
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-			guard let domain = self.fileprovider.domain else {
+			guard let domain = self.fileprovider.domain, let notificator = self.fileprovider.notificator else {
 				DDLogError("Unlocking vault failed, unable to find FileProviderDomain")
 				reply(VaultManagerError.fileProviderDomainNotFound)
 				return
 			}
 			do {
-				try FileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: self.fileprovider.notificator)
+				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: notificator)
 				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)
 			} catch {
@@ -68,10 +68,10 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 	}
 
 	func startBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.runningBiometricalUnlock = true
+		FileProviderAdapterManager.shared.semaphore.runningBiometricalUnlock = true
 	}
 
 	func endBiometricalUnlock() {
-		FileProviderAdapterManager.semaphore.signal()
+		FileProviderAdapterManager.shared.semaphore.signal()
 	}
 }

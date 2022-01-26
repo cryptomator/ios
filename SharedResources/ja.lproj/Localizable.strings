@@ -14,6 +14,7 @@
 "common.button.create" = "作成";
 "common.button.createFolder" = "フォルダーを作成";
 "common.button.done" = "完了";
+"common.button.download" = "ダウンロード";
 "common.button.edit" = "編集";
 "common.button.enable" = "有効";
 "common.button.next" = "次へ";
@@ -25,7 +26,7 @@
 "common.cells.password" = "パスワード";
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
-"common.footer.learnMore" = "さらに詳しく。";
+"common.footer.learnMore" = "さらに詳しく";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -37,7 +38,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "金庫は \\ / : * ? \" < > | や 末尾がピリオドの名前にすることができません。";
 "addVault.createNewVault.chooseCloud.header" = "金庫の暗号化済みファイルをどの場所に保存しますか?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" がすでにこの場所に存在します。別の名前か別の場所を選択してください。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 新しい金庫を作成するには、戻って違うフォルダーを選択してください。";
@@ -71,6 +71,7 @@
 "chooseFolder.createNewFolder.header.title" = "フォルダーの名前を入力してください。";
 "chooseFolder.createNewFolder.cells.name" = "フォルダー名";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "フォルダ名は空にできません。";
+"chooseFolder.createNewFolder.progress" = "フォルダーを作成中...";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" が見つかりませんでした。";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" が既に存在します。";
@@ -87,6 +88,14 @@
 "fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
 
+"keepUnlocked.alert.title" = "金庫を施錠しますか？";
+"keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
+"keepUnlocked.alert.confirm" = "施錠して適用";
+"keepUnlocked.header" = "アイドル時にこの金庫を解錠しておく時間を指定します。";
+"keepUnlockedDuration.auto" = "iOSに委ねる";
+"keepUnlockedDuration.auto.shortDisplayName" = "自動";
+"keepUnlockedDuration.indefinite" = "無期限";
+
 "localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
@@ -101,7 +110,14 @@
 
 "purchase.title" = "フル バージョンのロックを解除";
 "purchase.info" = "無料の Cryptomator では読み取りモード専用で使用いただけます。金庫への書き込みができるフルバージョンをご検討ください。";
+"purchase.upgrade.notEligible.footer" = "すでに古いバージョンの Cryptomator を購入している場合は、App Store から再ダウンロードしてください。";
+"purchase.beginFreeTrial.button" = "30日間の無料トライアルを開始";
+"purchase.beginFreeTrial.footer" = "Cryptomator のフルバージョンを無料でお試しください。この試用版のロックは一度だけ解除できます。";
+"purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "正常に復元されました";
 "purchase.retry.button" = "再試行";
+"purchase.decideLater.button" = "後で決める";
+"purchase.unlockedFullVersion.title" = "ありがとうございます";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
@@ -116,6 +132,19 @@
 "settings.sendLogFile" = "ログ ファイルを送信";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
+
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください。";
@@ -128,6 +157,11 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
+
+"upgrade.title" = "バージョン 1.x からアップグレード";
+"upgrade.paidUpgrade.button" = "%@ でアップグレード";
+"upgrade.freeUpgrade.button" = "無料でアップグレード";
+"upgrade.notEligible.alert.title" = "アップグレードできませんでした";
 
 "urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
 "urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
@@ -144,11 +178,12 @@
 "vaultDetail.button.lock" = "今すぐ施錠";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
-"vaultDetail.button.renameVault" = "名前の変更";
+"vaultDetail.button.renameVault" = "名前を変更";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
+"vaultDetail.keepUnlocked.footer.off" = "Cryptomatorがファイルアプリによって終了された場合、ロック解除が必要になります。";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.moveVault.progress" = "移動中...";
@@ -165,10 +200,8 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "認証中…";
-
-"webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか?";
-"webDAVAuthentication.httpConnection.alert.message" = "HTTP の使用は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
-"webDAVAuthentication.httpConnection.change" = "HTTPS に変更";
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか？";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
+"webDAVAuthentication.httpConnection.change" = "HTTPS を使用";
 "webDAVAuthentication.httpConnection.continue" = "HTTP を保持";

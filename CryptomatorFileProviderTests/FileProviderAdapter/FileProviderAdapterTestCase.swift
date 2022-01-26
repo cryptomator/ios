@@ -15,12 +15,26 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	var adapter: FileProviderAdapter!
 	var localURLProviderMock: LocalURLProviderMock!
 	var fullVersionCheckerMock: FullVersionCheckerMock!
+	var fileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegateMock!
+
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		localURLProviderMock = LocalURLProviderMock()
+		fileProviderItemUpdateDelegateMock = FileProviderItemUpdateDelegateMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
-		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1), provider: cloudProviderMock, localURLProvider: localURLProviderMock, fullVersionChecker: fullVersionCheckerMock)
+		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock,
+		                              cachedFileManager: cachedFileManagerMock,
+		                              itemMetadataManager: metadataManagerMock,
+		                              reparentTaskManager: reparentTaskManagerMock,
+		                              deletionTaskManager: deletionTaskManagerMock,
+		                              itemEnumerationTaskManager: itemEnumerationTaskManagerMock,
+		                              downloadTaskManager: downloadTaskManagerMock,
+		                              scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1),
+		                              provider: cloudProviderMock,
+		                              notificator: fileProviderItemUpdateDelegateMock,
+		                              localURLProvider: localURLProviderMock,
+		                              fullVersionChecker: fullVersionCheckerMock)
 	}
 
 	class LocalURLProviderMock: LocalURLProvider {

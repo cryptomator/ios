@@ -46,7 +46,6 @@
 "vaultDetail.button.changeVaultPassword" = "Endre passord";
 "vaultDetail.button.moveVault" = "Flytt";
 "vaultDetail.button.renameVault" = "Endre navn";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
 "webDAVAuthentication.httpConnection.change" = "Bytt til HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Behold HTTP";

@@ -29,6 +29,8 @@ public class ItemMetadata: Record, Codable {
 	var cloudPath: CloudPath
 	var isPlaceholderItem: Bool
 	var isMaybeOutdated: Bool
+	var favoriteRank: Int64?
+	var tagData: Data?
 
 	required init(row: Row) {
 		self.id = row[Columns.id]
@@ -41,10 +43,16 @@ public class ItemMetadata: Record, Codable {
 		self.cloudPath = row[Columns.cloudPath]
 		self.isPlaceholderItem = row[Columns.isPlaceholderItem]
 		self.isMaybeOutdated = row[Columns.isMaybeOutdated]
+		self.favoriteRank = row[Columns.favoriteRank]
+		self.tagData = row[Columns.tagData]
 		super.init(row: row)
 	}
 
-	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false) {
+	convenience init(item: CloudItemMetadata, withParentID parentID: Int64, isPlaceholderItem: Bool = false) {
+		self.init(name: item.name, type: item.itemType, size: item.size, parentID: parentID, lastModifiedDate: item.lastModifiedDate, statusCode: .isUploaded, cloudPath: item.cloudPath, isPlaceholderItem: isPlaceholderItem)
+	}
+
+	init(id: Int64? = nil, name: String, type: CloudItemType, size: Int?, parentID: Int64, lastModifiedDate: Date?, statusCode: ItemStatus, cloudPath: CloudPath, isPlaceholderItem: Bool, isCandidateForCacheCleanup: Bool = false, favoriteRank: Int64? = nil, tagData: Data? = nil) {
 		self.id = id
 		self.name = name
 		self.type = type
@@ -55,6 +63,8 @@ public class ItemMetadata: Record, Codable {
 		self.cloudPath = cloudPath
 		self.isPlaceholderItem = isPlaceholderItem
 		self.isMaybeOutdated = isCandidateForCacheCleanup
+		self.favoriteRank = favoriteRank
+		self.tagData = tagData
 		super.init()
 	}
 
@@ -73,11 +83,22 @@ public class ItemMetadata: Record, Codable {
 		container[Columns.cloudPath] = cloudPath
 		container[Columns.isPlaceholderItem] = isPlaceholderItem
 		container[Columns.isMaybeOutdated] = isMaybeOutdated
+		container[Columns.favoriteRank] = favoriteRank
+		container[Columns.tagData] = tagData
 	}
 
 	enum Columns: String, ColumnExpression {
-		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated
+		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData
+	}
+
+	static func filterWorkingSet() -> QueryInterfaceRequest<ItemMetadata> {
+		return ItemMetadata.filter(ItemMetadata.Columns.tagData != nil || ItemMetadata.Columns.favoriteRank != nil)
 	}
 }
 
 extension ItemStatus: DatabaseValueConvertible {}
+extension ItemMetadata: Equatable {
+	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
+		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData
+	}
+}

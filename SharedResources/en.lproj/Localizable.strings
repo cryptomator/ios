@@ -39,7 +39,6 @@
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
 "addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
@@ -90,6 +89,16 @@
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
 
+"keepUnlocked.alert.title" = "Lock Vault?";
+"keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
+"keepUnlocked.alert.confirm" = "Confirm & Lock Now";
+"keepUnlocked.header" = "Specify for how long you want this vault to stay unlocked when idle.";
+"keepUnlocked.footer.auto" = "Letting iOS decide means that Cryptomator may be terminated any time to free up memory, which automatically locks the vault.";
+"keepUnlocked.footer.on" = "Using the selected option, a copy of your key needs to be stored in the iOS keychain, as long as the vault is unlocked.";
+"keepUnlockedDuration.auto" = "Let iOS Decide Automatically";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinite";
+
 "localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
@@ -99,6 +108,10 @@
 "localFileSystemAuthentication.info.footer" = "File providers that are grayed out don't support \"picking folders\". This is not a limitation of Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
+
+"nameValidation.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
+"nameValidation.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
+"nameValidation.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";
 
 "onboarding.title" = "Welcome";
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files.\n\nWith Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily.\n\nThis app is fully integrated into the Files app. Make sure to enable Cryptomator in the Files app later to access your vaults.";
@@ -195,10 +208,15 @@
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
 "vaultDetail.button.renameVault" = "Rename";
+"vaultDetail.changePassword.footer" = "Select a strong password for your vault that only you know and keep it in a safe place.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
 "vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Unlock Duration";
+"vaultDetail.keepUnlocked.footer.off" = "Unlock will be required when Cryptomator has been terminated by the Files app.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Unlock will be required when your vault has been idle for %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No unlock will be required unless manually locked.";
 "vaultDetail.locked.footer" = "Your vault is currently locked.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to move your vault, please go back and choose a different folder.";
 "vaultDetail.moveVault.progress" = "Moving…";
@@ -215,11 +233,8 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
-"webDAVAuthentication.title" = "WebDAV";
 "webDAVAuthentication.progress" = "Authenticating…";
-
 "webDAVAuthentication.httpConnection.alert.title" = "Use HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Keep HTTP";
-
