@@ -1,1 +1,7 @@
-- Sicherheitslücke behoben, indem der Cache aus dem iCloud Backup ausgeschlossen wird (#139)
+- Tresor-Einstellung „Entsperr-Dauer“ hinzugefügt, womit man den Tresor nach einer bestimmten Zeit automatisch sperren lassen oder ihn unbefristet entsperrt lassen kann (#64, #73, #150)
+- Unterstützung für das lokale Favorisieren von Ordnern und das Tagging von Elementen hinzugefügt (#79, #156)
+- Übersetzungen für Arabisch, Katalanisch und Indonesisch hinzugefügt
+- Kompatibilität mit anderen Systemen verbessert, indem bestimmte Zeichen in Dateinamen verhindert werden (#152, #157)
+- iPad-Unterstützung verbessert (#147)
+- Dateien werden nicht mehr in der Siri-Suche angezeigt (#153, #155)
+- Schreibgeschützten Zugriff auf Dateien, die „von außen“ aktualisiert wurden, behoben (#154)
