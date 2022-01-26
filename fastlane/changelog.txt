@@ -1,1 +1,7 @@
-- Fixed security vulnerability by excluding cache from iCloud Backup (#139)
+- Added "Unlock Duration" vault setting, which allows auto-lock after a certain amount of time or keeping the vault unlocked with an indefinite option (#64, #73, #150)
+- Added support for locally favoriting folders and tagging items (#79, #156)
+- Added Arabic, Catalan, and Indonesian translations
+- Improved compatibility with other systems by disallowing certain characters in filenames (#152, #157)
+- Improved iPad support (#147)
+- Fixed files from being shown in Siri Search (#153, #155)
+- Fixed read-only access to files that have been remotely updated (#154)
