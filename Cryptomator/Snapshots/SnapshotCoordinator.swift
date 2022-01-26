@@ -33,7 +33,7 @@ class SnapshotCoordinator: MainCoordinator {
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
 		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
 		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: SnapshotVaultKeepUnlockedSettings())
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
 		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
@@ -109,6 +109,22 @@ class SnapshotVaultPasswordManagerMock: VaultPasswordManager {
 	func hasPassword(forVaultUID vaultUID: String) throws -> Bool {
 		return true
 	}
+}
+
+private class SnapshotVaultKeepUnlockedSettings: VaultKeepUnlockedSettings {
+	func getKeepUnlockedDuration(forVaultUID vaultUID: String) -> KeepUnlockedDuration {
+		return .tenMinutes
+	}
+
+	func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws {}
+
+	func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws {}
+
+	func getLastUsedDate(forVaultUID vaultUID: String) -> Date? {
+		return nil
+	}
+
+	func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws {}
 }
 
 extension BaseUITableViewController {
