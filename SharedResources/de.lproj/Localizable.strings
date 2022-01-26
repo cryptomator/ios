@@ -208,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Verschieben";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
 "vaultDetail.button.renameVault" = "Umbenennen";
+"vaultDetail.changePassword.footer" = "Wähle ein starkes Passwort für deinen Tresor, das nur du kennst, und bewahre es an einem sicheren Ort auf.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Wenn du %@ aktivierst, wird dein Tresor-Passwort im iOS-Schlüsselbund gespeichert.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";
 "vaultDetail.info.footer.accessVault" = "Greife auf den Tresor über die App „Dateien“ zu.";
