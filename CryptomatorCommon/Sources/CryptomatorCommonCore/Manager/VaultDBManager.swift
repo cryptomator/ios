@@ -25,7 +25,7 @@ public protocol VaultManager {
 	func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
 	func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
 	func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void>
-	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
+	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) -> Promise<CloudProvider>
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
@@ -282,13 +282,14 @@ public class VaultDBManager: VaultManager {
 	/**
 	 Manually unlock a vault via KEK.
 
+	 Before the vault is unlocked, the associated vault cache gets refreshed.
+	 In case of missing internet connection, the unlock is performed with the already cached vault.
 	 The masterkey gets cached in the keychain if the corresponding Auto-Lock timeout is not `KeepUnlockedDuration.off`.
 	 */
-	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
-		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
-		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-		let masterkey = try masterkeyFile.unlock(kek: kek)
-		return try createVaultProvider(cachedVault: cachedVault, masterkey: masterkey, masterkeyFile: masterkeyFile)
+	public func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) -> Promise<CloudProvider> {
+		refreshVaultCache(forVaultUID: vaultUID).then { _ in
+			return try self.manualUnlockVaultFromCache(withUID: vaultUID, kek: kek)
+		}
 	}
 
 	public func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
@@ -312,6 +313,34 @@ public class VaultDBManager: VaultManager {
 			try masterkeyCacheManager.cacheMasterkey(masterkey, forVaultUID: vaultUID)
 		}
 		return decorator
+	}
+
+	private func refreshVaultCache(forVaultUID vaultUID: String) -> Promise<Void> {
+		let vaultAccount: VaultAccount
+		let provider: CloudProvider
+		do {
+			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+			provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+		} catch {
+			return Promise(error)
+		}
+		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
+			guard case CloudProviderError.noInternetConnection = error else {
+				throw error
+			}
+		}
+	}
+
+	/**
+	 Manually unlock a cached vault via KEK.
+
+	 The masterkey gets cached in the keychain if the corresponding Auto-Lock timeout is not `KeepUnlockedDuration.off`.
+	 */
+	private func manualUnlockVaultFromCache(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
+		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
+		let masterkey = try masterkeyFile.unlock(kek: kek)
+		return try createVaultProvider(cachedVault: cachedVault, masterkey: masterkey, masterkeyFile: masterkeyFile)
 	}
 
 	// MARK: - Move Vault
@@ -364,13 +393,13 @@ public class VaultDBManager: VaultManager {
 
 	func postProcessVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultConfigToken: Data, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
-		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
 	}
 
 	func postProcessLegacyVaultCreation(for masterkey: Masterkey, forVaultUID vaultUID: String, vaultVersion: Int, password: String, storePasswordInKeychain: Bool) throws {
 		let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: vaultVersion, password: password)
-		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: nil, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: storePasswordInKeychain)
 	}
 
@@ -382,7 +411,7 @@ public class VaultDBManager: VaultManager {
 	}
 
 	func postProcessChangePassphrase(masterkeyFileData: Data, forVaultUID vaultUID: String, vaultConfigToken: Data?, newPassphrase: String) throws {
-		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date())
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try vaultCache.cache(cachedVault)
 		if try passwordManager.hasPassword(forVaultUID: vaultUID) {
 			try passwordManager.setPassword(newPassphrase, forVaultUID: vaultUID)

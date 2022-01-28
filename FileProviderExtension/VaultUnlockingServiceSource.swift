@@ -56,11 +56,10 @@ class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource, VaultU
 				reply(VaultManagerError.fileProviderDomainNotFound)
 				return
 			}
-			do {
-				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: notificator)
+			FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.fileprovider.dbPath, delegate: self.fileprovider, notificator: notificator).then {
 				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)
-			} catch {
+			}.catch { error in
 				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
 				reply(error)
 			}

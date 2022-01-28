@@ -94,17 +94,17 @@ final class VaultManagerMock: VaultManager {
 
 	var manualUnlockVaultWithUIDKekReceivedArguments: (vaultUID: String, kek: [UInt8])?
 	var manualUnlockVaultWithUIDKekReceivedInvocations: [(vaultUID: String, kek: [UInt8])] = []
-	var manualUnlockVaultWithUIDKekReturnValue: CloudProvider!
-	var manualUnlockVaultWithUIDKekClosure: ((String, [UInt8]) throws -> CloudProvider)?
+	var manualUnlockVaultWithUIDKekReturnValue: Promise<CloudProvider>!
+	var manualUnlockVaultWithUIDKekClosure: ((String, [UInt8]) -> Promise<CloudProvider>)?
 
-	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider {
+	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) -> Promise<CloudProvider> {
 		if let error = manualUnlockVaultWithUIDKekThrowableError {
-			throw error
+			return Promise(error)
 		}
 		manualUnlockVaultWithUIDKekCallsCount += 1
 		manualUnlockVaultWithUIDKekReceivedArguments = (vaultUID: vaultUID, kek: kek)
 		manualUnlockVaultWithUIDKekReceivedInvocations.append((vaultUID: vaultUID, kek: kek))
-		return try manualUnlockVaultWithUIDKekClosure.map({ try $0(vaultUID, kek) }) ?? manualUnlockVaultWithUIDKekReturnValue
+		return manualUnlockVaultWithUIDKekClosure.map({ $0(vaultUID, kek) }) ?? manualUnlockVaultWithUIDKekReturnValue
 	}
 
 	// MARK: - createVaultProvider

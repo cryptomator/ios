@@ -72,16 +72,17 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		}
 	}
 
-	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws {
+	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) -> Promise<Void> {
 		guard let dbPath = dbPath else {
-			return
+			return Promise(())
 		}
-		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
-		let item = try createAdapterCacheItem(cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
-		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
-		adapterCache.cacheItem(item, identifier: domainIdentifier)
-		let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
-		notificator.refreshWorkingSet()
+		return vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek).then { [self] provider -> Void in
+			let item = try createAdapterCacheItem(cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
+			try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
+			adapterCache.cacheItem(item, identifier: domainIdentifier)
+			let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
+			notificator.refreshWorkingSet()
+		}
 	}
 
 	public func forceLockVault(with domainIdentifier: NSFileProviderDomainIdentifier) {
