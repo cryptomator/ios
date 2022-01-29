@@ -14,6 +14,7 @@
 "common.button.create" = "Vytvořit";
 "common.button.createFolder" = "Vytvořit složku";
 "common.button.done" = "Hotovo";
+"common.button.download" = "Stáhnout";
 "common.button.edit" = "Upravit";
 "common.button.enable" = "Povolit";
 "common.button.next" = "Další";
@@ -34,6 +35,7 @@
 
 "addVault.title" = "Přidat trezor";
 "addVault.createNewVault.title" = "Vytvořit nový trezor";
+"addVault.createNewVault.purchase" = "Vytvoření nového trezoru vyžaduje plnou verzi Cryptomatoru. Zvažte odemčení plné verze pro zápis do trezoru.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
@@ -87,12 +89,23 @@
 "fileProvider.onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otevřít Cryptomator";
 
+"keepUnlocked.alert.title" = "Zamknout trezor?";
+"keepUnlocked.alert.message" = "Tato změna vyžaduje uzamčení trezoru pro projevení.";
+"keepUnlocked.alert.confirm" = "Potvrdit a zamknout nyní";
+"keepUnlocked.header" = "Určete, jak dlouho chcete, aby tento trezor zůstal odemknutý při nečinnosti.";
+"keepUnlocked.footer.auto" = "Nechat iOS rozhodnout, že Cryptomator může být kdykoliv ukončen a uvolnit paměť, což automaticky uzamkne trezor.";
+"keepUnlocked.footer.on" = "Pomocí vybrané možnosti je třeba kopii vašeho klíče uložit do iOS klíčenky po dobu odemčení trezoru.";
+"keepUnlockedDuration.auto" = "Povolit iOS rozhodnout se automaticky";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Neurčito";
+
 "localFileSystemAuthentication.createNewVault.header" = "Na další obrazovce vyberte umístění úložiště pro váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Vyberte umístění úložiště";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "V tomto umístění již trezor existuje. Zkuste to prosím znovu s jiným umístěním.";
 "localFileSystemAuthentication.openExistingVault.header" = "Na další obrazovce vyberte složku vašeho existujícího trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vybrat složku trezoru";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Vybraná složka není trezor. Zkuste to prosím znovu s jinou složkou.";
+"localFileSystemAuthentication.info.footer" = "Poskytovatelé souborů, kteří jsou zobrazeni šedě, nepodporují \"vybírání složek\". Toto není omezení Cryptomatoru.";
 
 "maintenanceModeError.runningCloudTask" = "Operace nemůže být provedena, protože musí být pro tento trezor nejdříve dokončeny ostatní operace na pozadí. Opakujte akci později.";
 
@@ -101,12 +114,33 @@
 "nameValidation.error.containsIllegalCharacter" = "Nelze použít název, který obsahuje \"%@\". Zvolte prosím jiný název.";
 
 "onboarding.title" = "Vítejte";
+"onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů.\n\nS Cryptomatorem je klíč k vašim datům ve vašich rukou. Cryptomator vaše data šifruje rychle a snadno.\n\nTato aplikace je plně integrována do aplikace Souborů. Ujistěte se, že jste aktivovali Cryptomator v aplikaci Souboru pro přístup k vašim trezorům.";
 "onboarding.button.continue" = "Pokračovat";
 
 "purchase.title" = "Odemknout plnou verzi";
+"purchase.info" = "Můžete zdarma použít Cryptomator v režimu pro čtení. Zvažte odemknutí plné verze pro umožnění zápisu do vašeho trezoru.";
+"purchase.infoRunningTrial" = "Vaše zkušební verze vyprší %@ a umožňuje na omezenou dobu zapisovat do trezorů. Zvažte odemčení plné verze po zkušební verzi.";
+"purchase.infoExpiredTrial" = "Vaše zkušební verze vypršela. Zvažte odemknutí plné verze pro opětovné získání přístupu k zápisu do trezoru.";
+"purchase.upgrade.footer" = "Cryptomator detekoval starší verzi. Můžete aktualizovat pro odemknutí plné verze.";
+"purchase.upgrade.notEligible.footer" = "Pokud jste si již koupili starší verzi Cryptomatoru, stáhněte si ji znovu z App Store.";
+"purchase.beginFreeTrial.button" = "Začněte 30denní zkušební verzi zdarma";
+"purchase.beginFreeTrial.footer" = "Vyzkoušejte plnou verzi Cryptomatoru na omezenou dobu zdarma. Tuto zkušební verzi můžete odemknout pouze jednou.";
+"purchase.beginFreeTrial.alert.title" = "Zkušební verze odemčena";
+"purchase.beginFreeTrial.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
 "purchase.purchaseFullVersion.button" = "Koupit plnou verzi za %@";
+"purchase.purchaseFullVersion.footer" = "Zaplaťte jednou a odemkněte přístup k vašim trezorům po dobu životnosti Cryptomatoru.";
+"purchase.restorePurchase.button" = "Obnovit nákup";
+"purchase.restorePurchase.footer" = "Pokud jste již zakoupili plnou verzi Cryptomatoru, můžete nákup obnovit.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Zkušební verze pokračuje";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovení bylo úspěšné";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Žádná plná verze";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nebyli jsme schopni najít dříve zakoupenou plnou verzi, která by mohla být obnovena. Zkuste prosím jinou možnost.";
 "purchase.retry.button" = "Opakovat";
+"purchase.retry.footer" = "Nelze načíst dostupné produkty.";
 "purchase.decideLater.button" = "Rozhodnout později";
+"purchase.decideLater.footer" = "Plnou verzi Cryptomatoru můžete později odemknout v nastavení a pro tuto chvíli použít Cryptomator v režimu jen pro čtení.";
+"purchase.unlockedFullVersion.message" = "Nyní můžete použít plnou verzi Cryptomatoru. Šťastné šifrování!";
 "purchase.unlockedFullVersion.title" = "Děkuji";
 
 "settings.title" = "Nastavení";
@@ -122,6 +156,19 @@
 "settings.sendLogFile" = "Odeslat log soubor";
 "settings.unlockFullVersion" = "Odemknout plnou verzi";
 
+"snapshots.fileprovider.file1" = "/Účetnictví.numbers";
+"snapshots.fileprovider.file2" = "/Finální prezentace.key";
+"snapshots.fileprovider.file3" = "/Trailer produktu.mov";
+"snapshots.fileprovider.file4" = "/Návrh.docx";
+"snapshots.fileprovider.file5" = "/Zpráva.pdf";
+"snapshots.fileprovider.folder3" = "/Tajný projekt";
+"snapshots.fileprovider.folder2" = "/Faktury";
+"snapshots.fileprovider.folder1" = "/Certifikáty";
+"snapshots.main.vault1" = "/Práce";
+"snapshots.main.vault2" = "/Rodina";
+"snapshots.main.vault3" = "/Dokumenty";
+"snapshots.main.vault4" = "/výlet do Kalifornie";
+
 "unlockVault.button.unlock" = "Odemknout";
 "unlockVault.button.unlockVia" = "Odemknout pomocí %@";
 "unlockVault.password.footer" = "Zadejte heslo pro \"%@\".";
@@ -136,7 +183,14 @@
 "untrustedTLSCertificate.dismiss" = "Nedůvěřovat";
 
 "upgrade.title" = "Upgradovat z verze 1.x";
+"upgrade.info" = "Máte nárok na upgrade ze starší verze Cryptomatoru pro získání plné verze. Děkujeme, že jste podpořili Cryptomator v minulosti!";
+"upgrade.paidUpgrade.button" = "Upgradovat za %@";
+"upgrade.paidUpgrade.footer" = "Pomohlo by to pokračovat ve vývoji open-source a bylo by to pro nás velkou podporou.";
 "upgrade.freeUpgrade.button" = "Upgradujte zdarma";
+"upgrade.freeUpgrade.footer" = "Nebojte, můžete také upgradovat na plnou verzi zdarma bez jakýchkoliv limitací.";
+"upgrade.decideLater.footer" = "Plnou verzi Cryptomatoru můžete později odemknout v nastavení a pro tuto chvíli použít Cryptomator v režimu jen pro čtení.";
+"upgrade.notEligible.alert.title" = "Upgrade se nezdařil";
+"upgrade.notEligible.alert.message" = "Cryptomator nemohl najít starší verzi nainstalovanou na vašem zařízení. Pokud jste si ji zakoupili, stáhněte si ji prosím znovu z App Store a zkuste to znovu.";
 
 "urlSession.error.httpError.401" = "Nesprávné uživatelské jméno a/nebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatečná práva k požadovanému zdroji.";
@@ -159,6 +213,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše heslo k trezoru bude vyžadováno pouze v případě, že %@ ověření selže.";
 "vaultDetail.info.footer.accessVault" = "Přistoupit k trezoru prostřednictvím aplikace Soubory.";
 "vaultDetail.info.footer.accountInfo" = "Přihlášen jako %@ přes %@.";
+"vaultDetail.keepUnlocked.title" = "Doba trvání odemknutí";
+"vaultDetail.keepUnlocked.footer.off" = "Odemknutí bude vyžadováno po ukončení aplikace Cryptomator.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Odemknutí bude vyžadováno při nečinnosti trezoru delší než %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Odemčení nebude třeba pokud nedojde k manuálnímu zamčení.";
 "vaultDetail.locked.footer" = "Váš trezor je momentálně uzamčen.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator zjistil na tomto místě existující trezor.\nChcete-li trezor přesunout, vraťte se zpět a vyberte jinou složku.";
 "vaultDetail.moveVault.progress" = "Přesouvání…";
