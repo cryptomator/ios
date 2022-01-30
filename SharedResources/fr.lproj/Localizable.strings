@@ -208,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Déplacer";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
 "vaultDetail.button.renameVault" = "Renommer";
+"vaultDetail.changePassword.footer" = "Sélectionnez un mot de passe fort pour votre coffre que vous seul connaissez et conservez-le dans un endroit sûr.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si vous activez %@, votre mot de passe de coffre sera stocké dans porte-clés iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Le mot de passe de votre coffre ne sera requis que si l'authentification de %@ échoue.";
 "vaultDetail.info.footer.accessVault" = "Accédez au coffre via l'application Fichiers.";
