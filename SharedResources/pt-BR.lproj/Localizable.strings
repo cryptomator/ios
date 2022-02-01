@@ -109,6 +109,10 @@
 
 "maintenanceModeError.runningCloudTask" = "A operação não pode ser realizada porque outras operações em segundo plano para este cofre têm que terminar primeiro. Por favor, tente novamente mais tarde.";
 
+"nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
+"nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termina com um espaço. Por favor, escolha outro nome.";
+"nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
+
 "onboarding.title" = "Bem vindo";
 "onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos.\n\nCom o Cryptomator, a chave para os seus dados está em suas mãos. O Cryptomator criptografa seus dados de forma rápida e fácil.\n\nEste app está totalmente integrado ao app Arquivos. Certifique-se de ativar o Cryptomator no aplicativo Arquivos mais tarde, para poder ter acesso aos seus cofres.";
 "onboarding.button.continue" = "Continuar";
@@ -204,6 +208,7 @@
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
 "vaultDetail.button.renameVault" = "Renomear";
+"vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que somente você conhece e a mantenha em um lugar seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a senha do seu cofre será armazenada no keychain do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A sua senha do cofre só será obrigatória se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Acesse o cofre através do app Arquivos.";
