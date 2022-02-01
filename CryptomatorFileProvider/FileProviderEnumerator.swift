@@ -69,8 +69,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			pageToken = String(data: page.rawValue, encoding: .utf8)
 		}
 		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier) - initialPage \(pageToken == nil)")
-		DispatchQueue.global(qos: .userInitiated).async {
-			self.adapterProvider.semaphore.wait()
+		adapterProvider.unlockMonitor.execute {
 			let adapter: FileProviderAdapterType
 			do {
 				adapter = try self.adapterProvider.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
@@ -153,7 +152,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			notificator.invalidatedWorkingSet()
 			return
 		}
-		DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
 			observer.finishEnumeratingWithError(wrappedError)
 		}

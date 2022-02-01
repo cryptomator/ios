@@ -31,6 +31,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		case test
 	}
 
+	#warning("TODO: Replace unlockMonitor with mock")
 	override func setUpWithError() throws {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
 		vaultKeepUnlockedHelperMock = VaultKeepUnlockedHelperMock()
@@ -40,7 +41,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		notificatorManagerMock = FileProviderNotificatorManagerTypeMock()
 		workingSetObservationMock = WorkingSetObservingMock()
 		fileProviderNotificatorMock = FileProviderNotificatorTypeMock()
-		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock)
+		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock, unlockMonitor: UnlockMonitor())
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try FileManager.default.createDirectory(at: tmpURL, withIntermediateDirectories: false)
@@ -57,7 +58,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testGetAdapterNotCachedNoAutoUnlock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = false
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)) { error in
-			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
+			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
@@ -100,7 +101,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = nil
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)) { error in
-			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
+			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
@@ -126,7 +127,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)) { error in
-			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
+			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual(1, maintenanceManagerMock.enableMaintenanceModeCallsCount)
 		XCTAssertEqual(1, maintenanceManagerMock.disableMaintenanceModeCallsCount)
@@ -141,7 +142,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)) { error in
-			XCTAssertEqual(.cachedAdapterNotFound, error as? FileProviderAdapterManagerError)
+			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertFalse(maintenanceManagerMock.disableMaintenanceModeCalled)
 		XCTAssertFalse(adapterCacheMock.removeItemIdentifierCalled)

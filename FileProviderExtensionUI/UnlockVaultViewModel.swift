@@ -48,6 +48,10 @@ class UnlockVaultViewModel {
 		return sections.count
 	}
 
+	var enableBiometricalUnlockIsOn: Bool {
+		return wrongBiometricalPassword
+	}
+
 	var biometricalUnlockEnabled: Bool {
 		do {
 			return try passwordManager.hasPassword(forVaultUID: vaultUID)
@@ -98,9 +102,11 @@ class UnlockVaultViewModel {
 	}()
 
 	private let fileProviderConnector: FileProviderConnector
+	private let wrongBiometricalPassword: Bool
 
-	init(domain: NSFileProviderDomain, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared, passwordManager: VaultPasswordManager = VaultPasswordKeychainManager()) {
+	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared, passwordManager: VaultPasswordManager = VaultPasswordKeychainManager()) {
 		self.domain = domain
+		self.wrongBiometricalPassword = wrongBiometricalPassword
 		self.fileProviderConnector = fileProviderConnector
 		let context = LAContext()
 		// Remove fallback title because "Enter password" also closes the FileProviderExtensionUI and does not display the password input
