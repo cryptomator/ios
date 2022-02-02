@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import CryptomatorFileProvider
@@ -102,9 +103,22 @@ class UnlockVaultViewModel {
 	}()
 
 	private let fileProviderConnector: FileProviderConnector
+	private let vaultAccountManager: VaultAccountManager
+	private let providerManager: CloudProviderManager
+	private let vaultCache: VaultCache
 	private let wrongBiometricalPassword: Bool
 
-	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared, passwordManager: VaultPasswordManager = VaultPasswordKeychainManager()) {
+	public convenience init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
+		self.init(domain: domain,
+		          wrongBiometricalPassword: wrongBiometricalPassword,
+		          fileProviderConnector: FileProviderXPCConnector.shared,
+		          passwordManager: VaultPasswordKeychainManager(),
+		          vaultAccountManager: VaultAccountDBManager.shared,
+		          providerManager: CloudProviderDBManager.shared,
+		          vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool))
+	}
+
+	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, vaultAccountManager: VaultAccountManager, providerManager: CloudProviderManager, vaultCache: VaultCache) {
 		self.domain = domain
 		self.wrongBiometricalPassword = wrongBiometricalPassword
 		self.fileProviderConnector = fileProviderConnector
@@ -113,6 +127,9 @@ class UnlockVaultViewModel {
 		context.localizedFallbackTitle = ""
 		self.context = context
 		self.passwordManager = passwordManager
+		self.vaultAccountManager = vaultAccountManager
+		self.providerManager = providerManager
+		self.vaultCache = vaultCache
 	}
 
 	func numberOfRows(in section: Int) -> Int {
@@ -170,13 +187,9 @@ class UnlockVaultViewModel {
 	// MARK: Unlock Vault
 
 	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let kekPromise = Promise<[UInt8]>(on: .global(qos: .userInitiated)) { fulfill, _ in
-			fulfill(try self.getKek(password: password))
-		}
-		return kekPromise.then { _ in
-			all(kekPromise, self.fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: self.domain))
-		}.then { kek, proxy -> Promise<Void> in
-			self.proxyUnlockVault(proxy, kek: kek)
+		let getProxyPromise: Promise<VaultUnlocking> = fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain)
+		return getProxyPromise.then { proxy -> Promise<Void> in
+			self.unlockVault(with: password, proxy: proxy)
 		}.then {
 			if storePasswordInKeychain {
 				do {
@@ -257,15 +270,7 @@ class UnlockVaultViewModel {
 		} catch {
 			return Promise(error)
 		}
-		let kek: [UInt8]
-		do {
-			let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
-			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-			kek = try masterkeyFile.deriveKey(passphrase: password)
-		} catch {
-			return Promise(error)
-		}
-		return proxyUnlockVault(proxy, kek: kek)
+		return unlockVault(with: password, proxy: proxy)
 	}
 
 	private func proxyUnlockVault(_ proxy: VaultUnlocking, kek: [UInt8]) -> Promise<Void> {
@@ -280,11 +285,35 @@ class UnlockVaultViewModel {
 		}
 	}
 
-	private func getKek(password: String) throws -> [UInt8] {
-		let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vaultUID)
+	private func unlockVault(with password: String, proxy: VaultUnlocking) -> Promise<Void> {
+		return refreshVaultCache().then(on: .global(qos: .userInitiated)) {
+			try self.getKEK(password: password)
+		}.then { kek in
+			self.proxyUnlockVault(proxy, kek: kek)
+		}
+	}
+
+	private func getKEK(password: String) throws -> [UInt8] {
+		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 		let kek = try masterkeyFile.deriveKey(passphrase: password)
 		return kek
+	}
+
+	private func refreshVaultCache() -> Promise<Void> {
+		let vaultAccount: VaultAccount
+		let provider: CloudProvider
+		do {
+			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+			provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+		} catch {
+			return Promise(error)
+		}
+		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
+			guard case CloudProviderError.noInternetConnection = error else {
+				throw error
+			}
+		}
 	}
 }
 

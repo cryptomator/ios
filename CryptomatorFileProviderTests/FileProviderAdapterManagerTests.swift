@@ -172,9 +172,9 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	func testUnlockVault() throws {
 		let kek = [UInt8](repeating: 0x55, count: 32)
-		vaultManagerMock.manualUnlockVaultWithUIDKekReturnValue = Promise(CloudProviderMock())
+		vaultManagerMock.manualUnlockVaultWithUIDKekReturnValue = CloudProviderMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
-		wait(for: fileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock))
+		try fileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)
 
 		XCTAssertEqual(1, vaultManagerMock.manualUnlockVaultWithUIDKekCallsCount)
 		XCTAssertEqual(vaultUID, vaultManagerMock.manualUnlockVaultWithUIDKekReceivedArguments?.vaultUID)

@@ -268,52 +268,29 @@ class VaultManagerTests: XCTestCase {
 
 	func testManualUnlockVaultV8() throws {
 		try manualUnlockVaultV8()
-		assertRefreshedVaultCache()
 		XCTAssertFalse(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCalled)
 	}
 
 	func testManualUnlockVaultV7() throws {
-		let expectation = XCTestExpectation()
 		let kek = try setupManualUnlockTest(vaultVersion: 7)
-		manager.manualUnlockVault(withUID: vaultUID, kek: kek).then { decorator in
-			XCTAssert(decorator is VaultFormat7ProviderDecorator, "Decorator is not a VaultFormat7ProviderDecorator")
-		}.catch { error in
-			XCTFail("Promise rejected with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
+		XCTAssert(decorator is VaultFormat7ProviderDecorator, "Decorator is not a VaultFormat7ProviderDecorator")
 		XCTAssertFalse(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCalled)
-		assertRefreshedVaultCache()
 	}
 
 	func testManualUnlockVaultV6() throws {
-		let expectation = XCTestExpectation()
 		let kek = try setupManualUnlockTest(vaultVersion: 6)
-		manager.manualUnlockVault(withUID: vaultUID, kek: kek).then { decorator in
-			XCTAssert(decorator is VaultFormat6ProviderDecorator, "Decorator is not a VaultFormat6ProviderDecorator")
-		}.catch { error in
-			XCTFail("Promise rejected with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
+		XCTAssert(decorator is VaultFormat6ProviderDecorator, "Decorator is not a VaultFormat6ProviderDecorator")
 		XCTAssertFalse(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCalled)
-		assertRefreshedVaultCache()
 	}
 
 	func testManualUnlockVaultThrowsForNonSupportedVaultVersion() throws {
 		masterkeyCacheHelperMock.shouldCacheMasterkeyForVaultUIDReturnValue = true
-		let expectation = XCTestExpectation()
 		let kek = try setupManualUnlockTest(vaultVersion: 5)
-		manager.manualUnlockVault(withUID: vaultUID, kek: kek).then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+		XCTAssertThrowsError(try manager.manualUnlockVault(withUID: vaultUID, kek: kek)) { error in
 			XCTAssertEqual(.unsupportedVaultVersion, error as? VaultProviderFactoryError)
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
 		XCTAssertFalse(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCalled)
 	}
 
@@ -321,24 +298,10 @@ class VaultManagerTests: XCTestCase {
 		masterkeyCacheHelperMock.shouldCacheMasterkeyForVaultUIDReturnValue = true
 
 		try manualUnlockVaultV8()
-		assertRefreshedVaultCache()
 		XCTAssertEqual(1, masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCallsCount)
 		XCTAssertEqual(vaultUID, masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDReceivedArguments?.vaultUID)
 		let passedMasterkey = try XCTUnwrap(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDReceivedArguments?.masterkey)
 		XCTAssertEqual(masterkey.rawKey, passedMasterkey.rawKey)
-	}
-
-	func testManualUnlockRefreshVaultErrorHandling() throws {
-		// Manual Unlock succeeds if refreshVaultCache fails due to a missing internet connection
-		vaultCacheMock.refreshVaultCacheForWithThrowableError = CloudProviderError.noInternetConnection
-		try manualUnlockVaultV8()
-
-		// Manual Unlock propagates refreshVaultCache error
-		let expectedError = CloudProviderError.itemNotFound
-		vaultCacheMock.refreshVaultCacheForWithThrowableError = expectedError
-		XCTAssertThrowsError(try manualUnlockVaultV8()) { error in
-			XCTAssertEqual(expectedError, error as? CloudProviderError)
-		}
 	}
 
 	// MARK: - Duplicate Vault prevention
@@ -654,29 +617,9 @@ class VaultManagerTests: XCTestCase {
 	// MARK: Helper
 
 	private func manualUnlockVaultV8() throws {
-		let expectation = XCTestExpectation()
-		var unlockError: Error?
 		let kek = try setupManualUnlockTest(vaultVersion: 8)
-		manager.manualUnlockVault(withUID: vaultUID, kek: kek).then { decorator in
-			guard decorator is VaultFormat8ProviderDecorator else {
-				XCTFail("Decorator is not a VaultFormat8ProviderDecorator")
-				return
-			}
-		}.catch { error in
-			unlockError = error
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
-		if let unlockError = unlockError {
-			throw unlockError
-		}
-	}
-
-	private func assertRefreshedVaultCache() {
-		XCTAssertEqual(1, vaultCacheMock.refreshVaultCacheForWithCallsCount)
-		XCTAssertEqual(vaultAccount, vaultCacheMock.refreshVaultCacheForWithReceivedArguments?.vault)
-		XCTAssert(providerManager.provider === vaultCacheMock.refreshVaultCacheForWithReceivedArguments?.provider as AnyObject)
+		let decorator = try manager.manualUnlockVault(withUID: vaultUID, kek: kek)
+		XCTAssert(decorator is VaultFormat8ProviderDecorator, "Decorator is not a VaultFormat8ProviderDecorator")
 	}
 
 	/**
