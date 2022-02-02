@@ -15,8 +15,8 @@ import Promises
 public protocol VaultCache {
 	func cache(_ entry: CachedVault) throws
 	func getCachedVault(withVaultUID vaultUID: String) throws -> CachedVault
-	func invalidate(vaultUID: String) throws
 	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void>
+	func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws
 }
 
 public struct CachedVault: Codable, Equatable {
@@ -24,8 +24,8 @@ public struct CachedVault: Codable, Equatable {
 	public let masterkeyFileData: Data
 	let vaultConfigToken: Data?
 	let lastUpToDateCheck: Date
-	let masterkeyFileLastModifiedDate: Date?
-	let vaultConfigLastModifiedDate: Date?
+	var masterkeyFileLastModifiedDate: Date?
+	var vaultConfigLastModifiedDate: Date?
 }
 
 extension CachedVault: FetchableRecord, TableRecord, PersistableRecord {
@@ -70,12 +70,6 @@ public class VaultDBCache: VaultCache {
 		})
 	}
 
-	public func invalidate(vaultUID: String) throws {
-		_ = try dbWriter.write({ db in
-			try CachedVault.deleteOne(db, key: vaultUID)
-		})
-	}
-
 	public func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
 		let currentCachedVault: CachedVault
 		do {
@@ -85,6 +79,14 @@ public class VaultDBCache: VaultCache {
 		}
 		return refreshVaultConfig(for: vault, provider: provider).then {
 			self.refreshMasterkeyFileCache(for: vault, currentCachedVault: currentCachedVault, provider: provider)
+		}
+	}
+
+	public func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
+		_ = try dbWriter.write { db in
+			try CachedVault.filter(CachedVault.Columns.vaultUID == vaultUID).updateAll(db,
+			                                                                           CachedVault.Columns.masterkeyFileData.set(to: data),
+			                                                                           CachedVault.Columns.masterkeyFileLastModifiedDate.set(to: lastModifiedDate))
 		}
 	}
 
@@ -133,10 +135,6 @@ public class VaultDBCache: VaultCache {
 		}
 	}
 
-	private func masterkeyFileHasLegacyVaultFormat(_ masterkeyFile: MasterkeyFile) -> Bool {
-		return masterkeyFile.version < 8
-	}
-
 	private func updateVaultConfigCacheForVault(at vaultPath: CloudPath, vaultUID: String, provider: CloudProvider, lastModifiedDate: Date?) -> Promise<Void> {
 		let tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
@@ -149,14 +147,6 @@ public class VaultDBCache: VaultCache {
 	private func fetchVaultConfigMetadataForVault(at vaultPath: CloudPath, provider: CloudProvider) -> Promise<CloudItemMetadata> {
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		return provider.fetchItemMetadata(at: vaultConfigPath)
-	}
-
-	private func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
-		_ = try dbWriter.write { db in
-			try CachedVault.filter(CachedVault.Columns.vaultUID == vaultUID).updateAll(db,
-			                                                                           CachedVault.Columns.masterkeyFileData.set(to: data),
-			                                                                           CachedVault.Columns.masterkeyFileLastModifiedDate.set(to: lastModifiedDate))
-		}
 	}
 
 	private func setVaultConfigData(_ data: Data?, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {

@@ -62,6 +62,8 @@ class VaultManagerTests: XCTestCase {
 	let vaultPath = CloudPath("/Vault/")
 	lazy var vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
 	let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
+	let masterkeyFileLastModifiedDate = Date(timeIntervalSince1970: 100)
+	let vaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)
 
 	override func setUpWithError() throws {
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -73,6 +75,7 @@ class VaultManagerTests: XCTestCase {
 		providerManager = CloudProviderManagerMock(accountManager: providerAccountManager)
 		accountManager = VaultAccountDBManager(dbPool: dbPool)
 		vaultCacheMock = VaultCacheMock()
+		vaultCacheMock.refreshVaultCacheForWithReturnValue = Promise(())
 		passwordManagerMock = VaultPasswordManagerMock()
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
 		masterkeyCacheHelperMock = MasterkeyCacheHelperMock()
@@ -170,12 +173,14 @@ class VaultManagerTests: XCTestCase {
 		}
 
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 999, password: "pw")
+		cloudProviderMock.cloudMetadata[masterkeyPath.path] = CloudItemMetadata(name: masterkeyPath.lastPathComponent, cloudPath: masterkeyPath, itemType: .file, lastModifiedDate: masterkeyFileLastModifiedDate, size: nil)
 
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
 		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
+		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
 
 		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
@@ -189,6 +194,8 @@ class VaultManagerTests: XCTestCase {
 				return
 			}
 			let cachedVault = try getCachedVaultFromMock(withVaultUID: vaultUID)
+			XCTAssertEqual(masterkeyFileLastModifiedDate, cachedVault.masterkeyFileLastModifiedDate)
+			XCTAssertEqual(vaultConfigLastModifiedDate, cachedVault.vaultConfigLastModifiedDate)
 
 			XCTAssertEqual(1, managerMock.addedFileProviderDomainDisplayName.count)
 			XCTAssertEqual(vaultPath.lastPathComponent, managerMock.addedFileProviderDomainDisplayName[vaultUID])
@@ -225,6 +232,8 @@ class VaultManagerTests: XCTestCase {
 		}
 
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 7, password: "pw")
+		cloudProviderMock.cloudMetadata[masterkeyPath.path] = CloudItemMetadata(name: masterkeyPath.lastPathComponent, cloudPath: masterkeyPath, itemType: .file, lastModifiedDate: masterkeyFileLastModifiedDate, size: nil)
+
 		let vaultUID = UUID().uuidString
 		let legacyVaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: legacyVaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
@@ -237,6 +246,10 @@ class VaultManagerTests: XCTestCase {
 				return
 			}
 			let cachedVault = try getCachedVaultFromMock(withVaultUID: vaultUID)
+			XCTAssertEqual(masterkeyFileLastModifiedDate, cachedVault.masterkeyFileLastModifiedDate)
+			XCTAssertNil(cachedVault.vaultConfigLastModifiedDate)
+			XCTAssertNil(cachedVault.vaultConfigToken)
+
 			let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 			XCTAssertEqual(7, masterkeyFile.version)
 			let savedMasterkey = try masterkeyFile.unlock(passphrase: "pw")
@@ -372,12 +385,14 @@ class VaultManagerTests: XCTestCase {
 		}
 
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 999, password: "pw")
+		cloudProviderMock.cloudMetadata[masterkeyPath.path] = CloudItemMetadata(name: masterkeyPath.lastPathComponent, cloudPath: masterkeyPath, itemType: .file, lastModifiedDate: masterkeyFileLastModifiedDate, size: nil)
 
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
 		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
+		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
 
 		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
@@ -539,13 +554,11 @@ class VaultManagerTests: XCTestCase {
 
 	// MARK: - Change Passphrase
 
-	// swiftlint:disable:next function_body_length
 	func testChangePassphrase() throws {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -561,7 +574,7 @@ class VaultManagerTests: XCTestCase {
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
 		vaultCacheMock.getCachedVaultWithVaultUIDReturnValue = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck, masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
-
+		cloudProviderMock.createdFilesLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
 		let newPassphrase = "NewPassword"
 
 		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
@@ -578,21 +591,7 @@ class VaultManagerTests: XCTestCase {
 			XCTAssertEqual(self.masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
 			XCTAssertEqual(self.masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
 
-			// Check cached vault has the updated masterkey file data
-			let cachedVault = try self.getCachedVaultFromMock(withVaultUID: vaultUID)
-			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: newPassphrase)
-			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
-
-			XCTAssertThrowsError(try cachedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
-				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
-			}
-
-			// Check cached vault vault config token did not change
-			XCTAssertEqual(token, cachedVault.vaultConfigToken)
-
-			// Check last up to date check updated
-			XCTAssert(oldLastUpToDateCheck < cachedVault.lastUpToDateCheck)
+			try self.assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -601,13 +600,11 @@ class VaultManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testChangePassphraseWithSavedPassword() throws {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -625,7 +622,7 @@ class VaultManagerTests: XCTestCase {
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
 		vaultCacheMock.getCachedVaultWithVaultUIDReturnValue = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck, masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
-
+		cloudProviderMock.createdFilesLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
 		let newPassphrase = "NewPassword"
 
 		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
@@ -642,24 +639,10 @@ class VaultManagerTests: XCTestCase {
 			XCTAssertEqual(self.masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
 			XCTAssertEqual(self.masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
 
-			// Check cached vault has the updated masterkey file data
-			let cachedVault = try self.getCachedVaultFromMock(withVaultUID: vaultUID)
-			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: newPassphrase)
-			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
-
-			XCTAssertThrowsError(try cachedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
-				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
-			}
-
-			// Check cached vault vault config token did not change
-			XCTAssertEqual(token, cachedVault.vaultConfigToken)
-
-			// Check last up to date check updated
-			XCTAssert(oldLastUpToDateCheck < cachedVault.lastUpToDateCheck)
+			try self.assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
 
 			XCTAssertEqual(1, self.passwordManagerMock.savedPasswords.count)
-			XCTAssertEqual(newPassphrase, self.passwordManagerMock.savedPasswords[vaultUID])
+			XCTAssertEqual(newPassphrase, self.passwordManagerMock.savedPasswords[self.vaultUID])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -728,6 +711,15 @@ class VaultManagerTests: XCTestCase {
 
 	private func isLegacyVault(vaultVersion: Int) -> Bool {
 		return vaultVersion < 8
+	}
+
+	private func assertUpdatedVaultCache(with expectedMasterkeyFileData: Data) throws {
+		let receivedArguments = try XCTUnwrap(vaultCacheMock.setMasterkeyFileDataForVaultUIDLastModifiedDateReceivedArguments)
+		XCTAssertEqual(masterkeyFileLastModifiedDate, receivedArguments.lastModifiedDate)
+		XCTAssertEqual(expectedMasterkeyFileData, receivedArguments.data)
+		XCTAssertEqual(vaultUID, receivedArguments.vaultUID)
+		XCTAssertFalse(vaultCacheMock.refreshVaultCacheForWithCalled)
+		XCTAssertFalse(vaultCacheMock.cacheCalled)
 	}
 }
 

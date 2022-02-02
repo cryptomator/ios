@@ -12,6 +12,7 @@ import Promises
 @testable import CryptomatorCommonCore
 
 // swiftlint:disable all
+
 final class VaultCacheMock: VaultCache {
 	// MARK: - cache
 
@@ -58,28 +59,6 @@ final class VaultCacheMock: VaultCache {
 		return try getCachedVaultWithVaultUIDClosure.map({ try $0(vaultUID) }) ?? getCachedVaultWithVaultUIDReturnValue
 	}
 
-	// MARK: - invalidate
-
-	var invalidateVaultUIDThrowableError: Error?
-	var invalidateVaultUIDCallsCount = 0
-	var invalidateVaultUIDCalled: Bool {
-		invalidateVaultUIDCallsCount > 0
-	}
-
-	var invalidateVaultUIDReceivedVaultUID: String?
-	var invalidateVaultUIDReceivedInvocations: [String] = []
-	var invalidateVaultUIDClosure: ((String) throws -> Void)?
-
-	func invalidate(vaultUID: String) throws {
-		if let error = invalidateVaultUIDThrowableError {
-			throw error
-		}
-		invalidateVaultUIDCallsCount += 1
-		invalidateVaultUIDReceivedVaultUID = vaultUID
-		invalidateVaultUIDReceivedInvocations.append(vaultUID)
-		try invalidateVaultUIDClosure?(vaultUID)
-	}
-
 	// MARK: - refreshVaultCache
 
 	var refreshVaultCacheForWithThrowableError: Error?
@@ -90,7 +69,7 @@ final class VaultCacheMock: VaultCache {
 
 	var refreshVaultCacheForWithReceivedArguments: (vault: VaultAccount, provider: CloudProvider)?
 	var refreshVaultCacheForWithReceivedInvocations: [(vault: VaultAccount, provider: CloudProvider)] = []
-	var refreshVaultCacheForWithReturnValue: Promise<Void> = Promise(())
+	var refreshVaultCacheForWithReturnValue: Promise<Void>!
 	var refreshVaultCacheForWithClosure: ((VaultAccount, CloudProvider) -> Promise<Void>)?
 
 	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
@@ -101,6 +80,28 @@ final class VaultCacheMock: VaultCache {
 		refreshVaultCacheForWithReceivedArguments = (vault: vault, provider: provider)
 		refreshVaultCacheForWithReceivedInvocations.append((vault: vault, provider: provider))
 		return refreshVaultCacheForWithClosure.map({ $0(vault, provider) }) ?? refreshVaultCacheForWithReturnValue
+	}
+
+	// MARK: - setMasterkeyFileData
+
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateThrowableError: Error?
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateCallsCount = 0
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateCalled: Bool {
+		setMasterkeyFileDataForVaultUIDLastModifiedDateCallsCount > 0
+	}
+
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateReceivedArguments: (data: Data, vaultUID: String, lastModifiedDate: Date?)?
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateReceivedInvocations: [(data: Data, vaultUID: String, lastModifiedDate: Date?)] = []
+	var setMasterkeyFileDataForVaultUIDLastModifiedDateClosure: ((Data, String, Date?) throws -> Void)?
+
+	func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
+		if let error = setMasterkeyFileDataForVaultUIDLastModifiedDateThrowableError {
+			throw error
+		}
+		setMasterkeyFileDataForVaultUIDLastModifiedDateCallsCount += 1
+		setMasterkeyFileDataForVaultUIDLastModifiedDateReceivedArguments = (data: data, vaultUID: vaultUID, lastModifiedDate: lastModifiedDate)
+		setMasterkeyFileDataForVaultUIDLastModifiedDateReceivedInvocations.append((data: data, vaultUID: vaultUID, lastModifiedDate: lastModifiedDate))
+		try setMasterkeyFileDataForVaultUIDLastModifiedDateClosure?(data, vaultUID, lastModifiedDate)
 	}
 }
 
