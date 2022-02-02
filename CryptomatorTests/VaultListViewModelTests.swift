@@ -230,8 +230,8 @@ class VaultCacheMock: VaultCache {
 		return vault
 	}
 
-	func invalidate(vaultUID: String) throws {
-		invalidatedVaults.append(vaultUID)
+	func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
+		throw MockError.notMocked
 	}
 
 	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
