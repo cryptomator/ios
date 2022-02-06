@@ -43,7 +43,9 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 
 	func set(_ key: String, value: Data) throws {
 		let setQuery = setQuery(key: key, value: value) as CFDictionary
-		let getQuery = getQuery(key: key) as CFDictionary
+		var defaultGetQuery = getQuery(key: key)
+		defaultGetQuery[kSecUseAuthenticationUI as String] = kSecUseAuthenticationUIFail
+		let getQuery = defaultGetQuery as CFDictionary
 		let currentData: Data?
 		do {
 			currentData = try getAsData(query: getQuery)
@@ -52,6 +54,9 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 			guard status == noErr else {
 				throw CryptomatorKeychainError.unhandledError(status: status)
 			}
+			return
+		} catch let CryptomatorKeychainError.unhandledError(statuscode) where statuscode == errSecInteractionNotAllowed {
+			try updateRestrictedAccessEntry(key: key, value: value)
 			return
 		}
 		if currentData != value {
@@ -67,7 +72,7 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	func delete(_ key: String) throws {
 		let query = deleteQuery(key: key) as CFDictionary
 		let status = SecItemDelete(query)
-		guard status == noErr else {
+		if status != noErr, status != errSecItemNotFound {
 			throw CryptomatorKeychainError.unhandledError(status: status)
 		}
 	}
@@ -114,6 +119,17 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 		guard status == noErr else {
 			throw CryptomatorKeychainError.unhandledError(status: status)
 		}
+	}
+
+	/**
+	 Updates a restricted access item in the keychain without a biometric authentication prompt.
+
+	 As calling `SecItemUpdate(_:_:)` prompts the user for biometric authentication, the existing item
+	 is removed first and then recreated with the new data.
+	 */
+	private func updateRestrictedAccessEntry(key: String, value: Data) throws {
+		try delete(key)
+		try set(key, value: value)
 	}
 }
 
