@@ -90,10 +90,13 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	}
 
 	public func vaultIsUnlocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
+		updateLockStatus(domainIdentifier: domainIdentifier)
 		return adapterCache.getItem(identifier: domainIdentifier) != nil
 	}
 
 	public func getDomainIdentifiersOfUnlockedVaults() -> [NSFileProviderDomainIdentifier] {
+		let cachedIdentifiers = adapterCache.getAllCachedIdentifiers()
+		cachedIdentifiers.forEach { updateLockStatus(domainIdentifier: $0) }
 		return adapterCache.getAllCachedIdentifiers()
 	}
 
@@ -163,6 +166,16 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: domainIdentifier.rawValue)
 		let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
 		notificator.refreshWorkingSet()
+	}
+
+	private func updateLockStatus(domainIdentifier: NSFileProviderDomainIdentifier) {
+		if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: domainIdentifier.rawValue) {
+			do {
+				try gracefulLockVault(with: domainIdentifier)
+			} catch {
+				DDLogDebug("Graceful locking vault (\(domainIdentifier.rawValue)) failed with error: \(error)")
+			}
+		}
 	}
 }
 
