@@ -8,12 +8,11 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
-import CryptomatorFileProvider
 import FileProvider
 import Foundation
 
-class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, VaultLocking {
-	var serviceName: NSFileProviderServiceName {
+public class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, VaultLocking {
+	public var serviceName: NSFileProviderServiceName {
 		VaultLockingService.name
 	}
 
@@ -24,13 +23,13 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 		return listener
 	}()
 
-	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
+	public func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
 		return listener.endpoint
 	}
 
 	// MARK: - NSXPCListenerDelegate
 
-	func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
+	public func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
 		newConnection.exportedInterface = NSXPCInterface(with: VaultLocking.self)
 		newConnection.exportedObject = self
 		newConnection.resume()
@@ -43,12 +42,12 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 
 	// MARK: - VaultLocking
 
-	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
+	public func lockVault(domainIdentifier: NSFileProviderDomainIdentifier) {
 		FileProviderAdapterManager.shared.forceLockVault(with: domainIdentifier)
 		DDLogInfo("Locked vault \(domainIdentifier.rawValue)")
 	}
 
-	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
+	public func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void) {
 		do {
 			try FileProviderAdapterManager.shared.gracefulLockVault(with: domainIdentifier)
 			reply(nil)
@@ -57,11 +56,11 @@ class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCLis
 		}
 	}
 
-	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
+	public func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
 		reply(FileProviderAdapterManager.shared.vaultIsUnlocked(domainIdentifier: domainIdentifier))
 	}
 
-	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
+	public func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
 		reply(FileProviderAdapterManager.shared.getDomainIdentifiersOfUnlockedVaults())
 	}
 }

@@ -14,12 +14,17 @@ class CloudProviderMock: CloudProvider {
 	var createdFolders: [String] = []
 	var createdFiles: [String: Data] = [:]
 	var movedFolder: [String: String] = [:]
+	var cloudMetadata: [String: CloudItemMetadata] = [:]
+	var createdFilesLastModifiedDate: [String: Date] = [:]
 	var error: Error?
 
 	var filesToDownload = [String: Data]()
 
 	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
-		return Promise(CloudProviderError.noInternetConnection)
+		guard let metadata = cloudMetadata[cloudPath.path] else {
+			return Promise(CloudProviderError.itemNotFound)
+		}
+		return Promise(metadata)
 	}
 
 	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
@@ -44,7 +49,7 @@ class CloudProviderMock: CloudProvider {
 		do {
 			let data = try Data(contentsOf: localURL)
 			createdFiles[cloudPath.path] = data
-			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: nil, size: data.count))
+			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: createdFilesLastModifiedDate[cloudPath.path], size: data.count))
 		} catch {
 			return Promise(error)
 		}

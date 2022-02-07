@@ -11,19 +11,20 @@ import Foundation
 @testable import CryptomatorFileProvider
 
 // swiftlint:disable all
-final class FileProviderAdapterProvidingMock: FileProviderAdapterProviding {
-	// MARK: - semaphore
 
-	var semaphoreGetterCallsCount = 0
-	var semaphore: BiometricalUnlockSemaphore {
+final class FileProviderAdapterProvidingMock: FileProviderAdapterProviding {
+	// MARK: - unlockMonitor
+
+	var unlockMonitorGetterCallsCount = 0
+	var unlockMonitor: UnlockMonitorType {
 		get {
-			semaphoreGetterCallsCount += 1
-			return underlyingSemaphore
+			unlockMonitorGetterCallsCount += 1
+			return underlyingUnlockMonitor
 		}
-		set(value) { underlyingSemaphore = value }
+		set(value) { underlyingUnlockMonitor = value }
 	}
 
-	private var underlyingSemaphore: BiometricalUnlockSemaphore!
+	private var underlyingUnlockMonitor: UnlockMonitorType!
 
 	// MARK: - getAdapter
 

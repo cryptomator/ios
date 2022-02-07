@@ -33,7 +33,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 		notificatorMock = FileProviderNotificatorTypeMock()
 		adapterProvidingMock = FileProviderAdapterProvidingMock()
 		adapterMock = FileProviderAdapterTypeMock()
-		adapterProvidingMock.semaphore = BiometricalUnlockSemaphore()
+		adapterProvidingMock.unlockMonitor = UnlockMonitor()
 	}
 
 	// MARK: Enumerate Items
@@ -112,21 +112,21 @@ class FileProviderEnumeratorTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let enumerator = createEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = FileProviderAdapterManagerError.cachedAdapterNotFound
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = UnlockMonitorError.defaultLock
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
 		wait(for: [expectation], timeout: 2.0)
 		assertWaitForSemaphoreCalled()
-		assertErrorWrapped(.cachedAdapterNotFound)
+		assertErrorWrapped(.defaultLock)
 	}
 
 	func testEnumerateItemsFailedAdapterNotFoundForWorkingSet() {
 		let expectation = XCTestExpectation()
 		let enumerator = createEnumerator(for: .workingSet)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = FileProviderAdapterManagerError.cachedAdapterNotFound
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = UnlockMonitorError.defaultLock
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
@@ -200,7 +200,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 	func testEnumerateWorkingSetChangesFailedAdapterNotFound() throws {
 		let expectation = XCTestExpectation()
 		let enumerator = createEnumerator(for: .workingSet)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = FileProviderAdapterManagerError.cachedAdapterNotFound
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = UnlockMonitorError.defaultLock
 		changeObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
@@ -231,7 +231,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 	}
 
 	private func assertWaitForSemaphoreCalled() {
-		XCTAssertEqual(1, adapterProvidingMock.semaphoreGetterCallsCount)
+		XCTAssertEqual(1, adapterProvidingMock.unlockMonitorGetterCallsCount)
 	}
 
 	private func assertEnumerateItemsCalled(for identifier: NSFileProviderItemIdentifier, pageToken: String?) {
@@ -258,7 +258,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 		XCTAssertFalse(enumerationObserverMock.didEnumerateCalled)
 	}
 
-	private func assertErrorWrapped(_ error: FileProviderAdapterManagerError) {
+	private func assertErrorWrapped(_ error: UnlockMonitorError) {
 		let receivedErrors = enumerationObserverMock.finishEnumeratingWithErrorReceivedInvocations as? [NSFileProviderError]
 		let expectedWrappedError = ErrorWrapper.wrapError(error, domain: domain)
 		XCTAssertEqual([expectedWrappedError], receivedErrors)

@@ -40,6 +40,9 @@ public class CryptomatorDatabase {
 		migrator.registerMigration("v1") { db in
 			try v1Migration(db)
 		}
+		migrator.registerMigration("v2") { db in
+			try v2Migration(db)
+		}
 		return migrator
 	}
 
@@ -117,6 +120,13 @@ public class CryptomatorDatabase {
 			WHERE position > OLD.position AND cloudProviderType = OLD.cloudProviderType;
 		END;
 		""")
+	}
+
+	class func v2Migration(_ db: Database) throws {
+		try db.alter(table: "cachedVaults", body: { table in
+			table.add(column: "masterkeyFileLastModifiedDate", .date)
+			table.add(column: "vaultConfigLastModifiedDate", .date).check(sql: "NOT (vaultConfigLastModifiedDate IS NOT NULL AND vaultConfigToken IS NULL)")
+		})
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

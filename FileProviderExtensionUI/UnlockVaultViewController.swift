@@ -147,6 +147,7 @@ class UnlockVaultViewController: UITableViewController {
 			return button
 		case .enableBiometricalUnlock:
 			enableBiometricalUnlockCell.textLabel?.text = viewModel.getTitle(for: indexPath)
+			enableBiometricalUnlockSwitch.isOn = viewModel.enableBiometricalUnlockIsOn
 			return enableBiometricalUnlockCell
 		case .unknown:
 			return UITableViewCell()
