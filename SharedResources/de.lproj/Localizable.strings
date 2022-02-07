@@ -89,15 +89,15 @@
 "fileProvider.onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast. Um loszulegen, gehe zur Haupt-App und füge einen Tresor hinzu.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator öffnen";
 "fileProvider.error.biometricalAuthCanceled.title" = "Entsperren abgebrochen";
-"fileProvider.error.biometricalAuthCanceled.message" = "Entsperren über %@ war nicht erfolgreich. Bitte versuchen Sie es erneut.";
+"fileProvider.error.biometricalAuthCanceled.message" = "Entsperren über %@ war nicht erfolgreich. Bitte versuche es erneut.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Falsches Passwort";
-"fileProvider.error.biometricalAuthWrongPassword.message" = "Das für %@ gespeicherte Passwort ist falsch. Bitte versuchen Sie es erneut und geben Sie Ihr Passwort ein, um %@ wieder zu aktivieren.";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Das für %@ gespeicherte Passwort ist falsch. Bitte versuche es erneut und gib dein Passwort ein, um %@ wieder zu aktivieren.";
 "fileProvider.error.defaultLock.title" = "Entsperren erforderlich";
-"fileProvider.error.defaultLock.message" = "Um auf den Inhalt Ihres Tresors zuzugreifen und ihn anzuzeigen, muss dieser freigeschaltet werden.";
+"fileProvider.error.defaultLock.message" = "Um auf den Inhalt deines Tresors zuzugreifen und ihn anzuzeigen, muss dieser entsperrt werden.";
 "fileProvider.error.unlockButton" = "Entsperren";
 
 "keepUnlocked.alert.title" = "Tresor sperren?";
-"keepUnlocked.alert.message" = "Damit diese Ändernung wirksam werden kann, muss dein Tresor gesperrt werden.";
+"keepUnlocked.alert.message" = "Damit diese Änderung wirksam werden kann, muss dein Tresor gesperrt werden.";
 "keepUnlocked.alert.confirm" = "Bestätigen & Jetzt sperren";
 "keepUnlocked.header" = "Lege fest, wie lange dieser Tresor im inaktiven Zustand entsperrt bleiben soll.";
 "keepUnlocked.footer.auto" = "Die Steuerung durch iOS bedeutet, dass Cryptomator jederzeit beendet werden kann, um Speicher freizugeben, was den Tresor automatisch sperrt.";
