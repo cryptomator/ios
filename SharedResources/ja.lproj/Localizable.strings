@@ -87,6 +87,7 @@
 "fileProvider.onboarding.title" = "ようこそ";
 "fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
+"fileProvider.error.unlockButton" = "解錠";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
 "keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
