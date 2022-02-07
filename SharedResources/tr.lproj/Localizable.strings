@@ -88,6 +88,12 @@
 "fileProvider.onboarding.title" = "Hoş geldiniz";
 "fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
+"fileProvider.error.biometricalAuthCanceled.title" = "Kilidi açma iptal edildi";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@ yoluyla kilit açma işlemi başarılı olmadı. Lütfen tekrar deneyin.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Yanlış şifre";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ için kaydedilen parola yanlış. Lütfen tekrar deneyin ve %@'ı yeniden etkinleştirmek için şifrenizi girin.";
+"fileProvider.error.defaultLock.title" = "Kilit açma gerekli";
+"fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
