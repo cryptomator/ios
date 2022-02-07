@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Witamy";
 "fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
 "fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
+"fileProvider.error.unlockButton" = "Odblokuj";
 
 "keepUnlocked.alert.title" = "Zablokować sejf?";
 "keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
