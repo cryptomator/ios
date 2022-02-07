@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Vítejte";
 "fileProvider.onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otevřít Cryptomator";
+"fileProvider.error.unlockButton" = "Odemknout";
 
 "keepUnlocked.alert.title" = "Zamknout trezor?";
 "keepUnlocked.alert.message" = "Tato změna vyžaduje uzamčení trezoru pro projevení.";
