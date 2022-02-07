@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "ত্রুটি দেখা দিয়েছে";
+"common.alert.attention.title" = "দৃষ্টি আকর্ষণ করছি!";
+"common.button.cancel" = "বাতিল করুন";
+"common.button.change" = "পরিবর্তন করুন";
+"common.button.choose" = "বাছুন";
+"common.button.confirm" = "নিশ্চিত করুন";
+"common.button.create" = "তৈরি করুন";
+"common.button.createFolder" = "ফোল্ডার তৈরি করুন";
+"common.button.done" = "সম্পন্ন হয়েছে";
+"common.button.download" = "ডাউনলোড";
+"common.button.edit" = "সম্পাদন করুন";
+"common.button.enable" = "সক্রিয় করুন";
+"common.button.next" = "পরবর্তী";
+"common.button.ok" = "আচ্ছা";
+"common.button.remove" = "বাতিল";
+"common.button.signOut" = "সাইন আউট";
+"common.button.verify" = "যাচাই করুন";
+"common.cells.openInFilesApp" = "ফাইল আ্যপে খুলুন";
+"common.cells.password" = "পাসওয়ার্ড";
+"common.cells.url" = "ইউআরএল";
+"common.cells.username" = "ব্যবহারকারীর নাম";
+"common.footer.learnMore" = "আরও জানুন।";
+
+"accountList.header.title" = "যাচাইকরণ";
+"accountList.emptyList.message" = "একাউন্ট যোগ করতে এখানে চাপুন";
+"accountList.signOut.alert.title" = "যুক্ত ভোল্টগুলো বাতিল করবেন?";
+"accountList.signOut.alert.message" = "সাইন আউট করলে একাউন্টের সাথে যুক্ত সকল ভোল্ট মুছে যাবে। যদিও ভোল্টের এনক্রিপ্টেড তথ্যগুলো মুছবে না। ভোল্টগুলো পুনরায় যুক্ত করতে আপনি আবার সাইন ইন করতে পারেন।";
+
+"addVault.title" = "ভোল্ট যুক্ত করুন";
+"addVault.createNewVault.title" = "নতুন ভোল্ট তৈরি করুন";
+"purchase.retry.button" = "পুনরায় চেষ্টা করুন";
+
+"settings.title" = "সেটিংস";
