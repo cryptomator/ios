@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Benvenuto";
 "fileProvider.onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file. Per iniziare, vai all'app principale e aggiungi una cassaforte.";
 "fileProvider.onboarding.button.openCryptomator" = "Apri Cryptomator";
+"fileProvider.error.unlockButton" = "Sblocca";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
