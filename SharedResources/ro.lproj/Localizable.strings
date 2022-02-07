@@ -79,6 +79,7 @@
 "fileProvider.onboarding.title" = "Bine ați venit";
 "fileProvider.onboarding.info" = "Vă mulțumim că ați ales Cryptomator pentru a vă proteja fișierele. Pentru a începe, mergeți la aplicația principală și adăugați un seif.";
 "fileProvider.onboarding.button.openCryptomator" = "Deschideți Cryptomator";
+"fileProvider.error.unlockButton" = "Deblocați";
 
 "localFileSystemAuthentication.createNewVault.header" = "În ecranul următor, alegeți locația de stocare pentru seiful dvs. nou.";
 "localFileSystemAuthentication.createNewVault.button" = "Selectați locația de stocare";
