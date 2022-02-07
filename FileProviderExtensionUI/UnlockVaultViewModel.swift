@@ -310,7 +310,10 @@ class UnlockVaultViewModel {
 			return Promise(error)
 		}
 		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
-			guard case CloudProviderError.noInternetConnection = error, case LocalizedCloudProviderError.itemNotFound = error else {
+			switch error {
+			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
+				break
+			default:
 				throw error
 			}
 		}

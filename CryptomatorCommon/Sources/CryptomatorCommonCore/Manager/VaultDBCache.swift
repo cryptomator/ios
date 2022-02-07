@@ -129,8 +129,11 @@ public class VaultDBCache: VaultCache {
 				return Promise(())
 			}
 		}.recover { error -> Void in
-			if case CloudProviderError.itemNotFound = error {
+			switch error {
+			case CloudProviderError.itemNotFound, LocalizedCloudProviderError.itemNotFound:
 				try self.setVaultConfigData(nil, forVaultUID: vault.vaultUID, lastModifiedDate: nil)
+			default:
+				throw error
 			}
 		}
 	}
