@@ -8,5 +8,6 @@
 "addVault.createNewVault.setVaultName.cells.name" = "ชื่อ Vault";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator ควรเก็บไฟล์ของคุณไว้ที่ไหน?";
 "addVault.openExistingVault.title" = "เปิด Vault";
+"fileProvider.error.unlockButton" = "ปลดล็อก";
 
 "unlockVault.button.unlock" = "ปลดล็อก";
