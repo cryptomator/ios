@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Bienvenido";
 "fileProvider.onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"fileProvider.error.unlockButton" = "Desbloquear";
 
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
