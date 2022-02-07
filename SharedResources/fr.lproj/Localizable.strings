@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "Bienvenue";
 "fileProvider.onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
 "fileProvider.onboarding.button.openCryptomator" = "Ouvrir Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Déverrouillage annulé";
+"fileProvider.error.biometricalAuthCanceled.message" = "Le déverrouillage via %@ n'a pas réussi. Veuillez réessayer.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Mauvais mot de passe";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Le mot de passe qui a été sauvegardé pour %@ est incorrect. Veuillez réessayer et entrer votre mot de passe pour réactiver %@.";
+"fileProvider.error.defaultLock.title" = "Déverrouillage requis";
+"fileProvider.error.defaultLock.message" = "Pour accéder et afficher le contenu de votre coffre, il doit être déverrouillé.";
+"fileProvider.error.unlockButton" = "Déverrouiller";
 
 "keepUnlocked.alert.title" = "Verrouiller le coffre ?";
 "keepUnlocked.alert.message" = "Cette modification nécessite que votre coffre soit verrouillé.";
