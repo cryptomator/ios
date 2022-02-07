@@ -34,6 +34,7 @@
 "addVault.openExistingVault.title" = "Відкрити існуюче сховище";
 "addVault.openExistingVault.progress" = "Додавання сховища…";
 "changePassword.progress" = "Зміна пароля…";
+"fileProvider.error.unlockButton" = "Розблокувати";
 "purchase.retry.button" = "Повторити";
 
 "settings.title" = "Налаштування";
