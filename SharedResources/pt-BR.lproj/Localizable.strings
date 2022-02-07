@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Bem vindo";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"fileProvider.error.unlockButton" = "Desbloquear";
 
 "keepUnlocked.alert.title" = "Trancar cofre?";
 "keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
