@@ -80,6 +80,7 @@
 "fileProvider.onboarding.title" = "स्वागत है";
 "fileProvider.onboarding.info" = "आपके दस्तावेज़ों की सुरक्षा के हेतु क्रिप्टोमेटर का चयन करने के लिए आपका धन्यवाद। शुरू करने के लिए मुख्य ऐप में जाएँ और एक कक्ष तो जोड़ें।";
 "fileProvider.onboarding.button.openCryptomator" = "क्रिप्टोमेटर खोलें";
+"fileProvider.error.unlockButton" = "अनलॉक करें";
 
 "localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
