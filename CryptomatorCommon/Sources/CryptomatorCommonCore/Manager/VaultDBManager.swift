@@ -324,22 +324,6 @@ public class VaultDBManager: VaultManager {
 		return decorator
 	}
 
-	private func refreshVaultCache(forVaultUID vaultUID: String) -> Promise<Void> {
-		let vaultAccount: VaultAccount
-		let provider: CloudProvider
-		do {
-			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-			provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
-		} catch {
-			return Promise(error)
-		}
-		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
-			guard case CloudProviderError.noInternetConnection = error else {
-				throw error
-			}
-		}
-	}
-
 	// MARK: - Move Vault
 
 	public func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {

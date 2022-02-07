@@ -305,12 +305,12 @@ class UnlockVaultViewModel {
 		let provider: CloudProvider
 		do {
 			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-			provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: vaultAccount.delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
 		return vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
-			guard case CloudProviderError.noInternetConnection = error else {
+			guard case CloudProviderError.noInternetConnection = error, case LocalizedCloudProviderError.itemNotFound = error else {
 				throw error
 			}
 		}
