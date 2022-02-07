@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Hoş geldiniz";
 "fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
+"fileProvider.error.unlockButton" = "Kilidi Aç";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
 "keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
