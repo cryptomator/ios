@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Welkom";
 "fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+"fileProvider.error.unlockButton" = "Ontgrendel";
 
 "keepUnlocked.alert.title" = "Kluis vergrendelen?";
 "keepUnlocked.alert.message" = "Deze wijziging vereist dat je kluis vergrendeld is om van kracht te worden.";
