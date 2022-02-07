@@ -88,6 +88,12 @@
 "fileProvider.onboarding.title" = "Добро пожаловать";
 "fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
 "fileProvider.onboarding.button.openCryptomator" = "Открыть Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Разблокировка отменена";
+"fileProvider.error.biometricalAuthCanceled.message" = "Не удалость разблокировать с помощью %@. Пожалуйста, попробуйте ещё раз.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Неверный пароль";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Сохранённый пароль для %@ неверный. Пожалуйста, попробуйте еще раз и введите пароль для активации %@.";
+"fileProvider.error.defaultLock.title" = "Необходима разблокировка";
+"fileProvider.error.unlockButton" = "Разблокировать";
 
 "keepUnlocked.alert.title" = "Заблокировать хранилище?";
 "keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать хранилище.";
