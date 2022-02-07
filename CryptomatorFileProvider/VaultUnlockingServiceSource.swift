@@ -58,13 +58,13 @@ public class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource,
 
 	// MARK: - VaultUnlocking
 
-	public func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void) {
+	public func unlockVault(kek: [UInt8], reply: @escaping (NSError?) -> Void) {
 		let domain = self.domain
 		let vaultUID = vaultUID
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
 			guard let notificator = self.notificator else {
 				DDLogError("Unlocking vault failed, unable to find FileProviderDomain")
-				reply(VaultManagerError.fileProviderDomainNotFound)
+				reply(VaultManagerError.fileProviderDomainNotFound as NSError)
 				return
 			}
 			do {
@@ -75,7 +75,7 @@ public class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource,
 			} catch {
 				FileProviderAdapterManager.shared.unlockMonitor.unlockFailed(forVaultUID: vaultUID)
 				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
-				reply(error)
+				reply(XPCErrorHelper.bridgeError(error))
 			}
 		}
 	}
