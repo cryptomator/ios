@@ -18,6 +18,7 @@
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "שים לב שאינך שוכח את סיסמתך! לא ניתן לשחזר את המידע שלך בחזרה מבלי הסיסמה.";
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
+"fileProvider.error.unlockButton" = "בטל נעילה";
 "purchase.retry.button" = "נסה שוב";
 
 "settings.title" = "הגדרות";
