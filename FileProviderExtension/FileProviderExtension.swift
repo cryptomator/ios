@@ -62,7 +62,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 
 	deinit {
 		DDLogDebug("Deinit called for \(String(describing: domain))")
-		notificator?.refreshWorkingSet()
 		observation?.invalidate()
 	}
 
