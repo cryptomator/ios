@@ -54,7 +54,11 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 			if let cachedAdapter = cachedAdapterItem?.adapter {
 				if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
 					DDLogDebug("Try to automatically lock \(domain.displayName) - \(domain.identifier)")
-					try? gracefulLockVault(with: domain.identifier)
+					do {
+						try gracefulLockVault(with: domain.identifier)
+					} catch {
+						DDLogDebug("Graceful locking vault \(domain.displayName) - \(domain.identifier) failed with error: \(error)")
+					}
 					throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 				}
 				adapter = cachedAdapter

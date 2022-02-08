@@ -146,12 +146,13 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	 For all other enumerators the error gets wrapped and reported with 1s delay as the Files app has problems with too fast reporting of an `notAuthenticated` error.
 	 */
 	private func handleEnumerateItemsError(_ error: Error, for observer: NSFileProviderEnumerationObserver) {
-		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
 		guard enumeratedItemIdentifier != .workingSet else {
+			DDLogDebug("enumerateItems getAdapter failed with: \(error) -> start to invalidate working set")
 			observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
 			notificator.invalidatedWorkingSet()
 			return
 		}
+		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
 			observer.finishEnumeratingWithError(wrappedError)
