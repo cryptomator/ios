@@ -44,3 +44,5 @@
 "purchase.retry.button" = "পুনরায় চেষ্টা করুন";
 
 "settings.title" = "সেটিংস";
+"vaultDetail.button.moveVault" = "স্থানান্তর করুন";
+"vaultDetail.button.renameVault" = "নাম পরিবর্তন করুন";
