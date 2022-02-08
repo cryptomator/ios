@@ -88,6 +88,12 @@
 "fileProvider.onboarding.title" = "Bem vindo";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueio cancelado";
+"fileProvider.error.biometricalAuthCanceled.message" = "O desbloqueio via %@ não foi bem-sucedido. Por favor, tente novamente.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Senha incorreta";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "A senha que foi salva para %@ está incorreta. Por favor, tente novamente e digite sua senha para reativar %@.";
+"fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
+"fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, ele precisa ser desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 
 "keepUnlocked.alert.title" = "Trancar cofre?";
