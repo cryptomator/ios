@@ -88,6 +88,8 @@
 "fileProvider.onboarding.title" = "Vítejte";
 "fileProvider.onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů. Chcete-li začít, přejděte do hlavní aplikace a přidejte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otevřít Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Odemknutí zrušeno";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Nesprávné heslo";
 "fileProvider.error.unlockButton" = "Odemknout";
 
 "keepUnlocked.alert.title" = "Zamknout trezor?";
