@@ -88,7 +88,23 @@
 "fileProvider.onboarding.title" = "Selamat Datang";
 "fileProvider.onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda. Untuk memulai, buka aplikasi utama dan tambahkan vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Buka Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Buka Kunci Dibatalkan";
+"fileProvider.error.biometricalAuthCanceled.message" = "Buka kunci melalui %@ tidak berhasil. Silahkan coba lagi.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Kata Sandi Salah";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Kata sandi yang tersimpan untuk %@ salah. Silahkan coba lagi dan masukkan kata sandi Anda untuk mengaktifkan kembali %@.";
+"fileProvider.error.defaultLock.title" = "Kunci Perlu Dibuka";
+"fileProvider.error.defaultLock.message" = "Kunci perlu dibuka untuk mengakses dan menunjukkan isi vault Anda.";
 "fileProvider.error.unlockButton" = "Buka Kunci";
+
+"keepUnlocked.alert.title" = "Kunci Vault?";
+"keepUnlocked.alert.message" = "Perubahan berikut memerlukan vault Anda dalam kondisi terbuka agar bisa diterapkan.";
+"keepUnlocked.alert.confirm" = "Konfirmasi & Kunci Sekarang";
+"keepUnlocked.header" = "Tentukan berapa lama Anda ingin vault tetap dibuka saat tidak ada aktivitas yang berjalan.";
+"keepUnlocked.footer.auto" = "Membiarkan iOS untuk memutuskan berarti Cryptomator dapat dimatikan kapanpun untuk mengosongkan memori, yang mana membuat vault secara otomatis akan terkunci.";
+"keepUnlocked.footer.on" = "Menggunakan opsi terpilih, salinan kunci Anda perlu untuk disimpan di iOS keychain, selama vault tidak terkunci.";
+"keepUnlockedDuration.auto" = "Biarkan iOS memutuskan secara otomatis";
+"keepUnlockedDuration.auto.shortDisplayName" = "Otomatis";
+"keepUnlockedDuration.indefinite" = "Tidak terbatas";
 
 "localFileSystemAuthentication.createNewVault.header" = "Di layar berikutnya, pilih lokasi penyimpanan untuk vault baru Anda.";
 "localFileSystemAuthentication.createNewVault.button" = "Pilih Lokasi Penyimpanan";
@@ -99,6 +115,10 @@
 "localFileSystemAuthentication.info.footer" = "Penyedia layanan file yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
+
+"nameValidation.error.endsWithPeriod" = "Anda tidak bisa menggunakan nama yang diakhiri dengan titik. Mohon gunakan nama yang lain.";
+"nameValidation.error.endsWithSpace" = "Anda tidak bisa menggunakan nama yang diakhiri dengan spasi. Mohon gunakan nama yang lain.";
+"nameValidation.error.containsIllegalCharacter" = "Anda tidak bisa menggunakan nama yang mengandung \"%@\". Mohon gunakan nama yang lain.";
 
 "onboarding.title" = "Selamat Datang";
 "onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda.\n\nDengan Cryptomator, kunci data Anda berada di tangan Anda sendiri. Cryptomator mengenkripsi data Anda dengan cepat dan mudah.\n\nAplikasi ini terintegrasi penuh ke dalam aplikasi Files. Pastikan untuk mengaktifkan Cryptomator di aplikasi File untuk mengakses vault Anda.";
@@ -195,10 +215,15 @@
 "vaultDetail.button.moveVault" = "Pindah";
 "vaultDetail.button.removeVault" = "Hapus dari Daftar Vault";
 "vaultDetail.button.renameVault" = "Ganti nama";
+"vaultDetail.changePassword.footer" = "Pilih kata sandi vault yang kuat yang mana hanya Anda yang tahu dan simpan di tempat yang aman.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Jika diaktifkan %@, kata sandi vault akan di dimpan di iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kata Sandi vault hanya dibutuhkan jika otentikasi %@ gagal.";
 "vaultDetail.info.footer.accessVault" = "Akses vault melalui aplikasi Files.";
 "vaultDetail.info.footer.accountInfo" = "Masuk sebagai %@ melalui %@.";
+"vaultDetail.keepUnlocked.title" = "Durasi Kunci Terbuka";
+"vaultDetail.keepUnlocked.footer.off" = "Kunci perlu dibuka ketika Cryptomator telah dimatikan oleh aplikasi Files.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Kunci perlu dibuka ketika tidak ada aktivitas di vault Anda selama %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Tidak perlu membuka kunci selama tidak dikunci secara manual.";
 "vaultDetail.locked.footer" = "Vault saat ini terkunci.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator mendeteksi sebuah vault di lokasi ini.\nUntuk memindah vault, mohon kembali dan pilih folder berbeda.";
 "vaultDetail.moveVault.progress" = "Memindahkan…";
