@@ -15,18 +15,14 @@ import GRDB
 import Promises
 
 protocol FileProviderAdapterProviding {
-	var semaphore: BiometricalUnlockSemaphore { get }
+	var unlockMonitor: UnlockMonitorType { get }
 	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProvider?, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType
-}
-
-public enum FileProviderAdapterManagerError: Error {
-	case cachedAdapterNotFound
 }
 
 public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	public static let shared = FileProviderAdapterManager()
 	public typealias FileProviderAdapterDelegate = LocalURLProvider
-	public let semaphore = BiometricalUnlockSemaphore()
+	let unlockMonitor: UnlockMonitorType
 
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let vaultKeepUnlockedHelper: VaultKeepUnlockedHelper
@@ -37,16 +33,17 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	private let queue = DispatchQueue(label: "FileProviderAdapterManager", qos: .userInitiated)
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared)
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared, unlockMonitor: UnlockMonitor())
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType) {
+	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType, unlockMonitor: UnlockMonitorType) {
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.vaultManager = vaultManager
 		self.adapterCache = adapterCache
 		self.notificatorManager = notificatorManager
+		self.unlockMonitor = unlockMonitor
 	}
 
 	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
@@ -57,8 +54,12 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 			if let cachedAdapter = cachedAdapterItem?.adapter {
 				if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: vaultUID) {
 					DDLogDebug("Try to automatically lock \(domain.displayName) - \(domain.identifier)")
-					try? gracefulLockVault(with: domain.identifier)
-					throw FileProviderAdapterManagerError.cachedAdapterNotFound
+					do {
+						try gracefulLockVault(with: domain.identifier)
+					} catch {
+						DDLogDebug("Graceful locking vault \(domain.displayName) - \(domain.identifier) failed with error: \(error)")
+					}
+					throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 				}
 				adapter = cachedAdapter
 			} else {
@@ -93,10 +94,13 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	}
 
 	public func vaultIsUnlocked(domainIdentifier: NSFileProviderDomainIdentifier) -> Bool {
+		updateLockStatus(domainIdentifier: domainIdentifier)
 		return adapterCache.getItem(identifier: domainIdentifier) != nil
 	}
 
 	public func getDomainIdentifiersOfUnlockedVaults() -> [NSFileProviderDomainIdentifier] {
+		let cachedIdentifiers = adapterCache.getAllCachedIdentifiers()
+		cachedIdentifiers.forEach { updateLockStatus(domainIdentifier: $0) }
 		return adapterCache.getAllCachedIdentifiers()
 	}
 
@@ -118,10 +122,10 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
 		guard vaultKeepUnlockedHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
-			throw FileProviderAdapterManagerError.cachedAdapterNotFound
+			throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 		}
 		guard let cachedMasterkey = try masterkeyCacheManager.getMasterkey(forVaultUID: vaultUID) else {
-			throw FileProviderAdapterManagerError.cachedAdapterNotFound
+			throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 		}
 		let provider = try vaultManager.createVaultProvider(withUID: vaultUID, masterkey: cachedMasterkey)
 		let adapterCacheItem = try createAdapterCacheItem(cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
@@ -167,6 +171,16 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
 		notificator.refreshWorkingSet()
 	}
+
+	private func updateLockStatus(domainIdentifier: NSFileProviderDomainIdentifier) {
+		if vaultKeepUnlockedHelper.shouldAutoLockVault(withVaultUID: domainIdentifier.rawValue) {
+			do {
+				try gracefulLockVault(with: domainIdentifier)
+			} catch {
+				DDLogDebug("Graceful locking vault (\(domainIdentifier.rawValue)) failed with error: \(error)")
+			}
+		}
+	}
 }
 
 struct AdapterCacheItem {
@@ -208,21 +222,5 @@ class FileProviderAdapterCache: FileProviderAdapterCacheType {
 		queue.sync {
 			return cachedAdapters.map { $0.key }
 		}
-	}
-}
-
-public class BiometricalUnlockSemaphore {
-	public var runningBiometricalUnlock = false
-	private let semaphore = DispatchSemaphore(value: 0)
-
-	public func wait() {
-		if runningBiometricalUnlock {
-			semaphore.wait()
-		}
-	}
-
-	public func signal() {
-		semaphore.signal()
-		runningBiometricalUnlock = false
 	}
 }

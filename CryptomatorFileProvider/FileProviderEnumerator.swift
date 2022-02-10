@@ -69,8 +69,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 			pageToken = String(data: page.rawValue, encoding: .utf8)
 		}
 		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier) - initialPage \(pageToken == nil)")
-		DispatchQueue.global(qos: .userInitiated).async {
-			self.adapterProvider.semaphore.wait()
+		adapterProvider.unlockMonitor.execute {
 			let adapter: FileProviderAdapterType
 			do {
 				adapter = try self.adapterProvider.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
@@ -147,13 +146,14 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	 For all other enumerators the error gets wrapped and reported with 1s delay as the Files app has problems with too fast reporting of an `notAuthenticated` error.
 	 */
 	private func handleEnumerateItemsError(_ error: Error, for observer: NSFileProviderEnumerationObserver) {
-		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
 		guard enumeratedItemIdentifier != .workingSet else {
+			DDLogDebug("enumerateItems getAdapter failed with: \(error) -> start to invalidate working set")
 			observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
 			notificator.invalidatedWorkingSet()
 			return
 		}
-		DispatchQueue.global(qos: .userInitiated).asyncAfter(deadline: .now() + 1) {
+		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
+		DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
 			let wrappedError = ErrorWrapper.wrapError(error, domain: self.domain)
 			observer.finishEnumeratingWithError(wrappedError)
 		}

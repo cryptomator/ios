@@ -62,7 +62,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 
 	deinit {
 		DDLogDebug("Deinit called for \(String(describing: domain))")
-		notificator?.refreshWorkingSet()
 		observation?.invalidate()
 	}
 
@@ -264,7 +263,9 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#if SNAPSHOTS
 		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(fileprovider: self))
 		#else
-		serviceSources.append(VaultUnlockingServiceSource(fileprovider: self))
+		if let domain = domain {
+			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: self))
+		}
 		#endif
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())

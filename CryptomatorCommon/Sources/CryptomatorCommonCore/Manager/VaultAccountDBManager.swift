@@ -10,15 +10,16 @@ import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
-public struct VaultAccount: Decodable, FetchableRecord, TableRecord {
+public struct VaultAccount: Decodable, FetchableRecord, TableRecord, Equatable {
 	public static let databaseTableName = "vaultAccounts"
 	static let vaultUIDKey = "vaultUID"
 	static let delegateAccountUIDKey = "delegateAccountUID"
 	static let vaultPathKey = "vaultPath"
 	static let lastUpToDateCheckKey = "lastUpToDateCheck"
 	static let vaultNameKey = "vaultName"
+
 	public let vaultUID: String
-	let delegateAccountUID: String
+	public let delegateAccountUID: String
 	public let vaultPath: CloudPath
 	public let vaultName: String
 

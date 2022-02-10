@@ -103,7 +103,7 @@ class UnlockVaultViewController: UITableViewController {
 
 	func handleError(_ error: Error) {
 		switch error {
-		case let error as NSError where error.isEqual(MasterkeyFileError.invalidPassphrase as NSError):
+		case let error as NSError where error.code == (MasterkeyFileError.invalidPassphrase as NSError).code && error.domain == (MasterkeyFileError.invalidPassphrase as NSError).domain:
 			viewToShake?.shake()
 		default:
 			coordinator?.handleError(error, for: self)
@@ -147,6 +147,7 @@ class UnlockVaultViewController: UITableViewController {
 			return button
 		case .enableBiometricalUnlock:
 			enableBiometricalUnlockCell.textLabel?.text = viewModel.getTitle(for: indexPath)
+			enableBiometricalUnlockSwitch.isOn = viewModel.enableBiometricalUnlockIsOn
 			return enableBiometricalUnlockCell
 		case .unknown:
 			return UITableViewCell()

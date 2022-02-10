@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "欢迎使用";
 "fileProvider.onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。若要开始，请前往主应用程序并添加一个保险库。";
 "fileProvider.onboarding.button.openCryptomator" = "打开 Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "解锁已取消";
+"fileProvider.error.biometricalAuthCanceled.message" = "通过 %@ 解锁失败，请重试。";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "密码错误";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "已保存至 %@ 的密码不正确，请重新输入您的密码以重新启用 %@。";
+"fileProvider.error.defaultLock.title" = "需要解锁";
+"fileProvider.error.defaultLock.message" = "在访问和显示您保险库里的内容前，它必须解锁。";
+"fileProvider.error.unlockButton" = "解锁";
 
 "keepUnlocked.alert.title" = "锁定保险库？";
 "keepUnlocked.alert.message" = "此更改需要锁定您的保险库才能生效。";

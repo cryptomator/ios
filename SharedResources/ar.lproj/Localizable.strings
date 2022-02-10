@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "مرحباً بك";
 "fileProvider.onboarding.info" = "شكراً لاختيار Cryptomator لحماية ملفاتك. للبدء، اذهب إلى التطبيق الرئيس وأضف مخزن.";
 "fileProvider.onboarding.button.openCryptomator" = "فتح Cryptomator";
+"fileProvider.error.unlockButton" = "افتح";
 
 "localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
 "localFileSystemAuthentication.createNewVault.button" = "حدد موقع التخزين";

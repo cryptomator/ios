@@ -10,7 +10,7 @@ import FileProvider
 import Foundation
 @objc public protocol VaultUnlocking: NSFileProviderServiceSource {
 	// "Because communication over XPC is asynchronous, all methods in the protocol must have a return type of void. If you need to return data, you can define a reply block [...]" see: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingXPCServices.html
-	func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void)
+	func unlockVault(kek: [UInt8], reply: @escaping (NSError?) -> Void)
 	func startBiometricalUnlock()
 	func endBiometricalUnlock()
 }

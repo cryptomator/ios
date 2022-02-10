@@ -5,6 +5,7 @@
 "common.button.create" = "צור";
 "common.button.done" = "סיום";
 "common.button.edit" = "ערוך";
+"common.button.enable" = "הפעל";
 "common.button.next" = "המשך";
 "common.button.ok" = "אישור";
 "common.button.remove" = "מחק";
@@ -17,6 +18,7 @@
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "שים לב שאינך שוכח את סיסמתך! לא ניתן לשחזר את המידע שלך בחזרה מבלי הסיסמה.";
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
+"fileProvider.error.unlockButton" = "בטל נעילה";
 "purchase.retry.button" = "נסה שוב";
 
 "settings.title" = "הגדרות";
@@ -28,4 +30,5 @@
 "vaultDetail.button.moveVault" = "שנה מיקום";
 "vaultDetail.button.renameVault" = "שנה שם";
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
 "webDAVAuthentication.httpConnection.change" = "עבור ל-HTTPS";

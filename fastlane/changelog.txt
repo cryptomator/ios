@@ -1,7 +1,5 @@
-- Added "Unlock Duration" vault setting, which allows auto-lock after a certain amount of time or keeping the vault unlocked with an indefinite option (#64, #73, #150)
-- Added support for locally favoriting folders and tagging items (#79, #156)
-- Added Arabic, Catalan, and Indonesian translations
-- Improved compatibility with other systems by disallowing certain characters in filenames (#152, #157)
-- Improved iPad support (#147)
-- Fixed files from being shown in Siri Search (#153, #155)
-- Fixed read-only access to files that have been remotely updated (#154)
+- Remote changes of `masterkey.cryptomator` and `vault.cryptomator` are now detected (#142, #161)
+- Auto-locked vaults are now correctly shown as locked (#163)
+- Improved WebDAV support, for FileRun in particular (#164)
+- Fixed crash when trying to decrypt invalid ciphertext files (#167)
+- Fixed change password when Touch ID / Face ID is enabled (#162)

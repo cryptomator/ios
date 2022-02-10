@@ -79,7 +79,7 @@ class VaultListViewModelTests: XCTestCase {
 	}
 
 	func testRemoveRow() throws {
-		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: "".data(using: .utf8)!, vaultConfigToken: nil, lastUpToDateCheck: Date())
+		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: "".data(using: .utf8)!, vaultConfigToken: nil, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try vaultCacheMock.cache(cachedVault)
 
 		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
@@ -230,8 +230,12 @@ class VaultCacheMock: VaultCache {
 		return vault
 	}
 
-	func invalidate(vaultUID: String) throws {
-		invalidatedVaults.append(vaultUID)
+	func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
+		throw MockError.notMocked
+	}
+
+	func refreshVaultCache(for vault: VaultAccount, with provider: CloudProvider) -> Promise<Void> {
+		return Promise(MockError.notMocked)
 	}
 }
 

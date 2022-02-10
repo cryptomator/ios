@@ -37,7 +37,7 @@ class KeepUnlockedSectionFooterViewModel: BindableAttributedTextHeaderFooterView
 		}
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/vault-management/")!])
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/vault-management/#unlock-duration")!])
 		text.append(learnMoreLink)
 		return text
 	}

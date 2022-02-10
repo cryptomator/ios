@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "Welcome";
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Unlock Canceled";
+"fileProvider.error.biometricalAuthCanceled.message" = "Unlock via %@ was not successful. Please try again.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Wrong Password";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "The password that has been saved for %@ is wrong. Please try again and enter your password to re-enable %@.";
+"fileProvider.error.defaultLock.title" = "Unlock Required";
+"fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
+"fileProvider.error.unlockButton" = "Unlock";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";

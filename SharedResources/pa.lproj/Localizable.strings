@@ -10,6 +10,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "ਵਾਲਟ ਦਾ ਨਾਂ";
 "addVault.createNewVault.chooseCloud.header" = "ਤੁਹਾਡੇ ਵਾਲੇਟ ਲਈ ਇੰਕ੍ਰਿਪਟ ਕੀਤੀਆਂ ਫ਼ਾਇਲਾਂ Cryptomator ਕਿੱਥੇ ਸਟੋਰ ਕਰੇ?";
 "addVault.openExistingVault.title" = "ਮੌਜੂਦਾ ਵਾਲਟ ਖੋਲ੍ਹੋ";
+"fileProvider.error.unlockButton" = "ਅਣ-ਲਾਕ ਕਰੋ";
 
 "unlockVault.button.unlock" = "ਅਣ-ਲਾਕ ਕਰੋ";
 

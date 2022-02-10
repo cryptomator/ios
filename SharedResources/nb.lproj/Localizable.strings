@@ -20,6 +20,7 @@
 "fileProvider.onboarding.title" = "Velkommen";
 "fileProvider.onboarding.info" = "Takk for at du valgte Cryptomator til å beskytte filene dine. For å komme i gang, gå til hovedappen og legg til et hvelv.";
 "fileProvider.onboarding.button.openCryptomator" = "Åpne Cryptomator";
+"fileProvider.error.unlockButton" = "Lås opp";
 "onboarding.button.continue" = "Fortsett";
 
 "purchase.title" = "Lås opp fullversjonen";

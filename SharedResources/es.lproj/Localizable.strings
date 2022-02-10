@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "Bienvenido";
 "fileProvider.onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueo cancelado";
+"fileProvider.error.biometricalAuthCanceled.message" = "El desbloqueo mediante %@ no fue exitoso. Intente de nuevo.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Contraseña incorrecta";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "La contraseña guardada para %@ es incorrecta. Intente de nuevo e ingrese su contraseña para volver a habilitar %@.";
+"fileProvider.error.defaultLock.title" = "Desbloqueo requerido";
+"fileProvider.error.defaultLock.message" = "Para acceder y mostrar el contenido de su bóveda hay que desbloquearla.";
+"fileProvider.error.unlockButton" = "Desbloquear";
 
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
