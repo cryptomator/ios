@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "Καλώς ήρθατε";
 "fileProvider.onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
 "fileProvider.onboarding.button.openCryptomator" = "Άνοιγμα Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Το Ξεκλείδωμα Ακυρώθηκε";
+"fileProvider.error.biometricalAuthCanceled.message" = "Το ξεκλείδωμα μέσω %@ δεν ήταν επιτυχές. Παρακαλώ προσπαθήστε ξανά.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Λάθος Κωδικός Πρόσβασης";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Ο κωδικός πρόσβασης που έχει αποθηκευτεί για %@ είναι λάθος. Παρακαλώ προσπαθήστε ξανά και εισάγετε τον κωδικό πρόσβασής σας για να ενεργοποιήσετε ξανά %@.";
+"fileProvider.error.defaultLock.title" = "Απαιτείται Ξεκλείδωμα";
+"fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
+"fileProvider.error.unlockButton" = "Ξεκλείδωμα";
 
 "keepUnlocked.alert.title" = "Κλείδωμα Κρύπτης;";
 "keepUnlocked.alert.message" = "Αυτή η αλλαγή απαιτεί η κρύπτη σας να κλειδωθεί για να τεθεί σε ισχύ.";

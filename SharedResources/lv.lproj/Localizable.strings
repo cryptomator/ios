@@ -9,6 +9,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Glabātuves nosaukums";
 "addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu glabāt jūsu glabātuves šifrētos failus?";
 "addVault.openExistingVault.title" = "Atvērt esošu glabātuvi";
+"fileProvider.error.unlockButton" = "Atslēgt";
 
 "unlockVault.button.unlock" = "Atslēgt";
 

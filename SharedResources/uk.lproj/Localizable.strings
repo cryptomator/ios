@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Помилка";
+"common.alert.attention.title" = "Увага";
 "common.button.cancel" = "Відмінити";
 "common.button.change" = "Змінити";
 "common.button.choose" = "Оберіть";
@@ -13,6 +14,7 @@
 "common.button.create" = "Створити";
 "common.button.createFolder" = "Створити теку";
 "common.button.done" = "Готово";
+"common.button.download" = "Завантажити";
 "common.button.edit" = "Редагувати";
 "common.button.enable" = "Увімкнути";
 "common.button.next" = "Далі";
@@ -24,6 +26,9 @@
 "common.cells.password" = "Пароль";
 "common.cells.url" = "Адреса посилання";
 "common.cells.username" = "Ім'я користувача";
+"common.footer.learnMore" = "Дізнатися більше.";
+
+"accountList.header.title" = "Аутентифікація";
 
 "addVault.title" = "Додати сховище";
 "addVault.createNewVault.title" = "Створити нове сховище";
@@ -32,17 +37,61 @@
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
 "addVault.createNewVault.progress" = "Створення сховища…";
 "addVault.openExistingVault.title" = "Відкрити існуюче сховище";
+"addVault.openExistingVault.detectedMasterkey.add" = "Додати це сховище";
+"addVault.openExistingVault.password.footer" = "Введіть пароль для \"%@\".";
 "addVault.openExistingVault.progress" = "Додавання сховища…";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
 "changePassword.progress" = "Зміна пароля…";
+
+"fileProvider.onboarding.title" = "Вітаємо";
+"fileProvider.onboarding.button.openCryptomator" = "Відкрити Cryptomator";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Невірний пароль";
+"fileProvider.error.unlockButton" = "Розблокувати";
+"keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
+"localFileSystemAuthentication.openExistingVault.button" = "Виберіть папку сховища";
+
+"onboarding.title" = "Вітаємо";
+"onboarding.button.continue" = "Продовжити";
+
+"purchase.title" = "Розблокувати повну версію";
 "purchase.retry.button" = "Повторити";
+"purchase.unlockedFullVersion.title" = "Дякуємо Вам!";
 
 "settings.title" = "Налаштування";
+"settings.aboutCryptomator" = "Про Cryptomator";
+"settings.aboutCryptomator.title" = "Версія %@ (%@)";
+"settings.cacheSize" = "Розмір кешу";
+"settings.clearCache" = "Очистити кеш";
+"settings.cloudServices" = "Хмарні сервіси";
+"settings.debugMode" = "Режим вiдладки";
+"settings.rateApp" = "Оцінити додаток";
+"settings.sendLogFile" = "Надіслати лог-файл";
+"settings.unlockFullVersion" = "Розблокувати повну версію";
 
 "unlockVault.button.unlock" = "Розблокувати";
+"unlockVault.password.footer" = "Введіть пароль для \"%@\".";
 "unlockVault.progress" = "Розблокування…";
+"untrustedTLSCertificate.add" = "Довіряти";
+"untrustedTLSCertificate.dismiss" = "Не довіряти";
+
+"upgrade.title" = "Оновити з версії 1.x";
+
+"vaultDetail.button.changeVaultPassword" = "Змінити пароль";
+"vaultDetail.button.lock" = "Заблокувати зараз";
 "vaultDetail.button.moveVault" = "Перемістити";
+"vaultDetail.button.removeVault" = "Вилучити зі списку сховищів";
 "vaultDetail.button.renameVault" = "Перейменувати";
+"vaultDetail.locked.footer" = "Ваше сховище зараз заблоковане.";
 "vaultDetail.moveVault.progress" = "Переміщення…";
 "vaultDetail.renameVault.progress" = "Перейменування…";
 
+"vaultList.header.title" = "Сховища";
+"vaultList.emptyList.message" = "Натисніть тут, щоб додати сховище";
+"vaultList.remove.alert.title" = "Видалити сховище?";
+
 "webDAVAuthentication.progress" = "Аутентифікація…";
+"webDAVAuthentication.httpConnection.alert.title" = "Використовувати HTTPS?";
+"webDAVAuthentication.httpConnection.change" = "Змінити на HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Залишити HTTP";

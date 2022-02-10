@@ -88,6 +88,17 @@
 "fileProvider.onboarding.title" = "Welkom";
 "fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+"fileProvider.error.unlockButton" = "Ontgrendel";
+
+"keepUnlocked.alert.title" = "Kluis vergrendelen?";
+"keepUnlocked.alert.message" = "Deze wijziging vereist dat je kluis vergrendeld is om van kracht te worden.";
+"keepUnlocked.alert.confirm" = "Bevestig en vergrendel nu";
+"keepUnlocked.header" = "Geef aan hoe lang je wilt dat deze kluis ontgrendeld blijft wanneer deze niet actief is.";
+"keepUnlocked.footer.auto" = "iOS laten beslissen betekent dat Cryptomator elk moment kan worden beëindigd om geheugen vrij te maken, waardoor de kluis automatisch vergrendelt.";
+"keepUnlocked.footer.on" = "Met de geselecteerde optie moet een kopie van uw sleutel worden opgeslagen in de iOS-sleutelketen, zolang de kluis ontgrendeld is.";
+"keepUnlockedDuration.auto" = "Laat iOS automatisch beslissen";
+"keepUnlockedDuration.auto.shortDisplayName" = "Automatisch";
+"keepUnlockedDuration.indefinite" = "Voor onbepaalde tijd";
 
 "localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
@@ -98,6 +109,10 @@
 "localFileSystemAuthentication.info.footer" = "Bestandsproviders die grijs zijn ondersteunen geen \"mappen kiezen\". Dit is geen beperking van Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
+
+"nameValidation.error.endsWithPeriod" = "U kunt geen naam gebruiken die eindigt met een punt. Kies een andere naam.";
+"nameValidation.error.endsWithSpace" = "U kunt geen naam gebruiken die eindigt met een spatie. Kies een andere naam.";
+"nameValidation.error.containsIllegalCharacter" = "U kunt geen naam gebruiken die \"%@\" bevat. Kies een andere naam.";
 
 "onboarding.title" = "Welkom";
 "onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen.\n\nMet Cryptomator is de sleutel tot uw gegevens in uw handen. Cryptomator versleutelt uw gegevens snel en eenvoudig.\n\nDeze app is volledig geïntegreerd in de bestandsapp. Zorg ervoor dat u Cryptomator later inschakelt in de Files app om toegang te krijgen tot uw kluizen.";
@@ -194,10 +209,15 @@
 "vaultDetail.button.moveVault" = "Verplaatsen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
 "vaultDetail.button.renameVault" = "Naam wijzigen";
+"vaultDetail.changePassword.footer" = "Selecteer een sterk wachtwoord voor uw kluis dat alleen u kent en bewaar het op een veilige plaats.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
 "vaultDetail.info.footer.accessVault" = "Toegang tot de kluis via de Bestandenapp.";
 "vaultDetail.info.footer.accountInfo" = "Ingelogd als %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Duur van ontgrendeling";
+"vaultDetail.keepUnlocked.footer.off" = "Ontgrendelen zal vereist zijn wanneer Cryptomator door de app Bestanden is beëindigd.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Ontgrendelen zal vereist zijn wanneer je kluis niet actief is geweest voor %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Geen ontgrendeling vereist, tenzij de kluis handmatig wordt vergrendeld.";
 "vaultDetail.locked.footer" = "Je kluis is momenteel vergrendeld.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator heeft een bestaande kluis gedetecteerd op deze locatie.\nOm uw kluis te verplaatsen, ga terug en kies een andere map.";
 "vaultDetail.moveVault.progress" = "Verplaatsen…";

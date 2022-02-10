@@ -71,6 +71,7 @@
 
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.button.openCryptomator" = "打開 Cryptomator";
+"fileProvider.error.unlockButton" = "解鎖";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 

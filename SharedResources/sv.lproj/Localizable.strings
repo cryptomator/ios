@@ -88,6 +88,7 @@
 "fileProvider.onboarding.title" = "Välkommen";
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
 "fileProvider.onboarding.button.openCryptomator" = "Öppna Cryptomator";
+"fileProvider.error.unlockButton" = "Lås upp";
 
 "keepUnlocked.alert.title" = "Lås valv?";
 "keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";

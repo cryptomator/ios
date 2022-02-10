@@ -84,6 +84,7 @@
 
 "fileProvider.onboarding.title" = "Us donem la benvinguda";
 "fileProvider.onboarding.button.openCryptomator" = "Obre Cryptomator";
+"fileProvider.error.unlockButton" = "Desbloqueja";
 "localFileSystemAuthentication.createNewVault.button" = "Tria la localització de l'emmagatzematge";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecciona la carpeta de la caixa forta";
 

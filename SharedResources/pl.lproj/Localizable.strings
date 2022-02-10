@@ -88,6 +88,13 @@
 "fileProvider.onboarding.title" = "Witamy";
 "fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
 "fileProvider.onboarding.button.openCryptomator" = "Otwórz Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Odblokowanie anulowane";
+"fileProvider.error.biometricalAuthCanceled.message" = "Odblokowanie przez %@ nie powiodło się. Spróbuj ponownie.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Błędne hasło";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Hasło zapisane dla %@ jest błędne. Spróbuj ponownie i wpisz hasło, aby ponownie włączyć %@.";
+"fileProvider.error.defaultLock.title" = "Wymagane odblokowanie";
+"fileProvider.error.defaultLock.message" = "Sejf musi być odblokowany aby zobaczyć i mieć dostęp do jego zawartości.";
+"fileProvider.error.unlockButton" = "Odblokuj";
 
 "keepUnlocked.alert.title" = "Zablokować sejf?";
 "keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
