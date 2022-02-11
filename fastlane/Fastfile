@@ -16,7 +16,7 @@ platform :ios do
 
   desc "Upload screenshots to App Store Connect"
   lane :upload_screenshots do
-    deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false, submit_for_review: false)
+    deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false)
   end
 
   desc "Update metadata in App Store Connect"
@@ -28,7 +28,7 @@ platform :ios do
   lane :beta do
     gym(scheme: "Cryptomator", clean: true)
     changelog = File.read("changelog.txt")
-    pilot(changelog: changelog, distribute_external: false, groups: ["App Store Connect Users"], skip_waiting_for_build_processing: true)
+    pilot(changelog: changelog, distribute_external: true, groups: ["App Store Connect Users"])
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
@@ -44,7 +44,7 @@ platform :ios do
   lane :app_store do
     gym(scheme: "Cryptomator", clean: true)
     changelog = File.read("changelog.txt")
-    deliver(skip_screenshots: true)
+    deliver(skip_screenshots: true, submit_for_review: false)
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
