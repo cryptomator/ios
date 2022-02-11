@@ -16,7 +16,7 @@
 "common.button.done" = "Selesai";
 "common.button.download" = "Unduh";
 "common.button.edit" = "Ubah";
-"common.button.enable" = "Aktif";
+"common.button.enable" = "Aktifkan";
 "common.button.next" = "Lanjut";
 "common.button.ok" = "OK";
 "common.button.remove" = "Hapus";
@@ -158,7 +158,7 @@
 "settings.cloudServices" = "Layanan Cloud";
 "settings.contact" = "Kontak";
 "settings.debugMode" = "Mode Debug";
-"settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama file dan jalur). Kata sandi, cookie, dll. secara eksplisit dikecualikan.\n\nIngat untuk menonaktifkan mode debug sesegera mungkin.";
+"settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
@@ -203,7 +203,7 @@
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
 "urlSession.error.httpError.404" = "Sumber yang diminta tidam ditemukan.";
 "urlSession.error.httpError.405" = "Metode request tidak didukung oleh sumber tujuan.";
-"urlSession.error.httpError.409" = "Terjadi konflik dengan status sumber daya target saat ini.";
+"urlSession.error.httpError.409" = "Terjadi konflik request dengan keadaan status terkini dari sumber tujuan.";
 "urlSession.error.httpError.412" = "Akses ke sumber target ditolak.";
 "urlSession.error.httpError.default" = "Koneksi jaringan gagal dengan status kode %ld.";
 "urlSession.error.unexpectedResponse" = "Ada respons jaringan yang tidak terduga.";
