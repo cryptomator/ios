@@ -81,6 +81,8 @@
 "fileProvider.onboarding.title" = "Bem-vindo(a)";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueio Cancelado";
+"fileProvider.error.biometricalAuthCanceled.message" = "O desbloqueio via %@ não foi bem-sucedido. Por favor, tente novamente.";
 "fileProvider.error.unlockButton" = "Destrancar";
 
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
