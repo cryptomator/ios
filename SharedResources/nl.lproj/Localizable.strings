@@ -88,6 +88,12 @@
 "fileProvider.onboarding.title" = "Welkom";
 "fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
 "fileProvider.onboarding.button.openCryptomator" = "Open Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Ontgrendelen geannuleerd";
+"fileProvider.error.biometricalAuthCanceled.message" = "Ontgrendelen via %@ is niet gelukt. Probeer het opnieuw.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Wachtwoord onjuist";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Het wachtwoord dat is opgeslagen voor %@ is verkeerd. Probeer het opnieuw en voer uw wachtwoord in om %@ opnieuw in te schakelen.";
+"fileProvider.error.defaultLock.title" = "Ontgrendeling vereist";
+"fileProvider.error.defaultLock.message" = "Om toegang te krijgen tot de inhoud van je kluis, moet deze worden ontgrendeld.";
 "fileProvider.error.unlockButton" = "Ontgrendel";
 
 "keepUnlocked.alert.title" = "Kluis vergrendelen?";

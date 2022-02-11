@@ -7,8 +7,10 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import FileProviderUI
+import MSAL
 import UIKit
 
 class RootViewController: FPUIActionExtensionViewController {
@@ -67,6 +69,17 @@ class RootViewController: FPUIActionExtensionViewController {
 
 			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
 			return {}
+		}
+		// Set up cloud storage services
+		CloudProviderDBManager.shared.useBackgroundSession = false
+		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
+		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: nil)
+		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
+		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+		do {
+			OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+		} catch {
+			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 		return {}
 	}()
