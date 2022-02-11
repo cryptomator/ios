@@ -93,7 +93,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "密码错误";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "已保存至 %@ 的密码不正确，请重新输入您的密码以重新启用 %@。";
 "fileProvider.error.defaultLock.title" = "需要解锁";
-"fileProvider.error.defaultLock.message" = "在访问和显示您保险库里的内容前，它必须解锁。";
+"fileProvider.error.defaultLock.message" = "需解锁才能访问和显示您的保险库中的内容。";
 "fileProvider.error.unlockButton" = "解锁";
 
 "keepUnlocked.alert.title" = "锁定保险库？";
