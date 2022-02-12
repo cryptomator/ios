@@ -96,13 +96,9 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
 
-"nameValidation.error.endsWithPeriod" = "73 / 5,000
-Translation results
-Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
+"nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
 "nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termine com um espaço. Por favor, escolha outro nome.";
-"nameValidation.error.containsIllegalCharacter" = "68 / 5,000
-Translation results
-Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
+"nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
 "purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, descarregue-a novamente na App Store.";
