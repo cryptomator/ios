@@ -44,7 +44,7 @@ platform :ios do
   lane :app_store do
     gym(scheme: "Cryptomator", clean: true)
     changelog = File.read("changelog.txt")
-    deliver(skip_screenshots: true, submit_for_review: true)
+    deliver(skip_screenshots: true, submit_for_review: true, submission_information: { add_id_info_uses_idfa: false })
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
