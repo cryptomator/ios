@@ -3,3 +3,4 @@
 - Improved WebDAV support, for FileRun in particular (#164)
 - Fixed crash when trying to decrypt invalid ciphertext files (#167)
 - Fixed change password when Touch ID / Face ID is enabled (#162)
+- Fixed inaccessible folder after creating a new folder with a reused name (#170)
