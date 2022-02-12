@@ -3,3 +3,4 @@
 - WebDAV-Unterstützung verbessert, insbesondere für FileRun (#164)
 - Absturz beim Versuch, ungültige Ciphertext-Dateien zu entschlüsseln, behoben (#167)
 - Passwortänderung bei aktivierter Touch ID / Face ID behoben (#162)
+- Unzugänglicher Ordner nach Erstellung eines neuen Ordners mit einem wiederverwendeten Namen behoben (#170)
