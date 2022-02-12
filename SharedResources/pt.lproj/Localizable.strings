@@ -81,7 +81,13 @@
 "fileProvider.onboarding.title" = "Bem-vindo(a)";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros. Para começar, vá para a aplicação principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
-"fileProvider.error.unlockButton" = "Destrancar";
+"fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueio Cancelado";
+"fileProvider.error.biometricalAuthCanceled.message" = "O desbloqueio via %@ não foi bem-sucedido. Por favor, tente novamente.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Senha Incorreta";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "A senha que foi salva para %@ está errada. Por favor, tente novamente e digite sua senha para reativar %@.";
+"fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
+"fileProvider.error.defaultLock.message" = "Para aceder e mostrar o conteúdo do seu cofre, ele tem de estar desbloqueado.";
+"fileProvider.error.unlockButton" = "Desbloquear";
 
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
@@ -89,6 +95,10 @@
 "localFileSystemAuthentication.openExistingVault.header" = "No próximo ecrã, escolha a pasta do seu cofre existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
+
+"nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
+"nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termine com um espaço. Por favor, escolha outro nome.";
+"nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
 "purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, descarregue-a novamente na App Store.";
@@ -138,6 +148,7 @@
 "vaultDetail.button.changeVaultPassword" = "Alterar Senha";
 "vaultDetail.button.lock" = "Bloquear Agora";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
+"vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que só você conheça e mantenha-a em um local seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a palavra-passe do seu cofre será armazenada no Porta-chaves do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Aceda o cofre através da aplicação Ficheiros.";
