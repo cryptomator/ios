@@ -41,8 +41,13 @@
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "ভোল্ট এর নাম খালি হতে পারবে না।";
 "addVault.createNewVault.chooseCloud.header" = "ভোল্ট এর এনক্রিপ্টেড ফাইলগুলো ক্রিপ্টোমেটর কোথায় সংরক্ষণ করবে?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" নামটি এখানে ইতিমধ্যে বিদ্যমান। অন্য একটি ভোল্ট নাম বা স্থান নির্বাচন করুন।";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "সতর্কতা: আপনি যদি আপনার পাসওয়ার্ড ভুলে যান, তাহলে পাসওয়ার্ডটি পুনরুদ্ধার করার কোনো উপায় থাকবে না।";
+"addVault.openExistingVault.title" = "বিদ্যমান কোনো ভোল্ট খুলুন";
+"fileProvider.error.unlockButton" = "আনলক করুন";
 "purchase.retry.button" = "পুনরায় চেষ্টা করুন";
 
 "settings.title" = "সেটিংস";
+
+"unlockVault.button.unlock" = "আনলক করুন";
 "vaultDetail.button.moveVault" = "স্থানান্তর করুন";
 "vaultDetail.button.renameVault" = "নাম পরিবর্তন করুন";
