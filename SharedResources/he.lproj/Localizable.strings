@@ -1,25 +1,54 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "שגיאה";
 "common.alert.attention.title" = "שים לב";
 "common.button.cancel" = "ביטול";
 "common.button.change" = "שנה";
 "common.button.choose" = "בחר";
 "common.button.create" = "צור";
+"common.button.createFolder" = "צור תיקייה";
 "common.button.done" = "סיום";
+"common.button.download" = "הורד";
 "common.button.edit" = "ערוך";
 "common.button.enable" = "הפעל";
 "common.button.next" = "המשך";
 "common.button.ok" = "אישור";
 "common.button.remove" = "מחק";
+"common.cells.password" = "סיסמה";
 "common.cells.url" = "כתובת URL";
 "common.cells.username" = "שם משתמש";
+"common.footer.learnMore" = "למידע נוסף.";
+
+"accountList.header.title" = "אימות";
 
 "addVault.title" = "יצירת כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
 "addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "שים לב שאינך שוכח את סיסמתך! לא ניתן לשחזר את המידע שלך בחזרה מבלי הסיסמה.";
+"addVault.createNewVault.progress" = "יוצר כספת…";
 "addVault.openExistingVault.title" = "פתח כספת קיימת";
+"addVault.openExistingVault.progress" = "מוסיף כספת…";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "התיקייה ריקה";
+"chooseFolder.createNewFolder.cells.name" = "שם תיקייה";
+"chooseFolder.createNewFolder.progress" = "יוצר תיקייה…";
+
+"fileProvider.onboarding.title" = "ברוך הבא";
 "fileProvider.error.unlockButton" = "בטל נעילה";
+
+"onboarding.title" = "ברוך הבא";
+"onboarding.button.continue" = "המשך";
 "purchase.retry.button" = "נסה שוב";
+"purchase.unlockedFullVersion.title" = "תודה";
 
 "settings.title" = "הגדרות";
 "settings.clearCache" = "נקה מטמון";
