@@ -88,7 +88,20 @@
 "fileProvider.onboarding.title" = "Benvenuto";
 "fileProvider.onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file. Per iniziare, vai all'app principale e aggiungi una cassaforte.";
 "fileProvider.onboarding.button.openCryptomator" = "Apri Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Sblocco annullato";
+"fileProvider.error.biometricalAuthCanceled.message" = "Lo sblocco con %@ non è riuscito. Riprovare.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Password Errata";
+"fileProvider.error.defaultLock.title" = "Richiesto Sblocco";
+"fileProvider.error.defaultLock.message" = "La cassaforte deve essere sbloccata per accedere e vedere il contenuto.";
 "fileProvider.error.unlockButton" = "Sblocca";
+
+"keepUnlocked.alert.title" = "Blocco la cassaforte?";
+"keepUnlocked.alert.message" = "Questa modifica richiede che la cassaforte sia bloccata per avere effetto.";
+"keepUnlocked.alert.confirm" = "Conferma e Blocca Ora";
+"keepUnlocked.header" = "Specifica per quanto tempo la cassaforte deve rimanere sbloccata quando inattiva.";
+"keepUnlockedDuration.auto" = "Lascia decidere a iOS";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Sempre";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
@@ -199,6 +212,9 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
 "vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
 "vaultDetail.info.footer.accountInfo" = "Accesso effettuato come %@ tramite %@.";
+"vaultDetail.keepUnlocked.title" = "Durata Sblocco";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Lo sblocco sarà richiesto dopo che la cassaforte sarà rimasta inattiva per %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Non sarà richiesto alcun sblocco se non bloccata manualmente.";
 "vaultDetail.locked.footer" = "La tua cassaforte è attualmente bloccata.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator ha rilevato una cassaforte esistente in questa posizione.\nPer poter spostare la tua cassaforte, sei pregato di tornare indietro e scegliere una cartella differente.";
 "vaultDetail.moveVault.progress" = "Spostando…";
