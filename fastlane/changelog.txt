@@ -1,6 +1,1 @@
-- Remote changes of `masterkey.cryptomator` and `vault.cryptomator` are now detected (#142, #161)
-- Auto-locked vaults are now correctly shown as locked (#163)
-- Improved WebDAV support, for FileRun in particular (#164)
-- Fixed crash when trying to decrypt invalid ciphertext files (#167)
-- Fixed change password when Touch ID / Face ID is enabled (#162)
-- Fixed inaccessible folder after creating a new folder with a reused name (#170)
+- Fixed regression so that the app launches with the latest iOS version (#171, #174)

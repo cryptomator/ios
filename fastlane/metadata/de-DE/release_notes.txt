@@ -1,6 +1,1 @@
-- Änderungen von `masterkey.cryptomator` und `vault.cryptomator` werden nun erkannt (#142, #161)
-- Automatisch gesperrte Tresore werde nun korrekt als gesperrt angezeigt (#163)
-- WebDAV-Unterstützung verbessert, insbesondere für FileRun (#164)
-- Absturz beim Versuch, ungültige Ciphertext-Dateien zu entschlüsseln, behoben (#167)
-- Passwortänderung bei aktivierter Touch ID / Face ID behoben (#162)
-- Unzugänglicher Ordner nach Erstellung eines neuen Ordners mit einem wiederverwendeten Namen behoben (#170)
+- App lässt sich nun wieder mit der neuesten iOS-Version starten (#171, #174)
