@@ -91,6 +91,7 @@
 "fileProvider.error.biometricalAuthCanceled.title" = "Sblocco annullato";
 "fileProvider.error.biometricalAuthCanceled.message" = "Lo sblocco con %@ non è riuscito. Riprovare.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Password Errata";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "La password salvata per %@ è errata. Riprova e inserisci la password per riabilitare %@.";
 "fileProvider.error.defaultLock.title" = "Richiesto Sblocco";
 "fileProvider.error.defaultLock.message" = "La cassaforte deve essere sbloccata per accedere e vedere il contenuto.";
 "fileProvider.error.unlockButton" = "Sblocca";
@@ -99,6 +100,8 @@
 "keepUnlocked.alert.message" = "Questa modifica richiede che la cassaforte sia bloccata per avere effetto.";
 "keepUnlocked.alert.confirm" = "Conferma e Blocca Ora";
 "keepUnlocked.header" = "Specifica per quanto tempo la cassaforte deve rimanere sbloccata quando inattiva.";
+"keepUnlocked.footer.auto" = "Lasciare che iOS decida significa che Cryptomator può essere terminato in qualsiasi momento per liberare memoria, bloccando automaticamente la cassaforte.";
+"keepUnlocked.footer.on" = "Utilizzando l'opzione selezionata, una copia della chiave deve essere memorizzata nel portachiavi iOS, finchè la cassaforte è sbloccata.";
 "keepUnlockedDuration.auto" = "Lascia decidere a iOS";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Sempre";
@@ -112,6 +115,10 @@
 "localFileSystemAuthentication.info.footer" = "I fornitori di file ingrigiti non supportano le \"cartelle di selezione\". Questa non è una limitazione di Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "L'operazione non può essere eseguita perché altre operazioni in background per questa cassaforte devono prima terminare. Riprova più tardi.";
+
+"nameValidation.error.endsWithPeriod" = "Non è possibile utilizzare un nome che termina con uno spazio. Si prega di scegliere un altro nome.";
+"nameValidation.error.endsWithSpace" = "Non è possibile utilizzare un nome che termina con uno spazio. Si prega di scegliere un altro nome.";
+"nameValidation.error.containsIllegalCharacter" = "Non è possibile usare un nome che contiene \"%@\". Scegliere un altro nome.";
 
 "onboarding.title" = "Benvenuto";
 "onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file.\n\nCon Cryptomator, la chiave ai tuoi dati è nelle tue mani. Cryptomator crittografa i tuoi dati rapidamente e facilmente.\n\nQuest'app è totalmente integrata nell'app dei File. Assicurati di abilitare Cryptomator nell'app File in seguito, per accedere alle tue cassaforti.";
@@ -208,11 +215,13 @@
 "vaultDetail.button.moveVault" = "Sposta";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
 "vaultDetail.button.renameVault" = "Rinomina";
+"vaultDetail.changePassword.footer" = "Scegli una password sicura per la cassaforte e conservala in un posto sicuro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
 "vaultDetail.info.footer.accessVault" = "Accedi alla cassaforte tramite l'app File.";
 "vaultDetail.info.footer.accountInfo" = "Accesso effettuato come %@ tramite %@.";
 "vaultDetail.keepUnlocked.title" = "Durata Sblocco";
+"vaultDetail.keepUnlocked.footer.off" = "Lo sblocco sarà richiesto quando Cryptomator è stato terminato dall'app File.";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Lo sblocco sarà richiesto dopo che la cassaforte sarà rimasta inattiva per %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Non sarà richiesto alcun sblocco se non bloccata manualmente.";
 "vaultDetail.locked.footer" = "La tua cassaforte è attualmente bloccata.";
