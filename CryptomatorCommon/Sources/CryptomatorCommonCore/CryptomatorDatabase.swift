@@ -134,9 +134,12 @@ public class CryptomatorDatabase {
 		var coordinatorError: NSError?
 		var dbPool: DatabasePool?
 		var dbError: Error?
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
 		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
 			do {
-				dbPool = try DatabasePool(path: databaseURL.path)
+				dbPool = try DatabasePool(path: databaseURL.path, configuration: configuration)
 			} catch {
 				dbError = error
 			}
