@@ -5,7 +5,9 @@
 "common.button.done" = "Ferdig";
 "common.button.edit" = "Rediger";
 "common.button.next" = "Neste";
+"common.button.ok" = "Ok";
 "common.button.remove" = "Fjern";
+"common.button.signOut" = "Logg ut";
 "common.cells.password" = "Passord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Brukernavn";
