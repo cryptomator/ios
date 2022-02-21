@@ -6,11 +6,11 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import Promises
 import StoreKitTest
 import XCTest
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
 
 @available(iOS 14.0, *)
 class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButtonAction> {

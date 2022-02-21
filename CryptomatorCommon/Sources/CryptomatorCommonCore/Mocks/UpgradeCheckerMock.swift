@@ -1,12 +1,12 @@
 //
 //  UpgradeCheckerMock.swift
-//  CryptomatorTests
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 23.11.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
+#if DEBUG
 import Foundation
 
 final class UpgradeCheckerMock: UpgradeCheckerProtocol {
@@ -40,3 +40,4 @@ final class UpgradeCheckerMock: UpgradeCheckerProtocol {
 		return couldBeEligibleForUpgradeClosure.map({ $0() }) ?? couldBeEligibleForUpgradeReturnValue
 	}
 }
+#endif

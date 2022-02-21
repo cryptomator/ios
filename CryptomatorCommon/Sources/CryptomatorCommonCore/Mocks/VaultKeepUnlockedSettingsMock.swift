@@ -1,12 +1,12 @@
 //
 //  VaultKeepUnlockedSettingsMock.swift
-//  CryptomatorFileProviderTests
+//  CryptomatorCommonCore
 //
-//  Created by Philipp Schmid on 12.01.22.
+//  Created by Philipp Schmid on 04.01.22.
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
+#if DEBUG
 import Foundation
 
 // swiftlint:disable all
@@ -117,3 +117,4 @@ final class VaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettings {
 }
 
 // swiftlint:enable all
+#endif

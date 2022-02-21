@@ -1,12 +1,12 @@
 //
 //  VaultPasswordManagerMock.swift
-//  CryptomatorFileProviderTests
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 01.02.22.
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
+#if DEBUG
 import Foundation
 import LocalAuthentication
 
@@ -105,3 +105,4 @@ final class VaultPasswordManagerMock: VaultPasswordManager {
 }
 
 // swiftlint:enable all
+#endif

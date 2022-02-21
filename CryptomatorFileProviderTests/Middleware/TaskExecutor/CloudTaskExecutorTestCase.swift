@@ -12,7 +12,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class CloudTaskExecutorTestCase: XCTestCase {
-	var cloudProviderMock: CloudProviderMock!
+	var cloudProviderMock: CustomCloudProviderMock!
 	var metadataManagerMock: MetadataManagerMock!
 	var cachedFileManagerMock: CachedFileManagerMock!
 	var uploadTaskManagerMock: UploadTaskManagerMock!
@@ -24,7 +24,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var tmpDirectory: URL!
 
 	override func setUpWithError() throws {
-		cloudProviderMock = CloudProviderMock()
+		cloudProviderMock = CustomCloudProviderMock()
 		metadataManagerMock = MetadataManagerMock()
 		cachedFileManagerMock = CachedFileManagerMock()
 		uploadTaskManagerMock = UploadTaskManagerMock()

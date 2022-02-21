@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import Foundation
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 // swiftlint:disable:next type_name

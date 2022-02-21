@@ -9,6 +9,7 @@
 import Foundation
 import Promises
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {

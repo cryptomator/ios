@@ -1,13 +1,13 @@
 //
 //  VaultManagerMock.swift
-//  CryptomatorTests
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 27.10.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+#if DEBUG
 import CryptomatorCloudAccessCore
-import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import Foundation
 import Promises
@@ -223,3 +223,4 @@ final class VaultManagerMock: VaultManager {
 }
 
 // swiftlint:enable all
+#endif

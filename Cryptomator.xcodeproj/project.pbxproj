@@ -32,8 +32,6 @@
 		4A1C6D58274CE5BF00B41FFF /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D57274CE5BF00B41FFF /* LoadingCell.swift */; };
 		4A1C6D5A274D225500B41FFF /* PurchaseViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D59274D225500B41FFF /* PurchaseViewModelTests.swift */; };
 		4A1C6D5C274D292200B41FFF /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 74F5DC1726D928A100AFE989 /* Configuration.storekit */; };
-		4A1C6D5E274D299200B41FFF /* CryptomatorSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D5D274D299200B41FFF /* CryptomatorSettingsMock.swift */; };
-		4A1C6D60274D2AB200B41FFF /* UpgradeCheckerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */; };
 		4A1C6D622750DC1700B41FFF /* SKProduct+LocalizedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */; };
 		4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */; };
 		4A1DB291275FA4AE00A5F27B /* IAPStoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */; };
@@ -138,7 +136,6 @@
 		4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */; };
 		4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5580542755226100E525B8 /* StoreObserverTests.swift */; };
 		4A5811602779E1E000E89A62 /* SnapshotBiometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */; };
-		4A5AC4392758EC9400342AA7 /* FullVersionCheckerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */; };
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
 		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
@@ -177,12 +174,11 @@
 		4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7077FE278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift */; };
 		4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */; };
 		4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */; };
-		4A707806278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
-		4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */; };
-		4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */; };
+		4A797F9624AC9936007DDBE1 /* CustomCloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */; };
+		4A797F9824AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9724AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift */; };
 		4A79E26926B16993008C9959 /* ActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A79E26826B16993008C9959 /* ActionButton.swift */; };
 		4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */; };
 		4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */; };
@@ -234,7 +230,6 @@
 		4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */; };
 		4AB5233A275F7B97009B8D99 /* LoadingButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52339275F7B97009B8D99 /* LoadingButtonCell.swift */; };
 		4AB6A890278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A88F278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift */; };
-		4AB6A892278EFC730016B01E /* VaultManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A891278EFC730016B01E /* VaultManagerMock.swift */; };
 		4AB6A894278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A893278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift */; };
 		4AB6A896278F07B20016B01E /* FileProviderAdapterTypeMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A895278F07B20016B01E /* FileProviderAdapterTypeMock.swift */; };
 		4AB6A899278F084E0016B01E /* MaintenanceManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */; };
@@ -243,11 +238,9 @@
 		4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539726BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift */; };
 		4AB8539C26BA8A8200555F00 /* VaultPasswordVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539B26BA8A8200555F00 /* VaultPasswordVerifying.swift */; };
 		4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */; };
-		4ABA985C2729557A004BB717 /* CloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABA985B2729557A004BB717 /* CloudProviderMock.swift */; };
 		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
 		4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */; };
 		4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */; };
-		4ACF5C192733E18F008A7227 /* AutogeneratedCloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ACF5C182733E18F008A7227 /* AutogeneratedCloudProviderMock.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */; };
 		4ADC66BF27A44558002E6CC7 /* XCTestCase+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */; };
@@ -256,21 +249,14 @@
 		4ADC66C327A7F4B8002E6CC7 /* VaultUnlockingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */; };
 		4ADC66C527A7F6D6002E6CC7 /* UnlockMonitorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66C427A7F6D6002E6CC7 /* UnlockMonitorTests.swift */; };
 		4ADC66C727A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */; };
-		4ADC66C927A962C2002E6CC7 /* VaultPasswordManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66C827A962C2002E6CC7 /* VaultPasswordManagerMock.swift */; };
 		4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233B267219E200374E4E /* LocalCachedFileInfo.swift */; };
 		4ADD233E2672376500374E4E /* WorkflowConstraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233D2672376500374E4E /* WorkflowConstraint.swift */; };
 		4ADD234026737CD400374E4E /* RootFileProviderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */; };
 		4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD2341267383BE00374E4E /* AddVaultSuccessViewModel.swift */; };
-		4ADD9DBE272967E400B73FB9 /* VaultManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */; };
 		4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8D62653D5D500DF5D22 /* CloudTask.swift */; };
 		4AE0D8DA2653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */; };
 		4AE0D8DC2653DF1300DF5D22 /* DownloadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */; };
 		4AE0D8DE2653F18900DF5D22 /* DeletionTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */; };
-		4AE791CA278F168E00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */; };
-		4AE791CC278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */; };
-		4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */; };
-		4AE791D0278F1EAD00525913 /* MasterkeyCacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */; };
-		4AE791D2278F1F2600525913 /* MasterkeyCacheHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */; };
 		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */; };
@@ -495,8 +481,6 @@
 		4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		4A1C6D57274CE5BF00B41FFF /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
 		4A1C6D59274D225500B41FFF /* PurchaseViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModelTests.swift; sourceTree = "<group>"; };
-		4A1C6D5D274D299200B41FFF /* CryptomatorSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptomatorSettingsMock.swift; sourceTree = "<group>"; };
-		4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeCheckerMock.swift; sourceTree = "<group>"; };
 		4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKProduct+LocalizedPrice.swift"; sourceTree = "<group>"; };
 		4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPManagerMock.swift; sourceTree = "<group>"; };
 		4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPStoreMock.swift; sourceTree = "<group>"; };
@@ -608,7 +592,6 @@
 		4A58115D2779E1B700E89A62 /* Snapshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snapshots-Bridging-Header.h"; sourceTree = "<group>"; };
 		4A58115E2779E1B700E89A62 /* SnapshotBiometrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapshotBiometrics.h; sourceTree = "<group>"; };
 		4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnapshotBiometrics.m; sourceTree = "<group>"; };
-		4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullVersionCheckerMock.swift; sourceTree = "<group>"; };
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
 		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
@@ -645,12 +628,11 @@
 		4A7077FE278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewController.swift; sourceTree = "<group>"; };
 		4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModel.swift; sourceTree = "<group>"; };
 		4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModelTests.swift; sourceTree = "<group>"; };
-		4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedSettingsMock.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
-		4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
-		4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMockTests.swift; sourceTree = "<group>"; };
+		4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCloudProviderMock.swift; sourceTree = "<group>"; };
+		4A797F9724AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCloudProviderMockTests.swift; sourceTree = "<group>"; };
 		4A79E26826B16993008C9959 /* ActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionButton.swift; sourceTree = "<group>"; };
 		4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewController.swift; sourceTree = "<group>"; };
 		4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListViewModel.swift; sourceTree = "<group>"; };
@@ -706,7 +688,6 @@
 		4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCellViewModel.swift; sourceTree = "<group>"; };
 		4AB52339275F7B97009B8D99 /* LoadingButtonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCell.swift; sourceTree = "<group>"; };
 		4AB6A88F278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterManagerTests.swift; sourceTree = "<group>"; };
-		4AB6A891278EFC730016B01E /* VaultManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerMock.swift; sourceTree = "<group>"; };
 		4AB6A893278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterCacheTypeMock.swift; sourceTree = "<group>"; };
 		4AB6A895278F07B20016B01E /* FileProviderAdapterTypeMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterTypeMock.swift; sourceTree = "<group>"; };
 		4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManagerMock.swift; sourceTree = "<group>"; };
@@ -715,32 +696,23 @@
 		4AB8539726BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailUnlockVaultViewModel.swift; sourceTree = "<group>"; };
 		4AB8539B26BA8A8200555F00 /* VaultPasswordVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordVerifying.swift; sourceTree = "<group>"; };
 		4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailUnlockCoordinator.swift; sourceTree = "<group>"; };
-		4ABA985B2729557A004BB717 /* CloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderMock.swift; sourceTree = "<group>"; };
 		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
 		4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewModelTests.swift; sourceTree = "<group>"; };
 		4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProgressHUDError.swift"; sourceTree = "<group>"; };
-		4ACF5C182733E18F008A7227 /* AutogeneratedCloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutogeneratedCloudProviderMock.swift; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewController.swift; sourceTree = "<group>"; };
 		4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Promises.swift"; sourceTree = "<group>"; };
 		4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockMonitor.swift; sourceTree = "<group>"; };
 		4ADC66C427A7F6D6002E6CC7 /* UnlockMonitorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockMonitorTests.swift; sourceTree = "<group>"; };
 		4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockMonitorTaskExecutorMock.swift; sourceTree = "<group>"; };
-		4ADC66C827A962C2002E6CC7 /* VaultPasswordManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordManagerMock.swift; sourceTree = "<group>"; };
 		4ADD233B267219E200374E4E /* LocalCachedFileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalCachedFileInfo.swift; sourceTree = "<group>"; };
 		4ADD233D2672376500374E4E /* WorkflowConstraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowConstraint.swift; sourceTree = "<group>"; };
 		4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFileProviderItem.swift; sourceTree = "<group>"; };
 		4ADD2341267383BE00374E4E /* AddVaultSuccessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewModel.swift; sourceTree = "<group>"; };
-		4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultManagerMock.swift; sourceTree = "<group>"; };
 		4AE0D8D62653D5D500DF5D22 /* CloudTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTask.swift; sourceTree = "<group>"; };
 		4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskExecutor.swift; sourceTree = "<group>"; };
-		4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
-		4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedHelperMock.swift; sourceTree = "<group>"; };
-		4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedSettingsMock.swift; sourceTree = "<group>"; };
-		4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheManagerMock.swift; sourceTree = "<group>"; };
-		4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterkeyCacheHelperMock.swift; sourceTree = "<group>"; };
 		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProviderValidationServiceSource.h; sourceTree = "<group>"; };
 		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
@@ -1458,28 +1430,21 @@
 		4AB6A897278F07DE0016B01E /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				4ACF5C182733E18F008A7227 /* AutogeneratedCloudProviderMock.swift */,
-				4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */,
-				4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */,
+				4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */,
+				4A797F9724AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift */,
 				4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */,
 				4AB6A893278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift */,
 				4AB6A895278F07B20016B01E /* FileProviderAdapterTypeMock.swift */,
 				4A2060CA2798302600DA6C62 /* FileProviderItemUpdateDelegateMock.swift */,
 				4A2060D0279AB32700DA6C62 /* FileProviderNotificatorManagerMock.swift */,
 				4A2060D2279AB38A00DA6C62 /* FileProviderNotificatorMock.swift */,
-				4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */,
 				4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */,
-				4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */,
 				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
 				4AEECD3E279EC48200C6E2B5 /* NSFileProviderChangeObserverMock.swift */,
-				4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */,
-				4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */,
-				4AB6A891278EFC730016B01E /* VaultManagerMock.swift */,
 				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
 				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
 				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
 				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
-				4ADC66C827A962C2002E6CC7 /* VaultPasswordManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1487,16 +1452,9 @@
 		4ADD9DBC2729618800B73FB9 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				4ABA985B2729557A004BB717 /* CloudProviderMock.swift */,
-				4A1C6D5D274D299200B41FFF /* CryptomatorSettingsMock.swift */,
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
 				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
-				4AE791D1278F1F2600525913 /* MasterkeyCacheHelperMock.swift */,
-				4AE791CF278F1EAD00525913 /* MasterkeyCacheManagerMock.swift */,
-				4A1C6D5F274D2AB200B41FFF /* UpgradeCheckerMock.swift */,
-				4A707805278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift */,
-				4ADD9DBD272967E400B73FB9 /* VaultManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2171,8 +2129,7 @@
 			files = (
 				4A8F149A266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift in Sources */,
 				4ADC66C727A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift in Sources */,
-				4A797F9824AC9A1B007DDBE1 /* CloudProviderMockTests.swift in Sources */,
-				4AE791CC278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift in Sources */,
+				4A797F9824AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift in Sources */,
 				4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */,
 				4A49FABE271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift in Sources */,
 				4A248229266E2DD6002D9F59 /* FileProviderAdapterCreateDirectoryTests.swift in Sources */,
@@ -2180,11 +2137,10 @@
 				4A2060CB2798302600DA6C62 /* FileProviderItemUpdateDelegateMock.swift in Sources */,
 				4A2060D1279AB32700DA6C62 /* FileProviderNotificatorManagerMock.swift in Sources */,
 				4AEECD3F279EC48200C6E2B5 /* NSFileProviderChangeObserverMock.swift in Sources */,
-				4AB6A892278EFC730016B01E /* VaultManagerMock.swift in Sources */,
 				4AEECD31279EA50D00C6E2B5 /* WorkingSetObservingMock.swift in Sources */,
 				4A511D492660EE3F000A0E01 /* DeletionTaskExecutorTests.swift in Sources */,
 				4AEECD33279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift in Sources */,
-				4A797F9624AC9936007DDBE1 /* CloudProviderMock.swift in Sources */,
+				4A797F9624AC9936007DDBE1 /* CustomCloudProviderMock.swift in Sources */,
 				4A24822B266E362C002D9F59 /* FileProviderAdapterMoveItemTests.swift in Sources */,
 				4A24822D266F85FD002D9F59 /* FileProviderAdapterDeleteItemTests.swift in Sources */,
 				4AB6A899278F084E0016B01E /* MaintenanceManagerMock.swift in Sources */,
@@ -2193,7 +2149,6 @@
 				4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */,
 				4AEFF7F427145CB500D6CB99 /* LogLevelUpdatingServiceSourceTests.swift in Sources */,
 				4A248231266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift in Sources */,
-				4AE791CA278F168E00525913 /* MasterkeyCacheManagerMock.swift in Sources */,
 				4A8F14A0266A2FD500ADBCE4 /* FileProviderAdapterGetItemTests.swift in Sources */,
 				4A24822F266FACF1002D9F59 /* FileProviderAdapterEnumerateItemTests.swift in Sources */,
 				4A4A3864253F2B1900EE3828 /* CachedFileManagerTests.swift in Sources */,
@@ -2202,17 +2157,14 @@
 				4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */,
 				4AB6A894278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift in Sources */,
 				4A1673E8270C675B0075C724 /* FileProviderCacheManagerTests.swift in Sources */,
-				4ACF5C192733E18F008A7227 /* AutogeneratedCloudProviderMock.swift in Sources */,
 				4A231B84271EFC6100987492 /* DownloadTaskManagerTests.swift in Sources */,
 				4ADC66C527A7F6D6002E6CC7 /* UnlockMonitorTests.swift in Sources */,
 				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
-				4ADC66C927A962C2002E6CC7 /* VaultPasswordManagerMock.swift in Sources */,
 				4A511D45265EB13B000A0E01 /* ItemEnumerationTaskTests.swift in Sources */,
 				4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */,
 				4A248221266B8D37002D9F59 /* FileProviderAdapterImportDocumentTests.swift in Sources */,
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
 				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
-				4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */,
 				4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4AEECD3B279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift in Sources */,
@@ -2227,7 +2179,6 @@
 				4AEECD39279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift in Sources */,
 				4ADC66BF27A44558002E6CC7 /* XCTestCase+Promises.swift in Sources */,
 				4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */,
-				4A5AC4392758EC9400342AA7 /* FullVersionCheckerMock.swift in Sources */,
 				4A9C8E0127A0104E000063E4 /* EnumerationSignalingMock.swift in Sources */,
 				4AEECD2F279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift in Sources */,
 				4AEECD3D279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift in Sources */,
@@ -2445,24 +2396,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A1C6D60274D2AB200B41FFF /* UpgradeCheckerMock.swift in Sources */,
 				4AFF1BB1272C337A00F41E1B /* XCTest+Combine.swift in Sources */,
 				4A6A520B268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift in Sources */,
-				4ABA985C2729557A004BB717 /* CloudProviderMock.swift in Sources */,
 				4A1DB291275FA4AE00A5F27B /* IAPStoreMock.swift in Sources */,
-				4ADD9DBE272967E400B73FB9 /* VaultManagerMock.swift in Sources */,
 				4A6A5208268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift in Sources */,
 				4A1C6D5A274D225500B41FFF /* PurchaseViewModelTests.swift in Sources */,
-				4AE791D2278F1F2600525913 /* MasterkeyCacheHelperMock.swift in Sources */,
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4A3D6554267CF17B000DA764 /* CreateNewVaultPasswordViewModelTests.swift in Sources */,
 				4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */,
-				4A707806278DC39E00AEF4CE /* VaultKeepUnlockedSettingsMock.swift in Sources */,
 				4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */,
 				4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */,
-				4A1C6D5E274D299200B41FFF /* CryptomatorSettingsMock.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
-				4AE791D0278F1EAD00525913 /* MasterkeyCacheManagerMock.swift in Sources */,
 				4A91D8CC272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift in Sources */,
 				4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */,
 				4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */,

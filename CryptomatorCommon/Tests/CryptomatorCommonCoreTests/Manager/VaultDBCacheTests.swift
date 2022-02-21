@@ -20,7 +20,7 @@ class VaultDBCacheTests: XCTestCase {
 	private lazy var account: CloudProviderAccount = .init(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 	private let vaultPath = CloudPath("/Vault")
 	private lazy var vaultAccount: VaultAccount = .init(vaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, vaultName: "Vault")
-	private let cloudProviderMock = GeneratedCloudProviderMock()
+	private let cloudProviderMock = CloudProviderMock()
 	private var inMemoryDB: DatabaseQueue!
 	private var masterkeyFileData: Data!
 	private var updatedMasterkeyFileData: Data!

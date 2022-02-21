@@ -164,7 +164,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	private class CloudProviderUploadInconsistencyMock: CloudProviderMock {
+	private class CloudProviderUploadInconsistencyMock: CustomCloudProviderMock {
 		override func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
 			precondition(localURL.isFileURL)
 			precondition(!localURL.hasDirectoryPath)

@@ -6,7 +6,7 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
+#if DEBUG
 import CryptomatorCryptoLib
 import Foundation
 
@@ -81,3 +81,4 @@ final class MasterkeyCacheManagerMock: MasterkeyCacheManager {
 }
 
 // swiftlint:enable all
+#endif

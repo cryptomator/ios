@@ -10,6 +10,7 @@ import Promises
 import StoreKitTest
 import XCTest
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
 
 @available(iOS 14.0, *)
 class StoreObserverTests: XCTestCase {

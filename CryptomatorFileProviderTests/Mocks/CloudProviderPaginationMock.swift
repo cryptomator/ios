@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 import Promises
 
-class CloudProviderPaginationMock: CloudProviderMock {
+class CloudProviderPaginationMock: CustomCloudProviderMock {
 	var pages = [
 		"0": [
 			CloudItemMetadata(name: "a", cloudPath: CloudPath("/a"), itemType: .file, lastModifiedDate: nil, size: nil),

@@ -10,7 +10,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCloudAccessCore
 
-class CloudProviderMockTests: XCTestCase {
+class CustomCloudProviderMockTests: XCTestCase {
 	var tmpDirURL: URL!
 
 	override func setUpWithError() throws {
@@ -24,7 +24,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testRootContainsFiles() {
 		let expectation = XCTestExpectation(description: "rootContainsFiles")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let rootCloudPath = CloudPath("/")
 		provider.fetchItemList(forFolderAt: rootCloudPath, withPageToken: nil).then { cloudItemList in
 			XCTAssertEqual(5, cloudItemList.items.count)
@@ -43,7 +43,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testFile1LastModifiedDate() {
 		let expectation = XCTestExpectation(description: "dir1FileContainsDirId")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let cloudPath = CloudPath("/File 1")
 		provider.fetchItemMetadata(at: cloudPath).then { metadata in
 			XCTAssertEqual(.file, metadata.itemType)
@@ -58,7 +58,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testUploadFileSimulatedItemNotFoundError() {
 		let itemNotFoundExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemNotFound")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
 		let cloudPathForItemNotFound = CloudPath("/itemNotFound.txt")
 
@@ -77,7 +77,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testUploadFileSimulatedItemAlreadyExistsError() {
 		let itemAlreadyExistsExpectation = XCTestExpectation(description: "provider throw CloudProviderError.itemAlreadyExists")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
 		let cloudPathForItemAlreadyExists = CloudPath("/itemAlreadyExists.txt")
 
@@ -96,7 +96,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testUploadFileSimulatedQutoaInsufficientError() {
 		let quotaInsufficientExpectation = XCTestExpectation(description: "provider throw CloudProviderError.quotaInsufficient")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
 		let cloudPathForQuotaInsufficient = CloudPath("/quotaInsufficient.txt")
 
@@ -115,7 +115,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testUploadFileNoInternetConnectionError() {
 		let noInternetConnectionExpectation = XCTestExpectation(description: "provider throw CloudProviderError.noInternetConnection")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
 		let cloudPathForNoInternetConnection = CloudPath("/noInternetConnection.txt")
 
@@ -134,7 +134,7 @@ class CloudProviderMockTests: XCTestCase {
 
 	func testUploadFileUnauthorizedError() {
 		let unauthorizedExpectation = XCTestExpectation(description: "provider throw CloudProviderError.unauthorized")
-		let provider = CloudProviderMock()
+		let provider = CustomCloudProviderMock()
 		let localURL = tmpDirURL.appendingPathComponent("nonExistentFile", isDirectory: false)
 		let cloudPathForUnauthorized = CloudPath("/unauthorized.txt")
 

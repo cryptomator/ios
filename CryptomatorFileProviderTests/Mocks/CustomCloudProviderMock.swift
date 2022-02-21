@@ -1,5 +1,5 @@
 //
-//  CloudProviderMock.swift
+//  CustomCloudProviderMock.swift
 //  CryptomatorFileProviderTests
 //
 //  Created by Philipp Schmid on 01.07.20.
@@ -22,7 +22,7 @@ import Promises
  └─ File 4
  ```
  */
-class CloudProviderMock: CloudProvider {
+class CustomCloudProviderMock: CloudProvider {
 	let folders: Set = [
 		"/Directory 1",
 		"/Directory 1/Directory 2"

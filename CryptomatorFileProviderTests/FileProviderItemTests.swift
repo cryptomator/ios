@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import MobileCoreServices
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class FileProviderItemTests: XCTestCase {

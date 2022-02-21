@@ -1,15 +1,15 @@
 //
 //  VaultCacheMock.swift
-//  CryptomatorCommonCoreTests
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 28.01.22.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+#if DEBUG
 import CryptomatorCloudAccessCore
 import Foundation
 import Promises
-@testable import CryptomatorCommonCore
 
 // swiftlint:disable all
 
@@ -106,3 +106,4 @@ final class VaultCacheMock: VaultCache {
 }
 
 // swiftlint:enable all
+#endif

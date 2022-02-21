@@ -39,7 +39,13 @@ class VaultManagerMock: VaultDBManager {
 }
 
 class CloudProviderManagerMock: CloudProviderDBManager {
-	let provider = CloudProviderMock()
+	private let provider: CloudProvider
+
+	init(provider: CloudProvider, accountManager: CloudProviderAccountDBManager) {
+		self.provider = provider
+		super.init(accountManager: accountManager)
+	}
+
 	override func getProvider(with accountUID: String) throws -> CloudProvider {
 		return provider
 	}
@@ -54,6 +60,7 @@ class VaultManagerTests: XCTestCase {
 	var passwordManagerMock: VaultPasswordManagerMock!
 	var masterkeyCacheManagerMock: MasterkeyCacheManagerMock!
 	var masterkeyCacheHelperMock: MasterkeyCacheHelperMock!
+	var cloudProviderMock: CloudProviderMock!
 	var tmpDir: URL!
 	var dbPool: DatabasePool!
 	let vaultUID = "VaultUID-12345"
@@ -66,13 +73,14 @@ class VaultManagerTests: XCTestCase {
 	let vaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)
 
 	override func setUpWithError() throws {
+		cloudProviderMock = CloudProviderMock()
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
 		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
 		try CryptomatorDatabase.migrator.migrate(dbPool)
 
 		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
-		providerManager = CloudProviderManagerMock(accountManager: providerAccountManager)
+		providerManager = CloudProviderManagerMock(provider: cloudProviderMock, accountManager: providerAccountManager)
 		accountManager = VaultAccountDBManager(dbPool: dbPool)
 		vaultCacheMock = VaultCacheMock()
 		vaultCacheMock.refreshVaultCacheForWithReturnValue = Promise(())
@@ -93,26 +101,20 @@ class VaultManagerTests: XCTestCase {
 		try FileManager.default.removeItem(at: tmpDir)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testCreateNewVault() throws {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
-		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
-		let vaultPath = CloudPath("/Vault/")
+
+		cloudProviderMock.createFolderAtReturnValue = Promise(())
 		manager.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).then { [self] in
-			XCTAssertEqual(vaultPath.path, self.providerManager.provider.createdFolders[0])
-			XCTAssertEqual(CloudPath("/Vault/d").path, self.providerManager.provider.createdFolders[1])
+			XCTAssertEqual(vaultPath.path, self.cloudProviderMock.createdFolders[0])
+			XCTAssertEqual(CloudPath("/Vault/d").path, self.cloudProviderMock.createdFolders[1])
 			XCTAssertTrue(cloudProviderMock.createdFolders[2].hasPrefix(CloudPath("/Vault/d/").path) && cloudProviderMock.createdFolders[2].count == 11)
 			XCTAssertTrue(cloudProviderMock.createdFolders[3].hasPrefix(cloudProviderMock.createdFolders[2] + "/") && cloudProviderMock.createdFolders[3].count == 42)
 
-			guard let masterkeyData = cloudProviderMock.createdFiles["/Vault/masterkey.cryptomator"] else {
-				XCTFail("Masterkey not uploaded")
-				return
-			}
-			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyData)
+			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: try getUploadedMasterkeyFileData())
 			XCTAssertEqual(999, uploadedMasterkeyFile.version)
 
 			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: "pw")
@@ -136,11 +138,7 @@ class VaultManagerTests: XCTestCase {
 			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
 
 			// Vault config checks
-			let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
-			guard let uploadedVaultConfigToken = cloudProviderMock.createdFiles[vaultConfigPath.path] else {
-				XCTFail("Vault config not uploaded")
-				return
-			}
+			let uploadedVaultConfigToken = try getUploadedVaultConfigData()
 
 			guard let savedVaultConfigToken = cachedVault.vaultConfigToken else {
 				XCTFail("savedVaultConfigToken is nil")
@@ -164,7 +162,6 @@ class VaultManagerTests: XCTestCase {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
-		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/ExistingVault/")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		guard let managerMock = manager as? VaultManagerMock else {
@@ -182,7 +179,6 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
 
-		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			let vaultAccount = try accountManager.getAccount(with: vaultUID)
@@ -223,7 +219,6 @@ class VaultManagerTests: XCTestCase {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
-		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/ExistingVault/")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		guard let managerMock = manager as? VaultManagerMock else {
@@ -234,7 +229,6 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock.filesToDownload[masterkeyPath.path] = try managerMock.exportMasterkey(masterkey, vaultVersion: 7, password: "pw")
 		cloudProviderMock.cloudMetadata[masterkeyPath.path] = CloudItemMetadata(name: masterkeyPath.lastPathComponent, cloudPath: masterkeyPath, itemType: .file, lastModifiedDate: masterkeyFileLastModifiedDate, size: nil)
 
-		let vaultUID = UUID().uuidString
 		let legacyVaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createLegacyFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: legacyVaultDetails, password: "pw", storePasswordInKeychain: true).then { [self] in
 			let vaultAccount = try accountManager.getAccount(with: vaultUID)
@@ -311,8 +305,9 @@ class VaultManagerTests: XCTestCase {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
-		let vaultUID = UUID().uuidString
+
 		let vaultPath = CloudPath("/Vault/")
+		cloudProviderMock.createFolderAtReturnValue = Promise(())
 		manager.createNewVault(withVaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -339,7 +334,6 @@ class VaultManagerTests: XCTestCase {
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
 		try providerAccountManager.saveNewAccount(account)
-		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/ExistingVault/")
 		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
 		guard let managerMock = manager as? VaultManagerMock else {
@@ -357,7 +351,6 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
 
-		let vaultUID = UUID().uuidString
 		let vaultDetails = VaultDetails(name: "ExistingVault", vaultPath: vaultPath)
 		manager.createFromExisting(withVaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultItem: vaultDetails, password: "pw", storePasswordInKeychain: true).catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -387,19 +380,20 @@ class VaultManagerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
+
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
 		try accountManager.saveNewAccount(vaultAccount)
 		let newVaultPath = CloudPath("/Foo/MovedVault")
+		cloudProviderMock.moveFolderFromToReturnValue = Promise(())
 
 		manager.moveVault(account: vaultAccount, to: newVaultPath).then {
-			XCTAssertEqual(1, cloudProviderMock.movedFolder.count)
-			XCTAssertEqual(newVaultPath.path, cloudProviderMock.movedFolder[vaultPath.path])
+			XCTAssertEqual(1, self.cloudProviderMock.moveFolderFromToCallsCount)
+			XCTAssertEqual(newVaultPath, self.cloudProviderMock.moveFolderFromToReceivedArguments?.targetCloudPath)
+			XCTAssertEqual(vaultPath, self.cloudProviderMock.moveFolderFromToReceivedArguments?.sourceCloudPath)
 
-			let updatedAccount = try self.accountManager.getAccount(with: vaultUID)
+			let updatedAccount = try self.accountManager.getAccount(with: self.vaultUID)
 			XCTAssertEqual(newVaultPath, updatedAccount.vaultPath)
 			XCTAssertEqual("MovedVault", updatedAccount.vaultName)
 			XCTAssertEqual(vaultAccount.delegateAccountUID, updatedAccount.delegateAccountUID)
@@ -411,7 +405,7 @@ class VaultManagerTests: XCTestCase {
 			}
 
 			XCTAssertEqual(1, managerMock.addedFileProviderDomainDisplayName.count)
-			XCTAssertEqual("MovedVault", managerMock.addedFileProviderDomainDisplayName[vaultUID])
+			XCTAssertEqual("MovedVault", managerMock.addedFileProviderDomainDisplayName[self.vaultUID])
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -424,8 +418,7 @@ class VaultManagerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
+
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -433,7 +426,7 @@ class VaultManagerTests: XCTestCase {
 		let newVaultPath = CloudPath("/Foo/MovedVault")
 
 		// Simulate cloud provider error for moveFolder
-		cloudProviderMock.error = CloudProviderError.itemAlreadyExists
+		cloudProviderMock.moveFolderFromToThrowableError = CloudProviderError.itemAlreadyExists
 
 		manager.moveVault(account: vaultAccount, to: newVaultPath).then {
 			XCTFail("Promise fulfilled")
@@ -442,10 +435,10 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssert(cloudProviderMock.movedFolder.isEmpty)
+			XCTAssertFalse(self.cloudProviderMock.moveFolderFromToCalled)
 			let fetchedVaultAccount: VaultAccount
 			do {
-				fetchedVaultAccount = try self.accountManager.getAccount(with: vaultUID)
+				fetchedVaultAccount = try self.accountManager.getAccount(with: self.vaultUID)
 			} catch {
 				XCTFail("get vault account failed with error: \(error)")
 				return
@@ -459,7 +452,7 @@ class VaultManagerTests: XCTestCase {
 			XCTAssert(managerMock.addedFileProviderDomainDisplayName.isEmpty)
 
 			// Check VaultAccount did not change
-			XCTAssertEqual(vaultUID, fetchedVaultAccount.vaultUID)
+			XCTAssertEqual(self.vaultUID, fetchedVaultAccount.vaultUID)
 			XCTAssertEqual(delegateAccountUID, fetchedVaultAccount.delegateAccountUID)
 			XCTAssertEqual(vaultPath, fetchedVaultAccount.vaultPath)
 			XCTAssertEqual("Vault", fetchedVaultAccount.vaultName)
@@ -473,8 +466,7 @@ class VaultManagerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		let cloudProviderMock = providerManager.provider
-		let vaultUID = UUID().uuidString
+
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -488,10 +480,10 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Promise rejected with wrong error: \(error)")
 				return
 			}
-			XCTAssert(cloudProviderMock.movedFolder.isEmpty)
+			XCTAssertFalse(self.cloudProviderMock.moveFolderFromToCalled)
 			let fetchedVaultAccount: VaultAccount
 			do {
-				fetchedVaultAccount = try self.accountManager.getAccount(with: vaultUID)
+				fetchedVaultAccount = try self.accountManager.getAccount(with: self.vaultUID)
 			} catch {
 				XCTFail("get vault account failed with error: \(error)")
 				return
@@ -505,7 +497,7 @@ class VaultManagerTests: XCTestCase {
 			XCTAssert(managerMock.addedFileProviderDomainDisplayName.isEmpty)
 
 			// Check VaultAccount did not change
-			XCTAssertEqual(vaultUID, fetchedVaultAccount.vaultUID)
+			XCTAssertEqual(self.vaultUID, fetchedVaultAccount.vaultUID)
 			XCTAssertEqual(delegateAccountUID, fetchedVaultAccount.delegateAccountUID)
 			XCTAssertEqual(vaultPath, fetchedVaultAccount.vaultPath)
 			XCTAssertEqual("Vault", fetchedVaultAccount.vaultName)
@@ -521,7 +513,6 @@ class VaultManagerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -537,24 +528,11 @@ class VaultManagerTests: XCTestCase {
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
 		vaultCacheMock.getCachedVaultWithVaultUIDReturnValue = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck, masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
-		cloudProviderMock.createdFilesLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
+		cloudProviderMock.uploadFileLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
 		let newPassphrase = "NewPassword"
 
 		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
-			XCTAssertEqual(1, cloudProviderMock.createdFiles.count)
-			guard let uploadedMasterkeyFileData = cloudProviderMock.createdFiles["/Vault/masterkey.cryptomator"] else {
-				XCTFail("Masterkey file not uploaded")
-				return
-			}
-			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: uploadedMasterkeyFileData)
-			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: newPassphrase)
-			XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
-				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
-			}
-			XCTAssertEqual(self.masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
-			XCTAssertEqual(self.masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
-
-			try self.assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
+			try self.assertChangedPassphrase(from: oldPassphrase, to: newPassphrase)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -567,7 +545,6 @@ class VaultManagerTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: delegateAccountUID, cloudProviderType: .dropbox)
-		let cloudProviderMock = providerManager.provider
 		let vaultPath = CloudPath("/Vault/")
 		try providerAccountManager.saveNewAccount(account)
 		let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: "Vault")
@@ -585,25 +562,11 @@ class VaultManagerTests: XCTestCase {
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
 		vaultCacheMock.getCachedVaultWithVaultUIDReturnValue = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: token, lastUpToDateCheck: oldLastUpToDateCheck, masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
-		cloudProviderMock.createdFilesLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
+		cloudProviderMock.uploadFileLastModifiedDate["/Vault/masterkey.cryptomator"] = masterkeyFileLastModifiedDate
 		let newPassphrase = "NewPassword"
 
 		manager.changePassphrase(oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, forVaultUID: vaultUID).then {
-			XCTAssertEqual(1, cloudProviderMock.createdFiles.count)
-			guard let uploadedMasterkeyFileData = cloudProviderMock.createdFiles["/Vault/masterkey.cryptomator"] else {
-				XCTFail("Masterkey file not uploaded")
-				return
-			}
-			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: uploadedMasterkeyFileData)
-			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: newPassphrase)
-			XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
-				XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
-			}
-			XCTAssertEqual(self.masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
-			XCTAssertEqual(self.masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
-
-			try self.assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
-
+			try self.assertChangedPassphrase(from: oldPassphrase, to: newPassphrase)
 			XCTAssertEqual(1, self.passwordManagerMock.savedPasswords.count)
 			XCTAssertEqual(newPassphrase, self.passwordManagerMock.savedPasswords[self.vaultUID])
 		}.catch { error in
@@ -663,6 +626,35 @@ class VaultManagerTests: XCTestCase {
 		XCTAssertEqual(vaultUID, receivedArguments.vaultUID)
 		XCTAssertFalse(vaultCacheMock.refreshVaultCacheForWithCalled)
 		XCTAssertFalse(vaultCacheMock.cacheCalled)
+	}
+
+	private func assertChangedPassphrase(from oldPassphrase: String, to newPassphrase: String) throws {
+		XCTAssertEqual(1, cloudProviderMock.uploadFileFromToReplaceExistingCallsCount)
+		let uploadedMasterkeyFileData = try getUploadedMasterkeyFileData()
+		let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: uploadedMasterkeyFileData)
+		let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: newPassphrase)
+		XCTAssertThrowsError(try uploadedMasterkeyFile.unlock(passphrase: oldPassphrase)) { error in
+			XCTAssertEqual(.invalidPassphrase, error as? MasterkeyFileError)
+		}
+		XCTAssertEqual(masterkey.aesMasterKey, uploadedMasterkey.aesMasterKey)
+		XCTAssertEqual(masterkey.macMasterKey, uploadedMasterkey.macMasterKey)
+		try assertUpdatedVaultCache(with: uploadedMasterkeyFileData)
+	}
+
+	private func getUploadedMasterkeyFileData() throws -> Data {
+		return try getUploadedData(at: vaultPath.appendingPathComponent("masterkey.cryptomator"))
+	}
+
+	private func getUploadedVaultConfigData() throws -> Data {
+		return try getUploadedData(at: vaultPath.appendingPathComponent("vault.cryptomator"))
+	}
+
+	private func getUploadedData(at cloudPath: CloudPath) throws -> Data {
+		let uploadedFileURL = cloudProviderMock.uploadFileFromToReplaceExistingReceivedInvocations
+			.filter { $0.cloudPath == cloudPath }
+			.map { $0.localURL }
+			.first
+		return try Data(contentsOf: try XCTUnwrap(uploadedFileURL))
 	}
 }
 

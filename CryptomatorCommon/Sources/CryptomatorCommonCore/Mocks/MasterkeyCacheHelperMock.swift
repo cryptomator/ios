@@ -6,8 +6,8 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
+#if DEBUG
 import Foundation
-@testable import CryptomatorCommonCore
 
 final class MasterkeyCacheHelperMock: MasterkeyCacheHelper {
 	// MARK: - shouldCacheMasterkey
@@ -29,3 +29,4 @@ final class MasterkeyCacheHelperMock: MasterkeyCacheHelper {
 		return shouldCacheMasterkeyForVaultUIDClosure.map({ $0(vaultUID) }) ?? shouldCacheMasterkeyForVaultUIDReturnValue
 	}
 }
+#endif

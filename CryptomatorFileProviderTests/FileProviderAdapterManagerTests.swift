@@ -6,10 +6,10 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import FileProvider
 import Promises
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 @testable import CryptomatorFileProvider
 
@@ -66,7 +66,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	func testGetAdapterNotCachedAutoUnlock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
-		vaultManagerMock.createVaultProviderWithUIDMasterkeyReturnValue = CloudProviderMock()
+		vaultManagerMock.createVaultProviderWithUIDMasterkeyReturnValue = CustomCloudProviderMock()
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
 		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)
@@ -172,7 +172,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	func testUnlockVault() throws {
 		let kek = [UInt8](repeating: 0x55, count: 32)
-		vaultManagerMock.manualUnlockVaultWithUIDKekReturnValue = CloudProviderMock()
+		vaultManagerMock.manualUnlockVaultWithUIDKekReturnValue = CustomCloudProviderMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		try fileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: dbPath, delegate: nil, notificator: fileProviderNotificatorMock)
 

@@ -1,12 +1,12 @@
 //
 //  CryptomatorSettingsMock.swift
-//  CryptomatorTests
+//  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 23.11.21.
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
+#if DEBUG
 import Foundation
 
 class CryptomatorSettingsMock: CryptomatorSettings {
@@ -14,3 +14,4 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var debugModeEnabled: Bool = false
 	var fullVersionUnlocked: Bool = false
 }
+#endif
