@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
 "purchase.purchaseFullVersion.button" = "Purchase Full Version for %@";
 "purchase.purchaseFullVersion.footer" = "Pay once and unlock write access to your vaults for the lifetime of Cryptomator.";
+"purchase.redeemCode.button" = "Redeem Code";
 "purchase.restorePurchase.button" = "Restore Purchase";
 "purchase.restorePurchase.footer" = "If you have already purchased the full version of Cryptomator, you can restore the purchase.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Trial Continued";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We were unable to find a previously purchased full version that could be restored. Please try another option.";
 "purchase.retry.button" = "Retry";
 "purchase.retry.footer" = "Could not load the available products.";
+"purchase.startSubscription.button" = "Subscribe for %@ per Year";
 "purchase.decideLater.button" = "Decide Later";
 "purchase.decideLater.footer" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Contact";
 "settings.debugMode" = "Debug Mode";
 "settings.debugMode.alert.message" = "In this mode, sensitive data may be written to a log file on your device (e.g., filenames and paths). Passwords, cookies, etc. are explicitly excluded.\n\nRemember to disable debug mode as soon as possible.";
+"settings.manageSubscriptions" = "Manage Subscription";
 "settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
 "settings.unlockFullVersion" = "Unlock Full Version";

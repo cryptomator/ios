@@ -56,6 +56,16 @@ class PurchaseViewController: IAPViewController<PurchaseSection, PurchaseButtonA
 			viewModel.replaceRetrySectionWithLoadingSection()
 			applySnapshot(sections: viewModel.sections)
 			fetchProducts()
+		case .redeemCode:
+			if #available(iOS 14.0, *) {
+				viewModel.redeemCode()
+			}
+		case .startSubscription:
+			viewModel.startSubscription().then { [weak self] in
+				self?.coordinator?.fullVersionPurchased()
+			}.catch { [weak self] error in
+				self?.handleError(error)
+			}
 		case .unknown, .none:
 			break
 		}

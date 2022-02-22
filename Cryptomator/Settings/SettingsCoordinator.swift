@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
+import StoreKit
 import UIKit
 
 class SettingsCoordinator: Coordinator {
@@ -72,6 +73,26 @@ class SettingsCoordinator: Coordinator {
 		let child = SettingsPurchaseCoordinator(navigationController: navigationController)
 		childCoordinators.append(child) // TODO: remove missing?
 		child.start()
+	}
+
+	func showManageSubscriptions() {
+		if #available(iOS 15.0, *), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+			Task.init {
+				do {
+					try await AppStore.showManageSubscriptions(in: scene)
+				} catch {
+					handleError(error, for: navigationController)
+				}
+			}
+		} else {
+			showExternalManageSubscriptions()
+		}
+	}
+
+	private func showExternalManageSubscriptions() {
+		if let manageSubscriptionsURL = URL(string: "https://apps.apple.com/account/subscriptions") {
+			UIApplication.shared.open(manageSubscriptionsURL)
+		}
 	}
 
 	@objc func close() {

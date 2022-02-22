@@ -21,6 +21,9 @@ enum PurchaseButtonAction {
 	case decideLater
 	case unknown
 	case refreshProducts
+	case startSubscription
+	@available(iOS 14.0, *)
+	case redeemCode
 }
 
 enum PurchaseSection {
@@ -32,6 +35,7 @@ enum PurchaseSection {
 	case loadingSection
 	case emptySection
 	case retrySection
+	case subscribeSection
 }
 
 enum PurchaseError: Error {
@@ -46,6 +50,9 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 	lazy var restorePurchaseButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button"))
 	lazy var decideLaterButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .decideLater, title: LocalizedString.getValue("purchase.decideLater.button"))
 	lazy var retryButtonCellViewModel = SystemSymbolButtonCellViewModel<PurchaseButtonAction>(action: .refreshProducts, title: LocalizedString.getValue("purchase.retry.button"), symbolName: "arrow.clockwise")
+	lazy var subscribeButtonCellViewModel = LoadingButtonCellViewModel<PurchaseButtonAction>(action: .startSubscription, title: LocalizedString.getValue("purchase.startSubscription.button"))
+	@available(iOS 14.0, *)
+	lazy var redeemButtonCellViewModel = ButtonCellViewModel<PurchaseButtonAction>(action: .redeemCode, title: LocalizedString.getValue("purchase.redeemCode.button"))
 	lazy var loadingCellViewModel = LoadingCellViewModel()
 	override var sections: [Section<PurchaseSection>] {
 		return _sections
@@ -105,13 +112,13 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 			return LocalizedString.getValue("purchase.decideLater.footer")
 		case .retrySection:
 			return LocalizedString.getValue("purchase.retry.footer")
-		case .loadingSection, .emptySection:
+		case .loadingSection, .emptySection, .subscribeSection:
 			return nil
 		}
 	}
 
 	func fetchProducts() -> Promise<Void> {
-		return fetchProducts(with: [.thirtyDayTrial, .fullVersion]).always {
+		return fetchProducts(with: [.thirtyDayTrial, .fullVersion, .yearlySubscription]).always {
 			self.removeLoadingSection()
 		}
 	}
@@ -119,6 +126,7 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 	override func fetchProductsSuccess() {
 		addTrialSection()
 		addPurchaseFullVersionSection()
+		addStartSubscriptionSection()
 	}
 
 	override func fetchProductsRecover() {
@@ -146,8 +154,27 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 		}
 	}
 
+	func startSubscription() -> Promise<Void> {
+		guard let product = products[.yearlySubscription] else {
+			return Promise(PurchaseError.unavailableProduct)
+		}
+		return buyProduct(product, isLoadingBinding: subscribeButtonCellViewModel.isLoading).then { _ in
+			// no-op
+		}
+	}
+
 	func restorePurchase() -> Promise<RestoreTransactionsResult> {
 		return restorePurchase(isLoadingBinding: restorePurchaseButtonCellViewModel.isLoading)
+	}
+
+	/**
+	 Presents the code redemption sheet.
+
+	 - Note: The code redemption sheet does not work on the simulator.
+	 */
+	@available(iOS 14.0, *)
+	func redeemCode() {
+		SKPaymentQueue.default().presentCodeRedemptionSheet()
 	}
 
 	func replaceRetrySectionWithLoadingSection() {
@@ -196,6 +223,19 @@ class PurchaseViewModel: BaseIAPViewModel<PurchaseSection, PurchaseButtonAction>
 	private func addRetrySection() {
 		if let index = getRestoreSectionIndex() {
 			_sections.insert(Section(id: .retrySection, elements: [retryButtonCellViewModel]), at: index)
+		}
+	}
+
+	private func addStartSubscriptionSection() {
+		if let product = products[.yearlySubscription], let index = getRestoreSectionIndex(), let localizedPrice = product.localizedPrice {
+			subscribeButtonCellViewModel.title.value = String(format: LocalizedString.getValue("purchase.startSubscription.button"), localizedPrice)
+			let elements: [ButtonCellViewModel<PurchaseButtonAction>]
+			if #available(iOS 14.0, *) {
+				elements = [subscribeButtonCellViewModel, redeemButtonCellViewModel]
+			} else {
+				elements = [subscribeButtonCellViewModel]
+			}
+			_sections.insert(Section(id: .subscribeSection, elements: elements), at: index)
 		}
 	}
 }

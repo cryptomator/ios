@@ -106,6 +106,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return false
 	}
 
+	func applicationDidBecomeActive(_ application: UIApplication) {
+		PremiumManager.shared.refreshStatus()
+	}
+
 	func applicationWillTerminate(_ application: UIApplication) {
 		SKPaymentQueue.default().remove(StoreObserver.shared)
 	}

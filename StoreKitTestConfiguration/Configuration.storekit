@@ -66,11 +66,47 @@
     }
   ],
   "settings" : {
-    "_storefront" : "USA"
+    "_compatibilityTimeRate" : 6,
+    "_storefront" : "USA",
+    "_timeRate" : 15
   },
   "subscriptionGroups" : [
+    {
+      "id" : "59D287B1",
+      "localizations" : [
 
+      ],
+      "name" : "Full Version",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "displayPrice" : "5.99",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "93C382A2",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Grant write access to your vaults",
+              "displayName" : "Yearly Subscription",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "org.cryptomator.ios.iap.yearly_sub",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Full Version - Yearly",
+          "subscriptionGroupID" : "59D287B1",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
   ],
+  "subscriptionOffersKeyPair" : {
+    "id" : "D5256327",
+    "privateKey" : "MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgl7DhxSIWpw1nGlf93J94puapub1XH5YNdkBn8OmxSn2gCgYIKoZIzj0DAQehRANCAARf8Ga/+zK1MEWiqdcYCpOHUaiwBWV1lDskeEcgZ2cjnHnIXENCdJXAq3LURPjbW8q3yOe+rw95ZAqt2eC7RUK6"
+  },
   "version" : {
     "major" : 1,
     "minor" : 1

@@ -27,10 +27,12 @@ class StoreObserverTests: XCTestCase {
 
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		storeManager = StoreManager.shared
-		storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettingsMock)
+		storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettingsMock, premiumManager: PremiumManager(cryptomatorSettings: cryptomatorSettingsMock))
 
-		SKPaymentQueue.default().remove(StoreObserver.shared)
+		SKPaymentQueue.default().removeAllObservers()
 		SKPaymentQueue.default().add(storeObserver)
+		XCTAssertEqual(1, SKPaymentQueue.default().transactionObservers.count)
+		XCTAssert(SKPaymentQueue.default().transactionObservers.contains(where: { $0 === storeObserver }))
 	}
 
 	override func tearDownWithError() throws {
@@ -46,7 +48,7 @@ class StoreObserverTests: XCTestCase {
 			XCTAssertEqual(1, response.products.count)
 			return self.storeObserver.buy(response.products[0])
 		}.then { purchaseTransaction in
-			self.assertTrialStarted(purchaseTransaction: purchaseTransaction)
+			try self.assertTrialStarted(purchaseTransaction: purchaseTransaction)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -72,7 +74,12 @@ class StoreObserverTests: XCTestCase {
 		let fallbackCalledExpectation = XCTestExpectation()
 		let fallbackDelegateMock = StoreObserverDelegateMock()
 		fallbackDelegateMock.purchaseDidSucceedTransactionClosure = { transaction in
-			self.assertTrialStarted(purchaseTransaction: transaction)
+			do {
+				try self.assertTrialStarted(purchaseTransaction: transaction)
+			} catch {
+				XCTFail("assertTrialStarted failed with error: \(error)")
+			}
+
 			fallbackCalledExpectation.fulfill()
 		}
 		storeObserver.fallbackDelegate = fallbackDelegateMock
@@ -82,6 +89,37 @@ class StoreObserverTests: XCTestCase {
 
 		wait(for: [fallbackCalledExpectation], timeout: 1.0)
 		XCTAssertEqual(1, fallbackDelegateMock.purchaseDidSucceedTransactionCallsCount)
+	}
+
+	func testRestoreRunningSubscription() {
+		let cryptomatorSettingsMock = CryptomatorSettingsMock()
+		cryptomatorSettingsMock.hasRunningSubscription = true
+		assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
+	}
+
+	func testRestoreLifetimePremium() {
+		let cryptomatorSettingsMock = CryptomatorSettingsMock()
+		cryptomatorSettingsMock.fullVersionUnlocked = true
+		assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
+	}
+
+	func testRestoreTrial() {
+		let cryptomatorSettingsMock = CryptomatorSettingsMock()
+		let trialExpirationDate = Date.distantFuture
+		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
+		assertRestored(with: .restoredFreeTrial(expiresOn: trialExpirationDate), cryptomatorSettings: cryptomatorSettingsMock)
+	}
+
+	func testRestoreExpiredTrial() {
+		let cryptomatorSettingsMock = CryptomatorSettingsMock()
+		let trialExpirationDate = Date.distantPast
+		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
+		assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
+	}
+
+	func testRestoreNothing() {
+		let cryptomatorSettingsMock = CryptomatorSettingsMock()
+		assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
 	// MARK: - Internal
@@ -112,22 +150,16 @@ class StoreObserverTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	private func assertTrialStarted(purchaseTransaction: PurchaseTransaction) {
-		guard let excpectedDate = Calendar.current.date(byAdding: .day, value: 30, to: Date()) else {
-			XCTFail("Could not create excpectedDate")
-			return
-		}
+	private func assertTrialStarted(purchaseTransaction: PurchaseTransaction) throws {
+		let expectedDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 30, to: Date()))
 		guard case let PurchaseTransaction.freeTrial(expiresOn) = purchaseTransaction else {
 			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
 			return
 		}
-		XCTAssertEqual(excpectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 2.0)
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 2.0)
 
-		guard let actualDate = cryptomatorSettingsMock.trialExpirationDate else {
-			XCTFail("trialExpirationDate is nil")
-			return
-		}
-		XCTAssertEqual(excpectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 2.0)
+		let actualDate = try XCTUnwrap(cryptomatorSettingsMock.trialExpirationDate, "trialExpirationDate was not set")
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 2.0)
 	}
 
 	private func assertBuyFailsWithDeferredTransactionError() {
@@ -144,6 +176,25 @@ class StoreObserverTests: XCTestCase {
 			askToBuyExpectation.fulfill()
 		}
 		wait(for: [askToBuyExpectation], timeout: 1.0)
+	}
+
+	private func assertRestored(with expectedResult: RestoreTransactionsResult, cryptomatorSettings: CryptomatorSettings) {
+		let expectation = XCTestExpectation()
+		let premiumManagerMock = PremiumManagerTypeMock()
+		let storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettings, premiumManager: premiumManagerMock)
+
+		SKPaymentQueue.default().add(storeObserver)
+		SKPaymentQueue.default().remove(self.storeObserver)
+
+		storeObserver.restore().then { result in
+			XCTAssertEqual(expectedResult, result)
+			XCTAssert(premiumManagerMock.refreshStatusCalled)
+		}.catch { error in
+			XCTFail("Promise failed with error: \(error)")
+		}.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: 1.0)
 	}
 }
 
@@ -164,5 +215,14 @@ private class StoreObserverDelegateMock: StoreObserverDelegate {
 		purchaseDidSucceedTransactionReceivedTransaction = transaction
 		purchaseDidSucceedTransactionReceivedInvocations.append(transaction)
 		purchaseDidSucceedTransactionClosure?(transaction)
+	}
+}
+
+@available(iOS 14.0, *)
+extension SKPaymentQueue {
+	func removeAllObservers() {
+		transactionObservers.forEach {
+			remove($0)
+		}
 	}
 }

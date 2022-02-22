@@ -22,6 +22,7 @@
 		4A13612D276768000077EB7F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13612C276768000077EB7F /* SnapshotHelper.swift */; };
 		4A13612F27676F5C0077EB7F /* SnapshotCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13612E27676F5C0077EB7F /* SnapshotCoordinator.swift */; };
 		4A136132276770BB0077EB7F /* SnapshotVaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A136131276770BB0077EB7F /* SnapshotVaultListViewModel.swift */; };
+		4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = 4A1521E327C55EA2006C96B2 /* TPInAppReceipt */; };
 		4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */; };
 		4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */; };
 		4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */; };
@@ -240,6 +241,8 @@
 		4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */; };
 		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
 		4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */; };
+		4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC005F027C3D80B006FFE87 /* PremiumManager.swift */; };
+		4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */; };
 		4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */; };
@@ -698,6 +701,8 @@
 		4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailUnlockCoordinator.swift; sourceTree = "<group>"; };
 		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
 		4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewModelTests.swift; sourceTree = "<group>"; };
+		4AC005F027C3D80B006FFE87 /* PremiumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumManager.swift; sourceTree = "<group>"; };
+		4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumManagerMock.swift; sourceTree = "<group>"; };
 		4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProgressHUDError.swift"; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewController.swift; sourceTree = "<group>"; };
@@ -883,6 +888,7 @@
 			files = (
 				4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */,
 				4A1673ED270DE4600075C724 /* libCryptomatorFileProvider.a in Frameworks */,
+				4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1455,6 +1461,7 @@
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
 				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
+				4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1699,6 +1706,7 @@
 		74F5DC1A26DCD2E300AFE989 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
+				4AC005F027C3D80B006FFE87 /* PremiumManager.swift */,
 				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
 				4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */,
 				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
@@ -1835,6 +1843,7 @@
 			name = Cryptomator;
 			packageProductDependencies = (
 				4A9172812619F17C003C4043 /* CryptomatorCommon */,
+				4A1521E327C55EA2006C96B2 /* TPInAppReceipt */,
 			);
 			productName = Cryptomator;
 			productReference = 4AE97DA824572E4900452814 /* Cryptomator.app */;
@@ -1952,6 +1961,7 @@
 			);
 			mainGroup = 4A5E5B202453119100BD6298;
 			packageReferences = (
+				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
 			);
 			productRefGroup = 4A5E5B2A2453119100BD6298 /* Products */;
 			projectDirPath = "";
@@ -2238,6 +2248,7 @@
 				4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */,
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
+				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
 				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
@@ -2411,6 +2422,7 @@
 				4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */,
 				4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */,
 				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
+				4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */,
 				4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */,
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
@@ -3093,7 +3105,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/tikhop/TPInAppReceipt.git";
+			requirement = {
+				kind = upToNextMinorVersion;
+				minimumVersion = 3.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		4A1521E327C55EA2006C96B2 /* TPInAppReceipt */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
+			productName = TPInAppReceipt;
+		};
 		4A9172712619F16C003C4043 /* CryptomatorCommonCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CryptomatorCommonCore;
