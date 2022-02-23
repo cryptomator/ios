@@ -50,6 +50,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
 			Section(id: .trialSection, elements: [viewModel.freeTrialButtonCellViewModel]),
 			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
+			Section(id: .subscribeSection, elements: [viewModel.subscribeButtonCellViewModel, viewModel.redeemButtonCellViewModel]),
 			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
 			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
 		]
@@ -70,6 +71,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 			Section(id: .emptySection, elements: []),
 			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
 			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
+			Section(id: .subscribeSection, elements: [viewModel.subscribeButtonCellViewModel, viewModel.redeemButtonCellViewModel]),
 			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
 			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
 		]

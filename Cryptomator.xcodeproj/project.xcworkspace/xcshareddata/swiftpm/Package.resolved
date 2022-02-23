@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "ASN1Swift",
+        "repositoryURL": "https://github.com/tikhop/ASN1Swift",
+        "state": {
+          "branch": null,
+          "revision": "b53bee03a942623db25afc5bfb80227b2cb3b425",
+          "version": "1.2.4"
+        }
+      },
+      {
         "package": "Base32",
         "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
@@ -143,6 +152,15 @@
           "branch": null,
           "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
           "version": "1.4.2"
+        }
+      },
+      {
+        "package": "TPInAppReceipt",
+        "repositoryURL": "https://github.com/tikhop/TPInAppReceipt.git",
+        "state": {
+          "branch": null,
+          "revision": "2b9946f8fe2dd74ed87dfcb5dbedc3be06c5ccab",
+          "version": "3.3.3"
         }
       }
     ]

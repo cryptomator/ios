@@ -16,6 +16,7 @@ enum ProductIdentifier: String, CaseIterable {
 	case thirtyDayTrial = "org.cryptomator.ios.iap.30_day_trial"
 	case paidUpgrade = "org.cryptomator.ios.iap.paid_upgrade"
 	case freeUpgrade = "org.cryptomator.ios.iap.free_upgrade"
+	case yearlySubscription = "org.cryptomator.ios.iap.yearly_sub"
 }
 
 protocol IAPStore {

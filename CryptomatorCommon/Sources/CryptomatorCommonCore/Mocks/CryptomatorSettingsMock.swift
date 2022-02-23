@@ -13,5 +13,6 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var trialExpirationDate: Date?
 	var debugModeEnabled: Bool = false
 	var fullVersionUnlocked: Bool = false
+	var hasRunningSubscription: Bool = false
 }
 #endif

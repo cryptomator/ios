@@ -37,11 +37,12 @@ enum RestoreTransactionsResult: Equatable {
 enum PurchaseTransaction: Equatable {
 	case fullVersion
 	case freeTrial(expiresOn: Date)
+	case yearlySubscription
 	case unknown
 }
 
 class StoreObserver: NSObject, IAPManager {
-	static let shared = StoreObserver(cryptomatorSettings: CryptomatorUserDefaults.shared)
+	static let shared = StoreObserver(cryptomatorSettings: CryptomatorUserDefaults.shared, premiumManager: PremiumManager.shared)
 
 	var isAuthorizedForPayments: Bool {
 		return SKPaymentQueue.canMakePayments()
@@ -54,9 +55,11 @@ class StoreObserver: NSObject, IAPManager {
 	private var runningPayments = [String: Promise<PurchaseTransaction>]()
 	private var runningRestore: Promise<RestoreTransactionsResult>?
 	private var cryptomatorSettings: CryptomatorSettings
+	private let premiumManager: PremiumManagerType
 
-	init(cryptomatorSettings: CryptomatorSettings) {
+	init(cryptomatorSettings: CryptomatorSettings, premiumManager: PremiumManagerType) {
 		self.cryptomatorSettings = cryptomatorSettings
+		self.premiumManager = premiumManager
 	}
 
 	func buy(_ product: SKProduct) -> Promise<PurchaseTransaction> {
@@ -83,10 +86,10 @@ class StoreObserver: NSObject, IAPManager {
 		let transactionType: PurchaseTransaction
 		switch maybeProductIdentifier {
 		case .fullVersion, .paidUpgrade, .freeUpgrade:
-			unlockFullVersion()
 			transactionType = .fullVersion
+		case .yearlySubscription:
+			transactionType = .yearlySubscription
 		case .thirtyDayTrial:
-			beginFreeTrial(transaction: transaction)
 			if let expirationDate = trialExpirationDate(transaction) {
 				transactionType = .freeTrial(expiresOn: expirationDate)
 			} else {
@@ -119,20 +122,9 @@ class StoreObserver: NSObject, IAPManager {
 
 	fileprivate func handleRestored(_ transactions: [SKPaymentTransaction]) {
 		DDLogInfo("Restored \(transactions.map { $0.payment.productIdentifier }.joined(separator: ", "))")
-
-		let restoredTransactionsResult = reduceTransactionsToRestoreResult(transactions)
-		switch restoredTransactionsResult {
-		case .restoredFullVersion:
-			unlockFullVersion()
-		case let .restoredFreeTrial(expiresOn):
-			beginFreeTrial(expirationDate: expiresOn)
-		case .noRestorablePurchases:
-			break
-		}
 		for transaction in transactions {
 			SKPaymentQueue.default().finishTransaction(transaction)
 		}
-		runningRestore?.fulfill(restoredTransactionsResult)
 	}
 
 	fileprivate func handleDeferred(_ transaction: SKPaymentTransaction) {
@@ -145,31 +137,7 @@ class StoreObserver: NSObject, IAPManager {
 		promise.reject(StoreObserverError.deferredTransaction)
 	}
 
-	fileprivate func handleRevokedEntitlements(for productIdentifiers: [String]) {
-		DDLogInfo("Revoke entitlements for product identifiers: \(productIdentifiers)")
-		let productIdentifiers = productIdentifiers.compactMap { ProductIdentifier(rawValue: $0) }
-		for productIdentifier in productIdentifiers {
-			switch productIdentifier {
-			case .fullVersion, .paidUpgrade, .freeUpgrade:
-				revokeFullVersion()
-			case .thirtyDayTrial:
-				revokeFreeTrial()
-			}
-		}
-	}
-
 	// MARK: - Store Logic
-
-	private func transactionsContainFullVersion(_ transactions: [SKPaymentTransaction]) -> Bool {
-		return transactions.contains(where: { $0.payment.productIdentifier == ProductIdentifier.fullVersion.rawValue || $0.payment.productIdentifier == ProductIdentifier.paidUpgrade.rawValue || $0.payment.productIdentifier == ProductIdentifier.freeUpgrade.rawValue })
-	}
-
-	private func transactionsContainValidTrial(_ transactions: [SKPaymentTransaction]) -> Bool {
-		guard let trialExpirationDate = trialExpirationDate(transactions) else {
-			return false
-		}
-		return Date() < trialExpirationDate
-	}
 
 	private func trialExpirationDate(_ transactions: [SKPaymentTransaction]) -> Date? {
 		guard let transaction = transactions.first(where: { $0.payment.productIdentifier == ProductIdentifier.thirtyDayTrial.rawValue }) else {
@@ -182,7 +150,7 @@ class StoreObserver: NSObject, IAPManager {
 		guard let transactionDate = getOriginalTrialTransactionDate(transaction) else {
 			return nil
 		}
-		return Calendar.current.date(byAdding: .day, value: 30, to: transactionDate)
+		return premiumManager.trialExpirationDate(for: transactionDate)
 	}
 
 	/**
@@ -197,43 +165,13 @@ class StoreObserver: NSObject, IAPManager {
 		}
 		return transaction.transactionDate
 	}
-
-	private func unlockFullVersion() {
-		cryptomatorSettings.fullVersionUnlocked = true
-	}
-
-	private func beginFreeTrial(transaction: SKPaymentTransaction) {
-		beginFreeTrial(expirationDate: trialExpirationDate(transaction))
-	}
-
-	private func beginFreeTrial(expirationDate: Date?) {
-		cryptomatorSettings.trialExpirationDate = expirationDate
-	}
-
-	private func reduceTransactionsToRestoreResult(_ transactions: [SKPaymentTransaction]) -> RestoreTransactionsResult {
-		if transactionsContainFullVersion(transactions) {
-			return .restoredFullVersion
-		}
-		if let trialExpirationDate = trialExpirationDate(transactions), trialExpirationDate > Date() {
-			return .restoredFreeTrial(expiresOn: trialExpirationDate)
-		} else {
-			return .noRestorablePurchases
-		}
-	}
-
-	private func revokeFullVersion() {
-		cryptomatorSettings.fullVersionUnlocked = false
-	}
-
-	private func revokeFreeTrial() {
-		cryptomatorSettings.trialExpirationDate = nil
-	}
 }
 
 // MARK: - SKPaymentTransactionObserver
 
 extension StoreObserver: SKPaymentTransactionObserver {
 	func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+		premiumManager.refreshStatus()
 		var restoredTransactions = [SKPaymentTransaction]()
 		for transaction in transactions {
 			switch transaction.transactionState {
@@ -273,16 +211,18 @@ extension StoreObserver: SKPaymentTransactionObserver {
 
 	func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
 		DDLogInfo("Restoring completed transactions finished")
-		if !hasRestorablePurchases {
-			guard let promise = runningRestore else {
-				DDLogError("Missing running restore for fulfilling promise")
-				return
-			}
-			promise.fulfill(.noRestorablePurchases)
+		premiumManager.refreshStatus()
+		if cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked {
+			runningRestore?.fulfill(.restoredFullVersion)
+		} else if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
+			runningRestore?.fulfill(.restoredFreeTrial(expiresOn: trialExpirationDate))
+		} else {
+			runningRestore?.fulfill(.noRestorablePurchases)
 		}
 	}
 
 	func paymentQueue(_ queue: SKPaymentQueue, didRevokeEntitlementsForProductIdentifiers productIdentifiers: [String]) {
-		handleRevokedEntitlements(for: productIdentifiers)
+		DDLogInfo("Revoke entitlements for product identifiers: \(productIdentifiers)")
+		premiumManager.refreshStatus()
 	}
 }

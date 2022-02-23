@@ -112,7 +112,7 @@ extension MainCoordinator: RemoveVaultDelegate {
 extension MainCoordinator: StoreObserverDelegate {
 	func purchaseDidSucceed(transaction: PurchaseTransaction) {
 		switch transaction {
-		case .fullVersion:
+		case .fullVersion, .yearlySubscription:
 			showFullVersionAlert()
 		case let .freeTrial(expiresOn):
 			showTrialAlert(expirationDate: expiresOn)
