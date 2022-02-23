@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um tempo limitado. Seu período de teste expira em %@. Depois disso, seus cofres ainda estarão acessíveis, mas somente para leitura.";
 "purchase.purchaseFullVersion.button" = "Compre a versão completa por %@";
 "purchase.purchaseFullVersion.footer" = "Pague uma vez e desbloqueie o acesso de escrita aos seus cofres pelo resta da vida do Cryptomator.";
+"purchase.redeemCode.button" = "Resgatar Código";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.footer" = "Se você já comprou a versão completa do Cryptomator, você pode restaurar sua compra.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Período de teste continuado";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma compra anterior da versão completa que poderia ser restaurada. Por favor, tente outra opção.";
 "purchase.retry.button" = "Tentar Novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
+"purchase.startSubscription.button" = "Assine por %@/ano";
 "purchase.decideLater.button" = "Decidir mais tarde";
 "purchase.decideLater.footer" = "Você poderá desbloquear a versão completa do Cryptomator mais tarde nas configurações, e poderá usá-lo em modo leitura por enquanto.";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Contato";
 "settings.debugMode" = "Modo depuração";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
+"settings.manageSubscriptions" = "Gerenciar assinatura";
 "settings.rateApp" = "Avaliar App";
 "settings.sendLogFile" = "Enviar arquivo de log";
 "settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
