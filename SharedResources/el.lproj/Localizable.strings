@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
 "purchase.purchaseFullVersion.button" = "Αγορά Πλήρους Έκδοσης για %@";
 "purchase.purchaseFullVersion.footer" = "Πληρώστε μία φορά και ξεκλειδώσετε την πρόσβαση εγγραφής στις κρύπες σας για τη διάρκεια ζωής του Cryptomator.";
+"purchase.redeemCode.button" = "Εξαργύρωση Κωδικού";
 "purchase.restorePurchase.button" = "Επαναφορά Αγοράς";
 "purchase.restorePurchase.footer" = "Αν έχετε ήδη αγοράσει την πλήρη έκδοση του Cryptomator, μπορείτε να επαναφέρετε την αγορά.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Η δοκιμαστική περίοδος συνεχίστηκε";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Δεν ήταν δυνατή η εύρεση μιας προηγούμενης πλήρους έκδοσης που θα μπορούσε να αποκατασταθεί. Παρακαλώ δοκιμάστε μια άλλη επιλογή.";
 "purchase.retry.button" = "Επανάληψη";
 "purchase.retry.footer" = "Δεν ήταν δυνατή η φόρτωση των διαθέσιμων προϊόντων.";
+"purchase.startSubscription.button" = "Εγγραφείτε για %@ ανά έτος";
 "purchase.decideLater.button" = "Αποφασίστε Αργότερα";
 "purchase.decideLater.footer" = "Μπορείτε να ξεκλειδώσετε την πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να την χρησιμοποιήσετε σε λειτουργία μόνο ανάγνωσης για τώρα.";
 "purchase.unlockedFullVersion.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator. Καλή κρυπτογράφηση!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Επικοινωνία";
 "settings.debugMode" = "Λειτουργία Αποσφαλμάτωσης";
 "settings.debugMode.alert.message" = "Σε αυτή τη λειτουργία, μπορεί να γραφτούν ευαίσθητα δεδομένα σε ένα αρχείο καταγραφής στη συσκευή σας (π.χ. ονόματα αρχείων και διαδρομές). Οι κωδικοί πρόσβασης, τα cookies κλπ. αποκλείονται ρητά.\n\nΘυμηθείτε να απενεργοποιήσετε τη λειτουργία εντοπισμού σφαλμάτων το συντομότερο δυνατό.";
+"settings.manageSubscriptions" = "Διαχείριση Συνδρομής";
 "settings.rateApp" = "Αξιολογήστε την Εφαρμογή";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 "settings.unlockFullVersion" = "Ξεκλείδωμα Πλήρους Έκδοσης";
