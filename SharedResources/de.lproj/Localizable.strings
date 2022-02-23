@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
 "purchase.purchaseFullVersion.button" = "Vollversion für %@ kaufen";
 "purchase.purchaseFullVersion.footer" = "Durch eine Einmalzahlung kannst du den Schreibzugriff auf deine Tresore für die gesamte Lebensdauer von Cryptomator freischalten.";
+"purchase.redeemCode.button" = "Code einlösen";
 "purchase.restorePurchase.button" = "Käufe wiederherstellen";
 "purchase.restorePurchase.footer" = "Wenn du bereits die Vollversion von Cryptomator erworben hast, kannst du den Kauf hiermit wiederherstellen.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Testversion fortgesetzt";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Wir konnten keine zuvor gekaufte Vollversion finden, die wiederhergestellt werden kann. Bitte versuche eine andere Option.";
 "purchase.retry.button" = "Wiederholen";
 "purchase.retry.footer" = "Verfügbare Produkte konnten nicht geladen werden.";
+"purchase.startSubscription.button" = "Für %@ pro Jahr abonnieren";
 "purchase.decideLater.button" = "Später entscheiden";
 "purchase.decideLater.footer" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
 "purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Debug Modus";
 "settings.debugMode.alert.message" = "In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.";
+"settings.manageSubscriptions" = "Abonnement verwalten";
 "settings.rateApp" = "App Bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
 "settings.unlockFullVersion" = "Vollversion freischalten";
