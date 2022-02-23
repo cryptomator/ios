@@ -115,20 +115,36 @@
 "onboarding.button.continue" = "Fortsett";
 
 "purchase.title" = "Lås opp fullversjonen";
+"purchase.beginFreeTrial.button" = "Start den 30-dagers prøveversjonen gratis";
 "purchase.beginFreeTrial.footer" = "Prøv fullversjonen av Cryptomator gratis i en begrenset periode. Du kan kun låse opp denne prøveperioden én gang.";
 "purchase.beginFreeTrial.alert.title" = "Prøveversjon låst opp";
+"purchase.beginFreeTrial.alert.message" = "Nå kan du bruke fullversjonen av Cryptomator i en begrenset tid. Prøveperioden utløper den %@. Etter dette vil dine hvelv fortsatt være tilgjengelige i skrivebeskyttet modus.";
 "purchase.purchaseFullVersion.button" = "Kjøp fullversjon for %@";
+"purchase.purchaseFullVersion.footer" = "Betal én gang og lås opp skrivetilgang til hvelvene dine for hele Cryptomators livsløp.";
+"purchase.redeemCode.button" = "Løs inn kode";
 "purchase.restorePurchase.button" = "Gjenopprett kjøp";
 "purchase.restorePurchase.footer" = "Hvis du allerede har kjøpt fullversjonen av Cryptomator, kan du gjenopprette kjøpet.";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Prøveperioden fortsatte";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Nå kan du bruke fullversjonen av Cryptomator i en begrenset tid. Prøveperioden utløper den %@. Etter dette vil dine hvelv fortsatt være tilgjengelige i skrivebeskyttet modus.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Gjenoppretting vellykket";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fullversjon";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi klarte ikke å finne en tidligere kjøpt fullversjon som kunne gjenopprettes. Prøv et annet alternativ.";
 "purchase.retry.button" = "Prøv igjen";
 "purchase.retry.footer" = "Kunne ikke laste tilgjengelige produkter.";
+"purchase.startSubscription.button" = "Abonner for %@ per år";
 "purchase.decideLater.button" = "Bestem senere";
+"purchase.decideLater.footer" = "Bruk gjerne Cryptomator i skrivebeskyttet modus. Du kan låse opp fullversjonen senere i innstillingene.";
 "purchase.unlockedFullVersion.message" = "Du kan nå bruke fullversjonen av Cryptomator. God kryptering!";
 "purchase.unlockedFullVersion.title" = "Takk";
 
 "settings.title" = "Innstillinger";
+"settings.aboutCryptomator" = "Om Cryptomator";
+"settings.aboutCryptomator.title" = "Versjon %@ (%@)";
 "settings.clearCache" = "Tøm hurtigminnet";
+"settings.cloudServices" = "Skylagringstjenester";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Feilsøkingsmodus";
+"settings.manageSubscriptions" = "Administrer abonnement";
 "settings.rateApp" = "Vurder appen";
 "settings.sendLogFile" = "Send loggfil";
 "settings.unlockFullVersion" = "Lås opp fullversjonen";
@@ -149,9 +165,29 @@
 "unlockVault.button.unlock" = "Lås opp";
 "unlockVault.button.unlockVia" = "Lås opp via %@";
 "unlockVault.password.footer" = "Skriv inn passordet for \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Aktiver %@";
+"unlockVault.enableBiometricalUnlock.footer" = "I stedet for å låse opp hvelvet ditt med passordet, kan du låse det opp med %@.";
+"unlockVault.evaluatePolicy.reason" = "Lås opp hvelvet ditt";
+"unlockVault.progress" = "Låser opp…";
+
+"untrustedTLSCertificate.title" = "Ugyldig TLS-sertifikat";
+"untrustedTLSCertificate.message" = "TLS-sertifikatet til \"%@\" er ugyldig. Vil du likevel stole på det?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Stol på";
+"untrustedTLSCertificate.dismiss" = "Ikke stol på";
 
 "upgrade.title" = "Oppgrader fra versjon 1.x";
+"upgrade.info" = "Du er kvalifisert for en oppgradering fra en eldre versjon av Cryptomator for å låse opp fullversjonen. Takk for at du tidligere har støttet Cryptomator!";
+"upgrade.paidUpgrade.button" = "Oppgrader for %@";
+"upgrade.paidUpgrade.footer" = "Dette vil støtte den pågående utviklingen av åpen kildekode og være til stor hjelp for oss.";
 "upgrade.freeUpgrade.button" = "Oppgrader gratis";
+"upgrade.freeUpgrade.footer" = "Ikke noe problem. Du kan også velge å oppgradere til fullversjonen helt gratis.";
+"upgrade.notEligible.alert.title" = "Oppgraderingen mislyktes";
+"upgrade.notEligible.alert.message" = "Cryptomator klarte ikke å finne en eldre versjon installert på enheten din. Hvis likevel har kjøpt en tidligere versjon, så last den ned på nytt fra App Store og prøv igjen.";
+
+"urlSession.error.httpError.401" = "Feil brukernavn og/eller passord.";
+"urlSession.error.httpError.403" = "Utilstrekkelige rettigheter til forespurt ressurs.";
+"urlSession.error.httpError.404" = "Forespurt ressurs ble ikke funnet.";
+"urlSession.error.httpError.405" = "Forespørselsmetode er ikke støttet av målressursen.";
 "urlSession.error.httpError.412" = "Tilgang til målressursen nektet.";
 "urlSession.error.httpError.default" = "Nettverkstilkobling mislyktes med statuskode %ld.";
 "urlSession.error.unexpectedResponse" = "Det oppsto en uventet nettverksrespons.";
@@ -170,14 +206,23 @@
 "vaultDetail.info.footer.accountInfo" = "Innlogget som %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Opplåsningsvarighet";
 "vaultDetail.locked.footer" = "Hvelvet ditt er for øyeblikket låst.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator oppdaget et eksisterende hvelv på denne plasseringen.\nFor å flytte hvelvet ditt må du gå tilbake og velge en annen mappe.";
 "vaultDetail.moveVault.progress" = "Flytter…";
+"vaultDetail.removeVault.footer" = "Dette vil bare fjerne hvelvet fra listen over hvelv. Ingen krypterte filer blir slettet.";
 "vaultDetail.renameVault.progress" = "Endrer navn…";
 "vaultDetail.unlocked.footer" = "Hvelvet ditt er for øyeblikket låst opp i Filer-appen.";
+"vaultDetail.unlockVault.footer" = "Skriv inn passord for \"%@\" for å lagre det i iOS-nøkkelringen og aktivere %@.";
 
 "vaultList.header.title" = "Hvelv";
 "vaultList.emptyList.message" = "Trykk her for å legge til et hvelv";
 "vaultList.remove.alert.title" = "Fjern hvelvet?";
 "vaultList.remove.alert.message" = "Dette vil bare fjerne hvelvet fra listen over hvelv. Ingen krypterte data vil bli slettet. Du kan legge til hvelvet på nytt senere.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Hvelvkonfigurasjon støttes ikke. Kontroller at du kjører den nyeste versjonen av Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Hvelvversjonen støttes ikke. Dette hvelvet er opprettet med en eldre eller nyere versjon av Cryptomator.";
+
+"webDAVAuthentication.progress" = "Autentiserer…";
 "webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Å bruke HTTP er usikkert. Vi anbefaler å bruke HTTPS i stedet. Hvis du vet risikoen, kan du fortsette med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Bytt til HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Behold HTTP";
