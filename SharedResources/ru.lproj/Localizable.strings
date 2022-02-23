@@ -112,6 +112,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Выбранная папка - не хранилище. Попробуйте снова в другой папке.";
+"localFileSystemAuthentication.info.footer" = "Провайдеры файлов выделенные серым цветом не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
