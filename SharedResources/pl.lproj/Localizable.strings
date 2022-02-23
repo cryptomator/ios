@@ -112,6 +112,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "Na następnym ekranie wybierz folder istniejącego sejfu.";
 "localFileSystemAuthentication.openExistingVault.button" = "Wybierz folder sejfu";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Wybrany folder nie jest sejfem. Spróbuj ponownie z innym katalogiem.";
+"localFileSystemAuthentication.info.footer" = "Serwisy na szaro nie wspierają \"wybierania katalogów\". To nie jest ograniczenie w Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
@@ -209,6 +210,8 @@
 "urlSession.error.httpError.412" = "Odmowa dostępu do docelowego zasobu.";
 "urlSession.error.httpError.default" = "Połączenie sieciowe nie powiodło się z kodem stanu %ld.";
 "urlSession.error.unexpectedResponse" = "Nieoczekiwana odpowiedź z sieci.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Już dodałeś ten sejf.";
 
 "vaultDetail.button.changeVaultPassword" = "Zmiana Hasła";
 "vaultDetail.button.lock" = "Zablokuj";
