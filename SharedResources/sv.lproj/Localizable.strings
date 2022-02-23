@@ -88,6 +88,12 @@
 "fileProvider.onboarding.title" = "Välkommen";
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
 "fileProvider.onboarding.button.openCryptomator" = "Öppna Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Upplåsning avbruten";
+"fileProvider.error.biometricalAuthCanceled.message" = "Upplåsning via %@ lyckades inte. Försök igen.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Felaktigt lösenord";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Lösenordet som har sparats för %@ är felaktigt. Försök igen och ange ditt lösenord för att återaktivera %@.";
+"fileProvider.error.defaultLock.title" = "Upplåsning krävs";
+"fileProvider.error.defaultLock.message" = "För att komma åt och visa innehållet i ditt valv måste det låsas upp.";
 "fileProvider.error.unlockButton" = "Lås upp";
 
 "keepUnlocked.alert.title" = "Lås valv?";
@@ -110,6 +116,10 @@
 
 "maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
 
+"nameValidation.error.endsWithPeriod" = "Du kan inte använda ett namn som slutar med en period. Välj ett annat namn.";
+"nameValidation.error.endsWithSpace" = "Du kan inte använda ett namn som slutar med en blanksteg. Välj ett annat namn.";
+"nameValidation.error.containsIllegalCharacter" = "Du kan inte använda ett namn som innehåller \"%@\". Välj ett annat namn.";
+
 "onboarding.title" = "Välkommen";
 "onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer.\n\nMed Cryptomator är nyckeln till dina data i dina händer. Cryptomator krypterar dina data snabbt och enkelt.\n\nDenna app är helt integrerad i appen Filer. Se till att aktivera Cryptomator i appen Files senare för att komma åt dina valv.";
 "onboarding.button.continue" = "Fortsätt";
@@ -126,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
 "purchase.purchaseFullVersion.button" = "Köp fullversion för %@";
 "purchase.purchaseFullVersion.footer" = "Betala en gång och lås upp skrivrättigheter till dina valv under Cryptomators livstid.";
+"purchase.redeemCode.button" = "Lös in kod";
 "purchase.restorePurchase.button" = "Återställ köp";
 "purchase.restorePurchase.footer" = "Om du redan har köpt den fullständiga versionen av Cryptomator kan du återställa köpet.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Provperiod Fortsatt";
@@ -135,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi kunde inte hitta en tidigare köpt fullversion som kunde återställas. Försök med ett annat alternativ.";
 "purchase.retry.button" = "Försök igen";
 "purchase.retry.footer" = "Kunde inte ladda tillgängliga produkter.";
+"purchase.startSubscription.button" = "Prenumerera för %@ per år";
 "purchase.decideLater.button" = "Bestäm senare";
 "purchase.decideLater.footer" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
 "purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
@@ -149,6 +161,7 @@
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Felsökningsläge";
 "settings.debugMode.alert.message" = "I detta läge kan känsliga data skrivas till en loggfil på din enhet (t.ex. filnamn och sökvägar). Lösenord, cookies etc. är uttryckligen uteslutna.\n\nKom ihåg att inaktivera felsökningsläge så snart som möjligt.";
+"settings.manageSubscriptions" = "Hantera prenumeration";
 "settings.rateApp" = "Betygsätt app";
 "settings.sendLogFile" = "Skicka loggfil";
 "settings.unlockFullVersion" = "Lås upp fullversion";
@@ -205,6 +218,7 @@
 "vaultDetail.button.moveVault" = "Flytta";
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
 "vaultDetail.button.renameVault" = "Byt namn";
+"vaultDetail.changePassword.footer" = "Välj ett starkt lösenord för ditt valv som bara du känner till och förvara det på ett säkert ställe.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Om du aktiverar %@lagras ditt valvlösenord i iOS-nyckelkedjan.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";
 "vaultDetail.info.footer.accessVault" = "Få tillgång till valvet via appen Filer.";
