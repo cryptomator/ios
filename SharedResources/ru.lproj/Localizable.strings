@@ -135,6 +135,7 @@
 "purchase.beginFreeTrial.alert.message" = "Теперь вы можете использовать полную версию Cryptomator в течение ограниченного времени. Пробная версия истекает %@. После этого ваши хранилища по-прежнему будут доступны в режиме только для чтения.";
 "purchase.purchaseFullVersion.button" = "Купить полную версию за %@";
 "purchase.purchaseFullVersion.footer" = "Оплатите один раз и разблокируйте бессрочный доступ к записи в хранилища.";
+"purchase.redeemCode.button" = "Активировать код";
 "purchase.restorePurchase.button" = "Восстановить покупку";
 "purchase.restorePurchase.footer" = "Если вы уже купили полную версию Cryptomator, то можете восстановить покупку.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Продолжение опробования";
@@ -144,6 +145,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Не удалось найти ранее приобретённую полную версию, которая может быть восстановлена. Попробуйте другой вариант.";
 "purchase.retry.button" = "Повторить";
 "purchase.retry.footer" = "Не удалось загрузить доступные продукты.";
+"purchase.startSubscription.button" = "Подписаться за %@ в год";
 "purchase.decideLater.button" = "Решу позже";
 "purchase.decideLater.footer" = "Вы можете разблокировать полную версию Cryptomator позже в настройках, а пока использовать режим только для чтения.";
 "purchase.unlockedFullVersion.message" = "Теперь у вас полная версия Cryptomator. Счастливого шифрования!";
@@ -158,6 +160,7 @@
 "settings.contact" = "Контакты";
 "settings.debugMode" = "Режим отладки";
 "settings.debugMode.alert.message" = "В этом режиме в файл журнала на вашем устройстве могут попасть конфиденциальные данные (например имена файлов и пути). Пароли, cookie-файлы и т.п. явно исключены.\n\nНе забудьте как можно скорее отключить режим отладки.";
+"settings.manageSubscriptions" = "Управление подпиской";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
 "settings.unlockFullVersion" = "Разблокировать Полную Версию";
