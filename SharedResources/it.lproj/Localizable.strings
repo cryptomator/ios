@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Puoi ora usare la versione completa di Cryptomator per un tempo limitato. La tua prova scade il %@. Dopodiché, le tue cassaforti saranno ancora accessibili in modalità sola lettura.";
 "purchase.purchaseFullVersion.button" = "Acquista la Versione Completa per %@";
 "purchase.purchaseFullVersion.footer" = "Paga una volta e sblocca l'accesso di scrittura alle tue cassaforti a vita di Cryptomator.";
+"purchase.redeemCode.button" = "Riscatta Codice";
 "purchase.restorePurchase.button" = "Ripristina Acquisti";
 "purchase.restorePurchase.footer" = "Se hai già acquistato la versione completa di Cryptomator, puoi ripristinare l'acquisto.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prova Continuata";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Non siamo riusciti a trovare una versione completa acquistata precedentemente ripristinabile. Sei pregato di provare un'altra opzione.";
 "purchase.retry.button" = "Riprova";
 "purchase.retry.footer" = "Impossibile caricare i prodotti disponibili.";
+"purchase.startSubscription.button" = "Abbonati per %@/anno";
 "purchase.decideLater.button" = "Decidi Dopo";
 "purchase.decideLater.footer" = "Puoi sbloccare la versione completa di Cryptomator in seguito, nelle impostazioni e usala in modalità di sola lettura per ora.";
 "purchase.unlockedFullVersion.message" = "Puoi ora usare la versione completa di Cryptomator. Buona crittografazione!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Contatto";
 "settings.debugMode" = "Modalità Debug";
 "settings.debugMode.alert.message" = "In questa modalità, i dati sensibili possono essere scritti in un file di registro sul dispositivo (ad es. nomi di file e percorsi). Password, cookie, ecc. sono esplicitamente esclusi.\n\nRicorda di disabilitare la modalità di debug il prima possibile.";
+"settings.manageSubscriptions" = "Gestisci Abbonamento";
 "settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
