@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Artık Cryptomator'ın tam sürümünü sınırlı bir süre için kullanabilirsiniz. Deneme süreniz %@ tarihinde sona eriyor. Bundan sonra, kasalarınız sadece okuma modunda erişilebilir olmaya devam edecektir.";
 "purchase.purchaseFullVersion.button" = "%@ için Tam Sürümü Satın Alın";
 "purchase.purchaseFullVersion.footer" = "Bir kez ödeyin ve Cryptomator'un kasalarınıza yazma erişimi kilidini ömür boyu açın.";
+"purchase.redeemCode.button" = "Kodu Kullan";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
 "purchase.restorePurchase.footer" = "Cryptomator'ın tam sürümünü zaten satın aldıysanız, satın alma işlemini geri yükleyebilirsiniz.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Geri yüklenebilecek önceden satın alınmış bir tam sürüm bulamadık. Lütfen başka bir seçenek deneyin.";
 "purchase.retry.button" = "Yeniden dene";
 "purchase.retry.footer" = "Mevcut ürünler yüklenemedi.";
+"purchase.startSubscription.button" = "Yıllık %@ karşılığında abone ol";
 "purchase.decideLater.button" = "Sonra Karar Ver";
 "purchase.decideLater.footer" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
 "purchase.unlockedFullVersion.message" = "Artık Cryptomator'ın tam sürümünü kullanabilirsiniz. Mutlu şifrelemeler!";
@@ -159,6 +161,7 @@
 "settings.contact" = "İletişim";
 "settings.debugMode" = "Hata ayıklama Modu";
 "settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
+"settings.manageSubscriptions" = "Aboneliği Yönet";
 "settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 "settings.unlockFullVersion" = "Tam Sürümün Kilidini Aç";
