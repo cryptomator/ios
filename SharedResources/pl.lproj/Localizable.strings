@@ -135,6 +135,7 @@
 "purchase.beginFreeTrial.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
 "purchase.purchaseFullVersion.button" = "Kup pełną wersję za %@";
 "purchase.purchaseFullVersion.footer" = "Zapłać raz i odblokuj dostęp do zapisu do swoich sejfów bezterminowo.";
+"purchase.redeemCode.button" = "Zrealizuj kod";
 "purchase.restorePurchase.button" = "Przywróć zakup";
 "purchase.restorePurchase.footer" = "Jeśli kupiłeś już pełną wersję Cryptomator, możesz przywrócić zakup.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Kontynuacja okresu próbnego";
@@ -144,6 +145,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nie mogliśmy znaleźć wcześniej zakupionej pełnej wersji, która mogłaby zostać przywrócona. Proszę spróbować innej opcji.";
 "purchase.retry.button" = "Ponów";
 "purchase.retry.footer" = "Nie można załadować dostępnych produktów.";
+"purchase.startSubscription.button" = "Subskrybuj za %@ rocznie";
 "purchase.decideLater.button" = "Zdecyduj później";
 "purchase.decideLater.footer" = "Możesz odblokować pełną wersję Cryptomator później w ustawieniach i na razie używać trybu tylko do odczytu.";
 "purchase.unlockedFullVersion.message" = "Możesz teraz użyć pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
@@ -158,6 +160,7 @@
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Tryb debugowania";
 "settings.debugMode.alert.message" = "W tym trybie poufne dane mogą być zapisywane do pliku dziennika na urządzeniu (np. nazwy plików i ścieżki). Hasła, ciasteczka itp. są wykluczone.\n\nPamiętaj, aby wyłączyć tryb debugowania tak szybko, jak to możliwe.";
+"settings.manageSubscriptions" = "Zarządzaj subskrypcją";
 "settings.rateApp" = "Oceń aplikację";
 "settings.sendLogFile" = "Wyślij plik logów";
 "settings.unlockFullVersion" = "Odblokuj pełną wersję";
