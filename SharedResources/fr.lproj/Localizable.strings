@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator pour une durée limitée. Votre essai expire le %@. Après cela, vos coffres seront toujours accessibles en mode lecture seule.";
 "purchase.purchaseFullVersion.button" = "Acheter la version complète pour %@";
 "purchase.purchaseFullVersion.footer" = "Payez une fois et débloquez l'accès en écriture à vos coffres pour la durée de vie de Cryptomator.";
+"purchase.redeemCode.button" = "Code d'activation";
 "purchase.restorePurchase.button" = "Restaurer l’achat";
 "purchase.restorePurchase.footer" = "Si vous avez déjà acheté la version complète de Cryptomator, vous pouvez restaurer l'achat.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Essai en cours";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nous n'avons pas pu trouver une version complète précédemment achetée qui pourrait être restaurée. Veuillez essayer une autre option.";
 "purchase.retry.button" = "Réessayer";
 "purchase.retry.footer" = "Impossible de charger les produits disponibles.";
+"purchase.startSubscription.button" = "S'abonner pour %@ par an";
 "purchase.decideLater.button" = "Décider plus tard";
 "purchase.decideLater.footer" = "Vous pouvez déverrouiller la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
 "purchase.unlockedFullVersion.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator. Bon chiffrement !";
@@ -159,6 +161,7 @@
 "settings.contact" = "Contact";
 "settings.debugMode" = "Mode de débogage";
 "settings.debugMode.alert.message" = "Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN'oubliez pas de désactiver le mode de débogage dès que possible.";
+"settings.manageSubscriptions" = "Gérer l'abonnement";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 "settings.unlockFullVersion" = "Débloquer la version complète";
