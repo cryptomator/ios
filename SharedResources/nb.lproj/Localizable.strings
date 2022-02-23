@@ -1,32 +1,122 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Feil";
+"common.alert.attention.title" = "Varsel";
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Endre";
 "common.button.choose" = "Velg";
+"common.button.confirm" = "Bekreft";
 "common.button.create" = "Opprett";
+"common.button.createFolder" = "Opprett mappe";
 "common.button.done" = "Ferdig";
+"common.button.download" = "Last ned";
 "common.button.edit" = "Rediger";
+"common.button.enable" = "Aktiver";
 "common.button.next" = "Neste";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Fjern";
 "common.button.signOut" = "Logg ut";
+"common.button.verify" = "Bekreft";
+"common.cells.openInFilesApp" = "Åpne i Filer-appen";
 "common.cells.password" = "Passord";
 "common.cells.url" = "URL";
 "common.cells.username" = "Brukernavn";
+"common.footer.learnMore" = "Finn ut mer.";
+
+"accountList.header.title" = "Godkjenninger";
+"accountList.emptyList.message" = "Trykk her for å legge til en konto";
+"accountList.signOut.alert.title" = "Fjern tilknyttede hvelv?";
+"accountList.signOut.alert.message" = "Ved å logge ut, vil alle tilhørende hvelv bli fjernet fra listen over hvelv. Ingen krypterte data vil slettes. Du kan logge på igjen og legge til hvelvene på nytt senere.";
 
 "addVault.title" = "Legg til hvelv";
 "addVault.createNewVault.title" = "Lag et nytt hvelv";
 "addVault.createNewVault.purchase" = "Å lage et nytt hvelv krever fullversjonen av Cryptomator. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
+"addVault.createNewVault.setVaultName.header.title" = "Navngi hvelvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Du må gi hvelvet et navn.";
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator lagre de krypterte filene dine?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" finnes allerede på denne plasseringen. Velg et annet hvelvnavn eller plassering.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator oppdaget et eksisterende hvelv på denne plasseringen.\nFor å lage et nytt hvelv går du tilbake og velger en annen mappe.";
+"addVault.createNewVault.password.enterPassword.header" = "Skriv inn et nytt passord.";
+"addVault.createNewVault.password.confirmPassword.header" = "Bekreft det nye passordet.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Bekreft passord?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VIKTIG: Hvis du glemmer passordet ditt, er det ikke mulig å gjenopprette dataene dine.";
+"addVault.createNewVault.password.error.emptyPassword" = "Du må angi et passord.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passordene samsvarer ikke.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Passordet må inneholde minst 8 tegn.";
+"addVault.createNewVault.progress" = "Oppretter hvelv…";
 "addVault.openExistingVault.title" = "Åpne et eksisterende hvelv";
+"addVault.openExistingVault.chooseCloud.header" = "Hvor er hvelvet plassert?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator oppdaget hvelvet \"%@\".\nØnsker du å legge til dette hvelvet?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Legg til dette hvelvet";
+"addVault.openExistingVault.password.footer" = "Skriv inn passordet for \"%@\".";
+"addVault.openExistingVault.progress" = "Legger til hvelv…";
+"addVault.success.info" = "Hvelvet \"%@\" ble lagt til.\nFå tilgang til dette hvelvet via Filer-appen.";
+"addVault.success.footer" = "Aktiver Cryptomator i Filer-appen hvis du ikke har gjort det ennå.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Nåværende passord er feil. Prøv på nytt.";
+"changePassword.header.currentPassword.title" = "Skriv inn nåværende passord.";
+"changePassword.header.newPassword.title" = "Skriv inn et nytt passord.";
+"changePassword.header.newPasswordConfirmation.title" = "Bekreft det nye passordet.";
+"changePassword.progress" = "Endrer passord…";
+
+"chooseFolder.emptyFolder.footer" = "Mappen er tom";
+"chooseFolder.createNewFolder.header.title" = "Navngi mappen.";
+"chooseFolder.createNewFolder.cells.name" = "Mappenavn";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Du må gi mappen et navn.";
+"chooseFolder.createNewFolder.progress" = "Oppretter mappe…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" ble ikke funnet.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" finnes allerede.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" har en uventet elementtype.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Overordnet mappe \"%@\" finnes ikke.";
+"cloudProvider.error.pageTokenInvalid" = "Henting av mappens innhold kunne ikke fortsette.";
+"cloudProvider.error.quotaInsufficient" = "Lagringsstedet ditt har ikke nok plass.";
+"cloudProvider.error.unauthorized" = "Kan ikke utføre uautorisert operasjon.";
+"cloudProvider.error.noInternetConnection" = "Internettilkobling er nødvendig for denne operasjonen.";
+
+"cloudProviderType.localFileSystem" = "Annen Filer-tilbyder";
 
 "fileProvider.onboarding.title" = "Velkommen";
 "fileProvider.onboarding.info" = "Takk for at du valgte Cryptomator til å beskytte filene dine. For å komme i gang, gå til hovedappen og legg til et hvelv.";
 "fileProvider.onboarding.button.openCryptomator" = "Åpne Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Opplåsningen ble avbrutt";
+"fileProvider.error.biometricalAuthCanceled.message" = "Klarte ikke å låse opp via %@. Prøv på nytt.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Feil passord";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Passordet som er lagret for %@ er feil. Prøv igjen og angi passordet for å reaktivere %@.";
+"fileProvider.error.defaultLock.title" = "Påkrevd å låse opp";
+"fileProvider.error.defaultLock.message" = "For å få tilgang til og vise innholdet i hvelvet ditt, må det låses opp.";
 "fileProvider.error.unlockButton" = "Lås opp";
+
+"keepUnlocked.alert.title" = "Låse hvelvet?";
+"keepUnlocked.alert.message" = "Hvelvet ditt må låses for at denne endringen skal kunne tre i kraft.";
+"keepUnlocked.alert.confirm" = "Bekreft og lås nå";
+"keepUnlocked.header" = "Velg hvor lenge du vil at hvelvet skal forbli ulåst ved inaktivitet.";
+"keepUnlocked.footer.auto" = "Å la iOS bestemme betyr at Cryptomator kan avsluttes når som helst for å frigjøre minnebruken. Dette vil da låse hvelvet automatisk.";
+"keepUnlocked.footer.on" = "Med det valgte alternativet må en kopi av nøkkelen din lagres i iOS-nøkkelringen så lenge hvelvet er låst opp.";
+"keepUnlockedDuration.auto" = "La iOS bestemme automatisk";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Uendelig";
+
+"localFileSystemAuthentication.createNewVault.header" = "På den neste siden velger du lagringsstedet for ditt nye hvelv.";
+"localFileSystemAuthentication.createNewVault.button" = "Velg lagringssted";
+"localFileSystemAuthentication.openExistingVault.header" = "På neste side velger du mappen til det eksisterende hvelvet ditt.";
+"localFileSystemAuthentication.openExistingVault.button" = "Velg hvelvmappe";
+
+"onboarding.title" = "Velkommen";
 "onboarding.button.continue" = "Fortsett";
 
 "purchase.title" = "Lås opp fullversjonen";
 "purchase.beginFreeTrial.footer" = "Prøv fullversjonen av Cryptomator gratis i en begrenset periode. Du kan kun låse opp denne prøveperioden én gang.";
+"purchase.beginFreeTrial.alert.title" = "Prøveversjon låst opp";
 "purchase.purchaseFullVersion.button" = "Kjøp fullversjon for %@";
 "purchase.restorePurchase.button" = "Gjenopprett kjøp";
 "purchase.restorePurchase.footer" = "Hvis du allerede har kjøpt fullversjonen av Cryptomator, kan du gjenopprette kjøpet.";
@@ -39,16 +129,55 @@
 
 "settings.title" = "Innstillinger";
 "settings.clearCache" = "Tøm hurtigminnet";
+"settings.rateApp" = "Vurder appen";
+"settings.sendLogFile" = "Send loggfil";
 "settings.unlockFullVersion" = "Lås opp fullversjonen";
 
+"snapshots.fileprovider.file1" = "/Regnskap.numbers";
+"snapshots.fileprovider.file2" = "/Endelig presentasjon.key";
+"snapshots.fileprovider.file3" = "/Produktvisning.mov";
+"snapshots.fileprovider.file4" = "/Forslag.docx";
+"snapshots.fileprovider.file5" = "/Rapport.pdf";
+"snapshots.fileprovider.folder3" = "/Hemmelig prosjekt";
+"snapshots.fileprovider.folder2" = "/Fakturaer";
+"snapshots.fileprovider.folder1" = "/Attester";
+"snapshots.main.vault1" = "/Jobb";
+"snapshots.main.vault2" = "/Familie";
+"snapshots.main.vault3" = "/Dokumenter";
+"snapshots.main.vault4" = "/Tur til Bergen";
+
 "unlockVault.button.unlock" = "Lås opp";
+"unlockVault.button.unlockVia" = "Lås opp via %@";
+"unlockVault.password.footer" = "Skriv inn passordet for \"%@\".";
 
 "upgrade.title" = "Oppgrader fra versjon 1.x";
 "upgrade.freeUpgrade.button" = "Oppgrader gratis";
+"urlSession.error.httpError.412" = "Tilgang til målressursen nektet.";
+"urlSession.error.httpError.default" = "Nettverkstilkobling mislyktes med statuskode %ld.";
+"urlSession.error.unexpectedResponse" = "Det oppsto en uventet nettverksrespons.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har allerede lagt til dette hvelvet.";
 
 "vaultDetail.button.changeVaultPassword" = "Endre passord";
+"vaultDetail.button.lock" = "Lås nå";
 "vaultDetail.button.moveVault" = "Flytt";
+"vaultDetail.button.removeVault" = "Fjern fra listen over hvelv";
 "vaultDetail.button.renameVault" = "Endre navn";
+"vaultDetail.changePassword.footer" = "Velg et sterkt passord for hvelvet ditt, som bare du vet. Lagre det på et trygt sted.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Hvis du aktiverer %@ vil hvelvet ditt bli lagret i iOS-nøkkelringen.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Passordet til hvelvet ditt vil kun være nødvendig hvis %@-autentiseringen feiler.";
+"vaultDetail.info.footer.accessVault" = "Få tilgang til hvelvet via Filer-appen.";
+"vaultDetail.info.footer.accountInfo" = "Innlogget som %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Opplåsningsvarighet";
+"vaultDetail.locked.footer" = "Hvelvet ditt er for øyeblikket låst.";
+"vaultDetail.moveVault.progress" = "Flytter…";
+"vaultDetail.renameVault.progress" = "Endrer navn…";
+"vaultDetail.unlocked.footer" = "Hvelvet ditt er for øyeblikket låst opp i Filer-appen.";
+
+"vaultList.header.title" = "Hvelv";
+"vaultList.emptyList.message" = "Trykk her for å legge til et hvelv";
+"vaultList.remove.alert.title" = "Fjern hvelvet?";
+"vaultList.remove.alert.message" = "Dette vil bare fjerne hvelvet fra listen over hvelv. Ingen krypterte data vil bli slettet. Du kan legge til hvelvet på nytt senere.";
 "webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
 "webDAVAuthentication.httpConnection.change" = "Bytt til HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Behold HTTP";
