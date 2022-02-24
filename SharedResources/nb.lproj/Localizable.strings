@@ -80,8 +80,8 @@
 "cloudProvider.error.parentFolderDoesNotExist" = "Overordnet mappe \"%@\" finnes ikke.";
 "cloudProvider.error.pageTokenInvalid" = "Henting av mappens innhold kunne ikke fortsette.";
 "cloudProvider.error.quotaInsufficient" = "Lagringsstedet ditt har ikke nok plass.";
-"cloudProvider.error.unauthorized" = "Kan ikke utføre uautorisert operasjon.";
-"cloudProvider.error.noInternetConnection" = "Internettilkobling er nødvendig for denne operasjonen.";
+"cloudProvider.error.unauthorized" = "Kan ikke utføre den uautoriserte handlingen.";
+"cloudProvider.error.noInternetConnection" = "Internettilkobling er nødvendig for denne handlingen.";
 
 "cloudProviderType.localFileSystem" = "Annen Filer-tilbyder";
 
@@ -108,13 +108,27 @@
 
 "localFileSystemAuthentication.createNewVault.header" = "På den neste siden velger du lagringsstedet for ditt nye hvelv.";
 "localFileSystemAuthentication.createNewVault.button" = "Velg lagringssted";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Det finnes allerede et hvelv på denne plasseringen. Prøv igjen på et annet lagringssted.";
 "localFileSystemAuthentication.openExistingVault.header" = "På neste side velger du mappen til det eksisterende hvelvet ditt.";
 "localFileSystemAuthentication.openExistingVault.button" = "Velg hvelvmappe";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappen er ikke et hvelv. Prøv igjen med en annen mappe.";
+
+"maintenanceModeError.runningCloudTask" = "Handlingen kan ikke utføres fordi andre bakgrunnsoperasjoner for dette hvelvet må avsluttes først. Prøv igjen senere.";
+
+"nameValidation.error.endsWithPeriod" = "Du kan ikke bruke et navn som slutter med et punktum. Velg et annet navn.";
+"nameValidation.error.endsWithSpace" = "Du kan ikke bruke et navn som slutter med et mellomrom. Velg et annet navn.";
+"nameValidation.error.containsIllegalCharacter" = "Du kan ikke bruke et navn som inneholder \"%@\". Velg et annet navn.";
 
 "onboarding.title" = "Velkommen";
+"onboarding.info" = "Takk for at du valgte Cryptomator for å beskytte filene.\n\nMed Cryptomator er nøkkelen til dataene dine i dine hendene. Cryptomator krypterer dataene dine raskt og enkelt.\n\nDenne appen er fullintegrert med Filer-appen. Pass på å aktivere Cryptomator i Filer-appen senere for å få tilgang til hvelvet ditt.";
 "onboarding.button.continue" = "Fortsett";
 
 "purchase.title" = "Lås opp fullversjonen";
+"purchase.info" = "Du kan bruke Cryptomator i skrivebeskyttet modus helt gratis. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
+"purchase.infoRunningTrial" = "Prøveperioden utløper %@ og gir deg skrivetilgang til hvelvene dine for en begrenset periode. Vurder å låse opp fullversjonen etter prøveperioden.";
+"purchase.infoExpiredTrial" = "Prøveperioden er utløpt. Vurder å låse opp fullversjonen for å få tilgang til hvelvet ditt.";
+"purchase.upgrade.footer" = "Cryptomator oppdaget en eldre versjon. Du er kvalifisert for en oppgradering som vil låse opp fullversjonen.";
+"purchase.upgrade.notEligible.footer" = "Hvis du allerede har kjøpt en eldre versjon av Cryptomator, last den ned igjen fra App Store.";
 "purchase.beginFreeTrial.button" = "Start den 30-dagers prøveversjonen gratis";
 "purchase.beginFreeTrial.footer" = "Prøv fullversjonen av Cryptomator gratis i en begrenset periode. Du kan kun låse opp denne prøveperioden én gang.";
 "purchase.beginFreeTrial.alert.title" = "Prøveversjon låst opp";
@@ -205,6 +219,7 @@
 "vaultDetail.info.footer.accessVault" = "Få tilgang til hvelvet via Filer-appen.";
 "vaultDetail.info.footer.accountInfo" = "Innlogget som %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Opplåsningsvarighet";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Ingen opplåsning vil kreves med mindre det er låst manuelt.";
 "vaultDetail.locked.footer" = "Hvelvet ditt er for øyeblikket låst.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator oppdaget et eksisterende hvelv på denne plasseringen.\nFor å flytte hvelvet ditt må du gå tilbake og velge en annen mappe.";
 "vaultDetail.moveVault.progress" = "Flytter…";
