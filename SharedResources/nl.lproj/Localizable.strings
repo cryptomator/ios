@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "U kunt nu de volledige versie van Cryptomator voor een beperkte tijd gebruiken. Uw proefperiode verloopt op %@. Daarna is je kluis nog steeds toegankelijk in alleen-lezen modus.";
 "purchase.purchaseFullVersion.button" = "Koop volledige versie voor %@";
 "purchase.purchaseFullVersion.footer" = "Betaal eenmalig en ontgrendel schrijftoegang tot uw kluis voor levenslang.";
+"purchase.redeemCode.button" = "Code inwisselen";
 "purchase.restorePurchase.button" = "Aankoop herstellen";
 "purchase.restorePurchase.footer" = "Als u de volledige versie van Cryptomator al hebt aangeschaft, kunt u deze aankoop herstellen.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Proefperiode voortgezet";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We konden geen eerder aangeschafte volledige versie vinden die hersteld kon worden. Probeer een andere optie.";
 "purchase.retry.button" = "Opnieuw proberen";
 "purchase.retry.footer" = "De beschikbare producten konden niet worden geladen.";
+"purchase.startSubscription.button" = "Abonneer voor %@ per jaar";
 "purchase.decideLater.button" = "Beslis later";
 "purchase.decideLater.footer" = "U kunt later upgraden naar de volledige versie van Cryptomator in de instellingen en deze nu gebruiken in alleen-lezen modus.";
 "purchase.unlockedFullVersion.message" = "U kunt nu de volledige versie van Cryptomator gebruiken. Veel plezier met encrypteren!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Contact";
 "settings.debugMode" = "Foutopsporingsmodus";
 "settings.debugMode.alert.message" = "In deze modus kunnen gevoelige gegevens naar een logbestand op je apparaat geschreven worden (bijv. bestandsnamen en paden). Wachtwoorden, cookies, etc. worden expliciet uitgesloten.\n\nVergeet niet om de foutopsporingsmodus zo snel mogelijk uit te schakelen.";
+"settings.manageSubscriptions" = "Abonnement beheren";
 "settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
