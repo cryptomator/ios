@@ -1,6 +1,8 @@
 "common.button.choose" = "Seleccionar";
 "common.button.edit" = "Editar";
 "common.button.remove" = "Eliminar";
+"common.cells.url" = "URL";
+"common.cells.username" = "Nome de usuario";
 "purchase.retry.button" = "Tentar de novo";
 
 "settings.title" = "Axustes";
