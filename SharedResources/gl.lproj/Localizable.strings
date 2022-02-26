@@ -1,6 +1,7 @@
 "common.button.choose" = "Seleccionar";
 "common.button.edit" = "Editar";
 "common.button.remove" = "Eliminar";
+"purchase.retry.button" = "Tentar de novo";
 
 "settings.title" = "Axustes";
 "vaultDetail.button.moveVault" = "Mover";
