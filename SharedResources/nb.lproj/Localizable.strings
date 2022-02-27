@@ -112,6 +112,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "På neste side velger du mappen til det eksisterende hvelvet ditt.";
 "localFileSystemAuthentication.openExistingVault.button" = "Velg hvelvmappe";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappen er ikke et hvelv. Prøv igjen med en annen mappe.";
+"localFileSystemAuthentication.info.footer" = "Filleverandører som er grået ut støtter ikke \"picking folders\". Dette er ikke en begrensning fra Cryptomator sin side.";
 
 "maintenanceModeError.runningCloudTask" = "Handlingen kan ikke utføres fordi andre bakgrunnsoperasjoner for dette hvelvet må avsluttes først. Prøv igjen senere.";
 
@@ -154,10 +155,12 @@
 "settings.title" = "Innstillinger";
 "settings.aboutCryptomator" = "Om Cryptomator";
 "settings.aboutCryptomator.title" = "Versjon %@ (%@)";
+"settings.cacheSize" = "Hurtigminnestørrelse";
 "settings.clearCache" = "Tøm hurtigminnet";
 "settings.cloudServices" = "Skylagringstjenester";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Feilsøkingsmodus";
+"settings.debugMode.alert.message" = "I denne modusen kan sensitive data skrives til en loggfil på enheten (f.eks. filnavn og stier). Passord, cookies, osv. er eksplisitt ekskludert.\n\nHusk å deaktivere feilsøkingsmodus så snart som mulig.";
 "settings.manageSubscriptions" = "Administrer abonnement";
 "settings.rateApp" = "Vurder appen";
 "settings.sendLogFile" = "Send loggfil";
@@ -195,6 +198,7 @@
 "upgrade.paidUpgrade.footer" = "Dette vil støtte den pågående utviklingen av åpen kildekode og være til stor hjelp for oss.";
 "upgrade.freeUpgrade.button" = "Oppgrader gratis";
 "upgrade.freeUpgrade.footer" = "Ikke noe problem. Du kan også velge å oppgradere til fullversjonen helt gratis.";
+"upgrade.decideLater.footer" = "Du kan oppgradere til fullversjonen av Cryptomator i innstillingene senere. For nå kan du gjerne bruke Cryptomator i skrivebeskyttet modus.";
 "upgrade.notEligible.alert.title" = "Oppgraderingen mislyktes";
 "upgrade.notEligible.alert.message" = "Cryptomator klarte ikke å finne en eldre versjon installert på enheten din. Hvis likevel har kjøpt en tidligere versjon, så last den ned på nytt fra App Store og prøv igjen.";
 
@@ -202,6 +206,7 @@
 "urlSession.error.httpError.403" = "Utilstrekkelige rettigheter til forespurt ressurs.";
 "urlSession.error.httpError.404" = "Forespurt ressurs ble ikke funnet.";
 "urlSession.error.httpError.405" = "Forespørselsmetode er ikke støttet av målressursen.";
+"urlSession.error.httpError.409" = "Forespørselskonflikt med nåværende tilstand for målressursen.";
 "urlSession.error.httpError.412" = "Tilgang til målressursen nektet.";
 "urlSession.error.httpError.default" = "Nettverkstilkobling mislyktes med statuskode %ld.";
 "urlSession.error.unexpectedResponse" = "Det oppsto en uventet nettverksrespons.";
@@ -219,6 +224,8 @@
 "vaultDetail.info.footer.accessVault" = "Få tilgang til hvelvet via Filer-appen.";
 "vaultDetail.info.footer.accountInfo" = "Innlogget som %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Opplåsningsvarighet";
+"vaultDetail.keepUnlocked.footer.off" = "Du må låse opp igjen når Cryptomator er avsluttet av Filer-appen.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Du må låse opp igjen når hvelvet ditt har vært inaktivt i %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Ingen opplåsning vil kreves med mindre det er låst manuelt.";
 "vaultDetail.locked.footer" = "Hvelvet ditt er for øyeblikket låst.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator oppdaget et eksisterende hvelv på denne plasseringen.\nFor å flytte hvelvet ditt må du gå tilbake og velge en annen mappe.";
