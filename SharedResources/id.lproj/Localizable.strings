@@ -41,7 +41,7 @@
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
-"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi ada vault di lokasi ini.\nUntuk membuat vaukt baru, silakan kembali dan pilih folder lain.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault sudah ada di lokasi ini.\nUntuk membuat vault baru, silahkan kembali dan pilih folder lain.";
 "addVault.createNewVault.password.enterPassword.header" = "Masukkan kata sandi baru.";
 "addVault.createNewVault.password.confirmPassword.header" = "Konfirmasi kata sandi baru.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Konfirmasi Kata Sandi?";
@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
 "purchase.purchaseFullVersion.button" = "Beli Versi Lengkap seharga %@";
 "purchase.purchaseFullVersion.footer" = "Bayar sekali dan buka akses tulis ke vault Anda seumur hidup Cryptomator.";
+"purchase.redeemCode.button" = "Tukarkan Kode";
 "purchase.restorePurchase.button" = "Pulihkan Pembelian";
 "purchase.restorePurchase.footer" = "Jika Anda sudah membeli versi lengkap Cryptomator, anda bisa memulihkan pembelian tersebut.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Masa Percobaan Diperpanjang";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Kami tidak dapat menemukan versi lengkap yang sudah dibeli untuk dipulihkan. Silahkan coba opsi lain.";
 "purchase.retry.button" = "Coba lagi";
 "purchase.retry.footer" = "Tidak dapat memuat produk yang tersedia.";
+"purchase.startSubscription.button" = "Berlangganan %@ per Tahun";
 "purchase.decideLater.button" = "Pertimbangkan Nanti";
 "purchase.decideLater.footer" = "Anda bisa membuka versi lengkap Cryptomator nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
 "purchase.unlockedFullVersion.message" = "Sekarang Anda bisa menggunakan Cryptomator versi lengkap. Selamat berenkripsi ria!";
@@ -159,6 +161,7 @@
 "settings.contact" = "Kontak";
 "settings.debugMode" = "Mode Debug";
 "settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.";
+"settings.manageSubscriptions" = "Atur Langganan";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
