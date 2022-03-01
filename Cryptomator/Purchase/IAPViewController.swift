@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CryptomatorCommonCore
 import Foundation
 import Promises
 import StoreKit
@@ -62,9 +63,7 @@ class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: Stat
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section == 0 {
-			let headerView = IAPHeaderView()
-			headerView.text = viewModel.headerTitle
-			return headerView
+			return IAPHeaderView()
 		} else {
 			return nil
 		}
@@ -101,15 +100,6 @@ class IAPViewController<SectionType: Hashable, ButtonActionType: Hashable>: Stat
 }
 
 private class IAPHeaderView: UITableViewHeaderFooterView {
-	var text: String? {
-		get {
-			infoLabel.text
-		}
-		set {
-			infoLabel.text = newValue
-		}
-	}
-
 	private lazy var imageView: UIImageView = {
 		let image = UIImage(named: "bot")
 		let imageView = UIImageView(image: image)
@@ -117,36 +107,138 @@ private class IAPHeaderView: UITableViewHeaderFooterView {
 		return imageView
 	}()
 
-	private lazy var infoLabel: UILabel = {
-		let label = UILabel()
-		label.textAlignment = .center
-		label.numberOfLines = 0
-		return label
+	private lazy var features = HeaderFeatures(features: [
+		"Write access to your vaults",
+		"Open-source development",
+		"Family sharing"
+	])
+
+	private lazy var separator: UIView = {
+		let separator = UIView()
+		separator.backgroundColor = .separator
+		return separator
 	}()
+
+	private var separatorWeight: CGFloat {
+		return 4.0 / UIScreen.main.scale
+	}
 
 	override init(reuseIdentifier: String?) {
 		super.init(reuseIdentifier: reuseIdentifier)
-		configure()
+		setupViews()
 	}
 
-	func configure() {
-		let stack = UIStackView(arrangedSubviews: [imageView, infoLabel])
-		stack.translatesAutoresizingMaskIntoConstraints = false
-		stack.axis = .vertical
-		stack.spacing = 20
-		contentView.addSubview(stack)
+	func setupViews() {
+		contentView.addSubview(imageView)
+		contentView.addSubview(features)
+		contentView.addSubview(separator)
+
+		imageView.translatesAutoresizingMaskIntoConstraints = false
+		features.translatesAutoresizingMaskIntoConstraints = false
+		separator.translatesAutoresizingMaskIntoConstraints = false
+
+		let featuresTopAnchor = features.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 20)
+		let separatorBottomAnchor = separator.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+		featuresTopAnchor.priority = .almostRequired
+		separatorBottomAnchor.priority = .almostRequired
 
 		NSLayoutConstraint.activate([
-			stack.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			stack.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			stack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 20),
-			stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+			imageView.topAnchor.constraint(equalTo: features.topAnchor, constant: 4),
+			imageView.bottomAnchor.constraint(lessThanOrEqualTo: features.bottomAnchor, constant: -4),
+			imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			imageView.trailingAnchor.constraint(equalTo: features.leadingAnchor, constant: -20),
+			imageView.widthAnchor.constraint(equalToConstant: 64),
+			imageView.heightAnchor.constraint(equalToConstant: 64),
+
+			featuresTopAnchor,
+			features.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+
+			separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+			separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+			separator.topAnchor.constraint(equalTo: features.layoutMarginsGuide.bottomAnchor, constant: 40),
+			separator.heightAnchor.constraint(equalToConstant: separatorWeight),
+			separatorBottomAnchor
 		])
 	}
 
 	@available(*, unavailable)
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+
+	class HeaderFeatures: UIView {
+		private let textStyle: UIFont.TextStyle = .body
+		private lazy var featureLabel: UILabel = {
+			let label = UILabel()
+			label.numberOfLines = 0
+			label.font = .preferredFont(forTextStyle: textStyle)
+			label.adjustsFontForContentSizeCategory = true
+			return label
+		}()
+
+		override var intrinsicContentSize: CGSize {
+			return featureLabel.intrinsicContentSize
+		}
+
+		init(features: [String]) {
+			super.init(frame: .zero)
+			featureLabel.attributedText = createAttributedString(from: features)
+			setupViews()
+		}
+
+		@available(*, unavailable)
+		required init?(coder: NSCoder) {
+			fatalError("init(coder:) has not been implemented")
+		}
+
+		private func setupViews() {
+			featureLabel.translatesAutoresizingMaskIntoConstraints = false
+			addSubview(featureLabel)
+			NSLayoutConstraint.activate([
+				featureLabel.topAnchor.constraint(equalTo: topAnchor),
+				featureLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+				featureLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+				featureLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+			])
+		}
+
+		private func createAttributedString(from features: [String]) -> NSAttributedString {
+			let configuration = UIImage.SymbolConfiguration(textStyle: textStyle)
+			let imageAttachment = NSTextAttachment()
+			imageAttachment.image = UIImage(systemName: "checkmark.circle.fill", withConfiguration: configuration)?.withTintColor(.cryptomatorPrimary)
+			let attributedImageString = NSMutableAttributedString(attachment: imageAttachment)
+
+			let indentation: CGFloat = (imageAttachment.image?.size.width ?? 15) + 5
+
+			let paragraphStyle = NSMutableParagraphStyle()
+			paragraphStyle.tabStops = [
+				NSTextTab(textAlignment: .left, location: indentation, options: [:])
+			]
+			paragraphStyle.headIndent = indentation
+
+			let attributedString = NSMutableAttributedString(string: "")
+
+			features.enumerated().forEach {
+				attributedString.append(attributedImageString)
+				attributedString.append(NSAttributedString(string: "\t\($1)"))
+				if $0 < features.count - 1 {
+					attributedString.append(NSAttributedString(string: "\n"))
+				}
+			}
+
+			attributedString.addAttributes(
+				[.paragraphStyle: paragraphStyle],
+				range: NSRange(location: 0, length: attributedString.length)
+			)
+
+			attributedString.addAttribute(.foregroundColor,
+			                              value: UIColor.label,
+			                              range: NSRange(location: 0, length: attributedString.length))
+			attributedString.addAttribute(.font,
+			                              value: UIFont.preferredFont(forTextStyle: textStyle),
+			                              range: NSRange(location: 0, length: attributedString.length))
+			return attributedString
+		}
 	}
 }
 
