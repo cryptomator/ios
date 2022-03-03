@@ -229,6 +229,8 @@
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
 		4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */; };
 		4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */; };
+		4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */; };
+		4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */; };
 		4AB2E7ED2791A97B00BDBB18 /* CheckMarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */; };
 		4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */; };
 		4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */; };
@@ -701,6 +703,8 @@
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTaskExecutorTestCase.swift; sourceTree = "<group>"; };
+		4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderType.swift; sourceTree = "<group>"; };
+		4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderMock.swift; sourceTree = "<group>"; };
 		4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkCell.swift; sourceTree = "<group>"; };
 		4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepUnlockedSectionFooterViewModel.swift; sourceTree = "<group>"; };
 		4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCellViewModel.swift; sourceTree = "<group>"; };
@@ -1462,24 +1466,25 @@
 				4A797F9524AC9936007DDBE1 /* CloudProviderMock.swift */,
 				4A797F9724AC9A1B007DDBE1 /* CloudProviderMockTests.swift */,
 				4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */,
+				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
 				4AB6A893278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift */,
+				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
 				4AB6A895278F07B20016B01E /* FileProviderAdapterTypeMock.swift */,
 				4A2060CA2798302600DA6C62 /* FileProviderItemUpdateDelegateMock.swift */,
 				4A2060D0279AB32700DA6C62 /* FileProviderNotificatorManagerMock.swift */,
 				4A2060D2279AB38A00DA6C62 /* FileProviderNotificatorMock.swift */,
 				4A5AC4382758EC9400342AA7 /* FullVersionCheckerMock.swift */,
+				4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */,
 				4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */,
 				4AE791C9278F168E00525913 /* MasterkeyCacheManagerMock.swift */,
-				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
 				4AEECD3E279EC48200C6E2B5 /* NSFileProviderChangeObserverMock.swift */,
+				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
+				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
 				4AE791CB278F16BD00525913 /* VaultKeepUnlockedHelperMock.swift */,
 				4AE791CD278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift */,
 				4AB6A891278EFC730016B01E /* VaultManagerMock.swift */,
-				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
-				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
-				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
-				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
 				4ADC66C827A962C2002E6CC7 /* VaultPasswordManagerMock.swift */,
+				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1609,6 +1614,7 @@
 				4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */,
 				4AEECD36279EB15400C6E2B5 /* ErrorWrapper.swift */,
 				4A8F149D266A2A8200ADBCE4 /* FileProviderAdapter.swift */,
+				4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */,
 				740375F12587AEB40023FF53 /* FileProviderAdapterError.swift */,
 				4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */,
 				4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */,
@@ -2213,6 +2219,7 @@
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
 				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
 				4AE791CE278F172E00525913 /* VaultKeepUnlockedSettingsMock.swift in Sources */,
+				4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */,
 				4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4AEECD3B279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift in Sources */,
@@ -2525,6 +2532,7 @@
 				4A511D5D26668E47000A0E01 /* ReparentTaskRecord.swift in Sources */,
 				747F2F272587BC250072FB30 /* ReparentTask.swift in Sources */,
 				747F2F282587BC250072FB30 /* ReparentTaskDBManager.swift in Sources */,
+				4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */,
 				4A511D4E2660FF9E000A0E01 /* WorkflowScheduler.swift in Sources */,
 				4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,

@@ -15,7 +15,6 @@ import Promises
 
 public protocol FileProviderAdapterType: AnyObject {
 	var lastUnlockedDate: Date { get }
-	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier?
 	func item(for identifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem
 	func enumerateItems(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String?) -> Promise<FileProviderItemList>
 	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
@@ -41,11 +40,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let downloadTaskManager: DownloadTaskManager
 	private let scheduler: WorkflowScheduler
 	private let provider: CloudProvider
-	private weak var localURLProvider: LocalURLProvider?
+	private let localURLProvider: LocalURLProviderType
 	private let notificator: FileProviderItemUpdateDelegate?
 	private let fullVersionChecker: FullVersionChecker
 
-	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProvider? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.lastUnlockedDate = Date()
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
@@ -59,17 +58,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
 		self.fullVersionChecker = fullVersionChecker
-	}
-
-	public func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
-		// resolve the given URL to a persistent identifier using a database
-		let pathComponents = url.pathComponents
-
-		// exploit the fact that the path structure has been defined as
-		// <base storage directory>/<item identifier>/<item file name> above
-		assert(pathComponents.count > 2)
-
-		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
 	}
 
 	/**
@@ -203,7 +191,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 		let localURL: URL
 		do {
-			guard let url = localURLProvider?.urlForItem(withPersistentIdentifier: itemIdentifier) else {
+			guard let url = localURLProvider.urlForItem(withPersistentIdentifier: itemIdentifier, itemName: placeholderMetadata.name) else {
 				throw NSFileProviderError(.noSuchItem)
 			}
 			localURL = url
@@ -247,7 +235,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 	 */
 	public func itemChanged(at url: URL) {
-		guard let itemIdentifier = persistentIdentifierForItem(at: url) else {
+		guard let itemIdentifier = localURLProvider.persistentIdentifierForItem(at: url) else {
 			DDLogError("itemChanged - no persistentIdentifier for item at url: \(url)")
 			return
 		}
@@ -480,7 +468,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func startProvidingItem(at url: URL) -> Promise<Void> {
-		guard let identifier = persistentIdentifierForItem(at: url) else {
+		guard let identifier = localURLProvider.persistentIdentifierForItem(at: url) else {
 			return Promise(NSFileProviderError(.noSuchItem))
 		}
 		if FileManager.default.fileExists(atPath: url.path) {
@@ -618,7 +606,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 */
 	func postProcessStartProvidingItem(at url: URL) throws {
 		try FileManager.default.setAttributes([.immutable: !fullVersionChecker.isFullVersion], ofItemAtPath: url.path)
-		guard let identifier = persistentIdentifierForItem(at: url) else {
+		guard let identifier = localURLProvider.persistentIdentifierForItem(at: url) else {
 			throw NSFileProviderError(.noSuchItem)
 		}
 		let metadata = try getCachedMetadata(for: identifier)
@@ -789,8 +777,4 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let item: FileProviderItem
 		let reparentTaskRecord: ReparentTaskRecord
 	}
-}
-
-public protocol LocalURLProvider: AnyObject {
-	func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL?
 }
