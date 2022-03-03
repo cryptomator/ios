@@ -1,1 +1,1 @@
-- Fixed regression that prevented the app from launching with the latest iOS version (#171, #174)
+- Fixed "file does not exist" error when saving a file (#179, #184)
