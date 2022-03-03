@@ -34,12 +34,12 @@ final class FileProviderAdapterProvidingMock: FileProviderAdapterProviding {
 		getAdapterForDomainDbPathDelegateNotificatorCallsCount > 0
 	}
 
-	var getAdapterForDomainDbPathDelegateNotificatorReceivedArguments: (domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProvider?, notificator: FileProviderNotificatorType)?
-	var getAdapterForDomainDbPathDelegateNotificatorReceivedInvocations: [(domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProvider?, notificator: FileProviderNotificatorType)] = []
+	var getAdapterForDomainDbPathDelegateNotificatorReceivedArguments: (domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType)?
+	var getAdapterForDomainDbPathDelegateNotificatorReceivedInvocations: [(domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType?, notificator: FileProviderNotificatorType)] = []
 	var getAdapterForDomainDbPathDelegateNotificatorReturnValue: FileProviderAdapterType!
-	var getAdapterForDomainDbPathDelegateNotificatorClosure: ((NSFileProviderDomain, URL, LocalURLProvider?, FileProviderNotificatorType) throws -> FileProviderAdapterType)?
+	var getAdapterForDomainDbPathDelegateNotificatorClosure: ((NSFileProviderDomain, URL, LocalURLProviderType, FileProviderNotificatorType) throws -> FileProviderAdapterType)?
 
-	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProvider?, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
+	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
 		if let error = getAdapterForDomainDbPathDelegateNotificatorThrowableError {
 			throw error
 		}

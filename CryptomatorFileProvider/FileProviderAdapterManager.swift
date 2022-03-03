@@ -16,12 +16,12 @@ import Promises
 
 protocol FileProviderAdapterProviding {
 	var unlockMonitor: UnlockMonitorType { get }
-	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProvider?, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType
+	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType
 }
 
 public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	public static let shared = FileProviderAdapterManager()
-	public typealias FileProviderAdapterDelegate = LocalURLProvider
+	public typealias FileProviderAdapterDelegate = LocalURLProviderType
 	let unlockMonitor: UnlockMonitorType
 
 	private let masterkeyCacheManager: MasterkeyCacheManager
@@ -46,7 +46,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		self.unlockMonitor = unlockMonitor
 	}
 
-	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
+	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
 		try queue.sync {
 			let cachedAdapterItem = adapterCache.getItem(identifier: domain.identifier)
 			let vaultUID = domain.identifier.rawValue
@@ -73,7 +73,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		}
 	}
 
-	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws {
+	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws {
 		guard let dbPath = dbPath else {
 			return
 		}
@@ -119,7 +119,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		try maintenanceManager.disableMaintenanceMode()
 	}
 
-	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
+	private func autoUnlockVault(withVaultUID vaultUID: String, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
 		guard vaultKeepUnlockedHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
@@ -133,7 +133,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		return adapterCacheItem
 	}
 
-	private func createAdapterCacheItem(cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate?, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
+	private func createAdapterCacheItem(cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
 		let database = try DatabaseHelper.getMigratedDB(at: dbPath)
 		let itemMetadataManager = ItemMetadataDBManager(database: database)
 		let cachedFileManager = CachedFileDBManager(database: database)

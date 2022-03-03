@@ -13,10 +13,11 @@ import CryptomatorFileProvider
 import FileProvider
 import MSAL
 
-class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
+class FileProviderExtension: NSFileProviderExtension {
 	var observation: NSKeyValueObservation?
 	var dbPath: URL?
 	var notificator: FileProviderNotificatorType?
+	var localURLProvider: LocalURLProviderType?
 	static var databaseError: Error?
 	static var sharedDatabaseInitialized = false
 	override init() {
@@ -83,29 +84,15 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	override func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
 		// resolve the given identifier to a file on disk
 		DDLogDebug("FPExt: urlForItem(withPersistentIdentifier: \(identifier)) called")
-		if identifier == .rootContainer {
-			return getBaseStorageDirectory()
-		}
 		guard let item = try? item(for: identifier) else {
 			return nil
 		}
-
-		// in this implementation, all paths are structured as <base storage directory>/<item identifier>/<item file name>
-		let baseStorageDirectoryURL = getBaseStorageDirectory()
-		let perItemDirectory = baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
-		return perItemDirectory?.appendingPathComponent(item.filename, isDirectory: false)
+		return localURLProvider?.urlForItem(withPersistentIdentifier: identifier, itemName: item.filename)
 	}
 
 	override func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
 		DDLogDebug("FPExt: persistentIdentifierForItem(at: \(url)) called")
-		// resolve the given URL to a persistent identifier using a database
-		let pathComponents = url.pathComponents
-
-		// exploit the fact that the path structure has been defined as
-		// <base storage directory>/<item identifier>/<item file name> above
-		assert(pathComponents.count > 2)
-
-		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
+		return localURLProvider?.persistentIdentifierForItem(at: url)
 	}
 
 	override func providePlaceholder(at url: URL, completionHandler: @escaping (Error?) -> Void) {
@@ -228,12 +215,12 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#else
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
-		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider else {
 			// no domain ==> no installed vault
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: self)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: localURLProvider)
 		#endif
 	}
 
@@ -246,6 +233,7 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 			self.dbPath = dbPath
 			let notificator = try FileProviderNotificatorManager.shared.getFileProviderNotificator(for: domain)
 			self.notificator = notificator
+			localURLProvider = LocalURLProvider(domain: domain)
 			notificator.refreshWorkingSet()
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
@@ -263,8 +251,8 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		#if SNAPSHOTS
 		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(fileprovider: self))
 		#else
-		if let domain = domain {
-			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: self))
+		if let domain = domain, let localURLProvider = localURLProvider {
+			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
 		}
 		#endif
 		serviceSources.append(VaultLockingServiceSource())
@@ -273,22 +261,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	// MARK: Internal
-
-	private func getBaseStorageDirectory() -> URL? {
-		guard let domain = domain else {
-			DDLogError("getBaseStorageDirectory: domain is nil")
-			return nil
-		}
-		let domainDocumentStorage = domain.pathRelativeToDocumentStorage
-		let manager = NSFileProviderManager.default
-		do {
-			try excludeFileProviderDocumentStorageFromiCloudBackup()
-		} catch {
-			DDLogError("Exclude FileProviderDocumentStorage from iCloud backup failed with error: \(error)")
-			return nil
-		}
-		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
-	}
 
 	private func getFailableAdapter() -> FileProviderAdapterType? {
 		do {
@@ -299,10 +271,10 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 	}
 
 	private func getAdapter() throws -> FileProviderAdapterType {
-		guard let domain = domain, let dbPath = dbPath, let notificator = notificator else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
-		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: self, notificator: notificator)
+		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
 	}
 
 	func getAdapterWithWrappedError() throws -> FileProviderAdapterType {
@@ -311,13 +283,6 @@ class FileProviderExtension: NSFileProviderExtension, LocalURLProvider {
 		} catch {
 			throw ErrorWrapper.wrapError(error, domain: domain)
 		}
-	}
-
-	private func excludeFileProviderDocumentStorageFromiCloudBackup() throws {
-		var values = URLResourceValues()
-		values.isExcludedFromBackup = true
-		var documentStorageURL = NSFileProviderManager.default.documentStorageURL
-		try documentStorageURL.setResourceValues(values)
 	}
 }
 

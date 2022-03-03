@@ -19,7 +19,7 @@ public class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource,
 	private let domain: NSFileProviderDomain
 	private let notificator: FileProviderNotificatorType?
 	private let dbPath: URL?
-	private weak var delegate: LocalURLProvider?
+	private let localURLProvider: LocalURLProviderType
 	private lazy var listener: NSXPCListener = {
 		let listener = NSXPCListener.anonymous()
 		listener.delegate = self
@@ -31,11 +31,11 @@ public class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource,
 		return domain.identifier.rawValue
 	}
 
-	public init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType?, dbPath: URL?, delegate: LocalURLProvider?) {
+	public init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType?, dbPath: URL?, delegate: LocalURLProviderType) {
 		self.domain = domain
 		self.notificator = notificator
 		self.dbPath = dbPath
-		self.delegate = delegate
+		self.localURLProvider = delegate
 	}
 
 	public func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
@@ -68,7 +68,7 @@ public class VaultUnlockingServiceSource: NSObject, NSFileProviderServiceSource,
 				return
 			}
 			do {
-				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.delegate, notificator: notificator)
+				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator)
 				FileProviderAdapterManager.shared.unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
 				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)

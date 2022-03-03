@@ -13,15 +13,18 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
+	let itemID: Int64 = 2
+	lazy var itemIdentifierDirectory = tmpDirectory.appendingPathComponent("\(itemID)", isDirectory: true)
+	lazy var expectedFileURL = itemIdentifierDirectory.appendingPathComponent("ItemToBeImported.txt")
+
+	override func setUpWithError() throws {
+		try super.setUpWithError()
+		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReturnValue = itemIdentifierDirectory
+	}
+
 	// MARK: LocalItemImport
 
 	func testLocalItemImport() throws {
-		let itemID: Int64 = 2
-		let expectedFileURL = tmpDirectory.appendingPathComponent("/\(itemID)/ItemToBeImported.txt")
-		localURLProviderMock.response = { itemIdentifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("\(itemID)"), itemIdentifier)
-			return expectedFileURL
-		}
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -54,13 +57,13 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		}
 		XCTAssertEqual(itemID, localCachedFileInfo.correspondingItem)
 		XCTAssertEqual(expectedFileURL, localCachedFileInfo.localURL)
+
+		assertLocalURLProviderCalledWithItemID()
 	}
 
 	func testLocalItemImportFailsWhenNoLocalURLIsProvided() throws {
-		localURLProviderMock.response = { itemIdentifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("2"), itemIdentifier)
-			return nil
-		}
+		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReturnValue = nil
+
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -76,14 +79,10 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		}
 
 		XCTAssert(uploadTaskManagerMock.uploadTasks.isEmpty)
+		assertLocalURLProviderCalledWithItemID()
 	}
 
 	func testLocalItemImportFailsIfItemAlreadyExistsAtLocalURL() throws {
-		let expectedFileURL = tmpDirectory.appendingPathComponent("/2/ItemToBeImported.txt")
-		localURLProviderMock.response = { itemIdentifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("2"), itemIdentifier)
-			return expectedFileURL
-		}
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
@@ -91,7 +90,6 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		try FileManager.default.createDirectory(at: expectedFileURL.deletingLastPathComponent(), withIntermediateDirectories: false)
 		let existingFileContent = "ExistingFileContent"
 		try existingFileContent.write(to: expectedFileURL, atomically: true, encoding: .utf8)
-		let itemID: Int64 = 2
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
@@ -111,28 +109,22 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		XCTAssertEqual(itemID, metadataManagerMock.removedMetadataID[0])
 
 		XCTAssert(uploadTaskManagerMock.uploadTasks.isEmpty)
+		assertLocalURLProviderCalledWithItemID()
 	}
 
 	// MARK: Import Document
 
-	// swiftlint:disable:next function_body_length
 	func testImportDocument() throws {
 		let expectation = XCTestExpectation()
 
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
-		let itemID: Int64 = 2
-		let expectedFileURL = tmpDirectory.appendingPathComponent("/\(itemID)/ItemToBeImported.txt")
-		localURLProviderMock.response = { itemIdentifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("\(itemID)"), itemIdentifier)
-			return expectedFileURL
-		}
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		let adapter = createFullyMockedAdapter()
 		adapter.importDocument(at: fileURL, toParentItemIdentifier: .rootContainer) { item, error in
 			XCTAssertNil(error)
 			guard let item = item as? FileProviderItem else {
@@ -143,44 +135,44 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			XCTAssertNil(item.uploadingError ?? nil)
 			XCTAssert(item.isUploading)
 			XCTAssert(item.newestVersionLocallyCached)
-			XCTAssertEqual(expectedFileURL, item.localURL)
+			XCTAssertEqual(self.expectedFileURL, item.localURL)
 
 			// Check that file was copied to the url provided by the localURLProvider
-			XCTAssert(FileManager.default.fileExists(atPath: expectedFileURL.path))
+			XCTAssert(FileManager.default.fileExists(atPath: self.expectedFileURL.path))
 			let contentOfCopiedFile: String?
 			do {
-				contentOfCopiedFile = String(data: try Data(contentsOf: expectedFileURL), encoding: .utf8)
+				contentOfCopiedFile = String(data: try Data(contentsOf: self.expectedFileURL), encoding: .utf8)
 			} catch {
 				XCTFail("Content of copied file failed with error: \(error)")
 				return
 			}
 			XCTAssertEqual(fileContent, contentOfCopiedFile)
 			// Check that the original file was not altered
-			XCTAssert(FileManager.default.contentsEqual(atPath: fileURL.path, andPath: expectedFileURL.path))
+			XCTAssert(FileManager.default.contentsEqual(atPath: fileURL.path, andPath: self.expectedFileURL.path))
 
 			// Check that the correct uploadTask was created
 			XCTAssertEqual(1, self.uploadTaskManagerMock.uploadTasks.count)
-			guard let taskRecord = self.uploadTaskManagerMock.uploadTasks[itemID] else {
+			guard let taskRecord = self.uploadTaskManagerMock.uploadTasks[self.itemID] else {
 				XCTFail("TaskRecord not found")
 				return
 			}
-			XCTAssertEqual(itemID, taskRecord.correspondingItem)
+			XCTAssertEqual(self.itemID, taskRecord.correspondingItem)
 			XCTAssertNil(taskRecord.failedWithError)
 			XCTAssertNil(taskRecord.lastFailedUploadDate)
 			XCTAssertNil(taskRecord.uploadErrorCode)
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		assertLocalURLProviderCalledWithItemID()
 	}
 
 	// MARK: ItemChanged
 
 	func testItemChanged() throws {
-		let itemID: Int64 = 2
 		let cloudPath = CloudPath("/Item.txt")
 		let itemMetadata = ItemMetadata(id: itemID, name: "Item.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, isCandidateForCacheCleanup: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock)
+		let adapter = createFullyMockedAdapter()
 
 		let fileURL = tmpDirectory.appendingPathComponent("/\(itemID)/Item.txt")
 		try FileManager.default.createDirectory(at: fileURL.deletingLastPathComponent(), withIntermediateDirectories: false)
@@ -235,14 +227,9 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
-		let itemID: Int64 = 2
 		let itemFolderURL = tmpDirectory.appendingPathComponent("\(itemID)", isDirectory: true)
 		try FileManager.default.createDirectory(at: itemFolderURL, withIntermediateDirectories: true)
 		let expectedFileURL = itemFolderURL.appendingPathComponent("File 1", isDirectory: false)
-		localURLProviderMock.response = { itemIdentifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("\(itemID)"), itemIdentifier)
-			return expectedFileURL
-		}
 		let existingFileContent = "Existing Content"
 		try existingFileContent.write(to: expectedFileURL, atomically: true, encoding: .utf8)
 		let existingItemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false, isCandidateForCacheCleanup: false)
@@ -283,17 +270,22 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 				}
 
 				// Check CachedFileInfo is updated
-				guard let cachedLocalFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[itemID] else {
+				guard let cachedLocalFileInfo = self.cachedFileManagerMock.cachedLocalFileInfo[self.itemID] else {
 					XCTFail("CachedLocalFileInfo does not exists")
 					return
 				}
 				XCTAssertEqual(expectedFileURL, cachedLocalFileInfo.localURL)
-				XCTAssertEqual(itemID, cachedLocalFileInfo.correspondingItem)
+				XCTAssertEqual(self.itemID, cachedLocalFileInfo.correspondingItem)
 				XCTAssertNotNil(cachedLocalFileInfo.lastModifiedDate)
 				XCTAssertNotEqual(Date(timeIntervalSince1970: 0), cachedLocalFileInfo.lastModifiedDate)
 				deleteItemPromise.fulfill(())
 			}))
 		}))
 		wait(for: [expectation], timeout: 1.0)
+		assertLocalURLProviderCalledWithItemID()
+	}
+
+	private func assertLocalURLProviderCalledWithItemID() {
+		XCTAssertEqual([NSFileProviderItemIdentifier("\(itemID)")], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 }

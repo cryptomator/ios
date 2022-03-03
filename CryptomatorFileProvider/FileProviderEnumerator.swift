@@ -15,9 +15,9 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	private let domain: NSFileProviderDomain
 	private let dbPath: URL
 	private let adapterProvider: FileProviderAdapterProviding
-	private weak var localURLProvider: LocalURLProvider?
+	private let localURLProvider: LocalURLProviderType
 
-	public convenience init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProvider?) {
+	public convenience init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType) {
 		self.init(enumeratedItemIdentifier: enumeratedItemIdentifier,
 		          notificator: notificator,
 		          domain: domain,
@@ -26,7 +26,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		          adapterProvider: FileProviderAdapterManager.shared)
 	}
 
-	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProvider?, adapterProvider: FileProviderAdapterProviding) {
+	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType, adapterProvider: FileProviderAdapterProviding) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
 		self.notificator = notificator
 		self.domain = domain

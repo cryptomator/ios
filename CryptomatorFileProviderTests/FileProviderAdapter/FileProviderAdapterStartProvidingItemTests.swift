@@ -76,13 +76,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		// Create local folder for conflicting item
 		let conflictingItemDirectory = tmpDirectory.appendingPathComponent("3")
 		try FileManager.default.createDirectory(at: conflictingItemDirectory, withIntermediateDirectories: false)
-		localURLProviderMock.response = { identifier in
-			XCTAssertEqual(NSFileProviderItemIdentifier("3"), identifier)
-			guard let item = try? self.adapter.item(for: identifier) else {
-				return nil
-			}
-			return conflictingItemDirectory.appendingPathComponent(item.filename, isDirectory: false)
-		}
+		localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReturnValue = conflictingItemDirectory
 
 		try "Local changed file content".write(to: url, atomically: true, encoding: .utf8)
 
@@ -118,6 +112,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 		assertItemRemovedFromWorkingSet()
+		XCTAssertEqual([NSFileProviderItemIdentifier("3")], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 
 	func testStartProvidingItemWithTagData() throws {
