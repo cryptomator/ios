@@ -18,6 +18,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 	var notificatorMock: FileProviderNotificatorTypeMock!
 	var adapterProvidingMock: FileProviderAdapterProvidingMock!
 	var adapterMock: FileProviderAdapterTypeMock!
+	var localURLProviderMock: LocalURLProviderMock!
 	let domain = NSFileProviderDomain(vaultUID: "VaultUID-12345", displayName: "Test Vault")
 	let dbPath = FileManager.default.temporaryDirectory
 	let items: [FileProviderItem] = [
@@ -34,6 +35,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 		adapterProvidingMock = FileProviderAdapterProvidingMock()
 		adapterMock = FileProviderAdapterTypeMock()
 		adapterProvidingMock.unlockMonitor = UnlockMonitor()
+		localURLProviderMock = LocalURLProviderMock()
 	}
 
 	// MARK: Enumerate Items
@@ -227,7 +229,7 @@ class FileProviderEnumeratorTests: XCTestCase {
 	}
 
 	private func createEnumerator(for itemIdentifier: NSFileProviderItemIdentifier) -> FileProviderEnumerator {
-		return FileProviderEnumerator(enumeratedItemIdentifier: itemIdentifier, notificator: notificatorMock, domain: domain, dbPath: dbPath, localURLProvider: nil, adapterProvider: adapterProvidingMock)
+		return FileProviderEnumerator(enumeratedItemIdentifier: itemIdentifier, notificator: notificatorMock, domain: domain, dbPath: dbPath, localURLProvider: localURLProviderMock, adapterProvider: adapterProvidingMock)
 	}
 
 	private func assertWaitForSemaphoreCalled() {
