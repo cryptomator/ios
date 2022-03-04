@@ -30,6 +30,10 @@ public extension LocalURLProviderType {
 	 - Note: The path for the `NSFileProviderItemIdentifier.rootContainer` is `<base storage directory>`
 	 */
 	func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier, itemName: String) -> URL? {
+		let itemIdentifierDirectory = itemIdentifierDirectoryURLForItem(withPersistentIdentifier: identifier)
+		if identifier == .rootContainer {
+			return itemIdentifierDirectory
+		}
 		return itemIdentifierDirectoryURLForItem(withPersistentIdentifier: identifier)?.appendingPathComponent(itemName, isDirectory: false)
 	}
 
@@ -48,35 +52,36 @@ public extension LocalURLProviderType {
 
 public class LocalURLProvider: LocalURLProviderType {
 	private let domain: NSFileProviderDomain
+	private let documentStorageURLProvider: DocumentStorageURLProvider
 
-	public init(domain: NSFileProviderDomain) {
+	public init(domain: NSFileProviderDomain, documentStorageURLProvider: DocumentStorageURLProvider = NSFileProviderManager.default) {
 		self.domain = domain
+		self.documentStorageURLProvider = documentStorageURLProvider
 	}
 
 	public func itemIdentifierDirectoryURLForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
-		if identifier == .rootContainer {
-			return getBaseStorageDirectory()
-		}
 		let baseStorageDirectoryURL = getBaseStorageDirectory()
+		if identifier == .rootContainer {
+			return baseStorageDirectoryURL
+		}
 		return baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
 	}
 
 	private func getBaseStorageDirectory() -> URL? {
 		let domainDocumentStorage = domain.pathRelativeToDocumentStorage
-		let manager = NSFileProviderManager.default
 		do {
 			try excludeFileProviderDocumentStorageFromiCloudBackup()
 		} catch {
 			DDLogError("Exclude FileProviderDocumentStorage from iCloud backup failed with error: \(error)")
 			return nil
 		}
-		return manager.documentStorageURL.appendingPathComponent(domainDocumentStorage)
+		return documentStorageURLProvider.documentStorageURL.appendingPathComponent(domainDocumentStorage)
 	}
 
 	private func excludeFileProviderDocumentStorageFromiCloudBackup() throws {
 		var values = URLResourceValues()
 		values.isExcludedFromBackup = true
-		var documentStorageURL = NSFileProviderManager.default.documentStorageURL
+		var documentStorageURL = documentStorageURLProvider.documentStorageURL
 		try documentStorageURL.setResourceValues(values)
 	}
 }

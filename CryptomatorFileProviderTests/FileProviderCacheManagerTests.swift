@@ -104,15 +104,3 @@ class FileProviderCacheManagerTests: CacheTestCase {
 		XCTAssertNil(try cacheManager.getLocalCachedFileInfo(for: 1))
 	}
 }
-
-private class DocumentStorageURLProviderMock: DocumentStorageURLProvider {
-	private let tmpDirURL: URL
-
-	init(tmpDirURL: URL) {
-		self.tmpDirURL = tmpDirURL
-	}
-
-	var documentStorageURL: URL {
-		return tmpDirURL
-	}
-}
