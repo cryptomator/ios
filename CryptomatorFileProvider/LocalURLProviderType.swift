@@ -34,7 +34,7 @@ public extension LocalURLProviderType {
 		if identifier == .rootContainer {
 			return itemIdentifierDirectory
 		}
-		return itemIdentifierDirectoryURLForItem(withPersistentIdentifier: identifier)?.appendingPathComponent(itemName, isDirectory: false)
+		return itemIdentifierDirectory?.appendingPathComponent(itemName, isDirectory: false)
 	}
 
 	/**
