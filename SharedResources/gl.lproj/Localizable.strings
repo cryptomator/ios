@@ -1,4 +1,5 @@
 "common.button.choose" = "Seleccionar";
+"common.button.create" = "Crear";
 "common.button.edit" = "Editar";
 "common.button.remove" = "Eliminar";
 "common.cells.url" = "URL";
