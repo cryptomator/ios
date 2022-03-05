@@ -104,7 +104,7 @@
 "keepUnlocked.footer.on" = "选中此选项后，保险库解锁时会将您的密钥副本在 iOS 密钥链中存储。";
 "keepUnlockedDuration.auto" = "由 iOS 自动决定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自动";
-"keepUnlockedDuration.indefinite" = "无限";
+"keepUnlockedDuration.indefinite" = "不限时";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
