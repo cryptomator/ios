@@ -4,6 +4,7 @@
 "common.button.remove" = "Eliminar";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome de usuario";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se esqueces o teu contrasinal, non será posíbel recuperar os teus datos.";
 "purchase.retry.button" = "Tentar de novo";
 
 "settings.title" = "Axustes";
