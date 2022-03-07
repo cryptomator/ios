@@ -186,6 +186,9 @@
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
 
+"trialStatus.active" = "Active";
+"trialStatus.expired" = "Expired";
+
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Enter password for \"%@\".";
