@@ -226,6 +226,9 @@
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
 		4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */; };
 		4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */; };
+		4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */; };
+		4AB1D4F627D626C5009060AB /* IAPFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F527D626C5009060AB /* IAPFooterView.swift */; };
+		4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F727D68026009060AB /* IAPHeaderView.swift */; };
 		4AB2E7ED2791A97B00BDBB18 /* CheckMarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */; };
 		4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */; };
 		4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */; };
@@ -686,6 +689,9 @@
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTaskExecutorTestCase.swift; sourceTree = "<group>"; };
+		4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHidingLabel.swift; sourceTree = "<group>"; };
+		4AB1D4F527D626C5009060AB /* IAPFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPFooterView.swift; sourceTree = "<group>"; };
+		4AB1D4F727D68026009060AB /* IAPHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHeaderView.swift; sourceTree = "<group>"; };
 		4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkCell.swift; sourceTree = "<group>"; };
 		4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepUnlockedSectionFooterViewModel.swift; sourceTree = "<group>"; };
 		4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCellViewModel.swift; sourceTree = "<group>"; };
@@ -1262,6 +1268,7 @@
 			isa = PBXGroup;
 			children = (
 				4A79E26826B16993008C9959 /* ActionButton.swift */,
+				4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */,
 				4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */,
 				4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */,
 				4A4B7E6C26B9462F009BFDB1 /* Bindable.swift */,
@@ -1707,6 +1714,7 @@
 			isa = PBXGroup;
 			children = (
 				4AC005F027C3D80B006FFE87 /* PremiumManager.swift */,
+				4AB1D4F527D626C5009060AB /* IAPFooterView.swift */,
 				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
 				4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */,
 				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
@@ -1720,6 +1728,7 @@
 				74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */,
 				74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */,
 				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
+				4AB1D4F727D68026009060AB /* IAPHeaderView.swift */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -2250,6 +2259,7 @@
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
+				4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */,
 				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
@@ -2281,6 +2291,7 @@
 				4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */,
 				4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */,
 				74FC576125ADED030003ED27 /* VaultCell.swift in Sources */,
+				4AB1D4F627D626C5009060AB /* IAPFooterView.swift in Sources */,
 				4A1DB295275FB41800A5F27B /* SystemSymbolButtonCellViewModel.swift in Sources */,
 				4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */,
 				4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */,
@@ -2365,6 +2376,7 @@
 				4AB8539026BA844300555F00 /* Publisher+OptionalAssign.swift in Sources */,
 				4A1C6D58274CE5BF00B41FFF /* LoadingCell.swift in Sources */,
 				4A3D65642680A4B7000DA764 /* LocalFileSystemAuthenticationViewController.swift in Sources */,
+				4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */,
 				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */,
 				74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */,

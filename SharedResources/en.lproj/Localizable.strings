@@ -152,6 +152,13 @@
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.unlockedFullVersion.title" = "Thank You";
 
+// New
+"purchase.header.feature.writeAccess" = "Write access to your vaults";
+"purchase.header.feature.openSource" = "Open-source development";
+"purchase.header.feature.familySharing" = "Family sharing";
+"purchase.footer.termsOfUse" = "Terms of Use";
+"purchase.footer.privacyPolicy" = "Privacy Policy";
+
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
