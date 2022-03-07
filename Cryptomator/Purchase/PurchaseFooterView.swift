@@ -1,5 +1,5 @@
 //
-//  IAPFooterView.swift
+//  PurchaseFooterView.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 07.03.22.
@@ -9,7 +9,7 @@
 import CryptomatorCommonCore
 import UIKit
 
-class IAPFooterView: UITableViewHeaderFooterView {
+class PurchaseFooterView: UITableViewHeaderFooterView {
 	lazy var restorePurchaseButton: UIButton = {
 		let button = UIButton(type: .system)
 		button.setTitle(LocalizedString.getValue("purchase.redeemCode.button"), for: .normal)
