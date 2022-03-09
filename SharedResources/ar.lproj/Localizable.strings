@@ -88,6 +88,11 @@
 "fileProvider.onboarding.title" = "مرحباً بك";
 "fileProvider.onboarding.info" = "شكراً لاختيار Cryptomator لحماية ملفاتك. للبدء، اذهب إلى التطبيق الرئيس وأضف مخزن.";
 "fileProvider.onboarding.button.openCryptomator" = "فتح Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "الغاء فتح القفل";
+"fileProvider.error.biometricalAuthCanceled.message" = "افتح القفل باستخدام %@ فشل. حاول مرة اخرى.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "كلمة المرور خاطئة";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
+"fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.unlockButton" = "افتح";
 
 "localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
