@@ -12,14 +12,14 @@ import UIKit
 class PurchaseFooterView: UITableViewHeaderFooterView {
 	lazy var restorePurchaseButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(LocalizedString.getValue("purchase.redeemCode.button"), for: .normal)
+		button.setTitle(LocalizedString.getValue("purchase.restorePurchase.button"), for: .normal)
 		styleButton(button)
 		return button
 	}()
 
 	lazy var redeemCodeButton: UIButton = {
 		let button = UIButton(type: .system)
-		button.setTitle(LocalizedString.getValue("purchase.restorePurchase.button"), for: .normal)
+		button.setTitle(LocalizedString.getValue("purchase.redeemCode.button"), for: .normal)
 		styleButton(button)
 		button.isHidden = !canRedeemCode()
 		return button
@@ -33,7 +33,6 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 
 	private lazy var purchaseActionStack: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: [restorePurchaseButton, bulletPoint, redeemCodeButton])
-		stack.distribution = .equalSpacing
 		stack.alignment = .center
 		return stack
 	}()
@@ -42,7 +41,6 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 
 	private lazy var legalInfoStack: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: [termsOfUseButton, legalBulletPoint, privacyPolicyButton])
-		stack.distribution = .equalSpacing
 		stack.alignment = .center
 		return stack
 	}()
@@ -77,12 +75,14 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 		let stack = UIStackView(arrangedSubviews: [purchaseActionStack, legalInfoStack])
 		stack.axis = .vertical
 		stack.alignment = .center
-		stack.distribution = .equalSpacing
+		stack.spacing = 32
 		contentView.addSubview(stack)
 		stack.translatesAutoresizingMaskIntoConstraints = false
+		let stackBottomAnchor = stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+		stackBottomAnchor.priority = .almostRequired
 		NSLayoutConstraint.activate([
-			stack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-			stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
+			stack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 28),
+			stackBottomAnchor,
 			stack.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.layoutMarginsGuide.leadingAnchor),
 			stack.trailingAnchor.constraint(lessThanOrEqualTo: contentView.layoutMarginsGuide.trailingAnchor),
 			stack.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
@@ -108,7 +108,7 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 
 	private func configureAsVerticalStack(_ stack: UIStackView) {
 		stack.axis = .vertical
-		stack.spacing = 0
+		stack.spacing = 16
 	}
 
 	private func configureAsHorizontalStack(_ stack: UIStackView) {
