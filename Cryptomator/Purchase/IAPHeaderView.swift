@@ -10,7 +10,12 @@ import CryptomatorCommonCore
 import UIKit
 
 class IAPHeaderView: UITableViewHeaderFooterView {
-	lazy var infoLabel = AutoHidingLabel()
+	lazy var infoLabel: UILabel = {
+		let label = AutoHidingLabel()
+		label.numberOfLines = 0
+		label.textAlignment = .center
+		return label
+	}()
 
 	private lazy var imageView: UIImageView = {
 		let image = UIImage(named: "bot")
@@ -38,7 +43,7 @@ class IAPHeaderView: UITableViewHeaderFooterView {
 	private lazy var bottomStack: UIStackView = {
 		let stack = UIStackView(arrangedSubviews: [separator, infoLabel])
 		stack.axis = .vertical
-		stack.spacing = 20
+		stack.spacing = headerElementSpacing
 		return stack
 	}()
 
@@ -46,6 +51,10 @@ class IAPHeaderView: UITableViewHeaderFooterView {
 		super.init(reuseIdentifier: reuseIdentifier)
 		setupViews()
 	}
+
+	let headerTopBottomPadding: CGFloat = 28
+	let headerElementSpacing: CGFloat = 32
+	let botPadding: CGFloat = 6
 
 	func setupViews() {
 		contentView.addSubview(imageView)
@@ -57,25 +66,24 @@ class IAPHeaderView: UITableViewHeaderFooterView {
 		separator.translatesAutoresizingMaskIntoConstraints = false
 		bottomStack.translatesAutoresizingMaskIntoConstraints = false
 
-		let featuresTopAnchor = features.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 20)
-		let bottomStackBottomAnchor = bottomStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: -20)
+		let featuresTopAnchor = features.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: headerTopBottomPadding)
+		let bottomStackBottomAnchor = bottomStack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor, constant: headerTopBottomPadding * -1)
 		featuresTopAnchor.priority = .almostRequired
 		bottomStackBottomAnchor.priority = .almostRequired
 
 		NSLayoutConstraint.activate([
-			imageView.topAnchor.constraint(equalTo: features.topAnchor, constant: 4),
-			imageView.bottomAnchor.constraint(lessThanOrEqualTo: features.bottomAnchor, constant: -4),
+			imageView.centerYAnchor.constraint(equalTo: features.centerYAnchor),
 			imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-			imageView.trailingAnchor.constraint(equalTo: features.leadingAnchor, constant: -20),
+			imageView.trailingAnchor.constraint(equalTo: features.leadingAnchor, constant: -16),
 			imageView.widthAnchor.constraint(equalToConstant: 64),
 			imageView.heightAnchor.constraint(equalToConstant: 64),
 
 			featuresTopAnchor,
-			features.trailingAnchor.constraint(equalTo: contentView.readableContentGuide.trailingAnchor),
+			features.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
 
 			bottomStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
 			bottomStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-			bottomStack.topAnchor.constraint(equalTo: features.layoutMarginsGuide.bottomAnchor, constant: 40),
+			bottomStack.topAnchor.constraint(equalTo: features.bottomAnchor, constant: headerElementSpacing),
 			separator.heightAnchor.constraint(equalToConstant: separatorWeight),
 			bottomStackBottomAnchor
 		])
@@ -159,6 +167,7 @@ class IAPHeaderView: UITableViewHeaderFooterView {
 			let paragraphStyle = NSMutableParagraphStyle()
 			paragraphStyle.tabStops = [NSTextTab(textAlignment: .left, location: indentation, options: [:])]
 			paragraphStyle.headIndent = indentation
+			paragraphStyle.lineHeightMultiple = 1.2
 
 			return paragraphStyle
 		}
