@@ -10,36 +10,32 @@ import Combine
 import CryptomatorCommonCore
 import UIKit
 
-struct PurchaseCellViewModel {
+struct PurchaseCellViewModel: Hashable {
 	let productName: String
-	let productDetail: String?
 	let price: String
 	let purchaseDetail: String?
 	let purchaseButtonViewModel = PurchaseButtonViewModel()
+	let productIdentifier: ProductIdentifier
 }
 
-struct PurchaseButtonViewModel {
+struct PurchaseButtonViewModel: Hashable {
 	let isEnabled: Bindable<Bool> = Bindable(true)
 	let isLoading: Bindable<Bool> = Bindable(false)
-	var buttonTapped: AnyPublisher<Void, Never> {
-		return buttonTappedPublisher.eraseToAnyPublisher()
-	}
-
-	fileprivate let buttonTappedPublisher = PassthroughSubject<Void, Never>()
 }
 
 class PurchaseCell: IAPCell {
+	var purchaseButton: PurchaseButton {
+		return accessory.button
+	}
+
 	override var customAccessoryView: UIView? {
 		return accessory
 	}
 
 	private let accessory = PurchaseCellAccessory()
 
-	private lazy var subscribers = Set<AnyCancellable>()
-
 	func configure(with viewModel: PurchaseCellViewModel) {
 		productTitleLabel.text = viewModel.productName
-		productDetailLabel.text = viewModel.productDetail
 		accessory.button.setTitle(viewModel.price, for: .normal)
 		accessory.detailLabel.text = viewModel.purchaseDetail
 		accessory.configure(with: viewModel.purchaseButtonViewModel)
@@ -47,15 +43,13 @@ class PurchaseCell: IAPCell {
 
 	override func prepareForReuse() {
 		super.prepareForReuse()
-		subscribers.removeAll()
-		accessory.button.primaryAction = nil
+		purchaseButton.primaryAction = nil
 	}
 }
 
-private class CapsuleButton: UIButton {
+class CapsuleButton: UIButton {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
-
 		contentEdgeInsets = .init(top: 5, left: 15, bottom: 5, right: 15)
 	}
 
@@ -75,8 +69,9 @@ private class CapsuleButton: UIButton {
 	}
 }
 
-private class PurchaseButton: CapsuleButton {
+class PurchaseButton: CapsuleButton {
 	var primaryAction: (() -> Void)?
+
 	private var subscribers = Set<AnyCancellable>()
 
 	convenience init() {
@@ -89,7 +84,9 @@ private class PurchaseButton: CapsuleButton {
 		backgroundColor = .cryptomatorBackground
 		titleLabel?.adjustsFontForContentSizeCategory = true
 		setTitleColor(UIColor(named: "primary"), for: .normal)
+		setTitleColor(.secondaryLabel, for: .disabled)
 		addTarget(self, action: #selector(primaryActionTriggered), for: .primaryActionTriggered)
+		widthAnchor.constraint(greaterThanOrEqualToConstant: 85).isActive = true
 	}
 
 	@available(*, unavailable)
@@ -105,13 +102,11 @@ private class PurchaseButton: CapsuleButton {
 		viewModel.isEnabled.$value.receive(on: DispatchQueue.main).sink { [weak self] isEnabled in
 			self?.isEnabled = isEnabled
 		}.store(in: &subscribers)
-		primaryAction = {
-			viewModel.isLoading.value = true
-			viewModel.buttonTappedPublisher.send()
-			DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-				viewModel.isLoading.value = false
-			}
-		}
+	}
+
+	// Expand the buttons hit area to its superview bounds
+	override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+		superview?.bounds.contains(point) ?? bounds.contains(point)
 	}
 }
 
