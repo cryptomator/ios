@@ -11,7 +11,13 @@ import UIKit
 class AutoHidingLabel: UILabel {
 	override var text: String? {
 		didSet {
-			isHidden = text == nil
+			isHidden = text == nil && attributedText == nil
+		}
+	}
+
+	override var attributedText: NSAttributedString? {
+		didSet {
+			isHidden = text == nil && attributedText == nil
 		}
 	}
 }
