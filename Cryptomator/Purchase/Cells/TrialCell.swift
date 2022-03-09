@@ -27,33 +27,6 @@ class TrialCell: IAPCell {
 		productDetailLabel.text = viewModel.expirationText
 		trialStatusLabel.text = viewModel.status.localized
 	}
-
-	enum TrialStatus {
-		case active
-		case expired
-
-		var localized: String {
-			switch self {
-			case .active:
-				return LocalizedString.getValue("trialStatus.active")
-			case .expired:
-				return LocalizedString.getValue("trialStatus.expired")
-			}
-		}
-	}
-
-	struct TrialCellViewModel {
-		let status: TrialStatus
-		let productTitleText = "30-Day Trial"
-		var expirationText: String {
-			let formatter = DateFormatter()
-			formatter.dateStyle = .short
-			let formattedExpirationDate = formatter.string(for: expirationDate) ?? "Invalid Date"
-			return "Expiration Date: \(formattedExpirationDate)"
-		}
-
-		let expirationDate: Date
-	}
 }
 
 class TrialStatusLabel: UILabel {
@@ -74,4 +47,38 @@ class TrialStatusLabel: UILabel {
 		contentSize.width += insets.left + insets.right
 		return contentSize
 	}
+}
+
+enum TrialStatus: Hashable {
+	case active
+	case expired
+
+	var localized: String {
+		switch self {
+		case .active:
+			return LocalizedString.getValue("trialStatus.active")
+		case .expired:
+			return LocalizedString.getValue("trialStatus.expired")
+		}
+	}
+}
+
+struct TrialCellViewModel: Hashable {
+	var status: TrialStatus {
+		if expirationDate > Date() {
+			return .active
+		} else {
+			return .expired
+		}
+	}
+
+	let productTitleText = "30-Day Trial"
+	var expirationText: String {
+		let formatter = DateFormatter()
+		formatter.dateStyle = .short
+		let formattedExpirationDate = formatter.string(for: expirationDate) ?? "Invalid Date"
+		return "Expiration Date: \(formattedExpirationDate)"
+	}
+
+	let expirationDate: Date
 }
