@@ -24,18 +24,20 @@ class PurchaseCoordinator: Coordinator {
 	func start() {
 		let purchaseViewController = PurchaseViewController(viewModel: PurchaseViewModel())
 		purchaseViewController.coordinator = self
+		purchaseViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
 		navigationController.pushViewController(purchaseViewController, animated: true)
 	}
 
-	func showUpgrade() {
+	func showUpgrade(onAlertDismiss execute: (() -> Void)? = nil) {
 		if UpgradeChecker.shared.isEligibleForUpgrade() {
-			let child = getUpgradeCoordinator()
-			childCoordinators.append(child) // TODO: remove missing?
-			child.start()
+			let upgradeViewController = IAPViewController(viewModel: UpgradeViewModel())
+			upgradeViewController.coordinator = getUpgradeCoordinator()
+			upgradeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+			navigationController.pushViewController(upgradeViewController, animated: true)
 		} else if UIApplication.shared.canOpenURL(UpgradeChecker.upgradeURL) {
 			UIApplication.shared.open(UpgradeChecker.upgradeURL)
 		} else {
-			showUpgradeFailedAlert()
+			showUpgradeFailedAlert(onAlertDismiss: execute)
 		}
 	}
 
@@ -77,19 +79,23 @@ class PurchaseCoordinator: Coordinator {
 //		parentCoordinator?.childDidFinish(self)
 	}
 
-	func getUpgradeCoordinator() -> UpgradeCoordinator {
-		return UpgradeCoordinator(navigationController: navigationController)
+	func getUpgradeCoordinator() -> PurchaseCoordinator {
+		return self
 	}
 
-	private func showUpgradeFailedAlert() {
+	private func showUpgradeFailedAlert(onAlertDismiss execute: (() -> Void)? = nil) {
 		let alertController = UIAlertController(title: LocalizedString.getValue("upgrade.notEligible.alert.title"),
 		                                        message: LocalizedString.getValue("upgrade.notEligible.alert.message"),
 		                                        preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.download"), style: .default) { _ in
 			self.showCryptomatorLegacyAppInAppStore()
+			execute?()
 		}
 		alertController.addAction(okAction)
-		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel) { _ in
+			execute?()
+		}
+		alertController.addAction(cancelAction)
 		alertController.preferredAction = okAction
 		navigationController.present(alertController, animated: true)
 	}
@@ -97,5 +103,22 @@ class PurchaseCoordinator: Coordinator {
 	private func showCryptomatorLegacyAppInAppStore() {
 		let cryptomatorLegacyAppStoreURL = URL(string: "itms-apps://apple.com/app/id953086535")!
 		UIApplication.shared.open(cryptomatorLegacyAppStoreURL)
+	}
+
+	@objc func doneButtonTapped() {
+		showContinueInReadOnlyModeAlert()
+	}
+
+	private func showContinueInReadOnlyModeAlert() {
+		let alertController = UIAlertController(title: LocalizedString.getValue("purchase.readOnlyMode"),
+		                                        message: LocalizedString.getValue("purchase.decideLater.footer"),
+		                                        preferredStyle: .alert)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
+			self.close()
+		}
+		alertController.addAction(okAction)
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
+		alertController.preferredAction = okAction
+		navigationController.present(alertController, animated: true)
 	}
 }

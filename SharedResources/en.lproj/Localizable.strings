@@ -35,7 +35,7 @@
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
-"addVault.createNewVault.purchase" = "Creating a new vault requires the full version of Cryptomator. Consider unlocking the full version for write access to your vaults.";
+"addVault.createNewVault.purchase" = "Creating a new vault requires the full version of Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
@@ -158,6 +158,18 @@
 "purchase.header.feature.familySharing" = "Family sharing";
 "purchase.footer.termsOfUse" = "Terms of Use";
 "purchase.footer.privacyPolicy" = "Privacy Policy";
+"purchase.product.trial" = "30-Day Trial";
+"purchase.product.pricing.free" = "Free";
+"purchase.product.trial.duration" = "for 30 days";
+"purchase.product.lifetimeLicense" = "Lifetime License";
+"purchase.product.lifetimeLicense.duration" = "one-time";
+"purchase.product.yearlySubscription" = "Yearly Subscription";
+"purchase.product.yearlySubscription.duration" = "yearly";
+"purchase.product.freeUpgrade" = "Free Upgrade";
+"purchase.product.donateAndUpgrade" = "Donate & Upgrade";
+"purchase.readOnlyMode" = "Read-Only Mode";
+"purchase.upgradeOffer" = "Upgrade Offer";
+"purchase.expiredTrial" = "Your trial has expired.";
 
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
@@ -211,6 +223,7 @@
 "upgrade.decideLater.footer" = "You can upgrade to the full version of Cryptomator later in the settings and use it in read-only mode for now.";
 "upgrade.notEligible.alert.title" = "Upgrade Failed";
 "upgrade.notEligible.alert.message" = "Cryptomator couldn't detect an older version installed on your device. If you bought it, please re-download it from the App Store and try again.";
+"upgrade.infoLabel" = "Thanks for trusting Cryptomator since version one. As a loyal user, you're eligible for a free upgrade.";
 
 "urlSession.error.httpError.401" = "Wrong username and/or password.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";

@@ -6,14 +6,14 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Promises
 import StoreKitTest
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
+@testable import Promises
 
 @available(iOS 14.0, *)
-class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButtonAction> {
+class PurchaseViewModelTests: IAPViewModelTestCase {
 	var viewModel: PurchaseViewModel!
 	var upgradeCheckerMock: UpgradeCheckerMock!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!
@@ -21,261 +21,124 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		setUpMocks()
-		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
+		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
 	}
 
-	// MARK: Sections
+	// MARK: Cells
 
-	func testDefaultCellViewModelsNonEligibleUpgrade() {
-		assertHasInitialSections(viewModel: viewModel)
-
-		let upgradeSectionFooterTitle = viewModel.getFooterTitle(for: 1)
-		XCTAssertEqual(LocalizedString.getValue("purchase.upgrade.notEligible.footer"), upgradeSectionFooterTitle)
-		XCTAssertEqual(1, upgradeCheckerMock.couldBeEligibleForUpgradeCallsCount)
+	func testDefaultCellsBeforeFetchProducts() {
+		assertShowsLoadingCell(viewModel: viewModel)
 	}
 
-	func testDefaultCellViewModelsEligibleUpgrade() {
-		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = true
-		assertHasInitialSections(viewModel: viewModel)
-
-		let upgradeSectionFooterTitle = viewModel.getFooterTitle(for: 1)
-		XCTAssertEqual(LocalizedString.getValue("purchase.upgrade.footer"), upgradeSectionFooterTitle)
-		XCTAssertEqual(1, upgradeCheckerMock.couldBeEligibleForUpgradeCallsCount)
-	}
-
-	func testOrderAfterFetchProducts() {
-		let expectation = XCTestExpectation()
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
-			Section(id: .trialSection, elements: [viewModel.freeTrialButtonCellViewModel]),
-			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
-			Section(id: .subscribeSection, elements: [viewModel.subscribeButtonCellViewModel, viewModel.redeemButtonCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+	func testCellsAfterFetchProducts() {
+		let expectedCells: [BaseIAPViewModel.Item] = [
+			purchaseTrialCell,
+			yearlySubscriptionCell,
+			lifetimeLicenseCell,
+			upgradeOfferCell
 		]
-
-		viewModel.fetchProducts().then {
-			XCTAssertEqual(expectedSections, self.viewModel.sections)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
+		wait(for: viewModel.fetchProducts())
+		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testOrderAfterFetchProductsWithRunningTrial() {
-		let expectation = XCTestExpectation()
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
-			Section(id: .purchaseSection, elements: [viewModel.purchaseButtonCellViewModel]),
-			Section(id: .subscribeSection, elements: [viewModel.subscribeButtonCellViewModel, viewModel.redeemButtonCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
+	func testCellsAfterFetchProductsWithRunningTrial() {
+		let expectedCells: [BaseIAPViewModel.Item] = [
+			runningTrialCell,
+			yearlySubscriptionCell,
+			lifetimeLicenseCell,
+			upgradeOfferCell
 		]
-
 		cryptomatorSettingsMock.trialExpirationDate = .distantFuture
-		viewModel.fetchProducts().then {
-			XCTAssertEqual(expectedSections, self.viewModel.sections)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
+		wait(for: viewModel.fetchProducts())
+		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testFullVersionPriceFromStoreKit() {
-		let expectation = XCTestExpectation()
-		let expectedTitle = String(format: LocalizedString.getValue("purchase.purchaseFullVersion.button"), "$11.99")
-		viewModel.fetchProducts().then {
-			XCTAssertEqual(expectedTitle, self.viewModel.purchaseButtonCellViewModel.title.value)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
+	func testCellsAfterFetchProductsWithExpiredTrial() {
+		let expectedCells: [BaseIAPViewModel.Item] = [
+			expiredTrialCell,
+			yearlySubscriptionCell,
+			lifetimeLicenseCell,
+			upgradeOfferCell
+		]
+		cryptomatorSettingsMock.trialExpirationDate = .distantPast
+
+		wait(for: viewModel.fetchProducts())
+		XCTAssertEqual(expectedCells, viewModel.cells)
 	}
 
-	func testShowRefreshSectionIfFetchProductsFailed() {
-		let expectation = XCTestExpectation()
+	func testCellsAfterFetchProductsFailed() {
 		let iapStoreMock = IAPStoreMock()
 		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
 		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
-		viewModel.fetchProducts().then {
-			self.assertShowReloadSectionAfterFetchProductFailed(viewModel: viewModel)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-	}
-
-	// MARK: Header Title
-
-	func testHeaderTitle() {
-		cryptomatorSettingsMock.trialExpirationDate = nil
-		cryptomatorSettingsMock.fullVersionUnlocked = false
-		XCTAssertEqual(LocalizedString.getValue("purchase.info"), viewModel.headerTitle)
-	}
-
-	func testHeaderTitleForRunningTrial() {
-		let trialExpirationDate = Date.distantFuture
-		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
-		cryptomatorSettingsMock.fullVersionUnlocked = false
-
-		let formatter = DateFormatter()
-		formatter.dateStyle = .short
-		let formattedExpireDate = formatter.string(for: trialExpirationDate)!
-		let expectedHeaderTitle = String(format: LocalizedString.getValue("purchase.infoRunningTrial"), formattedExpireDate)
-		XCTAssertEqual(expectedHeaderTitle, viewModel.headerTitle)
-	}
-
-	func testHeaderTitleForExpiredTrial() {
-		cryptomatorSettingsMock.trialExpirationDate = .distantPast
-		cryptomatorSettingsMock.fullVersionUnlocked = false
-		XCTAssertEqual(LocalizedString.getValue("purchase.infoExpiredTrial"), viewModel.headerTitle)
+		wait(for: viewModel.fetchProducts(), timeout: 2.0)
+		XCTAssertEqual([retryCell], viewModel.cells)
 	}
 
 	// MARK: Begin Free Trial
 
-	func testBeginFreeTrial() {
-		let expectation = XCTestExpectation()
+	func testBeginFreeTrial() throws {
 		let trialExpirationDate = Date()
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.freeTrialButtonCellViewModel.isLoading.$value.recordNext(3)
 		setUpIAPManagerMockForBeginTrial(trialExpirationDate: trialExpirationDate)
-		viewModel.fetchProducts().then {
-			self.viewModel.beginFreeTrial()
-		}.then { actualTrialExpirationDate in
-			XCTAssertEqual(trialExpirationDate, actualTrialExpirationDate)
-			self.assertCalledBuyProduct(with: .thirtyDayTrial)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		try assertBuyProductWorks(viewModel: viewModel,
+		                          productIdentifier: .thirtyDayTrial,
+		                          expectedPurchaseTransaction: .freeTrial(expiresOn: trialExpirationDate))
 	}
 
-	func testBeginFreeTrialCancelled() {
-		let expectation = XCTestExpectation()
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.freeTrialButtonCellViewModel.isLoading.$value.recordNext(3)
+	func testBeginFreeTrialCancelled() throws {
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		viewModel.fetchProducts().then {
-			self.viewModel.beginFreeTrial()
-		}.then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			XCTAssertEqual(.paymentCancelled, error as? PurchaseError)
-			self.assertCalledBuyProduct(with: .thirtyDayTrial)
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		try assertCancelledBuyProduct(viewModel: viewModel,
+		                              productIdentifier: .thirtyDayTrial)
 	}
 
 	// MARK: Purchase Full Version
 
-	func testPurchaseFullVersion() {
-		let expectation = XCTestExpectation()
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.purchaseButtonCellViewModel.isLoading.$value.recordNext(3)
+	func testPurchaseFullVersion() throws {
 		setUpIAPManagerMockForFullVersionPurchase()
-		viewModel.fetchProducts().then {
-			self.viewModel.purchaseFullVersion()
-		}.then {
-			self.assertCalledBuyProduct(with: .fullVersion)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		try assertBuyProductWorks(viewModel: viewModel,
+		                          productIdentifier: .fullVersion,
+		                          expectedPurchaseTransaction: .fullVersion)
 	}
 
-	func testPurchaseFullVersionCancelled() {
-		let expectation = XCTestExpectation()
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.purchaseButtonCellViewModel.isLoading.$value.recordNext(3)
+	func testPurchaseFullVersionCancelled() throws {
 		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
-		viewModel.fetchProducts().then {
-			self.viewModel.purchaseFullVersion()
-		}.then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			XCTAssertEqual(.paymentCancelled, error as? PurchaseError)
-			self.assertCalledBuyProduct(with: .fullVersion)
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		try assertCancelledBuyProduct(viewModel: viewModel,
+		                              productIdentifier: .fullVersion)
+	}
+
+	// MARK: Start Yearly Subscription
+
+	func testPurchaseYearlySubscription() throws {
+		setUpIAPManagerMockForYearlySubscriptionPurchase()
+		try assertBuyProductWorks(viewModel: viewModel,
+		                          productIdentifier: .yearlySubscription,
+		                          expectedPurchaseTransaction: .yearlySubscription)
+	}
+
+	func testPurchaseYearlySubscriptionCancelled() throws {
+		iapManagerMock.buyReturnValue = Promise(SKError(.paymentCancelled))
+		try assertCancelledBuyProduct(viewModel: viewModel,
+		                              productIdentifier: .yearlySubscription)
 	}
 
 	// MARK: - Restore Purchase
 
 	func testRestoreFreeTrial() throws {
-		let expectation = XCTestExpectation()
-		guard let excpectedTrialExpirationDate = Calendar.current.date(byAdding: .day, value: 30, to: Date()) else {
-			XCTFail("Could not create excpectedTrialExpirationDate")
-			return
-		}
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.restorePurchaseButtonCellViewModel.isLoading.$value.recordNext(3)
-		iapManagerMock.restoreReturnValue = Promise(.restoredFreeTrial(expiresOn: excpectedTrialExpirationDate))
-		viewModel.fetchProducts().then {
-			self.viewModel.restorePurchase()
-		}.then { result in
-			XCTAssertEqual(.restoredFreeTrial(expiresOn: excpectedTrialExpirationDate), result)
-			XCTAssertEqual(1, self.iapManagerMock.restoreCallsCount)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		let expectedTrialExpirationDate = try XCTUnwrap(Calendar.current.date(byAdding: .day, value: 30, to: Date()))
+		iapManagerMock.restoreReturnValue = Promise(.restoredFreeTrial(expiresOn: expectedTrialExpirationDate))
+		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFreeTrial(expiresOn: expectedTrialExpirationDate))
 	}
 
 	func testRestoreFullVersion() throws {
-		let expectation = XCTestExpectation()
-		let hasRunningTransactionRecorder = viewModel.hasRunningTransaction.recordNext(2)
-		let buttonCellVMsEnabledRecorders = recordEnabledStatusForAllButtonCellViewModels(next: 3, viewModel: viewModel)
-		let isLoadingRecorder = viewModel.restorePurchaseButtonCellViewModel.isLoading.$value.recordNext(3)
 		iapManagerMock.restoreReturnValue = Promise(.restoredFullVersion)
-		viewModel.fetchProducts().then {
-			self.viewModel.restorePurchase()
-		}.then { result in
-			XCTAssertEqual(.restoredFullVersion, result)
-			XCTAssertEqual(1, self.iapManagerMock.restoreCallsCount)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 2.0)
-		assertCorrectRunningTransactionBehavior(hasRunningTransactionRecorder: hasRunningTransactionRecorder, buttonCellVMRecorders: buttonCellVMsEnabledRecorders)
-		assertCorrectIsLoadingBehavior(isLoadingRecorder.getElements())
+		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .restoredFullVersion)
 	}
+
+	func testRestoreNothing() throws {
+		iapManagerMock.restoreReturnValue = Promise(.noRestorablePurchases)
+		try assertRestoredPurchase(viewModel: viewModel, expectedResult: .noRestorablePurchases)
+	}
+
+	// MARK: Internal
 
 	private func setUpMocks() {
 		upgradeCheckerMock = UpgradeCheckerMock()
@@ -291,28 +154,41 @@ class PurchaseViewModelTests: IAPViewModelTestCase<PurchaseSection, PurchaseButt
 		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.freeTrial(expiresOn: trialExpirationDate))
 	}
 
-	private func assertShowReloadSectionAfterFetchProductFailed(viewModel: PurchaseViewModel) {
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
-			Section(id: .retrySection, elements: [viewModel.retryButtonCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
-		]
-		XCTAssertEqual(expectedSections, viewModel.sections)
-		XCTAssertEqual(LocalizedString.getValue("purchase.retry.button"), viewModel.retryButtonCellViewModel.title.value)
-		XCTAssertEqual(LocalizedString.getValue("purchase.retry.footer"), viewModel.getFooterTitle(for: 2))
+	private func setUpIAPManagerMockForYearlySubscriptionPurchase() {
+		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.yearlySubscription)
 	}
 
-	private func assertHasInitialSections(viewModel: PurchaseViewModel) {
-		let expectedSections: [Section<PurchaseSection>] = [
-			Section(id: .emptySection, elements: []),
-			Section(id: .upgradeSection, elements: [viewModel.upgradeButtonCellViewModel]),
-			Section(id: .loadingSection, elements: [viewModel.loadingCellViewModel]),
-			Section(id: .restoreSection, elements: [viewModel.restorePurchaseButtonCellViewModel]),
-			Section(id: .decideLaterSection, elements: [viewModel.decideLaterButtonCellViewModel])
-		]
-		XCTAssertEqual(expectedSections, viewModel.sections)
+	private var purchaseTrialCell: Item {
+		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.trial"),
+		                           price: LocalizedString.getValue("purchase.product.pricing.free"),
+		                           purchaseDetail: LocalizedString.getValue("purchase.product.trial.duration"),
+		                           productIdentifier: .thirtyDayTrial))
+	}
+
+	private var yearlySubscriptionCell: Item {
+		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.yearlySubscription"),
+		                           price: "$5.99",
+		                           purchaseDetail: LocalizedString.getValue("purchase.product.yearlySubscription.duration"),
+		                           productIdentifier: .yearlySubscription))
+	}
+
+	private var lifetimeLicenseCell: Item {
+		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
+		                           price: "$11.99",
+		                           purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
+		                           productIdentifier: .fullVersion))
+	}
+
+	private var upgradeOfferCell: Item {
+		return .showUpgradeOffer
+	}
+
+	private var runningTrialCell: Item {
+		return .trialCell(.init(expirationDate: .distantFuture))
+	}
+
+	private var expiredTrialCell: Item {
+		return .trialCell(.init(expirationDate: .distantPast))
 	}
 }
 
