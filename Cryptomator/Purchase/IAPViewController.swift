@@ -108,7 +108,7 @@ class IAPViewController: BaseUITableViewController {
 				cell.contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: IAPCell.minimumHeight).isActive = true
 			case .showUpgradeOffer:
 				let disclosureCell = DisclosureCell()
-				disclosureCell.textLabel?.text = LocalizedString.getValue("purchase.upgradeOffer")
+				disclosureCell.textLabel?.text = LocalizedString.getValue("upgrade.title")
 				cell = disclosureCell
 			case .loadingCell:
 				cell = LoadingCell()

@@ -110,8 +110,8 @@ class PurchaseCoordinator: Coordinator {
 	}
 
 	private func showContinueInReadOnlyModeAlert() {
-		let alertController = UIAlertController(title: LocalizedString.getValue("purchase.readOnlyMode"),
-		                                        message: LocalizedString.getValue("purchase.decideLater.footer"),
+		let alertController = UIAlertController(title: LocalizedString.getValue("purchase.readOnlyMode.alert.title"),
+		                                        message: LocalizedString.getValue("purchase.readOnlyMode.alert.message"),
 		                                        preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
 			self.close()

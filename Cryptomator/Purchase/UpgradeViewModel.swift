@@ -17,7 +17,7 @@ class UpgradeViewModel: BaseIAPViewModel, ProductFetching {
 
 	override var infoText: NSAttributedString? {
 		return .textWithLeadingSystemImage("heart.fill",
-		                                   text: LocalizedString.getValue("upgrade.infoLabel"),
+		                                   text: LocalizedString.getValue("upgrade.info"),
 		                                   font: .preferredFont(forTextStyle: .body),
 		                                   color: .secondaryLabel)
 	}
