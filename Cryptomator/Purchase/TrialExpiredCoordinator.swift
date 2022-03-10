@@ -7,12 +7,13 @@
 //
 
 import CryptomatorCommonCore
-import Foundation
+import UIKit
 
 class TrialExpiredCoordinator: PurchaseCoordinator {
 	override func start() {
 		let purchaseViewController = PurchaseViewController(viewModel: TrialExpiredPurchaseViewModel())
 		purchaseViewController.coordinator = self
+		purchaseViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
 		navigationController.pushViewController(purchaseViewController, animated: false)
 	}
 }
