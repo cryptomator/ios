@@ -1,0 +1,2 @@
+scheme("Cryptomator")
+clean(true)

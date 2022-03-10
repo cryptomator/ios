@@ -1,1 +1,1 @@
-- App lässt sich nun wieder mit der neuesten iOS-Version starten (#171, #174)
+- Fehler "Datei existiert nicht" beim Speichern einer Datei behoben (#179, #184)

@@ -11,7 +11,7 @@ platform :ios do
 
   desc "Create screenshots in every language with every device"
   lane :create_screenshots do
-    snapshot()
+    snapshot
   end
 
   desc "Upload screenshots to App Store Connect"
@@ -24,9 +24,15 @@ platform :ios do
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)
   end
 
-  desc "Submit a new internal beta build to TestFlight"
+  desc "Runs all the tests"
+  lane :test do
+    scan(open_report: true)
+  end
+
+  desc "Submit a new beta build to TestFlight"
   lane :beta do
-    gym(scheme: "Cryptomator", clean: true)
+    scan
+    gym
     changelog = File.read("changelog.txt")
     pilot(changelog: changelog, distribute_external: true, groups: ["App Store Connect Users"])
     version = get_version_number(target: "Cryptomator")
@@ -42,7 +48,8 @@ platform :ios do
 
   desc "Deploy a new version to the App Store"
   lane :app_store do
-    gym(scheme: "Cryptomator", clean: true)
+    scan
+    gym
     changelog = File.read("changelog.txt")
     deliver(skip_screenshots: true, submit_for_review: true, submission_information: { add_id_info_uses_idfa: false })
     version = get_version_number(target: "Cryptomator")

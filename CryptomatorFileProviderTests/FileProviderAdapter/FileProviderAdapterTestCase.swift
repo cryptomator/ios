@@ -38,17 +38,6 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              fullVersionChecker: fullVersionCheckerMock)
 	}
 
-	class LocalURLProviderMock: LocalURLProvider {
-		var response: ((NSFileProviderItemIdentifier) -> URL?)?
-
-		func urlForItem(withPersistentIdentifier identifier: NSFileProviderItemIdentifier) -> URL? {
-			guard let response = response else {
-				fatalError("urlForItem not mocked")
-			}
-			return response(identifier)
-		}
-	}
-
 	class WorkflowSchedulerMock: WorkflowScheduler {
 		init() {
 			super.init(maxParallelUploads: 1, maxParallelDownloads: 1)
@@ -57,6 +46,10 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		override func schedule<T>(_ workflow: Workflow<T>) -> Promise<T> {
 			return Promise(CloudTaskTestError.correctPassthrough)
 		}
+	}
+
+	func createFullyMockedAdapter() -> FileProviderAdapter {
+		return FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 	}
 }
 

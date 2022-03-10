@@ -47,13 +47,21 @@ Upload screenshots to App Store Connect
 
 Update metadata in App Store Connect
 
+### ios test
+
+```sh
+[bundle exec] fastlane ios test
+```
+
+Runs all the tests
+
 ### ios beta
 
 ```sh
 [bundle exec] fastlane ios beta
 ```
 
-Submit a new internal beta build to TestFlight
+Submit a new beta build to TestFlight
 
 ### ios app_store
 
