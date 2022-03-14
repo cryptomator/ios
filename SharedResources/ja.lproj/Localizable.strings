@@ -136,6 +136,7 @@
 "purchase.beginFreeTrial.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
 "purchase.purchaseFullVersion.button" = "%@でフルバージョンを購入";
 "purchase.purchaseFullVersion.footer" = "一度支払いすることでCryptomatorの保管庫への書き込みアクセスのロックを永続的に解除します。";
+"purchase.redeemCode.button" = "コードを再発行";
 "purchase.restorePurchase.button" = "購入情報の復元";
 "purchase.restorePurchase.footer" = "すでにCryptomatorのフルバージョンを購入している場合は、購入情報を復元することができます。";
 "purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
@@ -145,6 +146,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "以前購入したフルバージョンが見つかりませんでした。別のオプションをお試しください。";
 "purchase.retry.button" = "再試行";
 "purchase.retry.footer" = "利用可能な製品を読み込めませんでした。";
+"purchase.startSubscription.button" = "年間サブスクリプション：%@";
 "purchase.decideLater.button" = "後で決める";
 "purchase.decideLater.footer" = "後で設定でCryptomatorのフルバージョンのロックを解除し、今は読み取り専用モードで使用します。";
 "purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
@@ -159,6 +161,7 @@
 "settings.contact" = "連絡先";
 "settings.debugMode" = "デバッグ モード";
 "settings.debugMode.alert.message" = "このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。";
+"settings.manageSubscriptions" = "サブスクリプションの管理";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
