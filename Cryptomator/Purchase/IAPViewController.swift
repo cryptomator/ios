@@ -32,7 +32,6 @@ class IAPViewController: BaseUITableViewController {
 	weak var coordinator: PurchaseCoordinator?
 	private let viewModel: IAPViewModel
 	private var defaultIsModalInPresentation: Bool?
-	private lazy var header = IAPHeaderView()
 
 	init(viewModel: IAPViewModel) {
 		self.viewModel = viewModel
@@ -117,6 +116,7 @@ class IAPViewController: BaseUITableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		let header = IAPHeaderView()
 		header.infoLabel.attributedText = viewModel.infoText
 		return header
 	}
