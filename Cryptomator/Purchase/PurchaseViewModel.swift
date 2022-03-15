@@ -21,11 +21,9 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		return LocalizedString.getValue("purchase.title")
 	}
 
-	private let upgradeChecker: UpgradeCheckerProtocol
 	private let cryptomatorSettings: CryptomatorSettings
 
-	init(storeManager: IAPStore = StoreManager.shared, upgradeChecker: UpgradeCheckerProtocol = UpgradeChecker.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, minimumDisplayTime: TimeInterval = 1.0) {
-		self.upgradeChecker = upgradeChecker
+	init(storeManager: IAPStore = StoreManager.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, minimumDisplayTime: TimeInterval = 1.0) {
 		self.cryptomatorSettings = cryptomatorSettings
 		super.init(storeManager: storeManager, iapManager: iapManager, minimumDisplayTime: minimumDisplayTime)
 	}

@@ -15,13 +15,12 @@ import XCTest
 @available(iOS 14.0, *)
 class PurchaseViewModelTests: IAPViewModelTestCase {
 	var viewModel: PurchaseViewModel!
-	var upgradeCheckerMock: UpgradeCheckerMock!
 	var cryptomatorSettingsMock: CryptomatorSettingsMock!
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		setUpMocks()
-		viewModel = PurchaseViewModel(upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
+		cryptomatorSettingsMock = CryptomatorSettingsMock()
+		viewModel = PurchaseViewModel(iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
 	}
 
 	// MARK: Cells
@@ -69,7 +68,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	func testCellsAfterFetchProductsFailed() {
 		let iapStoreMock = IAPStoreMock()
 		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
-		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, upgradeChecker: upgradeCheckerMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
+		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
 		wait(for: viewModel.fetchProducts(), timeout: 2.0)
 		XCTAssertEqual([retryCell], viewModel.cells)
 	}
@@ -139,12 +138,6 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	}
 
 	// MARK: Internal
-
-	private func setUpMocks() {
-		upgradeCheckerMock = UpgradeCheckerMock()
-		upgradeCheckerMock.couldBeEligibleForUpgradeReturnValue = false
-		cryptomatorSettingsMock = CryptomatorSettingsMock()
-	}
 
 	private func setUpIAPManagerMockForFullVersionPurchase() {
 		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)

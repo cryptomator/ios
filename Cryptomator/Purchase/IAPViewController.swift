@@ -59,10 +59,6 @@ class IAPViewController: BaseUITableViewController {
 		fetchProducts()
 	}
 
-	func setCoordinator(_ coordinator: PurchaseCoordinator?) {
-		self.coordinator = coordinator
-	}
-
 	func handleError(_ error: Error) {
 		if case PurchaseError.paymentCancelled = error {
 			return
