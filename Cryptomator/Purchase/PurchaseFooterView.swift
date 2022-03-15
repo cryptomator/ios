@@ -46,7 +46,7 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 	}()
 
 	private lazy var termsOfUseButton: UIButton = {
-		let button = HyperlinkButton(url: URL(string: "https://cryptomator.org/terms/")!)
+		let button = HyperlinkButton(url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!)
 		button.setTitle(LocalizedString.getValue("purchase.footer.termsOfUse"), for: .normal)
 		styleButton(button)
 		return button
