@@ -84,7 +84,7 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 
 	private var paidUpgradeCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.donateAndUpgrade"),
-		                           price: "$2.99",
+		                           price: "$1.99",
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 		                           productIdentifier: .paidUpgrade))
 	}
