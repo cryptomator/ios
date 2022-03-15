@@ -54,7 +54,6 @@ class IAPHeaderView: UITableViewHeaderFooterView {
 
 	let headerTopBottomPadding: CGFloat = 28
 	let headerElementSpacing: CGFloat = 32
-	let botPadding: CGFloat = 6
 
 	func setupViews() {
 		contentView.addSubview(imageView)

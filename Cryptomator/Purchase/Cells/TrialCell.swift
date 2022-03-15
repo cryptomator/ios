@@ -72,7 +72,7 @@ struct TrialCellViewModel: Hashable {
 		}
 	}
 
-	let productTitleText = "30-Day Trial"
+	let productTitleText = LocalizedString.getValue("purchase.product.trial")
 	var expirationText: String {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
