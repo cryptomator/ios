@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -24,6 +25,10 @@ class OnboardingCoordinator: Coordinator {
 	}
 
 	func showIAP() {
+		guard !UserDefaultsFullVersionChecker.shared.isFullVersion else {
+			navigationController.dismiss(animated: true)
+			return
+		}
 		let child = PurchaseCoordinator(navigationController: navigationController)
 		childCoordinators.append(child) // TODO: remove missing?
 		child.start()

@@ -173,19 +173,3 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		}
 	}
 }
-
-class SettingsPurchaseViewModel: PurchaseViewModel {
-	override var sections: [Section<PurchaseSection>] {
-		super.sections.filter {
-			$0.id != .decideLaterSection
-		}
-	}
-}
-
-class SettingsUpgradeViewModel: UpgradeViewModel {
-	override var sections: [Section<UpgradeSection>] {
-		super.sections.filter {
-			$0.id != .decideLaterSection
-		}
-	}
-}

@@ -115,32 +115,16 @@ private class AddVaultPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoor
 		popToOldTopViewController()
 	}
 
-	override func getUpgradeCoordinator() -> UpgradeCoordinator {
-		return AddVaultUpgradeCoordinator(navigationController: navigationController, oldTopViewController: oldTopViewController)
+	override func getUpgradeCoordinator() -> PurchaseCoordinator {
+		return self
 	}
 }
 
-private class AddVaultUpgradeCoordinator: UpgradeCoordinator, PoppingCloseCoordinator {
-	let oldTopViewController: UIViewController?
-
-	init(navigationController: UINavigationController, oldTopViewController: UIViewController?) {
-		self.oldTopViewController = oldTopViewController
-		super.init(navigationController: navigationController)
-	}
-
-	override func close() {
-		popToOldTopViewController()
-	}
-
-	override func start() {
-		let upgradeViewController = UpgradeViewController(viewModel: SettingsUpgradeViewModel())
-		upgradeViewController.coordinator = self
-		navigationController.pushViewController(upgradeViewController, animated: true)
-	}
-}
-
-private class CreateNewVaultPurchaseViewModel: SettingsPurchaseViewModel {
-	override var headerTitle: String {
-		return LocalizedString.getValue("addVault.createNewVault.purchase")
+private class CreateNewVaultPurchaseViewModel: PurchaseViewModel {
+	override var infoText: NSAttributedString? {
+		.textWithLeadingSystemImage("info.circle.fill",
+		                            text: LocalizedString.getValue("addVault.createNewVault.purchase"),
+		                            font: .preferredFont(forTextStyle: .body),
+		                            color: .secondaryLabel)
 	}
 }

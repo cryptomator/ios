@@ -35,7 +35,7 @@
 
 "addVault.title" = "Add Vault";
 "addVault.createNewVault.title" = "Create New Vault";
-"addVault.createNewVault.purchase" = "Creating a new vault requires the full version of Cryptomator. Consider unlocking the full version for write access to your vaults.";
+"addVault.createNewVault.purchase" = "Creating a new vault requires the full version of Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
@@ -124,21 +124,26 @@
 "onboarding.info" = "Thanks for choosing Cryptomator to protect your files.\n\nWith Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily.\n\nThis app is fully integrated into the Files app. Make sure to enable Cryptomator in the Files app later to access your vaults.";
 "onboarding.button.continue" = "Continue";
 
-"purchase.title" = "Unlock Full Version";
-"purchase.info" = "You can use Cryptomator in read-only mode for free. Consider unlocking the full version for write access to your vaults.";
-"purchase.infoRunningTrial" = "Your trial expires on %@ and grants you write access to your vaults for a limited time. Consider unlocking the full version after the trial.";
-"purchase.infoExpiredTrial" = "Your trial has expired. Consider unlocking the full version to regain write access to your vaults.";
-"purchase.upgrade.footer" = "Cryptomator detected an older version. You are eligible for an upgrade to unlock the full version.";
-"purchase.upgrade.notEligible.footer" = "If you already bought an older version of Cryptomator, re-download it from the App Store.";
-"purchase.beginFreeTrial.button" = "Begin 30-Day Trial for Free";
-"purchase.beginFreeTrial.footer" = "Try out the full version of Cryptomator for a limited time for free. You can unlock this trial only once.";
 "purchase.beginFreeTrial.alert.title" = "Trial Unlocked";
-"purchase.beginFreeTrial.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
-"purchase.purchaseFullVersion.button" = "Purchase Full Version for %@";
-"purchase.purchaseFullVersion.footer" = "Pay once and unlock write access to your vaults for the lifetime of Cryptomator.";
+"purchase.expiredTrial" = "Your trial has expired.";
+"purchase.footer.privacyPolicy" = "Privacy Policy";
+"purchase.footer.termsOfUse" = "Terms of Use";
+"purchase.header.feature.familySharing" = "Family sharing";
+"purchase.header.feature.openSource" = "Open-source development";
+"purchase.header.feature.writeAccess" = "Write access to your vaults";
+"purchase.product.donateAndUpgrade" = "Donate & Upgrade";
+"purchase.product.freeUpgrade" = "Free Upgrade";
+"purchase.product.lifetimeLicense" = "Lifetime License";
+"purchase.product.lifetimeLicense.duration" = "one-time";
+"purchase.product.pricing.free" = "Free";
+"purchase.product.trial" = "30-Day Trial";
+"purchase.product.trial.duration" = "for 30 days";
+"purchase.product.yearlySubscription" = "Yearly Subscription";
+"purchase.product.yearlySubscription.duration" = "yearly";
+"purchase.readOnlyMode.alert.title" = "Read-Only Mode";
+"purchase.readOnlyMode.alert.message" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
 "purchase.redeemCode.button" = "Redeem Code";
 "purchase.restorePurchase.button" = "Restore Purchase";
-"purchase.restorePurchase.footer" = "If you have already purchased the full version of Cryptomator, you can restore the purchase.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Trial Continued";
 "purchase.restorePurchase.validTrialFound.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restore Successful";
@@ -146,9 +151,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We were unable to find a previously purchased full version that could be restored. Please try another option.";
 "purchase.retry.button" = "Retry";
 "purchase.retry.footer" = "Could not load the available products.";
-"purchase.startSubscription.button" = "Subscribe for %@ per Year";
-"purchase.decideLater.button" = "Decide Later";
-"purchase.decideLater.footer" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
+"purchase.title" = "Unlock Full Version";
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.unlockedFullVersion.title" = "Thank You";
 
@@ -179,6 +182,9 @@
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
 
+"trialStatus.active" = "Active";
+"trialStatus.expired" = "Expired";
+
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";
 "unlockVault.password.footer" = "Enter password for \"%@\".";
@@ -192,15 +198,10 @@
 "untrustedTLSCertificate.add" = "Trust";
 "untrustedTLSCertificate.dismiss" = "Don't Trust";
 
-"upgrade.title" = "Upgrade From Version 1.x";
-"upgrade.info" = "You are eligible for an upgrade from an older version of Cryptomator to unlock the full version. Thank you for supporting Cryptomator in the past!";
-"upgrade.paidUpgrade.button" = "Upgrade for %@";
-"upgrade.paidUpgrade.footer" = "It would help the ongoing open-source development and be a big support for us.";
-"upgrade.freeUpgrade.button" = "Upgrade for Free";
-"upgrade.freeUpgrade.footer" = "No worries, you can also upgrade to the full version for free without any limitations.";
-"upgrade.decideLater.footer" = "You can upgrade to the full version of Cryptomator later in the settings and use it in read-only mode for now.";
+"upgrade.title" = "Upgrade Offer";
 "upgrade.notEligible.alert.title" = "Upgrade Failed";
 "upgrade.notEligible.alert.message" = "Cryptomator couldn't detect an older version installed on your device. If you bought it, please re-download it from the App Store and try again.";
+"upgrade.info" = "Thanks for trusting Cryptomator since version one. As a loyal user, you're eligible for a free upgrade.";
 
 "urlSession.error.httpError.401" = "Wrong username and/or password.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
