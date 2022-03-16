@@ -35,6 +35,7 @@
 
 "addVault.title" = "Добавить хранилище";
 "addVault.createNewVault.title" = "Создать хранилище";
+"addVault.createNewVault.purchase" = "Для создания нового хранилища требуется полная версия Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Выберите имя для хранилища.";
 "addVault.createNewVault.setVaultName.cells.name" = "Имя хранилища";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Имя хранилища не может быть пустым.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Далее";
 
 "purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
+"purchase.expiredTrial" = "Ваш пробный период истёк.";
+"purchase.footer.privacyPolicy" = "Политика конфиденциальности";
+"purchase.footer.termsOfUse" = "Условия использования ";
+"purchase.header.feature.familySharing" = "Семейный доступ";
+"purchase.header.feature.openSource" = "Разработка открытого программного обеспечения";
+"purchase.header.feature.writeAccess" = "Доступ на запись к хранилищам";
+"purchase.product.donateAndUpgrade" = "Пожертвовать и улучшить";
+"purchase.product.freeUpgrade" = "Бесплатное обновление";
+"purchase.product.lifetimeLicense" = "Бессрочная лицензия";
+"purchase.product.lifetimeLicense.duration" = "разово";
+"purchase.product.pricing.free" = "Бесплатно";
+"purchase.product.trial" = "30-дневная пробная версия";
+"purchase.product.trial.duration" = "на 30 дней";
+"purchase.product.yearlySubscription" = "Годовая подписка";
+"purchase.product.yearlySubscription.duration" = "ежегодно";
+"purchase.readOnlyMode.alert.title" = "Режим \"Только чтение\"";
+"purchase.readOnlyMode.alert.message" = "Вы можете разблокировать полную версию Cryptomator позже в настройках, а пока использовать в режиме \"только для чтения\".";
 "purchase.redeemCode.button" = "Активировать код";
 "purchase.restorePurchase.button" = "Восстановить покупку";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Продолжение опробования";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Документы";
 "snapshots.main.vault4" = "/Поездка в Крым";
 
+"trialStatus.active" = "Активно";
+"trialStatus.expired" = "Срок действия истёк";
+
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
 "unlockVault.password.footer" = "Введите пароль для \"%@\".";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "Сертификат TLS \"%@\" неверен. Всё равно доверять ему?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
+
+"upgrade.title" = "Предложение по обновлению";
 "upgrade.notEligible.alert.title" = "Ошибка обновления";
 "upgrade.notEligible.alert.message" = "Не удалось обнаружить старую версию Cryptomator, установленную на вашем устройстве. Если вы купили её, пожалуйста, загрузите её снова в App Store и повторите попытку.";
+"upgrade.info" = "Спасибо за доверие к Cryptomator с первой его версии. Как преданный пользователь, вы имеете право на бесплатное обновление.";
 
 "urlSession.error.httpError.401" = "Неверное имя пользователя и/или пароль.";
 "urlSession.error.httpError.403" = "Недостаточно прав на запрашиваемый ресурс.";
@@ -218,6 +242,7 @@
 "vaultList.remove.alert.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Конфигурация хранилища не поддерживается. Убедитесь, что у вас установлена новейшая версия Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища %ld не поддерживается. Это хранилище было создано в устаревшей, или более новой версии Cryptomator.";
 
 "webDAVAuthentication.progress" = "Аутентификация…";
 "webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
