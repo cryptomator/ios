@@ -35,6 +35,7 @@
 
 "addVault.title" = "Aggiungi Cassaforte";
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
+"addVault.createNewVault.purchase" = "La creazione di una nuova cassaforte richiede la versione completa di Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome della Cassaforte";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Continua";
 
 "purchase.beginFreeTrial.alert.title" = "Prova Sbloccata";
+"purchase.expiredTrial" = "Il periodo di prova è scaduto.";
+"purchase.footer.privacyPolicy" = "Informativa sulla privacy";
+"purchase.footer.termsOfUse" = "Termini di utilizzo";
+"purchase.header.feature.familySharing" = "Condivisione familiare";
+"purchase.header.feature.openSource" = "Sviluppo open source";
+"purchase.header.feature.writeAccess" = "Accesso in scrittura alle tue casseforti";
+"purchase.product.donateAndUpgrade" = "Dona e Aggiorna";
+"purchase.product.freeUpgrade" = "Aggiornamento gratuito";
+"purchase.product.lifetimeLicense" = "Licenza a vita";
+"purchase.product.lifetimeLicense.duration" = "una tantum";
+"purchase.product.pricing.free" = "Gratuito";
+"purchase.product.trial" = "30 giorni di prova";
+"purchase.product.trial.duration" = "per 30 giorni";
+"purchase.product.yearlySubscription" = "Abbonamento annuale";
+"purchase.product.yearlySubscription.duration" = "annuale";
+"purchase.readOnlyMode.alert.title" = "Modalità di sola lettura";
+"purchase.readOnlyMode.alert.message" = "Puoi sbloccare la versione completa di Cryptomator in seguito nelle impostazioni e, per ora, usarla in modalità di sola lettura.";
 "purchase.redeemCode.button" = "Riscatta Codice";
 "purchase.restorePurchase.button" = "Ripristina Acquisti";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prova Continuata";
@@ -163,6 +181,9 @@
 "snapshots.main.vault2" = "/Famiglia";
 "snapshots.main.vault3" = "/Documenti";
 "snapshots.main.vault4" = "/Viaggio in California";
+
+"trialStatus.active" = "Attivo";
+"trialStatus.expired" = "Scaduta";
 
 "unlockVault.button.unlock" = "Sblocca";
 "unlockVault.button.unlockVia" = "Sblocca tramite %@";
