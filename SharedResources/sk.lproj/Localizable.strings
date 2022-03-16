@@ -35,7 +35,6 @@
 
 "addVault.title" = "Pridať trezor";
 "addVault.createNewVault.title" = "Vytvoriť nový trezor";
-"addVault.createNewVault.purchase" = "Vytvorenie nového trezora vyžaduje plnú verziu Cryptomator-a. Zvážte odomknúť plnú verziu pre prístup zápisu Vašich trezorov.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvoľte názov pre trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Názov trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Meno trezora nemôže byť prázdne.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator na ochranu Vašich súborov. \n\nS Cryptomator-om je kľúč k dátam pevne vo Vašich rukách. Cryptomator šifruje Vaše dáta rýchlo a ľahko. \n\nTáto aplikácia je plne integrovaná súborového prieskumníka. Uistite sa o povolení Cryptomator-a v súborovom prieskumníkovi pre prístup do Vašich trezorov.";
 "onboarding.button.continue" = "Pokračovať";
 
-"purchase.title" = "Odomknúť plnú verziu";
-"purchase.info" = "Môžte používať Cryptomator-a v read-only móde bezplatne. Zvážte odomknutie plnej verzie pre prístup zápisu do Vašich trezorov.";
-"purchase.infoRunningTrial" = "Vaša skúšobná doba uplynie %@ a tým možnosť zápisu s neobmedzeným počtom trezorov v limitovanom čase. Zvážte odomknutie plnej verzie po uplynutí skúšobnej doby.";
-"purchase.infoExpiredTrial" = "Vaša skúšobná doba uplynula. Zvážte odomknutie plnej verzie k znovu získaniu možnosti zápisu do Vašich trezorov.";
-"purchase.upgrade.footer" = "Cryptomator detekoval staršiu verziu. Pre jej aktualizáciu je potrebné odomknúť plnú verziu.";
-"purchase.upgrade.notEligible.footer" = "Ak už máte kúpenú staršiu verziu Cryptomator-a, znovu ho stiahnite z App Store.";
-"purchase.beginFreeTrial.button" = "Začať 30-dňovú skúšobnú dobu zdarma";
-"purchase.beginFreeTrial.footer" = "Vyskúšajte plnú verziu Cryptomator-a zadarmo na obmedzený čas. Môžte odomknúť túto skúšobnú dobu len raz.";
 "purchase.beginFreeTrial.alert.title" = "Skúška udomknutá";
-"purchase.beginFreeTrial.alert.message" = "Teraz môžte používať plnú verziu Cryptomator-a na obmedzeny čas. Vaša skúšobná doba expiruje %@. Potom Vaše trezory zostanú naďalej dostupné v read-only móde.";
-"purchase.purchaseFullVersion.button" = "Zakúpiť plnú verziu pre %@";
-"purchase.purchaseFullVersion.footer" = "Zaplaťte raz a odomknite prístup zápisu do Vašich trezorov do konca životnosti Cryptomator-a.";
 "purchase.redeemCode.button" = "Uplatniť kód";
 "purchase.restorePurchase.button" = "Obnoviť nákup";
-"purchase.restorePurchase.footer" = "V prípade že už máte zakúpenú plnú verziu Cryptomator-a, môžte obnoviť nákup.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Skúška pokračuje";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Teraz môžte používať plnú verziu Cryptomator-a na obmedzeny čas. Vaša skúšobná doba expiruje %@. Potom Vaše trezory zostanú naďalej dostupné v read-only móde.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovenie úspešné";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nevieme nájsť predchádzajúcu zakúpenú plnú verziu čo by mohla byť obnovená. Prosím skúste inú možnosť.";
 "purchase.retry.button" = "Skúsiť znovu";
 "purchase.retry.footer" = "Nemôžem nahrať dostupné produkty.";
-"purchase.startSubscription.button" = "Predplatiť pre %@ na jeden rok";
-"purchase.decideLater.button" = "Rozhodnúť neskôr";
-"purchase.decideLater.footer" = "Môžte odomknúť plnú verziu Cryptomator-a neskôr v nastaveniach a teraz používať v read-only móde.";
+"purchase.title" = "Odomknúť plnú verziu";
 "purchase.unlockedFullVersion.message" = "Teraz už môžte používať plnú verziu Cryptomator-a. Veselé kryptovanie!";
 "purchase.unlockedFullVersion.title" = "Ďakujeme";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
-
-"upgrade.title" = "Aktualizovať z verzie 1.x";
-"upgrade.info" = "Bolo by vhodné pre aktualizáciu zo staršej verzie Cryptomator-a odomknúť plnú verziu. Ďakujeme za podporu Cryptomator-a v budúcnosti!";
-"upgrade.paidUpgrade.button" = "Aktualizácia pre %@";
-"upgrade.paidUpgrade.footer" = "Veľmi by nám to pomohlo a bolo oporou v nadchádzajúcom open-source vývoji.";
-"upgrade.freeUpgrade.button" = "Voľná aktualizácia";
-"upgrade.freeUpgrade.footer" = "Žiadne starosti, môžte tiež aktualizovať na plnú verziu zadarmo bez obmedzeni.";
-"upgrade.decideLater.footer" = "Môžte aktualizovať na plnú verziu Cryptomator-a neskôr v nastaveniach a používať v read-only móde nateraz.";
 "upgrade.notEligible.alert.title" = "Aktualizácia zlyhala";
 "upgrade.notEligible.alert.message" = "Cryptomator evie detekovať staršiu verziu nainštalovanú vo Vašom zariadení. Ak s te si ju kúpili, prosím znovu si ju stiahnite z App Store a skúste znovu.";
 
