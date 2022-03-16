@@ -35,7 +35,6 @@
 
 "addVault.title" = "添加保险库";
 "addVault.createNewVault.title" = "创建新的保险库";
-"addVault.createNewVault.purchase" = "创建一个新的保险库需要 Cryptomator 完整版，请解锁完整版以获得保险库的写入权限。";
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
@@ -124,21 +123,9 @@
 "onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。\n\n使用 Cryptomator，您的数据安全完全处于您的掌控。Cryptomator 能够快速和轻松地加密您的数据。\n\n此应用已完全整合到文件应用中。 请确保稍后在文件应用中启用 Cryptomator 以访问您的保险库。";
 "onboarding.button.continue" = "继续";
 
-"purchase.title" = "解锁完整版";
-"purchase.info" = "您可以在只读模式下免费使用 Cryptomator。请考虑解锁完整版本以获得密码库的写入权限。";
-"purchase.infoRunningTrial" = "您的试用期于 %@ 过期，您可以在有限时间内写入您的保险库。 请考虑在试用结束后解锁完整版本。";
-"purchase.infoExpiredTrial" = "您的试用期已结束。请解锁完整版本以重新获取您的保险库的写入权限。";
-"purchase.upgrade.footer" = "Cryptomator 检测到旧版本。您有资格升级以解锁完整版本。";
-"purchase.upgrade.notEligible.footer" = "如果您已经购买了旧版的 Cryptomator，请从 App Store 重新下载";
-"purchase.beginFreeTrial.button" = "开始30天的免费试用";
-"purchase.beginFreeTrial.footer" = "尝试免费试用完整版的 Cryptomator。您只有一次试用机会。";
 "purchase.beginFreeTrial.alert.title" = "试用已解锁";
-"purchase.beginFreeTrial.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
-"purchase.purchaseFullVersion.button" = "为 %@ 购买完整版本";
-"purchase.purchaseFullVersion.footer" = "只需一次支付即可让您永久获得 Cryptomator 保险库的写入权限。";
 "purchase.redeemCode.button" = "兑换激活码";
 "purchase.restorePurchase.button" = "恢复购买";
-"purchase.restorePurchase.footer" = "如果您已经购买了完整版的 Cryptomator，您可以恢复购买";
 "purchase.restorePurchase.validTrialFound.alert.title" = "仍在试用";
 "purchase.restorePurchase.validTrialFound.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "恢复成功";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我们无法找到可供恢复的完整版本。请尝试其他选项。";
 "purchase.retry.button" = "重试";
 "purchase.retry.footer" = "无法加载可用产品。";
-"purchase.startSubscription.button" = "订阅 %@ / 年";
-"purchase.decideLater.button" = "稍后决定";
-"purchase.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
+"purchase.title" = "解锁完整版";
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
-
-"upgrade.title" = "从 1.x 版本升级";
-"upgrade.info" = "您有资格从旧版本的 Cryptomator 升级来解锁完整版本。感谢您支持Cryptomator！";
-"upgrade.paidUpgrade.button" = "为 %@ 升级";
-"upgrade.paidUpgrade.footer" = "它将有助于目前正在进行的开源开发，并且是对我们的大力支持。";
-"upgrade.freeUpgrade.button" = "免费升级";
-"upgrade.freeUpgrade.footer" = "不用担心，您也可以不受任何限制地免费升级到完整版";
-"upgrade.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
 "upgrade.notEligible.alert.title" = "升级失败";
 "upgrade.notEligible.alert.message" = "Cryptomator 未能检测到您设备安装有旧版本。如果您购买过它，请从 App Store 重新下载后再试。";
 
