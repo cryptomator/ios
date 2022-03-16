@@ -218,7 +218,6 @@
 "vaultList.remove.alert.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Конфигурация хранилища не поддерживается. Убедитесь, что у вас установлена новейшая версия Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища не поддерживается. Это хранилище было создано в устаревшей или более новой версии Cryptomator.";
 
 "webDAVAuthentication.progress" = "Аутентификация…";
 "webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
