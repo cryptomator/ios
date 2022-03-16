@@ -35,7 +35,6 @@
 
 "addVault.title" = "Προσθήκη Κρύπτης";
 "addVault.createNewVault.title" = "Δημιουργία Νέας Κρύπτης";
-"addVault.createNewVault.purchase" = "Η δημιουργία μιας νέα κρύπτης απαιτεί την πλήρη έκδοση του Cryptomator. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
 "addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για την κρύπτη.";
 "addVault.createNewVault.setVaultName.cells.name" = "Όνομα Κρύπτης";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα της κρύπτης δεν μπορεί να είναι κενό.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Ευχαριστούμε που επιλέξατε Cryptomator για την προστασία των αρχείων σας.\n\nΜε το Cryptomator, το κλειδί για τα δεδομένα σας είναι στα χέρια σας. Το Cryptomator κρυπτογραφεί τα δεδομένα σας γρήγορα και εύκολα.\n\nΑυτή η εφαρμογή είναι πλήρως ενσωματωμένη στην εφαρμογή Αρχεία. Σιγουρευτείτε ότι θα ενεργοποιήσετε τον Cryptomator στην εφαρμογή Αρχεία αργότερα για να αποκτήσετε πρόσβαση στις κρύπτες σας.";
 "onboarding.button.continue" = "Συνέχεια";
 
-"purchase.title" = "Ξεκλείδωμα Πλήρους Έκδοσης";
-"purchase.info" = "Μπορείτε να χρησιμοποιήσετε Cryptomator σε λειτουργία μόνο για ανάγνωση δωρεάν. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
-"purchase.infoRunningTrial" = "Η δοκιμαστική περίοδος λήγει στις %@ και σας δίνει άδεια πρόσβασης με απεριόριστο αριθμό κρυπτών για περιορισμένο χρονικό διάστημα. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση μετά τη δοκιμή.";
-"purchase.infoExpiredTrial" = "Η δοκιμή σας έχει λήξει. Σκεφτείτε να ξεκλειδώσετε την πλήρη έκδοση για πρόσβαση εγγραφής στις κρύπτες σας.";
-"purchase.upgrade.footer" = "To Cryptomator εντόπισε μια παλαιότερη έκδοση. Πληροίτε τα κριτήρια για αναβάθμιση για να ξεκλειδώσετε την πλήρη έκδοση.";
-"purchase.upgrade.notEligible.footer" = "Εάν έχετε ήδη αγοράσει μια παλαιότερη έκδοση του Cryptomator, κατεβάστε το ξανά από το App Store.";
-"purchase.beginFreeTrial.button" = "Έναρξη δοκιμής 30 ημερών δωρεάν";
-"purchase.beginFreeTrial.footer" = "Δοκιμάστε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα δωρεάν. Μπορείτε να ξεκλειδώσετε αυτή τη δοκιμή μόνο μία φορά.";
 "purchase.beginFreeTrial.alert.title" = "Η Δοκιμαστική περίοδος ξεκλειδώθηκε";
-"purchase.beginFreeTrial.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
-"purchase.purchaseFullVersion.button" = "Αγορά Πλήρους Έκδοσης για %@";
-"purchase.purchaseFullVersion.footer" = "Πληρώστε μία φορά και ξεκλειδώσετε την πρόσβαση εγγραφής στις κρύπες σας για τη διάρκεια ζωής του Cryptomator.";
 "purchase.redeemCode.button" = "Εξαργύρωση Κωδικού";
 "purchase.restorePurchase.button" = "Επαναφορά Αγοράς";
-"purchase.restorePurchase.footer" = "Αν έχετε ήδη αγοράσει την πλήρη έκδοση του Cryptomator, μπορείτε να επαναφέρετε την αγορά.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Η δοκιμαστική περίοδος συνεχίστηκε";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Επιτυχής Επαναφορά";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Δεν ήταν δυνατή η εύρεση μιας προηγούμενης πλήρους έκδοσης που θα μπορούσε να αποκατασταθεί. Παρακαλώ δοκιμάστε μια άλλη επιλογή.";
 "purchase.retry.button" = "Επανάληψη";
 "purchase.retry.footer" = "Δεν ήταν δυνατή η φόρτωση των διαθέσιμων προϊόντων.";
-"purchase.startSubscription.button" = "Εγγραφείτε για %@ ανά έτος";
-"purchase.decideLater.button" = "Αποφασίστε Αργότερα";
-"purchase.decideLater.footer" = "Μπορείτε να ξεκλειδώσετε την πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να την χρησιμοποιήσετε σε λειτουργία μόνο ανάγνωσης για τώρα.";
+"purchase.title" = "Ξεκλείδωμα Πλήρους Έκδοσης";
 "purchase.unlockedFullVersion.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator. Καλή κρυπτογράφηση!";
 "purchase.unlockedFullVersion.title" = "Σας Ευχαριστούμε";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
 "untrustedTLSCertificate.dismiss" = "Μην Εμπιστευτείτε";
-
-"upgrade.title" = "Αναβάθμιση Από Την Έκδοση 1.x";
-"upgrade.info" = "Πληροίτε τα κριτήρια για αναβάθμιση από παλαιότερη έκδοση του Cryptomator για να ξεκλειδώσετε την πλήρη έκδοση. Σας ευχαριστούμε για την υποστήριξη του Cryptomator στο παρελθόν!";
-"upgrade.paidUpgrade.button" = "Αναβάθμιση για %@";
-"upgrade.paidUpgrade.footer" = "Θα βοηθούσε τη συνεχή ανάπτυξη ανοιχτού κώδικα και θα ήταν μια μεγάλη υποστήριξη για εμάς.";
-"upgrade.freeUpgrade.button" = "Αναβάθμιση δωρεάν";
-"upgrade.freeUpgrade.footer" = "Μην ανησυχείτε, μπορείτε επίσης να κάνετε αναβάθμιση στην πλήρη έκδοση δωρεάν χωρίς περιορισμούς.";
-"upgrade.decideLater.footer" = "Μπορείτε να κάνετε αναβάθμιση στην πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να το χρησιμοποιήσετε σε λειτουργία μόνο για ανάγνωση προς το παρόν.";
 "upgrade.notEligible.alert.title" = "Η Αναβάθμιση Απέτυχε";
 "upgrade.notEligible.alert.message" = "Το Cryptomator δεν μπόρεσε να εντοπίσει μια παλαιότερη έκδοση που είναι εγκατεστημένη στη συσκευή σας. Εάν το αγοράσατε, κατεβάστε το ξανά από το App Store και δοκιμάστε ξανά.";
 
