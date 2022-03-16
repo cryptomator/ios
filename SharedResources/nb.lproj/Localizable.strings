@@ -35,7 +35,6 @@
 
 "addVault.title" = "Legg til hvelv";
 "addVault.createNewVault.title" = "Lag et nytt hvelv";
-"addVault.createNewVault.purchase" = "Å lage et nytt hvelv krever fullversjonen av Cryptomator. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
 "addVault.createNewVault.setVaultName.header.title" = "Navngi hvelvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Navn på hvelvet";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Du må gi hvelvet et navn.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Takk for at du valgte Cryptomator for å beskytte filene.\n\nMed Cryptomator er nøkkelen til dataene dine i dine hendene. Cryptomator krypterer dataene dine raskt og enkelt.\n\nDenne appen er fullintegrert med Filer-appen. Pass på å aktivere Cryptomator i Filer-appen senere for å få tilgang til hvelvet ditt.";
 "onboarding.button.continue" = "Fortsett";
 
-"purchase.title" = "Lås opp fullversjonen";
-"purchase.info" = "Du kan bruke Cryptomator i skrivebeskyttet modus helt gratis. Vurder å låse opp fullversjonen for å få skrivetilgang til hvelvet ditt.";
-"purchase.infoRunningTrial" = "Prøveperioden utløper %@ og gir deg skrivetilgang til hvelvene dine for en begrenset periode. Vurder å låse opp fullversjonen etter prøveperioden.";
-"purchase.infoExpiredTrial" = "Prøveperioden er utløpt. Vurder å låse opp fullversjonen for å få tilgang til hvelvet ditt.";
-"purchase.upgrade.footer" = "Cryptomator oppdaget en eldre versjon. Du er kvalifisert for en oppgradering som vil låse opp fullversjonen.";
-"purchase.upgrade.notEligible.footer" = "Hvis du allerede har kjøpt en eldre versjon av Cryptomator, last den ned igjen fra App Store.";
-"purchase.beginFreeTrial.button" = "Start den 30-dagers prøveversjonen gratis";
-"purchase.beginFreeTrial.footer" = "Prøv fullversjonen av Cryptomator gratis i en begrenset periode. Du kan kun låse opp denne prøveperioden én gang.";
 "purchase.beginFreeTrial.alert.title" = "Prøveversjon låst opp";
-"purchase.beginFreeTrial.alert.message" = "Nå kan du bruke fullversjonen av Cryptomator i en begrenset tid. Prøveperioden utløper den %@. Etter dette vil dine hvelv fortsatt være tilgjengelige i skrivebeskyttet modus.";
-"purchase.purchaseFullVersion.button" = "Kjøp fullversjon for %@";
-"purchase.purchaseFullVersion.footer" = "Betal én gang og lås opp skrivetilgang til hvelvene dine for hele Cryptomators livsløp.";
 "purchase.redeemCode.button" = "Løs inn kode";
 "purchase.restorePurchase.button" = "Gjenopprett kjøp";
-"purchase.restorePurchase.footer" = "Hvis du allerede har kjøpt fullversjonen av Cryptomator, kan du gjenopprette kjøpet.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prøveperioden fortsatte";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Nå kan du bruke fullversjonen av Cryptomator i en begrenset tid. Prøveperioden utløper den %@. Etter dette vil dine hvelv fortsatt være tilgjengelige i skrivebeskyttet modus.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Gjenoppretting vellykket";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi klarte ikke å finne en tidligere kjøpt fullversjon som kunne gjenopprettes. Prøv et annet alternativ.";
 "purchase.retry.button" = "Prøv igjen";
 "purchase.retry.footer" = "Kunne ikke laste tilgjengelige produkter.";
-"purchase.startSubscription.button" = "Abonner for %@ per år";
-"purchase.decideLater.button" = "Bestem senere";
-"purchase.decideLater.footer" = "Bruk gjerne Cryptomator i skrivebeskyttet modus. Du kan låse opp fullversjonen senere i innstillingene.";
+"purchase.title" = "Lås opp fullversjonen";
 "purchase.unlockedFullVersion.message" = "Du kan nå bruke fullversjonen av Cryptomator. God kryptering!";
 "purchase.unlockedFullVersion.title" = "Takk";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "TLS-sertifikatet til \"%@\" er ugyldig. Vil du likevel stole på det?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Stol på";
 "untrustedTLSCertificate.dismiss" = "Ikke stol på";
-
-"upgrade.title" = "Oppgrader fra versjon 1.x";
-"upgrade.info" = "Du er kvalifisert for en oppgradering fra en eldre versjon av Cryptomator for å låse opp fullversjonen. Takk for at du tidligere har støttet Cryptomator!";
-"upgrade.paidUpgrade.button" = "Oppgrader for %@";
-"upgrade.paidUpgrade.footer" = "Dette vil støtte den pågående utviklingen av åpen kildekode og være til stor hjelp for oss.";
-"upgrade.freeUpgrade.button" = "Oppgrader gratis";
-"upgrade.freeUpgrade.footer" = "Ikke noe problem. Du kan også velge å oppgradere til fullversjonen helt gratis.";
-"upgrade.decideLater.footer" = "Du kan oppgradere til fullversjonen av Cryptomator i innstillingene senere. For nå kan du gjerne bruke Cryptomator i skrivebeskyttet modus.";
 "upgrade.notEligible.alert.title" = "Oppgraderingen mislyktes";
 "upgrade.notEligible.alert.message" = "Cryptomator klarte ikke å finne en eldre versjon installert på enheten din. Hvis likevel har kjøpt en tidligere versjon, så last den ned på nytt fra App Store og prøv igjen.";
 
