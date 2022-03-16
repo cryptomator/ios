@@ -101,7 +101,6 @@
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, descarregue-a novamente na App Store.";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
