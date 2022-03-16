@@ -283,7 +283,10 @@ class VaultManagerTests: XCTestCase {
 		masterkeyCacheHelperMock.shouldCacheMasterkeyForVaultUIDReturnValue = true
 		let kek = try setupManualUnlockTest(vaultVersion: 5)
 		XCTAssertThrowsError(try manager.manualUnlockVault(withUID: vaultUID, kek: kek)) { error in
-			XCTAssertEqual(.unsupportedVaultVersion, error as? VaultProviderFactoryError)
+			guard case VaultProviderFactoryError.unsupportedVaultVersion(version: 5) = error else {
+				XCTFail("Throws the wrong error: \(error)")
+				return
+			}
 		}
 		XCTAssertFalse(masterkeyCacheManagerMock.cacheMasterkeyForVaultUIDCalled)
 	}

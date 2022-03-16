@@ -24,5 +24,6 @@ public enum CloudAccessSecrets {
 	public static let oneDriveClientId = "${ONEDRIVE_CLIENT_ID}"
 	public static let oneDriveRedirectURIScheme = "${ONEDRIVE_REDIRECT_URI_SCHEME}"
 	public static let oneDriveRedirectURI = "${ONEDRIVE_REDIRECT_URI_SCHEME}://auth"
+	public static let pCloudAppKey = "${PCLOUD_APP_KEY}"
 }
 EOM

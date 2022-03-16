@@ -10,9 +10,10 @@ import Foundation
 import GRDB
 
 public enum CloudProviderType: Codable, Equatable, Hashable {
-	case googleDrive
 	case dropbox
+	case googleDrive
 	case oneDrive
+	case pCloud
 	case webDAV(type: WebDAVType)
 	case localFileSystem(type: LocalFileSystemType)
 }

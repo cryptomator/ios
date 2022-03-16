@@ -55,6 +55,15 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	func refreshPCloudItems() -> Promise<Void> {
+		return all(accountInfos
+			.compactMap { try? PCloudCredential(userID: $0.accountUID) }
+			.map { self.createAccountCellContent(for: $0) }
+		).then { accounts in
+			self.accounts = accounts
+		}
+	}
+
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
 		case .dropbox:
@@ -66,6 +75,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
+		case .pCloud:
+			let credential = try PCloudCredential(userID: accountInfo.accountUID)
+			return createAccountCellContentPlaceholder(for: credential)
 		case .webDAV:
 			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
@@ -94,6 +106,16 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
 		let username = try credential.getUsername()
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+	}
+
+	func createAccountCellContent(for credential: PCloudCredential) -> Promise<AccountCellContent> {
+		return credential.getUsername().then { username in
+			AccountCellContent(mainLabelText: username, detailLabelText: nil)
+		}
+	}
+
+	private func createAccountCellContentPlaceholder(for credential: PCloudCredential) -> AccountCellContent {
+		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
 	}
 
 	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
@@ -149,6 +171,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			}
 			if self.cloudProviderType == .dropbox, !self.removedRow {
 				self.refreshDropboxItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			} else if self.cloudProviderType == .pCloud, !self.removedRow {
+				self.refreshPCloudItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))

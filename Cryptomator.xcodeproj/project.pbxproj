@@ -363,6 +363,7 @@
 		74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */; };
 		74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */; };
 		74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */; };
+		74C2FCED27E2197D00BB527A /* PCloudKeychainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */; };
 		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
@@ -856,6 +857,7 @@
 		74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseCoordinator.swift; sourceTree = "<group>"; };
 		74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
+		74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCloudKeychainTests.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -1127,6 +1129,7 @@
 		4A51E60E261C9A8700CC8C9B /* Keychain */ = {
 			isa = PBXGroup;
 			children = (
+				74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */,
 				4A9CD5612699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift */,
 				4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */,
 			);
@@ -2244,6 +2247,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A51E611261C9A8800CC8C9B /* WebDAVKeychainTests.swift in Sources */,
+				74C2FCED27E2197D00BB527A /* PCloudKeychainTests.swift in Sources */,
 				4A9CD5622699C23D00E6C104 /* VaultPasswordKeychainManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

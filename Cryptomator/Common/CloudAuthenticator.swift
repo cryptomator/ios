@@ -48,6 +48,16 @@ class CloudAuthenticator {
 		}
 	}
 
+	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		let authenticator = PCloudAuthenticator(appKey: CloudAccessSecrets.pCloudAppKey)
+		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+			try credential.saveToKeychain()
+			let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
@@ -64,6 +74,8 @@ class CloudAuthenticator {
 			return authenticateGoogleDrive(from: viewController)
 		case .oneDrive:
 			return authenticateOneDrive(from: viewController)
+		case .pCloud:
+			return authenticatePCloud(from: viewController)
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		case .localFileSystem:
@@ -81,6 +93,9 @@ class CloudAuthenticator {
 			credential.deauthenticate()
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: account.accountUID)
+			try credential.deauthenticate()
+		case .pCloud:
+			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVAuthenticator.removeCredentialFromKeychain(with: account.accountUID)
