@@ -32,6 +32,7 @@
 
 "addVault.title" = "Додати сховище";
 "addVault.createNewVault.title" = "Створити нове сховище";
+"addVault.createNewVault.purchase" = "Для створення нового vault необхідна повна версия Cryptomator.";
 "addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
@@ -54,6 +55,23 @@
 
 "onboarding.title" = "Вітаємо";
 "onboarding.button.continue" = "Продовжити";
+"purchase.expiredTrial" = "Пробний період вичерпано.";
+"purchase.footer.privacyPolicy" = "Політика конфіденційності";
+"purchase.footer.termsOfUse" = "Умови користування";
+"purchase.header.feature.familySharing" = "Сімейний доступ";
+"purchase.header.feature.openSource" = "Open-source розробка";
+"purchase.header.feature.writeAccess" = "Доступ на запис до vaults";
+"purchase.product.donateAndUpgrade" = "Пожертвування та Повна версія";
+"purchase.product.freeUpgrade" = "Безплатна ліцензія";
+"purchase.product.lifetimeLicense" = "Довічна ліцензія";
+"purchase.product.lifetimeLicense.duration" = "одноразово";
+"purchase.product.pricing.free" = "Безплатно";
+"purchase.product.trial" = "30-денний пробний період";
+"purchase.product.trial.duration" = "на 30 днів";
+"purchase.product.yearlySubscription" = "Щорічна підписка";
+"purchase.product.yearlySubscription.duration" = "щорічно";
+"purchase.readOnlyMode.alert.title" = "Режим \"Тільки зчитування\"";
+"purchase.readOnlyMode.alert.message" = "Ви можете розблокувати повну версію Cryptomator пізніше у налаштування та використовувати у режими \"тільки зчитування\" зараз.";
 "purchase.retry.button" = "Повторити";
 "purchase.title" = "Розблокувати повну версію";
 "purchase.unlockedFullVersion.title" = "Дякуємо Вам!";
@@ -69,11 +87,17 @@
 "settings.sendLogFile" = "Надіслати лог-файл";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
 
+"trialStatus.active" = "Активно";
+"trialStatus.expired" = "Пробний період завершено";
+
 "unlockVault.button.unlock" = "Розблокувати";
 "unlockVault.password.footer" = "Введіть пароль для \"%@\".";
 "unlockVault.progress" = "Розблокування…";
 "untrustedTLSCertificate.add" = "Довіряти";
 "untrustedTLSCertificate.dismiss" = "Не довіряти";
+
+"upgrade.title" = "Ліцензії";
+"upgrade.info" = "Дякуємо за довіру до Cryptomator від першої версії. Як лояльному користувачу, вам надається можливість отримання безплатної ліцензії.";
 
 "vaultDetail.button.changeVaultPassword" = "Змінити пароль";
 "vaultDetail.button.lock" = "Заблокувати зараз";
