@@ -35,6 +35,7 @@
 
 "addVault.title" = "Ajouter un coffre";
 "addVault.createNewVault.title" = "Créer un nouveau coffre";
+"addVault.createNewVault.purchase" = "La création d'un nouveau coffre nécessite la version complète de Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Continuer";
 
 "purchase.beginFreeTrial.alert.title" = "Essai débloqué";
+"purchase.expiredTrial" = "Votre période d'essai a expiré.";
+"purchase.footer.privacyPolicy" = "Politique de Confidentialité";
+"purchase.footer.termsOfUse" = "Conditions d'Utilisation";
+"purchase.header.feature.familySharing" = "Partage familial";
+"purchase.header.feature.openSource" = "Développement open source";
+"purchase.header.feature.writeAccess" = "Accès en écriture à vos coffres";
+"purchase.product.donateAndUpgrade" = "Faire un don & Mettre à jour";
+"purchase.product.freeUpgrade" = "Mise à jour gratuite";
+"purchase.product.lifetimeLicense" = "Licence à Vie";
+"purchase.product.lifetimeLicense.duration" = "unique";
+"purchase.product.pricing.free" = "Gratuit";
+"purchase.product.trial" = "Essai de 30 jours";
+"purchase.product.trial.duration" = "pendant 30 jours";
+"purchase.product.yearlySubscription" = "Abonnement annuel";
+"purchase.product.yearlySubscription.duration" = "annuellement";
+"purchase.readOnlyMode.alert.title" = "★ Mode lecture seule";
+"purchase.readOnlyMode.alert.message" = "Vous pouvez déverrouiller la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
 "purchase.redeemCode.button" = "Code d'activation";
 "purchase.restorePurchase.button" = "Restaurer l’achat";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Essai en cours";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "Documents";
 "snapshots.main.vault4" = "/Voyage en Californie";
 
+"trialStatus.active" = "Actif";
+"trialStatus.expired" = "Expiré";
+
 "unlockVault.button.unlock" = "Déverrouiller";
 "unlockVault.button.unlockVia" = "Débloquer via %@";
 "unlockVault.password.footer" = "Entrez le mot de passe pour “%@”.";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "Le certificat TLS de \"%@\" n'est pas valide. Voulez-vous lui faire confiance ?\n\n SHA-256 : %@";
 "untrustedTLSCertificate.add" = "Approuver";
 "untrustedTLSCertificate.dismiss" = "Ne pas faire confiance";
+
+"upgrade.title" = "Offre de mise à niveau";
 "upgrade.notEligible.alert.title" = "Échec de la mise à jour";
 "upgrade.notEligible.alert.message" = "Cryptomator n'a pas pu détecter une ancienne version installée sur votre appareil. Si vous l'avez achetée, veuillez la télécharger à nouveau depuis l'App Store et réessayer.";
+"upgrade.info" = "Merci d'avoir fait confiance à Cryptomator depuis la version 1. En tant qu'utilisateur fidèle, vous êtes admissible à une mise à jour gratuite.";
 
 "urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
 "urlSession.error.httpError.403" = "Vous n'avez pas les droits pour accéder à cette ressource.";
