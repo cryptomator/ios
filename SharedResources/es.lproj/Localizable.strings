@@ -35,6 +35,7 @@
 
 "addVault.title" = "Añadir bóveda";
 "addVault.createNewVault.title" = "Crear bóveda nueva";
+"addVault.createNewVault.purchase" = "Crear una bóveda nueva requiere la versión completa de Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Prueba desbloqueada";
+"purchase.expiredTrial" = "Su prueba ha expirado.";
+"purchase.footer.privacyPolicy" = "Política de privacidad";
+"purchase.footer.termsOfUse" = "Términos de uso";
+"purchase.header.feature.familySharing" = "Cuota familiar";
+"purchase.header.feature.openSource" = "Desarrollo de código abierto";
+"purchase.header.feature.writeAccess" = "Acceso de escritura a sus bóvedas";
+"purchase.product.donateAndUpgrade" = "Donar y actualizar";
+"purchase.product.freeUpgrade" = "Actualización gratuita";
+"purchase.product.lifetimeLicense" = "Licencia vitalicia";
+"purchase.product.lifetimeLicense.duration" = "pago único";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "Prueba de 30 días";
+"purchase.product.trial.duration" = "por 30 días";
+"purchase.product.yearlySubscription" = "Suscripción anual";
+"purchase.product.yearlySubscription.duration" = "anual";
+"purchase.readOnlyMode.alert.title" = "Modo solo lectura";
+"purchase.readOnlyMode.alert.message" = "Puede desbloquear la versión completa de Cryptomator más adelante en los ajustes y usarla en modo de solo lectura por ahora.";
 "purchase.redeemCode.button" = "Canjear código";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prueba continuada";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/Viaje a California";
 
+"trialStatus.active" = "Activa";
+"trialStatus.expired" = "Expirada";
+
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
 "unlockVault.password.footer" = "Ingresar contraseña para \"%@\".";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "El certificado TLS de \"%@\" es inválido. ¿Desea confiar en él de todos modos?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "No confiar";
+
+"upgrade.title" = "Actualizar oferta";
 "upgrade.notEligible.alert.title" = "Error al actualizar";
 "upgrade.notEligible.alert.message" = "Cryptomator no pudo detectar una versión anterior instalada en su dispositivo. Si la compró, vuelva a descargarla desde la App Store e intente de nuevo.";
+"upgrade.info" = "Gracias por confiar en Cryptomator desde la primera versión. Como usuario leal, puede obtener una actualización gratuita.";
 
 "urlSession.error.httpError.401" = "Usuario y/o contraseña incorrectos.";
 "urlSession.error.httpError.403" = "Derechos insuficientes para el recurso solicitado.";
@@ -218,6 +242,7 @@
 "vaultList.remove.alert.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuración de la bóveda no es compatible. Por favor, asegúrese de que está ejecutando la última versión de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "La versión %ld de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.";
 
 "webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "¿Usar HTTPS?";
