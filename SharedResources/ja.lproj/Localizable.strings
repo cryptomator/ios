@@ -35,7 +35,6 @@
 
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
-"addVault.createNewVault.purchase" = "新しい保管庫を作成するには、フルバージョンのCryptomatorが必要です。保管庫への書き込みアクセスのためにフルバージョンのロックを解除することを検討してください。";
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
@@ -124,21 +123,9 @@
 "onboarding.info" = "あなたのファイルを保護するためにCryptomatorを選んでいただきありがとうございます。\n\nCryptomatorによりあなたはデータへの鍵を自分の手中にします。Cryptomatorはあなたのデータを素早く簡単に暗号化します。\n\nこのアプリはファイルアプリとして完全に統合されています。後でファイルアプリでCryptomatorを有効にして保管庫へのアクセスをご確認ください。";
 "onboarding.button.continue" = "続行";
 
-"purchase.title" = "フル バージョンのロックを解除";
-"purchase.info" = "無料の Cryptomator では読み取りモード専用で使用いただけます。金庫への書き込みができるフルバージョンをご検討ください。";
-"purchase.infoRunningTrial" = "保管庫への書き込み権限のある試用期間は %@ までです。試用後にフルバージョンのロックを解除することをご検討ください。";
-"purchase.infoExpiredTrial" = "試用期間が終了しました。フルバージョンのロックを解除して保管庫への書き込みアクセス再開をご検討ください。";
-"purchase.upgrade.footer" = "Cryptomator は古いバージョンを検出しました。ロックを解除してフルバージョンにアップグレードすることができます。";
-"purchase.upgrade.notEligible.footer" = "すでに古いバージョンの Cryptomator を購入している場合は、App Store から再ダウンロードしてください。";
-"purchase.beginFreeTrial.button" = "30日間の無料トライアルを開始";
-"purchase.beginFreeTrial.footer" = "Cryptomator のフルバージョンを無料でお試しください。この試用版のロックは一度だけ解除できます。";
 "purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
-"purchase.beginFreeTrial.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
-"purchase.purchaseFullVersion.button" = "%@でフルバージョンを購入";
-"purchase.purchaseFullVersion.footer" = "一度支払いすることでCryptomatorの保管庫への書き込みアクセスのロックを永続的に解除します。";
 "purchase.redeemCode.button" = "コードを再発行";
 "purchase.restorePurchase.button" = "購入情報の復元";
-"purchase.restorePurchase.footer" = "すでにCryptomatorのフルバージョンを購入している場合は、購入情報を復元することができます。";
 "purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "正常に復元されました";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "以前購入したフルバージョンが見つかりませんでした。別のオプションをお試しください。";
 "purchase.retry.button" = "再試行";
 "purchase.retry.footer" = "利用可能な製品を読み込めませんでした。";
-"purchase.startSubscription.button" = "年間サブスクリプション：%@";
-"purchase.decideLater.button" = "後で決める";
-"purchase.decideLater.footer" = "後で設定でCryptomatorのフルバージョンのロックを解除し、今は読み取り専用モードで使用します。";
+"purchase.title" = "フル バージョンのロックを解除";
 "purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
 "purchase.unlockedFullVersion.title" = "ありがとうございます";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
-
-"upgrade.title" = "バージョン 1.x からアップグレード";
-"upgrade.info" = "以前のバージョンのCryptomatorからフルバージョンのロックを解除するためのアップグレードの資格があります。過去にCryptomatorをサポートしていただきありがとうございます！";
-"upgrade.paidUpgrade.button" = "%@ でアップグレード";
-"upgrade.paidUpgrade.footer" = "これは進行中のオープンソース開発に役立ち、私たちにとってとても大きなサポートになります。";
-"upgrade.freeUpgrade.button" = "無料でアップグレード";
-"upgrade.freeUpgrade.footer" = "ご安心ください。制限なく無料でフルバージョンにアップグレードすることもできます。";
-"upgrade.decideLater.footer" = "後で設定でCryptomatorのフルバージョンにアップグレードできます。今は読み取り専用モードで使用することができます。";
 "upgrade.notEligible.alert.title" = "アップグレードできませんでした";
 "upgrade.notEligible.alert.message" = "Cryptomatorは、お使いのデバイスにインストールされている古いバージョンを検出できませんでした。すでに購入していた場合はApp Storeから再度ダウンロードしてもう一度お試しください。";
 
