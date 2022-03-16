@@ -35,7 +35,6 @@
 
 "addVault.title" = "Aggiungi Cassaforte";
 "addVault.createNewVault.title" = "Crea Nuova Cassaforte";
-"addVault.createNewVault.purchase" = "La creazione di una nuova cassaforte richiede la versione completa di Cryptomator. Considera di sbloccare la versione completa per l'accesso di scrittura alle tue cassaforti.";
 "addVault.createNewVault.setVaultName.header.title" = "Scegli un nome per la tua cassaforte.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome della Cassaforte";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Il nome della cassaforte non può essere vuoto.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file.\n\nCon Cryptomator, la chiave ai tuoi dati è nelle tue mani. Cryptomator crittografa i tuoi dati rapidamente e facilmente.\n\nQuest'app è totalmente integrata nell'app dei File. Assicurati di abilitare Cryptomator nell'app File in seguito, per accedere alle tue cassaforti.";
 "onboarding.button.continue" = "Continua";
 
-"purchase.title" = "Sblocca la Versione Completa";
-"purchase.info" = "Puoi usare Cryptomator in modalità di sola lettura gratis. Considera di sbloccare la versione completa per l'accesso di scrittura alle tue cassaforti.";
-"purchase.infoRunningTrial" = "La tua prova scade il %@ e ti concede accesso di scrittura alle tue cassaforti per un tempo limitato. Considera di sbloccare la versione completa dopo la prova.";
-"purchase.infoExpiredTrial" = "La tua prova è scaduta. Considera lo sblocco della versione completa per recuperare l'accesso di scrittura alle tue cassaforti.";
-"purchase.upgrade.footer" = "Cryptomator ha rilevato una versione precedente. Sei idoneo per un aggiornamento per sbloccare la versione completa.";
-"purchase.upgrade.notEligible.footer" = "Se hai già acquistato una versione precedente di Cryptomator, riscaricala dall'App Store.";
-"purchase.beginFreeTrial.button" = "Inizia la Prova di 30 Giorni Gratis";
-"purchase.beginFreeTrial.footer" = "Prova la versione completa di Cryptomator per un tempo limitato gratis. Puoi sbloccare questa prova solo una volta.";
 "purchase.beginFreeTrial.alert.title" = "Prova Sbloccata";
-"purchase.beginFreeTrial.alert.message" = "Puoi ora usare la versione completa di Cryptomator per un tempo limitato. La tua prova scade il %@. Dopodiché, le tue cassaforti saranno ancora accessibili in modalità sola lettura.";
-"purchase.purchaseFullVersion.button" = "Acquista la Versione Completa per %@";
-"purchase.purchaseFullVersion.footer" = "Paga una volta e sblocca l'accesso di scrittura alle tue cassaforti a vita di Cryptomator.";
 "purchase.redeemCode.button" = "Riscatta Codice";
 "purchase.restorePurchase.button" = "Ripristina Acquisti";
-"purchase.restorePurchase.footer" = "Se hai già acquistato la versione completa di Cryptomator, puoi ripristinare l'acquisto.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prova Continuata";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Puoi ora usare la versione completa di Cryptomator per un tempo limitato. La tua prova scade il %@. Dopodiché, le tue cassaforti saranno ancora accessibili in modalità sola lettura.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Ripristino Riuscito";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Non siamo riusciti a trovare una versione completa acquistata precedentemente ripristinabile. Sei pregato di provare un'altra opzione.";
 "purchase.retry.button" = "Riprova";
 "purchase.retry.footer" = "Impossibile caricare i prodotti disponibili.";
-"purchase.startSubscription.button" = "Abbonati per %@/anno";
-"purchase.decideLater.button" = "Decidi Dopo";
-"purchase.decideLater.footer" = "Puoi sbloccare la versione completa di Cryptomator in seguito, nelle impostazioni e usala in modalità di sola lettura per ora.";
+"purchase.title" = "Sblocca la Versione Completa";
 "purchase.unlockedFullVersion.message" = "Puoi ora usare la versione completa di Cryptomator. Buona crittografazione!";
 "purchase.unlockedFullVersion.title" = "Grazie";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Fidati";
 "untrustedTLSCertificate.dismiss" = "Non Fidarti";
-
-"upgrade.title" = "Aggiorna Dalla Versione 1.x";
-"upgrade.info" = "Sei idoneo per un aggiornamento da una versione precedente di Cryptomator per sbloccare la versione completa. Grazie per aver supportato Cryptomator in passato!";
-"upgrade.paidUpgrade.button" = "Aggiorna per %@";
-"upgrade.paidUpgrade.footer" = "Aiuterebbe lo sviluppo open source in corso e sarebbe per noi un grande sostegno.";
-"upgrade.freeUpgrade.button" = "Aggiorna Gratis";
-"upgrade.freeUpgrade.footer" = "Non preoccuparti, puoi anche aggiornare alla versione completa gratuitamente senza alcun limite.";
-"upgrade.decideLater.footer" = "Puoi aggiornare alla versione completa di Cryptomator in seguito nelle impostazioni e usarla in modalità di sola lettura per ora.";
 "upgrade.notEligible.alert.title" = "Aggiornamento non riuscito";
 "upgrade.notEligible.alert.message" = "Cryptomator non è riuscito a rilevare una versione precedente installata sul tuo dispositivo. Se l'hai acquistata, riscaricala dall'App Store e riprova.";
 
