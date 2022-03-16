@@ -34,7 +34,8 @@
 "accountList.signOut.alert.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
 "addVault.title" = "添加保险库";
-"addVault.createNewVault.title" = "创建新的保险库";
+"addVault.createNewVault.title" = "新建保险库";
+"addVault.createNewVault.purchase" = "创建新的保险库需要 Cryptomator 完整版。";
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "继续";
 
 "purchase.beginFreeTrial.alert.title" = "试用已解锁";
+"purchase.expiredTrial" = "您的试用期已结束。";
+"purchase.footer.privacyPolicy" = "隐私政策";
+"purchase.footer.termsOfUse" = "使用条款";
+"purchase.header.feature.familySharing" = "家庭成员共享";
+"purchase.header.feature.openSource" = "开源开发";
+"purchase.header.feature.writeAccess" = "保险库写入访问权限";
+"purchase.product.donateAndUpgrade" = "捐赠 & 升级";
+"purchase.product.freeUpgrade" = "免费升级";
+"purchase.product.lifetimeLicense" = "终身许可证";
+"purchase.product.lifetimeLicense.duration" = "一次付费";
+"purchase.product.pricing.free" = "免费版";
+"purchase.product.trial" = "30 天免费试用";
+"purchase.product.trial.duration" = "30 天";
+"purchase.product.yearlySubscription" = "按年订阅";
+"purchase.product.yearlySubscription.duration" = "按年";
+"purchase.readOnlyMode.alert.title" = "只读模式";
+"purchase.readOnlyMode.alert.message" = "您之后可以在设置中解锁 Cryptomator 完整版，在此之前只能使用只读模式。";
 "purchase.redeemCode.button" = "兑换激活码";
 "purchase.restorePurchase.button" = "恢复购买";
 "purchase.restorePurchase.validTrialFound.alert.title" = "仍在试用";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/文档";
 "snapshots.main.vault4" = "/加州之旅";
 
+"trialStatus.active" = "进行中";
+"trialStatus.expired" = "已过期";
+
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
 "unlockVault.password.footer" = "输入 \"%@\" 的密码。";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "\"%@\" 的 TLS 证书无效，仍要信任它吗？\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
+
+"upgrade.title" = "升级优惠";
 "upgrade.notEligible.alert.title" = "升级失败";
 "upgrade.notEligible.alert.message" = "Cryptomator 未能检测到您设备安装有旧版本。如果您购买过它，请从 App Store 重新下载后再试。";
+"upgrade.info" = "感谢您从第一版开始就信任 Cryptomator。作为忠实用户，您有资格获得免费升级";
 
 "urlSession.error.httpError.401" = "用户名或密码错误。";
 "urlSession.error.httpError.403" = "对请求的资源权限不足。";
