@@ -35,7 +35,6 @@
 
 "addVault.title" = "Kasa Ekle";
 "addVault.createNewVault.title" = "Yeni Kasa Oluştur";
-"addVault.createNewVault.purchase" = "Yeni bir kasa oluşturmak, Cryptomator'ın tam sürümünü gerektirir. Kasalarınıza yazma erişimi için tam sürümün kilidini açmayı dikkate alın.";
 "addVault.createNewVault.setVaultName.header.title" = "Kasa için bir ad seçin.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kasa Adı";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kasa adı boş olamaz.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz.\n\nCryptomator ile verilerinizin anahtarı sizin elinizde. Cryptomator, verilerinizi hızlı ve kolay bir şekilde şifreler.\n\nBu uygulama, Dosyalar uygulamasına tamamen entegredir. Kasalarınıza erişmek için daha sonra Dosyalar uygulamasında Cryptomator'ı etkinleştirdiğinizden emin olun.";
 "onboarding.button.continue" = "Devam et";
 
-"purchase.title" = "Tam Sürümün Kilidini Aç";
-"purchase.info" = "Cryptomator'ı sadece okuma modunda ücretsiz olarak kullanabilirsiniz. Kasalarınıza yazma erişimi için tam sürümün kilidini açmayı dikkate alabilirsiniz.";
-"purchase.infoRunningTrial" = "Deneme süreniz %@ tarihinde sona eriyor ve sınırlı bir süre için kasalarınıza yazma erişimi sağlıyor. Denemeden sonra tam sürümün kilidini açmayı değerlendirebilirsiniz.";
-"purchase.infoExpiredTrial" = "Deneme süresi doldu. Kasalarınıza yeniden yazma erişimi sağlamak için tam sürümün kilidini açmayı değerlendirebilirsiniz.";
-"purchase.upgrade.footer" = "Cryptomator daha eski bir sürüm tespit etti. Tam sürümün kilidini açmak için yükseltmeye uygunsunuz.";
-"purchase.upgrade.notEligible.footer" = "Cryptomator'ın daha eski bir sürümünü zaten satın aldıysanız, App Store'dan yeniden indirin.";
-"purchase.beginFreeTrial.button" = "30 Günlük Ücretsiz Denemeye Başlayın";
-"purchase.beginFreeTrial.footer" = "Cryptomator'ın tam sürümünü sınırlı bir süre için ücretsiz olarak deneyin. Bu denemenin kilidini yalnızca bir kez açabilirsiniz.";
 "purchase.beginFreeTrial.alert.title" = "Deneme Kilidi Açıldı";
-"purchase.beginFreeTrial.alert.message" = "Artık Cryptomator'ın tam sürümünü sınırlı bir süre için kullanabilirsiniz. Deneme süreniz %@ tarihinde sona eriyor. Bundan sonra, kasalarınız sadece okuma modunda erişilebilir olmaya devam edecektir.";
-"purchase.purchaseFullVersion.button" = "%@ için Tam Sürümü Satın Alın";
-"purchase.purchaseFullVersion.footer" = "Bir kez ödeyin ve Cryptomator'un kasalarınıza yazma erişimi kilidini ömür boyu açın.";
 "purchase.redeemCode.button" = "Kodu Kullan";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
-"purchase.restorePurchase.footer" = "Cryptomator'ın tam sürümünü zaten satın aldıysanız, satın alma işlemini geri yükleyebilirsiniz.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Artık Cryptomator'ın tam sürümünü sınırlı bir süre için kullanabilirsiniz. Deneme süreniz %@ tarihinde sona eriyor. Bundan sonra, kasalarınız sadece okuma modunda erişilebilir olmaya devam edecektir.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Geri Yükleme Başarılı";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Geri yüklenebilecek önceden satın alınmış bir tam sürüm bulamadık. Lütfen başka bir seçenek deneyin.";
 "purchase.retry.button" = "Yeniden dene";
 "purchase.retry.footer" = "Mevcut ürünler yüklenemedi.";
-"purchase.startSubscription.button" = "Yıllık %@ karşılığında abone ol";
-"purchase.decideLater.button" = "Sonra Karar Ver";
-"purchase.decideLater.footer" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
+"purchase.title" = "Tam Sürümün Kilidini Aç";
 "purchase.unlockedFullVersion.message" = "Artık Cryptomator'ın tam sürümünü kullanabilirsiniz. Mutlu şifrelemeler!";
 "purchase.unlockedFullVersion.title" = "Teşekkürler";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
-
-"upgrade.title" = "1.x Sürümünden Yükseltme";
-"upgrade.info" = "Tam sürümün kilidini açmak için daha eski bir Cryptomator sürümünden yükseltme yapmaya hak kazandınız. Geçmişte Cryptomator'ı desteklediğiniz için teşekkür ederiz!";
-"upgrade.paidUpgrade.button" = "%@ için yükselt";
-"upgrade.paidUpgrade.footer" = "Devam eden açık kaynak geliştirmeye yardımcı olacak ve bizim için büyük bir destek olacaktır.";
-"upgrade.freeUpgrade.button" = "Ücretsiz Yükselt";
-"upgrade.freeUpgrade.footer" = "Endişelenmeyin, tam sürüme herhangi bir sınırlama olmaksızın ücretsiz olarak yükseltebilirsiniz.";
-"upgrade.decideLater.footer" = "Cryptomator'ı tam sürüme daha sonra ayarlardan yükseltebilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
 "upgrade.notEligible.alert.title" = "Yükseltme başarısız";
 "upgrade.notEligible.alert.message" = "Cryptomator, cihazınızda yüklü olan daha eski bir sürümü algılayamadı. Satın aldıysanız, lütfen App Store'dan yeniden indirin ve tekrar deneyin.";
 
