@@ -218,7 +218,6 @@
 "vaultList.remove.alert.message" = "Dette vil bare fjerne hvelvet fra listen over hvelv. Ingen krypterte data vil bli slettet. Du kan legge til hvelvet på nytt senere.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Hvelvkonfigurasjon støttes ikke. Kontroller at du kjører den nyeste versjonen av Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Hvelvversjonen støttes ikke. Dette hvelvet er opprettet med en eldre eller nyere versjon av Cryptomator.";
 
 "webDAVAuthentication.progress" = "Autentiserer…";
 "webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
