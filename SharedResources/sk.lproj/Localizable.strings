@@ -35,6 +35,7 @@
 
 "addVault.title" = "Pridať trezor";
 "addVault.createNewVault.title" = "Vytvoriť nový trezor";
+"addVault.createNewVault.purchase" = "Vytvorenie nového trezoru vyžaduje plnú verziu Cryptomator-a.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvoľte názov pre trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Názov trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Meno trezora nemôže byť prázdne.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Pokračovať";
 
 "purchase.beginFreeTrial.alert.title" = "Skúška udomknutá";
+"purchase.expiredTrial" = "Vaše bezplatné skúšobné obdobie vypršalo.";
+"purchase.footer.privacyPolicy" = "Ochrana osobných údajov";
+"purchase.footer.termsOfUse" = "Podmienky používania";
+"purchase.header.feature.familySharing" = "Rodinné zdieľanie";
+"purchase.header.feature.openSource" = "Tvorba otvoreného kódu";
+"purchase.header.feature.writeAccess" = "Možnosť zápisu do Vašich trezorov";
+"purchase.product.donateAndUpgrade" = "Podporiť a Aktualizovať";
+"purchase.product.freeUpgrade" = "Aktualizácia zdarma";
+"purchase.product.lifetimeLicense" = "Doživotná licencia";
+"purchase.product.lifetimeLicense.duration" = "jednorázovo";
+"purchase.product.pricing.free" = "Voľný";
+"purchase.product.trial" = "30-dňová skúšobná verzia";
+"purchase.product.trial.duration" = "na 30 dní";
+"purchase.product.yearlySubscription" = "Ročné predplatné";
+"purchase.product.yearlySubscription.duration" = "ročne";
+"purchase.readOnlyMode.alert.title" = "Iba režim čítania";
+"purchase.readOnlyMode.alert.message" = "Môžete odomknúť plnú verziu Cryptomatora neskôr v nastaveniach a používať v móde len-čítania ihneď.";
 "purchase.redeemCode.button" = "Uplatniť kód";
 "purchase.restorePurchase.button" = "Obnoviť nákup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Skúška pokračuje";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Dokumenty";
 "snapshots.main.vault4" = "/Výlet do Kalifornie";
 
+"trialStatus.active" = "Aktívny";
+"trialStatus.expired" = "Vypršaný";
+
 "unlockVault.button.unlock" = "Odomknúť";
 "unlockVault.button.unlockVia" = "Odomknúť prostredníctvom %@";
 "unlockVault.password.footer" = "Zadajte heslo pre \"%@\".";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu aj tak veriť? \n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Veriť";
 "untrustedTLSCertificate.dismiss" = "Neveriť";
+
+"upgrade.title" = "Ponuka aktualizácie";
 "upgrade.notEligible.alert.title" = "Aktualizácia zlyhala";
 "upgrade.notEligible.alert.message" = "Cryptomator evie detekovať staršiu verziu nainštalovanú vo Vašom zariadení. Ak s te si ju kúpili, prosím znovu si ju stiahnite z App Store a skúste znovu.";
+"upgrade.info" = "Ďakujeme za dôveru v Cryptomator od jeho prvej verzie. Ako lojálny uživateľ máte právo na bezplatnú aktualizáciu.";
 
 "urlSession.error.httpError.401" = "Nesprávne používateľské meno alebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatočné práva k požadovanému zdroju.";
