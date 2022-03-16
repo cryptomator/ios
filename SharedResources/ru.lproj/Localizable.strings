@@ -131,10 +131,10 @@
 "purchase.header.feature.familySharing" = "Семейный доступ";
 "purchase.header.feature.openSource" = "Разработка открытого программного обеспечения";
 "purchase.header.feature.writeAccess" = "Доступ на запись к хранилищам";
-"purchase.product.donateAndUpgrade" = "Пожертвовать и улучшить";
-"purchase.product.freeUpgrade" = "Бесплатное обновление";
+"purchase.product.donateAndUpgrade" = "Внести пожертвовние и получить полную версию";
+"purchase.product.freeUpgrade" = "Бесплатно получить полную версию";
 "purchase.product.lifetimeLicense" = "Бессрочная лицензия";
-"purchase.product.lifetimeLicense.duration" = "разово";
+"purchase.product.lifetimeLicense.duration" = "одноразово";
 "purchase.product.pricing.free" = "Бесплатно";
 "purchase.product.trial" = "30-дневная пробная версия";
 "purchase.product.trial.duration" = "на 30 дней";
@@ -183,7 +183,7 @@
 "snapshots.main.vault4" = "/Поездка в Крым";
 
 "trialStatus.active" = "Активно";
-"trialStatus.expired" = "Срок действия истёк";
+"trialStatus.expired" = "Пробный период истёк";
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
@@ -198,7 +198,7 @@
 "untrustedTLSCertificate.add" = "Доверять";
 "untrustedTLSCertificate.dismiss" = "Не доверять";
 
-"upgrade.title" = "Предложение по обновлению";
+"upgrade.title" = "Предложения по обновлению";
 "upgrade.notEligible.alert.title" = "Ошибка обновления";
 "upgrade.notEligible.alert.message" = "Не удалось обнаружить старую версию Cryptomator, установленную на вашем устройстве. Если вы купили её, пожалуйста, загрузите её снова в App Store и повторите попытку.";
 "upgrade.info" = "Спасибо за доверие к Cryptomator с первой его версии. Как преданный пользователь, вы имеете право на бесплатное обновление.";
