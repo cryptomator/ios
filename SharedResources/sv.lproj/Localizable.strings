@@ -35,7 +35,6 @@
 
 "addVault.title" = "Lägg till valv";
 "addVault.createNewVault.title" = "Skapa nytt valv";
-"addVault.createNewVault.purchase" = "Att skapa ett nytt valv kräver den fullständiga versionen av Cryptomator. Överväg att låsa upp den fullständiga versionen för skrivåtkomst till dina valv.";
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Valvets namn får inte vara tomt.";
@@ -124,21 +123,9 @@
 "onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer.\n\nMed Cryptomator är nyckeln till dina data i dina händer. Cryptomator krypterar dina data snabbt och enkelt.\n\nDenna app är helt integrerad i appen Filer. Se till att aktivera Cryptomator i appen Files senare för att komma åt dina valv.";
 "onboarding.button.continue" = "Fortsätt";
 
-"purchase.title" = "Lås upp fullversion";
-"purchase.info" = "Du kan använda Cryptomator i skrivskyddat läge gratis. Överväg att låsa upp den fullständiga versionen för skrivåtkomst till dina valv.";
-"purchase.infoRunningTrial" = "Din provperiod går ut på %@ och ger dig åtkomst till dina valv under en begränsad tid. Överväg att låsa upp den fullständiga versionen efter provversionen.";
-"purchase.infoExpiredTrial" = "Din provperiod har löpt ut. Överväg att låsa upp den fullständiga versionen för att återfå skrivrättigheter till dina valv.";
-"purchase.upgrade.footer" = "Cryptomator upptäckte en äldre version. Du är berättigad till en uppgradering för att låsa upp den fullständiga versionen.";
-"purchase.upgrade.notEligible.footer" = "Om du redan köpt en äldre version av Cryptomator, ladda ner den igen från App Store.";
-"purchase.beginFreeTrial.button" = "Börja 30-dagars provperiod gratis";
-"purchase.beginFreeTrial.footer" = "Prova den fullständiga versionen av Cryptomator under en begränsad tid gratis. Du kan låsa upp denna provperiod endast en gång.";
 "purchase.beginFreeTrial.alert.title" = "Provperiod upplåst";
-"purchase.beginFreeTrial.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
-"purchase.purchaseFullVersion.button" = "Köp fullversion för %@";
-"purchase.purchaseFullVersion.footer" = "Betala en gång och lås upp skrivrättigheter till dina valv under Cryptomators livstid.";
 "purchase.redeemCode.button" = "Lös in kod";
 "purchase.restorePurchase.button" = "Återställ köp";
-"purchase.restorePurchase.footer" = "Om du redan har köpt den fullständiga versionen av Cryptomator kan du återställa köpet.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Provperiod Fortsatt";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Återställning lyckades";
@@ -146,9 +133,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi kunde inte hitta en tidigare köpt fullversion som kunde återställas. Försök med ett annat alternativ.";
 "purchase.retry.button" = "Försök igen";
 "purchase.retry.footer" = "Kunde inte ladda tillgängliga produkter.";
-"purchase.startSubscription.button" = "Prenumerera för %@ per år";
-"purchase.decideLater.button" = "Bestäm senare";
-"purchase.decideLater.footer" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
+"purchase.title" = "Lås upp fullversion";
 "purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
 "purchase.unlockedFullVersion.title" = "Tackar";
 
@@ -191,14 +176,6 @@
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Ange som betrott";
 "untrustedTLSCertificate.dismiss" = "Lita inte på";
-
-"upgrade.title" = "Uppgradera från version 1.x";
-"upgrade.info" = "Du är berättigad till en uppgradering från en äldre version av Cryptomator för att låsa upp den fullständiga versionen. Tack för att du stödde Cryptomator tidigare!";
-"upgrade.paidUpgrade.button" = "Uppgradera för %@";
-"upgrade.paidUpgrade.footer" = "Det skulle hjälpa den pågående utvecklingen med öppen källkod och vara ett stort stöd för oss.";
-"upgrade.freeUpgrade.button" = "Uppgradera gratis";
-"upgrade.freeUpgrade.footer" = "Inga bekymmer, du kan också uppgradera till den fullständiga versionen gratis utan några begränsningar.";
-"upgrade.decideLater.footer" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
 "upgrade.notEligible.alert.title" = "Uppgradering misslyckades";
 "upgrade.notEligible.alert.message" = "Cryptomator kunde inte upptäcka en äldre version installerad på din enhet. Om du köpte den, ladda ner den igen från App Store och försök igen.";
 
