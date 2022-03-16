@@ -125,10 +125,10 @@
 "onboarding.button.continue" = "Weiter";
 
 "purchase.beginFreeTrial.alert.title" = "Testversion freigeschaltet";
-"purchase.expiredTrial" = "Ihre Testversion ist abgelaufen.";
+"purchase.expiredTrial" = "Deine Testversion ist abgelaufen.";
 "purchase.footer.privacyPolicy" = "Datenschutzerklärung";
 "purchase.footer.termsOfUse" = "Nutzungsbedingungen";
-"purchase.header.feature.familySharing" = "Family Share";
+"purchase.header.feature.familySharing" = "Familienfreigabe";
 "purchase.header.feature.openSource" = "Open-Source-Entwicklung";
 "purchase.header.feature.writeAccess" = "Schreibzugriff auf deine Tresore";
 "purchase.product.donateAndUpgrade" = "Spenden & Upgrade";
@@ -136,7 +136,7 @@
 "purchase.product.lifetimeLicense" = "Lebenslange Lizenz";
 "purchase.product.lifetimeLicense.duration" = "einmalig";
 "purchase.product.pricing.free" = "Gratis";
-"purchase.product.trial" = "30 Tage Testversion";
+"purchase.product.trial" = "30-Tage-Testversion";
 "purchase.product.trial.duration" = "für 30 Tage";
 "purchase.product.yearlySubscription" = "Jahresabonnement";
 "purchase.product.yearlySubscription.duration" = "jährlich";
@@ -242,7 +242,6 @@
 "vaultList.remove.alert.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
 "webDAVAuthentication.progress" = "Authentifiziere…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
