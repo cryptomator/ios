@@ -242,7 +242,6 @@
 "vaultList.remove.alert.message" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρυπτών. Δεν θα αφαιρέσει κρυπτογραφημένα δεδομένα. Μπορείτε να προσθέσετε ξανά την κρύπτη αργότερα.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Η ρύθμιση παραμέτρων της κρύπτης δεν υποστηρίζεται. Παρακαλώ σιγουρευτείτε ότι εκτελείτε την τελευταία έκδοση του Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
 
 "webDAVAuthentication.progress" = "Ταυτοποίηση…";
 "webDAVAuthentication.httpConnection.alert.title" = "Χρήση HTTPS;";
