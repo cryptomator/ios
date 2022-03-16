@@ -35,6 +35,7 @@
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
+"addVault.createNewVault.purchase" = "Das Erstellen eines neuen Tresors erfordert die Vollversion von Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname darf nicht leer sein.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Weiter";
 
 "purchase.beginFreeTrial.alert.title" = "Testversion freigeschaltet";
+"purchase.expiredTrial" = "Ihre Testversion ist abgelaufen.";
+"purchase.footer.privacyPolicy" = "Datenschutzerklärung";
+"purchase.footer.termsOfUse" = "Nutzungsbedingungen";
+"purchase.header.feature.familySharing" = "Family Share";
+"purchase.header.feature.openSource" = "Open-Source-Entwicklung";
+"purchase.header.feature.writeAccess" = "Schreibzugriff auf deine Tresore";
+"purchase.product.donateAndUpgrade" = "Spenden & Upgrade";
+"purchase.product.freeUpgrade" = "Kostenloses Upgrade";
+"purchase.product.lifetimeLicense" = "Lebenslange Lizenz";
+"purchase.product.lifetimeLicense.duration" = "einmalig";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "30 Tage Testversion";
+"purchase.product.trial.duration" = "für 30 Tage";
+"purchase.product.yearlySubscription" = "Jahresabonnement";
+"purchase.product.yearlySubscription.duration" = "jährlich";
+"purchase.readOnlyMode.alert.title" = "Schreibgeschützter Modus";
+"purchase.readOnlyMode.alert.message" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
 "purchase.redeemCode.button" = "Code einlösen";
 "purchase.restorePurchase.button" = "Käufe wiederherstellen";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Testversion fortgesetzt";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Dokumente";
 "snapshots.main.vault4" = "/Reise nach Bonn";
 
+"trialStatus.active" = "Aktiv";
+"trialStatus.expired" = "Abgelaufen";
+
 "unlockVault.button.unlock" = "Entsperren";
 "unlockVault.button.unlockVia" = "Entsperren über %@";
 "unlockVault.password.footer" = "Gib das Passwort für „%@“ ein.";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "Das TLS-Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
+
+"upgrade.title" = "Upgrade-Angebot";
 "upgrade.notEligible.alert.title" = "Upgrade fehlgeschlagen";
 "upgrade.notEligible.alert.message" = "Cryptomator konnte keine ältere Version auf deinem Gerät finden. Falls du die App gekauft hast, lade sie bitte erneut aus dem App Store herunter und versuche es erneut.";
+"upgrade.info" = "Vielen Dank für das Vertrauen in Cryptomator seit Version eins. Als treuer Nutzer bist du für ein kostenloses Upgrade berechtigt.";
 
 "urlSession.error.httpError.401" = "Benutzername und/oder Passwort falsch.";
 "urlSession.error.httpError.403" = "Unzureichende Rechte für die angeforderte Ressource.";
