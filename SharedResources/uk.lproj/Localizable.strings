@@ -54,9 +54,8 @@
 
 "onboarding.title" = "Вітаємо";
 "onboarding.button.continue" = "Продовжити";
-
-"purchase.title" = "Розблокувати повну версію";
 "purchase.retry.button" = "Повторити";
+"purchase.title" = "Розблокувати повну версію";
 "purchase.unlockedFullVersion.title" = "Дякуємо Вам!";
 
 "settings.title" = "Налаштування";
@@ -75,8 +74,6 @@
 "unlockVault.progress" = "Розблокування…";
 "untrustedTLSCertificate.add" = "Довіряти";
 "untrustedTLSCertificate.dismiss" = "Не довіряти";
-
-"upgrade.title" = "Оновити з версії 1.x";
 
 "vaultDetail.button.changeVaultPassword" = "Змінити пароль";
 "vaultDetail.button.lock" = "Заблокувати зараз";
