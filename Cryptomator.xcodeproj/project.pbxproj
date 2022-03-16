@@ -200,6 +200,7 @@
 		4A8F149E266A2A8200ADBCE4 /* FileProviderAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F149D266A2A8200ADBCE4 /* FileProviderAdapter.swift */; };
 		4A8F14A0266A2FD500ADBCE4 /* FileProviderAdapterGetItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F149F266A2FD500ADBCE4 /* FileProviderAdapterGetItemTests.swift */; };
 		4A8F14A2266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8F14A1266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift */; };
+		4A90E7C327C79DCF00BC858B /* PurchaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A90E7C227C79DCF00BC858B /* PurchaseCell.swift */; };
 		4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 4A9172812619F17C003C4043 /* CryptomatorCommon */; };
 		4A91728B2619F1D0003C4043 /* CryptomatorCommonCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4A91728A2619F1D0003C4043 /* CryptomatorCommonCore */; };
 		4A91D8CC272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A91D8CB272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift */; };
@@ -226,6 +227,12 @@
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
 		4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */; };
 		4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */; };
+		4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */; };
+		4AB1D4F627D626C5009060AB /* PurchaseFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */; };
+		4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F727D68026009060AB /* IAPHeaderView.swift */; };
+		4AB1D4FA27D69B50009060AB /* IAPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F927D69B50009060AB /* IAPCell.swift */; };
+		4AB1D4FD27D69BB2009060AB /* TrialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4FC27D69BB2009060AB /* TrialCell.swift */; };
+		4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4FE27D69C9A009060AB /* DisclosureCell.swift */; };
 		4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */; };
 		4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */; };
 		4AB1D4F027D20420009060AB /* LocalURLProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */; };
@@ -284,6 +291,8 @@
 		4AEFF7F227145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */; };
 		4AEFF7F427145CB500D6CB99 /* LogLevelUpdatingServiceSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */; };
 		4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEFF7F527145F5A00D6CB99 /* FileProviderConnectorMock.swift */; };
+		4AF22C2627D8DE6500779802 /* NSAttributedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF22C2527D8DE6500779802 /* NSAttributedString+Extension.swift */; };
+		4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */; };
 		4AF45356271F2A8300CF1919 /* RenameVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF45355271F2A8300CF1919 /* RenameVaultViewModel.swift */; };
 		4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */; };
 		4AF4535D27205F6200CF1919 /* VaultDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4535C27205F6200CF1919 /* VaultDetailCoordinator.swift */; };
@@ -353,9 +362,7 @@
 		74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */; };
 		74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */; };
 		74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */; };
-		74C2BC5426E9097E00BCAA03 /* UpgradeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */; };
 		74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */; };
-		74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */; };
 		74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */; };
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
@@ -659,6 +666,7 @@
 		4A8F149D266A2A8200ADBCE4 /* FileProviderAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapter.swift; sourceTree = "<group>"; };
 		4A8F149F266A2FD500ADBCE4 /* FileProviderAdapterGetItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterGetItemTests.swift; sourceTree = "<group>"; };
 		4A8F14A1266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterTestCase.swift; sourceTree = "<group>"; };
+		4A90E7C227C79DCF00BC858B /* PurchaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseCell.swift; sourceTree = "<group>"; };
 		4A91D8CB272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModelTests.swift; sourceTree = "<group>"; };
 		4A91D8CD272ADC78003F8BD8 /* ChangePasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewModel.swift; sourceTree = "<group>"; };
 		4A9BED63268F1DB000721BAA /* VaultUnlockingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultUnlockingServiceSource.swift; sourceTree = "<group>"; };
@@ -690,6 +698,12 @@
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTaskExecutorTestCase.swift; sourceTree = "<group>"; };
+		4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHidingLabel.swift; sourceTree = "<group>"; };
+		4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseFooterView.swift; sourceTree = "<group>"; };
+		4AB1D4F727D68026009060AB /* IAPHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHeaderView.swift; sourceTree = "<group>"; };
+		4AB1D4F927D69B50009060AB /* IAPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPCell.swift; sourceTree = "<group>"; };
+		4AB1D4FC27D69BB2009060AB /* TrialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialCell.swift; sourceTree = "<group>"; };
+		4AB1D4FE27D69C9A009060AB /* DisclosureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureCell.swift; sourceTree = "<group>"; };
 		4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderType.swift; sourceTree = "<group>"; };
 		4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderMock.swift; sourceTree = "<group>"; };
 		4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderTests.swift; sourceTree = "<group>"; };
@@ -752,6 +766,8 @@
 		4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevelUpdatingServiceSource.swift; sourceTree = "<group>"; };
 		4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevelUpdatingServiceSourceTests.swift; sourceTree = "<group>"; };
 		4AEFF7F527145F5A00D6CB99 /* FileProviderConnectorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderConnectorMock.swift; sourceTree = "<group>"; };
+		4AF22C2527D8DE6500779802 /* NSAttributedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+Extension.swift"; sourceTree = "<group>"; };
+		4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Promises.swift"; sourceTree = "<group>"; };
 		4AF45355271F2A8300CF1919 /* RenameVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameVaultViewModel.swift; sourceTree = "<group>"; };
 		4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameVaultViewModelTests.swift; sourceTree = "<group>"; };
 		4AF4535C27205F6200CF1919 /* VaultDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailCoordinator.swift; sourceTree = "<group>"; };
@@ -839,9 +855,7 @@
 		74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewModel.swift; sourceTree = "<group>"; };
 		74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseCoordinator.swift; sourceTree = "<group>"; };
-		74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeCoordinator.swift; sourceTree = "<group>"; };
 		74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewModel.swift; sourceTree = "<group>"; };
-		74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpgradeViewController.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
@@ -1271,6 +1285,7 @@
 			isa = PBXGroup;
 			children = (
 				4A79E26826B16993008C9959 /* ActionButton.swift */,
+				4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */,
 				4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */,
 				4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */,
 				4A4B7E6C26B9462F009BFDB1 /* Bindable.swift */,
@@ -1285,6 +1300,8 @@
 				4A63E4662742A8CB00026989 /* ListViewController.swift */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
 				4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */,
+				4AF22C2527D8DE6500779802 /* NSAttributedString+Extension.swift */,
+				4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */,
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */,
 				4A61F6B62745353E007AA422 /* TableViewModel.swift */,
@@ -1300,7 +1317,6 @@
 				4A4B7E7526B95552009BFDB1 /* HeaderFooter */,
 				7408E6BD2677835C00D7FAEA /* LocalWeb */,
 				4A8195E425ADB94500F7DDA1 /* Previews */,
-				4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1442,6 +1458,17 @@
 			path = Middleware;
 			sourceTree = "<group>";
 		};
+		4AB1D4FB27D69B98009060AB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4AB1D4FE27D69C9A009060AB /* DisclosureCell.swift */,
+				4AB1D4F927D69B50009060AB /* IAPCell.swift */,
+				4A90E7C227C79DCF00BC858B /* PurchaseCell.swift */,
+				4AB1D4FC27D69BB2009060AB /* TrialCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		4AB6A897278F07DE0016B01E /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1531,6 +1558,7 @@
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
+				4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */,
 				4A6A5209268B2B7B006F7368 /* AddLocalVault */,
 				4ADD9DBC2729618800B73FB9 /* Mocks */,
 				4A1C6D5B274D225A00B41FFF /* Purchase */,
@@ -1718,10 +1746,12 @@
 		74F5DC1A26DCD2E300AFE989 /* Purchase */ = {
 			isa = PBXGroup;
 			children = (
-				4AC005F027C3D80B006FFE87 /* PremiumManager.swift */,
+				4AB1D4F727D68026009060AB /* IAPHeaderView.swift */,
 				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
+				4AC005F027C3D80B006FFE87 /* PremiumManager.swift */,
 				4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */,
 				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
+				4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */,
 				74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */,
 				74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */,
 				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
@@ -1729,9 +1759,8 @@
 				74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */,
 				4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */,
 				4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */,
-				74C2BC5326E9097E00BCAA03 /* UpgradeCoordinator.swift */,
-				74C2BC5726E9098B00BCAA03 /* UpgradeViewController.swift */,
 				74C2BC5526E9098500BCAA03 /* UpgradeViewModel.swift */,
+				4AB1D4FB27D69B98009060AB /* Cells */,
 			);
 			path = Purchase;
 			sourceTree = "<group>";
@@ -2254,6 +2283,7 @@
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
 				4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */,
+				4AB1D4FA27D69B50009060AB /* IAPCell.swift in Sources */,
 				4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */,
 				4A447DB325BEF68100D9520D /* CloudChoosing.swift in Sources */,
 				4A7B97C225B6F7200044B7FB /* AccountListViewController.swift in Sources */,
@@ -2265,6 +2295,7 @@
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
+				4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */,
 				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
@@ -2273,6 +2304,7 @@
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
 				4A7BC0F125ADFAD600F007B3 /* AddVaultCoordinator.swift in Sources */,
 				4A3D655F268099F9000DA764 /* VaultCoordinatorError.swift in Sources */,
+				4AF22C2627D8DE6500779802 /* NSAttributedString+Extension.swift in Sources */,
 				4AF4535D27205F6200CF1919 /* VaultDetailCoordinator.swift in Sources */,
 				4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */,
 				4A1EB0CC2689C3DE006D072B /* CreateNewLocalVaultCoordinator.swift in Sources */,
@@ -2292,10 +2324,12 @@
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
 				4A21B49226BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift in Sources */,
 				4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */,
+				4A90E7C327C79DCF00BC858B /* PurchaseCell.swift in Sources */,
 				4A7BC0E025ADF12D00F007B3 /* AddVaultViewController.swift in Sources */,
 				4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */,
 				4A66F58225C487C9001BE15E /* PasswordFieldCell.swift in Sources */,
 				74FC576125ADED030003ED27 /* VaultCell.swift in Sources */,
+				4AB1D4F627D626C5009060AB /* PurchaseFooterView.swift in Sources */,
 				4A1DB295275FB41800A5F27B /* SystemSymbolButtonCellViewModel.swift in Sources */,
 				4AFCE53A25B9D6A60069C4FC /* CloudAuthenticator.swift in Sources */,
 				4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */,
@@ -2322,7 +2356,6 @@
 				4A3C5DDC272C080000EB7C7A /* VaultPasswordChanging.swift in Sources */,
 				4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */,
 				4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */,
-				74C2BC5426E9097E00BCAA03 /* UpgradeCoordinator.swift in Sources */,
 				4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */,
 				4A1EB0CA2689C373006D072B /* LocalVaultAdding.swift in Sources */,
 				4A4B7E6D26B9462F009BFDB1 /* Bindable.swift in Sources */,
@@ -2360,12 +2393,14 @@
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */,
 				4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */,
+				4AB1D4FD27D69BB2009060AB /* TrialCell.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstalling.swift in Sources */,
 				74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */,
 				4A53B6D32722F92D000DC367 /* MoveVaultViewModel.swift in Sources */,
 				4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */,
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
+				4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */,
 				4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */,
 				4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
@@ -2380,9 +2415,9 @@
 				4AB8539026BA844300555F00 /* Publisher+OptionalAssign.swift in Sources */,
 				4A1C6D58274CE5BF00B41FFF /* LoadingCell.swift in Sources */,
 				4A3D65642680A4B7000DA764 /* LocalFileSystemAuthenticationViewController.swift in Sources */,
+				4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */,
 				4A7B97DC25B6F80A0044B7FB /* AccountInfo.swift in Sources */,
 				4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */,
-				74C2BC5826E9098B00BCAA03 /* UpgradeViewController.swift in Sources */,
 				4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift in Sources */,
 				4A4B7E4826B2BAFB009BFDB1 /* SwitchCell.swift in Sources */,
 				4A6C36D6274525E100F247A9 /* ReturnButtonSupport.swift in Sources */,
@@ -2442,6 +2477,7 @@
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
+				4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
 				4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,

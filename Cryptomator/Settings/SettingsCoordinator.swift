@@ -129,46 +129,15 @@ private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoor
 		super.init(navigationController: navigationController)
 	}
 
-	override func start() {
-		let purchaseViewController = PurchaseViewController(viewModel: SettingsPurchaseViewModel())
-		purchaseViewController.coordinator = self
-		purchaseViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-		navigationController.pushViewController(purchaseViewController, animated: true)
-	}
-
-	override func getUpgradeCoordinator() -> UpgradeCoordinator {
-		return SettingsUpgradeCoordinator(navigationController: navigationController, oldTopViewController: oldTopViewController)
+	override func getUpgradeCoordinator() -> PurchaseCoordinator {
+		return self
 	}
 
 	override func close() {
 		popToOldTopViewController()
 	}
 
-	@objc private func done() {
-		super.close()
-	}
-}
-
-private class SettingsUpgradeCoordinator: UpgradeCoordinator, PoppingCloseCoordinator {
-	let oldTopViewController: UIViewController?
-
-	init(navigationController: UINavigationController, oldTopViewController: UIViewController?) {
-		self.oldTopViewController = oldTopViewController
-		super.init(navigationController: navigationController)
-	}
-
-	override func close() {
-		popToOldTopViewController()
-	}
-
-	override func start() {
-		let upgradeViewController = UpgradeViewController(viewModel: SettingsUpgradeViewModel())
-		upgradeViewController.coordinator = self
-		upgradeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-		navigationController.pushViewController(upgradeViewController, animated: true)
-	}
-
-	@objc private func done() {
+	@objc override func doneButtonTapped() {
 		super.close()
 	}
 }

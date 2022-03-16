@@ -6,68 +6,66 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class PurchaseViewController: IAPViewController<PurchaseSection, PurchaseButtonAction> {
-	weak var coordinator: PurchaseCoordinator? {
-		didSet {
-			setCoordinator(coordinator)
-		}
-	}
-
+class PurchaseViewController: IAPViewController {
 	private let viewModel: PurchaseViewModel
+	private lazy var footerView: PurchaseFooterView = {
+		let footerView = PurchaseFooterView()
+		footerView.restorePurchaseButton.addTarget(self, action: #selector(restorePurchase), for: .primaryActionTriggered)
+		if #available(iOS 14.0, *) {
+			footerView.redeemCodeButton.addTarget(self, action: #selector(redeemCode), for: .primaryActionTriggered)
+		}
+		return footerView
+	}()
 
 	init(viewModel: PurchaseViewModel) {
 		self.viewModel = viewModel
 		super.init(viewModel: viewModel)
 	}
 
-	// MARK: - UITableViewDelegate
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		viewModel.hasRunningTransaction.receive(on: DispatchQueue.main).sink { [weak self] hasRunningTransaction in
+			self?.footerView.restorePurchaseButton.isEnabled = !hasRunningTransaction
+			self?.footerView.redeemCodeButton.isEnabled = !hasRunningTransaction
+		}.store(in: &subscribers)
+	}
+
+	override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+		if let parentFooterView = super.tableView(tableView, viewForFooterInSection: section) {
+			return parentFooterView
+		}
+		let itemIdentifier = dataSource?.itemIdentifier(for: IndexPath(row: 0, section: section))
+		if itemIdentifier == .loadingCell {
+			return nil
+		}
+		footerView.configure(with: tableView.traitCollection)
+		return footerView
+	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-		let cellViewModel = dataSource?.itemIdentifier(for: indexPath) as? ButtonCellViewModel<PurchaseButtonAction>
-		switch cellViewModel?.action {
-		case .showUpgrade:
-			coordinator?.showUpgrade()
-		case .beginFreeTrial:
-			viewModel.beginFreeTrial().then { [weak self] trialExpirationDate in
-				self?.coordinator?.freeTrialStarted(expirationDate: trialExpirationDate)
-			}.catch { [weak self] error in
-				self?.handleError(error)
-			}
-		case .purchaseFullVersion:
-			viewModel.purchaseFullVersion().then { [weak self] in
-				self?.coordinator?.fullVersionPurchased()
-			}.catch { [weak self] error in
-				self?.handleError(error)
-			}
-		case .restorePurchase:
-			viewModel.restorePurchase().then { [weak self] result in
-				self?.coordinator?.handleRestoreResult(result)
-			}.catch { [weak self] error in
-				self?.handleError(error)
-			}
-		case .decideLater:
-			coordinator?.close()
-		case .refreshProducts:
-			let viewModel = viewModel
-			viewModel.replaceRetrySectionWithLoadingSection()
-			applySnapshot(sections: viewModel.sections)
-			fetchProducts()
-		case .redeemCode:
-			if #available(iOS 14.0, *) {
-				viewModel.redeemCode()
-			}
-		case .startSubscription:
-			viewModel.startSubscription().then { [weak self] in
-				self?.coordinator?.fullVersionPurchased()
-			}.catch { [weak self] error in
-				self?.handleError(error)
-			}
-		case .unknown, .none:
-			break
+		super.tableView(tableView, didSelectRowAt: indexPath)
+		guard let itemIdentifier = dataSource?.itemIdentifier(for: indexPath) else {
+			return
 		}
+		if case Item.showUpgradeOffer = itemIdentifier {
+			coordinator?.showUpgrade(onAlertDismiss: {
+				tableView.deselectRow(at: indexPath, animated: true)
+			})
+		}
+	}
+
+	@objc private func restorePurchase() {
+		viewModel.restorePurchase().then { [weak self] result in
+			self?.coordinator?.handleRestoreResult(result)
+		}.catch { [weak self] error in
+			self?.handleError(error)
+		}
+	}
+
+	@available(iOS 14.0, *)
+	@objc private func redeemCode() {
+		viewModel.redeemCode()
 	}
 }
