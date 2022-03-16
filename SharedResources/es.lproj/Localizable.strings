@@ -218,7 +218,6 @@
 "vaultList.remove.alert.message" = "Esto solo eliminará la bóveda de la lista de bóvedas. No se eliminarán datos cifrados. Puede volver a añadir la bóveda más tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuración de la bóveda no es compatible. Por favor, asegúrese de que está ejecutando la última versión de Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "La versión de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.";
 
 "webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "¿Usar HTTPS?";
