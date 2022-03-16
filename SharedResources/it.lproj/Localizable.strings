@@ -197,8 +197,11 @@
 "untrustedTLSCertificate.message" = "Il Certificato TLS di \"%@\" non è valido. Desideri fidarti ugualmente?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Fidati";
 "untrustedTLSCertificate.dismiss" = "Non Fidarti";
+
+"upgrade.title" = "Aggiorna offerta";
 "upgrade.notEligible.alert.title" = "Aggiornamento non riuscito";
 "upgrade.notEligible.alert.message" = "Cryptomator non è riuscito a rilevare una versione precedente installata sul tuo dispositivo. Se l'hai acquistata, riscaricala dall'App Store e riprova.";
+"upgrade.info" = "Grazie per la fiducia verso Cryptomator sin dalla versione uno. Come utente fedele, sei idoneo per un aggiornamento gratuito.";
 
 "urlSession.error.httpError.401" = "Nome utente e/o password errati.";
 "urlSession.error.httpError.403" = "Diritti insufficienti per la risorsa richiesta.";
