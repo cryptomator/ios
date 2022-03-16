@@ -218,7 +218,6 @@
 "vaultList.remove.alert.message" = "Ini hanya akan menghapus vault dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat menambahkan kembali vault nanti.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Versi vault tidak didukung. Vault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
 
 "webDAVAuthentication.progress" = "Mengotentikasi…";
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
