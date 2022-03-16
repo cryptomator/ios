@@ -24,6 +24,8 @@ extension UIImage {
 			assetName = "google-drive-vault"
 		case .oneDrive:
 			assetName = "onedrive-vault"
+		case .pCloud:
+			assetName = "pcloud-vault"
 		case .webDAV:
 			assetName = "webdav-vault"
 		case let .localFileSystem(localFileSystemType):
@@ -53,10 +55,12 @@ extension UIImage {
 			assetName = "google-drive"
 		case .oneDrive:
 			assetName = "onedrive"
-		case let .localFileSystem(localFileSystemType):
-			assetName = UIImage.getStorageIcon(for: localFileSystemType)
+		case .pCloud:
+			assetName = "pcloud"
 		case .webDAV:
 			assetName = "webdav"
+		case let .localFileSystem(localFileSystemType):
+			assetName = UIImage.getStorageIcon(for: localFileSystemType)
 		}
 		self.init(named: assetName)
 	}

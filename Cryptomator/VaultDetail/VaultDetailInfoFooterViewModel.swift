@@ -54,6 +54,12 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		case .oneDrive:
 			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)
 			return try? credential?.getUsername()
+		case .pCloud:
+			guard let credential = try? PCloudCredential(userID: vault.delegateAccountUID) else {
+				return nil
+			}
+			getUsername(for: credential)
+			return "(…)"
 		case .webDAV:
 			let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: vault.delegateAccountUID)
 			return credential?.username
@@ -63,6 +69,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 	}
 
 	func getUsername(for credential: DropboxCredential) {
+		credential.getUsername().then { username in
+			let loggedInText = self.createLoggedInText(forUsername: username)
+			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+			self.attributedText.value = attributedText
+		}
+	}
+
+	func getUsername(for credential: PCloudCredential) {
 		credential.getUsername().then { username in
 			let loggedInText = self.createLoggedInText(forUsername: username)
 			let attributedText = self.createAttributedText(loggedInText: loggedInText)

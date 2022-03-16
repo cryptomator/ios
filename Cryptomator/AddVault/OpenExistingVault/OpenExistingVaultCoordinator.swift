@@ -22,7 +22,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .webDAV(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		chooseCloudVC.coordinator = self
