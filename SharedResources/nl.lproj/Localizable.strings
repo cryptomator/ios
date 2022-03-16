@@ -218,7 +218,6 @@
 "vaultList.remove.alert.message" = "Dit verwijdert alleen de kluis uit de lijst. Er worden geen versleutelde gegevens verwijderd. U kunt de kluis later opnieuw toevoegen.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "De kluisversie wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
 
 "webDAVAuthentication.progress" = "Authenticatie verwerken…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
