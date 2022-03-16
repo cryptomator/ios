@@ -35,6 +35,7 @@
 
 "addVault.title" = "Προσθήκη Κρύπτης";
 "addVault.createNewVault.title" = "Δημιουργία Νέας Κρύπτης";
+"addVault.createNewVault.purchase" = "Η δημιουργία μιας νέας κρύπτης απαιτεί την πλήρη έκδοση του Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Διαλέξτε ένα όνομα για την κρύπτη.";
 "addVault.createNewVault.setVaultName.cells.name" = "Όνομα Κρύπτης";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Το όνομα της κρύπτης δεν μπορεί να είναι κενό.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Συνέχεια";
 
 "purchase.beginFreeTrial.alert.title" = "Η Δοκιμαστική περίοδος ξεκλειδώθηκε";
+"purchase.expiredTrial" = "Η δοκιμαστική έκδοση έχει λήξει.";
+"purchase.footer.privacyPolicy" = "Πολιτική Απορρήτου";
+"purchase.footer.termsOfUse" = "Όροι Χρήσης";
+"purchase.header.feature.familySharing" = "Οικογενειακή κοινή χρήση";
+"purchase.header.feature.openSource" = "Ανοιχτού κώδικα ανάπτυξη";
+"purchase.header.feature.writeAccess" = "Πρόσβαση εγγραφής στις κρύπτες σας";
+"purchase.product.donateAndUpgrade" = "Δωρεά & Αναβάθμιση";
+"purchase.product.freeUpgrade" = "Δωρεάν Αναβάθμιση";
+"purchase.product.lifetimeLicense" = "Άδεια Εφ' όρου ζωής";
+"purchase.product.lifetimeLicense.duration" = "μια φορά";
+"purchase.product.pricing.free" = "Δωρεάν";
+"purchase.product.trial" = "Δοκιμή 30-Ημερών";
+"purchase.product.trial.duration" = "για 30 ημέρες";
+"purchase.product.yearlySubscription" = "Ετήσια Συνδρομή";
+"purchase.product.yearlySubscription.duration" = "ετήσια";
+"purchase.readOnlyMode.alert.title" = "Λειτουργία Μόνο-Ανάγνωση";
+"purchase.readOnlyMode.alert.message" = "Μπορείτε να ξεκλειδώσετε την πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να τη χρησιμοποιήσετε σε λειτουργία μόνο για ανάγνωση προς το παρόν.";
 "purchase.redeemCode.button" = "Εξαργύρωση Κωδικού";
 "purchase.restorePurchase.button" = "Επαναφορά Αγοράς";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Η δοκιμαστική περίοδος συνεχίστηκε";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Έγγραφα";
 "snapshots.main.vault4" = "/Ταξίδι στην Καλιφόρνια";
 
+"trialStatus.active" = "Ενεργή";
+"trialStatus.expired" = "Έληξε";
+
 "unlockVault.button.unlock" = "Ξεκλείδωμα";
 "unlockVault.button.unlockVia" = "Ξεκλείδωμα μέσω %@";
 "unlockVault.password.footer" = "Εισάγετε τον κωδικό για \"%@\".";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "Το πιστοποιητικό TLS του \"%@\" δεν είναι έγκυρο. Θέλετε να το εμπιστευθείτε ούτως ή άλλως;\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Εμπιστευτείτε";
 "untrustedTLSCertificate.dismiss" = "Μην Εμπιστευτείτε";
+
+"upgrade.title" = "Προσφορά Αναβάθμισης";
 "upgrade.notEligible.alert.title" = "Η Αναβάθμιση Απέτυχε";
 "upgrade.notEligible.alert.message" = "Το Cryptomator δεν μπόρεσε να εντοπίσει μια παλαιότερη έκδοση που είναι εγκατεστημένη στη συσκευή σας. Εάν το αγοράσατε, κατεβάστε το ξανά από το App Store και δοκιμάστε ξανά.";
+"upgrade.info" = "Ευχαριστούμε που εμπιστεύεστε το Cryptomator από την πρώτη έκδοση. Ως πιστός χρήστης, πληρείτε τα κριτήρια για δωρεάν αναβάθμιση.";
 
 "urlSession.error.httpError.401" = "Λάθος όνομα χρήστη και/ή κωδικός πρόσβασης.";
 "urlSession.error.httpError.403" = "Ανεπαρκή δικαιώματα στον ζητούμενο πόρο.";
