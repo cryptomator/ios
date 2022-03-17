@@ -242,6 +242,7 @@
 "vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator。";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "不支持的保险库版本 %ld。这可能是使用太新或太旧的 Cryptomator 版本创建的保险库。";
 
 "webDAVAuthentication.progress" = "正在验证……";
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";
