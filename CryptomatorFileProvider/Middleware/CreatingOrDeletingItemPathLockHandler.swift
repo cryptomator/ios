@@ -25,10 +25,10 @@ class CreatingOrDeletingItemPathLockHandler<T>: WorkflowMiddleware {
 
 	func execute(task: CloudTask) -> Promise<T> {
 		let cloudPath = task.itemMetadata.cloudPath
-		let pathLockForReading = LockManager.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
-		let dataLockForReading = LockManager.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
-		let pathLockForWriting = LockManager.getPathLockForWriting(at: cloudPath)
-		let dataLockForWriting = LockManager.getDataLockForWriting(at: cloudPath)
+		let pathLockForReading = LockManager.cloud.getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		let dataLockForReading = LockManager.cloud.getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		let pathLockForWriting = LockManager.cloud.getPathLockForWriting(at: cloudPath)
+		let dataLockForWriting = LockManager.cloud.getDataLockForWriting(at: cloudPath)
 		return FileSystemLock.lockInOrder([pathLockForReading, dataLockForReading, pathLockForWriting, dataLockForWriting]).then {
 			try self.getNext().execute(task: task)
 		}.always {
