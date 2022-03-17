@@ -35,6 +35,7 @@
 
 "addVault.title" = "Kasa Ekle";
 "addVault.createNewVault.title" = "Yeni Kasa Oluştur";
+"addVault.createNewVault.purchase" = "Yeni bir kasa oluşturmak, Cryptomator'ın tam sürümünü gerektirir.";
 "addVault.createNewVault.setVaultName.header.title" = "Kasa için bir ad seçin.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kasa Adı";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kasa adı boş olamaz.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Devam et";
 
 "purchase.beginFreeTrial.alert.title" = "Deneme Kilidi Açıldı";
+"purchase.expiredTrial" = "Deneme süreniz doldu.";
+"purchase.footer.privacyPolicy" = "Gizlilik Politikası";
+"purchase.footer.termsOfUse" = "Kullanım Koşulları";
+"purchase.header.feature.familySharing" = "Aile paylaşımı";
+"purchase.header.feature.openSource" = "Açık kaynak geliştirme";
+"purchase.header.feature.writeAccess" = "Kasalarınıza yazma erişimi";
+"purchase.product.donateAndUpgrade" = "Bağış Yap & Yükselt";
+"purchase.product.freeUpgrade" = "Ücretsiz Yükseltme";
+"purchase.product.lifetimeLicense" = "Ömür Boyu Kullanım Lisansı";
+"purchase.product.lifetimeLicense.duration" = "bir kez";
+"purchase.product.pricing.free" = "Ücretsiz";
+"purchase.product.trial" = "30-Gün Deneme";
+"purchase.product.trial.duration" = "30 gün boyunca";
+"purchase.product.yearlySubscription" = "Yıllık abonelik";
+"purchase.product.yearlySubscription.duration" = "yıllık";
+"purchase.readOnlyMode.alert.title" = "Yalnızca okuma modu";
+"purchase.readOnlyMode.alert.message" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
 "purchase.redeemCode.button" = "Kodu Kullan";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
@@ -164,6 +182,9 @@
 "snapshots.main.vault3" = "/Belgeler";
 "snapshots.main.vault4" = "/Kaliforniya gezisi";
 
+"trialStatus.active" = "Aktif";
+"trialStatus.expired" = "Süresi doldu";
+
 "unlockVault.button.unlock" = "Kilidi Aç";
 "unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
 "unlockVault.password.footer" = "\"%@\" için şifre girin.";
@@ -176,8 +197,11 @@
 "untrustedTLSCertificate.message" = "\"%@\" TLS Sertifikası geçersiz. Yine de güvenmek istiyor musun?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Güven";
 "untrustedTLSCertificate.dismiss" = "Güvenme";
+
+"upgrade.title" = "Yükseltme Teklifi";
 "upgrade.notEligible.alert.title" = "Yükseltme başarısız";
 "upgrade.notEligible.alert.message" = "Cryptomator, cihazınızda yüklü olan daha eski bir sürümü algılayamadı. Satın aldıysanız, lütfen App Store'dan yeniden indirin ve tekrar deneyin.";
+"upgrade.info" = "Birinci versiyondan beri Cryptomator'a güvendiğiniz için teşekkürler. Sadık bir kullanıcı olarak ücretsiz yükseltme için uygunsunuz.";
 
 "urlSession.error.httpError.401" = "Yanlış kullanıcı adı ve / veya şifre.";
 "urlSession.error.httpError.403" = "İstenen kaynak için yetersiz haklar.";
@@ -218,6 +242,7 @@
 "vaultList.remove.alert.message" = "Bu, kasayı yalnızca kasa listesinden kaldırır. Şifrelenmiş hiçbir veri silinmeyecektir. Kasayı daha sonra yeniden ekleyebilirsiniz.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Kasa yapılandırması desteklenmiyor. Cryptomator'ın en son sürümünü kullandığınızdan lütfen emin olun.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "%ld Kasa sürümü desteklenmiyor. Bu kasa, Cryptomator'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.";
 
 "webDAVAuthentication.progress" = "Kimlik doğrulanıyor…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS kullanılsın mı?";
