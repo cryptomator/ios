@@ -40,7 +40,10 @@ class VaultDBCacheTests: XCTestCase {
 		vaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		updatedVaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: updatedMasterkey.rawKey)
 		defaultCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigData, lastUpToDateCheck: Date(timeIntervalSince1970: 0), masterkeyFileLastModifiedDate: Date(timeIntervalSince1970: 0), vaultConfigLastModifiedDate: Date(timeIntervalSince1970: 0))
-		inMemoryDB = DatabaseQueue()
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
+		inMemoryDB = DatabaseQueue(configuration: configuration)
 		vaultCache = VaultDBCache(dbWriter: inMemoryDB)
 		try CryptomatorDatabase.migrator.migrate(inMemoryDB)
 		try inMemoryDB.write { db in

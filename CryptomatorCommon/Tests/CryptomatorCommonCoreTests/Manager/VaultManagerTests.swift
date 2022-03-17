@@ -76,7 +76,10 @@ class VaultManagerTests: XCTestCase {
 		cloudProviderMock = CloudProviderMock()
 		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
+		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path, configuration: configuration)
 		try CryptomatorDatabase.migrator.migrate(dbPool)
 
 		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
