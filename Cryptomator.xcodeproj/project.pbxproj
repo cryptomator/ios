@@ -228,16 +228,16 @@
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
 		4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */; };
 		4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */; };
+		4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */; };
+		4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */; };
+		4AB1D4F027D20420009060AB /* LocalURLProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */; };
+		4AB1D4F227D20510009060AB /* DocumentStorageURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */; };
 		4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */; };
 		4AB1D4F627D626C5009060AB /* PurchaseFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */; };
 		4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F727D68026009060AB /* IAPHeaderView.swift */; };
 		4AB1D4FA27D69B50009060AB /* IAPCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F927D69B50009060AB /* IAPCell.swift */; };
 		4AB1D4FD27D69BB2009060AB /* TrialCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4FC27D69BB2009060AB /* TrialCell.swift */; };
 		4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4FE27D69C9A009060AB /* DisclosureCell.swift */; };
-		4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */; };
-		4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */; };
-		4AB1D4F027D20420009060AB /* LocalURLProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */; };
-		4AB1D4F227D20510009060AB /* DocumentStorageURLProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */; };
 		4AB2E7ED2791A97B00BDBB18 /* CheckMarkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */; };
 		4AB2E7EF2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */; };
 		4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */; };
@@ -701,16 +701,16 @@
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C339265E9D8600DC7A49 /* UploadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C33B265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudTaskExecutorTestCase.swift; sourceTree = "<group>"; };
+		4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderType.swift; sourceTree = "<group>"; };
+		4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderMock.swift; sourceTree = "<group>"; };
+		4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderTests.swift; sourceTree = "<group>"; };
+		4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStorageURLProviderMock.swift; sourceTree = "<group>"; };
 		4AB1D4F327D61035009060AB /* AutoHidingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoHidingLabel.swift; sourceTree = "<group>"; };
 		4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseFooterView.swift; sourceTree = "<group>"; };
 		4AB1D4F727D68026009060AB /* IAPHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPHeaderView.swift; sourceTree = "<group>"; };
 		4AB1D4F927D69B50009060AB /* IAPCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPCell.swift; sourceTree = "<group>"; };
 		4AB1D4FC27D69BB2009060AB /* TrialCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialCell.swift; sourceTree = "<group>"; };
 		4AB1D4FE27D69C9A009060AB /* DisclosureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisclosureCell.swift; sourceTree = "<group>"; };
-		4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderType.swift; sourceTree = "<group>"; };
-		4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderMock.swift; sourceTree = "<group>"; };
-		4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalURLProviderTests.swift; sourceTree = "<group>"; };
-		4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStorageURLProviderMock.swift; sourceTree = "<group>"; };
 		4AB2E7EC2791A97B00BDBB18 /* CheckMarkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckMarkCell.swift; sourceTree = "<group>"; };
 		4AB2E7EE2791B98A00BDBB18 /* KeepUnlockedSectionFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeepUnlockedSectionFooterViewModel.swift; sourceTree = "<group>"; };
 		4AB52337275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingButtonCellViewModel.swift; sourceTree = "<group>"; };
@@ -2501,7 +2501,6 @@
 				4A8F1498266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift in Sources */,
 				4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */,
 				4A231B82271EF35400987492 /* DownloadTaskDBManager.swift in Sources */,
-				4A03BD6527DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift in Sources */,
 				747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */,
 				4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */,
 				747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */,
