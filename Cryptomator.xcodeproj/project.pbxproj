@@ -222,6 +222,7 @@
 		4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */; };
 		4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */; };
 		4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */; };
+		4AAD444727E26D1800D16707 /* UploadTaskManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */; };
 		4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C324265CE69700DC7A49 /* DownloadTaskExecutorTests.swift */; };
 		4AB1C327265CEA0E00DC7A49 /* CreatingOrDeletingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C326265CEA0E00DC7A49 /* CreatingOrDeletingItemPathLockHandler.swift */; };
 		4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */; };
@@ -694,6 +695,7 @@
 		4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedMasterkeyViewModel.swift; sourceTree = "<group>"; };
 		4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultChooseFolderViewController.swift; sourceTree = "<group>"; };
 		4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewController.swift; sourceTree = "<group>"; };
+		4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerMock.swift; sourceTree = "<group>"; };
 		4AB1C324265CE69700DC7A49 /* DownloadTaskExecutorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskExecutorTests.swift; sourceTree = "<group>"; };
 		4AB1C326265CEA0E00DC7A49 /* CreatingOrDeletingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatingOrDeletingItemPathLockHandler.swift; sourceTree = "<group>"; };
 		4AB1C328265CED6600DC7A49 /* ReadingItemPathLockHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingItemPathLockHandler.swift; sourceTree = "<group>"; };
@@ -1492,6 +1494,7 @@
 				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
 				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
 				4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */,
+				4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -2184,6 +2187,7 @@
 				4A8F149A266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift in Sources */,
 				4ADC66C727A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift in Sources */,
 				4A797F9824AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift in Sources */,
+				4AAD444727E26D1800D16707 /* UploadTaskManagerMock.swift in Sources */,
 				4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */,
 				4A49FABE271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift in Sources */,
 				4A248229266E2DD6002D9F59 /* FileProviderAdapterCreateDirectoryTests.swift in Sources */,
@@ -2497,6 +2501,7 @@
 				4A8F1498266A299E00ADBCE4 /* OnlineItemNameCollisionHandler.swift in Sources */,
 				4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */,
 				4A231B82271EF35400987492 /* DownloadTaskDBManager.swift in Sources */,
+				4A03BD6527DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift in Sources */,
 				747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */,
 				4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */,
 				747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */,

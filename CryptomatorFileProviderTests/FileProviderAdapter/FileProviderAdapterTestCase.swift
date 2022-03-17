@@ -36,6 +36,14 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              notificator: fileProviderItemUpdateDelegateMock,
 		                              localURLProvider: localURLProviderMock,
 		                              fullVersionChecker: fullVersionCheckerMock)
+		uploadTaskManagerMock.createNewTaskRecordForClosure = {
+			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+		}
+		uploadTaskManagerMock.getTaskForClosure = {
+			let id = $0.correspondingItem
+			let metadata = try XCTUnwrap(self.metadataManagerMock.cachedMetadata[id])
+			return UploadTask(taskRecord: $0, itemMetadata: metadata)
+		}
 	}
 
 	class WorkflowSchedulerMock: WorkflowScheduler {

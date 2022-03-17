@@ -26,7 +26,6 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
-		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTAssertEqual("TestContent".data(using: .utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
@@ -42,8 +41,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(self.cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path], lastModifiedDate)
 
 			// Verify that the upload task has been removed
-			XCTAssertEqual(1, self.uploadTaskManagerMock.removedUploadTaskID.count)
-			XCTAssertEqual(itemMetadata.id, self.uploadTaskManagerMock.removedUploadTaskID[0])
+			XCTAssertEqual([itemMetadata.id], self.uploadTaskManagerMock.removeTaskRecordForReceivedInvocations)
 		}
 		.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -66,7 +64,6 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
-		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
@@ -76,7 +73,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 			let expectedError = NSFileProviderError(.noSuchItem) as NSError
 			XCTAssertEqual(expectedError, error as NSError?)
 			// Verify that the upload task has not been removed
-			XCTAssert(self.uploadTaskManagerMock.removedUploadTaskID.isEmpty, "Unexpected removal of the upload task")
+			XCTAssertFalse(self.uploadTaskManagerMock.removeTaskRecordForCalled, "Unexpected removal of the upload task")
 		}.always {
 			expectation.fulfill()
 		}
@@ -98,7 +95,6 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderUploadInconsistencyMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
-		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { item in
@@ -118,8 +114,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 			XCTAssertNil(item.error)
 
 			// Verify that the upload task has been removed
-			XCTAssertEqual(1, self.uploadTaskManagerMock.removedUploadTaskID.count)
-			XCTAssertEqual(itemMetadata.id, self.uploadTaskManagerMock.removedUploadTaskID[0])
+			XCTAssertEqual([itemMetadata.id], self.uploadTaskManagerMock.removeTaskRecordForReceivedInvocations)
 		}
 		.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -146,7 +141,6 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let uploadTaskExecutor = UploadTaskExecutor(provider: errorCloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
-		uploadTaskManagerMock.uploadTasks[itemMetadata.id!] = uploadTaskRecord
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
@@ -157,7 +151,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 				return
 			}
 			XCTAssert(self.metadataManagerMock.cachedMetadata.isEmpty, "Unexpected change of cached metadata.")
-			XCTAssert(self.uploadTaskManagerMock.removedUploadTaskID.isEmpty, "Unexpected removal of the upload task")
+			XCTAssertFalse(self.uploadTaskManagerMock.removeTaskRecordForCalled, "Unexpected removal of the upload task")
 		}.always {
 			expectation.fulfill()
 		}

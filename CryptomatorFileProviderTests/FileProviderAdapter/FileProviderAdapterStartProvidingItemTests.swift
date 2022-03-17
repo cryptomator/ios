@@ -84,23 +84,19 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		let localCachedFileInfo = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(timeIntervalSince1970: 0), localURL: url)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = localCachedFileInfo
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
-		uploadTaskManagerMock.uploadTasks[itemID] = uploadTaskRecord
+		uploadTaskManagerMock.getTaskRecordForClosure = {
+			guard self.itemID == $0 else {
+				return nil
+			}
+			return uploadTaskRecord
+		}
 
 		simulateFileChangeInTheCloud()
 
 		adapter.startProvidingItem(at: url) { [self] error in
 			XCTAssertNil(error)
 			assertNewestVersionDownloaded(localURL: url, cloudPath: cloudPath, itemID: itemID)
-			XCTAssertEqual(1, uploadTaskManagerMock.uploadTasks.count)
-			guard let uploadTaskRecord = uploadTaskManagerMock.uploadTasks[3] else {
-				XCTFail("uploadTaskRecord is nil")
-				return
-			}
-			XCTAssertEqual(3, uploadTaskRecord.correspondingItem)
-			XCTAssertNil(uploadTaskRecord.failedWithError)
-			XCTAssertNil(uploadTaskRecord.lastFailedUploadDate)
-			XCTAssertNil(uploadTaskRecord.uploadErrorCode)
-			XCTAssertNil(uploadTaskRecord.uploadErrorDomain)
+			XCTAssertEqual(1, uploadTaskManagerMock.createNewTaskRecordForCallsCount)
 
 			guard let localCachedFileInfo = cachedFileManagerMock.cachedLocalFileInfo[3] else {
 				XCTFail("localCachedFileInfo is nil")

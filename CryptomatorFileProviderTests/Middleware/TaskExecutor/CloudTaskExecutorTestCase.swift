@@ -192,51 +192,6 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 	}
 
-	class UploadTaskManagerMock: UploadTaskManager {
-		var uploadTasks = [Int64: UploadTaskRecord]()
-		var removedUploadTaskID = [Int64]()
-		var associatedItemMetadata = [Int64: ItemMetadata]()
-
-		func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
-			let taskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
-			uploadTasks[itemMetadata.id!] = taskRecord
-			associatedItemMetadata[itemMetadata.id!] = itemMetadata
-			return taskRecord
-		}
-
-		func getTaskRecord(for identifier: Int64) throws -> UploadTaskRecord? {
-			return uploadTasks[identifier]
-		}
-
-		func updateTaskRecord(with identifier: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
-			throw MockError.notMocked
-		}
-
-		func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws {
-			throw MockError.notMocked
-		}
-
-		func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?] {
-			ids.map { uploadTasks[$0] }
-		}
-
-		func updateTaskRecord(_ task: UploadTaskRecord) throws {
-			throw MockError.notMocked
-		}
-
-		func removeTaskRecord(for identifier: Int64) throws {
-			uploadTasks.removeValue(forKey: identifier)
-			removedUploadTaskID.append(identifier)
-		}
-
-		func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
-			guard let itemMetadata = associatedItemMetadata[uploadTask.correspondingItem] else {
-				throw DBManagerError.missingItemMetadata
-			}
-			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
-		}
-	}
-
 	enum MockError: Error {
 		case notMocked
 	}

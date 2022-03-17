@@ -43,7 +43,12 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 		metadataManagerMock.cachedMetadata[id] = itemMetadata
 
 		let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
-		uploadTaskManagerMock.uploadTasks[id] = uploadTask
+		uploadTaskManagerMock.getTaskRecordForClosure = {
+			guard id == $0 else {
+				return nil
+			}
+			return uploadTask
+		}
 		let item = try adapter.item(for: NSFileProviderItemIdentifier(String(id)))
 		guard let fileProviderItem = item as? FileProviderItem else {
 			XCTFail("Item is not a FileProviderItem")
