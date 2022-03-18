@@ -1,4 +1,5 @@
 - Unterstützung für pCloud hinzugefügt (#188)
 - Unterstützung für Shortcuts in Google Drive hinzugefügt
 - Abonnement-Option zum Freischalten der Vollversion hinzugefügt (#178)
+- Übersetzung für Norwegisches Bokmål hinzugefügt
 - Präsentation der In-App-Käufe überarbeitet und vereinfacht (#187)
