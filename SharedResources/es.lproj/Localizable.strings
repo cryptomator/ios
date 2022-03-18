@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "anual";
 "purchase.readOnlyMode.alert.title" = "Modo solo lectura";
 "purchase.readOnlyMode.alert.message" = "Puede desbloquear la versión completa de Cryptomator más adelante en los ajustes y usarla en modo de solo lectura por ahora.";
-"purchase.redeemCode.button" = "Canjear código";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prueba continuada";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Ahora puede usar la versión completa de Cryptomator por un tiempo limitado. Su prueba expira el %@. Después las bóvedas seguirán siendo accesibles en modo de sólo lectura.";
