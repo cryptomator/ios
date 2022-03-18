@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Fortsätt";
 
 "purchase.beginFreeTrial.alert.title" = "Provperiod upplåst";
-"purchase.redeemCode.button" = "Lös in kod";
 "purchase.restorePurchase.button" = "Återställ köp";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Provperiod Fortsatt";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
