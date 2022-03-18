@@ -1,1 +1,4 @@
-- Fehler "Datei existiert nicht" beim Speichern einer Datei behoben (#179, #184)
+- Unterstützung für pCloud hinzugefügt (#188)
+- Unterstützung für Shortcuts in Google Drive hinzugefügt
+- Abonnement-Option zum Freischalten der Vollversion hinzugefügt (#178)
+- Präsentation der In-App-Käufe überarbeitet und vereinfacht (#187)

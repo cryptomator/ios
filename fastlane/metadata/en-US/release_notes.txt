@@ -1,1 +1,4 @@
-- Fixed "file does not exist" error when saving a file (#179, #184)
+- Added support for pCloud (#188)
+- Added support for shortcuts in Google Drive
+- Added subscription option to unlock full version (#178)
+- Redesigned and simplified in-app purchases screen (#187)
