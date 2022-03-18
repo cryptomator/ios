@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Doorgaan";
 
 "purchase.beginFreeTrial.alert.title" = "Proefperiode ontgrendeld";
-"purchase.redeemCode.button" = "Code inwisselen";
 "purchase.restorePurchase.button" = "Aankoop herstellen";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Proefperiode voortgezet";
 "purchase.restorePurchase.validTrialFound.alert.message" = "U kunt nu de volledige versie van Cryptomator voor een beperkte tijd gebruiken. Uw proefperiode verloopt op %@. Daarna is je kluis nog steeds toegankelijk in alleen-lezen modus.";
