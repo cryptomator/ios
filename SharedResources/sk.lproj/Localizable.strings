@@ -141,8 +141,7 @@
 "purchase.product.yearlySubscription" = "Ročné predplatné";
 "purchase.product.yearlySubscription.duration" = "ročne";
 "purchase.readOnlyMode.alert.title" = "Iba režim čítania";
-"purchase.readOnlyMode.alert.message" = "Môžete odomknúť plnú verziu Cryptomatora neskôr v nastaveniach a používať v móde len-čítania ihneď.";
-"purchase.redeemCode.button" = "Uplatniť kód";
+"purchase.readOnlyMode.alert.message" = "Môžete odomknúť plnú verziu Cryptomatora neskôr v nastaveniach a používať v móde čítania hneď.";
 "purchase.restorePurchase.button" = "Obnoviť nákup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Skúška pokračuje";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Teraz môžte používať plnú verziu Cryptomator-a na obmedzeny čas. Vaša skúšobná doba expiruje %@. Potom Vaše trezory zostanú naďalej dostupné v read-only móde.";
