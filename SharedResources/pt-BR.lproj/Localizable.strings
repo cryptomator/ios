@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
-"purchase.redeemCode.button" = "Resgatar Código";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Período de teste continuado";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um tempo limitado. Seu período de teste expira em %@. Depois disso, seus cofres ainda estarão acessíveis, mas somente para leitura.";
