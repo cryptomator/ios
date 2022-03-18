@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "ετήσια";
 "purchase.readOnlyMode.alert.title" = "Λειτουργία Μόνο-Ανάγνωση";
 "purchase.readOnlyMode.alert.message" = "Μπορείτε να ξεκλειδώσετε την πλήρη έκδοση του Cryptomator αργότερα στις ρυθμίσεις και να τη χρησιμοποιήσετε σε λειτουργία μόνο για ανάγνωση προς το παρόν.";
-"purchase.redeemCode.button" = "Εξαργύρωση Κωδικού";
 "purchase.restorePurchase.button" = "Επαναφορά Αγοράς";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Η δοκιμαστική περίοδος συνεχίστηκε";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator για περιορισμένο χρονικό διάστημα. Η δοκιμή σας λήγει στις %@. Μετά από αυτό, οι κρύπτες σας θα είναι ακόμα προσβάσιμες σε λειτουργία μόνο για ανάγνωση.";
