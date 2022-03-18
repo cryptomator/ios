@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "yıllık";
 "purchase.readOnlyMode.alert.title" = "Yalnızca okuma modu";
 "purchase.readOnlyMode.alert.message" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
-"purchase.redeemCode.button" = "Kodu Kullan";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Artık Cryptomator'ın tam sürümünü sınırlı bir süre için kullanabilirsiniz. Deneme süreniz %@ tarihinde sona eriyor. Bundan sonra, kasalarınız sadece okuma modunda erişilebilir olmaya devam edecektir.";
