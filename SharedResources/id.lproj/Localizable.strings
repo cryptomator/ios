@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Lanjut";
 
 "purchase.beginFreeTrial.alert.title" = "Masa Percobaan Terbuka";
-"purchase.redeemCode.button" = "Tukarkan Kode";
 "purchase.restorePurchase.button" = "Pulihkan Pembelian";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Masa Percobaan Diperpanjang";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
