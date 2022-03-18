@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "按年";
 "purchase.readOnlyMode.alert.title" = "只读模式";
 "purchase.readOnlyMode.alert.message" = "您之后可以在设置中解锁 Cryptomator 完整版，在此之前只能使用只读模式。";
-"purchase.redeemCode.button" = "兑换激活码";
 "purchase.restorePurchase.button" = "恢复购买";
 "purchase.restorePurchase.validTrialFound.alert.title" = "仍在试用";
 "purchase.restorePurchase.validTrialFound.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
