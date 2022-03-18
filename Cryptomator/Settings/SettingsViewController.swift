@@ -125,10 +125,6 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			coordinator?.showUnlockFullVersion()
 		case .showManageSubscriptions:
 			coordinator?.showManageSubscriptions()
-		case .redeemCode:
-			if #available(iOS 14.0, *) {
-				viewModel.redeemCode()
-			}
 		case .restorePurchase:
 			viewModel.restorePurchase().then { [weak self] _ in
 				self?.refreshRows()

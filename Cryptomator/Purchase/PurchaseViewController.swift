@@ -13,9 +13,6 @@ class PurchaseViewController: IAPViewController {
 	private lazy var footerView: PurchaseFooterView = {
 		let footerView = PurchaseFooterView()
 		footerView.restorePurchaseButton.addTarget(self, action: #selector(restorePurchase), for: .primaryActionTriggered)
-		if #available(iOS 14.0, *) {
-			footerView.redeemCodeButton.addTarget(self, action: #selector(redeemCode), for: .primaryActionTriggered)
-		}
 		return footerView
 	}()
 
@@ -28,7 +25,6 @@ class PurchaseViewController: IAPViewController {
 		super.viewDidLoad()
 		viewModel.hasRunningTransaction.receive(on: DispatchQueue.main).sink { [weak self] hasRunningTransaction in
 			self?.footerView.restorePurchaseButton.isEnabled = !hasRunningTransaction
-			self?.footerView.redeemCodeButton.isEnabled = !hasRunningTransaction
 		}.store(in: &subscribers)
 	}
 
@@ -62,10 +58,5 @@ class PurchaseViewController: IAPViewController {
 		}.catch { [weak self] error in
 			self?.handleError(error)
 		}
-	}
-
-	@available(iOS 14.0, *)
-	@objc private func redeemCode() {
-		viewModel.redeemCode()
 	}
 }

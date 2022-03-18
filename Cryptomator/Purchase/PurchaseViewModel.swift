@@ -39,16 +39,6 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		addUpgradeOfferItem()
 	}
 
-	/**
-	 Presents the code redemption sheet.
-
-	 - Note: The code redemption sheet does not work on the simulator.
-	 */
-	@available(iOS 14.0, *)
-	func redeemCode() {
-		SKPaymentQueue.default().presentCodeRedemptionSheet()
-	}
-
 	private func addTrialItem() {
 		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate {
 			cells.append(.trialCell(TrialCellViewModel(expirationDate: trialExpirationDate)))
