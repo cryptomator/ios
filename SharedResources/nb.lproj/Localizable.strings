@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Fortsett";
 
 "purchase.beginFreeTrial.alert.title" = "Prøveversjon låst opp";
-"purchase.redeemCode.button" = "Løs inn kode";
 "purchase.restorePurchase.button" = "Gjenopprett kjøp";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prøveperioden fortsatte";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Nå kan du bruke fullversjonen av Cryptomator i en begrenset tid. Prøveperioden utløper den %@. Etter dette vil dine hvelv fortsatt være tilgjengelige i skrivebeskyttet modus.";
