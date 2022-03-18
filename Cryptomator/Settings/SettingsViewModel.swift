@@ -22,8 +22,6 @@ enum SettingsButtonAction: String {
 	case showRateApp
 	case showUnlockFullVersion
 	case showManageSubscriptions
-	@available(iOS 14.0, *)
-	case redeemCode
 	case restorePurchase
 }
 
@@ -73,9 +71,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
 		if cryptomatorSettings.hasRunningSubscription {
 			elements.append(.init(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
-			if #available(iOS 14.0, *) {
-				elements.append(.init(action: .redeemCode, title: LocalizedString.getValue("purchase.redeemCode.button")))
-			}
 			elements.append(.init(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
 		} else if !cryptomatorSettings.fullVersionUnlocked {
 			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
@@ -129,16 +124,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 
 	func restorePurchase() -> Promise<RestoreTransactionsResult> {
 		return StoreObserver.shared.restore()
-	}
-
-	/**
-	 Presents the code redemption sheet.
-
-	 - Note: The code redemption sheet does not work on the simulator.
-	 */
-	@available(iOS 14.0, *)
-	func redeemCode() {
-		SKPaymentQueue.default().presentCodeRedemptionSheet()
 	}
 
 	func enableDebugMode() {

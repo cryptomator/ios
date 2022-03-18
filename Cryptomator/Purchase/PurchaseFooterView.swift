@@ -17,22 +17,8 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 		return button
 	}()
 
-	lazy var redeemCodeButton: UIButton = {
-		let button = UIButton(type: .system)
-		button.setTitle(LocalizedString.getValue("purchase.redeemCode.button"), for: .normal)
-		styleButton(button)
-		button.isHidden = !canRedeemCode()
-		return button
-	}()
-
-	private lazy var bulletPoint: UILabel = {
-		let label = createBulletPointLabel()
-		label.isHidden = !canRedeemCode()
-		return label
-	}()
-
 	private lazy var purchaseActionStack: UIStackView = {
-		let stack = UIStackView(arrangedSubviews: [restorePurchaseButton, bulletPoint, redeemCodeButton])
+		let stack = UIStackView(arrangedSubviews: [restorePurchaseButton])
 		stack.alignment = .center
 		return stack
 	}()
@@ -92,13 +78,11 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 	func configure(with traitCollection: UITraitCollection) {
 		let preferredContentSize = traitCollection.preferredContentSizeCategory
 		if preferredContentSize.isAccessibilityCategory {
-			bulletPoint.isHidden = true
 			configureAsVerticalStack(purchaseActionStack)
 
 			legalBulletPoint.isHidden = true
 			configureAsVerticalStack(legalInfoStack)
 		} else {
-			bulletPoint.isHidden = !canRedeemCode()
 			configureAsHorizontalStack(purchaseActionStack)
 
 			legalBulletPoint.isHidden = false
@@ -121,15 +105,6 @@ class PurchaseFooterView: UITableViewHeaderFooterView {
 		button.titleLabel?.adjustsFontSizeToFitWidth = true
 		button.titleLabel?.adjustsFontForContentSizeCategory = true
 		button.titleLabel?.minimumScaleFactor = 0.5
-	}
-
-	/// Offer codes are available on devices running iOS 14 or later
-	private func canRedeemCode() -> Bool {
-		if #available(iOS 14.0, *) {
-			return true
-		} else {
-			return false
-		}
 	}
 
 	private func createBulletPointLabel() -> UILabel {

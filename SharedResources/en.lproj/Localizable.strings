@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "yearly";
 "purchase.readOnlyMode.alert.title" = "Read-Only Mode";
 "purchase.readOnlyMode.alert.message" = "You can unlock the full version of Cryptomator later in the settings and use it in read-only mode for now.";
-"purchase.redeemCode.button" = "Redeem Code";
 "purchase.restorePurchase.button" = "Restore Purchase";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Trial Continued";
 "purchase.restorePurchase.validTrialFound.alert.message" = "You can now use the full version of Cryptomator for a limited time. Your trial expires on %@. After that, your vaults will still be accessible in read-only mode.";
