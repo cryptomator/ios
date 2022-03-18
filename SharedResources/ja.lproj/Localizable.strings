@@ -87,12 +87,20 @@
 "fileProvider.onboarding.title" = "ようこそ";
 "fileProvider.onboarding.info" = "ファイルを保護するために Cryptomator を選んでいただきありがとうございます。はじめるには、アプリから金庫を追加してください。";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator を開く";
+"fileProvider.error.biometricalAuthCanceled.title" = "ロック解除がキャンセルされました";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@ 経由のロック解除に失敗しました。もう一度やり直してください。";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "パスワードが正しくありません";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ に保存されたパスワードが間違っています。 %@ を再度有効にするには、再度パスワードを入力してください。";
+"fileProvider.error.defaultLock.title" = "ロック解除が必要です";
+"fileProvider.error.defaultLock.message" = "保管庫の内容にアクセスして表示するには、ロックを解除する必要があります。";
 "fileProvider.error.unlockButton" = "解錠";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
 "keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
 "keepUnlocked.alert.confirm" = "施錠して適用";
 "keepUnlocked.header" = "アイドル時にこの金庫を解錠しておく時間を指定します。";
+"keepUnlocked.footer.auto" = "iOSによって決定させることは、Cryptomatorがメモリを解放するためにいつでも終了させられ、保管庫がロックされることを意味します。";
+"keepUnlocked.footer.on" = "選択したオプションを使用において、金庫のロックが解除されている限り、鍵のコピーをiOSキーチェーンに保存する必要があります。";
 "keepUnlockedDuration.auto" = "iOSに委ねる";
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
@@ -103,21 +111,29 @@
 "localFileSystemAuthentication.openExistingVault.header" = "次の画面で、既存の金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
+"localFileSystemAuthentication.info.footer" = "グレーアウトされたファイルプロバイダは「フォルダを選ぶ」をサポートしていません。これはCryptomatorの制限ではありません。";
 
 "maintenanceModeError.runningCloudTask" = "この金庫に対する他のバックグラウンド操作を最初に完了する必要があるため、操作を実行できません。あとでもう一度やり直してください。";
 
+"nameValidation.error.endsWithPeriod" = "ピリオドで終わる名前は使用できません。別の名前を選択してください。";
+"nameValidation.error.endsWithSpace" = "スペースで終わる名前は使用できません。別の名前を選択してください。";
+"nameValidation.error.containsIllegalCharacter" = "\"%@\" を含む名前は使用できません。別の名前を選択してください。";
+
 "onboarding.title" = "ようこそ";
+"onboarding.info" = "あなたのファイルを保護するためにCryptomatorを選んでいただきありがとうございます。\n\nCryptomatorによりあなたはデータへの鍵を自分の手中にします。Cryptomatorはあなたのデータを素早く簡単に暗号化します。\n\nこのアプリはファイルアプリとして完全に統合されています。後でファイルアプリでCryptomatorを有効にして保管庫へのアクセスをご確認ください。";
 "onboarding.button.continue" = "続行";
 
-"purchase.title" = "フル バージョンのロックを解除";
-"purchase.info" = "無料の Cryptomator では読み取りモード専用で使用いただけます。金庫への書き込みができるフルバージョンをご検討ください。";
-"purchase.upgrade.notEligible.footer" = "すでに古いバージョンの Cryptomator を購入している場合は、App Store から再ダウンロードしてください。";
-"purchase.beginFreeTrial.button" = "30日間の無料トライアルを開始";
-"purchase.beginFreeTrial.footer" = "Cryptomator のフルバージョンを無料でお試しください。この試用版のロックは一度だけ解除できます。";
 "purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
+"purchase.restorePurchase.button" = "購入情報の復元";
+"purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "正常に復元されました";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "フルバージョンではありません";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "以前購入したフルバージョンが見つかりませんでした。別のオプションをお試しください。";
 "purchase.retry.button" = "再試行";
-"purchase.decideLater.button" = "後で決める";
+"purchase.retry.footer" = "利用可能な製品を読み込めませんでした。";
+"purchase.title" = "フル バージョンのロックを解除";
+"purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
 "purchase.unlockedFullVersion.title" = "ありがとうございます";
 
 "settings.title" = "設定";
@@ -129,6 +145,7 @@
 "settings.contact" = "連絡先";
 "settings.debugMode" = "デバッグ モード";
 "settings.debugMode.alert.message" = "このモードでは、デバイスのログファイルに機密情報が書き込まれることがあります(例: ファイル名やパス)。パスワードや cookie 等は除外されます。\n\n できるだけ早くデバッグ モードを無効化をすることを忘れないでください。";
+"settings.manageSubscriptions" = "サブスクリプションの管理";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
@@ -158,11 +175,8 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
-
-"upgrade.title" = "バージョン 1.x からアップグレード";
-"upgrade.paidUpgrade.button" = "%@ でアップグレード";
-"upgrade.freeUpgrade.button" = "無料でアップグレード";
 "upgrade.notEligible.alert.title" = "アップグレードできませんでした";
+"upgrade.notEligible.alert.message" = "Cryptomatorは、お使いのデバイスにインストールされている古いバージョンを検出できませんでした。すでに購入していた場合はApp Storeから再度ダウンロードしてもう一度お試しください。";
 
 "urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
 "urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
@@ -180,11 +194,15 @@
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
 "vaultDetail.button.renameVault" = "名前を変更";
+"vaultDetail.changePassword.footer" = "安全な場所に保管しておくための強力なパスワードを選択してください。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
 "vaultDetail.info.footer.accessVault" = "Files app から金庫にアクセス";
 "vaultDetail.info.footer.accountInfo" = "%@ を利用して %@ としてログイン";
+"vaultDetail.keepUnlocked.title" = "ロック解除期間";
 "vaultDetail.keepUnlocked.footer.off" = "Cryptomatorがファイルアプリによって終了された場合、ロック解除が必要になります。";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "保管庫が%@ 以上アイドル状態になった場合、ロック解除が必要になります。";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "手動でロックしない限りロック解除は必要ありません。";
 "vaultDetail.locked.footer" = "金庫が施錠されています。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator がこの場所に既存の金庫を検出しました。\n 金庫を移動するには、戻って違うフォルダーを選択してください。";
 "vaultDetail.moveVault.progress" = "移動中...";
@@ -199,7 +217,6 @@
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "サポートされない金庫のバージョンです。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
 "webDAVAuthentication.progress" = "認証中…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか？";

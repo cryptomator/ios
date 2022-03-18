@@ -34,8 +34,8 @@
 "accountList.signOut.alert.message" = "登出后，所有关联的保险库将从保险库列表中移除。未加密的数据将被删除，您可以以后再登录并重新添加保险库";
 
 "addVault.title" = "添加保险库";
-"addVault.createNewVault.title" = "创建新的保险库";
-"addVault.createNewVault.purchase" = "创建一个新的保险库需要 Cryptomator 完整版，请解锁完整版以获得保险库的写入权限。";
+"addVault.createNewVault.title" = "新建保险库";
+"addVault.createNewVault.purchase" = "创建新的保险库需要 Cryptomator 完整版。";
 "addVault.createNewVault.setVaultName.header.title" = "为保险库创建一个名称。";
 "addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "保险库名称不能为空。";
@@ -104,7 +104,7 @@
 "keepUnlocked.footer.on" = "选中此选项后，保险库解锁时会将您的密钥副本在 iOS 密钥链中存储。";
 "keepUnlockedDuration.auto" = "由 iOS 自动决定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自动";
-"keepUnlockedDuration.indefinite" = "无限";
+"keepUnlockedDuration.indefinite" = "不限时";
 
 "localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
@@ -124,20 +124,25 @@
 "onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。\n\n使用 Cryptomator，您的数据安全完全处于您的掌控。Cryptomator 能够快速和轻松地加密您的数据。\n\n此应用已完全整合到文件应用中。 请确保稍后在文件应用中启用 Cryptomator 以访问您的保险库。";
 "onboarding.button.continue" = "继续";
 
-"purchase.title" = "解锁完整版";
-"purchase.info" = "您可以在只读模式下免费使用 Cryptomator。请考虑解锁完整版本以获得密码库的写入权限。";
-"purchase.infoRunningTrial" = "您的试用期于 %@ 过期，您可以在有限时间内写入您的保险库。 请考虑在试用结束后解锁完整版本。";
-"purchase.infoExpiredTrial" = "您的试用期已结束。请解锁完整版本以重新获取您的保险库的写入权限。";
-"purchase.upgrade.footer" = "Cryptomator 检测到旧版本。您有资格升级以解锁完整版本。";
-"purchase.upgrade.notEligible.footer" = "如果您已经购买了旧版的 Cryptomator，请从 App Store 重新下载";
-"purchase.beginFreeTrial.button" = "开始30天的免费试用";
-"purchase.beginFreeTrial.footer" = "尝试免费试用完整版的 Cryptomator。您只有一次试用机会。";
 "purchase.beginFreeTrial.alert.title" = "试用已解锁";
-"purchase.beginFreeTrial.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
-"purchase.purchaseFullVersion.button" = "为 %@ 购买完整版本";
-"purchase.purchaseFullVersion.footer" = "只需一次支付即可让您永久获得 Cryptomator 保险库的写入权限。";
+"purchase.expiredTrial" = "您的试用期已结束。";
+"purchase.footer.privacyPolicy" = "隐私政策";
+"purchase.footer.termsOfUse" = "使用条款";
+"purchase.header.feature.familySharing" = "家庭成员共享";
+"purchase.header.feature.openSource" = "开源开发";
+"purchase.header.feature.writeAccess" = "保险库写入访问权限";
+"purchase.product.donateAndUpgrade" = "捐赠 & 升级";
+"purchase.product.freeUpgrade" = "免费升级";
+"purchase.product.lifetimeLicense" = "终身许可证";
+"purchase.product.lifetimeLicense.duration" = "一次付费";
+"purchase.product.pricing.free" = "免费版";
+"purchase.product.trial" = "30 天免费试用";
+"purchase.product.trial.duration" = "30 天";
+"purchase.product.yearlySubscription" = "按年订阅";
+"purchase.product.yearlySubscription.duration" = "按年";
+"purchase.readOnlyMode.alert.title" = "只读模式";
+"purchase.readOnlyMode.alert.message" = "您之后可以在设置中解锁 Cryptomator 完整版，在此之前只能使用只读模式。";
 "purchase.restorePurchase.button" = "恢复购买";
-"purchase.restorePurchase.footer" = "如果您已经购买了完整版的 Cryptomator，您可以恢复购买";
 "purchase.restorePurchase.validTrialFound.alert.title" = "仍在试用";
 "purchase.restorePurchase.validTrialFound.alert.message" = "您现在可以在有限的时间内试用完整版的 Cryptomator。您的试用期将在 %@ 过期。 在这之后，您仍然可以在只读模式下访问您的保险库。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "恢复成功";
@@ -145,8 +150,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我们无法找到可供恢复的完整版本。请尝试其他选项。";
 "purchase.retry.button" = "重试";
 "purchase.retry.footer" = "无法加载可用产品。";
-"purchase.decideLater.button" = "稍后决定";
-"purchase.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
+"purchase.title" = "解锁完整版";
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
 
@@ -159,6 +163,7 @@
 "settings.contact" = "联系";
 "settings.debugMode" = "调试模式";
 "settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式";
+"settings.manageSubscriptions" = "管理订阅";
 "settings.rateApp" = "给应用评分";
 "settings.sendLogFile" = "发送日志文件";
 "settings.unlockFullVersion" = "解锁完整版";
@@ -176,6 +181,9 @@
 "snapshots.main.vault3" = "/文档";
 "snapshots.main.vault4" = "/加州之旅";
 
+"trialStatus.active" = "进行中";
+"trialStatus.expired" = "已过期";
+
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
 "unlockVault.password.footer" = "输入 \"%@\" 的密码。";
@@ -189,15 +197,10 @@
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
-"upgrade.title" = "从 1.x 版本升级";
-"upgrade.info" = "您有资格从旧版本的 Cryptomator 升级来解锁完整版本。感谢您支持Cryptomator！";
-"upgrade.paidUpgrade.button" = "为 %@ 升级";
-"upgrade.paidUpgrade.footer" = "它将有助于目前正在进行的开源开发，并且是对我们的大力支持。";
-"upgrade.freeUpgrade.button" = "免费升级";
-"upgrade.freeUpgrade.footer" = "不用担心，您也可以不受任何限制地免费升级到完整版";
-"upgrade.decideLater.footer" = "您可以稍后在设置中解锁完整版的 Cryptomator 而现在仅使用只读模式。";
+"upgrade.title" = "升级优惠";
 "upgrade.notEligible.alert.title" = "升级失败";
 "upgrade.notEligible.alert.message" = "Cryptomator 未能检测到您设备安装有旧版本。如果您购买过它，请从 App Store 重新下载后再试。";
+"upgrade.info" = "感谢您从第一版开始就信任 Cryptomator。作为忠实用户，您有资格获得免费升级";
 
 "urlSession.error.httpError.401" = "用户名或密码错误。";
 "urlSession.error.httpError.403" = "对请求的资源权限不足。";
@@ -238,7 +241,7 @@
 "vaultList.remove.alert.message" = "此操作只会从保险库列表中删除保险库，并不会删除对应的加密数据。您可以稍后重新添加该保险库。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator。";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "保险库库版本不受支持，该保险库是由旧版本或更新版本的 Cryptomator 所创建的。";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "不支持的保险库版本 %ld。这可能是使用太新或太旧的 Cryptomator 版本创建的保险库。";
 
 "webDAVAuthentication.progress" = "正在验证……";
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";

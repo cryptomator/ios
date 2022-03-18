@@ -35,13 +35,12 @@
 
 "addVault.title" = "Tambah Vault";
 "addVault.createNewVault.title" = "Buat Vault Baru";
-"addVault.createNewVault.purchase" = "Membuat vault baru membutuhkan Cryptomator versi lengkap. Pertimbangkan untuk membuka versi lengkap untuk akses tulis ke vault Anda.";
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
-"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi ada vault di lokasi ini.\nUntuk membuat vaukt baru, silakan kembali dan pilih folder lain.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault sudah ada di lokasi ini.\nUntuk membuat vault baru, silahkan kembali dan pilih folder lain.";
 "addVault.createNewVault.password.enterPassword.header" = "Masukkan kata sandi baru.";
 "addVault.createNewVault.password.confirmPassword.header" = "Konfirmasi kata sandi baru.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Konfirmasi Kata Sandi?";
@@ -124,20 +123,8 @@
 "onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda.\n\nDengan Cryptomator, kunci data Anda berada di tangan Anda sendiri. Cryptomator mengenkripsi data Anda dengan cepat dan mudah.\n\nAplikasi ini terintegrasi penuh ke dalam aplikasi Files. Pastikan untuk mengaktifkan Cryptomator di aplikasi File untuk mengakses vault Anda.";
 "onboarding.button.continue" = "Lanjut";
 
-"purchase.title" = "Buka Versi Lengkap";
-"purchase.info" = "Anda bisa menggunakan Cryptomator dalam mode read-only secara gratis. Pertimbangkan untuk membuka versi lengkap agar memperoleh akses tulis ke vault Anda.";
-"purchase.infoRunningTrial" = "Masa percobaan Anda berakhir pada %@ serta memberi Anda akses tulis ke vault Anda dalam waktu yang terbatas. Pertimbangkan untuk membuka versi lengkap setelah masa percobaan habis.";
-"purchase.infoExpiredTrial" = "Masa percobaan Anda telah berakhir. Pertimbangkan untuk membuka versi lengkap untuk memperoleh kembali akses tulis ke vault Anda.";
-"purchase.upgrade.footer" = "Cryptomator mendeteksi Anda menggunakan versi lama. Anda dapat melakukan upgrade untuk membuka versi yang lebih lengkap.";
-"purchase.upgrade.notEligible.footer" = "Jika Anda sudah membeli Cryptomator versi lama, silahkan unduh kembali melalui App Store.";
-"purchase.beginFreeTrial.button" = "Mulai 30-Hari Masa Percobaan secara Gratis";
-"purchase.beginFreeTrial.footer" = "Coba Cryptomator versi lengkap untuk waktu yang terbatas secara gratis. Anda dapat membuka masa percobaan ini hanya sekali.";
 "purchase.beginFreeTrial.alert.title" = "Masa Percobaan Terbuka";
-"purchase.beginFreeTrial.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
-"purchase.purchaseFullVersion.button" = "Beli Versi Lengkap seharga %@";
-"purchase.purchaseFullVersion.footer" = "Bayar sekali dan buka akses tulis ke vault Anda seumur hidup Cryptomator.";
 "purchase.restorePurchase.button" = "Pulihkan Pembelian";
-"purchase.restorePurchase.footer" = "Jika Anda sudah membeli versi lengkap Cryptomator, anda bisa memulihkan pembelian tersebut.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Masa Percobaan Diperpanjang";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Pemulihan Berhasil";
@@ -145,8 +132,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Kami tidak dapat menemukan versi lengkap yang sudah dibeli untuk dipulihkan. Silahkan coba opsi lain.";
 "purchase.retry.button" = "Coba lagi";
 "purchase.retry.footer" = "Tidak dapat memuat produk yang tersedia.";
-"purchase.decideLater.button" = "Pertimbangkan Nanti";
-"purchase.decideLater.footer" = "Anda bisa membuka versi lengkap Cryptomator nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
+"purchase.title" = "Buka Versi Lengkap";
 "purchase.unlockedFullVersion.message" = "Sekarang Anda bisa menggunakan Cryptomator versi lengkap. Selamat berenkripsi ria!";
 "purchase.unlockedFullVersion.title" = "Terima Kasih";
 
@@ -159,6 +145,7 @@
 "settings.contact" = "Kontak";
 "settings.debugMode" = "Mode Debug";
 "settings.debugMode.alert.message" = "Dalam mode ini, data sensitif dapat ditulis ke file log di perangkat Anda (misalnya, nama dan lokasi file). Kata sandi, cookie, dll secara eksplisit dikecualikan.\n\nJangan lupa untuk menonaktifkan mode debug sesegera mungkin.";
+"settings.manageSubscriptions" = "Atur Langganan";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
@@ -188,14 +175,6 @@
 "untrustedTLSCertificate.message" = "Sertifikat TLS of \"%@\" tidak valid. Apakah Anda yakin?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Percayai";
 "untrustedTLSCertificate.dismiss" = "Jangan Percaya";
-
-"upgrade.title" = "Peningkatan Dari Versi 1.x";
-"upgrade.info" = "Anda memenuhi syarat untuk mendapatkan upgrade versi lengkap melalui Cryptomator versi terdahulu. Terima kasih sudah mendukung Cryptomator di masa lampau!";
-"upgrade.paidUpgrade.button" = "Tingkatkan seharga %@";
-"upgrade.paidUpgrade.footer" = "Ini akan membantu pengembangan open-source yang sedang berlangsung dan akan menjadi dukungan yang tak ternilai bagi kami.";
-"upgrade.freeUpgrade.button" = "Tingkatkan secara gratis";
-"upgrade.freeUpgrade.footer" = "Tidak perlu khawatir, Anda juga bisa melakukan peningkatan ke versi lengkap secara gratis tanpa batasan apapun.";
-"upgrade.decideLater.footer" = "Anda bisa meningkatkan Cryptomator ke versi lengkap nanti di pengaturan. Saat ini sedang menggunakan mode read-only.";
 "upgrade.notEligible.alert.title" = "Upgrade gagal";
 "upgrade.notEligible.alert.message" = "Cryptomator tidak bisa menemukan versi yang lebih lama terpasang di perangkat Anda saat ini. Jika Anda sudah membelinya, silahkan download kembali melalui App Store dan coba kembali.";
 
@@ -238,7 +217,6 @@
 "vaultList.remove.alert.message" = "Ini hanya akan menghapus vault dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat menambahkan kembali vault nanti.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Versi vault tidak didukung. Vault ini telah dibuat dengan versi Cryptomator yang lebih lama atau lebih baru.";
 
 "webDAVAuthentication.progress" = "Mengotentikasi…";
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";

@@ -35,7 +35,7 @@
 
 "addVault.title" = "Ajouter un coffre";
 "addVault.createNewVault.title" = "Créer un nouveau coffre";
-"addVault.createNewVault.purchase" = "La création d'un nouveau coffre nécessite la version complète de Cryptomator. Envisagez de déverrouiller la version complète pour accéder en écriture à vos coffres.";
+"addVault.createNewVault.purchase" = "La création d'un nouveau coffre nécessite la version complète de Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Choisir un nom pour le coffre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom du coffre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Le nom du coffre-fort ne peut pas être vide.";
@@ -124,20 +124,25 @@
 "onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers.\n\nAvec Cryptomator, la clé de vos données est entre vos mains. Cryptomator crypte vos données rapidement et facilement.\n\nCette application est entièrement intégrée dans l'application Fichiers. Assurez-vous d'activer Cryptomator dans l'application Fichiers plus tard pour accéder à vos coffres.";
 "onboarding.button.continue" = "Continuer";
 
-"purchase.title" = "Débloquer la version complète";
-"purchase.info" = "Vous pouvez utiliser Cryptomator en mode lecture seule gratuitement. Pensez à déverrouiller la version complète pour accéder en écriture à vos coffres.";
-"purchase.infoRunningTrial" = "Votre période d'essai expire le %@, elle vous permet un accès en écriture à vos coffres pour une durée limitée. Pensez à débloquer la version complète après l'essai.";
-"purchase.infoExpiredTrial" = "Votre période d'essai a expiré. Pensez à déverrouiller la version complète pour récupérer l'accès en écriture à vos coffres.";
-"purchase.upgrade.footer" = "Cryptomator a détecté une ancienne version. Vous êtes éligible à une mise à niveau pour débloquer la version complète.";
-"purchase.upgrade.notEligible.footer" = "Si vous avez déjà acheté une ancienne version de Cryptomator, téléchargez-la à nouveau sur l'App Store.";
-"purchase.beginFreeTrial.button" = "Commencer l'essai de 30 jours gratuitement";
-"purchase.beginFreeTrial.footer" = "Essayez gratuitement la version complète de Cryptomator pour une durée limitée. Vous ne pouvez déverrouiller cet essai qu'une seule fois.";
 "purchase.beginFreeTrial.alert.title" = "Essai débloqué";
-"purchase.beginFreeTrial.alert.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator pour une durée limitée. Votre essai expire le %@. Après cela, vos coffres seront toujours accessibles en mode lecture seule.";
-"purchase.purchaseFullVersion.button" = "Acheter la version complète pour %@";
-"purchase.purchaseFullVersion.footer" = "Payez une fois et débloquez l'accès en écriture à vos coffres pour la durée de vie de Cryptomator.";
+"purchase.expiredTrial" = "Votre période d'essai a expiré.";
+"purchase.footer.privacyPolicy" = "Politique de Confidentialité";
+"purchase.footer.termsOfUse" = "Conditions d'Utilisation";
+"purchase.header.feature.familySharing" = "Partage familial";
+"purchase.header.feature.openSource" = "Développement open source";
+"purchase.header.feature.writeAccess" = "Accès en écriture à vos coffres";
+"purchase.product.donateAndUpgrade" = "Faire un don & Mettre à jour";
+"purchase.product.freeUpgrade" = "Mise à jour gratuite";
+"purchase.product.lifetimeLicense" = "Licence à Vie";
+"purchase.product.lifetimeLicense.duration" = "unique";
+"purchase.product.pricing.free" = "Gratuit";
+"purchase.product.trial" = "Essai de 30 jours";
+"purchase.product.trial.duration" = "pendant 30 jours";
+"purchase.product.yearlySubscription" = "Abonnement annuel";
+"purchase.product.yearlySubscription.duration" = "annuellement";
+"purchase.readOnlyMode.alert.title" = "★ Mode lecture seule";
+"purchase.readOnlyMode.alert.message" = "Vous pouvez déverrouiller la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
 "purchase.restorePurchase.button" = "Restaurer l’achat";
-"purchase.restorePurchase.footer" = "Si vous avez déjà acheté la version complète de Cryptomator, vous pouvez restaurer l'achat.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Essai en cours";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator pour une durée limitée. Votre essai expire le %@. Après cela, vos coffres seront toujours accessibles en mode lecture seule.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restauration réussie";
@@ -145,8 +150,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nous n'avons pas pu trouver une version complète précédemment achetée qui pourrait être restaurée. Veuillez essayer une autre option.";
 "purchase.retry.button" = "Réessayer";
 "purchase.retry.footer" = "Impossible de charger les produits disponibles.";
-"purchase.decideLater.button" = "Décider plus tard";
-"purchase.decideLater.footer" = "Vous pouvez déverrouiller la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
+"purchase.title" = "Débloquer la version complète";
 "purchase.unlockedFullVersion.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator. Bon chiffrement !";
 "purchase.unlockedFullVersion.title" = "Merci";
 
@@ -159,6 +163,7 @@
 "settings.contact" = "Contact";
 "settings.debugMode" = "Mode de débogage";
 "settings.debugMode.alert.message" = "Dans ce mode, les données sensibles peuvent être écrites dans un fichier journal sur votre appareil (par exemple, les noms de fichiers et les chemins d'accès). Les mots de passe, cookies, etc. sont explicitement exclus.\n\nN'oubliez pas de désactiver le mode de débogage dès que possible.";
+"settings.manageSubscriptions" = "Gérer l'abonnement";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
 "settings.unlockFullVersion" = "Débloquer la version complète";
@@ -176,6 +181,9 @@
 "snapshots.main.vault3" = "Documents";
 "snapshots.main.vault4" = "/Voyage en Californie";
 
+"trialStatus.active" = "Actif";
+"trialStatus.expired" = "Expiré";
+
 "unlockVault.button.unlock" = "Déverrouiller";
 "unlockVault.button.unlockVia" = "Débloquer via %@";
 "unlockVault.password.footer" = "Entrez le mot de passe pour “%@”.";
@@ -189,15 +197,10 @@
 "untrustedTLSCertificate.add" = "Approuver";
 "untrustedTLSCertificate.dismiss" = "Ne pas faire confiance";
 
-"upgrade.title" = "Mise à jour depuis la version 1.x";
-"upgrade.info" = "Vous êtes éligible à une mise à niveau à partir d'une ancienne version de Cryptomator pour débloquer la version complète. Merci de soutenir Cryptomator dans le passé !";
-"upgrade.paidUpgrade.button" = "Mise à niveau pour %@";
-"upgrade.paidUpgrade.footer" = "Cela aiderait le développement open-source en cours et serait un grand soutien pour nous.";
-"upgrade.freeUpgrade.button" = "Mise à niveau gratuite";
-"upgrade.freeUpgrade.footer" = "Pas de soucis, vous pouvez également passer à la version complète gratuitement sans aucune restriction.";
-"upgrade.decideLater.footer" = "Vous pouvez passer à la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
+"upgrade.title" = "Offre de mise à niveau";
 "upgrade.notEligible.alert.title" = "Échec de la mise à jour";
 "upgrade.notEligible.alert.message" = "Cryptomator n'a pas pu détecter une ancienne version installée sur votre appareil. Si vous l'avez achetée, veuillez la télécharger à nouveau depuis l'App Store et réessayer.";
+"upgrade.info" = "Merci d'avoir fait confiance à Cryptomator depuis la version 1. En tant qu'utilisateur fidèle, vous êtes admissible à une mise à jour gratuite.";
 
 "urlSession.error.httpError.401" = "Nom d'utilisateur et/ou mot de passe incorrect.";
 "urlSession.error.httpError.403" = "Vous n'avez pas les droits pour accéder à cette ressource.";
@@ -238,7 +241,7 @@
 "vaultList.remove.alert.message" = "Cela ne supprimera que le coffre de la liste des coffres. Aucune donnée chiffrée ne sera supprimée. Vous pourrez ré-ajouter le coffre plus tard.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuration de ce coffre n'est pas prise en charge. Veuillez vous assurer d'utiliser la version la plus récente de Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Version de coffre non prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "La version du coffre %ld n'est pas prise en charge. Ce coffre a été créé avec une version plus ancienne ou plus récente de Cryptomator.";
 
 "webDAVAuthentication.progress" = "Authentification…";
 "webDAVAuthentication.httpConnection.alert.title" = "Utiliser le HTTPS?";
