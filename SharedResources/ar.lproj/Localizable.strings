@@ -35,7 +35,6 @@
 
 "addVault.title" = "أضِف مخزنًا";
 "addVault.createNewVault.title" = "إنشاء مخزن جديد";
-"addVault.createNewVault.purchase" = "يتطلب إنشاء مخزن جديد إصدار كامل من Cryptomer. فكّر في الحصول على النسخة الكاملة للوصول إلى المكتبة في خزاناتك.";
 "addVault.createNewVault.setVaultName.header.title" = "اختر اسماً للمخزن.";
 "addVault.createNewVault.setVaultName.cells.name" = "اسم المخزن";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "اسم المخزن لا يمكن أن يكون فارغاً.";
@@ -88,6 +87,11 @@
 "fileProvider.onboarding.title" = "مرحباً بك";
 "fileProvider.onboarding.info" = "شكراً لاختيار Cryptomator لحماية ملفاتك. للبدء، اذهب إلى التطبيق الرئيس وأضف مخزن.";
 "fileProvider.onboarding.button.openCryptomator" = "فتح Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "الغاء فتح القفل";
+"fileProvider.error.biometricalAuthCanceled.message" = "افتح القفل باستخدام %@ فشل. حاول مرة اخرى.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "كلمة المرور خاطئة";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
+"fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.unlockButton" = "افتح";
 
 "localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
@@ -98,7 +102,6 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
 
 "onboarding.title" = "أهلاً وسهلاً";
-"purchase.upgrade.notEligible.footer" = "إذا كنت قد اشتريت بالفعل إصدار قديم من Cryptomator ، قم بإعادة تنزيله من متجر التطبيقات.";
 "purchase.retry.button" = "اعد المحاولة";
 
 "settings.title" = "الإعدادات";
@@ -123,9 +126,6 @@
 "untrustedTLSCertificate.message" = "شهادة TLS من \"%@\" غير صالحة. هل تريد أن تثق بها على أي حال؟\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "ثق";
 "untrustedTLSCertificate.dismiss" = "لا تثق";
-
-"upgrade.title" = "الترقية من الإصدار 1.x";
-"upgrade.info" = "أنت مؤهل للترقية من إصدار قديم من Cryptomator لفتح الإصدار الكامل. شكرا لك على دعم Cryptomator في الماضي!";
 "upgrade.notEligible.alert.title" = "فشل الترقية";
 
 "urlSession.error.httpError.401" = "خطأ في اسم المستخدم و/أو كلمة المرور.";

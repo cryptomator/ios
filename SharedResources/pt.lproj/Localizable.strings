@@ -101,7 +101,6 @@
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"purchase.upgrade.notEligible.footer" = "Se você já comprou uma versão mais antiga do Cryptomator, descarregue-a novamente na App Store.";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
@@ -164,4 +163,3 @@
 "vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente de Cryptomator.";

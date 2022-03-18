@@ -35,7 +35,7 @@
 
 "addVault.title" = "Tresor hinzufügen";
 "addVault.createNewVault.title" = "Neuen Tresor erstellen";
-"addVault.createNewVault.purchase" = "Das Erstellen eines neuen Tresors erfordert die Vollversion von Cryptomator. Schalte die Vollversion frei für den Schreibzugriff auf deine Tresore.";
+"addVault.createNewVault.purchase" = "Das Erstellen eines neuen Tresors erfordert die Vollversion von Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname darf nicht leer sein.";
@@ -124,20 +124,25 @@
 "onboarding.info" = "Vielen Dank, dass du Cryptomator zum Schutz deiner Dateien gewählt hast.\n\nMit Cryptomator liegt der Schlüssel zu deinen Daten in deinen Händen. Cryptomator verschlüsselt deine Daten schnell und einfach.\n\nDiese App ist vollständig in der App „Dateien“ integriert. Stelle sicher, dass du Cryptomator später in der App „Dateien“ aktivierst, um auf deine Tresore zuzugreifen.";
 "onboarding.button.continue" = "Weiter";
 
-"purchase.title" = "Vollversion freischalten";
-"purchase.info" = "Du kannst Cryptomator kostenlos im reinen Lesemodus verwenden. Schalte die Vollversion frei für den Schreibzugriff auf deine Tresore.";
-"purchase.infoRunningTrial" = "Deine Testversion läuft am %@ ab und gewährt dir Schreibzugriff auf deine Tresore für eine begrenzte Zeit. Schalte die Vollversion nach der Testphase frei, um die Funktionalität beizubehalten.";
-"purchase.infoExpiredTrial" = "Deine Testversion ist abgelaufen. Schalte die Vollversion frei, um wieder Schreibzugriff auf deine Tresore zu erhalten.";
-"purchase.upgrade.footer" = "Cryptomator hat eine ältere Version erkannt. Du hast Anspruch auf ein Upgrade, um die Vollversion freizuschalten.";
-"purchase.upgrade.notEligible.footer" = "Falls du bereits eine ältere Version von Cryptomator gekauft hast, lade sie erneut aus dem App Store herunter.";
-"purchase.beginFreeTrial.button" = "Kostenlose 30-Tage-Testversion starten";
-"purchase.beginFreeTrial.footer" = "Probiere die Vollversion von Cryptomator für eine begrenzte Zeit kostenlos aus. Du kannst diese Testversion nur einmal freischalten.";
 "purchase.beginFreeTrial.alert.title" = "Testversion freigeschaltet";
-"purchase.beginFreeTrial.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
-"purchase.purchaseFullVersion.button" = "Vollversion für %@ kaufen";
-"purchase.purchaseFullVersion.footer" = "Durch eine Einmalzahlung kannst du den Schreibzugriff auf deine Tresore für die gesamte Lebensdauer von Cryptomator freischalten.";
+"purchase.expiredTrial" = "Deine Testversion ist abgelaufen.";
+"purchase.footer.privacyPolicy" = "Datenschutzerklärung";
+"purchase.footer.termsOfUse" = "Nutzungsbedingungen";
+"purchase.header.feature.familySharing" = "Familienfreigabe";
+"purchase.header.feature.openSource" = "Open-Source-Entwicklung";
+"purchase.header.feature.writeAccess" = "Schreibzugriff auf deine Tresore";
+"purchase.product.donateAndUpgrade" = "Spenden & Upgrade";
+"purchase.product.freeUpgrade" = "Kostenloses Upgrade";
+"purchase.product.lifetimeLicense" = "Lebenslange Lizenz";
+"purchase.product.lifetimeLicense.duration" = "einmalig";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "30-Tage-Testversion";
+"purchase.product.trial.duration" = "für 30 Tage";
+"purchase.product.yearlySubscription" = "Jahresabonnement";
+"purchase.product.yearlySubscription.duration" = "jährlich";
+"purchase.readOnlyMode.alert.title" = "Schreibgeschützter Modus";
+"purchase.readOnlyMode.alert.message" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
 "purchase.restorePurchase.button" = "Käufe wiederherstellen";
-"purchase.restorePurchase.footer" = "Wenn du bereits die Vollversion von Cryptomator erworben hast, kannst du den Kauf hiermit wiederherstellen.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Testversion fortgesetzt";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Wiederherstellung erfolgreich";
@@ -145,8 +150,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Wir konnten keine zuvor gekaufte Vollversion finden, die wiederhergestellt werden kann. Bitte versuche eine andere Option.";
 "purchase.retry.button" = "Wiederholen";
 "purchase.retry.footer" = "Verfügbare Produkte konnten nicht geladen werden.";
-"purchase.decideLater.button" = "Später entscheiden";
-"purchase.decideLater.footer" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
+"purchase.title" = "Vollversion freischalten";
 "purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
 
@@ -159,6 +163,7 @@
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Debug Modus";
 "settings.debugMode.alert.message" = "In diesem Modus könnten sensible Daten in eine Log-Datei auf diesem Gerät geschrieben werden (z.B. Dateinamen und Pfade). Ausgeschlossen davon sind u.a. Passwörter und Cookies.\n\nDenke daran, den Debug-Modus so schnell wie möglich wieder zu deaktivieren.";
+"settings.manageSubscriptions" = "Abonnement verwalten";
 "settings.rateApp" = "App Bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
 "settings.unlockFullVersion" = "Vollversion freischalten";
@@ -176,6 +181,9 @@
 "snapshots.main.vault3" = "/Dokumente";
 "snapshots.main.vault4" = "/Reise nach Bonn";
 
+"trialStatus.active" = "Aktiv";
+"trialStatus.expired" = "Abgelaufen";
+
 "unlockVault.button.unlock" = "Entsperren";
 "unlockVault.button.unlockVia" = "Entsperren über %@";
 "unlockVault.password.footer" = "Gib das Passwort für „%@“ ein.";
@@ -189,15 +197,10 @@
 "untrustedTLSCertificate.add" = "Vertrauen";
 "untrustedTLSCertificate.dismiss" = "Nicht vertrauen";
 
-"upgrade.title" = "Upgrade von Version 1.x";
-"upgrade.info" = "Du hast Anspruch auf ein Upgrade von einer älteren Version von Cryptomator, um die Vollversion freizuschalten. Danke, dass du Cryptomator in der Vergangenheit unterstützt hast!";
-"upgrade.paidUpgrade.button" = "Upgrade für %@";
-"upgrade.paidUpgrade.footer" = "Dies würde der laufenden Open-Source-Entwicklung helfen und eine große Unterstützung für uns sein.";
-"upgrade.freeUpgrade.button" = "Kostenloses Upgrade";
-"upgrade.freeUpgrade.footer" = "Keine Sorge, du kannst auch kostenlos auf die Vollversion upgraden, ohne jegliche Einschränkungen.";
-"upgrade.decideLater.footer" = "Du kannst später in den Einstellungen auf die Vollversion von Cryptomator upgraden und vorerst nur im Lesemodus verwenden.";
+"upgrade.title" = "Upgrade-Angebot";
 "upgrade.notEligible.alert.title" = "Upgrade fehlgeschlagen";
 "upgrade.notEligible.alert.message" = "Cryptomator konnte keine ältere Version auf deinem Gerät finden. Falls du die App gekauft hast, lade sie bitte erneut aus dem App Store herunter und versuche es erneut.";
+"upgrade.info" = "Vielen Dank für das Vertrauen in Cryptomator seit Version eins. Als treuer Nutzer bist du für ein kostenloses Upgrade berechtigt.";
 
 "urlSession.error.httpError.401" = "Benutzername und/oder Passwort falsch.";
 "urlSession.error.httpError.403" = "Unzureichende Rechte für die angeforderte Ressource.";
@@ -238,7 +241,7 @@
 "vaultList.remove.alert.message" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt. Es werden keine verschlüsselten Daten gelöscht. Du kannst den Tresor später wieder hinzufügen.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion %ld wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
 "webDAVAuthentication.progress" = "Authentifiziere…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
