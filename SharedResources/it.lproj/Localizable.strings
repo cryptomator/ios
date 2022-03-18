@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "annuale";
 "purchase.readOnlyMode.alert.title" = "Modalità di sola lettura";
 "purchase.readOnlyMode.alert.message" = "Puoi sbloccare la versione completa di Cryptomator in seguito nelle impostazioni e, per ora, usarla in modalità di sola lettura.";
-"purchase.redeemCode.button" = "Riscatta Codice";
 "purchase.restorePurchase.button" = "Ripristina Acquisti";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Prova Continuata";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Puoi ora usare la versione completa di Cryptomator per un tempo limitato. La tua prova scade il %@. Dopodiché, le tue cassaforti saranno ancora accessibili in modalità sola lettura.";
