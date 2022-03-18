@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "続行";
 
 "purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
-"purchase.redeemCode.button" = "コードを再発行";
 "purchase.restorePurchase.button" = "購入情報の復元";
 "purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
