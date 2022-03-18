@@ -124,7 +124,6 @@
 "onboarding.button.continue" = "Pokračovat";
 
 "purchase.beginFreeTrial.alert.title" = "Zkušební verze odemčena";
-"purchase.redeemCode.button" = "Uplatnit kód";
 "purchase.restorePurchase.button" = "Obnovit nákup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Zkušební verze pokračuje";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
