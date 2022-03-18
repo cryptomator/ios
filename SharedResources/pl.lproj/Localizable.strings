@@ -128,7 +128,6 @@
 "purchase.expiredTrial" = "Twój okres próbny się skończył.";
 "purchase.footer.privacyPolicy" = "Polityka prywatności";
 "purchase.footer.termsOfUse" = "Warunki użytkowania";
-"purchase.redeemCode.button" = "Zrealizuj kod";
 "purchase.restorePurchase.button" = "Przywróć zakup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Kontynuacja okresu próbnego";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
