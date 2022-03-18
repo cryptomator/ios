@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "jährlich";
 "purchase.readOnlyMode.alert.title" = "Schreibgeschützter Modus";
 "purchase.readOnlyMode.alert.message" = "Du kannst die Vollversion von Cryptomator später in den Einstellungen freischalten und vorerst nur im Lesemodus verwenden.";
-"purchase.redeemCode.button" = "Code einlösen";
 "purchase.restorePurchase.button" = "Käufe wiederherstellen";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Testversion fortgesetzt";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Du kannst jetzt die Vollversion von Cryptomator für eine begrenzte Zeit nutzen. Deine Testversion läuft am %@ ab. Danach werden deine Tresore nur noch im Lesemodus zugänglich sein.";
