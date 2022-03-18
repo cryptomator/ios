@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "ежегодно";
 "purchase.readOnlyMode.alert.title" = "Режим \"Только чтение\"";
 "purchase.readOnlyMode.alert.message" = "Вы можете разблокировать полную версию Cryptomator позже в настройках, а пока использовать в режиме \"только для чтения\".";
-"purchase.redeemCode.button" = "Активировать код";
 "purchase.restorePurchase.button" = "Восстановить покупку";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Продолжение опробования";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Теперь вы можете использовать полную версию Cryptomator в течение ограниченного времени. Пробная версия истекает %@. После этого ваши хранилища по-прежнему будут доступны в режиме только для чтения.";
