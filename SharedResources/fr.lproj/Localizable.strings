@@ -142,7 +142,6 @@
 "purchase.product.yearlySubscription.duration" = "annuellement";
 "purchase.readOnlyMode.alert.title" = "★ Mode lecture seule";
 "purchase.readOnlyMode.alert.message" = "Vous pouvez déverrouiller la version complète de Cryptomator plus tard dans les paramètres et l'utiliser en mode lecture seule pour l'instant.";
-"purchase.redeemCode.button" = "Code d'activation";
 "purchase.restorePurchase.button" = "Restaurer l’achat";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Essai en cours";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator pour une durée limitée. Votre essai expire le %@. Après cela, vos coffres seront toujours accessibles en mode lecture seule.";
