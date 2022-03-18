@@ -34,7 +34,7 @@ platform :ios do
     scan
     gym
     changelog = File.read("changelog.txt")
-    pilot(changelog: changelog, distribute_external: true, groups: ["App Store Connect Users"])
+    pilot(changelog: changelog, distribute_external: true, groups: ["External Testers"])
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
