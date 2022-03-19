@@ -35,6 +35,7 @@
 
 "addVault.title" = "Kluis toevoegen";
 "addVault.createNewVault.title" = "Nieuwe Kluis Aanmaken";
+"addVault.createNewVault.purchase" = "Het creëren van een nieuwe kluis vereist de volledige versie van Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Kies een naam voor de kluis.";
 "addVault.createNewVault.setVaultName.cells.name" = "Kluisnaam";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Kluis naam mag niet leeg zijn.";
@@ -124,6 +125,23 @@
 "onboarding.button.continue" = "Doorgaan";
 
 "purchase.beginFreeTrial.alert.title" = "Proefperiode ontgrendeld";
+"purchase.expiredTrial" = "Je proefperiode is verlopen.";
+"purchase.footer.privacyPolicy" = "Privacybeleid";
+"purchase.footer.termsOfUse" = "Gebruiksvoorwaarden";
+"purchase.header.feature.familySharing" = "Delen met gezin";
+"purchase.header.feature.openSource" = "Open-source ontwikkeling";
+"purchase.header.feature.writeAccess" = "Schrijf-toegang tot je kluizen";
+"purchase.product.donateAndUpgrade" = "Doneren & upgraden";
+"purchase.product.freeUpgrade" = "Gratis upgrade";
+"purchase.product.lifetimeLicense" = "Levenslange licentie";
+"purchase.product.lifetimeLicense.duration" = "eenmalig";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "30-dagen proefperiode";
+"purchase.product.trial.duration" = "voor 30 dagen";
+"purchase.product.yearlySubscription" = "Jaarabonnement";
+"purchase.product.yearlySubscription.duration" = "jaarlijks";
+"purchase.readOnlyMode.alert.title" = "Alleen-lezen-modus";
+"purchase.readOnlyMode.alert.message" = "U kunt de volledige versie van Cryptomator later ontgrendelen in de instellingen en voorlopig alleen-lezen modus gebruiken.";
 "purchase.restorePurchase.button" = "Aankoop herstellen";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Proefperiode voortgezet";
 "purchase.restorePurchase.validTrialFound.alert.message" = "U kunt nu de volledige versie van Cryptomator voor een beperkte tijd gebruiken. Uw proefperiode verloopt op %@. Daarna is je kluis nog steeds toegankelijk in alleen-lezen modus.";
@@ -163,6 +181,9 @@
 "snapshots.main.vault3" = "Documenten";
 "snapshots.main.vault4" = "/reis naar Californië";
 
+"trialStatus.active" = "Actief";
+"trialStatus.expired" = "Verlopen";
+
 "unlockVault.button.unlock" = "Ontgrendel";
 "unlockVault.button.unlockVia" = "Ontgrendel via %@";
 "unlockVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
@@ -175,8 +196,11 @@
 "untrustedTLSCertificate.message" = "Het TLS certificaat van \"%@\" is ongeldig. Wilt u het toch vertrouwen?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Vertrouwen";
 "untrustedTLSCertificate.dismiss" = "Niet vertrouwen";
+
+"upgrade.title" = "Upgrade voorstel";
 "upgrade.notEligible.alert.title" = "Upgrade mislukt";
 "upgrade.notEligible.alert.message" = "Cryptomator kon geen oudere versie op uw apparaat detecteren. Als u Cryptomator gekocht heeft, download deze dan opnieuw vanuit de App Store en probeer het opnieuw.";
+"upgrade.info" = "Bedankt voor het vertrouwen in Cryptomator sinds de eerste versie. Als een loyale gebruiker, komt u in aanmerking voor een gratis upgrade.";
 
 "urlSession.error.httpError.401" = "Verkeerde gebruikersnaam en/of wachtwoord.";
 "urlSession.error.httpError.403" = "Verboden toegang.";
@@ -217,6 +241,7 @@
 "vaultList.remove.alert.message" = "Dit verwijdert alleen de kluis uit de lijst. Er worden geen versleutelde gegevens verwijderd. U kunt de kluis later opnieuw toevoegen.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Kluisversie %ld wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
 
 "webDAVAuthentication.progress" = "Authenticatie verwerken…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
