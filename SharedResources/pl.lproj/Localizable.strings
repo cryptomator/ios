@@ -140,6 +140,8 @@
 "purchase.product.trial.duration" = "przez 30 dni";
 "purchase.product.yearlySubscription" = "Subskrypcja roczna";
 "purchase.product.yearlySubscription.duration" = "rocznie";
+"purchase.readOnlyMode.alert.title" = "Tryb tylko do odczytu";
+"purchase.readOnlyMode.alert.message" = "Możesz odblokować pełną wersję Cryptomator później w ustawieniach i na razie używać trybu tylko do odczytu.";
 "purchase.restorePurchase.button" = "Przywróć zakup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Kontynuacja okresu próbnego";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
@@ -179,6 +181,9 @@
 "snapshots.main.vault3" = "/Dokumenty";
 "snapshots.main.vault4" = "/Podróż do Kalifornii";
 
+"trialStatus.active" = "Aktywny";
+"trialStatus.expired" = "Wygasły";
+
 "unlockVault.button.unlock" = "Odblokuj";
 "unlockVault.button.unlockVia" = "Odblokuj przez %@";
 "unlockVault.password.footer" = "Wprowadź hasło dla \"%@\".";
@@ -191,8 +196,11 @@
 "untrustedTLSCertificate.message" = "Certyfikat TLS \"%@\" jest nieprawidłowy. Czy mimo to jest zaufany?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Zaufany";
 "untrustedTLSCertificate.dismiss" = "Niezaufany";
+
+"upgrade.title" = "Zrób upgrade";
 "upgrade.notEligible.alert.title" = "Błąd aktualizacji";
 "upgrade.notEligible.alert.message" = "Cryptomator nie wykrył starszej wersji na Twoim urządzeniu. Jeśli ją kupiłeś, pobierz ją ponownie z App Store i spróbuj ponownie.";
+"upgrade.info" = "Dziękujemy za bycie z nami od pierwszej wersji. Jako lojalny użytkownik możesz korzystać z darmowej aktualizacji.";
 
 "urlSession.error.httpError.401" = "Błędna nazwa użytkownika i/lub hasło.";
 "urlSession.error.httpError.403" = "Niewystarczające uprawnienia do żądanego zasobu.";
@@ -233,6 +241,7 @@
 "vaultList.remove.alert.message" = "To spowoduje usunięcie sejfu z listy. Żadne zaszyfrowane dane nie zostaną usunięte. Możesz znowu dodać ten sejf później.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracja sejfu jest nieobsługiwana. Upewnij się, że używasz najnowszej wersji Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Wersja sejfu %ld jest nieobsługiwana. Ten sejf został utworzony ze starszą lub nowszą wersją Cryptomator.";
 
 "webDAVAuthentication.progress" = "Uwierzytelnianie…";
 "webDAVAuthentication.httpConnection.alert.title" = "Używać HTTPS?";
