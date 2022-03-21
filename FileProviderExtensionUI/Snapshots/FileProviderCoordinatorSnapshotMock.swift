@@ -21,7 +21,7 @@ class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
 		super.init(extensionContext: extensionContext, hostViewController: hostViewController)
 	}
 
-	override func showPasswordScreen(for domain: NSFileProviderDomain) {
+	override func showPasswordScreen(for domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
 		let viewModel = UnlockVaultViewModelSnapshotMock(domain: domain)
 		let unlockVaultVC = UnlockVaultViewController(viewModel: viewModel)
 		unlockVaultVC.coordinator = self
@@ -31,7 +31,13 @@ class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
 
 class UnlockVaultViewModelSnapshotMock: UnlockVaultViewModel {
 	init(domain: NSFileProviderDomain) {
-		super.init(domain: domain, passwordManager: VaultPasswordManagerSnapshotMock())
+		super.init(domain: domain,
+		           wrongBiometricalPassword: false,
+		           fileProviderConnector: FileProviderXPCConnector.shared,
+		           passwordManager: VaultPasswordManagerSnapshotMock(),
+		           vaultAccountManager: VaultAccountDBManager.shared,
+		           providerManager: CloudProviderDBManager.shared,
+		           vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool))
 	}
 }
 

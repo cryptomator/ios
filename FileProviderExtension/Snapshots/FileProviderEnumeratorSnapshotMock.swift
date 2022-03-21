@@ -36,10 +36,8 @@ public class FileProviderEnumeratorSnapshotMock: NSObject, NSFileProviderEnumera
 			observer.finishEnumerating(upTo: nil)
 		} else {
 			let vaultPath = CloudPath(LocalizedString.getValue("snapshots.main.vault1"))
-			observer.finishEnumeratingWithError(NSFileProviderError(.notAuthenticated, userInfo: ["internalError": FileProviderAdapterManagerError.cachedAdapterNotFound,
-			                                                                                      "vaultName": vaultPath.lastPathComponent,
-			                                                                                      "pathRelativeToDocumentStorage": "",
-			                                                                                      "domainIdentifier": ""]))
+			let error = ErrorWrapper.wrapError(UnlockMonitorError.defaultLock, domain: NSFileProviderDomain(vaultUID: "12345", displayName: vaultPath.lastPathComponent))
+			observer.finishEnumeratingWithError(error)
 		}
 	}
 }
