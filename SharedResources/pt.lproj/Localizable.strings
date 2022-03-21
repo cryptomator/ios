@@ -101,12 +101,28 @@
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
+"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros.\n\n Com Cryptomator, a chave para os seus dados está nas suas mãos. O Cryptomator criptografa os seus dados de maneira rápida e fácil.\n\n Este aplicativo está totalmente integrado no aplicativo Ficheiros. Certifique-se de ativar o Cryptomator no aplicativo Ficheiros para puder aceder aos seus cofres.";
+"onboarding.button.continue" = "Continuar";
+
+"purchase.beginFreeTrial.alert.title" = "Versão de teste desbloqueada";
+"purchase.restorePurchase.button" = "Restaurar compra";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Continuação da versão de teste";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um período limitado. A sua avaliação expira em %@. Depois disso, os seus cofres ainda estarão acessíveis somente em modo leitura.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Restauração bem-sucedida";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Sem Versão Completa";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não conseguimos encontrar uma versão completa comprada anteriormente que pudesse ser restaurada. Por favor, tente outra opção.";
+"purchase.retry.button" = "Tente novamente";
+"purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
+"purchase.title" = "Desbloqueie a versão completa";
+"purchase.unlockedFullVersion.message" = "Agora você pode utilizar a versão completa do Cryptomator. Feliz criptografia!";
+"purchase.unlockedFullVersion.title" = "Obrigado";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
+"settings.unlockFullVersion" = "Desbloquear versão completa";
 
 "snapshots.fileprovider.file1" = "/Contabilidade.números";
 "snapshots.fileprovider.file2" = "/Apresentação Final.key";
@@ -163,3 +179,7 @@
 "vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
+"webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "O uso do HTTP não é seguro. Recomendamos o uso de HTTPS em vez disso. Se você conhece os riscos, pode continuar com HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Alterar para HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Manter HTTP";
