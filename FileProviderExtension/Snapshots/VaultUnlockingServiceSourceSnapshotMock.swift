@@ -8,9 +8,10 @@
 
 #if SNAPSHOTS
 import Foundation
+@testable import CryptomatorFileProvider
 
 class VaultUnlockingServiceSourceSnapshotMock: VaultUnlockingServiceSource {
-	override func unlockVault(kek: [UInt8], reply: @escaping (Error?) -> Void) {
+	override func unlockVault(kek: [UInt8], reply: @escaping (NSError?) -> Void) {
 		FileProviderEnumeratorSnapshotMock.isUnlocked = true
 		reply(nil)
 	}

@@ -164,7 +164,7 @@ open class Snapshot: NSObject {
 		}
 
 		let screenshot = XCUIScreen.main.screenshot()
-		#if os(iOS)
+		#if os(iOS) && !targetEnvironment(macCatalyst)
 		let image = XCUIDevice.shared.orientation.isLandscape ? fixLandscapeOrientation(image: screenshot.image) : screenshot.image
 		#else
 		let image = screenshot.image
@@ -305,4 +305,4 @@ private extension CGFloat {
 
 // Please don't remove the lines below
 // They are used to detect outdated configuration files
-// SnapshotHelperVersion [1.27]
+// SnapshotHelperVersion [1.28]

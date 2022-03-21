@@ -248,8 +248,14 @@ class FileProviderExtension: NSFileProviderExtension {
 		#if DEBUG
 		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
+
 		#if SNAPSHOTS
-		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(fileprovider: self))
+		let snapshotVaultPath = CloudPath(LocalizedString.getValue("snapshots.main.vault1"))
+		let snapshotDomain = NSFileProviderDomain(vaultUID: "12345", displayName: snapshotVaultPath.lastPathComponent)
+		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(domain: snapshotDomain,
+		                                                              notificator: notificator,
+		                                                              dbPath: dbPath,
+		                                                              delegate: LocalURLProvider(domain: snapshotDomain)))
 		#else
 		if let domain = domain, let localURLProvider = localURLProvider {
 			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
