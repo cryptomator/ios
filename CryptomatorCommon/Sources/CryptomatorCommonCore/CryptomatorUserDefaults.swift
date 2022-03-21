@@ -13,11 +13,13 @@ public protocol CryptomatorSettings {
 	var debugModeEnabled: Bool { get set }
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
+	var hasRunningSubscription: Bool { get set }
 }
 
 public class CryptomatorUserDefaults {
 	public static let shared = CryptomatorUserDefaults()
 
+	public static let isTestFlightEnvironment = detectTestFlightEnvironment()
 	private var defaults = UserDefaults(suiteName: CryptomatorConstants.appGroupName)!
 
 	#if DEBUG
@@ -25,6 +27,15 @@ public class CryptomatorUserDefaults {
 	#else
 	private static let debugModeEnabledDefaultValue = false
 	#endif
+
+	/**
+	  Detects an TestFlight release by checking the last path component of the App Store receipt URL
+
+	  For a normal App Store release the `appStoreReceiptURL` ends with `/receipt` and for a TestFlight release the `appStoreReceiptURL` ends with `/sandboxReceipt`.
+	 */
+	private static func detectTestFlightEnvironment() -> Bool {
+		return Bundle.main.appStoreReceiptURL?.lastPathComponent == "sandboxReceipt"
+	}
 
 	private func read<T>(property: String = #function) -> T? {
 		return defaults.object(forKey: key(from: property)) as? T
@@ -45,8 +56,9 @@ public class CryptomatorUserDefaults {
 	}
 
 	private func key(from property: String) -> String {
-//		#warning("TestFlight environment is enabled")
-//		return "\(property)-TestFlight"
+		if CryptomatorUserDefaults.isTestFlightEnvironment {
+			return "\(property)-TestFlight"
+		}
 		return property
 	}
 }
@@ -74,6 +86,11 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 
 	public var debugModeEnabled: Bool {
 		get { read() ?? CryptomatorUserDefaults.debugModeEnabledDefaultValue }
+		set { write(value: newValue) }
+	}
+
+	public var hasRunningSubscription: Bool {
+		get { read() ?? false }
 		set { write(value: newValue) }
 	}
 }

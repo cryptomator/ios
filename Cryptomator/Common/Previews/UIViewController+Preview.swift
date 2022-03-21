@@ -6,7 +6,6 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-#if DEBUG
 import SwiftUI
 import UIKit
 
@@ -27,4 +26,3 @@ extension UIViewController {
 		Preview(viewController: self)
 	}
 }
-#endif

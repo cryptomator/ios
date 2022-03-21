@@ -1,0 +1,4 @@
+scheme("AllTests")
+clean(true)
+output_types("html")
+skip_slack(true)

@@ -39,7 +39,7 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 
 	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
-		applySnapshot(sections: viewModel.sections, animatingDifferences: false)
+		refreshRows()
 	}
 
 	override func viewWillDisappear(_ animated: Bool) {
@@ -99,9 +99,13 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 
 	// MARK: - UITableViewDelegate
 
+	// swiftlint:disable:next cyclomatic_complexity
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		tableView.deselectRow(at: indexPath, animated: true)
-		switch viewModel.buttonAction(for: indexPath) {
+		let cellViewModel = dataSource?.itemIdentifier(for: indexPath) as? ButtonCellViewModel<SettingsButtonAction>
+		if cellViewModel?.accessoryType.value != .disclosureIndicator {
+			tableView.deselectRow(at: indexPath, animated: true)
+		}
+		switch cellViewModel?.action {
 		case .showAbout:
 			showAbout()
 		case .sendLogFile:
@@ -119,8 +123,19 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			showRateApp()
 		case .showUnlockFullVersion:
 			coordinator?.showUnlockFullVersion()
-		case .unknown:
+		case .showManageSubscriptions:
+			coordinator?.showManageSubscriptions()
+		case .restorePurchase:
+			viewModel.restorePurchase().then { [weak self] _ in
+				self?.refreshRows()
+			}
+		case .none:
 			break
 		}
+	}
+
+	private func refreshRows() {
+		PremiumManager.shared.refreshStatus()
+		applySnapshot(sections: viewModel.sections, animatingDifferences: false)
 	}
 }

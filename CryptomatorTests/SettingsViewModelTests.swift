@@ -53,7 +53,8 @@ class SettingsViewModelTests: XCTestCase {
 
 	func testRefreshCacheSize() throws {
 		let expectation = XCTestExpectation()
-		cacheManagerMock.totalCacheSizeInBytes = 1024 * 1024
+		let cacheSizeInBytes = 1024 * 1024
+		cacheManagerMock.totalCacheSizeInBytes = cacheSizeInBytes
 		settingsViewModel.refreshCacheSize().always {
 			expectation.fulfill()
 		}
@@ -66,7 +67,8 @@ class SettingsViewModelTests: XCTestCase {
 			XCTFail("Missing cacheSizeCellViewModel")
 			return
 		}
-		XCTAssertEqual("1 MB", cacheSizeCellViewModel.detailTitle.value)
+		let cacheSizeDisplayText = ByteCountFormatter().string(fromByteCount: Int64(cacheSizeInBytes))
+		XCTAssertEqual(cacheSizeDisplayText, cacheSizeCellViewModel.detailTitle.value)
 
 		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing clearCacheButtonCellViewModel")
@@ -108,7 +110,8 @@ class SettingsViewModelTests: XCTestCase {
 			XCTFail("Missing cacheSizeCellViewModel")
 			return
 		}
-		XCTAssertEqual("Zero KB", cacheSizeCellViewModel.detailTitle.value)
+		let cacheSizeDisplayText = ByteCountFormatter().string(fromByteCount: 0)
+		XCTAssertEqual(cacheSizeDisplayText, cacheSizeCellViewModel.detailTitle.value)
 
 		guard let clearCacheButtonCellViewModel = cacheSection.elements[1] as? ButtonCellViewModel<SettingsButtonAction> else {
 			XCTFail("Missing clearCacheButtonCellViewModel")
@@ -223,7 +226,7 @@ class SettingsViewModelTests: XCTestCase {
 			return
 		}
 		XCTAssertTrue(sendLogFilesCellViewModel.isEnabled.value)
-		XCTAssertEqual(LocalizedString.getValue("Send Log File"), sendLogFilesCellViewModel.title.value)
+		XCTAssertEqual(LocalizedString.getValue("settings.sendLogFile"), sendLogFilesCellViewModel.title.value)
 		XCTAssertEqual(.sendLogFile, sendLogFilesCellViewModel.action)
 	}
 

@@ -11,6 +11,13 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
+	override func setUpWithError() throws {
+		try super.setUpWithError()
+		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
+			return $0.map { _ in nil }
+		}
+	}
+
 	// MARK: Enumerate Working Set
 
 	func testWorkingSet() {

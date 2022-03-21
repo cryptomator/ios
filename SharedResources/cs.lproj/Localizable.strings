@@ -35,7 +35,6 @@
 
 "addVault.title" = "Přidat trezor";
 "addVault.createNewVault.title" = "Vytvořit nový trezor";
-"addVault.createNewVault.purchase" = "Vytvoření nového trezoru vyžaduje plnou verzi Cryptomatoru. Zvažte odemčení plné verze pro zápis do trezoru.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
@@ -124,20 +123,8 @@
 "onboarding.info" = "Děkujeme, že jste si vybrali Cryptomator pro ochranu vašich souborů.\n\nS Cryptomatorem je klíč k vašim datům ve vašich rukou. Cryptomator vaše data šifruje rychle a snadno.\n\nTato aplikace je plně integrována do aplikace Souborů. Ujistěte se, že jste aktivovali Cryptomator v aplikaci Souboru pro přístup k vašim trezorům.";
 "onboarding.button.continue" = "Pokračovat";
 
-"purchase.title" = "Odemknout plnou verzi";
-"purchase.info" = "Můžete zdarma použít Cryptomator v režimu pro čtení. Zvažte odemknutí plné verze pro umožnění zápisu do vašeho trezoru.";
-"purchase.infoRunningTrial" = "Vaše zkušební verze vyprší %@ a umožňuje na omezenou dobu zapisovat do trezorů. Zvažte odemčení plné verze po zkušební verzi.";
-"purchase.infoExpiredTrial" = "Vaše zkušební verze vypršela. Zvažte odemknutí plné verze pro opětovné získání přístupu k zápisu do trezoru.";
-"purchase.upgrade.footer" = "Cryptomator detekoval starší verzi. Můžete aktualizovat pro odemknutí plné verze.";
-"purchase.upgrade.notEligible.footer" = "Pokud jste si již koupili starší verzi Cryptomatoru, stáhněte si ji znovu z App Store.";
-"purchase.beginFreeTrial.button" = "Začněte 30denní zkušební verzi zdarma";
-"purchase.beginFreeTrial.footer" = "Vyzkoušejte plnou verzi Cryptomatoru na omezenou dobu zdarma. Tuto zkušební verzi můžete odemknout pouze jednou.";
 "purchase.beginFreeTrial.alert.title" = "Zkušební verze odemčena";
-"purchase.beginFreeTrial.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
-"purchase.purchaseFullVersion.button" = "Koupit plnou verzi za %@";
-"purchase.purchaseFullVersion.footer" = "Zaplaťte jednou a odemkněte přístup k vašim trezorům po dobu životnosti Cryptomatoru.";
 "purchase.restorePurchase.button" = "Obnovit nákup";
-"purchase.restorePurchase.footer" = "Pokud jste již zakoupili plnou verzi Cryptomatoru, můžete nákup obnovit.";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Zkušební verze pokračuje";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovení bylo úspěšné";
@@ -145,8 +132,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nebyli jsme schopni najít dříve zakoupenou plnou verzi, která by mohla být obnovena. Zkuste prosím jinou možnost.";
 "purchase.retry.button" = "Opakovat";
 "purchase.retry.footer" = "Nelze načíst dostupné produkty.";
-"purchase.decideLater.button" = "Rozhodnout později";
-"purchase.decideLater.footer" = "Plnou verzi Cryptomatoru můžete později odemknout v nastavení a pro tuto chvíli použít Cryptomator v režimu jen pro čtení.";
+"purchase.title" = "Odemknout plnou verzi";
 "purchase.unlockedFullVersion.message" = "Nyní můžete použít plnou verzi Cryptomatoru. Šťastné šifrování!";
 "purchase.unlockedFullVersion.title" = "Děkuji";
 
@@ -159,6 +145,7 @@
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Ladící režim";
 "settings.debugMode.alert.message" = "V tomto režimu mohou být citlivé údaje zapsány do souboru protokolu na vašem zařízení (např. názvy souborů a cesty). Hesla, soubory cookie atd. jsou výslovně vyloučeny.\n\nNezapomeňte co nejdříve vypnout režim ladění.";
+"settings.manageSubscriptions" = "Spravovat předplatné";
 "settings.rateApp" = "Ohodnotit aplikaci";
 "settings.sendLogFile" = "Odeslat log soubor";
 "settings.unlockFullVersion" = "Odemknout plnou verzi";
@@ -188,14 +175,6 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu přesto důvěřovat?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Důvěřovat";
 "untrustedTLSCertificate.dismiss" = "Nedůvěřovat";
-
-"upgrade.title" = "Upgradovat z verze 1.x";
-"upgrade.info" = "Máte nárok na upgrade ze starší verze Cryptomatoru pro získání plné verze. Děkujeme, že jste podpořili Cryptomator v minulosti!";
-"upgrade.paidUpgrade.button" = "Upgradovat za %@";
-"upgrade.paidUpgrade.footer" = "Pomohlo by to pokračovat ve vývoji open-source a bylo by to pro nás velkou podporou.";
-"upgrade.freeUpgrade.button" = "Upgradujte zdarma";
-"upgrade.freeUpgrade.footer" = "Nebojte, můžete také upgradovat na plnou verzi zdarma bez jakýchkoliv limitací.";
-"upgrade.decideLater.footer" = "Plnou verzi Cryptomatoru můžete později odemknout v nastavení a pro tuto chvíli použít Cryptomator v režimu jen pro čtení.";
 "upgrade.notEligible.alert.title" = "Upgrade se nezdařil";
 "upgrade.notEligible.alert.message" = "Cryptomator nemohl najít starší verzi nainstalovanou na vašem zařízení. Pokud jste si ji zakoupili, stáhněte si ji prosím znovu z App Store a zkuste to znovu.";
 
@@ -238,7 +217,7 @@
 "vaultList.remove.alert.message" = "Tímto odstraníte trezor pouze ze seznamu trezorů. Šifrovaná data nebudou smazána. Později můžete trezor znovu přidat.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurace trezoru není podporována. Ujistěte se, že používáte nejnovější verzi Cryptomatoru.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomatoru.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru %ld není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomator.";
 
 "webDAVAuthentication.progress" = "Ověřování…";
 "webDAVAuthentication.httpConnection.alert.title" = "Použít HTTPS?";

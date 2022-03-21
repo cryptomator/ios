@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "ASN1Swift",
+        "repositoryURL": "https://github.com/tikhop/ASN1Swift",
+        "state": {
+          "branch": null,
+          "revision": "b53bee03a942623db25afc5bfb80227b2cb3b425",
+          "version": "1.2.4"
+        }
+      },
+      {
         "package": "Base32",
         "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
@@ -24,8 +33,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "09453b28d986dc52b038640be763818fecb633cb",
-          "version": "1.1.6"
+          "revision": "1db22e4ea17c85eaa98bfabf1fbf699fcf6e94e0",
+          "version": "1.2.0"
         }
       },
       {
@@ -51,8 +60,8 @@
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
         "state": {
           "branch": null,
-          "revision": "f74da6cf58dfe078e1ddafa0673b69fa9d32de1a",
-          "version": "6.2.0-fork"
+          "revision": "9d390f1cbae0f77066117f9b97370735914875b0",
+          "version": "6.2.3-fork"
         }
       },
       {
@@ -60,8 +69,8 @@
         "repositoryURL": "https://github.com/google/google-api-objectivec-client-for-rest.git",
         "state": {
           "branch": null,
-          "revision": "a0a0826501a4075a5dcb7ad59ecd97a1f2422c32",
-          "version": "1.5.2"
+          "revision": "3228334d0584cb9174796fecbe628a723be70452",
+          "version": "1.7.0"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "bc6a19702ac76ac4e488b68148710eb815f9bc56",
+          "version": "1.7.0"
         }
       },
       {
@@ -105,8 +114,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "14a1750834d13567de1a4afb0fa148a22bd7ddbf",
-          "version": "1.1.25"
+          "revision": "2825c3f72bf51f8be43df7177fe1c66370be2d0e",
+          "version": "1.2.0"
         }
       },
       {
@@ -128,6 +137,15 @@
         }
       },
       {
+        "package": "PCloudSDKSwift",
+        "repositoryURL": "https://github.com/pCloud/pcloud-sdk-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "6da4ca6bb4e7068145d9325988e29862d26300ba",
+          "version": "3.2.0"
+        }
+      },
+      {
         "package": "Promises",
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
@@ -143,6 +161,15 @@
           "branch": null,
           "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
           "version": "1.4.2"
+        }
+      },
+      {
+        "package": "TPInAppReceipt",
+        "repositoryURL": "https://github.com/tikhop/TPInAppReceipt.git",
+        "state": {
+          "branch": null,
+          "revision": "2b9946f8fe2dd74ed87dfcb5dbedc3be06c5ccab",
+          "version": "3.3.3"
         }
       }
     ]

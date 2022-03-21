@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCommonCore
 import Foundation
+import StoreKit
 import UIKit
 
 class SettingsCoordinator: Coordinator {
@@ -74,6 +75,26 @@ class SettingsCoordinator: Coordinator {
 		child.start()
 	}
 
+	func showManageSubscriptions() {
+		if #available(iOS 15.0, *), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+			Task.init {
+				do {
+					try await AppStore.showManageSubscriptions(in: scene)
+				} catch {
+					handleError(error, for: navigationController)
+				}
+			}
+		} else {
+			showExternalManageSubscriptions()
+		}
+	}
+
+	private func showExternalManageSubscriptions() {
+		if let manageSubscriptionsURL = URL(string: "https://apps.apple.com/account/subscriptions") {
+			UIApplication.shared.open(manageSubscriptionsURL)
+		}
+	}
+
 	@objc func close() {
 		navigationController.dismiss(animated: true)
 		parentCoordinator?.childDidFinish(self)
@@ -108,46 +129,15 @@ private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoor
 		super.init(navigationController: navigationController)
 	}
 
-	override func start() {
-		let purchaseViewController = PurchaseViewController(viewModel: SettingsPurchaseViewModel())
-		purchaseViewController.coordinator = self
-		purchaseViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-		navigationController.pushViewController(purchaseViewController, animated: true)
-	}
-
-	override func getUpgradeCoordinator() -> UpgradeCoordinator {
-		return SettingsUpgradeCoordinator(navigationController: navigationController, oldTopViewController: oldTopViewController)
+	override func getUpgradeCoordinator() -> PurchaseCoordinator {
+		return self
 	}
 
 	override func close() {
 		popToOldTopViewController()
 	}
 
-	@objc private func done() {
-		super.close()
-	}
-}
-
-private class SettingsUpgradeCoordinator: UpgradeCoordinator, PoppingCloseCoordinator {
-	let oldTopViewController: UIViewController?
-
-	init(navigationController: UINavigationController, oldTopViewController: UIViewController?) {
-		self.oldTopViewController = oldTopViewController
-		super.init(navigationController: navigationController)
-	}
-
-	override func close() {
-		popToOldTopViewController()
-	}
-
-	override func start() {
-		let upgradeViewController = UpgradeViewController(viewModel: SettingsUpgradeViewModel())
-		upgradeViewController.coordinator = self
-		upgradeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
-		navigationController.pushViewController(upgradeViewController, animated: true)
-	}
-
-	@objc private func done() {
+	@objc override func doneButtonTapped() {
 		super.close()
 	}
 }

@@ -35,7 +35,6 @@
 
 "addVault.title" = "ভোল্ট যুক্ত করুন";
 "addVault.createNewVault.title" = "নতুন ভোল্ট তৈরি করুন";
-"addVault.createNewVault.purchase" = "নতুন ভোল্ট তৈরির জন্য ক্রিপ্টোমেটরের সম্পূর্ণ ভার্সন প্রয়োজন। তাই ভোল্টের সম্পাদনার সুবিধার্থে সম্পূর্ণ ভার্সনটি কিনুন।";
 "addVault.createNewVault.setVaultName.header.title" = "ভোল্ট এর একটি নাম দেন।";
 "addVault.createNewVault.setVaultName.cells.name" = "ভোল্ট এর নাম";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "ভোল্ট এর নাম খালি হতে পারবে না।";

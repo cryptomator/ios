@@ -24,6 +24,9 @@ public class UserDefaultsFullVersionChecker: FullVersionChecker {
 		if cryptomatorSettings.fullVersionUnlocked {
 			return true
 		}
+		if cryptomatorSettings.hasRunningSubscription {
+			return true
+		}
 		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
 			return true
 		} else {

@@ -20,7 +20,7 @@ class VaultDBCacheTests: XCTestCase {
 	private lazy var account: CloudProviderAccount = .init(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 	private let vaultPath = CloudPath("/Vault")
 	private lazy var vaultAccount: VaultAccount = .init(vaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, vaultName: "Vault")
-	private let cloudProviderMock = GeneratedCloudProviderMock()
+	private let cloudProviderMock = CloudProviderMock()
 	private var inMemoryDB: DatabaseQueue!
 	private var masterkeyFileData: Data!
 	private var updatedMasterkeyFileData: Data!
@@ -40,7 +40,10 @@ class VaultDBCacheTests: XCTestCase {
 		vaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		updatedVaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: updatedMasterkey.rawKey)
 		defaultCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigData, lastUpToDateCheck: Date(timeIntervalSince1970: 0), masterkeyFileLastModifiedDate: Date(timeIntervalSince1970: 0), vaultConfigLastModifiedDate: Date(timeIntervalSince1970: 0))
-		inMemoryDB = DatabaseQueue()
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
+		inMemoryDB = DatabaseQueue(configuration: configuration)
 		vaultCache = VaultDBCache(dbWriter: inMemoryDB)
 		try CryptomatorDatabase.migrator.migrate(inMemoryDB)
 		try inMemoryDB.write { db in

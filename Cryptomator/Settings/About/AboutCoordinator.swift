@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import UIKit
 
@@ -20,6 +21,10 @@ class AboutCoordinator: Coordinator {
 	func start() {
 		let localWebViewController = LocalWebViewController(viewModel: AboutViewModel())
 		localWebViewController.coordinator = self
+		if CryptomatorUserDefaults.isTestFlightEnvironment {
+			localWebViewController.navigationItem.prompt = "TestFlight Build"
+			navigationController.navigationBar.barStyle = .black
+		}
 		navigationController.pushViewController(localWebViewController, animated: true)
 	}
 }

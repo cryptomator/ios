@@ -18,6 +18,8 @@ extension CloudProviderType {
 			return "Google Drive"
 		case .oneDrive:
 			return "OneDrive"
+		case .pCloud:
+			return "pCloud"
 		case .webDAV:
 			return "WebDAV"
 		case let .localFileSystem(localFileSystemType):

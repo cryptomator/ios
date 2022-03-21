@@ -34,7 +34,6 @@
 
 "addVault.title" = "Afegir una caixa forta";
 "addVault.createNewVault.title" = "Crea una caixa forta nova";
-"addVault.createNewVault.purchase" = "Crear una nova caixa forta requereix la versió completa de Cryptomator. Considereu desblocar la versió completa per a tenir accés d'escriptura a les vostres caixes fortes.";
 "addVault.createNewVault.setVaultName.header.title" = "Trieu el nom de la caixa forta.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom de la caixa forta";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
@@ -90,9 +89,8 @@
 
 "onboarding.title" = "Us donem la benvinguda";
 "onboarding.button.continue" = "Continua";
-
-"purchase.title" = "Desbloca la versió completa";
 "purchase.retry.button" = "Reintenta";
+"purchase.title" = "Desbloca la versió completa";
 "purchase.unlockedFullVersion.message" = "Ja podeu fer servir la versió completa de Cryptomator. Feliç encriptació!";
 "purchase.unlockedFullVersion.title" = "Gràcies";
 
@@ -115,11 +113,6 @@
 "untrustedTLSCertificate.title" = "Certificat TSL no vàlid";
 "untrustedTLSCertificate.add" = "Confia-hi";
 "untrustedTLSCertificate.dismiss" = "No hi confiïs";
-
-"upgrade.title" = "Actualitza de la versió 1.x";
-"upgrade.freeUpgrade.button" = "Actualitza de franc";
-"upgrade.freeUpgrade.footer" = "Cap problema, podeu actualitzar a la versió completa de franc sense cap limitació.";
-"upgrade.decideLater.footer" = "Podeu actualitzar a la versió de Cryptomator més endavant en la configuració i usar-la en mode de lectura per ara.";
 "upgrade.notEligible.alert.title" = "Ha fallat l'actualització";
 "upgrade.notEligible.alert.message" = "Cryptomator no ha pogut trobar una versió antiga en el dispositiu. Si la vau comprar, si us plau torneu-la a descarregar de la botiga d'aplicacions i torneu a intentar-ho.";
 

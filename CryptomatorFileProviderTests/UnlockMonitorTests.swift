@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class UnlockMonitorTests: XCTestCase {

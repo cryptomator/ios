@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
-import CryptomatorCommonCore
 import XCTest
 @testable import Cryptomator
+@testable import CryptomatorCommonCore
 
 class VaultKeepUnlockedViewModelTests: XCTestCase {
 	var vaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettingsMock!

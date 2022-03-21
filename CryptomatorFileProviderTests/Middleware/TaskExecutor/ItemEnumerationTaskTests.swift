@@ -12,6 +12,13 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
+	override func setUpWithError() throws {
+		try super.setUpWithError()
+		uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
+			return $0.map { _ in nil }
+		}
+	}
+
 	// MARK: File
 
 	func testFileEnumeration() throws {
@@ -64,7 +71,12 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let fileMetadata = ItemMetadata(id: id, name: "File 1", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .uploadError, cloudPath: path, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(fileMetadata)
 
-		uploadTaskManagerMock.uploadTasks[id] = UploadTaskRecord(correspondingItem: fileMetadata.id!, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		uploadTaskManagerMock.getTaskRecordForClosure = {
+			guard fileMetadata.id == $0 else {
+				return nil
+			}
+			return UploadTaskRecord(correspondingItem: fileMetadata.id!, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		}
 
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: fileMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: fileMetadata)
@@ -312,7 +324,15 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		taskExecutor.execute(task: enumerationTask).then { _ -> Void in
 			self.metadataManagerMock.cachedMetadata[id]?.statusCode = .uploadError
 			let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
-			self.uploadTaskManagerMock.uploadTasks[id] = uploadTask
+			self.uploadTaskManagerMock.getCorrespondingTaskRecordsIdsClosure = {
+				return $0.map {
+					if $0 == id {
+						return uploadTask
+					} else {
+						return nil
+					}
+				}
+			}
 		}.then { _ -> Promise<FileProviderItemList> in
 			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
@@ -326,13 +346,8 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 				return
 			}
 			XCTAssertEqual(ItemStatus.uploadError, fetchedItemMetadata.statusCode)
-			guard let uploadTask = try self.uploadTaskManagerMock.getTaskRecord(for: id) else {
-				XCTFail("No UploadTask found for id")
-				return
-			}
-			XCTAssertEqual(NSFileProviderError(.insufficientQuota).errorCode, uploadTask.uploadErrorCode)
-			XCTAssertEqual(NSFileProviderErrorDomain, uploadTask.uploadErrorDomain)
-			XCTAssertEqual(lastFailedUploadDate, uploadTask.lastFailedUploadDate)
+			XCTAssertFalse(self.uploadTaskManagerMock.removeTaskRecordForCalled)
+			XCTAssertFalse(self.uploadTaskManagerMock.createNewTaskRecordForCalled)
 
 			XCTAssertNotNil(errorItem.uploadingError)
 			XCTAssertEqual(NSFileProviderError(.insufficientQuota)._nsError, errorItem.uploadingError as NSError?)

@@ -11,6 +11,7 @@ import CryptomatorCommonCore
 import CryptomatorFileProvider
 import Foundation
 import Promises
+import StoreKit
 
 enum SettingsButtonAction: String {
 	case showAbout
@@ -20,7 +21,8 @@ enum SettingsButtonAction: String {
 	case showContact
 	case showRateApp
 	case showUnlockFullVersion
-	case unknown
+	case showManageSubscriptions
+	case restorePurchase
 }
 
 enum SettingsSection: Int {
@@ -67,7 +69,10 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
 		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
-		if !cryptomatorSettings.fullVersionUnlocked {
+		if cryptomatorSettings.hasRunningSubscription {
+			elements.append(.init(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
+			elements.append(.init(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
+		} else if !cryptomatorSettings.fullVersionUnlocked {
 			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
 		}
 		return elements
@@ -94,14 +99,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		self.fileProviderConnector = fileProviderConnector
 	}
 
-	func buttonAction(for indexPath: IndexPath) -> SettingsButtonAction {
-		let section = sections[indexPath.section]
-		guard let cell = section.elements[indexPath.row] as? ButtonCellViewModel<SettingsButtonAction> else {
-			return .unknown
-		}
-		return cell.action
-	}
-
 	func refreshCacheSize() -> Promise<Void> {
 		var loading = true
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -123,6 +120,10 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return cacheManager.clearCache().then {
 			self.refreshCacheSize()
 		}
+	}
+
+	func restorePurchase() -> Promise<RestoreTransactionsResult> {
+		return StoreObserver.shared.restore()
 	}
 
 	func enableDebugMode() {
@@ -154,22 +155,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		let getProxyPromise: Promise<LogLevelUpdating> = fileProviderConnector.getProxy(serviceName: LogLevelUpdatingService.name, domain: nil)
 		getProxyPromise.then { proxy in
 			proxy.logLevelUpdated()
-		}
-	}
-}
-
-class SettingsPurchaseViewModel: PurchaseViewModel {
-	override var sections: [Section<PurchaseSection>] {
-		super.sections.filter {
-			$0.id != .decideLaterSection
-		}
-	}
-}
-
-class SettingsUpgradeViewModel: UpgradeViewModel {
-	override var sections: [Section<UpgradeSection>] {
-		super.sections.filter {
-			$0.id != .decideLaterSection
 		}
 	}
 }
