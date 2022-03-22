@@ -95,6 +95,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "No próximo ecrã, escolha a pasta do seu cofre existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
+"localFileSystemAuthentication.info.footer" = "Os fornecedores de arquivos que estão acinzentados não suportam \"escolher pastas\". Isso não é uma limitação do Cryptomator.";
 
 "nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
 "nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termine com um espaço. Por favor, escolha outro nome.";
@@ -121,6 +122,7 @@
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
+"settings.manageSubscriptions" = "Gerir subscrição";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
 "settings.unlockFullVersion" = "Desbloquear versão completa";
 
