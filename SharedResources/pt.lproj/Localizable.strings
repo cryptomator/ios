@@ -35,6 +35,7 @@
 
 "addVault.title" = "Adicionar Cofre";
 "addVault.createNewVault.title" = "Criar Novo Cofre";
+"addVault.createNewVault.purchase" = "A criação de um novo cofre requer a versão completa do Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
@@ -106,6 +107,23 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Versão de teste desbloqueada";
+"purchase.expiredTrial" = "O seu período de teste expirou.";
+"purchase.footer.privacyPolicy" = "Política de Privacidade";
+"purchase.footer.termsOfUse" = "Termos de Utilização";
+"purchase.header.feature.familySharing" = "Partilha familiar";
+"purchase.header.feature.openSource" = "Desenvolvimento de código aberto";
+"purchase.header.feature.writeAccess" = "Acesso de gravação aos seus cofres";
+"purchase.product.donateAndUpgrade" = "Doe e Atualize";
+"purchase.product.freeUpgrade" = "Atualização Gratuita";
+"purchase.product.lifetimeLicense" = "Licença Vitalícia";
+"purchase.product.lifetimeLicense.duration" = "uma vez";
+"purchase.product.pricing.free" = "Grátis";
+"purchase.product.trial" = "30 dias de avaliação";
+"purchase.product.trial.duration" = "durante 30 dias";
+"purchase.product.yearlySubscription" = "Subscrição anual";
+"purchase.product.yearlySubscription.duration" = "anual";
+"purchase.readOnlyMode.alert.title" = "Modo somente leitura";
+"purchase.readOnlyMode.alert.message" = "Você pode desbloquear a versão completa do Cryptomator posteriormente nas configurações e, por enquanto, usá-lo no modo somente leitura.";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Continuação da versão de teste";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um período limitado. A sua avaliação expira em %@. Depois disso, os seus cofres ainda estarão acessíveis somente em modo leitura.";
@@ -139,6 +157,9 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/ Viagem à Califórnia";
 
+"trialStatus.active" = "Ativo";
+"trialStatus.expired" = "Expirou";
+
 "unlockVault.button.unlock" = "Destrancar";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Insira a palavra-passe para \"%@\".";
@@ -150,8 +171,11 @@
 "untrustedTLSCertificate.message" = "O Certificado TLS de \"%@\" é inválido. Quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"upgrade.title" = "Oferta de atualização";
 "upgrade.notEligible.alert.title" = "A atualização falhou";
 "upgrade.notEligible.alert.message" = "Cryptomator não conseguiu detectar uma versão mais antiga instalada no seu dispositivo. Se você o comprou, por favor descarregue-a novamente na App Store e tente novamente.";
+"upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um utilizador fiel, você está qualificado para uma atualização gratuita.";
 
 "urlSession.error.httpError.401" = "Nome de utilizador e/ou palavra-passe errada.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para os recursos solicitados.";
@@ -181,6 +205,7 @@
 "vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do cofre %ld não é compatível.. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "O uso do HTTP não é seguro. Recomendamos o uso de HTTPS em vez disso. Se você conhece os riscos, pode continuar com HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Alterar para HTTPS";
