@@ -35,6 +35,7 @@
 
 "addVault.title" = "金庫を追加";
 "addVault.createNewVault.title" = "新しい金庫を作成";
+"addVault.createNewVault.purchase" = "新しい保管庫を作成するには、フルバージョンの Cryptomator が必要です。";
 "addVault.createNewVault.setVaultName.header.title" = "金庫の名前を入力してください。";
 "addVault.createNewVault.setVaultName.cells.name" = "金庫の名前";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "金庫の名前は空にできません。";
@@ -124,6 +125,22 @@
 "onboarding.button.continue" = "続行";
 
 "purchase.beginFreeTrial.alert.title" = "試用版をアンロックしました";
+"purchase.expiredTrial" = "試用版の有効期限が切れました。";
+"purchase.footer.privacyPolicy" = "プライバシーポリシー";
+"purchase.footer.termsOfUse" = "利用規約";
+"purchase.header.feature.familySharing" = "ファミリー共有";
+"purchase.header.feature.openSource" = "オープンソース開発";
+"purchase.header.feature.writeAccess" = "金庫への書き込みアクセス";
+"purchase.product.donateAndUpgrade" = "寄付とアップグレード";
+"purchase.product.freeUpgrade" = "無料アップグレード";
+"purchase.product.lifetimeLicense" = "永続ライセンス";
+"purchase.product.lifetimeLicense.duration" = "ワンタイム";
+"purchase.product.pricing.free" = "無料";
+"purchase.product.trial" = "30日間のトライアル";
+"purchase.product.trial.duration" = "30日間";
+"purchase.product.yearlySubscription" = "年間サブスクリプション";
+"purchase.product.yearlySubscription.duration" = "毎年";
+"purchase.readOnlyMode.alert.title" = "読み取り専用モード";
 "purchase.restorePurchase.button" = "購入情報の復元";
 "purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、保管庫は読み取り専用モードでアクセスすることは可能です。";
@@ -163,6 +180,9 @@
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
 
+"trialStatus.active" = "有効";
+"trialStatus.expired" = "期限切れ";
+
 "unlockVault.button.unlock" = "解錠";
 "unlockVault.button.unlockVia" = "%@ で解錠";
 "unlockVault.password.footer" = "\"%@\" のパスワードを入力してください。";
@@ -175,6 +195,8 @@
 "untrustedTLSCertificate.message" = "\"%@\" の TLS 証明書が無効です。それでも信頼しますか?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "信頼する";
 "untrustedTLSCertificate.dismiss" = "信頼しない";
+
+"upgrade.title" = "アップグレードオファー";
 "upgrade.notEligible.alert.title" = "アップグレードできませんでした";
 "upgrade.notEligible.alert.message" = "Cryptomatorは、お使いのデバイスにインストールされている古いバージョンを検出できませんでした。すでに購入していた場合はApp Storeから再度ダウンロードしてもう一度お試しください。";
 
@@ -217,6 +239,7 @@
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "金庫のバージョン %ld はサポートされていません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
 "webDAVAuthentication.progress" = "認証中…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか？";
