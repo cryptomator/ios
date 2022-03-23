@@ -153,6 +153,7 @@
 "purchase.title" = "Разблокировать Полную Версию";
 "purchase.unlockedFullVersion.message" = "Теперь у вас полная версия Cryptomator. Счастливого шифрования!";
 "purchase.unlockedFullVersion.title" = "Спасибо!";
+"purchase.error.unknown" = "Покупка в App Store недоступна по неизвестной причине. Повторите попытку позже.\n\nЕсли эта ошибка повторится, попробуйте перезапустить устройство или выйти и войти в аккаунт Apple ID в настройках iOS.";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
