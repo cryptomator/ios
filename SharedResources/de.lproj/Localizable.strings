@@ -153,7 +153,7 @@
 "purchase.title" = "Vollversion freischalten";
 "purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
-"purchase.error.unknown" = "Dieser Kauf ist aus einem unbekannten Grund im App Store aktuell nicht möglich. Bitte versuchen Sie es später erneut.\n\nWenn dieser Fehler weiterhin besteht, versuchen Sie Ihr Gerät neu zu starten oder sich in den iOS-Einstellungen mit Ihrer Apple ID ab- und wieder anzumelden.";
+"purchase.error.unknown" = "Dieser Kauf ist aus einem unbekannten Grund im App Store aktuell nicht möglich. Bitte versuchen es später erneut.\n\nWenn dieser Fehler weiterhin besteht, versuche Dein Gerät neu zu starten oder Dich in den iOS-Einstellungen mit Deiner Apple ID ab- und wieder anzumelden.";
 
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
