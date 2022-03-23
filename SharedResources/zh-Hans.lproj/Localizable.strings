@@ -153,6 +153,7 @@
 "purchase.title" = "解锁完整版";
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
+"purchase.error.unknown" = "此次在 App Store 中的购买因原因而不可用。请稍后再试。\n\n如果错误继续存在，尝试重启设备或者在 iOS 设置中退出并重新登录您的 Apple ID。";
 
 "settings.title" = "设置";
 "settings.aboutCryptomator" = "关于";
