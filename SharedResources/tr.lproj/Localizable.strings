@@ -153,6 +153,7 @@
 "purchase.title" = "Tam Sürümün Kilidini Aç";
 "purchase.unlockedFullVersion.message" = "Artık Cryptomator'ın tam sürümünü kullanabilirsiniz. Mutlu şifrelemeler!";
 "purchase.unlockedFullVersion.title" = "Teşekkürler";
+"purchase.error.unknown" = "Bu satın alma bilinmeyen bir nedenle App Store'da mevcut değil. Lütfen daha sonra tekrar deneyin.\n\nBu hata devam ederse, cihazınızı yeniden başlatmayı veya iOS ayarlarında Apple Kimliğinizden çıkış yapıp tekrar oturum açmayı deneyin.";
 
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
