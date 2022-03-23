@@ -11,9 +11,21 @@ import Foundation
 import Promises
 import StoreKit
 
-enum PurchaseError: Error {
+enum PurchaseError: LocalizedError {
 	case unavailableProduct
 	case paymentCancelled
+	case unknown
+
+	public var errorDescription: String? {
+		switch self {
+		case .unavailableProduct:
+			return nil // should never happen
+		case .paymentCancelled:
+			return nil // not needed since nothing should be shown
+		case .unknown:
+			return LocalizedString.getValue("purchase.error.unknown")
+		}
+	}
 }
 
 class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
