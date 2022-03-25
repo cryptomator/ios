@@ -90,6 +90,12 @@
 "fileProvider.error.defaultLock.message" = "Para aceder e mostrar o conteúdo do seu cofre, ele tem de estar desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 
+"keepUnlocked.alert.title" = "Fechar o cofre?";
+"keepUnlocked.alert.message" = "Essa alteração exige que seu cofre esteja fechado para que tenha efeito.";
+"keepUnlocked.alert.confirm" = "Confirme e feche agora";
+"keepUnlocked.header" = "Especifique por quanto tempo você quer que este cofre permaneça aberto quando inativo.";
+"keepUnlocked.footer.auto" = "Deixar o iOS decidir significa que o Cryptomator pode ser encerrado a qualquer momento para liberar memória, o que fecha automaticamente o cofre.";
+
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
