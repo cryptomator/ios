@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "jednorázovo";
 "purchase.product.pricing.free" = "Voľný";
 "purchase.product.trial" = "30-dňová skúšobná verzia";
+"purchase.product.trial.expirationDate" = "Dátum expirovania: %@";
 "purchase.product.trial.duration" = "na 30 dní";
 "purchase.product.yearlySubscription" = "Ročné predplatné";
 "purchase.product.yearlySubscription.duration" = "ročne";
