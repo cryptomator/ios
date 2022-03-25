@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "μια φορά";
 "purchase.product.pricing.free" = "Δωρεάν";
 "purchase.product.trial" = "Δοκιμή 30-Ημερών";
+"purchase.product.trial.expirationDate" = "Ημερομηνία Λήξης: %@";
 "purchase.product.trial.duration" = "για 30 ημέρες";
 "purchase.product.yearlySubscription" = "Ετήσια Συνδρομή";
 "purchase.product.yearlySubscription.duration" = "ετήσια";
