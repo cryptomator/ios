@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "одноразово";
 "purchase.product.pricing.free" = "Бесплатно";
 "purchase.product.trial" = "30-дневная пробная версия";
+"purchase.product.trial.expirationDate" = "Истекает: %@";
 "purchase.product.trial.duration" = "на 30 дней";
 "purchase.product.yearlySubscription" = "Годовая подписка";
 "purchase.product.yearlySubscription.duration" = "ежегодно";
