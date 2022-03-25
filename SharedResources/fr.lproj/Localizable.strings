@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "unique";
 "purchase.product.pricing.free" = "Gratuit";
 "purchase.product.trial" = "Essai de 30 jours";
+"purchase.product.trial.expirationDate" = "Date d'expiration : %@";
 "purchase.product.trial.duration" = "pendant 30 jours";
 "purchase.product.yearlySubscription" = "Abonnement annuel";
 "purchase.product.yearlySubscription.duration" = "annuel";
