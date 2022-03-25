@@ -95,6 +95,10 @@
 "keepUnlocked.alert.confirm" = "Confirme e feche agora";
 "keepUnlocked.header" = "Especifique por quanto tempo você quer que este cofre permaneça aberto quando inativo.";
 "keepUnlocked.footer.auto" = "Deixar o iOS decidir significa que o Cryptomator pode ser encerrado a qualquer momento para liberar memória, o que fecha automaticamente o cofre.";
+"keepUnlocked.footer.on" = "Usando a opção selecionada, uma cópia da sua chave precisa ser armazenada no chaveiro do iOS, desde que o cofre esteja aberto.";
+"keepUnlockedDuration.auto" = "Deixe o iOS decidir automaticamente";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinido";
 
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
@@ -201,6 +205,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Aceda o cofre através da aplicação Ficheiros.";
 "vaultDetail.info.footer.accountInfo" = "Sessão iniciada como %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Duração do desbloqueio";
+"vaultDetail.keepUnlocked.footer.off" = "Destrancar será necessário quando o Cryptomator for encerrado pelo aplicativo Ficheiros.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Destrancar será necessário quando o seu cofre estiver inativo por %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário destrancá-lo a menos que seja bloqueado manualmente.";
 "vaultDetail.locked.footer" = "O seu cofre está de momento bloqueado.";
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
 "vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
