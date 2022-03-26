@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "一次付费";
 "purchase.product.pricing.free" = "免费版";
 "purchase.product.trial" = "30 天免费试用";
+"purchase.product.trial.expirationDate" = "到期时间：%@";
 "purchase.product.trial.duration" = "30 天";
 "purchase.product.yearlySubscription" = "按年订阅";
 "purchase.product.yearlySubscription.duration" = "按年";
@@ -183,7 +184,7 @@
 "snapshots.main.vault4" = "/加州之旅";
 
 "trialStatus.active" = "进行中";
-"trialStatus.expired" = "已过期";
+"trialStatus.expired" = "已到期";
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
