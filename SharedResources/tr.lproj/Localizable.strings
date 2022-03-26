@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "bir kez";
 "purchase.product.pricing.free" = "Ücretsiz";
 "purchase.product.trial" = "30-Gün Deneme";
+"purchase.product.trial.expirationDate" = "Son kullanma tarihi: %@";
 "purchase.product.trial.duration" = "30 gün boyunca";
 "purchase.product.yearlySubscription" = "Yıllık abonelik";
 "purchase.product.yearlySubscription.duration" = "yıllık";
