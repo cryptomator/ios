@@ -35,6 +35,7 @@
 
 "addVault.title" = "Lägg till valv";
 "addVault.createNewVault.title" = "Skapa nytt valv";
+"addVault.createNewVault.purchase" = "Att skapa ett nytt valv kräver den fullständiga versionen av Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Ange namn för valvet.";
 "addVault.createNewVault.setVaultName.cells.name" = "Valvnamn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Valvets namn får inte vara tomt.";
@@ -124,6 +125,24 @@
 "onboarding.button.continue" = "Fortsätt";
 
 "purchase.beginFreeTrial.alert.title" = "Provperiod upplåst";
+"purchase.expiredTrial" = "Testperioden är slut.";
+"purchase.footer.privacyPolicy" = "Integritetspolicy";
+"purchase.footer.termsOfUse" = "Villkor";
+"purchase.header.feature.familySharing" = "Familjedelning";
+"purchase.header.feature.openSource" = "Utveckling av öppen källkod";
+"purchase.header.feature.writeAccess" = "Skriv-åtkomst till dina valv";
+"purchase.product.donateAndUpgrade" = "Donera & Uppgradera";
+"purchase.product.freeUpgrade" = "Kostnadsfri uppgradering";
+"purchase.product.lifetimeLicense" = "Livstids-licens";
+"purchase.product.lifetimeLicense.duration" = "en-gångs";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "30-dagars provperiod";
+"purchase.product.trial.expirationDate" = "Utgångsdatum: %@";
+"purchase.product.trial.duration" = "i 30 dagar";
+"purchase.product.yearlySubscription" = "Årsprenumeration";
+"purchase.product.yearlySubscription.duration" = "årligen";
+"purchase.readOnlyMode.alert.title" = "Skrivskyddat läge";
+"purchase.readOnlyMode.alert.message" = "Du kan låsa upp den fullständiga versionen av Cryptomator senare i inställningarna och använda den i skrivskyddat läge för tillfället.";
 "purchase.restorePurchase.button" = "Återställ köp";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Provperiod Fortsatt";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Du kan nu använda den fullständiga versionen av Cryptomator under en begränsad tid. Din provperiod löper ut den %@. Efter det kommer dina valv fortfarande att vara tillgängliga i skrivskyddat läge.";
@@ -135,6 +154,7 @@
 "purchase.title" = "Lås upp fullversion";
 "purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
 "purchase.unlockedFullVersion.title" = "Tackar";
+"purchase.error.unknown" = "Detta köp är inte tillgängligt i App Store av okänd anledning. Försök igen senare.\n\nOm felet kvarstår, försök att starta om enheten eller logga ut och in igen till ditt Apple-ID i iOS-inställningarna.";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
@@ -163,6 +183,9 @@
 "snapshots.main.vault3" = "/Dokument";
 "snapshots.main.vault4" = "/Resa till Kalifornien";
 
+"trialStatus.active" = "Aktiv";
+"trialStatus.expired" = "Upphört";
+
 "unlockVault.button.unlock" = "Lås upp";
 "unlockVault.button.unlockVia" = "Lås upp via %@";
 "unlockVault.password.footer" = "Ange lösenord för \"%@\".";
@@ -175,8 +198,11 @@
 "untrustedTLSCertificate.message" = "TLS-certifikatet för \"%@\" är ogiltigt. Vill du lita på det ändå?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Ange som betrott";
 "untrustedTLSCertificate.dismiss" = "Lita inte på";
+
+"upgrade.title" = "Uppgraderingserbjudande";
 "upgrade.notEligible.alert.title" = "Uppgradering misslyckades";
 "upgrade.notEligible.alert.message" = "Cryptomator kunde inte upptäcka en äldre version installerad på din enhet. Om du köpte den, ladda ner den igen från App Store och försök igen.";
+"upgrade.info" = "Tack för att du litar på Cryptomator sedan version ett. Som lojal användare är du berättigad till en gratis uppgradering.";
 
 "urlSession.error.httpError.401" = "Fel användarnamn och/eller lösenord.";
 "urlSession.error.httpError.403" = "Otillräckliga rättigheter till begärd resurs.";
@@ -217,6 +243,7 @@
 "vaultList.remove.alert.message" = "Detta kommer bara att ta bort valvet från valvlistan. Inga krypterade data kommer att raderas. Du kan lägga till valvet igen senare.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Valvkonfigurationen stöds inte. Se till att du kör den senaste versionen av Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Valv-version %ld stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.";
 
 "webDAVAuthentication.progress" = "Autentiserar…";
 "webDAVAuthentication.httpConnection.alert.title" = "Använd HTTPS?";
