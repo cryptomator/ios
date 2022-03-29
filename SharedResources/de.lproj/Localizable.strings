@@ -50,7 +50,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwörter stimmen nicht überein.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Passwort muss mindestens 8 Zeichen enthalten.";
 "addVault.createNewVault.progress" = "Tresor wird erstellt …";
-"addVault.openExistingVault.title" = "Vorhandenen Tresor öffnen";
+"addVault.openExistingVault.title" = "Bestehenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du diesen Tresor hinzufügen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
@@ -109,7 +109,7 @@
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An dieser Stelle existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
-"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
+"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines bestehenden Tresors aus.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresor-Ordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es mit einem anderen Ordner.";
 "localFileSystemAuthentication.info.footer" = "Speicher-Anbieter, die ausgegraut sind, unterstützen keine „Ordnerauswahl“. Dies ist keine Einschränkung von Cryptomator.";
