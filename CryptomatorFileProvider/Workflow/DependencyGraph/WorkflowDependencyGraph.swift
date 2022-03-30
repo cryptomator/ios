@@ -33,7 +33,7 @@ class WorkflowDependencyGraph {
 	 The write node is thus the leaf of the subgraph and is therefore the node returned by this function.
 	 */
 	func createDependencySubgraphForWritingTask(_ task: CloudTask) -> WorkflowDependencyNode {
-		return createDependencySubgraph(writingAt: task.cloudPath)
+		return createDependencySubgraph(at: task.cloudPath, lockType: .write)
 	}
 
 	/**
@@ -47,7 +47,7 @@ class WorkflowDependencyGraph {
 	 The node for the full path is the leaf of the subgraph and is therefore the node returned by this function.
 	 */
 	func createDependencySubgraphForReadingTask(_ task: CloudTask) -> WorkflowDependencyNode {
-		return createDependencySubgraph(readingAt: task.cloudPath)
+		return createDependencySubgraph(at: task.cloudPath, lockType: .read)
 	}
 
 	/**
@@ -56,8 +56,8 @@ class WorkflowDependencyGraph {
 	 A dependency subgraph for a reparent task consists of a graph for a writing task on the source cloud path and a graph for a writing task on the target cloud path.
 	 */
 	func createDependencySubgraph(for reparentTask: ReparentTask) -> [WorkflowDependencyNode] {
-		let sourcePathSubgraph = createDependencySubgraph(writingAt: reparentTask.taskRecord.sourceCloudPath)
-		let targetPathSubgraph = createDependencySubgraph(writingAt: reparentTask.taskRecord.targetCloudPath)
+		let sourcePathSubgraph = createDependencySubgraph(at: reparentTask.taskRecord.sourceCloudPath, lockType: .write)
+		let targetPathSubgraph = createDependencySubgraph(at: reparentTask.taskRecord.targetCloudPath, lockType: .write)
 		return [sourcePathSubgraph, targetPathSubgraph]
 	}
 
@@ -72,28 +72,13 @@ class WorkflowDependencyGraph {
 		return node
 	}
 
-	private func createDependencySubgraph(writingAt path: CloudPath) -> WorkflowDependencyNode {
-		let lockPaths = path.getPartialCloudPaths().dropLast(1)
+	func createDependencySubgraph(at path: CloudPath, lockType: WorkflowDependencyNode.LockType) -> WorkflowDependencyNode {
 		var parentNode: WorkflowDependencyNode?
-
-		for partialPath in lockPaths {
-			let node = createDependencyNode(for: partialPath, lockType: .read, parentNode: parentNode)
-			parentNode = node
+		if let parentPath = path.getParent() {
+			// for the path leading up to our node read locks are always sufficient
+			parentNode = createDependencySubgraph(at: parentPath, lockType: .read)
 		}
-		let node = createDependencyNode(for: path, lockType: .write, parentNode: parentNode)
-		return node
-	}
-
-	private func createDependencySubgraph(readingAt path: CloudPath) -> WorkflowDependencyNode {
-		let lockPaths = path.getPartialCloudPaths().dropLast(1)
-		var parentNode: WorkflowDependencyNode?
-
-		for partialPath in lockPaths {
-			let node = createDependencyNode(for: partialPath, lockType: .read, parentNode: parentNode)
-			parentNode = node
-		}
-		let node = createDependencyNode(for: path, lockType: .read, parentNode: parentNode)
-		return node
+		return createDependencyNode(for: path, lockType: lockType, parentNode: parentNode)
 	}
 
 	/**
@@ -130,5 +115,14 @@ class WorkflowDependencyGraph {
 			array.add(node)
 			store[cloudPath.path] = array
 		}
+	}
+}
+
+extension CloudPath {
+	func getParent() -> CloudPath? {
+		if path == "/" {
+			return nil
+		}
+		return deletingLastPathComponent()
 	}
 }

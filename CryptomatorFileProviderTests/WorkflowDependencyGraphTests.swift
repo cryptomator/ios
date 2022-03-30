@@ -19,6 +19,23 @@ class WorkflowDependencyGraphTests: XCTestCase {
 		graph = WorkflowDependencyGraph()
 	}
 
+	func testCreateDependencySubgraph() throws {
+		let path = CloudPath("/a/b")
+		let node = graph.createDependencySubgraph(at: path, lockType: .write)
+		XCTAssertEqual(path, node.path)
+		XCTAssertEqual(.write, node.lockType)
+
+		let parent = try XCTUnwrap(node.parent)
+
+		XCTAssertEqual(CloudPath("/a"), parent.path)
+		XCTAssertEqual(.read, parent.lockType)
+
+		let root = try XCTUnwrap(parent.parent)
+
+		XCTAssertEqual(CloudPath("/"), root.path)
+		XCTAssertEqual(.read, root.lockType)
+	}
+
 	func testCreateSubgraphForWritingTask() throws {
 		let path = CloudPath("/a/b")
 		let task = createWritingTask(for: path)
