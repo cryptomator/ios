@@ -26,8 +26,8 @@ function process_output() {
 }
 
 if [ "$staged_mode" = true ]; then
-  process_output "SwiftFormat" "python ./Scripts/git-format-staged.py -f 'swiftformat stdin --stdinpath \"{}\" --quiet' '*.swift'"
-  process_output "SwiftLint" "python ./Scripts/git-format-staged.py --no-write -f 'swiftlint --use-stdin --quiet >&2' '*.swift'"
+  process_output "SwiftFormat" "python3 ./Scripts/git-format-staged.py -f 'swiftformat stdin --stdinpath \"{}\" --quiet' '*.swift'"
+  process_output "SwiftLint" "python3 ./Scripts/git-format-staged.py --no-write -f 'swiftlint --use-stdin --quiet >&2' '*.swift'"
   if [[ "$final_status" -gt 0 ]]; then
     printf '\nChanges werde made or are required. Please review the output above for further details.\n'
   fi
