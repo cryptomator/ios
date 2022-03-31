@@ -250,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ändra till HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Behåll HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Servern verkar inte vara WebDAV-kompatibel. Kontrollera om du har använt rätt URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certifikatet för denna server är inte betrodt. Du kan behöva lägga till denna WebDAV-anslutning igen.";
