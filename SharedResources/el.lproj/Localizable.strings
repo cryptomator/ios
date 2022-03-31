@@ -250,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ 'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Αλλαγή σε HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Διατήρηση HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Ο διακομιστής δε φαίνεται να είναι συμβατός με WebDAV. Παρακαλώ ελέγξτε αν έχετε χρησιμοποιήσει τη σωστή διεύθυνση URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Το πιστοποιητικό αυτού του διακομιστή δεν είναι έμπιστο. Ίσως χρειαστεί να προσθέσετε ξανά αυτή τη σύνδεση WebDAV.";
