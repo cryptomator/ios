@@ -14,9 +14,9 @@ import Promises
 /**
  Workflow Dependency Factory
 
- The workflow dependency factory holds a graph consisting of lock and unlock nodes, where a node can be of type read or write, for currently running/pending workflows.
-
- This makes it possible to create dependencies between individual workflows. This prevents, for example, that a file is uploaded to path `/a/b` before the corresponding folder is created on path `/a` - provided that the two actions have been executed locally in the correct order.
+ The workflow dependency factory holds a collection of currently running/pending tasks allowing it to create a dependency graph between such tasks. This prevents, for example, that a file is uploaded to path `/a/b` before the corresponding folder is created on path `/a`.
+ 
+ In case of such dependent tasks, it is required to invoke this factory in the correct order.
  */
 class WorkflowDependencyFactory {
 	private let readTasks: WorkflowDependencyTaskCollectionType
