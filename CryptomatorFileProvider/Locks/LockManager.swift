@@ -38,7 +38,6 @@ import Promises
  ```
  */
 class LockManager {
-	static let cloud = LockManager()
 	static let local = LockManager()
 	private var pathLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
 	private var dataLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
