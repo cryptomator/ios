@@ -48,13 +48,13 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		// check if first tasks starts immediately (but isn't completed yet, blocking the second task)
 		wait(for: firstWriteTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(secondWriteTask.awaitPreconditions())
-		
+
 		// when the first task completes, check if the dependent second task starts (but doesn't finish yet)
 		firstWriteTask.workflowCompleted.fulfill(())
 
 		wait(for: secondWriteTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(secondWriteTask.workflowCompleted)
-		
+
 		// when the second task completes its completion promise is fulfilled
 		secondWriteTask.workflowCompleted.fulfill(())
 		wait(for: secondWriteTask.workflowCompleted)
@@ -90,13 +90,13 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		wait(for: secondReadTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(firstReadTask.workflowCompleted)
 		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
-		
+
 		// when the first task completes its completion promise is fulfilled but the second task isn't
 		firstReadTask.workflowCompleted.fulfill(())
 		wait(for: firstReadTask.workflowCompleted)
 		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
-		
-		// when the second task completes its completion promise is fulfilled 
+
+		// when the second task completes its completion promise is fulfilled
 		secondReadTask.workflowCompleted.fulfill(())
 		wait(for: secondReadTask.workflowCompleted)
 
@@ -130,7 +130,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		dependenciesForReadTask.workflowCompleted.fulfill(())
 		wait(for: dependenciesForWriteTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
-		
+
 		// when the write task completes its completion promise is fulfilled
 		dependenciesForWriteTask.workflowCompleted.fulfill(())
 		wait(for: dependenciesForWriteTask.workflowCompleted)
@@ -170,7 +170,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		dependenciesForWriteTask.workflowCompleted.fulfill(())
 		wait(for: dependenciesForReadTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
-		
+
 		// when the read task completes its completion promise is fulfilled
 		dependenciesForReadTask.workflowCompleted.fulfill(())
 		wait(for: dependenciesForReadTask.workflowCompleted)
@@ -206,7 +206,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		// check if move task starts immediately (but doesn't complete yet)
 		wait(for: dependenciesForMoveTask.awaitPreconditions())
 		XCTAssertGetsNotExecuted(dependenciesForMoveTask.workflowCompleted)
-		
+
 		// when the move task completes its completion promise is fulfilled
 		dependenciesForMoveTask.workflowCompleted.fulfill(())
 		wait(for: dependenciesForMoveTask.workflowCompleted)
