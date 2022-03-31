@@ -10,6 +10,9 @@ import CryptomatorCloudAccessCore
 import Foundation
 import Promises
 
+/**
+ A middleware that makes sure to wait for a workflow's dependencies before executing.
+ */
 class WorkflowDependencyMiddleware<T>: WorkflowMiddleware {
 	private var next: AnyWorkflowMiddleware<T>?
 	private let workflowDependency: WorkflowDependency
