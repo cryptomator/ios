@@ -25,8 +25,8 @@ class ReadingItemPathLockHandler<T>: WorkflowMiddleware {
 
 	func execute(task: CloudTask) -> Promise<T> {
 		let cloudPath = task.itemMetadata.cloudPath
-		let pathLock = LockManager.getPathLockForReading(at: cloudPath)
-		let dataLock = LockManager.getDataLockForReading(at: cloudPath)
+		let pathLock = LockManager.cloud.getPathLockForReading(at: cloudPath)
+		let dataLock = LockManager.cloud.getDataLockForReading(at: cloudPath)
 		return FileSystemLock.lockInOrder([pathLock, dataLock]).then {
 			try self.getNext().execute(task: task)
 		}.always {

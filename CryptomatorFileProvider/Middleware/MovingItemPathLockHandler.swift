@@ -30,14 +30,14 @@ class MovingItemPathLockHandler: WorkflowMiddleware {
 		let sourceCloudPath = reparentTask.taskRecord.sourceCloudPath
 		let targetCloudPath = reparentTask.taskRecord.targetCloudPath
 
-		let oldPathLockForReading = LockManager.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
-		let oldDataLockForReading = LockManager.getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())
-		let newPathLockForReading = LockManager.getPathLockForReading(at: targetCloudPath.deletingLastPathComponent())
-		let newDataLockForReading = LockManager.getDataLockForReading(at: targetCloudPath.deletingLastPathComponent())
-		let oldPathLockForWriting = LockManager.getPathLockForWriting(at: sourceCloudPath)
-		let oldDataLockForWriting = LockManager.getDataLockForWriting(at: sourceCloudPath)
-		let newPathLockForWriting = LockManager.getPathLockForWriting(at: targetCloudPath)
-		let newDataLockForWriting = LockManager.getDataLockForWriting(at: targetCloudPath)
+		let oldPathLockForReading = LockManager.cloud.getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let oldDataLockForReading = LockManager.cloud.getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let newPathLockForReading = LockManager.cloud.getPathLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let newDataLockForReading = LockManager.cloud.getDataLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let oldPathLockForWriting = LockManager.cloud.getPathLockForWriting(at: sourceCloudPath)
+		let oldDataLockForWriting = LockManager.cloud.getDataLockForWriting(at: sourceCloudPath)
+		let newPathLockForWriting = LockManager.cloud.getPathLockForWriting(at: targetCloudPath)
+		let newDataLockForWriting = LockManager.cloud.getDataLockForWriting(at: targetCloudPath)
 		return FileSystemLock.lockInOrder([
 			oldPathLockForReading,
 			oldDataLockForReading,
