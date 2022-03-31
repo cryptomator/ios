@@ -144,6 +144,30 @@ enum LockType {
 }
 
 struct WorkflowDependency {
-	let lock: Promise<Void>
-	let unlock: Promise<Void>
+	// visible for testing
+	var workflowCompleted: Promise<Void> {
+		return unlock
+	}
+
+	private let lock: Promise<Void>
+	private let unlock: Promise<Void>
+
+	init(lock: Promise<Void>, unlock: Promise<Void>) {
+		self.lock = lock
+		self.unlock = unlock
+	}
+
+	func awaitPreconditions() -> Promise<Void> {
+		return lock.then {
+			// no-op
+		}
+	}
+
+	func notifyDependents(with error: Error?) {
+		if let error = error {
+			unlock.reject(error)
+		} else {
+			unlock.fulfill(())
+		}
+	}
 }

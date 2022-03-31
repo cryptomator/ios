@@ -43,13 +43,13 @@ class WorkflowDependencyMiddleware<T>: WorkflowMiddleware {
 		} catch {
 			return Promise(error)
 		}
-		return workflowDependency.lock.then {
+		return workflowDependency.awaitPreconditions().then {
 			nextMiddleware.execute(task: task)
 		}.then { value -> T in
-			self.workflowDependency.unlock.fulfill(())
+			self.workflowDependency.notifyDependents(with: nil)
 			return value
 		}.catch { error in
-			self.workflowDependency.unlock.reject(error)
+			self.workflowDependency.notifyDependents(with: error)
 		}
 	}
 }

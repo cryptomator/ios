@@ -25,7 +25,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testSingleDependency() throws {
 		let foo = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 
-		wait(for: foo.lock)
+		wait(for: foo.awaitPreconditions())
 
 		let expectedReadTasksPaths = [CloudPath("/"),
 		                              CloudPath("/a"),
@@ -36,8 +36,8 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		let expectedWriteTasksPaths = [CloudPath("/a/b"), CloudPath("/a/b")]
 		XCTAssertEqual(expectedWriteTasksPaths, writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path })
 
-		foo.unlock.fulfill(())
-		wait(for: foo.unlock)
+		foo.notifyDependents(with: nil)
+		wait(for: foo.workflowCompleted)
 	}
 
 	// MARK: Write / Write
@@ -45,14 +45,14 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testWriteTaskDependentsOnExistingWriteTask() throws {
 		let firstWriteTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 		let secondWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
-		wait(for: firstWriteTask.lock)
-		XCTAssertGetsNotExecuted(secondWriteTask.lock)
-		firstWriteTask.unlock.fulfill(())
+		wait(for: firstWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(secondWriteTask.awaitPreconditions())
+		firstWriteTask.workflowCompleted.fulfill(())
 
-		wait(for: secondWriteTask.lock)
-		XCTAssertGetsNotExecuted(secondWriteTask.unlock)
-		secondWriteTask.unlock.fulfill(())
-		wait(for: secondWriteTask.unlock)
+		wait(for: secondWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(secondWriteTask.workflowCompleted)
+		secondWriteTask.workflowCompleted.fulfill(())
+		wait(for: secondWriteTask.workflowCompleted)
 
 		let expectedFirstWriteTaskReadLockPaths = [CloudPath("/"),
 		                                           CloudPath("/a")]
@@ -80,13 +80,13 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testParallelReadTasks() throws {
 		let firstReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let secondReadTask = factory.createDependencies(for: CloudPath("/a"), lockType: .read)
-		wait(for: firstReadTask.lock)
-		wait(for: secondReadTask.lock)
-		XCTAssertGetsNotExecuted(firstReadTask.unlock)
-		XCTAssertGetsNotExecuted(secondReadTask.unlock)
-		firstReadTask.unlock.fulfill(())
-		XCTAssertGetsNotExecuted(secondReadTask.unlock)
-		secondReadTask.unlock.fulfill(())
+		wait(for: firstReadTask.awaitPreconditions())
+		wait(for: secondReadTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(firstReadTask.workflowCompleted)
+		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
+		firstReadTask.workflowCompleted.fulfill(())
+		XCTAssertGetsNotExecuted(secondReadTask.workflowCompleted)
+		secondReadTask.workflowCompleted.fulfill(())
 
 		let expectedFirstReadTaskLockPaths = [CloudPath("/"),
 		                                      CloudPath("/a"),
@@ -109,15 +109,15 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testWriteTaskDependentOnExistingReadTask() throws {
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
-		wait(for: dependenciesForReadTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.unlock)
+		wait(for: dependenciesForReadTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
 
-		dependenciesForReadTask.unlock.fulfill(())
-		wait(for: dependenciesForWriteTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.unlock)
-		dependenciesForWriteTask.unlock.fulfill(())
-		wait(for: dependenciesForWriteTask.unlock)
+		dependenciesForReadTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
+		dependenciesForWriteTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForWriteTask.workflowCompleted)
 
 		let expectedReadTaskLockPaths = [CloudPath("/"),
 		                                 CloudPath("/a"),
@@ -145,15 +145,15 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testReadTaskDependentOnExistingWriteTask() throws {
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
-		wait(for: dependenciesForWriteTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.unlock)
+		wait(for: dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForReadTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.workflowCompleted)
 
-		dependenciesForWriteTask.unlock.fulfill(())
-		wait(for: dependenciesForReadTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.unlock)
-		dependenciesForReadTask.unlock.fulfill(())
-		wait(for: dependenciesForReadTask.unlock)
+		dependenciesForWriteTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForReadTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
+		dependenciesForReadTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForReadTask.workflowCompleted)
 
 		let expectedWriteTaskReadLockPaths = [CloudPath("/")]
 		let expectedWriteTaskReadUnlockPaths = expectedWriteTaskReadLockPaths.reversed()
@@ -183,10 +183,10 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		let targetCloudPath = CloudPath("/a/c")
 
 		let dependenciesForMoveTask = factory.createDependencies(paths: [sourceCloudPath, targetCloudPath], lockType: .write)
-		wait(for: dependenciesForMoveTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForMoveTask.unlock)
-		dependenciesForMoveTask.unlock.fulfill(())
-		wait(for: dependenciesForMoveTask.unlock)
+		wait(for: dependenciesForMoveTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForMoveTask.workflowCompleted)
+		dependenciesForMoveTask.workflowCompleted.fulfill(())
+		wait(for: dependenciesForMoveTask.workflowCompleted)
 
 		let expectedSourceWriteTaskReadLockPaths = [CloudPath("/"),
 		                                            CloudPath("/a")]
@@ -221,14 +221,14 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 	func testErrorDoesNotPropagateBetweenDependentWorkflows() {
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
-		wait(for: dependenciesForReadTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForWriteTask.lock)
-		XCTAssertGetsNotExecuted(dependenciesForReadTask.unlock)
+		wait(for: dependenciesForReadTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.awaitPreconditions())
+		XCTAssertGetsNotExecuted(dependenciesForReadTask.workflowCompleted)
 
 		// Simulate error for read task
-		dependenciesForReadTask.unlock.reject(NSError(domain: "SimulatedError", code: -100))
+		dependenciesForReadTask.workflowCompleted.reject(NSError(domain: "SimulatedError", code: -100))
 
 		// Write task can now acquire the lock
-		wait(for: dependenciesForWriteTask.lock)
+		wait(for: dependenciesForWriteTask.awaitPreconditions())
 	}
 }
