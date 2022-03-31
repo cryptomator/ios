@@ -35,6 +35,7 @@
 
 "addVault.title" = "Adicionar Cofre";
 "addVault.createNewVault.title" = "Criar Um Novo Cofre";
+"addVault.createNewVault.purchase" = "Criar um cofre requer a versão completa do Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
@@ -124,6 +125,24 @@
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
+"purchase.expiredTrial" = "Seu período de teste expirou.";
+"purchase.footer.privacyPolicy" = "Política de Privacidade";
+"purchase.footer.termsOfUse" = "Termos de Uso";
+"purchase.header.feature.familySharing" = "Compartilhamento de família";
+"purchase.header.feature.openSource" = "Desenvolvimento de código aberto";
+"purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
+"purchase.product.donateAndUpgrade" = "Doe e faça um “upgrade”";
+"purchase.product.freeUpgrade" = "\"Upgrade\" Gratuito";
+"purchase.product.lifetimeLicense" = "Licença Vitalícia";
+"purchase.product.lifetimeLicense.duration" = "doação única";
+"purchase.product.pricing.free" = "Gratuito";
+"purchase.product.trial" = "30 Dias de Teste Gratuito";
+"purchase.product.trial.expirationDate" = "Data de expiração: %@";
+"purchase.product.trial.duration" = "por 30 dias";
+"purchase.product.yearlySubscription" = "Assinatura anual";
+"purchase.product.yearlySubscription.duration" = "anualmente";
+"purchase.readOnlyMode.alert.title" = "Modo somente de leitura";
+"purchase.readOnlyMode.alert.message" = "Você pode liberar a versão completa do Cryptomator depois nas configurações ou usar ele no modo de somente leitura por agora.";
 "purchase.restorePurchase.button" = "Restaurar compra";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Período de teste continuado";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um tempo limitado. Seu período de teste expira em %@. Depois disso, seus cofres ainda estarão acessíveis, mas somente para leitura.";
@@ -135,6 +154,7 @@
 "purchase.title" = "Desbloqueie a Versão Completa";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
 "purchase.unlockedFullVersion.title" = "Obrigado";
+"purchase.error.unknown" = "Esta compra não está disponível na App Store por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer logout e retornar ao seu Apple ID nas configurações do iOS.";
 
 "settings.title" = "Configurações";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
@@ -163,6 +183,9 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/Viagem pra Califórnia";
 
+"trialStatus.active" = "Ativo";
+"trialStatus.expired" = "Expirado";
+
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Digite a senha para \"%@\".";
@@ -175,8 +198,11 @@
 "untrustedTLSCertificate.message" = "O certificado TLS de \"%@\" é inválido. Você quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"upgrade.title" = "Promoção de \"Upgrade\"";
 "upgrade.notEligible.alert.title" = "Falha na Atualização";
 "upgrade.notEligible.alert.message" = "O Cryptomator não conseguiu detectar uma versão anterior instalada no seu dispositivo. Se você comprou, baixe-a novamente na App Store e tente novamente.";
+"upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um usuário leal, você esta apto a receber um \"upgrade\" gratuito.";
 
 "urlSession.error.httpError.401" = "Nome de usuário e/ou senha inválidos.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para solicitar recursos.";
@@ -218,9 +244,13 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "vaultList.remove.alert.message" = "Isso somente removerá o cofre da lista de cofres. Nenhum dado criptografado será excluído. Você pode adicionar novamente o cofre mais tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "A configuração do Cofre não é suportada. Por favor, certifique-se de estar executando a versão mais recente do Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre %ld não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
 
 "webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manter HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou a URL correta.";
+"webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Você pode ter que adicionar novamente esta conexão WebDAV.";
