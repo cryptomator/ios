@@ -74,12 +74,14 @@ class WorkflowDependencyFactory {
 		}
 		// All tasks wait for other write tasks on the same path
 		let writeTasksForPath = writeTasks[path]
-		dependencies.append(contentsOf: writeTasksForPath)
+		let allWriteTasksFinished = all(ignoringResult: writeTasksForPath)
+		dependencies.append(allWriteTasksFinished)
 
 		// Only write tasks wait for other read tasks on the same path
 		if type == .write {
 			let readTasksForPath = readTasks[path]
-			dependencies.append(contentsOf: readTasksForPath)
+			let allReadTasksFinished = all(ignoringResult: readTasksForPath)
+			dependencies.append(allReadTasksFinished)
 		}
 		let lock: Promise<Void> = all(dependencies).then { _ -> Void in
 			// no-op

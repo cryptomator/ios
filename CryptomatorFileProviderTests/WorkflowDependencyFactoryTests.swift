@@ -215,4 +215,20 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		let actualWriteTasksPaths = writeTasksCollectionMock.insertForReceivedInvocations.map { $0.path }
 		XCTAssertEqual(expectedWriteTasksPaths, actualWriteTasksPaths)
 	}
+
+	// MARK: Error propagation
+
+	func testErrorDoesNotPropagateBetweenDependentWorkflows() {
+		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
+		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
+		wait(for: dependenciesForReadTask.lock)
+		XCTAssertGetsNotExecuted(dependenciesForWriteTask.lock)
+		XCTAssertGetsNotExecuted(dependenciesForReadTask.unlock)
+
+		// Simulate error for read task
+		dependenciesForReadTask.unlock.reject(NSError(domain: "SimulatedError", code: -100))
+
+		// Write task can now acquire the lock
+		wait(for: dependenciesForWriteTask.lock)
+	}
 }
