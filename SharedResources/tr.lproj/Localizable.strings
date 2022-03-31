@@ -250,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS'ye geç";
 "webDAVAuthentication.httpConnection.continue" = "HTTP'yi koru";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Sunucu, WebDAV uyumlu görünmüyor. Lütfen doğru URL'yi kullanıp kullanmadığınızı kontrol edin.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Bu sunucunun sertifikası güvenilir değil. Bu WebDAV bağlantısını yeniden eklemeniz gerekebilir.";
