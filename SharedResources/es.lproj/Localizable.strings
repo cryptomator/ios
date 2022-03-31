@@ -250,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Cambiar a HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Mantener HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "El servidor no parece ser compatible con WebDAV. Compruebe si ha usado la URL correcta.";
+"webDAVAuthenticator.error.untrustedCertificate" = "El certificado de este servidor no es confiable. Es posible que tenga que volver a añadir esta conexión WebDAV.";
