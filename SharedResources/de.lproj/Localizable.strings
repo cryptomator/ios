@@ -56,7 +56,7 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein.";
 "addVault.openExistingVault.progress" = "Tresor wird hinzugefügt …";
-"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
+"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Files“ zu.";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
@@ -251,5 +251,5 @@
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behalten";
 
-"webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint nicht WebDAV kompatibel zu sein. Bitte überprüfen Sie, ob Sie die richtige URL verwendet haben.";
-"webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell müssen Sie diese WebDAV-Verbindung erneut hinzufügen.";
+"webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint nicht WebDAV-kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";
