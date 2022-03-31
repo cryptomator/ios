@@ -142,7 +142,6 @@
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
 		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
 		4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */; };
-		4A5E24A727E385FD00B68CA8 /* WorkflowDependencyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5E24A627E385FD00B68CA8 /* WorkflowDependencyNode.swift */; };
 		4A5F48EE272AA02A0084135F /* MaintenanceModeError+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */; };
 		4A61F6B72745353E007AA422 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B62745353E007AA422 /* TableViewModel.swift */; };
 		4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */; };
@@ -218,7 +217,6 @@
 		4A9D123F261E1DD400A670E2 /* WebDAVAuthenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */; };
 		4A9D1247261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */; };
 		4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */; };
-		4A9D6EC827E4A7B100D69811 /* WorkflowDependencyGraphTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A9D6EC727E4A7B100D69811 /* WorkflowDependencyGraphTests.swift */; };
 		4AA22BFB261CA69F00A17486 /* WebDAVAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */; };
 		4AA22C16261CA8D800A17486 /* URLFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22C15261CA8D800A17486 /* URLFieldCell.swift */; };
 		4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA22C1D261CA94700A17486 /* UsernameFieldCell.swift */; };
@@ -276,6 +274,12 @@
 		4AE0D8DA2653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */; };
 		4AE0D8DC2653DF1300DF5D22 /* DownloadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */; };
 		4AE0D8DE2653F18900DF5D22 /* DeletionTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */; };
+		4AE5196327F4702900BA6E4A /* WorkflowDependencyMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196227F4702900BA6E4A /* WorkflowDependencyMiddleware.swift */; };
+		4AE5196527F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196427F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift */; };
+		4AE5196727F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196627F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift */; };
+		4AE5196927F4A24D00BA6E4A /* WorkflowDependencyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196827F4A24D00BA6E4A /* WorkflowDependencyFactory.swift */; };
+		4AE5196B27F595B100BA6E4A /* CloudPath+GetParent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196A27F595B100BA6E4A /* CloudPath+GetParent.swift */; };
+		4AE5196D27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE5196C27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift */; };
 		4AE7D79525826A0900C5E1D8 /* FileProviderValidationServiceSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */; };
 		4AE97DAB24572E4900452814 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE97DAA24572E4900452814 /* AppDelegate.swift */; };
 		4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */; };
@@ -310,8 +314,6 @@
 		4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */; };
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
-		4AFA058B27EB15E6000F7AB2 /* WorkflowDependencyGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFA058A27EB15E6000F7AB2 /* WorkflowDependencyGraph.swift */; };
-		4AFA058D27EB6090000F7AB2 /* WorkflowDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFA058C27EB6090000F7AB2 /* WorkflowDependency.swift */; };
 		4AFCE4CB25B8419D0069C4FC /* FolderChoosing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */; };
 		4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4D325B842830069C4FC /* AccountListing.swift */; };
 		4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */; };
@@ -619,7 +621,6 @@
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
 		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
 		4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseAlert.swift; sourceTree = "<group>"; };
-		4A5E24A627E385FD00B68CA8 /* WorkflowDependencyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyNode.swift; sourceTree = "<group>"; };
 		4A5F48ED272AA02A0084135F /* MaintenanceModeError+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaintenanceModeError+Localization.swift"; sourceTree = "<group>"; };
 		4A61F6B62745353E007AA422 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
 		4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticUITableViewController.swift; sourceTree = "<group>"; };
@@ -690,7 +691,6 @@
 		4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticating.swift; sourceTree = "<group>"; };
 		4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationCoordinator.swift; sourceTree = "<group>"; };
 		4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "WebDAVAuthenticator+VC.swift"; sourceTree = "<group>"; };
-		4A9D6EC727E4A7B100D69811 /* WorkflowDependencyGraphTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyGraphTests.swift; sourceTree = "<group>"; };
 		4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtensionUI.entitlements; sourceTree = "<group>"; };
 		4A9FCB0C251A02AA002A8B41 /* Cryptomator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Cryptomator.entitlements; sourceTree = "<group>"; };
 		4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewController.swift; sourceTree = "<group>"; };
@@ -753,6 +753,12 @@
 		4AE0D8D92653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemEnumerationTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE0D8DB2653DF1300DF5D22 /* DownloadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AE0D8DD2653F18900DF5D22 /* DeletionTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskExecutor.swift; sourceTree = "<group>"; };
+		4AE5196227F4702900BA6E4A /* WorkflowDependencyMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyMiddleware.swift; sourceTree = "<group>"; };
+		4AE5196427F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyFactoryTests.swift; sourceTree = "<group>"; };
+		4AE5196627F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WorkflowDependencyTasksCollectionMock.swift; path = Mocks/WorkflowDependencyTasksCollectionMock.swift; sourceTree = "<group>"; };
+		4AE5196827F4A24D00BA6E4A /* WorkflowDependencyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyFactory.swift; sourceTree = "<group>"; };
+		4AE5196A27F595B100BA6E4A /* CloudPath+GetParent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CloudPath+GetParent.swift"; sourceTree = "<group>"; };
+		4AE5196C27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyTaskCollection.swift; sourceTree = "<group>"; };
 		4AE7D79225826A0800C5E1D8 /* FileProviderExtension-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FileProviderExtension-Bridging-Header.h"; sourceTree = "<group>"; };
 		4AE7D79325826A0900C5E1D8 /* FileProviderValidationServiceSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileProviderValidationServiceSource.h; sourceTree = "<group>"; };
 		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
@@ -793,8 +799,6 @@
 		4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerTests.swift; sourceTree = "<group>"; };
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
-		4AFA058A27EB15E6000F7AB2 /* WorkflowDependencyGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependencyGraph.swift; sourceTree = "<group>"; };
-		4AFA058C27EB6090000F7AB2 /* WorkflowDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowDependency.swift; sourceTree = "<group>"; };
 		4AFCE4CA25B8419D0069C4FC /* FolderChoosing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderChoosing.swift; sourceTree = "<group>"; };
 		4AFCE4D325B842830069C4FC /* AccountListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListing.swift; sourceTree = "<group>"; };
 		4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableTableViewHeader.swift; sourceTree = "<group>"; };
@@ -1036,9 +1040,10 @@
 				4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */,
 				4ADC66C427A7F6D6002E6CC7 /* UnlockMonitorTests.swift */,
 				4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */,
+				4AE5196427F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift */,
+				4AE5196627F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift */,
 				4A9C8E0227A016CF000063E4 /* WorkingSetObserverTests.swift */,
 				4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */,
-				4A9D6EC727E4A7B100D69811 /* WorkflowDependencyGraphTests.swift */,
 				4AF69E2924ACCED000A7174C /* DB */,
 				4A8F14A3266A302E00ADBCE4 /* FileProviderAdapter */,
 				4AB1C32E265CF59100DC7A49 /* Middleware */,
@@ -1113,11 +1118,12 @@
 			children = (
 				4A511D4B2660FEFE000A0E01 /* Workflow.swift */,
 				4ADD233D2672376500374E4E /* WorkflowConstraint.swift */,
-				4AFA058C27EB6090000F7AB2 /* WorkflowDependency.swift */,
+				4AE5196827F4A24D00BA6E4A /* WorkflowDependencyFactory.swift */,
+				4AE5196227F4702900BA6E4A /* WorkflowDependencyMiddleware.swift */,
 				4A511D502661000F000A0E01 /* WorkflowFactory.swift */,
 				4A03BD6427DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift */,
 				4A511D4D2660FF9E000A0E01 /* WorkflowScheduler.swift */,
-				4A5E24A827E3860100B68CA8 /* DependencyGraph */,
+				4AE5196C27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -1153,15 +1159,6 @@
 				4A51E610261C9A8800CC8C9B /* WebDAVKeychainTests.swift */,
 			);
 			path = Keychain;
-			sourceTree = "<group>";
-		};
-		4A5E24A827E3860100B68CA8 /* DependencyGraph */ = {
-			isa = PBXGroup;
-			children = (
-				4A5E24A627E385FD00B68CA8 /* WorkflowDependencyNode.swift */,
-				4AFA058A27EB15E6000F7AB2 /* WorkflowDependencyGraph.swift */,
-			);
-			path = DependencyGraph;
 			sourceTree = "<group>";
 		};
 		4A5E5B202453119100BD6298 = {
@@ -1642,6 +1639,7 @@
 			children = (
 				740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */,
 				740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */,
+				4AE5196A27F595B100BA6E4A /* CloudPath+GetParent.swift */,
 				4A511D582664F290000A0E01 /* DeleteItemHelper.swift */,
 				4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */,
 				4AEECD36279EB15400C6E2B5 /* ErrorWrapper.swift */,
@@ -2216,8 +2214,9 @@
 				4ADC66C727A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift in Sources */,
 				4A797F9824AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift in Sources */,
 				4AAD444727E26D1800D16707 /* UploadTaskManagerMock.swift in Sources */,
-				4A9D6EC827E4A7B100D69811 /* WorkflowDependencyGraphTests.swift in Sources */,
 				4AB1C33C265E9DBC00DC7A49 /* CloudTaskExecutorTestCase.swift in Sources */,
+				4AE5196727F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift in Sources */,
+				4AE5196527F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift in Sources */,
 				4A49FABE271ECDE80069A0CC /* ItemEnumerationTaskManagerTests.swift in Sources */,
 				4A248229266E2DD6002D9F59 /* FileProviderAdapterCreateDirectoryTests.swift in Sources */,
 				4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */,
@@ -2543,18 +2542,18 @@
 				747F2F1F2587BC250072FB30 /* FileProviderNotificator.swift in Sources */,
 				4AB1C327265CEA0E00DC7A49 /* CreatingOrDeletingItemPathLockHandler.swift in Sources */,
 				747F2F202587BC250072FB30 /* URL+NameCollisionExtension.swift in Sources */,
+				4AE5196D27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift in Sources */,
 				747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */,
 				4ADC66C227A7F49E002E6CC7 /* VaultLockingServiceSource.swift in Sources */,
 				4A511D512661000F000A0E01 /* WorkflowFactory.swift in Sources */,
 				4A1673EA270C77CC0075C724 /* DocumentStorageURLProvider.swift in Sources */,
 				747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */,
 				4A2060CD2799645300DA6C62 /* FileProviderNotificatorManager.swift in Sources */,
+				4AE5196B27F595B100BA6E4A /* CloudPath+GetParent.swift in Sources */,
 				4A49FABA271ECA530069A0CC /* ItemEnumerationTaskRecord.swift in Sources */,
 				4AE0D8DE2653F18900DF5D22 /* DeletionTaskExecutor.swift in Sources */,
-				4AFA058D27EB6090000F7AB2 /* WorkflowDependency.swift in Sources */,
 				4AE0D8DA2653D90C00DF5D22 /* ItemEnumerationTaskExecutor.swift in Sources */,
 				4ADD234026737CD400374E4E /* RootFileProviderItem.swift in Sources */,
-				4A5E24A727E385FD00B68CA8 /* WorkflowDependencyNode.swift in Sources */,
 				747F2F232587BC250072FB30 /* ItemMetadataDBManager.swift in Sources */,
 				4A511D47265FEFBE000A0E01 /* DownloadTask.swift in Sources */,
 				4A09E54E27071F4F0056D32A /* ErrorMapper.swift in Sources */,
@@ -2582,11 +2581,12 @@
 				4A248223266E266E002D9F59 /* FolderCreationTask.swift in Sources */,
 				747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */,
 				4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */,
-				4AFA058B27EB15E6000F7AB2 /* WorkflowDependencyGraph.swift in Sources */,
+				4AE5196327F4702900BA6E4A /* WorkflowDependencyMiddleware.swift in Sources */,
 				4ADC66C127A7F426002E6CC7 /* UnlockMonitor.swift in Sources */,
 				4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */,
 				4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */,
 				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
+				4AE5196927F4A24D00BA6E4A /* WorkflowDependencyFactory.swift in Sources */,
 				4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */,
 				4AB1C329265CED6600DC7A49 /* ReadingItemPathLockHandler.swift in Sources */,
 				4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */,

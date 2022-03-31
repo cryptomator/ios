@@ -18,7 +18,7 @@ struct WorkflowFactory {
 	let deletionTaskManager: DeletionTaskManager
 	let itemEnumerationTaskManager: ItemEnumerationTaskManager
 	let downloadTaskManager: DownloadTaskManager
-	let workflowDependencyGraph = WorkflowDependencyGraph()
+	let dependencyFactory = WorkflowDependencyFactory()
 
 	func createWorkflow(for deletionTask: DeletionTask) -> Workflow<Void> {
 		let pathLockMiddleware = CreatingOrDeletingItemPathLockHandler<Void>()
@@ -28,8 +28,8 @@ struct WorkflowFactory {
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNode = workflowDependencyGraph.createDependencySubgraphForWritingTask(deletionTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNode: workflowDependencyNode)
+		let workflowDependency = dependencyFactory.createDependencies(for: deletionTask.cloudPath, lockType: .write)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 		return Workflow(middleware: middleware, task: deletionTask, constraint: .unconstrained)
 	}
 
@@ -43,8 +43,8 @@ struct WorkflowFactory {
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNode = workflowDependencyGraph.createDependencySubgraphForWritingTask(uploadTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNode: workflowDependencyNode)
+		let workflowDependency = dependencyFactory.createDependencies(for: uploadTask.cloudPath, lockType: .write)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 		return Workflow(middleware: middleware, task: uploadTask, constraint: .uploadConstrained)
 	}
 
@@ -56,8 +56,8 @@ struct WorkflowFactory {
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNode = workflowDependencyGraph.createDependencySubgraphForReadingTask(downloadTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNode: workflowDependencyNode)
+		let workflowDependency = dependencyFactory.createDependencies(for: downloadTask.cloudPath, lockType: .read)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 		return Workflow(middleware: middleware, task: downloadTask, constraint: .downloadConstrained)
 	}
 
@@ -71,8 +71,10 @@ struct WorkflowFactory {
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNodes = workflowDependencyGraph.createDependencySubgraph(for: reparentTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNodes: workflowDependencyNodes)
+		let sourceCloudPath = reparentTask.taskRecord.sourceCloudPath
+		let targetCloudPath = reparentTask.taskRecord.targetCloudPath
+		let workflowDependency = dependencyFactory.createDependencies(paths: [sourceCloudPath, targetCloudPath], lockType: .write)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 		return Workflow(middleware: middleware, task: reparentTask, constraint: .unconstrained)
 	}
 
@@ -85,8 +87,8 @@ struct WorkflowFactory {
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNode = workflowDependencyGraph.createDependencySubgraphForReadingTask(itemEnumerationTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNode: workflowDependencyNode)
+		let workflowDependency = dependencyFactory.createDependencies(for: itemEnumerationTask.cloudPath, lockType: .read)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 
 		return Workflow(middleware: middleware, task: itemEnumerationTask, constraint: .unconstrained)
 	}
@@ -100,18 +102,14 @@ struct WorkflowFactory {
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
 		pathLockMiddleware.setNext(errorMapper.eraseToAnyWorkflowMiddleware())
 
-		let workflowDependencyNode = workflowDependencyGraph.createDependencySubgraphForWritingTask(folderCreationTask)
-		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependencyNode: workflowDependencyNode)
+		let workflowDependency = dependencyFactory.createDependencies(for: folderCreationTask.cloudPath, lockType: .write)
+		let middleware = wrapIntoDependencyMiddleware(pathLockMiddleware.eraseToAnyWorkflowMiddleware(), workflowDependency: workflowDependency)
 
 		return Workflow(middleware: middleware, task: folderCreationTask, constraint: .unconstrained)
 	}
 
-	private func wrapIntoDependencyMiddleware<T>(_ middleware: AnyWorkflowMiddleware<T>, workflowDependencyNode: WorkflowDependencyNode) -> AnyWorkflowMiddleware<T> {
-		return wrapIntoDependencyMiddleware(middleware, workflowDependencyNodes: [workflowDependencyNode])
-	}
-
-	private func wrapIntoDependencyMiddleware<T>(_ middleware: AnyWorkflowMiddleware<T>, workflowDependencyNodes: [WorkflowDependencyNode]) -> AnyWorkflowMiddleware<T> {
-		let workflowDependency = WorkflowDependency<T>(dependencies: workflowDependencyNodes)
+	private func wrapIntoDependencyMiddleware<T>(_ middleware: AnyWorkflowMiddleware<T>, workflowDependency: WorkflowDependency) -> AnyWorkflowMiddleware<T> {
+		let workflowDependency = WorkflowDependencyMiddleware<T>(dependency: workflowDependency)
 		workflowDependency.setNext(middleware)
 		return workflowDependency.eraseToAnyWorkflowMiddleware()
 	}
