@@ -250,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
 "webDAVAuthentication.httpConnection.change" = "换成 HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "保持 HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "服务器似乎不兼容 WebDAV，请检查链接是否正确";
+"webDAVAuthenticator.error.untrustedCertificate" = "此服务器的证书不受信任，你可能需要重新添加此 WebDAV 连接";
