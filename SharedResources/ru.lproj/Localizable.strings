@@ -31,21 +31,21 @@
 "accountList.header.title" = "Аутентификации";
 "accountList.emptyList.message" = "Нажмите, чтобы добавить аккаунт";
 "accountList.signOut.alert.title" = "Удалить связанные хранилища?";
-"accountList.signOut.alert.message" = "После выхода из системы все связанные хранилища будут удалены из списка хранилищ. Зашифрованные данные не будут удалены. Позже вы можете опять войти и снова добавить хранилища.";
+"accountList.signOut.alert.message" = "При выходе из системы все связанные хранилища будут удалены из списка. Сами зашифрованные данные не удаляются. Позже вы можете опять войти и снова добавить хранилища.";
 
 "addVault.title" = "Добавить хранилище";
 "addVault.createNewVault.title" = "Создать хранилище";
-"addVault.createNewVault.purchase" = "Для создания нового хранилища требуется полная версия Cryptomator.";
+"addVault.createNewVault.purchase" = "Чтобы создать новое хранилище, нужна полная версия Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Выберите имя для хранилища.";
 "addVault.createNewVault.setVaultName.cells.name" = "Имя хранилища";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Имя хранилища не может быть пустым.";
 "addVault.createNewVault.chooseCloud.header" = "Где Cryptomator должен хранить зашифрованные файлы хранилища?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "«%@» здесь уже существует. Выберите другое имя хранилища или место.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" здесь уже существует. Выберите другое имя или место хранилища.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище в этом месте.\nЧтобы создать новое хранилище, вернитесь назад и выберите другую папку.";
 "addVault.createNewVault.password.enterPassword.header" = "Введите новый пароль.";
 "addVault.createNewVault.password.confirmPassword.header" = "Подтвердите новый пароль.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Подтвердить пароль?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖНО: Если вы забыли пароль, восстановить данные невозможно.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖНО: Если вы забудете пароль, то не сможете восстановить данные.";
 "addVault.createNewVault.password.error.emptyPassword" = "Пароль не может быть пустым.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Пароли не совпадают.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Пароль должен содержать не менее 8 символов.";
@@ -83,10 +83,10 @@
 "cloudProvider.error.unauthorized" = "Невозможно выполнить неавторизованную операцию.";
 "cloudProvider.error.noInternetConnection" = "Для этой операции требуется подключение к Интернету.";
 
-"cloudProviderType.localFileSystem" = "Другой файл-провайдер";
+"cloudProviderType.localFileSystem" = "Другой файловый провайдер";
 
 "fileProvider.onboarding.title" = "Добро пожаловать";
-"fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
+"fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты своих файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
 "fileProvider.onboarding.button.openCryptomator" = "Открыть Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Разблокировка отменена";
 "fileProvider.error.biometricalAuthCanceled.message" = "Не удалось разблокировать с помощью %@. Попробуйте ещё раз.";
@@ -112,7 +112,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Выбранная папка - не хранилище. Попробуйте снова в другой папке.";
-"localFileSystemAuthentication.info.footer" = "Провайдеры файлов выделенные серым цветом не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
+"localFileSystemAuthentication.info.footer" = "Провайдеры файлов, выделенные серым цветом, не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
@@ -121,22 +121,23 @@
 "nameValidation.error.containsIllegalCharacter" = "Нельзя использовать имя, содержащее \"%@\". Выберите другое имя.";
 
 "onboarding.title" = "Добро пожаловать";
-"onboarding.info" = "Спасибо за выбор Cryptomator для защиты ваших файлов.\n\nС Cryptomator ключ к вашим данным в ваших руках. Криптоматор шифрует ваши данные быстро и легко.\n\nЭто приложение полностью интегрировано в приложение Files. Убедитесь в том, что Cryptopmator включен в приложении Files для доступа к вашим хранилищам.";
+"onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты ваших файлов.\n\nС его помощью шифровать данные быстро и легко.\n\nCryptomator полностью интегрирован в приложение \"Файлы\". Для доступа к хранилищам убедитесь, что Cryptopmator включён в приложении \"Файлы\".";
 "onboarding.button.continue" = "Далее";
 
 "purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
-"purchase.expiredTrial" = "Ваш пробный период истёк.";
+"purchase.expiredTrial" = "Пробный период истёк.";
 "purchase.footer.privacyPolicy" = "Политика конфиденциальности";
 "purchase.footer.termsOfUse" = "Условия использования ";
 "purchase.header.feature.familySharing" = "Семейный доступ";
-"purchase.header.feature.openSource" = "Разработка открытого программного обеспечения";
-"purchase.header.feature.writeAccess" = "Доступ на запись к хранилищам";
-"purchase.product.donateAndUpgrade" = "Внести пожертвовние и получить полную версию";
-"purchase.product.freeUpgrade" = "Бесплатно получить полную версию";
+"purchase.header.feature.openSource" = "Разработка ПО с открытым кодом";
+"purchase.header.feature.writeAccess" = "Возможна запись в хранилища";
+"purchase.product.donateAndUpgrade" = "Пожертвовать и обновить";
+"purchase.product.freeUpgrade" = "Обновить бесплатно";
 "purchase.product.lifetimeLicense" = "Бессрочная лицензия";
-"purchase.product.lifetimeLicense.duration" = "одноразово";
+"purchase.product.lifetimeLicense.duration" = "разово";
 "purchase.product.pricing.free" = "Бесплатно";
 "purchase.product.trial" = "30-дневная пробная версия";
+"purchase.product.trial.expirationDate" = "Истекает: %@";
 "purchase.product.trial.duration" = "на 30 дней";
 "purchase.product.yearlySubscription" = "Годовая подписка";
 "purchase.product.yearlySubscription.duration" = "ежегодно";
@@ -150,9 +151,10 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Не удалось найти ранее приобретённую полную версию, которая может быть восстановлена. Попробуйте другой вариант.";
 "purchase.retry.button" = "Повторить";
 "purchase.retry.footer" = "Не удалось загрузить доступные продукты.";
-"purchase.title" = "Разблокировать Полную Версию";
-"purchase.unlockedFullVersion.message" = "Теперь у вас полная версия Cryptomator. Счастливого шифрования!";
+"purchase.title" = "Получить полную версию";
+"purchase.unlockedFullVersion.message" = "Теперь у вас полная версия Cryptomator. Удачного шифрования!";
 "purchase.unlockedFullVersion.title" = "Спасибо!";
+"purchase.error.unknown" = "Покупка в App Store недоступна по неизвестной причине. Повторите попытку позже.\n\nЕсли эта ошибка повторится, попробуйте перезапустить устройство или выйти и войти в аккаунт Apple ID в настройках iOS.";
 
 "settings.title" = "Настройки";
 "settings.aboutCryptomator" = "О программе Cryptomator";
@@ -166,13 +168,13 @@
 "settings.manageSubscriptions" = "Управление подпиской";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
-"settings.unlockFullVersion" = "Разблокировать Полную Версию";
+"settings.unlockFullVersion" = "Получить полную версию";
 
-"snapshots.fileprovider.file1" = "/Учет.числа";
-"snapshots.fileprovider.file2" = "/Final Presentation.key";
-"snapshots.fileprovider.file3" = "/Product Trailer.mov";
-"snapshots.fileprovider.file4" = "/Proposal.docx";
-"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.file1" = "/Учёт.numbers";
+"snapshots.fileprovider.file2" = "/Финальная презентация.key";
+"snapshots.fileprovider.file3" = "/Трейлер продукта.mov";
+"snapshots.fileprovider.file4" = "/Заявка.docx";
+"snapshots.fileprovider.file5" = "/Отчёт.pdf";
 "snapshots.fileprovider.folder3" = "/Секретный проект";
 "snapshots.fileprovider.folder2" = "/Счета";
 "snapshots.fileprovider.folder1" = "/Сертификаты";
@@ -182,12 +184,12 @@
 "snapshots.main.vault4" = "/Поездка в Крым";
 
 "trialStatus.active" = "Активно";
-"trialStatus.expired" = "Пробный период истёк";
+"trialStatus.expired" = "Истекло";
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";
 "unlockVault.password.footer" = "Введите пароль для \"%@\".";
-"unlockVault.enableBiometricalUnlock.switch" = "Включить %@";
+"unlockVault.enableBiometricalUnlock.switch" = "Использовать %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Вместо разблокирования хранилища с помощью пароля, его можно разблокировать через %@.";
 "unlockVault.evaluatePolicy.reason" = "Разблокировка хранилища";
 "unlockVault.progress" = "Разблокировка…";
@@ -218,7 +220,7 @@
 "vaultDetail.button.moveVault" = "Переместить";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
 "vaultDetail.button.renameVault" = "Переименовать";
-"vaultDetail.changePassword.footer" = "Выберите надежный пароль для вашего хранилища, который знаете только вы, и храните его в надежном месте.";
+"vaultDetail.changePassword.footer" = "Выберите надёжный пароль для хранилища, который знаете только вы. Храните его в безопасном месте.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
 "vaultDetail.info.footer.accessVault" = "Доступ к хранилищу через приложение \"Файлы\".";
@@ -230,7 +232,7 @@
 "vaultDetail.locked.footer" = "Хранилище сейчас заблокировано.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator обнаружил существующее хранилище в этом месте.\nЧтобы переместить хранилище, вернитесь и выберите другую папку.";
 "vaultDetail.moveVault.progress" = "Перемещение…";
-"vaultDetail.removeVault.footer" = "Это только удалит хранилище из списка, но не удалит зашифрованные файлы.";
+"vaultDetail.removeVault.footer" = "Будет удалено только хранилище из списка, но не зашифрованные файлы.";
 "vaultDetail.renameVault.progress" = "Переименование…";
 "vaultDetail.unlocked.footer" = "Сейчас хранилище разблокировано в приложении \"Файлы\".";
 "vaultDetail.unlockVault.footer" = "Введите пароль для \"%@\", чтобы сохранить его в Связке ключей iOS и включить %@.";
@@ -241,10 +243,13 @@
 "vaultList.remove.alert.message" = "Хранилище будет удалено только из списка. Зашифрованные данные удалены не будут. Позже вы можете снова добавить это хранилище.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Конфигурация хранилища не поддерживается. Убедитесь, что у вас установлена новейшая версия Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища %ld не поддерживается. Это хранилище было создано в устаревшей, или более новой версии Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища %ld не поддерживается. Это хранилище было создано в устаревшей или более новой версии Cryptomator.";
 
 "webDAVAuthentication.progress" = "Аутентификация…";
 "webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.";
 "webDAVAuthentication.httpConnection.change" = "Изменить на HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Оставить HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Похоже, сервер не совместим с WebDAV. Проверьте, правильно ли указан URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Сертификат этого сервера ненадёжен. Возможно, вам придётся добавить это подключение WebDAV ещё раз.";

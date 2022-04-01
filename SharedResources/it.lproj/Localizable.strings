@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "una tantum";
 "purchase.product.pricing.free" = "Gratuito";
 "purchase.product.trial" = "30 giorni di prova";
+"purchase.product.trial.expirationDate" = "Data di scadenza: %@";
 "purchase.product.trial.duration" = "per 30 giorni";
 "purchase.product.yearlySubscription" = "Abbonamento annuale";
 "purchase.product.yearlySubscription.duration" = "annuale";
@@ -153,6 +154,7 @@
 "purchase.title" = "Sblocca la Versione Completa";
 "purchase.unlockedFullVersion.message" = "Puoi ora usare la versione completa di Cryptomator. Buona crittografazione!";
 "purchase.unlockedFullVersion.title" = "Grazie";
+"purchase.error.unknown" = "Questo acquisto non è disponibile nell'App Store per un motivo sconosciuto. Riprova più tardi.\n\nSe questo errore persiste, provare a riavviare il dispositivo o scollegare e ricollegare il tuo ID Apple nelle impostazioni di iOS.";
 
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";

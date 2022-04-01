@@ -14,6 +14,7 @@
 "common.button.create" = "新建";
 "common.button.createFolder" = "建立資料夾";
 "common.button.done" = "完成";
+"common.button.download" = "下載";
 "common.button.edit" = "編輯";
 "common.button.enable" = "啟用";
 "common.button.next" = "繼續";
@@ -53,6 +54,7 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.currentPassword.title" = "請輸入入前的密碼";
 "changePassword.header.newPassword.title" = "輸入新密碼.";
 "changePassword.header.newPasswordConfirmation.title" = "確認新密碼.";
 "changePassword.progress" = "正在變更密碼……";
@@ -61,6 +63,7 @@
 "chooseFolder.createNewFolder.header.title" = "為資料夾命名。";
 "chooseFolder.createNewFolder.cells.name" = "資料夾名稱";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "資料夾名稱不能留空。";
+"chooseFolder.createNewFolder.progress" = "正在建立資料夾";
 
 "cloudProvider.error.itemNotFound" = "無法找到「%@」。";
 "cloudProvider.error.itemAlreadyExists" = "「%@」已經存在。";
@@ -71,12 +74,25 @@
 
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.button.openCryptomator" = "打開 Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "解鎖取消";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "密碼錯誤";
+"fileProvider.error.defaultLock.title" = "需要解鎖";
 "fileProvider.error.unlockButton" = "解鎖";
+"keepUnlocked.alert.confirm" = "確認並上鎖";
+"keepUnlockedDuration.auto.shortDisplayName" = "自動";
+"keepUnlockedDuration.indefinite" = "無期限";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 
 "onboarding.title" = "歡迎";
+"onboarding.button.continue" = "繼續";
+"purchase.expiredTrial" = "您的試用已過期";
+"purchase.footer.privacyPolicy" = "隱私政策";
+"purchase.footer.termsOfUse" = "使用條款";
+"purchase.header.feature.familySharing" = "家庭共享";
+"purchase.product.pricing.free" = "免費";
 "purchase.retry.button" = "重試";
+"purchase.unlockedFullVersion.title" = "感謝";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";

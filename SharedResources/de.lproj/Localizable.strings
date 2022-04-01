@@ -49,14 +49,14 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Passwort darf nicht leer sein.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwörter stimmen nicht überein.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Passwort muss mindestens 8 Zeichen enthalten.";
-"addVault.createNewVault.progress" = "Erstelle Tresor…";
-"addVault.openExistingVault.title" = "Existierenden Tresor öffnen";
+"addVault.createNewVault.progress" = "Tresor wird erstellt …";
+"addVault.openExistingVault.title" = "Bestehenden Tresor öffnen";
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du diesen Tresor hinzufügen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein.";
-"addVault.openExistingVault.progress" = "Füge Tresor hinzu…";
-"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
+"addVault.openExistingVault.progress" = "Tresor wird hinzugefügt …";
+"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Files“ zu.";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
@@ -66,13 +66,13 @@
 "changePassword.header.currentPassword.title" = "Das aktuelle Passwort eingeben.";
 "changePassword.header.newPassword.title" = "Gib ein neues Passwort ein.";
 "changePassword.header.newPasswordConfirmation.title" = "Bestätige das neue Passwort.";
-"changePassword.progress" = "Ändere Passwort…";
+"changePassword.progress" = "Passwort wird geändert …";
 
 "chooseFolder.emptyFolder.footer" = "Ordner ist leer";
 "chooseFolder.createNewFolder.header.title" = "Wähle einen Namen für den Ordner.";
 "chooseFolder.createNewFolder.cells.name" = "Ordnername";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Ordnername darf nicht leer sein.";
-"chooseFolder.createNewFolder.progress" = "Erstelle Ordner…";
+"chooseFolder.createNewFolder.progress" = "Ordner wird erstellt …";
 
 "cloudProvider.error.itemNotFound" = "„%@“ konnte nicht gefunden werden.";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ existiert bereits.";
@@ -109,7 +109,7 @@
 "localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An dieser Stelle existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
-"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines vorhandenen Tresors aus.";
+"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines bestehenden Tresors aus.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresor-Ordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es mit einem anderen Ordner.";
 "localFileSystemAuthentication.info.footer" = "Speicher-Anbieter, die ausgegraut sind, unterstützen keine „Ordnerauswahl“. Dies ist keine Einschränkung von Cryptomator.";
@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "einmalig";
 "purchase.product.pricing.free" = "Gratis";
 "purchase.product.trial" = "30-Tage-Testversion";
+"purchase.product.trial.expirationDate" = "Ablaufdatum: %@";
 "purchase.product.trial.duration" = "für 30 Tage";
 "purchase.product.yearlySubscription" = "Jahresabonnement";
 "purchase.product.yearlySubscription.duration" = "jährlich";
@@ -153,6 +154,7 @@
 "purchase.title" = "Vollversion freischalten";
 "purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
+"purchase.error.unknown" = "Dieser Kauf ist aus einem unbekannten Grund im App Store aktuell nicht möglich. Bitte versuche es später erneut.\n\nWenn dieser Fehler weiterhin besteht, versuche dein Gerät neu zu starten oder dich in den iOS-Einstellungen mit deiner Apple ID ab- und wieder anzumelden.";
 
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
@@ -190,7 +192,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ aktivieren";
 "unlockVault.enableBiometricalUnlock.footer" = "Anstatt deinen Tresor mit deinem Passwort zu entsperren, kannst du ihn über %@ entsperren.";
 "unlockVault.evaluatePolicy.reason" = "Entsperre deinen Tresor";
-"unlockVault.progress" = "Entsperre…";
+"unlockVault.progress" = "Tresor wird entsperrt …";
 
 "untrustedTLSCertificate.title" = "Ungültiges TLS-Zertifikat";
 "untrustedTLSCertificate.message" = "Das TLS-Zertifikat von \"%@\" ist ungültig. Möchtest du ihm trotzdem vertrauen?\n\n SHA-256: %@";
@@ -228,10 +230,10 @@
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Entsperren wird benötigt, wenn dein Tresor für %@ inaktiv war.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Kein Entsperren wird benötigt, außer nach einem manuellen Sperren.";
 "vaultDetail.locked.footer" = "Dein Tresor ist zurzeit gesperrt.";
-"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm Deinen Tresor zu verschieben, gehe bitte zurück und wähle einen anderen Ordner.";
-"vaultDetail.moveVault.progress" = "Verschiebe…";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm deinen Tresor zu verschieben, gehe bitte zurück und wähle einen anderen Ordner.";
+"vaultDetail.moveVault.progress" = "Tresor wird verschoben …";
 "vaultDetail.removeVault.footer" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt und keine verschlüsselten Daten gelöscht.";
-"vaultDetail.renameVault.progress" = "Benenne um…";
+"vaultDetail.renameVault.progress" = "Tresor wird umbenannt …";
 "vaultDetail.unlocked.footer" = "Dein Tresor ist in der App „Dateien“ zurzeit entsperrt.";
 "vaultDetail.unlockVault.footer" = "Gib das Passwort für „%@“ ein, um es im iOS-Schlüsselbund zu speichern und %@ zu aktivieren.";
 
@@ -243,8 +245,11 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion %ld wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
-"webDAVAuthentication.progress" = "Authentifiziere…";
+"webDAVAuthentication.progress" = "Authentifizierung …";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
 "webDAVAuthentication.httpConnection.alert.message" = "Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.";
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behalten";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint nicht WebDAV-kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";

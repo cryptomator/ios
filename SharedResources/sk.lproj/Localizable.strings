@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "jednorázovo";
 "purchase.product.pricing.free" = "Voľný";
 "purchase.product.trial" = "30-dňová skúšobná verzia";
+"purchase.product.trial.expirationDate" = "Dátum expirovania: %@";
 "purchase.product.trial.duration" = "na 30 dní";
 "purchase.product.yearlySubscription" = "Ročné predplatné";
 "purchase.product.yearlySubscription.duration" = "ročne";
@@ -153,6 +154,7 @@
 "purchase.title" = "Odomknúť plnú verziu";
 "purchase.unlockedFullVersion.message" = "Teraz už môžte používať plnú verziu Cryptomator-a. Veselé kryptovanie!";
 "purchase.unlockedFullVersion.title" = "Ďakujeme";
+"purchase.error.unknown" = "Tento nákup nie je možný v App Store z neznámeho dôvodu. Prosím skúste neskôr. \n\nAk tento problém pretrváva, skúste zreštartovať Vaše zariadenie alebo sa odhlásiť a spätne prihlásiť do Vášho Apple ID v iOS nastaveniach.";
 
 "settings.title" = "Nastavenia";
 "settings.aboutCryptomator" = "O aplikácii Cryptomator";

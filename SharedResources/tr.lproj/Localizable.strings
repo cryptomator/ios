@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "bir kez";
 "purchase.product.pricing.free" = "Ücretsiz";
 "purchase.product.trial" = "30-Gün Deneme";
+"purchase.product.trial.expirationDate" = "Bitiş Tarihi: %@";
 "purchase.product.trial.duration" = "30 gün boyunca";
 "purchase.product.yearlySubscription" = "Yıllık abonelik";
 "purchase.product.yearlySubscription.duration" = "yıllık";
@@ -153,6 +154,7 @@
 "purchase.title" = "Tam Sürümün Kilidini Aç";
 "purchase.unlockedFullVersion.message" = "Artık Cryptomator'ın tam sürümünü kullanabilirsiniz. Mutlu şifrelemeler!";
 "purchase.unlockedFullVersion.title" = "Teşekkürler";
+"purchase.error.unknown" = "Bu satın alma bilinmeyen bir nedenle App Store'da mevcut değil. Lütfen daha sonra tekrar deneyin.\n\nBu hata devam ederse, cihazınızı yeniden başlatmayı veya iOS ayarlarında Apple Kimliğinizden çıkış yapıp tekrar oturum açmayı deneyin.";
 
 "settings.title" = "Ayarlar";
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
@@ -248,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS'ye geç";
 "webDAVAuthentication.httpConnection.continue" = "HTTP'yi koru";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Sunucu, WebDAV uyumlu görünmüyor. Lütfen doğru URL'yi kullanıp kullanmadığınızı kontrol edin.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Bu sunucunun sertifikası güvenilir değil. Bu WebDAV bağlantısını yeniden eklemeniz gerekebilir.";

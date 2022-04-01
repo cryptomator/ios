@@ -153,6 +153,7 @@
 "purchase.title" = "Volledige versie ontgrendelen";
 "purchase.unlockedFullVersion.message" = "U kunt nu de volledige versie van Cryptomator gebruiken. Veel plezier met encrypteren!";
 "purchase.unlockedFullVersion.title" = "Dank u";
+"purchase.error.unknown" = "Deze aankoop is niet beschikbaar in de App Store om een onbekende reden. Probeer het later opnieuw.\n\nAls deze fout aanhoudt, probeer je apparaat opnieuw op te starten of meld je af en weer aan met je Apple ID in de iOS-instellingen.";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
