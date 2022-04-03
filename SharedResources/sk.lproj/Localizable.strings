@@ -249,3 +249,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmeniť na HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Podržať HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Zdá sa že server nie je WebDAV kompatibilný. Prosím skontrolujte či ste použili správnu URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certifikát tohto servera nie je dôveryhodný. Môžte znovu-pridať toto WebDAV spojenie.";
