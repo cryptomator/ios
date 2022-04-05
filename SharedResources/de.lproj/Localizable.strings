@@ -251,5 +251,5 @@
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behalten";
 
-"webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint nicht WebDAV-kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
+"webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint mit WebDAV nicht kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";

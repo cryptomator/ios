@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "jednorazowo";
 "purchase.product.pricing.free" = "Darmowe";
 "purchase.product.trial" = "Okres próbny 30 dni";
+"purchase.product.trial.expirationDate" = "Aktywne do: %@";
 "purchase.product.trial.duration" = "przez 30 dni";
 "purchase.product.yearlySubscription" = "Subskrypcja roczna";
 "purchase.product.yearlySubscription.duration" = "rocznie";
@@ -153,6 +154,7 @@
 "purchase.title" = "Odblokuj pełną wersję";
 "purchase.unlockedFullVersion.message" = "Możesz teraz użyć pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
 "purchase.unlockedFullVersion.title" = "Dziękujemy";
+"purchase.error.unknown" = "Opcja zakupu jest niedostępna w App Store z nieznanego powodu. Spróbuj ponownie później.\n\nJeśli ten błąd będzie się powtarzał, spróbuj zrestartować urządzenie lub wylogować i zalogować się swoim Apple ID w ustawieniach iOS.";
 
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
@@ -248,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Używanie HTTP jest niezabezpieczone. Zamiast tego zalecamy używanie HTTPS. Jeśli znasz ryzyko, możesz kontynuować używając HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmień na HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Zostaw HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Serwer wydaje się niekompatybilny z WebDAV. Proszę sprawdzić, czy użyto poprawnego adresu URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certyfikat tego serwera nie jest zaufany. Może być konieczne ponowne dodanie połączenia WebDAV.";
