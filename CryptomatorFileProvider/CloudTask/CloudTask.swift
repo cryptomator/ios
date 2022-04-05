@@ -12,3 +12,9 @@ import Foundation
 protocol CloudTask {
 	var itemMetadata: ItemMetadata { get }
 }
+
+extension CloudTask {
+	var cloudPath: CloudPath {
+		return itemMetadata.cloudPath
+	}
+}

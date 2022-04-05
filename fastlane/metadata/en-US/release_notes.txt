@@ -1,5 +1,3 @@
-- Added support for pCloud (#188)
-- Added support for shortcuts in Google Drive
-- Added subscription option to unlock full version (#178)
-- Added Norwegian Bokmål translation
-- Redesigned and simplified in-app purchases screen (#187)
+- Fixed copying of folders that sometimes doesn't finish completely and the vault gets "stuck" (#173, #197)
+- Fixed "not found" error in Google Drive due to unresolvable shortcuts (#194)
+- Fixed unexpected error when the path contained certain keywords like "Shared" in OneDrive (#189)

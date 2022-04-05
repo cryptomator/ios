@@ -226,6 +226,8 @@ class BaseIAPViewModel {
 		return iapManager.buy(product).recover { error -> PurchaseTransaction in
 			if (error as? SKError)?.code == .paymentCancelled {
 				throw PurchaseError.paymentCancelled
+			} else if (error as? SKError)?.code == .unknown {
+				throw PurchaseError.unknown
 			} else {
 				throw error
 			}
@@ -277,6 +279,8 @@ class BaseIAPViewModel {
 		return iapManager.restore().recover { error -> RestoreTransactionsResult in
 			if (error as? SKError)?.code == .paymentCancelled {
 				throw PurchaseError.paymentCancelled
+			} else if (error as? SKError)?.code == .unknown {
+				throw PurchaseError.unknown
 			} else {
 				throw error
 			}

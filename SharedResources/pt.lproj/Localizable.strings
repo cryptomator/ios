@@ -35,6 +35,7 @@
 
 "addVault.title" = "Adicionar Cofre";
 "addVault.createNewVault.title" = "Criar Novo Cofre";
+"addVault.createNewVault.purchase" = "A criação de um novo cofre requer a versão completa do Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
@@ -89,24 +90,71 @@
 "fileProvider.error.defaultLock.message" = "Para aceder e mostrar o conteúdo do seu cofre, ele tem de estar desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 
+"keepUnlocked.alert.title" = "Fechar o cofre?";
+"keepUnlocked.alert.message" = "Essa alteração exige que seu cofre esteja fechado para que tenha efeito.";
+"keepUnlocked.alert.confirm" = "Confirme e feche agora";
+"keepUnlocked.header" = "Especifique por quanto tempo você quer que este cofre permaneça aberto quando inativo.";
+"keepUnlocked.footer.auto" = "Deixar o iOS decidir significa que o Cryptomator pode ser encerrado a qualquer momento para liberar memória, o que fecha automaticamente o cofre.";
+"keepUnlocked.footer.on" = "Usando a opção selecionada, uma cópia da sua chave precisa ser armazenada no chaveiro do iOS, desde que o cofre esteja aberto.";
+"keepUnlockedDuration.auto" = "Deixe o iOS decidir automaticamente";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinido";
+
 "localFileSystemAuthentication.createNewVault.header" = "No próximo ecrã, escolha a localização de armazenamento para o seu novo cofre.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
 "localFileSystemAuthentication.openExistingVault.header" = "No próximo ecrã, escolha a pasta do seu cofre existente.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
+"localFileSystemAuthentication.info.footer" = "Os fornecedores de arquivos que estão acinzentados não suportam \"escolher pastas\". Isso não é uma limitação do Cryptomator.";
 
 "nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
 "nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termine com um espaço. Por favor, escolha outro nome.";
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
+"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros.\n\n Com Cryptomator, a chave para os seus dados está nas suas mãos. O Cryptomator criptografa os seus dados de maneira rápida e fácil.\n\n Este aplicativo está totalmente integrado no aplicativo Ficheiros. Certifique-se de ativar o Cryptomator no aplicativo Ficheiros para puder aceder aos seus cofres.";
+"onboarding.button.continue" = "Continuar";
+
+"purchase.beginFreeTrial.alert.title" = "Versão de teste desbloqueada";
+"purchase.expiredTrial" = "O seu período de teste expirou.";
+"purchase.footer.privacyPolicy" = "Política de Privacidade";
+"purchase.footer.termsOfUse" = "Termos de Utilização";
+"purchase.header.feature.familySharing" = "Partilha familiar";
+"purchase.header.feature.openSource" = "Desenvolvimento de código aberto";
+"purchase.header.feature.writeAccess" = "Acesso de gravação aos seus cofres";
+"purchase.product.donateAndUpgrade" = "Doe e Atualize";
+"purchase.product.freeUpgrade" = "Atualização Gratuita";
+"purchase.product.lifetimeLicense" = "Licença Vitalícia";
+"purchase.product.lifetimeLicense.duration" = "uma vez";
+"purchase.product.pricing.free" = "Grátis";
+"purchase.product.trial" = "30 dias de avaliação";
+"purchase.product.trial.expirationDate" = "Data de validade: %@";
+"purchase.product.trial.duration" = "durante 30 dias";
+"purchase.product.yearlySubscription" = "Subscrição anual";
+"purchase.product.yearlySubscription.duration" = "anual";
+"purchase.readOnlyMode.alert.title" = "Modo somente leitura";
+"purchase.readOnlyMode.alert.message" = "Você pode desbloquear a versão completa do Cryptomator posteriormente nas configurações e, por enquanto, usá-lo no modo somente leitura.";
+"purchase.restorePurchase.button" = "Restaurar compra";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Continuação da versão de teste";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um período limitado. A sua avaliação expira em %@. Depois disso, os seus cofres ainda estarão acessíveis somente em modo leitura.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Restauração bem-sucedida";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Sem Versão Completa";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não conseguimos encontrar uma versão completa comprada anteriormente que pudesse ser restaurada. Por favor, tente outra opção.";
+"purchase.retry.button" = "Tente novamente";
+"purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
+"purchase.title" = "Desbloqueie a versão completa";
+"purchase.unlockedFullVersion.message" = "Agora você pode utilizar a versão completa do Cryptomator. Feliz criptografia!";
+"purchase.unlockedFullVersion.title" = "Obrigado";
+"purchase.error.unknown" = "Esta compra não está disponível na App Store por uma razão desconhecida. Por favor, tente novamente mais tarde.\n\n Se o erro persistir, tente reiniciar o seu dispositivo ou sair e entrar novamente na sua Apple ID nas configurações do iOS.";
 
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
+"settings.manageSubscriptions" = "Gerir subscrição";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
+"settings.unlockFullVersion" = "Desbloquear versão completa";
 
 "snapshots.fileprovider.file1" = "/Contabilidade.números";
 "snapshots.fileprovider.file2" = "/Apresentação Final.key";
@@ -121,6 +169,9 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/ Viagem à Califórnia";
 
+"trialStatus.active" = "Ativo";
+"trialStatus.expired" = "Expirou";
+
 "unlockVault.button.unlock" = "Destrancar";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Insira a palavra-passe para \"%@\".";
@@ -132,8 +183,11 @@
 "untrustedTLSCertificate.message" = "O Certificado TLS de \"%@\" é inválido. Quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
+
+"upgrade.title" = "Oferta de atualização";
 "upgrade.notEligible.alert.title" = "A atualização falhou";
 "upgrade.notEligible.alert.message" = "Cryptomator não conseguiu detectar uma versão mais antiga instalada no seu dispositivo. Se você o comprou, por favor descarregue-a novamente na App Store e tente novamente.";
+"upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um utilizador fiel, você está qualificado para uma atualização gratuita.";
 
 "urlSession.error.httpError.401" = "Nome de utilizador e/ou palavra-passe errada.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para os recursos solicitados.";
@@ -152,6 +206,10 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Aceda o cofre através da aplicação Ficheiros.";
 "vaultDetail.info.footer.accountInfo" = "Sessão iniciada como %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Duração do desbloqueio";
+"vaultDetail.keepUnlocked.footer.off" = "Destrancar será necessário quando o Cryptomator for encerrado pelo aplicativo Ficheiros.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Destrancar será necessário quando o seu cofre estiver inativo por %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário destrancá-lo a menos que seja bloqueado manualmente.";
 "vaultDetail.locked.footer" = "O seu cofre está de momento bloqueado.";
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
 "vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
@@ -163,3 +221,11 @@
 "vaultList.remove.alert.message" = "Isto só irá remover o cofre da lista de cofres. Nenhum ficheiro encriptado será apagado. Você pode voltar a adicionar o cofre mais tarde.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do cofre %ld não é compatível.. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
+"webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "O uso do HTTP não é seguro. Recomendamos o uso de HTTPS em vez disso. Se você conhece os riscos, pode continuar com HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Alterar para HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Manter HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou o URL correto.";
+"webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Talvez seja necessário adicionar novamente esta ligação WebDAV.";

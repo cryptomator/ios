@@ -43,6 +43,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let localURLProvider: LocalURLProviderType
 	private let notificator: FileProviderItemUpdateDelegate?
 	private let fullVersionChecker: FullVersionChecker
+	private let workflowFactory: WorkflowFactoryLocking
 
 	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.lastUnlockedDate = Date()
@@ -53,6 +54,15 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.deletionTaskManager = deletionTaskManager
 		self.itemEnumerationTaskManager = itemEnumerationTaskManager
 		self.downloadTaskManager = downloadTaskManager
+		let factory = WorkflowFactory(provider: provider,
+		                              uploadTaskManager: uploadTaskManager,
+		                              cachedFileManager: cachedFileManager,
+		                              itemMetadataManager: itemMetadataManager,
+		                              reparentTaskManager: reparentTaskManager,
+		                              deletionTaskManager: deletionTaskManager,
+		                              itemEnumerationTaskManager: itemEnumerationTaskManager,
+		                              downloadTaskManager: downloadTaskManager)
+		self.workflowFactory = WorkflowFactoryLocking(lockManager: LockManager(), workflowFactory: factory)
 		self.scheduler = scheduler
 		self.provider = provider
 		self.notificator = notificator
@@ -116,8 +126,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		} catch {
 			return Promise(error)
 		}
-		let workflow = WorkflowFactory.createWorkflow(for: enumerationTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager, uploadTaskManager: uploadTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager)
-		return scheduler.schedule(workflow)
+		return workflowFactory.createWorkflow(for: enumerationTask).then(scheduler.schedule)
 	}
 
 	private func enumerateWorkingSet() -> Promise<FileProviderItemList> {
@@ -154,10 +163,15 @@ public class FileProviderAdapter: FileProviderAdapterType {
 					}
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
 				}
-				completionHandler(localItemImportResult.item, nil)
-
+				let localImportHandler: (Error?) -> Void = { error in
+					if let error = error {
+						completionHandler(nil, error)
+					} else {
+						completionHandler(localItemImportResult.item, nil)
+					}
+				}
 				// Network Stuff
-				self.uploadFile(taskRecord: localItemImportResult.uploadTaskRecord).then { item in
+				self.uploadFile(taskRecord: localItemImportResult.uploadTaskRecord, completionHandler: localImportHandler).then { item in
 					self.notificator?.signalUpdate(for: item)
 				}.catch { error in
 					DDLogError("importDocument uploadFile failed: \(error)")
@@ -252,15 +266,18 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		}
 	}
 
-	func uploadFile(taskRecord: UploadTaskRecord) -> Promise<FileProviderItem> {
-		let workflow: Workflow<FileProviderItem>
+	func uploadFile(taskRecord: UploadTaskRecord, completionHandler: ((Error?) -> Void)? = nil) -> Promise<FileProviderItem> {
+		let task: UploadTask
 		do {
-			let task = try uploadTaskManager.getTask(for: taskRecord)
-			workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager)
+			task = try uploadTaskManager.getTask(for: taskRecord)
 		} catch {
+			completionHandler?(error)
 			return Promise(error)
 		}
-		return scheduler.schedule(workflow)
+		return workflowFactory.createWorkflow(for: task).then { workflow -> Workflow<FileProviderItem> in
+			completionHandler?(nil)
+			return workflow
+		}.then(scheduler.schedule)
 	}
 
 	func registerFileInUploadQueue(with localURL: URL, itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
@@ -293,12 +310,15 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogError("Create directory: createPlaceholderItemForFolder failed with error: \(error) ")
 			return completionHandler(nil, error)
 		}
-		completionHandler(placeholderItem, nil)
+
 		let task = FolderCreationTask(itemMetadata: placeholderItem.metadata)
-		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager)
-		scheduler.schedule(workflow).then { item in
-			self.notificator?.signalUpdate(for: item)
-		}
+		workflowFactory.createWorkflow(for: task).then { workflow -> Workflow<FileProviderItem> in
+			completionHandler(placeholderItem, nil)
+			return workflow
+		}.then(scheduler.schedule)
+			.then { item in
+				self.notificator?.signalUpdate(for: item)
+			}
 	}
 
 	// MARK: Move Item
@@ -317,11 +337,13 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		} catch {
 			return completionHandler(nil, error)
 		}
-		completionHandler(result.item, nil)
-		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
-		scheduler.schedule(workflow).then { item in
-			self.notificator?.signalUpdate(for: item)
-		}
+		workflowFactory.createWorkflow(for: reparentTask).then { workflow -> Workflow<FileProviderItem> in
+			completionHandler(result.item, nil)
+			return workflow
+		}.then(scheduler.schedule)
+			.then { item in
+				self.notificator?.signalUpdate(for: item)
+			}
 	}
 
 	public func reparentItem(withIdentifier itemIdentifier: NSFileProviderItemIdentifier, toParentItemWithIdentifier parentItemIdentifier: NSFileProviderItemIdentifier, newName: String?, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void) {
@@ -339,10 +361,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return completionHandler(nil, error)
 		}
 		completionHandler(result.item, nil)
-		let workflow = WorkflowFactory.createWorkflow(for: reparentTask, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, reparentTaskManager: reparentTaskManager)
-		scheduler.schedule(workflow).then { item in
-			self.notificator?.signalUpdate(for: item)
-		}
+		workflowFactory.createWorkflow(for: reparentTask)
+			.then(scheduler.schedule)
+			.then { item in
+				self.notificator?.signalUpdate(for: item)
+			}
 	}
 
 	/**
@@ -416,18 +439,20 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			completionHandler(error)
 			return
 		}
-		let workflow: Workflow<Void>
+		let deletionTask: DeletionTask
 		do {
-			let deletionTaskInfo = try deletionTaskManager.getTask(for: taskRecord)
-			workflow = WorkflowFactory.createWorkflow(for: deletionTaskInfo, provider: provider, itemMetadataManager: itemMetadataManager)
+			deletionTask = try deletionTaskManager.getTask(for: taskRecord)
 		} catch {
 			completionHandler(error)
 			return
 		}
-		completionHandler(nil)
-		scheduler.schedule(workflow).then {
-			DDLogVerbose("DeleteItem success")
-		}
+		workflowFactory.createWorkflow(for: deletionTask).then { workflow -> Workflow<Void> in
+			completionHandler(nil)
+			return workflow
+		}.then(scheduler.schedule)
+			.then {
+				DDLogVerbose("DeleteItem success")
+			}
 	}
 
 	/**
@@ -590,8 +615,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		} catch {
 			return Promise(error)
 		}
-		let workflow = WorkflowFactory.createWorkflow(for: task, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, downloadTaskManager: downloadTaskManager)
-		return scheduler.schedule(workflow).then { item -> Void in
+		return workflowFactory.createWorkflow(for: task).then(scheduler.schedule).then { item -> Void in
 			self.notificator?.signalUpdate(for: item)
 		}
 	}

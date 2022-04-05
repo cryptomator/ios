@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "one-time";
 "purchase.product.pricing.free" = "Free";
 "purchase.product.trial" = "30-Day Trial";
+"purchase.product.trial.expirationDate" = "Expiration Date: %@";
 "purchase.product.trial.duration" = "for 30 days";
 "purchase.product.yearlySubscription" = "Yearly Subscription";
 "purchase.product.yearlySubscription.duration" = "yearly";
@@ -153,6 +154,7 @@
 "purchase.title" = "Unlock Full Version";
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.unlockedFullVersion.title" = "Thank You";
+"purchase.error.unknown" = "This purchase is unavailable in the App Store for an unknown reason. Please try again later.\n\nIf this error persists, try to restart your device or signing out and back in to your Apple ID in the iOS settings.";
 
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
@@ -248,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Keep HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server doesn't seem to be WebDAV compatible. Please check if you've used the correct URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certificate of this server is untrusted. You may have to re-add this WebDAV connection.";

@@ -38,14 +38,15 @@ import Promises
  ```
  */
 class LockManager {
-	private static var pathLocks = [String: RWLock]()
-	private static var dataLocks = [String: RWLock]()
-	private static let queue = DispatchQueue(label: "LockManager Queue", qos: .userInitiated, attributes: .concurrent)
-	private static let dictionaryQueue = DispatchQueue(label: "LockManager dicitionaryQueue")
+	static let local = LockManager()
+	private var pathLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
+	private var dataLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
+	private let queue = DispatchQueue(label: "LockManager Queue", qos: .userInitiated, attributes: .concurrent)
+	private let dictionaryQueue = DispatchQueue(label: "LockManager dictionaryQueue")
 
-	private static func readLock(locks: [RWLock], paths: [CloudPath]) -> Promise<LockNode> {
+	private func readLock(locks: [RWLock], paths: [CloudPath]) -> Promise<LockNode> {
 		return Promise<LockNode> { fulfill, _ in
-			queue.async {
+			self.queue.async {
 				var parentLockNode: LockNode?
 				for (index, lock) in locks.enumerated() {
 					let currentLockNode = LockNode(path: paths[index].path, lock: lock, parent: parentLockNode)
@@ -57,9 +58,9 @@ class LockManager {
 		}
 	}
 
-	private static func writeLock(lock: RWLock, path: CloudPath) -> Promise<LockNode> {
+	private func writeLock(lock: RWLock, path: CloudPath) -> Promise<LockNode> {
 		return Promise<LockNode> { fulfill, _ in
-			queue.async {
+			self.queue.async {
 				let lockNode = LockNode(path: path.path, lock: lock)
 				lockNode.writeLock()
 				fulfill(lockNode)
@@ -69,64 +70,65 @@ class LockManager {
 
 	// MARK: - Path Locks
 
-	public static func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
+	public func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
 		let partialPaths = path.getPartialCloudPaths()
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let readLockPromise = pendingStartLockPromise.then {
-			getPathLocks(for: partialPaths)
+			self.getPathLocks(for: partialPaths)
 		}.then { locks in
 			// pass partialPaths only for debug / log
-			return readLock(locks: locks, paths: partialPaths)
+			return self.readLock(locks: locks, paths: partialPaths)
 		}
 		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	public static func getPathLockForWriting(at path: CloudPath) -> FileSystemLock {
+	public func getPathLockForWriting(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let writeLockPromise = pendingStartLockPromise.then {
-			getPathLock(for: path)
+			self.getPathLock(for: path)
 		}.then { lock in
 			// pass path only for debug / log
-			return writeLock(lock: lock, path: path)
+			return self.writeLock(lock: lock, path: path)
 		}
 		return FileSystemLock(lockPromise: writeLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
 	// MARK: - Data Locks
 
-	public static func getDataLockForReading(at path: CloudPath) -> FileSystemLock {
+	public func getDataLockForReading(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let readLockPromise = pendingStartLockPromise.then {
-			getDataLock(for: path)
+			self.getDataLock(for: path)
 		}.then { lock in
 			// pass path only for debug / log
-			return readLock(locks: [lock], paths: [path])
+			return self.readLock(locks: [lock], paths: [path])
 		}
 		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	public static func getDataLockForWriting(at path: CloudPath) -> FileSystemLock {
+	public func getDataLockForWriting(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let writeLockPromise = pendingStartLockPromise.then {
-			getDataLock(for: path)
+			self.getDataLock(for: path)
 		}.then { lock in
 			// pass path only for debug / log
-			return writeLock(lock: lock, path: path)
+			return self.writeLock(lock: lock, path: path)
 		}
 		return FileSystemLock(lockPromise: writeLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
 	// MARK: - Synchronized Dictionary Access
 
-	private static func getPathLocks(for cloudPaths: [CloudPath]) -> Promise<[RWLock]> {
+	private func getPathLocks(for cloudPaths: [CloudPath]) -> Promise<[RWLock]> {
 		return Promise<[RWLock]> { fulfill, _ in
 			self.dictionaryQueue.async(flags: .barrier) {
 				var pathLocksForCloudPath = [RWLock]()
 				for cloudPath in cloudPaths {
-					var pathLock = pathLocks[cloudPath.path]
+					var pathLock = self.pathLocks[cloudPath.path]
 					if pathLock == nil {
+						print("create new pathLock for: \(cloudPath.path)")
 						pathLock = RWLock()
-						pathLocks[cloudPath.path] = pathLock
+						self.pathLocks[cloudPath.path] = pathLock
 					}
 					pathLocksForCloudPath.append(pathLock!)
 				}
@@ -135,30 +137,72 @@ class LockManager {
 		}
 	}
 
-	private static func getPathLock(for cloudPath: CloudPath) -> Promise<RWLock> {
+	private func getPathLock(for cloudPath: CloudPath) -> Promise<RWLock> {
 		return Promise<RWLock> { fulfill, _ in
 			self.dictionaryQueue.async(flags: .barrier) {
-				var pathLock = pathLocks[cloudPath.path]
+				var pathLock = self.pathLocks[cloudPath.path]
 				if pathLock == nil {
 					pathLock = RWLock()
-					pathLocks[cloudPath.path] = pathLock
+					self.pathLocks[cloudPath.path] = pathLock
 				}
 				fulfill(pathLock!)
 			}
 		}
 	}
 
-	private static func getDataLock(for cloudPath: CloudPath) -> Promise<RWLock> {
+	private func getDataLock(for cloudPath: CloudPath) -> Promise<RWLock> {
 		return Promise<RWLock> { fulfill, _ in
 			self.dictionaryQueue.async(flags: .barrier) {
-				var dataLock = dataLocks[cloudPath.path]
+				var dataLock = self.dataLocks[cloudPath.path]
 				if dataLock == nil {
 					dataLock = RWLock()
-					dataLocks[cloudPath.path] = dataLock
+					self.dataLocks[cloudPath.path] = dataLock
 				}
 				fulfill(dataLock!)
 			}
 		}
+	}
+}
+
+extension LockManager {
+	func getCreatingOrDeletingItemLocks(for cloudPath: CloudPath) -> [FileSystemLock] {
+		let pathLockForReading = getPathLockForReading(at: cloudPath.deletingLastPathComponent())
+		let dataLockForReading = getDataLockForReading(at: cloudPath.deletingLastPathComponent())
+		let pathLockForWriting = getPathLockForWriting(at: cloudPath)
+		let dataLockForWriting = getDataLockForWriting(at: cloudPath)
+		return [pathLockForReading, dataLockForReading, pathLockForWriting, dataLockForWriting]
+	}
+}
+
+extension LockManager {
+	func createMovingItemLocks(sourceCloudPath: CloudPath, targetCloudPath: CloudPath) -> [FileSystemLock] {
+		let oldPathLockForReading = getPathLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let oldDataLockForReading = getDataLockForReading(at: sourceCloudPath.deletingLastPathComponent())
+		let newPathLockForReading = getPathLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let newDataLockForReading = getDataLockForReading(at: targetCloudPath.deletingLastPathComponent())
+		let oldPathLockForWriting = getPathLockForWriting(at: sourceCloudPath)
+		let oldDataLockForWriting = getDataLockForWriting(at: sourceCloudPath)
+		let newPathLockForWriting = getPathLockForWriting(at: targetCloudPath)
+		let newDataLockForWriting = getDataLockForWriting(at: targetCloudPath)
+
+		return [
+			oldPathLockForReading,
+			oldDataLockForReading,
+			newPathLockForReading,
+			newDataLockForReading,
+			oldPathLockForWriting,
+			oldDataLockForWriting,
+			newPathLockForWriting,
+			newDataLockForWriting
+		]
+	}
+}
+
+extension LockManager {
+	func createReadingItemLocks(for cloudPath: CloudPath) -> [FileSystemLock] {
+		let pathLock = getPathLockForReading(at: cloudPath)
+		let dataLock = getDataLockForReading(at: cloudPath)
+		return [pathLock, dataLock]
 	}
 }
 

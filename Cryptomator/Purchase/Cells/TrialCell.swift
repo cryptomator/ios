@@ -77,7 +77,7 @@ struct TrialCellViewModel: Hashable {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
 		let formattedExpirationDate = formatter.string(for: expirationDate) ?? "Invalid Date"
-		return "Expiration Date: \(formattedExpirationDate)"
+		return String(format: LocalizedString.getValue("purchase.product.trial.expirationDate"), formattedExpirationDate)
 	}
 
 	let expirationDate: Date

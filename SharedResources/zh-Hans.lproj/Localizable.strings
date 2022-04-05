@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "一次付费";
 "purchase.product.pricing.free" = "免费版";
 "purchase.product.trial" = "30 天免费试用";
+"purchase.product.trial.expirationDate" = "到期时间：%@";
 "purchase.product.trial.duration" = "30 天";
 "purchase.product.yearlySubscription" = "按年订阅";
 "purchase.product.yearlySubscription.duration" = "按年";
@@ -153,6 +154,7 @@
 "purchase.title" = "解锁完整版";
 "purchase.unlockedFullVersion.message" = "您现在可以使用完整版的 Cryptomator。加密快乐！";
 "purchase.unlockedFullVersion.title" = "谢谢";
+"purchase.error.unknown" = "此次在 App Store 中的购买因原因而不可用。请稍后再试。\n\n如果错误继续存在，尝试重启设备或者在 iOS 设置中退出并重新登录您的 Apple ID。";
 
 "settings.title" = "设置";
 "settings.aboutCryptomator" = "关于";
@@ -182,7 +184,7 @@
 "snapshots.main.vault4" = "/加州之旅";
 
 "trialStatus.active" = "进行中";
-"trialStatus.expired" = "已过期";
+"trialStatus.expired" = "已到期";
 
 "unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "通过 %@ 解锁";
@@ -248,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
 "webDAVAuthentication.httpConnection.change" = "换成 HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "保持 HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "服务器似乎不兼容 WebDAV，请检查链接是否正确";
+"webDAVAuthenticator.error.untrustedCertificate" = "此服务器的证书不受信任，你可能需要重新添加此 WebDAV 连接";
