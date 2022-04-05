@@ -1,5 +1,3 @@
-- Unterstützung für pCloud hinzugefügt (#188)
-- Unterstützung für Shortcuts in Google Drive hinzugefügt
-- Abonnement-Option zum Freischalten der Vollversion hinzugefügt (#178)
-- Übersetzung für Norwegisches Bokmål hinzugefügt
-- Präsentation der In-App-Käufe überarbeitet und vereinfacht (#187)
+- Kopieren von Ordnern behoben, was manchmal nicht vollständig abgeschlossen werden konnte und der Tresor „stecken“ bleibt (#173, #197)
+- Fehler „nicht gefunden“ aufgrund von nicht auflösbaren Shortcuts in Google Drive behoben (#194)
+- Unerwarteten Fehler behoben, wenn der Pfad bestimmte Schlüsselwörter wie „Shared“ in OneDrive enthielt (#189)
