@@ -75,6 +75,8 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		})
 		alertController.addAction(removeAction)
 		alertController.addAction(cancelAction)
+		alertController.popoverPresentationController?.sourceView = sender
+		alertController.popoverPresentationController?.sourceRect = sender.bounds
 		present(alertController, animated: true)
 	}
 
