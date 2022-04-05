@@ -2,3 +2,4 @@
 - Fixed "not found" error in Google Drive due to unresolvable shortcuts (#194)
 - Fixed unexpected error when the path contained certain keywords like "Shared" in OneDrive (#189)
 - Fixed crash on iPad when tapping on disclosure button for signing out of a cloud storage service
+- Fixed missing pCloud in settings under cloud services
