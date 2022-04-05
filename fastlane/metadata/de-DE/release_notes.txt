@@ -1,3 +1,4 @@
 - Kopieren von Ordnern behoben, was manchmal nicht vollständig abgeschlossen werden konnte und der Tresor „stecken“ bleibt (#173, #197)
 - Fehler „nicht gefunden“ aufgrund von nicht auflösbaren Shortcuts in Google Drive behoben (#194)
 - Unerwarteten Fehler behoben, wenn der Pfad bestimmte Schlüsselwörter wie „Shared“ in OneDrive enthielt (#189)
+- Absturz auf dem iPad behoben, wenn man auf den Disclosure-Button tippt, um sich von einem Cloudspeicher-Dienst abzumelden
