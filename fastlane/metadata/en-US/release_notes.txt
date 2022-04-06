@@ -1,5 +1,2 @@
-- Fixed copying of folders that sometimes doesn't finish completely and the vault gets "stuck" (#173, #197)
-- Fixed "not found" error in Google Drive due to unresolvable shortcuts (#194)
-- Fixed unexpected error when the path contained certain keywords like "Shared" in OneDrive (#189)
-- Fixed crash on iPad when tapping on disclosure button for signing out of a cloud storage service
-- Fixed missing pCloud in settings under cloud services
+- Fixed missing vaults in Files app (#176)
+- Fixed missing shortcuts in Google Drive (#201)
