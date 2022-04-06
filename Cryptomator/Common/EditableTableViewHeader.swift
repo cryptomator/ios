@@ -34,6 +34,8 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 		return label
 	}()
 
+	private lazy var stack = UIStackView(arrangedSubviews: [title, editButton])
+
 	convenience init(title: String) {
 		self.init()
 		self.title.text = title.uppercased()
@@ -42,23 +44,23 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init() {
 		self.init(reuseIdentifier: nil)
 
-		editButton.translatesAutoresizingMaskIntoConstraints = false
-		title.translatesAutoresizingMaskIntoConstraints = false
+		editButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+		stack.translatesAutoresizingMaskIntoConstraints = false
+		contentView.addSubview(stack)
 
-		contentView.addSubview(editButton)
-		contentView.addSubview(title)
+		NSLayoutConstraint.activate(stack.constraints(equalTo: contentView.layoutMarginsGuide, directions: [.vertical], priority: .almostRequired))
+		NSLayoutConstraint.activate(stack.constraints(equalTo: contentView, directions: [.horizontal]))
+	}
 
-		NSLayoutConstraint.activate([
-			title.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-			title.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-			title.trailingAnchor.constraint(lessThanOrEqualTo: editButton.leadingAnchor, constant: -10),
-			title.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor),
-			title.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor),
-
-			editButton.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor),
-			editButton.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-			editButton.centerYAnchor.constraint(equalTo: contentView.layoutMarginsGuide.centerYAnchor)
-		])
+	func configure(with traitCollection: UITraitCollection) {
+		let preferredContentSize = traitCollection.preferredContentSizeCategory
+		if preferredContentSize.isAccessibilityCategory {
+			stack.axis = .vertical
+			stack.alignment = .leading
+		} else {
+			stack.axis = .horizontal
+			stack.alignment = .firstBaseline
+		}
 	}
 
 	private func changeEditButton() {

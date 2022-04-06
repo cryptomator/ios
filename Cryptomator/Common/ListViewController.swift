@@ -98,11 +98,8 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+		header.configure(with: tableView.traitCollection)
 		return header
-	}
-
-	override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return 44
 	}
 
 	override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
