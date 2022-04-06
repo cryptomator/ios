@@ -42,9 +42,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
 			return false
 		}
-
+		VaultDBManager.shared.recoverMissingFileProviderDomains().catch { error in
+			DDLogError("Recover missing FileProvider domains failed with error: \(error)")
+		}
 		// Clean up
-		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {
 			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
 			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)

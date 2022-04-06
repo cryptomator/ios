@@ -369,6 +369,20 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
+	public func recoverMissingFileProviderDomains() -> Promise<Void> {
+		let vaults: [VaultAccount]
+		do {
+			vaults = try vaultAccountManager.getAllAccounts()
+		} catch {
+			return Promise(error)
+		}
+		return NSFileProviderManager.getDomains().then { domains -> Promise<Void> in
+			let domainIdentifiers = domains.map { $0.identifier.rawValue }
+			let vaultsWithMissingDomains = vaults.filter { !domainIdentifiers.contains($0.vaultUID) }
+			return self.recoverFileProviderDomains(for: vaultsWithMissingDomains)
+		}
+	}
+
 	// MARK: - Internal
 
 	func postProcessVaultCreation(cachedVault: CachedVault, password: String, storePasswordInKeychain: Bool) throws {
@@ -426,6 +440,19 @@ public class VaultDBManager: VaultManager {
 	func addFileProviderDomain(forVaultUID vaultUID: String, displayName: String) -> Promise<Void> {
 		let domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: displayName)
 		return NSFileProviderManager.add(domain)
+	}
+
+	private func recoverFileProviderDomains(for vaults: [VaultAccount]) -> Promise<Void> {
+		return Promise(on: .global()) { fulfill, _ in
+			for vault in vaults {
+				do {
+					try awaitPromise(self.addFileProviderDomain(forVaultUID: vault.vaultUID, displayName: vault.vaultName))
+				} catch {
+					DDLogDebug("Recover FileProvider domain for vault: \(vault.vaultName) - \(vault.vaultUID) failed with error: \(error)")
+				}
+			}
+			fulfill(())
+		}
 	}
 }
 
