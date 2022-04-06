@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
@@ -16,10 +17,12 @@ import UIKit
 class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
 	private let vaultManager: VaultManager
+	private let vaultAccountManager: VaultAccountManager
 
-	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared) {
+	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared, vaultAccountManager: VaultAccountManager = VaultAccountDBManager.shared) {
 		self.accountManager = accountManager
 		self.vaultManager = vaultManager
+		self.vaultAccountManager = vaultAccountManager
 	}
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -102,8 +105,21 @@ class CloudAuthenticator {
 		case .localFileSystem:
 			break
 		}
-		try accountManager.removeAccount(with: account.accountUID)
-		_ = vaultManager.removeAllUnusedFileProviderDomains()
+		let correspondingVaults = try vaultAccountManager.getAllAccounts().filter { $0.delegateAccountUID == account.accountUID }
+		_ = Promise<Void>(on: .global()) { fulfill, _ in
+			for correspondingVault in correspondingVaults {
+				do {
+					try awaitPromise(self.vaultManager.removeVault(withUID: correspondingVault.vaultUID))
+				} catch {
+					DDLogError("Remove corresponding vault: \(correspondingVault.vaultName) after deauthenticated account: \(account) - failed with error: \(error)")
+				}
+			}
+			fulfill(())
+		}.then {
+			try self.accountManager.removeAccount(with: account.accountUID)
+		}.catch { error in
+			DDLogError("Deauthenticate account: \(account) failed with error: \(error)")
+		}
 	}
 }
 

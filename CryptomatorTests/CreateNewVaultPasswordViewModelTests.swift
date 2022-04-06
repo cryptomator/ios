@@ -171,10 +171,6 @@ private class PasswordVaultManagerMock: VaultManager {
 		return Promise(MockError.notMocked)
 	}
 
-	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
-		return Promise(MockError.notMocked)
-	}
-
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}

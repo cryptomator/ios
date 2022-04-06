@@ -12,7 +12,7 @@ import Foundation
 extension WebDAVAuthenticatorError: LocalizedError {
 	public var errorDescription: String? {
 		switch self {
-		case .unsupportedProcotol:
+		case .unsupportedProtocol:
 			return LocalizedString.getValue("webDAVAuthenticator.error.unsupportedProtocol")
 		case .untrustedCertificate:
 			return LocalizedString.getValue("webDAVAuthenticator.error.untrustedCertificate")
