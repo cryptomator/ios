@@ -244,7 +244,7 @@ class CacheTestCase: XCTestCase {
 	}
 
 	func getRandomData(sizeInBytes: Int) -> Data {
-		let bytes = [UInt32](repeating: 0, count: sizeInBytes).map { _ in arc4random() }
+		let bytes = [UInt32](repeating: 0, count: sizeInBytes).map { _ in UInt32.random(in: UInt32.min ... UInt32.max) }
 		let data = Data(bytes: bytes, count: sizeInBytes)
 		return data
 	}
