@@ -44,12 +44,19 @@ class EditableTableViewHeader: UITableViewHeaderFooterView {
 	convenience init() {
 		self.init(reuseIdentifier: nil)
 
+		title.setContentHuggingPriority(.defaultLow, for: .vertical)
 		editButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
 		stack.translatesAutoresizingMaskIntoConstraints = false
 		contentView.addSubview(stack)
-
-		NSLayoutConstraint.activate(stack.constraints(equalTo: contentView.layoutMarginsGuide, directions: [.vertical], priority: .almostRequired))
-		NSLayoutConstraint.activate(stack.constraints(equalTo: contentView, directions: [.horizontal]))
+		let topAnchor = stack.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: 20)
+		topAnchor.priority = .almostRequired
+		let bottomAnchor = stack.bottomAnchor.constraint(equalTo: contentView.layoutMarginsGuide.bottomAnchor)
+		bottomAnchor.priority = .almostRequired
+		NSLayoutConstraint.activate([
+			topAnchor,
+			bottomAnchor
+		])
+		NSLayoutConstraint.activate(stack.constraints(equalTo: contentView.layoutMarginsGuide, directions: [.horizontal]))
 	}
 
 	func configure(with traitCollection: UITraitCollection) {
