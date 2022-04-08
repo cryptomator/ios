@@ -11,3 +11,5 @@
 "fileProvider.error.unlockButton" = "Otključaj";
 
 "unlockVault.button.unlock" = "Otključaj";
+
+"vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
