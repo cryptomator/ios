@@ -40,8 +40,18 @@
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "ভোল্ট এর নাম খালি হতে পারবে না।";
 "addVault.createNewVault.chooseCloud.header" = "ভোল্ট এর এনক্রিপ্টেড ফাইলগুলো ক্রিপ্টোমেটর কোথায় সংরক্ষণ করবে?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" নামটি এখানে ইতিমধ্যে বিদ্যমান। অন্য একটি ভোল্ট নাম বা স্থান নির্বাচন করুন।";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "সতর্কতা: আপনি যদি আপনার পাসওয়ার্ড ভুলে যান, তাহলে পাসওয়ার্ডটি পুনরুদ্ধার করার কোনো উপায় থাকবে না।";
+"addVault.createNewVault.detectedMasterkey.text" = "ক্রিপ্টোমেটর এখানে একটি বিদ্যমান ভোল্ট সনাক্ত করেছে. \nতাই নতুন ভোল্ট তৈরি করতে, পিছনে ফিরে যান এবং অন্য একটি ফোল্ডার পছন্দ করুন.";
+"addVault.createNewVault.password.enterPassword.header" = "একটি নতুন পাসওয়ার্ড লিখুন.";
+"addVault.createNewVault.password.confirmPassword.header" = "নতুন পাসওয়ার্ডটি নিশ্চিত করুন.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "পাসওয়ার্ডটি নিশ্চিত করবেন?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "সতর্কতা: আপনি যদি আপনার পাসওয়ার্ড ভুলে যান, তাহলে পাসওয়ার্ডটি পুনরুদ্ধার করার কোনো উপায় থাকবে না.";
+"addVault.createNewVault.password.error.emptyPassword" = "পাসওয়ার্ড খালি থাকতে পারবেনা.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "পাসওয়ার্ড মিলছে না.";
+"addVault.createNewVault.password.error.tooShortPassword" = "পাসওয়ার্ডে কমপক্ষে ৮টি অক্ষর থাকতে হবে.";
+"addVault.createNewVault.progress" = "ভোল্ট তৈরি হচ্ছে…";
 "addVault.openExistingVault.title" = "বিদ্যমান কোনো ভোল্ট খুলুন";
+"changePassword.header.newPassword.title" = "একটি নতুন পাসওয়ার্ড লিখুন.";
+"changePassword.header.newPasswordConfirmation.title" = "নতুন পাসওয়ার্ডটি নিশ্চিত করুন.";
 "fileProvider.error.unlockButton" = "আনলক করুন";
 "purchase.retry.button" = "পুনরায় চেষ্টা করুন";
 
