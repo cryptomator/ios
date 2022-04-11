@@ -1,2 +1,2 @@
-- Fehlende Tresore in der App „Dateien“ behoben (#176)
-- Fehlende Shortcuts in Google Drive behoben (#201)
+- Leeren Ordner innerhalb eines Shortcuts in Google Drive behoben (#204)
+- Konfliktordner beim Erstellen mehrerer Ordner in Google Drive, OneDrive und pCloud behoben
