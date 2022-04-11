@@ -1,2 +1,2 @@
-- Fixed missing vaults in Files app (#176)
-- Fixed missing shortcuts in Google Drive (#201)
+- Fixed empty folder inside a shortcut in Google Drive (#204)
+- Fixed conflict folder when creating multiple folders in Google Drive, OneDrive, and pCloud
