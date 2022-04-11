@@ -1,121 +1,15 @@
-/* 
-  Localizable.strings
-  Cryptomator
+"common.button.cancel" = "Odustani";
+"common.button.change" = "Promijeni";
+"common.button.done" = "Gotovo";
+"common.button.next" = "Sljedeći";
 
-  Copyright © 2021 Skymatic GmbH. All rights reserved.
-*/
+"addVault.title" = "Dodaj trezor";
+"addVault.createNewVault.title" = "Napravi novi trezor";
+"addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
+"addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti šifrirane datoteke Vašeg trezora?";
+"addVault.openExistingVault.title" = "Otvori postojeći trezor";
+"fileProvider.error.unlockButton" = "Otključaj";
 
-"common.alert.error.title" = "Error";
-"common.button.cancel" = "Cancel";
-"common.button.choose" = "Choose";
-"common.button.confirm" = "Confirm";
-"common.button.create" = "Create";
-"common.button.createFolder" = "Create Folder";
-"common.button.done" = "Done";
-"common.button.edit" = "Edit";
-"common.button.next" = "Next";
-"common.button.ok" = "OK";
-"common.button.remove" = "Remove";
-"common.button.signOut" = "Sign Out";
-"common.cells.password" = "Password";
-"common.cells.url" = "URL";
-"common.cells.username" = "Username";
-"common.footer.learnMore" = "Learn more.";
+"unlockVault.button.unlock" = "Otključaj";
 
-"accountList.header.title" = "Authentications";
-"accountList.emptyList.message" = "Tap here to add an account";
-"accountList.signOut.alert.title" = "Remove Associated Vaults?";
-"accountList.signOut.alert.message" = "By signing out, all associated vaults will be removed from the vault list. No encrypted data will be deleted. You can sign in again and re-add the vaults later.";
-
-"addVault.title" = "Add Vault";
-"addVault.createNewVault.title" = "Create New Vault";
-"addVault.createNewVault.setVaultName.header.title" = "Choose a name for the vault.";
-"addVault.createNewVault.setVaultName.cells.name" = "Vault Name";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault name cannot be empty.";
-"addVault.createNewVault.setVaultName.error.invalidInput" = "Vault name should not contain \\ / : * ? \" < > | or end with a period.";
-"addVault.createNewVault.chooseCloud.header" = "Where should Cryptomator store the encrypted files of your vault?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" already exists at this location. Choose a different vault name or location.";
-"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detected an existing vault at this location.\nIn order to create a new vault, please go back and choose a different folder.";
-"addVault.createNewVault.password.enterPassword.header" = "Enter a new password.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirm the new password.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirm Password?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: If you forget your password, there is no way to recover your data.";
-"addVault.createNewVault.password.error.emptyPassword" = "Password cannot be empty.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
-"addVault.openExistingVault.title" = "Open Existing Vault";
-"addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
-"addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
-"addVault.openExistingVault.password.footer" = "Enter password for \"%@\"";
-"addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
-"addVault.success.openFilesApp" = "Open Files App";
-"addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
-
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
-
-"chooseFolder.emptyFolder.footer" = "Folder is Empty";
-"chooseFolder.createNewFolder.header.title" = "Choose a name for the folder.";
-"chooseFolder.createNewFolder.cells.name" = "Folder Name";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Folder name cannot be empty.";
-
-"cloudProvider.error.itemNotFound" = "\"%@\" could not be found.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" already exists.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" has an unexpected item type.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Parent folder \"%@\" does not exist.";
-"cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
-"cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
-"cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
-"cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
-
-"cloudProviderType.localFileSystem" = "Other File Provider";
-
-"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
-"localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
-"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
-"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
-"localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
-
-"onboarding.title" = "Welcome";
-"onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
-"onboarding.openCryptomator.button" = "Open Cryptomator";
-
-"settings.title" = "Settings";
-"settings.aboutCryptomator" = "About Cryptomator";
-"settings.aboutCryptomator.title" = "Version %@ (%@)";
-"settings.sendLogFile" = "Send Log File";
-
-"unlockVault.button.unlock" = "Unlock";
-"unlockVault.button.unlockVia" = "Unlock via %@";
-"unlockVault.password.footer" = "Enter password for \"%@\"";
-"unlockVault.enableBiometricalUnlock.switch" = "Enable %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Instead of unlocking your vault with your password, you can unlock it via %@.";
-"unlockVault.evaluatePolicy.reason" = "Unlock your vault";
-
-"untrustedTLSCertificate.title" = "Invalid TLS Certificate";
-"untrustedTLSCertificate.message" = "The TLS Certificate of \"%@\" is invalid. Do you want to trust it anyway?\n\n SHA-256: %@";
-"untrustedTLSCertificate.add" = "Trust";
-"untrustedTLSCertificate.dismiss" = "Don't Trust";
-
-"vaultDetail.button.lock" = "Lock Now";
-"vaultDetail.button.removeVault" = "Remove from Vault List";
-"vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
-"vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
-"vaultDetail.info.footer.accountInfo" = "Logged in as %@ via %@.";
-"vaultDetail.locked.footer" = "Your vault is currently locked.";
-"vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
-"vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
-
-"vaultList.header.title" = "Vaults";
-"vaultList.emptyList.message" = "Tap here to add a vault";
-"vaultList.remove.alert.title" = "Remove Vault?";
-"vaultList.remove.alert.message" = "This will only remove the vault from the vault list. No encrypted data will be deleted. You can re-add the vault later.";
-
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version is unsupported. This vault has been created with an older or newer version of Cryptomator.";
-
-"webDAVAuthentication.title" = "WebDAV";
+"vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
