@@ -114,5 +114,6 @@
 
 "webDAVAuthentication.progress" = "Аутентифікація…";
 "webDAVAuthentication.httpConnection.alert.title" = "Використовувати HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Змінити на HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Залишити HTTP";
