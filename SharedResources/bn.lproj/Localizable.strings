@@ -77,7 +77,42 @@
 "cloudProvider.error.itemNotFound" = "\"%@\" খুজে পাওয়া যায়নি.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" ইতিমধ্যে বিদ্যমান.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" এর একটি অপ্রত্যাশিত আইটেম রয়েছে.";
+"cloudProvider.error.parentFolderDoesNotExist" = "আগের ফোল্ডার \"%@\" বিদ্যমান নয়.";
+"cloudProvider.error.quotaInsufficient" = "আপনার স্টোরেজে পর্যাপ্ত পরিমাণ জায়গা নেই.";
+"cloudProvider.error.unauthorized" = "অননুমোদিত কার্যক্রম চালাতে অক্ষম হয়েছে.";
+"cloudProvider.error.noInternetConnection" = "এই কার্যক্রমটি চালনায় ইন্টারনেট সংযোগ প্রয়োজন.";
+
+"fileProvider.onboarding.title" = "স্বাগতম";
+"fileProvider.onboarding.info" = "আপনার ফাইলগুলো রক্ষায় ক্রিপ্টোমেটরকে পছন্দ করার জন্য ধন্যবাদ. শুরু করতে, প্রধান আ্যপটিতে যান এবং ভোল্ট যুক্ত করুন.";
+"fileProvider.onboarding.button.openCryptomator" = "ক্রিপ্টোমেটর খুলুন";
+"fileProvider.error.biometricalAuthCanceled.title" = "আনলক বাতিল হয়েছে";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@ দ্বারা আনলক ব্যর্থ হয়েছে. দয়া করে আবার চেষ্টা করুন.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "ভুল পাসওয়ার্ড";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ এর জন্য যে পাসওয়ার্ড সংরক্ষণ করা হয়েছে তা ভুল. দয়া করে আবার চেষ্টা করুন এবং %@ পুনঃ সক্রিয় করতে আপনার পাসওয়ার্ড প্রবেশ করান.";
+"fileProvider.error.defaultLock.title" = "আনলক করুন";
+"fileProvider.error.defaultLock.message" = "আপনার ভোল্টের বিষয়বস্তুগুলো দেখতে কিংবা ব্যবহার করতে, সেটি অবশ্যই আনলক করতে হবে.";
 "fileProvider.error.unlockButton" = "আনলক করুন";
+
+"keepUnlocked.alert.title" = "ভোল্ট লক করবেন?";
+"keepUnlocked.alert.message" = "এই পরিবর্তনটি আপনার ভোল্টে কার্যকর হতে হলে ভোল্ট লক করা প্রয়োজন.";
+"keepUnlocked.alert.confirm" = "আমি নিশ্চিত এবং লক করুন";
+"keepUnlocked.header" = "এমনি সময়ে এই ভোল্টটি কতক্ষণ আনলক থাকবে তা নিদিষ্ট করুন.";
+"keepUnlocked.footer.auto" = "iOS কে সিদ্ধান্ত নিতে দেওয়া মানে হচ্ছে মেমোরি মুক্ত করতে ক্রিপ্টোমেটর যেকোনো সময় বন্ধ হয়ে যেতে পারে, যা স্বয়ংক্রিয়ভাবে ভোল্টটিকে লক করবে.";
+"keepUnlocked.footer.on" = "নির্বাচিত অপশনটি ব্যবহারে, আপনার ভোল্টটি যতক্ষণ খোলা থকাবে, আপনার পাসওয়ার্ডের একটি অনুলিপি iOS এর কিচেইন এ সংরক্ষিত থাকবে.";
+"keepUnlockedDuration.auto" = "iOS ই সিদ্ধান্ত নিবে";
+"keepUnlockedDuration.auto.shortDisplayName" = "স্বয়ংক্রিয়";
+"keepUnlockedDuration.indefinite" = "অনির্দিষ্ট";
+
+"localFileSystemAuthentication.createNewVault.header" = "পরবর্তী স্ক্রিনে, আপনার নতুন ভোল্টের জন্য স্টোরেজ ঠিকানা পছন্দ করুন.";
+"localFileSystemAuthentication.createNewVault.button" = "স্টোরেজ ঠিকানা নির্বাচন করুন";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "এই ঠিকানায় একটি ভোল্ট ইতিমধ্যে বিদ্যমান. ভিন্ন একটি স্টোরেজ ঠিকিনা দিয়ে আবার চেষ্টা করুন.";
+"localFileSystemAuthentication.openExistingVault.header" = "পরবর্তী স্ক্রিনে, আপনার বিদ্যমান ভোল্ট ফোল্ডারটি পছন্দ করুন.";
+"localFileSystemAuthentication.openExistingVault.button" = "ভোল্ট ফোল্ডার নির্বাচন করুন";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "নির্বাচিত ফোল্ডারটি কোনো ভোল্ট নয়. দয়া করে অন্য ফোল্ডার দিয়ে আবার চেষ্টা করুন.";
+
+"onboarding.title" = "স্বাগতম";
+"purchase.footer.privacyPolicy" = "গোপনীয়তার নীতি";
+"purchase.footer.termsOfUse" = "ব্যবহারের শর্তাবলী";
 "purchase.retry.button" = "পুনরায় চেষ্টা করুন";
 
 "settings.title" = "সেটিংস";
