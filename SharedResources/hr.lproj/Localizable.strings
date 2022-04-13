@@ -2,6 +2,7 @@
 "common.button.change" = "Promijeni";
 "common.button.done" = "Gotovo";
 "common.button.next" = "Sljedeći";
+"common.cells.password" = "Lozinka";
 
 "addVault.title" = "Dodaj trezor";
 "addVault.createNewVault.title" = "Napravi novi trezor";
