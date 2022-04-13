@@ -1,16 +1,34 @@
+"common.alert.attention.title" = "Pažnja";
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
+"common.button.choose" = "Odaberi";
+"common.button.create" = "Stvori";
 "common.button.done" = "Gotovo";
+"common.button.edit" = "Izmjeni";
+"common.button.enable" = "Omogući";
 "common.button.next" = "Sljedeći";
+"common.button.remove" = "Ukloni";
 "common.cells.password" = "Lozinka";
+"common.cells.url" = "URL";
+"common.cells.username" = "Korisničko ime";
 
 "addVault.title" = "Dodaj trezor";
 "addVault.createNewVault.title" = "Napravi novi trezor";
 "addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
 "addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti šifrirane datoteke Vašeg trezora?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VAŽNO: Ako zaboravite svoju lozinku, nema načina za povrat Vaših podataka.";
 "addVault.openExistingVault.title" = "Otvori postojeći trezor";
 "fileProvider.error.unlockButton" = "Otključaj";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"onboarding.info" = "Hvala Vam što ste odabrali Cryptomator da štiti Vaše datoteke.\n\nS Cryptomator-om, ključ do Vaših podataka je u Vašim rukama. Cryptomator šifrira Vaše podatke brzo i jednostavno.\n\nOvaj program je u potpunosti integriran u Files program. Svakako omogućite Cryptomator u Files programu da biste pristupili svojim trezorima.";
+"purchase.retry.button" = "Pokušaj ponovno";
+
+"settings.title" = "Postavke";
+"settings.debugMode" = "Način rada otklanjanja pogrešaka";
+"settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
 
 "unlockVault.button.unlock" = "Otključaj";
 
 "vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
+"vaultDetail.button.moveVault" = "Premjesti";
+"vaultDetail.button.renameVault" = "Preimenuj";
