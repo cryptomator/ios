@@ -33,3 +33,6 @@
 "vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
 "vaultDetail.button.moveVault" = "Premjesti";
 "vaultDetail.button.renameVault" = "Preimenuj";
+"webDAVAuthentication.httpConnection.alert.title" = "Koristiti HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.";
+"webDAVAuthentication.httpConnection.change" = "Promijeni u HTTPS";
