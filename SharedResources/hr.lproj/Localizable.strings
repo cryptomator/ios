@@ -2,11 +2,12 @@
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
 "common.button.choose" = "Odaberi";
-"common.button.create" = "Stvori";
+"common.button.create" = "Izradi";
 "common.button.done" = "Gotovo";
 "common.button.edit" = "Izmjeni";
 "common.button.enable" = "Omogući";
 "common.button.next" = "Sljedeći";
+"common.button.ok" = "U redu";
 "common.button.remove" = "Ukloni";
 "common.cells.password" = "Lozinka";
 "common.cells.url" = "URL";
