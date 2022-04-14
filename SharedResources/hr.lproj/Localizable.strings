@@ -1,14 +1,26 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Greška";
 "common.alert.attention.title" = "Pažnja";
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
 "common.button.choose" = "Odaberi";
+"common.button.confirm" = "Potvrdi";
 "common.button.create" = "Izradi";
+"common.button.createFolder" = "Izradi mapu";
 "common.button.done" = "Gotovo";
+"common.button.download" = "Preuzmi";
 "common.button.edit" = "Izmjeni";
 "common.button.enable" = "Omogući";
 "common.button.next" = "Sljedeći";
 "common.button.ok" = "U redu";
 "common.button.remove" = "Ukloni";
+"common.button.signOut" = "Odjavi se";
 "common.cells.password" = "Lozinka";
 "common.cells.url" = "URL";
 "common.cells.username" = "Korisničko ime";
@@ -17,14 +29,19 @@
 "addVault.createNewVault.title" = "Napravi novi trezor";
 "addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
 "addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti šifrirane datoteke Vašeg trezora?";
+"addVault.createNewVault.password.enterPassword.header" = "Unesite novu lozinku.";
+"addVault.createNewVault.password.confirmPassword.header" = "Potvrdite novu lozinku.";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "VAŽNO: Ako zaboravite svoju lozinku, nema načina za povrat Vaših podataka.";
 "addVault.openExistingVault.title" = "Otvori postojeći trezor";
+"changePassword.header.newPassword.title" = "Unesite novu lozinku.";
+"changePassword.header.newPasswordConfirmation.title" = "Potvrdite novu lozinku.";
 "fileProvider.error.unlockButton" = "Otključaj";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "onboarding.info" = "Hvala Vam što ste odabrali Cryptomator da štiti Vaše datoteke.\n\nS Cryptomator-om, ključ do Vaših podataka je u Vašim rukama. Cryptomator šifrira Vaše podatke brzo i jednostavno.\n\nOvaj program je u potpunosti integriran u Files program. Svakako omogućite Cryptomator u Files programu da biste pristupili svojim trezorima.";
 "purchase.retry.button" = "Pokušaj ponovno";
 
 "settings.title" = "Postavke";
+"settings.clearCache" = "Očisti predmemoriju";
 "settings.debugMode" = "Način rada otklanjanja pogrešaka";
 "settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
 
