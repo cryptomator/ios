@@ -154,15 +154,47 @@
 "purchase.title" = "Otključaj punu verziju";
 "purchase.unlockedFullVersion.message" = "Sada možete koristiti punu verziju Cryptomator-a. Sretno šifriranje!";
 "purchase.unlockedFullVersion.title" = "Hvala Vam";
+"purchase.error.unknown" = "Ova kupnja nije dostupna u App Store-u iz nepoznatog razloga. Pokušajte ponovno kasnije.\n\nAko se ova pogreška nastavi, pokušajte ponovno pokrenuti uređaj ili se odjaviti i ponovno prijaviti na svoj Apple ID u postavkama iOS-a.";
 
 "settings.title" = "Postavke";
+"settings.aboutCryptomator" = "O Cryptomator-u";
+"settings.aboutCryptomator.title" = "Verzija %@ (%@)";
+"settings.cacheSize" = "Veličina predmemorije";
 "settings.clearCache" = "Očisti predmemoriju";
+"settings.cloudServices" = "Usluge u oblaku";
+"settings.contact" = "Kontakt";
 "settings.debugMode" = "Način rada otklanjanja pogrešaka";
 "settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
+"settings.manageSubscriptions" = "Upravljaj pretplatom";
+"settings.rateApp" = "Ocijeni program";
+"settings.sendLogFile" = "Pošalji log datoteku";
 "settings.unlockFullVersion" = "Otključaj punu verziju";
 
+"snapshots.fileprovider.file1" = "/Računovodstvo.brojevi";
+"snapshots.fileprovider.file2" = "/Završna prezentacija.ključ";
+"snapshots.fileprovider.file3" = "/Kratki film o proizvodu.mov";
+"snapshots.fileprovider.file4" = "/Prijedlog.docx";
+"snapshots.fileprovider.file5" = "/Izvještaj.pdf";
+"snapshots.fileprovider.folder3" = "/Tajni projekt";
+"snapshots.fileprovider.folder2" = "/Računi";
+"snapshots.fileprovider.folder1" = "/Certifikati";
+"snapshots.main.vault1" = "/Psao";
+"snapshots.main.vault2" = "/Obitelj";
+"snapshots.main.vault3" = "/Dokumenti";
+"snapshots.main.vault4" = "/Putovanje u Kaliforniju";
+
+"trialStatus.active" = "Aktivan";
+"trialStatus.expired" = "Isteklo";
+
 "unlockVault.button.unlock" = "Otključaj";
+"unlockVault.button.unlockVia" = "Otključaj putem %@";
 "unlockVault.password.footer" = "Unesite lozinku za \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Omogući %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Umjesto da otključate svoj trezor lozinkom, možete ga otključati putem %@.";
+"unlockVault.evaluatePolicy.reason" = "Otključajte svoj trezor";
+"unlockVault.progress" = "Otključavanje…";
+
+"untrustedTLSCertificate.title" = "Nevažeći TLS certifikat";
 "upgrade.notEligible.alert.message" = "Cryptomator nije mogao otkriti stariju verziju instaliranu na Vašem uređaju. Ako ste ga kupili, ponovno ga preuzmite iz App Store-a i pokušajte ponovno.";
 "upgrade.info" = "Hvala na povjerenju u Cryptomator od prve verzije. Kao vjerni korisnik, ispunjavate uvjete za besplatnu nadogradnju.";
 
