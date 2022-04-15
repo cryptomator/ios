@@ -141,15 +141,29 @@
 "purchase.product.trial.duration" = "za 30 dana";
 "purchase.product.yearlySubscription" = "Godišnja pretplata";
 "purchase.product.yearlySubscription.duration" = "godišnje";
+"purchase.readOnlyMode.alert.title" = "Način \"Samo za čitanje\"";
+"purchase.readOnlyMode.alert.message" = "Punu verziju Cryptomator-a možete otključati kasnije u postavkama i za sada je koristiti u načinu \"samo za čitanje\".";
+"purchase.restorePurchase.button" = "Obnovi kupnju";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Probna verzija nastavljena";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Sada možete koristiti punu verziju Cryptomator-a ograničeno vrijeme. Vaša probna verzija istječe %@. Nakon toga, vaši će trezori i dalje biti dostupni u načinu \"samo za čitanje\".";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Obnavljanje uspješno";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nema pune verzije";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nismo uspjeli pronaći prethodno kupljenu punu verziju koja bi se mogla vratiti. Pokušajte s drugom opcijom.";
 "purchase.retry.button" = "Pokušaj ponovno";
+"purchase.retry.footer" = "Nije moguće učitati dostupne proizvode.";
+"purchase.title" = "Otključaj punu verziju";
+"purchase.unlockedFullVersion.message" = "Sada možete koristiti punu verziju Cryptomator-a. Sretno šifriranje!";
+"purchase.unlockedFullVersion.title" = "Hvala Vam";
 
 "settings.title" = "Postavke";
 "settings.clearCache" = "Očisti predmemoriju";
 "settings.debugMode" = "Način rada otklanjanja pogrešaka";
 "settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
+"settings.unlockFullVersion" = "Otključaj punu verziju";
 
 "unlockVault.button.unlock" = "Otključaj";
 "unlockVault.password.footer" = "Unesite lozinku za \"%@\".";
+"upgrade.notEligible.alert.message" = "Cryptomator nije mogao otkriti stariju verziju instaliranu na Vašem uređaju. Ako ste ga kupili, ponovno ga preuzmite iz App Store-a i pokušajte ponovno.";
 "upgrade.info" = "Hvala na povjerenju u Cryptomator od prve verzije. Kao vjerni korisnik, ispunjavate uvjete za besplatnu nadogradnju.";
 
 "urlSession.error.httpError.401" = "Pogrešno korisničko ime i/ili lozinka.";
