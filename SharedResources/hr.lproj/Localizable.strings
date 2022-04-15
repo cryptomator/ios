@@ -21,13 +21,24 @@
 "common.button.ok" = "U redu";
 "common.button.remove" = "Ukloni";
 "common.button.signOut" = "Odjavi se";
+"common.button.verify" = "Potvrdi";
+"common.cells.openInFilesApp" = "Otvori u Files programu";
 "common.cells.password" = "Lozinka";
 "common.cells.url" = "URL";
 "common.cells.username" = "Korisničko ime";
+"common.footer.learnMore" = "Saznaj više.";
+
+"accountList.header.title" = "Autentikacije";
+"accountList.emptyList.message" = "Dodirnite ovdje za dodavanje računa";
+"accountList.signOut.alert.title" = "Ukloniti povezane trezore?";
+"accountList.signOut.alert.message" = "Odjavom, svi povezani trezori bit će uklonjeni s popisa trezora. Šifrirani podaci neće biti izbrisani. Možete se ponovno prijaviti i kasnije ponovo dodati trezore.";
 
 "addVault.title" = "Dodaj trezor";
 "addVault.createNewVault.title" = "Napravi novi trezor";
+"addVault.createNewVault.purchase" = "Izrada novog trezora zahtjeva punu verziju Cryptomator-a.";
+"addVault.createNewVault.setVaultName.header.title" = "Odaberite ime za trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Ime trezora ne može biti prazno.";
 "addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti šifrirane datoteke Vašeg trezora?";
 "addVault.createNewVault.password.enterPassword.header" = "Unesite novu lozinku.";
 "addVault.createNewVault.password.confirmPassword.header" = "Potvrdite novu lozinku.";
