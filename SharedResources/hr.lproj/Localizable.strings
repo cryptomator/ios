@@ -195,15 +195,61 @@
 "unlockVault.progress" = "Otključavanje…";
 
 "untrustedTLSCertificate.title" = "Nevažeći TLS certifikat";
+"untrustedTLSCertificate.message" = "TLS certificat od \"%@\" je nevažeći. Želite li mu ipak vjerovati?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vjeruj";
+"untrustedTLSCertificate.dismiss" = "Ne vjeruj";
+
+"upgrade.title" = "Ponuda za nadogradnju";
+"upgrade.notEligible.alert.title" = "Nadogradnja neuspješna";
 "upgrade.notEligible.alert.message" = "Cryptomator nije mogao otkriti stariju verziju instaliranu na Vašem uređaju. Ako ste ga kupili, ponovno ga preuzmite iz App Store-a i pokušajte ponovno.";
 "upgrade.info" = "Hvala na povjerenju u Cryptomator od prve verzije. Kao vjerni korisnik, ispunjavate uvjete za besplatnu nadogradnju.";
 
 "urlSession.error.httpError.401" = "Pogrešno korisničko ime i/ili lozinka.";
+"urlSession.error.httpError.403" = "Nedovoljna prava za traženi resurs.";
+"urlSession.error.httpError.404" = "Traženi resurs nije pronađen.";
+"urlSession.error.httpError.405" = "Ciljni resurs ne podržava metodu zahtjeva.";
+"urlSession.error.httpError.409" = "Sukob zahtjeva s trenutnim stanjem ciljnog resursa.";
+"urlSession.error.httpError.412" = "Pristup ciljnom resursu odbijen.";
+"urlSession.error.httpError.default" = "Mrežna veza nije uspjela sa statusnim kodom %ld.";
+"urlSession.error.unexpectedResponse" = "Došlo je do neočekivanog odgovora mreže.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Već ste dodali ovaj trezor.";
 
 "vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
+"vaultDetail.button.lock" = "Zaključaj sada";
 "vaultDetail.button.moveVault" = "Premjesti";
 "vaultDetail.button.removeVault" = "Ukloni iz liste trezora";
 "vaultDetail.button.renameVault" = "Preimenuj";
+"vaultDetail.changePassword.footer" = "Odaberite jaku lozinku za svoj trezor koju samo Vi znate i čuvajte je na sigurnom mjestu.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ako omogućite %@, Vaša lozinka za trezor bit će pohranjena u privjesku za ključeve iOS-a.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Lozinka za Vaš trezor bit će potrebna jedino ako %@ autentikacija ne uspije.";
+"vaultDetail.info.footer.accessVault" = "Pristupite trezoru putem Files programa.";
+"vaultDetail.info.footer.accountInfo" = "Prijavljen kao %@ putem %@.";
+"vaultDetail.keepUnlocked.title" = "Trajanje otključavanja";
+"vaultDetail.keepUnlocked.footer.off" = "Otključavanje će biti potrebno kada Files program prekine Cryptomator.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Otključavanje će biti potrebno kada je vaš trezor neaktivan %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Otključavanje neće biti potrebno osim ako nije ručno zaključan.";
+"vaultDetail.locked.footer" = "Vaš trezor je trenutno zaključan.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator je otkrio postojeći trezor na ovoj lokaciji.\nDa biste premjestili svoj trezor, vratite se i odaberite drugu mapu.";
+"vaultDetail.moveVault.progress" = "Premještanje…";
+"vaultDetail.removeVault.footer" = "Ovo će samo ukloniti trezor s popisa trezora i neće izbrisati šifrirane datoteke.";
+"vaultDetail.renameVault.progress" = "Preimenovanje…";
+"vaultDetail.unlocked.footer" = "Vaš trezor je trenutno otključan u Files programu.";
+"vaultDetail.unlockVault.footer" = "Unesite lozinku za \"%@\" da biste ju pohraniti u privjesak za ključeve iOS-a i omogućiti %@.";
+
+"vaultList.header.title" = "Trezori";
+"vaultList.emptyList.message" = "Dodirnite ovdje za dodavanje trezora";
+"vaultList.remove.alert.title" = "Ukloniti trezor?";
+"vaultList.remove.alert.message" = "Ovo će samo ukloniti trezor s popisa trezora. Šifrirani podaci neće biti izbrisani. Trezor možete ponovno dodati kasnije.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracija trezora nije podržana. Provjerite koristite li najnoviju verziju Cryptomator-a.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Verzija trezora %ld nije podržana. Ovaj trezor je izrađen sa starijom ili novijom verzijom Cryptomator-a.";
+
+"webDAVAuthentication.progress" = "Autenticiranje…";
 "webDAVAuthentication.httpConnection.alert.title" = "Koristiti HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.";
 "webDAVAuthentication.httpConnection.change" = "Promijeni u HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Zadrži HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Čini se da poslužitelj nije kompatibilan s WebDAV-om. Provjerite jeste li upotrijebili ispravan URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certifikat ovog poslužitelja nije pouzdan. Možda ćete morati ponovno dodati ovu WebDAV vezu.";
