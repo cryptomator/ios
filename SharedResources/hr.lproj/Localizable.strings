@@ -22,7 +22,7 @@
 "common.button.remove" = "Ukloni";
 "common.button.signOut" = "Odjavi se";
 "common.button.verify" = "Potvrdi";
-"common.cells.openInFilesApp" = "Otvori u Files programu";
+"common.cells.openInFilesApp" = "Otvori u Files aplikaciji";
 "common.cells.password" = "Lozinka";
 "common.cells.url" = "URL";
 "common.cells.username" = "Korisničko ime";
@@ -56,8 +56,8 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ovaj trezor";
 "addVault.openExistingVault.password.footer" = "Unesite lozinku za \"%@\".";
 "addVault.openExistingVault.progress" = "Dodavanje trezora…";
-"addVault.success.info" = "Uspješno dodan trezor \"%@\".\nPristupite ovom trezoru putem Files programa.";
-"addVault.success.footer" = "Ako već niste, omogućite Cryptomator u Files programu.";
+"addVault.success.info" = "Uspješno dodan trezor \"%@\".\nPristupite ovom trezoru putem Files aplikacije.";
+"addVault.success.footer" = "Ako već niste, omogućite Cryptomator u Files aplikaciji.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
@@ -86,7 +86,7 @@
 "cloudProviderType.localFileSystem" = "Drugi pružatelj datoteke";
 
 "fileProvider.onboarding.title" = "Dobrodošli";
-"fileProvider.onboarding.info" = "Hvala što ste odabrali Cryptomator za zaštitu Vaših datoteka. Za početak, idite na glavni program i dodajte trezor.";
+"fileProvider.onboarding.info" = "Hvala što ste odabrali Cryptomator za zaštitu Vaših datoteka. Za početak, idite na glavnu aplikaciju i dodajte trezor.";
 "fileProvider.onboarding.button.openCryptomator" = "Otvori Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Otključavanje otkazano";
 "fileProvider.error.biometricalAuthCanceled.message" = "Otključavanje putem %@ nije uspjelo. Molimo pokušajte ponovno.";
@@ -121,7 +121,7 @@
 "nameValidation.error.containsIllegalCharacter" = "Ne možete koristiti ime koje sadrži \"%@\". Molimo odaberite drugo ime.";
 
 "onboarding.title" = "Dobrodošli";
-"onboarding.info" = "Hvala Vam što ste odabrali Cryptomator da štiti Vaše datoteke.\n\nS Cryptomator-om, ključ do Vaših podataka je u Vašim rukama. Cryptomator šifrira Vaše podatke brzo i jednostavno.\n\nOvaj program je u potpunosti integriran u Files program. Svakako omogućite Cryptomator u Files programu da biste pristupili svojim trezorima.";
+"onboarding.info" = "Hvala Vam što ste odabrali Cryptomator da štiti Vaše datoteke.\n\nS Cryptomator-om, ključ do Vaših podataka je u Vašim rukama. Cryptomator šifrira Vaše podatke brzo i jednostavno.\n\nOva aplikacija je u potpunosti integrirana u Files aplikaciju. Svakako omogućite Cryptomator u Files aplikaciji da biste pristupili svojim trezorima.";
 "onboarding.button.continue" = "Nastavi";
 
 "purchase.beginFreeTrial.alert.title" = "Probna verzija otključana";
@@ -166,7 +166,7 @@
 "settings.debugMode" = "Način rada otklanjanja pogrešaka";
 "settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
 "settings.manageSubscriptions" = "Upravljaj pretplatom";
-"settings.rateApp" = "Ocijeni program";
+"settings.rateApp" = "Ocijeni aplikaciju";
 "settings.sendLogFile" = "Pošalji log datoteku";
 "settings.unlockFullVersion" = "Otključaj punu verziju";
 
@@ -223,10 +223,10 @@
 "vaultDetail.changePassword.footer" = "Odaberite jaku lozinku za svoj trezor koju samo Vi znate i čuvajte je na sigurnom mjestu.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ako omogućite %@, Vaša lozinka za trezor bit će pohranjena u privjesku za ključeve iOS-a.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Lozinka za Vaš trezor bit će potrebna jedino ako %@ autentikacija ne uspije.";
-"vaultDetail.info.footer.accessVault" = "Pristupite trezoru putem Files programa.";
+"vaultDetail.info.footer.accessVault" = "Pristupite trezoru putem Files aplikacije.";
 "vaultDetail.info.footer.accountInfo" = "Prijavljen kao %@ putem %@.";
 "vaultDetail.keepUnlocked.title" = "Trajanje otključavanja";
-"vaultDetail.keepUnlocked.footer.off" = "Otključavanje će biti potrebno kada Files program prekine Cryptomator.";
+"vaultDetail.keepUnlocked.footer.off" = "Otključavanje će biti potrebno kada Files aplikacija prekine Cryptomator.";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Otključavanje će biti potrebno kada je vaš trezor neaktivan %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Otključavanje neće biti potrebno osim ako nije ručno zaključan.";
 "vaultDetail.locked.footer" = "Vaš trezor je trenutno zaključan.";
@@ -234,7 +234,7 @@
 "vaultDetail.moveVault.progress" = "Premještanje…";
 "vaultDetail.removeVault.footer" = "Ovo će samo ukloniti trezor s popisa trezora i neće izbrisati šifrirane datoteke.";
 "vaultDetail.renameVault.progress" = "Preimenovanje…";
-"vaultDetail.unlocked.footer" = "Vaš trezor je trenutno otključan u Files programu.";
+"vaultDetail.unlocked.footer" = "Vaš trezor je trenutno otključan u Files aplikaciji.";
 "vaultDetail.unlockVault.footer" = "Unesite lozinku za \"%@\" da biste ju pohraniti u privjesak za ključeve iOS-a i omogućiti %@.";
 
 "vaultList.header.title" = "Trezori";
