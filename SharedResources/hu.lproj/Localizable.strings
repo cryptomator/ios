@@ -32,3 +32,6 @@
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
 "vaultDetail.button.moveVault" = "Áthelyezés";
 "vaultDetail.button.renameVault" = "Átnevezés";
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
+"webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
+"webDAVAuthentication.httpConnection.change" = "Váltson HTTPS-re";
