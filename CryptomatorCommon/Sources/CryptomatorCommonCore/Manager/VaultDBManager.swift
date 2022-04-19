@@ -28,6 +28,7 @@ public protocol VaultManager {
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
+	func removeAllUnusedFileProviderDomains() -> Promise<Void>
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
 }
@@ -259,10 +260,35 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	func removeDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
+	/**
+	 Removes all unused FileProvider domains.
+
+	 An unused FileProviderDomain is a domain that has no associated vault in the database.
+	 An unused domain can be caused, for example, when the user reinstalls the app.
+	 */
+	public func removeAllUnusedFileProviderDomains() -> Promise<Void> {
+		let vaultUIDs: [String]
+		do {
+			let vaults = try vaultAccountManager.getAllAccounts()
+			vaultUIDs = vaults.map { $0.vaultUID }
+		} catch {
+			return Promise(error)
+		}
+		return NSFileProviderManager.getDomains().then { domains -> Promise<Void> in
+			let unusedDomains = domains.filter { !vaultUIDs.contains($0.identifier.rawValue) }
+			return self.removeUnusedDomainsFromFileProvider(unusedDomains)
+		}
+	}
+
+	private func removeUnusedDomainsFromFileProvider(_ domains: [NSFileProviderDomain]) -> Promise<Void> {
 		return Promise(on: .global()) { fulfill, _ in
 			for domain in domains {
-				try awaitPromise(self.removeFileProviderDomain(domain))
+				do {
+					try awaitPromise(self.removeFileProviderDomain(domain))
+					DDLogInfo("Successfully removed the unused FileProvider domain: \(domain)")
+				} catch {
+					DDLogError("Remove unused FileProvider domain: \(domain) failed with error: \(error)")
+				}
 			}
 			fulfill(())
 		}

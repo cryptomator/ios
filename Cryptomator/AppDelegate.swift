@@ -45,13 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		VaultDBManager.shared.recoverMissingFileProviderDomains().catch { error in
 			DDLogError("Recover missing FileProvider domains failed with error: \(error)")
 		}
-		// Clean up
-		do {
-			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
-			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
-		} catch {
-			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")
-		}
+		cleanup()
 
 		// Set up cloud storage services
 		CloudProviderDBManager.shared.useBackgroundSession = false
@@ -113,5 +107,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	func applicationWillTerminate(_ application: UIApplication) {
 		SKPaymentQueue.default().remove(StoreObserver.shared)
+	}
+
+	private func cleanup() {
+		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
+		do {
+			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
+			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
+		} catch {
+			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")
+		}
 	}
 }
