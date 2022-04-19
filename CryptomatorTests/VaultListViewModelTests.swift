@@ -126,6 +126,7 @@ class VaultListViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testRefreshVaultLockedStates() throws {
@@ -156,6 +157,7 @@ class VaultListViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 }
 

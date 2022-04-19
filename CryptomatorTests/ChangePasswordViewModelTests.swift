@@ -59,6 +59,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testEnableMaintenanceModeFailed() throws {
@@ -112,6 +113,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testChangePasswordFailForEmptyOldPassword() {

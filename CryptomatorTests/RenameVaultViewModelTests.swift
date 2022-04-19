@@ -99,6 +99,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testRenameVaultWithOldNameAsSubstring() throws {
@@ -126,6 +127,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testRenameVaultWithSameName() throws {
@@ -205,6 +207,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	private func createViewModel(vaultAccount: VaultAccount, cloudProviderType: CloudProviderType, viewControllerTitle: String? = nil) -> RenameVaultViewModel {

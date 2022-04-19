@@ -12,8 +12,23 @@ import Foundation
 import Promises
 
 public protocol FileProviderConnector {
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T>
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<T>
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>>
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>>
+}
+
+public extension FileProviderConnector {
+	func invalidateXPC<T>(_ xpc: XPC<T>) {
+		xpc.doneHandler()
+	}
+
+	func invalidateXPC<T>(_ xpcPromise: Promise<XPC<T>>) {
+		xpcPromise.then(invalidateXPC)
+	}
+}
+
+public struct XPC<T> {
+	public let proxy: T
+	let doneHandler: () -> Void
 }
 
 public enum FileProviderXPCConnectorError: Error {
@@ -25,6 +40,15 @@ public enum FileProviderXPCConnectorError: Error {
 }
 
 public class FileProviderXPCConnector: FileProviderConnector {
+	public func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
+		return NSFileProviderManager.getDomains().then { domains in
+			guard let domain = domains.first(where: { $0.identifier == domainIdentifier }) else {
+				throw FileProviderXPCConnectorError.domainNotFound
+			}
+			return self.getXPC(serviceName: serviceName, domain: domain)
+		}
+	}
+
 	public static let shared = FileProviderXPCConnector()
 
 	public func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
@@ -33,6 +57,40 @@ public class FileProviderXPCConnector: FileProviderConnector {
 				throw FileProviderXPCConnectorError.domainNotFound
 			}
 			return self.getProxy(serviceName: serviceName, domain: domain)
+		}
+	}
+
+	public func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
+		var url = NSFileProviderManager.default.documentStorageURL
+		if let domain = domain {
+			url.appendPathComponent(domain.pathRelativeToDocumentStorage)
+		}
+		return wrap { handler in
+			FileManager.default.getFileProviderServicesForItem(at: url, completionHandler: handler)
+		}.then { services -> Promise<NSXPCConnection?> in
+			if let desiredService = services?[serviceName] {
+				return desiredService.getFileProviderConnection()
+			} else {
+				return Promise(FileProviderXPCConnectorError.serviceNotSupported)
+			}
+		}.then { connection -> XPC<T> in
+			guard let connection = connection else {
+				throw FileProviderXPCConnectorError.connectionIsNil
+			}
+			guard let type = T.self as AnyObject as? Protocol else {
+				throw FileProviderXPCConnectorError.typeMismatch
+			}
+			connection.remoteObjectInterface = NSXPCInterface(with: type)
+			connection.resume()
+			let rawProxy = connection.remoteObjectProxyWithErrorHandler { errorAccessingRemoteObject in
+				DDLogError("remoteObjectProxy failed with error: \(errorAccessingRemoteObject)")
+			}
+			guard let proxy = rawProxy as? T else {
+				throw FileProviderXPCConnectorError.rawProxyCastingFailed
+			}
+			return XPC(proxy: proxy, doneHandler: {
+				connection.invalidate()
+			})
 		}
 	}
 

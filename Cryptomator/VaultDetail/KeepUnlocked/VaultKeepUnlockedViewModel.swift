@@ -82,11 +82,13 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	func gracefulLockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy in
-			proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
 		}.then {
 			self.vaultInfo.vaultIsUnlocked.value = false
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 
@@ -116,15 +118,12 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	private func getVaultIsUnlocked() -> Promise<Bool> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy in
-			proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getXPCPromise.then { xpc in
+			return xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
-	}
-
-	private func getVaultLockingProxy() -> Promise<VaultLocking> {
-		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		return fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
 	}
 
 	private func assertVaultIsLocked() -> Promise<Void> {

@@ -104,6 +104,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertEqual(.auto, currentKeepUnlockedDuration.value)
 		XCTAssertFalse(vaultKeepUnlockedSettingsMock.setKeepUnlockedDurationForVaultUIDCalled)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testSetKeepUnlockedDurationForLockedVault() throws {
@@ -122,6 +123,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertEqual(.fiveMinutes, currentKeepUnlockedDuration.value)
 		assertVaultKeepUnlockedSettingsSetKeepUnlockedDurationCalled(with: .fiveMinutes)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testSetKeepUnlockedDurationForUnlockedVaultNotAutoDuration() throws {
@@ -194,6 +196,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertFalse(vaultInfo.vaultIsUnlocked.value)
 		assertFileProviderConnectorCalled()
 		XCTAssertEqual([NSFileProviderDomainIdentifier(vaultUID)], vaultLockingMock.lockedVaults)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	private func createViewModel(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>) -> VaultKeepUnlockedViewModel {

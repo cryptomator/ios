@@ -53,6 +53,7 @@ class MoveVaultViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testRejectVaultsInTheLocalFileSystem() throws {
@@ -164,6 +165,7 @@ class MoveVaultViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testIsAllowedToMove() throws {
