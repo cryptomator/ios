@@ -42,13 +42,15 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 
 	func lockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vault.vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy in
-			proxy.lockVault(domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.then {
 			self.setVaultUnlockStatus(unlocked: false)
 		}.catch { error in
 			self.errorPublisher.send(error)
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 

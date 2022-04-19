@@ -6,33 +6,38 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import Promises
+@testable import CryptomatorCommonCore
 
 class FileProviderConnectorMock: FileProviderConnector {
 	var proxy: Any?
 	var passedServiceName: NSFileProviderServiceName?
 	var passedDomainIdentifier: NSFileProviderDomainIdentifier?
 	var passedDomain: NSFileProviderDomain?
+	var doneHandler: (() -> Void)?
+	var xpcInvalidationCallCount = 0
 
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
 		passedServiceName = serviceName
 		passedDomainIdentifier = domainIdentifier
 		return getCastedProxy()
 	}
 
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<T> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
 		passedServiceName = serviceName
 		passedDomain = domain
 		return getCastedProxy()
 	}
 
-	private func getCastedProxy<T>() -> Promise<T> {
+	private func getCastedProxy<T>() -> Promise<XPC<T>> {
 		guard let castedProxy = proxy as? T else {
 			return Promise(FileProviderXPCConnectorError.typeMismatch)
 		}
-		return Promise(castedProxy)
+		return Promise(XPC(proxy: castedProxy, doneHandler: {
+			self.doneHandler?()
+			self.xpcInvalidationCallCount += 1
+		}))
 	}
 }

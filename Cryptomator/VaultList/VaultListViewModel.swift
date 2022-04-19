@@ -93,19 +93,22 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 
 	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy in
-			proxy.lockVault(domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.then {
 			vaultInfo.vaultIsUnlocked.value = false
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 
 	func refreshVaultLockStates() -> Promise<Void> {
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domain: nil)
-		return getProxyPromise.then { proxy in
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domain: nil)
+
+		return getXPCPromise.then { xpc in
 			return wrap { handler in
-				proxy.getUnlockedVaultDomainIdentifiers(reply: handler)
+				xpc.proxy.getUnlockedVaultDomainIdentifiers(reply: handler)
 			}
 		}.then { unlockedVaultDomainIdentifiers -> Void in
 			unlockedVaultDomainIdentifiers.forEach { domainIdentifier in
@@ -119,6 +122,8 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 			}.forEach { vaultCellViewModel in
 				vaultCellViewModel.setVaultUnlockStatus(unlocked: false)
 			}
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 
