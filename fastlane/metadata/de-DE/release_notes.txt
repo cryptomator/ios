@@ -1,2 +1,3 @@
-- Leeren Ordner innerhalb eines Shortcuts in Google Drive behoben (#204)
-- Konfliktordner beim Erstellen mehrerer Ordner in Google Drive, OneDrive und pCloud behoben
+- Übersetzungen für Bangla und Kroatisch hinzugefügt
+- Unerwartete Hintergrundaktivität behoben, die in manchen Fällen für eine hohe Akkulast sorgte (#206, #212)
+- Bereinigung von verbleibenden Tresoren nach Neuinstallation der App behoben (#209)
