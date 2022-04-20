@@ -187,9 +187,9 @@ class UnlockVaultViewModel {
 	// MARK: Unlock Vault
 
 	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let getProxyPromise: Promise<VaultUnlocking> = fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain)
-		return getProxyPromise.then { proxy -> Promise<Void> in
-			self.unlockVault(with: password, proxy: proxy)
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: VaultUnlockingService.name, domain: domain)
+		return getXPCPromise.then { xpc -> Promise<Void> in
+			self.unlockVault(with: password, proxy: xpc.proxy)
 		}.then {
 			if storePasswordInKeychain {
 				do {
@@ -211,9 +211,9 @@ class UnlockVaultViewModel {
 	 */
 	func biometricalUnlock() -> Promise<Void> {
 		let reason = LocalizedString.getValue("unlockVault.evaluatePolicy.reason")
-		let getProxyPromise: Promise<VaultUnlocking> = fileProviderConnector.getProxy(serviceName: VaultUnlockingService.name, domain: domain) // getProxy()
-		return getProxyPromise.then { proxy in
-			proxy.startBiometricalUnlock()
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: VaultUnlockingService.name, domain: domain)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.startBiometricalUnlock()
 		}.then { _ -> Void in
 			var error: NSError?
 			guard self.context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) else {
@@ -226,12 +226,13 @@ class UnlockVaultViewModel {
 		}.then {
 			self.context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason)
 		}.then {
-			getProxyPromise
-		}.then(on: .main) { proxy in
-			self.unlockWithSavedPassword(proxy: proxy)
+			getXPCPromise
+		}.then(on: .main) { xpc in
+			self.unlockWithSavedPassword(proxy: xpc.proxy)
 		}.always {
-			getProxyPromise.then { proxy in
-				proxy.endBiometricalUnlock()
+			getXPCPromise.then { xpc in
+				xpc.proxy.endBiometricalUnlock()
+				self.fileProviderConnector.invalidateXPC(xpc)
 			}
 		}
 	}

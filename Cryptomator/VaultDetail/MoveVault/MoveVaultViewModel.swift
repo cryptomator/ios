@@ -73,9 +73,10 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 
 	private func lockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getProxyPromise: Promise<VaultLocking> = fileProviderConnector.getProxy(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
-		return getProxyPromise.then { proxy -> Void in
-			proxy.lockVault(domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		return getXPCPromise.then { xpc -> Void in
+			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
+			self.fileProviderConnector.invalidateXPC(xpc)
 		}
 	}
 

@@ -152,9 +152,11 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	private func notifyFileProviderAboutLogLevelUpdate() {
-		let getProxyPromise: Promise<LogLevelUpdating> = fileProviderConnector.getProxy(serviceName: LogLevelUpdatingService.name, domain: nil)
-		getProxyPromise.then { proxy in
-			proxy.logLevelUpdated()
+		let getXPCPromise: Promise<XPC<LogLevelUpdating>> = fileProviderConnector.getXPC(serviceName: LogLevelUpdatingService.name, domain: nil)
+		getXPCPromise.then { xpc in
+			xpc.proxy.logLevelUpdated()
+		}.always {
+			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 }

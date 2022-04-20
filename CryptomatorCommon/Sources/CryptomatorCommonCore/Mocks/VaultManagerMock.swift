@@ -156,6 +156,25 @@ final class VaultManagerMock: VaultManager {
 		return try removeVaultWithUIDClosure.map({ try $0(vaultUID) }) ?? removeVaultWithUIDReturnValue
 	}
 
+	// MARK: - removeAllUnusedFileProviderDomains
+
+	var removeAllUnusedFileProviderDomainsThrowableError: Error?
+	var removeAllUnusedFileProviderDomainsCallsCount = 0
+	var removeAllUnusedFileProviderDomainsCalled: Bool {
+		removeAllUnusedFileProviderDomainsCallsCount > 0
+	}
+
+	var removeAllUnusedFileProviderDomainsReturnValue: Promise<Void>!
+	var removeAllUnusedFileProviderDomainsClosure: (() -> Promise<Void>)?
+
+	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
+		if let error = removeAllUnusedFileProviderDomainsThrowableError {
+			return Promise(error)
+		}
+		removeAllUnusedFileProviderDomainsCallsCount += 1
+		return removeAllUnusedFileProviderDomainsClosure.map({ $0() }) ?? removeAllUnusedFileProviderDomainsReturnValue
+	}
+
 	// MARK: - moveVault
 
 	var moveVaultAccountToThrowableError: Error?

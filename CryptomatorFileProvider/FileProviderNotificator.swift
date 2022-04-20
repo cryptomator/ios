@@ -35,22 +35,28 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 	 */
 	public var currentSyncAnchor: Data {
 		do {
-			return try JSONEncoder().encode(currentAnchor)
+			let anchor = queue.sync {
+				return currentAnchor
+			}
+			return try JSONEncoder().encode(anchor)
 		} catch {
 			return Data()
 		}
 	}
 
-	private(set) var currentAnchor: Date
+	private(set) var currentAnchor: SyncAnchor
 	private let queue = DispatchQueue(label: "FileProviderNotificator", attributes: .concurrent)
 	private let manager: EnumerationSignaling
 
 	public init(manager: EnumerationSignaling) {
 		self.manager = manager
-		self.currentAnchor = Date()
+		self.currentAnchor = .initial
 	}
 
 	public func invalidatedWorkingSet() {
+		let anchor = SyncAnchor(invalidated: true, date: Date())
+		DDLogDebug("Invalidated Working Set new anchor -> \(anchor)")
+		setSyncAnchor(to: anchor)
 		queue.sync(flags: .barrier) {
 			signalDeleteWorkingSetItemIdentifier.removeAll()
 			signalUpdateWorkingSetItem.removeAll()
@@ -119,7 +125,7 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 	private func signalEnumerator(for containerItemIdentifiers: [NSFileProviderItemIdentifier]) {
 		DDLogDebug("Signal enumerator for: \(containerItemIdentifiers)")
 		DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-			self.currentAnchor = Date()
+			self.setSyncAnchor(to: SyncAnchor(invalidated: false, date: Date()))
 			for containerItemIdentifier in containerItemIdentifiers {
 				self.manager.signalEnumerator(for: containerItemIdentifier) { error in
 					if let error = error {
@@ -142,6 +148,12 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 			}
 		}
 	}
+
+	private func setSyncAnchor(to updatedSyncAnchor: SyncAnchor) {
+		queue.sync(flags: .barrier) {
+			currentAnchor = updatedSyncAnchor
+		}
+	}
 }
 
 public protocol FileProviderItemUpdateDelegate: AnyObject {
@@ -157,3 +169,16 @@ public protocol EnumerationSignaling {
 }
 
 extension NSFileProviderManager: EnumerationSignaling {}
+
+public struct SyncAnchor: Codable {
+	/// Indicates if since the last call of `enumerateChanges(for:from:)` the enumeration cache of the Files app was invalidated with a `.syncAnchorExpired` error.
+	public let invalidated: Bool
+	/// The creation date of the sync anchor
+	public let date: Date
+}
+
+extension SyncAnchor {
+	static var initial: SyncAnchor {
+		return SyncAnchor(invalidated: false, date: Date())
+	}
+}

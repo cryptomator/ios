@@ -161,7 +161,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		 - create a fresh background NSURLSessionTask and schedule it to upload the current modifications
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
-		guard url != dbPath else {
+		guard url.standardizedFileURL != dbPath?.standardizedFileURL else {
 			return
 		}
 		DDLogDebug("FPExt: itemChanged(at: \(url)) called")
@@ -237,7 +237,6 @@ class FileProviderExtension: NSFileProviderExtension {
 			let notificator = try FileProviderNotificatorManager.shared.getFileProviderNotificator(for: domain)
 			self.notificator = notificator
 			localURLProvider = LocalURLProvider(domain: domain)
-			notificator.refreshWorkingSet()
 		} else {
 			DDLogInfo("setUpDecorator called with nil domain")
 			throw FileProviderDecoratorSetupError.domainIsNil
@@ -249,7 +248,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	override func supportedServiceSources(for itemIdentifier: NSFileProviderItemIdentifier) throws -> [NSFileProviderServiceSource] {
 		var serviceSources = [NSFileProviderServiceSource]()
 		#if DEBUG
-		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
+//		serviceSources.append(FileProviderValidationServiceSource(fileProviderExtension: self, itemIdentifier: itemIdentifier))
 		#endif
 
 		#if SNAPSHOTS

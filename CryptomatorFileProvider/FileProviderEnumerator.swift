@@ -99,22 +99,36 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		 - inform the observer when you have finished enumerating up to a subsequent sync anchor
 		 */
 
-		DDLogDebug("Enumerate changes for: \(enumeratedItemIdentifier.rawValue) anchor: \(String(describing: try? JSONDecoder().decode(Date.self, from: anchor.rawValue)))")
+		DDLogDebug("Enumerate changes for: \(enumeratedItemIdentifier.rawValue) anchor: \(String(describing: try? JSONDecoder().decode(SyncAnchor.self, from: anchor.rawValue)))")
 		var itemsDelete = [NSFileProviderItemIdentifier]()
 		var itemsUpdate = [NSFileProviderItem]()
 		let currentSyncAnchor = NSFileProviderSyncAnchor(notificator.currentSyncAnchor)
 
 		// Handle working set
 		if enumeratedItemIdentifier == .workingSet {
+			let workingSetSyncAnchor: SyncAnchor
+			do {
+				workingSetSyncAnchor = try JSONDecoder().decode(SyncAnchor.self, from: anchor.rawValue)
+			} catch {
+				DDLogDebug("Invalidate working set because the sync anchor for vault \(domain.displayName) is invalid")
+				invalidateWorkingSet(observer: observer)
+				return
+			}
+
 			let adapter: FileProviderAdapterType
 			do {
 				adapter = try adapterProvider.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
 			} catch {
-				DDLogDebug("Invalidate working set because the vault \(domain.displayName) is locked")
-				invalidateWorkingSet(observer: observer)
+				if workingSetSyncAnchor.invalidated {
+					DDLogDebug("Working set for \(domain.displayName) is already invalidated -> return empty array")
+					observer.finishEnumeratingChanges(upTo: anchor, moreComing: false)
+				} else {
+					DDLogDebug("Invalidate working set because the vault \(domain.displayName) is locked")
+					invalidateWorkingSet(observer: observer)
+				}
 				return
 			}
-			guard let lastWorkingSetUpdate = try? JSONDecoder().decode(Date.self, from: anchor.rawValue), adapter.lastUnlockedDate <= lastWorkingSetUpdate else {
+			guard adapter.lastUnlockedDate <= workingSetSyncAnchor.date else {
 				invalidateWorkingSet(observer: observer)
 				return
 			}
@@ -132,7 +146,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	}
 
 	public func currentSyncAnchor(completionHandler: @escaping (NSFileProviderSyncAnchor?) -> Void) {
-		DDLogDebug("currentSyncAnchor for \(enumeratedItemIdentifier.rawValue) called")
+		DDLogDebug("currentSyncAnchor for \(enumeratedItemIdentifier.rawValue) called -> return: \(String(describing: try? JSONDecoder().decode(SyncAnchor.self, from: notificator.currentSyncAnchor))) ")
 		let syncAnchor = NSFileProviderSyncAnchor(notificator.currentSyncAnchor)
 		completionHandler(syncAnchor)
 	}
@@ -147,9 +161,9 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	 */
 	private func handleEnumerateItemsError(_ error: Error, for observer: NSFileProviderEnumerationObserver) {
 		guard enumeratedItemIdentifier != .workingSet else {
-			DDLogDebug("enumerateItems getAdapter failed with: \(error) -> start to invalidate working set")
-			observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
-			notificator.invalidatedWorkingSet()
+			DDLogDebug("enumerateItems getAdapter failed with: \(error) -> return empty working set array")
+			observer.didEnumerate([])
+			observer.finishEnumerating(upTo: nil)
 			return
 		}
 		DDLogError("enumerateItems getAdapter failed with: \(error) for identifier: \(enumeratedItemIdentifier)")
@@ -160,7 +174,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	}
 
 	private func invalidateWorkingSet(observer: NSFileProviderChangeObserver) {
-		observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
 		notificator.invalidatedWorkingSet()
+		observer.finishEnumeratingWithError(NSFileProviderError(.syncAnchorExpired))
 	}
 }

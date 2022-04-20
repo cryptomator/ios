@@ -151,8 +151,12 @@ class SettingsViewModelTests: XCTestCase {
 	}
 
 	func testEnabledDebugMode() {
+		let invalidationExpectation = XCTestExpectation()
 		let logLevelUpdatingMock = LogLevelUpdatingMock()
 		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
 		cryptomatorSettingsMock.debugModeEnabled = true
 		guard let debugSection = getSection(for: .debugSection) else {
 			XCTFail("Missing debugSection")
@@ -175,27 +179,37 @@ class SettingsViewModelTests: XCTestCase {
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
 		checkSendLogFilesCellViewModel()
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testEnableDebugMode() {
+		let invalidationExpectation = XCTestExpectation()
 		let expectation = XCTestExpectation()
 		let logLevelUpdatingMock = LogLevelUpdatingMock()
 		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
 		settingsViewModel.enableDebugMode()
 		logLevelUpdatingMock.updated.then {
 			XCTAssertTrue(self.cryptomatorSettingsMock.debugModeEnabled)
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	func testDisableDebugMode() {
+		let invalidationExpectation = XCTestExpectation()
 		let expectation = XCTestExpectation()
 		let logLevelUpdatingMock = LogLevelUpdatingMock()
 		fileProviderConnectorMock.proxy = logLevelUpdatingMock
+		fileProviderConnectorMock.doneHandler = {
+			invalidationExpectation.fulfill()
+		}
 		guard let debugSection = getSection(for: .debugSection) else {
 			XCTFail("Missing debugSection")
 			return
@@ -213,7 +227,8 @@ class SettingsViewModelTests: XCTestCase {
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
+		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
 	private func checkSendLogFilesCellViewModel() {

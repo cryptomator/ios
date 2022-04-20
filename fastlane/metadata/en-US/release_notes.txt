@@ -1,2 +1,3 @@
-- Fixed empty folder inside a shortcut in Google Drive (#204)
-- Fixed conflict folder when creating multiple folders in Google Drive, OneDrive, and pCloud
+- Added Bangla and Croatian translations
+- Fixed unexpected background activity, which may have caused battery drain issues in some cases (#206, #212)
+- Fixed cleanup of residual vaults after reinstalling the app (#209)

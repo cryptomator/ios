@@ -1,9 +1,11 @@
+"common.alert.attention.title" = "Figyelem";
 "common.button.cancel" = "Mégse";
 "common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
 "common.button.create" = "Létrehozás";
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
+"common.button.enable" = "Engedélyezés";
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
 "common.button.remove" = "Eltávolítás";
@@ -22,6 +24,7 @@
 
 "settings.title" = "Beállítások";
 "settings.clearCache" = "Gyorsítótár törlése";
+"settings.debugMode.alert.message" = "Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.";
 
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
@@ -32,3 +35,6 @@
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
 "vaultDetail.button.moveVault" = "Áthelyezés";
 "vaultDetail.button.renameVault" = "Átnevezés";
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
+"webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
+"webDAVAuthentication.httpConnection.change" = "Váltson HTTPS-re";

@@ -53,18 +53,23 @@ class FileProviderNotificatorTests: XCTestCase {
 		XCTAssertFalse(enumerationSignalingMock.signalEnumeratorForCompletionHandlerCalled)
 	}
 
-	func testInvalidatedWorkingSet() {
+	func testInvalidatedWorkingSet() throws {
+		let initialSyncAnchor = notificator.currentAnchor
+		XCTAssertFalse(initialSyncAnchor.invalidated)
 		notificator.updateWorkingSetItems(updatedItems)
 		notificator.removeItemsFromWorkingSet(with: deleteItemIdentifiers)
 		notificator.invalidatedWorkingSet()
 		XCTAssert(notificator.getItemIdentifiersToDeleteFromWorkingSet().isEmpty)
 		XCTAssert(notificator.popUpdateWorkingSetItems().isEmpty)
 		XCTAssertFalse(enumerationSignalingMock.signalEnumeratorForCompletionHandlerCalled)
+		let updatedSyncAnchor = notificator.currentAnchor
+		XCTAssert(initialSyncAnchor.date < updatedSyncAnchor.date)
+		XCTAssert(updatedSyncAnchor.invalidated)
 	}
 
 	func testRefreshWorkingSet() throws {
 		let expectation = XCTestExpectation()
-		let currentSyncAnchor = try getCurrentSyncAnchorAsDate()
+		let currentSyncAnchor = try getCurrentSyncAnchorDate()
 		enumerationSignalingMock.signalEnumeratorForCompletionHandlerClosure = { _, _ in
 			expectation.fulfill()
 		}
@@ -79,7 +84,7 @@ class FileProviderNotificatorTests: XCTestCase {
 
 	func testSignalUpdate() throws {
 		let expectation = XCTestExpectation()
-		let currentSyncAnchor = try getCurrentSyncAnchorAsDate()
+		let currentSyncAnchor = try getCurrentSyncAnchorDate()
 		enumerationSignalingMock.signalEnumeratorForCompletionHandlerClosure = { _, _ in
 			expectation.fulfill()
 		}
@@ -108,12 +113,13 @@ class FileProviderNotificatorTests: XCTestCase {
 		XCTAssertEqual(updatedItems.sorted(), actualItems?.sorted())
 	}
 
-	private func getCurrentSyncAnchorAsDate() throws -> Date {
-		return try JSONDecoder().decode(Date.self, from: notificator.currentSyncAnchor)
+	private func getCurrentSyncAnchorDate() throws -> Date {
+		let syncAnchor = try JSONDecoder().decode(SyncAnchor.self, from: notificator.currentSyncAnchor)
+		return syncAnchor.date
 	}
 
 	private func assertSyncAnchorHasBeenUpdated(oldSyncAnchor: Date) throws {
-		let newSyncAnchor = try getCurrentSyncAnchorAsDate()
+		let newSyncAnchor = try getCurrentSyncAnchorDate()
 		XCTAssert(oldSyncAnchor < newSyncAnchor)
 	}
 }
