@@ -161,7 +161,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		 - create a fresh background NSURLSessionTask and schedule it to upload the current modifications
 		 - register the NSURLSessionTask with NSFileProviderManager to provide progress updates
 		 */
-		guard url.path != dbPath?.path else {
+		guard url.standardizedFileURL != dbPath?.standardizedFileURL else {
 			return
 		}
 		DDLogDebug("FPExt: itemChanged(at: \(url)) called")
