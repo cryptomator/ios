@@ -1,15 +1,255 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Greška";
+"common.alert.attention.title" = "Pažnja";
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
+"common.button.choose" = "Odaberi";
+"common.button.confirm" = "Potvrdi";
+"common.button.create" = "Izradi";
+"common.button.createFolder" = "Izradi mapu";
 "common.button.done" = "Gotovo";
+"common.button.download" = "Preuzmi";
+"common.button.edit" = "Izmjeni";
+"common.button.enable" = "Omogući";
 "common.button.next" = "Sljedeći";
+"common.button.ok" = "U redu";
+"common.button.remove" = "Ukloni";
+"common.button.signOut" = "Odjavi se";
+"common.button.verify" = "Potvrdi";
+"common.cells.openInFilesApp" = "Otvori u Files aplikaciji";
+"common.cells.password" = "Lozinka";
+"common.cells.url" = "URL";
+"common.cells.username" = "Korisničko ime";
+"common.footer.learnMore" = "Saznaj više.";
+
+"accountList.header.title" = "Autentikacije";
+"accountList.emptyList.message" = "Dodirnite ovdje za dodavanje računa";
+"accountList.signOut.alert.title" = "Ukloniti povezane trezore?";
+"accountList.signOut.alert.message" = "Odjavom, svi povezani trezori bit će uklonjeni s popisa trezora. Šifrirani podaci neće biti izbrisani. Možete se ponovno prijaviti i kasnije ponovo dodati trezore.";
 
 "addVault.title" = "Dodaj trezor";
 "addVault.createNewVault.title" = "Napravi novi trezor";
+"addVault.createNewVault.purchase" = "Izrada novog trezora zahtjeva punu verziju Cryptomator-a.";
+"addVault.createNewVault.setVaultName.header.title" = "Odaberite ime za trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Ime trezora ne može biti prazno.";
 "addVault.createNewVault.chooseCloud.header" = "Gdje bi Cryptomator trebao pohraniti šifrirane datoteke Vašeg trezora?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" već postoji na ovoj lokaciji. Odaberite drugo ime trezora ili lokaciju.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator je otkrio postojeći trezor na ovoj lokaciji.\nDa biste izradili novi trezor, vratite se i odaberite drugu mapu.";
+"addVault.createNewVault.password.enterPassword.header" = "Unesite novu lozinku.";
+"addVault.createNewVault.password.confirmPassword.header" = "Potvrdite novu lozinku.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Potvrdi lozinku?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VAŽNO: Ako zaboravite svoju lozinku, nema načina za povrat Vaših podataka.";
+"addVault.createNewVault.password.error.emptyPassword" = "Lozinka ne može biti prazna.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Lozinke se ne podudaraju.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Lozinka mora sadržavati najmanje 8 znakova.";
+"addVault.createNewVault.progress" = "Izrada trezora…";
 "addVault.openExistingVault.title" = "Otvori postojeći trezor";
+"addVault.openExistingVault.chooseCloud.header" = "Gdje se nalazi trezor?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator je otkrio trezot \"%@\".\nŽelite li dodati ovaj trezor?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ovaj trezor";
+"addVault.openExistingVault.password.footer" = "Unesite lozinku za \"%@\".";
+"addVault.openExistingVault.progress" = "Dodavanje trezora…";
+"addVault.success.info" = "Uspješno dodan trezor \"%@\".\nPristupite ovom trezoru putem Files aplikacije.";
+"addVault.success.footer" = "Ako već niste, omogućite Cryptomator u Files aplikaciji.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Trenutna lozinka je neispravna. Molimo pokušajte ponovno.";
+"changePassword.header.currentPassword.title" = "Unesite trenutnu lozinku.";
+"changePassword.header.newPassword.title" = "Unesite novu lozinku.";
+"changePassword.header.newPasswordConfirmation.title" = "Potvrdite novu lozinku.";
+"changePassword.progress" = "Promjena lozinke…";
+
+"chooseFolder.emptyFolder.footer" = "Mapa je prazna";
+"chooseFolder.createNewFolder.header.title" = "Odaberite ime za mapu.";
+"chooseFolder.createNewFolder.cells.name" = "Ime mape";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Ime mape ne može biti prazno.";
+"chooseFolder.createNewFolder.progress" = "Izrada mape…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" nije mogao biti pronađen.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" već postoji.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" ima neočekivanu vrstu stavke.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Roditeljska mapa \"%@\" ne postoji.";
+"cloudProvider.error.pageTokenInvalid" = "Dohvaćanje sadržaja mape nije se moglo nastaviti.";
+"cloudProvider.error.quotaInsufficient" = "Vaša pohrana nema dovoljno prostora.";
+"cloudProvider.error.unauthorized" = "Nije moguće izvesti neovlašteni zahvat.";
+"cloudProvider.error.noInternetConnection" = "Za ovaj zahvat je potrebna internetska veza.";
+
+"cloudProviderType.localFileSystem" = "Drugi pružatelj datoteke";
+
+"fileProvider.onboarding.title" = "Dobrodošli";
+"fileProvider.onboarding.info" = "Hvala što ste odabrali Cryptomator za zaštitu Vaših datoteka. Za početak, idite na glavnu aplikaciju i dodajte trezor.";
+"fileProvider.onboarding.button.openCryptomator" = "Otvori Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Otključavanje otkazano";
+"fileProvider.error.biometricalAuthCanceled.message" = "Otključavanje putem %@ nije uspjelo. Molimo pokušajte ponovno.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Pogrešna lozinka";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Lozinka koja je bila pohranjena za %@ je pogrešna. Molimo pokušajte ponovno i unesite lozinku da ponovno omogućite %@.";
+"fileProvider.error.defaultLock.title" = "Potrebno je otključanje";
+"fileProvider.error.defaultLock.message" = "Za pristup i prikaz sadržaja Vašeg trezora, on mora biti otključan.";
 "fileProvider.error.unlockButton" = "Otključaj";
 
+"keepUnlocked.alert.title" = "Zaključati trezor?";
+"keepUnlocked.alert.message" = "Ova promjena zahtijeva da vaš trezor bude zaključan kako bi stupila na snagu.";
+"keepUnlocked.alert.confirm" = "Potvrdi i zaključaj sada";
+"keepUnlocked.header" = "Odredite koliko dugo želite da ovaj trezor ostane otključan kada je neaktivan.";
+"keepUnlocked.footer.auto" = "Dopuštanje iOS-u da odluči znači da se Cryptomator može prekinuti u bilo kojem trenutku kako bi se oslobodila memorija, što automatski zaključava trezor.";
+"keepUnlocked.footer.on" = "Koristeći odabranu opciju, kopiju vašeg ključa potrebno je pohraniti u privjesak za ključeve iOS-a, sve dok je trezor otključan.";
+"keepUnlockedDuration.auto" = "Neka iOS odluči automatski";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Neodređeno";
+
+"localFileSystemAuthentication.createNewVault.header" = "Na sljedećem zaslonu odaberite mjesto pohrane za vaš novi trezor.";
+"localFileSystemAuthentication.createNewVault.button" = "Odaberite mjesto pohrane";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Trezor već postoji na ovoj lokaciji. Molimo pokušajte ponovno s drugom lokacijom pohrane.";
+"localFileSystemAuthentication.openExistingVault.header" = "Na slijedećem ekranu, odaberite mapu Vašeg postojećeg trezora.";
+"localFileSystemAuthentication.openExistingVault.button" = "Odaberite mapu trezora";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Odabrana mapa nije trezor. Pokušajte ponovno s drugom mapom.";
+"localFileSystemAuthentication.info.footer" = "Pružatelji datoteka koji su zasivljeni ne podržavaju \"biranje mapa\". Ovo nije ograničenje Cryptomator-a.";
+
+"maintenanceModeError.runningCloudTask" = "Zahvat se ne može izvesti jer drugi pozadinski zahvati za ovaj trezor moraju završiti prve. Molimo pokušajte ponovo kasnije.";
+
+"nameValidation.error.endsWithPeriod" = "Ne možete koristiti ime koje završava točkom. Molimo odaberite drugo ime.";
+"nameValidation.error.endsWithSpace" = "Ne možete koristiti ime koji završava razmakom. Molimo odaberite drugo ime.";
+"nameValidation.error.containsIllegalCharacter" = "Ne možete koristiti ime koje sadrži \"%@\". Molimo odaberite drugo ime.";
+
+"onboarding.title" = "Dobrodošli";
+"onboarding.info" = "Hvala Vam što ste odabrali Cryptomator da štiti Vaše datoteke.\n\nS Cryptomator-om, ključ do Vaših podataka je u Vašim rukama. Cryptomator šifrira Vaše podatke brzo i jednostavno.\n\nOva aplikacija je u potpunosti integrirana u Files aplikaciju. Svakako omogućite Cryptomator u Files aplikaciji da biste pristupili svojim trezorima.";
+"onboarding.button.continue" = "Nastavi";
+
+"purchase.beginFreeTrial.alert.title" = "Probna verzija otključana";
+"purchase.expiredTrial" = "Vaša je probna verzija istekla.";
+"purchase.footer.privacyPolicy" = "Pravila o privatnosti";
+"purchase.footer.termsOfUse" = "Uvjeti korištenja";
+"purchase.header.feature.familySharing" = "Obiteljsko dijeljenje";
+"purchase.header.feature.openSource" = "Razvoj otvorenog koda";
+"purchase.header.feature.writeAccess" = "Pravo pisanja u Vaš trezor";
+"purchase.product.donateAndUpgrade" = "Doniraj i nadogradi";
+"purchase.product.freeUpgrade" = "Besplatna nadogradnja";
+"purchase.product.lifetimeLicense" = "Doživotna licenca";
+"purchase.product.lifetimeLicense.duration" = "jednokratno";
+"purchase.product.pricing.free" = "Besplatno";
+"purchase.product.trial" = "30-dnevna probna verzija";
+"purchase.product.trial.expirationDate" = "Datum isteka: %@";
+"purchase.product.trial.duration" = "za 30 dana";
+"purchase.product.yearlySubscription" = "Godišnja pretplata";
+"purchase.product.yearlySubscription.duration" = "godišnje";
+"purchase.readOnlyMode.alert.title" = "Način \"Samo za čitanje\"";
+"purchase.readOnlyMode.alert.message" = "Punu verziju Cryptomator-a možete otključati kasnije u postavkama i za sada je koristiti u načinu \"samo za čitanje\".";
+"purchase.restorePurchase.button" = "Obnovi kupnju";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Probna verzija nastavljena";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Sada možete koristiti punu verziju Cryptomator-a ograničeno vrijeme. Vaša probna verzija istječe %@. Nakon toga, vaši će trezori i dalje biti dostupni u načinu \"samo za čitanje\".";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Obnavljanje uspješno";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nema pune verzije";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nismo uspjeli pronaći prethodno kupljenu punu verziju koja bi se mogla vratiti. Pokušajte s drugom opcijom.";
+"purchase.retry.button" = "Pokušaj ponovno";
+"purchase.retry.footer" = "Nije moguće učitati dostupne proizvode.";
+"purchase.title" = "Otključaj punu verziju";
+"purchase.unlockedFullVersion.message" = "Sada možete koristiti punu verziju Cryptomator-a. Sretno šifriranje!";
+"purchase.unlockedFullVersion.title" = "Hvala Vam";
+"purchase.error.unknown" = "Ova kupnja nije dostupna u App Store-u iz nepoznatog razloga. Pokušajte ponovno kasnije.\n\nAko se ova pogreška nastavi, pokušajte ponovno pokrenuti uređaj ili se odjaviti i ponovno prijaviti na svoj Apple ID u postavkama iOS-a.";
+
+"settings.title" = "Postavke";
+"settings.aboutCryptomator" = "O Cryptomator-u";
+"settings.aboutCryptomator.title" = "Verzija %@ (%@)";
+"settings.cacheSize" = "Veličina predmemorije";
+"settings.clearCache" = "Očisti predmemoriju";
+"settings.cloudServices" = "Usluge u oblaku";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Način rada otklanjanja pogrešaka";
+"settings.debugMode.alert.message" = "U ovom načinu, osjetljivi podaci mogu biti zapisani u log datoteku na Vašem uređaju (npr. datoteke i putanje). Lozinke, kolačići itd. su izričito isključeni.\n\nZapamtite da isključite način za otklanjanje pogrešaka čim prije je to moguće.";
+"settings.manageSubscriptions" = "Upravljaj pretplatom";
+"settings.rateApp" = "Ocijeni aplikaciju";
+"settings.sendLogFile" = "Pošalji log datoteku";
+"settings.unlockFullVersion" = "Otključaj punu verziju";
+
+"snapshots.fileprovider.file1" = "/Računovodstvo.brojevi";
+"snapshots.fileprovider.file2" = "/Završna prezentacija.ključ";
+"snapshots.fileprovider.file3" = "/Kratki film o proizvodu.mov";
+"snapshots.fileprovider.file4" = "/Prijedlog.docx";
+"snapshots.fileprovider.file5" = "/Izvještaj.pdf";
+"snapshots.fileprovider.folder3" = "/Tajni projekt";
+"snapshots.fileprovider.folder2" = "/Računi";
+"snapshots.fileprovider.folder1" = "/Certifikati";
+"snapshots.main.vault1" = "/Psao";
+"snapshots.main.vault2" = "/Obitelj";
+"snapshots.main.vault3" = "/Dokumenti";
+"snapshots.main.vault4" = "/Putovanje u Kaliforniju";
+
+"trialStatus.active" = "Aktivan";
+"trialStatus.expired" = "Isteklo";
+
 "unlockVault.button.unlock" = "Otključaj";
+"unlockVault.button.unlockVia" = "Otključaj putem %@";
+"unlockVault.password.footer" = "Unesite lozinku za \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Omogući %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Umjesto da otključate svoj trezor lozinkom, možete ga otključati putem %@.";
+"unlockVault.evaluatePolicy.reason" = "Otključajte svoj trezor";
+"unlockVault.progress" = "Otključavanje…";
+
+"untrustedTLSCertificate.title" = "Nevažeći TLS certifikat";
+"untrustedTLSCertificate.message" = "TLS certificat od \"%@\" je nevažeći. Želite li mu ipak vjerovati?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Vjeruj";
+"untrustedTLSCertificate.dismiss" = "Ne vjeruj";
+
+"upgrade.title" = "Ponuda za nadogradnju";
+"upgrade.notEligible.alert.title" = "Nadogradnja neuspješna";
+"upgrade.notEligible.alert.message" = "Cryptomator nije mogao otkriti stariju verziju instaliranu na Vašem uređaju. Ako ste ga kupili, ponovno ga preuzmite iz App Store-a i pokušajte ponovno.";
+"upgrade.info" = "Hvala na povjerenju u Cryptomator od prve verzije. Kao vjerni korisnik, ispunjavate uvjete za besplatnu nadogradnju.";
+
+"urlSession.error.httpError.401" = "Pogrešno korisničko ime i/ili lozinka.";
+"urlSession.error.httpError.403" = "Nedovoljna prava za traženi resurs.";
+"urlSession.error.httpError.404" = "Traženi resurs nije pronađen.";
+"urlSession.error.httpError.405" = "Ciljni resurs ne podržava metodu zahtjeva.";
+"urlSession.error.httpError.409" = "Sukob zahtjeva s trenutnim stanjem ciljnog resursa.";
+"urlSession.error.httpError.412" = "Pristup ciljnom resursu odbijen.";
+"urlSession.error.httpError.default" = "Mrežna veza nije uspjela sa statusnim kodom %ld.";
+"urlSession.error.unexpectedResponse" = "Došlo je do neočekivanog odgovora mreže.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Već ste dodali ovaj trezor.";
 
 "vaultDetail.button.changeVaultPassword" = "Promijeni lozinku";
+"vaultDetail.button.lock" = "Zaključaj sada";
+"vaultDetail.button.moveVault" = "Premjesti";
+"vaultDetail.button.removeVault" = "Ukloni iz liste trezora";
+"vaultDetail.button.renameVault" = "Preimenuj";
+"vaultDetail.changePassword.footer" = "Odaberite jaku lozinku za svoj trezor koju samo Vi znate i čuvajte je na sigurnom mjestu.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ako omogućite %@, Vaša lozinka za trezor bit će pohranjena u privjesku za ključeve iOS-a.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Lozinka za Vaš trezor bit će potrebna jedino ako %@ autentikacija ne uspije.";
+"vaultDetail.info.footer.accessVault" = "Pristupite trezoru putem Files aplikacije.";
+"vaultDetail.info.footer.accountInfo" = "Prijavljen kao %@ putem %@.";
+"vaultDetail.keepUnlocked.title" = "Trajanje otključavanja";
+"vaultDetail.keepUnlocked.footer.off" = "Otključavanje će biti potrebno kada Files aplikacija prekine Cryptomator.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Otključavanje će biti potrebno kada je vaš trezor neaktivan %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Otključavanje neće biti potrebno osim ako nije ručno zaključan.";
+"vaultDetail.locked.footer" = "Vaš trezor je trenutno zaključan.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator je otkrio postojeći trezor na ovoj lokaciji.\nDa biste premjestili svoj trezor, vratite se i odaberite drugu mapu.";
+"vaultDetail.moveVault.progress" = "Premještanje…";
+"vaultDetail.removeVault.footer" = "Ovo će samo ukloniti trezor s popisa trezora i neće izbrisati šifrirane datoteke.";
+"vaultDetail.renameVault.progress" = "Preimenovanje…";
+"vaultDetail.unlocked.footer" = "Vaš trezor je trenutno otključan u Files aplikaciji.";
+"vaultDetail.unlockVault.footer" = "Unesite lozinku za \"%@\" da biste ju pohraniti u privjesak za ključeve iOS-a i omogućiti %@.";
+
+"vaultList.header.title" = "Trezori";
+"vaultList.emptyList.message" = "Dodirnite ovdje za dodavanje trezora";
+"vaultList.remove.alert.title" = "Ukloniti trezor?";
+"vaultList.remove.alert.message" = "Ovo će samo ukloniti trezor s popisa trezora. Šifrirani podaci neće biti izbrisani. Trezor možete ponovno dodati kasnije.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracija trezora nije podržana. Provjerite koristite li najnoviju verziju Cryptomator-a.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Verzija trezora %ld nije podržana. Ovaj trezor je izrađen sa starijom ili novijom verzijom Cryptomator-a.";
+
+"webDAVAuthentication.progress" = "Autenticiranje…";
+"webDAVAuthentication.httpConnection.alert.title" = "Koristiti HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.";
+"webDAVAuthentication.httpConnection.change" = "Promijeni u HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Zadrži HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Čini se da poslužitelj nije kompatibilan s WebDAV-om. Provjerite jeste li upotrijebili ispravan URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certifikat ovog poslužitelja nije pouzdan. Možda ćete morati ponovno dodati ovu WebDAV vezu.";
