@@ -879,6 +879,8 @@
 		74C2FCEC27E2197D00BB527A /* PCloudKeychainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PCloudKeychainTests.swift; sourceTree = "<group>"; };
 		74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesAppUtil.swift; sourceTree = "<group>"; };
 		74DFF9DA26DF87A0009981ED /* ro */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ro; path = ro.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74E93B742810109E0047A116 /* bn */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = bn; path = bn.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74E93B75281010E50047A116 /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74F5DC1726D928A100AFE989 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 		74F5DC1926D92A1D00AFE989 /* StoreKitTestCertificate.cer */ = {isa = PBXFileReference; lastKnownFileType = file; path = StoreKitTestCertificate.cer; sourceTree = "<group>"; };
 		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
@@ -2010,12 +2012,14 @@
 				Base,
 				de,
 				ar,
+				bn,
 				ca,
 				cs,
 				el,
 				es,
 				fr,
 				hi,
+				hr,
 				id,
 				it,
 				ja,
@@ -2670,12 +2674,14 @@
 				742679FA26A56B33004C61BC /* en */,
 				742679FE26A578E2004C61BC /* de */,
 				74AE94EF27A0282300D71AEC /* ar */,
+				74E93B742810109E0047A116 /* bn */,
 				74AE94F027A0283500D71AEC /* ca */,
 				74BDA62B26CE8AE1007FBD72 /* cs */,
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
 				74267A0526A57947004C61BC /* fr */,
 				74A1B13D2726A9E60098224B /* hi */,
+				74E93B75281010E50047A116 /* hr */,
 				74AE94F127A0285400D71AEC /* id */,
 				74267A0A26A5795C004C61BC /* it */,
 				74267A0B26A57960004C61BC /* ja */,
