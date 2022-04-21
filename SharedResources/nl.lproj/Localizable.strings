@@ -137,6 +137,7 @@
 "purchase.product.lifetimeLicense.duration" = "eenmalig";
 "purchase.product.pricing.free" = "Gratis";
 "purchase.product.trial" = "30-dagen proefperiode";
+"purchase.product.trial.expirationDate" = "Vervaldatum: %@";
 "purchase.product.trial.duration" = "voor 30 dagen";
 "purchase.product.yearlySubscription" = "Jaarabonnement";
 "purchase.product.yearlySubscription.duration" = "jaarlijks";
@@ -249,3 +250,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behouden";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server lijkt niet compatibel te zijn met WebDAV. Controleer of je de juiste URL hebt gebruikt.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certificaat van deze server is niet vertrouwd. Je moet mogelijk deze WebDAV verbinding opnieuw toevoegen.";
