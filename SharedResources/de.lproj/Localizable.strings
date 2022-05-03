@@ -150,7 +150,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Keine Vollversion";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Wir konnten keine zuvor gekaufte Vollversion finden, die wiederhergestellt werden kann. Bitte versuche eine andere Option.";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Berechtigt für Upgrade";
-"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Es scheint, als versuchst du von einer älteren Version von Cryptomator zu aktualisieren. In diesem Fall wähle stattdessen die Option \"Upgrade Angebot\" aus.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Du versuchst offenbar, eine ältere Version von Cryptomator zu aktualisieren. Wähle bitte in diesem Fall stattdessen die Option „Upgrade-Angebot“ aus.";
 "purchase.retry.button" = "Wiederholen";
 "purchase.retry.footer" = "Verfügbare Produkte konnten nicht geladen werden.";
 "purchase.title" = "Vollversion freischalten";
