@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restauración exitosa";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Sin versión completa";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "No hemos podido encontrar una versión completa adquirida previamente que se pudo restaurar. Intente con otra opción.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Elegible para actualizar";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que está intentando actualizar desde una versión anterior de Cryptomator. De ser así, seleccione la opción \"Oferta de actualización\".";
 "purchase.retry.button" = "Reintentar";
 "purchase.retry.footer" = "No se pudieron cargar los productos disponibles.";
 "purchase.title" = "Desbloquear versión completa";
