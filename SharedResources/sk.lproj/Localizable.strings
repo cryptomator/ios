@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovenie úspešné";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nie Plná Verzia";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nevieme nájsť predchádzajúcu zakúpenú plnú verziu čo by mohla byť obnovená. Prosím skúste inú možnosť.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Vhodný pre aktualizáciu";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Zdá sa že sa pokúšate o aktualizáciu zo staršej verzie Cryptomator-a. V tomto prípade prosím radšej vyberte voľbu \"Aktualizačná ponuka\".";
 "purchase.retry.button" = "Skúsiť znovu";
 "purchase.retry.footer" = "Nemôžem nahrať dostupné produkty.";
 "purchase.title" = "Odomknúť plnú verziu";
