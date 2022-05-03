@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Успешно восстановлено";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Полной версии нет";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Не удалось найти ранее приобретённую полную версию, которая может быть восстановлена. Попробуйте другой вариант.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Доступно для обновления";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Похоже, вы пытаетесь выполнить обновление со старой версии Cryptomator. В этом случае выберите опцию предложения по обновлению.";
 "purchase.retry.button" = "Повторить";
 "purchase.retry.footer" = "Не удалось загрузить доступные продукты.";
 "purchase.title" = "Получить полную версию";
