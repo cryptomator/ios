@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Gjenoppretting vellykket";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fullversjon";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi klarte ikke å finne en tidligere kjøpt fullversjon som kunne gjenopprettes. Prøv et annet alternativ.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Kvalifisert for oppgradering";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Det ser ut til at du prøver å oppgradere fra en eldre versjon av Cryptomator. I så fall kan du velge alternativet \"Oppgraderingstilbud\" i stedet.";
 "purchase.retry.button" = "Prøv igjen";
 "purchase.retry.footer" = "Kunne ikke laste tilgjengelige produkter.";
 "purchase.title" = "Lås opp fullversjonen";
