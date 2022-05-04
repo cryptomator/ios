@@ -149,7 +149,7 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Επιτυχής Επαναφορά";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Χωρίς Πλήρη Έκδοση";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Δεν ήταν δυνατή η εύρεση μιας προηγούμενης πλήρους έκδοσης που θα μπορούσε να αποκατασταθεί. Παρακαλώ δοκιμάστε μια άλλη επιλογή.";
-"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Κατάλληλο για Αναβάθμιση";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Επιλέξιμο για αναβάθμιση";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Φαίνεται ότι προσπαθείτε να κάνετε αναβάθμιση από μια παλαιότερη έκδοση του Cryptomator. Σε αυτήν την περίπτωση, επιλέξτε την επιλογή \"Προσφορά Αναβάθμισης\".";
 "purchase.retry.button" = "Επανάληψη";
 "purchase.retry.footer" = "Δεν ήταν δυνατή η φόρτωση των διαθέσιμων προϊόντων.";
