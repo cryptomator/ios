@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnavljanje uspješno";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nema pune verzije";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nismo uspjeli pronaći prethodno kupljenu punu verziju koja bi se mogla vratiti. Pokušajte s drugom opcijom.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Ispunjava uvjete za nadogradnju";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Čini se da pokušavate nadograditi sa starije verzije Cryptomator-a. U tom slučaju, odaberite opciju \"Ponuda za nadogradnju\".";
 "purchase.retry.button" = "Pokušaj ponovno";
 "purchase.retry.footer" = "Nije moguće učitati dostupne proizvode.";
 "purchase.title" = "Otključaj punu verziju";
