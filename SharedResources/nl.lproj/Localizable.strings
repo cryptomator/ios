@@ -149,6 +149,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Herstellen geslaagd";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Geen volledige versie";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We konden geen eerder aangeschafte volledige versie vinden die hersteld kon worden. Probeer een andere optie.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Komt in aanmerking voor upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Het lijkt erop dat u probeert te upgraden via een oudere versie van Cryptomator. In dat geval, selecteer de \"Upgrade-aanbieding\" optie.";
 "purchase.retry.button" = "Opnieuw proberen";
 "purchase.retry.footer" = "De beschikbare producten konden niet worden geladen.";
 "purchase.title" = "Volledige versie ontgrendelen";
