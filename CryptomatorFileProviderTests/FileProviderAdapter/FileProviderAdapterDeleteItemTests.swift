@@ -18,7 +18,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let adapter = createFullyMockedAdapter()
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 		adapter.deleteItem(withIdentifier: itemIdentifier) { error in
 			XCTAssertNil(error)
 
@@ -44,8 +44,8 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let fileItemMetadata = ItemMetadata(id: fileItemID, name: "test.txt", type: .file, size: nil, parentID: folderItemID, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata([folderItemMetadata, fileItemMetadata])
 
-		let folderItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(folderItemID))
-		let fileItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(fileItemID))
+		let folderItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: folderItemID)
+		let fileItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: fileItemID)
 		let localURLForItem = tmpDirectory.appendingPathComponent("/\(fileItemIdentifier)/test.txt")
 		try cachedFileManagerMock.cacheLocalFileInfo(for: fileItemID, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
 
@@ -72,7 +72,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "test.txt", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(itemMetadata)
 		let adapter = createFullyMockedAdapter()
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 
 		let localURLForItem = tmpDirectory.appendingPathComponent("/\(itemIdentifier)/test.txt")
 		try cachedFileManagerMock.cacheLocalFileInfo(for: itemID, localURL: localURLForItem, lastModifiedDate: Date(timeIntervalSinceReferenceDate: 0))
@@ -98,7 +98,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 	func testDeleteItemWithNonExistentFile() throws {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 
 		let adapter = createFullyMockedAdapter()
 

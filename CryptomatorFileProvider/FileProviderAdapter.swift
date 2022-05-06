@@ -44,9 +44,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let notificator: FileProviderItemUpdateDelegate?
 	private let fullVersionChecker: FullVersionChecker
 	private let workflowFactory: WorkflowFactoryLocking
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.lastUnlockedDate = Date()
+		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -61,7 +63,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		                              reparentTaskManager: reparentTaskManager,
 		                              deletionTaskManager: deletionTaskManager,
 		                              itemEnumerationTaskManager: itemEnumerationTaskManager,
-		                              downloadTaskManager: downloadTaskManager)
+		                              downloadTaskManager: downloadTaskManager,
+		                              domainIdentifier: domainIdentifier)
 		self.workflowFactory = WorkflowFactoryLocking(lockManager: LockManager(), workflowFactory: factory)
 		self.scheduler = scheduler
 		self.provider = provider
@@ -84,7 +87,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 		let localURL = localCachedFileInfo?.localURL
-		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
 	}
 
 	// MARK: Enumerate Item
@@ -140,7 +143,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
 				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+				return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
 			}
 		} catch {
 			return Promise(error)
@@ -218,7 +221,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 		// Register LocalURL in the DB
 		try cachedFileManager.cacheLocalFileInfo(for: placeholderMetadata.id!, localURL: localURL, lastModifiedDate: nil)
-		let item = FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true, localURL: localURL)
+		let item = FileProviderItem(metadata: placeholderMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true, localURL: localURL)
 		let uploadTaskRecord = try registerFileInUploadQueue(with: localURL, itemMetadata: placeholderMetadata)
 		return LocalItemImportResult(item: item, uploadTaskRecord: uploadTaskRecord)
 	}
@@ -412,7 +415,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 
 		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
-		let item = FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached)
 		return MoveItemLocallyResult(item: item, reparentTaskRecord: taskRecord)
 	}
 
@@ -685,7 +688,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		try checkLocalItemCollision(for: cloudPath)
 		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
-		return FileProviderItem(metadata: placeholderMetadata, newestVersionLocallyCached: true)
+		return FileProviderItem(metadata: placeholderMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true)
 	}
 
 	/**
@@ -713,7 +716,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			do {
 				_ = try deletionTaskManager.getTaskRecord(for: existingItemMetadata.id!)
 			} catch DBManagerError.taskNotFound {
-				throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata))
+				throw NSError.fileProviderErrorForCollision(with: FileProviderItem(metadata: existingItemMetadata, domainIdentifier: domainIdentifier))
 			}
 		}
 	}
@@ -774,22 +777,17 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func convertFileProviderItemIdentifierToInt64(_ identifier: NSFileProviderItemIdentifier) throws -> Int64 {
-		switch identifier {
-		case .rootContainer:
-			return itemMetadataManager.getRootContainerID()
-		default:
-			guard let id = Int64(identifier.rawValue) else {
-				throw FileProviderAdapterError.unsupportedItemIdentifier
-			}
-			return id
+		guard let id = identifier.databaseValue else {
+			throw FileProviderAdapterError.unsupportedItemIdentifier
 		}
+		return id
 	}
 
 	func convertIDToItemIdentifier(_ id: Int64) -> NSFileProviderItemIdentifier {
 		if id == itemMetadataManager.getRootContainerID() {
 			return .rootContainer
 		}
-		return NSFileProviderItemIdentifier("\(id)")
+		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: id)
 	}
 
 	struct LocalItemImportResult {

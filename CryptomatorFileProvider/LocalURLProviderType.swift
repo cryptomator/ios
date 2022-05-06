@@ -12,6 +12,10 @@ import Foundation
 
 public protocol LocalURLProviderType: AnyObject {
 	/**
+	 The identifier for the corresponding domain of the item identifiers.
+	 */
+	var domainIdentifier: NSFileProviderDomainIdentifier { get }
+	/**
 	 Returns the item identifier directory for a given item identifier.
 
 	 All paths are structured as `<base storage directory>/<item identifier>/`
@@ -46,11 +50,18 @@ public extension LocalURLProviderType {
 	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
 		let pathComponents = url.pathComponents
 		assert(pathComponents.count > 2)
-		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
+		guard let itemID = Int64(pathComponents[pathComponents.count - 2]) else {
+			return nil
+		}
+		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
 	}
 }
 
 public class LocalURLProvider: LocalURLProviderType {
+	public var domainIdentifier: NSFileProviderDomainIdentifier {
+		domain.identifier
+	}
+
 	private let domain: NSFileProviderDomain
 	private let documentStorageURLProvider: DocumentStorageURLProvider
 

@@ -21,10 +21,12 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		localURLProviderMock = LocalURLProviderMock()
+		localURLProviderMock.domainIdentifier = .test
 		fileProviderItemUpdateDelegateMock = FileProviderItemUpdateDelegateMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
-		adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock,
+		adapter = FileProviderAdapter(domainIdentifier: .test,
+		                              uploadTaskManager: uploadTaskManagerMock,
 		                              cachedFileManager: cachedFileManagerMock,
 		                              itemMetadataManager: metadataManagerMock,
 		                              reparentTaskManager: reparentTaskManagerMock,
@@ -57,7 +59,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	func createFullyMockedAdapter() -> FileProviderAdapter {
-		return FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 	}
 }
 
@@ -65,4 +67,8 @@ extension UploadTaskRecord: Equatable {
 	public static func == (lhs: UploadTaskRecord, rhs: UploadTaskRecord) -> Bool {
 		lhs.correspondingItem == rhs.correspondingItem && lhs.lastFailedUploadDate == rhs.lastFailedUploadDate && lhs.uploadErrorCode == rhs.uploadErrorCode && lhs.uploadErrorDomain == rhs.uploadErrorDomain
 	}
+}
+
+extension NSFileProviderDomainIdentifier {
+	static let test = NSFileProviderDomainIdentifier("Test")
 }

@@ -12,7 +12,7 @@ import XCTest
 
 class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 	func testGetFileProviderItemThrowsForNonExistentItem() throws {
-		XCTAssertThrowsError(try adapter.item(for: NSFileProviderItemIdentifier("2")), "Did not throw for non existent Item") { error in
+		XCTAssertThrowsError(try adapter.item(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)), "Did not throw for non existent Item") { error in
 			guard let fileProviderError = error as? NSFileProviderError else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -29,7 +29,7 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[id] = itemMetadata
 
-		let item = try adapter.item(for: NSFileProviderItemIdentifier(String(id)))
+		let item = try adapter.item(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: id))
 		guard let fileProviderItem = item as? FileProviderItem else {
 			XCTFail("Item is not a FileProviderItem")
 			return
@@ -49,7 +49,7 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 			}
 			return uploadTask
 		}
-		let item = try adapter.item(for: NSFileProviderItemIdentifier(String(id)))
+		let item = try adapter.item(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: id))
 		guard let fileProviderItem = item as? FileProviderItem else {
 			XCTFail("Item is not a FileProviderItem")
 			return

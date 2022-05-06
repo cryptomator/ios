@@ -28,7 +28,7 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		metadataManagerMock.workingSetMetadata = mockMetadata
 		let expectation = XCTestExpectation()
 		adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
-			XCTAssertEqual(mockMetadata.map { FileProviderItem(metadata: $0) }, itemList.items)
+			XCTAssertEqual(mockMetadata.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }, itemList.items)
 			XCTAssertNil(itemList.nextPageToken)
 		}.catch { error in
 			XCTFail("Error in promise: \(error)")

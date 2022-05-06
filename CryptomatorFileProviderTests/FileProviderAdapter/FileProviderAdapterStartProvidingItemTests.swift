@@ -108,7 +108,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 		assertItemRemovedFromWorkingSet()
-		XCTAssertEqual([NSFileProviderItemIdentifier("3")], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
+		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 
 	func testStartProvidingItemWithTagData() throws {
@@ -149,7 +149,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	}
 
 	private func assertItemRemovedFromWorkingSet() {
-		XCTAssertEqual([String(itemID)], fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations.map { $0.rawValue })
+		XCTAssertEqual(["\(NSFileProviderDomainIdentifier.test.rawValue):\(itemID)"], fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithReceivedInvocations.map { $0.rawValue })
 	}
 
 	private func simulateExistingLocalFileByDownloadingFile() {

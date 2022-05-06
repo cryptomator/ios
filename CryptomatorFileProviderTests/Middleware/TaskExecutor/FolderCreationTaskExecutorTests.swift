@@ -19,7 +19,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: 2, name: "NewFolder", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 
 		let task = FolderCreationTask(itemMetadata: itemMetadata)
-		let taskExecutor = FolderCreationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock)
+		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: task).then { item in
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
 			XCTAssertEqual(itemMetadata, self.metadataManagerMock.updatedMetadata[0])
@@ -47,7 +47,7 @@ class FolderCreationTaskExecutorTests: CloudTaskExecutorTestCase {
 		}
 
 		let task = FolderCreationTask(itemMetadata: itemMetadata)
-		let taskExecutor = FolderCreationTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock)
+		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock)
 		taskExecutor.execute(task: task).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
 		}.catch { error in

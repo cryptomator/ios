@@ -21,7 +21,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "FileToBeUploaded", type: .file, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true, isCandidateForCacheCleanup: false)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(), localURL: localURL)
 
-		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
+		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
@@ -61,7 +61,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
 
-		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
+		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
@@ -92,7 +92,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderUploadInconsistencyMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
 
-		let uploadTaskExecutor = UploadTaskExecutor(provider: cloudProviderUploadInconsistencyMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
+		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderUploadInconsistencyMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)
@@ -138,7 +138,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 			Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let uploadTaskExecutor = UploadTaskExecutor(provider: errorCloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
+		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata)

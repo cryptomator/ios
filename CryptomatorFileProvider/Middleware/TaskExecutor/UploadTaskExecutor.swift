@@ -30,8 +30,10 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	let cachedFileManager: CachedFileManager
 	let itemMetadataManager: ItemMetadataManager
 	let uploadTaskManager: UploadTaskManager
+	let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager) {
+		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
@@ -88,11 +90,11 @@ class UploadTaskExecutor: WorkflowMiddleware {
 		if localFileSizeBeforeUpload == cloudItemMetadata.size {
 			DDLogInfo("uploadPostProcessing: received cloudItemMetadata seem to be correct: localSize = \(localFileSizeBeforeUpload ?? -1); cloudItemSize = \(cloudItemMetadata.size ?? -1)")
 			try cachedFileManager.cacheLocalFileInfo(for: taskItemMetadata.id!, localURL: localURL, lastModifiedDate: cloudItemMetadata.lastModifiedDate)
-			return FileProviderItem(metadata: taskItemMetadata, newestVersionLocallyCached: true, localURL: localURL)
+			return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true, localURL: localURL)
 		} else {
 			DDLogInfo("uploadPostProcessing: received cloudItemMetadata do not belong to the version that was uploaded - size differs!")
 			try cachedFileManager.removeCachedFile(for: taskItemMetadata.id!)
-			return FileProviderItem(metadata: taskItemMetadata)
+			return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier)
 		}
 	}
 }

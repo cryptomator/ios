@@ -15,7 +15,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: .rootContainer) { item, error in
 			XCTAssertNil(error)
 			guard let fileProviderItem = item as? FileProviderItem else {
@@ -40,8 +40,8 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 
 	func testCreateDirectoryFailsIfParentDoesNotExist() throws {
 		let expectation = XCTestExpectation()
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: LocalURLProviderMock())
-		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: NSFileProviderItemIdentifier("2")) { item, error in
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: LocalURLProviderMock())
+		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)) { item, error in
 			XCTAssertNil(item)
 			guard let error = error else {
 				XCTFail("Error is nil")
@@ -79,7 +79,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 	}
 
 	func testCreatePlaceholderItemForFolderFailsIfParentDoesNotExist() throws {
-		XCTAssertThrowsError(try adapter.createPlaceholderItemForFolder(withName: "TestFolder", in: NSFileProviderItemIdentifier("2"))) { error in
+		XCTAssertThrowsError(try adapter.createPlaceholderItemForFolder(withName: "TestFolder", in: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2))) { error in
 			guard case FileProviderAdapterError.parentFolderNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return

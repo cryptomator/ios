@@ -30,7 +30,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: fileMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: fileMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { itemList in
 			XCTAssertEqual(1, itemList.items.count)
@@ -81,7 +81,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: fileMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: fileMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { itemList in
 			XCTAssertEqual(1, itemList.items.count)
@@ -127,7 +127,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: fileMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: fileMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { itemList in
 			XCTAssertEqual(1, itemList.items.count)
@@ -182,7 +182,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
@@ -218,12 +218,12 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		                                            ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false),
 		                                            ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)]
 
-		let expectedRootFolderFileProviderItems = expectedItemMetadataInsideRootFolder.map { FileProviderItem(metadata: $0) }
+		let expectedRootFolderFileProviderItems = expectedItemMetadataInsideRootFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 		let expectedItemMetadataInsideSubFolder = [ItemMetadata(id: 7, name: "Directory 2", type: .folder, size: 0, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/Directory 2"), isPlaceholderItem: false),
 		                                           ItemMetadata(id: 8, name: "File 5", type: .file, size: 14, parentID: 2, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/File 5"), isPlaceholderItem: false)]
-		let expectedSubFolderFileProviderItems = expectedItemMetadataInsideSubFolder.map { FileProviderItem(metadata: $0) }
+		let expectedSubFolderFileProviderItems = expectedItemMetadataInsideSubFolder.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> FileProviderItem in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
@@ -274,18 +274,18 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false))]
-		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false)),
-		                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false))]
+		let expectedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 3, name: "File 1", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 1"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                           FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test)]
+		let expectedChangedRootFolderFileProviderItems = [FileProviderItem(metadata: ItemMetadata(id: 2, name: "Directory 1", type: .folder, size: 0, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Directory 1/"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 4, name: "File 2", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 5, name: "File 3", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 3"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 6, name: "File 4", type: .file, size: 14, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/File 4"), isPlaceholderItem: false), domainIdentifier: .test),
+		                                                  FileProviderItem(metadata: ItemMetadata(id: 7, name: "NewFileFromCloud", type: .file, size: 24, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/NewFileFromCloud"), isPlaceholderItem: false), domainIdentifier: .test)]
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertEqual(5, fileProviderItemList.items.count)
@@ -318,7 +318,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		let lastFailedUploadDate = Date()
 		taskExecutor.execute(task: enumerationTask).then { _ -> Void in
@@ -369,7 +369,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: paginatedMockedProvider, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: paginatedMockedProvider, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 		let id: Int64 = 2
 		let itemMetadata = ItemMetadata(id: 2, name: "TestItem", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemMetadata.id!] = itemMetadata
@@ -405,7 +405,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: paginatedMockedProvider, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: paginatedMockedProvider, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertEqual(2, fileProviderItemList.items.count)
@@ -453,7 +453,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		let newCloudPath = CloudPath("/RenamedItem")
 		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
@@ -499,7 +499,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 		let enumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { fileProviderItemList -> Promise<FileProviderItemList> in
 			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
@@ -545,7 +545,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, uploadTaskManager: uploadTaskManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, deleteItemHelper: deleteItemHelper)
 
 		taskExecutor.execute(task: enumerationTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")

@@ -16,7 +16,7 @@ class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
 		let cloudPath = CloudPath("/")
 		let metadata = ItemMetadata(id: ItemMetadataDBManager.rootContainerId, name: "root", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("public.folder", item.typeIdentifier)
@@ -25,8 +25,8 @@ class FileProviderItemTests: XCTestCase {
 	func testFileItem() {
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata)
-		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)
 		XCTAssertEqual(100, item.documentSize)
@@ -40,8 +40,8 @@ class FileProviderItemTests: XCTestCase {
 	func testFolderItem() {
 		let cloudPath = CloudPath("/test Folder/")
 		let metadata = ItemMetadata(id: 2, name: "test Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata)
-		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test Folder", item.filename)
 		XCTAssertNil(item.documentSize)
@@ -57,8 +57,8 @@ class FileProviderItemTests: XCTestCase {
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let failedUploadTask = UploadTaskRecord(correspondingItem: 2, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
-		let item = FileProviderItem(metadata: metadata, error: failedUploadTask.failedWithError)
-		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, error: failedUploadTask.failedWithError)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)
 		XCTAssertEqual(100, item.documentSize)
@@ -80,8 +80,8 @@ class FileProviderItemTests: XCTestCase {
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: false)
 		let localURL = tmpDir.appendingPathComponent("test.txt")
 
-		let item = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false, localURL: localURL)
-		XCTAssertEqual(NSFileProviderItemIdentifier("2"), item.itemIdentifier)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, newestVersionLocallyCached: false, localURL: localURL)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual("test.txt", item.filename)
 		XCTAssertEqual(100, item.documentSize)
@@ -93,8 +93,8 @@ class FileProviderItemTests: XCTestCase {
 
 		try "Foo".write(to: localURL, atomically: true, encoding: .utf8)
 
-		let newestItem = FileProviderItem(metadata: metadata, newestVersionLocallyCached: false, localURL: localURL)
-		XCTAssertEqual(NSFileProviderItemIdentifier("2"), newestItem.itemIdentifier)
+		let newestItem = FileProviderItem(metadata: metadata, domainIdentifier: .test, newestVersionLocallyCached: false, localURL: localURL)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), newestItem.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, newestItem.parentItemIdentifier)
 		XCTAssertEqual("test.txt", newestItem.filename)
 		XCTAssertEqual(100, newestItem.documentSize)
@@ -113,7 +113,7 @@ class FileProviderItemTests: XCTestCase {
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
@@ -123,7 +123,7 @@ class FileProviderItemTests: XCTestCase {
 
 		let cloudPath = CloudPath("/test")
 		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual([.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], item.capabilities)
 	}
 
@@ -133,7 +133,7 @@ class FileProviderItemTests: XCTestCase {
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
@@ -143,7 +143,7 @@ class FileProviderItemTests: XCTestCase {
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
 
@@ -153,7 +153,7 @@ class FileProviderItemTests: XCTestCase {
 
 		let cloudPath = CloudPath("/test")
 		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
 }

@@ -219,9 +219,9 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
 
-		let adapter = FileProviderAdapter(uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
 
-		adapter.deleteItem(withIdentifier: NSFileProviderItemIdentifier("\(itemID)"), completionHandler: ({ error in
+		adapter.deleteItem(withIdentifier: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID), completionHandler: ({ error in
 			XCTAssertNil(error)
 			adapter.importDocument(at: fileURL, toParentItemIdentifier: .rootContainer, completionHandler: ({ item, error in
 				XCTAssertNil(error)
@@ -265,13 +265,13 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	}
 
 	private func assertLocalURLProviderCalledWithItemID() {
-		XCTAssertEqual([NSFileProviderItemIdentifier("\(itemID)")], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
+		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 
 	private func assertAllExpectedPropertiesSet(for item: NSFileProviderItem) throws {
 		let resourceValues = try expectedFileURL.resourceValues(forKeys: [.creationDateKey, .nameKey, .contentModificationDateKey, .typeIdentifierKey, .totalFileSizeKey])
 
-		XCTAssertEqual(NSFileProviderItemIdentifier("\(itemID)"), item.itemIdentifier)
+		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID), item.itemIdentifier)
 		XCTAssertEqual(.rootContainer, item.parentItemIdentifier)
 		XCTAssertEqual(resourceValues.name, item.filename)
 		XCTAssertEqual(resourceValues.contentModificationDate, item.contentModificationDate)

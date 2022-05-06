@@ -289,6 +289,7 @@
 		4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */; };
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE6EE12822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */; };
 		4AEECD2F279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECD2E279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift */; };
 		4AEECD31279EA50D00C6E2B5 /* WorkingSetObservingMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */; };
 		4AEECD33279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECD32279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift */; };
@@ -775,6 +776,7 @@
 		4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddleware.swift; sourceTree = "<group>"; };
+		4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileProviderItemIdentifier+Database.swift"; sourceTree = "<group>"; };
 		4AEECD2E279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterSetTagDataTests.swift; sourceTree = "<group>"; };
 		4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingSetObservingMock.swift; sourceTree = "<group>"; };
 		4AEECD32279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterSetFavoriteRankTests.swift; sourceTree = "<group>"; };
@@ -1668,6 +1670,7 @@
 				4A2060CC2799645300DA6C62 /* FileProviderNotificatorManager.swift */,
 				740375F42587AEB50023FF53 /* ItemStatus.swift */,
 				4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */,
+				4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */,
 				4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */,
 				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
 				4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */,
@@ -2549,6 +2552,7 @@
 				4A231B82271EF35400987492 /* DownloadTaskDBManager.swift in Sources */,
 				4A03BD6527DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift in Sources */,
 				747F2F3A2587BC4B0072FB30 /* LockManager.swift in Sources */,
+				4AEE6EE12822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift in Sources */,
 				4ADD233C267219E200374E4E /* LocalCachedFileInfo.swift in Sources */,
 				747F2F3B2587BC4B0072FB30 /* FileSystemLock.swift in Sources */,
 				4A231B80271EF2CA00987492 /* DownloadTaskRecord.swift in Sources */,

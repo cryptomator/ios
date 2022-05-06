@@ -12,6 +12,15 @@ import Foundation
 
 // swiftlint:disable all
 final class LocalURLProviderMock: LocalURLProviderType {
+	// MARK: - domainIdentifier
+
+	var domainIdentifier: NSFileProviderDomainIdentifier {
+		get { underlyingDomainIdentifier }
+		set(value) { underlyingDomainIdentifier = value }
+	}
+
+	private var underlyingDomainIdentifier: NSFileProviderDomainIdentifier!
+
 	// MARK: - itemIdentifierDirectoryURLForItem
 
 	var itemIdentifierDirectoryURLForItemWithPersistentIdentifierCallsCount = 0
