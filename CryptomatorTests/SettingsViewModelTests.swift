@@ -246,7 +246,7 @@ class SettingsViewModelTests: XCTestCase {
 	}
 
 	private func checkLogLevelUpdatingServiceSourceCall() {
-		XCTAssertEqual(LogLevelUpdatingService.name, fileProviderConnectorMock.passedServiceName)
+		XCTAssertEqual(.logLevelUpdating, fileProviderConnectorMock.passedServiceName)
 		XCTAssertNil(fileProviderConnectorMock.passedDomain)
 		XCTAssertNil(fileProviderConnectorMock.passedDomainIdentifier)
 	}

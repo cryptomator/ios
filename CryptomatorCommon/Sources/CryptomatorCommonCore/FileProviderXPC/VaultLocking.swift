@@ -17,10 +17,8 @@ import Promises
 	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void)
 }
 
-public enum VaultLockingService {
-	public static var name: NSFileProviderServiceName {
-		return NSFileProviderServiceName("org.cryptomator.ios.vault-locking")
-	}
+public extension NSFileProviderServiceName {
+	static let vaultLocking = NSFileProviderServiceName("org.cryptomator.ios.vault-locking")
 }
 
 // MARK: Convenience

@@ -11,33 +11,9 @@ import CryptomatorCommonCore
 import FileProvider
 import Foundation
 
-public class VaultLockingServiceSource: NSObject, NSFileProviderServiceSource, NSXPCListenerDelegate, VaultLocking {
-	public var serviceName: NSFileProviderServiceName {
-		VaultLockingService.name
-	}
-
-	private lazy var listener: NSXPCListener = {
-		let listener = NSXPCListener.anonymous()
-		listener.delegate = self
-		listener.resume()
-		return listener
-	}()
-
-	public func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
-		return listener.endpoint
-	}
-
-	// MARK: - NSXPCListenerDelegate
-
-	public func listener(_ listener: NSXPCListener, shouldAcceptNewConnection newConnection: NSXPCConnection) -> Bool {
-		newConnection.exportedInterface = NSXPCInterface(with: VaultLocking.self)
-		newConnection.exportedObject = self
-		newConnection.resume()
-		weak var weakConnection = newConnection
-		newConnection.interruptionHandler = {
-			weakConnection?.invalidate()
-		}
-		return true
+public class VaultLockingServiceSource: ServiceSource, VaultLocking {
+	public init() {
+		super.init(serviceName: .vaultLocking, exportedInterface: NSXPCInterface(with: VaultLocking.self))
 	}
 
 	// MARK: - VaultLocking

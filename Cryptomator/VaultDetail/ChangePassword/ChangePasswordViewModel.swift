@@ -169,7 +169,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 
 	private func lockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultAccount.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		return getXPCPromise.then { xpc -> Void in
 			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.always {

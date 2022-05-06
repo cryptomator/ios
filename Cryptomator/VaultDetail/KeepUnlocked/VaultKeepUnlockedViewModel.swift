@@ -82,7 +82,7 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	func gracefulLockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		return getXPCPromise.then { xpc in
 			xpc.proxy.gracefulLockVault(domainIdentifier: domainIdentifier)
 		}.then {
@@ -118,7 +118,7 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 
 	private func getVaultIsUnlocked() -> Promise<Bool> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		return getXPCPromise.then { xpc in
 			return xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 		}.always {
