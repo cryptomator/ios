@@ -137,16 +137,20 @@
 "purchase.product.lifetimeLicense.duration" = "ワンタイム";
 "purchase.product.pricing.free" = "無料";
 "purchase.product.trial" = "30日間のトライアル";
+"purchase.product.trial.expirationDate" = "有効期限: %@";
 "purchase.product.trial.duration" = "30日間";
 "purchase.product.yearlySubscription" = "年間サブスクリプション";
 "purchase.product.yearlySubscription.duration" = "毎年";
 "purchase.readOnlyMode.alert.title" = "読み取り専用モード";
+"purchase.readOnlyMode.alert.message" = "今は読み取り専用モードで使用することができます。後で設定から Cryptomator のフルバージョンにすることができます。";
 "purchase.restorePurchase.button" = "購入情報の復元";
 "purchase.restorePurchase.validTrialFound.alert.title" = "試用が継続されました";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomatorのフルバージョンを期間限定で使用できるようになりました。試用期間は %@までです。 その後も、金庫は読み取り専用モードでアクセスすることができます。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "正常に復元されました";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "フルバージョンではありません";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "以前購入したフルバージョンが見つかりませんでした。別のオプションをお試しください。";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "アップグレード可能";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "古いバージョンの Cryptomator からアップグレードしようとしているようです。その場合は、代わりに「Upgrade Offer」オプションを選択してください。";
 "purchase.retry.button" = "再試行";
 "purchase.retry.footer" = "利用可能な製品を読み込めませんでした。";
 "purchase.title" = "フル バージョンのロックを解除";
@@ -199,6 +203,7 @@
 "upgrade.title" = "アップグレードオファー";
 "upgrade.notEligible.alert.title" = "アップグレードできませんでした";
 "upgrade.notEligible.alert.message" = "Cryptomatorは、お使いのデバイスにインストールされている古いバージョンを検出できませんでした。すでに購入していた場合はApp Storeから再度ダウンロードしてもう一度お試しください。";
+"upgrade.info" = "バージョン1以来、Cryptomatorを信頼していただきありがとうございます。ロイヤル・ユーザーとして、あなたは無料のアップグレードの対象となります。";
 
 "urlSession.error.httpError.401" = "ユーザー名またはパスワードが間違っています。";
 "urlSession.error.httpError.403" = "リクエストされたリソースの権限が不足しています。";
@@ -246,3 +251,4 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
 "webDAVAuthentication.httpConnection.change" = "HTTPS を使用";
 "webDAVAuthentication.httpConnection.continue" = "HTTP を保持";
+"webDAVAuthenticator.error.untrustedCertificate" = "このサーバーの証明書は信頼されていません。WebDAV 接続を再追加する必要があります。";
