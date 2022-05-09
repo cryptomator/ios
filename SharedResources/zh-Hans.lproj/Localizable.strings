@@ -76,7 +76,7 @@
 
 "cloudProvider.error.itemNotFound" = "找不到 %@\"。";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在。";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型。";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个非预期的文件类型。";
 "cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在。";
 "cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容。";
 "cloudProvider.error.quotaInsufficient" = "您的存储空间不足。";
@@ -213,7 +213,7 @@
 "urlSession.error.httpError.409" = "请求与目标资源的当前状态冲突。";
 "urlSession.error.httpError.412" = "访问目标资源受阻。";
 "urlSession.error.httpError.default" = "网络连接失败，状态代码 %ld。";
-"urlSession.error.unexpectedResponse" = "意外的网络响应。";
+"urlSession.error.unexpectedResponse" = "非预期的网络响应。";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已添加了此保险库";
 
