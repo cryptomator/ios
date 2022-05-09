@@ -18,6 +18,14 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		}
 	}
 
+	// MARK: Error Handling
+
+	func testEnumerateItemsFailedWithNoInternetConnection() throws {
+		let metadata = ItemMetadata(id: 2, name: "noInternetConnection", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/noInternetConnection"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: Data())
+		try metadataManagerMock.cacheMetadata(metadata)
+		XCTAssertRejects(adapter.enumerateItems(for: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), withPageToken: nil), with: NSFileProviderError(.serverUnreachable))
+	}
+
 	// MARK: Enumerate Working Set
 
 	func testWorkingSet() {

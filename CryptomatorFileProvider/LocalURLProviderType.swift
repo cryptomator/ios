@@ -75,7 +75,11 @@ public class LocalURLProvider: LocalURLProviderType {
 		if identifier == .rootContainer {
 			return baseStorageDirectoryURL
 		}
-		return baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		if let itemID = identifier.databaseValue {
+			return baseStorageDirectoryURL?.appendingPathComponent(String(itemID), isDirectory: true)
+		} else {
+			return baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		}
 	}
 
 	private func getBaseStorageDirectory() -> URL? {

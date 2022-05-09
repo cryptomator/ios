@@ -27,6 +27,7 @@ public protocol FileProviderAdapterType: AnyObject {
 	func startProvidingItem(at url: URL, completionHandler: @escaping ((_ error: Error?) -> Void))
 	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
 	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
+	func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier)
 }
 
 public class FileProviderAdapter: FileProviderAdapterType {
@@ -261,9 +262,34 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			let itemMetadata = try getCachedMetadata(for: itemIdentifier)
 			uploadTaskRecord = try registerFileInUploadQueue(with: url, itemMetadata: itemMetadata)
 		} catch {
-			DDLogError("itemChanged - failed to register file in upload queue with url: \(url) and identifier: \(itemIdentifier)")
+			DDLogError("itemChanged - register file in upload queue with url: \(url) and identifier: \(itemIdentifier) failed with error: \(error)")
 			return
 		}
+		uploadFile(taskRecord: uploadTaskRecord).then { item in
+			self.notificator?.signalUpdate(for: item)
+		}
+	}
+
+	public func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier) {
+		let uploadTaskRecord: UploadTaskRecord
+		let itemMetadata: ItemMetadata
+		let localCachedFileInfo: LocalCachedFileInfo
+		do {
+			itemMetadata = try getCachedMetadata(for: itemIdentifier)
+			guard let retrievedLocalCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: itemMetadata) else {
+				DDLogError("retryUpload - retrievedLocalCachedFileInfo is nil for identifier: \(itemIdentifier)")
+				return
+			}
+			localCachedFileInfo = retrievedLocalCachedFileInfo
+			uploadTaskRecord = try registerFileInUploadQueue(with: localCachedFileInfo.localURL, itemMetadata: itemMetadata)
+		} catch {
+			DDLogError("retryUpload - get existing uploadTaskRecord for identifier: \(itemIdentifier) failed with error: \(error)")
+			return
+		}
+		let newestVersionLocallyCached = localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate)
+		let localURL = localCachedFileInfo.localURL
+		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: nil)
+		notificator?.signalUpdate(for: item)
 		uploadFile(taskRecord: uploadTaskRecord).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
@@ -593,7 +619,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		} catch {
 			return Promise(error)
 		}
-		if itemMetadata.statusCode == .isUploading {
+		if itemMetadata.statusCode == .isUploading || itemMetadata.statusCode == .uploadError {
 			return Promise(true)
 		}
 		return enumerateItems(for: identifier, withPageToken: nil).then { itemList -> Bool in

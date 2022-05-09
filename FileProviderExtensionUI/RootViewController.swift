@@ -9,8 +9,10 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import CryptomatorFileProvider
 import FileProviderUI
 import MSAL
+import Promises
 import UIKit
 
 class RootViewController: FPUIActionExtensionViewController {
@@ -84,9 +86,75 @@ class RootViewController: FPUIActionExtensionViewController {
 		return {}
 	}()
 
+	func retryUpload(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
+		let getXPCPromise: Promise<XPC<UploadRetrying>> = FileProviderXPCConnector.shared.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+		getXPCPromise.then { xpc in
+			return wrap {
+				xpc.proxy.retryUpload(for: itemIdentifiers, reply: $0)
+			}
+		}.then {
+			if let error = $0 {
+				throw error
+			}
+			self.extensionContext.completeRequest()
+		}.catch { error in
+			DDLogError("Retry upload failed with error: \(error)")
+			self.extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.failed.rawValue), userInfo: nil))
+		}.always {
+			FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+		}
+	}
+
+	func showDomainNotFoundAlert() {
+		let alertController = RetryUploadAlertControllerFactory.createDomainNotFoundAlert(okAction: { [weak self] in
+			self?.cancel()
+		})
+		present(alertController, animated: true)
+	}
+
+	func showUploadProgressAlert(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
+		let getXPCPromise: Promise<XPC<UploadRetrying>> = FileProviderXPCConnector.shared.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+		let progressAlert = RetryUploadAlertControllerFactory.createUploadProgressAlert(dismissAction: {
+			[weak self] in
+				self?.cancel()
+		}, retryAction: { [weak self] in
+			self?.retryUpload(for: itemIdentifiers, domainIdentifier: domainIdentifier)
+		})
+		getXPCPromise.then { xpc -> Promise<Void> in
+			let observeProgressPromise = progressAlert.observeProgress(itemIdentifier: itemIdentifiers[0], proxy: xpc.proxy)
+			let alertActionPromise = progressAlert.alertActionTriggered
+			return race([observeProgressPromise, alertActionPromise])
+		}.always {
+			self.extensionContext.completeRequest()
+			FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+		}
+		present(progressAlert, animated: true)
+	}
+
 	// MARK: - FPUIActionExtensionViewController
 
 	override func prepare(forError error: Error) {
 		coordinator.startWith(error: error)
+	}
+
+	override func prepare(forAction actionIdentifier: String, itemIdentifiers: [NSFileProviderItemIdentifier]) {
+		let action = FileProviderAction(rawValue: actionIdentifier)
+		switch action {
+		case .retryWaitingUpload:
+			if let domainIdentifier = itemIdentifiers.first?.domainIdentifier {
+				showUploadProgressAlert(for: itemIdentifiers, domainIdentifier: domainIdentifier)
+			} else {
+				showDomainNotFoundAlert()
+			}
+		case .retryUpload:
+			if let domainIdentifier = itemIdentifiers.first?.domainIdentifier {
+				retryUpload(for: itemIdentifiers, domainIdentifier: domainIdentifier)
+			} else {
+				showDomainNotFoundAlert()
+			}
+		case .none:
+			let error = NSError(domain: NSCocoaErrorDomain, code: NSFeatureUnsupportedError, userInfo: [:])
+			extensionContext.cancelRequest(withError: error)
+		}
 	}
 }

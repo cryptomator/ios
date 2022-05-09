@@ -255,3 +255,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Server doesn't seem to be WebDAV compatible. Please check if you've used the correct URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certificate of this server is untrusted. You may have to re-add this WebDAV connection.";
+
+"Retry Upload" = "Retry Upload";

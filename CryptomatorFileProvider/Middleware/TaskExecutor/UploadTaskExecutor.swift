@@ -31,13 +31,15 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	let itemMetadataManager: ItemMetadataManager
 	let uploadTaskManager: UploadTaskManager
 	let domainIdentifier: NSFileProviderDomainIdentifier
+	let progressManager: ProgressManager
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager, progressManager: ProgressManager = InMemoryProgressManager.shared) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.cachedFileManager = cachedFileManager
 		self.itemMetadataManager = itemMetadataManager
 		self.uploadTaskManager = uploadTaskManager
+		self.progressManager = progressManager
 	}
 
 	func execute(task: CloudTask) -> Promise<FileProviderItem> {
@@ -63,8 +65,17 @@ class UploadTaskExecutor: WorkflowMiddleware {
 			return Promise(error)
 		}
 
-		return provider.uploadFile(from: localURL, to: itemMetadata.cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem).then { cloudItemMetadata in
+		let progress = Progress(totalUnitCount: 1)
+		if let itemID = itemMetadata.id {
+			progressManager.saveProgress(progress, for: NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID))
+		}
+		progress.becomeCurrent(withPendingUnitCount: 1)
+		let uploadPromise = provider.uploadFile(from: localURL, to: itemMetadata.cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem)
+		progress.resignCurrent()
+		return uploadPromise.then { cloudItemMetadata in
 			try self.uploadPostProcessing(taskItemMetadata: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)
+		}.recover { error -> FileProviderItem in
+			try self.handleUploadError(error, taskItemMetadata: itemMetadata)
 		}
 	}
 
@@ -96,5 +107,16 @@ class UploadTaskExecutor: WorkflowMiddleware {
 			try cachedFileManager.removeCachedFile(for: taskItemMetadata.id!)
 			return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier)
 		}
+	}
+
+	func handleUploadError(_ error: Error, taskItemMetadata: ItemMetadata) throws -> FileProviderItem {
+		let convertedError = error.toPresentableError()
+		try uploadTaskManager.updateTaskRecord(for: taskItemMetadata, with: convertedError as NSError)
+		taskItemMetadata.statusCode = .uploadError
+		try itemMetadataManager.updateMetadata(taskItemMetadata)
+		let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: taskItemMetadata)
+		let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: taskItemMetadata.lastModifiedDate) ?? false
+		let localURL = localCachedFileInfo?.localURL
+		return FileProviderItem(metadata: taskItemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: convertedError)
 	}
 }

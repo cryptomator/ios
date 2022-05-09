@@ -156,4 +156,10 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	public var tagData: Data? {
 		return metadata.tagData
 	}
+
+	/// Workaround to access the `isUploading` and `uploadingError` property in the `NSExtensionFileProviderActionActivationRule`
+	public var userInfo: [AnyHashable: Any]? {
+		return ["isUploading": isUploading,
+		        "hasUploadError": uploadingError != nil]
+	}
 }
