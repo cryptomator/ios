@@ -156,6 +156,7 @@
 "purchase.title" = "フル バージョンのロックを解除";
 "purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
 "purchase.unlockedFullVersion.title" = "ありがとうございます";
+"purchase.error.unknown" = "この購入は不明な理由によりApp Storeで利用できません。後でもう一度お試しください。\n\nこのエラーが解決しない場合、 デバイスを再起動するか、iOS の設定で Apple ID にサインアウトしてください。";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
@@ -251,4 +252,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
 "webDAVAuthentication.httpConnection.change" = "HTTPS を使用";
 "webDAVAuthentication.httpConnection.continue" = "HTTP を保持";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "サーバーに WebDAV との互換性がありません。正しい URL を使用しているか確認してください";
 "webDAVAuthenticator.error.untrustedCertificate" = "このサーバーの証明書は信頼されていません。WebDAV 接続を再追加する必要があります。";
