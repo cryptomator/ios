@@ -1,13 +1,33 @@
+"common.alert.attention.title" = "Makini";
+"common.button.cancel" = "Katisha";
+"common.button.change" = "Badilisha";
 "common.button.choose" = "Chagua";
 "common.button.create" = "Unda";
+"common.button.done" = "Tayari";
 "common.button.edit" = "Hariri";
+"common.button.enable" = "Wezesha";
+"common.button.next" = "Nyingine";
+"common.button.ok" = "Sawa";
 "common.button.remove" = "Ondoa";
 "common.cells.url" = "URL";
 "common.cells.username" = "Jina la mtumiaji";
+
+"addVault.title" = "Ongeza Kuba";
+"addVault.createNewVault.title" = "Unda kuba mpya";
+"addVault.createNewVault.setVaultName.cells.name" = "Jina la kuba";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator inapaswa kuhifadhi wapi mafaili yaliyosimbwa kwa njia fiche za kuba yako?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "MUHIMU: Ikiwa unasahau neno la siri lako, hakuna njia ya kurejesha data yako.";
+"addVault.openExistingVault.title" = "Fungua Kuba iliyopo";
+"fileProvider.error.unlockButton" = "Fungua";
 "purchase.retry.button" = "Jaribu tena";
 
 "settings.title" = "Kipimo";
+"settings.clearCache" = "Ondoa Kache";
+"settings.debugMode.alert.message" = "Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.";
+
+"unlockVault.button.unlock" = "Fungua";
 "vaultDetail.button.moveVault" = "Hamisha";
 "vaultDetail.button.renameVault" = "Ita jina jipya";
+"webDAVAuthentication.httpConnection.alert.title" = "Tumia HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Badilisha hadi HTTPS";
