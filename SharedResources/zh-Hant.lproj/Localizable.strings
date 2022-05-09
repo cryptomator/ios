@@ -88,13 +88,20 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "密碼錯誤";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "保存在%@的密碼錯誤，請重試並輸入你的密碼來重新啟用%@";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
+"fileProvider.error.defaultLock.message" = "需要解鎖才能訪問和展示加密檔案庫";
 "fileProvider.error.unlockButton" = "解鎖";
 
 "keepUnlocked.alert.title" = "鎖定加密檔案庫?";
+"keepUnlocked.alert.message" = "此項更改需要鎖定加密檔案庫後才能生效";
 "keepUnlocked.alert.confirm" = "確認並上鎖";
+"keepUnlocked.header" = "指定您希望此加密檔案庫在空閒時保持解鎖狀態的時間";
+"keepUnlockedDuration.auto" = "由 iOS 自動決定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
+
+"localFileSystemAuthentication.createNewVault.header" = "請在下一個屏幕選擇新加密檔案庫的存儲位置";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
+"localFileSystemAuthentication.openExistingVault.header" = "請在下一屏中選擇已存在加密檔案庫所在的文件夾";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 
 "onboarding.title" = "歡迎";
