@@ -2,7 +2,10 @@
 "common.button.create" = "Unda";
 "common.button.edit" = "Hariri";
 "common.button.remove" = "Ondoa";
+"common.cells.url" = "URL";
+"common.cells.username" = "Jina la mtumiaji";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "MUHIMU: Ikiwa unasahau neno la siri lako, hakuna njia ya kurejesha data yako.";
+"purchase.retry.button" = "Jaribu tena";
 
 "settings.title" = "Kipimo";
 "vaultDetail.button.moveVault" = "Hamisha";
