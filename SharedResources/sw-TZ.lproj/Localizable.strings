@@ -10,3 +10,4 @@
 "settings.title" = "Kipimo";
 "vaultDetail.button.moveVault" = "Hamisha";
 "vaultDetail.button.renameVault" = "Ita jina jipya";
+"webDAVAuthentication.httpConnection.alert.message" = "Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.";
