@@ -26,6 +26,8 @@
 "settings.debugMode.alert.message" = "Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.";
 
 "unlockVault.button.unlock" = "Fungua";
+
+"vaultDetail.button.changeVaultPassword" = "Badilisha Neno la siri";
 "vaultDetail.button.moveVault" = "Hamisha";
 "vaultDetail.button.renameVault" = "Ita jina jipya";
 "webDAVAuthentication.httpConnection.alert.title" = "Tumia HTTPS?";
