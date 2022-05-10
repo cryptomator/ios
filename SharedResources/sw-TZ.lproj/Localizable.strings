@@ -1,24 +1,147 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Kosa";
 "common.alert.attention.title" = "Makini";
 "common.button.cancel" = "Katisha";
 "common.button.change" = "Badilisha";
 "common.button.choose" = "Chagua";
+"common.button.confirm" = "Thibitisha";
 "common.button.create" = "Unda";
+"common.button.createFolder" = "Unda kabrasha";
 "common.button.done" = "Tayari";
+"common.button.download" = "Kupakua";
 "common.button.edit" = "Hariri";
 "common.button.enable" = "Wezesha";
 "common.button.next" = "Nyingine";
 "common.button.ok" = "Sawa";
 "common.button.remove" = "Ondoa";
+"common.button.signOut" = "Ondoka";
+"common.button.verify" = "Thibitisha";
+"common.cells.openInFilesApp" = "Fungua katika Programu ya Mafaili";
+"common.cells.password" = "Neno la siri";
 "common.cells.url" = "URL";
 "common.cells.username" = "Jina la mtumiaji";
+"common.footer.learnMore" = "Jifunze zaidi.";
+
+"accountList.header.title" = "Uhalalishaji";
+"accountList.emptyList.message" = "Gonga hapa ili kuongeza akaunti";
+"accountList.signOut.alert.title" = "Ondoa Kuba Zinazohusiana?";
+"accountList.signOut.alert.message" = "Kwa kujisajili, kuba zote zinazohusiana zitaondolewa kwenye orodha ya kuba. Hakuna data iliyosimbwa kwa njia fiche itakayofutwa. Unaweza kuingia tena na kuongeza tena kuba baadaye.";
 
 "addVault.title" = "Ongeza Kuba";
 "addVault.createNewVault.title" = "Unda kuba mpya";
+"addVault.createNewVault.purchase" = "Kuunda kuba mpya inahitaji toleo kamili la Cryptomator.";
+"addVault.createNewVault.setVaultName.header.title" = "Chagua jina la kuba.";
 "addVault.createNewVault.setVaultName.cells.name" = "Jina la kuba";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Jina la Kuba haliwezi kuwa tupu.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator inapaswa kuhifadhi wapi mafaili yaliyosimbwa kwa njia fiche za kuba yako?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\"tayari ipo katika mahali hapa. Chagua jina tofauti la kuba au mahali.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator imegundua kuba iliyopo katika eneo hili.\nIn ili kuunda kuba mpya, tafadhali rudi nyuma na uchague folda tofauti.";
+"addVault.createNewVault.password.enterPassword.header" = "Weka neno la siri jipya.";
+"addVault.createNewVault.password.confirmPassword.header" = "Thibitisha neno la siri jipya.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Thibitisha nenola siri?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "MUHIMU: Ikiwa unasahau neno la siri lako, hakuna njia ya kurejesha data yako.";
+"addVault.createNewVault.password.error.emptyPassword" = "Neno la siri haliwezi kuwa tupu.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Maneno ya siri hayaoani.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Neno la siri lazima iwe na angalau vibambo 8.";
+"addVault.createNewVault.progress" = "Unda Kuba…";
 "addVault.openExistingVault.title" = "Fungua Kuba iliyopo";
+"addVault.openExistingVault.chooseCloud.header" = "Kuba iko wapi?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator aligundua kuba \"%@\".\nWould unapenda kuongeza kuba hii?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Ongeza kuba hii";
+"addVault.openExistingVault.password.footer" = "Ingiza neno la siri la \"%@\".";
+"addVault.openExistingVault.progress" = "Inaongeza Kuba…";
+"addVault.success.info" = "Imefanikiwa kuongeza kuba \"%@\".\nFikia kuba hii kupitia programu ya Mafaili.";
+"addVault.success.footer" = "Ikiwa haujafanya hivyo, wezesha Cryptomator katika programu ya Mafaili.";
+
+"biometryType.faceID" = "Kitambulisho cha Uso";
+"biometryType.touchID" = "Kitambulisho cha kugusa";
+
+"changePassword.error.invalidOldPassword" = "Neno la siri la sasa si sahihi. Tafadhali jaribu tena.";
+"changePassword.header.currentPassword.title" = "Ingiza neno la siri la sasa.";
+"changePassword.header.newPassword.title" = "Weka neno la siri jipya.";
+"changePassword.header.newPasswordConfirmation.title" = "Thibitisha neno la siri jipya.";
+"changePassword.progress" = "Kubadilisha neno la siri…";
+
+"chooseFolder.emptyFolder.footer" = "Kabrasha ni Tupu";
+"chooseFolder.createNewFolder.header.title" = "Chagua jina la kabrasha.";
+"chooseFolder.createNewFolder.cells.name" = "Jina la Kabrasha";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Jina la Kuba haliwezi kuwa tupu.";
+"chooseFolder.createNewFolder.progress" = "Kuunda kabrasha…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" haikuweza kupatikana.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" tayari ipo.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" ina aina ya kipengee kisichotarajiwa.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Folda ya mzazi \"%@\" haipo.";
+"cloudProvider.error.pageTokenInvalid" = "Kuchora yaliyomo kwenye mpangilio orodha hakukuweza kuendelea.";
+"cloudProvider.error.quotaInsufficient" = "Hifadhi yako haina nafasi ya kutosha.";
+"cloudProvider.error.unauthorized" = "Haiwezi kufanya uendeshaji usioidhinishwa.";
+"cloudProvider.error.noInternetConnection" = "Muunganisho wa tovuti unahitajika kwa uendeshaji huu.";
+
+"cloudProviderType.localFileSystem" = "Mtoa Faili Mwingine";
+
+"fileProvider.onboarding.title" = "Karibu";
+"fileProvider.onboarding.info" = "Shukrani kwa kuchagua Cryptomator kulinda faili zako. Ili kuanza, nenda kwenye programu kuu na uongeze kuba.";
+"fileProvider.onboarding.button.openCryptomator" = "Fungua Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Fungua Imekatishwa";
+"fileProvider.error.biometricalAuthCanceled.message" = "Fungua kupitia %@ haikufanikiwa. Tafadhali jaribu tena.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Neno la siri lisilo sahihi";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Neno la siri ambalo limehifadhiwa kwa %@ sio sahihi. Tafadhali jaribu tena na ingiza neno la siri lako ili kuwezesha tena %@.";
+"fileProvider.error.defaultLock.title" = "Fungua Inahitajika";
+"fileProvider.error.defaultLock.message" = "Ili kufikia na kuonyesha yaliyomo kwenye vault yako, inapaswa kufunguliwa.";
 "fileProvider.error.unlockButton" = "Fungua";
+
+"keepUnlocked.alert.title" = "Funga Kuba?";
+"keepUnlocked.alert.message" = "Mabadiliko haya yanahitaji kuba yako kufungwa ili kuanza kutumika.";
+"keepUnlocked.alert.confirm" = "Thibitisha & Funga Sasa";
+"keepUnlocked.header" = "Bainisha kwa muda gani unataka kuba hii ibaki wazi wakati haifanyi kazi.";
+"keepUnlocked.footer.auto" = "Kuruhusu iOS kuamua inamaanisha kuwa Cryptomator inaweza kukomeshwa wakati wowote ili kufungua kumbukumbu, ambayo hufunga moja kwa moja kuba.";
+"keepUnlocked.footer.on" = "Kutumia chaguo lililoteuliwa, nakala ya ufunguo wako inahitaji kuhifadhiwa kwenye kiti cha vitufe cha iOS, mradi tu kuba imefunguliwa.";
+"keepUnlockedDuration.auto" = "Ruhusu iOS Iamue Kiotomatiki";
+"keepUnlockedDuration.auto.shortDisplayName" = "Otomatiki";
+
+"localFileSystemAuthentication.createNewVault.header" = "Katika skrini inayofuata, chagua eneo la kuhifadhi kwa kuba yako mpya.";
+"localFileSystemAuthentication.createNewVault.button" = "Teua Mahali pa Hifadhi";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Kuba tayari ipo katika mahali hapa. Tafadhali jaribu tena na mahali tofauti pa kuhifadhi.";
+"localFileSystemAuthentication.openExistingVault.header" = "Katika skrini inayofuata, chagua folda ya kuba yako iliyopo.";
+"localFileSystemAuthentication.openExistingVault.button" = "Teua Kabrasha la Kuba";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Kabrasha lililoteuliwa sio kuba. Tafadhali jaribu tena na kabrasha tofauti.";
+"localFileSystemAuthentication.info.footer" = "Watoa huduma wa faili ambao ni kijivu nje hawaungi mkono \"kuokota folda\" Hii sio kikomo cha Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "Uendeshaji hauwezi kufanywa kwa sababu shughuli zingine za mandharinyuma za kuba hii zinapaswa kumaliza kwanza. Tafadhali jaribu tena baadaye.";
+
+"nameValidation.error.endsWithPeriod" = "Huwezi kutumia jina ambalo linaisha kwa kipindi. Tafadhali chagua jina jingine.";
+"nameValidation.error.endsWithSpace" = "Huwezi kutumia jina ambalo linaisha kwa kipindi. Tafadhali chagua jina jingine.";
+"nameValidation.error.containsIllegalCharacter" = "Huwezi kutumia jina ambalo lina \"%@\" Tafadhali chagua jina jingine.";
+
+"onboarding.title" = "Karibu";
+"onboarding.info" = "Shukrani kwa kuchagua Cryptomator kulinda mafaili yako.\n\nWith Cryptomator, ufunguo wa data yako uko mikononi mwako. Cryptomator husimba data yako haraka na kwa urahisi.\n\n Programu hii imeunganishwa kikamilifu kwenye programu ya Faili. Hakikisha kuwezesha Cryptomator katika programu ya Mafaili baadaye kufikia kuba zako.";
+"onboarding.button.continue" = "Endelea";
+
+"purchase.beginFreeTrial.alert.title" = "Jaribu imefunguliwa";
+"purchase.expiredTrial" = "Jaribu lako limeisha.";
+"purchase.footer.privacyPolicy" = "Sera ya Faragha";
+"purchase.footer.termsOfUse" = "Masharti ya Matumizi";
+"purchase.header.feature.familySharing" = "Kushiriki kwa familia";
+"purchase.header.feature.openSource" = "Maendeleo ya chanzo-wazi";
+"purchase.header.feature.writeAccess" = "Andika ufikiaji wa kuba zako";
+"purchase.product.donateAndUpgrade" = "Changia & Boresha";
+"purchase.product.freeUpgrade" = "Uboreshaji wa Bure";
+"purchase.product.lifetimeLicense" = "Leseni ya Maisha";
+"purchase.product.lifetimeLicense.duration" = "wakati-mmoja";
+"purchase.product.pricing.free" = "Bure";
+"purchase.product.trial" = "Jaribio la Siku-30";
+"purchase.product.trial.expirationDate" = "Tarehe ya Kumalizika:%@";
+"purchase.product.trial.duration" = "kwa siku 30";
+"purchase.product.yearlySubscription" = "Usajili wa Kila Mwaka";
+"purchase.product.yearlySubscription.duration" = "kila mwaka";
+"purchase.readOnlyMode.alert.title" = "Hali ya Kusoma-Tu";
+"purchase.readOnlyMode.alert.message" = "Unaweza kufungua toleo kamili la Cryptomator baadaye katika mipangilio na kuitumia katika hali ya kusoma-tu kwa sasa.";
 "purchase.retry.button" = "Jaribu tena";
 
 "settings.title" = "Kipimo";
@@ -26,10 +149,55 @@
 "settings.debugMode.alert.message" = "Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.";
 
 "unlockVault.button.unlock" = "Fungua";
+"unlockVault.password.footer" = "Ingiza neno la siri la \"%@\".";
+"upgrade.info" = "Shukrani kwa kuamini Cryptomator tangu toleo la kwanza. Kama mtumiaji mwaminifu, unastahiki uboreshaji wa bure.";
+
+"urlSession.error.httpError.401" = "Jina la mtumiaji lisilo sahihi na / au nenosiri.";
+"urlSession.error.httpError.403" = "Haki za kutosha za rasilimali zilizoombwa.";
+"urlSession.error.httpError.404" = "Rasilimali iliyoombwa haipatikani.";
+"urlSession.error.httpError.405" = "Njia ya ombi haitegemezwi na rasilimali lengwa.";
+"urlSession.error.httpError.409" = "Omba mgogoro na hali ya sasa ya rasilimali lengwa.";
+"urlSession.error.httpError.412" = "Upatikanaji wa rasilimali lengwa umekataliwa.";
+"urlSession.error.httpError.default" = "Muunganisho wa mtandao umeshindikana na msimbo wa hali %ld.";
+"urlSession.error.unexpectedResponse" = "Kulikuwa na majibu ya mtandao yasiyotarajiwa.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Tayari umeongeza kuba hii.";
 
 "vaultDetail.button.changeVaultPassword" = "Badilisha Neno la siri";
+"vaultDetail.button.lock" = "Funga Sasa";
 "vaultDetail.button.moveVault" = "Hamisha";
+"vaultDetail.button.removeVault" = "Ondoa kutoka kwenye Orodha ya Kuba";
 "vaultDetail.button.renameVault" = "Ita jina jipya";
+"vaultDetail.changePassword.footer" = "Chagua neno la siri kali la kuba yako ambayo tu unajua na kuiweka mahali salama.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ukiwezesha %@, nenosiri lako la kuba litahifadhiwa kwenye kitufe cha iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Neno la siri lako ya kuba itahitajika tu ikiwa uthibitishaji %@ utashindwa.";
+"vaultDetail.info.footer.accessVault" = "Fikia kuba kupitia programu ya Mafaili.";
+"vaultDetail.info.footer.accountInfo" = "Umeingia kama %@ kupitia %@.";
+"vaultDetail.keepUnlocked.title" = "Fungua Muda";
+"vaultDetail.keepUnlocked.footer.off" = "Fungua itahitajika wakati Cryptomator imekatishwa na programu ya Mafaili.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Fungua itahitajika wakati kuba yako imekosa kazi kwa %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Hakuna kufungua itahitajika isipokuwa imefungwa kwa kikuli.";
+"vaultDetail.locked.footer" = "Kuba yako imefungwa kwa sasa.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator imegundua kuba iliyopo katika eneo hili.\nIn ili kuhamisha vault yako, tafadhali rudi nyuma na uchague folda tofauti.";
+"vaultDetail.moveVault.progress" = "Kusonga…";
+"vaultDetail.removeVault.footer" = "Hii itaondoa tu kuba kutoka kwenye orodha ya kuba na sio kufuta faili zozote zilizosimbwa kwa njia fiche.";
+"vaultDetail.renameVault.progress" = "Inaita jina jipya…";
+"vaultDetail.unlocked.footer" = "Kuba yako imefunguliwa kwa sasa katika programu ya Mafaili.";
+"vaultDetail.unlockVault.footer" = "Ingiza nenosiri la \"%@\" ili kuihifadhi kwenye kitufe cha iOS na kuwezesha %@.";
+
+"vaultList.header.title" = "Kuba";
+"vaultList.emptyList.message" = "Gonga hapa ili kuongeza kuba";
+"vaultList.remove.alert.title" = "Ondoa Kuba?";
+"vaultList.remove.alert.message" = "Hii itaondoa tu kuba kutoka kwenye orodha ya kuba. Hakuna data iliyosimbwa kwa njia fiche itakayofutwa. Unaweza kuongeza tena kuba baadaye.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Usanidi wa Vault hautegemezwi. Tafadhali hakikisha kuwa unaendesha toleo la hivi karibuni la Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Toleo la Kuba %ld halitegemezwi. Kuba hii imeundwa na toleo la zamani au jipya zaidi la Cryptomator.";
+
+"webDAVAuthentication.progress" = "Inathibitisha…";
 "webDAVAuthentication.httpConnection.alert.title" = "Tumia HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Badilisha hadi HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Weka HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Seva haionekani kuwa inaoana na WebDAV. Tafadhali angalia ikiwa umetumia URL sahihi.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Cheti cha seva hii hakiaminiki. Huenda ukalazimika kuongeza upya muunganisho huu wa WebDAV.";
