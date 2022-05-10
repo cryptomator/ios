@@ -46,14 +46,19 @@ public extension LocalURLProviderType {
 
 	 This implementation exploits the fact that the path structure has been defined as
 	 `<base storage directory>/<item identifier>/<item file name>`.
+
+	 - Note: Returns the `.rootContainer` identifier for the special case that the passed `url` corresponds to the `<base storage directory>`. This is necessary to support "Open in Files app".
 	 */
 	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
 		let pathComponents = url.pathComponents
 		assert(pathComponents.count > 2)
-		guard let itemID = Int64(pathComponents[pathComponents.count - 2]) else {
+		if let itemID = Int64(pathComponents[pathComponents.count - 2]) {
+			return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
+		} else if pathComponents.last == domainIdentifier.rawValue {
+			return .rootContainer
+		} else {
 			return nil
 		}
-		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
 	}
 }
 
