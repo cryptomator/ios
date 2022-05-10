@@ -36,12 +36,11 @@ class UploadProgressAlertController: UIAlertController {
 
 	func setMessage(with progress: Double) {
 		let formattedProgress = formatter.string(from: progress * 100.0 as NSNumber) ?? "n/a"
-		let text = "Current Progress: \(formattedProgress)%\n\nIf you're noticing that the upload progress is stuck, you can retry the upload."
-		message = text
+		message = String(format: LocalizedString.getValue("fileProvider.uploadProgress.message"), formattedProgress)
 	}
 
 	func setMessageForMissingProgress() {
-		message = "Progress could not be determined. It may still be running in the background."
+		message = LocalizedString.getValue("fileProvider.uploadProgress.missing")
 	}
 
 	func observeProgress(itemIdentifier: NSFileProviderItemIdentifier, proxy: UploadRetrying) -> Promise<Void> {
@@ -67,12 +66,14 @@ class UploadProgressAlertController: UIAlertController {
 
 enum RetryUploadAlertControllerFactory {
 	static func createUploadProgressAlert(dismissAction: @escaping () -> Void, retryAction: @escaping () -> Void) -> UploadProgressAlertController {
-		let alertController = UploadProgressAlertController(title: "Uploading…", message: "Connecting…", preferredStyle: .alert)
-		let dismissAlertAction = UIAlertAction(title: LocalizedString.getValue("Dismiss"), style: .cancel) { _ in
+		let alertController = UploadProgressAlertController(title: LocalizedString.getValue("fileProvider.uploadProgress.title"),
+		                                                    message: LocalizedString.getValue("fileProvider.uploadProgress.connecting"),
+		                                                    preferredStyle: .alert)
+		let dismissAlertAction = UIAlertAction(title: LocalizedString.getValue("common.button.dismiss"), style: .cancel) { _ in
 			dismissAction()
 			alertController.alertActionTriggered.fulfill(())
 		}
-		let retryAlertAction = UIAlertAction(title: LocalizedString.getValue("Retry"), style: .default) { _ in
+		let retryAlertAction = UIAlertAction(title: LocalizedString.getValue("common.button.retry"), style: .default) { _ in
 			retryAction()
 			alertController.alertActionTriggered.fulfill(())
 		}
@@ -83,7 +84,7 @@ enum RetryUploadAlertControllerFactory {
 	}
 
 	static func createDomainNotFoundAlert(okAction: @escaping () -> Void) -> UIAlertController {
-		let alertController = UIAlertController(title: "Error", message: "Could not find domain.", preferredStyle: .alert)
+		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: LocalizedString.getValue("fileProvider.uploadProgress.missingDomainError"), preferredStyle: .alert)
 		let okAlertAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .cancel) { _ in
 			okAction()
 		}
