@@ -153,14 +153,53 @@
 "purchase.retry.button" = "Jaribu tena";
 "purchase.retry.footer" = "Haikuweza kupakia bidhaa zinazopatikana.";
 "purchase.title" = "Fungua Toleo Kamili";
+"purchase.unlockedFullVersion.message" = "Sasa unaweza kutumia toleo kamili la Cryptomator. Furaha kusimba!";
+"purchase.unlockedFullVersion.title" = "Asante";
+"purchase.error.unknown" = "Ununuzi huu haupatikani katika App Store kwa sababu isiyojulikana. Tafadhali jaribu tena baadaye.\n\nIf kosa hili linaendelea, jaribu kuanzisha upya kifaa chako au kuingia na kurudi kwenye Kitambulisho chako cha Apple katika mipangilio ya iOS.";
 
 "settings.title" = "Kipimo";
+"settings.aboutCryptomator" = "Kuhusu Cryptomator";
+"settings.aboutCryptomator.title" = "Toleo %@ (%@)";
+"settings.cacheSize" = "Ukubwa wa Kache";
 "settings.clearCache" = "Ondoa Kache";
+"settings.cloudServices" = "Huduma za wingu";
+"settings.contact" = "Wasiliana";
+"settings.debugMode" = "Rekebisha Hali";
 "settings.debugMode.alert.message" = "Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.";
+"settings.manageSubscriptions" = "Simamia Usajili";
+"settings.rateApp" = "Programu ya Kiwango";
+"settings.sendLogFile" = "Tuma Faili logi";
 "settings.unlockFullVersion" = "Fungua Toleo Kamili";
+"snapshots.fileprovider.file2" = "/Uwasilishaji wa Mwisho.ufunguo";
+"snapshots.fileprovider.file4" = "/Pendekezo.docx";
+"snapshots.fileprovider.file5" = "/Taarifa.pdf";
+"snapshots.fileprovider.folder3" = "/Mradi wa Siri";
+"snapshots.fileprovider.folder2" = "/Ankara";
+"snapshots.fileprovider.folder1" = "/Vyeti";
+"snapshots.main.vault1" = "/Kazi";
+"snapshots.main.vault2" = "/Familia";
+"snapshots.main.vault3" = "/Nyaraka";
+"snapshots.main.vault4" = "/Safari ya kwenda California";
+
+"trialStatus.active" = "Amilifu";
+"trialStatus.expired" = "Imeisha muda wake";
 
 "unlockVault.button.unlock" = "Fungua";
+"unlockVault.button.unlockVia" = "Fungua kupitia %@";
 "unlockVault.password.footer" = "Ingiza neno la siri la \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Wezesha %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Badala ya kufungua kuba yako na neno la siri lako, unaweza kuifungua kupitia %@.";
+"unlockVault.evaluatePolicy.reason" = "Fungua kuba yako";
+"unlockVault.progress" = "Fungua…";
+
+"untrustedTLSCertificate.title" = "Cheti batili cha TLS";
+"untrustedTLSCertificate.message" = "Cheti cha TLS cha \"%@\" ni batili. Unataka kuiamini hata hivyo?\n \nSHA-256: % @";
+"untrustedTLSCertificate.add" = "Amini";
+"untrustedTLSCertificate.dismiss" = "Usiamini";
+
+"upgrade.title" = "Ofa ya Kuboresha";
+"upgrade.notEligible.alert.title" = "Kupandisha daraja kumeshindikana";
+"upgrade.notEligible.alert.message" = "Cryptomator haikuweza kugundua toleo la zamani lililosakinishwa kwenye kifaa chako. Ikiwa uliinunua, tafadhali pakua tena kutoka kwa App Store na ujaribu tena.";
 "upgrade.info" = "Shukrani kwa kuamini Cryptomator tangu toleo la kwanza. Kama mtumiaji mwaminifu, unastahiki uboreshaji wa bure.";
 
 "urlSession.error.httpError.401" = "Jina la mtumiaji lisilo sahihi na / au nenosiri.";
