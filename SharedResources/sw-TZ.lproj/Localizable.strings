@@ -142,11 +142,22 @@
 "purchase.product.yearlySubscription.duration" = "kila mwaka";
 "purchase.readOnlyMode.alert.title" = "Hali ya Kusoma-Tu";
 "purchase.readOnlyMode.alert.message" = "Unaweza kufungua toleo kamili la Cryptomator baadaye katika mipangilio na kuitumia katika hali ya kusoma-tu kwa sasa.";
+"purchase.restorePurchase.button" = "Rejesha Ununuzi";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Kesi yaendelea";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Sasa unaweza kutumia toleo kamili la Cryptomator kwa muda mdogo. Jaribio lako linaisha kwenye %@. Baada ya hapo, vaults zako bado zitapatikana katika hali ya kusoma-tu.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Urejeshi Imefanikiwa";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Hakuna Toleo Kamili";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Hatukuweza kupata toleo kamili lililonunuliwa hapo awali ambalo linaweza kurejeshwa. Tafadhali jaribu chaguo jingine.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Inastahiki kwa Kuboresha";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Inaonekana kama kwamba unajaribu kuboresha kutoka kwa toleo la zamani la Cryptomator. Katika kesi hiyo, tafadhali chagua chaguo la \"Boresha Ofa\" badala yake.";
 "purchase.retry.button" = "Jaribu tena";
+"purchase.retry.footer" = "Haikuweza kupakia bidhaa zinazopatikana.";
+"purchase.title" = "Fungua Toleo Kamili";
 
 "settings.title" = "Kipimo";
 "settings.clearCache" = "Ondoa Kache";
 "settings.debugMode.alert.message" = "Katika hali hii, data nyeti inaweza kuandikwa kwa faili ya kumbukumbu kwenye kifaa chako (kwa mfano, majina ya faili na njia). Nywila, vidakuzi, n.k. zimetengwa wazi.\n\nKukumbuka ili kuzima hali ya utatuzi haraka iwezekanavyo.";
+"settings.unlockFullVersion" = "Fungua Toleo Kamili";
 
 "unlockVault.button.unlock" = "Fungua";
 "unlockVault.password.footer" = "Ingiza neno la siri la \"%@\".";
