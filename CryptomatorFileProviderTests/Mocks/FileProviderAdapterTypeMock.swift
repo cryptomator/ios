@@ -263,6 +263,24 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		setTagDataForItemIdentifierCompletionHandlerReceivedInvocations.append((tagData: tagData, itemIdentifier: itemIdentifier, completionHandler: completionHandler))
 		setTagDataForItemIdentifierCompletionHandlerClosure?(tagData, itemIdentifier, completionHandler)
 	}
+
+	// MARK: - retryUpload
+
+	var retryUploadForCallsCount = 0
+	var retryUploadForCalled: Bool {
+		retryUploadForCallsCount > 0
+	}
+
+	var retryUploadForReceivedItemIdentifier: NSFileProviderItemIdentifier?
+	var retryUploadForReceivedInvocations: [NSFileProviderItemIdentifier] = []
+	var retryUploadForClosure: ((NSFileProviderItemIdentifier) -> Void)?
+
+	func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier) {
+		retryUploadForCallsCount += 1
+		retryUploadForReceivedItemIdentifier = itemIdentifier
+		retryUploadForReceivedInvocations.append(itemIdentifier)
+		retryUploadForClosure?(itemIdentifier)
+	}
 }
 
 // swiftlint:enable all

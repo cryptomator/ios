@@ -35,8 +35,10 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	private let itemEnumerationTaskManager: ItemEnumerationTaskManager
 	private let deleteItemHelper: DeleteItemHelper
 	private let provider: CloudProvider
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, uploadTaskManager: UploadTaskManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, deleteItemHelper: DeleteItemHelper) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, uploadTaskManager: UploadTaskManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, deleteItemHelper: DeleteItemHelper) {
+		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
@@ -97,7 +99,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
 				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 				let localURL = localCachedFileInfo?.localURL
-				return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
 			}
 			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
@@ -137,7 +139,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			let localURL = localCachedFileInfo?.localURL
 			let uploadTask = try self.uploadTaskManager.getTaskRecord(for: fileProviderItemMetadata)
 
-			let item = FileProviderItem(metadata: fileProviderItemMetadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
+			let item = FileProviderItem(metadata: fileProviderItemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTask?.failedWithError)
 			return FileProviderItemList(items: [item], nextPageToken: nil)
 		}
 	}

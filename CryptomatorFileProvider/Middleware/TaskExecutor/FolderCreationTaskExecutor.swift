@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 import Promises
 
@@ -26,8 +27,10 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 
 	private let itemMetadataManager: ItemMetadataManager
 	private let provider: CloudProvider
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
+		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 	}
@@ -54,7 +57,7 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
 			try self.itemMetadataManager.updateMetadata(itemMetadata)
-			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true)
+			return FileProviderItem(metadata: itemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: true)
 		}
 	}
 }

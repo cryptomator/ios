@@ -31,6 +31,26 @@
 		<string>$(PRODUCT_MODULE_NAME).RootViewController</string>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.fileprovider-actionsui</string>
+        <key>NSExtensionFileProviderActions</key>
+        <array>
+            <dict>
+
+				<key>NSExtensionFileProviderActionIdentifier</key>
+				<string>org.cryptomator.ios.fileprovider.retryUpload</string>
+				<key>NSExtensionFileProviderActionName</key>
+				<string>Retry Upload</string>
+				<key>NSExtensionFileProviderActionActivationRule</key>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."hasUploadError" == YES).@count > 0</string>
+            </dict>
+			<dict>
+				<key>NSExtensionFileProviderActionIdentifier</key>
+				<string>org.cryptomator.ios.fileprovider.retryWaitingUpload</string>
+				<key>NSExtensionFileProviderActionName</key>
+				<string>Retry Upload</string>
+				<key>NSExtensionFileProviderActionActivationRule</key>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."isUploading" == YES).@count > 0</string>
+			</dict>
+        </array>
 	</dict>
 </dict>
 </plist>

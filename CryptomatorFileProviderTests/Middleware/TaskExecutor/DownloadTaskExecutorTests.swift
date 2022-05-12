@@ -24,7 +24,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			let localContent = try Data(contentsOf: localURL)
@@ -63,7 +63,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			XCTFail("Promise should not fulfill if the provider fails with an error")
@@ -94,7 +94,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: true, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		taskExecutor.execute(task: downloadTask).then { _ in
 			let localContent = try Data(contentsOf: localURL)
@@ -133,7 +133,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let lastModifiedDate = Date(timeIntervalSince1970: 0)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		let item = try taskExecutor.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: downloadDestination)
 		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))
@@ -163,7 +163,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let lastModifiedDate = Date(timeIntervalSince1970: 0)
 
-		let taskExecutor = DownloadTaskExecutor(provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
 		let item = try taskExecutor.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: localURL, downloadDestination: localURL)
 		XCTAssert(FileManager.default.fileExists(atPath: localURL.path))

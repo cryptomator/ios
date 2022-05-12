@@ -29,8 +29,10 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 	private let cachedFileManager: CachedFileManager
 	private let downloadTaskManager: DownloadTaskManager
 	private let provider: CloudProvider
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, downloadTaskManager: DownloadTaskManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, downloadTaskManager: DownloadTaskManager) {
+		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
 		self.cachedFileManager = cachedFileManager
@@ -85,6 +87,6 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 		itemMetadata.statusCode = .isUploaded
 		try itemMetadataManager.updateMetadata(itemMetadata)
 		try cachedFileManager.cacheLocalFileInfo(for: itemMetadata.id!, localURL: localURL, lastModifiedDate: lastModifiedDate)
-		return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: true, localURL: localURL)
+		return FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true, localURL: localURL)
 	}
 }

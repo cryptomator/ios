@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 
 struct WorkflowFactory {
@@ -19,6 +20,7 @@ struct WorkflowFactory {
 	let itemEnumerationTaskManager: ItemEnumerationTaskManager
 	let downloadTaskManager: DownloadTaskManager
 	let dependencyFactory = WorkflowDependencyFactory()
+	let domainIdentifier: NSFileProviderDomainIdentifier
 
 	func createWorkflow(for deletionTask: DeletionTask) -> Workflow<Void> {
 		let taskExecutor = DeletionTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager)
@@ -33,7 +35,7 @@ struct WorkflowFactory {
 
 	func createWorkflow(for uploadTask: UploadTask) -> Workflow<FileProviderItem> {
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
-		let taskExecutor = UploadTaskExecutor(provider: provider, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, uploadTaskManager: uploadTaskManager)
+		let taskExecutor = UploadTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, cachedFileManager: cachedFileManager, itemMetadataManager: itemMetadataManager, uploadTaskManager: uploadTaskManager)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 
 		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
@@ -45,7 +47,7 @@ struct WorkflowFactory {
 	}
 
 	func createWorkflow(for downloadTask: DownloadTask) -> Workflow<FileProviderItem> {
-		let taskExecutor = DownloadTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, downloadTaskManager: downloadTaskManager)
+		let taskExecutor = DownloadTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, downloadTaskManager: downloadTaskManager)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
@@ -57,7 +59,7 @@ struct WorkflowFactory {
 
 	func createWorkflow(for reparentTask: ReparentTask) -> Workflow<FileProviderItem> {
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
-		let taskExecutor = ReparentTaskExecutor(provider: provider, reparentTaskManager: reparentTaskManager, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
+		let taskExecutor = ReparentTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, reparentTaskManager: reparentTaskManager, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 
 		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
@@ -72,7 +74,7 @@ struct WorkflowFactory {
 
 	func createWorkflow(for itemEnumerationTask: ItemEnumerationTask) -> Workflow<FileProviderItemList> {
 		let deleteItemHelper = DeleteItemHelper(itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager)
-		let taskExecutor = ItemEnumerationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager, deleteItemHelper: deleteItemHelper)
+		let taskExecutor = ItemEnumerationTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, itemMetadataManager: itemMetadataManager, cachedFileManager: cachedFileManager, uploadTaskManager: uploadTaskManager, reparentTaskManager: reparentTaskManager, deletionTaskManager: deletionTaskManager, itemEnumerationTaskManager: itemEnumerationTaskManager, deleteItemHelper: deleteItemHelper)
 		let errorMapper = ErrorMapper<FileProviderItemList>()
 
 		errorMapper.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())
@@ -85,7 +87,7 @@ struct WorkflowFactory {
 
 	func createWorkflow(for folderCreationTask: FolderCreationTask) -> Workflow<FileProviderItem> {
 		let onlineItemNameCollisionHandler = OnlineItemNameCollisionHandler<FileProviderItem>(itemMetadataManager: itemMetadataManager)
-		let taskExecutor = FolderCreationTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager)
+		let taskExecutor = FolderCreationTaskExecutor(domainIdentifier: domainIdentifier, provider: provider, itemMetadataManager: itemMetadataManager)
 		let errorMapper = ErrorMapper<FileProviderItem>()
 		errorMapper.setNext(onlineItemNameCollisionHandler.eraseToAnyWorkflowMiddleware())
 		onlineItemNameCollisionHandler.setNext(taskExecutor.eraseToAnyWorkflowMiddleware())

@@ -38,13 +38,19 @@ class ErrorMapper<T>: WorkflowMiddleware {
 	}
 
 	private func mapError(_ error: Error) -> Error {
-		guard let cloudProviderError = error as? CloudProviderError else {
-			return error
+		return error.toPresentableError()
+	}
+}
+
+extension Error {
+	func toPresentableError() -> Error {
+		guard let cloudProviderError = self as? CloudProviderError else {
+			return self
 		}
 		switch cloudProviderError {
 		case .itemNotFound, .parentFolderDoesNotExist:
 			return NSFileProviderError(.noSuchItem)
-		case .itemAlreadyExists:
+		case .itemAlreadyExists, .itemTypeMismatch:
 			return NSFileProviderError(.filenameCollision)
 		case .pageTokenInvalid:
 			return NSFileProviderError(.syncAnchorExpired)
@@ -54,8 +60,6 @@ class ErrorMapper<T>: WorkflowMiddleware {
 			return NSFileProviderError(.notAuthenticated)
 		case .noInternetConnection:
 			return NSFileProviderError(.serverUnreachable)
-		default:
-			return cloudProviderError
 		}
 	}
 }

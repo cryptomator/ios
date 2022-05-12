@@ -44,6 +44,13 @@ extension UploadTaskManager {
 		}
 		try removeTaskRecord(for: id)
 	}
+
+	func updateTaskRecord(for itemMetadata: ItemMetadata, with error: NSError) throws {
+		guard let id = itemMetadata.id else {
+			throw DBManagerError.nonSavedItemMetadata
+		}
+		try updateTaskRecord(with: id, lastFailedUploadDate: Date(), uploadErrorCode: error.code, uploadErrorDomain: error.domain)
+	}
 }
 
 class UploadTaskDBManager: UploadTaskManager {

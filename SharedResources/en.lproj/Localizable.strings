@@ -13,6 +13,7 @@
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
+"common.button.dismiss" = "Dismiss";
 "common.button.done" = "Done";
 "common.button.download" = "Download";
 "common.button.edit" = "Edit";
@@ -20,6 +21,7 @@
 "common.button.next" = "Next";
 "common.button.ok" = "OK";
 "common.button.remove" = "Remove";
+"common.button.retry" = "Retry";
 "common.button.signOut" = "Sign Out";
 "common.button.verify" = "Verify";
 "common.cells.openInFilesApp" = "Open in Files App";
@@ -95,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Unlock Required";
 "fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
 "fileProvider.error.unlockButton" = "Unlock";
+"fileProvider.uploadProgress.connecting" = "Connecting…";
+"fileProvider.uploadProgress.message" = "Current Progress: %@%\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
+"fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
+"fileProvider.uploadProgress.title" = "Uploading…";
+"fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
@@ -255,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Server doesn't seem to be WebDAV compatible. Please check if you've used the correct URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certificate of this server is untrusted. You may have to re-add this WebDAV connection.";
+
+"Retry Upload" = "Retry Upload";

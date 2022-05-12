@@ -15,7 +15,7 @@ class FileProviderAdapterSetFavoriteRankTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let favoriteRank: NSNumber = 100
-		let itemIdentifier = NSFileProviderItemIdentifier("2")
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 		adapter.setFavoriteRank(favoriteRank, forItemIdentifier: itemIdentifier) { item, error in
 			XCTAssertNil(error)
 			XCTAssertEqual(favoriteRank, item?.favoriteRank)

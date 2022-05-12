@@ -12,11 +12,12 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterSetTagDataTests: FileProviderAdapterTestCase {
+	let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 	func testSetTagData() throws {
 		let expectation = XCTestExpectation()
 		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let tagData = "Foo".data(using: .utf8)!
-		let itemIdentifier = NSFileProviderItemIdentifier("2")
+
 		adapter.setTagData(tagData, forItemIdentifier: itemIdentifier) { item, error in
 			XCTAssertNil(error)
 			XCTAssertEqual(tagData, item?.tagData)
@@ -30,7 +31,6 @@ class FileProviderAdapterSetTagDataTests: FileProviderAdapterTestCase {
 		let expectation = XCTestExpectation()
 		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let emptyTagData = Data()
-		let itemIdentifier = NSFileProviderItemIdentifier("2")
 		adapter.setTagData(emptyTagData, forItemIdentifier: itemIdentifier) { item, error in
 			XCTAssertNil(error)
 			guard let item = item else {

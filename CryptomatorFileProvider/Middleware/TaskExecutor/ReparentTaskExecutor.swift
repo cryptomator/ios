@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import FileProvider
 import Foundation
 import Promises
 
@@ -28,8 +29,10 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 	private let reparentTaskManager: ReparentTaskManager
 	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(provider: CloudProvider, reparentTaskManager: ReparentTaskManager, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, reparentTaskManager: ReparentTaskManager, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.reparentTaskManager = reparentTaskManager
 		self.itemMetadataManager = itemMetadataManager
@@ -57,7 +60,7 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: itemMetadata.lastModifiedDate) ?? false
 			try self.reparentTaskManager.removeTaskRecord(reparentTask.taskRecord)
-			return FileProviderItem(metadata: itemMetadata, newestVersionLocallyCached: newestVersionLocallyCached)
+			return FileProviderItem(metadata: itemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached)
 		}
 	}
 
