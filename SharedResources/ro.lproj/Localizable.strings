@@ -19,6 +19,7 @@
 "common.button.next" = "Următor";
 "common.button.ok" = "OK";
 "common.button.remove" = "Șterge";
+"common.button.retry" = "Încercați din nou";
 "common.button.signOut" = "Deconectare";
 "common.button.verify" = "Verifică";
 "common.cells.openInFilesApp" = "Deschide în aplicația de fișiere";
