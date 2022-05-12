@@ -10,6 +10,7 @@
 "common.button.cancel" = "Zrušit";
 "common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
+"common.button.close" = "Zavřít";
 "common.button.confirm" = "Potvrdit";
 "common.button.create" = "Vytvořit";
 "common.button.createFolder" = "Vytvořit složku";
