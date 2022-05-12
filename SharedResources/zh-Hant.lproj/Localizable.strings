@@ -10,6 +10,7 @@
 "common.button.cancel" = "取消";
 "common.button.change" = "修改";
 "common.button.choose" = "選擇";
+"common.button.close" = "關閉";
 "common.button.confirm" = "確認";
 "common.button.create" = "新建";
 "common.button.createFolder" = "建立資料夾";
