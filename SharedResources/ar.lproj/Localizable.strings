@@ -20,6 +20,7 @@
 "common.button.next" = "التالي";
 "common.button.ok" = "موافق";
 "common.button.remove" = "حذف";
+"common.button.retry" = "اعد المحاولة";
 "common.button.signOut" = "تسجيل الخروج";
 "common.button.verify" = "التحقق";
 "common.cells.openInFilesApp" = "فتح في تطبيق الملفات";
