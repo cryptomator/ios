@@ -50,6 +50,14 @@
 				<key>NSExtensionFileProviderActionActivationRule</key>
 				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."isUploading" == YES).@count > 0</string>
 			</dict>
+			<dict>
+				<key>NSExtensionFileProviderActionIdentifier</key>
+				<string>org.cryptomator.ios.fileprovider.evictFileFromCache</string>
+				<key>NSExtensionFileProviderActionName</key>
+				<string>Evict from Cache</string>
+				<key>NSExtensionFileProviderActionActivationRule</key>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."isUploading" != YES and $fileproviderItem.userInfo."isDownloading" != YES and $fileproviderItem.userInfo."isDownloaded" == YES and $fileproviderItem.userInfo."isFolder" != YES).@count > 0</string>
+			</dict>
         </array>
 	</dict>
 </dict>

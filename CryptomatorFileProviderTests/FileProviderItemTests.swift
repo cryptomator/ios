@@ -156,4 +156,44 @@ class FileProviderItemTests: XCTestCase {
 		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
+
+	// MARK: UserInfo
+
+	func testUserInfoIsDownloaded() throws {
+		let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: false)
+		let localURL = tmpDir.appendingPathComponent("test.txt")
+		try "Foo".write(to: localURL, atomically: true, encoding: .utf8)
+
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, localURL: localURL)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssert(userInfo["isDownloaded"] as? Bool ?? false)
+	}
+
+	func testUserInfoIsDownloading() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssert(userInfo["isDownloading"] as? Bool ?? false)
+		XCTAssertFalse(userInfo["isDownloaded"] as? Bool ?? true)
+	}
+
+	func testUserInfoIsFolder() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssert(userInfo["isFolder"] as? Bool ?? false)
+	}
+
+	func testUserInfoIsNotFolder() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["isFolder"] as? Bool ?? true)
+	}
 }

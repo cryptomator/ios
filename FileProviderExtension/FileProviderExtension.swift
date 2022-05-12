@@ -264,6 +264,11 @@ class FileProviderExtension: NSFileProviderExtension {
 			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
 		}
 		#endif
+		let cacheManagingServiceSource = CacheManagingServiceSource(notificator: notificator)
+		cacheManagingServiceSource.getItem = { [weak self] itemIdentifier in
+			try? self?.item(for: itemIdentifier)
+		}
+		serviceSources.append(cacheManagingServiceSource)
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())
 		return serviceSources

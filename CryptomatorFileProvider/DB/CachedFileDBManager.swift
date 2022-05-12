@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import FileProvider
 import Foundation
 import GRDB
 
@@ -23,6 +24,13 @@ extension CachedFileManager {
 			throw DBManagerError.nonSavedItemMetadata
 		}
 		return try getLocalCachedFileInfo(for: id)
+	}
+
+	func removeCachedFile(for itemIdentifier: NSFileProviderItemIdentifier) throws {
+		guard let itemID = itemIdentifier.databaseValue else {
+			return
+		}
+		try removeCachedFile(for: itemID)
 	}
 }
 
