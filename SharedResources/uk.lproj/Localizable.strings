@@ -20,6 +20,7 @@
 "common.button.next" = "Далі";
 "common.button.ok" = "Гаразд";
 "common.button.remove" = "Прибрати";
+"common.button.retry" = "Повторити";
 "common.button.signOut" = "Вийти";
 "common.button.verify" = "Перевірити";
 "common.cells.openInFilesApp" = "Відкрити в Files";
