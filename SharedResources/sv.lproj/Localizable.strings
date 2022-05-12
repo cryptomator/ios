@@ -20,6 +20,7 @@
 "common.button.next" = "Nästa";
 "common.button.ok" = "OK";
 "common.button.remove" = "Ta bort";
+"common.button.retry" = "Försök igen";
 "common.button.signOut" = "Logga ut";
 "common.button.verify" = "Verifiera";
 "common.cells.openInFilesApp" = "Öppna i Filer-appen";
