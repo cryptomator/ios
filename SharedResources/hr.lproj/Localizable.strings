@@ -20,6 +20,7 @@
 "common.button.next" = "Sljedeći";
 "common.button.ok" = "U redu";
 "common.button.remove" = "Ukloni";
+"common.button.retry" = "Pokušaj ponovno";
 "common.button.signOut" = "Odjavi se";
 "common.button.verify" = "Potvrdi";
 "common.cells.openInFilesApp" = "Otvori u Files aplikaciji";
