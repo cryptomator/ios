@@ -98,6 +98,10 @@
 "fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
 "fileProvider.uploadProgress.connecting" = "Bağlanıyor…";
+"fileProvider.uploadProgress.message" = "Mevcut Süreç: %@\n\nYükleme sürecinin takıldığını fark ederseniz, yeniden yüklemeyi deneyebilirsiniz.";
+"fileProvider.uploadProgress.missing" = "İlerleme saptanamadı. Hala arka planda çalışıyor olabilir.";
+"fileProvider.uploadProgress.title" = "Yükleniyor…";
+"fileProvider.uploadProgress.missingDomainError" = "Alan adı bulunamadı.";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
 "keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
@@ -258,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Sunucu, WebDAV uyumlu görünmüyor. Lütfen doğru URL'yi kullanıp kullanmadığınızı kontrol edin.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Bu sunucunun sertifikası güvenilir değil. Bu WebDAV bağlantısını yeniden eklemeniz gerekebilir.";
+
+"Retry Upload" = "Yüklemeyi yeniden dene";
