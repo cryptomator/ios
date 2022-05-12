@@ -10,6 +10,7 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Ändra";
 "common.button.choose" = "Välj";
+"common.button.close" = "Stäng";
 "common.button.confirm" = "Bekräfta";
 "common.button.create" = "Skapa";
 "common.button.createFolder" = "Skapa mapp";
