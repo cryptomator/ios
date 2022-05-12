@@ -10,6 +10,7 @@
 "common.button.cancel" = "Відмінити";
 "common.button.change" = "Змінити";
 "common.button.choose" = "Оберіть";
+"common.button.close" = "Закрити";
 "common.button.confirm" = "Підтвердити";
 "common.button.create" = "Створити";
 "common.button.createFolder" = "Створити теку";
