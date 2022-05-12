@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Modificar";
 "common.button.choose" = "Seleccionar";
+"common.button.close" = "Cerrar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crear carpeta";
@@ -96,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueo requerido";
 "fileProvider.error.defaultLock.message" = "Para acceder y mostrar el contenido de su bóveda hay que desbloquearla.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.uploadProgress.connecting" = "Conectando…";
+"fileProvider.uploadProgress.message" = "Progreso actual: %@\n\nSi nota que el progreso de la carga está atascado, puede volver a intentar la carga.";
+"fileProvider.uploadProgress.missing" = "No se pudo determinar el progreso. Puede que todavía se ejecute en segundo plano.";
+"fileProvider.uploadProgress.title" = "Cargando…";
+"fileProvider.uploadProgress.missingDomainError" = "No se encontró el dominio.";
 
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
@@ -256,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "El servidor no parece ser compatible con WebDAV. Compruebe si ha usado la URL correcta.";
 "webDAVAuthenticator.error.untrustedCertificate" = "El certificado de este servidor no es confiable. Es posible que tenga que volver a añadir esta conexión WebDAV.";
+
+"Retry Upload" = "Reintentar carga";
