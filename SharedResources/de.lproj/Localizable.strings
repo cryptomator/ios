@@ -10,6 +10,7 @@
 "common.button.cancel" = "Abbrechen";
 "common.button.change" = "Ändern";
 "common.button.choose" = "Auswählen";
+"common.button.close" = "Schließen";
 "common.button.confirm" = "Bestätigen";
 "common.button.create" = "Erstellen";
 "common.button.createFolder" = "Ordner erstellen";
@@ -96,6 +97,10 @@
 "fileProvider.error.defaultLock.title" = "Entsperren erforderlich";
 "fileProvider.error.defaultLock.message" = "Um auf den Inhalt deines Tresors zuzugreifen und ihn anzuzeigen, muss dieser entsperrt werden.";
 "fileProvider.error.unlockButton" = "Entsperren";
+"fileProvider.uploadProgress.connecting" = "Verbindung wird hergestellt …";
+"fileProvider.uploadProgress.missing" = "Der Fortschritt konnte nicht ermittelt werden. Möglicherweise läuft der Upload noch im Hintergrund.";
+"fileProvider.uploadProgress.title" = "Wird hochgeladen …";
+"fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
 
 "keepUnlocked.alert.title" = "Tresor sperren?";
 "keepUnlocked.alert.message" = "Damit diese Änderung wirksam werden kann, muss dein Tresor gesperrt werden.";
@@ -256,3 +261,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint mit WebDAV nicht kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";
+
+"Retry Upload" = "Upload erneut versuchen";
