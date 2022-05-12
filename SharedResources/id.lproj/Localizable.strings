@@ -10,6 +10,7 @@
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
+"common.button.close" = "Tutup";
 "common.button.confirm" = "Konfirmasi";
 "common.button.create" = "Buat";
 "common.button.createFolder" = "Buat Folder";
