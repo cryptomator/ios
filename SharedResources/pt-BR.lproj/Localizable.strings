@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
+"common.button.close" = "Fechar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
 "common.button.createFolder" = "Criar pasta";
