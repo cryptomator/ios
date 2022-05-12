@@ -10,10 +10,10 @@
 "common.button.cancel" = "Annulla";
 "common.button.change" = "Aggiorna";
 "common.button.choose" = "Scegli";
+"common.button.close" = "Chiudi";
 "common.button.confirm" = "Conferma";
 "common.button.create" = "Crea";
 "common.button.createFolder" = "Crea Cartella";
-"common.button.dismiss" = "Ignora";
 "common.button.done" = "Fatto";
 "common.button.download" = "Download";
 "common.button.edit" = "Modifica";
