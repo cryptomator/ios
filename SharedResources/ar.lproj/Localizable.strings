@@ -10,6 +10,7 @@
 "common.button.cancel" = "الغاء";
 "common.button.change" = "تغيير";
 "common.button.choose" = "اختر";
+"common.button.close" = "إغلاق";
 "common.button.confirm" = "تأكيد";
 "common.button.create" = "إنشاء";
 "common.button.createFolder" = "إنشاء مجلد";
