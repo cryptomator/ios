@@ -9,6 +9,7 @@
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
 "common.button.remove" = "Eltávolítás";
+"common.button.retry" = "Újra";
 "common.cells.password" = "Jelszó";
 "common.cells.url" = "ULR";
 "common.cells.username" = "Felhasználónév";
