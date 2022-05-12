@@ -9,6 +9,7 @@
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
 "common.button.remove" = "Tanggalin";
+"common.button.retry" = "Subukan muli";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
 
