@@ -10,6 +10,7 @@
 "common.button.cancel" = "ביטול";
 "common.button.change" = "שנה";
 "common.button.choose" = "בחר";
+"common.button.close" = "סגור";
 "common.button.create" = "צור";
 "common.button.createFolder" = "צור תיקייה";
 "common.button.done" = "סיום";
