@@ -20,6 +20,7 @@
 "common.button.next" = "Ďalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstrániť";
+"common.button.retry" = "Skúsiť znovu";
 "common.button.signOut" = "Odhlásiť";
 "common.button.verify" = "Overiť";
 "common.cells.openInFilesApp" = "Otvoriť v súborovej aplikácii";
