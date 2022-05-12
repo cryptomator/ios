@@ -19,6 +19,7 @@
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
 "common.button.remove" = "제거";
+"common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
 "common.cells.password" = "비밀번호";
 "common.cells.url" = "URL";
