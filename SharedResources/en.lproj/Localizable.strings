@@ -10,10 +10,10 @@
 "common.button.cancel" = "Cancel";
 "common.button.change" = "Change";
 "common.button.choose" = "Choose";
+"common.button.close" = "Close";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
-"common.button.dismiss" = "Dismiss";
 "common.button.done" = "Done";
 "common.button.download" = "Download";
 "common.button.edit" = "Edit";

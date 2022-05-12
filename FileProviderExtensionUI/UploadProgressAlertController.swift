@@ -69,7 +69,7 @@ enum RetryUploadAlertControllerFactory {
 		let alertController = UploadProgressAlertController(title: LocalizedString.getValue("fileProvider.uploadProgress.title"),
 		                                                    message: LocalizedString.getValue("fileProvider.uploadProgress.connecting"),
 		                                                    preferredStyle: .alert)
-		let dismissAlertAction = UIAlertAction(title: LocalizedString.getValue("common.button.dismiss"), style: .cancel) { _ in
+		let dismissAlertAction = UIAlertAction(title: LocalizedString.getValue("common.button.close"), style: .cancel) { _ in
 			dismissAction()
 			alertController.alertActionTriggered.fulfill(())
 		}
