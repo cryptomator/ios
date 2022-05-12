@@ -10,6 +10,7 @@
 "common.button.cancel" = "İptal";
 "common.button.change" = "Değiştir";
 "common.button.choose" = "Seç";
+"common.button.close" = "Kapat";
 "common.button.confirm" = "Onayla";
 "common.button.create" = "Oluştur";
 "common.button.createFolder" = "Klasör Oluştur";
@@ -96,6 +97,7 @@
 "fileProvider.error.defaultLock.title" = "Kilit açma gerekli";
 "fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
+"fileProvider.uploadProgress.connecting" = "Bağlanıyor…";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
 "keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
