@@ -20,6 +20,7 @@
 "common.button.next" = "Lanjut";
 "common.button.ok" = "OK";
 "common.button.remove" = "Hapus";
+"common.button.retry" = "Coba lagi";
 "common.button.signOut" = "Keluar";
 "common.button.verify" = "Buka";
 "common.cells.openInFilesApp" = "Buka di Aplikasi File";
