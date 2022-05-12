@@ -13,6 +13,7 @@
 "common.button.confirm" = "Επιβεβαίωση";
 "common.button.create" = "Δημιουργία";
 "common.button.createFolder" = "Δημιουργία Φακέλου";
+"common.button.dismiss" = "Απόρριψη";
 "common.button.done" = "Κλείσιμο";
 "common.button.download" = "Λήψη";
 "common.button.edit" = "Επεξεργασία";
@@ -20,6 +21,7 @@
 "common.button.next" = "Επόμενο";
 "common.button.ok" = "ΟΚ";
 "common.button.remove" = "Αφαίρεση";
+"common.button.retry" = "Επανάληψη";
 "common.button.signOut" = "Αποσύνδεση";
 "common.button.verify" = "Επαλήθευση";
 "common.cells.openInFilesApp" = "Άνοιγμα στην εφαρμογή Αρχείων";
@@ -95,6 +97,10 @@
 "fileProvider.error.defaultLock.title" = "Απαιτείται Ξεκλείδωμα";
 "fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
+"fileProvider.uploadProgress.connecting" = "Σύνδεση…";
+"fileProvider.uploadProgress.missing" = "Η πρόοδος δεν μπορεί να καθοριστεί. Μπορεί να εκτελείται στο παρασκήνιο.";
+"fileProvider.uploadProgress.title" = "Μεταφόρτωση…";
+"fileProvider.uploadProgress.missingDomainError" = "Δεν ήταν δυνατή η εύρεση του τομέα.";
 
 "keepUnlocked.alert.title" = "Κλείδωμα Κρύπτης;";
 "keepUnlocked.alert.message" = "Αυτή η αλλαγή απαιτεί η κρύπτη σας να κλειδωθεί για να τεθεί σε ισχύ.";
@@ -255,3 +261,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Ο διακομιστής δε φαίνεται να είναι συμβατός με WebDAV. Παρακαλώ ελέγξτε αν έχετε χρησιμοποιήσει τη σωστή διεύθυνση URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Το πιστοποιητικό αυτού του διακομιστή δεν είναι έμπιστο. Ίσως χρειαστεί να προσθέσετε ξανά αυτή τη σύνδεση WebDAV.";
+
+"Retry Upload" = "Δοκιμάστε ξανά τη μεταφόρτωση";
