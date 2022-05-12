@@ -20,6 +20,7 @@
 "common.button.next" = "পরবর্তী";
 "common.button.ok" = "আচ্ছা";
 "common.button.remove" = "বাতিল";
+"common.button.retry" = "পুনরায় চেষ্টা করুন";
 "common.button.signOut" = "সাইন আউট";
 "common.button.verify" = "যাচাই করুন";
 "common.cells.openInFilesApp" = "ফাইল আ্যপে খুলুন";
