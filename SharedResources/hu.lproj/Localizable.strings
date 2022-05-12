@@ -2,6 +2,7 @@
 "common.button.cancel" = "Mégse";
 "common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
+"common.button.close" = "Bezár";
 "common.button.create" = "Létrehozás";
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
