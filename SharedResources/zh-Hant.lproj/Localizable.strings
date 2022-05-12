@@ -20,6 +20,7 @@
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.remove" = "移除";
+"common.button.retry" = "重試";
 "common.button.signOut" = "登出";
 "common.button.verify" = "驗證";
 "common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
