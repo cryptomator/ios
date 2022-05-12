@@ -10,6 +10,7 @@
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
 "common.button.choose" = "Odaberi";
+"common.button.close" = "Zatvori";
 "common.button.confirm" = "Potvrdi";
 "common.button.create" = "Izradi";
 "common.button.createFolder" = "Izradi mapu";
