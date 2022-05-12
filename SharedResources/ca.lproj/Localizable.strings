@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancel·la";
 "common.button.change" = "Canvia";
 "common.button.choose" = "Trieu";
+"common.button.close" = "Tanca";
 "common.button.confirm" = "Confirma";
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crea una carpeta";
