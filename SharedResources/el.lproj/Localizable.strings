@@ -10,10 +10,10 @@
 "common.button.cancel" = "Ακύρωση";
 "common.button.change" = "Αλλαγή";
 "common.button.choose" = "Επιλογή";
+"common.button.close" = "Κλείσιμο";
 "common.button.confirm" = "Επιβεβαίωση";
 "common.button.create" = "Δημιουργία";
 "common.button.createFolder" = "Δημιουργία Φακέλου";
-"common.button.dismiss" = "Απόρριψη";
 "common.button.done" = "Κλείσιμο";
 "common.button.download" = "Λήψη";
 "common.button.edit" = "Επεξεργασία";
@@ -98,6 +98,7 @@
 "fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
 "fileProvider.uploadProgress.connecting" = "Σύνδεση…";
+"fileProvider.uploadProgress.message" = "Τρέχουσα Πρόοδος: %@%\n\nΑν παρατηρήσετε ότι η πρόοδος μεταφόρτωσης έχει κολλήσει, μπορείτε να δοκιμάσετε ξανά τη μεταφόρτωση.";
 "fileProvider.uploadProgress.missing" = "Η πρόοδος δεν μπορεί να καθοριστεί. Μπορεί να εκτελείται στο παρασκήνιο.";
 "fileProvider.uploadProgress.title" = "Μεταφόρτωση…";
 "fileProvider.uploadProgress.missingDomainError" = "Δεν ήταν δυνατή η εύρεση του τομέα.";
