@@ -20,6 +20,7 @@
 "common.button.next" = "次へ";
 "common.button.ok" = "OK";
 "common.button.remove" = "削除";
+"common.button.retry" = "再試行";
 "common.button.signOut" = "サインアウト";
 "common.button.verify" = "認証";
 "common.cells.openInFilesApp" = "ファイル アプリで開く";
