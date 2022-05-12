@@ -20,6 +20,7 @@
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
 "common.button.remove" = "Elimina";
+"common.button.retry" = "Reintenta";
 "common.button.signOut" = "Tanca la sessió";
 "common.button.verify" = "Verificar";
 "common.cells.openInFilesApp" = "Obrir amb l'aplicació de fitxers";
