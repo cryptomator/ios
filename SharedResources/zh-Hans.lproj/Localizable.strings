@@ -20,6 +20,7 @@
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
+"common.button.retry" = "重试";
 "common.button.signOut" = "退出登录";
 "common.button.verify" = "验证";
 "common.cells.openInFilesApp" = "在文管应用中打开";
@@ -166,7 +167,7 @@
 "settings.cloudServices" = "云服务";
 "settings.contact" = "联系";
 "settings.debugMode" = "调试模式";
-"settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式";
+"settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式";
 "settings.manageSubscriptions" = "管理订阅";
 "settings.rateApp" = "给应用评分";
 "settings.sendLogFile" = "发送日志文件";
