@@ -20,6 +20,7 @@
 "common.button.next" = "Sonraki";
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
+"common.button.retry" = "Yeniden dene";
 "common.button.signOut" = "Çıkış Yap";
 "common.button.verify" = "Doğrula";
 "common.cells.openInFilesApp" = "Dosyalar Uygulamasında Aç";
