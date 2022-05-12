@@ -10,6 +10,7 @@
 "common.button.cancel" = "Zrušiť";
 "common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
+"common.button.close" = "Zavrieť";
 "common.button.confirm" = "Potvrdiť";
 "common.button.create" = "Vytvoriť";
 "common.button.createFolder" = "Vytvoriť adresár";
