@@ -10,6 +10,7 @@
 "common.button.cancel" = "रद्द करें";
 "common.button.change" = "बदलें";
 "common.button.choose" = "चुनें";
+"common.button.close" = "बंद करें";
 "common.button.confirm" = "पुष्टि करें";
 "common.button.create" = "बनाएं";
 "common.button.createFolder" = "फोल्डर बनाएं";
