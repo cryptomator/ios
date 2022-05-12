@@ -20,6 +20,7 @@
 "common.button.next" = "Nyingine";
 "common.button.ok" = "Sawa";
 "common.button.remove" = "Ondoa";
+"common.button.retry" = "Jaribu tena";
 "common.button.signOut" = "Ondoka";
 "common.button.verify" = "Thibitisha";
 "common.cells.openInFilesApp" = "Fungua katika Programu ya Mafaili";
