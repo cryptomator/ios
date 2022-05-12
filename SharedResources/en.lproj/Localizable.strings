@@ -98,7 +98,7 @@
 "fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
 "fileProvider.error.unlockButton" = "Unlock";
 "fileProvider.uploadProgress.connecting" = "Connecting…";
-"fileProvider.uploadProgress.message" = "Current Progress: %@%\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
+"fileProvider.uploadProgress.message" = "Current Progress: %@\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
 "fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
 "fileProvider.uploadProgress.title" = "Uploading…";
 "fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";

@@ -28,14 +28,14 @@ class UploadProgressAlertController: UIAlertController {
 
 	private lazy var formatter: NumberFormatter = {
 		let formatter = NumberFormatter()
-		formatter.minimumFractionDigits = 0
+		formatter.minimumFractionDigits = 2
 		formatter.maximumFractionDigits = 2
-		formatter.numberStyle = .decimal
+		formatter.numberStyle = .percent
 		return formatter
 	}()
 
 	func setMessage(with progress: Double) {
-		let formattedProgress = formatter.string(from: progress * 100.0 as NSNumber) ?? "n/a"
+		let formattedProgress = formatter.string(from: progress as NSNumber) ?? "n/a"
 		message = String(format: LocalizedString.getValue("fileProvider.uploadProgress.message"), formattedProgress)
 	}
 
