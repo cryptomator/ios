@@ -10,6 +10,7 @@
 "common.button.cancel" = "キャンセル";
 "common.button.change" = "変更";
 "common.button.choose" = "選択";
+"common.button.close" = "閉じる";
 "common.button.confirm" = "確認";
 "common.button.create" = "作成";
 "common.button.createFolder" = "フォルダーを作成";
