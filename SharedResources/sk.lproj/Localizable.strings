@@ -97,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Odomknutie požadované";
 "fileProvider.error.defaultLock.message" = "K prístupu a videniu obsahu Vášho trezora, musí byť odomknutý.";
 "fileProvider.error.unlockButton" = "Odomknúť";
+"fileProvider.uploadProgress.connecting" = "Pripájanie…";
+"fileProvider.uploadProgress.message" = "Aktuálny priebeh: %@\n\nV prípade, že pozorujete zaseknutý priebeh nahrávania, môžte zopakovať nahrávanie.";
+"fileProvider.uploadProgress.missing" = "Pokrok nebol spozorovaný. Môže však stále prebiehať na pozadí.";
+"fileProvider.uploadProgress.title" = "Nahrávanie…";
+"fileProvider.uploadProgress.missingDomainError" = "Nepodarilo sa nájsť doménu.";
 
 "keepUnlocked.alert.title" = "Zamknúť trezor?";
 "keepUnlocked.alert.message" = "Táto zmena vyžaduje Váš trezor uzamknúť aby sa príkaz uplatnil.";
@@ -256,3 +261,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Zdá sa že server nie je WebDAV kompatibilný. Prosím skontrolujte či ste použili správnu URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikát tohto servera nie je dôveryhodný. Môžte znovu-pridať toto WebDAV spojenie.";
+
+"Retry Upload" = "Opakovať nahratie";
