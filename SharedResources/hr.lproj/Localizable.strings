@@ -97,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Potrebno je otključanje";
 "fileProvider.error.defaultLock.message" = "Za pristup i prikaz sadržaja Vašeg trezora, on mora biti otključan.";
 "fileProvider.error.unlockButton" = "Otključaj";
+"fileProvider.uploadProgress.connecting" = "Spajanje…";
+"fileProvider.uploadProgress.message" = "Trenutni napredak: %@\n\nAko primijetite da je napredak učitavanja zapeo, možete ponovno pokušati s prijenosom.";
+"fileProvider.uploadProgress.missing" = "Napredak se ne može utvrditi. Možda još uvijek radi u pozadini.";
+"fileProvider.uploadProgress.title" = "Učitavanje…";
+"fileProvider.uploadProgress.missingDomainError" = "Nije moguće pronaći domenu.";
 
 "keepUnlocked.alert.title" = "Zaključati trezor?";
 "keepUnlocked.alert.message" = "Ova promjena zahtijeva da vaš trezor bude zaključan kako bi stupila na snagu.";
@@ -257,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Čini se da poslužitelj nije kompatibilan s WebDAV-om. Provjerite jeste li upotrijebili ispravan URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikat ovog poslužitelja nije pouzdan. Možda ćete morati ponovno dodati ovu WebDAV vezu.";
+
+"Retry Upload" = "Ponovno pokušaj prijenos";
