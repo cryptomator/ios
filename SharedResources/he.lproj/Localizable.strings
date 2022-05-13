@@ -10,7 +10,7 @@
 "common.button.cancel" = "ביטול";
 "common.button.change" = "שנה";
 "common.button.choose" = "בחר";
-"common.button.close" = "סגור";
+"common.button.close" = "סגירה";
 "common.button.create" = "צור";
 "common.button.createFolder" = "צור תיקייה";
 "common.button.done" = "סיום";
@@ -20,7 +20,7 @@
 "common.button.next" = "המשך";
 "common.button.ok" = "אישור";
 "common.button.remove" = "הסר";
-"common.button.retry" = "נסה שוב";
+"common.button.retry" = "לנסות שוב";
 "common.cells.password" = "סיסמה";
 "common.cells.url" = "כתובת URL";
 "common.cells.username" = "שם משתמש";
@@ -46,6 +46,11 @@
 
 "fileProvider.onboarding.title" = "ברוך הבא";
 "fileProvider.error.unlockButton" = "בטל נעילה";
+"fileProvider.uploadProgress.connecting" = "התחברות…";
+"fileProvider.uploadProgress.message" = "תהליך נוכחי: %@\n\nאם תהליך ההעלאה תקוע, ניתן לנסות שוב.";
+"fileProvider.uploadProgress.missing" = "לא ניתן לקבוע את תהליך ההתקדמות. ייתכן והתהליך עדיין רץ ברקע.";
+"fileProvider.uploadProgress.title" = "העלאה…";
+"fileProvider.uploadProgress.missingDomainError" = "לא ניתן למצוא את הדומיין.";
 
 "onboarding.title" = "ברוך הבא";
 "onboarding.button.continue" = "המשך";
@@ -63,3 +68,5 @@
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
 "webDAVAuthentication.httpConnection.change" = "עבור ל-HTTPS";
+
+"Retry Upload" = "לנסות העלאה שוב";
