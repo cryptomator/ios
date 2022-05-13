@@ -97,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Wymagane odblokowanie";
 "fileProvider.error.defaultLock.message" = "Sejf musi być odblokowany aby zobaczyć i mieć dostęp do jego zawartości.";
 "fileProvider.error.unlockButton" = "Odblokuj";
+"fileProvider.uploadProgress.connecting" = "Łączenie...";
+"fileProvider.uploadProgress.message" = "Bieżący postęp: %@\n\nJeśli zauważysz, że postęp przesyłania zawiesił się, możesz spróbować ponownie przesłać dane.";
+"fileProvider.uploadProgress.missing" = "Nie można zweryfikować postępu. Może on nadal działać w tle.";
+"fileProvider.uploadProgress.title" = "Przesyłanie...";
+"fileProvider.uploadProgress.missingDomainError" = "Nie można odnaleźć domeny.";
 
 "keepUnlocked.alert.title" = "Zablokować sejf?";
 "keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
@@ -151,6 +156,7 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Przywrócono pomyślnie";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Brak pełnej wersji";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nie mogliśmy znaleźć wcześniej zakupionej pełnej wersji, która mogłaby zostać przywrócona. Proszę spróbować innej opcji.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Dostępna aktualizacja";
 "purchase.retry.button" = "Ponów";
 "purchase.retry.footer" = "Nie można załadować dostępnych produktów.";
 "purchase.title" = "Odblokuj pełną wersję";
@@ -255,3 +261,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Serwer wydaje się niekompatybilny z WebDAV. Proszę sprawdzić, czy użyto poprawnego adresu URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certyfikat tego serwera nie jest zaufany. Może być konieczne ponowne dodanie połączenia WebDAV.";
+
+"Retry Upload" = "Ponów wysyłanie";
