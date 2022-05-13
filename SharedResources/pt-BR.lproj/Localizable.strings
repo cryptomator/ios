@@ -97,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
 "fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, ele precisa ser desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.uploadProgress.connecting" = "Conectando…";
+"fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nSe você notar que o progresso do upload está travado, pode tentar novamente o upload.";
+"fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso, que pode estar sendo executado em segundo plano.";
+"fileProvider.uploadProgress.title" = "Enviando…";
+"fileProvider.uploadProgress.missingDomainError" = "Não foi possível encontrar o domínio.";
 
 "keepUnlocked.alert.title" = "Trancar cofre?";
 "keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
@@ -258,3 +263,5 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou a URL correta.";
 "webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Você pode ter que adicionar novamente esta conexão WebDAV.";
+
+"Retry Upload" = "Tentar o envio novamente";
