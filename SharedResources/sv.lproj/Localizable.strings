@@ -97,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Upplåsning krävs";
 "fileProvider.error.defaultLock.message" = "För att komma åt och visa innehållet i ditt valv måste det låsas upp.";
 "fileProvider.error.unlockButton" = "Lås upp";
+"fileProvider.uploadProgress.connecting" = "Ansluter…";
+"fileProvider.uploadProgress.message" = "Status: %@\n\nOm du märker att uppladdningsprocessen har fastnat kan du försöka ladda upp den igen.";
+"fileProvider.uploadProgress.missing" = "Processen kunde inte fastställas. Det kan fortfarande köras i bakgrunden.";
+"fileProvider.uploadProgress.title" = "Laddar upp…";
+"fileProvider.uploadProgress.missingDomainError" = "Kunde inte hitta domänen.";
 
 "keepUnlocked.alert.title" = "Lås valv?";
 "keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
@@ -257,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Servern verkar inte vara WebDAV-kompatibel. Kontrollera att du har använt rätt URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikatet för denna server är inte betrott. Du kan behöva lägga till denna WebDAV-anslutning igen.";
+
+"Retry Upload" = "Ladda upp igen";
