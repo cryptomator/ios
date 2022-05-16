@@ -97,6 +97,8 @@
 "fileProvider.error.defaultLock.title" = "Требуется разблокировка";
 "fileProvider.error.defaultLock.message" = "Хранилище должно быть разблокировано, чтобы получить доступ к его содержимому.";
 "fileProvider.error.unlockButton" = "Разблокировать";
+"fileProvider.uploadProgress.connecting" = "Подключение…";
+"fileProvider.uploadProgress.title" = "Загрузка…";
 
 "keepUnlocked.alert.title" = "Заблокировать хранилище?";
 "keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать хранилище.";
@@ -257,3 +259,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Похоже, сервер не совместим с WebDAV. Проверьте, правильно ли указан URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Сертификат этого сервера ненадёжен. Возможно, вам придётся добавить это подключение WebDAV ещё раз.";
+
+"Retry Upload" = "Повторить загрузку";
