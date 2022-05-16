@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancel";
 "common.button.change" = "Change";
 "common.button.choose" = "Choose";
+"common.button.clear" = "Clear";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
@@ -97,8 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Unlock Required";
 "fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
 "fileProvider.error.unlockButton" = "Unlock";
-"fileProvider.evictFileFromCache.title" = "Evict File from Cache";
-"fileProvider.evictFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
+"fileProvider.clearFileFromCache.title" = "Clear File from Cache";
+"fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
 "fileProvider.uploadProgress.connecting" = "Connecting…";
 "fileProvider.uploadProgress.message" = "Current Progress: %@%\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
 "fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
@@ -266,4 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Certificate of this server is untrusted. You may have to re-add this WebDAV connection.";
 
 "Retry Upload" = "Retry Upload";
-"Evict from Cache" = "Evict from Cache";
+"Clear from Cache" = "Clear from Cache";

@@ -131,10 +131,10 @@ class RootViewController: FPUIActionExtensionViewController {
 	}
 
 	func showEvictFileFromCacheAlert(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let alertController = UIAlertController(title: LocalizedString.getValue("fileProvider.evictFileFromCache.title"),
-		                                        message: LocalizedString.getValue("fileProvider.evictFileFromCache.message"),
+		let alertController = UIAlertController(title: LocalizedString.getValue("fileProvider.clearFileFromCache.title"),
+		                                        message: LocalizedString.getValue("fileProvider.clearFileFromCache.message"),
 		                                        preferredStyle: .alert)
-		let deleteAction = UIAlertAction(title: LocalizedString.getValue("common.button.remove"), style: .destructive) { _ in
+		let deleteAction = UIAlertAction(title: LocalizedString.getValue("common.button.clear"), style: .destructive) { _ in
 			alertController.dismiss(animated: true) {
 				self.evictFilesFromCache(with: itemIdentifiers, domainIdentifier: domainIdentifier)
 			}

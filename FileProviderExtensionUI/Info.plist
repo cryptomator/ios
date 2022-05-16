@@ -54,7 +54,7 @@
 				<key>NSExtensionFileProviderActionIdentifier</key>
 				<string>org.cryptomator.ios.fileprovider.evictFileFromCache</string>
 				<key>NSExtensionFileProviderActionName</key>
-				<string>Evict from Cache</string>
+				<string>Clear from Cache</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
 				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."enableEvictFileFromCacheAction" == YES).@count > 0</string>
 			</dict>
