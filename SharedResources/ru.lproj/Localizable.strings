@@ -98,7 +98,9 @@
 "fileProvider.error.defaultLock.message" = "Хранилище должно быть разблокировано, чтобы получить доступ к его содержимому.";
 "fileProvider.error.unlockButton" = "Разблокировать";
 "fileProvider.uploadProgress.connecting" = "Подключение…";
+"fileProvider.uploadProgress.missing" = "Невозможно определить прогресс. Он может продолжаться в фоновом режиме.";
 "fileProvider.uploadProgress.title" = "Загрузка…";
+"fileProvider.uploadProgress.missingDomainError" = "Домен не найден.";
 
 "keepUnlocked.alert.title" = "Заблокировать хранилище?";
 "keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать хранилище.";
