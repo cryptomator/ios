@@ -11,10 +11,10 @@
 "common.button.change" = "Change";
 "common.button.choose" = "Choose";
 "common.button.clear" = "Clear";
+"common.button.close" = "Close";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
-"common.button.dismiss" = "Dismiss";
 "common.button.done" = "Done";
 "common.button.download" = "Download";
 "common.button.edit" = "Edit";
@@ -101,7 +101,7 @@
 "fileProvider.clearFileFromCache.title" = "Clear File from Cache";
 "fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
 "fileProvider.uploadProgress.connecting" = "Connecting…";
-"fileProvider.uploadProgress.message" = "Current Progress: %@%\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
+"fileProvider.uploadProgress.message" = "Current Progress: %@\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
 "fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
 "fileProvider.uploadProgress.title" = "Uploading…";
 "fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";
