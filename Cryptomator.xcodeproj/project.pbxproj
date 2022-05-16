@@ -225,6 +225,14 @@
 		4AA2531928216BFD003B45EE /* UploadRetryingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2531828216BFD003B45EE /* UploadRetryingServiceSource.swift */; };
 		4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA2531A28216E45003B45EE /* ServiceSource.swift */; };
 		4AA621D9249A6A8400A0BCBD /* FileProviderExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA621D8249A6A8400A0BCBD /* FileProviderExtension.swift */; };
+		4AA782D7282A7779001A71E3 /* CacheManagingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */; };
+		4AA782DA282A7A2E001A71E3 /* CacheManagingServiceSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782D9282A7A2E001A71E3 /* CacheManagingServiceSourceTests.swift */; };
+		4AA782DC282A7F1A001A71E3 /* DatabaseURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782DB282A7F1A001A71E3 /* DatabaseURLProvider.swift */; };
+		4AA782DE282A8250001A71E3 /* NSFileProviderDomainProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782DD282A8250001A71E3 /* NSFileProviderDomainProvider.swift */; };
+		4AA782E0282A8609001A71E3 /* CachedFileManagerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782DF282A8609001A71E3 /* CachedFileManagerFactory.swift */; };
+		4AA782E2282A8FC0001A71E3 /* CachedFileManagerFactoryMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782E1282A8FC0001A71E3 /* CachedFileManagerFactoryMock.swift */; };
+		4AA782E4282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782E3282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift */; };
+		4AA782E6282A91BD001A71E3 /* CacheManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA782E5282A91BD001A71E3 /* CacheManagerMock.swift */; };
 		4AA8613725C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */; };
 		4AA8614825C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */; };
 		4AA8615125C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */; };
@@ -715,6 +723,14 @@
 		4AA621DF249A6A8400A0BCBD /* FileProviderExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FileProviderExtension.entitlements; sourceTree = "<group>"; };
 		4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FileProviderExtensionUI.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AA621EB249A6A8400A0BCBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagingServiceSource.swift; sourceTree = "<group>"; };
+		4AA782D9282A7A2E001A71E3 /* CacheManagingServiceSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagingServiceSourceTests.swift; sourceTree = "<group>"; };
+		4AA782DB282A7F1A001A71E3 /* DatabaseURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseURLProvider.swift; sourceTree = "<group>"; };
+		4AA782DD282A8250001A71E3 /* NSFileProviderDomainProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFileProviderDomainProvider.swift; sourceTree = "<group>"; };
+		4AA782DF282A8609001A71E3 /* CachedFileManagerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerFactory.swift; sourceTree = "<group>"; };
+		4AA782E1282A8FC0001A71E3 /* CachedFileManagerFactoryMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CachedFileManagerFactoryMock.swift; sourceTree = "<group>"; };
+		4AA782E3282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFileProviderDomainProviderMock.swift; sourceTree = "<group>"; };
+		4AA782E5282A91BD001A71E3 /* CacheManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheManagerMock.swift; sourceTree = "<group>"; };
 		4AA8613625C19D4F002A59F5 /* DetectedMasterkeyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedMasterkeyViewModel.swift; sourceTree = "<group>"; };
 		4AA8614725C1C670002A59F5 /* OpenExistingVaultChooseFolderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultChooseFolderViewController.swift; sourceTree = "<group>"; };
 		4AA8615025C1DB5E002A59F5 /* OpenExistingVaultPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultPasswordViewController.swift; sourceTree = "<group>"; };
@@ -1058,10 +1074,8 @@
 				4A9C8DFC27A007C2000063E4 /* FileProviderNotificatorTests.swift */,
 				4AFBFA19282946BF00E30818 /* InMemoryProgressManagerTests.swift */,
 				4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */,
-				4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */,
 				4AC1157727F5BEFD0023F51B /* Promise+AllIgnoringResultsTests.swift */,
 				4ADC66C427A7F6D6002E6CC7 /* UnlockMonitorTests.swift */,
-				4AFBFA1528293FE200E30818 /* UploadRetryingServiceSourceTests.swift */,
 				4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */,
 				4AE5196427F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift */,
 				4AE5196627F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift */,
@@ -1072,6 +1086,7 @@
 				4A8F14A3266A302E00ADBCE4 /* FileProviderAdapter */,
 				4AB1C32E265CF59100DC7A49 /* Middleware */,
 				4AB6A897278F07DE0016B01E /* Mocks */,
+				4AA782D8282A7A10001A71E3 /* ServiceSource */,
 			);
 			path = CryptomatorFileProviderTests;
 			sourceTree = "<group>";
@@ -1467,6 +1482,7 @@
 		4AA2531728216BD1003B45EE /* ServiceSource */ = {
 			isa = PBXGroup;
 			children = (
+				4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */,
 				4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */,
 				4AA2531A28216E45003B45EE /* ServiceSource.swift */,
 				4AA2531828216BFD003B45EE /* UploadRetryingServiceSource.swift */,
@@ -1505,6 +1521,16 @@
 				4A804083276952C600D7D999 /* Snapshots */,
 			);
 			path = FileProviderExtensionUI;
+			sourceTree = "<group>";
+		};
+		4AA782D8282A7A10001A71E3 /* ServiceSource */ = {
+			isa = PBXGroup;
+			children = (
+				4AA782D9282A7A2E001A71E3 /* CacheManagingServiceSourceTests.swift */,
+				4AEFF7F327145CB400D6CB99 /* LogLevelUpdatingServiceSourceTests.swift */,
+				4AFBFA1528293FE200E30818 /* UploadRetryingServiceSourceTests.swift */,
+			);
+			path = ServiceSource;
 			sourceTree = "<group>";
 		};
 		4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */ = {
@@ -1546,25 +1572,28 @@
 		4AB6A897278F07DE0016B01E /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
+				4AA782E1282A8FC0001A71E3 /* CachedFileManagerFactoryMock.swift */,
+				4AA782E5282A91BD001A71E3 /* CacheManagerMock.swift */,
+				4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */,
 				4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */,
 				4A797F9724AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift */,
-				4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */,
+				4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */,
+				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
 				4AB6A893278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift */,
+				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
 				4AB6A895278F07B20016B01E /* FileProviderAdapterTypeMock.swift */,
 				4A2060CA2798302600DA6C62 /* FileProviderItemUpdateDelegateMock.swift */,
 				4A2060D0279AB32700DA6C62 /* FileProviderNotificatorManagerMock.swift */,
 				4A2060D2279AB38A00DA6C62 /* FileProviderNotificatorMock.swift */,
 				4AB1D4ED27D0E9EA009060AB /* LocalURLProviderMock.swift */,
 				4AB6A898278F084E0016B01E /* MaintenanceManagerMock.swift */,
-				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
 				4AEECD3E279EC48200C6E2B5 /* NSFileProviderChangeObserverMock.swift */,
-				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
-				4AEECD3C279EB4B200C6E2B5 /* FileProviderAdapterProvidingMock.swift */,
-				4A9C8E0027A0104E000063E4 /* EnumerationSignalingMock.swift */,
-				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
-				4AB1D4F127D20510009060AB /* DocumentStorageURLProviderMock.swift */,
-				4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */,
+				4AA782E3282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift */,
+				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
 				4AFBFA172829414A00E30818 /* ProgressManagerMock.swift */,
+				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
+				4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */,
+				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1681,8 +1710,10 @@
 			isa = PBXGroup;
 			children = (
 				740375F92587AEB50023FF53 /* CryptomatorFileProvider.h */,
+				4AA782DF282A8609001A71E3 /* CachedFileManagerFactory.swift */,
 				4AE5196A27F595B100BA6E4A /* CloudPath+GetParent.swift */,
 				740375FA2587AEB50023FF53 /* CloudPath+NameCollision.swift */,
+				4AA782DB282A7F1A001A71E3 /* DatabaseURLProvider.swift */,
 				4A511D582664F290000A0E01 /* DeleteItemHelper.swift */,
 				4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */,
 				4AEECD36279EB15400C6E2B5 /* ErrorWrapper.swift */,
@@ -1697,6 +1728,7 @@
 				4A2060CC2799645300DA6C62 /* FileProviderNotificatorManager.swift */,
 				740375F42587AEB50023FF53 /* ItemStatus.swift */,
 				4AB1D4EB27D0E027009060AB /* LocalURLProviderType.swift */,
+				4AA782DD282A8250001A71E3 /* NSFileProviderDomainProvider.swift */,
 				4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */,
 				4AEE6EE92825716400E1B35E /* ProgressManager.swift */,
 				4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */,
@@ -2260,6 +2292,7 @@
 				4A8F149A266A29C900ADBCE4 /* WorkflowMiddlewareMock.swift in Sources */,
 				4ADC66C727A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift in Sources */,
 				4A797F9824AC9A1B007DDBE1 /* CustomCloudProviderMockTests.swift in Sources */,
+				4AA782DA282A7A2E001A71E3 /* CacheManagingServiceSourceTests.swift in Sources */,
 				4AAD444727E26D1800D16707 /* UploadTaskManagerMock.swift in Sources */,
 				4AFBFA1A282946BF00E30818 /* InMemoryProgressManagerTests.swift in Sources */,
 				4A079FB928084134009AD932 /* WorkingSetEnumerationTests.swift in Sources */,
@@ -2275,6 +2308,7 @@
 				4A2060D1279AB32700DA6C62 /* FileProviderNotificatorManagerMock.swift in Sources */,
 				4AEECD3F279EC48200C6E2B5 /* NSFileProviderChangeObserverMock.swift in Sources */,
 				4AEECD31279EA50D00C6E2B5 /* WorkingSetObservingMock.swift in Sources */,
+				4AA782E2282A8FC0001A71E3 /* CachedFileManagerFactoryMock.swift in Sources */,
 				4A511D492660EE3F000A0E01 /* DeletionTaskExecutorTests.swift in Sources */,
 				4AEECD33279EAACA00C6E2B5 /* FileProviderAdapterSetFavoriteRankTests.swift in Sources */,
 				4A797F9624AC9936007DDBE1 /* CustomCloudProviderMock.swift in Sources */,
@@ -2303,6 +2337,7 @@
 				4A511D5326615439000A0E01 /* ReparentTaskExecutorTests.swift in Sources */,
 				4A248227266E27C5002D9F59 /* FolderCreationTaskExecutorTests.swift in Sources */,
 				4AB1D4EE27D0E9EA009060AB /* LocalURLProviderMock.swift in Sources */,
+				4AA782E4282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift in Sources */,
 				4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
 				4AEECD3B279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift in Sources */,
@@ -2314,6 +2349,7 @@
 				4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */,
 				4A9C8E0327A016CF000063E4 /* WorkingSetObserverTests.swift in Sources */,
 				4AB1C33A265E9D8600DC7A49 /* UploadTaskExecutorTests.swift in Sources */,
+				4AA782E6282A91BD001A71E3 /* CacheManagerMock.swift in Sources */,
 				4A2245DC24A5E1C600DBA437 /* MetadataManagerTests.swift in Sources */,
 				4AB6A896278F07B20016B01E /* FileProviderAdapterTypeMock.swift in Sources */,
 				4AEECD39279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift in Sources */,
@@ -2599,6 +2635,8 @@
 				4AE5196D27F59B1800BA6E4A /* WorkflowDependencyTaskCollection.swift in Sources */,
 				747F2F212587BC250072FB30 /* CloudPath+NameCollision.swift in Sources */,
 				4ADC66C227A7F49E002E6CC7 /* VaultLockingServiceSource.swift in Sources */,
+				4AA782DC282A7F1A001A71E3 /* DatabaseURLProvider.swift in Sources */,
+				4AA782E0282A8609001A71E3 /* CachedFileManagerFactory.swift in Sources */,
 				4A511D512661000F000A0E01 /* WorkflowFactory.swift in Sources */,
 				4A1673EA270C77CC0075C724 /* DocumentStorageURLProvider.swift in Sources */,
 				747F2F222587BC250072FB30 /* ItemMetadata.swift in Sources */,
@@ -2632,6 +2670,7 @@
 				4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,
 				4A511D5B26668E0C000A0E01 /* UploadTaskRecord.swift in Sources */,
+				4AA782DE282A8250001A71E3 /* NSFileProviderDomainProvider.swift in Sources */,
 				4A511D5F26668E68000A0E01 /* DeletionTaskRecord.swift in Sources */,
 				4A248223266E266E002D9F59 /* FolderCreationTask.swift in Sources */,
 				747F2F2A2587BC250072FB30 /* DatabaseHelper.swift in Sources */,
@@ -2644,6 +2683,7 @@
 				4AE5196927F4A24D00BA6E4A /* WorkflowDependencyFactory.swift in Sources */,
 				4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */,
 				4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */,
+				4AA782D7282A7779001A71E3 /* CacheManagingServiceSource.swift in Sources */,
 				4AEE6EEA2825716400E1B35E /* ProgressManager.swift in Sources */,
 				747F2F2C2587BC260072FB30 /* DeletionTaskDBManager.swift in Sources */,
 				4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */,

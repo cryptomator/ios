@@ -11,4 +11,5 @@ import Foundation
 public enum FileProviderAction: String {
 	case retryUpload = "org.cryptomator.ios.fileprovider.retryUpload"
 	case retryWaitingUpload = "org.cryptomator.ios.fileprovider.retryWaitingUpload"
+	case evictFileFromCache = "org.cryptomator.ios.fileprovider.evictFileFromCache"
 }

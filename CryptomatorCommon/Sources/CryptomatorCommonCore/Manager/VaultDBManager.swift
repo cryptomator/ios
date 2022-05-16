@@ -518,6 +518,17 @@ public extension NSFileProviderManager {
 
 public extension NSFileProviderDomain {
 	convenience init(vaultUID: String, displayName: String) {
-		self.init(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: displayName, pathRelativeToDocumentStorage: vaultUID)
+		self.init(identifier: NSFileProviderDomainIdentifier(vaultUID), displayName: displayName)
+	}
+
+	convenience init(identifier: NSFileProviderDomainIdentifier, displayName: String) {
+		self.init(identifier: identifier, displayName: displayName, pathRelativeToDocumentStorage: identifier.rawValue)
+	}
+
+	/**
+	 Creates a NSFileProviderDomain from a `NSFileProviderDomainIdentifier` where the `pathRelativeToDocumentStorage` equals to the raw value of the given `identifier` and an empty `displayName`.
+	 */
+	convenience init(identifier: NSFileProviderDomainIdentifier) {
+		self.init(identifier: identifier, displayName: "")
 	}
 }
