@@ -1,3 +1,4 @@
+- Fehlgeschlagene Uploads werden nun tatsächlich mit einer Fehlermeldung angezeigt, statt in „Warten“ zu hängen
 - Funktion "Upload erneut versuchen" hinzugefügt (#219)
 - Funktion "Aus Zwischenspeicher entfernen" hinzugefügt (#149, #220)
 - Übersetzungen für Chinesisch (Langzeichen) und Swahili (Tansania) hinzugefügt
