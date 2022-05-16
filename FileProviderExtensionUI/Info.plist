@@ -40,7 +40,7 @@
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Retry Upload</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
-				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."hasUploadError" == YES).@count > 0</string>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."enableRetryFailedUploadAction" == YES).@count > 0</string>
             </dict>
 			<dict>
 				<key>NSExtensionFileProviderActionIdentifier</key>
@@ -48,7 +48,7 @@
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Retry Upload</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
-				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."isUploading" == YES).@count > 0</string>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."enableRetryWaitingUploadAction" == YES).@count > 0</string>
 			</dict>
 			<dict>
 				<key>NSExtensionFileProviderActionIdentifier</key>
@@ -56,7 +56,7 @@
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Evict from Cache</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
-				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."isUploading" != YES and $fileproviderItem.userInfo."isDownloading" != YES and $fileproviderItem.userInfo."isDownloaded" == YES and $fileproviderItem.userInfo."isFolder" != YES).@count > 0</string>
+				<string>SUBQUERY( fileproviderItems, $fileproviderItem, $fileproviderItem.userInfo."enableEvictFileFromCacheAction" == YES).@count > 0</string>
 			</dict>
         </array>
 	</dict>

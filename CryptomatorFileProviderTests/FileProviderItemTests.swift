@@ -157,43 +157,94 @@ class FileProviderItemTests: XCTestCase {
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
 
-	// MARK: UserInfo
+	// MARK: Evict File From Cache Action
 
-	func testUserInfoIsDownloaded() throws {
+	func testEvictFileFromCacheActionEnabled() throws {
+		let item = try createLocallyCachedFileProviderItem(with: .isUploaded)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssert(userInfo["enableEvictFileFromCacheAction"] as? Bool ?? false)
+	}
+
+	func testEvictFileFromCacheActionDisabledForUploadingItem() throws {
+		let item = try createLocallyCachedFileProviderItem(with: .isUploading)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableEvictFileFromCacheAction"] as? Bool ?? true)
+	}
+
+	func testEvictFileFromCacheActionDisabledForDownloadingItem() throws {
+		let item = try createLocallyCachedFileProviderItem(with: .isDownloading)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableEvictFileFromCacheAction"] as? Bool ?? true)
+	}
+
+	func testEvictFileFromCacheActionDisabledForNotCachedFile() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableEvictFileFromCacheAction"] as? Bool ?? true)
+	}
+
+	func testEvictFileFromCacheActionDisabledForFolder() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableEvictFileFromCacheAction"] as? Bool ?? true)
+	}
+
+	// - MARK: Retry Failed Upload Action
+
+	func testRetryFailedUploadActionEnabled() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, error: NSFileProviderError(.insufficientQuota)._nsError)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertTrue(userInfo["enableRetryFailedUploadAction"] as? Bool ?? false)
+	}
+
+	func testRetryFailedUploadActionDisabled() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableRetryFailedUploadAction"] as? Bool ?? true)
+	}
+
+	// - MARK: Retry Waiting Upload Action
+
+	func testRetryWaitingUploadActionEnabled() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssert(userInfo["enableRetryWaitingUploadAction"] as? Bool ?? false)
+	}
+
+	func testRetryWaitingUploadActionDisabledForFolder() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableRetryWaitingUploadAction"] as? Bool ?? true)
+	}
+
+	func testRetryWaitingUploadActionDisabledForUploadError() throws {
+		let cloudPath = CloudPath("/test")
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, error: NSFileProviderError(.insufficientQuota)._nsError)
+		let userInfo = try XCTUnwrap(item.userInfo)
+		XCTAssertFalse(userInfo["enableRetryWaitingUploadAction"] as? Bool ?? true)
+	}
+
+	private func createLocallyCachedFileProviderItem(with statusCode: ItemStatus) throws -> FileProviderItem {
 		let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: false)
 		let localURL = tmpDir.appendingPathComponent("test.txt")
 		try "Foo".write(to: localURL, atomically: true, encoding: .utf8)
 
 		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, localURL: localURL)
-		let userInfo = try XCTUnwrap(item.userInfo)
-		XCTAssert(userInfo["isDownloaded"] as? Bool ?? false)
-	}
-
-	func testUserInfoIsDownloading() throws {
-		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isDownloading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
-		let userInfo = try XCTUnwrap(item.userInfo)
-		XCTAssert(userInfo["isDownloading"] as? Bool ?? false)
-		XCTAssertFalse(userInfo["isDownloaded"] as? Bool ?? true)
-	}
-
-	func testUserInfoIsFolder() throws {
-		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
-		let userInfo = try XCTUnwrap(item.userInfo)
-		XCTAssert(userInfo["isFolder"] as? Bool ?? false)
-	}
-
-	func testUserInfoIsNotFolder() throws {
-		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
-		let userInfo = try XCTUnwrap(item.userInfo)
-		XCTAssertFalse(userInfo["isFolder"] as? Bool ?? true)
+		let metadata = ItemMetadata(id: 2, name: "test", type: .file, size: 100, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: statusCode, cloudPath: cloudPath, isPlaceholderItem: false)
+		return FileProviderItem(metadata: metadata, domainIdentifier: .test, localURL: localURL)
 	}
 }
