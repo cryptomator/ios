@@ -10,6 +10,7 @@
 "common.button.cancel" = "Annuleren";
 "common.button.change" = "Wijzig";
 "common.button.choose" = "Kies";
+"common.button.close" = "Sluiten";
 "common.button.confirm" = "Bevestig";
 "common.button.create" = "Maak";
 "common.button.createFolder" = "Map aanmaken";
@@ -20,6 +21,7 @@
 "common.button.next" = "Volgende";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Verwijderen";
+"common.button.retry" = "Opnieuw proberen";
 "common.button.signOut" = "Uitloggen";
 "common.button.verify" = "Verifiëren";
 "common.cells.openInFilesApp" = "Open in Bestanden App";
@@ -137,6 +139,7 @@
 "purchase.product.lifetimeLicense.duration" = "eenmalig";
 "purchase.product.pricing.free" = "Gratis";
 "purchase.product.trial" = "30-dagen proefperiode";
+"purchase.product.trial.expirationDate" = "Vervaldatum: %@";
 "purchase.product.trial.duration" = "voor 30 dagen";
 "purchase.product.yearlySubscription" = "Jaarabonnement";
 "purchase.product.yearlySubscription.duration" = "jaarlijks";
@@ -148,6 +151,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Herstellen geslaagd";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Geen volledige versie";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We konden geen eerder aangeschafte volledige versie vinden die hersteld kon worden. Probeer een andere optie.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Komt in aanmerking voor upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Het lijkt erop dat u probeert te upgraden via een oudere versie van Cryptomator. In dat geval, selecteer de \"Upgrade-aanbieding\" optie.";
 "purchase.retry.button" = "Opnieuw proberen";
 "purchase.retry.footer" = "De beschikbare producten konden niet worden geladen.";
 "purchase.title" = "Volledige versie ontgrendelen";
@@ -249,3 +254,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behouden";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server lijkt niet compatibel te zijn met WebDAV. Controleer of je de juiste URL hebt gebruikt.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certificaat van deze server is niet vertrouwd. Je moet mogelijk deze WebDAV verbinding opnieuw toevoegen.";

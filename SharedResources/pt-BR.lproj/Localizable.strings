@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
+"common.button.close" = "Fechar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
 "common.button.createFolder" = "Criar pasta";
@@ -20,6 +21,7 @@
 "common.button.next" = "Próximo";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Remover";
+"common.button.retry" = "Tentar Novamente";
 "common.button.signOut" = "Finalizar sessão";
 "common.button.verify" = "Verificar";
 "common.cells.openInFilesApp" = "Abrir no App de arquivos";
@@ -95,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
 "fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, ele precisa ser desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.uploadProgress.connecting" = "Conectando…";
+"fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nSe você notar que o progresso do upload está travado, pode tentar novamente o upload.";
+"fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso, que pode estar sendo executado em segundo plano.";
+"fileProvider.uploadProgress.title" = "Enviando…";
+"fileProvider.uploadProgress.missingDomainError" = "Não foi possível encontrar o domínio.";
 
 "keepUnlocked.alert.title" = "Trancar cofre?";
 "keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
@@ -149,6 +156,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restaurado com sucesso";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Desbloqueie a versão completa";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma compra anterior da versão completa que poderia ser restaurada. Por favor, tente outra opção.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Selecionado para Atualizar";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar de uma versão muito antiga do Cryptomator. Nesse caso, selecione a opção “Oferta de atualização”.";
 "purchase.retry.button" = "Tentar Novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
 "purchase.title" = "Desbloqueie a Versão Completa";
@@ -254,3 +263,5 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou a URL correta.";
 "webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Você pode ter que adicionar novamente esta conexão WebDAV.";
+
+"Retry Upload" = "Tentar o envio novamente";

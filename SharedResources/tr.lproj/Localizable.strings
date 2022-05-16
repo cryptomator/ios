@@ -10,6 +10,7 @@
 "common.button.cancel" = "İptal";
 "common.button.change" = "Değiştir";
 "common.button.choose" = "Seç";
+"common.button.close" = "Kapat";
 "common.button.confirm" = "Onayla";
 "common.button.create" = "Oluştur";
 "common.button.createFolder" = "Klasör Oluştur";
@@ -20,6 +21,7 @@
 "common.button.next" = "Sonraki";
 "common.button.ok" = "Tamam";
 "common.button.remove" = "Kaldır";
+"common.button.retry" = "Yeniden dene";
 "common.button.signOut" = "Çıkış Yap";
 "common.button.verify" = "Doğrula";
 "common.cells.openInFilesApp" = "Dosyalar Uygulamasında Aç";
@@ -95,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Kilit açma gerekli";
 "fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
+"fileProvider.uploadProgress.connecting" = "Bağlanıyor…";
+"fileProvider.uploadProgress.message" = "Mevcut Süreç: %@\n\nYükleme sürecinin takıldığını fark ederseniz, yeniden yüklemeyi deneyebilirsiniz.";
+"fileProvider.uploadProgress.missing" = "İlerleme saptanamadı. Hala arka planda çalışıyor olabilir.";
+"fileProvider.uploadProgress.title" = "Yükleniyor…";
+"fileProvider.uploadProgress.missingDomainError" = "Alan adı bulunamadı.";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
 "keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
@@ -149,6 +156,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Geri Yükleme Başarılı";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Tam Sürüm Yok";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Geri yüklenebilecek önceden satın alınmış bir tam sürüm bulamadık. Lütfen başka bir seçenek deneyin.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Yükseltme için uygun";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Görünüşe göre daha eski bir Cryptomator sürümünden yükseltmeye çalışıyorsunuz. Bu durumda, lütfen bunun yerine \"Yükseltme Teklifi\" seçeneğini seçin.";
 "purchase.retry.button" = "Yeniden dene";
 "purchase.retry.footer" = "Mevcut ürünler yüklenemedi.";
 "purchase.title" = "Tam Sürümün Kilidini Aç";
@@ -253,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Sunucu, WebDAV uyumlu görünmüyor. Lütfen doğru URL'yi kullanıp kullanmadığınızı kontrol edin.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Bu sunucunun sertifikası güvenilir değil. Bu WebDAV bağlantısını yeniden eklemeniz gerekebilir.";
+
+"Retry Upload" = "Yüklemeyi yeniden dene";

@@ -10,6 +10,7 @@
 "common.button.cancel" = "Zrušit";
 "common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
+"common.button.close" = "Zavřít";
 "common.button.confirm" = "Potvrdit";
 "common.button.create" = "Vytvořit";
 "common.button.createFolder" = "Vytvořit složku";
@@ -20,6 +21,7 @@
 "common.button.next" = "Další";
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstranit";
+"common.button.retry" = "Opakovat";
 "common.button.signOut" = "Odhlásit se";
 "common.button.verify" = "Ověřit";
 "common.cells.openInFilesApp" = "Otevřít v aplikaci Soubory";

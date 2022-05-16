@@ -10,6 +10,7 @@
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ganti";
 "common.button.choose" = "Pilih";
+"common.button.close" = "Tutup";
 "common.button.confirm" = "Konfirmasi";
 "common.button.create" = "Buat";
 "common.button.createFolder" = "Buat Folder";
@@ -20,6 +21,7 @@
 "common.button.next" = "Lanjut";
 "common.button.ok" = "OK";
 "common.button.remove" = "Hapus";
+"common.button.retry" = "Coba lagi";
 "common.button.signOut" = "Keluar";
 "common.button.verify" = "Buka";
 "common.cells.openInFilesApp" = "Buka di Aplikasi File";
@@ -35,6 +37,7 @@
 
 "addVault.title" = "Tambah Vault";
 "addVault.createNewVault.title" = "Buat Vault Baru";
+"addVault.createNewVault.purchase" = "Membuat vault baru memerlukan Cryptomator versi lengkap.";
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
@@ -124,6 +127,24 @@
 "onboarding.button.continue" = "Lanjut";
 
 "purchase.beginFreeTrial.alert.title" = "Masa Percobaan Terbuka";
+"purchase.expiredTrial" = "Masa percobaan Anda telah berakhir.";
+"purchase.footer.privacyPolicy" = "Kebijakan Privasi";
+"purchase.footer.termsOfUse" = "Persyaratan Penggunaan";
+"purchase.header.feature.familySharing" = "Berbagi dengan keluarga";
+"purchase.header.feature.openSource" = "Pengembangan sumber terbuka";
+"purchase.header.feature.writeAccess" = "Akses tulis ke vault-vault Anda";
+"purchase.product.donateAndUpgrade" = "Donasi & Tingkatkan";
+"purchase.product.freeUpgrade" = "Tingkatkan Gratis";
+"purchase.product.lifetimeLicense" = "Lisensi Seumur Hidup";
+"purchase.product.lifetimeLicense.duration" = "sekali";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "Percobaan 30-Hari";
+"purchase.product.trial.expirationDate" = "Tanggal Kadaluarsa: %@";
+"purchase.product.trial.duration" = "untuk 30 hari";
+"purchase.product.yearlySubscription" = "Berlangganan Tahunan";
+"purchase.product.yearlySubscription.duration" = "tiap tahun";
+"purchase.readOnlyMode.alert.title" = "Mode Read-Only";
+"purchase.readOnlyMode.alert.message" = "Anda bisa membuka Cryptomator versi lengkap nanti di pengaturan dan untuk sekarang menggunakan mode read-only.";
 "purchase.restorePurchase.button" = "Pulihkan Pembelian";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Masa Percobaan Diperpanjang";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Sekarang Anda bisa menggunakan versi lengkap dari Cryptomator dalam waktu terbatas. Masa percobaan Anda akan berakhir pada %@. Setelah masa percobaan habis, Anda hanya bisa mengakses vault Anda dalam mode read-only.";
@@ -135,6 +156,7 @@
 "purchase.title" = "Buka Versi Lengkap";
 "purchase.unlockedFullVersion.message" = "Sekarang Anda bisa menggunakan Cryptomator versi lengkap. Selamat berenkripsi ria!";
 "purchase.unlockedFullVersion.title" = "Terima Kasih";
+"purchase.error.unknown" = "Pembelian ini tidak tersedia di App Store untuk alasan yang tidak diketahui. Silakan coba lagi nanti.\n\nJika kesalahan ini berlanjut, coba mulai ulang perangkat Anda atau keluar dan masuk kembali ke ID Apple Anda di pengaturan iOS.";
 
 "settings.title" = "Pengaturan";
 "settings.aboutCryptomator" = "Tentang Cryptomator";
@@ -163,6 +185,9 @@
 "snapshots.main.vault3" = "/Dokumen";
 "snapshots.main.vault4" = "/Perjalanan ke California";
 
+"trialStatus.active" = "Aktifkan";
+"trialStatus.expired" = "Kadaluarsa";
+
 "unlockVault.button.unlock" = "Buka Kunci";
 "unlockVault.button.unlockVia" = "Buka memalui %@";
 "unlockVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
@@ -175,8 +200,11 @@
 "untrustedTLSCertificate.message" = "Sertifikat TLS of \"%@\" tidak valid. Apakah Anda yakin?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Percayai";
 "untrustedTLSCertificate.dismiss" = "Jangan Percaya";
+
+"upgrade.title" = "Penawaran Upgrade";
 "upgrade.notEligible.alert.title" = "Upgrade gagal";
 "upgrade.notEligible.alert.message" = "Cryptomator tidak bisa menemukan versi yang lebih lama terpasang di perangkat Anda saat ini. Jika Anda sudah membelinya, silahkan download kembali melalui App Store dan coba kembali.";
+"upgrade.info" = "Terima kasih telah mempercayai Cryptomator sejak versi pertama. Sebagai pengguna setia, Anda berhak mendapatkan upgrade gratis.";
 
 "urlSession.error.httpError.401" = "Nama pengguna dan/atau kata sandi salah.";
 "urlSession.error.httpError.403" = "Insufficient rights to requested resource.";
@@ -217,9 +245,13 @@
 "vaultList.remove.alert.message" = "Ini hanya akan menghapus vault dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat menambahkan kembali vault nanti.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Vault versi %ld tidak didukung. Vault ini telah dibuat menggunakan versi Cryptomator yang lebih lama ataupun lebih baru.";
 
 "webDAVAuthentication.progress" = "Mengotentikasi…";
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ubah ke HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Pertahankan HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server tampaknya tidak kompatibel dengan WebDAV. Harap periksa apakah Anda telah menggunakan URL yang benar.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Sertifikat server ini tidak tepercaya. Anda mungkin harus menambahkan kembali koneksi WebDAV ini.";

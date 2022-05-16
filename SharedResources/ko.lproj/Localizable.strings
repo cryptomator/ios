@@ -10,6 +10,7 @@
 "common.button.cancel" = "취소";
 "common.button.change" = "변경";
 "common.button.choose" = "선택";
+"common.button.close" = "닫기";
 "common.button.confirm" = "확인";
 "common.button.create" = "생성";
 "common.button.createFolder" = "폴더 생성";
@@ -19,6 +20,7 @@
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
 "common.button.remove" = "제거";
+"common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
 "common.cells.password" = "비밀번호";
 "common.cells.url" = "URL";

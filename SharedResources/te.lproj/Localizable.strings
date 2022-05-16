@@ -5,6 +5,7 @@
 "common.button.enable" = "ప్రారంభించు";
 "common.button.ok" = "సరే";
 "common.button.remove" = "తొలగించు";
+"common.button.retry" = "మళ్ళీ చేయండి";
 "common.cells.url" = "URL";
 "common.cells.username" = "వినియోగదారు పేరు";
 "purchase.retry.button" = "మళ్ళీ చేయండి";

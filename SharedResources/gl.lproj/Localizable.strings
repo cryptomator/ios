@@ -2,6 +2,7 @@
 "common.button.create" = "Crear";
 "common.button.edit" = "Editar";
 "common.button.remove" = "Eliminar";
+"common.button.retry" = "Tentar de novo";
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome de usuario";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se esqueces o teu contrasinal, non será posíbel recuperar os teus datos.";

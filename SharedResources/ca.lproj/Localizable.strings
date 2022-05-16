@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancel·la";
 "common.button.change" = "Canvia";
 "common.button.choose" = "Trieu";
+"common.button.close" = "Tanca";
 "common.button.confirm" = "Confirma";
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crea una carpeta";
@@ -20,6 +21,7 @@
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
 "common.button.remove" = "Elimina";
+"common.button.retry" = "Reintenta";
 "common.button.signOut" = "Tanca la sessió";
 "common.button.verify" = "Verificar";
 "common.cells.openInFilesApp" = "Obrir amb l'aplicació de fitxers";

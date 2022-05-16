@@ -10,6 +10,7 @@
 "common.button.cancel" = "Anuluj";
 "common.button.change" = "Zmień";
 "common.button.choose" = "Wybierz";
+"common.button.close" = "Zamknij";
 "common.button.confirm" = "Zatwierdź";
 "common.button.create" = "Utwórz";
 "common.button.createFolder" = "Utwórz Folder";
@@ -20,6 +21,7 @@
 "common.button.next" = "Dalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Usuń";
+"common.button.retry" = "Ponów";
 "common.button.signOut" = "Wyloguj";
 "common.button.verify" = "Potwierdź";
 "common.cells.openInFilesApp" = "Otwórz w aplikacji Pliki";
@@ -95,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Wymagane odblokowanie";
 "fileProvider.error.defaultLock.message" = "Sejf musi być odblokowany aby zobaczyć i mieć dostęp do jego zawartości.";
 "fileProvider.error.unlockButton" = "Odblokuj";
+"fileProvider.uploadProgress.connecting" = "Łączenie...";
+"fileProvider.uploadProgress.message" = "Bieżący postęp: %@\n\nJeśli zauważysz, że postęp przesyłania zawiesił się, możesz spróbować ponownie przesłać dane.";
+"fileProvider.uploadProgress.missing" = "Nie można zweryfikować postępu. Może on nadal działać w tle.";
+"fileProvider.uploadProgress.title" = "Przesyłanie...";
+"fileProvider.uploadProgress.missingDomainError" = "Nie można odnaleźć domeny.";
 
 "keepUnlocked.alert.title" = "Zablokować sejf?";
 "keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
@@ -149,6 +156,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Przywrócono pomyślnie";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Brak pełnej wersji";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nie mogliśmy znaleźć wcześniej zakupionej pełnej wersji, która mogłaby zostać przywrócona. Proszę spróbować innej opcji.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Dostępna aktualizacja";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Wygląda na to, że próbujesz uaktualnić ze starszej wersji Cryptomator. W takim przypadku wybierz opcję \"Uaktualnij Ofertę\".";
 "purchase.retry.button" = "Ponów";
 "purchase.retry.footer" = "Nie można załadować dostępnych produktów.";
 "purchase.title" = "Odblokuj pełną wersję";
@@ -159,8 +168,8 @@
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
 "settings.aboutCryptomator.title" = "Wersja %@ (%@)";
-"settings.cacheSize" = "Rozmiar Cache";
-"settings.clearCache" = "Wyczyść Cache";
+"settings.cacheSize" = "Rozmiar pamięci podręcznej";
+"settings.clearCache" = "Wyczyść pamięć podręczną";
 "settings.cloudServices" = "Usługi w chmurze";
 "settings.contact" = "Kontakt";
 "settings.debugMode" = "Tryb debugowania";
@@ -253,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Serwer wydaje się niekompatybilny z WebDAV. Proszę sprawdzić, czy użyto poprawnego adresu URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certyfikat tego serwera nie jest zaufany. Może być konieczne ponowne dodanie połączenia WebDAV.";
+
+"Retry Upload" = "Ponów wysyłanie";

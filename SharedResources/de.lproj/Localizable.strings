@@ -10,6 +10,7 @@
 "common.button.cancel" = "Abbrechen";
 "common.button.change" = "Ändern";
 "common.button.choose" = "Auswählen";
+"common.button.close" = "Schließen";
 "common.button.confirm" = "Bestätigen";
 "common.button.create" = "Erstellen";
 "common.button.createFolder" = "Ordner erstellen";
@@ -20,6 +21,7 @@
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
 "common.button.remove" = "Entfernen";
+"common.button.retry" = "Wiederholen";
 "common.button.signOut" = "Ausloggen";
 "common.button.verify" = "Verifizieren";
 "common.cells.openInFilesApp" = "In der App „Dateien“ öffnen";
@@ -95,6 +97,10 @@
 "fileProvider.error.defaultLock.title" = "Entsperren erforderlich";
 "fileProvider.error.defaultLock.message" = "Um auf den Inhalt deines Tresors zuzugreifen und ihn anzuzeigen, muss dieser entsperrt werden.";
 "fileProvider.error.unlockButton" = "Entsperren";
+"fileProvider.uploadProgress.connecting" = "Verbindung wird hergestellt …";
+"fileProvider.uploadProgress.missing" = "Der Fortschritt konnte nicht ermittelt werden. Möglicherweise läuft der Upload noch im Hintergrund.";
+"fileProvider.uploadProgress.title" = "Wird hochgeladen …";
+"fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
 
 "keepUnlocked.alert.title" = "Tresor sperren?";
 "keepUnlocked.alert.message" = "Damit diese Änderung wirksam werden kann, muss dein Tresor gesperrt werden.";
@@ -149,6 +155,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Wiederherstellung erfolgreich";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Keine Vollversion";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Wir konnten keine zuvor gekaufte Vollversion finden, die wiederhergestellt werden kann. Bitte versuche eine andere Option.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Berechtigt für Upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Du versuchst offenbar, eine ältere Version von Cryptomator zu aktualisieren. Wähle bitte in diesem Fall stattdessen die Option „Upgrade-Angebot“ aus.";
 "purchase.retry.button" = "Wiederholen";
 "purchase.retry.footer" = "Verfügbare Produkte konnten nicht geladen werden.";
 "purchase.title" = "Vollversion freischalten";
@@ -253,3 +261,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Der Server scheint mit WebDAV nicht kompatibel zu sein. Bitte überprüfe, ob du die richtige URL verwendet hast.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";
+
+"Retry Upload" = "Upload erneut versuchen";

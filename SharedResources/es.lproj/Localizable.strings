@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Modificar";
 "common.button.choose" = "Seleccionar";
+"common.button.close" = "Cerrar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Crear";
 "common.button.createFolder" = "Crear carpeta";
@@ -20,6 +21,7 @@
 "common.button.next" = "Continuar";
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
+"common.button.retry" = "Reintentar";
 "common.button.signOut" = "Cerrar sesión";
 "common.button.verify" = "Verificar";
 "common.cells.openInFilesApp" = "Abrir en la app de Archivos";
@@ -95,6 +97,11 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueo requerido";
 "fileProvider.error.defaultLock.message" = "Para acceder y mostrar el contenido de su bóveda hay que desbloquearla.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.uploadProgress.connecting" = "Conectando…";
+"fileProvider.uploadProgress.message" = "Progreso actual: %@\n\nSi nota que el progreso de la carga está atascado, puede volver a intentar la carga.";
+"fileProvider.uploadProgress.missing" = "No se pudo determinar el progreso. Puede que todavía se ejecute en segundo plano.";
+"fileProvider.uploadProgress.title" = "Cargando…";
+"fileProvider.uploadProgress.missingDomainError" = "No se encontró el dominio.";
 
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
@@ -149,6 +156,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restauración exitosa";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Sin versión completa";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "No hemos podido encontrar una versión completa adquirida previamente que se pudo restaurar. Intente con otra opción.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Elegible para actualizar";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que está intentando actualizar desde una versión anterior de Cryptomator. De ser así, seleccione la opción \"Oferta de actualización\".";
 "purchase.retry.button" = "Reintentar";
 "purchase.retry.footer" = "No se pudieron cargar los productos disponibles.";
 "purchase.title" = "Desbloquear versión completa";
@@ -253,3 +262,5 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "El servidor no parece ser compatible con WebDAV. Compruebe si ha usado la URL correcta.";
 "webDAVAuthenticator.error.untrustedCertificate" = "El certificado de este servidor no es confiable. Es posible que tenga que volver a añadir esta conexión WebDAV.";
+
+"Retry Upload" = "Reintentar carga";

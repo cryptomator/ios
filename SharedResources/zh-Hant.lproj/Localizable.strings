@@ -10,6 +10,7 @@
 "common.button.cancel" = "取消";
 "common.button.change" = "修改";
 "common.button.choose" = "選擇";
+"common.button.close" = "關閉";
 "common.button.confirm" = "確認";
 "common.button.create" = "新建";
 "common.button.createFolder" = "建立資料夾";
@@ -20,6 +21,7 @@
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.remove" = "移除";
+"common.button.retry" = "重試";
 "common.button.signOut" = "登出";
 "common.button.verify" = "驗證";
 "common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
@@ -34,10 +36,12 @@
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
+"addVault.createNewVault.purchase" = "創建新的加密檔案庫需要 Cryptomator 完整版。";
 "addVault.createNewVault.setVaultName.header.title" = "為加密檔案庫命名.";
 "addVault.createNewVault.setVaultName.cells.name" = "加密檔案庫名稱";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "加密檔案庫名稱不可留空。";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "“%@”已經在此位置，請更換加密檔案庫名或位置";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
@@ -51,9 +55,13 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "添加這個加密檔案庫";
 "addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 "addVault.openExistingVault.progress" = "正在添加加密檔案庫……";
+"addVault.success.info" = "成功添加加密檔案庫“%@”\n現在可以通過文件管理訪問加密檔案庫";
+"addVault.success.footer" = "如果尚未打開，請在文件應用程序中啟用 Cryptomator。";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "你輸入的密碼錯誤，請再試一次。";
 "changePassword.header.currentPassword.title" = "請輸入入前的密碼";
 "changePassword.header.newPassword.title" = "輸入新密碼.";
 "changePassword.header.newPasswordConfirmation.title" = "確認新密碼.";
@@ -67,21 +75,35 @@
 
 "cloudProvider.error.itemNotFound" = "無法找到「%@」。";
 "cloudProvider.error.itemAlreadyExists" = "「%@」已經存在。";
+"cloudProvider.error.itemTypeMismatch" = "“%@”有一個非預期的文件類型";
+"cloudProvider.error.parentFolderDoesNotExist" = "父文件夾“%@”不存在";
 "cloudProvider.error.quotaInsufficient" = "您的存儲已空間不足";
 "cloudProvider.error.unauthorized" = "無法執行未授權的操作";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
 
 "fileProvider.onboarding.title" = "歡迎";
+"fileProvider.onboarding.info" = "感謝您選擇 Cryptomator 來保護您的文件。若要開始，請前往主應用程序並添加一個加密檔案庫";
 "fileProvider.onboarding.button.openCryptomator" = "打開 Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "解鎖取消";
+"fileProvider.error.biometricalAuthCanceled.message" = "通過“%@”解鎖失敗，請重試";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "密碼錯誤";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "保存在%@的密碼錯誤，請重試並輸入你的密碼來重新啟用%@";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
+"fileProvider.error.defaultLock.message" = "需要解鎖才能訪問和展示加密檔案庫";
 "fileProvider.error.unlockButton" = "解鎖";
+
+"keepUnlocked.alert.title" = "鎖定加密檔案庫?";
+"keepUnlocked.alert.message" = "此項更改需要鎖定加密檔案庫後才能生效";
 "keepUnlocked.alert.confirm" = "確認並上鎖";
+"keepUnlocked.header" = "指定您希望此加密檔案庫在空閒時保持解鎖狀態的時間";
+"keepUnlockedDuration.auto" = "由 iOS 自動決定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
+
+"localFileSystemAuthentication.createNewVault.header" = "請在下一個屏幕選擇新加密檔案庫的存儲位置";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
+"localFileSystemAuthentication.openExistingVault.header" = "請在下一屏中選擇已存在加密檔案庫所在的文件夾";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 
 "onboarding.title" = "歡迎";
@@ -102,6 +124,7 @@
 "settings.cloudServices" = "雲端服務";
 "settings.contact" = "聯絡方式";
 "settings.debugMode" = "調試模式";
+"settings.debugMode.alert.message" = "在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。";
 "settings.rateApp" = "為應用程式評分";
 
 "unlockVault.button.unlock" = "解鎖";
