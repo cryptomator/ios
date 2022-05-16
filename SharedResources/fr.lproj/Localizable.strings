@@ -10,6 +10,7 @@
 "common.button.cancel" = "Annuler";
 "common.button.change" = "Modifier";
 "common.button.choose" = "Choisir";
+"common.button.clear" = "Effacer";
 "common.button.close" = "Fermer";
 "common.button.confirm" = "Confirmer";
 "common.button.create" = "Créer";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Déverrouillage requis";
 "fileProvider.error.defaultLock.message" = "Pour accéder et afficher le contenu de votre coffre, il doit être déverrouillé.";
 "fileProvider.error.unlockButton" = "Déverrouiller";
+"fileProvider.clearFileFromCache.title" = "Effacer le fichier du cache";
+"fileProvider.clearFileFromCache.message" = "Cela ne supprime le fichier local que de votre appareil et ne supprime pas le fichier dans le cloud.";
 "fileProvider.uploadProgress.connecting" = "Connexion…";
 "fileProvider.uploadProgress.message" = "Progression actuelle: %@\n\nSi vous remarquez que la progression de l'envoi est bloquée, vous pouvez recommencer l'envoi.";
 "fileProvider.uploadProgress.missing" = "La progression n'a pas pu être déterminée. Il se peut que cela soit encore en cours en arrière-plan.";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Le certificat de ce serveur n'est pas fiable. Vous devrez peut-être ré-ajouter cette connexion WebDAV.";
 
 "Retry Upload" = "Réessayer l'envoi";
+"Clear from Cache" = "Effacer du cache";
