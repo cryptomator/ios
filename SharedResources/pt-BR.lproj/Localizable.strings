@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
+"common.button.clear" = "Limpar";
 "common.button.close" = "Fechar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
 "fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, ele precisa ser desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.clearFileFromCache.title" = "Limpar Arquivos do Cache";
+"fileProvider.clearFileFromCache.message" = "Isso remove apenas o arquivo local do seu dispositivo e não exclui o arquivo na nuvem.";
 "fileProvider.uploadProgress.connecting" = "Conectando…";
 "fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nSe você notar que o progresso do upload está travado, pode tentar novamente o upload.";
 "fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso, que pode estar sendo executado em segundo plano.";
@@ -265,3 +268,4 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Você pode ter que adicionar novamente esta conexão WebDAV.";
 
 "Retry Upload" = "Tentar o envio novamente";
+"Clear from Cache" = "Limpar do Cache";
