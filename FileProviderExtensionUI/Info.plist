@@ -36,7 +36,7 @@
             <dict>
 
 				<key>NSExtensionFileProviderActionIdentifier</key>
-				<string>org.cryptomator.ios.fileprovider.retryUpload</string>
+				<string>org.cryptomator.ios.fileprovider.retry-failed-upload</string>
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Retry Upload</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
@@ -44,7 +44,7 @@
             </dict>
 			<dict>
 				<key>NSExtensionFileProviderActionIdentifier</key>
-				<string>org.cryptomator.ios.fileprovider.retryWaitingUpload</string>
+				<string>org.cryptomator.ios.fileprovider.retry-waiting-upload</string>
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Retry Upload</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>
@@ -52,7 +52,7 @@
 			</dict>
 			<dict>
 				<key>NSExtensionFileProviderActionIdentifier</key>
-				<string>org.cryptomator.ios.fileprovider.evictFileFromCache</string>
+				<string>org.cryptomator.ios.fileprovider.evict-file-from-cache</string>
 				<key>NSExtensionFileProviderActionName</key>
 				<string>Clear from Cache</string>
 				<key>NSExtensionFileProviderActionActivationRule</key>

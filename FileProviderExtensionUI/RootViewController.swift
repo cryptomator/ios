@@ -185,7 +185,7 @@ class RootViewController: FPUIActionExtensionViewController {
 			} else {
 				showDomainNotFoundAlert()
 			}
-		case .retryUpload:
+		case .retryFailedUpload:
 			if let domainIdentifier = itemIdentifiers.first?.domainIdentifier {
 				retryUpload(for: itemIdentifiers, domainIdentifier: domainIdentifier)
 			} else {
