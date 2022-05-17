@@ -10,6 +10,7 @@
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Promijeni";
 "common.button.choose" = "Odaberi";
+"common.button.clear" = "Očisti";
 "common.button.close" = "Zatvori";
 "common.button.confirm" = "Potvrdi";
 "common.button.create" = "Izradi";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Potrebno je otključanje";
 "fileProvider.error.defaultLock.message" = "Za pristup i prikaz sadržaja Vašeg trezora, on mora biti otključan.";
 "fileProvider.error.unlockButton" = "Otključaj";
+"fileProvider.clearFileFromCache.title" = "Očisti datoteku iz predmemorije";
+"fileProvider.clearFileFromCache.message" = "Ovo samo uklanja lokalnu datoteku s vašeg uređaja, a ne briše datoteku u oblaku.";
 "fileProvider.uploadProgress.connecting" = "Spajanje…";
 "fileProvider.uploadProgress.message" = "Trenutni napredak: %@\n\nAko primijetite da je napredak učitavanja zapeo, možete ponovno pokušati s prijenosom.";
 "fileProvider.uploadProgress.missing" = "Napredak se ne može utvrditi. Možda još uvijek radi u pozadini.";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikat ovog poslužitelja nije pouzdan. Možda ćete morati ponovno dodati ovu WebDAV vezu.";
 
 "Retry Upload" = "Ponovno pokušaj prijenos";
+"Clear from Cache" = "Očisti iz predmemorije";
