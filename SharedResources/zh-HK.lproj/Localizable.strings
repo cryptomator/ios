@@ -1,0 +1,31 @@
+"common.button.cancel" = "取消";
+"common.button.change" = "修改";
+"common.button.choose" = "選擇";
+"common.button.close" = "關閉";
+"common.button.create" = "新增";
+"common.button.done" = "完成";
+"common.button.edit" = "編輯";
+"common.button.next" = "繼續";
+"common.button.ok" = "確認";
+"common.button.remove" = "移除";
+"common.button.retry" = "重試";
+"common.cells.password" = "密碼";
+"common.cells.url" = "網址";
+"common.cells.username" = "使用者名稱";
+
+"addVault.title" = "新增加密庫";
+"addVault.createNewVault.title" = "建立新的加密庫";
+"addVault.createNewVault.setVaultName.cells.name" = "加密庫名稱";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該把加密後的檔案儲存在哪裏？";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要：如果你遺忘了密碼，你的數據將無法被恢復。";
+"addVault.openExistingVault.title" = "開啟現有的加密庫";
+"fileProvider.error.unlockButton" = "解鎖";
+"purchase.retry.button" = "重試";
+
+"settings.title" = "設定";
+
+"unlockVault.button.unlock" = "解鎖";
+
+"vaultDetail.button.changeVaultPassword" = "更改密碼";
+"vaultDetail.button.moveVault" = "移動";
+"vaultDetail.button.renameVault" = "重新命名";
