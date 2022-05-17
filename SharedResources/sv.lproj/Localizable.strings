@@ -10,6 +10,7 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Ändra";
 "common.button.choose" = "Välj";
+"common.button.clear" = "Rensa";
 "common.button.close" = "Stäng";
 "common.button.confirm" = "Bekräfta";
 "common.button.create" = "Skapa";
@@ -97,9 +98,11 @@
 "fileProvider.error.defaultLock.title" = "Upplåsning krävs";
 "fileProvider.error.defaultLock.message" = "För att komma åt och visa innehållet i ditt valv måste det låsas upp.";
 "fileProvider.error.unlockButton" = "Lås upp";
+"fileProvider.clearFileFromCache.title" = "Ta bort fil från buffert";
+"fileProvider.clearFileFromCache.message" = "Detta tar bara bort den lokala filen från din enhet och tar inte bort filen i molnet.";
 "fileProvider.uploadProgress.connecting" = "Ansluter…";
 "fileProvider.uploadProgress.message" = "Status: %@\n\nOm du märker att uppladdningsprocessen har fastnat kan du försöka ladda upp den igen.";
-"fileProvider.uploadProgress.missing" = "Processen kunde inte fastställas. Det kan fortfarande köras i bakgrunden.";
+"fileProvider.uploadProgress.missing" = "Oklart om det fungerade. Processen kan fortfarande köras i bakgrunden.";
 "fileProvider.uploadProgress.title" = "Laddar upp…";
 "fileProvider.uploadProgress.missingDomainError" = "Kunde inte hitta domänen.";
 
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikatet för denna server är inte betrott. Du kan behöva lägga till denna WebDAV-anslutning igen.";
 
 "Retry Upload" = "Ladda upp igen";
+"Clear from Cache" = "Ta bort fil från buffert";
