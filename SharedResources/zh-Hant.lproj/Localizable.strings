@@ -34,7 +34,7 @@
 "accountList.header.title" = "認證";
 "accountList.emptyList.message" = "點擊此處添加帳號";
 "accountList.signOut.alert.title" = "移除關聯的加密檔案庫？";
-"accountList.signOut.alert.message" = "登出後，所有關聯的加密檔案庫將從列表中刪除。這並不會刪除任何加密數據。您可以再次登錄並稍後重新添加加密檔案庫。";
+"accountList.signOut.alert.message" = "登出後，所有關聯的加密檔案庫將從列表中移除。這並不會刪除任何加密數據。您可以再次登入並稍後重新添加加密檔案庫。";
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
@@ -60,7 +60,7 @@
 "addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 "addVault.openExistingVault.progress" = "正在添加加密檔案庫……";
 "addVault.success.info" = "成功添加加密檔案庫“%@”\n現在可以通過文件管理訪問加密檔案庫";
-"addVault.success.footer" = "如果尚未打開，請在文件應用程序中啟用 Cryptomator。";
+"addVault.success.footer" = "如果還沒有，請在「檔案」應用程式中啟用 Cryptomator。";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
@@ -91,12 +91,12 @@
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.info" = "感謝您選擇 Cryptomator 來保護您的文件。若要開始，請前往主應用程序並添加一個加密檔案庫";
 "fileProvider.onboarding.button.openCryptomator" = "打開 Cryptomator";
-"fileProvider.error.biometricalAuthCanceled.title" = "解鎖取消";
+"fileProvider.error.biometricalAuthCanceled.title" = "解鎖已取消";
 "fileProvider.error.biometricalAuthCanceled.message" = "通過“%@”解鎖失敗，請重試";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "密碼錯誤";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "保存在%@的密碼錯誤，請重試並輸入你的密碼來重新啟用%@";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
-"fileProvider.error.defaultLock.message" = "需要解鎖才能訪問和展示加密檔案庫";
+"fileProvider.error.defaultLock.message" = "要存取加密庫和顯示其內容，需要先解鎖。";
 "fileProvider.error.unlockButton" = "解鎖";
 "fileProvider.clearFileFromCache.title" = "清除快取檔䅁";
 "fileProvider.clearFileFromCache.message" = "這只會從您的本機上刪除文件，而不會刪除雲端的文件。";
@@ -106,9 +106,9 @@
 "fileProvider.uploadProgress.title" = "上傳中…";
 "fileProvider.uploadProgress.missingDomainError" = "找不到域名。";
 
-"keepUnlocked.alert.title" = "鎖定加密檔案庫?";
+"keepUnlocked.alert.title" = "鎖定加密檔案庫？";
 "keepUnlocked.alert.message" = "此項更改需要鎖定加密檔案庫後才能生效";
-"keepUnlocked.alert.confirm" = "確認並上鎖";
+"keepUnlocked.alert.confirm" = "確認並立即鎖定";
 "keepUnlocked.header" = "指定您希望此加密檔案庫在空閒時保持解鎖狀態的時間";
 "keepUnlocked.footer.auto" = "讓 iOS 決定意味着 Cryptomator 可能被隨時終止以釋放內存。這會自動鎖定加密檔案庫。";
 "keepUnlocked.footer.on" = "使用這個選項表示在加密檔案庫解鎖時，您密鑰的副本需要儲存在 iOS 鑰匙圈中。";
@@ -116,10 +116,10 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
 
-"localFileSystemAuthentication.createNewVault.header" = "請在下一個屏幕選擇新加密檔案庫的存儲位置";
+"localFileSystemAuthentication.createNewVault.header" = "在下一個頁面，請選擇新加密庫的儲存位置。";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在加密檔案庫。 請以其他儲存位置重試。";
-"localFileSystemAuthentication.openExistingVault.header" = "請在下一屏中選擇已存在加密檔案庫所在的文件夾";
+"localFileSystemAuthentication.openExistingVault.header" = "在下一個頁面，請選擇已存在加密庫所在的文件夾。";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選擇的資料夾不是加密檔案庫。請以其他資料夾重試。";
 "localFileSystemAuthentication.info.footer" = "文件提供程式顯示為灰色的表示不支援「選擇資料夾」。這並非 Cryptomator 的限制。";
@@ -156,14 +156,14 @@
 "purchase.readOnlyMode.alert.message" = "您可以稍後在設定中解鎖完整版 Cryptomator，而暫時以唯讀模式下繼續使用。";
 "purchase.restorePurchase.button" = "復原已購項目";
 "purchase.restorePurchase.validTrialFound.alert.title" = "繼續試用";
-"purchase.restorePurchase.validTrialFound.alert.message" = "您目前可以在時限內使用完整版的 Cryptomator。您的試用期將於 %@ 到期。之後，您的保管庫仍可在唯讀模式下取存。";
+"purchase.restorePurchase.validTrialFound.alert.message" = "您目前可以在時限內使用完整版的 Cryptomator。您的試用期將於 %@ 到期。之後，您的加密檔案庫仍可在唯讀模式下取存。";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "復原成功";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "沒有完整版";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我們無法找到已購買並可以恢復的完整版本。請嘗試其他選項。";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "可以升級";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "您似乎正嘗試從舊版本的 Cryptomator 升級。在這情況下，請選擇「升級優惠」。";
 "purchase.retry.button" = "重試";
-"purchase.retry.footer" = "無法載入可用產品。";
+"purchase.retry.footer" = "無法載入可購買產品。";
 "purchase.title" = "解鎖完整版";
 "purchase.unlockedFullVersion.message" = "您現在可以使用完整版的 Cryptomator。加密快樂！";
 "purchase.unlockedFullVersion.title" = "感謝";
@@ -245,15 +245,15 @@
 "vaultDetail.locked.footer" = "您的加密檔案庫當前已鎖定。";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator 在此檢測到現有的加密檔案庫。\n\n如要移動您的加密檔案庫，請返回並選擇其他資料夾。";
 "vaultDetail.moveVault.progress" = "正在移動……";
-"vaultDetail.removeVault.footer" = "這只會從列表中刪除加密檔案庫，而不會刪除任何加密文件。";
+"vaultDetail.removeVault.footer" = "這只會從列表中移除加密檔案庫，而不會刪除任何加密文件。";
 "vaultDetail.renameVault.progress" = "正在重命名……";
 "vaultDetail.unlocked.footer" = "您的加密檔案庫目前在「檔䅁」應用程式中解鎖。";
 "vaultDetail.unlockVault.footer" = "輸入「%@」的密碼以將其儲存在 iOS 鑰匙圈中並啟用 %@。";
 
 "vaultList.header.title" = "加密檔案庫";
 "vaultList.emptyList.message" = "點擊此處以添加加密檔案庫";
-"vaultList.remove.alert.title" = "移除加密檔案庫?";
-"vaultList.remove.alert.message" = "這只會從列表中刪除加密檔案庫，而不會刪除任何加密文件。您可以稍後再重新加入加密檔案庫。";
+"vaultList.remove.alert.title" = "移除加密檔案庫？";
+"vaultList.remove.alert.message" = "這只會從列表中移除加密檔案庫，而不會刪除任何加密文件。您可以稍後再重新加入加密檔案庫。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支援目前加密檔案庫的設定。請確保您運行的是最新版本的 Cryptomator。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "不支援 %ld 版本的加密檔案庫。這加密檔案庫是使用 Cryptomator 較舊或較新版本建立的。";
