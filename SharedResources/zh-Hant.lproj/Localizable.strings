@@ -13,7 +13,7 @@
 "common.button.clear" = "清除";
 "common.button.close" = "關閉";
 "common.button.confirm" = "確認";
-"common.button.create" = "新建";
+"common.button.create" = "新增";
 "common.button.createFolder" = "建立資料夾";
 "common.button.done" = "完成";
 "common.button.download" = "下載";
@@ -28,7 +28,7 @@
 "common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
 "common.cells.password" = "密碼";
 "common.cells.url" = "網址";
-"common.cells.username" = "帳號名稱";
+"common.cells.username" = "使用者名稱";
 "common.footer.learnMore" = "了解更多。";
 
 "accountList.header.title" = "認證";
@@ -122,6 +122,13 @@
 "localFileSystemAuthentication.openExistingVault.header" = "請在下一屏中選擇已存在加密檔案庫所在的文件夾";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選擇的資料夾不是加密檔案庫。請以其他資料夾重試。";
+"localFileSystemAuthentication.info.footer" = "文件提供程式顯示為灰色的表示不支援「選擇資料夾」。這並非 Cryptomator 的限制。";
+
+"maintenanceModeError.runningCloudTask" = "無法執行操作，因為此加密檔案庫的其他後台操作必須要先完成。請稍後再試。";
+
+"nameValidation.error.endsWithPeriod" = "您不能使用以句點（.）結尾的名稱。請選擇其他名稱。";
+"nameValidation.error.endsWithSpace" = "您不能使用以空格（ ）結尾的名稱。請選擇其他名稱。";
+"nameValidation.error.containsIllegalCharacter" = "您不能使用具有「%@」的名稱。請選擇其他名稱。";
 
 "onboarding.title" = "歡迎";
 "onboarding.info" = "感謝您選擇 Cryptomator 來保護您的文件。\n\n有了 Cryptomator，您數據的鑰匙就在您手中。 
@@ -154,10 +161,13 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "沒有完整版";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我們無法找到已購買並可以恢復的完整版本。請嘗試其他選項。";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "可以升級";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "您似乎正嘗試從舊版本的 Cryptomator 升級。在這情況下，請選擇「升級優惠」。";
 "purchase.retry.button" = "重試";
+"purchase.retry.footer" = "無法載入可用產品。";
 "purchase.title" = "解鎖完整版";
 "purchase.unlockedFullVersion.message" = "您現在可以使用完整版的 Cryptomator。加密快樂！";
 "purchase.unlockedFullVersion.title" = "感謝";
+"purchase.error.unknown" = "由於未知原因，無法在 App Store 中購買，請稍後再試。\n\n如果此錯誤仍然存在，請嘗試重新啟動您的設備、或在 iOS 設定中登出並重新登入您的 Apple ID。";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
@@ -168,24 +178,53 @@
 "settings.contact" = "聯絡方式";
 "settings.debugMode" = "調試模式";
 "settings.debugMode.alert.message" = "在此模式下，敏感數據可能會寫入您設備上的日誌文件(例如文件名和路徑)。 密碼、cookies 等被明確排除在外。\n\n請記住盡快禁用調試模式。";
+"settings.manageSubscriptions" = "管理訂閱";
 "settings.rateApp" = "為應用程式評分";
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.unlockFullVersion" = "解鎖完整版";
+
+"snapshots.fileprovider.file1" = "/財務.numbers";
+"snapshots.fileprovider.file2" = "/最終演講.key";
+"snapshots.fileprovider.file3" = "/產品預告.mov";
+"snapshots.fileprovider.file4" = "計劃書.docx";
+"snapshots.fileprovider.file5" = "報告.pdf";
+"snapshots.fileprovider.folder3" = "/秘密計劃";
+"snapshots.fileprovider.folder2" = "/帳單";
 "snapshots.fileprovider.folder1" = "/證書";
 "snapshots.main.vault1" = "/工作";
+"snapshots.main.vault2" = "/家庭";
+"snapshots.main.vault3" = "文件";
+"snapshots.main.vault4" = "加州之旅";
+
+"trialStatus.active" = "生效中";
+"trialStatus.expired" = "已過期";
 
 "unlockVault.button.unlock" = "解鎖";
 "unlockVault.button.unlockVia" = "使用%@解鎖";
 "unlockVault.password.footer" = "輸入 「%@」 的密碼：";
 "unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
+"unlockVault.enableBiometricalUnlock.footer" = "您可以通過 %@ 解鎖加密檔案庫，而不使用密碼解鎖。";
 "unlockVault.evaluatePolicy.reason" = "解鎖您的加密檔案庫";
 "unlockVault.progress" = "正在解鎖……";
 
 "untrustedTLSCertificate.title" = "無效的 TLS 憑證";
+"untrustedTLSCertificate.message" = "「%@」的 TLS 證書無效。您還是要信任它嗎？\n\nSHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
+"upgrade.title" = "升級優惠";
+"upgrade.notEligible.alert.title" = "升級失敗";
+"upgrade.notEligible.alert.message" = "Cryptomator 無法檢測到您設備上安裝的舊版本。如果曾購買，請先從 App Store 重新下載並重試。";
+"upgrade.info" = "感謝您從第一版開始就信任 Cryptomator。作為忠實用戶，您可以獲得免費升級。";
+
 "urlSession.error.httpError.401" = "用戶名或密碼錯誤";
+"urlSession.error.httpError.403" = "沒有權限取得要求的資源。";
+"urlSession.error.httpError.404" = "找不到要求的資源。";
+"urlSession.error.httpError.405" = "請求方法不能被用於請求相應的資源。";
+"urlSession.error.httpError.409" = "請求存在衝突而無法處理。";
+"urlSession.error.httpError.412" = "資源存取被拒。";
+"urlSession.error.httpError.default" = "網絡連接失敗，狀態碼為 %ld 。";
+"urlSession.error.unexpectedResponse" = "出現了預期外的網絡錯誤。";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
 
@@ -194,9 +233,17 @@
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.changePassword.footer" = "為您的加密檔案庫選擇一個只有您知道的強密碼，並將其保管在安全的地方。";
+"vaultDetail.disabledBiometricalUnlock.footer" = "如果您啟用 %@，您的加密檔案庫密碼便會儲存在 iOS 鑰匙圈中。";
+"vaultDetail.enabledBiometricalUnlock.footer" = "僅當 %@ 身份驗證失敗時才需要您的加密檔案庫密碼。";
+"vaultDetail.info.footer.accessVault" = "以「檔案」應用程式存取加密檔案庫。";
 "vaultDetail.info.footer.accountInfo" = "已經使用 %@ 登入 %@。";
 "vaultDetail.keepUnlocked.title" = "解鎖時長";
+"vaultDetail.keepUnlocked.footer.off" = "當 Cryptomator 被「檔案」應用程式終止時，便需要解鎖。";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "當您的加密檔案庫空閒了 %@ 時便需要解鎖。";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "除非手動鎖定，否則無需解鎖。";
 "vaultDetail.locked.footer" = "您的加密檔案庫當前已鎖定。";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator 在此檢測到現有的加密檔案庫。\n\n如要移動您的加密檔案庫，請返回並選擇其他資料夾。";
 "vaultDetail.moveVault.progress" = "正在移動……";
 "vaultDetail.removeVault.footer" = "這只會從列表中刪除加密檔案庫，而不會刪除任何加密文件。";
 "vaultDetail.renameVault.progress" = "正在重命名……";
