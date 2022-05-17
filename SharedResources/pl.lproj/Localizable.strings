@@ -10,6 +10,7 @@
 "common.button.cancel" = "Anuluj";
 "common.button.change" = "Zmień";
 "common.button.choose" = "Wybierz";
+"common.button.clear" = "Wyczyść";
 "common.button.close" = "Zamknij";
 "common.button.confirm" = "Zatwierdź";
 "common.button.create" = "Utwórz";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Wymagane odblokowanie";
 "fileProvider.error.defaultLock.message" = "Sejf musi być odblokowany aby zobaczyć i mieć dostęp do jego zawartości.";
 "fileProvider.error.unlockButton" = "Odblokuj";
+"fileProvider.clearFileFromCache.title" = "Usuń plik z pamięci podręcznej";
+"fileProvider.clearFileFromCache.message" = "Powoduje to jedynie usunięcie pliku lokalnego z urządzenia, a nie usunięcie pliku w chmurze.";
 "fileProvider.uploadProgress.connecting" = "Łączenie...";
 "fileProvider.uploadProgress.message" = "Bieżący postęp: %@\n\nJeśli zauważysz, że postęp przesyłania zawiesił się, możesz spróbować ponownie przesłać dane.";
 "fileProvider.uploadProgress.missing" = "Nie można zweryfikować postępu. Może on nadal działać w tle.";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Certyfikat tego serwera nie jest zaufany. Może być konieczne ponowne dodanie połączenia WebDAV.";
 
 "Retry Upload" = "Ponów wysyłanie";
+"Clear from Cache" = "Usuń z pamięci podręcznej";
