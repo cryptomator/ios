@@ -101,6 +101,7 @@
 "fileProvider.clearFileFromCache.title" = "Удалить файл из кэша";
 "fileProvider.clearFileFromCache.message" = "Эта операция удаляет только локальный файл с вашего устройства, но не из облака.";
 "fileProvider.uploadProgress.connecting" = "Подключение…";
+"fileProvider.uploadProgress.message" = "Текущий прогресс: %@\n\nЕсли вы заметите, что прогресс загрузки завис, вы можете повторить загрузку.";
 "fileProvider.uploadProgress.missing" = "Невозможно определить прогресс. Он может продолжаться в фоновом режиме.";
 "fileProvider.uploadProgress.title" = "Загрузка…";
 "fileProvider.uploadProgress.missingDomainError" = "Домен не найден.";
