@@ -1,3 +1,4 @@
-- Übersetzungen für Bangla und Kroatisch hinzugefügt
-- Unerwartete Hintergrundaktivität behoben, die in manchen Fällen für eine hohe Akkulast sorgte (#206, #212)
-- Bereinigung von verbleibenden Tresoren nach Neuinstallation der App behoben (#209)
+- Fehlgeschlagene Uploads werden nun tatsächlich mit einer Fehlermeldung angezeigt, statt in „Warten“ zu hängen
+- Funktion "Upload erneut versuchen" hinzugefügt (#219)
+- Funktion "Aus Zwischenspeicher entfernen" hinzugefügt (#149, #220)
+- Übersetzungen für Chinesisch (Langzeichen & Hongkong) und Swahili (Tansania) hinzugefügt
