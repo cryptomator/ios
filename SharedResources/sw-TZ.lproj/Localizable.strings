@@ -10,6 +10,7 @@
 "common.button.cancel" = "Katisha";
 "common.button.change" = "Badilisha";
 "common.button.choose" = "Chagua";
+"common.button.clear" = "Ondoa";
 "common.button.close" = "Futa";
 "common.button.confirm" = "Thibitisha";
 "common.button.create" = "Unda";
@@ -97,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Fungua Inahitajika";
 "fileProvider.error.defaultLock.message" = "Ili kufikia na kuonyesha yaliyomo kwenye vault yako, inapaswa kufunguliwa.";
 "fileProvider.error.unlockButton" = "Fungua";
+"fileProvider.clearFileFromCache.title" = "Ondoa Mafaili kutoka kwa Akiba";
+"fileProvider.clearFileFromCache.message" = "Hii huondoa tu faili ya ndani kutoka kwa kifaa chako na haifuti faili kwenye wingu.";
+"fileProvider.uploadProgress.connecting" = "Kuunganisha…";
+"fileProvider.uploadProgress.message" = "Maendeleo ya sasa: %@\n\nlf Ikiwa unatambua kuwa maendeleo ya kupakia yamekwama, unaweza kujaribu tena upakiaji.";
+"fileProvider.uploadProgress.missing" = "Maendeleo hayawezi kuamuliwa. Inaweza kuwa bado inafanya kazi kwa mandari nyuma.";
+"fileProvider.uploadProgress.title" = "Inapakia…";
+"fileProvider.uploadProgress.missingDomainError" = "Haikuweza kupata kikoa.";
 
 "keepUnlocked.alert.title" = "Funga Kuba?";
 "keepUnlocked.alert.message" = "Mabadiliko haya yanahitaji kuba yako kufungwa ili kuanza kutumika.";
@@ -106,6 +114,7 @@
 "keepUnlocked.footer.on" = "Kutumia chaguo lililoteuliwa, nakala ya ufunguo wako inahitaji kuhifadhiwa kwenye kiti cha vitufe cha iOS, mradi tu kuba imefunguliwa.";
 "keepUnlockedDuration.auto" = "Ruhusu iOS Iamue Kiotomatiki";
 "keepUnlockedDuration.auto.shortDisplayName" = "Otomatiki";
+"keepUnlockedDuration.indefinite" = "Isiyo na kikomo";
 
 "localFileSystemAuthentication.createNewVault.header" = "Katika skrini inayofuata, chagua eneo la kuhifadhi kwa kuba yako mpya.";
 "localFileSystemAuthentication.createNewVault.button" = "Teua Mahali pa Hifadhi";
@@ -172,7 +181,10 @@
 "settings.rateApp" = "Programu ya Kiwango";
 "settings.sendLogFile" = "Tuma Faili logi";
 "settings.unlockFullVersion" = "Fungua Toleo Kamili";
+
+"snapshots.fileprovider.file1" = "/Namba.za Uhasibu";
 "snapshots.fileprovider.file2" = "/Uwasilishaji wa Mwisho.ufunguo";
+"snapshots.fileprovider.file3" = "/Njia ya Bidhaa.mov";
 "snapshots.fileprovider.file4" = "/Pendekezo.docx";
 "snapshots.fileprovider.file5" = "/Taarifa.pdf";
 "snapshots.fileprovider.folder3" = "/Mradi wa Siri";
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Seva haionekani kuwa inaoana na WebDAV. Tafadhali angalia ikiwa umetumia URL sahihi.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Cheti cha seva hii hakiaminiki. Huenda ukalazimika kuongeza upya muunganisho huu wa WebDAV.";
+
+"Retry Upload" = "Jaribu upya Upakiaji";
+"Clear from Cache" = "Ondoa Mafaili kutoka kwa Akiba";

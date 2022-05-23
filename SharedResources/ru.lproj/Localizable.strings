@@ -10,6 +10,7 @@
 "common.button.cancel" = "Отмена";
 "common.button.change" = "Изменить";
 "common.button.choose" = "Выбрать";
+"common.button.clear" = "Очистить";
 "common.button.close" = "Закрыть";
 "common.button.confirm" = "Подтвердить";
 "common.button.create" = "Создать";
@@ -97,7 +98,10 @@
 "fileProvider.error.defaultLock.title" = "Требуется разблокировка";
 "fileProvider.error.defaultLock.message" = "Хранилище должно быть разблокировано, чтобы получить доступ к его содержимому.";
 "fileProvider.error.unlockButton" = "Разблокировать";
+"fileProvider.clearFileFromCache.title" = "Удалить файл из кэша";
+"fileProvider.clearFileFromCache.message" = "Эта операция удаляет только локальный файл с вашего устройства, но не из облака.";
 "fileProvider.uploadProgress.connecting" = "Подключение…";
+"fileProvider.uploadProgress.message" = "Текущий прогресс: %@\n\nЕсли вы заметите, что прогресс загрузки завис, вы можете повторить загрузку.";
 "fileProvider.uploadProgress.missing" = "Невозможно определить прогресс. Он может продолжаться в фоновом режиме.";
 "fileProvider.uploadProgress.title" = "Загрузка…";
 "fileProvider.uploadProgress.missingDomainError" = "Домен не найден.";
@@ -263,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Сертификат этого сервера ненадёжен. Возможно, вам придётся добавить это подключение WebDAV ещё раз.";
 
 "Retry Upload" = "Повторить загрузку";
+"Clear from Cache" = "Удалить из кэша";

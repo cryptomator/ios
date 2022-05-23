@@ -10,6 +10,7 @@
 "common.button.cancel" = "Abbrechen";
 "common.button.change" = "Ändern";
 "common.button.choose" = "Auswählen";
+"common.button.clear" = "Löschen";
 "common.button.close" = "Schließen";
 "common.button.confirm" = "Bestätigen";
 "common.button.create" = "Erstellen";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Entsperren erforderlich";
 "fileProvider.error.defaultLock.message" = "Um auf den Inhalt deines Tresors zuzugreifen und ihn anzuzeigen, muss dieser entsperrt werden.";
 "fileProvider.error.unlockButton" = "Entsperren";
+"fileProvider.clearFileFromCache.title" = "Datei aus Zwischenspeicher entfernen";
+"fileProvider.clearFileFromCache.message" = "Dies entfernt nur die lokale Datei von Ihrem Gerät und löscht nicht die Datei in der Cloud.";
 "fileProvider.uploadProgress.connecting" = "Verbindung wird hergestellt …";
 "fileProvider.uploadProgress.missing" = "Der Fortschritt konnte nicht ermittelt werden. Möglicherweise läuft der Upload noch im Hintergrund.";
 "fileProvider.uploadProgress.title" = "Wird hochgeladen …";
@@ -263,3 +266,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Das Zertifikat dieses Servers ist nicht vertrauenswürdig. Eventuell musst du diese WebDAV-Verbindung erneut hinzufügen.";
 
 "Retry Upload" = "Upload erneut versuchen";
+"Clear from Cache" = "Aus Zwischenspeicher entfernen";

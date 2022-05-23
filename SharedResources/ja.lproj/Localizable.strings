@@ -10,6 +10,7 @@
 "common.button.cancel" = "キャンセル";
 "common.button.change" = "変更";
 "common.button.choose" = "選択";
+"common.button.clear" = "明らか";
 "common.button.close" = "閉じる";
 "common.button.confirm" = "確認";
 "common.button.create" = "作成";
@@ -97,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "ロック解除が必要です";
 "fileProvider.error.defaultLock.message" = "保管庫の内容にアクセスして表示するには、ロックを解除する必要があります。";
 "fileProvider.error.unlockButton" = "解錠";
+"fileProvider.clearFileFromCache.title" = "キャッシュからファイルをクリア";
+"fileProvider.clearFileFromCache.message" = "これにより、デバイスからローカルファイルが削除されるだけで、クラウド内のファイルは削除されません。";
+"fileProvider.uploadProgress.connecting" = "接続する...";
+"fileProvider.uploadProgress.message" = "現在の進行：%@\n\nアップロードの進行状況が止まっていることに気付いた場合は、アップロードを再試行できます。";
+"fileProvider.uploadProgress.missing" = "進捗状況を確認できませんでした。 まだバックグラウンドで実行されている可能性があります。";
+"fileProvider.uploadProgress.title" = "アップロード中";
+"fileProvider.uploadProgress.missingDomainError" = "ドメインが見つかりませんでした。";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
 "keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
@@ -257,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "サーバーに WebDAV との互換性がありません。正しい URL を使用しているか確認してください";
 "webDAVAuthenticator.error.untrustedCertificate" = "このサーバーの証明書は信頼されていません。WebDAV 接続を再追加する必要があります。";
+
+"Retry Upload" = "アップロードを再試行";
+"Clear from Cache" = "キャッシュからクリア";

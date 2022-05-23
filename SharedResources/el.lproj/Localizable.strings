@@ -10,6 +10,7 @@
 "common.button.cancel" = "Ακύρωση";
 "common.button.change" = "Αλλαγή";
 "common.button.choose" = "Επιλογή";
+"common.button.clear" = "Εκκαθάριση";
 "common.button.close" = "Κλείσιμο";
 "common.button.confirm" = "Επιβεβαίωση";
 "common.button.create" = "Δημιουργία";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Απαιτείται Ξεκλείδωμα";
 "fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
+"fileProvider.clearFileFromCache.title" = "Εκκαθάριση αρχείου από την προσωρινή μνήμη";
+"fileProvider.clearFileFromCache.message" = "Αυτό καταργεί μόνο το τοπικό αρχείο από τη συσκευή σας και δεν διαγράφει το αρχείο στο cloud.";
 "fileProvider.uploadProgress.connecting" = "Σύνδεση…";
 "fileProvider.uploadProgress.message" = "Τρέχουσα Πρόοδος: %@%\n\nΑν παρατηρήσετε ότι η πρόοδος μεταφόρτωσης έχει κολλήσει, μπορείτε να δοκιμάσετε ξανά τη μεταφόρτωση.";
 "fileProvider.uploadProgress.missing" = "Η πρόοδος δεν μπορεί να καθοριστεί. Μπορεί να εκτελείται στο παρασκήνιο.";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Το πιστοποιητικό αυτού του διακομιστή δεν είναι έμπιστο. Ίσως χρειαστεί να προσθέσετε ξανά αυτή τη σύνδεση WebDAV.";
 
 "Retry Upload" = "Δοκιμάστε ξανά τη μεταφόρτωση";
+"Clear from Cache" = "Εκκαθάριση από τη μνήμη Cache";
