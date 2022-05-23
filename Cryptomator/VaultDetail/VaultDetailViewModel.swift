@@ -215,7 +215,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	func lockVault() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 
 		return getXPCPromise.then { xpc -> Void in
 			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
@@ -225,7 +225,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	func refreshVaultStatus() -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		switchCellViewModel?.isOn.value = biometricalUnlockEnabled
 		return getXPCPromise.then { xpc in
 			return wrap { handler in

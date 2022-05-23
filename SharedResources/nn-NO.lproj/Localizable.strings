@@ -1,6 +1,7 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Endre";
 "common.button.choose" = "Vel";
+"common.button.close" = "Lukk";
 "common.button.done" = "Ferdig";
 "common.button.next" = "Neste";
 "common.cells.password" = "Passord";

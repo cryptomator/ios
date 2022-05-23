@@ -21,10 +21,12 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	let error: Error?
 	let newestVersionLocallyCached: Bool
 	let localURL: URL?
+	let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fullVersionChecker: FullVersionChecker
 
-	init(metadata: ItemMetadata, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.metadata = metadata
+		self.domainIdentifier = domainIdentifier
 		self.error = error
 		self.newestVersionLocallyCached = newestVersionLocallyCached
 		self.localURL = localURL
@@ -33,17 +35,18 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
 		assert(metadata.id != nil)
-		if metadata.id == ItemMetadataDBManager.rootContainerId {
+
+		guard let id = metadata.id, id != ItemMetadataDBManager.rootContainerId else {
 			return .rootContainer
 		}
-		return NSFileProviderItemIdentifier(String(metadata.id ?? -1)) // TODO: Change Optional Handling
+		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: id)
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
 		if metadata.parentID == ItemMetadataDBManager.rootContainerId {
 			return .rootContainer
 		}
-		return NSFileProviderItemIdentifier(String(metadata.parentID))
+		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: metadata.parentID)
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {
@@ -152,5 +155,18 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 
 	public var tagData: Data? {
 		return metadata.tagData
+	}
+
+	/**
+	 Dictionary to add state information to the item. Entries are accessible to
+	 user interaction predicates via the `Info.plist` of the FileProviderExtensionUI
+
+	 Used to enable the customized FileProviderExtensionUI actions.
+	 */
+	public var userInfo: [AnyHashable: Any]? {
+		let isFolder = typeIdentifier == kUTTypeFolder as String
+		return ["enableRetryWaitingUploadAction": uploadingError == nil && isUploading && !isFolder,
+		        "enableRetryFailedUploadAction": uploadingError != nil,
+		        "enableEvictFileFromCacheAction": !isUploading && !isDownloading && isDownloaded && !isFolder]
 	}
 }

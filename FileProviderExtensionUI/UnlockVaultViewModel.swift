@@ -187,7 +187,7 @@ class UnlockVaultViewModel {
 	// MARK: Unlock Vault
 
 	func unlock(withPassword password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: VaultUnlockingService.name, domain: domain)
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
 		return getXPCPromise.then { xpc -> Promise<Void> in
 			self.unlockVault(with: password, proxy: xpc.proxy)
 		}.then {
@@ -211,7 +211,7 @@ class UnlockVaultViewModel {
 	 */
 	func biometricalUnlock() -> Promise<Void> {
 		let reason = LocalizedString.getValue("unlockVault.evaluatePolicy.reason")
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: VaultUnlockingService.name, domain: domain)
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
 		return getXPCPromise.then { xpc in
 			xpc.proxy.startBiometricalUnlock()
 		}.then { _ -> Void in

@@ -2,6 +2,7 @@
 "common.button.cancel" = "Kanselahin";
 "common.button.change" = "Baguhin";
 "common.button.choose" = "Pumili";
+"common.button.close" = "Isara";
 "common.button.create" = "Gumawa";
 "common.button.done" = "Tapos na";
 "common.button.edit" = "I-edit";
@@ -9,6 +10,7 @@
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
 "common.button.remove" = "Tanggalin";
+"common.button.retry" = "Subukan muli";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
 

@@ -12,8 +12,6 @@ import Foundation
 	func logLevelUpdated()
 }
 
-public enum LogLevelUpdatingService {
-	public static var name: NSFileProviderServiceName {
-		return NSFileProviderServiceName("org.cryptomator.ios.log-level-updating")
-	}
+public extension NSFileProviderServiceName {
+	static let logLevelUpdating = NSFileProviderServiceName("org.cryptomator.ios.log-level-updating")
 }

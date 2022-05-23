@@ -12,6 +12,10 @@ import Foundation
 
 public protocol LocalURLProviderType: AnyObject {
 	/**
+	 The identifier for the corresponding domain of the item identifiers.
+	 */
+	var domainIdentifier: NSFileProviderDomainIdentifier { get }
+	/**
 	 Returns the item identifier directory for a given item identifier.
 
 	 All paths are structured as `<base storage directory>/<item identifier>/`
@@ -42,15 +46,27 @@ public extension LocalURLProviderType {
 
 	 This implementation exploits the fact that the path structure has been defined as
 	 `<base storage directory>/<item identifier>/<item file name>`.
+
+	 - Note: Returns the `.rootContainer` identifier for the special case that the passed `url` corresponds to the `<base storage directory>`. This is necessary to support "Open in Files app".
 	 */
 	func persistentIdentifierForItem(at url: URL) -> NSFileProviderItemIdentifier? {
 		let pathComponents = url.pathComponents
 		assert(pathComponents.count > 2)
-		return NSFileProviderItemIdentifier(pathComponents[pathComponents.count - 2])
+		if let itemID = Int64(pathComponents[pathComponents.count - 2]) {
+			return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
+		} else if pathComponents.last == domainIdentifier.rawValue {
+			return .rootContainer
+		} else {
+			return nil
+		}
 	}
 }
 
 public class LocalURLProvider: LocalURLProviderType {
+	public var domainIdentifier: NSFileProviderDomainIdentifier {
+		domain.identifier
+	}
+
 	private let domain: NSFileProviderDomain
 	private let documentStorageURLProvider: DocumentStorageURLProvider
 
@@ -64,7 +80,11 @@ public class LocalURLProvider: LocalURLProviderType {
 		if identifier == .rootContainer {
 			return baseStorageDirectoryURL
 		}
-		return baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		if let itemID = identifier.databaseValue {
+			return baseStorageDirectoryURL?.appendingPathComponent(String(itemID), isDirectory: true)
+		} else {
+			return baseStorageDirectoryURL?.appendingPathComponent(identifier.rawValue, isDirectory: true)
+		}
 	}
 
 	private func getBaseStorageDirectory() -> URL? {

@@ -2,6 +2,7 @@
 "common.button.cancel" = "Mégse";
 "common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
+"common.button.close" = "Bezár";
 "common.button.create" = "Létrehozás";
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
@@ -9,6 +10,7 @@
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
 "common.button.remove" = "Eltávolítás";
+"common.button.retry" = "Újra";
 "common.cells.password" = "Jelszó";
 "common.cells.url" = "ULR";
 "common.cells.username" = "Felhasználónév";

@@ -15,8 +15,6 @@ import Foundation
 	func endBiometricalUnlock()
 }
 
-public enum VaultUnlockingService {
-	public static var name: NSFileProviderServiceName {
-		return NSFileProviderServiceName("org.cryptomator.ios.vault-unlocking")
-	}
+public extension NSFileProviderServiceName {
+	static let vaultUnlocking = NSFileProviderServiceName("org.cryptomator.ios.vault-unlocking")
 }

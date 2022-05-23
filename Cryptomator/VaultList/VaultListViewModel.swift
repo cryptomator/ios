@@ -93,7 +93,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 
 	func lockVault(_ vaultInfo: VaultInfo) -> Promise<Void> {
 		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		return getXPCPromise.then { xpc in
 			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.then {
@@ -104,7 +104,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	}
 
 	func refreshVaultLockStates() -> Promise<Void> {
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: VaultLockingService.name, domain: nil)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domain: nil)
 
 		return getXPCPromise.then { xpc in
 			return wrap { handler in

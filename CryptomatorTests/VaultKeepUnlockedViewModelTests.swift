@@ -229,7 +229,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 
 	private func assertFileProviderConnectorCalled() {
 		XCTAssertEqual(vaultUID, fileProviderConnectorMock.passedDomainIdentifier?.rawValue)
-		XCTAssertEqual(VaultLockingService.name, fileProviderConnectorMock.passedServiceName)
+		XCTAssertEqual(.vaultLocking, fileProviderConnectorMock.passedServiceName)
 	}
 
 	private func assertFileProviderConnectorNotCalled() {

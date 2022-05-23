@@ -28,8 +28,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
-		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(parentItemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: parentItemID)
 		let newName = "RenamedTest.txt"
 		let result = try adapter.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: newName)
 		let item = result.item
@@ -64,7 +64,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let itemID: Int64 = 2
 		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: try XCTUnwrap(itemMetadata.id))
 		let newName = "RenamedTest.txt"
 		let result = try adapter.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: nil, newName: newName)
 		let item = result.item
@@ -102,8 +102,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemMetadata.id!))
-		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(newParentItemMetadata.id!))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: parentItemID)
 		let result = try adapter.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: nil)
 		let item = result.item
 		XCTAssertEqual("Test.txt", item.filename)
@@ -140,7 +140,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
 		let newName = "RenamedTest.txt"
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
 		adapter.renameItem(withIdentifier: itemIdentifier, toName: newName) { item, error in
 			XCTAssertNil(error)
 			guard let fileProviderItem = item as? FileProviderItem else {
@@ -190,8 +190,8 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let newParentItemMetadata = ItemMetadata(id: parentItemID, name: "Folder", type: .folder, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: targetParentCloudPath, isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata([itemMetadata, newParentItemMetadata])
 
-		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: String(itemID))
-		let parentItemIdentifier = NSFileProviderItemIdentifier(rawValue: String(parentItemID))
+		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
+		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: parentItemID)
 		adapter.reparentItem(withIdentifier: itemIdentifier, toParentItemWithIdentifier: parentItemIdentifier, newName: nil) { item, error in
 			XCTAssertNil(error)
 			guard let fileProviderItem = item as? FileProviderItem else {

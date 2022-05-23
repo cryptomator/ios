@@ -10,6 +10,8 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Ändra";
 "common.button.choose" = "Välj";
+"common.button.clear" = "Rensa";
+"common.button.close" = "Stäng";
 "common.button.confirm" = "Bekräfta";
 "common.button.create" = "Skapa";
 "common.button.createFolder" = "Skapa mapp";
@@ -20,6 +22,7 @@
 "common.button.next" = "Nästa";
 "common.button.ok" = "OK";
 "common.button.remove" = "Ta bort";
+"common.button.retry" = "Försök igen";
 "common.button.signOut" = "Logga ut";
 "common.button.verify" = "Verifiera";
 "common.cells.openInFilesApp" = "Öppna i Filer-appen";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Upplåsning krävs";
 "fileProvider.error.defaultLock.message" = "För att komma åt och visa innehållet i ditt valv måste det låsas upp.";
 "fileProvider.error.unlockButton" = "Lås upp";
+"fileProvider.clearFileFromCache.title" = "Ta bort fil från buffert";
+"fileProvider.clearFileFromCache.message" = "Detta tar bara bort den lokala filen från din enhet och tar inte bort filen i molnet.";
+"fileProvider.uploadProgress.connecting" = "Ansluter…";
+"fileProvider.uploadProgress.message" = "Status: %@\n\nOm du märker att uppladdningsprocessen har fastnat kan du försöka ladda upp den igen.";
+"fileProvider.uploadProgress.missing" = "Oklart om det fungerade. Processen kan fortfarande köras i bakgrunden.";
+"fileProvider.uploadProgress.title" = "Laddar upp…";
+"fileProvider.uploadProgress.missingDomainError" = "Kunde inte hitta domänen.";
 
 "keepUnlocked.alert.title" = "Lås valv?";
 "keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Återställning lyckades";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fullversion";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi kunde inte hitta en tidigare köpt fullversion som kunde återställas. Försök med ett annat alternativ.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Godkänd för uppgradering";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Det verkar som om du försöker uppgradera från en äldre version av Cryptomator. Välj i så fall alternativet \"Uppgraderings-erbjudande\".";
 "purchase.retry.button" = "Försök igen";
 "purchase.retry.footer" = "Kunde inte ladda tillgängliga produkter.";
 "purchase.title" = "Lås upp fullversion";
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Servern verkar inte vara WebDAV-kompatibel. Kontrollera att du har använt rätt URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikatet för denna server är inte betrott. Du kan behöva lägga till denna WebDAV-anslutning igen.";
+
+"Retry Upload" = "Ladda upp igen";
+"Clear from Cache" = "Ta bort fil från buffert";

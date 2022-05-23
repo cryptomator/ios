@@ -66,7 +66,7 @@ class PurchaseCoordinator: Coordinator {
 				self.unlockedPro()
 			}
 		case .noRestorablePurchases:
-			_ = PurchaseAlert.showForNoRestorablePurchases(on: navigationController)
+			_ = PurchaseAlert.showForNoRestorablePurchases(on: navigationController, eligibleForUpgrade: UpgradeChecker.shared.isEligibleForUpgrade())
 		}
 	}
 

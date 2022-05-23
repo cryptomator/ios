@@ -1,5 +1,6 @@
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
+"common.button.close" = "Aizvērt";
 "common.button.done" = "Darīts";
 "common.button.next" = "Tālāk";
 "common.cells.password" = "Parole";

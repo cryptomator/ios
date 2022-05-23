@@ -10,16 +10,19 @@
 "common.button.cancel" = "Annuler";
 "common.button.change" = "Modifier";
 "common.button.choose" = "Choisir";
+"common.button.clear" = "Effacer";
+"common.button.close" = "Fermer";
 "common.button.confirm" = "Confirmer";
 "common.button.create" = "Créer";
 "common.button.createFolder" = "Créer un répertoire";
-"common.button.done" = "Ok";
+"common.button.done" = "OK";
 "common.button.download" = "Télécharger";
 "common.button.edit" = "Éditer";
 "common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
 "common.button.remove" = "Retirer";
+"common.button.retry" = "Réessayer";
 "common.button.signOut" = "Se déconnecter";
 "common.button.verify" = "Vérifier";
 "common.cells.openInFilesApp" = "Ouvrir dans l'application Fichiers";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Déverrouillage requis";
 "fileProvider.error.defaultLock.message" = "Pour accéder et afficher le contenu de votre coffre, il doit être déverrouillé.";
 "fileProvider.error.unlockButton" = "Déverrouiller";
+"fileProvider.clearFileFromCache.title" = "Effacer le fichier du cache";
+"fileProvider.clearFileFromCache.message" = "Cela ne supprime le fichier local que de votre appareil et ne supprime pas le fichier dans le cloud.";
+"fileProvider.uploadProgress.connecting" = "Connexion…";
+"fileProvider.uploadProgress.message" = "Progression actuelle: %@\n\nSi vous remarquez que la progression de l'envoi est bloquée, vous pouvez recommencer l'envoi.";
+"fileProvider.uploadProgress.missing" = "La progression n'a pas pu être déterminée. Il se peut que cela soit encore en cours en arrière-plan.";
+"fileProvider.uploadProgress.title" = "Envoi en cours…";
+"fileProvider.uploadProgress.missingDomainError" = "Impossible de trouver le domaine.";
 
 "keepUnlocked.alert.title" = "Verrouiller le coffre ?";
 "keepUnlocked.alert.message" = "Cette modification nécessite que votre coffre soit verrouillé.";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restauration réussie";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Pas de version complète";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nous n'avons pas pu trouver une version complète précédemment achetée qui pourrait être restaurée. Veuillez essayer une autre option.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Éligible pour une mise à jour";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Il semble que vous essayiez de mettre à jour depuis une ancienne version de Cryptomator. Veuillez sélectionner l'option \"Offre de mise à niveau\" à la place.";
 "purchase.retry.button" = "Réessayer";
 "purchase.retry.footer" = "Impossible de charger les produits disponibles.";
 "purchase.title" = "Débloquer la version complète";
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Le serveur ne semble pas être compatible WebDAV. Veuillez vérifier si vous avez utilisé la bonne URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Le certificat de ce serveur n'est pas fiable. Vous devrez peut-être ré-ajouter cette connexion WebDAV.";
+
+"Retry Upload" = "Réessayer l'envoi";
+"Clear from Cache" = "Effacer du cache";

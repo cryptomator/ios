@@ -10,6 +10,7 @@
 "common.button.cancel" = "বাতিল করুন";
 "common.button.change" = "পরিবর্তন করুন";
 "common.button.choose" = "বাছুন";
+"common.button.close" = "বন্ধ করুন";
 "common.button.confirm" = "নিশ্চিত করুন";
 "common.button.create" = "তৈরি করুন";
 "common.button.createFolder" = "ফোল্ডার তৈরি করুন";
@@ -20,6 +21,7 @@
 "common.button.next" = "পরবর্তী";
 "common.button.ok" = "আচ্ছা";
 "common.button.remove" = "বাতিল";
+"common.button.retry" = "পুনরায় চেষ্টা করুন";
 "common.button.signOut" = "সাইন আউট";
 "common.button.verify" = "যাচাই করুন";
 "common.cells.openInFilesApp" = "ফাইল আ্যপে খুলুন";

@@ -259,10 +259,16 @@ class FileProviderExtension: NSFileProviderExtension {
 		                                                              dbPath: dbPath,
 		                                                              delegate: LocalURLProvider(domain: snapshotDomain)))
 		#else
-		if let domain = domain, let localURLProvider = localURLProvider {
+		if let domain = domain, let localURLProvider = localURLProvider, let dbPath = dbPath, let notificator = notificator {
 			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
+			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
 		}
 		#endif
+		let cacheManagingServiceSource = CacheManagingServiceSource(notificator: notificator)
+		cacheManagingServiceSource.getItem = { [weak self] itemIdentifier in
+			try? self?.item(for: itemIdentifier)
+		}
+		serviceSources.append(cacheManagingServiceSource)
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())
 		return serviceSources

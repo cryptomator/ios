@@ -10,6 +10,8 @@
 "common.button.cancel" = "Cancel";
 "common.button.change" = "Change";
 "common.button.choose" = "Choose";
+"common.button.clear" = "Clear";
+"common.button.close" = "Close";
 "common.button.confirm" = "Confirm";
 "common.button.create" = "Create";
 "common.button.createFolder" = "Create Folder";
@@ -20,6 +22,7 @@
 "common.button.next" = "Next";
 "common.button.ok" = "OK";
 "common.button.remove" = "Remove";
+"common.button.retry" = "Retry";
 "common.button.signOut" = "Sign Out";
 "common.button.verify" = "Verify";
 "common.cells.openInFilesApp" = "Open in Files App";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Unlock Required";
 "fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
 "fileProvider.error.unlockButton" = "Unlock";
+"fileProvider.clearFileFromCache.title" = "Clear File from Cache";
+"fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
+"fileProvider.uploadProgress.connecting" = "Connecting…";
+"fileProvider.uploadProgress.message" = "Current Progress: %@\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
+"fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
+"fileProvider.uploadProgress.title" = "Uploading…";
+"fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restore Successful";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "No Full Version";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We were unable to find a previously purchased full version that could be restored. Please try another option.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Eligible for Upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "It seems like that you are trying to upgrade from an older version of Cryptomator. In that case, please select the \"Upgrade Offer\" option instead.";
 "purchase.retry.button" = "Retry";
 "purchase.retry.footer" = "Could not load the available products.";
 "purchase.title" = "Unlock Full Version";
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Server doesn't seem to be WebDAV compatible. Please check if you've used the correct URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certificate of this server is untrusted. You may have to re-add this WebDAV connection.";
+
+"Retry Upload" = "Retry Upload";
+"Clear from Cache" = "Clear from Cache";

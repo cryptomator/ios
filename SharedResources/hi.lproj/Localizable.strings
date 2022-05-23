@@ -10,6 +10,8 @@
 "common.button.cancel" = "रद्द करें";
 "common.button.change" = "बदलें";
 "common.button.choose" = "चुनें";
+"common.button.clear" = "साफ़ करें";
+"common.button.close" = "बंद करें";
 "common.button.confirm" = "पुष्टि करें";
 "common.button.create" = "बनाएं";
 "common.button.createFolder" = "फोल्डर बनाएं";
@@ -20,6 +22,7 @@
 "common.button.next" = "अगला";
 "common.button.ok" = "ठीक है";
 "common.button.remove" = "हटाएँ";
+"common.button.retry" = "पुन: प्रयास करें";
 "common.button.signOut" = "साइन आउट करें";
 "common.button.verify" = "सत्यापित करें";
 "common.cells.openInFilesApp" = "दस्तावेज ऐप में खोलें";
@@ -81,6 +84,8 @@
 "fileProvider.onboarding.info" = "आपके दस्तावेज़ों की सुरक्षा के हेतु क्रिप्टोमेटर का चयन करने के लिए आपका धन्यवाद। शुरू करने के लिए मुख्य ऐप में जाएँ और एक कक्ष तो जोड़ें।";
 "fileProvider.onboarding.button.openCryptomator" = "क्रिप्टोमेटर खोलें";
 "fileProvider.error.unlockButton" = "अनलॉक करें";
+"fileProvider.clearFileFromCache.title" = "कैशे से फ़ाइल साफ़ करें";
+"fileProvider.clearFileFromCache.message" = "यह केवल आपके डिवाइस से स्थानीय फ़ाइल को हटाता है और क्लाउड में फ़ाइल को नहीं हटाता";
 
 "localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
@@ -134,3 +139,4 @@
 "vaultList.header.title" = "कक्षों का नाम";
 "vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";
 "vaultList.remove.alert.title" = "कक्ष हटाना चाहेंगे?";
+"Clear from Cache" = "कैशे से फ़ाइल साफ़ करें";

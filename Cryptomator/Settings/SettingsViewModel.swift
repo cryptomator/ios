@@ -78,7 +78,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return elements
 	}
 
-	private let cacheManager: FileProviderCacheManager
 	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
 	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
 
@@ -93,9 +92,8 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	private var subscribers = Set<AnyCancellable>()
 	private lazy var showDebugModeWarningPublisher = PassthroughSubject<Void, Never>()
 
-	init(cacheManager: FileProviderCacheManager = FileProviderCacheManager(), cryptomatorSetttings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
-		self.cacheManager = cacheManager
-		self.cryptomatorSettings = cryptomatorSetttings
+	init(cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+		self.cryptomatorSettings = cryptomatorSettings
 		self.fileProviderConnector = fileProviderConnector
 	}
 
@@ -107,7 +105,11 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				self.clearCacheButtonCellViewModel.isEnabled.value = false
 			}
 		}
-		return cacheManager.getTotalLocalCacheSizeInBytes().then { totalCacheSizeInBytes -> Void in
+		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domain: nil)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.getLocalCacheSizeInBytes()
+		}.then { receivedCacheSizeInBytes -> Void in
+			let totalCacheSizeInBytes = receivedCacheSizeInBytes?.intValue ?? 0
 			loading = false
 			self.cacheSizeCellViewModel.isLoading.value = false
 			self.clearCacheButtonCellViewModel.isEnabled.value = totalCacheSizeInBytes > 0
@@ -117,7 +119,10 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	func clearCache() -> Promise<Void> {
-		return cacheManager.clearCache().then {
+		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domain: nil)
+		return getXPCPromise.then { xpc in
+			xpc.proxy.clearCache()
+		}.then {
 			self.refreshCacheSize()
 		}
 	}
@@ -152,7 +157,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	private func notifyFileProviderAboutLogLevelUpdate() {
-		let getXPCPromise: Promise<XPC<LogLevelUpdating>> = fileProviderConnector.getXPC(serviceName: LogLevelUpdatingService.name, domain: nil)
+		let getXPCPromise: Promise<XPC<LogLevelUpdating>> = fileProviderConnector.getXPC(serviceName: .logLevelUpdating, domain: nil)
 		getXPCPromise.then { xpc in
 			xpc.proxy.logLevelUpdated()
 		}.always {

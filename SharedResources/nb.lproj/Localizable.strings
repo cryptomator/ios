@@ -10,6 +10,7 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Endre";
 "common.button.choose" = "Velg";
+"common.button.close" = "Lukk";
 "common.button.confirm" = "Bekreft";
 "common.button.create" = "Opprett";
 "common.button.createFolder" = "Opprett mappe";
@@ -20,6 +21,7 @@
 "common.button.next" = "Neste";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Fjern";
+"common.button.retry" = "Prøv igjen";
 "common.button.signOut" = "Logg ut";
 "common.button.verify" = "Bekreft";
 "common.cells.openInFilesApp" = "Åpne i Filer-appen";
@@ -149,6 +151,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Gjenoppretting vellykket";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fullversjon";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi klarte ikke å finne en tidligere kjøpt fullversjon som kunne gjenopprettes. Prøv et annet alternativ.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Kvalifisert for oppgradering";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Det ser ut til at du prøver å oppgradere fra en eldre versjon av Cryptomator. I så fall kan du velge alternativet \"Oppgraderingstilbud\" i stedet.";
 "purchase.retry.button" = "Prøv igjen";
 "purchase.retry.footer" = "Kunne ikke laste tilgjengelige produkter.";
 "purchase.title" = "Lås opp fullversjonen";

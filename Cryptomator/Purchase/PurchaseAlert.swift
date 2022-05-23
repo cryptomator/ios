@@ -23,10 +23,16 @@ enum PurchaseAlert {
 		return showAlert(title: title, message: message, on: presentingViewController)
 	}
 
-	static func showForNoRestorablePurchases(on presentingViewController: UIViewController) -> Promise<Void> {
-		return showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"),
-		                 message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"),
-		                 on: presentingViewController)
+	static func showForNoRestorablePurchases(on presentingViewController: UIViewController, eligibleForUpgrade: Bool) -> Promise<Void> {
+		if eligibleForUpgrade {
+			return showAlert(title: LocalizedString.getValue("purchase.restorePurchase.eligibleForUpgrade.alert.title"),
+			                 message: LocalizedString.getValue("purchase.restorePurchase.eligibleForUpgrade.alert.message"),
+			                 on: presentingViewController)
+		} else {
+			return showAlert(title: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.title"),
+			                 message: LocalizedString.getValue("purchase.restorePurchase.fullVersionNotFound.alert.message"),
+			                 on: presentingViewController)
+		}
 	}
 
 	private static func showAlert(title: String, message: String, on presentingViewController: UIViewController) -> Promise<Void> {

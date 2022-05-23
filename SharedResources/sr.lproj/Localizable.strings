@@ -1,6 +1,7 @@
 "common.button.cancel" = "Откажи";
 "common.button.change" = "Измени";
 "common.button.choose" = "Изабери";
+"common.button.close" = "Затвори";
 "common.button.done" = "Завршено";
 "common.button.next" = "Даље";
 "common.button.remove" = "Уклони";

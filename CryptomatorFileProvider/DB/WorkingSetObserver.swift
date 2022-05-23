@@ -22,8 +22,10 @@ class WorkingSetObserver: WorkingSetObserving {
 	private let cachedFileManager: CachedFileManager
 	private let notificator: FileProviderNotificatorType
 	private var currentWorkingSetItems = Set<FileProviderItem>()
+	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(database: DatabaseReader, notificator: FileProviderNotificatorType, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, database: DatabaseReader, notificator: FileProviderNotificatorType, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager) {
+		self.domainIdentifier = domainIdentifier
 		self.database = database
 		self.notificator = notificator
 		self.uploadTaskManager = uploadTaskManager
@@ -72,7 +74,7 @@ class WorkingSetObserver: WorkingSetObserving {
 			let localCachedFileInfo = try cachedFileManager.getLocalCachedFileInfo(for: metadata)
 			let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
 			let localURL = localCachedFileInfo?.localURL
-			return FileProviderItem(metadata: metadata, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+			return FileProviderItem(metadata: metadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
 		}
 		return items
 	}
