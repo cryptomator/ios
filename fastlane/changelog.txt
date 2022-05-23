@@ -1,4 +1,4 @@
 - Failed uploads are now actually shown with an error instead of being stuck in "Waiting"
 - Added "Retry Upload" action (#219)
 - Added "Clear from Cache" action (#149, #220)
-- Added Traditional Chinese and Swahili (Tanzania) translations
+- Added Chinese (Traditional & Hong Kong) and Swahili (Tanzania) translations
