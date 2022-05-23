@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Modificar";
 "common.button.choose" = "Seleccionar";
+"common.button.clear" = "Borrar";
 "common.button.close" = "Cerrar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Crear";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueo requerido";
 "fileProvider.error.defaultLock.message" = "Para acceder y mostrar el contenido de su bóveda hay que desbloquearla.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.clearFileFromCache.title" = "Borrar archivo de la caché";
+"fileProvider.clearFileFromCache.message" = "Esto solo elimina el archivo local de su dispositivo y no lo elimina de la nube.";
 "fileProvider.uploadProgress.connecting" = "Conectando…";
 "fileProvider.uploadProgress.message" = "Progreso actual: %@\n\nSi nota que el progreso de la carga está atascado, puede volver a intentar la carga.";
 "fileProvider.uploadProgress.missing" = "No se pudo determinar el progreso. Puede que todavía se ejecute en segundo plano.";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "El certificado de este servidor no es confiable. Es posible que tenga que volver a añadir esta conexión WebDAV.";
 
 "Retry Upload" = "Reintentar carga";
+"Clear from Cache" = "Borrar de la caché";

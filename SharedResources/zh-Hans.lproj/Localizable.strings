@@ -10,6 +10,7 @@
 "common.button.cancel" = "取消";
 "common.button.change" = "更改";
 "common.button.choose" = "选择";
+"common.button.clear" = "清除";
 "common.button.close" = "关闭";
 "common.button.confirm" = "确认";
 "common.button.create" = "新建";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "需要解锁";
 "fileProvider.error.defaultLock.message" = "需解锁才能访问和显示您的保险库中的内容。";
 "fileProvider.error.unlockButton" = "解锁";
+"fileProvider.clearFileFromCache.title" = "清除缓存文件";
+"fileProvider.clearFileFromCache.message" = "该操作仅会删除设备中的本地文件，不会删除云存储中的文件";
 "fileProvider.uploadProgress.connecting" = "正在连接…";
 "fileProvider.uploadProgress.message" = "当前进度：%@\n\n若发现上传进度卡住，请重试上传";
 "fileProvider.uploadProgress.missing" = "无法确定上传进度，可能仍在后台运行";
@@ -264,3 +267,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "此服务器的证书不受信任，你可能需要重新添加此 WebDAV 连接";
 
 "Retry Upload" = "重试上传";
+"Clear from Cache" = "清除缓存";

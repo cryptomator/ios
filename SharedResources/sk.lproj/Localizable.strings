@@ -10,6 +10,7 @@
 "common.button.cancel" = "Zrušiť";
 "common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
+"common.button.clear" = "Vymazať";
 "common.button.close" = "Zavrieť";
 "common.button.confirm" = "Potvrdiť";
 "common.button.create" = "Vytvoriť";
@@ -97,6 +98,8 @@
 "fileProvider.error.defaultLock.title" = "Odomknutie požadované";
 "fileProvider.error.defaultLock.message" = "K prístupu a videniu obsahu Vášho trezora, musí byť odomknutý.";
 "fileProvider.error.unlockButton" = "Odomknúť";
+"fileProvider.clearFileFromCache.title" = "Vymazať súbor z Cache";
+"fileProvider.clearFileFromCache.message" = "Toto odstráni lokálny súbor iba z Vašeho zariadenia a neodstráni súbor v cloude.";
 "fileProvider.uploadProgress.connecting" = "Pripájanie…";
 "fileProvider.uploadProgress.message" = "Aktuálny priebeh: %@\n\nV prípade, že pozorujete zaseknutý priebeh nahrávania, môžte zopakovať nahrávanie.";
 "fileProvider.uploadProgress.missing" = "Pokrok nebol spozorovaný. Môže však stále prebiehať na pozadí.";
@@ -263,3 +266,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikát tohto servera nie je dôveryhodný. Môžte znovu-pridať toto WebDAV spojenie.";
 
 "Retry Upload" = "Opakovať nahratie";
+"Clear from Cache" = "Vymazať z Cache";
