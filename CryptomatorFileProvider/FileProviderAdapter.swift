@@ -46,8 +46,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let fullVersionChecker: FullVersionChecker
 	private let workflowFactory: WorkflowFactoryLocking
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	private let fileCoordinator: NSFileCoordinator
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, coordinator: NSFileCoordinator, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager
@@ -72,6 +73,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
 		self.fullVersionChecker = fullVersionChecker
+		self.fileCoordinator = coordinator
 	}
 
 	/**
@@ -204,6 +206,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 - Postcondition: A `LocalCachedFileInfo` with the url of the copied file exists in the database and has as `correspondingItem` the `id` of the newly created `ItemMetadata` entry.
 	 */
 	func localItemImport(fileURL: URL, parentIdentifier: NSFileProviderItemIdentifier) throws -> LocalItemImportResult {
+		let stopAccess = fileURL.startAccessingSecurityScopedResource()
+		defer {
+			if stopAccess {
+				fileURL.stopAccessingSecurityScopedResource()
+			}
+		}
 		let placeholderMetadata = try createPlaceholderItemForFile(for: fileURL, in: parentIdentifier)
 		let itemIdentifier = convertIDToItemIdentifier(placeholderMetadata.id!)
 
@@ -228,8 +236,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func copyItem(from sourceURL: URL, to targetURL: URL, itemMetadata: ItemMetadata) throws {
-		let fileCoordinator = NSFileCoordinator()
-		let stopAccess = sourceURL.startAccessingSecurityScopedResource()
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
 		fileCoordinator.coordinate(readingItemAt: sourceURL, options: .withoutChanges, error: &fileCoordinatorError) { _ in
@@ -239,9 +245,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			} catch let error as NSError {
 				fileManagerError = error as NSError
 			}
-		}
-		if stopAccess {
-			sourceURL.stopAccessingSecurityScopedResource()
 		}
 		if let error = fileManagerError ?? fileCoordinatorError {
 			throw error
@@ -316,8 +319,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		itemMetadata.statusCode = ItemStatus.isUploading
 		let uploadTaskRecord: UploadTaskRecord
 		do {
-			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
-			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+			let lastModifiedDate = try lastModifiedDateOfItem(at: localURL)
 			try itemMetadataManager.updateMetadata(itemMetadata)
 			try uploadTaskManager.removeTaskRecord(for: itemMetadata)
 			uploadTaskRecord = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
@@ -327,6 +329,24 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			throw NSFileProviderError(.noSuchItem)
 		}
 		return uploadTaskRecord
+	}
+
+	private func lastModifiedDateOfItem(at url: URL) throws -> Date? {
+		var fileManagerError: NSError?
+		var fileCoordinatorError: NSError?
+		var lastModifiedDate: Date?
+		fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &fileCoordinatorError) { _ in
+			do {
+				let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+				lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+			} catch let error as NSError {
+				fileManagerError = error as NSError
+			}
+		}
+		if let error = fileManagerError ?? fileCoordinatorError {
+			throw error
+		}
+		return lastModifiedDate
 	}
 
 	// MARK: Create Directory
