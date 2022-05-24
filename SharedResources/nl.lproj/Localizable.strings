@@ -10,6 +10,8 @@
 "common.button.cancel" = "Annuleren";
 "common.button.change" = "Wijzig";
 "common.button.choose" = "Kies";
+"common.button.clear" = "Wissen";
+"common.button.close" = "Sluiten";
 "common.button.confirm" = "Bevestig";
 "common.button.create" = "Maak";
 "common.button.createFolder" = "Map aanmaken";
@@ -20,6 +22,7 @@
 "common.button.next" = "Volgende";
 "common.button.ok" = "Ok";
 "common.button.remove" = "Verwijderen";
+"common.button.retry" = "Opnieuw proberen";
 "common.button.signOut" = "Uitloggen";
 "common.button.verify" = "Verifiëren";
 "common.cells.openInFilesApp" = "Open in Bestanden App";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Ontgrendeling vereist";
 "fileProvider.error.defaultLock.message" = "Om toegang te krijgen tot de inhoud van je kluis, moet deze worden ontgrendeld.";
 "fileProvider.error.unlockButton" = "Ontgrendel";
+"fileProvider.clearFileFromCache.title" = "Wissen uit cache";
+"fileProvider.clearFileFromCache.message" = "Dit verwijdert alleen het lokale bestand van uw apparaat en verwijdert het bestand in de cloud niet.";
+"fileProvider.uploadProgress.connecting" = "Verbinden…";
+"fileProvider.uploadProgress.message" = "Huidige vooruitgang: %@\n\n Als je merkt dat de upload vastzit, dan kan je deze opnieuw proberen.";
+"fileProvider.uploadProgress.missing" = "De vooruitgang kon niet worden bepaald. Misschien wordt deze nog steeds op de achtergrond uitgevoerd.";
+"fileProvider.uploadProgress.title" = "Uploaden…";
+"fileProvider.uploadProgress.missingDomainError" = "Kan domein niet vinden.";
 
 "keepUnlocked.alert.title" = "Kluis vergrendelen?";
 "keepUnlocked.alert.message" = "Deze wijziging vereist dat je kluis vergrendeld is om van kracht te worden.";
@@ -137,6 +147,7 @@
 "purchase.product.lifetimeLicense.duration" = "eenmalig";
 "purchase.product.pricing.free" = "Gratis";
 "purchase.product.trial" = "30-dagen proefperiode";
+"purchase.product.trial.expirationDate" = "Vervaldatum: %@";
 "purchase.product.trial.duration" = "voor 30 dagen";
 "purchase.product.yearlySubscription" = "Jaarabonnement";
 "purchase.product.yearlySubscription.duration" = "jaarlijks";
@@ -148,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Herstellen geslaagd";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Geen volledige versie";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "We konden geen eerder aangeschafte volledige versie vinden die hersteld kon worden. Probeer een andere optie.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Komt in aanmerking voor upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Het lijkt erop dat u probeert te upgraden via een oudere versie van Cryptomator. In dat geval, selecteer de \"Upgrade-aanbieding\" optie.";
 "purchase.retry.button" = "Opnieuw proberen";
 "purchase.retry.footer" = "De beschikbare producten konden niet worden geladen.";
 "purchase.title" = "Volledige versie ontgrendelen";
@@ -249,3 +262,9 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "HTTP behouden";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server lijkt niet compatibel te zijn met WebDAV. Controleer of je de juiste URL hebt gebruikt.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certificaat van deze server is niet vertrouwd. Je moet mogelijk deze WebDAV verbinding opnieuw toevoegen.";
+
+"Retry Upload" = "Upload nogmaals proberen";
+"Clear from Cache" = "Wissen uit cache";

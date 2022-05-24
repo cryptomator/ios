@@ -10,6 +10,7 @@
 "common.button.cancel" = "Anulează";
 "common.button.change" = "Modifică";
 "common.button.choose" = "Alegeți";
+"common.button.close" = "Închide";
 "common.button.confirm" = "Confirmați";
 "common.button.create" = "Creează";
 "common.button.createFolder" = "Creează dosar";
@@ -19,6 +20,7 @@
 "common.button.next" = "Următor";
 "common.button.ok" = "OK";
 "common.button.remove" = "Șterge";
+"common.button.retry" = "Încercați din nou";
 "common.button.signOut" = "Deconectare";
 "common.button.verify" = "Verifică";
 "common.cells.openInFilesApp" = "Deschide în aplicația de fișiere";

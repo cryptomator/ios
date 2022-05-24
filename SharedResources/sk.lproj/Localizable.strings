@@ -10,6 +10,8 @@
 "common.button.cancel" = "Zrušiť";
 "common.button.change" = "Zmeniť";
 "common.button.choose" = "Vybrať";
+"common.button.clear" = "Vymazať";
+"common.button.close" = "Zavrieť";
 "common.button.confirm" = "Potvrdiť";
 "common.button.create" = "Vytvoriť";
 "common.button.createFolder" = "Vytvoriť adresár";
@@ -20,6 +22,7 @@
 "common.button.next" = "Ďalej";
 "common.button.ok" = "OK";
 "common.button.remove" = "Odstrániť";
+"common.button.retry" = "Skúsiť znovu";
 "common.button.signOut" = "Odhlásiť";
 "common.button.verify" = "Overiť";
 "common.cells.openInFilesApp" = "Otvoriť v súborovej aplikácii";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Odomknutie požadované";
 "fileProvider.error.defaultLock.message" = "K prístupu a videniu obsahu Vášho trezora, musí byť odomknutý.";
 "fileProvider.error.unlockButton" = "Odomknúť";
+"fileProvider.clearFileFromCache.title" = "Vymazať súbor z Cache";
+"fileProvider.clearFileFromCache.message" = "Toto odstráni lokálny súbor iba z Vašeho zariadenia a neodstráni súbor v cloude.";
+"fileProvider.uploadProgress.connecting" = "Pripájanie…";
+"fileProvider.uploadProgress.message" = "Aktuálny priebeh: %@\n\nV prípade, že pozorujete zaseknutý priebeh nahrávania, môžte zopakovať nahrávanie.";
+"fileProvider.uploadProgress.missing" = "Pokrok nebol spozorovaný. Môže však stále prebiehať na pozadí.";
+"fileProvider.uploadProgress.title" = "Nahrávanie…";
+"fileProvider.uploadProgress.missingDomainError" = "Nepodarilo sa nájsť doménu.";
 
 "keepUnlocked.alert.title" = "Zamknúť trezor?";
 "keepUnlocked.alert.message" = "Táto zmena vyžaduje Váš trezor uzamknúť aby sa príkaz uplatnil.";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovenie úspešné";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nie Plná Verzia";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nevieme nájsť predchádzajúcu zakúpenú plnú verziu čo by mohla byť obnovená. Prosím skúste inú možnosť.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Vhodný pre aktualizáciu";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Zdá sa že sa pokúšate o aktualizáciu zo staršej verzie Cryptomator-a. V tomto prípade prosím radšej vyberte voľbu \"Aktualizačná ponuka\".";
 "purchase.retry.button" = "Skúsiť znovu";
 "purchase.retry.footer" = "Nemôžem nahrať dostupné produkty.";
 "purchase.title" = "Odomknúť plnú verziu";
@@ -252,3 +264,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Zdá sa že server nie je WebDAV kompatibilný. Prosím skontrolujte či ste použili správnu URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Certifikát tohto servera nie je dôveryhodný. Môžte znovu-pridať toto WebDAV spojenie.";
+
+"Retry Upload" = "Opakovať nahratie";
+"Clear from Cache" = "Vymazať z Cache";

@@ -1,3 +1,4 @@
-- Added Bangla and Croatian translations
-- Fixed unexpected background activity, which may have caused battery drain issues in some cases (#206, #212)
-- Fixed cleanup of residual vaults after reinstalling the app (#209)
+- Failed uploads are now actually shown with an error instead of being stuck in "Waiting"
+- Added "Retry Upload" action (#219)
+- Added "Clear from Cache" action (#149, #220)
+- Added Chinese (Traditional & Hong Kong) and Swahili (Tanzania) translations

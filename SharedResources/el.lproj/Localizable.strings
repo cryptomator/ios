@@ -10,6 +10,8 @@
 "common.button.cancel" = "Ακύρωση";
 "common.button.change" = "Αλλαγή";
 "common.button.choose" = "Επιλογή";
+"common.button.clear" = "Εκκαθάριση";
+"common.button.close" = "Κλείσιμο";
 "common.button.confirm" = "Επιβεβαίωση";
 "common.button.create" = "Δημιουργία";
 "common.button.createFolder" = "Δημιουργία Φακέλου";
@@ -20,6 +22,7 @@
 "common.button.next" = "Επόμενο";
 "common.button.ok" = "ΟΚ";
 "common.button.remove" = "Αφαίρεση";
+"common.button.retry" = "Επανάληψη";
 "common.button.signOut" = "Αποσύνδεση";
 "common.button.verify" = "Επαλήθευση";
 "common.cells.openInFilesApp" = "Άνοιγμα στην εφαρμογή Αρχείων";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Απαιτείται Ξεκλείδωμα";
 "fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
+"fileProvider.clearFileFromCache.title" = "Εκκαθάριση αρχείου από την προσωρινή μνήμη";
+"fileProvider.clearFileFromCache.message" = "Αυτό καταργεί μόνο το τοπικό αρχείο από τη συσκευή σας και δεν διαγράφει το αρχείο στο cloud.";
+"fileProvider.uploadProgress.connecting" = "Σύνδεση…";
+"fileProvider.uploadProgress.message" = "Τρέχουσα Πρόοδος: %@%\n\nΑν παρατηρήσετε ότι η πρόοδος μεταφόρτωσης έχει κολλήσει, μπορείτε να δοκιμάσετε ξανά τη μεταφόρτωση.";
+"fileProvider.uploadProgress.missing" = "Η πρόοδος δεν μπορεί να καθοριστεί. Μπορεί να εκτελείται στο παρασκήνιο.";
+"fileProvider.uploadProgress.title" = "Μεταφόρτωση…";
+"fileProvider.uploadProgress.missingDomainError" = "Δεν ήταν δυνατή η εύρεση του τομέα.";
 
 "keepUnlocked.alert.title" = "Κλείδωμα Κρύπτης;";
 "keepUnlocked.alert.message" = "Αυτή η αλλαγή απαιτεί η κρύπτη σας να κλειδωθεί για να τεθεί σε ισχύ.";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Επιτυχής Επαναφορά";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Χωρίς Πλήρη Έκδοση";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Δεν ήταν δυνατή η εύρεση μιας προηγούμενης πλήρους έκδοσης που θα μπορούσε να αποκατασταθεί. Παρακαλώ δοκιμάστε μια άλλη επιλογή.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Επιλέξιμο για αναβάθμιση";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Φαίνεται ότι προσπαθείτε να κάνετε αναβάθμιση από μια παλαιότερη έκδοση του Cryptomator. Σε αυτήν την περίπτωση, επιλέξτε την επιλογή \"Προσφορά Αναβάθμισης\".";
 "purchase.retry.button" = "Επανάληψη";
 "purchase.retry.footer" = "Δεν ήταν δυνατή η φόρτωση των διαθέσιμων προϊόντων.";
 "purchase.title" = "Ξεκλείδωμα Πλήρους Έκδοσης";
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Ο διακομιστής δε φαίνεται να είναι συμβατός με WebDAV. Παρακαλώ ελέγξτε αν έχετε χρησιμοποιήσει τη σωστή διεύθυνση URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Το πιστοποιητικό αυτού του διακομιστή δεν είναι έμπιστο. Ίσως χρειαστεί να προσθέσετε ξανά αυτή τη σύνδεση WebDAV.";
+
+"Retry Upload" = "Δοκιμάστε ξανά τη μεταφόρτωση";
+"Clear from Cache" = "Εκκαθάριση από τη μνήμη Cache";

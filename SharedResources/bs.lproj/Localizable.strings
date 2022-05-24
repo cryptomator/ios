@@ -1,6 +1,7 @@
 "common.button.cancel" = "Odustani";
 "common.button.change" = "Izmjeni";
 "common.button.choose" = "Odaberi";
+"common.button.close" = "Zatvori";
 "common.button.confirm" = "Potvrdi";
 "common.button.create" = "Dodaj";
 "common.button.createFolder" = "Napravi folder";

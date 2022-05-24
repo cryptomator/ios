@@ -157,9 +157,16 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 		return metadata.tagData
 	}
 
-	/// Workaround to access the `isUploading` and `uploadingError` property in the `NSExtensionFileProviderActionActivationRule`
+	/**
+	 Dictionary to add state information to the item. Entries are accessible to
+	 user interaction predicates via the `Info.plist` of the FileProviderExtensionUI
+
+	 Used to enable the customized FileProviderExtensionUI actions.
+	 */
 	public var userInfo: [AnyHashable: Any]? {
-		return ["isUploading": isUploading,
-		        "hasUploadError": uploadingError != nil]
+		let isFolder = typeIdentifier == kUTTypeFolder as String
+		return ["enableRetryWaitingUploadAction": uploadingError == nil && isUploading && !isFolder,
+		        "enableRetryFailedUploadAction": uploadingError != nil,
+		        "enableEvictFileFromCacheAction": !isUploading && !isDownloading && isDownloaded && !isFolder]
 	}
 }

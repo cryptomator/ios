@@ -10,6 +10,8 @@
 "common.button.cancel" = "取消";
 "common.button.change" = "更改";
 "common.button.choose" = "选择";
+"common.button.clear" = "清除";
+"common.button.close" = "关闭";
 "common.button.confirm" = "确认";
 "common.button.create" = "新建";
 "common.button.createFolder" = "新建文件夹";
@@ -20,6 +22,7 @@
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
 "common.button.remove" = "删除";
+"common.button.retry" = "重试";
 "common.button.signOut" = "退出登录";
 "common.button.verify" = "验证";
 "common.cells.openInFilesApp" = "在文管应用中打开";
@@ -76,7 +79,7 @@
 
 "cloudProvider.error.itemNotFound" = "找不到 %@\"。";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" 已存在。";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个不寻常的项目类型。";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" 有一个非预期的文件类型。";
 "cloudProvider.error.parentFolderDoesNotExist" = "父文件夹 \"%@\" 不存在。";
 "cloudProvider.error.pageTokenInvalid" = "无法继续获取目录内容。";
 "cloudProvider.error.quotaInsufficient" = "您的存储空间不足。";
@@ -95,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "需要解锁";
 "fileProvider.error.defaultLock.message" = "需解锁才能访问和显示您的保险库中的内容。";
 "fileProvider.error.unlockButton" = "解锁";
+"fileProvider.clearFileFromCache.title" = "清除缓存文件";
+"fileProvider.clearFileFromCache.message" = "该操作仅会删除设备中的本地文件，不会删除云存储中的文件";
+"fileProvider.uploadProgress.connecting" = "正在连接…";
+"fileProvider.uploadProgress.message" = "当前进度：%@\n\n若发现上传进度卡住，请重试上传";
+"fileProvider.uploadProgress.missing" = "无法确定上传进度，可能仍在后台运行";
+"fileProvider.uploadProgress.title" = "正在上传…";
+"fileProvider.uploadProgress.missingDomainError" = "找不到域名";
 
 "keepUnlocked.alert.title" = "锁定保险库？";
 "keepUnlocked.alert.message" = "此更改需要锁定您的保险库才能生效。";
@@ -149,6 +159,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "恢复成功";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "未购买完整版";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我们无法找到可供恢复的完整版本。请尝试其他选项。";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "升级资格";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "似乎您正在从 Cryptomator 的旧版本进行升级。在这种情况下，请选择“升级优惠”选项。";
 "purchase.retry.button" = "重试";
 "purchase.retry.footer" = "无法加载可用产品。";
 "purchase.title" = "解锁完整版";
@@ -164,7 +176,7 @@
 "settings.cloudServices" = "云服务";
 "settings.contact" = "联系";
 "settings.debugMode" = "调试模式";
-"settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住尽快关闭调试模式";
+"settings.debugMode.alert.message" = "在此模式下，敏感数据可能会写入您设备上的日志文件 (例如文件名和路径)。密码、cookies等除外\n\n请记住要尽快关闭调试模式";
 "settings.manageSubscriptions" = "管理订阅";
 "settings.rateApp" = "给应用评分";
 "settings.sendLogFile" = "发送日志文件";
@@ -211,7 +223,7 @@
 "urlSession.error.httpError.409" = "请求与目标资源的当前状态冲突。";
 "urlSession.error.httpError.412" = "访问目标资源受阻。";
 "urlSession.error.httpError.default" = "网络连接失败，状态代码 %ld。";
-"urlSession.error.unexpectedResponse" = "意外的网络响应。";
+"urlSession.error.unexpectedResponse" = "非预期的网络响应。";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已添加了此保险库";
 
@@ -253,3 +265,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "服务器似乎不兼容 WebDAV，请检查链接是否正确";
 "webDAVAuthenticator.error.untrustedCertificate" = "此服务器的证书不受信任，你可能需要重新添加此 WebDAV 连接";
+
+"Retry Upload" = "重试上传";
+"Clear from Cache" = "清除缓存";
