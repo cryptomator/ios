@@ -28,6 +28,31 @@ public protocol FileProviderAdapterType: AnyObject {
 	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
 	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
 	func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier)
+	func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier>
+}
+
+extension FileProviderAdapterType {
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) async throws -> NSFileProviderItem {
+		return try await withCheckedThrowingContinuation({ continuation in
+			importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier) { item, error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume(returning: item!)
+				}
+			}
+		})
+	}
+
+	func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier {
+		return try await withCheckedThrowingContinuation({ continuation in
+			getItemIdentifier(for: cloudPath).then {
+				continuation.resume(returning: $0)
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
+	}
 }
 
 public class FileProviderAdapter: FileProviderAdapterType {
@@ -796,6 +821,45 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return
 		}
 		completionHandler(fileProviderItem, nil)
+	}
+
+	public func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier> {
+		if cloudPath == CloudPath("/") {
+			return Promise(.rootContainer)
+		}
+		let parentCloudPath = cloudPath.deletingLastPathComponent()
+		let parentItemMetadata: ItemMetadata?
+		do {
+			parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentCloudPath)
+		} catch {
+			return Promise(error)
+		}
+		let parentItemIdentifier: Promise<NSFileProviderItemIdentifier>
+
+		if let parentItemMetadata = parentItemMetadata {
+			parentItemIdentifier = Promise(NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: parentItemMetadata.id!))
+		} else {
+			parentItemIdentifier = getItemIdentifier(for: parentCloudPath)
+		}
+
+		return parentItemIdentifier.then {
+			self.enumerateItemsExtensively(for: $0)
+		}.then { itemList -> NSFileProviderItemIdentifier in
+			let items = itemList.items
+			guard let item = items.first(where: { $0.metadata.cloudPath == cloudPath }) else {
+				throw NSFileProviderError(.noSuchItem)
+			}
+			return item.itemIdentifier
+		}
+	}
+
+	func enumerateItemsExtensively(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String? = nil) -> Promise<FileProviderItemList> {
+		return enumerateItems(for: identifier, withPageToken: pageToken).then { itemList -> Promise<FileProviderItemList>in
+			if let pageToken = pageToken {
+				return self.enumerateItemsExtensively(for: identifier, withPageToken: pageToken)
+			}
+			return Promise(itemList)
+		}
 	}
 
 	// MARK: Internal
