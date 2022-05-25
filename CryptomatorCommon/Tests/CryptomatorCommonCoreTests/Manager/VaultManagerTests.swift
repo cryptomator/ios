@@ -149,7 +149,7 @@ class VaultManagerTests: XCTestCase {
 			}
 			XCTAssertEqual(uploadedVaultConfigToken, savedVaultConfigToken)
 			let vaultConfig = try UnverifiedVaultConfig(token: savedVaultConfigToken)
-			XCTAssertEqual(.sivCtrMac, vaultConfig.allegedCipherCombo)
+			XCTAssertEqual("SIV_CTRMAC", vaultConfig.allegedCipherCombo)
 			XCTAssertEqual(8, vaultConfig.allegedFormat)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
