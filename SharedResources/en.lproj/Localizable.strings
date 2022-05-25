@@ -107,7 +107,7 @@
 "fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";
 
 "getFolderIntent.error.missingPath" = "No path was provided. Please provide a valid path for which a folder should be returned.";
-"getFolderIntent.error.noVaultSelected" = "No Vault has been selected.";
+"getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";
 "intents.saveFile.missingTemporaryFolder" = "Failed to create temporary folder.";
