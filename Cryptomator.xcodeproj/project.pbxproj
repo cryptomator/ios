@@ -1255,10 +1255,10 @@
 				4A51E5FD261C9A7000CC8C9B /* CryptomatorCommonHostedTests */,
 				740375D82587AE7B0023FF53 /* CryptomatorFileProvider */,
 				4A2245D124A5E16300DBA437 /* CryptomatorFileProviderTests */,
+				4AD3D7D7282EBDE7008188CD /* CryptomatorIntents */,
 				4AE97DC024572E4A00452814 /* CryptomatorTests */,
 				4AA621D7249A6A8400A0BCBD /* FileProviderExtension */,
 				4AA621E5249A6A8400A0BCBD /* FileProviderExtensionUI */,
-				4AD3D7D7282EBDE7008188CD /* CryptomatorIntents */,
 				4A828287252617D600A4EAD4 /* Frameworks */,
 				4A5E5B2A2453119100BD6298 /* Products */,
 				74D365BC268B965B005ECD69 /* SharedResources */,
@@ -1534,7 +1534,7 @@
 			isa = PBXGroup;
 			children = (
 				4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */,
-        4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */,
+				4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */,
 				4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */,
 				4AA2531A28216E45003B45EE /* ServiceSource.swift */,
 				4AA2531828216BFD003B45EE /* UploadRetryingServiceSource.swift */,
@@ -1657,8 +1657,8 @@
 				4ABB4626282EBE4B00968C5E /* Intents.intentdefinition */,
 				4AD3D7DA282EBDE7008188CD /* Info.plist */,
 				4AA08E7E28379C6100972A15 /* GetFolderIntentHandler.swift */,
-				4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */,
 				4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */,
+				4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */,
 				4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */,
 			);
 			path = CryptomatorIntents;
@@ -2220,8 +2220,8 @@
 				4AA621E3249A6A8400A0BCBD /* FileProviderExtensionUI */,
 				740375D62587AE7A0023FF53 /* CryptomatorFileProvider */,
 				4A2245CF24A5E16300DBA437 /* CryptomatorFileProviderTests */,
-				4A136120276767D60077EB7F /* Snapshots */,
 				4AD3D7D3282EBDE7008188CD /* CryptomatorIntents */,
+				4A136120276767D60077EB7F /* Snapshots */,
 			);
 		};
 /* End PBXProject section */
@@ -3264,41 +3264,32 @@
 		4AD3D7DE282EBDE7008188CD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = CryptomatorIntents/CryptomatorIntents.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = AUTOMATIC;
 				DEVELOPMENT_TEAM = YZQJQUHA3L;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.4;
+				MARKETING_VERSION = 2.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match Development org.cryptomator.ios.intents";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		4AD3D7DF282EBDE7008188CD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
 				CODE_SIGN_ENTITLEMENTS = CryptomatorIntents/CryptomatorIntents.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
@@ -3308,20 +3299,17 @@
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 2.2.4;
+				MARKETING_VERSION = 2.2.5;
 				PRODUCT_BUNDLE_IDENTIFIER = org.cryptomator.ios.intents;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.cryptomator.ios.intents";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
