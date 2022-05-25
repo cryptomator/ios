@@ -27,9 +27,8 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 
 	func createVault(at url: URL) throws {
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
-
-		let cryptor = Cryptor(masterkey: masterkey)
+		let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
+		let cryptor = Cryptor(masterkey: masterkey, scheme: .sivCtrMac)
 		let rootDirPath = try getRootDirectoryURL(for: cryptor, vaultURL: url)
 		try FileManager.default.createDirectory(at: rootDirPath, withIntermediateDirectories: true, attributes: nil)
 		let masterkeyData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: "password", scryptCostParam: 2)
@@ -42,7 +41,7 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 
 	func createLegacyVault(at url: URL) throws {
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
-		let cryptor = Cryptor(masterkey: masterkey)
+		let cryptor = Cryptor(masterkey: masterkey, scheme: .sivCtrMac)
 		let rootDirPath = try getRootDirectoryURL(for: cryptor, vaultURL: url)
 		try FileManager.default.createDirectory(at: rootDirPath, withIntermediateDirectories: true, attributes: nil)
 		let masterkeyData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 7, passphrase: "password", scryptCostParam: 2)
