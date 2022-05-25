@@ -10,6 +10,7 @@
 "common.button.cancel" = "Zrušit";
 "common.button.change" = "Změnit";
 "common.button.choose" = "Vybrat";
+"common.button.clear" = "Smazat";
 "common.button.close" = "Zavřít";
 "common.button.confirm" = "Potvrdit";
 "common.button.create" = "Vytvořit";
@@ -37,6 +38,7 @@
 
 "addVault.title" = "Přidat trezor";
 "addVault.createNewVault.title" = "Vytvořit nový trezor";
+"addVault.createNewVault.purchase" = "Vytvoření nového trezoru vyžaduje plnou verzi Cryptomatoru.";
 "addVault.createNewVault.setVaultName.header.title" = "Zvolte jméno trezoru.";
 "addVault.createNewVault.setVaultName.cells.name" = "Název trezoru";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Je potřeba zadat název trezoru.";
@@ -96,6 +98,13 @@
 "fileProvider.error.defaultLock.title" = "Požadováno odemknutí";
 "fileProvider.error.defaultLock.message" = "Pro přístup a zobrazení obsahu vašeho trezoru musí být trezor odemčen.";
 "fileProvider.error.unlockButton" = "Odemknout";
+"fileProvider.clearFileFromCache.title" = "Smazat soubor z mezipaměti";
+"fileProvider.clearFileFromCache.message" = "Pouze smaže soubor z Vašeho zařízení a ponechá soubor v cloudu.";
+"fileProvider.uploadProgress.connecting" = "Připojování…";
+"fileProvider.uploadProgress.message" = "Aktuální průběh: %@\n\nPokud se domníváte, že proces nahrávání je zaseknutý, můžete zkusit nahrávání znovu.";
+"fileProvider.uploadProgress.missing" = "Průběh nebylo možné zjistit. Může nadále pokračovat na pozadí.";
+"fileProvider.uploadProgress.title" = "Nahrávání…";
+"fileProvider.uploadProgress.missingDomainError" = "Doména nebyla nalezena.";
 
 "keepUnlocked.alert.title" = "Zamknout trezor?";
 "keepUnlocked.alert.message" = "Tato změna vyžaduje uzamčení trezoru pro projevení.";
@@ -126,17 +135,38 @@
 "onboarding.button.continue" = "Pokračovat";
 
 "purchase.beginFreeTrial.alert.title" = "Zkušební verze odemčena";
+"purchase.expiredTrial" = "Vaše zkušební verze vypršela.";
+"purchase.footer.privacyPolicy" = "Ochrana osobních údajů";
+"purchase.footer.termsOfUse" = "Podmínky používání";
+"purchase.header.feature.familySharing" = "Rodinné sdílení";
+"purchase.header.feature.openSource" = "Vývoj Open-source";
+"purchase.header.feature.writeAccess" = "Zápis do vašeho trezoru";
+"purchase.product.donateAndUpgrade" = "Přispějte a upgradujte";
+"purchase.product.freeUpgrade" = "Bezplatný upgrade";
+"purchase.product.lifetimeLicense" = "Doživotní licence";
+"purchase.product.lifetimeLicense.duration" = "jednorázově";
+"purchase.product.pricing.free" = "Zdarma";
+"purchase.product.trial" = "30denní zkušební verze";
+"purchase.product.trial.expirationDate" = "Datum expirace: %@";
+"purchase.product.trial.duration" = "na 30 dní";
+"purchase.product.yearlySubscription" = "Roční předplatné";
+"purchase.product.yearlySubscription.duration" = "ročně";
+"purchase.readOnlyMode.alert.title" = "Režim jen pro čtení";
+"purchase.readOnlyMode.alert.message" = "Plnou verzi Cryptomatoru můžete později odemknout v nastavení a pro tuto chvíli použít Cryptomator v režimu jen pro čtení.";
 "purchase.restorePurchase.button" = "Obnovit nákup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Zkušební verze pokračuje";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Nyní můžete použít plnou verzi Cryptomatoru na omezenou dobu. Vaše zkušební verze vyprší %@. Poté budou vaše trezory stále dostupné v režimu jen pro čtení.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Obnovení bylo úspěšné";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Žádná plná verze";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nebyli jsme schopni najít dříve zakoupenou plnou verzi, která by mohla být obnovena. Zkuste prosím jinou možnost.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Upgrade je dostupný";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Zdá se, že se pokoušíte upgradovat ze starší verze Cryptomatoru. V takovém případě prosím vyberte možnost \"Nabídka na Upgrade\".";
 "purchase.retry.button" = "Opakovat";
 "purchase.retry.footer" = "Nelze načíst dostupné produkty.";
 "purchase.title" = "Odemknout plnou verzi";
 "purchase.unlockedFullVersion.message" = "Nyní můžete použít plnou verzi Cryptomatoru. Šťastné šifrování!";
 "purchase.unlockedFullVersion.title" = "Děkuji";
+"purchase.error.unknown" = "Tento nákup není z neznámého důvodu v App Store dostupný. Opakujte, prosím, akci později.\n\nPokud tato chyba přetrvává, zkuste restartovat Vaše zařízení nebo se odhlásit a přihlásit znovu k Vašemu Apple ID v nastavení iOS.";
 
 "settings.title" = "Nastavení";
 "settings.aboutCryptomator" = "O Cryptomatoru";
@@ -165,6 +195,9 @@
 "snapshots.main.vault3" = "/Dokumenty";
 "snapshots.main.vault4" = "/výlet do Kalifornie";
 
+"trialStatus.active" = "Aktivní";
+"trialStatus.expired" = "Expirováno";
+
 "unlockVault.button.unlock" = "Odemknout";
 "unlockVault.button.unlockVia" = "Odemknout pomocí %@";
 "unlockVault.password.footer" = "Zadejte heslo pro \"%@\".";
@@ -177,8 +210,11 @@
 "untrustedTLSCertificate.message" = "TLS certifikát \"%@\" je neplatný. Chcete mu přesto důvěřovat?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Důvěřovat";
 "untrustedTLSCertificate.dismiss" = "Nedůvěřovat";
+
+"upgrade.title" = "Nabídka na Upgrade";
 "upgrade.notEligible.alert.title" = "Upgrade se nezdařil";
 "upgrade.notEligible.alert.message" = "Cryptomator nemohl najít starší verzi nainstalovanou na vašem zařízení. Pokud jste si ji zakoupili, stáhněte si ji prosím znovu z App Store a zkuste to znovu.";
+"upgrade.info" = "Děkujeme, že důvěřujete Cryptomatoru od první verze. Jako věrný uživatel máte nárok na bezplatný upgrade.";
 
 "urlSession.error.httpError.401" = "Nesprávné uživatelské jméno a/nebo heslo.";
 "urlSession.error.httpError.403" = "Nedostatečná práva k požadovanému zdroji.";
@@ -226,3 +262,9 @@
 "webDAVAuthentication.httpConnection.alert.message" = "Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Změnit na HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Zachovat HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Server není kompatibilní s WebDAV. Zkontrolujte, zda jste použili správnou adresu.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certifikát tohoto serveru není důvěryhodný. Možná budete muset znovu přidat toto WebDAV připojení.";
+
+"Retry Upload" = "Opakovat nahrání";
+"Clear from Cache" = "Smazat z mezipaměti";
