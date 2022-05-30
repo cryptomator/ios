@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Kilidi Aç";
 "fileProvider.clearFileFromCache.title" = "Dosyayı Önbellekten Temizle";
 "fileProvider.clearFileFromCache.message" = "Bu yalnızca cihazınızdan yerel dosyayı kaldırır ve bulut içindeki dosyayı silmez.";
+"fileProvider.fileImporting.error.missingPremium" = "Kasalarınıza yazma erişimi elde etmek için Cryptomator uygulamasında tam sürümün kilidini açın.";
 "fileProvider.uploadProgress.connecting" = "Bağlanıyor…";
 "fileProvider.uploadProgress.message" = "Mevcut Süreç: %@\n\nYükleme sürecinin takıldığını fark ederseniz, yeniden yüklemeyi deneyebilirsiniz.";
 "fileProvider.uploadProgress.missing" = "İlerleme saptanamadı. Hala arka planda çalışıyor olabilir.";
 "fileProvider.uploadProgress.title" = "Yükleniyor…";
 "fileProvider.uploadProgress.missingDomainError" = "Alan adı bulunamadı.";
+
+"getFolderIntent.error.missingPath" = "Dizin sağlanmadı. Lütfen bir klasörün döndürüleceği geçerli bir dizin sağlayın.";
+"getFolderIntent.error.noVaultSelected" = "Herhangi bir kasa seçili değil.";
+"intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";
+"intents.saveFile.invalidFolder" = "Sağlanan klasör geçersiz.";
+"intents.saveFile.missingTemporaryFolder" = "Geçici klasör oluşturulamadı.";
+"intents.saveFile.lockedVault" = "Bu kısayolu kullanmak için kasanızın kilidini açmanız gerekir.";
+"intents.saveFile.selectedVaultNotFound" = "Seçilen kasa bulunamadı.";
 
 "keepUnlocked.alert.title" = "Kasa kilitlensin mi?";
 "keepUnlocked.alert.message" = "Yaptığınız değişikliğin geçerli olması için kasanızın kilitlenmesi gerekmektedir.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Aboneliği Yönet";
 "settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
+"settings.shortcutsGuide" = "Kısayol Kılavuzu";
 "settings.unlockFullVersion" = "Tam Sürümün Kilidini Aç";
 
 "snapshots.fileprovider.file1" = "/Sayıları.hesaplıyor";
