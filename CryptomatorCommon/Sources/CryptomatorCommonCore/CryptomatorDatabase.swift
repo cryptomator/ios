@@ -34,8 +34,6 @@ public class CryptomatorDatabase {
 	}
 
 	static var migrator: DatabaseMigrator {
-		CryptomatorDatabase.cleanupOldDatabase()
-
 		var migrator = DatabaseMigrator()
 		migrator.registerMigration("v1") { db in
 			try v1Migration(db)
@@ -186,20 +184,5 @@ public class CryptomatorDatabase {
 				throw CryptomatorDatabaseError.dbDoesNotExist
 			}
 		}
-	}
-
-	/**
-	 Removes the old shared database (prior 2.0.0-beta9).
-
-	 The old shared database prior 2.0.0-beta9 does not support the new CloudProviderType with associated values for WebDAV and LocalFileSystem.
-	 Instead of simply nuking the existing database, we remove the old database (and change the path of the new database) as this also resolves issues when upgrading from an older testflight version to the release version.
-	 This function will be removed in the future.
-	 */
-	private static func cleanupOldDatabase() {
-		#warning("TODO (after April 2022): Remove this function")
-		guard let url = oldSharedDBURL else {
-			return
-		}
-		try? FileManager.default.removeItem(at: url)
 	}
 }
