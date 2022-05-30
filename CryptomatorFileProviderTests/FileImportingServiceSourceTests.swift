@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 @testable import Promises
 
@@ -16,6 +17,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 	var notificatorMock: FileProviderNotificatorTypeMock!
 	var adapterProvidingMock: FileProviderAdapterProvidingMock!
 	var urlProviderMock: LocalURLProviderMock!
+	var fullVersionCheckerMock: FullVersionCheckerMock!
 	let dbPath = FileManager.default.temporaryDirectory
 	let domain = NSFileProviderDomain(identifier: .test, displayName: "Foo", pathRelativeToDocumentStorage: "/")
 	let itemStub = FileProviderItem(metadata: .init(name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo"), isPlaceholderItem: false), domainIdentifier: .test)
@@ -24,12 +26,14 @@ class FileImportingServiceSourceTests: XCTestCase {
 		notificatorMock = FileProviderNotificatorTypeMock()
 		urlProviderMock = LocalURLProviderMock()
 		adapterProvidingMock = FileProviderAdapterProvidingMock()
-
+		fullVersionCheckerMock = FullVersionCheckerMock()
+		fullVersionCheckerMock.isFullVersion = true
 		serviceSource = FileImportingServiceSource(domain: domain,
 		                                           notificator: notificatorMock,
 		                                           dbPath: dbPath,
 		                                           delegate: urlProviderMock,
-		                                           adapterManager: adapterProvidingMock)
+		                                           adapterManager: adapterProvidingMock,
+		                                           fullVersionChecker: fullVersionCheckerMock)
 	}
 
 	func testGetItemIdentifier() throws {
@@ -53,6 +57,11 @@ class FileImportingServiceSourceTests: XCTestCase {
 		let itemIdentifierPromise = serviceSource.getIdentifierForItem(at: cloudPath)
 		let expectedWrappedError = ErrorWrapper.wrapError(UnlockMonitorError.defaultLock, domain: domain)
 		XCTAssertRejects(itemIdentifierPromise, with: expectedWrappedError._nsError)
+	}
+
+	func testGetItemIdentifierForTrial() throws {
+		fullVersionCheckerMock.isFullVersion = false
+		try testGetItemIdentifier()
 	}
 
 	func testImportFile() throws {
@@ -99,6 +108,15 @@ class FileImportingServiceSourceTests: XCTestCase {
 		let importFilePromise = serviceSource.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier.rawValue)
 		let expectedWrappedError = ErrorWrapper.wrapError(UnlockMonitorError.defaultLock, domain: domain)
 		XCTAssertRejects(importFilePromise, with: expectedWrappedError._nsError)
+	}
+
+	func testImportFileForTrial() throws {
+		fullVersionCheckerMock.isFullVersion = false
+		let localURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
+		let importFilePromise = serviceSource.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier.rawValue)
+		let expectedWrappedError = XPCErrorHelper.bridgeError(FileImportingServiceSourceError.missingPremium)
+		XCTAssertRejects(importFilePromise, with: expectedWrappedError)
 	}
 
 	private func assertAdapterProvidingMockGetAdapterCalled() {
