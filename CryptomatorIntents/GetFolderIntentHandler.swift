@@ -39,6 +39,10 @@ class GetFolderIntentHandler: NSObject, GetFolderIntentHandling {
 		let folderIdentifier: String
 		do {
 			folderIdentifier = try await getIdentifierForFolder(at: cloudPath, domainIdentifier: domainIdentifier)
+		} catch NSFileProviderError.notAuthenticated {
+			return GetFolderIntentResponse(failureReason: LocalizedString.getValue("intents.saveFile.lockedVault"))
+		} catch FileProviderXPCConnectorError.domainNotFound {
+			return GetFolderIntentResponse(failureReason: LocalizedString.getValue("intents.saveFile.selectedVaultNotFound"))
 		} catch {
 			return .failure(error)
 		}
