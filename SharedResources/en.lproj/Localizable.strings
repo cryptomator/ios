@@ -100,7 +100,7 @@
 "fileProvider.error.unlockButton" = "Unlock";
 "fileProvider.clearFileFromCache.title" = "Clear File from Cache";
 "fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
-"fileProvider.fileImporting.error.missingPremium" = "Files can only be imported if write access is available for the vault. To get write access, unlock the full version in the main app.";
+"fileProvider.fileImporting.error.missingPremium" = "Unlock the full version in the Cryptomator app to gain write access to your vaults.";
 "fileProvider.uploadProgress.connecting" = "Connecting…";
 "fileProvider.uploadProgress.message" = "Current Progress: %@\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
 "fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
