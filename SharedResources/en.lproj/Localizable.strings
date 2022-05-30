@@ -189,6 +189,7 @@
 "settings.manageSubscriptions" = "Manage Subscription";
 "settings.rateApp" = "Rate App";
 "settings.sendLogFile" = "Send Log File";
+"settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
