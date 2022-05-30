@@ -189,6 +189,7 @@
 "settings.manageSubscriptions" = "Gerenciar assinatura";
 "settings.rateApp" = "Avaliar App";
 "settings.sendLogFile" = "Enviar arquivo de log";
+"settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
