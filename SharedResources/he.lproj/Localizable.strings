@@ -51,6 +51,9 @@
 "fileProvider.uploadProgress.missing" = "לא ניתן לקבוע את תהליך ההתקדמות. ייתכן והתהליך עדיין רץ ברקע.";
 "fileProvider.uploadProgress.title" = "העלאה…";
 "fileProvider.uploadProgress.missingDomainError" = "לא ניתן למצוא את הדומיין.";
+"getFolderIntent.error.noVaultSelected" = "לא נבחר קובץ vault.";
+"intents.saveFile.invalidFolder" = "התיקייה שנבחרה איננה תקינה.";
+"intents.saveFile.selectedVaultNotFound" = "ה vault שנבחר לא נמצא.";
 
 "onboarding.title" = "ברוך הבא";
 "onboarding.button.continue" = "המשך";
