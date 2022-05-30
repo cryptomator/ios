@@ -28,6 +28,31 @@ public protocol FileProviderAdapterType: AnyObject {
 	func setFavoriteRank(_ favoriteRank: NSNumber?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
 	func setTagData(_ tagData: Data?, forItemIdentifier itemIdentifier: NSFileProviderItemIdentifier, completionHandler: @escaping (NSFileProviderItem?, Error?) -> Void)
 	func retryUpload(for itemIdentifier: NSFileProviderItemIdentifier)
+	func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier>
+}
+
+extension FileProviderAdapterType {
+	func importDocument(at fileURL: URL, toParentItemIdentifier parentItemIdentifier: NSFileProviderItemIdentifier) async throws -> NSFileProviderItem {
+		return try await withCheckedThrowingContinuation({ continuation in
+			importDocument(at: fileURL, toParentItemIdentifier: parentItemIdentifier) { item, error in
+				if let error = error {
+					continuation.resume(throwing: error)
+				} else {
+					continuation.resume(returning: item!)
+				}
+			}
+		})
+	}
+
+	func getItemIdentifier(for cloudPath: CloudPath) async throws -> NSFileProviderItemIdentifier {
+		return try await withCheckedThrowingContinuation({ continuation in
+			getItemIdentifier(for: cloudPath).then {
+				continuation.resume(returning: $0)
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
+	}
 }
 
 public class FileProviderAdapter: FileProviderAdapterType {
@@ -46,8 +71,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let fullVersionChecker: FullVersionChecker
 	private let workflowFactory: WorkflowFactoryLocking
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	private let fileCoordinator: NSFileCoordinator
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, coordinator: NSFileCoordinator, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager
@@ -72,6 +98,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
 		self.fullVersionChecker = fullVersionChecker
+		self.fileCoordinator = coordinator
 	}
 
 	/**
@@ -204,6 +231,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 - Postcondition: A `LocalCachedFileInfo` with the url of the copied file exists in the database and has as `correspondingItem` the `id` of the newly created `ItemMetadata` entry.
 	 */
 	func localItemImport(fileURL: URL, parentIdentifier: NSFileProviderItemIdentifier) throws -> LocalItemImportResult {
+		let stopAccess = fileURL.startAccessingSecurityScopedResource()
+		defer {
+			if stopAccess {
+				fileURL.stopAccessingSecurityScopedResource()
+			}
+		}
 		let placeholderMetadata = try createPlaceholderItemForFile(for: fileURL, in: parentIdentifier)
 		let itemIdentifier = convertIDToItemIdentifier(placeholderMetadata.id!)
 
@@ -228,8 +261,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func copyItem(from sourceURL: URL, to targetURL: URL, itemMetadata: ItemMetadata) throws {
-		let fileCoordinator = NSFileCoordinator()
-		let stopAccess = sourceURL.startAccessingSecurityScopedResource()
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
 		fileCoordinator.coordinate(readingItemAt: sourceURL, options: .withoutChanges, error: &fileCoordinatorError) { _ in
@@ -239,9 +270,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			} catch let error as NSError {
 				fileManagerError = error as NSError
 			}
-		}
-		if stopAccess {
-			sourceURL.stopAccessingSecurityScopedResource()
 		}
 		if let error = fileManagerError ?? fileCoordinatorError {
 			throw error
@@ -316,8 +344,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		itemMetadata.statusCode = ItemStatus.isUploading
 		let uploadTaskRecord: UploadTaskRecord
 		do {
-			let attributes = try FileManager.default.attributesOfItem(atPath: localURL.path)
-			let lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+			let lastModifiedDate = try lastModifiedDateOfItem(at: localURL)
 			try itemMetadataManager.updateMetadata(itemMetadata)
 			try uploadTaskManager.removeTaskRecord(for: itemMetadata)
 			uploadTaskRecord = try uploadTaskManager.createNewTaskRecord(for: itemMetadata)
@@ -327,6 +354,24 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			throw NSFileProviderError(.noSuchItem)
 		}
 		return uploadTaskRecord
+	}
+
+	private func lastModifiedDateOfItem(at url: URL) throws -> Date? {
+		var fileManagerError: NSError?
+		var fileCoordinatorError: NSError?
+		var lastModifiedDate: Date?
+		fileCoordinator.coordinate(readingItemAt: url, options: .withoutChanges, error: &fileCoordinatorError) { _ in
+			do {
+				let attributes = try FileManager.default.attributesOfItem(atPath: url.path)
+				lastModifiedDate = attributes[FileAttributeKey.modificationDate] as? Date
+			} catch let error as NSError {
+				fileManagerError = error as NSError
+			}
+		}
+		if let error = fileManagerError ?? fileCoordinatorError {
+			throw error
+		}
+		return lastModifiedDate
 	}
 
 	// MARK: Create Directory
@@ -776,6 +821,45 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			return
 		}
 		completionHandler(fileProviderItem, nil)
+	}
+
+	public func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier> {
+		if cloudPath == CloudPath("/") {
+			return Promise(.rootContainer)
+		}
+		let parentCloudPath = cloudPath.deletingLastPathComponent()
+		let parentItemMetadata: ItemMetadata?
+		do {
+			parentItemMetadata = try itemMetadataManager.getCachedMetadata(for: parentCloudPath)
+		} catch {
+			return Promise(error)
+		}
+		let parentItemIdentifier: Promise<NSFileProviderItemIdentifier>
+
+		if let parentItemMetadata = parentItemMetadata {
+			parentItemIdentifier = Promise(NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: parentItemMetadata.id!))
+		} else {
+			parentItemIdentifier = getItemIdentifier(for: parentCloudPath)
+		}
+
+		return parentItemIdentifier.then {
+			self.enumerateItemsExtensively(for: $0)
+		}.then { itemList -> NSFileProviderItemIdentifier in
+			let items = itemList.items
+			guard let item = items.first(where: { $0.metadata.cloudPath == cloudPath }) else {
+				throw NSFileProviderError(.noSuchItem)
+			}
+			return item.itemIdentifier
+		}
+	}
+
+	func enumerateItemsExtensively(for identifier: NSFileProviderItemIdentifier, withPageToken pageToken: String? = nil) -> Promise<FileProviderItemList> {
+		return enumerateItems(for: identifier, withPageToken: pageToken).then { itemList -> Promise<FileProviderItemList>in
+			if let pageToken = pageToken {
+				return self.enumerateItemsExtensively(for: identifier, withPageToken: pageToken)
+			}
+			return Promise(itemList)
+		}
 	}
 
 	// MARK: Internal

@@ -14,6 +14,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterManagerTests: XCTestCase {
+	let providerIdentifier = UUID().uuidString
 	let vaultUID = "VaultUID-12345"
 	lazy var domain = NSFileProviderDomain(vaultUID: vaultUID, displayName: "TestVault")
 	var fileProviderAdapterManager: FileProviderAdapterManager!
@@ -43,7 +44,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		workingSetObservationMock = WorkingSetObservingMock()
 		fileProviderNotificatorMock = FileProviderNotificatorTypeMock()
 		localURLProviderMock = LocalURLProviderMock()
-		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock, unlockMonitor: UnlockMonitor())
+		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock, unlockMonitor: UnlockMonitor(), providerIdentifier: providerIdentifier)
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
 		try FileManager.default.createDirectory(at: tmpURL, withIntermediateDirectories: false)

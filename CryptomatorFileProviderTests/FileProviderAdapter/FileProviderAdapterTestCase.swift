@@ -13,6 +13,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
+	let fileCoordinator = NSFileCoordinator()
 	var adapter: FileProviderAdapter!
 	var localURLProviderMock: LocalURLProviderMock!
 	var fullVersionCheckerMock: FullVersionCheckerMock!
@@ -35,6 +36,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              downloadTaskManager: downloadTaskManagerMock,
 		                              scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 1),
 		                              provider: cloudProviderMock,
+		                              coordinator: fileCoordinator,
 		                              notificator: fileProviderItemUpdateDelegateMock,
 		                              localURLProvider: localURLProviderMock,
 		                              fullVersionChecker: fullVersionCheckerMock)
@@ -59,7 +61,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	func createFullyMockedAdapter() -> FileProviderAdapter {
-		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, localURLProvider: localURLProviderMock)
+		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock)
 	}
 }
 

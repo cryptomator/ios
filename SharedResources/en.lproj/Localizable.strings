@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Unlock";
 "fileProvider.clearFileFromCache.title" = "Clear File from Cache";
 "fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Unlock the full version in the Cryptomator app to gain write access to your vaults.";
 "fileProvider.uploadProgress.connecting" = "Connecting…";
 "fileProvider.uploadProgress.message" = "Current Progress: %@\n\nIf you're noticing that the upload progress is stuck, you can retry the upload.";
 "fileProvider.uploadProgress.missing" = "Progress could not be determined. It may still be running in the background.";
 "fileProvider.uploadProgress.title" = "Uploading…";
 "fileProvider.uploadProgress.missingDomainError" = "Could not find domain.";
+
+"getFolderIntent.error.missingPath" = "No path was provided. Please provide a valid path for which a folder should be returned.";
+"getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
+"intents.saveFile.missingFile" = "The provided file is not valid.";
+"intents.saveFile.invalidFolder" = "The provided folder is not valid.";
+"intents.saveFile.missingTemporaryFolder" = "Failed to create temporary folder.";
+"intents.saveFile.lockedVault" = "You need to unlock your vault in order to use this shortcut.";
+"intents.saveFile.selectedVaultNotFound" = "Selected vault could not be found.";
 
 "keepUnlocked.alert.title" = "Lock Vault?";
 "keepUnlocked.alert.message" = "This change requires your vault to be locked in order to take effect.";
