@@ -189,6 +189,7 @@
 "settings.manageSubscriptions" = "Spravovať predplatné";
 "settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
+"settings.shortcutsGuide" = "Sprievodca skratkami";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
