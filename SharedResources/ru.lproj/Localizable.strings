@@ -107,6 +107,14 @@
 "fileProvider.uploadProgress.title" = "Загрузка…";
 "fileProvider.uploadProgress.missingDomainError" = "Домен не найден.";
 
+"getFolderIntent.error.missingPath" = "Не указан путь. Укажите правильный путь, по которому должна быть возвращена папка.";
+"getFolderIntent.error.noVaultSelected" = "Не выбрано хранилище.";
+"intents.saveFile.missingFile" = "Выбран некорректный файл.";
+"intents.saveFile.invalidFolder" = "Выбрана некорректная папка.";
+"intents.saveFile.missingTemporaryFolder" = "Не удалось создать папку для временных файлов.";
+"intents.saveFile.lockedVault" = "Чтобы использовать этот ярлык, нужно разблокировать хранилище.";
+"intents.saveFile.selectedVaultNotFound" = "Выбранное хранилище не найдено.";
+
 "keepUnlocked.alert.title" = "Заблокировать хранилище?";
 "keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать хранилище.";
 "keepUnlocked.alert.confirm" = "Подтвердить и заблокировать";
