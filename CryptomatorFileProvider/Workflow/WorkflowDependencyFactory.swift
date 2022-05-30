@@ -85,8 +85,7 @@ class WorkflowDependencyFactory {
 		}
 		let lock: Promise<Void> = all(dependencies).then { _ -> Void in
 			// no-op
-			#warning("TODO: Change log level to info after next TestFlight release")
-			DDLogDebug("acquired lock for path: \(path) - type: \(type)")
+			DDLogInfo("acquired lock for path: \(path) - type: \(type)")
 		}
 		addToCollection(lock, path: path, type: type)
 		lock.always {
@@ -103,8 +102,7 @@ class WorkflowDependencyFactory {
 	private func createUnlock(path: CloudPath, type: LockType, basedOn child: Promise<Void>) {
 		let unlock = child.then {
 			// no-op
-			#warning("TODO: Change log level to info after next TestFlight release")
-			DDLogDebug("released lock for path: \(path) - type: \(type)")
+			DDLogInfo("released lock for path: \(path) - type: \(type)")
 		}
 		addToCollection(unlock, path: path, type: type)
 		unlock.always {
