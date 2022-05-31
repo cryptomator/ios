@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Ontgrendel";
 "fileProvider.clearFileFromCache.title" = "Wissen uit cache";
 "fileProvider.clearFileFromCache.message" = "Dit verwijdert alleen het lokale bestand van uw apparaat en verwijdert het bestand in de cloud niet.";
+"fileProvider.fileImporting.error.missingPremium" = "Ontgrendel de volledige versie in de Cryptomator-app om schrijftoegang te krijgen tot uw kluizen.";
 "fileProvider.uploadProgress.connecting" = "Verbinden…";
 "fileProvider.uploadProgress.message" = "Huidige vooruitgang: %@\n\n Als je merkt dat de upload vastzit, dan kan je deze opnieuw proberen.";
 "fileProvider.uploadProgress.missing" = "De vooruitgang kon niet worden bepaald. Misschien wordt deze nog steeds op de achtergrond uitgevoerd.";
 "fileProvider.uploadProgress.title" = "Uploaden…";
 "fileProvider.uploadProgress.missingDomainError" = "Kan domein niet vinden.";
+
+"getFolderIntent.error.missingPath" = "Er is geen pad opgegeven. Geef een geldig pad om de folder weer te geven.";
+"getFolderIntent.error.noVaultSelected" = "Er is geen kluis geselecteerd.";
+"intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
+"intents.saveFile.invalidFolder" = "De opgegeven map is niet geldig.";
+"intents.saveFile.missingTemporaryFolder" = "Aanmaken van tijdelijke map mislukt.";
+"intents.saveFile.lockedVault" = "Je moet je kluis ontgrendelen om deze snelkoppeling te gebruiken.";
+"intents.saveFile.selectedVaultNotFound" = "Geselecteerde kluis kon niet worden gevonden.";
 
 "keepUnlocked.alert.title" = "Kluis vergrendelen?";
 "keepUnlocked.alert.message" = "Deze wijziging vereist dat je kluis vergrendeld is om van kracht te worden.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Abonnement beheren";
 "settings.rateApp" = "Beoordeel App";
 "settings.sendLogFile" = "Logbestand verzenden";
+"settings.shortcutsGuide" = "Snelkoppelingen Gids";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
 
 "snapshots.fileprovider.file1" = "/Rekening.getallen";

@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Odomknúť";
 "fileProvider.clearFileFromCache.title" = "Vymazať súbor z Cache";
 "fileProvider.clearFileFromCache.message" = "Toto odstráni lokálny súbor iba z Vašeho zariadenia a neodstráni súbor v cloude.";
+"fileProvider.fileImporting.error.missingPremium" = "Odomknite plnú verziu aplikácie Cryptomator pre získanie prístupu zápisu do Vašich trezorov.";
 "fileProvider.uploadProgress.connecting" = "Pripájanie…";
 "fileProvider.uploadProgress.message" = "Aktuálny priebeh: %@\n\nV prípade, že pozorujete zaseknutý priebeh nahrávania, môžte zopakovať nahrávanie.";
 "fileProvider.uploadProgress.missing" = "Pokrok nebol spozorovaný. Môže však stále prebiehať na pozadí.";
 "fileProvider.uploadProgress.title" = "Nahrávanie…";
 "fileProvider.uploadProgress.missingDomainError" = "Nepodarilo sa nájsť doménu.";
+
+"getFolderIntent.error.missingPath" = "Nebola poskytnutá žiadna cesta. Prosím poskytnite platnú cestu pre adresár, ktorý by mal byť vrátený.";
+"getFolderIntent.error.noVaultSelected" = "Nebol zvolený žiaden trezor.";
+"intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";
+"intents.saveFile.invalidFolder" = "Poskytnutý adresár nie je platný.";
+"intents.saveFile.missingTemporaryFolder" = "Nepodarilo sa vytvoriť dočasný adresár.";
+"intents.saveFile.lockedVault" = "Potrebujete odomknúť Váš trezor za účelom použitia tohto odkazu.";
+"intents.saveFile.selectedVaultNotFound" = "Zvolený trezor sa nenašiel.";
 
 "keepUnlocked.alert.title" = "Zamknúť trezor?";
 "keepUnlocked.alert.message" = "Táto zmena vyžaduje Váš trezor uzamknúť aby sa príkaz uplatnil.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Spravovať predplatné";
 "settings.rateApp" = "Ohodnotiť aplikáciu";
 "settings.sendLogFile" = "Zaslať Log súbor";
+"settings.shortcutsGuide" = "Sprievodca skratkami";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";

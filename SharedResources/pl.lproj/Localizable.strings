@@ -51,7 +51,7 @@
 "addVault.createNewVault.password.confirmPassword.alert.message" = "WAŻNE: Jeśli zapomnisz hasła, nie ma możliwości odzyskania danych.";
 "addVault.createNewVault.password.error.emptyPassword" = "Hasło nie może być puste.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Hasła nie są identyczne.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Hasło musi zawierać co najmniej 8 znaków";
+"addVault.createNewVault.password.error.tooShortPassword" = "Hasło musi zawierać co najmniej 8 znaków.";
 "addVault.createNewVault.progress" = "Tworzenie sejfu…";
 "addVault.openExistingVault.title" = "Otwórz istniejący sejf";
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
@@ -69,22 +69,22 @@
 "changePassword.header.currentPassword.title" = "Wprowadź obecne hasło.";
 "changePassword.header.newPassword.title" = "Wprowadź nowe hasło.";
 "changePassword.header.newPasswordConfirmation.title" = "Potwierdź nowe hasło.";
-"changePassword.progress" = "Zmiana hasła…";
+"changePassword.progress" = "Zmienianie hasła…";
 
 "chooseFolder.emptyFolder.footer" = "Folder jest pusty";
 "chooseFolder.createNewFolder.header.title" = "Wybierz nazwę katalogu.";
 "chooseFolder.createNewFolder.cells.name" = "Nazwa katalogu";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Nazwa folderu nie może być pusta";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Nazwa folderu nie może być pusta.";
 "chooseFolder.createNewFolder.progress" = "Tworzenie katalogu…";
 
-"cloudProvider.error.itemNotFound" = "'%s' nie został odnaleziony.";
-"cloudProvider.error.itemAlreadyExists" = "już istnieje.";
+"cloudProvider.error.itemNotFound" = "\"%@\" nie został odnaleziony.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" już istnieje.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" ma nieoczekiwany typ przedmiotu.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Folder nadrzędny \"%@\" nie istnieje.";
 "cloudProvider.error.pageTokenInvalid" = "Pobieranie zawartości katalogu nie może być kontynuowane.";
-"cloudProvider.error.quotaInsufficient" = "Pamięć nie ma wystarczającej ilości miejsca.";
+"cloudProvider.error.quotaInsufficient" = "Brak wystarczającej ilości miejsca w danej lokalizacji.";
 "cloudProvider.error.unauthorized" = "Nie można wykonać operacji nieautoryzowanej.";
-"cloudProvider.error.noInternetConnection" = "Połączenie z Internetem potrzebne do tej operacji.";
+"cloudProvider.error.noInternetConnection" = "Połączenie z Internetem jest wymagane do wykonania tej operacji.";
 
 "cloudProviderType.localFileSystem" = "Inny dostawca plików";
 
@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Odblokuj";
 "fileProvider.clearFileFromCache.title" = "Usuń plik z pamięci podręcznej";
 "fileProvider.clearFileFromCache.message" = "Powoduje to jedynie usunięcie pliku lokalnego z urządzenia, a nie usunięcie pliku w chmurze.";
-"fileProvider.uploadProgress.connecting" = "Łączenie...";
+"fileProvider.fileImporting.error.missingPremium" = "Odblokuj pełną wersję aplikacji Cryptomator, aby uzyskać możliwość zapisu w sejfach.";
+"fileProvider.uploadProgress.connecting" = "Łączenie…";
 "fileProvider.uploadProgress.message" = "Bieżący postęp: %@\n\nJeśli zauważysz, że postęp przesyłania zawiesił się, możesz spróbować ponownie przesłać dane.";
 "fileProvider.uploadProgress.missing" = "Nie można zweryfikować postępu. Może on nadal działać w tle.";
-"fileProvider.uploadProgress.title" = "Przesyłanie...";
+"fileProvider.uploadProgress.title" = "Przesyłanie…";
 "fileProvider.uploadProgress.missingDomainError" = "Nie można odnaleźć domeny.";
+
+"getFolderIntent.error.missingPath" = "Nie podano ścieżki. Proszę podać prawidłową ścieżkę do folderu.";
+"getFolderIntent.error.noVaultSelected" = "Nie wybrano sejfu.";
+"intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
+"intents.saveFile.invalidFolder" = "Wskazany folder jest niewłaściwy.";
+"intents.saveFile.missingTemporaryFolder" = "Nie udało się utworzyć katalogu tymczasowego.";
+"intents.saveFile.lockedVault" = "Musisz odblokować sejf, aby użyć tego skrótu.";
+"intents.saveFile.selectedVaultNotFound" = "Nie znaleziono wybranego sejfu.";
 
 "keepUnlocked.alert.title" = "Zablokować sejf?";
 "keepUnlocked.alert.message" = "Wprowadzenie tej zmiany wymaga zablokowania sejfu.";
@@ -124,7 +133,7 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Wybrany folder nie jest sejfem. Spróbuj ponownie z innym katalogiem.";
 "localFileSystemAuthentication.info.footer" = "Serwisy na szaro nie wspierają \"wybierania katalogów\". To nie jest ograniczenie w Cryptomator.";
 
-"maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
+"maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje działające w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
 "nameValidation.error.endsWithPeriod" = "Nazwa kończąca się kropką jest niedozwolona. Proszę wybrać inną nazwę.";
 "nameValidation.error.endsWithSpace" = "Nazwa kończąca się spacją jest niedozwolona. Proszę wybrać inną nazwę.";
@@ -139,9 +148,9 @@
 "purchase.footer.privacyPolicy" = "Polityka prywatności";
 "purchase.footer.termsOfUse" = "Warunki użytkowania";
 "purchase.header.feature.familySharing" = "Plan rodzinny";
-"purchase.header.feature.openSource" = "Tworzenie Open-source";
+"purchase.header.feature.openSource" = "Rozwój oprogramowania typu open-source";
 "purchase.header.feature.writeAccess" = "Zapis w Twoich sejfach";
-"purchase.product.donateAndUpgrade" = "Wesprzyj i uaktualnij";
+"purchase.product.donateAndUpgrade" = "Wesprzyj i ulepsz";
 "purchase.product.freeUpgrade" = "Darmowa aktualizacja";
 "purchase.product.lifetimeLicense" = "Dożywotnia licencja";
 "purchase.product.lifetimeLicense.duration" = "jednorazowo";
@@ -155,7 +164,7 @@
 "purchase.readOnlyMode.alert.message" = "Możesz odblokować pełną wersję Cryptomator później w ustawieniach i na razie używać trybu tylko do odczytu.";
 "purchase.restorePurchase.button" = "Przywróć zakup";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Kontynuacja okresu próbnego";
-"purchase.restorePurchase.validTrialFound.alert.message" = "Teraz możesz użyć pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Teraz możesz używać pełnej wersji Cryptomator przez ograniczony czas. Twój okres próbny kończy się w dniu %@. Po tym sejfy będą nadal dostępne w trybie tylko do odczytu.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Przywrócono pomyślnie";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Brak pełnej wersji";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nie mogliśmy znaleźć wcześniej zakupionej pełnej wersji, która mogłaby zostać przywrócona. Proszę spróbować innej opcji.";
@@ -164,7 +173,7 @@
 "purchase.retry.button" = "Ponów";
 "purchase.retry.footer" = "Nie można załadować dostępnych produktów.";
 "purchase.title" = "Odblokuj pełną wersję";
-"purchase.unlockedFullVersion.message" = "Możesz teraz użyć pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
+"purchase.unlockedFullVersion.message" = "Możesz teraz używać pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
 "purchase.unlockedFullVersion.title" = "Dziękujemy";
 "purchase.error.unknown" = "Opcja zakupu jest niedostępna w App Store z nieznanego powodu. Spróbuj ponownie później.\n\nJeśli ten błąd będzie się powtarzał, spróbuj zrestartować urządzenie lub wylogować i zalogować się swoim Apple ID w ustawieniach iOS.";
 
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Zarządzaj subskrypcją";
 "settings.rateApp" = "Oceń aplikację";
 "settings.sendLogFile" = "Wyślij plik logów";
+"settings.shortcutsGuide" = "Przewodnik po skrótach";
 "settings.unlockFullVersion" = "Odblokuj pełną wersję";
 
 "snapshots.fileprovider.file1" = "/Numery.Kont";

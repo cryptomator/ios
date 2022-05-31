@@ -101,6 +101,7 @@
 "fileProvider.clearFileFromCache.title" = "Cancella file dalla cache";
 "fileProvider.clearFileFromCache.message" = "Questo rimuove solo il file locale dal dispositivo e non elimina il file nel cloud.";
 "fileProvider.uploadProgress.connecting" = "Connessione…";
+"fileProvider.uploadProgress.message" = "Avanzamento attuale: %@\n\nSe stai notando che l'avanzamento di caricamento è bloccato, puoi riprovare il caricamento.";
 "fileProvider.uploadProgress.missing" = "Non è stato possibile determinare i progressi, che potrebbero essere ancora in esecuzione in background.";
 "fileProvider.uploadProgress.title" = "Caricamento…";
 "fileProvider.uploadProgress.missingDomainError" = "Impossibile trovare il dominio.";

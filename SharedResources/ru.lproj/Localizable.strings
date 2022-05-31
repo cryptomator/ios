@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Разблокировать";
 "fileProvider.clearFileFromCache.title" = "Удалить файл из кэша";
 "fileProvider.clearFileFromCache.message" = "Эта операция удаляет только локальный файл с вашего устройства, но не из облака.";
+"fileProvider.fileImporting.error.missingPremium" = "Разблокируйте полную версию в приложении Cryptomator, чтобы получить возможность записи в хранилища.";
 "fileProvider.uploadProgress.connecting" = "Подключение…";
 "fileProvider.uploadProgress.message" = "Текущий прогресс: %@\n\nЕсли вы заметите, что прогресс загрузки завис, вы можете повторить загрузку.";
 "fileProvider.uploadProgress.missing" = "Невозможно определить прогресс. Он может продолжаться в фоновом режиме.";
 "fileProvider.uploadProgress.title" = "Загрузка…";
 "fileProvider.uploadProgress.missingDomainError" = "Домен не найден.";
+
+"getFolderIntent.error.missingPath" = "Не указан путь. Укажите правильный путь, по которому должна быть возвращена папка.";
+"getFolderIntent.error.noVaultSelected" = "Не выбрано хранилище.";
+"intents.saveFile.missingFile" = "Выбран некорректный файл.";
+"intents.saveFile.invalidFolder" = "Выбрана некорректная папка.";
+"intents.saveFile.missingTemporaryFolder" = "Не удалось создать папку для временных файлов.";
+"intents.saveFile.lockedVault" = "Чтобы использовать этот ярлык, нужно разблокировать хранилище.";
+"intents.saveFile.selectedVaultNotFound" = "Выбранное хранилище не найдено.";
 
 "keepUnlocked.alert.title" = "Заблокировать хранилище?";
 "keepUnlocked.alert.message" = "Чтобы изменение вступило в силу, необходимо заблокировать хранилище.";

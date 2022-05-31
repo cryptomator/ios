@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Déverrouiller";
 "fileProvider.clearFileFromCache.title" = "Effacer le fichier du cache";
 "fileProvider.clearFileFromCache.message" = "Cela ne supprime le fichier local que de votre appareil et ne supprime pas le fichier dans le cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Débloquez la version complète dans l'application Cryptomator pour obtenir un accès en écriture à vos coffres.";
 "fileProvider.uploadProgress.connecting" = "Connexion…";
 "fileProvider.uploadProgress.message" = "Progression actuelle: %@\n\nSi vous remarquez que la progression de l'envoi est bloquée, vous pouvez recommencer l'envoi.";
 "fileProvider.uploadProgress.missing" = "La progression n'a pas pu être déterminée. Il se peut que cela soit encore en cours en arrière-plan.";
 "fileProvider.uploadProgress.title" = "Envoi en cours…";
 "fileProvider.uploadProgress.missingDomainError" = "Impossible de trouver le domaine.";
+
+"getFolderIntent.error.missingPath" = "Aucun chemin n'a été fourni. Veuillez fournir un chemin d'accès valide pour lequel un dossier doit être renvoyé.";
+"getFolderIntent.error.noVaultSelected" = "Aucun coffre n'a été sélectionné.";
+"intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
+"intents.saveFile.invalidFolder" = "Le dossier fourni n'est pas valide.";
+"intents.saveFile.missingTemporaryFolder" = "Impossible de créer un dossier temporaire.";
+"intents.saveFile.lockedVault" = "Vous devez déverrouiller votre coffre pour utiliser ce raccourci.";
+"intents.saveFile.selectedVaultNotFound" = "Le coffre sélectionné est introuvable.";
 
 "keepUnlocked.alert.title" = "Verrouiller le coffre ?";
 "keepUnlocked.alert.message" = "Cette modification nécessite que votre coffre soit verrouillé.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Gérer l'abonnement";
 "settings.rateApp" = "Évaluer l'application";
 "settings.sendLogFile" = "Envoyer le fichier journal";
+"settings.shortcutsGuide" = "Guide des raccourcis";
 "settings.unlockFullVersion" = "Débloquer la version complète";
 
 "snapshots.fileprovider.file1" = "Compte.numéros";
