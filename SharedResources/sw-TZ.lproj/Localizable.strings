@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Fungua";
 "fileProvider.clearFileFromCache.title" = "Ondoa Mafaili kutoka kwa Akiba";
 "fileProvider.clearFileFromCache.message" = "Hii huondoa tu faili ya ndani kutoka kwa kifaa chako na haifuti faili kwenye wingu.";
+"fileProvider.fileImporting.error.missingPremium" = "Fungua toleo kamili katika programu ya Cryptomator ili upate idhini ya kuandika kwenye kuba yako.";
 "fileProvider.uploadProgress.connecting" = "Kuunganisha…";
 "fileProvider.uploadProgress.message" = "Maendeleo ya sasa: %@\n\nlf Ikiwa unatambua kuwa maendeleo ya kupakia yamekwama, unaweza kujaribu tena upakiaji.";
 "fileProvider.uploadProgress.missing" = "Maendeleo hayawezi kuamuliwa. Inaweza kuwa bado inafanya kazi kwa mandari nyuma.";
 "fileProvider.uploadProgress.title" = "Inapakia…";
 "fileProvider.uploadProgress.missingDomainError" = "Haikuweza kupata kikoa.";
+
+"getFolderIntent.error.missingPath" = "Hakuna njia iliyotolewa. Tafadhali toa njia halali ambayo folda inapaswa kurejeshwa.";
+"getFolderIntent.error.noVaultSelected" = "Hakuna kuba iliyochaguliwa.";
+"intents.saveFile.missingFile" = "Faili iliyotolewa si sahihi.";
+"intents.saveFile.invalidFolder" = "Faili iliyotolewa si sahihi.";
+"intents.saveFile.missingTemporaryFolder" = "Imeshindwa kuunda folda ya muda.";
+"intents.saveFile.lockedVault" = "Unahitaji kufungua kuba yako ili utumie njia hii ya mkato.";
+"intents.saveFile.selectedVaultNotFound" = "Kuba iliyochaguliwa haikupatikana.";
 
 "keepUnlocked.alert.title" = "Funga Kuba?";
 "keepUnlocked.alert.message" = "Mabadiliko haya yanahitaji kuba yako kufungwa ili kuanza kutumika.";
