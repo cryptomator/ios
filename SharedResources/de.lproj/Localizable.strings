@@ -102,6 +102,7 @@
 "fileProvider.clearFileFromCache.message" = "Dies entfernt nur die lokale Datei von Ihrem Gerät und löscht nicht die Datei in der Cloud.";
 "fileProvider.fileImporting.error.missingPremium" = "Schalten Sie die Vollversion in der Cryptomator-App frei, um Schreibzugriff auf Ihre Tresore zu erhalten.";
 "fileProvider.uploadProgress.connecting" = "Verbindung wird hergestellt …";
+"fileProvider.uploadProgress.message" = "Aktueller Fortschritt: %@\n\nFalls du feststellst, dass der Upload feststeckt, kannst du den Upload erneut versuchen.";
 "fileProvider.uploadProgress.missing" = "Der Fortschritt konnte nicht ermittelt werden. Möglicherweise läuft der Upload noch im Hintergrund.";
 "fileProvider.uploadProgress.title" = "Wird hochgeladen …";
 "fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
