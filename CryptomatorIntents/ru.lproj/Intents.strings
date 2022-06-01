@@ -4,3 +4,17 @@
 "common.response.failure" = "${failureReason}";
 "common.true" = "истина";
 "common.vault" = "Хранилище";
+
+"getFolderIntent.description" = "Возвращает объект папки для заданного пути в указанном хранилище.";
+"getFolderIntent.path" = "Путь";
+"getFolderIntent.text" = "Получить папку, расположенную в ${path} в ${vault}";
+"getFolderIntent.title" = "Получить папку";
+
+"saveFileIntent.description" = "Сохраняет файл в хранилище.";
+"saveFileIntent.file" = "Файл";
+"saveFileIntent.parameter.ignoreExisting" = "Игнорировать существующий файл с таким же именем";
+"saveFileIntent.text" = "Сохранить ${file} в ${folder}";
+"saveFileIntent.title" = "Сохранить файл";
+
+"vaultFolder.displayName" = "Папка хранилища";
+"vaultFolder.vaultIdentifier" = "Идентификатор хранилища";
