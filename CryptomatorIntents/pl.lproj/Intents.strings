@@ -1,7 +1,14 @@
 "common.failureReason" = "Powód niepowodzenia";
 "common.folder" = "Folder";
+"common.response.failure" = "${failureReason}";
 "common.vault" = "Sejf";
 "getFolderIntent.path" = "Ścieżka";
 "getFolderIntent.text" = "Pobierz folder znajdujący się w ${path} w ${vault}";
 "getFolderIntent.title" = "Pobierz folder";
 "saveFileIntent.file" = "Plik";
+"saveFileIntent.parameter.ignoreExisting" = "Ignoruj istniejący plik o tej samej nazwie";
+"saveFileIntent.text" = "Zapisz ${file} do ${folder}";
+"saveFileIntent.title" = "Zapisz plik";
+
+"vaultFolder.displayName" = "Folder sejfu";
+"vaultFolder.vaultIdentifier" = "Identyfikator sejfu";
