@@ -1,0 +1,21 @@
+"common.failureReason" = "Failure Reason";
+"common.false" = "false";
+"common.folder" = "Folder";
+"common.response.failure" = "${failureReason}";
+"common.true" = "true";
+"common.vault" = "Vault";
+
+"getFolderIntent.description" = "Returns a folder object for the given path in the given vault.";
+"getFolderIntent.path" = "Path";
+"getFolderIntent.text" = "Get folder located at ${path} in ${vault}";
+"getFolderIntent.title" = "Get Folder";
+
+"saveFileIntent.description" = "Saves a file to a vault.";
+"saveFileIntent.file" = "File";
+"saveFileIntent.parameter.ignoreExisting" = "Ignore existing file with same name";
+"saveFileIntent.text" = "Save ${file} to ${folder}";
+"saveFileIntent.title" = "Save File";
+
+"vaultFolder.displayName" = "Vault Folder";
+"vaultFolder.vaultIdentifier" = "Vault Identifier";
+

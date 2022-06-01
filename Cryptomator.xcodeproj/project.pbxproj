@@ -73,6 +73,8 @@
 		4A248231266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */; };
 		4A2482332670D6FB002D9F59 /* FileProviderAdapterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */; };
 		4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2482342671110A002D9F59 /* DBManagerError.swift */; };
+		4A2745E228475F3500E70D5F /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4A2745E528475F3600E70D5F /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
+		4A2745E328475F3600E70D5F /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4A2745E528475F3600E70D5F /* Intents.intentdefinition */; };
 		4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2C1E7A2760B09A000CD726 /* IAPViewModelTestCase.swift */; };
 		4A2F373724B47DB800460FD3 /* UploadTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */; };
 		4A2FD04425B1C3BB008565C8 /* EmptyListMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */; };
@@ -199,7 +201,6 @@
 		4A80407D27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80407C27692A0100D7D999 /* FileProviderEnumeratorSnapshotMock.swift */; };
 		4A80408027694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A80407F27694C6600D7D999 /* VaultUnlockingServiceSourceSnapshotMock.swift */; };
 		4A804082276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A804081276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift */; };
-		4A82C88A2832443D00548F87 /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4ABB4626282EBE4B00968C5E /* Intents.intentdefinition */; settings = {ATTRIBUTES = (no_codegen, ); }; };
 		4A85ECBE283CBF4700E23024 /* FileImportingServiceSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85ECBD283CBF4700E23024 /* FileImportingServiceSourceTests.swift */; };
 		4A85ECC4283D0DED00E23024 /* GetFolderIntentHandlerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */; };
 		4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */; };
@@ -273,7 +274,6 @@
 		4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539726BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift */; };
 		4AB8539C26BA8A8200555F00 /* VaultPasswordVerifying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539B26BA8A8200555F00 /* VaultPasswordVerifying.swift */; };
 		4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */; };
-		4ABB4627282EBE4B00968C5E /* Intents.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 4ABB4626282EBE4B00968C5E /* Intents.intentdefinition */; };
 		4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */; };
 		4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */; };
 		4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC005F027C3D80B006FFE87 /* PremiumManager.swift */; };
@@ -585,6 +585,8 @@
 		4A248230266FB799002D9F59 /* FileProviderAdapterStartProvidingItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemTests.swift; sourceTree = "<group>"; };
 		4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterManager.swift; sourceTree = "<group>"; };
 		4A2482342671110A002D9F59 /* DBManagerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManagerError.swift; sourceTree = "<group>"; };
+		4A2745E428475F3600E70D5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; name = Base; path = Base.lproj/Intents.intentdefinition; sourceTree = "<group>"; };
+		4A2745F7284769B800E70D5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Intents.strings; sourceTree = "<group>"; };
 		4A2C1E7A2760B09A000CD726 /* IAPViewModelTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IAPViewModelTestCase.swift; sourceTree = "<group>"; };
 		4A2F373624B47DB800460FD3 /* UploadTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListMessage.swift; sourceTree = "<group>"; };
@@ -790,7 +792,6 @@
 		4AB8539726BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailUnlockVaultViewModel.swift; sourceTree = "<group>"; };
 		4AB8539B26BA8A8200555F00 /* VaultPasswordVerifying.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordVerifying.swift; sourceTree = "<group>"; };
 		4AB8539D26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailUnlockCoordinator.swift; sourceTree = "<group>"; };
-		4ABB4626282EBE4B00968C5E /* Intents.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = Intents.intentdefinition; sourceTree = "<group>"; };
 		4ABC08D6250D1EB600E3CEDC /* DeletionTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionTaskManagerTests.swift; sourceTree = "<group>"; };
 		4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewModelTests.swift; sourceTree = "<group>"; };
 		4AC005F027C3D80B006FFE87 /* PremiumManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumManager.swift; sourceTree = "<group>"; };
@@ -1654,7 +1655,7 @@
 			isa = PBXGroup;
 			children = (
 				4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */,
-				4ABB4626282EBE4B00968C5E /* Intents.intentdefinition */,
+				4A2745E528475F3600E70D5F /* Intents.intentdefinition */,
 				4AD3D7DA282EBDE7008188CD /* Info.plist */,
 				4AA08E7E28379C6100972A15 /* GetFolderIntentHandler.swift */,
 				4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */,
@@ -2529,7 +2530,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A33092B282EBF9900876A3E /* SaveFileIntentHandler.swift in Sources */,
-				4ABB4627282EBE4B00968C5E /* Intents.intentdefinition in Sources */,
+				4A2745E328475F3600E70D5F /* Intents.intentdefinition in Sources */,
 				4A85ECC4283D0DED00E23024 /* GetFolderIntentHandlerError.swift in Sources */,
 				4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */,
 				4AA08E7F28379C6100972A15 /* GetFolderIntentHandler.swift in Sources */,
@@ -2696,7 +2697,7 @@
 				4A644B4B267B4C08008CBB9A /* CreateNewVaultChooseFolderViewController.swift in Sources */,
 				4A447E1B25BF0DE300D9520D /* ChooseFolderViewController.swift in Sources */,
 				4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */,
-				4A82C88A2832443D00548F87 /* Intents.intentdefinition in Sources */,
+				4A2745E228475F3500E70D5F /* Intents.intentdefinition in Sources */,
 				4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */,
 				4A3C5DDA272BF52600EB7C7A /* TextFieldCellViewModel.swift in Sources */,
 				4AFCE51F25B89CD80069C4FC /* CloudProviderType+Localization.swift in Sources */,
@@ -2896,6 +2897,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4A2745E528475F3600E70D5F /* Intents.intentdefinition */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A2745E428475F3600E70D5F /* Base */,
+				4A2745F7284769B800E70D5F /* en */,
+			);
+			name = Intents.intentdefinition;
+			sourceTree = "<group>";
+		};
 		4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
