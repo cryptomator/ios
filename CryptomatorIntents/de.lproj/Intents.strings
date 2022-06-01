@@ -1,0 +1,20 @@
+"common.failureReason" = "Fehlerursache";
+"common.false" = "falsch";
+"common.folder" = "Ordner";
+"common.response.failure" = "${failureReason}";
+"common.true" = "wahr";
+"common.vault" = "Tresor";
+
+"getFolderIntent.description" = "Gibt ein Ordnerobjekt für den angegebenen Pfad im angegebenen Tresor zurück.";
+"getFolderIntent.path" = "Pfad";
+"getFolderIntent.text" = "Ordner unter ${path} in ${vault} abrufen";
+"getFolderIntent.title" = "Ordner abrufen";
+
+"saveFileIntent.description" = "Speichert eine Datei in einem Tresor.";
+"saveFileIntent.file" = "Datei";
+"saveFileIntent.parameter.ignoreExisting" = "Vorhandene Datei mit gleichem Namen ignorieren";
+"saveFileIntent.text" = "${file} in ${folder} speichern";
+"saveFileIntent.title" = "Datei speichern";
+
+"vaultFolder.displayName" = "Tresor-Ordner";
+"vaultFolder.vaultIdentifier" = "Tresor-Bezeichnung";
