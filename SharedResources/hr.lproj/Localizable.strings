@@ -100,6 +100,7 @@
 "fileProvider.error.unlockButton" = "Otključaj";
 "fileProvider.clearFileFromCache.title" = "Očisti datoteku iz predmemorije";
 "fileProvider.clearFileFromCache.message" = "Ovo samo uklanja lokalnu datoteku s vašeg uređaja, a ne briše datoteku u oblaku.";
+"fileProvider.fileImporting.error.missingPremium" = "Otključajte punu verziju u aplikaciji Cryptomator da biste dobili pristup za pisanje u svoje trezore.";
 "fileProvider.uploadProgress.connecting" = "Spajanje…";
 "fileProvider.uploadProgress.message" = "Trenutni napredak: %@\n\nAko primijetite da je napredak učitavanja zapeo, možete ponovno pokušati s prijenosom.";
 "fileProvider.uploadProgress.missing" = "Napredak se ne može utvrditi. Možda još uvijek radi u pozadini.";
