@@ -1,1 +1,20 @@
+"common.failureReason" = "Λόγος Αποτυχίας";
+"common.false" = "ψευδής";
+"common.folder" = "Φάκελος";
+"common.response.failure" = "${failureReason}";
+"common.true" = "αληθής";
 "common.vault" = "Κρύπτη";
+
+"getFolderIntent.description" = "Επιστρέφει ένα αντικείμενο φακέλου για τη δοσμένη διαδρομή στη δοσμένη κρύπτη.";
+"getFolderIntent.path" = "Διαδρομή";
+"getFolderIntent.text" = "Λήψη φακέλου που βρίσκεται σε ${path} στην ${vault}";
+"getFolderIntent.title" = "Πάρτε τον Φάκελο";
+
+"saveFileIntent.description" = "Αποθηκεύει ένα αρχείο σε μια κρύπτη.";
+"saveFileIntent.file" = "Αρχείο";
+"saveFileIntent.parameter.ignoreExisting" = "Παράβλεψη υπάρχοντος αρχείου με το ίδιο όνομα";
+"saveFileIntent.text" = "Αποθήκευση ${file} σε ${folder}";
+"saveFileIntent.title" = "Αποθήκευση Αρχείου";
+
+"vaultFolder.displayName" = "Φάκελος Κρύπτης";
+"vaultFolder.vaultIdentifier" = "Αναγνωριστικό Κρύπτης";
