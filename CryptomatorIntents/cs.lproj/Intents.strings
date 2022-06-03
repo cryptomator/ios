@@ -1,7 +1,6 @@
 "common.failureReason" = "Důvod nezdaru";
 "common.false" = "false";
 "common.folder" = "Složka";
-"common.response.failure" = "${failureReason}";
 "common.true" = "true";
 "common.vault" = "Trezor";
 
