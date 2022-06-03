@@ -1,7 +1,6 @@
 "common.failureReason" = "Fehlerursache";
 "common.false" = "falsch";
 "common.folder" = "Ordner";
-"common.response.failure" = "${failureReason}";
 "common.true" = "wahr";
 "common.vault" = "Tresor";
 
