@@ -107,6 +107,14 @@
 "fileProvider.uploadProgress.title" = "Učitavanje…";
 "fileProvider.uploadProgress.missingDomainError" = "Nije moguće pronaći domenu.";
 
+"getFolderIntent.error.missingPath" = "Putanja nije navedena. Navedite valjanu putanju za koju treba vratiti mapu.";
+"getFolderIntent.error.noVaultSelected" = "Niti jedan trezor nije odabran.";
+"intents.saveFile.missingFile" = "Datoteka nije ispravna.";
+"intents.saveFile.invalidFolder" = "Mapa nije ispravna.";
+"intents.saveFile.missingTemporaryFolder" = "Izrada privremene mape nije uspjela.";
+"intents.saveFile.lockedVault" = "Morate otključati svoj trezor da biste koristili ovaj prečac.";
+"intents.saveFile.selectedVaultNotFound" = "Odabrani trezor nije pronađen.";
+
 "keepUnlocked.alert.title" = "Zaključati trezor?";
 "keepUnlocked.alert.message" = "Ova promjena zahtijeva da vaš trezor bude zaključan kako bi stupila na snagu.";
 "keepUnlocked.alert.confirm" = "Potvrdi i zaključaj sada";
@@ -181,6 +189,7 @@
 "settings.manageSubscriptions" = "Upravljaj pretplatom";
 "settings.rateApp" = "Ocijeni aplikaciju";
 "settings.sendLogFile" = "Pošalji log datoteku";
+"settings.shortcutsGuide" = "Vodič za prečace";
 "settings.unlockFullVersion" = "Otključaj punu verziju";
 
 "snapshots.fileprovider.file1" = "/Računovodstvo.brojevi";
