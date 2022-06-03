@@ -1,7 +1,6 @@
 "common.failureReason" = "Reden van fout";
 "common.false" = "onjuist";
 "common.folder" = "Map";
-"common.response.failure" = "${failureReason}";
 "common.true" = "juist";
 "common.vault" = "Kluis";
 
