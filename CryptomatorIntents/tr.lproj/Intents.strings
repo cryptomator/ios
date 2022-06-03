@@ -1,1 +1,19 @@
+"common.failureReason" = "Başarısızlık Nedeni";
+"common.false" = "yanlış";
+"common.folder" = "Klasör";
+"common.true" = "doğru";
 "common.vault" = "Kasa";
+
+"getFolderIntent.description" = "Sağlanan kasada gösterilen yol için bir klasör nesnesi döndürür.";
+"getFolderIntent.path" = "Yol";
+"getFolderIntent.text" = "${vault} içinde ${path} konumunda bulunan klasörü al";
+"getFolderIntent.title" = "Klasörü Al";
+
+"saveFileIntent.description" = "Bir dosyayı kasaya kaydeder.";
+"saveFileIntent.file" = "Dosya";
+"saveFileIntent.parameter.ignoreExisting" = "Aynı ada sahip mevcut dosyayı yoksay";
+"saveFileIntent.text" = "${file} dosyasını ${folder} klasörüne kaydet";
+"saveFileIntent.title" = "Dosyayı kaydet";
+
+"vaultFolder.displayName" = "Kasa Klasörü";
+"vaultFolder.vaultIdentifier" = "Kasa Tanımlayıcısı";
