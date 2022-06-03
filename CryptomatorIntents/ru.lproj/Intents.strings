@@ -1,7 +1,6 @@
 "common.failureReason" = "Причина ошибки";
 "common.false" = "ложь";
 "common.folder" = "Папка";
-"common.response.failure" = "${failureReason}";
 "common.true" = "истина";
 "common.vault" = "Хранилище";
 
