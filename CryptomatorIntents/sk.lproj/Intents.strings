@@ -1,7 +1,6 @@
 "common.failureReason" = "Dôvod zlyhania";
 "common.false" = "nepravda";
 "common.folder" = "Priečinok";
-"common.response.failure" = "${failureReason}";
 "common.true" = "pravda";
 "common.vault" = "Trezor";
 
