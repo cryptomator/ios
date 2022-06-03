@@ -1,7 +1,6 @@
 "common.failureReason" = "Penyebab Kegagalan";
 "common.false" = "salah";
 "common.folder" = "Folder";
-"common.response.failure" = "${failureReason}";
 "common.true" = "benar";
 "common.vault" = "Vault";
 
