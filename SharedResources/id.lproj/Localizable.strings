@@ -113,6 +113,7 @@
 "intents.saveFile.invalidFolder" = "Folder yang disediakan tidak valid.";
 "intents.saveFile.missingTemporaryFolder" = "Gagal membuat folder sementara.";
 "intents.saveFile.lockedVault" = "Anda perlu membuka vault untuk menggunakan shortcut ini.";
+"intents.saveFile.selectedVaultNotFound" = "Vault terpilih tidak dapat ditemukan.";
 
 "keepUnlocked.alert.title" = "Kunci Vault?";
 "keepUnlocked.alert.message" = "Perubahan berikut memerlukan vault Anda dalam kondisi terbuka agar bisa diterapkan.";
@@ -188,6 +189,7 @@
 "settings.manageSubscriptions" = "Atur Langganan";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
+"settings.shortcutsGuide" = "Panduan Shortcut";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
 
 "snapshots.fileprovider.file1" = "/Akuntansi.numbers";
