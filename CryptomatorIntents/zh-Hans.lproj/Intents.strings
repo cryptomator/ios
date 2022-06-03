@@ -1,7 +1,6 @@
 "common.failureReason" = "失败原因";
 "common.false" = "false";
 "common.folder" = "文件夹";
-"common.response.failure" = "${failureReason}";
 "common.true" = "true";
 "common.vault" = "保险库";
 
