@@ -1,7 +1,6 @@
 "common.failureReason" = "Motivo del fallo";
 "common.false" = "falso";
 "common.folder" = "Carpeta";
-"common.response.failure" = "${failureReason}";
 "common.true" = "verdadero";
 "common.vault" = "Bóveda";
 
