@@ -1,1 +1,20 @@
+"common.failureReason" = "Důvod nezdaru";
+"common.false" = "false";
+"common.folder" = "Složka";
+"common.response.failure" = "${failureReason}";
+"common.true" = "true";
 "common.vault" = "Trezor";
+
+"getFolderIntent.description" = "Vrátí objekt složky pro dané umístění v daném trezoru.";
+"getFolderIntent.path" = "Popis umístění";
+"getFolderIntent.text" = "Získat složku, nacházející se v ${path} v ${vault}";
+"getFolderIntent.title" = "Získat složku";
+
+"saveFileIntent.description" = "Ukládá soubor do souboru.";
+"saveFileIntent.file" = "Soubor";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorovat existující soubor se stejným názvem";
+"saveFileIntent.text" = "Uložit ${file} do ${folder}";
+"saveFileIntent.title" = "Uložit soubor";
+
+"vaultFolder.displayName" = "Složka trezoru";
+"vaultFolder.vaultIdentifier" = "Identifikátor trezoru";
