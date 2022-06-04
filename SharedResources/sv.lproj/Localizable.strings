@@ -108,6 +108,12 @@
 "fileProvider.uploadProgress.missingDomainError" = "Kunde inte hitta domänen.";
 
 "getFolderIntent.error.missingPath" = "Ingen sökväg angavs. Vänligen ange en giltig sökväg för vilken en mapp ska returneras.";
+"getFolderIntent.error.noVaultSelected" = "Inget valv har valts.";
+"intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";
+"intents.saveFile.invalidFolder" = "Den angivna mappen är inte giltig.";
+"intents.saveFile.missingTemporaryFolder" = "Det gick inte att skapa en temporär mapp.";
+"intents.saveFile.lockedVault" = "Du måste låsa upp ditt valv för att kunna använda denna genväg.";
+"intents.saveFile.selectedVaultNotFound" = "Valt valv kunde inte hittas.";
 
 "keepUnlocked.alert.title" = "Lås valv?";
 "keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
@@ -183,6 +189,7 @@
 "settings.manageSubscriptions" = "Hantera prenumeration";
 "settings.rateApp" = "Betygsätt app";
 "settings.sendLogFile" = "Skicka loggfil";
+"settings.shortcutsGuide" = "Vägledning till genvägar";
 "settings.unlockFullVersion" = "Lås upp fullversion";
 
 "snapshots.fileprovider.file1" = "/Budget.numbers";
