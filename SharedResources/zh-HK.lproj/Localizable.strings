@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "解鎖";
 "fileProvider.clearFileFromCache.title" = "清除快取檔䅁";
 "fileProvider.clearFileFromCache.message" = "這只會從本機上刪除文件，而不會刪除雲端的文件。";
+"fileProvider.fileImporting.error.missingPremium" = "解鎖 Cryptomator 完整版本以獲得寫入加密庫的功能。";
 "fileProvider.uploadProgress.connecting" = "連接中…";
 "fileProvider.uploadProgress.message" = "目前進度：%@\n\n如果你注意到上傳進度卡住，可以重試上傳。";
 "fileProvider.uploadProgress.missing" = "無法確定目前進度。它可能仍在背景運行。";
 "fileProvider.uploadProgress.title" = "上載中...";
 "fileProvider.uploadProgress.missingDomainError" = "找不到域名。";
+
+"getFolderIntent.error.missingPath" = "沒有提供路徑。請提供應返回資料夾的有效路徑。";
+"getFolderIntent.error.noVaultSelected" = "未選擇任何加密庫。";
+"intents.saveFile.missingFile" = "提供的檔案無效。";
+"intents.saveFile.invalidFolder" = "提供的資料夾無效。";
+"intents.saveFile.missingTemporaryFolder" = "無法建立臨時資料夾。";
+"intents.saveFile.lockedVault" = "你要先解鎖加密庫後，才能使用此捷徑。";
+"intents.saveFile.selectedVaultNotFound" = "找不到選定的加密庫。";
 
 "keepUnlocked.alert.title" = "鎖定加密庫？";
 "keepUnlocked.alert.message" = "此更改需要鎖定加密庫後才能生效。";
@@ -181,6 +190,7 @@
 "settings.manageSubscriptions" = "管理訂閱";
 "settings.rateApp" = "為應用程式評分";
 "settings.sendLogFile" = "傳送日誌檔案";
+"settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
