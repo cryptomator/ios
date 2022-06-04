@@ -100,11 +100,14 @@
 "fileProvider.error.unlockButton" = "Lås upp";
 "fileProvider.clearFileFromCache.title" = "Ta bort fil från buffert";
 "fileProvider.clearFileFromCache.message" = "Detta tar bara bort den lokala filen från din enhet och tar inte bort filen i molnet.";
+"fileProvider.fileImporting.error.missingPremium" = "Lås upp den fullständiga versionen i Cryptomator-appen för att få skrivtillgång till dina valv.";
 "fileProvider.uploadProgress.connecting" = "Ansluter…";
 "fileProvider.uploadProgress.message" = "Status: %@\n\nOm du märker att uppladdningsprocessen har fastnat kan du försöka ladda upp den igen.";
 "fileProvider.uploadProgress.missing" = "Oklart om det fungerade. Processen kan fortfarande köras i bakgrunden.";
 "fileProvider.uploadProgress.title" = "Laddar upp…";
 "fileProvider.uploadProgress.missingDomainError" = "Kunde inte hitta domänen.";
+
+"getFolderIntent.error.missingPath" = "Ingen sökväg angavs. Vänligen ange en giltig sökväg för vilken en mapp ska returneras.";
 
 "keepUnlocked.alert.title" = "Lås valv?";
 "keepUnlocked.alert.message" = "Denna ändring kräver att ditt valv låses för att träda i kraft.";
