@@ -1,1 +1,12 @@
+"common.failureReason" = "失敗原因";
+"common.false" = "否";
+"common.folder" = "資料夾";
+"common.true" = "是";
 "common.vault" = "加密檔案庫";
+"getFolderIntent.path" = "路徑";
+"saveFileIntent.file" = "檔案";
+"saveFileIntent.text" = "儲存 ${file} 到 ${folder}";
+"saveFileIntent.title" = "儲存檔案";
+
+"vaultFolder.displayName" = "加密檔案庫資料夾";
+"vaultFolder.vaultIdentifier" = "加密檔案庫識別碼";
