@@ -1,2 +1,4 @@
 - Added Shortcuts integration, which allows you to create automations like "auto photo upload" (#56, #114, #222)
 - Improved vault format 8 compatibility (#198, cryptolib-swift#9)
+
+Make sure to check out our Shortcuts Guide, which you can find in the settings of Cryptomator.
