@@ -37,7 +37,7 @@
 "accountList.signOut.alert.message" = "Odjavom, svi povezani trezori bit će uklonjeni s popisa trezora. Šifrirani podaci neće biti izbrisani. Možete se ponovno prijaviti i kasnije ponovo dodati trezore.";
 
 "addVault.title" = "Dodaj trezor";
-"addVault.createNewVault.title" = "Napravi novi trezor";
+"addVault.createNewVault.title" = "Izradi novi trezor";
 "addVault.createNewVault.purchase" = "Izrada novog trezora zahtjeva punu verziju Cryptomator-a.";
 "addVault.createNewVault.setVaultName.header.title" = "Odaberite ime za trezor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Ime trezora";
