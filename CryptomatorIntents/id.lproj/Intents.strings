@@ -1,0 +1,19 @@
+"common.failureReason" = "Penyebab Kegagalan";
+"common.false" = "salah";
+"common.folder" = "Folder";
+"common.true" = "benar";
+"common.vault" = "Vault";
+
+"getFolderIntent.description" = "Mengembalikan objek folder dari path dan vault yang telah diberikan.";
+"getFolderIntent.path" = "Path";
+"getFolderIntent.text" = "Mengambil folder yang berada di ${path} di dalam ${vault}";
+"getFolderIntent.title" = "Ambil Folder";
+
+"saveFileIntent.description" = "Simpan sebuah file ke vault.";
+"saveFileIntent.file" = "File";
+"saveFileIntent.parameter.ignoreExisting" = "Abaikan file yang sudah ada dengan nama yang sama";
+"saveFileIntent.text" = "Simpan ${file} ke ${folder}";
+"saveFileIntent.title" = "Simpan File";
+
+"vaultFolder.displayName" = "Folder Vault";
+"vaultFolder.vaultIdentifier" = "Id pengenal vault";

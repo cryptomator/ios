@@ -24,9 +24,9 @@
 			<key>INIntentDefaultImageName</key>
 			<string>bot</string>
 			<key>INIntentDescription</key>
-			<string>Saves a file to a vault</string>
+			<string>Saves a file to a vault.</string>
 			<key>INIntentDescriptionID</key>
-			<string>UN1SvF</string>
+			<string>saveFileIntent.description</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentInput</key>
@@ -44,7 +44,7 @@
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Save ${file} to ${folder}</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>PkFbjn</string>
+					<string>saveFileIntent.text</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -59,7 +59,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>File</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>AJzrnx</string>
+					<string>saveFileIntent.file</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterMetadata</key>
@@ -112,7 +112,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Folder</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>2o44Pd</string>
+					<string>common.folder</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>2</integer>
 					<key>INIntentParameterName</key>
@@ -149,7 +149,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Ignore existing file with same name</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>ft89SM</string>
+					<string>saveFileIntent.parameter.ignoreExisting</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>3</integer>
 					<key>INIntentParameterMetadata</key>
@@ -159,11 +159,11 @@
 						<key>INIntentParameterMetadataFalseDisplayName</key>
 						<string>false</string>
 						<key>INIntentParameterMetadataFalseDisplayNameID</key>
-						<string>WrUDZT</string>
+						<string>common.false</string>
 						<key>INIntentParameterMetadataTrueDisplayName</key>
 						<string>true</string>
 						<key>INIntentParameterMetadataTrueDisplayNameID</key>
-						<string>3g4nj9</string>
+						<string>common.true</string>
 					</dict>
 					<key>INIntentParameterName</key>
 					<string>ignoreExisting</string>
@@ -202,7 +202,7 @@
 						<key>INIntentResponseCodeConciseFormatString</key>
 						<string>${failureReason}</string>
 						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>NSH4gZ</string>
+						<string>common.response.failure</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -215,7 +215,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Failure Reason</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>CjPrfS</string>
+						<string>common.failureReason</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
@@ -230,7 +230,7 @@
 			<key>INIntentTitle</key>
 			<string>Save File</string>
 			<key>INIntentTitleID</key>
-			<string>dlePJ1</string>
+			<string>saveFileIntent.title</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
@@ -241,8 +241,10 @@
 			<string>generic</string>
 			<key>INIntentConfigurable</key>
 			<true/>
+			<key>INIntentDescription</key>
+			<string>Returns a folder object for the given path in the given vault.</string>
 			<key>INIntentDescriptionID</key>
-			<string>dh0Nnc</string>
+			<string>getFolderIntent.description</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
@@ -256,7 +258,7 @@
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Get folder located at ${path} in ${vault}</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>getFolderIntent.test</string>
+					<string>getFolderIntent.text</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -271,7 +273,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Path</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>0wBj7w</string>
+					<string>getFolderIntent.path</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterMetadata</key>
@@ -309,7 +311,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Vault</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>W0waaV</string>
+					<string>common.vault</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>2</integer>
 					<key>INIntentParameterName</key>
@@ -355,7 +357,7 @@
 						<key>INIntentResponseCodeConciseFormatString</key>
 						<string>${failureReason}</string>
 						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>KDmUbi</string>
+						<string>common.response.failure</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -370,7 +372,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Folder</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>7aJMCw</string>
+						<string>common.folder</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
@@ -388,7 +390,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Failure Reason</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>EdwH3n</string>
+						<string>common.failureReason</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>2</integer>
 						<key>INIntentResponseParameterName</key>
@@ -403,7 +405,7 @@
 			<key>INIntentTitle</key>
 			<string>Get Folder</string>
 			<key>INIntentTitleID</key>
-			<string>Fdd6ta</string>
+			<string>getFolderIntent.title</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
@@ -416,7 +418,7 @@
 			<key>INTypeDisplayName</key>
 			<string>Vault</string>
 			<key>INTypeDisplayNameID</key>
-			<string>lXc2vD</string>
+			<string>common.vault</string>
 			<key>INTypeLastPropertyTag</key>
 			<integer>99</integer>
 			<key>INTypeName</key>
@@ -477,9 +479,9 @@
 		</dict>
 		<dict>
 			<key>INTypeDisplayName</key>
-			<string>VaultFolder</string>
+			<string>Vault Folder</string>
 			<key>INTypeDisplayNameID</key>
-			<string>9EErZb</string>
+			<string>vaultFolder.displayName</string>
 			<key>INTypeLastPropertyTag</key>
 			<integer>100</integer>
 			<key>INTypeName</key>
@@ -540,7 +542,7 @@
 					<key>INTypePropertyDisplayName</key>
 					<string>Vault Identifier</string>
 					<key>INTypePropertyDisplayNameID</key>
-					<string>BJqJ7P</string>
+					<string>vaultFolder.vaultIdentifier</string>
 					<key>INTypePropertyDisplayPriority</key>
 					<integer>5</integer>
 					<key>INTypePropertyName</key>

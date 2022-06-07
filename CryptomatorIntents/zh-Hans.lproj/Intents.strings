@@ -1,0 +1,19 @@
+"common.failureReason" = "失败原因";
+"common.false" = "false";
+"common.folder" = "文件夹";
+"common.true" = "true";
+"common.vault" = "保险库";
+
+"getFolderIntent.description" = "返回给定保险库中给定路径的文件夹对象";
+"getFolderIntent.path" = "路径";
+"getFolderIntent.text" = "获取位于“${vault}”中 ${path} 的文件夹";
+"getFolderIntent.title" = "获取文件夹";
+
+"saveFileIntent.description" = "保存文件到保险库";
+"saveFileIntent.file" = "文件";
+"saveFileIntent.parameter.ignoreExisting" = "忽略同名的现有文件";
+"saveFileIntent.text" = "保存 ${file} 到 ${folder}";
+"saveFileIntent.title" = "保存文件";
+
+"vaultFolder.displayName" = "保险库文件夹";
+"vaultFolder.vaultIdentifier" = "保险库标识符";

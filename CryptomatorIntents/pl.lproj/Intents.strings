@@ -1,0 +1,19 @@
+"common.failureReason" = "Powód niepowodzenia";
+"common.false" = "nie";
+"common.folder" = "Folder";
+"common.true" = "tak";
+"common.vault" = "Sejf";
+
+"getFolderIntent.description" = "Zwraca folder dla danej ścieżki w danym sejfie.";
+"getFolderIntent.path" = "Ścieżka";
+"getFolderIntent.text" = "Pobierz folder znajdujący się w ${path} w ${vault}";
+"getFolderIntent.title" = "Pobierz folder";
+
+"saveFileIntent.description" = "Zapisuje plik w sejfie.";
+"saveFileIntent.file" = "Plik";
+"saveFileIntent.parameter.ignoreExisting" = "Ignoruj istniejący plik o tej samej nazwie";
+"saveFileIntent.text" = "Zapisz ${file} do ${folder}";
+"saveFileIntent.title" = "Zapisz plik";
+
+"vaultFolder.displayName" = "Folder sejfu";
+"vaultFolder.vaultIdentifier" = "Identyfikator sejfu";

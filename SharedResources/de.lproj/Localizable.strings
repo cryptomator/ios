@@ -100,19 +100,19 @@
 "fileProvider.error.unlockButton" = "Entsperren";
 "fileProvider.clearFileFromCache.title" = "Datei aus Zwischenspeicher entfernen";
 "fileProvider.clearFileFromCache.message" = "Dies entfernt nur die lokale Datei von Ihrem Gerät und löscht nicht die Datei in der Cloud.";
-"fileProvider.fileImporting.error.missingPremium" = "Schalten Sie die Vollversion in der Cryptomator-App frei, um Schreibzugriff auf Ihre Tresore zu erhalten.";
+"fileProvider.fileImporting.error.missingPremium" = "Schalte die Vollversion in der Cryptomator-App frei, um Schreibzugriff auf deine Tresore zu erhalten.";
 "fileProvider.uploadProgress.connecting" = "Verbindung wird hergestellt …";
 "fileProvider.uploadProgress.message" = "Aktueller Fortschritt: %@\n\nFalls du feststellst, dass der Upload feststeckt, kannst du den Upload erneut versuchen.";
 "fileProvider.uploadProgress.missing" = "Der Fortschritt konnte nicht ermittelt werden. Möglicherweise läuft der Upload noch im Hintergrund.";
 "fileProvider.uploadProgress.title" = "Wird hochgeladen …";
 "fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
 
-"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte geben Sie einen gültigen Pfad an, für den ein Ordner angegeben werden soll.";
+"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte gib einen gültigen Pfad zu einem Ordner an.";
 "getFolderIntent.error.noVaultSelected" = "Kein Tresor ausgewählt.";
 "intents.saveFile.missingFile" = "Die angegebene Datei ist ungültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
 "intents.saveFile.missingTemporaryFolder" = "Erstellung eines temporären Ordners fehlgeschlagen.";
-"intents.saveFile.lockedVault" = "Sie müssen Ihren Tresor entsperren, um diese Verknüpfung nutzen zu können.";
+"intents.saveFile.lockedVault" = "Du musst deinen Tresor entsperren, um diesen Kurzbefehl nutzen zu können.";
 "intents.saveFile.selectedVaultNotFound" = "Ausgewählter Tresor konnte nicht gefunden werden.";
 
 "keepUnlocked.alert.title" = "Tresor sperren?";
@@ -189,7 +189,7 @@
 "settings.manageSubscriptions" = "Abonnement verwalten";
 "settings.rateApp" = "App bewerten";
 "settings.sendLogFile" = "Protokolldatei senden";
-"settings.shortcutsGuide" = "Kurzbefehle";
+"settings.shortcutsGuide" = "Leitfaden für Kurzbefehle";
 "settings.unlockFullVersion" = "Vollversion freischalten";
 
 "snapshots.fileprovider.file1" = "/Buchhaltung.numbers";

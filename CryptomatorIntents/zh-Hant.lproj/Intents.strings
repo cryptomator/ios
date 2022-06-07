@@ -1,0 +1,19 @@
+"common.failureReason" = "失敗原因";
+"common.false" = "否";
+"common.folder" = "資料夾";
+"common.true" = "是";
+"common.vault" = "加密檔案庫";
+
+"getFolderIntent.description" = "返回特定加密檔案庫內指定路徑的資料夾。";
+"getFolderIntent.path" = "路徑";
+"getFolderIntent.text" = "取得 ${vault} 內位於 ${path} 的資料夾";
+"getFolderIntent.title" = "取得資料夾";
+
+"saveFileIntent.description" = "儲存檔案到加密檔案庫。";
+"saveFileIntent.file" = "檔案";
+"saveFileIntent.parameter.ignoreExisting" = "忽略同名的現存文件";
+"saveFileIntent.text" = "儲存 ${file} 到 ${folder}";
+"saveFileIntent.title" = "儲存檔案";
+
+"vaultFolder.displayName" = "加密檔案庫資料夾";
+"vaultFolder.vaultIdentifier" = "加密檔案庫識別碼";
