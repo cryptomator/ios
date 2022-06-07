@@ -1,0 +1,19 @@
+"common.failureReason" = "Reden van fout";
+"common.false" = "onjuist";
+"common.folder" = "Map";
+"common.true" = "juist";
+"common.vault" = "Kluis";
+
+"getFolderIntent.description" = "Geeft als resultaat een map object voor het opgegeven pad in de gegeven kluis.";
+"getFolderIntent.path" = "Locatie";
+"getFolderIntent.text" = "Map ophalen op locatie ${path} in ${vault}";
+"getFolderIntent.title" = "Map ophalen";
+
+"saveFileIntent.description" = "Slaat een bestand op naar een kluis.";
+"saveFileIntent.file" = "Bestand";
+"saveFileIntent.parameter.ignoreExisting" = "Negeer bestaand bestand met dezelfde naam";
+"saveFileIntent.text" = "${file} opslaan in ${folder}";
+"saveFileIntent.title" = "Bestand opslaan";
+
+"vaultFolder.displayName" = "Kluis map";
+"vaultFolder.vaultIdentifier" = "Kluis identificatie";

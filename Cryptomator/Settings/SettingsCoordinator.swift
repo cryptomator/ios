@@ -69,6 +69,12 @@ class SettingsCoordinator: Coordinator {
 		}
 	}
 
+	func openShortcutsGuide() {
+		if let shortcutsGuideURL = URL(string: "https://docs.cryptomator.org/en/1.6/ios/shortcuts-guide/") {
+			UIApplication.shared.open(shortcutsGuideURL)
+		}
+	}
+
 	func showUnlockFullVersion() {
 		let child = SettingsPurchaseCoordinator(navigationController: navigationController)
 		childCoordinators.append(child) // TODO: remove missing?

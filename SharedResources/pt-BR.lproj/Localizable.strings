@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Desbloquear";
 "fileProvider.clearFileFromCache.title" = "Limpar Arquivos Temporários";
 "fileProvider.clearFileFromCache.message" = "Isso apenas remove o arquivo do seu dispositivo local e não o exclui da nuvem.";
+"fileProvider.fileImporting.error.missingPremium" = "Desbloqueie a versão completa no aplicativo Cryptomator para obter acesso de escrita aos seus cofres.";
 "fileProvider.uploadProgress.connecting" = "Conectando…";
 "fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nSe você notar que o progresso do upload está travado, pode tentar novamente o upload.";
 "fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso, que pode estar sendo executado em segundo plano.";
 "fileProvider.uploadProgress.title" = "Enviando…";
 "fileProvider.uploadProgress.missingDomainError" = "Não foi possível encontrar o domínio.";
+
+"getFolderIntent.error.missingPath" = "Nenhum caminho foi fornecido. Por favor, forneça um caminho válido para o qual a pasta deve ser retornada.";
+"getFolderIntent.error.noVaultSelected" = "Nenhum cofre foi selecionado.";
+"intents.saveFile.missingFile" = "O arquivo fornecido não é válido.";
+"intents.saveFile.invalidFolder" = "A pasta fornecida não é válida.";
+"intents.saveFile.missingTemporaryFolder" = "Falha ao criar uma pasta temporária.";
+"intents.saveFile.lockedVault" = "Você precisa desbloquear o seu cofre para usar este atalho.";
+"intents.saveFile.selectedVaultNotFound" = "O cofre selecionado não foi encontrado.";
 
 "keepUnlocked.alert.title" = "Trancar cofre?";
 "keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Gerenciar assinatura";
 "settings.rateApp" = "Avaliar App";
 "settings.sendLogFile" = "Enviar arquivo de log";
+"settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";

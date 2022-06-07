@@ -1,0 +1,19 @@
+"common.failureReason" = "Razlog neuspjeha";
+"common.false" = "netočno";
+"common.folder" = "Mapa";
+"common.true" = "točno";
+"common.vault" = "Trezor";
+
+"getFolderIntent.description" = "Vraća mapu za odabranu putanju u odabranom trezoru.";
+"getFolderIntent.path" = "Putanja";
+"getFolderIntent.text" = "Dohvati mapu smještenu na ${path} u ${vault}";
+"getFolderIntent.title" = "Dohvati mapu";
+
+"saveFileIntent.description" = "Sprema datoteku u trezor.";
+"saveFileIntent.file" = "Datoteka";
+"saveFileIntent.parameter.ignoreExisting" = "Zanemari postojeću datoteku s istim imenom";
+"saveFileIntent.text" = "Spremi ${file} u ${folder}";
+"saveFileIntent.title" = "Spremi datoteku";
+
+"vaultFolder.displayName" = "Mapa trezora";
+"vaultFolder.vaultIdentifier" = "Identifikator trezora";

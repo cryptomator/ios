@@ -6,6 +6,7 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import CryptomatorFileProvider
 import FileProvider
 import Foundation
@@ -280,6 +281,25 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		retryUploadForReceivedItemIdentifier = itemIdentifier
 		retryUploadForReceivedInvocations.append(itemIdentifier)
 		retryUploadForClosure?(itemIdentifier)
+	}
+
+	// MARK: - getItemIdentifier
+
+	var getItemIdentifierForCallsCount = 0
+	var getItemIdentifierForCalled: Bool {
+		getItemIdentifierForCallsCount > 0
+	}
+
+	var getItemIdentifierForReceivedArguments: CloudPath?
+	var getItemIdentifierForReceivedInvocations: [CloudPath] = []
+	var getItemIdentifierForReturnValue: Promise<NSFileProviderItemIdentifier>!
+	var getItemIdentifierForClosure: ((CloudPath) -> Promise<NSFileProviderItemIdentifier>)?
+
+	func getItemIdentifier(for cloudPath: CloudPath) -> Promise<NSFileProviderItemIdentifier> {
+		getItemIdentifierForCallsCount += 1
+		getItemIdentifierForReceivedArguments = cloudPath
+		getItemIdentifierForReceivedInvocations.append(cloudPath)
+		return getItemIdentifierForClosure.map({ $0(cloudPath) }) ?? getItemIdentifierForReturnValue
 	}
 }
 

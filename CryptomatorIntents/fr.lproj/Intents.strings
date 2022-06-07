@@ -1,0 +1,19 @@
+"common.failureReason" = "Raison de l'échec";
+"common.false" = "faux";
+"common.folder" = "Dossier";
+"common.true" = "vrai";
+"common.vault" = "Coffre";
+
+"getFolderIntent.description" = "Retourne un dossier pour l'emplacement donné dans le coffre donné.";
+"getFolderIntent.path" = "Emplacement";
+"getFolderIntent.text" = "Récupérer le dossier situé à ${path} dans ${vault}";
+"getFolderIntent.title" = "Récupérer le Dossier";
+
+"saveFileIntent.description" = "Enregistre un fichier dans un coffre.";
+"saveFileIntent.file" = "Fichier";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorer un fichier existant avec le même nom";
+"saveFileIntent.text" = "Enregistrer ${file} dans ${folder}";
+"saveFileIntent.title" = "Enregistrer le Fichier";
+
+"vaultFolder.displayName" = "Dossier du coffre";
+"vaultFolder.vaultIdentifier" = "Identifiant du coffre";

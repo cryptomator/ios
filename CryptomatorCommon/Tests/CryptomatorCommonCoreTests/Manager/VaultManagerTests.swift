@@ -149,7 +149,7 @@ class VaultManagerTests: XCTestCase {
 			}
 			XCTAssertEqual(uploadedVaultConfigToken, savedVaultConfigToken)
 			let vaultConfig = try UnverifiedVaultConfig(token: savedVaultConfigToken)
-			XCTAssertEqual(.sivCTRMAC, vaultConfig.allegedCipherCombo)
+			XCTAssertEqual("SIV_CTRMAC", vaultConfig.allegedCipherCombo)
 			XCTAssertEqual(8, vaultConfig.allegedFormat)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -177,7 +177,7 @@ class VaultManagerTests: XCTestCase {
 
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
-		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
@@ -207,7 +207,7 @@ class VaultManagerTests: XCTestCase {
 			let savedVaultConfig = try VaultConfig.load(token: savedVaultConfigToken, rawKey: masterkey.rawKey)
 			XCTAssertEqual(vaultConfigID, savedVaultConfig.id)
 			XCTAssertEqual(220, savedVaultConfig.shorteningThreshold)
-			XCTAssertEqual(.sivCTRMAC, savedVaultConfig.cipherCombo)
+			XCTAssertEqual(.sivCtrMac, savedVaultConfig.cipherCombo)
 			XCTAssertEqual(8, savedVaultConfig.format)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
@@ -352,7 +352,7 @@ class VaultManagerTests: XCTestCase {
 
 		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
-		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		cloudProviderMock.filesToDownload[vaultConfigPath.path] = token
 		cloudProviderMock.cloudMetadata[vaultConfigPath.path] = CloudItemMetadata(name: vaultConfigPath.lastPathComponent, cloudPath: vaultConfigPath, itemType: .file, lastModifiedDate: vaultConfigLastModifiedDate, size: nil)
@@ -529,7 +529,7 @@ class VaultManagerTests: XCTestCase {
 		let masterkeyFileData = try MasterkeyFile.lock(masterkey: masterkey, vaultVersion: 999, passphrase: oldPassphrase, pepper: [UInt8](), scryptCostParam: 2)
 
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
-		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
@@ -563,7 +563,7 @@ class VaultManagerTests: XCTestCase {
 		passwordManagerMock.savedPasswords[vaultUID] = oldPassphrase
 
 		let vaultConfigID = "ABB9F673-F3E8-41A7-A43B-D29F5DA65068"
-		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let vaultConfig = VaultConfig(id: vaultConfigID, format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 		let token = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 
 		let oldLastUpToDateCheck = Date(timeIntervalSince1970: 0)
@@ -604,7 +604,7 @@ class VaultManagerTests: XCTestCase {
 		var vaultConfigToken: Data?
 		var masterkeyFileVaultVersion = vaultVersion
 		if !isLegacyVault(vaultVersion: vaultVersion) {
-			let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: vaultVersion, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+			let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: vaultVersion, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 			vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 			masterkeyFileVaultVersion = 999
 		}

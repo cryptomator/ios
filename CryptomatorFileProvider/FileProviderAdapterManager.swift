@@ -31,12 +31,13 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	private let adapterCache: FileProviderAdapterCacheType
 	private let notificatorManager: FileProviderNotificatorManagerType
 	private let queue = DispatchQueue(label: "FileProviderAdapterManager", qos: .userInitiated)
+	private let providerIdentifier: String
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared, unlockMonitor: UnlockMonitor())
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared, unlockMonitor: UnlockMonitor(), providerIdentifier: NSFileProviderManager.default.providerIdentifier)
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType, unlockMonitor: UnlockMonitorType) {
+	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType, unlockMonitor: UnlockMonitorType, providerIdentifier: String) {
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
@@ -44,6 +45,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		self.adapterCache = adapterCache
 		self.notificatorManager = notificatorManager
 		self.unlockMonitor = unlockMonitor
+		self.providerIdentifier = providerIdentifier
 	}
 
 	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
@@ -143,6 +145,8 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		let itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: database)
 		let downloadTaskManager = try DownloadTaskDBManager(database: database)
 		let maintenanceManager = MaintenanceDBManager(database: database)
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = providerIdentifier
 		let adapter = FileProviderAdapter(domainIdentifier: domainIdentifier,
 		                                  uploadTaskManager: uploadTaskManager,
 		                                  cachedFileManager: cachedFileManager,
@@ -153,6 +157,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  downloadTaskManager: downloadTaskManager,
 		                                  scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2),
 		                                  provider: cloudProvider,
+		                                  coordinator: fileCoordinator,
 		                                  notificator: notificator,
 		                                  localURLProvider: delegate)
 		let workingSetObserver = WorkingSetObserver(domainIdentifier: domainIdentifier, database: database, notificator: notificator, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)

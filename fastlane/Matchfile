@@ -1,2 +1,2 @@
 git_url(ENV["SKYMATIC_MATCH_GIT_URL"])
-app_identifier(["org.cryptomator.ios", "org.cryptomator.ios.fileprovider", "org.cryptomator.ios.fileprovider-ui"])
+app_identifier(["org.cryptomator.ios", "org.cryptomator.ios.fileprovider", "org.cryptomator.ios.fileprovider-ui", "org.cryptomator.ios.intents"])

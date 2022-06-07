@@ -20,6 +20,7 @@ enum SettingsButtonAction: String {
 	case showCloudServices
 	case showContact
 	case showRateApp
+	case showShortcutsGuide
 	case showUnlockFullVersion
 	case showManageSubscriptions
 	case restorePurchase
@@ -61,6 +62,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel<SettingsButtonAction>(action: .sendLogFile, title: LocalizedString.getValue("settings.sendLogFile"))
 			]),
 			Section(id: .miscSection, elements: [
+				ButtonCellViewModel(action: SettingsButtonAction.showShortcutsGuide, title: LocalizedString.getValue("settings.shortcutsGuide")),
 				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])

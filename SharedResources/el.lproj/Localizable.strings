@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
 "fileProvider.clearFileFromCache.title" = "Εκκαθάριση αρχείου από την προσωρινή μνήμη";
 "fileProvider.clearFileFromCache.message" = "Αυτό καταργεί μόνο το τοπικό αρχείο από τη συσκευή σας και δεν διαγράφει το αρχείο στο cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Ξεκλειδώστε την πλήρη έκδοση στην εφαρμογή Cryptomator για να αποκτήσετε πρόσβαση εγγραφής στις κρύπτες σας.";
 "fileProvider.uploadProgress.connecting" = "Σύνδεση…";
 "fileProvider.uploadProgress.message" = "Τρέχουσα Πρόοδος: %@%\n\nΑν παρατηρήσετε ότι η πρόοδος μεταφόρτωσης έχει κολλήσει, μπορείτε να δοκιμάσετε ξανά τη μεταφόρτωση.";
 "fileProvider.uploadProgress.missing" = "Η πρόοδος δεν μπορεί να καθοριστεί. Μπορεί να εκτελείται στο παρασκήνιο.";
 "fileProvider.uploadProgress.title" = "Μεταφόρτωση…";
 "fileProvider.uploadProgress.missingDomainError" = "Δεν ήταν δυνατή η εύρεση του τομέα.";
+
+"getFolderIntent.error.missingPath" = "Δε δόθηκε καμία διαδρομή. Παρακαλώ δώστε μια έγκυρη διαδρομή για την οποία θα πρέπει να επιστραφεί ένας φάκελος.";
+"getFolderIntent.error.noVaultSelected" = "Δεν έχει επιλεγεί κρύπτη.";
+"intents.saveFile.missingFile" = "Το παρεχόμενο αρχείο δεν είναι έγκυρο.";
+"intents.saveFile.invalidFolder" = "Ο παρεχόμενος φάκελος δεν είναι έγκυρος.";
+"intents.saveFile.missingTemporaryFolder" = "Αποτυχία δημιουργίας προσωρινού φακέλου.";
+"intents.saveFile.lockedVault" = "Πρέπει να ξεκλειδώσετε την κρύπτη σας για να χρησιμοποιήσετε αυτήν τη συντόμευση.";
+"intents.saveFile.selectedVaultNotFound" = "Δεν ήταν δυνατή η εύρεση της επιλεγμένης κρύπτης.";
 
 "keepUnlocked.alert.title" = "Κλείδωμα Κρύπτης;";
 "keepUnlocked.alert.message" = "Αυτή η αλλαγή απαιτεί η κρύπτη σας να κλειδωθεί για να τεθεί σε ισχύ.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Διαχείριση Συνδρομής";
 "settings.rateApp" = "Αξιολογήστε την Εφαρμογή";
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
+"settings.shortcutsGuide" = "Οδηγός Συντομεύσεων";
 "settings.unlockFullVersion" = "Ξεκλείδωμα Πλήρους Έκδοσης";
 
 "snapshots.fileprovider.file1" = "/Λογιστική.αριθμοί";

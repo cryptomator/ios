@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
         "state": {
           "branch": null,
-          "revision": "01131d68346c8ae552961c768d583c715fbe1410",
-          "version": "1.4.0"
+          "revision": "33660c271c961f8ce1084cc13f2ea8195e864f7d",
+          "version": "1.5.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "0bdd40641ef409e46dab8e70be7ef3d9cc76309e",
-          "version": "1.2.3"
+          "revision": "f8aa06dbc245368aee16ff3e4047ab0cb881a81d",
+          "version": "1.3.0"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/cryptomator/cryptolib-swift.git",
         "state": {
           "branch": null,
-          "revision": "ea363662f52e3cdddd5c319da6894246b3bdf565",
-          "version": "1.0.2"
+          "revision": "6e5dbea6e05742ad82a074bf7ee8c3305d92fbae",
+          "version": "1.1.0"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "bc6a19702ac76ac4e488b68148710eb815f9bc56",
-          "version": "1.7.0"
+          "revision": "4e9bbf2808b8fee444e84a48f5f3c12641987d3e",
+          "version": "1.7.2"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/google/GTMAppAuth.git",
         "state": {
           "branch": null,
-          "revision": "40f4103fb52109032c05599a0c39ad43edbdf80a",
-          "version": "1.2.2"
+          "revision": "e803d09da0147fbf1bbb30e126c47ff43254e057",
+          "version": "1.2.3"
         }
       },
       {
@@ -114,8 +114,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "2825c3f72bf51f8be43df7177fe1c66370be2d0e",
-          "version": "1.2.0"
+          "revision": "e4202b9175d7b5566845b60e0ad233ed72b2783c",
+          "version": "1.2.1"
         }
       },
       {

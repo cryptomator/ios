@@ -56,6 +56,13 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSFaceIDUsageDescription</key>
+	<string>This lets you unlock your vault.</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>GetFolderIntent</string>
+		<string>SaveFileIntent</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -75,7 +82,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSFaceIDUsageDescription</key>
-	<string>This lets you unlock your vault.</string>
 </dict>
 </plist>

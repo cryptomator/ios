@@ -129,6 +129,8 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			viewModel.restorePurchase().then { [weak self] _ in
 				self?.refreshRows()
 			}
+		case .showShortcutsGuide:
+			coordinator?.openShortcutsGuide()
 		case .none:
 			break
 		}

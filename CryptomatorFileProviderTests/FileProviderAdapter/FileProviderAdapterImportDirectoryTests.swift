@@ -27,7 +27,7 @@ class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 		metadataManagerMock.cachedMetadata[1] = ItemMetadata(item: .init(name: "/", cloudPath: CloudPath("/"), itemType: .folder, lastModifiedDate: nil, size: nil), withParentID: 1)
 		let provider = CloudProviderGraphMock()
 		let scheduler = WorkflowSchedulerMock(maxParallelUploads: 2, maxParallelDownloads: 2)
-		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: scheduler, provider: provider, localURLProvider: localURLProviderMock)
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: scheduler, provider: provider, coordinator: fileCoordinator, localURLProvider: localURLProviderMock)
 		var parentIdentifier: NSFileProviderItemIdentifier = .rootContainer
 
 		for _ in 0 ..< 5 {

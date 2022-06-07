@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "解锁";
 "fileProvider.clearFileFromCache.title" = "清除缓存文件";
 "fileProvider.clearFileFromCache.message" = "该操作仅会删除设备中的本地文件，不会删除云存储中的文件";
+"fileProvider.fileImporting.error.missingPremium" = "在 Cryptomator 应用中解锁完整版以获取保险库写入权限";
 "fileProvider.uploadProgress.connecting" = "正在连接…";
 "fileProvider.uploadProgress.message" = "当前进度：%@\n\n若发现上传进度卡住，请重试上传";
 "fileProvider.uploadProgress.missing" = "无法确定上传进度，可能仍在后台运行";
 "fileProvider.uploadProgress.title" = "正在上传…";
 "fileProvider.uploadProgress.missingDomainError" = "找不到域名";
+
+"getFolderIntent.error.missingPath" = "未提供路径，请提供文件夹应返回的有效路径";
+"getFolderIntent.error.noVaultSelected" = "未选择任何保险库";
+"intents.saveFile.missingFile" = "提供的文件无效";
+"intents.saveFile.invalidFolder" = "提供的文件夹无效";
+"intents.saveFile.missingTemporaryFolder" = "无法创建临时文件夹";
+"intents.saveFile.lockedVault" = "你需要解锁保险库才能使用此快捷方式";
+"intents.saveFile.selectedVaultNotFound" = "找不到选定的保险库";
 
 "keepUnlocked.alert.title" = "锁定保险库？";
 "keepUnlocked.alert.message" = "此更改需要锁定您的保险库才能生效。";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "管理订阅";
 "settings.rateApp" = "给应用评分";
 "settings.sendLogFile" = "发送日志文件";
+"settings.shortcutsGuide" = "快捷方式指南";
 "settings.unlockFullVersion" = "解锁完整版";
 
 "snapshots.fileprovider.file1" = "/会计.numbers";

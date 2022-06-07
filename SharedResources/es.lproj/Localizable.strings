@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Desbloquear";
 "fileProvider.clearFileFromCache.title" = "Borrar archivo de la caché";
 "fileProvider.clearFileFromCache.message" = "Esto solo elimina el archivo local de su dispositivo y no lo elimina de la nube.";
+"fileProvider.fileImporting.error.missingPremium" = "Desbloquee la versión completa en la aplicación de Cryptomator para obtener acceso de escritura a sus bóvedas.";
 "fileProvider.uploadProgress.connecting" = "Conectando…";
 "fileProvider.uploadProgress.message" = "Progreso actual: %@\n\nSi nota que el progreso de la carga está atascado, puede volver a intentar la carga.";
 "fileProvider.uploadProgress.missing" = "No se pudo determinar el progreso. Puede que todavía se ejecute en segundo plano.";
 "fileProvider.uploadProgress.title" = "Cargando…";
 "fileProvider.uploadProgress.missingDomainError" = "No se encontró el dominio.";
+
+"getFolderIntent.error.missingPath" = "No se ha proporcionado ninguna ruta. Proporcione una ruta válida para la que se debe devolver una carpeta.";
+"getFolderIntent.error.noVaultSelected" = "No se ha seleccionado una bóveda.";
+"intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
+"intents.saveFile.invalidFolder" = "La carpeta proporcionada es inválida.";
+"intents.saveFile.missingTemporaryFolder" = "Error al crear la carpeta temporal.";
+"intents.saveFile.lockedVault" = "Necesita desbloquear su bóveda para poder usar este acceso directo.";
+"intents.saveFile.selectedVaultNotFound" = "No se pudo encontrar la bóveda seleccionada.";
 
 "keepUnlocked.alert.title" = "¿Bloquear bóveda?";
 "keepUnlocked.alert.message" = "Este cambio requiere que su bóveda esté bloqueada para que surta efecto.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Gestionar suscripción";
 "settings.rateApp" = "Calificar app";
 "settings.sendLogFile" = "Enviar archivo de registro";
+"settings.shortcutsGuide" = "Guía de accesos directos";
 "settings.unlockFullVersion" = "Desbloquear versión completa";
 
 "snapshots.fileprovider.file1" = "/Números.contables";

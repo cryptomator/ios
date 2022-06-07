@@ -28,7 +28,7 @@ class VaultDBCacheTests: XCTestCase {
 	private let updatedMasterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x56, count: 32), macMasterKey: [UInt8](repeating: 0x78, count: 32))
 	private var vaultConfigData: Data!
 	private var updatedVaultConfigData: Data!
-	private let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+	private let vaultConfig = VaultConfig(id: "ABB9F673-F3E8-41A7-A43B-D29F5DA65068", format: 8, cipherCombo: .sivCtrMac, shorteningThreshold: 220)
 	private var defaultCachedVault: CachedVault!
 	private let updatedMasterkeyFileLastModifiedDate = Date(timeIntervalSince1970: 100)
 	private let updatedVaultConfigLastModifiedDate = Date(timeIntervalSince1970: 200)

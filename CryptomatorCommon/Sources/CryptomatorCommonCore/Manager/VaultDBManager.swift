@@ -74,7 +74,8 @@ public class VaultDBManager: VaultManager {
 	 */
 	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: .sivCTRMAC, shorteningThreshold: 220)
+		let cipherCombo = CryptorScheme.sivCtrMac
+		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: cipherCombo, shorteningThreshold: 220)
 		let masterkey: Masterkey
 		let provider: LocalizedCloudProviderDecorator
 		let vaultConfigToken: Data
@@ -96,7 +97,7 @@ public class VaultDBManager: VaultManager {
 			return try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { vaultConfigMetadata -> Promise<Void> in
 			cachedVault.vaultConfigLastModifiedDate = vaultConfigMetadata.lastModifiedDate
-			return try self.createVaultFolderStructure(masterkey: masterkey, vaultPath: vaultPath, provider: provider)
+			return try self.createVaultFolderStructure(masterkey: masterkey, cipherCombo: cipherCombo, vaultPath: vaultPath, provider: provider)
 		}.then { _ -> Promise<Void> in
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 			_ = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
@@ -134,8 +135,8 @@ public class VaultDBManager: VaultManager {
 		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
 	}
 
-	private func createVaultFolderStructure(masterkey: Masterkey, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
-		let cryptor = Cryptor(masterkey: masterkey)
+	private func createVaultFolderStructure(masterkey: Masterkey, cipherCombo: CryptorScheme, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
+		let cryptor = Cryptor(masterkey: masterkey, scheme: cipherCombo)
 		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 		let dPath = vaultPath.appendingPathComponent("d")
 		return provider.createFolder(at: dPath).then { _ -> Promise<Void> in
