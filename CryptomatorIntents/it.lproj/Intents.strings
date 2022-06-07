@@ -1,7 +1,6 @@
 "common.failureReason" = "Motivo del fallimento";
 "common.false" = "falso";
 "common.folder" = "Cartella";
-"common.response.failure" = "${failureReason}";
 "common.true" = "vero";
 "common.vault" = "Cassaforte";
 "getFolderIntent.path" = "Percorso";

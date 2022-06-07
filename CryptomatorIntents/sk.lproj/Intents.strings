@@ -1,1 +1,19 @@
+"common.failureReason" = "Dôvod zlyhania";
+"common.false" = "nepravda";
+"common.folder" = "Priečinok";
+"common.true" = "pravda";
 "common.vault" = "Trezor";
+
+"getFolderIntent.description" = "Vrátiť objekt priečinka pre danú cestu v davom trezore.";
+"getFolderIntent.path" = "Cesta";
+"getFolderIntent.text" = "Vziať priečinok umiestnený ${path} v ${vault}";
+"getFolderIntent.title" = "Získať priečinok";
+
+"saveFileIntent.description" = "Uložiť súbory do trezoru.";
+"saveFileIntent.file" = "Súbor";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorovať existujúci súbor s rovnakým názvom";
+"saveFileIntent.text" = "Uložiť ${file} do ${folder}";
+"saveFileIntent.title" = "Uložiť súbor";
+
+"vaultFolder.displayName" = "Priečinok trezora";
+"vaultFolder.vaultIdentifier" = "Identifikátor trezora";

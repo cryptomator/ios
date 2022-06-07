@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Buka Kunci";
 "fileProvider.clearFileFromCache.title" = "Hapus File dari Cache";
 "fileProvider.clearFileFromCache.message" = "Ini hanya akan menghapus file lokal di perangkat Anda dan tidak akan menghapus file yang ada di cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Buka versi lengkap di aplikasi Cryptomator untuk mendapatkan akses tulis ke vault Anda.";
 "fileProvider.uploadProgress.connecting" = "Menyambungkan…";
 "fileProvider.uploadProgress.message" = "Kemajuan Proses Saat Ini: %@\n\nJika proses Upload tidak mengalami peningkatan, Anda bisa mencoba unggah kembali.";
 "fileProvider.uploadProgress.missing" = "Kemajuan proses tidak dapat ditentukan. Kemungkinan masih berjalan di latar belakang.";
 "fileProvider.uploadProgress.title" = "Mengunggah…";
 "fileProvider.uploadProgress.missingDomainError" = "Tidak dapat menemukan domain.";
+
+"getFolderIntent.error.missingPath" = "Tidak ada path yang disediakan. Harap cantumkan path yang valid untuk folder yang harus dikembalikan.";
+"getFolderIntent.error.noVaultSelected" = "Tidak ada vault yang dipilih.";
+"intents.saveFile.missingFile" = "File yang disediakan tidak valid.";
+"intents.saveFile.invalidFolder" = "Folder yang disediakan tidak valid.";
+"intents.saveFile.missingTemporaryFolder" = "Gagal membuat folder sementara.";
+"intents.saveFile.lockedVault" = "Anda perlu membuka vault untuk menggunakan shortcut ini.";
+"intents.saveFile.selectedVaultNotFound" = "Vault terpilih tidak dapat ditemukan.";
 
 "keepUnlocked.alert.title" = "Kunci Vault?";
 "keepUnlocked.alert.message" = "Perubahan berikut memerlukan vault Anda dalam kondisi terbuka agar bisa diterapkan.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Atur Langganan";
 "settings.rateApp" = "Beri Rating";
 "settings.sendLogFile" = "Kirim File Log";
+"settings.shortcutsGuide" = "Panduan Shortcut";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
 
 "snapshots.fileprovider.file1" = "/Akuntansi.numbers";

@@ -265,6 +265,7 @@
 "vaultList.remove.alert.message" = "Toto len odstráni trezor zo zoznamu trezorov. Žiadne zašifrované dáta sa nezmažú. Môžte znovu pridať trezor v budúcnosti.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurácia trezora je nepodporovaná. Prosím uistite sa či spúšťate najnovšiu verziu Cryptomator-a.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Verzia trezora %ld je nepodporovaná. Tento trezor bol vytvorený staršou alebo novšou verziou Cryptomatora.";
 
 "webDAVAuthentication.progress" = "Overovanie…";
 "webDAVAuthentication.httpConnection.alert.title" = "Použiť HTTPS?";
