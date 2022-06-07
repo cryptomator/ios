@@ -1,4 +1,4 @@
-- Fehlgeschlagene Uploads werden nun tatsächlich mit einer Fehlermeldung angezeigt, statt in „Warten“ zu hängen
-- Funktion "Upload erneut versuchen" hinzugefügt (#219)
-- Funktion "Aus Zwischenspeicher entfernen" hinzugefügt (#149, #220)
-- Übersetzungen für Chinesisch (Langzeichen & Hongkong) und Swahili (Tansania) hinzugefügt
+- Kurzbefehle-Integration hinzugefügt, die es erlaubt, Automatisierungen wie "automatischer Foto-Upload" zu erstellen (#56, #114, #222)
+- Kompatibilität mit Tresorformat 8 verbessert (#198, cryptolib-swift#9)
+
+Schau dir unbedingt unseren Leitfaden für Kurzbefehle an, den du in den Einstellungen von Cryptomator finden kannst.
