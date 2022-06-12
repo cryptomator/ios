@@ -1,1 +1,19 @@
+"common.failureReason" = "Motivo da falha";
+"common.false" = "falso";
+"common.folder" = "Diretório";
+"common.true" = "verdadeiro";
 "common.vault" = "Cofre";
+
+"getFolderIntent.description" = "Retorna um diretório para o caminho no cofre fornecido.";
+"getFolderIntent.path" = "Caminho";
+"getFolderIntent.text" = "Obter pasta localizada em ${path} em ${vault}";
+"getFolderIntent.title" = "Obter Diretório";
+
+"saveFileIntent.description" = "Salvar um arquivo para o cofre.";
+"saveFileIntent.file" = "Arquivo";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorar arquivo existente com o mesmo nome";
+"saveFileIntent.text" = "Salvar ${file} em ${folder}";
+"saveFileIntent.title" = "Salvar Arquivo";
+
+"vaultFolder.displayName" = "Diretório do cofre";
+"vaultFolder.vaultIdentifier" = "Identificador do Cofre";
