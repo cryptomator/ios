@@ -1,1 +1,19 @@
+"common.failureReason" = "Felorsak";
+"common.false" = "falskt";
+"common.folder" = "Mapp";
+"common.true" = "sant";
 "common.vault" = "Valv";
+
+"getFolderIntent.description" = "Returnerar ett mappobjekt för den angivna sökvägen i det givna valvet.";
+"getFolderIntent.path" = "Sökväg";
+"getFolderIntent.text" = "Hämta mapp som finns på ${path} i ${vault}";
+"getFolderIntent.title" = "Hämta mapp";
+
+"saveFileIntent.description" = "Sparar en fil till ett valv.";
+"saveFileIntent.file" = "Fil";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorera befintlig fil med samma namn";
+"saveFileIntent.text" = "Spara ${file} till ${folder}";
+"saveFileIntent.title" = "Spara fil";
+
+"vaultFolder.displayName" = "Valvmapp";
+"vaultFolder.vaultIdentifier" = "Valv Identifierare";
