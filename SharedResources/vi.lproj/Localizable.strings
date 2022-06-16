@@ -1,9 +1,12 @@
+"common.alert.attention.title" = "Chú ý";
 "common.button.cancel" = "Hủy";
 "common.button.change" = "Thay đổi";
 "common.button.choose" = "Chọn";
 "common.button.close" = "Đóng";
+"common.button.create" = "Tạo";
 "common.button.done" = "Xong";
 "common.button.edit" = "Chỉnh sửa";
+"common.button.enable" = "Bật";
 "common.button.next" = "Tiếp";
 "common.button.ok" = "OK";
 "common.button.remove" = "Xóa";
@@ -22,3 +25,4 @@
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.renameVault" = "Đổi tên";
 "webDAVAuthentication.httpConnection.alert.title" = "Dùng HTTPS?";
+"webDAVAuthentication.httpConnection.change" = "Chuyển sang HTTPS";
