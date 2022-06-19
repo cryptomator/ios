@@ -9,5 +9,6 @@
 "saveFileIntent.file" = "File";
 "saveFileIntent.parameter.ignoreExisting" = "Ignora i file esistenti con lo stesso nome";
 "saveFileIntent.text" = "Salva ${file} su ${folder}";
+"saveFileIntent.title" = "Salva File";
 
 "vaultFolder.displayName" = "Cartella Cassaforte";
