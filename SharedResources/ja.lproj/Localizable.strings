@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "解錠";
 "fileProvider.clearFileFromCache.title" = "キャッシュからファイルをクリア";
 "fileProvider.clearFileFromCache.message" = "これにより、デバイスからローカルファイルが削除されるだけで、クラウド内のファイルは削除されません。";
+"fileProvider.fileImporting.error.missingPremium" = "Cryptomatorアプリで金庫の書き込み許可を得るために完全版のロックを解除してください。";
 "fileProvider.uploadProgress.connecting" = "接続する...";
 "fileProvider.uploadProgress.message" = "現在の進行：%@\n\nアップロードの進行状況が止まっていることに気付いた場合は、アップロードを再試行できます。";
 "fileProvider.uploadProgress.missing" = "進捗状況を確認できませんでした。 まだバックグラウンドで実行されている可能性があります。";
 "fileProvider.uploadProgress.title" = "アップロード中";
 "fileProvider.uploadProgress.missingDomainError" = "ドメインが見つかりませんでした。";
+
+"getFolderIntent.error.missingPath" = "パスがありません。妥当なフォルダーのパスを指定してください。";
+"getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
+"intents.saveFile.missingFile" = "指定されたファイルはだめです。";
+"intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
+"intents.saveFile.missingTemporaryFolder" = "臨時フォルダーの作成ができませんでした。";
+"intents.saveFile.lockedVault" = "このショートカットを使用するためにまず金庫を解錠してください。";
+"intents.saveFile.selectedVaultNotFound" = "選択した金庫は見つかりませんでした。";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
 "keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "サブスクリプションの管理";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
+"settings.shortcutsGuide" = "ショートカットのガイド";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
