@@ -1,1 +1,19 @@
+"common.failureReason" = "失敗の原因";
+"common.false" = "偽";
+"common.folder" = "フォルダー";
+"common.true" = "真";
 "common.vault" = "金庫";
+
+"getFolderIntent.description" = "所定の金庫の所定パスにフォルダーのオブジェクトを戻す";
+"getFolderIntent.path" = "パス";
+"getFolderIntent.text" = "${vault} の${path} のフォルダーを戻す";
+"getFolderIntent.title" = "フォルダーを戻す";
+
+"saveFileIntent.description" = "金庫にファイルを保存します";
+"saveFileIntent.file" = "ファイル";
+"saveFileIntent.parameter.ignoreExisting" = "同じ名前の存在しているファイルを無視します";
+"saveFileIntent.text" = "${folder} に${file} を保存します";
+"saveFileIntent.title" = "ファイルを保存";
+
+"vaultFolder.displayName" = "金庫のフォルダー";
+"vaultFolder.vaultIdentifier" = "金庫の識別名";
