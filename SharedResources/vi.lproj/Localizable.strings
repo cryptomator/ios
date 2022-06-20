@@ -13,7 +13,11 @@
 "common.button.retry" = "Thử lại";
 "common.cells.url" = "URL";
 "common.cells.username" = "Tên đăng nhập";
+
+"addVault.title" = "Thêm Vault";
 "addVault.createNewVault.title" = "Tạo Vault mới";
+"addVault.createNewVault.setVaultName.cells.name" = "Tên Vault";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator nên lưu trữ các tệp được mã hóa trong vault của bạn ở đâu?";
 "addVault.openExistingVault.title" = "Mở Vault Hiện Có";
 "fileProvider.error.unlockButton" = "Mở khoá";
 "purchase.retry.button" = "Thử lại";
