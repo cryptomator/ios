@@ -61,6 +61,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>GetFolderIntent</string>
+		<string>LockVaultIntent</string>
 		<string>SaveFileIntent</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

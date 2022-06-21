@@ -16,6 +16,9 @@ class IntentHandler: INExtension {
 		if intent is GetFolderIntent {
 			return GetFolderIntentHandler()
 		}
+		if intent is LockVaultIntent {
+			return LockVaultIntentHandler()
+		}
 		return self
 	}
 }
