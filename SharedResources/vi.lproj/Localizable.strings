@@ -11,6 +11,7 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Xóa";
 "common.button.retry" = "Thử lại";
+"common.cells.password" = "Mật khẩu";
 "common.cells.url" = "URL";
 "common.cells.username" = "Tên đăng nhập";
 
