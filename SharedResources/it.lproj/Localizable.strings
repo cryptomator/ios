@@ -100,11 +100,20 @@
 "fileProvider.error.unlockButton" = "Sblocca";
 "fileProvider.clearFileFromCache.title" = "Cancella file dalla cache";
 "fileProvider.clearFileFromCache.message" = "Questo rimuove solo il file locale dal dispositivo e non elimina il file nel cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Sblocca la versione completa nell'applicazione Cryptomator per ottenere l'accesso in scrittura alle tue cassaforti.";
 "fileProvider.uploadProgress.connecting" = "Connessione…";
 "fileProvider.uploadProgress.message" = "Avanzamento attuale: %@\n\nSe stai notando che l'avanzamento di caricamento è bloccato, puoi riprovare il caricamento.";
 "fileProvider.uploadProgress.missing" = "Non è stato possibile determinare i progressi, che potrebbero essere ancora in esecuzione in background.";
 "fileProvider.uploadProgress.title" = "Caricamento…";
 "fileProvider.uploadProgress.missingDomainError" = "Impossibile trovare il dominio.";
+
+"getFolderIntent.error.missingPath" = "Non è stato fornito alcun percorso. Fornire un percorso valido per il quale deve essere restituita una cartella.";
+"getFolderIntent.error.noVaultSelected" = "Nessuna cassaforte è stata selezionata.";
+"intents.saveFile.missingFile" = "Il file fornito non è valido.";
+"intents.saveFile.invalidFolder" = "La cartella fornita non è valida.";
+"intents.saveFile.missingTemporaryFolder" = "Non è stato possibile creare la cartella temporanea.";
+"intents.saveFile.lockedVault" = "Sblocca prima la tua cassaforte per poter usare questa scorciatoia.";
+"intents.saveFile.selectedVaultNotFound" = "La cassaforte selezionata non è stata trovata.";
 
 "keepUnlocked.alert.title" = "Blocco la cassaforte?";
 "keepUnlocked.alert.message" = "Questa modifica richiede che la cassaforte sia bloccata per avere effetto.";
@@ -180,6 +189,7 @@
 "settings.manageSubscriptions" = "Gestisci Abbonamento";
 "settings.rateApp" = "Valuta l’app";
 "settings.sendLogFile" = "Invia File di Registro";
+"settings.shortcutsGuide" = "Guida alle scorciatoie";
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
