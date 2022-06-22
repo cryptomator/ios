@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "${vault} の${path} のフォルダーを戻す";
 "getFolderIntent.title" = "フォルダーを戻す";
 
+"isUnlockedIntent.description" = "金庫が解錠かどうか戻します。";
+"isUnlockedIntent.title" = "解錠です";
+
+"isVaultLockedIntent.title" = "金庫が解錠ですか？";
+"isVaultUnlockedIntent.text" = "${vault} が解錠してありますか？";
+
+"lockVaultIntent.description" = "金庫を施錠します。";
+"lockVaultIntent.text" = "${vault} を施錠";
+"lockVaultIntent.title" = "金庫を施錠";
+
+"openVaultIntent.description" = "ファイルアプリで金庫を開く";
+"openVaultIntent.text" = "ファイルアプリで${vault} を開きます。";
+"openVaultIntent.title" = "金庫を開く";
+
 "saveFileIntent.description" = "金庫にファイルを保存します";
 "saveFileIntent.file" = "ファイル";
 "saveFileIntent.parameter.ignoreExisting" = "同じ名前の存在しているファイルを無視します";
