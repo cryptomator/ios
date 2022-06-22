@@ -419,7 +419,7 @@
 			<key>INIntentDescription</key>
 			<string>Locks the given vault.</string>
 			<key>INIntentDescriptionID</key>
-			<string>rwnKXK</string>
+			<string>lockVaultIntent.description</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
@@ -433,7 +433,7 @@
 					<key>INIntentParameterCombinationTitle</key>
 					<string>Lock ${vault}</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>mJfJyl</string>
+					<string>lockVaultIntent.text</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -448,7 +448,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Vault</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>iCzYiq</string>
+					<string>common.vault</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterName</key>
@@ -494,7 +494,7 @@
 						<key>INIntentResponseCodeConciseFormatString</key>
 						<string>${failureReason}</string>
 						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>rE5nBU</string>
+						<string>common.response.failure</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -507,7 +507,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Failure Reason</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>cWbOTG</string>
+						<string>common.failureReason</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
@@ -522,7 +522,7 @@
 			<key>INIntentTitle</key>
 			<string>Lock Vault</string>
 			<key>INIntentTitleID</key>
-			<string>bWnrhD</string>
+			<string>lockVaultIntent.title</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
@@ -536,7 +536,7 @@
 			<key>INIntentDescription</key>
 			<string>Opens the given vault in the Files app.</string>
 			<key>INIntentDescriptionID</key>
-			<string>JnJMy1</string>
+			<string>openVaultIntent.description</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
@@ -548,9 +548,9 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Open ${vault}in the Files app</string>
+					<string>Open ${vault} in the Files app</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>mw3lOp</string>
+					<string>openVaultIntent.text</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -565,7 +565,7 @@
 					<key>INIntentParameterDisplayName</key>
 					<string>Vault</string>
 					<key>INIntentParameterDisplayNameID</key>
-					<string>SyOnl7</string>
+					<string>common.vault</string>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterName</key>
@@ -611,7 +611,7 @@
 						<key>INIntentResponseCodeConciseFormatString</key>
 						<string>${failureReason}</string>
 						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>B1NDSd</string>
+						<string>common.response.failure</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -624,7 +624,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Failure Reason</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>EZ5FLv</string>
+						<string>common.failureReason</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterName</key>
@@ -639,7 +639,7 @@
 			<key>INIntentTitle</key>
 			<string>Open Vault</string>
 			<key>INIntentTitleID</key>
-			<string>hFtL7r</string>
+			<string>openVaultIntent.title</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
@@ -653,7 +653,7 @@
 			<key>INIntentDescription</key>
 			<string>Returns whether the given vault is unlocked.</string>
 			<key>INIntentDescriptionID</key>
-			<string>hgQagu</string>
+			<string>isUnlockedIntent.description</string>
 			<key>INIntentIneligibleForSuggestions</key>
 			<true/>
 			<key>INIntentLastParameterTag</key>
@@ -665,9 +665,9 @@
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Is ${vault}unlocked?</string>
+					<string>Is ${vault} unlocked?</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>dxUmpn</string>
+					<string>isVaultUnlockedIntent.text</string>
 					<key>INIntentParameterCombinationUpdatesLinked</key>
 					<true/>
 				</dict>
@@ -675,65 +675,45 @@
 			<key>INIntentName</key>
 			<string>IsVaultUnlocked</string>
 			<key>INIntentParameters</key>
-			<array>
-				<dict>
-					<key>INIntentParameterConfigurable</key>
-					<true/>
-					<key>INIntentParameterDisplayName</key>
-					<string>Vault</string>
-					<key>INIntentParameterDisplayNameID</key>
-					<string>cKRMa0</string>
-					<key>INIntentParameterDisplayPriority</key>
-					<integer>1</integer>
-					<key>INIntentParameterName</key>
-					<string>vault</string>
-					<key>INIntentParameterObjectType</key>
-					<string>Vault</string>
-					<key>INIntentParameterObjectTypeNamespace</key>
-					<string>YO2vX8</string>
-					<key>INIntentParameterPromptDialogs</key>
-					<array>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Configuration</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Primary</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>There are ${count} options matching ‘${vault}’.</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>VWUSGt</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>DisambiguationIntroduction</string>
-						</dict>
-						<dict>
-							<key>INIntentParameterPromptDialogCustom</key>
-							<true/>
-							<key>INIntentParameterPromptDialogFormatString</key>
-							<string>Just to confirm, you wanted ‘${vault}’?</string>
-							<key>INIntentParameterPromptDialogFormatStringID</key>
-							<string>hFvbFP</string>
-							<key>INIntentParameterPromptDialogType</key>
-							<string>Confirmation</string>
-						</dict>
-					</array>
-					<key>INIntentParameterSupportsDynamicEnumeration</key>
-					<true/>
-					<key>INIntentParameterTag</key>
-					<integer>2</integer>
-					<key>INIntentParameterType</key>
-					<string>Object</string>
-				</dict>
-			</array>
+            <array>
+                <dict>
+                    <key>INIntentParameterConfigurable</key>
+                    <true/>
+                    <key>INIntentParameterDisplayName</key>
+                    <string>Vault</string>
+                    <key>INIntentParameterDisplayNameID</key>
+                    <string>common.vault</string>
+                    <key>INIntentParameterDisplayPriority</key>
+                    <integer>1</integer>
+                    <key>INIntentParameterName</key>
+                    <string>vault</string>
+                    <key>INIntentParameterObjectType</key>
+                    <string>Vault</string>
+                    <key>INIntentParameterObjectTypeNamespace</key>
+                    <string>YO2vX8</string>
+                    <key>INIntentParameterPromptDialogs</key>
+                    <array>
+                        <dict>
+                            <key>INIntentParameterPromptDialogCustom</key>
+                            <true/>
+                            <key>INIntentParameterPromptDialogType</key>
+                            <string>Configuration</string>
+                        </dict>
+                        <dict>
+                            <key>INIntentParameterPromptDialogCustom</key>
+                            <true/>
+                            <key>INIntentParameterPromptDialogType</key>
+                            <string>Primary</string>
+                        </dict>
+                    </array>
+                    <key>INIntentParameterSupportsDynamicEnumeration</key>
+                    <true/>
+                    <key>INIntentParameterTag</key>
+                    <integer>2</integer>
+                    <key>INIntentParameterType</key>
+                    <string>Object</string>
+                </dict>
+            </array>
 			<key>INIntentResponse</key>
 			<dict>
 				<key>INIntentResponseCodes</key>
@@ -748,7 +728,7 @@
 						<key>INIntentResponseCodeConciseFormatString</key>
 						<string>${failureReason}</string>
 						<key>INIntentResponseCodeConciseFormatStringID</key>
-						<string>MNftxD</string>
+						<string>common.response.failure</string>
 						<key>INIntentResponseCodeName</key>
 						<string>failure</string>
 					</dict>
@@ -763,7 +743,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Is Unlocked</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>R3vVVM</string>
+						<string>isUnlockedIntent.title</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>1</integer>
 						<key>INIntentResponseParameterMetadata</key>
@@ -771,11 +751,11 @@
 							<key>INIntentResponseParameterMetadataFalseDisplayName</key>
 							<string>false</string>
 							<key>INIntentResponseParameterMetadataFalseDisplayNameID</key>
-							<string>wbSf5Z</string>
+							<string>common.false</string>
 							<key>INIntentResponseParameterMetadataTrueDisplayName</key>
 							<string>true</string>
 							<key>INIntentResponseParameterMetadataTrueDisplayNameID</key>
-							<string>zF4ZHr</string>
+							<string>common.true</string>
 						</dict>
 						<key>INIntentResponseParameterName</key>
 						<string>isUnlocked</string>
@@ -788,7 +768,7 @@
 						<key>INIntentResponseParameterDisplayName</key>
 						<string>Failure Reason</string>
 						<key>INIntentResponseParameterDisplayNameID</key>
-						<string>GK4IuY</string>
+						<string>common.failureReason</string>
 						<key>INIntentResponseParameterDisplayPriority</key>
 						<integer>2</integer>
 						<key>INIntentResponseParameterName</key>
@@ -803,7 +783,7 @@
 			<key>INIntentTitle</key>
 			<string>Is vault unlocked</string>
 			<key>INIntentTitleID</key>
-			<string>xizB0r</string>
+			<string>isVaultLockedIntent.title</string>
 			<key>INIntentType</key>
 			<string>Custom</string>
 			<key>INIntentVerb</key>
