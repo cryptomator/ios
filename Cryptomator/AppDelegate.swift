@@ -109,6 +109,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		SKPaymentQueue.default().remove(StoreObserver.shared)
 	}
 
+	func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
+		switch userActivity.activityType {
+		case "OpenVaultIntent":
+			return handleOpenInFilesApp(for: userActivity)
+		default:
+			DDLogInfo("Received an unsupported userActivity of type: \(String(describing: userActivity.activityType))")
+			return false
+		}
+	}
+
+	private func handleOpenInFilesApp(for userActivity: NSUserActivity) -> Bool {
+		guard let vaultUID = userActivity.userInfo?["vaultUID"] as? String else {
+			DDLogError("Received a userActivity of type: \(String(describing: userActivity.activityType)) which has no vaultUID.")
+			return false
+		}
+		FilesAppUtil.showFilesApp(forVaultUID: vaultUID)
+		return true
+	}
+
 	private func cleanup() {
 		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {

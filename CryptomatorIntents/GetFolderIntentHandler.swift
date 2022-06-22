@@ -14,17 +14,10 @@ import Intents
 import Promises
 
 class GetFolderIntentHandler: NSObject, GetFolderIntentHandling {
-	private let vaultAccountManager: VaultAccountManager
-	private let cloudProviderAccountManager: CloudProviderAccountManager
+	let vaultOptionsProvider: VaultOptionsProvider
 
-	override convenience init() {
-		GetFolderIntentHandler.oneTimeSetup()
-		self.init(vaultAccountManager: VaultAccountDBManager.shared, cloudProviderAccountManager: CloudProviderAccountDBManager.shared)
-	}
-
-	init(vaultAccountManager: VaultAccountManager, cloudProviderAccountManager: CloudProviderAccountManager) {
-		self.vaultAccountManager = vaultAccountManager
-		self.cloudProviderAccountManager = cloudProviderAccountManager
+	init(vaultOptionsProvider: VaultOptionsProvider) {
+		self.vaultOptionsProvider = vaultOptionsProvider
 	}
 
 	func handle(intent: GetFolderIntent) async -> GetFolderIntentResponse {
@@ -65,44 +58,15 @@ class GetFolderIntentHandler: NSObject, GetFolderIntentHandling {
 
 	@available(iOSApplicationExtension 14.0, *)
 	func provideVaultOptionsCollection(for intent: GetFolderIntent) async throws -> INObjectCollection<Vault> {
-		let vaultAccounts = try vaultAccountManager.getAllAccounts()
-		let vaults: [Vault] = try vaultAccounts.map {
-			let cloudProviderType = try cloudProviderAccountManager.getCloudProviderType(for: $0.delegateAccountUID)
-			return Vault(identifier: $0.vaultUID,
-			             display: $0.vaultName,
-			             subtitle: $0.vaultPath.path,
-			             image: .init(type: cloudProviderType))
-		}
-		return INObjectCollection(items: vaults)
+		return try await vaultOptionsProvider.provideVaultOptionsCollection()
 	}
 
 	@available(iOS, introduced: 13.0, deprecated: 14.0, message: "")
 	func provideVaultOptions(for intent: GetFolderIntent, with completion: @escaping ([Vault]?, Error?) -> Void) {
-		do {
-			let vaultAccounts = try vaultAccountManager.getAllAccounts()
-			let vaults: [Vault] = vaultAccounts.map {
-				return Vault(identifier: $0.vaultUID, display: $0.vaultName)
-			}
-			completion(vaults, nil)
-		} catch {
-			completion(nil, error)
-		}
+		vaultOptionsProvider.provideVaultOptions(with: completion)
 	}
 
 	// MARK: Internal
-
-	private static var oneTimeSetup: () -> Void = {
-		// Set up logger
-		LoggerSetup.oneTimeSetup()
-		if let dbURL = CryptomatorDatabase.sharedDBURL {
-			do {
-				let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-				CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			} catch {
-				DDLogError("Open shared database at \(dbURL) failed with error: \(error)")
-			}
-		}
-	}
 
 	private func getIdentifierForFolder(at cloudPath: CloudPath, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> String {
 		let getXPCPromise: Promise<XPC<FileImporting>> = FileProviderXPCConnector.shared.getXPC(serviceName: .fileImporting, domainIdentifier: domainIdentifier)
