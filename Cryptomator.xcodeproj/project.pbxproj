@@ -14,6 +14,7 @@
 		4A0337CA2726FF46001753B7 /* MoveVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0337C92726FF46001753B7 /* MoveVaultCoordinator.swift */; };
 		4A03BD6527DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03BD6427DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift */; };
 		4A079FB928084134009AD932 /* WorkingSetEnumerationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A079FB828084134009AD932 /* WorkingSetEnumerationTests.swift */; };
+		4A07C1F22863003B0080FA41 /* VaultOptionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A07C1F12863003B0080FA41 /* VaultOptionsProvider.swift */; };
 		4A09BFC62684D599000E40AB /* VaultDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A09BFC52684D599000E40AB /* VaultDetailItem.swift */; };
 		4A09E54C27071F3C0056D32A /* ErrorMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A09E54B27071F3C0056D32A /* ErrorMapperTests.swift */; };
 		4A09E54E27071F4F0056D32A /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A09E54D27071F4F0056D32A /* ErrorMapper.swift */; };
@@ -528,6 +529,7 @@
 		4A03BD6427DF4AEE00B96FA7 /* WorkflowFactoryLocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowFactoryLocking.swift; sourceTree = "<group>"; };
 		4A0698692619EF9C00A67F30 /* CryptomatorCommon */ = {isa = PBXFileReference; lastKnownFileType = folder; path = CryptomatorCommon; sourceTree = "<group>"; };
 		4A079FB828084134009AD932 /* WorkingSetEnumerationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkingSetEnumerationTests.swift; sourceTree = "<group>"; };
+		4A07C1F12863003B0080FA41 /* VaultOptionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultOptionsProvider.swift; sourceTree = "<group>"; };
 		4A09BFC52684D599000E40AB /* VaultDetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailItem.swift; sourceTree = "<group>"; };
 		4A09E54B27071F3C0056D32A /* ErrorMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapperTests.swift; sourceTree = "<group>"; };
 		4A09E54D27071F4F0056D32A /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
@@ -1074,6 +1076,14 @@
 				4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */,
 			);
 			path = MoveVault;
+			sourceTree = "<group>";
+		};
+		4A07C1F32863003E0080FA41 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				4A07C1F12863003B0080FA41 /* VaultOptionsProvider.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		4A136122276767D60077EB7F /* Snapshots */ = {
@@ -1691,6 +1701,7 @@
 				4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */,
 				4A4A5D5F285CD27D002FB1D1 /* LockVaultIntentHandler.swift */,
 				4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */,
+				4A07C1F32863003E0080FA41 /* Common */,
 				4A2745E528475F3600E70D5F /* Intents.intentdefinition */,
 			);
 			path = CryptomatorIntents;
@@ -2564,6 +2575,7 @@
 				4A2745E328475F3600E70D5F /* Intents.intentdefinition in Sources */,
 				4A85ECC4283D0DED00E23024 /* GetFolderIntentHandlerError.swift in Sources */,
 				4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */,
+				4A07C1F22863003B0080FA41 /* VaultOptionsProvider.swift in Sources */,
 				4A4A5D60285CD27D002FB1D1 /* LockVaultIntentHandler.swift in Sources */,
 				4AA08E7F28379C6100972A15 /* GetFolderIntentHandler.swift in Sources */,
 			);
