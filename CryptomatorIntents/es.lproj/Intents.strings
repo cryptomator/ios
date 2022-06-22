@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Obtener carpeta ubicada en ${path} en ${vault}";
 "getFolderIntent.title" = "Obtener carpeta";
 
+"isUnlockedIntent.description" = "Devuelve si la bóveda indicada está desbloqueada.";
+"isUnlockedIntent.title" = "Está desbloqueada";
+
+"isVaultLockedIntent.title" = "Bóveda desbloqueada";
+"isVaultUnlockedIntent.text" = "¿Está ${vault} desbloqueada?";
+
+"lockVaultIntent.description" = "Bloquea la bóveda indicada.";
+"lockVaultIntent.text" = "Bloquear ${vault}";
+"lockVaultIntent.title" = "Bloquear bóveda";
+
+"openVaultIntent.description" = "Abre la bóveda indicada en la aplicación Archivos.";
+"openVaultIntent.text" = "Abrir ${vault} en la aplicación Archivos";
+"openVaultIntent.title" = "Abrir bóveda";
+
 "saveFileIntent.description" = "Guarda un archivo en una bóveda.";
 "saveFileIntent.file" = "Archivo";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorar archivo existente con el mismo nombre";
