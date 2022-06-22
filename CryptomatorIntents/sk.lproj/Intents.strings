@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Vziať priečinok umiestnený ${path} v ${vault}";
 "getFolderIntent.title" = "Získať priečinok";
 
+"isUnlockedIntent.description" = "Odpovie či je daný trezor odomknutý.";
+"isUnlockedIntent.title" = "Je odomknutý";
+
+"isVaultLockedIntent.title" = "Je trezor odomknutý";
+"isVaultUnlockedIntent.text" = "Je ${vault} odomknutý?";
+
+"lockVaultIntent.description" = "Zamknúť daný trezor.";
+"lockVaultIntent.text" = "Zamknúť ${vault}";
+"lockVaultIntent.title" = "Zamknúť trezor";
+
+"openVaultIntent.description" = "Otvoriť daný trezor v súborovej aplikácií.";
+"openVaultIntent.text" = "Otvoriť ${vault} v súborovej aplikácií";
+"openVaultIntent.title" = "Otvoriť trezor";
+
 "saveFileIntent.description" = "Uložiť súbory do trezoru.";
 "saveFileIntent.file" = "Súbor";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorovať existujúci súbor s rovnakým názvom";
