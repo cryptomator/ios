@@ -25,6 +25,9 @@ class IntentHandler: INExtension {
 		if intent is OpenVaultIntent {
 			return OpenVaultIntentHandler(vaultOptionsProvider: .shared)
 		}
+		if intent is IsVaultUnlockedIntent {
+			return IsVaultUnlockedIntentHandler(vaultOptionsProvider: .shared)
+		}
 		return self
 	}
 

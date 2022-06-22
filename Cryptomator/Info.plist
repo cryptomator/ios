@@ -61,6 +61,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>GetFolderIntent</string>
+		<string>IsVaultUnlockedIntent</string>
 		<string>LockVaultIntent</string>
         <string>OpenVaultIntent</string>
 		<string>SaveFileIntent</string>
