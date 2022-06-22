@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Récupérer le dossier situé à ${path} dans ${vault}";
 "getFolderIntent.title" = "Récupérer le Dossier";
 
+"isUnlockedIntent.description" = "Retourne quand le coffre correspondant est déverrouillé.";
+"isUnlockedIntent.title" = "Est déverrouillé";
+
+"isVaultLockedIntent.title" = "Le coffre est-il déverrouillé";
+"isVaultUnlockedIntent.text" = "Le coffre ${vault} est il déverrouillé ?";
+
+"lockVaultIntent.description" = "Verrouille le coffre correspondant.";
+"lockVaultIntent.text" = "Verrouiller le coffre ${vault}";
+"lockVaultIntent.title" = "Verrouiller le coffre";
+
+"openVaultIntent.description" = "Ouvre le coffre correspondant dans l’app Fichiers.";
+"openVaultIntent.text" = "Ouvrir ${vault} dans l''app Fichiers";
+"openVaultIntent.title" = "Ouvrir le coffre-fort";
+
 "saveFileIntent.description" = "Enregistre un fichier dans un coffre.";
 "saveFileIntent.file" = "Fichier";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorer un fichier existant avec le même nom";
