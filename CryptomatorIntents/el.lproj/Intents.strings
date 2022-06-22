@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Λήψη φακέλου που βρίσκεται σε ${path} στην ${vault}";
 "getFolderIntent.title" = "Πάρτε τον Φάκελο";
 
+"isUnlockedIntent.description" = "Επιστρέφει εάν η δεδομένη κρύπτη είναι ξεκλείδωτη.";
+"isUnlockedIntent.title" = "Είναι Ξεκλείδωτη";
+
+"isVaultLockedIntent.title" = "Η κρύπτη είναι ξεκλείδωτη";
+"isVaultUnlockedIntent.text" = "Είναι η ${vault} ξεκλείδωτη;";
+
+"lockVaultIntent.description" = "Κλειδώνει τη δεδομένη κρύπτη.";
+"lockVaultIntent.text" = "Κλείδωμα ${vault}";
+"lockVaultIntent.title" = "Κλείδωμα Κρύπτης";
+
+"openVaultIntent.description" = "Ανοίγει τη δεδομένη κρύπτη στην εφαρμογή Αρχεία.";
+"openVaultIntent.text" = "Ανοίξτε τη ${vault} στην εφαρμογή Αρχεία";
+"openVaultIntent.title" = "Άνοιγμα Κρύπτης";
+
 "saveFileIntent.description" = "Αποθηκεύει ένα αρχείο σε μια κρύπτη.";
 "saveFileIntent.file" = "Αρχείο";
 "saveFileIntent.parameter.ignoreExisting" = "Παράβλεψη υπάρχοντος αρχείου με το ίδιο όνομα";
