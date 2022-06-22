@@ -313,6 +313,7 @@
 		4AEBE8BC2653F2FD0031487F /* ReparentTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */; };
 		4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */; };
 		4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */; };
+		4AEE22F82861D6DC00A9C785 /* OpenVaultIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */; };
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE6EE12822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */; };
@@ -840,6 +841,7 @@
 		4AEBE8BB2653F2FD0031487F /* ReparentTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddleware.swift; sourceTree = "<group>"; };
+		4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenVaultIntentHandler.swift; sourceTree = "<group>"; };
 		4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileProviderItemIdentifier+Database.swift"; sourceTree = "<group>"; };
 		4AEE6EE92825716400E1B35E /* ProgressManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressManager.swift; sourceTree = "<group>"; };
 		4AEECD2E279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterSetTagDataTests.swift; sourceTree = "<group>"; };
@@ -1700,6 +1702,7 @@
 				4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */,
 				4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */,
 				4A4A5D5F285CD27D002FB1D1 /* LockVaultIntentHandler.swift */,
+				4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */,
 				4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */,
 				4A07C1F32863003E0080FA41 /* Common */,
 				4A2745E528475F3600E70D5F /* Intents.intentdefinition */,
@@ -2574,6 +2577,7 @@
 				4A33092B282EBF9900876A3E /* SaveFileIntentHandler.swift in Sources */,
 				4A2745E328475F3600E70D5F /* Intents.intentdefinition in Sources */,
 				4A85ECC4283D0DED00E23024 /* GetFolderIntentHandlerError.swift in Sources */,
+				4AEE22F82861D6DC00A9C785 /* OpenVaultIntentHandler.swift in Sources */,
 				4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */,
 				4A07C1F22863003B0080FA41 /* VaultOptionsProvider.swift in Sources */,
 				4A4A5D60285CD27D002FB1D1 /* LockVaultIntentHandler.swift in Sources */,

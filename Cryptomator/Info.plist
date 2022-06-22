@@ -62,6 +62,7 @@
 	<array>
 		<string>GetFolderIntent</string>
 		<string>LockVaultIntent</string>
+        <string>OpenVaultIntent</string>
 		<string>SaveFileIntent</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

@@ -22,6 +22,9 @@ class IntentHandler: INExtension {
 		if intent is LockVaultIntent {
 			return LockVaultIntentHandler(vaultOptionsProvider: .shared)
 		}
+		if intent is OpenVaultIntent {
+			return OpenVaultIntentHandler(vaultOptionsProvider: .shared)
+		}
 		return self
 	}
 
