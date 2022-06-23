@@ -169,13 +169,21 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				self.databaseChangedPublisher.send(.failure(error))
 				return
 			}
-			if self.cloudProviderType == .dropbox, !self.removedRow {
+			guard !self.removedRow else {
+				return
+			}
+			guard !self.accounts.isEmpty else {
+				// Only query the cloud provider online for the additional info if there are actually accounts to query.
+				// Also fixes the problem that an empty account list is sent a second time via the `databaseChangedPublisher`.
+				return
+			}
+			if self.cloudProviderType == .dropbox {
 				self.refreshDropboxItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))
 				}
-			} else if self.cloudProviderType == .pCloud, !self.removedRow {
+			} else if self.cloudProviderType == .pCloud {
 				self.refreshPCloudItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
