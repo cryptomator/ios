@@ -12,8 +12,8 @@
 "isUnlockedIntent.description" = "Zwraca czy dany sejf jest odblokowany.";
 "isUnlockedIntent.title" = "Odblokowany";
 
-"isVaultLockedIntent.title" = "Czy sejf odblokowany";
-"isVaultUnlockedIntent.text" = "Czy ${vault} odblokowany?";
+"isVaultLockedIntent.title" = "Czy sejf jest odblokowany";
+"isVaultUnlockedIntent.text" = "Czy ${vault} jest odblokowany?";
 
 "lockVaultIntent.description" = "Blokuje dany sejf.";
 "lockVaultIntent.text" = "Zablokuj ${vault}";
