@@ -9,6 +9,7 @@
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import FileProviderUI
+import LocalAuthentication
 import Promises
 import UIKit
 
@@ -87,7 +88,11 @@ class UnlockVaultViewController: UITableViewController {
 		}.then { [weak self] in
 			self?.coordinator?.done()
 		}.catch { [weak self] error in
-			self?.handleError(error, hud: hud)
+			if case LAError.userFallback = error {
+				// Do not show the fallback action as an error
+			} else {
+				self?.handleError(error, hud: hud)
+			}
 		}
 	}
 
