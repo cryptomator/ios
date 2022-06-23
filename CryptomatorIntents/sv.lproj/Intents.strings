@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Hämta mapp som finns på ${path} i ${vault}";
 "getFolderIntent.title" = "Hämta mapp";
 
+"isUnlockedIntent.description" = "Returnerar om det angivna valvet är upplåst.";
+"isUnlockedIntent.title" = "Upplåst";
+
+"isVaultLockedIntent.title" = "Är valvet upplåst";
+"isVaultUnlockedIntent.text" = "Är ${vault} upplåst?";
+
+"lockVaultIntent.description" = "Låser det givna valvet.";
+"lockVaultIntent.text" = "Lås ${vault}";
+"lockVaultIntent.title" = "Lås valv";
+
+"openVaultIntent.description" = "Öppnar det angivna valvet i appen Filer.";
+"openVaultIntent.text" = "Öppna ${vault} i appen Filer";
+"openVaultIntent.title" = "Öppna valv";
+
 "saveFileIntent.description" = "Sparar en fil till ett valv.";
 "saveFileIntent.file" = "Fil";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorera befintlig fil med samma namn";
