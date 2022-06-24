@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Obter pasta localizada em ${path} em ${vault}";
 "getFolderIntent.title" = "Obter Diretório";
 
+"isUnlockedIntent.description" = "Retorna se o cofre informado está desbloqueado.";
+"isUnlockedIntent.title" = "Desbloqueado";
+
+"isVaultLockedIntent.title" = "Cofre bloqueado";
+"isVaultUnlockedIntent.text" = "O ${vault} está desbloqueado?";
+
+"lockVaultIntent.description" = "Bloqueia o cofre fornecido.";
+"lockVaultIntent.text" = "Bloquear ${vault}";
+"lockVaultIntent.title" = "Bloquear Cofre";
+
+"openVaultIntent.description" = "Abre o cofre informado no Gerenciador de Arquivos.";
+"openVaultIntent.text" = "Abrir ${vault} no Gerenciador de Arquivos";
+"openVaultIntent.title" = "Abrir Cofre";
+
 "saveFileIntent.description" = "Salvar um arquivo para o cofre.";
 "saveFileIntent.file" = "Arquivo";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorar arquivo existente com o mesmo nome";
