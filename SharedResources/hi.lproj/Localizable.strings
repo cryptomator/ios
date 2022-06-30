@@ -98,7 +98,7 @@
 "purchase.retry.button" = "पुन: प्रयास करें";
 "purchase.unlockedFullVersion.title" = "धन्यवाद";
 
-"settings.title" = "समायोजन";
+"settings.title" = "सेटिंग्स";
 "settings.aboutCryptomator" = "क्रिप्टोमेटर के विषय में";
 "settings.aboutCryptomator.title" = "संस्करण %@ (%@)";
 "settings.cloudServices" = "क्लाउड सेवाएं";
@@ -128,7 +128,7 @@
 "vaultDetail.button.lock" = "अभी ताला लगाएँ";
 "vaultDetail.button.moveVault" = "मूव करें";
 "vaultDetail.button.removeVault" = "कक्ष-तालिका से हटाएँ";
-"vaultDetail.button.renameVault" = "नाम संपादन";
+"vaultDetail.button.renameVault" = "नाम बदलें";
 "vaultDetail.info.footer.accessVault" = "\"फ़ाइल ऐप\" द्वारा प्रवेश करें।";
 "vaultDetail.info.footer.accountInfo" = "उपयोगकर्ता का नाम %@ है और %@ द्वारा प्रवेश हुए हैं।";
 "vaultDetail.locked.footer" = "आपका कक्ष अभी बंध है।";
