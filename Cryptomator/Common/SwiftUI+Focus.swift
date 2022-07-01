@@ -64,6 +64,7 @@ class TextFieldDelegate: NSObject, UITextFieldDelegate {
 struct FocusModifier<T: CaseIterable & Hashable>: ViewModifier {
 	@Binding var focusedField: T?
 	var equals: T
+	// swiftlint:disable:next weak_delegate
 	@State var delegate = TextFieldDelegate()
 
 	public func body(content: Content) -> some View {
