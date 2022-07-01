@@ -28,7 +28,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	private let dbManager: DatabaseManager
 	private let vaultManager: VaultDBManager
 	private let fileProviderConnector: FileProviderConnector
-	private var observation: TransactionObserver?
+	private var observation: DatabaseCancellable?
 	private lazy var subscribers = Set<AnyCancellable>()
 	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
 	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))

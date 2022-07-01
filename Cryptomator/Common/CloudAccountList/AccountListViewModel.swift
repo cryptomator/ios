@@ -23,7 +23,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
-	private var observation: TransactionObserver?
+	private var observation: DatabaseCancellable?
 	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
 	private var removedRow = false
 

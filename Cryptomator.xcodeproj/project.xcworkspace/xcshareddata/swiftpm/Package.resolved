@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "AWSiOSSDKV2",
+        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm",
+        "state": {
+          "branch": null,
+          "revision": "443e35abb0646fb685e0754db74249d3242625ab",
+          "version": "2.27.10"
+        }
+      },
+      {
         "package": "Base32",
         "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
@@ -33,8 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "f8aa06dbc245368aee16ff3e4047ab0cb881a81d",
-          "version": "1.3.0"
+          "revision": "909edb215d6e0eae635830587748f00730ce6f52",
+          "version": "1.4.0"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "5ee47c3c2765bdfde0f44c2ea9a263f6aa252d63",
-          "version": "4.14.0"
+          "revision": "e02f2c8abacff2799ed14926edcbf6e76fb9f805",
+          "version": "5.25.0"
         }
       },
       {
