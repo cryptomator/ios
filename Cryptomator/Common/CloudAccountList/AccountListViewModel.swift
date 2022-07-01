@@ -85,6 +85,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			return createAccountCellContent(for: credential)
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
+		case .s3:
+			guard let credential = S3CredentialManager.shared.getCredential(with: accountInfo.accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
+			return createAccountCellContent(for: credential, displayName: displayName)
 		}
 	}
 
@@ -127,6 +133,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			detailLabelText = credential.username
 		}
 		return AccountCellContent(mainLabelText: credential.baseURL.host ?? "<unknown-host>", detailLabelText: detailLabelText)
+	}
+
+	func createAccountCellContent(for credential: S3Credential, displayName: String?) -> AccountCellContent {
+		let hostName = credential.url.host ?? "<unknown-host>"
+		let detailLabelText = "\(hostName) • \(credential.bucket)"
+		return AccountCellContent(mainLabelText: displayName ?? "<unknown-display-name>", detailLabelText: detailLabelText)
 	}
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {

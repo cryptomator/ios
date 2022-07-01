@@ -41,6 +41,9 @@ public class CryptomatorDatabase {
 		migrator.registerMigration("v2") { db in
 			try v2Migration(db)
 		}
+		migrator.registerMigration("s3DisplayNameMigration") { db in
+			try s3DisplayNameMigration(db)
+		}
 		return migrator
 	}
 
@@ -125,6 +128,28 @@ public class CryptomatorDatabase {
 			table.add(column: "masterkeyFileLastModifiedDate", .date)
 			table.add(column: "vaultConfigLastModifiedDate", .date).check(sql: "NOT (vaultConfigLastModifiedDate IS NOT NULL AND vaultConfigToken IS NULL)")
 		})
+	}
+
+	/**
+	 Migrates the database to support S3 display names.
+
+	 Since a `CloudProviderAccount` gets saved in the database after the display name has been saved, it is not possible to use a simple foreign key constraint.
+	 Therefore, an `ON DELETE CASCADE` is implemented via the trigger `s3_display_name_deletion`.
+	 */
+	class func s3DisplayNameMigration(_ db: Database) throws {
+		try db.create(table: "s3DisplayNames", body: { table in
+			table.column("id", .text).primaryKey()
+			table.column("displayName", .text).notNull().unique()
+		})
+		try db.execute(sql: """
+		CREATE TRIGGER s3_display_name_deletion
+		AFTER DELETE
+		ON cloudProviderAccounts
+		BEGIN
+		    DELETE FROM s3DisplayNames
+		    WHERE id = OLD.accountUID;
+		END;
+		""")
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

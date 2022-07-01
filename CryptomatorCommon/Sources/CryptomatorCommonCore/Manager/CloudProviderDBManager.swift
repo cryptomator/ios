@@ -63,9 +63,22 @@ public class CloudProviderDBManager: CloudProviderManager {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			provider = LocalFileSystemProvider(rootURL: rootURL)
+		case .s3:
+			provider = try createS3Provider(for: accountUID)
 		}
 		CloudProviderDBManager.cachedProvider[accountUID] = provider
 		return provider
+	}
+
+	private func createS3Provider(for accountUID: String) throws -> CloudProvider {
+		guard let credential = S3CredentialManager.shared.getCredential(with: accountUID) else {
+			throw CloudProviderAccountError.accountNotFoundError
+		}
+		if useBackgroundSession {
+			return try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		} else {
+			return try S3CloudProvider(credential: credential)
+		}
 	}
 
 	public static func providerShouldUpdate(with accountUID: String) {

@@ -49,7 +49,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func showCloudServices() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom)], headerTitle: "")
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom), .s3], headerTitle: "")
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("settings.cloudServices")
 		chooseCloudVC.coordinator = self
@@ -116,15 +116,13 @@ extension SettingsCoordinator: CloudChoosing {
 	}
 }
 
-extension SettingsCoordinator: AccountListing {
+extension SettingsCoordinator: AccountListing, DefaultShowEditAccountBehavior {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		_ = authenticator.authenticate(cloudProviderType, from: viewController)
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {}
-
-	func showEdit(for account: AccountInfo) {}
 }
 
 private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoordinator {
