@@ -47,18 +47,18 @@ class DatabaseManager {
 		}
 	}
 
-	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> TransactionObserver {
+	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation.tracking { db in
 			try VaultAccount.fetchAll(db)
-		}
-		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+		}.removeDuplicates()
+		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
-	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping (Error) -> Void, onChange: @escaping (VaultAccount?) -> Void) -> TransactionObserver {
+	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping (Error) -> Void, onChange: @escaping (VaultAccount?) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation.tracking { db in
 			try VaultAccount.fetchOne(db, key: vaultUID)
 		}
-		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
 	func getAllAccounts(for cloudProviderType: CloudProviderType) throws -> [AccountInfo] {
@@ -89,11 +89,11 @@ class DatabaseManager {
 		}
 	}
 
-	func observeCloudProviderAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([CloudProviderAccount]) -> Void) -> TransactionObserver {
+	func observeCloudProviderAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([CloudProviderAccount]) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation.tracking { db in
 			try CloudProviderAccount.fetchAll(db)
-		}
-		return observation.start(in: dbPool, onError: onError, onChange: onChange)
+		}.removeDuplicates()
+		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 }
 
