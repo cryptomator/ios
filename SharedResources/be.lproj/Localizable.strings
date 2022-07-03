@@ -1,0 +1,11 @@
+"common.button.cancel" = "Скасаваць";
+"common.button.change" = "Змяніць";
+"common.button.close" = "Зачыніць";
+"common.button.done" = "Файна";
+"common.button.next" = "Далей";
+
+"addVault.title" = "Дадаць скарбніцу";
+"addVault.createNewVault.title" = "Стварыць новую скарбніцу";
+"addVault.createNewVault.setVaultName.cells.name" = "Назва скарбніцы";
+"addVault.createNewVault.chooseCloud.header" = "Дзе мусіць Cryptomator захоўваць зашыфраваныя файлы з тваёй скарбніцы?";
+"addVault.openExistingVault.title" = "Адчыніць існуючую скарбніцу";
