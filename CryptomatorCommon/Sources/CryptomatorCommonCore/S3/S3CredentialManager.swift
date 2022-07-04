@@ -79,3 +79,16 @@ public struct S3CredentialManager: S3CredentialManagerType {
 		keychain.getS3Credential(identifier)
 	}
 }
+
+extension S3CredentialManager {
+	private static var inMemoryDB: DatabaseQueue {
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
+		let inMemoryDB = DatabaseQueue(configuration: configuration)
+		try? CryptomatorDatabase.migrator.migrate(inMemoryDB)
+		return inMemoryDB
+	}
+
+	public static let demo = S3CredentialManager(dbWriter: inMemoryDB, keychain: CryptomatorKeychain(service: "s3CredentialDemo"))
+}

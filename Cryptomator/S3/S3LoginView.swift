@@ -64,7 +64,7 @@ struct S3LoginView: View {
 
 struct S3LoginView_Previews: PreviewProvider {
 	static var previews: some View {
-		S3LoginView(viewModel: .init())
+		S3LoginView(viewModel: .init(credentialManager: S3CredentialManager.demo))
 	}
 }
 
