@@ -109,21 +109,6 @@ class S3LoginViewModelTests: XCTestCase {
 		XCTAssertEqual(expectedStateChanges, stateChanges)
 	}
 
-	func testSaveS3CredentialFailWithDisplayNameCollision() {
-		let recorder = viewModel.$loginState.recordNext(3)
-
-		prepareViewModelWithDefaultValues()
-		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
-		credentialManagerMock.saveCredentialDisplayNameThrowableError = S3CredentialManagerError.displayNameCollision
-
-		viewModel.saveS3Credential()
-
-		wait(for: recorder, timeout: 1.0)
-		let stateChanges = recorder.getElements()
-		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3LoginViewModelError.displayNameAlreadyExists(defaultDisplayName))]
-		XCTAssertEqual(expectedStateChanges, stateChanges)
-	}
-
 	func testSaveS3CredentialFailIfEndpointIsNonValidURL() {
 		let recorder = viewModel.$loginState.recordNext(2)
 

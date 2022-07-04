@@ -139,7 +139,7 @@ public class CryptomatorDatabase {
 	class func s3DisplayNameMigration(_ db: Database) throws {
 		try db.create(table: "s3DisplayNames", body: { table in
 			table.column("id", .text).primaryKey()
-			table.column("displayName", .text).notNull().unique()
+			table.column("displayName", .text).notNull()
 		})
 		try db.execute(sql: """
 		CREATE TRIGGER s3_display_name_deletion

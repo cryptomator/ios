@@ -26,10 +26,6 @@ public extension S3CredentialManagerType {
 	}
 }
 
-public enum S3CredentialManagerError: Error {
-	case displayNameCollision
-}
-
 public struct S3DisplayName: Codable {
 	public let id: String
 	public let displayName: String
@@ -56,8 +52,6 @@ public struct S3CredentialManager: S3CredentialManagerType {
 				try entry.save(db)
 				try keychain.saveS3Credential(credential)
 			}
-		} catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT && error.message == "UNIQUE constraint failed: s3DisplayNames.displayName" {
-			throw S3CredentialManagerError.displayNameCollision
 		}
 	}
 

@@ -83,8 +83,6 @@ class S3LoginViewModel: ObservableObject {
 		switch error {
 		case LocalizedCloudProviderError.unauthorized, CloudProviderError.unauthorized:
 			convertedError = S3LoginViewModelError.invalidCredentials
-		case S3CredentialManagerError.displayNameCollision:
-			convertedError = S3LoginViewModelError.displayNameAlreadyExists(displayName)
 		default:
 			convertedError = error
 		}
@@ -102,7 +100,6 @@ enum S3LoginState {
 enum S3LoginViewModelError: Error {
 	case emptyField
 	case invalidEndpoint
-	case displayNameAlreadyExists(String)
 	case invalidCredentials
 }
 
@@ -113,8 +110,6 @@ extension S3LoginViewModelError: LocalizedError {
 			return nil
 		case .invalidEndpoint:
 			return LocalizedString.getValue("s3Login.error.invalidEndpoint")
-		case let .displayNameAlreadyExists(displayName):
-			return String(format: LocalizedString.getValue("s3Login.error.displayNameAlreadyExists"), displayName)
 		case .invalidCredentials:
 			return LocalizedString.getValue("s3Login.error.invalidCredentials")
 		}
