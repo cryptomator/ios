@@ -27,7 +27,7 @@ class S3CredentialManagerTests: XCTestCase {
 
 	func testSaveCredential() throws {
 		try manager.save(credential: .stub, displayName: displayName)
-		try assertCredentialSavedToKeychain()
+		try assertCredentialSavedToKeychain(.stub)
 
 		let savedDisplayName = try manager.getDisplayName(for: .stub)
 		XCTAssertEqual(displayName, savedDisplayName)
@@ -48,23 +48,22 @@ class S3CredentialManagerTests: XCTestCase {
 		XCTAssertNil(try manager.getDisplayName(for: .stub))
 	}
 
-	func testSaveDuplicateDisplayNameFails() throws {
+	func testSaveDuplicateDisplayName() throws {
 		try manager.save(credential: .stub, displayName: displayName)
+		try assertCredentialSavedToKeychain(.stub)
 		let secondCredential = S3Credential(accessKey: "access-key-123", secretKey: "secret-key-345", url: URL(string: "https://example.com")!, bucket: "exampleBucket", region: "customRegion", identifier: "DifferentIdentifier")
-		XCTAssertThrowsError(try manager.save(credential: secondCredential, displayName: displayName)) { error in
-			XCTAssertEqual(.displayNameCollision, error as? S3CredentialManagerError)
-		}
-		try assertCredentialSavedToKeychain()
-		XCTAssertEqual(1, cryptomatorKeychainMock.setValueCallsCount)
+		try manager.save(credential: secondCredential, displayName: displayName)
+		try assertCredentialSavedToKeychain(secondCredential)
+		XCTAssertEqual(2, cryptomatorKeychainMock.setValueCallsCount)
 	}
 
-	private func assertCredentialSavedToKeychain() throws {
+	private func assertCredentialSavedToKeychain(_ expectedCredential: S3Credential) throws {
 		let receivedArguments = try XCTUnwrap(cryptomatorKeychainMock.setValueReceivedArguments)
 		let key = receivedArguments.key
 		let data = receivedArguments.value
 		let savedCredential = try JSONDecoder().decode(S3Credential.self, from: data)
-		XCTAssertEqual(.stub, savedCredential)
-		XCTAssertEqual(S3Credential.stub.identifier, key)
+		XCTAssertEqual(expectedCredential, savedCredential)
+		XCTAssertEqual(expectedCredential.identifier, key)
 	}
 
 	private func assertCredentialRemovedFromKeychain() {
