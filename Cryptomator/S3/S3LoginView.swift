@@ -16,38 +16,38 @@ struct S3LoginView: View {
 	@ObservedObject var viewModel: S3LoginViewModel
 	var body: some View {
 		Form {
-			TextField("Display Name",
+			TextField(LocalizedString.getValue("s3Login.displayName"),
 			          text: $viewModel.displayName)
 				.focusedLegacy($focusedField, equals: .displayName)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
-			TextField("Access Key",
+			TextField(LocalizedString.getValue("s3Login.accessKey"),
 			          text: $viewModel.accessKey)
 				.focusedLegacy($focusedField, equals: .accessKey)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
-			SecureField("Secret Key",
+			SecureField(LocalizedString.getValue("s3Login.secretKey"),
 			            text: $viewModel.secretKey)
 				.focusedLegacy($focusedField, equals: .secretKey)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
-			TextField("Existing Bucket",
+			TextField(LocalizedString.getValue("s3Login.existingBucket"),
 			          text: $viewModel.existingBucket)
 				.focusedLegacy($focusedField, equals: .existingBucket)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 
-			TextField("Endpoint",
+			TextField(LocalizedString.getValue("s3Login.endpoint"),
 			          text: $viewModel.endpoint)
 				.focusedLegacy($focusedField, equals: .endpoint)
 				.disableAutocorrection(true)
 				.autocapitalization(.none)
 				.keyboardType(.URL)
 
-			TextField("Region",
+			TextField(LocalizedString.getValue("s3Login.region"),
 			          text: $viewModel.region,
 			          onCommit: {
 			          	viewModel.saveS3Credential()

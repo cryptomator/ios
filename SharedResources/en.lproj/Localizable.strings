@@ -205,6 +205,12 @@
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
 
+"s3Login.displayName" = "Display Name";
+"s3Login.accessKey" = "Access Key";
+"s3Login.secretKey" = "Secret Key";
+"s3Login.existingBucket" = "Existing Bucket";
+"s3Login.endpoint" = "Endpoint";
+"s3Login.region" = "Region";
 "s3Login.error.displayNameAlreadyExists" = "The display name \"%@\" is already used for another S3 credential, please choose a different display name.";
 "s3Login.error.invalidCredentials" = "Invalid credentials.";
 "s3Login.error.invalidEndpoint" = "The provided endpoint does not match the format of a URL.";
