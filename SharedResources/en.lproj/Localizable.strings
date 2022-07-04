@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
 "common.footer.learnMore" = "Learn more.";
+"common.hud.authenticating" = "Authenticating…";
 
 "accountList.header.title" = "Authentications";
 "accountList.emptyList.message" = "Tap here to add an account";
@@ -276,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Vault configuration is unsupported. Please make sure that you are running the latest version of Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault version %ld is unsupported. This vault has been created with an older or newer version of Cryptomator.";
 
-"webDAVAuthentication.progress" = "Authenticating…";
 "webDAVAuthentication.httpConnection.alert.title" = "Use HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "The usage of HTTP is insecure. We recommend to use HTTPS instead. If you know the risks, you can continue with HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Change to HTTPS";

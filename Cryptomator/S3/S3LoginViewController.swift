@@ -39,7 +39,7 @@ class S3LoginViewController: UIHostingController<S3LoginView> {
 		}.store(in: &subscriptions)
 
 		let hud = ProgressHUD()
-		hud.text = LocalizedString.getValue("webDAVAuthentication.progress")
+		hud.text = LocalizedString.getValue("common.hud.authenticating")
 		viewModel.$loginState.sink { [weak self] state in
 			switch state {
 			case let .error(error):

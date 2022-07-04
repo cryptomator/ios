@@ -47,7 +47,7 @@ class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewControll
 		}
 
 		let hud = ProgressHUD()
-		hud.text = LocalizedString.getValue("webDAVAuthentication.progress")
+		hud.text = LocalizedString.getValue("common.hud.authenticating")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
 		let addAccountPromise = viewModel.addAccount(credential: credential)
