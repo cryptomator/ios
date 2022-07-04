@@ -11,6 +11,9 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Назва скарбніцы";
 "addVault.createNewVault.chooseCloud.header" = "Дзе мусіць Cryptomator захоўваць зашыфраваныя файлы з тваёй скарбніцы?";
 "addVault.openExistingVault.title" = "Адчыніць існуючую скарбніцу";
+"fileProvider.error.unlockButton" = "Адамкнуць";
 
 "settings.title" = "Налады";
+
+"unlockVault.button.unlock" = "Адамкнуць";
 "vaultDetail.button.renameVault" = "Пераназваць";
