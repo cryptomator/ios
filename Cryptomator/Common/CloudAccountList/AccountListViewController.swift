@@ -70,7 +70,7 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 			sender.setSelected(false)
 		})
 
-		if let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent), viewModel.accountInfos[indexPath.row].cloudProviderType == .s3 {
+		if let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent), case CloudProviderType.s3 = viewModel.accountInfos[indexPath.row].cloudProviderType {
 			let accountInfo = viewModel.accountInfos[indexPath.row]
 			let editAction = UIAlertAction(title: LocalizedString.getValue("common.button.edit"), style: .default) { [weak self] _ in
 				sender.setSelected(false)

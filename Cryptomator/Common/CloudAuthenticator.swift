@@ -71,7 +71,7 @@ class CloudAuthenticator {
 
 	func authenticateS3(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return S3Authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3)
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}

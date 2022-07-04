@@ -15,7 +15,7 @@ protocol DefaultShowEditAccountBehavior {}
 
 extension Coordinator where Self: DefaultShowEditAccountBehavior {
 	func showEdit(for account: AccountInfo) {
-		guard account.cloudProviderType == .s3 else { return }
+		guard case CloudProviderType.s3 = account.cloudProviderType else { return }
 		let credential: S3Credential
 		let displayName: String
 		do {
