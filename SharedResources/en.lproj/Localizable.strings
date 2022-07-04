@@ -206,14 +206,14 @@
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
 
-"s3Login.displayName" = "Display Name";
-"s3Login.accessKey" = "Access Key";
-"s3Login.secretKey" = "Secret Key";
-"s3Login.existingBucket" = "Existing Bucket";
-"s3Login.endpoint" = "Endpoint";
-"s3Login.region" = "Region";
-"s3Login.error.invalidCredentials" = "Invalid credentials.";
-"s3Login.error.invalidEndpoint" = "The provided endpoint does not match the format of a URL.";
+"s3Authentication.displayName" = "Display Name";
+"s3Authentication.accessKey" = "Access Key";
+"s3Authentication.secretKey" = "Secret Key";
+"s3Authentication.existingBucket" = "Existing Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Invalid credentials.";
+"s3Authentication.error.invalidEndpoint" = "The provided endpoint does not match the format of a URL.";
 
 "trialStatus.active" = "Active";
 "trialStatus.expired" = "Expired";

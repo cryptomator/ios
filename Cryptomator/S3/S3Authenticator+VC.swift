@@ -36,7 +36,7 @@ class S3AuthenticationCoordinator: Coordinator, S3Authenticating {
 	}
 
 	func start() {
-		let viewController = S3LoginViewController(viewModel: .init())
+		let viewController = S3AuthenticationViewController(viewModel: .init())
 		viewController.coordinator = self
 		navigationController.pushViewController(viewController, animated: false)
 	}
@@ -71,7 +71,7 @@ class S3CredentialCoordinator: Coordinator, S3Authenticating {
 	}
 
 	func start() {
-		let viewController = S3LoginViewController(viewModel: .init(displayName: displayName, credential: credential))
+		let viewController = S3AuthenticationViewController(viewModel: .init(displayName: displayName, credential: credential))
 		viewController.coordinator = self
 		navigationController.pushViewController(viewController, animated: false)
 	}

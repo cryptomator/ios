@@ -1,5 +1,5 @@
 //
-//  S3LoginViewModelTests.swift
+//  S3AuthenticationViewModelTests.swift
 //  CryptomatorTests
 //
 //  Created by Philipp Schmid on 30.06.22.
@@ -12,9 +12,9 @@ import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 
-class S3LoginViewModelTests: XCTestCase {
-	var existingCredentialViewModel: S3LoginViewModel!
-	var viewModel: S3LoginViewModel!
+class S3AuthenticationViewModelTests: XCTestCase {
+	var existingCredentialViewModel: S3AuthenticationViewModel!
+	var viewModel: S3AuthenticationViewModel!
 	var credentialManagerMock: S3CredentialManagerTypeMock!
 	var credentialVerifierMock: S3CredentialVerifierTypeMock!
 	let existingDisplayName = "Foo-1234"
@@ -29,8 +29,8 @@ class S3LoginViewModelTests: XCTestCase {
 	override func setUpWithError() throws {
 		credentialManagerMock = S3CredentialManagerTypeMock()
 		credentialVerifierMock = S3CredentialVerifierTypeMock()
-		viewModel = S3LoginViewModel(verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
-		existingCredentialViewModel = S3LoginViewModel(displayName: existingDisplayName, credential: .stub, verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
+		viewModel = S3AuthenticationViewModel(verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
+		existingCredentialViewModel = S3AuthenticationViewModel(displayName: existingDisplayName, credential: .stub, verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
 	}
 
 	func testInitialStateDefaultViewModel() throws {
@@ -105,7 +105,7 @@ class S3LoginViewModelTests: XCTestCase {
 
 		wait(for: recorder, timeout: 1.0)
 		let stateChanges = recorder.getElements()
-		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3LoginViewModelError.invalidCredentials)]
+		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3AuthenticationViewModelError.invalidCredentials)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
 	}
 
@@ -120,7 +120,7 @@ class S3LoginViewModelTests: XCTestCase {
 
 		wait(for: recorder, timeout: 1.0)
 		let stateChanges = recorder.getElements()
-		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3LoginViewModelError.invalidEndpoint)]
+		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationViewModelError.invalidEndpoint)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
 	}
 

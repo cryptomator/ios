@@ -1,5 +1,5 @@
 //
-//  S3LoginViewController.swift
+//  S3AuthenticationViewController.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 28.06.22.
@@ -11,14 +11,14 @@ import CryptomatorCommonCore
 import SwiftUI
 import UIKit
 
-class S3LoginViewController: UIHostingController<S3LoginView> {
+class S3AuthenticationViewController: UIHostingController<S3AuthenticationView> {
 	weak var coordinator: (Coordinator & S3Authenticating)?
-	let viewModel: S3LoginViewModel
+	let viewModel: S3AuthenticationViewModel
 	private var subscriptions = Set<AnyCancellable>()
 
-	init(viewModel: S3LoginViewModel) {
+	init(viewModel: S3AuthenticationViewModel) {
 		self.viewModel = viewModel
-		super.init(rootView: S3LoginView(viewModel: viewModel))
+		super.init(rootView: S3AuthenticationView(viewModel: viewModel))
 	}
 
 	@available(*, unavailable)

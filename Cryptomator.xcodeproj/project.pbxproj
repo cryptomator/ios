@@ -190,8 +190,8 @@
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
-		4A773907286D86C20006B3C3 /* S3LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3LoginViewModel.swift */; };
-		4A773909286D87AB0006B3C3 /* S3LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773908286D87AB0006B3C3 /* S3LoginViewModelTests.swift */; };
+		4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */; };
+		4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */; };
 		4A77390B286D8B300006B3C3 /* S3CredentialVerifierMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */; };
 		4A797F8F24AC6731007DDBE1 /* FileProviderItemTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */; };
 		4A797F9624AC9936007DDBE1 /* CustomCloudProviderMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */; };
@@ -320,10 +320,10 @@
 		4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */; };
 		4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */; };
 		4AED9A69286B303000352951 /* S3Authenticator+VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A68286B303000352951 /* S3Authenticator+VC.swift */; };
-		4AED9A6C286B305200352951 /* S3LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A6B286B305200352951 /* S3LoginView.swift */; };
+		4AED9A6C286B305200352951 /* S3AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A6B286B305200352951 /* S3AuthenticationView.swift */; };
 		4AED9A6F286B38DA00352951 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 4AED9A6E286B38DA00352951 /* Introspect */; };
 		4AED9A73286B3D6D00352951 /* SwiftUI+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A72286B3D6C00352951 /* SwiftUI+Focus.swift */; };
-		4AED9A77286B4BEE00352951 /* S3LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A76286B4BEE00352951 /* S3LoginViewController.swift */; };
+		4AED9A77286B4BEE00352951 /* S3AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */; };
 		4AED9A79286B4DF500352951 /* S3Authenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A78286B4DF500352951 /* S3Authenticating.swift */; };
 		4AEE22F82861D6DC00A9C785 /* OpenVaultIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */; };
 		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -719,8 +719,8 @@
 		4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAction.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptomatorIntents.entitlements; sourceTree = "<group>"; };
-		4A773906286D86C20006B3C3 /* S3LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3LoginViewModel.swift; sourceTree = "<group>"; };
-		4A773908286D87AB0006B3C3 /* S3LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3LoginViewModelTests.swift; sourceTree = "<group>"; };
+		4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewModelTests.swift; sourceTree = "<group>"; };
 		4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3CredentialVerifierMock.swift; sourceTree = "<group>"; };
 		4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderItemTests.swift; sourceTree = "<group>"; };
 		4A797F9524AC9936007DDBE1 /* CustomCloudProviderMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCloudProviderMock.swift; sourceTree = "<group>"; };
@@ -860,9 +860,9 @@
 		4AEBE8BD2653F4280031487F /* UploadTaskExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTaskExecutor.swift; sourceTree = "<group>"; };
 		4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddleware.swift; sourceTree = "<group>"; };
 		4AED9A68286B303000352951 /* S3Authenticator+VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S3Authenticator+VC.swift"; sourceTree = "<group>"; };
-		4AED9A6B286B305200352951 /* S3LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3LoginView.swift; sourceTree = "<group>"; };
+		4AED9A6B286B305200352951 /* S3AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationView.swift; sourceTree = "<group>"; };
 		4AED9A72286B3D6C00352951 /* SwiftUI+Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Focus.swift"; sourceTree = "<group>"; };
-		4AED9A76286B4BEE00352951 /* S3LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3LoginViewController.swift; sourceTree = "<group>"; };
+		4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewController.swift; sourceTree = "<group>"; };
 		4AED9A78286B4DF500352951 /* S3Authenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Authenticating.swift; sourceTree = "<group>"; };
 		4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenVaultIntentHandler.swift; sourceTree = "<group>"; };
 		4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileProviderItemIdentifier+Database.swift"; sourceTree = "<group>"; };
@@ -1799,7 +1799,7 @@
 				4A6A5205268B2B24006F7368 /* MockError.swift */,
 				4ABCF3512726D24800A7FBB7 /* MoveVaultViewModelTests.swift */,
 				4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */,
-				4A773908286D87AB0006B3C3 /* S3LoginViewModelTests.swift */,
+				4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */,
 				4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */,
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
@@ -1829,9 +1829,9 @@
 			children = (
 				4AED9A78286B4DF500352951 /* S3Authenticating.swift */,
 				4AED9A68286B303000352951 /* S3Authenticator+VC.swift */,
-				4AED9A6B286B305200352951 /* S3LoginView.swift */,
-				4A773906286D86C20006B3C3 /* S3LoginViewModel.swift */,
-				4AED9A76286B4BEE00352951 /* S3LoginViewController.swift */,
+				4AED9A6B286B305200352951 /* S3AuthenticationView.swift */,
+				4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */,
+				4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */,
 				4A970FF3286C960E00337FDC /* S3CredentialVerifier.swift */,
 			);
 			path = S3;
@@ -2637,7 +2637,7 @@
 			files = (
 				74C2BC4A26E8E24A00BCAA03 /* OnboardingViewModel.swift in Sources */,
 				4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */,
-				4A773907286D86C20006B3C3 /* S3LoginViewModel.swift in Sources */,
+				4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */,
 				4A970FF4286C960E00337FDC /* S3CredentialVerifier.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
@@ -2659,7 +2659,7 @@
 				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
 				74D365BA268B5DB0005ECD69 /* FilesAppUtil.swift in Sources */,
-				4AED9A6C286B305200352951 /* S3LoginView.swift in Sources */,
+				4AED9A6C286B305200352951 /* S3AuthenticationView.swift in Sources */,
 				4A644B4D267B55E4008CBB9A /* CreateNewVaultCoordinator.swift in Sources */,
 				740D3682266A19150058744D /* SettingsViewModel.swift in Sources */,
 				4A7B97D325B6F7520044B7FB /* AccountListViewModel.swift in Sources */,
@@ -2744,7 +2744,7 @@
 				4A53CC13267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift in Sources */,
 				4A6A51FF268B1BEB006F7368 /* OpenExistingLocalVaultCoordinator.swift in Sources */,
 				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
-				4AED9A77286B4BEE00352951 /* S3LoginViewController.swift in Sources */,
+				4AED9A77286B4BEE00352951 /* S3AuthenticationViewController.swift in Sources */,
 				4A644B47267A3D43008CBB9A /* SetVaultNameViewModel.swift in Sources */,
 				4A1EB0D02689C7F8006D072B /* DetectedVaultFailureView.swift in Sources */,
 				74C2BC4C26E8E63700BCAA03 /* OnboardingCoordinator.swift in Sources */,
@@ -2846,7 +2846,7 @@
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
 				4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */,
-				4A773909286D87AB0006B3C3 /* S3LoginViewModelTests.swift in Sources */,
+				4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
 				4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,

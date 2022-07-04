@@ -1,5 +1,5 @@
 //
-//  S3LoginViewModel.swift
+//  S3AuthenticationViewModel.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 30.06.22.
@@ -11,18 +11,14 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 
-class S3LoginViewModel: ObservableObject {
+class S3AuthenticationViewModel: ObservableObject {
 	@Published var displayName = ""
 	@Published var secretKey = ""
 	@Published var accessKey = ""
 	@Published var existingBucket = ""
 	@Published var endpoint = "https://"
 	@Published var region = ""
-	@Published var loginState = S3LoginState.notLoggedIn {
-		didSet {
-			print("loginState changed to: \(loginState)")
-		}
-	}
+	@Published var loginState = S3LoginState.notLoggedIn
 
 	let title = "S3"
 
@@ -56,11 +52,11 @@ class S3LoginViewModel: ObservableObject {
 
 	func saveS3Credential() {
 		guard !secretKey.isEmpty, !accessKey.isEmpty, !existingBucket.isEmpty, !endpoint.isEmpty, !region.isEmpty, !displayName.isEmpty else {
-			loginState = .error(S3LoginViewModelError.emptyField)
+			loginState = .error(S3AuthenticationViewModelError.emptyField)
 			return
 		}
 		guard let url = URL(string: endpoint) else {
-			loginState = .error(S3LoginViewModelError.invalidEndpoint)
+			loginState = .error(S3AuthenticationViewModelError.invalidEndpoint)
 			return
 		}
 		let credential = S3Credential(accessKey: accessKey,
@@ -82,7 +78,7 @@ class S3LoginViewModel: ObservableObject {
 		let convertedError: Error
 		switch error {
 		case LocalizedCloudProviderError.unauthorized, CloudProviderError.unauthorized:
-			convertedError = S3LoginViewModelError.invalidCredentials
+			convertedError = S3AuthenticationViewModelError.invalidCredentials
 		default:
 			convertedError = error
 		}
@@ -97,21 +93,21 @@ enum S3LoginState {
 	case notLoggedIn
 }
 
-enum S3LoginViewModelError: Error {
+enum S3AuthenticationViewModelError: Error {
 	case emptyField
 	case invalidEndpoint
 	case invalidCredentials
 }
 
-extension S3LoginViewModelError: LocalizedError {
+extension S3AuthenticationViewModelError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptyField:
 			return nil
 		case .invalidEndpoint:
-			return LocalizedString.getValue("s3Login.error.invalidEndpoint")
+			return LocalizedString.getValue("s3Authentication.error.invalidEndpoint")
 		case .invalidCredentials:
-			return LocalizedString.getValue("s3Login.error.invalidCredentials")
+			return LocalizedString.getValue("s3Authentication.error.invalidCredentials")
 		}
 	}
 }
