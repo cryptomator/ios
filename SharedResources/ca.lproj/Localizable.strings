@@ -109,6 +109,13 @@
 "settings.sendLogFile" = "Envia el fitxer de registre";
 "settings.unlockFullVersion" = "Desbloca la versió completa";
 
+"s3Authentication.displayName" = "Nom que es mostrarà";
+"s3Authentication.accessKey" = "Clau d'accés";
+"s3Authentication.secretKey" = "Clau secreta";
+"s3Authentication.existingBucket" = "Cubell existent";
+"s3Authentication.endpoint" = "Extrem";
+"s3Authentication.region" = "Regió";
+
 "unlockVault.button.unlock" = "Desbloqueja";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
 
@@ -138,7 +145,6 @@
 "vaultList.remove.alert.title" = "Elimina la caixa forta?";
 "vaultList.remove.alert.message" = "Això només eliminarà la caixa forta de la llista. No se suprimiran dades encriptades. Podreu re-afegir la caixa més endavant.";
 
-"webDAVAuthentication.progress" = "S'està autenticant…";
 "webDAVAuthentication.httpConnection.alert.title" = "Utilizar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
