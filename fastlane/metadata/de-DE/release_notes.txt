@@ -1,4 +1,4 @@
-- Kurzbefehle-Integration hinzugefügt, die es erlaubt, Automatisierungen wie "automatischer Foto-Upload" zu erstellen (#56, #114, #222)
-- Kompatibilität mit Tresorformat 8 verbessert (#198, cryptolib-swift#9)
-
-Schau dir unbedingt unseren Leitfaden für Kurzbefehle an, den du in den Einstellungen von Cryptomator finden kannst.
+- Unterstützung für S3 hinzugefügt (#238)
+- Zusätzliche Shortcut-Intents für „Sperrstatus abfragen“, „Tresor öffnen“ und „Tresor sperren“ hinzugefügt (#229, #233)
+- Schnelleres Entsperren hinzugefügt, wenn Touch ID / Face ID eingerichtet ist (#225)
+- Flackern beim Öffnen der Accountliste für bestimmte Cloud-Speicherdienste behoben (#235, #236)

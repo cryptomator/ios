@@ -1,4 +1,4 @@
-- Added Shortcuts integration, which allows you to create automations like "auto photo upload" (#56, #114, #222)
-- Improved vault format 8 compatibility (#198, cryptolib-swift#9)
-
-Make sure to check out our Shortcuts Guide, which you can find in the settings of Cryptomator.
+- Added support for S3 (#238)
+- Added additional Shortcut intents for "Get Lock Status", "Open Vault", and "Lock Vault" (#229, #233)
+- Added quicker unlock when Touch ID / Face ID is set up (#225)
+- Fixed flickering when opening account list for certain cloud storage services (#235, #236)
