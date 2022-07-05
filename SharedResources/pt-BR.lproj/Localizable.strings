@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/Viagem pra Califórnia";
 
+"s3Authentication.displayName" = "Nome de Exibição";
+"s3Authentication.accessKey" = "Chave de acesso";
+"s3Authentication.secretKey" = "Chave Secreta";
+"s3Authentication.existingBucket" = "Bucket do nome de domínio na URL existente";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Região";
+
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirado";
 
@@ -268,7 +275,6 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "vaultProviderFactory.error.unsupportedVaultConfig" = "A configuração do Cofre não é suportada. Por favor, certifique-se de estar executando a versão mais recente do Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre %ld não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
 
-"webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
