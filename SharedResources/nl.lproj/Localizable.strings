@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "Documenten";
 "snapshots.main.vault4" = "/reis naar Californië";
 
+"s3Authentication.displayName" = "Weergavenaam";
+"s3Authentication.accessKey" = "Toegangs code";
+"s3Authentication.secretKey" = "Geheime code";
+"s3Authentication.existingBucket" = "Bestaande Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Regio";
+
 "trialStatus.active" = "Actief";
 "trialStatus.expired" = "Verlopen";
 
@@ -267,7 +274,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Kluisversie %ld wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
 
-"webDAVAuthentication.progress" = "Authenticatie verwerken…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
