@@ -213,7 +213,7 @@
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Region";
 "s3Authentication.error.invalidCredentials" = "Ungültige Zugangsdaten.";
-"s3Authentication.error.invalidEndpoint" = "Der angegebene Endpoint entspricht nicht dem Format einer URL.";
+"s3Authentication.error.invalidEndpoint" = "Der angegebene Endpunkt entspricht nicht dem Format einer URL.";
 
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Abgelaufen";
