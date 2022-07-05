@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
 "common.footer.learnMore" = "了解更多。";
+"common.hud.authenticating" = "正在验证...";
 
 "accountList.header.title" = "身份验证";
 "accountList.emptyList.message" = "点击此处添加保险库";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "现有 Bucket";
 "s3Authentication.endpoint" = "端点";
 "s3Authentication.region" = "区域";
+"s3Authentication.error.invalidCredentials" = "无效凭证";
+"s3Authentication.error.invalidEndpoint" = "提供的端点与URL格式不匹配。";
 
 "trialStatus.active" = "进行中";
 "trialStatus.expired" = "已到期";
