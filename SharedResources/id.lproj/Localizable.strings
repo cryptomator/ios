@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "/Dokumen";
 "snapshots.main.vault4" = "/Perjalanan ke California";
 
+"s3Authentication.displayName" = "Nama";
+"s3Authentication.accessKey" = "Kunci Akses";
+"s3Authentication.secretKey" = "Secret Key";
+"s3Authentication.existingBucket" = "Bucket yang sudah ada";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Region";
+
 "trialStatus.active" = "Aktifkan";
 "trialStatus.expired" = "Kadaluarsa";
 
@@ -267,7 +274,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurasi Vault tidak didukung. Pastikan Anda menjalankan Cryptomator versi terbaru.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault versi %ld tidak didukung. Vault ini telah dibuat menggunakan versi Cryptomator yang lebih lama ataupun lebih baru.";
 
-"webDAVAuthentication.progress" = "Mengotentikasi…";
 "webDAVAuthentication.httpConnection.alert.title" = "Gunakan HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Penggunaan HTTP tidak aman. Kami menyarankan untuk menggunakan HTTPS sebagai gantinya. Jika Anda mengetahui risikonya, Anda dapat melanjutkan dengan HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ubah ke HTTPS";
