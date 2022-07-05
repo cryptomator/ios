@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Användarnamn";
 "common.footer.learnMore" = "Läs mer.";
+"common.hud.authenticating" = "Autentiserar…";
 
 "accountList.header.title" = "Autentiseringar";
 "accountList.emptyList.message" = "Tryck här för att lägga till ett konto";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "Befintlig Bucket";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Ogiltiga inloggningsuppgifter.";
+"s3Authentication.error.invalidEndpoint" = "Den angivna slutpunkten matchar inte formatet på en URL.";
 
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Upphört";
