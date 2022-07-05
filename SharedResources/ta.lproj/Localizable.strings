@@ -7,4 +7,7 @@
 "purchase.retry.button" = "மீண்டும் முயற்சிக்கவும்";
 
 "settings.title" = "அமைப்புகள்";
+
+"s3Authentication.displayName" = "புனைப்பெயர்";
+"s3Authentication.region" = "பகுதி";
 "vaultDetail.button.moveVault" = "நகர்த்து";
