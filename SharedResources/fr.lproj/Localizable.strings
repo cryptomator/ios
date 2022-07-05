@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'utilisateur";
 "common.footer.learnMore" = "En savoir plus.";
+"common.hud.authenticating" = "Authentification…";
 
 "accountList.header.title" = "Authentifications";
 "accountList.emptyList.message" = "Appuyez ici pour ajouter un compte";
@@ -205,12 +206,14 @@
 "snapshots.main.vault3" = "Documents";
 "snapshots.main.vault4" = "/Voyage en Californie";
 
-"s3Authentication.displayName" = "Nom Afficher";
-"s3Authentication.accessKey" = "Clef d’Accès";
+"s3Authentication.displayName" = "Nom à afficher";
+"s3Authentication.accessKey" = "Clé d’accès";
 "s3Authentication.secretKey" = "Clé secrète";
 "s3Authentication.existingBucket" = "Compartiment Existant";
 "s3Authentication.endpoint" = "Point de terminaison";
 "s3Authentication.region" = "Région";
+"s3Authentication.error.invalidCredentials" = "Identifiants incorrects.";
+"s3Authentication.error.invalidEndpoint" = "La destination fournie ne correspond pas au format d'une URL.";
 
 "trialStatus.active" = "Actif";
 "trialStatus.expired" = "Expiré";
