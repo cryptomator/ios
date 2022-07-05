@@ -89,14 +89,28 @@ class DatabaseManager {
 		}
 	}
 
+	/**
+	 Observes changes to the `cloudProviderAccounts` table.
+
+	 At the beginning all entries of the `cloudProviderAccounts` table are returned immediately.
+	 Note: additionally the table `s3DisplayNames` is monitored, so that onChange is triggered also in case of changes within this table.
+	 */
 	func observeCloudProviderAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([CloudProviderAccount]) -> Void) -> DatabaseCancellable {
-		let observation = ValueObservation.tracking { db in
-			try CloudProviderAccount.fetchAll(db)
-		}.removeDuplicates()
+		let request = CloudProviderAccount.including(optional: CloudProviderAccount.s3DisplayName)
+		let observation = ValueObservation
+			.tracking { db in try Row.fetchAll(db, request) }
+			.removeDuplicates()
+			.map { rows in rows.map(AccountWithDisplayName.init(row:)) }
+			.map { annotatedAccounts in annotatedAccounts.map(\.account) }
 		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 }
 
 extension VaultAccount {
 	static let vaultListPosition = hasOne(VaultListPosition.self)
+}
+
+private struct AccountWithDisplayName: Equatable, Decodable, FetchableRecord {
+	let account: CloudProviderAccount
+	let displayName: String?
 }

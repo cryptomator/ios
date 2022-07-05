@@ -65,6 +65,11 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			return credential?.username
 		case .localFileSystem:
 			return nil
+		case .s3:
+			guard let displayName = try? S3CredentialManager.shared.getDisplayName(for: vault.delegateAccountUID) else {
+				return nil
+			}
+			return displayName
 		}
 	}
 

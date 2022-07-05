@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "e4202b9175d7b5566845b60e0ad233ed72b2783c",
-          "version": "1.2.1"
+          "revision": "08d3ed7ab2f3d140782757f8dbb7b7631430751f",
+          "version": "1.2.2"
         }
       },
       {
@@ -170,6 +170,15 @@
           "branch": null,
           "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
           "version": "1.4.2"
+        }
+      },
+      {
+        "package": "Introspect",
+        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
+        "state": {
+          "branch": null,
+          "revision": "f2616860a41f9d9932da412a8978fec79c06fe24",
+          "version": "0.1.4"
         }
       },
       {

@@ -56,28 +56,33 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 			return
 		}
 		sender.setSelected(true)
-		#warning("TODO: Add Coordinator")
 
-		let alertController = UIAlertController(title: viewModel.removeAlert.title, message: nil, preferredStyle: .actionSheet)
+		let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+
 		let removeAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in
-			guard let accountCellContent = sender.cell?.account, let indexPath = self.dataSource?.indexPath(for: accountCellContent) else {
-				return
+			self.presentUserConfirmationForLogout().then {
+				self.handleLogout(sender)
+			}.always {
+				sender.setSelected(false)
 			}
-			do {
-				try self.removeRow(at: indexPath)
-			} catch {
-				self.handleError(error)
-			}
-			sender.setSelected(false)
 		})
 		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in
 			sender.setSelected(false)
 		})
-		alertController.addAction(removeAction)
-		alertController.addAction(cancelAction)
-		alertController.popoverPresentationController?.sourceView = sender
-		alertController.popoverPresentationController?.sourceRect = sender.bounds
-		present(alertController, animated: true)
+
+		if let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent), case CloudProviderType.s3 = viewModel.accountInfos[indexPath.row].cloudProviderType {
+			let accountInfo = viewModel.accountInfos[indexPath.row]
+			let editAction = UIAlertAction(title: LocalizedString.getValue("common.button.edit"), style: .default) { [weak self] _ in
+				sender.setSelected(false)
+				self?.coordinator?.showEdit(for: accountInfo)
+			}
+			actionSheet.addAction(editAction)
+		}
+		actionSheet.addAction(removeAction)
+		actionSheet.addAction(cancelAction)
+		actionSheet.popoverPresentationController?.sourceView = sender
+		actionSheet.popoverPresentationController?.sourceRect = sender.bounds
+		present(actionSheet, animated: true)
 	}
 
 	@objc func addNewAccount() {
@@ -95,6 +100,31 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}
+	}
+
+	// MARK: - Internal
+
+	private func handleLogout(_ sender: AccountCellButton) {
+		guard let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent) else {
+			return
+		}
+		do {
+			try removeRow(at: indexPath)
+		} catch {
+			handleError(error)
+		}
+		sender.setSelected(false)
+	}
+
+	private func presentUserConfirmationForLogout() -> Promise<Void> {
+		let pendingPromise = Promise<Void>.pending()
+		let alertController = UIAlertController(title: viewModel.removeAlert.title, message: viewModel.removeAlert.message, preferredStyle: .alert)
+		let logoutAction = UIAlertAction(title: viewModel.removeAlert.confirmButtonText, style: .destructive, handler: { _ in pendingPromise.fulfill(()) })
+		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in pendingPromise.reject(CocoaError(.userCancelled)) })
+		alertController.addAction(logoutAction)
+		alertController.addAction(cancelAction)
+		present(alertController, animated: true)
+		return pendingPromise
 	}
 }
 

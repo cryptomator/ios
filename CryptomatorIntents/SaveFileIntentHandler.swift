@@ -132,6 +132,8 @@ extension CloudProviderType {
 			return "webdav-vault"
 		case let .localFileSystem(type):
 			return type.assetName
+		case .s3:
+			return "s3-vault"
 		}
 	}
 }

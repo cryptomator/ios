@@ -12,7 +12,7 @@ import CryptomatorCommonCore
 import Foundation
 import UIKit
 
-class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
+class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: AddVaultCoordinator?
@@ -22,7 +22,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		chooseCloudVC.coordinator = self
@@ -59,8 +59,6 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, Coordinator {
 		child.parentCoordinator = self
 		child.start()
 	}
-
-	func showEdit(for account: AccountInfo) {}
 
 	func close() {
 		navigationController.dismiss(animated: true)
