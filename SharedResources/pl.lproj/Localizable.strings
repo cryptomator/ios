@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Login";
 "common.footer.learnMore" = "Więcej informacji.";
+"common.hud.authenticating" = "Uwierzytelnianie…";
 
 "accountList.header.title" = "Uwierzytelnianie";
 "accountList.emptyList.message" = "Dotknij tutaj, aby dodać konto";
@@ -212,6 +213,7 @@
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Region";
 "s3Authentication.error.invalidCredentials" = "Nieprawidłowe dane logowania.";
+"s3Authentication.error.invalidEndpoint" = "Podany endpoint nie pasuje do formatu URL.";
 
 "trialStatus.active" = "Aktywny";
 "trialStatus.expired" = "Wygasły";
