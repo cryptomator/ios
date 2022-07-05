@@ -28,6 +28,13 @@
 "settings.clearCache" = "Gyorsítótár törlése";
 "settings.debugMode.alert.message" = "Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.";
 
+"s3Authentication.displayName" = "Megjelenítendő név";
+"s3Authentication.accessKey" = "Hozzáférési kulcs";
+"s3Authentication.secretKey" = "Titkos kulcs";
+"s3Authentication.existingBucket" = "Meglévő tartály";
+"s3Authentication.endpoint" = "Végpont";
+"s3Authentication.region" = "Régió";
+
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ engedélyezése";
@@ -37,6 +44,7 @@
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
 "vaultDetail.button.moveVault" = "Áthelyezés";
 "vaultDetail.button.renameVault" = "Átnevezés";
+
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
 "webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
 "webDAVAuthentication.httpConnection.change" = "Váltson HTTPS-re";
