@@ -119,6 +119,13 @@
 
 "settings.title" = "সেটিংস";
 
+"s3Authentication.displayName" = "নাম প্রদর্শন করুন";
+"s3Authentication.accessKey" = "Access Key";
+"s3Authentication.secretKey" = "Secret Key";
+"s3Authentication.existingBucket" = "বিদ্যমান বাকেট";
+"s3Authentication.endpoint" = "এন্ডপয়েন্ট";
+"s3Authentication.region" = "অঞ্চল";
+
 "unlockVault.button.unlock" = "আনলক করুন";
 "unlockVault.password.footer" = "\"%@\" এর জন্য পাসওয়ার্ড প্রবেশ করান.";
 "vaultDetail.button.moveVault" = "স্থানান্তর করুন";
