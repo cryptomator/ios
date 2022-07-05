@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "/Documenti";
 "snapshots.main.vault4" = "/Viaggio in California";
 
+"s3Authentication.displayName" = "Nome Visualizzato";
+"s3Authentication.accessKey" = "Chiave di accesso";
+"s3Authentication.secretKey" = "Chiave segreta";
+"s3Authentication.existingBucket" = "Secchio Esistente";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Paese";
+
 "trialStatus.active" = "Attivo";
 "trialStatus.expired" = "Scaduta";
 
@@ -267,7 +274,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configurazione della cassaforte non è supportata. Assicurati di stare eseguendo l'ultima versione di Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "La versione %ld della cassaforte non è supportata. Questa cassaforte è stata creata con una versione più vecchia o più recente di Cryptomator.";
 
-"webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "Usare HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'utilizzo di HTTP non è sicuro. Si consiglia invece di utilizzare HTTPS. Se conosci i rischi, puoi continuare con HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Cambia in HTTPS";
