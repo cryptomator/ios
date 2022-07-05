@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "${vault} içinde ${path} konumunda bulunan klasörü al";
 "getFolderIntent.title" = "Klasörü Al";
 
+"isUnlockedIntent.description" = "Verilen kasanın kilidinin açık olup olmadığını döndürür.";
+"isUnlockedIntent.title" = "Kilidi Açıldı";
+
+"isVaultLockedIntent.title" = "kasanın kilidi açıldı";
+"isVaultUnlockedIntent.text" = "${vault} kilidi açıldı?";
+
+"lockVaultIntent.description" = "Verilen kasayı kilitler.";
+"lockVaultIntent.text" = "${vault}'u kilitle";
+"lockVaultIntent.title" = "Kasayı kilitle";
+
+"openVaultIntent.description" = "Verilen kasayı Dosyalar uygulamasında açar.";
+"openVaultIntent.text" = "Dosyalar uygulamasında ${vault} dosyasını aç";
+"openVaultIntent.title" = "Kasayı aç";
+
 "saveFileIntent.description" = "Bir dosyayı kasaya kaydeder.";
 "saveFileIntent.file" = "Dosya";
 "saveFileIntent.parameter.ignoreExisting" = "Aynı ada sahip mevcut dosyayı yoksay";

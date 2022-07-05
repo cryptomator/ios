@@ -9,5 +9,12 @@
 "purchase.retry.button" = "Tentar de novo";
 
 "settings.title" = "Axustes";
+
+"s3Authentication.displayName" = "Nome a mostrar";
+"s3Authentication.accessKey" = "Chave de acceso";
+"s3Authentication.secretKey" = "Chave secreta";
+"s3Authentication.existingBucket" = "Bucket existente";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Rexión";
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.renameVault" = "Cambiar o nome";

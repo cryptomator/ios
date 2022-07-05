@@ -1,0 +1,38 @@
+"common.alert.attention.title" = "Chú ý";
+"common.button.cancel" = "Hủy";
+"common.button.change" = "Thay đổi";
+"common.button.choose" = "Chọn";
+"common.button.close" = "Đóng";
+"common.button.create" = "Tạo";
+"common.button.done" = "Xong";
+"common.button.edit" = "Chỉnh sửa";
+"common.button.enable" = "Bật";
+"common.button.next" = "Tiếp";
+"common.button.ok" = "OK";
+"common.button.remove" = "Xóa";
+"common.button.retry" = "Thử lại";
+"common.cells.password" = "Mật khẩu";
+"common.cells.url" = "URL";
+"common.cells.username" = "Tên đăng nhập";
+
+"addVault.title" = "Thêm Vault";
+"addVault.createNewVault.title" = "Tạo Vault mới";
+"addVault.createNewVault.setVaultName.cells.name" = "Tên Vault";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator nên lưu trữ các tệp được mã hóa trong vault của bạn ở đâu?";
+"addVault.openExistingVault.title" = "Mở Vault Hiện Có";
+"fileProvider.error.unlockButton" = "Mở khoá";
+"purchase.retry.button" = "Thử lại";
+
+"settings.title" = "Cài đặt";
+"settings.clearCache" = "Xóa bộ nhớ Cache";
+
+"s3Authentication.displayName" = "Tên hiển thị";
+
+"unlockVault.button.unlock" = "Mở khoá";
+
+"vaultDetail.button.changeVaultPassword" = "Đổi mật khẩu";
+"vaultDetail.button.moveVault" = "Di chuyển";
+"vaultDetail.button.renameVault" = "Đổi tên";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Dùng HTTPS?";
+"webDAVAuthentication.httpConnection.change" = "Chuyển sang HTTPS";

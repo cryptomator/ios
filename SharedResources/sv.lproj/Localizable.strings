@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Användarnamn";
 "common.footer.learnMore" = "Läs mer.";
+"common.hud.authenticating" = "Autentiserar…";
 
 "accountList.header.title" = "Autentiseringar";
 "accountList.emptyList.message" = "Tryck här för att lägga till ett konto";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Dokument";
 "snapshots.main.vault4" = "/Resa till Kalifornien";
 
+"s3Authentication.displayName" = "Visningsnamn";
+"s3Authentication.accessKey" = "Access key";
+"s3Authentication.secretKey" = "Secret key";
+"s3Authentication.existingBucket" = "Befintlig Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Ogiltiga inloggningsuppgifter.";
+"s3Authentication.error.invalidEndpoint" = "Den angivna slutpunkten matchar inte formatet på en URL.";
+
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Upphört";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Valvkonfigurationen stöds inte. Se till att du kör den senaste versionen av Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Valv-version %ld stöds inte. Detta valv har skapats med en äldre eller nyare version av Cryptomator.";
 
-"webDAVAuthentication.progress" = "Autentiserar…";
 "webDAVAuthentication.httpConnection.alert.title" = "Använd HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Användning av HTTP är osäkert. Vi rekommenderar att du använder HTTPS istället. Om du känner till riskerna kan du fortsätta med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Ändra till HTTPS";

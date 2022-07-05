@@ -10,7 +10,15 @@
 "common.cells.username" = "వినియోగదారు పేరు";
 "purchase.retry.button" = "మళ్ళీ చేయండి";
 "settings.clearCache" = "కాష్ తొలగించండి";
+
+"s3Authentication.displayName" = "ప్రదర్శన పేరు";
+"s3Authentication.accessKey" = "యాక్సెస్ కీ";
+"s3Authentication.secretKey" = "రహస్య కీ";
+"s3Authentication.existingBucket" = "ఇప్పటికే ఉన్న బకెట్";
+"s3Authentication.endpoint" = "ఎండ్ పాయింట్";
+"s3Authentication.region" = "ప్రాంతం";
 "vaultDetail.button.moveVault" = "కదలిక";
+
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPSని ఉపయోగించాలా?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP వినియోగం అసురక్షితమైనది. బదులుగా HTTPSని ఉపయోగించమని మేము సిఫార్సు చేస్తున్నాము. మీకు ప్రమాదాలు తెలిస్తే, మీరు HTTPతో కొనసాగవచ్చు.";
 "webDAVAuthentication.httpConnection.change" = "HTTPSకి మార్చండి";

@@ -3,11 +3,31 @@
 "common.folder" = "Cartella";
 "common.true" = "vero";
 "common.vault" = "Cassaforte";
+
+"getFolderIntent.description" = "Restituisce un oggetto cartella per il percorso specificato nella cassaforte specificata.";
 "getFolderIntent.path" = "Percorso";
+"getFolderIntent.text" = "Ottieni la cartella situata in ${path} in ${vault}";
+"getFolderIntent.title" = "Ottieni Cartella";
+
+"isUnlockedIntent.description" = "Restitisci se la cassaforte specificata è sbloccata.";
+"isUnlockedIntent.title" = "È sbloccata";
+
+"isVaultLockedIntent.title" = "La cassaforte è sbloccata?";
+"isVaultUnlockedIntent.text" = "${vault} è sbloccata?";
+
+"lockVaultIntent.description" = "Blocca la cassaforte specificata.";
+"lockVaultIntent.text" = "Blocca ${vault}";
+"lockVaultIntent.title" = "Blocca Cassaforte";
+
+"openVaultIntent.description" = "Apri la cassaforte specificata nell'applicazione File.";
+"openVaultIntent.text" = "Apri ${vault} nell'applicazione File";
+"openVaultIntent.title" = "Apri Cassaforte";
 
 "saveFileIntent.description" = "Salva un file in una cassaforte.";
 "saveFileIntent.file" = "File";
 "saveFileIntent.parameter.ignoreExisting" = "Ignora i file esistenti con lo stesso nome";
 "saveFileIntent.text" = "Salva ${file} su ${folder}";
+"saveFileIntent.title" = "Salva File";
 
 "vaultFolder.displayName" = "Cartella Cassaforte";
+"vaultFolder.vaultIdentifier" = "Identificativo della Cassaforte";

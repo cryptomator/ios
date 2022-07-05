@@ -116,6 +116,13 @@
 "settings.sendLogFile" = "إرسال ملف السجل";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
 
+"s3Authentication.displayName" = "الاسم المعروض";
+"s3Authentication.accessKey" = "مفتاح الوصول";
+"s3Authentication.secretKey" = "المفتاح السري";
+"s3Authentication.existingBucket" = "مخزن موجود مسبقاً";
+"s3Authentication.endpoint" = "نقطة الوصول";
+"s3Authentication.region" = "المنطقة";
+
 "unlockVault.button.unlock" = "افتح";
 "unlockVault.button.unlockVia" = "فتح عبر %@";
 "unlockVault.password.footer" = "أدخل كلمة المرور ل \"%@\".";
@@ -146,7 +153,6 @@
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
 
-"webDAVAuthentication.progress" = "المصادقة…";
 "webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
 "webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
 "webDAVAuthentication.httpConnection.change" = "تغيير إلى HTTPS";

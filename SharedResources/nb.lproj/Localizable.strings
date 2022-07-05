@@ -187,6 +187,13 @@
 "snapshots.main.vault3" = "/Dokumenter";
 "snapshots.main.vault4" = "/Tur til Bergen";
 
+"s3Authentication.displayName" = "Visningsnavn";
+"s3Authentication.accessKey" = "Tilgangsnøkkel";
+"s3Authentication.secretKey" = "Hemmelig nøkkel";
+"s3Authentication.existingBucket" = "Eksisterende bøtte";
+"s3Authentication.endpoint" = "Endepunkt";
+"s3Authentication.region" = "Region";
+
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Utløpt";
 
@@ -249,7 +256,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Hvelvkonfigurasjon støttes ikke. Kontroller at du kjører den nyeste versjonen av Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Vault-versjon %ld støttes ikke. Dette hvelvet er opprettet med en eldre eller nyere versjon av Cryptomator.";
 
-"webDAVAuthentication.progress" = "Autentiserer…";
 "webDAVAuthentication.httpConnection.alert.title" = "Bruk HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Å bruke HTTP er usikkert. Vi anbefaler å bruke HTTPS i stedet. Hvis du vet risikoen, kan du fortsette med HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Bytt til HTTPS";
