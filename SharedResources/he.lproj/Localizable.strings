@@ -64,11 +64,19 @@
 "settings.clearCache" = "נקה מטמון";
 "settings.shortcutsGuide" = "מדריך קיצורי דרך";
 
+"s3Authentication.displayName" = "שם תצוגה";
+"s3Authentication.accessKey" = "מפתח גישה";
+"s3Authentication.secretKey" = "מפתח סודי";
+"s3Authentication.existingBucket" = "דלי קיים";
+"s3Authentication.endpoint" = "נקודת גישה";
+"s3Authentication.region" = "אזור";
+
 "unlockVault.button.unlock" = "בטל נעילה";
 
 "vaultDetail.button.changeVaultPassword" = "שנה סיסמה";
 "vaultDetail.button.moveVault" = "שנה מיקום";
 "vaultDetail.button.renameVault" = "שנה שם";
+
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
 "webDAVAuthentication.httpConnection.change" = "עבור ל-HTTPS";
