@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nombre de usuario";
 "common.footer.learnMore" = "Más información.";
+"common.hud.authenticating" = "Autenticando…";
 
 "accountList.header.title" = "Autenticaciones";
 "accountList.emptyList.message" = "Pulse aquí para añadir una cuenta";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "Cubeta existente";
 "s3Authentication.endpoint" = "Punto final";
 "s3Authentication.region" = "Región";
+"s3Authentication.error.invalidCredentials" = "Credenciales inválidas.";
+"s3Authentication.error.invalidEndpoint" = "El punto final proporcionado no coincide con el formato de una URL.";
 
 "trialStatus.active" = "Activa";
 "trialStatus.expired" = "Expirada";
