@@ -106,6 +106,7 @@
 "settings.debugMode" = "दोषमार्जक साधन";
 "settings.rateApp" = "एप्प का मूल्यांकन";
 "settings.sendLogFile" = "Log फ़ाइल भेजें";
+"s3Authentication.region" = "क्षेत्र";
 
 "unlockVault.button.unlock" = "अनलॉक करें";
 "unlockVault.button.unlockVia" = "%@ के द्वारा खोलें";
