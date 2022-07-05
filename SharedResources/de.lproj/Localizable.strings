@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "/Dokumente";
 "snapshots.main.vault4" = "/Reise nach Bonn";
 
+"s3Authentication.displayName" = "Anzeigename";
+"s3Authentication.accessKey" = "Access Key";
+"s3Authentication.secretKey" = "Secret Key";
+"s3Authentication.existingBucket" = "Bestehender Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Region";
+
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Abgelaufen";
 
@@ -267,7 +274,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion %ld wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
-"webDAVAuthentication.progress" = "Authentifizierung …";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
 "webDAVAuthentication.httpConnection.alert.message" = "Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.";
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";
