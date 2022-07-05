@@ -206,6 +206,13 @@
 "snapshots.main.vault3" = "/文件";
 "snapshots.main.vault4" = "/加州之旅";
 
+"s3Authentication.displayName" = "顯示名稱";
+"s3Authentication.accessKey" = "存取金鑰（Access Key）";
+"s3Authentication.secretKey" = "私密存取金鑰（Secret Key）";
+"s3Authentication.existingBucket" = "現有儲存槽（Bucket）";
+"s3Authentication.endpoint" = "終端節點（Endpoint）";
+"s3Authentication.region" = "地域（Region）";
+
 "trialStatus.active" = "生效中";
 "trialStatus.expired" = "已過期";
 
@@ -268,7 +275,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支援目前加密庫的設定。請確保您運行的是最新版本的 Cryptomator。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "不支援 %ld 版本的加密庫。這加密庫是使用 Cryptomator 較舊或較新版本建立的。";
 
-"webDAVAuthentication.progress" = "驗證中…";
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS？";
 "webDAVAuthentication.httpConnection.alert.message" = "使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
 "webDAVAuthentication.httpConnection.change" = "更改為 HTTPS";
