@@ -26,10 +26,13 @@
 "settings.title" = "Cài đặt";
 "settings.clearCache" = "Xóa bộ nhớ Cache";
 
+"s3Authentication.displayName" = "Tên hiển thị";
+
 "unlockVault.button.unlock" = "Mở khoá";
 
 "vaultDetail.button.changeVaultPassword" = "Đổi mật khẩu";
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.renameVault" = "Đổi tên";
+
 "webDAVAuthentication.httpConnection.alert.title" = "Dùng HTTPS?";
 "webDAVAuthentication.httpConnection.change" = "Chuyển sang HTTPS";
