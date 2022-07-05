@@ -211,6 +211,7 @@
 "s3Authentication.existingBucket" = "Istniejący Bucket";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Nieprawidłowe dane logowania.";
 
 "trialStatus.active" = "Aktywny";
 "trialStatus.expired" = "Wygasły";
