@@ -30,6 +30,7 @@
 "common.cells.url" = "यूआरएल";
 "common.cells.username" = "उपयोगकर्ता नाम";
 "common.footer.learnMore" = "अधिक जानें";
+"common.hud.authenticating" = "प्रमाणीकरण प्रक्रिया में है...";
 
 "accountList.header.title" = "प्रमाणीकरण";
 "accountList.emptyList.message" = "खाता खोलने के लिए यहाँ दबाएँ";
@@ -107,6 +108,7 @@
 "settings.rateApp" = "एप्प का मूल्यांकन";
 "settings.sendLogFile" = "Log फ़ाइल भेजें";
 "s3Authentication.region" = "क्षेत्र";
+"s3Authentication.error.invalidCredentials" = "अमान्य क्रेडेंशियल।";
 
 "unlockVault.button.unlock" = "अनलॉक करें";
 "unlockVault.button.unlockVia" = "%@ के द्वारा खोलें";
