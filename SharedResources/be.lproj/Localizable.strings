@@ -16,4 +16,6 @@
 "settings.title" = "Налады";
 
 "unlockVault.button.unlock" = "Адамкнуць";
+
+"vaultDetail.button.changeVaultPassword" = "Змяніць пароль";
 "vaultDetail.button.renameVault" = "Пераназваць";
