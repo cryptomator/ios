@@ -17,7 +17,7 @@
 "common.button.download" = "הורד";
 "common.button.edit" = "ערוך";
 "common.button.enable" = "הפעל";
-"common.button.next" = "המשך";
+"common.button.next" = "הבא";
 "common.button.ok" = "אישור";
 "common.button.remove" = "הסר";
 "common.button.retry" = "לנסות שוב";
@@ -29,17 +29,25 @@
 
 "accountList.header.title" = "אימות";
 
-"addVault.title" = "יצירת כספת";
+"addVault.title" = "הוספת כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
 "addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
+"addVault.createNewVault.password.enterPassword.header" = "בחירת סיסמה חדשה.";
+"addVault.createNewVault.password.confirmPassword.header" = "אישור סיסמה חדשה.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "אישור סיסמה?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "שים לב שאינך שוכח את סיסמתך! לא ניתן לשחזר את המידע שלך בחזרה מבלי הסיסמה.";
+"addVault.createNewVault.password.error.emptyPassword" = "סיסמה לא יכולה להיות ריקה.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "הסיסמאות אינן זהות.";
+"addVault.createNewVault.password.error.tooShortPassword" = "הסיסמא חייבת להכיל 8 תווים לפחות.";
 "addVault.createNewVault.progress" = "יוצר כספת…";
-"addVault.openExistingVault.title" = "פתח כספת קיימת";
+"addVault.openExistingVault.title" = "פתיחת כספת קיימת";
 "addVault.openExistingVault.progress" = "מוסיף כספת…";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "בחירת סיסמה חדשה.";
+"changePassword.header.newPasswordConfirmation.title" = "אישור סיסמה חדשה.";
 
 "chooseFolder.emptyFolder.footer" = "התיקייה ריקה";
 "chooseFolder.createNewFolder.cells.name" = "שם תיקייה";
@@ -74,10 +82,18 @@
 "s3Authentication.error.invalidCredentials" = "פרטי התחברות שגויים.";
 
 "unlockVault.button.unlock" = "בטל נעילה";
+"upgrade.info" = "תודה על התמיכה ב-Cryptomator מהגירסה הראשונה. לאות הערכה, יש לך זכאות לשדרוג חינם.";
+"urlSession.error.httpError.default" = "חיבור לרשת נכשל עם קוד שגיאה %ld.";
+"urlSession.error.unexpectedResponse" = "אירעה שגיאת רשת בלתי צפויה.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "הכספת הזאת כבר התווספה.";
 
 "vaultDetail.button.changeVaultPassword" = "שנה סיסמה";
+"vaultDetail.button.lock" = "נעל עכשיו";
 "vaultDetail.button.moveVault" = "שנה מיקום";
+"vaultDetail.button.removeVault" = "הסרת מרשימת הכספות";
 "vaultDetail.button.renameVault" = "שנה שם";
+"vaultDetail.changePassword.footer" = "יש לבחור סיסמה חזקה הידועה רק לך ולשמור אותה במקום בטוח.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
