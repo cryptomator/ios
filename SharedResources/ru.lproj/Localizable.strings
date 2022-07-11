@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
 "common.footer.learnMore" = "Подробнее.";
+"common.hud.authenticating" = "Аутентификация…";
 
 "accountList.header.title" = "Аутентификации";
 "accountList.emptyList.message" = "Нажмите, чтобы добавить аккаунт";
@@ -210,6 +211,8 @@
 "s3Authentication.existingBucket" = "Существующий бакет";
 "s3Authentication.endpoint" = "Конечная точка";
 "s3Authentication.region" = "Регион";
+"s3Authentication.error.invalidCredentials" = "Неверные учётные данные.";
+"s3Authentication.error.invalidEndpoint" = "Предоставленная конечная точка не соответствует формату URL.";
 
 "trialStatus.active" = "Активно";
 "trialStatus.expired" = "Истекло";

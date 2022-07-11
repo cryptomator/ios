@@ -13,7 +13,16 @@
 "addVault.openExistingVault.title" = "Адчыніць існуючую скарбніцу";
 "fileProvider.error.unlockButton" = "Адамкнуць";
 
+"keepUnlocked.alert.title" = "Ці замкнуць скарбніцу?";
+"keepUnlocked.alert.confirm" = "Пацвердзіць і адразу замкнуць";
+"keepUnlockedDuration.auto" = "Дазволіць iOS прымаць рашэнне самастойна";
+"keepUnlockedDuration.auto.shortDisplayName" = "Аўтаматычна";
+"purchase.unlockedFullVersion.title" = "Шчыры дзякуй";
+
 "settings.title" = "Налады";
 
 "unlockVault.button.unlock" = "Адамкнуць";
+
+"vaultDetail.button.changeVaultPassword" = "Змяніць пароль";
 "vaultDetail.button.renameVault" = "Пераназваць";
+"vaultDetail.keepUnlocked.title" = "Працягласць размыкання";

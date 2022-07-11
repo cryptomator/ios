@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
+"common.hud.authenticating" = "Kimlik doğrulanıyor…";
 
 "accountList.header.title" = "Kimlik Doğrulaması";
 "accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "Mevcut kova";
 "s3Authentication.endpoint" = "Uç nokta";
 "s3Authentication.region" = "Bölge";
+"s3Authentication.error.invalidCredentials" = "Geçersiz kimlik bilgileri.";
+"s3Authentication.error.invalidEndpoint" = "Sağlanan uç nokta, bir URL'nin biçimiyle eşleşmiyor.";
 
 "trialStatus.active" = "Aktif";
 "trialStatus.expired" = "Süresi doldu";

@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Gebruikersnaam";
 "common.footer.learnMore" = "Meer weten.";
+"common.hud.authenticating" = "Authenticeren…";
 
 "accountList.header.title" = "Authenticaties";
 "accountList.emptyList.message" = "Tik hier om een account toe te voegen";
@@ -206,11 +207,13 @@
 "snapshots.main.vault4" = "/reis naar Californië";
 
 "s3Authentication.displayName" = "Weergavenaam";
-"s3Authentication.accessKey" = "Toegangs code";
-"s3Authentication.secretKey" = "Geheime code";
+"s3Authentication.accessKey" = "Toegangssleutel";
+"s3Authentication.secretKey" = "Geheime sleutel";
 "s3Authentication.existingBucket" = "Bestaande Bucket";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Regio";
+"s3Authentication.error.invalidCredentials" = "Ongeldige authenticatiesleutels.";
+"s3Authentication.error.invalidEndpoint" = "De opgegeven endpoint komt niet overeen met het formaat van een URL.";
 
 "trialStatus.active" = "Actief";
 "trialStatus.expired" = "Verlopen";

@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživateľské meno";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
+"common.hud.authenticating" = "Overovanie…";
 
 "accountList.header.title" = "Overenia";
 "accountList.emptyList.message" = "Kliknúť sem pre pridanie účtu";
@@ -208,9 +209,11 @@
 "s3Authentication.displayName" = "Zobrazované meno";
 "s3Authentication.accessKey" = "Prístupový kľúč";
 "s3Authentication.secretKey" = "Tajný kľúč";
-"s3Authentication.existingBucket" = "Existujúci bucket";
+"s3Authentication.existingBucket" = "Existujúce vedro";
 "s3Authentication.endpoint" = "Koncový bod";
 "s3Authentication.region" = "Región";
+"s3Authentication.error.invalidCredentials" = "Neplatné prihlasovacie údaje.";
+"s3Authentication.error.invalidEndpoint" = "Poskytnutý koncový bod nespĺňa formát URL.";
 
 "trialStatus.active" = "Aktívny";
 "trialStatus.expired" = "Vypršaný";
