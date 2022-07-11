@@ -1,1 +1,22 @@
+"common.failureReason" = "Sababu ya Kushindwa";
+"common.false" = "uongo";
+"common.folder" = "Folda";
+"common.true" = "kweli";
 "common.vault" = "Kuba";
+
+"getFolderIntent.description" = "Hurejesha kipengee cha folda kwa njia iliyotolewa kwenye kuba iliyopewa.";
+"getFolderIntent.path" = "Njia";
+"getFolderIntent.text" = "Pata folda iliyo ${njia} katika ${kuba}";
+"getFolderIntent.title" = "Pata Folda";
+
+"isUnlockedIntent.description" = "Hurejesha kama kuba iliyopewa imefunguliwa.";
+"isUnlockedIntent.title" = "Imefunguliwa";
+
+"isVaultLockedIntent.title" = "Kuba imefunguliwa";
+"isVaultUnlockedIntent.text" = "Je, ${kuba} imefunguliwa?";
+
+"lockVaultIntent.description" = "Hufunga kuba iliyotolewa.";
+"lockVaultIntent.text" = "Funga${kuba}";
+"lockVaultIntent.title" = "Funga Kuba";
+
+"openVaultIntent.description" = "Hufungua kuba iliyotolewa katika programu ya Faili.";

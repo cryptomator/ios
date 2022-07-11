@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
+"common.hud.authenticating" = "Ταυτοποίηση…";
 
 "accountList.header.title" = "Ταυτοποιήσεις";
 "accountList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα λογαριασμό";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "Υπάρχων Bucket";
 "s3Authentication.endpoint" = "Τελικό Σημείο";
 "s3Authentication.region" = "Περιοχή";
+"s3Authentication.error.invalidCredentials" = "Μη έγκυρα διαπιστευτήρια.";
+"s3Authentication.error.invalidEndpoint" = "Το παρεχόμενο τελικό σημείο δεν ταιριάζει με τη μορφή μιας διεύθυνσης URL.";
 
 "trialStatus.active" = "Ενεργή";
 "trialStatus.expired" = "Έληξε";

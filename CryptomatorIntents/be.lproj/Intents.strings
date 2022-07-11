@@ -1,1 +1,5 @@
 "common.vault" = "Скарбніца";
+"isUnlockedIntent.title" = "Разамкнёны";
+
+"isVaultLockedIntent.title" = "Ці разамкнёна скарбніца";
+"isVaultUnlockedIntent.text" = "Ці ${vault} разамкнёны?";
