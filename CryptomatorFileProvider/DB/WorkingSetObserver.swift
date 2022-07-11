@@ -37,7 +37,6 @@ class WorkingSetObserver: WorkingSetObserving {
 			try ItemMetadata.filterWorkingSet().fetchAll(db)
 		}.removeDuplicates()
 		observer = observation.start(in: database,
-		                             scheduling: .immediate,
 		                             onError: { error in
 		                             	DDLogError("Working set startObservation error: \(error)")
 		                             },
