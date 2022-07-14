@@ -27,5 +27,7 @@
 "s3Authentication.region" = "பகுதி";
 
 "unlockVault.button.unlock" = "பூட்டுநீக்கு";
+
+"vaultDetail.button.changeVaultPassword" = "கடவுச்சொல்லை மாற்று";
 "vaultDetail.button.moveVault" = "நகர்த்து";
 "vaultDetail.button.renameVault" = "மறுபெயரிடு";
