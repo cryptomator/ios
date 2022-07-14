@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancel·la";
 "common.button.change" = "Canvia";
 "common.button.choose" = "Trieu";
+"common.button.clear" = "Netejar";
 "common.button.close" = "Tanca";
 "common.button.confirm" = "Confirma";
 "common.button.create" = "Crear";
@@ -29,13 +30,16 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nom d'usuari";
 "common.footer.learnMore" = "Més informació.";
+"common.hud.authenticating" = "Autenticant…";
 
 "accountList.header.title" = "Autenticacions";
 "accountList.emptyList.message" = "Feu clic ací per a afegir un compte";
 "accountList.signOut.alert.title" = "Eliminar les caixes fortes associades?";
+"accountList.signOut.alert.message" = "En tancar la sessió, totes les caixes fortes associades s'eliminaran de la llista de caixes fortes. No se suprimirà cap dada xifrada. Podeu tornar a iniciar la sessió i tornar a afegir les caixes fortes més tard.";
 
 "addVault.title" = "Afegir una caixa forta";
 "addVault.createNewVault.title" = "Crea una caixa forta nova";
+"addVault.createNewVault.purchase" = "La creació d'una caixa forta nova requereix la versió completa de Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Trieu el nom de la caixa forta.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nom de la caixa forta";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nom de la caixa forta no pot quedar buit.";
@@ -78,14 +82,46 @@
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" ja existeix.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" té un tipus d'element inesperat.";
 "cloudProvider.error.parentFolderDoesNotExist" = "La carpeta mare \"%@\" no existeix.";
+"cloudProvider.error.pageTokenInvalid" = "L'obtenció de contigut del directory no s'ha pogut sur a terme.";
 "cloudProvider.error.quotaInsufficient" = "No hi ha prou espai d'emmagatzematge.";
+"cloudProvider.error.unauthorized" = "L'operació no està autoritzada.";
 "cloudProvider.error.noInternetConnection" = "Cal tenir connexió a Internet per a aquesta operació.";
 
 "cloudProviderType.localFileSystem" = "Un altre proveïdor de fitxers";
 
 "fileProvider.onboarding.title" = "Us donem la benvinguda";
+"fileProvider.onboarding.info" = "Gràcies per triar Cryptomator per protegir els vostres fitxers. Per començar, aneu a l'aplicació principal i afegiu una caixa forta.";
 "fileProvider.onboarding.button.openCryptomator" = "Obre Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueig cancel·lat";
+"fileProvider.error.biometricalAuthCanceled.message" = "El desbloqueig mitjançant %@ no s'ha realitzat correctament. Siusplau torna-ho a provar.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Contrasenya incorrecta";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "La contrasenya que s'ha desat per a %@ és incorrecta. Torneu-ho a provar-ho i introduïu la vostra contrasenya per tornar a activar %@.";
+"fileProvider.error.defaultLock.title" = "Desbloqueig requerit";
+"fileProvider.error.defaultLock.message" = "Per accedir i mostrar el contingut de la vostra volta, abans l'heu de desbloquejar.";
 "fileProvider.error.unlockButton" = "Desbloqueja";
+"fileProvider.clearFileFromCache.message" = "Això només elimina el fitxer local del vostre dispositiu i no el fitxer al núvol.";
+"fileProvider.fileImporting.error.missingPremium" = "Desbloquegeu la versió completa a l'aplicació Cryptomator per obtenir accés d'escriptura a les vostres caixes fortes.";
+"fileProvider.uploadProgress.connecting" = "S'està connectant…";
+"fileProvider.uploadProgress.message" = "Progrés actual: %@\n\nSi observeu que el progrés de càrrega s'ha bloquejat, podeu tornar a provar-ho.";
+"fileProvider.uploadProgress.missing" = "El progrés no es pot determinar. Potser encara s'està executant en segon pla.";
+"fileProvider.uploadProgress.title" = "Carregant al núvol…";
+"fileProvider.uploadProgress.missingDomainError" = "No s'ha pogut trobar el domini.";
+
+"getFolderIntent.error.missingPath" = "No s'ha proporcionat cap ruta. Proporcioneu una ruta vàlida que retorni una carpeta.";
+"getFolderIntent.error.noVaultSelected" = "No s'ha seleccionat cap caixa forta.";
+"intents.saveFile.missingFile" = "El fitxer proporcionat no és vàlid.";
+"intents.saveFile.invalidFolder" = "La carpeta proporcionada no és vàlida.";
+"intents.saveFile.missingTemporaryFolder" = "No s'ha pogut crear la carpeta temporal.";
+"intents.saveFile.lockedVault" = "Heu de desbloquejar la vostra caixa forta per utilitzar aquest arxiu.";
+"intents.saveFile.selectedVaultNotFound" = "No s'ha pogut trobar la caixa forta seleccionada.";
+
+"keepUnlocked.alert.title" = "Bloquejar la caixa forta?";
+"keepUnlocked.alert.message" = "Aquest canvi requereix que la vostra caixa forta estigui bloquejada per tenir efecte.";
+"keepUnlocked.alert.confirm" = "Confirmar i bloquejar ara";
+"keepUnlocked.header" = "Especifiqueu durant quant de temps voleu que aquesta caixa forta romangui desbloquejada quan no s'estigui fent servir.";
+"keepUnlocked.footer.auto" = "Deixar que iOS decideixi significa que Cryptomator es pot cancel·lar en qualsevol moment per alliberar memòria, la qual cosa bloquejarà automàticament la caixa forta.";
+"keepUnlocked.footer.on" = "Amb l'opció seleccionada, s'emmagatzemarà una còpia de la clau al vostre clauer d'iOS, sempre que la vostra caixa forta estigui desbloquejada.";
+"keepUnlockedDuration.auto" = "Deixa que iOS decideixi automàticament";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automàtic";
 "keepUnlockedDuration.indefinite" = "Indefinidament";
 
