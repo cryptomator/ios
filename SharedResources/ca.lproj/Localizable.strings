@@ -196,17 +196,31 @@
 "s3Authentication.existingBucket" = "Cubell existent";
 "s3Authentication.endpoint" = "Extrem";
 "s3Authentication.region" = "Regió";
+"s3Authentication.error.invalidEndpoint" = "El \"endpoint\" proporcionat no coincideix amb el format d'un URL.";
+
+"trialStatus.active" = "Actiu";
+"trialStatus.expired" = "Vençut";
 
 "unlockVault.button.unlock" = "Desbloqueja";
+"unlockVault.button.unlockVia" = "Desbloqueja amb %@";
 "unlockVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Activa %@";
+"unlockVault.enableBiometricalUnlock.footer" = "En lloc de desbloquejar la vostra caixa forta amb la vostra contrasenya, podeu desbloquejar-la mitjançant %@.";
+"unlockVault.evaluatePolicy.reason" = "Desbloquejeu la caixa forta";
+"unlockVault.progress" = "Desbloquejant…";
 
 "untrustedTLSCertificate.title" = "Certificat TSL no vàlid";
+"untrustedTLSCertificate.message" = "El certificat TLS de \"%@\" no és vàlid. Vols confiar-hi igualment?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confia-hi";
 "untrustedTLSCertificate.dismiss" = "No hi confiïs";
 "upgrade.notEligible.alert.title" = "Ha fallat l'actualització";
 "upgrade.notEligible.alert.message" = "Cryptomator no ha pogut trobar una versió antiga en el dispositiu. Si la vau comprar, si us plau torneu-la a descarregar de la botiga d'aplicacions i torneu a intentar-ho.";
+"upgrade.info" = "Gràcies per confiar en Cryptomator des de la primera versió. Com a usuari fidel, sou elegible per a una actualització gratuïta.";
 
 "urlSession.error.httpError.401" = "Nom d'usuari o contrasenya incorrectes.";
+"urlSession.error.httpError.403" = "Permisos insuficients sobre el recurs sol·licitat.";
+"urlSession.error.httpError.404" = "No s'ha trobat el recurs sol·licitat.";
+"urlSession.error.httpError.405" = "Mètode de sol·licitud no suportat pel recurs.";
 "urlSession.error.httpError.412" = "Accés denegat al recurs sol·licitat.";
 "urlSession.error.httpError.default" = "La connexió ha fallat amb codi d'estat %ld.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
