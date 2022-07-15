@@ -75,7 +75,13 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 	}
 
 	func startAuthenticatedLocalFileSystemOpenExistingVaultFlow(credential: LocalFileSystemCredential, account: CloudProviderAccount, item: Item) {
-		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
+		let provider: CloudProvider
+		do {
+			provider = try LocalFileSystemProvider(rootURL: credential.rootURL)
+		} catch {
+			handleError(error, for: navigationController)
+			return
+		}
 		let child = AuthenticatedOpenExistingVaultCoordinator(navigationController: navigationController, provider: provider, account: account)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
