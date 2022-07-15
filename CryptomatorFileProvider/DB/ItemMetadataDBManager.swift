@@ -153,11 +153,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		_ = try database.write { db in
 			try ItemMetadata
 				.filter(ItemMetadata.Columns.parentID == parentId && !ItemMetadata.Columns.isPlaceholderItem)
-				.fetchAll(db)
-				.forEach {
-					$0.isMaybeOutdated = true
-					try $0.save(db)
-				}
+				.updateAll(db, ItemMetadata.Columns.isMaybeOutdated.set(to: true))
 		}
 	}
 
