@@ -190,6 +190,7 @@
 "settings.manageSubscriptions" = "Управление подпиской";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
+"settings.shortcutsGuide" = "Руководство по ярлыкам";
 "settings.unlockFullVersion" = "Получить полную версию";
 
 "snapshots.fileprovider.file1" = "/Учёт.numbers";
