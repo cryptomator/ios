@@ -13,7 +13,7 @@ COMPATIBLE
 
 Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
 
-• Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, and WebDAV-based cloud storage services
+• Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, WebDAV- and S3-based cloud storage services
 • Create vaults in any location via other File Providers (third-party apps must support this)
 • Access your vaults on all your mobile devices and computers
 
