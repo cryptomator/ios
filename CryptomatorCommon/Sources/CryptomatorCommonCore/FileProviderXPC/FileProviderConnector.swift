@@ -93,3 +93,9 @@ extension NSFileProviderService {
 		}
 	}
 }
+
+public extension XPC {
+	init(proxy: T) {
+		self.init(proxy: proxy, doneHandler: {})
+	}
+}

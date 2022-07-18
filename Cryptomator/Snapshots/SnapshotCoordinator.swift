@@ -59,19 +59,19 @@ class SnapshotCoordinator: MainCoordinator {
 
 private class SnapshotFileProviderConnectorMock: FileProviderConnector {
 	var proxy: Any?
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<T> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
 		return getCastedProxy()
 	}
 
-	func getProxy<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<T> {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
 		return getCastedProxy()
 	}
 
-	private func getCastedProxy<T>() -> Promise<T> {
+	private func getCastedProxy<T>() -> Promise<XPC<T>> {
 		guard let castedProxy = proxy as? T else {
 			return Promise(FileProviderXPCConnectorError.typeMismatch)
 		}
-		return Promise(castedProxy)
+		return Promise(XPC(proxy: castedProxy))
 	}
 }
 

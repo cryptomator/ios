@@ -21,8 +21,8 @@ class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
 		super.init(extensionContext: extensionContext, hostViewController: hostViewController)
 	}
 
-	override func showPasswordScreen(for domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
-		let viewModel = UnlockVaultViewModelSnapshotMock(domain: domain)
+	override func showManualPasswordScreen(viewModel: UnlockVaultViewModel) {
+		let viewModel = UnlockVaultViewModelSnapshotMock(domain: NSFileProviderDomain(vaultUID: "123", displayName: ""))
 		let unlockVaultVC = UnlockVaultViewController(viewModel: viewModel)
 		unlockVaultVC.coordinator = self
 		navigationController.pushViewController(unlockVaultVC, animated: false)
@@ -64,9 +64,9 @@ extension UnlockVaultViewController {
 	}()
 
 	@objc func swizzled_unlock() {
-		let getProxyPromise: Promise<VaultUnlocking> = FileProviderXPCConnector.shared.getProxy(serviceName: VaultUnlockingService.name, domain: nil)
-		getProxyPromise.then { proxy in
-			proxy.unlockVault(kek: [UInt8](), reply: { [weak self] _ in
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = FileProviderXPCConnector.shared.getXPC(serviceName: .vaultUnlocking, domain: nil)
+		getXPCPromise.then { xpc in
+			xpc.proxy.unlockVault(kek: [UInt8](), reply: { [weak self] _ in
 				self?.coordinator?.done()
 			})
 		}
