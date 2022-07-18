@@ -102,7 +102,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 		}
 
 		func flagAllItemsAsMaybeOutdated(withParentID parentID: Int64) throws {
-			for metadata in cachedMetadata.values where metadata.parentID == parentID && metadata.id != getRootContainerID() {
+			for metadata in cachedMetadata.values where metadata.parentID == parentID && metadata.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue {
 				metadata.isMaybeOutdated = true
 			}
 		}

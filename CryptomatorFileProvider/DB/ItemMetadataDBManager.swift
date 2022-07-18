@@ -12,7 +12,6 @@ import Foundation
 import GRDB
 
 protocol ItemMetadataManager {
-	func getRootContainerID() -> Int64
 	func cacheMetadata(_ metadata: ItemMetadata) throws
 	func updateMetadata(_ metadata: ItemMetadata) throws
 	func cacheMetadata(_ metadataList: [ItemMetadata]) throws
@@ -42,19 +41,8 @@ protocol ItemMetadataManager {
 	func setTagData(to tagData: Data?, forItemWithID id: Int64) throws
 }
 
-extension ItemMetadataManager {
-	func getRootContainerID() -> Int64 {
-		1
-	}
-}
-
 class ItemMetadataDBManager: ItemMetadataManager {
-	static func getRootContainerID() -> Int64 {
-		rootContainerId
-	}
-
 	private let database: DatabaseWriter
-	static let rootContainerId: Int64 = 1
 
 	init(database: DatabaseWriter) {
 		self.database = database
@@ -133,7 +121,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try database.read { db in
 			return try ItemMetadata
-				.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.isPlaceholderItem && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.isPlaceholderItem && ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -142,7 +130,7 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	func getCachedMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
 		let itemMetadata: [ItemMetadata] = try database.read { db in
 			return try ItemMetadata
-				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
+				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 				.fetchAll(db)
 		}
 		return itemMetadata
@@ -187,8 +175,8 @@ class ItemMetadataDBManager: ItemMetadataManager {
 		precondition(parent.type == .folder)
 		return try database.read { db in
 			let request: QueryInterfaceRequest<ItemMetadata>
-			if parent.id == ItemMetadataDBManager.rootContainerId {
-				request = ItemMetadata.filter(ItemMetadata.Columns.id != ItemMetadataDBManager.rootContainerId)
+			if parent.id == NSFileProviderItemIdentifier.rootContainerDatabaseValue {
+				request = ItemMetadata.filter(ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 			} else {
 				request = ItemMetadata.filter(ItemMetadata.Columns.cloudPath.like("\(parent.cloudPath.path + "/")_%"))
 			}

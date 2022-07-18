@@ -25,7 +25,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testCachedAndFetchEntry() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		guard let fetchedUploadTask = try manager.getTaskRecord(for: itemMetadata.id!) else {
@@ -39,7 +39,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testUpdateTaskRecord() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
@@ -65,7 +65,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testDeleteCascadeWorks() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let taskBeforeRemoval = try manager.getTaskRecord(for: itemMetadata.id!)
@@ -77,7 +77,7 @@ class UploadTaskManagerTests: XCTestCase {
 	}
 
 	func testGetCorrespondingTaskRecords() throws {
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: itemMetadataManager.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let savedTask = try manager.createNewTaskRecord(for: itemMetadata)
 		let ids = [itemMetadata.id! + 1, itemMetadata.id!, itemMetadata.id! - 1]
@@ -91,7 +91,7 @@ class UploadTaskManagerTests: XCTestCase {
 	func testGetTask() throws {
 		let cloudPath = CloudPath("/Test")
 		let itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
 		let fetchedTask = try manager.getTask(for: taskRecord)

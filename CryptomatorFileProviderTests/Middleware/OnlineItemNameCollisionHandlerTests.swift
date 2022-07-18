@@ -44,7 +44,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			}
 			return Promise(())
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: originalCloudPath, isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: originalCloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
@@ -67,7 +67,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
+			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 
@@ -85,7 +85,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemAlreadyExists)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
@@ -112,7 +112,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			// Check that the remaining item metadata properties have not changed.
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
+			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 		}.always {
@@ -126,7 +126,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		let workflowMock = WorkflowMiddlewareMock<Void> { _ in
 			return Promise(CloudProviderError.itemNotFound)
 		}
-		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
+		let itemMetadata = ItemMetadata(name: "foo.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: CloudPath("/foo.txt"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		middleware.setNext(AnyWorkflowMiddleware(workflowMock))
 		middleware.execute(task: SampleCloudTask(itemMetadata: itemMetadata)).then {
@@ -146,7 +146,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 			XCTAssertEqual(CloudPath("/foo.txt"), cachedItemMetadata.cloudPath)
 			XCTAssertEqual(CloudItemType.file, cachedItemMetadata.type)
 			XCTAssertNil(cachedItemMetadata.size)
-			XCTAssertEqual(ItemMetadataDBManager.rootContainerId, cachedItemMetadata.parentID)
+			XCTAssertEqual(NSFileProviderItemIdentifier.rootContainerDatabaseValue, cachedItemMetadata.parentID)
 			XCTAssertEqual(ItemStatus.isUploading, cachedItemMetadata.statusCode)
 			XCTAssertTrue(cachedItemMetadata.isPlaceholderItem)
 		}.always {
