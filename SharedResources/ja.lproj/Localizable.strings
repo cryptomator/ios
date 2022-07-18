@@ -10,7 +10,7 @@
 "common.button.cancel" = "キャンセル";
 "common.button.change" = "変更";
 "common.button.choose" = "選択";
-"common.button.clear" = "明らか";
+"common.button.clear" = "消去";
 "common.button.close" = "閉じる";
 "common.button.confirm" = "確認";
 "common.button.create" = "作成";
@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
 "common.footer.learnMore" = "さらに詳しく";
+"common.hud.authenticating" = "認証中…";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -53,7 +54,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "パスワードが一致しません。";
 "addVault.createNewVault.password.error.tooShortPassword" = "パスワードは8文字以上にする必要があります。";
 "addVault.createNewVault.progress" = "金庫を作成しています…";
-"addVault.openExistingVault.title" = "既存の金庫を開く";
+"addVault.openExistingVault.title" = "すでにある金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "既存のバケット";
 "s3Authentication.endpoint" = "エンドポイント";
 "s3Authentication.region" = "リージョン";
+"s3Authentication.error.invalidCredentials" = "資格が無効です。";
+"s3Authentication.error.invalidEndpoint" = "指定されたエンドポイントは URL の形式と一致しません。";
 
 "trialStatus.active" = "有効";
 "trialStatus.expired" = "期限切れ";
@@ -268,7 +271,7 @@
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
-"vaultList.remove.alert.title" = "金庫を削除しますか？";
+"vaultList.remove.alert.title" = "金庫を削除しますか?";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
