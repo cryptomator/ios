@@ -15,7 +15,7 @@ class OnboardingViewController: UITableViewController {
 	private lazy var openCryptomatorCell: UITableViewCell = {
 		let cell = UITableViewCell()
 		cell.textLabel?.text = LocalizedString.getValue("fileProvider.onboarding.button.openCryptomator")
-		cell.textLabel?.textColor = UIColor(named: "primary")
+		cell.textLabel?.textColor = .cryptomatorPrimary
 		return cell
 	}()
 
@@ -33,7 +33,7 @@ class OnboardingViewController: UITableViewController {
 		title = LocalizedString.getValue("fileProvider.onboarding.title")
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		tableView.backgroundColor = UIColor(named: "background")
+		tableView.backgroundColor = .cryptomatorBackground
 		tableView.cellLayoutMarginsFollowReadableWidth = true
 	}
 

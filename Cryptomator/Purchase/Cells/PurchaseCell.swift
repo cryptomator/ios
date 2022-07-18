@@ -83,7 +83,7 @@ class PurchaseButton: CapsuleButton {
 		super.init(frame: frame)
 		backgroundColor = .cryptomatorBackground
 		titleLabel?.adjustsFontForContentSizeCategory = true
-		setTitleColor(UIColor(named: "primary"), for: .normal)
+		setTitleColor(.cryptomatorPrimary, for: .normal)
 		setTitleColor(.secondaryLabel, for: .disabled)
 		addTarget(self, action: #selector(primaryActionTriggered), for: .primaryActionTriggered)
 		widthAnchor.constraint(greaterThanOrEqualToConstant: 85).isActive = true

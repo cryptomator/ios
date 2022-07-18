@@ -25,12 +25,12 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
-		cancelButton.tintColor = UIColor(named: "primary")
+		cancelButton.tintColor = .cryptomatorPrimary
 		var toolbarItems = [cancelButton]
 		if viewModel.canCreateFolder {
 			let flexibleSpaceItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 			let createFolderButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.createFolder"), style: .plain, target: self, action: #selector(createNewFolder))
-			createFolderButton.tintColor = UIColor(named: "primary")
+			createFolderButton.tintColor = .cryptomatorPrimary
 			toolbarItems.append(flexibleSpaceItem)
 			toolbarItems.append(createFolderButton)
 		}

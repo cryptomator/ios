@@ -36,7 +36,7 @@ class LocalWebViewController: UIViewController, WKNavigationDelegate {
 		super.viewDidLoad()
 		title = viewModel.title
 		view.isOpaque = false
-		view.backgroundColor = UIColor(named: "background")
+		view.backgroundColor = .cryptomatorBackground
 		do {
 			let htmlString = try viewModel.loadHTMLString()
 			guard let webView = view as? WKWebView else { return }

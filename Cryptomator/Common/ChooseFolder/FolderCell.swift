@@ -26,7 +26,7 @@ class FolderCell: UITableViewCell, CloudItemCell {
 		textLabel?.text = item.name
 		imageView?.image = UIImage(systemName: "folder")
 		imageView?.highlightedImage = UIImage(systemName: "folder.fill")
-		imageView?.tintColor = UIColor(named: "primary")
+		imageView?.tintColor = .cryptomatorPrimary
 	}
 
 	@available(iOS 14, *)
@@ -40,9 +40,7 @@ class FolderCell: UITableViewCell, CloudItemCell {
 		} else {
 			content.image = UIImage(systemName: "folder")
 		}
-		if let color = UIColor(named: "primary") {
-			content.image = content.image?.withTintColor(color)
-		}
+		content.image = content.image?.withTintColor(.cryptomatorPrimary)
 		content.text = item.name
 		contentConfiguration = content
 	}

@@ -32,7 +32,7 @@ class BaseNavigationController: UINavigationController {
 		super.viewDidLoad()
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
-		appearance.backgroundColor = UIColor(named: "primary")
+		appearance.backgroundColor = .cryptomatorPrimary
 		appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
 		navigationBar.standardAppearance = appearance
 		navigationBar.scrollEdgeAppearance = appearance

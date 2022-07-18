@@ -17,7 +17,7 @@ class FileProviderCoordinator {
 	lazy var navigationController: UINavigationController = {
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
-		appearance.backgroundColor = UIColor(named: "primary")
+		appearance.backgroundColor = .cryptomatorPrimary
 		appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
 		let navigationController = UINavigationController()
 		navigationController.navigationBar.standardAppearance = appearance

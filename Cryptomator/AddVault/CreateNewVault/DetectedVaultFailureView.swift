@@ -25,7 +25,7 @@ class DetectedVaultFailureView: UIView {
 		let configuration = UIImage.SymbolConfiguration(pointSize: 120)
 		let warningSymbol = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: configuration)
 		let imageView = UIImageView(image: warningSymbol)
-		imageView.tintColor = UIColor(named: "yellow")
+		imageView.tintColor = .cryptomatorYellow
 
 		label.text = text
 		imageView.contentMode = .scaleAspectFit

@@ -41,7 +41,7 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 				let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .title2))
 				let folderIcon = UIImage(systemName: "folder", withConfiguration: imageConfiguration)
 				let imageView = UIImageView(image: folderIcon)
-				imageView.tintColor = UIColor(named: "primary")
+				imageView.tintColor = .cryptomatorPrimary
 				let padding: CGFloat = 5
 				let containerView = UIView(frame: CGRect(x: 0, y: 0, width: imageView.frame.width + padding, height: imageView.frame.height))
 				containerView.addSubview(imageView)
