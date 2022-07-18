@@ -13,7 +13,7 @@ KOMPATIBEL
 
 Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
 
-• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud und WebDAV-basierten Cloudspeicher-Diensten
+• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, WebDAV- und S3-basierten Cloudspeicher-Diensten
 • Erstelle auch Tresore an einem beliebigen Ort über andere Speicher-Anbieter (Drittanbieter-Apps müssen dies unterstützen)
 • Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
 
