@@ -1,0 +1,28 @@
+"common.button.cancel" = "Скасаваць";
+"common.button.change" = "Змяніць";
+"common.button.close" = "Зачыніць";
+"common.button.done" = "Файна";
+"common.button.edit" = "Рэдагаваць";
+"common.button.next" = "Далей";
+"common.button.ok" = "Добра";
+
+"addVault.title" = "Дадаць скарбніцу";
+"addVault.createNewVault.title" = "Стварыць новую скарбніцу";
+"addVault.createNewVault.setVaultName.cells.name" = "Назва скарбніцы";
+"addVault.createNewVault.chooseCloud.header" = "Дзе мусіць Cryptomator захоўваць зашыфраваныя файлы з тваёй скарбніцы?";
+"addVault.openExistingVault.title" = "Адчыніць існуючую скарбніцу";
+"fileProvider.error.unlockButton" = "Адамкнуць";
+
+"keepUnlocked.alert.title" = "Ці замкнуць скарбніцу?";
+"keepUnlocked.alert.confirm" = "Пацвердзіць і адразу замкнуць";
+"keepUnlockedDuration.auto" = "Дазволіць iOS прымаць рашэнне самастойна";
+"keepUnlockedDuration.auto.shortDisplayName" = "Аўтаматычна";
+"purchase.unlockedFullVersion.title" = "Шчыры дзякуй";
+
+"settings.title" = "Налады";
+
+"unlockVault.button.unlock" = "Адамкнуць";
+
+"vaultDetail.button.changeVaultPassword" = "Змяніць пароль";
+"vaultDetail.button.renameVault" = "Пераназваць";
+"vaultDetail.keepUnlocked.title" = "Працягласць размыкання";

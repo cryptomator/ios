@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Pobierz folder znajdujący się w ${path} w ${vault}";
 "getFolderIntent.title" = "Pobierz folder";
 
+"isUnlockedIntent.description" = "Zwraca czy dany sejf jest odblokowany.";
+"isUnlockedIntent.title" = "Odblokowany";
+
+"isVaultLockedIntent.title" = "Czy sejf jest odblokowany";
+"isVaultUnlockedIntent.text" = "Czy ${vault} jest odblokowany?";
+
+"lockVaultIntent.description" = "Blokuje dany sejf.";
+"lockVaultIntent.text" = "Zablokuj ${vault}";
+"lockVaultIntent.title" = "Zablokuj sejf";
+
+"openVaultIntent.description" = "Otwiera dany sejf w aplikacji Pliki.";
+"openVaultIntent.text" = "Otwórz ${vault} w aplikacji Pliki";
+"openVaultIntent.title" = "Otwórz sejf";
+
 "saveFileIntent.description" = "Zapisuje plik w sejfie.";
 "saveFileIntent.file" = "Plik";
 "saveFileIntent.parameter.ignoreExisting" = "Ignoruj istniejący plik o tej samej nazwie";

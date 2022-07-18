@@ -9,13 +9,13 @@
 import CryptomatorCommonCore
 import UIKit
 
-enum State {
-	case normal
-	case highlighted
-}
-
 extension UIImage {
-	convenience init?(vaultIconFor cloudProviderType: CloudProviderType, state: State) {
+	enum State {
+		case normal
+		case highlighted
+	}
+
+	convenience init?(vaultIconFor cloudProviderType: CloudProviderType, state: UIImage.State) {
 		var assetName: String
 		switch cloudProviderType {
 		case .dropbox:
@@ -30,6 +30,8 @@ extension UIImage {
 			assetName = "webdav-vault"
 		case let .localFileSystem(localFileSystemType):
 			assetName = UIImage.getVaultIcon(for: localFileSystemType)
+		case .s3:
+			assetName = "s3-vault"
 		}
 		if state == .highlighted {
 			assetName += "-selected"
@@ -61,6 +63,8 @@ extension UIImage {
 			assetName = "webdav"
 		case let .localFileSystem(localFileSystemType):
 			assetName = UIImage.getStorageIcon(for: localFileSystemType)
+		case .s3:
+			assetName = "s3"
 		}
 		self.init(named: assetName)
 	}

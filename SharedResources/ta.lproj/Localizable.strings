@@ -1,10 +1,33 @@
 "common.alert.attention.title" = "கவனிக்க";
+"common.button.cancel" = "ரத்து செய்";
+"common.button.change" = "மாற்று";
+"common.button.choose" = "தேர்ந்தெடு";
+"common.button.close" = "மூடு";
+"common.button.done" = "முடிந்தது";
+"common.button.edit" = "திருத்து";
 "common.button.enable" = "இயக்கு";
+"common.button.next" = "அடுத்து";
 "common.button.ok" = "சரி";
+"common.button.remove" = "நீக்கு";
 "common.button.retry" = "மீண்டும் முயற்சிக்கவும்";
-"common.cells.url" = "இணையமுகவரி";
+"common.cells.url" = "URL";
 "common.cells.username" = "பயனர்பெயர்";
+
+"addVault.title" = "பெட்டகத்தைச் சேர்க்கவும்";
+"addVault.createNewVault.title" = "புதிய பெட்டகத்தை உருவாக்கவும்";
+"addVault.createNewVault.setVaultName.cells.name" = "பெட்டகத்தின் பெயர்";
+"addVault.createNewVault.chooseCloud.header" = "உங்கள் பெட்டகத்தின் மறைகுறியாக்கப்பட்ட கோப்புகளை Cryptomator எங்கே சேமிக்க வேண்டும்?";
+"addVault.openExistingVault.title" = "இருக்கும் பெட்டகத்தைத் திறக்கவும்";
+"fileProvider.error.unlockButton" = "பூட்டுநீக்கு";
 "purchase.retry.button" = "மீண்டும் முயற்சிக்கவும்";
 
 "settings.title" = "அமைப்புகள்";
+
+"s3Authentication.displayName" = "புனைப்பெயர்";
+"s3Authentication.region" = "பகுதி";
+
+"unlockVault.button.unlock" = "பூட்டுநீக்கு";
+
+"vaultDetail.button.changeVaultPassword" = "கடவுச்சொல்லை மாற்று";
 "vaultDetail.button.moveVault" = "நகர்த்து";
+"vaultDetail.button.renameVault" = "மறுபெயரிடு";

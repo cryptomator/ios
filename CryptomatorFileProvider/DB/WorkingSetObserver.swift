@@ -16,7 +16,7 @@ protocol WorkingSetObserving {
 }
 
 class WorkingSetObserver: WorkingSetObserving {
-	private var observer: TransactionObserver?
+	private var observer: DatabaseCancellable?
 	private let database: DatabaseReader
 	private let uploadTaskManager: UploadTaskManager
 	private let cachedFileManager: CachedFileManager
@@ -36,18 +36,20 @@ class WorkingSetObserver: WorkingSetObserving {
 		let observation = ValueObservation.tracking { db in
 			try ItemMetadata.filterWorkingSet().fetchAll(db)
 		}.removeDuplicates()
-		observer = observation.start(in: database, onError: { error in
-			DDLogError("Working set startObservation error: \(error)")
-		}, onChange: { [weak self] (metadataList: [ItemMetadata]) in
-			let items: [FileProviderItem]
-			do {
-				items = try self?.createFileProviderItems(from: metadataList) ?? []
-			} catch {
-				DDLogError("Working set onChange error: \(error)")
-				return
-			}
-			self?.handleWorkingSetUpdate(items: items)
-		})
+		observer = observation.start(in: database,
+		                             onError: { error in
+		                             	DDLogError("Working set startObservation error: \(error)")
+		                             },
+		                             onChange: { [weak self] (metadataList: [ItemMetadata]) in
+		                             	let items: [FileProviderItem]
+		                             	do {
+		                             		items = try self?.createFileProviderItems(from: metadataList) ?? []
+		                             	} catch {
+		                             		DDLogError("Working set onChange error: \(error)")
+		                             		return
+		                             	}
+		                             	self?.handleWorkingSetUpdate(items: items)
+		                             })
 	}
 
 	func handleWorkingSetUpdate(items: [FileProviderItem]) {

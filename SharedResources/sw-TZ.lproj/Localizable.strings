@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Jina la mtumiaji";
 "common.footer.learnMore" = "Jifunze zaidi.";
+"common.hud.authenticating" = "Kuthibitisha…";
 
 "accountList.header.title" = "Uhalalishaji";
 "accountList.emptyList.message" = "Gonga hapa ili kuongeza akaunti";
@@ -189,6 +190,7 @@
 "settings.manageSubscriptions" = "Simamia Usajili";
 "settings.rateApp" = "Programu ya Kiwango";
 "settings.sendLogFile" = "Tuma Faili logi";
+"settings.shortcutsGuide" = "Mwongozo wa njia za mkato";
 "settings.unlockFullVersion" = "Fungua Toleo Kamili";
 
 "snapshots.fileprovider.file1" = "/Namba.za Uhasibu";
@@ -203,6 +205,15 @@
 "snapshots.main.vault2" = "/Familia";
 "snapshots.main.vault3" = "/Nyaraka";
 "snapshots.main.vault4" = "/Safari ya kwenda California";
+
+"s3Authentication.displayName" = "Onyesha Jina";
+"s3Authentication.accessKey" = "Ufunguo wa Ufikivu";
+"s3Authentication.secretKey" = "Ufunguo wa Siri";
+"s3Authentication.existingBucket" = "Ndoo Iliyopo";
+"s3Authentication.endpoint" = "Mwisho pointi";
+"s3Authentication.region" = "Mkoa";
+"s3Authentication.error.invalidCredentials" = "Vitambulisho batili.";
+"s3Authentication.error.invalidEndpoint" = "Mwisho uliotolewa haulingani na umbizo la URL.";
 
 "trialStatus.active" = "Amilifu";
 "trialStatus.expired" = "Imeisha muda wake";
@@ -266,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Usanidi wa Vault hautegemezwi. Tafadhali hakikisha kuwa unaendesha toleo la hivi karibuni la Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Toleo la Kuba %ld halitegemezwi. Kuba hii imeundwa na toleo la zamani au jipya zaidi la Cryptomator.";
 
-"webDAVAuthentication.progress" = "Inathibitisha…";
 "webDAVAuthentication.httpConnection.alert.title" = "Tumia HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Matumizi ya HTTP ni salama. Tunapendekeza kutumia HTTPS badala yake. Ikiwa unajua hatari, unaweza kuendelea na HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Badilisha hadi HTTPS";

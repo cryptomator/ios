@@ -62,6 +62,10 @@ class UnlockVaultViewModel {
 		}
 	}
 
+	var canQuickUnlock: Bool {
+		return biometricalUnlockEnabled && !wrongBiometricalPassword
+	}
+
 	private let domain: NSFileProviderDomain
 	private var vaultName: String {
 		return domain.displayName
@@ -123,8 +127,10 @@ class UnlockVaultViewModel {
 		self.wrongBiometricalPassword = wrongBiometricalPassword
 		self.fileProviderConnector = fileProviderConnector
 		let context = LAContext()
-		// Remove fallback title because "Enter password" also closes the FileProviderExtensionUI and does not display the password input
-		context.localizedFallbackTitle = ""
+		if #unavailable(iOS 16) {
+			// Remove fallback title because "Enter password" also closes FileProviderExtensionUI (prior to iOS 16) and does not display the password input
+			context.localizedFallbackTitle = ""
+		}
 		self.context = context
 		self.passwordManager = passwordManager
 		self.vaultAccountManager = vaultAccountManager

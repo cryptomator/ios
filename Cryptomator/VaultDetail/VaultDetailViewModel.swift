@@ -153,7 +153,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return Bindable(currentKeepUnlockedDuration)
 	}()
 
-	private var observation: TransactionObserver?
+	private var observation: DatabaseCancellable?
 
 	convenience init(vaultInfo: VaultInfo) {
 		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)

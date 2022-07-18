@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nombre de usuario";
 "common.footer.learnMore" = "Más información.";
+"common.hud.authenticating" = "Autenticando…";
 
 "accountList.header.title" = "Autenticaciones";
 "accountList.emptyList.message" = "Pulse aquí para añadir una cuenta";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/Viaje a California";
 
+"s3Authentication.displayName" = "Nombre para mostrar";
+"s3Authentication.accessKey" = "Clave de acceso";
+"s3Authentication.secretKey" = "Clave secreta";
+"s3Authentication.existingBucket" = "Cubeta existente";
+"s3Authentication.endpoint" = "Punto final";
+"s3Authentication.region" = "Región";
+"s3Authentication.error.invalidCredentials" = "Credenciales inválidas.";
+"s3Authentication.error.invalidEndpoint" = "El punto final proporcionado no coincide con el formato de una URL.";
+
 "trialStatus.active" = "Activa";
 "trialStatus.expired" = "Expirada";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "La configuración de la bóveda no es compatible. Por favor, asegúrese de que está ejecutando la última versión de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "La versión %ld de la bóveda no es compatible. Esta bóveda ha sido creada con una versión anterior o nueva de Cryptomator.";
 
-"webDAVAuthentication.progress" = "Autenticando…";
 "webDAVAuthentication.httpConnection.alert.title" = "¿Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "El uso de HTTP no es seguro. Recomendamos usar HTTPS en su lugar. Si conoce los riesgos puede seguir usando HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Cambiar a HTTPS";

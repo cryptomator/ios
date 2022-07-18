@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Логин";
 "common.footer.learnMore" = "Подробнее.";
+"common.hud.authenticating" = "Аутентификация…";
 
 "accountList.header.title" = "Аутентификации";
 "accountList.emptyList.message" = "Нажмите, чтобы добавить аккаунт";
@@ -189,6 +190,7 @@
 "settings.manageSubscriptions" = "Управление подпиской";
 "settings.rateApp" = "Оценить приложение";
 "settings.sendLogFile" = "Отправить журнал";
+"settings.shortcutsGuide" = "Руководство по ярлыкам";
 "settings.unlockFullVersion" = "Получить полную версию";
 
 "snapshots.fileprovider.file1" = "/Учёт.numbers";
@@ -203,6 +205,15 @@
 "snapshots.main.vault2" = "/Семья";
 "snapshots.main.vault3" = "/Документы";
 "snapshots.main.vault4" = "/Поездка в Крым";
+
+"s3Authentication.displayName" = "Отображаемое имя";
+"s3Authentication.accessKey" = "Ключ доступа";
+"s3Authentication.secretKey" = "Секретный ключ";
+"s3Authentication.existingBucket" = "Существующий бакет";
+"s3Authentication.endpoint" = "Конечная точка";
+"s3Authentication.region" = "Регион";
+"s3Authentication.error.invalidCredentials" = "Неверные учётные данные.";
+"s3Authentication.error.invalidEndpoint" = "Предоставленная конечная точка не соответствует формату URL.";
 
 "trialStatus.active" = "Активно";
 "trialStatus.expired" = "Истекло";
@@ -266,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Конфигурация хранилища не поддерживается. Убедитесь, что у вас установлена новейшая версия Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Версия хранилища %ld не поддерживается. Это хранилище было создано в устаревшей или более новой версии Cryptomator.";
 
-"webDAVAuthentication.progress" = "Аутентификация…";
 "webDAVAuthentication.httpConnection.alert.title" = "Использовать HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Протокол HTTP небезопасен. Рекомендуем использовать HTTPS. Продолжайте с HTTP, только если вы понимаете риски.";
 "webDAVAuthentication.httpConnection.change" = "Изменить на HTTPS";

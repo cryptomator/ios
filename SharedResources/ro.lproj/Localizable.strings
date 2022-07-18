@@ -100,6 +100,13 @@
 "settings.debugMode.alert.message" = "În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.";
 "settings.sendLogFile" = "Trimiteți fişierul jurnal";
 
+"s3Authentication.displayName" = "Nume afișat";
+"s3Authentication.accessKey" = "Cheia de acces";
+"s3Authentication.secretKey" = "Cheia secretă";
+"s3Authentication.existingBucket" = "Găleată existentă";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Regiune";
+
 "unlockVault.button.unlock" = "Deblocați";
 "unlockVault.button.unlockVia" = "Deblocare prin %@";
 "unlockVault.password.footer" = "Introduceți parola pentru „%@”.";
@@ -141,6 +148,7 @@
 "vaultList.remove.alert.message" = "Acest lucru va elimina doar seiful din lista de seif. Nici o dată criptată nu va fi ștearsă. Puteți adăuga din nou seiful mai târziu.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configurarea seifului nu este suportată. Vă rugăm să vă asigurați că rulați cea mai noua versiune de Cryptomator.";
+
 "webDAVAuthentication.httpConnection.alert.title" = "Folosiți HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Schimbare la HTTPS";

@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
+"common.hud.authenticating" = "Kimlik doğrulanıyor…";
 
 "accountList.header.title" = "Kimlik Doğrulaması";
 "accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Belgeler";
 "snapshots.main.vault4" = "/Kaliforniya gezisi";
 
+"s3Authentication.displayName" = "Görünen Ad";
+"s3Authentication.accessKey" = "Erişim Anahtarı";
+"s3Authentication.secretKey" = "Gizli Anahtar";
+"s3Authentication.existingBucket" = "Mevcut kova";
+"s3Authentication.endpoint" = "Uç nokta";
+"s3Authentication.region" = "Bölge";
+"s3Authentication.error.invalidCredentials" = "Geçersiz kimlik bilgileri.";
+"s3Authentication.error.invalidEndpoint" = "Sağlanan uç nokta, bir URL'nin biçimiyle eşleşmiyor.";
+
 "trialStatus.active" = "Aktif";
 "trialStatus.expired" = "Süresi doldu";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Kasa yapılandırması desteklenmiyor. Cryptomator'ın en son sürümünü kullandığınızdan lütfen emin olun.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "%ld Kasa sürümü desteklenmiyor. Bu kasa, Cryptomator'ın daha eski veya daha yeni bir sürümüyle oluşturuldu.";
 
-"webDAVAuthentication.progress" = "Kimlik doğrulanıyor…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS kullanılsın mı?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP'nin kullanımı güvensizdir. Bunun yerine HTTPS kullanmanızı öneririz. Riskleri biliyorsanız, HTTP ile devam edebilirsiniz.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS'ye geç";

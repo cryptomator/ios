@@ -24,6 +24,8 @@ extension CloudProviderType {
 			return "WebDAV"
 		case let .localFileSystem(localFileSystemType):
 			return localFileSystemType.localizedString()
+		case .s3:
+			return "S3"
 		}
 	}
 }

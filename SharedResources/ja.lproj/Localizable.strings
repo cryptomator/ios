@@ -10,7 +10,7 @@
 "common.button.cancel" = "キャンセル";
 "common.button.change" = "変更";
 "common.button.choose" = "選択";
-"common.button.clear" = "明らか";
+"common.button.clear" = "消去";
 "common.button.close" = "閉じる";
 "common.button.confirm" = "確認";
 "common.button.create" = "作成";
@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "ユーザー名";
 "common.footer.learnMore" = "さらに詳しく";
+"common.hud.authenticating" = "認証中…";
 
 "accountList.header.title" = "認証";
 "accountList.emptyList.message" = "ここをタップしてアカウントを追加";
@@ -53,7 +54,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "パスワードが一致しません。";
 "addVault.createNewVault.password.error.tooShortPassword" = "パスワードは8文字以上にする必要があります。";
 "addVault.createNewVault.progress" = "金庫を作成しています…";
-"addVault.openExistingVault.title" = "既存の金庫を開く";
+"addVault.openExistingVault.title" = "すでにある金庫を開く";
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
@@ -100,11 +101,20 @@
 "fileProvider.error.unlockButton" = "解錠";
 "fileProvider.clearFileFromCache.title" = "キャッシュからファイルをクリア";
 "fileProvider.clearFileFromCache.message" = "これにより、デバイスからローカルファイルが削除されるだけで、クラウド内のファイルは削除されません。";
+"fileProvider.fileImporting.error.missingPremium" = "Cryptomatorアプリで金庫の書き込み許可を得るために完全版のロックを解除してください。";
 "fileProvider.uploadProgress.connecting" = "接続する...";
 "fileProvider.uploadProgress.message" = "現在の進行：%@\n\nアップロードの進行状況が止まっていることに気付いた場合は、アップロードを再試行できます。";
 "fileProvider.uploadProgress.missing" = "進捗状況を確認できませんでした。 まだバックグラウンドで実行されている可能性があります。";
 "fileProvider.uploadProgress.title" = "アップロード中";
 "fileProvider.uploadProgress.missingDomainError" = "ドメインが見つかりませんでした。";
+
+"getFolderIntent.error.missingPath" = "パスがありません。妥当なフォルダーのパスを指定してください。";
+"getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
+"intents.saveFile.missingFile" = "指定されたファイルはだめです。";
+"intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
+"intents.saveFile.missingTemporaryFolder" = "臨時フォルダーの作成ができませんでした。";
+"intents.saveFile.lockedVault" = "このショートカットを使用するためにまず金庫を解錠してください。";
+"intents.saveFile.selectedVaultNotFound" = "選択した金庫は見つかりませんでした。";
 
 "keepUnlocked.alert.title" = "金庫を施錠しますか？";
 "keepUnlocked.alert.message" = "この変更を適用するには金庫を施錠する必要があります。";
@@ -180,6 +190,7 @@
 "settings.manageSubscriptions" = "サブスクリプションの管理";
 "settings.rateApp" = "アプリを評価する";
 "settings.sendLogFile" = "ログ ファイルを送信";
+"settings.shortcutsGuide" = "ショートカットのガイド";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
@@ -194,6 +205,15 @@
 "snapshots.main.vault2" = "/Family";
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Trip to California";
+
+"s3Authentication.displayName" = "表示名";
+"s3Authentication.accessKey" = "アクセスキー";
+"s3Authentication.secretKey" = "シークレットキー";
+"s3Authentication.existingBucket" = "既存のバケット";
+"s3Authentication.endpoint" = "エンドポイント";
+"s3Authentication.region" = "リージョン";
+"s3Authentication.error.invalidCredentials" = "資格が無効です。";
+"s3Authentication.error.invalidEndpoint" = "指定されたエンドポイントは URL の形式と一致しません。";
 
 "trialStatus.active" = "有効";
 "trialStatus.expired" = "期限切れ";
@@ -251,13 +271,12 @@
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
-"vaultList.remove.alert.title" = "金庫を削除しますか？";
+"vaultList.remove.alert.title" = "金庫を削除しますか?";
 "vaultList.remove.alert.message" = "金庫のリストからのみ金庫が削除されます。暗号化されたデータは削除されません。あとから金庫を再追加できます。";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "サポートされない金庫の構成です。最新の Cryptomator を実行していることを確認してください。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "金庫のバージョン %ld はサポートされていません。この金庫は、現在のものより古いか新しいバージョンの Cryptomator で作成されています。";
 
-"webDAVAuthentication.progress" = "認証中…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS を使用しますか？";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP は安全ではありません。代わりに HTTPS を使用することを推奨します。リスクを承知の上であれば HTTP をご使用ください。";
 "webDAVAuthentication.httpConnection.change" = "HTTPS を使用";

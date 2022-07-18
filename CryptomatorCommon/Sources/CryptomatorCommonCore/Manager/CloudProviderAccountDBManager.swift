@@ -9,7 +9,7 @@
 import Foundation
 import GRDB
 
-public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord {
+public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord, Equatable {
 	public static let databaseTableName = "cloudProviderAccounts"
 	static let accountUIDKey = "accountUID"
 	static let cloudProviderTypeKey = "cloudProviderType"

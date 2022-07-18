@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Όνομα χρήστη";
 "common.footer.learnMore" = "Μάθε περισσότερα.";
+"common.hud.authenticating" = "Ταυτοποίηση…";
 
 "accountList.header.title" = "Ταυτοποιήσεις";
 "accountList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε ένα λογαριασμό";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Έγγραφα";
 "snapshots.main.vault4" = "/Ταξίδι στην Καλιφόρνια";
 
+"s3Authentication.displayName" = "Εμφανιζόμενο Όνομα";
+"s3Authentication.accessKey" = "Κλειδί Πρόσβασης";
+"s3Authentication.secretKey" = "Μυστικό Κλειδί";
+"s3Authentication.existingBucket" = "Υπάρχων Bucket";
+"s3Authentication.endpoint" = "Τελικό Σημείο";
+"s3Authentication.region" = "Περιοχή";
+"s3Authentication.error.invalidCredentials" = "Μη έγκυρα διαπιστευτήρια.";
+"s3Authentication.error.invalidEndpoint" = "Το παρεχόμενο τελικό σημείο δεν ταιριάζει με τη μορφή μιας διεύθυνσης URL.";
+
 "trialStatus.active" = "Ενεργή";
 "trialStatus.expired" = "Έληξε";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Η ρύθμιση παραμέτρων της κρύπτης δεν υποστηρίζεται. Παρακαλώ σιγουρευτείτε ότι εκτελείτε την τελευταία έκδοση του Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Η έκδοση %ld της κρύπτης δεν υποστηρίζεται. Αυτή η κρύπτη έχει δημιουργηθεί με παλαιότερη ή νεότερη έκδοση του Cryptomator.";
 
-"webDAVAuthentication.progress" = "Ταυτοποίηση…";
 "webDAVAuthentication.httpConnection.alert.title" = "Χρήση HTTPS;";
 "webDAVAuthentication.httpConnection.alert.message" = "Η χρήση του HTTP είναι μη ασφαλής. Σας συνιστούμε να χρησιμοποιήσετε το HTTPS αντ 'αυτού. Αν γνωρίζετε τους κινδύνους, μπορείτε να συνεχίσετε με το HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Αλλαγή σε HTTPS";

@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Get folder located at ${path} in ${vault}";
 "getFolderIntent.title" = "Get Folder";
 
+"isUnlockedIntent.description" = "Returns whether the given vault is unlocked.";
+"isUnlockedIntent.title" = "Is Unlocked";
+
+"isVaultLockedIntent.title" = "Is vault unlocked";
+"isVaultUnlockedIntent.text" = "Is ${vault} unlocked?";
+
+"lockVaultIntent.description" = "Locks the given vault.";
+"lockVaultIntent.text" = "Lock ${vault}";
+"lockVaultIntent.title" = "Lock Vault";
+
+"openVaultIntent.description" = "Opens the given vault in the Files app.";
+"openVaultIntent.text" = "Open ${vault} in the Files app";
+"openVaultIntent.title" = "Open Vault";
+
 "saveFileIntent.description" = "Saves a file to a vault.";
 "saveFileIntent.file" = "File";
 "saveFileIntent.parameter.ignoreExisting" = "Ignore existing file with same name";

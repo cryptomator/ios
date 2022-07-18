@@ -17,8 +17,9 @@ function process_output() {
   printf '\n# Running %s\n' "$1"
   local start=$(date +%s)
   local output=$(eval "$2" 2>&1)
-  if [[ ! -z "$output" ]]; then
-    printf -- '---\n%s\n---\n' "$output"
+  local cleaned_output=$(echo "$output" | sed '/.*xcodebuild.*/d')
+  if [[ ! -z "$cleaned_output" ]]; then
+    printf -- '---\n%s\n---\n' "$cleaned_output"
     final_status=1
   fi
   local end=$(date +%s)

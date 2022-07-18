@@ -16,6 +16,7 @@ public enum CloudProviderType: Codable, Equatable, Hashable {
 	case pCloud
 	case webDAV(type: WebDAVType)
 	case localFileSystem(type: LocalFileSystemType)
+	case s3(type: S3Type)
 }
 
 extension CloudProviderType: DatabaseValueConvertible {
@@ -42,5 +43,9 @@ public enum LocalFileSystemType: Codable {
 }
 
 public enum WebDAVType: Codable {
+	case custom
+}
+
+public enum S3Type: Codable {
 	case custom
 }

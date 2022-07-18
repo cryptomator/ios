@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Benutzername";
 "common.footer.learnMore" = "Mehr erfahren.";
+"common.hud.authenticating" = "Authentifizierung …";
 
 "accountList.header.title" = "Authentifizierungen";
 "accountList.emptyList.message" = "Tipp hier, um einen Account hinzuzufügen";
@@ -59,7 +60,7 @@
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein.";
 "addVault.openExistingVault.progress" = "Tresor wird hinzugefügt …";
-"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Files“ zu.";
+"addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
 "addVault.success.footer" = "Falls noch nicht erledigt, aktiviere Cryptomator in der App „Dateien“.";
 
 "biometryType.faceID" = "Face ID";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Dokumente";
 "snapshots.main.vault4" = "/Reise nach Bonn";
 
+"s3Authentication.displayName" = "Anzeigename";
+"s3Authentication.accessKey" = "Access Key";
+"s3Authentication.secretKey" = "Secret Key";
+"s3Authentication.existingBucket" = "Bestehender Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Ungültige Zugangsdaten.";
+"s3Authentication.error.invalidEndpoint" = "Der angegebene Endpunkt entspricht nicht dem Format einer URL.";
+
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Abgelaufen";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Tresorkonfiguration wird nicht unterstützt. Bitte stelle sicher, dass du die neueste Version von Cryptomator verwendest.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Tresorversion %ld wird nicht unterstützt. Dieser Tresor wurde mit einer älteren oder neueren Version von Cryptomator erstellt.";
 
-"webDAVAuthentication.progress" = "Authentifizierung …";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS nutzen?";
 "webDAVAuthentication.httpConnection.alert.message" = "Die Verwendung von HTTP ist unsicher. Wir empfehlen stattdessen die Verwendung von HTTPS. Wenn du dir der Risiken bewusst bist, kannst du mit HTTP fortfahren.";
 "webDAVAuthentication.httpConnection.change" = "Zu HTTPS ändern";

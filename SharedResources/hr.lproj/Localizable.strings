@@ -205,6 +205,13 @@
 "snapshots.main.vault3" = "/Dokumenti";
 "snapshots.main.vault4" = "/Putovanje u Kaliforniju";
 
+"s3Authentication.displayName" = "Ime za prikaz";
+"s3Authentication.accessKey" = "Pristupni ključ";
+"s3Authentication.secretKey" = "Tajni ključ";
+"s3Authentication.existingBucket" = "Postojeća kanta";
+"s3Authentication.endpoint" = "Krajnja točka";
+"s3Authentication.region" = "Regija";
+
 "trialStatus.active" = "Aktivan";
 "trialStatus.expired" = "Isteklo";
 
@@ -267,7 +274,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfiguracija trezora nije podržana. Provjerite koristite li najnoviju verziju Cryptomator-a.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Verzija trezora %ld nije podržana. Ovaj trezor je izrađen sa starijom ili novijom verzijom Cryptomator-a.";
 
-"webDAVAuthentication.progress" = "Autenticiranje…";
 "webDAVAuthentication.httpConnection.alert.title" = "Koristiti HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Korištenje HTTP-a je nesigurno. Preporučamo korištenje HTTPS-a umjesto toga. Ako znate rizike, možemo nastaviti s HTTP-om.";
 "webDAVAuthentication.httpConnection.change" = "Promijeni u HTTPS";

@@ -23,6 +23,7 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	let service: String
 	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let pCloud = CryptomatorKeychain(service: "pCloud.auth")
+	static let s3 = CryptomatorKeychain(service: "s3.auth")
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
 	static let upgrade = CryptomatorKeychain(service: "upgrade")

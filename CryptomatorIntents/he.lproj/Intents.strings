@@ -1,1 +1,33 @@
+"common.failureReason" = "סיבת השגיאה";
+"common.false" = "שגוי";
+"common.folder" = "תיקייה";
+"common.true" = "תקין";
 "common.vault" = "כספת";
+
+"getFolderIntent.description" = "מחזיר אובייקט תיקייה עבור הנתיב שניתן בכספת הנתונה.";
+"getFolderIntent.path" = "נתיב";
+"getFolderIntent.text" = "הצגת תיקייה הממוקמת ב${path} ב${vault}";
+"getFolderIntent.title" = "הצגת תיקייה";
+
+"isUnlockedIntent.description" = "חוזר במידה והכספת הנתונה לא נעולה.";
+"isUnlockedIntent.title" = "לא נעולה";
+
+"isVaultLockedIntent.title" = "כספת לא נעולה";
+"isVaultUnlockedIntent.text" = "האם ${vault} לא נעולה?";
+
+"lockVaultIntent.description" = "נעילת הכספת הנתונה.";
+"lockVaultIntent.text" = "נעילת ${vault}";
+"lockVaultIntent.title" = "נעילת כספת";
+
+"openVaultIntent.description" = "פתיחת הכספת הנתונה ביישום Files.";
+"openVaultIntent.text" = "פתיחת ${vault} ביישום Files";
+"openVaultIntent.title" = "פתיחת כספת";
+
+"saveFileIntent.description" = "שמירת קובץ לכספת.";
+"saveFileIntent.file" = "קובץ";
+"saveFileIntent.parameter.ignoreExisting" = "התעלמות מקובץ קיים עם שם זהה";
+"saveFileIntent.text" = "שמירת ${file} ל${folder}";
+"saveFileIntent.title" = "שמירת קובץ";
+
+"vaultFolder.displayName" = "תיקיית הכספת";
+"vaultFolder.vaultIdentifier" = "מזהה כספת";

@@ -23,7 +23,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	let cloudProviderType: CloudProviderType
 	private let dbManager: DatabaseManager
 	private let cloudAuthenticator: CloudAuthenticator
-	private var observation: TransactionObserver?
+	private var observation: DatabaseCancellable?
 	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
 	private var removedRow = false
 
@@ -85,6 +85,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			return createAccountCellContent(for: credential)
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
+		case .s3:
+			guard let credential = S3CredentialManager.shared.getCredential(with: accountInfo.accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
+			return createAccountCellContent(for: credential, displayName: displayName)
 		}
 	}
 
@@ -129,6 +135,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: credential.baseURL.host ?? "<unknown-host>", detailLabelText: detailLabelText)
 	}
 
+	func createAccountCellContent(for credential: S3Credential, displayName: String?) -> AccountCellContent {
+		let hostName = credential.url.host ?? "<unknown-host>"
+		let detailLabelText = "\(hostName) • \(credential.bucket)"
+		return AccountCellContent(mainLabelText: displayName ?? "<unknown-display-name>", detailLabelText: detailLabelText)
+	}
+
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {
 		let movedAccountCell = accounts.remove(at: sourceIndex)
 		let movedAccountInfo = accountInfos.remove(at: sourceIndex)
@@ -169,13 +181,21 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				self.databaseChangedPublisher.send(.failure(error))
 				return
 			}
-			if self.cloudProviderType == .dropbox, !self.removedRow {
+			guard !self.removedRow else {
+				return
+			}
+			guard !self.accounts.isEmpty else {
+				// Only query the cloud provider online for the additional info if there are actually accounts to query.
+				// Also fixes the problem that an empty account list is sent a second time via the `databaseChangedPublisher`.
+				return
+			}
+			if self.cloudProviderType == .dropbox {
 				self.refreshDropboxItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))
 				}
-			} else if self.cloudProviderType == .pCloud, !self.removedRow {
+			} else if self.cloudProviderType == .pCloud {
 				self.refreshPCloudItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in

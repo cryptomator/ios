@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "获取位于“${vault}”中 ${path} 的文件夹";
 "getFolderIntent.title" = "获取文件夹";
 
+"isUnlockedIntent.description" = "返回指定的保险库是否已解锁。";
+"isUnlockedIntent.title" = "已解锁？";
+
+"isVaultLockedIntent.title" = "保险库是否已解锁";
+"isVaultUnlockedIntent.text" = "${vault} 保险库是否已解锁。";
+
+"lockVaultIntent.description" = "锁定指定的保险库。";
+"lockVaultIntent.text" = "锁定 ${vault}";
+"lockVaultIntent.title" = "锁定保险库";
+
+"openVaultIntent.description" = "在文件应用中打开指定的保险库。";
+"openVaultIntent.text" = "在文件应用中打开 ${vault}";
+"openVaultIntent.title" = "打开保险库";
+
 "saveFileIntent.description" = "保存文件到保险库";
 "saveFileIntent.file" = "文件";
 "saveFileIntent.parameter.ignoreExisting" = "忽略同名的现有文件";

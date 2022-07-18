@@ -223,6 +223,7 @@
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configuração do cofre não é suportada. Por favor certifique-se de que está a correr a versão mais recente de Cryptomator.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do cofre %ld não é compatível.. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
+
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "O uso do HTTP não é seguro. Recomendamos o uso de HTTPS em vez disso. Se você conhece os riscos, pode continuar com HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Alterar para HTTPS";

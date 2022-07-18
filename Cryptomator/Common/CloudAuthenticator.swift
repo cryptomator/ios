@@ -69,6 +69,14 @@ class CloudAuthenticator {
 		}
 	}
 
+	func authenticateS3(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return S3Authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
 	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		switch cloudProviderType {
 		case .dropbox:
@@ -83,6 +91,8 @@ class CloudAuthenticator {
 			return authenticateWebDAV(from: viewController)
 		case .localFileSystem:
 			return Promise(CloudAuthenticatorError.functionNotYetSupported)
+		case .s3:
+			return authenticateS3(from: viewController)
 		}
 	}
 
@@ -104,6 +114,8 @@ class CloudAuthenticator {
 			try WebDAVAuthenticator.removeCredentialFromKeychain(with: account.accountUID)
 		case .localFileSystem:
 			break
+		case .s3:
+			try S3CredentialManager.shared.removeCredential(with: account.accountUID)
 		}
 		let correspondingVaults = try vaultAccountManager.getAllAccounts().filter { $0.delegateAccountUID == account.accountUID }
 		_ = Promise<Void>(on: .global()) { fulfill, _ in

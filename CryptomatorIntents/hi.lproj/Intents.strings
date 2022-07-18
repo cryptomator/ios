@@ -1,1 +1,15 @@
-"common.vault" = "गुप्त तिजोरी";
+"common.vault" = "वॉल्ट";
+
+"isUnlockedIntent.description" = "बताता है कि वॉल्ट उनलॉकेड है या नहीं।";
+"isUnlockedIntent.title" = "उनलॉकेड है";
+
+"isVaultLockedIntent.title" = "क्या वॉल्ट उनलॉकेड है";
+"isVaultUnlockedIntent.text" = "क्या ${vault} उनलॉकेड है?";
+
+"lockVaultIntent.description" = "दी गयी वॉल्ट को लॉक कर देता है।";
+"lockVaultIntent.text" = "लॉक ${vault}";
+"lockVaultIntent.title" = "वॉल्ट को लॉक करें";
+
+"openVaultIntent.description" = "दी गई वॉल्ट को फाइल्स ऐप पर खोलें";
+"openVaultIntent.text" = "${vault} को फाइल्स ऐप पर खोलें";
+"openVaultIntent.title" = "वॉल्ट खोले";

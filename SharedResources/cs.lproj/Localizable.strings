@@ -195,6 +195,13 @@
 "snapshots.main.vault3" = "/Dokumenty";
 "snapshots.main.vault4" = "/výlet do Kalifornie";
 
+"s3Authentication.displayName" = "Zobrazované jméno";
+"s3Authentication.accessKey" = "Přístupový klíč";
+"s3Authentication.secretKey" = "Tajný klíč";
+"s3Authentication.existingBucket" = "Stávající bucket";
+"s3Authentication.endpoint" = "Koncový bod";
+"s3Authentication.region" = "Oblast";
+
 "trialStatus.active" = "Aktivní";
 "trialStatus.expired" = "Expirováno";
 
@@ -257,7 +264,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurace trezoru není podporována. Ujistěte se, že používáte nejnovější verzi Cryptomatoru.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Verze trezoru %ld není podporována. Tento trezor byl vytvořen se starší nebo novější verzí Cryptomator.";
 
-"webDAVAuthentication.progress" = "Ověřování…";
 "webDAVAuthentication.httpConnection.alert.title" = "Použít HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Použití HTTP je nezabezpečené. Doporučujeme použít HTTPS. Pokud znáte rizika, můžete pokračovat s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Změnit na HTTPS";

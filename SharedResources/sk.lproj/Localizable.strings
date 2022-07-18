@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživateľské meno";
 "common.footer.learnMore" = "Dozvedieť sa viac.";
+"common.hud.authenticating" = "Overovanie…";
 
 "accountList.header.title" = "Overenia";
 "accountList.emptyList.message" = "Kliknúť sem pre pridanie účtu";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/Dokumenty";
 "snapshots.main.vault4" = "/Výlet do Kalifornie";
 
+"s3Authentication.displayName" = "Zobrazované meno";
+"s3Authentication.accessKey" = "Prístupový kľúč";
+"s3Authentication.secretKey" = "Tajný kľúč";
+"s3Authentication.existingBucket" = "Existujúce vedro";
+"s3Authentication.endpoint" = "Koncový bod";
+"s3Authentication.region" = "Región";
+"s3Authentication.error.invalidCredentials" = "Neplatné prihlasovacie údaje.";
+"s3Authentication.error.invalidEndpoint" = "Poskytnutý koncový bod nespĺňa formát URL.";
+
 "trialStatus.active" = "Aktívny";
 "trialStatus.expired" = "Vypršaný";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Konfigurácia trezora je nepodporovaná. Prosím uistite sa či spúšťate najnovšiu verziu Cryptomator-a.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Verzia trezora %ld je nepodporovaná. Tento trezor bol vytvorený staršou alebo novšou verziou Cryptomatora.";
 
-"webDAVAuthentication.progress" = "Overovanie…";
 "webDAVAuthentication.httpConnection.alert.title" = "Použiť HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Používanie HTTP nie je bezpečné. Odporúčame namiesto toho použiť HTTPS. Ak poznáte riziká, môžte pokračovať s HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Zmeniť na HTTPS";

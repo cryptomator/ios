@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Получить папку, расположенную в ${path} в ${vault}";
 "getFolderIntent.title" = "Получить папку";
 
+"isUnlockedIntent.description" = "Сообщает, разблокировано ли данное хранилище.";
+"isUnlockedIntent.title" = "Разблокировано";
+
+"isVaultLockedIntent.title" = "Хранилище разблокировано";
+"isVaultUnlockedIntent.text" = "Хранилище ${vault} разблокировано?";
+
+"lockVaultIntent.description" = "Блокировка данного хранилища.";
+"lockVaultIntent.text" = "Блокировка ${vault}";
+"lockVaultIntent.title" = "Блокировка хранилища";
+
+"openVaultIntent.description" = "Открыть данное хранилище в приложении \"Файлы\".";
+"openVaultIntent.text" = "Открыть ${vault} в приложении \"Файлы\"";
+"openVaultIntent.title" = "Открыть хранилище";
+
 "saveFileIntent.description" = "Сохраняет файл в хранилище.";
 "saveFileIntent.file" = "Файл";
 "saveFileIntent.parameter.ignoreExisting" = "Игнорировать существующий файл с таким же именем";

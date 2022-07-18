@@ -20,6 +20,15 @@
         }
       },
       {
+        "package": "AWSiOSSDKV2",
+        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm",
+        "state": {
+          "branch": null,
+          "revision": "33ecff5497a9f3e582aeab51265617c64427f902",
+          "version": "2.27.12"
+        }
+      },
+      {
         "package": "Base32",
         "repositoryURL": "https://github.com/norio-nomura/Base32.git",
         "state": {
@@ -33,8 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "f8aa06dbc245368aee16ff3e4047ab0cb881a81d",
-          "version": "1.3.0"
+          "revision": "d39cc8bd3763755158bc8fda25fadca3fb308130",
+          "version": "1.5.0"
         }
       },
       {
@@ -57,11 +66,11 @@
       },
       {
         "package": "ObjectiveDropboxOfficial",
-        "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c.git",
+        "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c-spm.git",
         "state": {
           "branch": null,
-          "revision": "9d390f1cbae0f77066117f9b97370735914875b0",
-          "version": "6.2.3-fork"
+          "revision": "d4796b87b9dfff4a5164544ef1b865bc8a561638",
+          "version": "6.3.2"
         }
       },
       {
@@ -78,8 +87,8 @@
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "5ee47c3c2765bdfde0f44c2ea9a263f6aa252d63",
-          "version": "4.14.0"
+          "revision": "e02f2c8abacff2799ed14926edcbf6e76fb9f805",
+          "version": "5.25.0"
         }
       },
       {
@@ -114,26 +123,26 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "e4202b9175d7b5566845b60e0ad233ed72b2783c",
-          "version": "1.2.1"
-        }
-      },
-      {
-        "package": "MSGraphClientSDK",
-        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc.git",
-        "state": {
-          "branch": null,
-          "revision": "a4d0a18ab62176762e4efc2f56021c2f386d98bc",
-          "version": "1.0.0-fork"
+          "revision": "08d3ed7ab2f3d140782757f8dbb7b7631430751f",
+          "version": "1.2.2"
         }
       },
       {
         "package": "MSGraphClientModels",
-        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-models.git",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-models-spm.git",
         "state": {
           "branch": null,
-          "revision": "50596f424c7496687f34666372c71a6fe6270ac2",
-          "version": "1.3.0-fork"
+          "revision": "172b07fe8a7da6072149e2fd92051a510b25035e",
+          "version": "1.3.0"
+        }
+      },
+      {
+        "package": "MSGraphClientSDK",
+        "repositoryURL": "https://github.com/phil1995/msgraph-sdk-objc-spm.git",
+        "state": {
+          "branch": null,
+          "revision": "0320c6a99207b53288970382afcf5054852f9724",
+          "version": "1.0.0"
         }
       },
       {
@@ -161,6 +170,15 @@
           "branch": null,
           "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
           "version": "1.4.2"
+        }
+      },
+      {
+        "package": "Introspect",
+        "repositoryURL": "https://github.com/siteline/SwiftUI-Introspect.git",
+        "state": {
+          "branch": null,
+          "revision": "f2616860a41f9d9932da412a8978fec79c06fe24",
+          "version": "0.1.4"
         }
       },
       {

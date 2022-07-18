@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build and test
-    runs-on: macos-latest
+    runs-on: macos-12
     env:
       DERIVED_DATA_PATH: 'DerivedData'
       DEVICE: 'iPhone 12 Pro'

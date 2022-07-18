@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
 "common.footer.learnMore" = "了解更多。";
+"common.hud.authenticating" = "正在验证...";
 
 "accountList.header.title" = "身份验证";
 "accountList.emptyList.message" = "点击此处添加保险库";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "/文档";
 "snapshots.main.vault4" = "/加州之旅";
 
+"s3Authentication.displayName" = "显示名称";
+"s3Authentication.accessKey" = "通行密钥";
+"s3Authentication.secretKey" = "私钥";
+"s3Authentication.existingBucket" = "现有 Bucket";
+"s3Authentication.endpoint" = "端点";
+"s3Authentication.region" = "区域";
+"s3Authentication.error.invalidCredentials" = "无效凭证";
+"s3Authentication.error.invalidEndpoint" = "提供的端点与URL格式不匹配。";
+
 "trialStatus.active" = "进行中";
 "trialStatus.expired" = "已到期";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "不支持保险库配置，请确保您正在运行最新版本的 Cryptomator。";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "不支持的保险库版本 %ld。这可能是使用太新或太旧的 Cryptomator 版本创建的保险库。";
 
-"webDAVAuthentication.progress" = "正在验证……";
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 不安全，我们建议使用 HTTPS。如果您知道其中风险，您可以继续使用 HTTP";
 "webDAVAuthentication.httpConnection.change" = "换成 HTTPS";

@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Gebruikersnaam";
 "common.footer.learnMore" = "Meer weten.";
+"common.hud.authenticating" = "Authenticeren…";
 
 "accountList.header.title" = "Authenticaties";
 "accountList.emptyList.message" = "Tik hier om een account toe te voegen";
@@ -205,6 +206,15 @@
 "snapshots.main.vault3" = "Documenten";
 "snapshots.main.vault4" = "/reis naar Californië";
 
+"s3Authentication.displayName" = "Weergavenaam";
+"s3Authentication.accessKey" = "Toegangssleutel";
+"s3Authentication.secretKey" = "Geheime sleutel";
+"s3Authentication.existingBucket" = "Bestaande Bucket";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Regio";
+"s3Authentication.error.invalidCredentials" = "Ongeldige authenticatiesleutels.";
+"s3Authentication.error.invalidEndpoint" = "De opgegeven endpoint komt niet overeen met het formaat van een URL.";
+
 "trialStatus.active" = "Actief";
 "trialStatus.expired" = "Verlopen";
 
@@ -267,7 +277,6 @@
 "vaultProviderFactory.error.unsupportedVaultConfig" = "De kluisconfiguratie wordt niet ondersteund. Zorg ervoor dat u de nieuwste versie van Cryptomator gebruikt.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Kluisversie %ld wordt niet ondersteund. Deze kluis is gemaakt met een oudere of nieuwere versie van Cryptomator.";
 
-"webDAVAuthentication.progress" = "Authenticatie verwerken…";
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS gebruiken?";
 "webDAVAuthentication.httpConnection.alert.message" = "Het gebruik van HTTP is onveilig. We raden aan om in plaats daarvan HTTPS te gebruiken. Als u de risico's weet, kunt u doorgaan met HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Verander naar HTTPS";
