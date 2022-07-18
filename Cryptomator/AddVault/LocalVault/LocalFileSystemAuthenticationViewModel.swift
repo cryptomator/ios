@@ -82,7 +82,12 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 	}
 
 	private func validate(credential: LocalFileSystemCredential) -> Promise<Void> {
-		let provider = LocalizedCloudProviderDecorator(delegate: LocalFileSystemProvider(rootURL: credential.rootURL))
+		let provider: CloudProvider
+		do {
+			provider = try LocalizedCloudProviderDecorator(delegate: LocalFileSystemProvider(rootURL: credential.rootURL))
+		} catch {
+			return Promise(error)
+		}
 		return provider.fetchItemListExhaustively(forFolderAt: CloudPath("/")).then { itemList in
 			try self.validationLogic.validate(items: itemList.items)
 		}
