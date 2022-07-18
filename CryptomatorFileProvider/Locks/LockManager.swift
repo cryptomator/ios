@@ -39,8 +39,8 @@ import Promises
  */
 class LockManager {
 	static let local = LockManager()
-	private var pathLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
-	private var dataLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory) // [String: RWLock]()
+	private var pathLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory)
+	private var dataLocks = MapTable<NSString, RWLock>(keyOptions: .copyIn, valueOptions: .weakMemory)
 	private let queue = DispatchQueue(label: "LockManager Queue", qos: .userInitiated, attributes: .concurrent)
 	private let dictionaryQueue = DispatchQueue(label: "LockManager dictionaryQueue")
 
