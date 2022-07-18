@@ -77,7 +77,13 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 	}
 
 	func startAuthenticatedLocalFileSystemCreateNewVaultFlow(credential: LocalFileSystemCredential, account: CloudProviderAccount, item: Item) {
-		let provider = LocalFileSystemProvider(rootURL: credential.rootURL)
+		let provider: CloudProvider
+		do {
+			provider = try LocalFileSystemProvider(rootURL: credential.rootURL)
+		} catch {
+			handleError(error, for: navigationController)
+			return
+		}
 		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account, vaultName: vaultName)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
