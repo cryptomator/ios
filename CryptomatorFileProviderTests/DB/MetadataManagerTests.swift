@@ -118,17 +118,24 @@ class MetadataManagerTests: XCTestCase {
 
 		let itemMetadata = ItemMetadata(name: "TestFolder", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadata)
-		guard let id = itemMetadata.id else {
-			XCTFail("Metadata has no id")
-			return
-		}
+		let id = try XCTUnwrap(itemMetadata.id)
+		XCTAssertEqual(2, id)
 		guard let fetchedItemMetadata = try manager.getCachedMetadata(for: id) else {
 			XCTFail("Metadata not stored correctly")
 			return
 		}
 		XCTAssertEqual(itemMetadata, fetchedItemMetadata)
+
+		let fileCloudPath = CloudPath("/Existing File.txt")
+		let itemMetadataForFile = ItemMetadata(name: "Existing File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: fileCloudPath, isPlaceholderItem: false)
+		try manager.cacheMetadata(itemMetadataForFile)
+		let secondItemID = try XCTUnwrap(itemMetadataForFile.id)
+		XCTAssertEqual(3, secondItemID)
+
 		let changedItemMetadataAtSameRemoteURL = ItemMetadata(name: "TestFolder", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try manager.cacheMetadata(changedItemMetadataAtSameRemoteURL)
+		let changedItemID = try XCTUnwrap(changedItemMetadataAtSameRemoteURL.id)
+		XCTAssertEqual(2, changedItemID)
 
 		XCTAssertEqual(id, changedItemMetadataAtSameRemoteURL.id)
 		guard let fetchedChangedItemMetadata = try manager.getCachedMetadata(for: id) else {

@@ -175,34 +175,14 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	}
 
 	private func cacheMetadata(_ metadata: ItemMetadata, database: Database) throws {
-		try database.execute(
-			sql: """
-			INSERT INTO \(ItemMetadata.databaseTableName)
-			(\(ItemMetadata.Columns.name), \(ItemMetadata.Columns.type), \(ItemMetadata.Columns.size), \(ItemMetadata.Columns.parentID), \(ItemMetadata.Columns.lastModifiedDate), \(ItemMetadata.Columns.statusCode), \(ItemMetadata.Columns.cloudPath), \(ItemMetadata.Columns.isPlaceholderItem), \(ItemMetadata.Columns.isMaybeOutdated), \(ItemMetadata.Columns.favoriteRank), \(ItemMetadata.Columns.tagData)) VALUES
-			(:name, :type, :size, :parentID, :lastModifiedDate, :statusCode, :cloudPath, :isPlaceholderItem, :isMaybeOutdated, :favoriteRank, :tagData)
-			ON CONFLICT (\(ItemMetadata.Columns.cloudPath))
-			DO UPDATE SET \(ItemMetadata.Columns.name) = excluded.\(ItemMetadata.Columns.name),
-			\(ItemMetadata.Columns.type) = excluded.\(ItemMetadata.Columns.type),
-			\(ItemMetadata.Columns.size) = excluded.\(ItemMetadata.Columns.size),
-			\(ItemMetadata.Columns.parentID) = excluded.\(ItemMetadata.Columns.parentID),
-			\(ItemMetadata.Columns.lastModifiedDate) = excluded.\(ItemMetadata.Columns.lastModifiedDate),
-			\(ItemMetadata.Columns.cloudPath) = excluded.\(ItemMetadata.Columns.cloudPath),
-			\(ItemMetadata.Columns.isPlaceholderItem) = excluded.\(ItemMetadata.Columns.isPlaceholderItem),
-			\(ItemMetadata.Columns.isMaybeOutdated) = excluded.\(ItemMetadata.Columns.isMaybeOutdated)
-			""",
-			arguments: ["name": metadata.name,
-			            "type": metadata.type,
-			            "size": metadata.size,
-			            "parentID": metadata.parentID,
-			            "lastModifiedDate": metadata.lastModifiedDate,
-			            "statusCode": metadata.statusCode,
-			            "cloudPath": metadata.cloudPath,
-			            "isPlaceholderItem": metadata.isPlaceholderItem,
-			            "isMaybeOutdated": metadata.isMaybeOutdated,
-			            "favoriteRank": metadata.favoriteRank,
-			            "tagData": metadata.tagData]
-		)
-		let metadataID = database.lastInsertedRowID
-		metadata.id = metadataID
+		if let cachedMetadata = try ItemMetadata.fetchOne(database, key: ["cloudPath": metadata.cloudPath]) {
+			metadata.id = cachedMetadata.id
+			metadata.statusCode = cachedMetadata.statusCode
+			metadata.tagData = cachedMetadata.tagData
+			metadata.favoriteRank = cachedMetadata.favoriteRank
+			try metadata.update(database)
+		} else {
+			try metadata.insert(database)
+		}
 	}
 }
