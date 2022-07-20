@@ -61,7 +61,7 @@ class CachedFileManagerTests: CacheTestCase {
 
 	func testRemoveCachedFile() throws {
 		let url = tmpDirURL.appendingPathComponent("foo")
-		let metadata = ItemMetadata(id: 1, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
 		let data = getRandomData(sizeInBytes: 256)
 		try createTestData(localURL: url, data: data, metadata: metadata)
 
@@ -74,7 +74,7 @@ class CachedFileManagerTests: CacheTestCase {
 
 	func testRemoveCachedFileForPendingUpload() throws {
 		let url = tmpDirURL.appendingPathComponent("foo")
-		let metadata = ItemMetadata(id: 1, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
 		let data = getRandomData(sizeInBytes: 256)
 		try createTestData(localURL: url, data: data, metadata: metadata)
 
@@ -97,7 +97,7 @@ class CachedFileManagerTests: CacheTestCase {
 
 	func testRemoveCachedFileForMissingFile() throws {
 		let url = tmpDirURL.appendingPathComponent("foo")
-		let metadata = ItemMetadata(id: 1, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
 		let data = getRandomData(sizeInBytes: 256)
 		try createTestData(localURL: url, data: data, metadata: metadata)
 		try FileManager.default.removeItem(at: url)
@@ -108,7 +108,7 @@ class CachedFileManagerTests: CacheTestCase {
 
 	func testRemoveCachedFileForFailingFileRemoval() throws {
 		let url = tmpDirURL.appendingPathComponent("foo")
-		let metadata = ItemMetadata(id: 1, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
+		let metadata = ItemMetadata(id: 2, name: "Foo", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath(url.path), isPlaceholderItem: false)
 		let data = getRandomData(sizeInBytes: 256)
 
 		let cachedFileManagerHelperMock = CachedFileManagerHelperMock()
@@ -136,7 +136,7 @@ class CachedFileManagerTests: CacheTestCase {
 	func testGetLocalCacheSizeInBytes() throws {
 		let urls = [tmpDirURL.appendingPathComponent("foo"),
 		            tmpDirURL.appendingPathComponent("bar")]
-		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
+		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0 + 2), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
 		let data = getRandomData(sizeInBytes: 256)
 
 		for (index, url) in urls.enumerated() {
@@ -149,7 +149,7 @@ class CachedFileManagerTests: CacheTestCase {
 	func testGetLocalCacheSizeInBytesFiltersOutPendingUploads() throws {
 		let urls = [tmpDirURL.appendingPathComponent("foo"),
 		            tmpDirURL.appendingPathComponent("bar")]
-		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
+		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0 + 2), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
 		let data = getRandomData(sizeInBytes: 256)
 
 		for (index, url) in urls.enumerated() {
@@ -166,7 +166,7 @@ class CachedFileManagerTests: CacheTestCase {
 	func testClearCache() throws {
 		let urls = [tmpDirURL.appendingPathComponent("foo"),
 		            tmpDirURL.appendingPathComponent("bar")]
-		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
+		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0 + 2), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
 		let data = getRandomData(sizeInBytes: 256)
 
 		for (index, url) in urls.enumerated() {
@@ -185,7 +185,7 @@ class CachedFileManagerTests: CacheTestCase {
 		let urls = [tmpDirURL.appendingPathComponent("foo"),
 		            tmpDirURL.appendingPathComponent("bar"),
 		            tmpDirURL.appendingPathComponent("baz")]
-		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
+		let metadata = urls.enumerated().map { ItemMetadata(id: Int64($0 + 2), name: "Item", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath($1.path), isPlaceholderItem: false) }
 		let data = getRandomData(sizeInBytes: 256)
 
 		let cachedFileManagerHelperMock = CachedFileManagerHelperMock()
