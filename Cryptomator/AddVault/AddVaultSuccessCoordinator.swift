@@ -28,9 +28,8 @@ class AddVaultSuccessCoordinator: AddVaultSuccesing, Coordinator {
 		let viewModel = AddVaultSuccessViewModel(vaultName: vaultName, vaultUID: vaultUID)
 		let successVC = AddVaultSuccessViewController(viewModel: viewModel)
 		successVC.coordinator = self
-		navigationController.pushViewController(successVC, animated: true)
 		// Remove the previous ViewControllers so that the user cannot navigate to the previous screens.
-		navigationController.viewControllers = [successVC]
+		navigationController.setViewControllers([successVC], animated: true)
 	}
 
 	// MARK: - AddVaultSuccesing

@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A03255525A3685500E63D7A /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255425A3685500E63D7A /* Coordinator.swift */; };
 		4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255D25A368BF00E63D7A /* MainCoordinator.swift */; };
 		4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03257725A36A6900E63D7A /* VaultListViewController.swift */; };
 		4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */; };
@@ -532,7 +531,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A03255425A3685500E63D7A /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		4A03255D25A368BF00E63D7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A03257725A36A6900E63D7A /* VaultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewController.swift; sourceTree = "<group>"; };
 		4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
@@ -1478,7 +1476,6 @@
 				4A644B56267C958F008CBB9A /* ChildCoordinator.swift */,
 				4AFCE53925B9D6A60069C4FC /* CloudAuthenticator.swift */,
 				4AFCE51E25B89CD80069C4FC /* CloudProviderType+Localization.swift */,
-				4A03255425A3685500E63D7A /* Coordinator.swift */,
 				4AF91CE125A7234500ACF01E /* DatabaseManager.swift */,
 				4A8A6423286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift */,
 				4A512D69274277FF00DC26F8 /* EditableDataSource.swift */,
@@ -2112,9 +2109,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				4AC4C98E288AD858008C6D2B /* PBXTargetDependency */,
 				4A9BED69268F379300721BAA /* PBXTargetDependency */,
 			);
 			name = FileProviderExtensionUI;
+			packageProductDependencies = (
+			);
 			productName = "File Provider ExtensionUI";
 			productReference = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -2421,7 +2421,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
+			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:3 string ${HUB_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
 		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2736,7 +2736,6 @@
 				4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */,
 				4A53CC13267CC1C100853BB3 /* CreateNewVaultPasswordViewController.swift in Sources */,
 				4A6A51FF268B1BEB006F7368 /* OpenExistingLocalVaultCoordinator.swift in Sources */,
-				4A03255525A3685500E63D7A /* Coordinator.swift in Sources */,
 				4AED9A77286B4BEE00352951 /* S3AuthenticationViewController.swift in Sources */,
 				4A644B47267A3D43008CBB9A /* SetVaultNameViewModel.swift in Sources */,
 				4A1EB0D02689C7F8006D072B /* DetectedVaultFailureView.swift in Sources */,
@@ -2959,6 +2958,10 @@
 			isa = PBXTargetDependency;
 			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
 			targetProxy = 4A9BED68268F379300721BAA /* PBXContainerItemProxy */;
+		};
+		4AC4C98E288AD858008C6D2B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 4AC4C98D288AD858008C6D2B /* AppAuth */;
 		};
 		4AD3D7DC282EBDE7008188CD /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3676,6 +3679,10 @@
 		4A91728A2619F1D0003C4043 /* CryptomatorCommonCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CryptomatorCommonCore;
+		};
+		4AC4C98D288AD858008C6D2B /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppAuth;
 		};
 		4AED9A6E286B38DA00352951 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;

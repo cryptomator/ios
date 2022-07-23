@@ -41,9 +41,9 @@
         "package": "CryptomatorCloudAccess",
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
-          "branch": null,
-          "revision": "d39cc8bd3763755158bc8fda25fadca3fb308130",
-          "version": "1.5.0"
+          "branch": "feature/hub-poc",
+          "revision": "d0dc2f85644ba8ee9afb1c556035b215073258f0",
+          "version": null
         }
       },
       {
@@ -111,11 +111,11 @@
       },
       {
         "package": "JOSESwift",
-        "repositoryURL": "https://github.com/airsidemobile/JOSESwift.git",
+        "repositoryURL": "https://github.com/tobihagemann/JOSESwift.git",
         "state": {
-          "branch": null,
-          "revision": "10ed3b6736def7c26eb87135466b1cb46ea7e37f",
-          "version": "2.4.0"
+          "branch": "feature/JWE-ECDH-GCM",
+          "revision": "e851667a4e6f6e8411d21474e77442041025e93c",
+          "version": null
         }
       },
       {

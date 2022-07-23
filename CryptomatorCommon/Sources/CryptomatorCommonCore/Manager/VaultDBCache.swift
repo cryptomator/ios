@@ -22,7 +22,7 @@ public protocol VaultCache {
 public struct CachedVault: Codable, Equatable {
 	let vaultUID: String
 	public let masterkeyFileData: Data
-	let vaultConfigToken: Data?
+	public let vaultConfigToken: Data?
 	let lastUpToDateCheck: Date
 	var masterkeyFileLastModifiedDate: Date?
 	var vaultConfigLastModifiedDate: Date?

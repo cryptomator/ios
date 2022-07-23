@@ -80,6 +80,26 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 			return
 		}
 		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
+		try unlockVaultPostProcessing(provider: provider,
+		                              domainIdentifier: domainIdentifier,
+		                              dbPath: dbPath,
+		                              delegate: delegate,
+		                              notificator: notificator)
+	}
+
+	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, rawKey: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws {
+		guard let dbPath = dbPath else {
+			return
+		}
+		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, rawKey: rawKey)
+		try unlockVaultPostProcessing(provider: provider,
+		                              domainIdentifier: domainIdentifier,
+		                              dbPath: dbPath,
+		                              delegate: delegate,
+		                              notificator: notificator)
+	}
+
+	func unlockVaultPostProcessing(provider: CloudProvider, domainIdentifier: NSFileProviderDomainIdentifier, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws {
 		let item = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
 		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
 		adapterCache.cacheItem(item, identifier: domainIdentifier)
