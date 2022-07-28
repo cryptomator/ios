@@ -1,0 +1,17 @@
+"common.button.cancel" = "Annullér";
+"common.button.change" = "Skift";
+"common.button.close" = "Luk";
+"common.button.done" = "Færdig";
+"common.button.next" = "Næste";
+"common.cells.password" = "Adgangskode";
+
+"addVault.title" = "Tilføj boks";
+"addVault.createNewVault.title" = "Opret ny boks";
+"addVault.createNewVault.setVaultName.cells.name" = "Boks-navn";
+"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer i din boks?";
+"addVault.openExistingVault.title" = "Open eksisterende boks";
+"fileProvider.error.unlockButton" = "Lås op";
+
+"unlockVault.button.unlock" = "Lås op";
+
+"vaultDetail.button.changeVaultPassword" = "Skift password";
