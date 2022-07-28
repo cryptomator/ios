@@ -1,1 +1,26 @@
+"common.failureReason" = "Motivo da falha";
+"common.false" = "falso";
+"common.folder" = "Pasta";
+"common.true" = "verdadeiro";
 "common.vault" = "Cofre";
+
+"getFolderIntent.description" = "Retorna um objeto pasta para o caminho especificado no cofre especificado.";
+"getFolderIntent.path" = "Caminho";
+"getFolderIntent.text" = "Obter a pasta que se encontra em ${path} no ${vault}";
+"getFolderIntent.title" = "Obter Pasta";
+
+"isUnlockedIntent.description" = "Retorna se o cofre especificado está trancado.";
+"isUnlockedIntent.title" = "Está Destrancado";
+
+"isVaultLockedIntent.title" = "O cofre está destrancado";
+"isVaultUnlockedIntent.text" = "O ${vault} está destrancado?";
+
+"lockVaultIntent.description" = "Tranca o cofre especificado.";
+"lockVaultIntent.text" = "Trancar ${vault}";
+"lockVaultIntent.title" = "Trancar o Cofre";
+
+"openVaultIntent.description" = "Abre o cofre especificado na aplicação de Ficheiros.";
+"openVaultIntent.text" = "Abre ${vault} na aplicação de Ficheiros";
+"openVaultIntent.title" = "Abrir o Cofre";
+"saveFileIntent.file" = "Ficheiro";
+"saveFileIntent.title" = "Guardar Ficheiro";
