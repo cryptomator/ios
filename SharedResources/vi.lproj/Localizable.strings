@@ -35,6 +35,7 @@
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.renameVault" = "Đổi tên";
 "vaultDetail.locked.footer" = "Vault của bạn hiện đang bị khóa.";
+"vaultDetail.moveVault.progress" = "Đang di chuyển…";
 "vaultList.emptyList.message" = "Bấm vào đây để thêm vault";
 "vaultList.remove.alert.title" = "Xóa Vault?";
 
