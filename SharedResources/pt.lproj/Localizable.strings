@@ -10,6 +10,7 @@
 "common.button.cancel" = "Cancelar";
 "common.button.change" = "Alterar";
 "common.button.choose" = "Escolher";
+"common.button.clear" = "Limpar";
 "common.button.close" = "Fechar";
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
@@ -21,6 +22,7 @@
 "common.button.next" = "Seguinte";
 "common.button.ok" = "OK";
 "common.button.remove" = "Remover";
+"common.button.retry" = "Tentar de novo";
 "common.button.signOut" = "Terminar Sessão";
 "common.button.verify" = "Verificar";
 "common.cells.openInFilesApp" = "Abrir na app Ficheiros";
@@ -28,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome de utilizador";
 "common.footer.learnMore" = "Saiba mais.";
+"common.hud.authenticating" = "A autenticar…";
 
 "accountList.header.title" = "Autenticações";
 "accountList.emptyList.message" = "Toque aqui para adicionar uma conta";
@@ -50,18 +53,24 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Palavra-passe não pode estar vazia.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Palavras-passe não coincidem.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Palavra-passe tem que conter pelo menos 8 caracteres.";
+"addVault.createNewVault.progress" = "A Criar Cofre…";
 "addVault.openExistingVault.title" = "Abrir Cofre Existente";
 "addVault.openExistingVault.chooseCloud.header" = "Onde está o cofre localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detetou o cofre \"%@\".\nGostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
 "addVault.openExistingVault.password.footer" = "Insira a palavra-passe para \"%@\".";
+"addVault.openExistingVault.progress" = "A Adicionar Cofre…";
 "addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAccesse este cofre através da aplicação Ficherios.";
 "addVault.success.footer" = "Se já não o fez, ative o Cryptomator na aplicação Ficheiros.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "A palavra-passe está incorreta. Por favor, tente de novo.";
+"changePassword.header.currentPassword.title" = "Digite a senha atual.";
 "changePassword.header.newPassword.title" = "Insira uma palavra-passe nova.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirma a nova palavra-passe.";
+"changePassword.progress" = "A Alterar Senha…";
 
 "chooseFolder.emptyFolder.footer" = "A pasta está vazia";
 "chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
@@ -90,6 +99,16 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
 "fileProvider.error.defaultLock.message" = "Para aceder e mostrar o conteúdo do seu cofre, ele tem de estar desbloqueado.";
 "fileProvider.error.unlockButton" = "Desbloquear";
+"fileProvider.clearFileFromCache.title" = "Limpar Arquivo de Cache";
+"fileProvider.clearFileFromCache.message" = "Isto apenas remove o ficheiro local do dispositivo e não o apaga na nuvem.";
+"fileProvider.uploadProgress.connecting" = "A ligar…";
+"fileProvider.uploadProgress.title" = "A enviar…";
+"fileProvider.uploadProgress.missingDomainError" = "Não foi possível encontrar o domínio.";
+"getFolderIntent.error.noVaultSelected" = "Nenhum cofre selecionado.";
+"intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
+"intents.saveFile.invalidFolder" = "A pasta especificada não é válida.";
+"intents.saveFile.missingTemporaryFolder" = "Não foi possível criar a pasta temporária.";
+"intents.saveFile.lockedVault" = "Precisa desbloquear o cofre para poder usar este atalho.";
 
 "keepUnlocked.alert.title" = "Fechar o cofre?";
 "keepUnlocked.alert.message" = "Essa alteração exige que seu cofre esteja fechado para que tenha efeito.";
@@ -142,6 +161,7 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restauração bem-sucedida";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Sem Versão Completa";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não conseguimos encontrar uma versão completa comprada anteriormente que pudesse ser restaurada. Por favor, tente outra opção.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "É elegível para um \"upgrade\"";
 "purchase.retry.button" = "Tente novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
 "purchase.title" = "Desbloqueie a versão completa";
