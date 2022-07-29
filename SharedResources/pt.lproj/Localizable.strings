@@ -172,8 +172,14 @@
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.cacheSize" = "Tamanho da Cache";
+"settings.clearCache" = "Limpar Cache";
+"settings.cloudServices" = "Serviços Cloud";
+"settings.contact" = "Contacto";
+"settings.debugMode" = "Modo Debug";
 "settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados num arquivo log alojado no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.manageSubscriptions" = "Gerir subscrição";
+"settings.rateApp" = "Avalie a Aplicação";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
 "settings.unlockFullVersion" = "Desbloquear versão completa";
 
@@ -189,6 +195,10 @@
 "snapshots.main.vault2" = "/Família";
 "snapshots.main.vault3" = "/Documentos";
 "snapshots.main.vault4" = "/ Viagem à Califórnia";
+"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.region" = "Região";
+"s3Authentication.error.invalidCredentials" = "Credenciais inválidas.";
+"s3Authentication.error.invalidEndpoint" = "O endpoint especificado não coincide com o formato de um URL.";
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirou";
@@ -199,6 +209,7 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Ativar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com a sua palavra-passe, você pode desbloqueá-lo via %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloqueie o seu cofre";
+"unlockVault.progress" = "A destrancar…";
 
 "untrustedTLSCertificate.title" = "Certificado TLS Inválido";
 "untrustedTLSCertificate.message" = "O Certificado TLS de \"%@\" é inválido. Quer confiar nele mesmo assim?\n\n SHA-256: %@";
@@ -219,9 +230,13 @@
 "urlSession.error.httpError.default" = "Falha na conexão de rede com o código de estado %ld.";
 "urlSession.error.unexpectedResponse" = "Ocorreu um erro de rede inesperado.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Já adicionou este cofre.";
+
 "vaultDetail.button.changeVaultPassword" = "Alterar Senha";
 "vaultDetail.button.lock" = "Bloquear Agora";
+"vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
+"vaultDetail.button.renameVault" = "Renomear";
 "vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que só você conheça e mantenha-a em um local seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a palavra-passe do seu cofre será armazenada no Porta-chaves do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";
@@ -232,7 +247,9 @@
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Destrancar será necessário quando o seu cofre estiver inativo por %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário destrancá-lo a menos que seja bloqueado manualmente.";
 "vaultDetail.locked.footer" = "O seu cofre está de momento bloqueado.";
+"vaultDetail.moveVault.progress" = "A Mover…";
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
+"vaultDetail.renameVault.progress" = "A Renomear…";
 "vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
 "vaultDetail.unlockVault.footer" = "Insira a palavra-passe de \"%@\" para a armazenar no Porta-chaves do iOS e para ativar %@.";
 
@@ -251,3 +268,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou o URL correto.";
 "webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Talvez seja necessário adicionar novamente esta ligação WebDAV.";
+
+"Retry Upload" = "Tentar Upload Novamente";
+"Clear from Cache" = "Limpar da Cache";
