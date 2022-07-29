@@ -22,5 +22,12 @@
 "openVaultIntent.description" = "Abre o cofre especificado na aplicação de Ficheiros.";
 "openVaultIntent.text" = "Abre ${vault} na aplicação de Ficheiros";
 "openVaultIntent.title" = "Abrir o Cofre";
+
+"saveFileIntent.description" = "Guarda um ficheiro no cofre.";
 "saveFileIntent.file" = "Ficheiro";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorar ficheiro existente com o mesmo nome";
+"saveFileIntent.text" = "Guardar ${file} em ${folder}";
 "saveFileIntent.title" = "Guardar Ficheiro";
+
+"vaultFolder.displayName" = "Pasta do Cofre";
+"vaultFolder.vaultIdentifier" = "Identificador do Cofre";
