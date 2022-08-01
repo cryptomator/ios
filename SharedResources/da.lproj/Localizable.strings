@@ -1,15 +1,59 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fejl";
+"common.alert.attention.title" = "Vigtigt";
 "common.button.cancel" = "Annullér";
 "common.button.change" = "Skift";
+"common.button.choose" = "Vælg";
+"common.button.clear" = "Ryd";
 "common.button.close" = "Luk";
+"common.button.confirm" = "Bekræft";
+"common.button.create" = "Opret";
+"common.button.createFolder" = "Opret mappe";
 "common.button.done" = "Færdig";
+"common.button.download" = "Download";
+"common.button.edit" = "Redigér";
+"common.button.enable" = "Aktivér";
 "common.button.next" = "Næste";
+"common.button.ok" = "OK";
+"common.button.remove" = "Fjern";
+"common.button.retry" = "Forsøg igen";
+"common.button.signOut" = "Log ud";
+"common.button.verify" = "Bekræft";
+"common.cells.openInFilesApp" = "Åbn i Filer appen";
 "common.cells.password" = "Adgangskode";
+"common.cells.url" = "URL";
+"common.cells.username" = "Brugernavn";
+"common.footer.learnMore" = "Læs mere.";
+"common.hud.authenticating" = "Godkender…";
+
+"accountList.header.title" = "Godkendere";
+"accountList.emptyList.message" = "Tryk her for at tilføje en konto";
+"accountList.signOut.alert.title" = "Fjern associerede bokse?";
+"accountList.signOut.alert.message" = "Ved at logge ud, vil alle tilknyttede bokse blive fjernet fra listen. Ingen krypterede data vil blive slettet. Du kan logge ind igen og tilføje boksene igen senere.";
 
 "addVault.title" = "Tilføj boks";
 "addVault.createNewVault.title" = "Opret ny boks";
+"addVault.createNewVault.purchase" = "Oprettelse af en ny boks kræver den fulde version af Cryptomator.";
+"addVault.createNewVault.setVaultName.header.title" = "Vælg et navn til boksen.";
 "addVault.createNewVault.setVaultName.cells.name" = "Boks-navn";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Boks navn må ikke være tomt.";
 "addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer i din boks?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" findes allerede på dette sted. Vælg et andet navn eller en anden placering.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detekterede en eksisterende boks på denne placering.\nFor at oprette en ny boks, skal du gå tilbage og vælge en anden mappe.";
+"addVault.createNewVault.password.enterPassword.header" = "Indtast en ny adgangskode.";
+"addVault.createNewVault.password.confirmPassword.header" = "Gentag den nye adgangskode.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Bekræft Adgangskode?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VIGTIGT: Hvis du glemmer din adgangskode, er der ingen måde hvorpå dine data kan gendannes.";
+"addVault.createNewVault.password.error.emptyPassword" = "Adgangskoden må ikke være tom.";
 "addVault.openExistingVault.title" = "Open eksisterende boks";
+"changePassword.header.newPassword.title" = "Indtast en ny adgangskode.";
+"changePassword.header.newPasswordConfirmation.title" = "Gentag den nye adgangskode.";
 "fileProvider.error.unlockButton" = "Lås op";
 
 "unlockVault.button.unlock" = "Lås op";
