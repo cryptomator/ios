@@ -28,11 +28,13 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
 "common.footer.learnMore" = "자세히 알아보기";
+"accountList.emptyList.message" = "여기를 눌러 계정 추가";
 "accountList.signOut.alert.title" = "연결된 Vault를 제거하시겠습니까?";
 "accountList.signOut.alert.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
 
 "addVault.title" = "Vault 추가";
 "addVault.createNewVault.title" = "새 Vault 생성";
+"addVault.createNewVault.purchase" = "새로운 vault를 만들려면 정식 버전을 구입해야 합니다.";
 "addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화 파일을 어디에 저장하시겠습니까?";
@@ -74,6 +76,7 @@
 "fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator 열기";
 "fileProvider.error.unlockButton" = "잠금해제";
+"fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
 "fileProvider.uploadProgress.title" = "업로드 중…";
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
@@ -85,7 +88,27 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
 
 "onboarding.title" = "환영합니다";
+"onboarding.button.continue" = "계속하기";
+"purchase.expiredTrial" = "체험판이 만료되었습니다.";
+"purchase.footer.privacyPolicy" = "개인정보 보호정책";
+"purchase.footer.termsOfUse" = "이용 약관";
+"purchase.header.feature.familySharing" = "가족 공유";
+"purchase.header.feature.openSource" = "오픈소스 소프트웨어";
+"purchase.product.donateAndUpgrade" = "후원 및 업그레이드";
+"purchase.product.freeUpgrade" = "무료 업그레이드";
+"purchase.product.lifetimeLicense" = "평생 라이선스";
+"purchase.product.pricing.free" = "무료";
+"purchase.product.trial" = "30일 체험판";
+"purchase.product.trial.expirationDate" = "만료일: %@";
+"purchase.product.trial.duration" = "30일간 사용 가능";
+"purchase.restorePurchase.validTrialFound.alert.message" = "제한된 기간 동안 Cryptomator의 정식 버전을 사용할 수 있습니다. 체험판은 %@에 만료됩니다. 그 후, vault는 읽기 전용 모드로 접근할 수 있습니다.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "복원 완료";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "정식 버전 없음";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "이전에 구입한 복구를 위한 정식 버전을 찾을 수 없습니다. 다른 옵션을 선택하십시오.";
 "purchase.retry.button" = "재시도";
+"purchase.title" = "정식 버전 구입";
+"purchase.unlockedFullVersion.message" = "이제 Cryptomator의 정식 버전을 사용할 수 있습니다.";
+"purchase.unlockedFullVersion.title" = "감사합니다";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
@@ -93,12 +116,16 @@
 "settings.clearCache" = "캐시 지우기";
 "settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.";
 "settings.sendLogFile" = "로그파일 전송";
+"settings.unlockFullVersion" = "정식 버전 잠금 해제";
 
 "s3Authentication.displayName" = "표시 이름";
 "s3Authentication.accessKey" = "액세스 키";
 "s3Authentication.secretKey" = "비밀키";
 "s3Authentication.endpoint" = "엔드포인트";
 "s3Authentication.region" = "지역";
+
+"trialStatus.active" = "활성화됨";
+"trialStatus.expired" = "만료됨";
 
 "unlockVault.button.unlock" = "잠금해제";
 "unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
