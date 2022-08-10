@@ -210,10 +210,10 @@
 "s3Authentication.accessKey" = "Chave de acesso";
 "s3Authentication.secretKey" = "Chave Secreta";
 "s3Authentication.existingBucket" = "Bucket do nome de domínio na URL existente";
-"s3Authentication.endpoint" = "Endpoint";
+"s3Authentication.endpoint" = "URL para autenticação no Amazon S3 — “Endpoint”";
 "s3Authentication.region" = "Região";
 "s3Authentication.error.invalidCredentials" = "Credenciais inválidas.";
-"s3Authentication.error.invalidEndpoint" = "O endpoint fornecido não coincide com o formato de uma URL.";
+"s3Authentication.error.invalidEndpoint" = "O Endpoint — “link” — fornecido não coincide com o formato de uma URL válida no Amazon S3.";
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirado";
