@@ -22,6 +22,8 @@
 "common.button.remove" = "제거";
 "common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
+"common.button.verify" = "확인";
+"common.cells.openInFilesApp" = "파일 앱에서 열기";
 "common.cells.password" = "비밀번호";
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
@@ -39,19 +41,32 @@
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "비밀번호를 확인하셨습니까?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.createNewVault.password.error.emptyPassword" = "비밀번호를 입력해야 합니다.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "비밀번호가 일치하지 않습니다.";
+"addVault.createNewVault.password.error.tooShortPassword" = "비밀번호는 최소 8자 이상이어야 합니다.";
+"addVault.createNewVault.progress" = "Vault 생성 중...";
 "addVault.openExistingVault.title" = "기존 Vault 열기";
 "addVault.openExistingVault.chooseCloud.header" = "Vault가 어디에 위치하고 있습니까?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
 "addVault.openExistingVault.detectedMasterkey.add" = "이 Vault 추가";
 "addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
+"addVault.openExistingVault.progress" = "Vault 추가 중...";
 "addVault.success.info" = "\"%@\" Vault가 성공적으로 추가되었습니다.\n파일 앱을 통해 이 Vault에 접근할 수 있습니다.";
 "addVault.success.footer" = "아직 Cryptomator를 파일 앱에서 사용가능토록 설정하지 않은 경우, 사용가능하게 설정바랍니다.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "기존 비밀번호가 올바르지 않습니다. 다시 시도하십시오.";
 "changePassword.header.newPassword.title" = "새 비밀번호를 입력하세요.";
 "changePassword.header.newPasswordConfirmation.title" = "새 비밀번호 확인.";
+"changePassword.progress" = "비밀번호 변경 중...";
 
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 "chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
 "chooseFolder.createNewFolder.cells.name" = "폴더명";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "폴더 이름이 비어 있어서는 안 됩니다.";
+"chooseFolder.createNewFolder.progress" = "폴더 생성 중...";
 
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
 
@@ -59,6 +74,10 @@
 "fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator 열기";
 "fileProvider.error.unlockButton" = "잠금해제";
+"fileProvider.uploadProgress.connecting" = "연결 중...";
+"fileProvider.uploadProgress.title" = "업로드 중…";
+"intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
+"intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
 
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
