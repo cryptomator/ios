@@ -26,3 +26,8 @@
 "saveFileIntent.description" = "Huhifadhi faili kwenye kuba.";
 "saveFileIntent.file" = "Faili";
 "saveFileIntent.parameter.ignoreExisting" = "Puuza faili iliyopo yenye jina moja";
+"saveFileIntent.text" = "Hifadhi ${faili} kwenye ${folda}";
+"saveFileIntent.title" = "Hifadhi Faili";
+
+"vaultFolder.displayName" = "Folda ya Kuba";
+"vaultFolder.vaultIdentifier" = "Kitambulisho cha Kuba";
