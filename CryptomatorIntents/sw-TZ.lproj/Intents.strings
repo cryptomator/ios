@@ -20,3 +20,9 @@
 "lockVaultIntent.title" = "Funga Kuba";
 
 "openVaultIntent.description" = "Hufungua kuba iliyotolewa katika programu ya Faili.";
+"openVaultIntent.text" = "Fungua ${kuba} katika programu ya Faili";
+"openVaultIntent.title" = "Funga Kuba";
+
+"saveFileIntent.description" = "Huhifadhi faili kwenye kuba.";
+"saveFileIntent.file" = "Faili";
+"saveFileIntent.parameter.ignoreExisting" = "Puuza faili iliyopo yenye jina moja";
