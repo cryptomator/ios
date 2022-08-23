@@ -110,7 +110,7 @@
 "intents.saveFile.missingTemporaryFolder" = "Não foi possível criar a pasta temporária.";
 "intents.saveFile.lockedVault" = "Precisa desbloquear o cofre para poder usar este atalho.";
 
-"keepUnlocked.alert.title" = "Fechar o cofre?";
+"keepUnlocked.alert.title" = "Bloquear Cofre?";
 "keepUnlocked.alert.message" = "Essa alteração exige que seu cofre esteja fechado para que tenha efeito.";
 "keepUnlocked.alert.confirm" = "Confirme e feche agora";
 "keepUnlocked.header" = "Especifique por quanto tempo você quer que este cofre permaneça aberto quando inativo.";
@@ -181,6 +181,7 @@
 "settings.manageSubscriptions" = "Gerir subscrição";
 "settings.rateApp" = "Avalie a Aplicação";
 "settings.sendLogFile" = "Enviar ficheiro de registo";
+"settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloquear versão completa";
 
 "snapshots.fileprovider.file1" = "/Contabilidade.números";
@@ -203,7 +204,7 @@
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirou";
 
-"unlockVault.button.unlock" = "Destrancar";
+"unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
 "unlockVault.password.footer" = "Insira a palavra-passe para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Ativar %@";
@@ -232,7 +233,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Já adicionou este cofre.";
 
-"vaultDetail.button.changeVaultPassword" = "Alterar Senha";
+"vaultDetail.button.changeVaultPassword" = "Alterar Palavra-passe";
 "vaultDetail.button.lock" = "Bloquear Agora";
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
@@ -270,4 +271,4 @@
 "webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Talvez seja necessário adicionar novamente esta ligação WebDAV.";
 
 "Retry Upload" = "Tentar Upload Novamente";
-"Clear from Cache" = "Limpar da Cache";
+"Clear from Cache" = "Limpar do Cache";
