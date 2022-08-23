@@ -13,7 +13,7 @@
 "isUnlockedIntent.title" = "Está Destrancado";
 
 "isVaultLockedIntent.title" = "O cofre está destrancado";
-"isVaultUnlockedIntent.text" = "O ${vault} está destrancado?";
+"isVaultUnlockedIntent.text" = "O ${vault} está desbloqueado?";
 
 "lockVaultIntent.description" = "Tranca o cofre especificado.";
 "lockVaultIntent.text" = "Trancar ${vault}";
