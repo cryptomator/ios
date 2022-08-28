@@ -146,7 +146,11 @@
 		4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */; };
 		4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */; };
 		4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5580542755226100E525B8 /* StoreObserverTests.swift */; };
+		4A5672CF28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */; };
+		4A5672D128BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */; };
 		4A5811602779E1E000E89A62 /* SnapshotBiometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */; };
+		4A587FA828B55CD600C69A1E /* WebDAVCredentialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */; };
+		4A587FCA28BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */; };
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
 		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
@@ -186,6 +190,7 @@
 		4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */; };
 		4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
+		4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */; };
 		4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */; };
@@ -672,9 +677,13 @@
 		4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultChooseFolderViewModel.swift; sourceTree = "<group>"; };
 		4A5580542755226100E525B8 /* StoreObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserverTests.swift; sourceTree = "<group>"; };
+		4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCertificateValidationHelper.swift; sourceTree = "<group>"; };
+		4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCertificateValidationHelperMock.swift; sourceTree = "<group>"; };
 		4A58115D2779E1B700E89A62 /* Snapshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snapshots-Bridging-Header.h"; sourceTree = "<group>"; };
 		4A58115E2779E1B700E89A62 /* SnapshotBiometrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapshotBiometrics.h; sourceTree = "<group>"; };
 		4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnapshotBiometrics.m; sourceTree = "<group>"; };
+		4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVCredentialCoordinator.swift; sourceTree = "<group>"; };
+		4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewModelTests.swift; sourceTree = "<group>"; };
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
 		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
@@ -712,6 +721,7 @@
 		4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModel.swift; sourceTree = "<group>"; };
 		4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModelTests.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
+		4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthentication.swift; sourceTree = "<group>"; };
 		4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAction.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptomatorIntents.entitlements; sourceTree = "<group>"; };
@@ -1560,10 +1570,13 @@
 			isa = PBXGroup;
 			children = (
 				4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */,
+				4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */,
 				4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */,
 				4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */,
 				4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */,
 				4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */,
+				4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */,
+				4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */,
 			);
 			path = WebDAV;
 			sourceTree = "<group>";
@@ -1740,6 +1753,7 @@
 				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
 				4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */,
 				4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */,
+				4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1799,6 +1813,7 @@
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
 				4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */,
 				4A6A5209268B2B7B006F7368 /* AddLocalVault */,
@@ -2632,6 +2647,7 @@
 				4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */,
 				4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */,
 				4A970FF4286C960E00337FDC /* S3CredentialVerifier.swift in Sources */,
+				4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
@@ -2644,6 +2660,7 @@
 				74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */,
 				4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */,
 				4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */,
+				4A5672CF28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift in Sources */,
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
@@ -2743,6 +2760,7 @@
 				74C2BC4C26E8E63700BCAA03 /* OnboardingCoordinator.swift in Sources */,
 				4A4B7E4C26B2FF41009BFDB1 /* TableViewCell.swift in Sources */,
 				4A61F6B72745353E007AA422 /* TableViewModel.swift in Sources */,
+				4A587FA828B55CD600C69A1E /* WebDAVCredentialCoordinator.swift in Sources */,
 				4A53CC11267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift in Sources */,
 				4A6CF80027428CCB0061380A /* VaultCellViewModel.swift in Sources */,
 				4AED9A73286B3D6D00352951 /* SwiftUI+Focus.swift in Sources */,
@@ -2832,6 +2850,7 @@
 				4A77390B286D8B300006B3C3 /* S3CredentialVerifierMock.swift in Sources */,
 				4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */,
 				4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */,
+				4A587FCA28BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift in Sources */,
 				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
 				4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */,
 				4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */,
@@ -2840,6 +2859,7 @@
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
 				4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */,
 				4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */,
+				4A5672D128BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
 				4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
