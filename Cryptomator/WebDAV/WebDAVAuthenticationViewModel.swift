@@ -76,10 +76,12 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 	private let credentialManager: WebDAVCredentialManaging
 	private let validationHelper: TLSCertificateValidationHelping
 	private let identifier: String
+	private let cloudProviderUpdating: CloudProviderUpdating
 	private var client: WebDAVClient?
 
 	convenience init(credentialManager: WebDAVCredentialManaging = WebDAVCredentialManager.shared,
-	                 validationHelper: TLSCertificateValidationHelping = TLSCertificateValidationHelper()) {
+	                 validationHelper: TLSCertificateValidationHelping = TLSCertificateValidationHelper(),
+	                 cloudProviderUpdating: CloudProviderUpdating = CloudProviderDBManager.shared) {
 		self.init(url: "https://",
 		          username: "",
 		          password: "",
@@ -87,12 +89,14 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		          allowHTTPConnection: false,
 		          identifier: UUID().uuidString,
 		          credentialManager: credentialManager,
-		          validationHelper: validationHelper)
+		          validationHelper: validationHelper,
+		          cloudProviderUpdating: cloudProviderUpdating)
 	}
 
 	convenience init(credential: WebDAVCredential,
 	                 credentialManager: WebDAVCredentialManaging = WebDAVCredentialManager.shared,
-	                 validationHelper: TLSCertificateValidationHelping = TLSCertificateValidationHelper()) {
+	                 validationHelper: TLSCertificateValidationHelping = TLSCertificateValidationHelper(),
+	                 cloudProviderUpdating: CloudProviderUpdating = CloudProviderDBManager.shared) {
 		let components = URLComponents(url: credential.baseURL, resolvingAgainstBaseURL: false)
 		let allowHttpConnection = components?.scheme == "http"
 		self.init(url: credential.baseURL.absoluteString,
@@ -102,7 +106,8 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		          allowHTTPConnection: allowHttpConnection,
 		          identifier: credential.identifier,
 		          credentialManager: credentialManager,
-		          validationHelper: validationHelper)
+		          validationHelper: validationHelper,
+		          cloudProviderUpdating: cloudProviderUpdating)
 	}
 
 	private init(url: String,
@@ -112,7 +117,8 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 	             allowHTTPConnection: Bool,
 	             identifier: String,
 	             credentialManager: WebDAVCredentialManaging,
-	             validationHelper: TLSCertificateValidationHelping) {
+	             validationHelper: TLSCertificateValidationHelping,
+	             cloudProviderUpdating: CloudProviderUpdating) {
 		self.url = url
 		self.username = username
 		self.password = password
@@ -121,6 +127,7 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		self.identifier = identifier
 		self.credentialManager = credentialManager
 		self.validationHelper = validationHelper
+		self.cloudProviderUpdating = cloudProviderUpdating
 	}
 
 	func saveAccount() {
@@ -130,6 +137,7 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 		state = .authenticating
 		addAccount(credential: credential).then {
 			self.state = .authenticated($0)
+			self.cloudProviderUpdating.providerShouldUpdate(with: self.identifier)
 		}.catch { error in
 			switch error {
 			case let WebDAVAuthenticationError.untrustedCertificate(certificate, url):

@@ -16,6 +16,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	var viewModel: WebDAVAuthenticationViewModel!
 	var credentialManagerMock: WebDAVCredentialManagerMock!
 	var validationHelperMock: TLSCertificateValidationHelpingMock!
+	var cloudProviderUpdatingMock: CloudProviderUpdatingMock!
 	let untrustedCertificate = TLSCertificate(data: WebDAVCredential.mockCertificate, isTrusted: false, fingerprint: UUID().uuidString)
 	let trustedCertificate = TLSCertificate(data: Data(), isTrusted: true, fingerprint: UUID().uuidString)
 	var verifyClientCallsCount = 0
@@ -24,7 +25,8 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		verifyClientCallsCount = 0
 		credentialManagerMock = WebDAVCredentialManagerMock()
 		validationHelperMock = TLSCertificateValidationHelpingMock()
-		viewModel = WebDAVAuthenticationViewModel(credential: .mock, credentialManager: credentialManagerMock, validationHelper: validationHelperMock)
+		cloudProviderUpdatingMock = CloudProviderUpdatingMock()
+		viewModel = WebDAVAuthenticationViewModel(credential: .mock, credentialManager: credentialManagerMock, validationHelper: validationHelperMock, cloudProviderUpdating: cloudProviderUpdatingMock)
 	}
 
 	// MARK: - Initial state
@@ -61,7 +63,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	// MARK: - Save account
 
 	func testSaveAccount() throws {
-		let viewModel = WebDAVAuthenticationViewModel(credentialManager: credentialManagerMock, validationHelper: validationHelperMock)
+		let viewModel = WebDAVAuthenticationViewModel(credentialManager: credentialManagerMock, validationHelper: validationHelperMock, cloudProviderUpdating: cloudProviderUpdatingMock)
 		validationHelperMock.validateUrlReturnValue = Promise(trustedCertificate)
 		var verifyClientCallsCount = 0
 		viewModel.verifyClient = { _ in
@@ -85,6 +87,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(1, credentialManagerMock.saveCredentialToKeychainCallsCount)
 		let savedCredential = try XCTUnwrap(credentialManagerMock.saveCredentialToKeychainReceivedCredential)
 		XCTAssert(savedCredential.isEqual(.mock))
+		XCTAssertEqual([savedCredential.identifier], cloudProviderUpdatingMock.providerShouldUpdateWithReceivedInvocations)
 	}
 
 	func testUpdateAccount() throws {
@@ -111,6 +114,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		XCTAssert(savedCredential.isEqual(expectedUpdatedCredential))
 		// Additional check identifier for equality
 		XCTAssertEqual(WebDAVCredential.mock.identifier, savedCredential.identifier)
+		XCTAssertEqual([savedCredential.identifier], cloudProviderUpdatingMock.providerShouldUpdateWithReceivedInvocations)
 	}
 
 	// MARK: - Untrusted Certificate
