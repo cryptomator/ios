@@ -7,11 +7,17 @@
 //
 
 #if DEBUG
+import Combine
 import CryptomatorCloudAccessCore
 import Foundation
+
 // swiftlint:disable all
 
 final class WebDAVCredentialManagerMock: WebDAVCredentialManaging {
+	var didUpdate: AnyPublisher<Void, Never> { didUpdatePublisher.eraseToAnyPublisher() }
+
+	var didUpdatePublisher = PassthroughSubject<Void, Never>()
+
 	// MARK: - getCredentialFromKeychain
 
 	var getCredentialFromKeychainWithCallsCount = 0

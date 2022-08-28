@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import Foundation
 
@@ -14,6 +15,8 @@ public enum WebDAVAuthenticatorKeychainError: Error {
 }
 
 public protocol WebDAVCredentialManaging {
+	var didUpdate: AnyPublisher<Void, Never> { get }
+
 	func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential?
 	/**
 	 Saves a WebDAV credential to the keychain.
@@ -32,7 +35,13 @@ public protocol WebDAVCredentialManaging {
 
 public struct WebDAVCredentialManager: WebDAVCredentialManaging {
 	public static let shared = WebDAVCredentialManager(keychain: CryptomatorKeychain.webDAV)
+
+	public var didUpdate: AnyPublisher<Void, Never> {
+		didUpdatePublisher.eraseToAnyPublisher()
+	}
+
 	let keychain: CryptomatorKeychainType
+	private let didUpdatePublisher = PassthroughSubject<Void, Never>()
 
 	public func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
 		return keychain.get(accountUID)
@@ -47,10 +56,12 @@ public struct WebDAVCredentialManager: WebDAVCredentialManaging {
 		let jsonEnccoder = JSONEncoder()
 		let encodedCredential = try jsonEnccoder.encode(credential)
 		try keychain.set(credential.identifier, value: encodedCredential)
+		didUpdatePublisher.send(())
 	}
 
 	public func removeCredentialFromKeychain(with accountUID: String) throws {
 		try keychain.delete(accountUID)
+		didUpdatePublisher.send(())
 	}
 
 	public func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws {
