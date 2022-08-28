@@ -131,9 +131,7 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		switch cloudProviderType {
 		case .dropbox, .googleDrive, .localFileSystem(type: _), .oneDrive, .pCloud:
 			return false
-		case .webDAV:
-			return true
-		case .s3:
+		case .s3, .webDAV:
 			return true
 		}
 	}
