@@ -60,7 +60,7 @@ public class CloudProviderDBManager: CloudProviderManager {
 			let credential = try PCloudCredential(userID: accountUID)
 			provider = try PCloudCloudProvider(credential: credential)
 		case .webDAV:
-			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let client: WebDAVClient

@@ -79,7 +79,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			let credential = try PCloudCredential(userID: accountInfo.accountUID)
 			return createAccountCellContentPlaceholder(for: credential)
 		case .webDAV:
-			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountInfo.accountUID) else {
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			return createAccountCellContent(for: credential)

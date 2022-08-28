@@ -111,7 +111,7 @@ class CloudAuthenticator {
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
 		case .webDAV:
-			try WebDAVAuthenticator.removeCredentialFromKeychain(with: account.accountUID)
+			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		case .localFileSystem:
 			break
 		case .s3:
