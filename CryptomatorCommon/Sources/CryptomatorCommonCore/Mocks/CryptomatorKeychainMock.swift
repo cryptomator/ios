@@ -9,7 +9,7 @@ import Foundation
 
 // swiftlint:disable all
 
-final class CryptomatorKeychainTypeMock: CryptomatorKeychainType {
+final class CryptomatorKeychainMock: CryptomatorKeychainType {
 	// MARK: - set
 
 	var setValueThrowableError: Error?
