@@ -48,9 +48,9 @@ class DatabaseManager {
 	}
 
 	func observeVaultAccounts(onError: @escaping (Error) -> Void, onChange: @escaping ([VaultAccount]) -> Void) -> DatabaseCancellable {
-		let observation = ValueObservation.tracking { db in
-			try VaultAccount.fetchAll(db)
-		}
+		let observation = ValueObservation
+			.tracking { try VaultAccount.fetchAll($0) }
+			.removeDuplicates()
 		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
