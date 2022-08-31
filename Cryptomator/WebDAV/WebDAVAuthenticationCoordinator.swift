@@ -44,31 +44,6 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 		close()
 	}
 
-	func handleUntrustedCertificate(_ certificate: TLSCertificate, url: URL, for viewController: WebDAVAuthenticationViewController, viewModel: WebDAVAuthenticationViewModelProtocol) {
-		let alertController = UIAlertController(title: LocalizedString.getValue("untrustedTLSCertificate.title"), message: String(format: LocalizedString.getValue("untrustedTLSCertificate.message"), url.absoluteString, certificate.fingerprint), preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.add"), style: .default, handler: { _ in
-			viewController.addAccount(allowedCertificate: certificate.data, allowHTTPConnection: false)
-		}))
-		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.dismiss"), style: .cancel))
-		viewController.present(alertController, animated: true)
-	}
-
-	func handleInsecureConnection(for viewController: WebDAVAuthenticationViewController, viewModel: WebDAVAuthenticationViewModelProtocol) {
-		let alertController = UIAlertController(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.title"),
-		                                        message: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.message"),
-		                                        preferredStyle: .alert)
-		let changeToHTTPSAction = UIAlertAction(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.change"), style: .default, handler: { _ in
-			self.addAccountWithTransformedURL(for: viewController, viewModel: viewModel)
-		})
-
-		alertController.addAction(changeToHTTPSAction)
-		alertController.preferredAction = changeToHTTPSAction
-		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.continue"), style: .destructive, handler: { _ in
-			viewController.addAccount(allowedCertificate: nil, allowHTTPConnection: true)
-		}))
-		viewController.present(alertController, animated: true)
-	}
-
 	func cancel() {
 		pendingAuthentication.reject(WebDAVAuthenticationError.userCanceled)
 		close()
@@ -79,15 +54,5 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
 		// User has canceled the authentication by closing the modal via swipe
 		pendingAuthentication.reject(WebDAVAuthenticationError.userCanceled)
-	}
-
-	private func addAccountWithTransformedURL(for viewController: WebDAVAuthenticationViewController, viewModel: WebDAVAuthenticationViewModelProtocol) {
-		do {
-			try viewModel.transformURLToHTTPS()
-		} catch {
-			handleError(error, for: viewController)
-			return
-		}
-		viewController.addAccount(allowedCertificate: nil, allowHTTPConnection: false)
 	}
 }

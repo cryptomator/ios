@@ -75,11 +75,9 @@ extension MoveVaultCoordinator: FolderChoosing {
 	private func popBackToFirstNonMoveVaultViewController() {
 		var viewControllers: [UIViewController] = navigationController.viewControllers
 		viewControllers = viewControllers.reversed()
-		for currentViewController in viewControllers {
-			if !currentViewController.isKind(of: MoveVaultViewController.self) {
-				navigationController.popToViewController(currentViewController, animated: true)
-				break
-			}
+		for currentViewController in viewControllers where !currentViewController.isKind(of: MoveVaultViewController.self) {
+			navigationController.popToViewController(currentViewController, animated: true)
+			break
 		}
 	}
 }

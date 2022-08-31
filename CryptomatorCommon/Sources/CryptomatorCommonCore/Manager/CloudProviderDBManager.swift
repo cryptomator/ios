@@ -11,10 +11,13 @@ import Foundation
 
 public protocol CloudProviderManager {
 	func getProvider(with accountUID: String) throws -> CloudProvider
-	static func providerShouldUpdate(with accountUID: String)
 }
 
-public class CloudProviderDBManager: CloudProviderManager {
+public protocol CloudProviderUpdating {
+	func providerShouldUpdate(with accountUID: String)
+}
+
+public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating {
 	static var cachedProvider = [String: CloudProvider]()
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	public var useBackgroundSession = true
@@ -60,7 +63,7 @@ public class CloudProviderDBManager: CloudProviderManager {
 			let credential = try PCloudCredential(userID: accountUID)
 			provider = try PCloudCloudProvider(credential: credential)
 		case .webDAV:
-			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let client: WebDAVClient
@@ -93,8 +96,8 @@ public class CloudProviderDBManager: CloudProviderManager {
 		}
 	}
 
-	public static func providerShouldUpdate(with accountUID: String) {
-		cachedProvider[accountUID] = nil
+	public func providerShouldUpdate(with accountUID: String) {
+		CloudProviderDBManager.cachedProvider[accountUID] = nil
 		// call XPCService for FileProvider
 	}
 }

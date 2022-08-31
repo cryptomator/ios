@@ -15,7 +15,17 @@ protocol DefaultShowEditAccountBehavior {}
 
 extension Coordinator where Self: DefaultShowEditAccountBehavior {
 	func showEdit(for account: AccountInfo) {
-		guard case CloudProviderType.s3 = account.cloudProviderType else { return }
+		switch account.cloudProviderType {
+		case .s3(type: _):
+			showEditForS3Account(account)
+		case .webDAV(type: _):
+			showEditForWebDAVAccount(account)
+		default:
+			return
+		}
+	}
+
+	private func showEditForS3Account(_ account: AccountInfo) {
 		let credential: S3Credential
 		let displayName: String
 		do {
@@ -35,6 +45,26 @@ extension Coordinator where Self: DefaultShowEditAccountBehavior {
 		}
 		let modalNavigationController = BaseNavigationController()
 		let child = S3CredentialCoordinator(credential: credential, displayName: displayName, navigationController: modalNavigationController)
+		navigationController.present(modalNavigationController, animated: true)
+		childCoordinators.append(child)
+		child.parentCoordinator = self
+		child.start()
+	}
+
+	private func showEditForWebDAVAccount(_ account: AccountInfo) {
+		let credential: WebDAVCredential
+		do {
+			guard let fetchedCredential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: account.accountUID) else {
+				DDLogError("showEdit - WebDAVCredentialManager has no credential for existing account")
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			credential = fetchedCredential
+		} catch {
+			handleError(error, for: navigationController)
+			return
+		}
+		let modalNavigationController = BaseNavigationController()
+		let child = WebDAVCredentialCoordinator(credential: credential, navigationController: modalNavigationController)
 		navigationController.present(modalNavigationController, animated: true)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
