@@ -15,6 +15,7 @@
 "common.button.create" = "Creează";
 "common.button.createFolder" = "Creează dosar";
 "common.button.done" = "Finalizat";
+"common.button.download" = "Descarcă";
 "common.button.edit" = "Editează";
 "common.button.enable" = "Activează";
 "common.button.next" = "Următor";
