@@ -13,8 +13,8 @@
 "common.button.clear" = "清除";
 "common.button.close" = "關閉";
 "common.button.confirm" = "確認";
-"common.button.create" = "新增";
-"common.button.createFolder" = "建立資料夾";
+"common.button.create" = "建立";
+"common.button.createFolder" = "新增資料夾";
 "common.button.done" = "完成";
 "common.button.download" = "下載";
 "common.button.edit" = "編輯";
@@ -28,13 +28,14 @@
 "common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
 "common.cells.password" = "密碼";
 "common.cells.url" = "網址";
-"common.cells.username" = "使用者名稱";
+"common.cells.username" = "帳號";
 "common.footer.learnMore" = "了解更多。";
+"common.hud.authenticating" = "驗證中...";
 
-"accountList.header.title" = "認證";
-"accountList.emptyList.message" = "點擊此處添加帳號";
+"accountList.header.title" = "驗證";
+"accountList.emptyList.message" = "點擊此處來新增帳號";
 "accountList.signOut.alert.title" = "移除關聯的加密檔案庫？";
-"accountList.signOut.alert.message" = "登出後，所有關聯的加密檔案庫將從列表中移除。這並不會刪除任何加密數據。您可以再次登入並稍後重新添加加密檔案庫。";
+"accountList.signOut.alert.message" = "登出後，所有關聯的加密檔案庫將從列表中移除。這並不會刪除任何加密數據。您可以稍後再次登入並重新添加加密檔案庫。";
 
 "addVault.title" = "新增加密檔案庫";
 "addVault.createNewVault.title" = "新建加密檔案庫";
@@ -212,6 +213,8 @@
 "s3Authentication.existingBucket" = "現有儲存槽（Bucket）";
 "s3Authentication.endpoint" = "終端節點（Endpoint）";
 "s3Authentication.region" = "地域（Region）";
+"s3Authentication.error.invalidCredentials" = "憑證無效";
+"s3Authentication.error.invalidEndpoint" = "所提供的端點不符合網址格式";
 
 "trialStatus.active" = "生效中";
 "trialStatus.expired" = "已過期";
