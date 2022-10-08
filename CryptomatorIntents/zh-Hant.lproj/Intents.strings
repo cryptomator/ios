@@ -8,6 +8,10 @@
 "getFolderIntent.path" = "路徑";
 "getFolderIntent.text" = "取得 ${vault} 內位於 ${path} 的資料夾";
 "getFolderIntent.title" = "取得資料夾";
+"lockVaultIntent.text" = "鎖定 ${vault}";
+"lockVaultIntent.title" = "鎖定加密檔案庫";
+"openVaultIntent.text" = "用檔案程式開啟 ${vault}";
+"openVaultIntent.title" = "開啟加密檔案庫";
 
 "saveFileIntent.description" = "儲存檔案到加密檔案庫。";
 "saveFileIntent.file" = "檔案";
