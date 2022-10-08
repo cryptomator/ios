@@ -8,9 +8,19 @@
 "getFolderIntent.path" = "路徑";
 "getFolderIntent.text" = "取得 ${vault} 內位於 ${path} 的資料夾";
 "getFolderIntent.title" = "取得資料夾";
+
+"isUnlockedIntent.description" = "返回該加密檔案庫是否已解鎖";
+"isUnlockedIntent.title" = "已解鎖";
+
+"isVaultLockedIntent.title" = "加密檔案庫是否已解鎖";
+"isVaultUnlockedIntent.text" = "${vault} 是否已解鎖?";
+
+"lockVaultIntent.description" = "鎖定該加密檔案庫";
 "lockVaultIntent.text" = "鎖定 ${vault}";
 "lockVaultIntent.title" = "鎖定加密檔案庫";
-"openVaultIntent.text" = "用檔案程式開啟 ${vault}";
+
+"openVaultIntent.description" = "在「檔案」應用程式中開啟該加密檔案庫";
+"openVaultIntent.text" = "在「檔案」應用程式中開啟 ${vault}";
 "openVaultIntent.title" = "開啟加密檔案庫";
 
 "saveFileIntent.description" = "儲存檔案到加密檔案庫。";
