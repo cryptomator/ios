@@ -5,6 +5,7 @@
 "common.button.edit" = "Рэдагаваць";
 "common.button.next" = "Далей";
 "common.button.ok" = "Добра";
+"common.cells.password" = "Пароль";
 
 "addVault.title" = "Дадаць скарбніцу";
 "addVault.createNewVault.title" = "Стварыць новую скарбніцу";
