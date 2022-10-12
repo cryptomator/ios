@@ -1,11 +1,15 @@
 "common.button.cancel" = "Скасаваць";
 "common.button.change" = "Змяніць";
 "common.button.close" = "Зачыніць";
+"common.button.create" = "Стварыць";
 "common.button.done" = "Файна";
 "common.button.edit" = "Рэдагаваць";
 "common.button.next" = "Далей";
 "common.button.ok" = "Добра";
+"common.button.remove" = "Выдаліць";
 "common.cells.password" = "Пароль";
+"common.cells.url" = "URL";
+"common.cells.username" = "Імя карыстальніка";
 
 "addVault.title" = "Дадаць скарбніцу";
 "addVault.createNewVault.title" = "Стварыць новую скарбніцу";
@@ -21,6 +25,11 @@
 "purchase.unlockedFullVersion.title" = "Шчыры дзякуй";
 
 "settings.title" = "Налады";
+
+"s3Authentication.displayName" = "Бачнае імя";
+"s3Authentication.accessKey" = "Ключ доступу";
+"s3Authentication.secretKey" = "Сакрэтны ключ";
+"s3Authentication.region" = "Рэгіён";
 
 "unlockVault.button.unlock" = "Адамкнуць";
 
