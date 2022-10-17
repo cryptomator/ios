@@ -28,6 +28,7 @@
 "settings.clearCache" = "Xóa bộ nhớ Cache";
 
 "s3Authentication.displayName" = "Tên hiển thị";
+"s3Authentication.region" = "Khu vực";
 
 "unlockVault.button.unlock" = "Mở khoá";
 
