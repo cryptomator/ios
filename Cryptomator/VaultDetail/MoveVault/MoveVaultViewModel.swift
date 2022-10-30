@@ -9,14 +9,13 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import CryptomatorFileProvider
 import FileProvider
 import Foundation
 import GRDB
 import Promises
 
 protocol MoveVaultViewModelProtocol: ChooseFolderViewModelProtocol {
-	func moveVault() -> Promise<Void>
+	func moveVault() async throws
 	func isAllowedToMove() -> Bool
 }
 
@@ -26,58 +25,57 @@ enum MoveVaultViewModelError: Error {
 }
 
 class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
-	private let maintenanceManager: MaintenanceManager
 	private let vaultManager: VaultManager
 	private let vaultInfo: VaultInfo
+	private let domain: NSFileProviderDomain
 	private let fileProviderConnector: FileProviderConnector
 
-	init(provider: CloudProvider, currentFolderChoosingCloudPath: CloudPath, vaultInfo: VaultInfo, maintenanceManager: MaintenanceManager, cloudProviderManager: CloudProviderManager = CloudProviderDBManager.shared, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(provider: CloudProvider,
+	     currentFolderChoosingCloudPath: CloudPath,
+	     vaultInfo: VaultInfo,
+	     domain: NSFileProviderDomain,
+	     cloudProviderManager: CloudProviderManager = CloudProviderDBManager.shared,
+	     vaultManager: VaultManager = VaultDBManager.shared,
+	     fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.vaultInfo = vaultInfo
-		self.maintenanceManager = maintenanceManager
+		self.domain = domain
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		super.init(canCreateFolder: true, cloudPath: currentFolderChoosingCloudPath, provider: provider)
 	}
 
-	func moveVault(to targetCloudPath: CloudPath) -> Promise<Void> {
+	func moveVault(to targetCloudPath: CloudPath) async throws {
 		guard vaultEligibleForMove() else {
-			return Promise(MoveVaultViewModelError.vaultNotEligibleForMove)
+			throw MoveVaultViewModelError.vaultNotEligibleForMove
 		}
 		guard pathIsNotInsideCurrentVaultPath(targetCloudPath) else {
-			return Promise(MoveVaultViewModelError.moveVaultInsideItselfNotAllowed)
+			throw MoveVaultViewModelError.moveVaultInsideItselfNotAllowed
 		}
-		do {
-			try maintenanceManager.enableMaintenanceMode()
-		} catch {
-			return Promise(error)
+		let xpc: XPC<MaintenanceModeHelper> = try await fileProviderConnector.getXPC(serviceName: .maintenanceModeHelper,
+		                                                                             domain: domain)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
 		}
-		return lockVault().then {
-			return self.vaultManager.moveVault(account: self.vaultInfo.vaultAccount, to: targetCloudPath)
-		}.always {
-			do {
-				try self.maintenanceManager.disableMaintenanceMode()
-			} catch {
-				DDLogError("MoveVaultViewModel: Disabling Maintenance Mode failed with error: \(error)")
-			}
+		try await xpc.proxy.executeExclusiveOperation {
+			try await self.lockVault()
+			try await self.moveVault(account: self.vaultInfo.vaultAccount, to: targetCloudPath)
 		}
 	}
 
-	func moveVault() -> Promise<Void> {
+	func moveVault() async throws {
 		let newVaultPath = super.cloudPath.appendingPathComponent(vaultInfo.vaultName)
-		return moveVault(to: newVaultPath)
+		try await moveVault(to: newVaultPath)
 	}
 
 	func isAllowedToMove() -> Bool {
 		return cloudPath.appendingPathComponent(vaultInfo.vaultName) != vaultInfo.vaultPath
 	}
 
-	private func lockVault() -> Promise<Void> {
-		let domainIdentifier = NSFileProviderDomainIdentifier(vaultInfo.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc -> Void in
-			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
-			self.fileProviderConnector.invalidateXPC(xpc)
-		}
+	private func lockVault() async throws {
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking,
+		                                                                    domain: domain)
+		xpc.proxy.lockVault(domainIdentifier: domain.identifier)
+		fileProviderConnector.invalidateXPC(xpc)
 	}
 
 	private func vaultEligibleForMove() -> Bool {
@@ -92,5 +90,15 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 
 	private func pathIsNotInsideCurrentVaultPath(_ path: CloudPath) -> Bool {
 		return !path.contains(vaultInfo.vaultPath)
+	}
+
+	private func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) async throws {
+		try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) -> Void in
+			vaultManager.moveVault(account: account, to: targetVaultPath).then {
+				continuation.resume()
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
 	}
 }

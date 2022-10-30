@@ -6,6 +6,7 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import FileProvider
 import Foundation
 
@@ -23,7 +24,16 @@ struct CachedFileDBManagerFactory: CachedFileManagerFactory {
 
 	func createCachedFileManager(for domain: NSFileProviderDomain) throws -> CachedFileManager {
 		let databaseURL = databaseURLProvider.getDatabaseURL(for: domain)
-		let database = try DatabaseHelper.getMigratedDB(at: databaseURL)
-		return CachedFileDBManager(database: database)
+
+		let manager = NSFileProviderManager(for: domain)
+		let fileCoordinator = NSFileCoordinator()
+		if let providerIdentifier = manager?.providerIdentifier {
+			fileCoordinator.purposeIdentifier = providerIdentifier
+		} else {
+			DDLogError("Failed to get providerIdentifier for domain \(domain.identifier.rawValue)")
+		}
+		let database = try DatabaseHelper.default.getMigratedDB(at: databaseURL, fileCoordinator: fileCoordinator)
+		return CachedFileDBManager(database: database,
+		                           fileManagerHelper: .init(fileCoordinator: fileCoordinator))
 	}
 }

@@ -24,6 +24,26 @@ public extension FileProviderConnector {
 	func invalidateXPC<T>(_ xpcPromise: Promise<XPC<T>>) {
 		xpcPromise.then(invalidateXPC)
 	}
+
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) async throws -> XPC<T> {
+		try await withCheckedThrowingContinuation({ continuation in
+			getXPC(serviceName: serviceName, domain: domain).then {
+				continuation.resume(returning: $0)
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
+	}
+
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) async throws -> XPC<T> {
+		try await withCheckedThrowingContinuation({ continuation in
+			getXPC(serviceName: serviceName, domainIdentifier: domainIdentifier).then {
+				continuation.resume(returning: $0)
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
+	}
 }
 
 public struct XPC<T> {

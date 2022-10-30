@@ -30,7 +30,6 @@
 		4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */; };
 		4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */; };
 		4A1673EA270C77CC0075C724 /* DocumentStorageURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */; };
-		4A1673ED270DE4600075C724 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */; };
 		4A1A7AC528326554008EEC84 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		4A1A7AC628327419008EEC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
@@ -85,7 +84,6 @@
 		4A33092B282EBF9900876A3E /* SaveFileIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */; };
 		4A33092D282EC23400876A3E /* CryptomatorCommonCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4A33092C282EC23400876A3E /* CryptomatorCommonCore */; };
 		4A330931282EC7CE00876A3E /* FileImportingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */; };
-		4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */; };
 		4A3C5DD8272BF39000EB7C7A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD7272BF39000EB7C7A /* ChangePasswordViewController.swift */; };
 		4A3C5DDA272BF52600EB7C7A /* TextFieldCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */; };
 		4A3C5DDC272C080000EB7C7A /* VaultPasswordChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DDB272C080000EB7C7A /* VaultPasswordChanging.swift */; };
@@ -296,6 +294,8 @@
 		4AD3D7D6282EBDE7008188CD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3D7D5282EBDE7008188CD /* Intents.framework */; };
 		4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */; };
 		4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4AD3D7D4282EBDE7008188CD /* CryptomatorIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */; };
+		4AD9481C2909BD9C00072110 /* XCTest+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9481B2909BD9C00072110 /* XCTest+Async.swift */; };
 		4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */; };
 		4ADC66BF27A44558002E6CC7 /* XCTestCase+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */; };
 		4ADC66C127A7F426002E6CC7 /* UnlockMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */; };
@@ -435,13 +435,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
-		};
-		4A1673EE270DE4600075C724 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 740375D62587AE7A0023FF53;
-			remoteInfo = CryptomatorFileProvider;
 		};
 		4A51E601261C9A7000CC8C9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -614,7 +607,6 @@
 		4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFileIntentHandler.swift; sourceTree = "<group>"; };
 		4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportingServiceSource.swift; sourceTree = "<group>"; };
-		4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManagerMock.swift; sourceTree = "<group>"; };
 		4A3C5DD7272BF39000EB7C7A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCellViewModel.swift; sourceTree = "<group>"; };
 		4A3C5DDB272C080000EB7C7A /* VaultPasswordChanging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordChanging.swift; sourceTree = "<group>"; };
@@ -833,6 +825,8 @@
 		4AD3D7D5282EBDE7008188CD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		4AD3D7DA282EBDE7008188CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceModeHelperServiceSource.swift; sourceTree = "<group>"; };
+		4AD9481B2909BD9C00072110 /* XCTest+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Async.swift"; sourceTree = "<group>"; };
 		4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewController.swift; sourceTree = "<group>"; };
 		4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Promises.swift"; sourceTree = "<group>"; };
 		4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockMonitor.swift; sourceTree = "<group>"; };
@@ -1077,7 +1071,6 @@
 			files = (
 				4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */,
 				4AED9A6F286B38DA00352951 /* Introspect in Frameworks */,
-				4A1673ED270DE4600075C724 /* libCryptomatorFileProvider.a in Frameworks */,
 				4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1613,6 +1606,7 @@
 				4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */,
 				4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */,
 				4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */,
+				4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */,
 				4AA2531A28216E45003B45EE /* ServiceSource.swift */,
 				4AA2531828216BFD003B45EE /* UploadRetryingServiceSource.swift */,
 				4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */,
@@ -1750,7 +1744,6 @@
 			children = (
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
-				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
 				4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */,
 				4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */,
 				4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */,
@@ -1814,6 +1807,7 @@
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
 				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
+				4AD9481B2909BD9C00072110 /* XCTest+Async.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
 				4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */,
 				4A6A5209268B2B7B006F7368 /* AddLocalVault */,
@@ -2172,7 +2166,6 @@
 			dependencies = (
 				4AEE469125263B2E0045DA9F /* PBXTargetDependency */,
 				4AEE469425263B2E0045DA9F /* PBXTargetDependency */,
-				4A1673EF270DE4600075C724 /* PBXTargetDependency */,
 				4AD3D7DC282EBDE7008188CD /* PBXTargetDependency */,
 			);
 			name = Cryptomator;
@@ -2848,7 +2841,6 @@
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4A3D6554267CF17B000DA764 /* CreateNewVaultPasswordViewModelTests.swift in Sources */,
 				4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */,
-				4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */,
 				4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
 				4A91D8CC272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift in Sources */,
@@ -2862,6 +2854,7 @@
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
+				4AD9481C2909BD9C00072110 /* XCTest+Async.swift in Sources */,
 				4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */,
 				4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */,
 				4A5672D128BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift in Sources */,
@@ -2928,6 +2921,7 @@
 				747F2F282587BC250072FB30 /* ReparentTaskDBManager.swift in Sources */,
 				4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */,
 				4A511D4E2660FF9E000A0E01 /* WorkflowScheduler.swift in Sources */,
+				4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */,
 				4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */,
 				4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,
@@ -2965,11 +2959,6 @@
 			isa = PBXTargetDependency;
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4A136127276767D60077EB7F /* PBXContainerItemProxy */;
-		};
-		4A1673EF270DE4600075C724 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
-			targetProxy = 4A1673EE270DE4600075C724 /* PBXContainerItemProxy */;
 		};
 		4A51E602261C9A7000CC8C9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

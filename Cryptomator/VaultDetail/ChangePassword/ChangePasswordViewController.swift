@@ -38,24 +38,28 @@ class ChangePasswordViewController: StaticUITableViewController<ChangePasswordSe
 		}
 		let alertController = UIAlertController(title: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.title"), message: LocalizedString.getValue("addVault.createNewVault.password.confirmPassword.alert.message"), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.confirm"), style: .default) { _ in
-			self.userConfirmedPassword()
+			Task {
+				await self.userConfirmedPassword()
+			}
 		}
 		alertController.addAction(okAction)
 		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
 		present(alertController, animated: true, completion: nil)
 	}
 
-	private func userConfirmedPassword() {
+	private func userConfirmedPassword() async {
 		let hud = ProgressHUD()
 		hud.text = LocalizedString.getValue("changePassword.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.changePassword().then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			self?.coordinator?.changedPassword()
-		}.catch { [weak self] error in
-			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+
+		do {
+			try await viewModel.changePassword()
+			hud.transformToSelfDismissingSuccess {
+				self.coordinator?.changedPassword()
+			}
+		} catch {
+			handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }

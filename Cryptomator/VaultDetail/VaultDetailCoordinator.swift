@@ -20,6 +20,9 @@ class VaultDetailCoordinator: Coordinator {
 	var navigationController: UINavigationController
 	weak var removedVaultDelegate: RemoveVaultDelegate?
 	private let vaultInfo: VaultInfo
+	private var domain: NSFileProviderDomain {
+		NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
+	}
 
 	init(vaultInfo: VaultInfo, navigationController: UINavigationController) {
 		self.vaultInfo = vaultInfo
@@ -52,28 +55,32 @@ class VaultDetailCoordinator: Coordinator {
 	}
 
 	func renameVault() {
-		let configuration: VaultMoveConfiguration
+		let provider: CloudProvider
 		do {
-			configuration = try createVaultMoveConfiguration()
+			provider = try CloudProviderDBManager.shared.getProvider(with: vaultInfo.delegateAccountUID)
 		} catch {
 			handleError(error, for: navigationController.topViewController ?? navigationController)
 			return
 		}
-		let viewModel = RenameVaultViewModel(provider: configuration.provider, vaultInfo: vaultInfo, maintenanceManager: configuration.maintenanceManager)
+		let viewModel = RenameVaultViewModel(provider: provider,
+		                                     vaultInfo: vaultInfo,
+		                                     domain: domain)
 		let renameVaultViewController = RenameVaultViewController(viewModel: viewModel)
 		renameVaultViewController.coordinator = self
 		navigationController.pushViewController(renameVaultViewController, animated: true)
 	}
 
 	func moveVault() {
-		let configuration: VaultMoveConfiguration
+		let provider: CloudProvider
 		do {
-			configuration = try createVaultMoveConfiguration()
+			provider = try CloudProviderDBManager.shared.getProvider(with: vaultInfo.delegateAccountUID)
 		} catch {
 			handleError(error, for: navigationController.topViewController ?? navigationController)
 			return
 		}
-		let child = MoveVaultCoordinator(vaultInfo: vaultInfo, provider: configuration.provider, maintenanceManager: configuration.maintenanceManager, navigationController: navigationController)
+		let child = MoveVaultCoordinator(vaultInfo: vaultInfo,
+		                                 provider: provider,
+		                                 navigationController: navigationController)
 		child.parentCoordinator = self
 		childCoordinators.append(child)
 		child.start()
@@ -84,36 +91,11 @@ class VaultDetailCoordinator: Coordinator {
 	}
 
 	func changeVaultPassword() {
-		let maintenanceManager: MaintenanceManager
-		do {
-			let database = try getFileProviderDatabase()
-			maintenanceManager = MaintenanceDBManager(database: database)
-		} catch {
-			handleError(error, for: navigationController.topViewController ?? navigationController)
-			return
-		}
-		let viewModel = ChangePasswordViewModel(vaultAccount: vaultInfo.vaultAccount, maintenanceManager: maintenanceManager)
+		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
+		let viewModel = ChangePasswordViewModel(vaultAccount: vaultInfo.vaultAccount, domain: domain)
 		let changePasswordViewController = ChangePasswordViewController(viewModel: viewModel)
 		changePasswordViewController.coordinator = self
 		navigationController.pushViewController(changePasswordViewController, animated: true)
-	}
-
-	private func getFileProviderDatabase() throws -> DatabaseWriter {
-		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
-		let fileproviderDatabaseURL = DatabaseHelper.getDatabaseURL(for: domain)
-		return try DatabaseHelper.getMigratedDB(at: fileproviderDatabaseURL)
-	}
-
-	private func createVaultMoveConfiguration() throws -> VaultMoveConfiguration {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: vaultInfo.delegateAccountUID)
-		let database = try getFileProviderDatabase()
-		let maintenanceManager = MaintenanceDBManager(database: database)
-		return VaultMoveConfiguration(provider: provider, maintenanceManager: maintenanceManager)
-	}
-
-	private struct VaultMoveConfiguration {
-		let provider: CloudProvider
-		let maintenanceManager: MaintenanceManager
 	}
 }
 

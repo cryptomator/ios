@@ -272,6 +272,14 @@ class FileProviderExtension: NSFileProviderExtension {
 		serviceSources.append(cacheManagingServiceSource)
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())
+		if let domain, let manager = NSFileProviderManager(for: domain) {
+			let maintenanceServiceSource = MaintenanceModeHelperServiceSource(
+				databaseHelper: DatabaseHelper.default,
+				providerIdentifier: manager.providerIdentifier,
+				domain: domain
+			)
+			serviceSources.append(maintenanceServiceSource)
+		}
 		return serviceSources
 	}
 

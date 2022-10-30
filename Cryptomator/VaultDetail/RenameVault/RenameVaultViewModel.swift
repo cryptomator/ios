@@ -9,14 +9,14 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import CryptomatorFileProvider
+import FileProvider
 import Foundation
 import GRDB
 import Promises
 
 protocol RenameVaultViewModelProtcol: SetVaultNameViewModelProtocol {
 	var trimmedVaultName: String { get }
-	func renameVault() -> Promise<Void>
+	func renameVault() async throws
 }
 
 enum RenameVaultViewModelError: Error {
@@ -32,29 +32,31 @@ class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
 	private let delegate: MoveVaultViewModel
 	private let vaultInfo: VaultInfo
 
-	init(provider: CloudProvider, vaultInfo: VaultInfo, maintenanceManager: MaintenanceManager, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
-		self.delegate = MoveVaultViewModel(provider: provider, currentFolderChoosingCloudPath: CloudPath("/"), vaultInfo: vaultInfo, maintenanceManager: maintenanceManager, vaultManager: vaultManager, fileProviderConnector: fileProviderConnector)
+	init(provider: CloudProvider,
+	     vaultInfo: VaultInfo,
+	     domain: NSFileProviderDomain,
+	     vaultManager: VaultManager = VaultDBManager.shared,
+	     fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+		self.delegate = MoveVaultViewModel(
+			provider: provider,
+			currentFolderChoosingCloudPath: CloudPath("/"),
+			vaultInfo: vaultInfo,
+			domain: domain,
+			vaultManager: vaultManager,
+			fileProviderConnector: fileProviderConnector
+		)
 		self.vaultInfo = vaultInfo
 	}
 
-	func renameVault() -> Promise<Void> {
-		let newVaultName: String
-		do {
-			newVaultName = try getValidatedVaultName()
-		} catch {
-			return Promise(error)
-		}
+	func renameVault() async throws {
+		let newVaultName = try getValidatedVaultName()
 		let newVaultPath = vaultInfo.vaultPath.deletingLastPathComponent().appendingPathComponent(newVaultName)
-		return delegate.moveVault(to: newVaultPath).recover { error -> Void in
-			guard let moveVaultViewModelError = error as? MoveVaultViewModelError else {
-				throw error
-			}
-			switch moveVaultViewModelError {
-			case .vaultNotEligibleForMove:
-				throw RenameVaultViewModelError.vaultNotEligibleForRename
-			case .moveVaultInsideItselfNotAllowed:
-				return
-			}
+		do {
+			try await delegate.moveVault(to: newVaultPath)
+		} catch MoveVaultViewModelError.moveVaultInsideItselfNotAllowed {
+			return
+		} catch MoveVaultViewModelError.vaultNotEligibleForMove {
+			throw RenameVaultViewModelError.vaultNotEligibleForRename
 		}
 	}
 
