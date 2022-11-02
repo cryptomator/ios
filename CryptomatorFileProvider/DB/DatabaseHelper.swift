@@ -10,17 +10,25 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
+public protocol DatabaseHelping {
+	func getDatabaseURL(for domain: NSFileProviderDomain) -> URL
+	func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter
+}
 
-public enum DatabaseHelper {
-	public static func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
+public struct DatabaseHelper: DatabaseHelping {
+	public static let `default` = DatabaseHelper()
+
+	public func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
 		let documentStorageURL = NSFileProviderManager.default.documentStorageURL
 		let domainRootURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage)
 		return domainRootURL.appendingPathComponent("db.sqlite")
 	}
 
-	public static func getMigratedDB(at databaseURL: URL) throws -> DatabasePool {
-		let dbPool = try openSharedDatabase(at: databaseURL)
-		try migrate(dbPool)
+	public func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter {
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = purposeIdentifier
+		let dbPool = try Self.openSharedDatabase(at: databaseURL, fileCoordinator: fileCoordinator)
+		try Self.migrate(dbPool)
 		return dbPool
 	}
 
@@ -182,12 +190,11 @@ public enum DatabaseHelper {
 		try migrator.migrate(dbWriter)
 	}
 
-	private static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {
-		let coordinator = NSFileCoordinator(filePresenter: nil)
+	private static func openSharedDatabase(at databaseURL: URL, fileCoordinator: NSFileCoordinator) throws -> DatabasePool {
 		var coordinatorError: NSError?
 		var dbPool: DatabasePool?
 		var dbError: Error?
-		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
+		fileCoordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
 			do {
 				dbPool = try DatabasePool(path: databaseURL.path)
 			} catch {

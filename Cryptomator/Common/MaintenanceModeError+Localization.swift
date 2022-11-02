@@ -7,7 +7,6 @@
 //
 
 import CryptomatorCommonCore
-import CryptomatorFileProvider
 import Foundation
 
 extension MaintenanceModeError: LocalizedError {

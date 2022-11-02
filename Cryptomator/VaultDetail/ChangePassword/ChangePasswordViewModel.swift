@@ -10,12 +10,12 @@ import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
-import CryptomatorFileProvider
+import FileProvider
 import Foundation
 import Promises
 
 protocol ChangePasswordViewModelProtocol: TableViewModel<ChangePasswordSection>, ReturnButtonSupport {
-	func changePassword() -> Promise<Void>
+	func changePassword() async throws
 	func validatePasswords() throws
 }
 
@@ -78,8 +78,8 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 
 	private static let minimumPasswordLength = 8
 	private let vaultAccount: VaultAccount
+	private let domain: NSFileProviderDomain
 	private let vaultManager: VaultManager
-	private let maintenanceManager: MaintenanceManager
 	private let fileProviderConnector: FileProviderConnector
 
 	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
@@ -100,35 +100,27 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 
 	private lazy var subscribers = Set<AnyCancellable>()
 
-	init(vaultAccount: VaultAccount, maintenanceManager: MaintenanceManager, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(vaultAccount: VaultAccount, domain: NSFileProviderDomain, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
 		self.vaultAccount = vaultAccount
-		self.maintenanceManager = maintenanceManager
+		self.domain = domain
 		self.vaultManager = vaultManager
 		self.fileProviderConnector = fileProviderConnector
 		super.init()
 	}
 
-	func changePassword() -> Promise<Void> {
-		let validatedPasswords: ValidatedPasswords
-		do {
-			validatedPasswords = try getValidatedPasswords()
-			try maintenanceManager.enableMaintenanceMode()
-		} catch {
-			return Promise(error)
+	func changePassword() async throws {
+		let validatedPasswords = try getValidatedPasswords()
+		let xpc: XPC<MaintenanceModeHelper> = try await fileProviderConnector.getXPC(serviceName: .maintenanceModeHelper,
+		                                                                             domain: domain)
+		defer {
+			fileProviderConnector.invalidateXPC(xpc)
 		}
-		return lockVault().then {
-			return self.vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: self.vaultAccount.vaultUID)
-		}.recover { error -> Void in
-			if case MasterkeyFileError.invalidPassphrase = error {
-				throw ChangePasswordViewModelError.invalidOldPassword
-			} else {
-				throw error
-			}
-		}.always {
+		try await xpc.proxy.executeExclusiveOperation {
+			try await self.lockVault()
 			do {
-				try self.maintenanceManager.disableMaintenanceMode()
-			} catch {
-				DDLogError("ChangePasswordViewModel: Disabling Maintenance Mode failed with error: \(error)")
+				try await self.changePassphrase(validatedPasswords: validatedPasswords)
+			} catch MasterkeyFileError.invalidPassphrase {
+				throw ChangePasswordViewModelError.invalidOldPassword
 			}
 		}
 	}
@@ -167,14 +159,21 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		return ValidatedPasswords(oldPassword: oldPassword, newPassword: newPassword)
 	}
 
-	private func lockVault() -> Promise<Void> {
-		let domainIdentifier = NSFileProviderDomainIdentifier(vaultAccount.vaultUID)
-		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
-		return getXPCPromise.then { xpc -> Void in
-			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
-		}
+	private func lockVault() async throws {
+		let xpc: XPC<VaultLocking> = try await fileProviderConnector.getXPC(serviceName: .vaultLocking,
+		                                                                    domain: domain)
+		xpc.proxy.lockVault(domainIdentifier: domain.identifier)
+		fileProviderConnector.invalidateXPC(xpc)
+	}
+
+	private func changePassphrase(validatedPasswords: ValidatedPasswords) async throws {
+		try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) -> Void in
+			vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: self.vaultAccount.vaultUID).then {
+				continuation.resume()
+			}.catch {
+				continuation.resume(throwing: $0)
+			}
+		})
 	}
 }
 

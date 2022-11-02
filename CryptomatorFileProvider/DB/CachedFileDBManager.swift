@@ -39,6 +39,12 @@ enum CachedFileManagerError: Error {
 }
 
 class CachedFileManagerHelper {
+	let fileCoordinator: NSFileCoordinator
+
+	init(fileCoordinator: NSFileCoordinator) {
+		self.fileCoordinator = fileCoordinator
+	}
+
 	/**
 	 Removes the file or directory at the specified URL.
 
@@ -47,7 +53,7 @@ class CachedFileManagerHelper {
 	func removeItem(at url: URL) throws {
 		var fileManagerError: NSError?
 		var fileCoordinatorError: NSError?
-		NSFileCoordinator().coordinate(writingItemAt: url, options: .forDeleting, error: &fileCoordinatorError) { url in
+		fileCoordinator.coordinate(writingItemAt: url, options: .forDeleting, error: &fileCoordinatorError) { url in
 			do {
 				try FileManager.default.setAttributes([.immutable: false], ofItemAtPath: url.path)
 				try FileManager.default.removeItem(at: url)
@@ -65,7 +71,7 @@ class CachedFileDBManager: CachedFileManager {
 	private let database: DatabaseWriter
 	private let fileManagerHelper: CachedFileManagerHelper
 
-	init(database: DatabaseWriter, fileManagerHelper: CachedFileManagerHelper = CachedFileManagerHelper()) {
+	init(database: DatabaseWriter, fileManagerHelper: CachedFileManagerHelper) {
 		self.database = database
 		self.fileManagerHelper = fileManagerHelper
 	}

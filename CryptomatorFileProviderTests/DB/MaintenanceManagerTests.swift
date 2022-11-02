@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
@@ -31,6 +32,14 @@ class MaintenanceManagerTests: XCTestCase {
 		deletionTaskManager = try DeletionTaskDBManager(database: inMemoryDB)
 		itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: inMemoryDB)
 		downloadTaskManager = try DownloadTaskDBManager(database: inMemoryDB)
+	}
+
+	func testPreventEnablingMaintenanceModeTwice() throws {
+		try manager.enableMaintenanceMode()
+
+		XCTAssertThrowsError(try manager.enableMaintenanceMode()) { error in
+			XCTAssertEqual(.runningCloudTask, error as? MaintenanceModeError)
+		}
 	}
 
 	// MARK: - Prevent the creation of New tasks when in maintenance mode
