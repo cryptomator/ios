@@ -166,7 +166,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		fileProviderConnector.invalidateXPC(xpc)
 	}
 
-	private func changePassPhrase(validatedPasswords: ValidatedPasswords) async throws {
+	private func changePassphrase(validatedPasswords: ValidatedPasswords) async throws {
 		try await withCheckedThrowingContinuation({ (continuation: CheckedContinuation<Void, Error>) -> Void in
 			vaultManager.changePassphrase(oldPassphrase: validatedPasswords.oldPassword, newPassphrase: validatedPasswords.newPassword, forVaultUID: self.vaultAccount.vaultUID).then {
 				continuation.resume()
