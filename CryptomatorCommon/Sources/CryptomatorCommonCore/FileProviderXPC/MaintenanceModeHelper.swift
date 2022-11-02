@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- Helper which allows to perform exclusive operations by putting the
+ Helper which allows to perform exclusive operations by executing the operation only after the maintenance mode has been enabled and disables it again after finishing the operation.
  */
 @objc public protocol MaintenanceModeHelper {
 	func enableMaintenanceMode(reply: @escaping (NSError?) -> Void)
