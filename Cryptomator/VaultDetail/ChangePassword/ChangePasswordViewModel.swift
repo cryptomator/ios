@@ -118,7 +118,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		try await xpc.proxy.executeExclusiveOperation {
 			try await self.lockVault()
 			do {
-				try await self.changePassPhrase(validatedPasswords: validatedPasswords)
+				try await self.changePassphrase(validatedPasswords: validatedPasswords)
 			} catch MasterkeyFileError.invalidPassphrase {
 				throw ChangePasswordViewModelError.invalidOldPassword
 			}
