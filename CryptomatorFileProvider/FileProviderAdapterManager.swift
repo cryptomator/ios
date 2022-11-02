@@ -138,7 +138,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	private func createAdapterCacheItem(domainIdentifier: NSFileProviderDomainIdentifier, cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
 		let fileCoordinator = NSFileCoordinator()
 		fileCoordinator.purposeIdentifier = providerIdentifier
-		let database = try DatabaseHelper.default.getMigratedDB(at: dbPath, fileCoordinator: fileCoordinator)
+		let database = try DatabaseHelper.default.getMigratedDB(at: dbPath, purposeIdentifier: providerIdentifier)
 		let itemMetadataManager = ItemMetadataDBManager(database: database)
 		let cachedFileManager = CachedFileDBManager(database: database,
 		                                            fileManagerHelper: .init(fileCoordinator: fileCoordinator))

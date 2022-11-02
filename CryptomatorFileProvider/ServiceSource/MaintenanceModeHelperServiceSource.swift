@@ -66,8 +66,6 @@ public class MaintenanceModeHelperServiceSource: ServiceSource, MaintenanceModeH
 
 	private func getDatabaseWriter() throws -> DatabaseWriter {
 		let databaseURL = databaseHelper.getDatabaseURL(for: domain)
-		let fileCoordinator = NSFileCoordinator()
-		fileCoordinator.purposeIdentifier = providerIdentifier
-		return try databaseHelper.getMigratedDB(at: databaseURL, fileCoordinator: fileCoordinator)
+		return try databaseHelper.getMigratedDB(at: databaseURL, purposeIdentifier: providerIdentifier)
 	}
 }

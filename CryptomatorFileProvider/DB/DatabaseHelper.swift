@@ -12,7 +12,7 @@ import Foundation
 import GRDB
 public protocol DatabaseHelping {
 	func getDatabaseURL(for domain: NSFileProviderDomain) -> URL
-	func getMigratedDB(at databaseURL: URL, fileCoordinator: NSFileCoordinator) throws -> DatabaseWriter
+	func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter
 }
 
 public struct DatabaseHelper: DatabaseHelping {
@@ -24,7 +24,9 @@ public struct DatabaseHelper: DatabaseHelping {
 		return domainRootURL.appendingPathComponent("db.sqlite")
 	}
 
-	public func getMigratedDB(at databaseURL: URL, fileCoordinator: NSFileCoordinator) throws -> DatabaseWriter {
+	public func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter {
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = purposeIdentifier
 		let dbPool = try Self.openSharedDatabase(at: databaseURL, fileCoordinator: fileCoordinator)
 		try Self.migrate(dbPool)
 		return dbPool

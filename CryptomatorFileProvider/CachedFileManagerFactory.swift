@@ -26,14 +26,16 @@ struct CachedFileDBManagerFactory: CachedFileManagerFactory {
 		let databaseURL = databaseURLProvider.getDatabaseURL(for: domain)
 
 		let manager = NSFileProviderManager(for: domain)
-		let fileCoordinator = NSFileCoordinator()
-		if let providerIdentifier = manager?.providerIdentifier {
-			fileCoordinator.purposeIdentifier = providerIdentifier
-		} else {
+		guard let providerIdentifier = manager?.providerIdentifier else {
 			DDLogError("Failed to get providerIdentifier for domain \(domain.identifier.rawValue)")
+			throw MissingProviderIdentifierError()
 		}
-		let database = try DatabaseHelper.default.getMigratedDB(at: databaseURL, fileCoordinator: fileCoordinator)
+		let database = try DatabaseHelper.default.getMigratedDB(at: databaseURL, purposeIdentifier: providerIdentifier)
+		let fileCoordinator = NSFileCoordinator()
+		fileCoordinator.purposeIdentifier = providerIdentifier
 		return CachedFileDBManager(database: database,
 		                           fileManagerHelper: .init(fileCoordinator: fileCoordinator))
 	}
 }
+
+struct MissingProviderIdentifierError: Error {}
