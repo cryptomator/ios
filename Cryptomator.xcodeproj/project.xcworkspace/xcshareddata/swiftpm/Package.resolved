@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/openid/AppAuth-iOS.git",
         "state": {
           "branch": null,
-          "revision": "33660c271c961f8ce1084cc13f2ea8195e864f7d",
-          "version": "1.5.0"
+          "revision": "3d36a58a2b736f7bc499453e996a704929b25080",
+          "version": "1.6.0"
         }
       },
       {
@@ -21,11 +21,11 @@
       },
       {
         "package": "AWSiOSSDKV2",
-        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm",
+        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
         "state": {
           "branch": null,
-          "revision": "33ecff5497a9f3e582aeab51265617c64427f902",
-          "version": "2.27.12"
+          "revision": "eae68dde708c17a3ed249f1926e96d5bda20d2d2",
+          "version": "2.28.5"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "d39cc8bd3763755158bc8fda25fadca3fb308130",
-          "version": "1.5.0"
+          "revision": "5c9e38ec05c6d8ed84547a1369a8a0358b3be9c7",
+          "version": "1.6.0"
         }
       },
       {
@@ -51,8 +51,8 @@
         "repositoryURL": "https://github.com/CocoaLumberjack/CocoaLumberjack.git",
         "state": {
           "branch": null,
-          "revision": "80ada1f753b0d53d9b57c465936a7c4169375002",
-          "version": "3.7.4"
+          "revision": "0188d31089b5881a269e01777be74c7316924346",
+          "version": "3.8.0"
         }
       },
       {
@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/phil1995/dropbox-sdk-obj-c-spm.git",
         "state": {
           "branch": null,
-          "revision": "d4796b87b9dfff4a5164544ef1b865bc8a561638",
-          "version": "6.3.2"
+          "revision": "f0eafe25d26c52377c4a1c08f1dbd77320164994",
+          "version": "7.0.0"
         }
       },
       {
@@ -78,8 +78,8 @@
         "repositoryURL": "https://github.com/google/google-api-objectivec-client-for-rest.git",
         "state": {
           "branch": null,
-          "revision": "3228334d0584cb9174796fecbe628a723be70452",
-          "version": "1.7.0"
+          "revision": "260501c0425e95e038c65436436161266bf548e9",
+          "version": "3.0.0"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/groue/GRDB.swift.git",
         "state": {
           "branch": null,
-          "revision": "e02f2c8abacff2799ed14926edcbf6e76fb9f805",
-          "version": "5.25.0"
+          "revision": "dd7e7f39e8e4d7a22d258d9809a882f914690b01",
+          "version": "5.26.1"
         }
       },
       {
@@ -96,8 +96,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "4e9bbf2808b8fee444e84a48f5f3c12641987d3e",
-          "version": "1.7.2"
+          "revision": "efda500b6d9858d38a76dbfbfa396bd644692e4a",
+          "version": "3.0.0"
         }
       },
       {
@@ -105,8 +105,8 @@
         "repositoryURL": "https://github.com/google/GTMAppAuth.git",
         "state": {
           "branch": null,
-          "revision": "e803d09da0147fbf1bbb30e126c47ff43254e057",
-          "version": "1.2.3"
+          "revision": "cee3c709307912d040bd1e06ca919875a92339c6",
+          "version": "2.0.0"
         }
       },
       {
@@ -123,8 +123,8 @@
         "repositoryURL": "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
         "state": {
           "branch": null,
-          "revision": "08d3ed7ab2f3d140782757f8dbb7b7631430751f",
-          "version": "1.2.2"
+          "revision": "31a806298d6aa71b40504e7ebda6d6a8923f0ebf",
+          "version": "1.2.5"
         }
       },
       {
@@ -168,8 +168,8 @@
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
           "branch": null,
-          "revision": "5d66f7ba25daf4f94100e7022febf3c75e37a6c7",
-          "version": "1.4.2"
+          "revision": "6fe203dc33195667ce1759bf0182975e4653ba1c",
+          "version": "1.4.4"
         }
       },
       {
