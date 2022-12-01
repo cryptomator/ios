@@ -57,7 +57,7 @@ class WebDAVAuthenticationViewController: UIHostingController<WebDAVAuthenticati
 			hud?.transformToSelfDismissingSuccess().then {
 				self.coordinator?.authenticated(with: credential)
 			}
-		case .initial, .insecureConnectionNotAllowed, .untrustedCertificate(certificate: _, url: _):
+		case .initial, .insecureConnectionNotAllowed, .untrustedCertificate:
 			break
 		}
 	}

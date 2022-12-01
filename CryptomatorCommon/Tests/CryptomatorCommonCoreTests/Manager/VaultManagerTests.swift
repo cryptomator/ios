@@ -159,7 +159,6 @@ class VaultManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testCreateFromExisting() throws {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
