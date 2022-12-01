@@ -1,0 +1,33 @@
+"common.failureReason" = "Årsag til fejl";
+"common.false" = "falsk";
+"common.folder" = "Mappe";
+"common.true" = "sand";
+"common.vault" = "Boks";
+
+"getFolderIntent.description" = "Returnerer et mappe-objekt for den givne sti i boksen.";
+"getFolderIntent.path" = "Sti";
+"getFolderIntent.text" = "Hent mappe, placeret på ${path} i ${vault}";
+"getFolderIntent.title" = "Hent mappe";
+
+"isUnlockedIntent.description" = "Returnerer hvorvidt den givne boks er låst op.";
+"isUnlockedIntent.title" = "Er låst op";
+
+"isVaultLockedIntent.title" = "Er boksen låst op";
+"isVaultUnlockedIntent.text" = "Er ${vault} låst op?";
+
+"lockVaultIntent.description" = "Låser den givne boks.";
+"lockVaultIntent.text" = "Lås ${vault}";
+"lockVaultIntent.title" = "Lås boks";
+
+"openVaultIntent.description" = "Åbner den givne boks i Filer appen.";
+"openVaultIntent.text" = "Åbner ${vault} i Filer appen";
+"openVaultIntent.title" = "Åben boks";
+
+"saveFileIntent.description" = "Gemmer en fil til en boks.";
+"saveFileIntent.file" = "Fil";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorér eksisterende filer med samme navn";
+"saveFileIntent.text" = "Gem ${file} i ${folder}";
+"saveFileIntent.title" = "Gem fil";
+
+"vaultFolder.displayName" = "Boks mappe";
+"vaultFolder.vaultIdentifier" = "Boks navn";

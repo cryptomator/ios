@@ -28,12 +28,20 @@
 "settings.clearCache" = "Xóa bộ nhớ Cache";
 
 "s3Authentication.displayName" = "Tên hiển thị";
+"s3Authentication.region" = "Khu vực";
 
 "unlockVault.button.unlock" = "Mở khoá";
 
 "vaultDetail.button.changeVaultPassword" = "Đổi mật khẩu";
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.renameVault" = "Đổi tên";
+"vaultDetail.locked.footer" = "Vault của bạn hiện đang bị khóa.";
+"vaultDetail.moveVault.progress" = "Đang di chuyển…";
+"vaultList.emptyList.message" = "Bấm vào đây để thêm vault";
+"vaultList.remove.alert.title" = "Xóa Vault?";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Dùng HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Việc sử dụng HTTP không an toàn. Chúng tôi khuyên bạn nên sử dụng HTTPS để thay thế. Nếu bạn biết rủi ro, bạn có thể tiếp tục với HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Chuyển sang HTTPS";
+
+"Retry Upload" = "Thử tải lên lại";

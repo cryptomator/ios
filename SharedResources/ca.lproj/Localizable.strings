@@ -99,6 +99,7 @@
 "fileProvider.error.defaultLock.title" = "Desbloqueig requerit";
 "fileProvider.error.defaultLock.message" = "Per accedir i mostrar el contingut de la vostra volta, abans l'heu de desbloquejar.";
 "fileProvider.error.unlockButton" = "Desbloqueja";
+"fileProvider.clearFileFromCache.title" = "Elimina el fitxer de la memòria cau";
 "fileProvider.clearFileFromCache.message" = "Això només elimina el fitxer local del vostre dispositiu i no el fitxer al núvol.";
 "fileProvider.fileImporting.error.missingPremium" = "Desbloquegeu la versió completa a l'aplicació Cryptomator per obtenir accés d'escriptura a les vostres caixes fortes.";
 "fileProvider.uploadProgress.connecting" = "S'està connectant…";
@@ -150,6 +151,8 @@
 "purchase.header.feature.familySharing" = "Compartir en família";
 "purchase.header.feature.openSource" = "Desenvolupament de codi obert";
 "purchase.header.feature.writeAccess" = "Accés d'escritura a caixes fortes";
+"purchase.product.donateAndUpgrade" = "Doneu & actualitzeu";
+"purchase.product.freeUpgrade" = "Actualització gratuïta";
 "purchase.product.lifetimeLicense" = "Llicència de per vida";
 "purchase.product.lifetimeLicense.duration" = "Una única vegada";
 "purchase.product.pricing.free" = "Gratuït";
@@ -189,6 +192,9 @@
 "settings.sendLogFile" = "Envia el fitxer de registre";
 "settings.shortcutsGuide" = "Guia de dreceres";
 "settings.unlockFullVersion" = "Desbloca la versió completa";
+"snapshots.main.vault2" = "/Família";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Viatge a Califòrnia";
 
 "s3Authentication.displayName" = "Nom que es mostrarà";
 "s3Authentication.accessKey" = "Clau d'accés";
@@ -196,6 +202,7 @@
 "s3Authentication.existingBucket" = "Cubell existent";
 "s3Authentication.endpoint" = "Extrem";
 "s3Authentication.region" = "Regió";
+"s3Authentication.error.invalidCredentials" = "Les credencials no són vàlides.";
 "s3Authentication.error.invalidEndpoint" = "El \"endpoint\" proporcionat no coincideix amb el format d'un URL.";
 
 "trialStatus.active" = "Actiu";
@@ -232,8 +239,19 @@
 "vaultDetail.button.moveVault" = "Mou";
 "vaultDetail.button.removeVault" = "Elimina de la llista de caixes fortes";
 "vaultDetail.button.renameVault" = "Canvia el nom";
+"vaultDetail.changePassword.footer" = "Trieu una contrasenya forta per a la caixa forta que no conegui ningú més i deseu-la en un lloc segur.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Si activeu %@, la contrasenya de la caixa forta serà desada al clauer de iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Només es demanarà la contrasenya de la caixa forta is l'autenticació %@ falla.";
+"vaultDetail.info.footer.accessVault" = "Accedeix a la caixa via l'app Files.";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Durada del desblocatge";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No caldrà desblocar fins que sigui blocada manualment.";
 "vaultDetail.locked.footer" = "La vostra caixa està blocada actualment.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator ha detectat una caixa forta en aquesta localització.\nPer tal de moure la caixa forta, si us plau, aneu enrere i trieu una altra carpeta.";
+"vaultDetail.moveVault.progress" = "S'està movent…";
+"vaultDetail.removeVault.footer" = "Això només eliminarà la caixa forta de la llista de caixes fortes però no esborrarà cap fitxer encriptat.";
+"vaultDetail.renameVault.progress" = "S'està canviant el nom…";
+"vaultDetail.unlocked.footer" = "La vostra caixa forta ara està desblocada en l'app Files.";
 
 "vaultList.header.title" = "Caixes fortes";
 "vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";
@@ -244,3 +262,6 @@
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manté HTTP";
+
+"Retry Upload" = "Torna a provar de pujar";
+"Clear from Cache" = "Eliminar de la memòria cau";
