@@ -941,6 +941,8 @@
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		741CD1C82939080D00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		741CD1CF2939083C00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
 		742679FA26A56B33004C61BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		742679FE26A578E2004C61BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A0326A5793E004C61BC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2273,6 +2275,7 @@
 				bn,
 				ca,
 				cs,
+				da,
 				el,
 				es,
 				fr,
@@ -3016,30 +3019,31 @@
 				74275ACD28478DFC0058AD25 /* ar */,
 				74275ACE28478DFD0058AD25 /* bn */,
 				74275ACF28478DFE0058AD25 /* ca */,
-				74275AD028478DFF0058AD25 /* zh-HK */,
-				74275AD128478DFF0058AD25 /* zh-Hans */,
-				74275AD228478E000058AD25 /* zh-Hant */,
-				74275AD328478E010058AD25 /* hr */,
 				74275AD428478E020058AD25 /* cs */,
-				74275AD528478E030058AD25 /* nl */,
-				74275AD628478E040058AD25 /* fr */,
+				741CD1CF2939083C00577FDE /* da */,
 				74275AD728478E050058AD25 /* el */,
+				74275AE428478E130058AD25 /* es */,
+				74275AD628478E040058AD25 /* fr */,
 				74275AD828478E060058AD25 /* hi */,
+				74275AD328478E010058AD25 /* hr */,
 				74275AD928478E070058AD25 /* id */,
 				74275ADA28478E080058AD25 /* it */,
 				74275ADB28478E090058AD25 /* ja */,
 				74275ADC28478E0A0058AD25 /* ko */,
 				74275ADD28478E0B0058AD25 /* nb */,
+				74275AD528478E030058AD25 /* nl */,
 				74275ADE28478E0C0058AD25 /* pl */,
 				74275ADF28478E0D0058AD25 /* pt */,
 				74275AE028478E0E0058AD25 /* pt-BR */,
 				74275AE128478E0F0058AD25 /* ro */,
 				74275AE228478E100058AD25 /* ru */,
 				74275AE328478E120058AD25 /* sk */,
-				74275AE428478E130058AD25 /* es */,
-				74275AE528478E140058AD25 /* sw-TZ */,
 				74275AE628478E140058AD25 /* sv */,
+				74275AE528478E140058AD25 /* sw-TZ */,
 				74275AE728478E160058AD25 /* tr */,
+				74275AD128478DFF0058AD25 /* zh-Hans */,
+				74275AD228478E000058AD25 /* zh-Hant */,
+				74275AD028478DFF0058AD25 /* zh-HK */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -3061,6 +3065,7 @@
 				74E93B742810109E0047A116 /* bn */,
 				74AE94F027A0283500D71AEC /* ca */,
 				74BDA62B26CE8AE1007FBD72 /* cs */,
+				741CD1C82939080D00577FDE /* da */,
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
 				74267A0526A57947004C61BC /* fr */,
