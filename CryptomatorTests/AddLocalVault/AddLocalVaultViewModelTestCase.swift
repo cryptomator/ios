@@ -80,9 +80,3 @@ extension LocalFileSystemCredential: Equatable {
 		lhs.identifier == rhs.identifier && lhs.rootURL == rhs.rootURL
 	}
 }
-
-extension CloudProviderAccount: Equatable {
-	public static func == (lhs: CloudProviderAccount, rhs: CloudProviderAccount) -> Bool {
-		lhs.accountUID == rhs.accountUID && lhs.cloudProviderType == rhs.cloudProviderType
-	}
-}
