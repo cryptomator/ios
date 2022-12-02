@@ -158,7 +158,7 @@ extension MainCoordinator: UISplitViewControllerDelegate {
 private class CryptoBotViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = UIColor(named: "background")
+		view.backgroundColor = .cryptomatorBackground
 		let imageView = UIImageView(image: UIImage(named: "bot"))
 		imageView.contentMode = .scaleAspectFit
 		imageView.translatesAutoresizingMaskIntoConstraints = false

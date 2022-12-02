@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -29,10 +29,7 @@
 		4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */ = {isa = PBXBuildFile; productRef = 4A1521E327C55EA2006C96B2 /* TPInAppReceipt */; };
 		4A1673E1270C43AF0075C724 /* LoadingWithLabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */; };
 		4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */; };
-		4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */; };
-		4A1673E8270C675B0075C724 /* FileProviderCacheManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E7270C675B0075C724 /* FileProviderCacheManagerTests.swift */; };
 		4A1673EA270C77CC0075C724 /* DocumentStorageURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */; };
-		4A1673ED270DE4600075C724 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */; };
 		4A1A7AC528326554008EEC84 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		4A1A7AC628327419008EEC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
@@ -87,7 +84,6 @@
 		4A33092B282EBF9900876A3E /* SaveFileIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */; };
 		4A33092D282EC23400876A3E /* CryptomatorCommonCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4A33092C282EC23400876A3E /* CryptomatorCommonCore */; };
 		4A330931282EC7CE00876A3E /* FileImportingServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */; };
-		4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */; };
 		4A3C5DD8272BF39000EB7C7A /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD7272BF39000EB7C7A /* ChangePasswordViewController.swift */; };
 		4A3C5DDA272BF52600EB7C7A /* TextFieldCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */; };
 		4A3C5DDC272C080000EB7C7A /* VaultPasswordChanging.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3C5DDB272C080000EB7C7A /* VaultPasswordChanging.swift */; };
@@ -148,7 +144,11 @@
 		4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */; };
 		4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */; };
 		4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5580542755226100E525B8 /* StoreObserverTests.swift */; };
+		4A5672CF28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */; };
+		4A5672D128BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */; };
 		4A5811602779E1E000E89A62 /* SnapshotBiometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */; };
+		4A587FA828B55CD600C69A1E /* WebDAVCredentialCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */; };
+		4A587FCA28BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */; };
 		4A5AC43B2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */; };
 		4A5AC43D275A306F00342AA7 /* TrialExpiredNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */; };
 		4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */; };
@@ -188,6 +188,7 @@
 		4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */; };
 		4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */; };
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
+		4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */; };
 		4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */; };
@@ -292,7 +293,9 @@
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4AD3D7D6282EBDE7008188CD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3D7D5282EBDE7008188CD /* Intents.framework */; };
 		4AD3D7D9282EBDE7008188CD /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */; };
-		4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AD3D7D4282EBDE7008188CD /* CryptomatorIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4AD3D7D4282EBDE7008188CD /* CryptomatorIntents.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */; };
+		4AD9481C2909BD9C00072110 /* XCTest+Async.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD9481B2909BD9C00072110 /* XCTest+Async.swift */; };
 		4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */; };
 		4ADC66BF27A44558002E6CC7 /* XCTestCase+Promises.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */; };
 		4ADC66C127A7F426002E6CC7 /* UnlockMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */; };
@@ -326,8 +329,8 @@
 		4AED9A77286B4BEE00352951 /* S3AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */; };
 		4AED9A79286B4DF500352951 /* S3Authenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A78286B4DF500352951 /* S3Authenticating.swift */; };
 		4AEE22F82861D6DC00A9C785 /* OpenVaultIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */; };
-		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621D6249A6A8400A0BCBD /* FileProviderExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		4AEE6EE12822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE6EE02822A33400E1B35E /* NSFileProviderItemIdentifier+Database.swift */; };
 		4AEE6EEA2825716400E1B35E /* ProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE6EE92825716400E1B35E /* ProgressManager.swift */; };
 		4AEECD2F279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEECD2E279EA27300C6E2B5 /* FileProviderAdapterSetTagDataTests.swift */; };
@@ -433,13 +436,6 @@
 			remoteGlobalIDString = 4AE97DA724572E4900452814;
 			remoteInfo = Cryptomator;
 		};
-		4A1673EE270DE4600075C724 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 740375D62587AE7A0023FF53;
-			remoteInfo = CryptomatorFileProvider;
-		};
 		4A51E601261C9A7000CC8C9B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 4A5E5B212453119100BD6298 /* Project object */;
@@ -509,17 +505,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4AEE469525263B2E0045DA9F /* Embed App Extensions */ = {
+		4AEE469525263B2E0045DA9F /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed App Extensions */,
-				4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed App Extensions */,
-				4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed App Extensions */,
+				4AD3D7DD282EBDE7008188CD /* CryptomatorIntents.appex in Embed Foundation Extensions */,
+				4AEE468F25263B2E0045DA9F /* FileProviderExtension.appex in Embed Foundation Extensions */,
+				4AEE469225263B2E0045DA9F /* FileProviderExtensionUI.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		740375D52587AE7A0023FF53 /* CopyFiles */ = {
@@ -557,8 +553,6 @@
 		4A136131276770BB0077EB7F /* SnapshotVaultListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotVaultListViewModel.swift; sourceTree = "<group>"; };
 		4A1673E0270C43AF0075C724 /* LoadingWithLabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWithLabelCell.swift; sourceTree = "<group>"; };
 		4A1673E2270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingWithLabelCellViewModel.swift; sourceTree = "<group>"; };
-		4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCacheManager.swift; sourceTree = "<group>"; };
-		4A1673E7270C675B0075C724 /* FileProviderCacheManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCacheManagerTests.swift; sourceTree = "<group>"; };
 		4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentStorageURLProvider.swift; sourceTree = "<group>"; };
 		4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModelTests.swift; sourceTree = "<group>"; };
 		4A1C6D57274CE5BF00B41FFF /* LoadingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
@@ -613,7 +607,6 @@
 		4A2FD08A25B5E437008565C8 /* OpenExistingVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingVaultCoordinator.swift; sourceTree = "<group>"; };
 		4A33092A282EBF9900876A3E /* SaveFileIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveFileIntentHandler.swift; sourceTree = "<group>"; };
 		4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileImportingServiceSource.swift; sourceTree = "<group>"; };
-		4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceManagerMock.swift; sourceTree = "<group>"; };
 		4A3C5DD7272BF39000EB7C7A /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		4A3C5DD9272BF52600EB7C7A /* TextFieldCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCellViewModel.swift; sourceTree = "<group>"; };
 		4A3C5DDB272C080000EB7C7A /* VaultPasswordChanging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultPasswordChanging.swift; sourceTree = "<group>"; };
@@ -676,9 +669,13 @@
 		4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewVaultChooseFolderViewModel.swift; sourceTree = "<group>"; };
 		4A5580542755226100E525B8 /* StoreObserverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserverTests.swift; sourceTree = "<group>"; };
+		4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCertificateValidationHelper.swift; sourceTree = "<group>"; };
+		4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TLSCertificateValidationHelperMock.swift; sourceTree = "<group>"; };
 		4A58115D2779E1B700E89A62 /* Snapshots-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snapshots-Bridging-Header.h"; sourceTree = "<group>"; };
 		4A58115E2779E1B700E89A62 /* SnapshotBiometrics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnapshotBiometrics.h; sourceTree = "<group>"; };
 		4A58115F2779E1E000E89A62 /* SnapshotBiometrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnapshotBiometrics.m; sourceTree = "<group>"; };
+		4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVCredentialCoordinator.swift; sourceTree = "<group>"; };
+		4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthenticationViewModelTests.swift; sourceTree = "<group>"; };
 		4A5AC43A2759399300342AA7 /* FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterStartProvidingItemRestrictedVersionTests.swift; sourceTree = "<group>"; };
 		4A5AC43C275A306F00342AA7 /* TrialExpiredNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredNavigationController.swift; sourceTree = "<group>"; };
 		4A5AC43E275A32B300342AA7 /* TrialExpiredCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrialExpiredCoordinator.swift; sourceTree = "<group>"; };
@@ -716,6 +713,7 @@
 		4A707801278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModel.swift; sourceTree = "<group>"; };
 		4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultKeepUnlockedViewModelTests.swift; sourceTree = "<group>"; };
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
+		4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthentication.swift; sourceTree = "<group>"; };
 		4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAction.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptomatorIntents.entitlements; sourceTree = "<group>"; };
@@ -827,6 +825,8 @@
 		4AD3D7D5282EBDE7008188CD /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		4AD3D7D8282EBDE7008188CD /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
 		4AD3D7DA282EBDE7008188CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaintenanceModeHelperServiceSource.swift; sourceTree = "<group>"; };
+		4AD9481B2909BD9C00072110 /* XCTest+Async.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTest+Async.swift"; sourceTree = "<group>"; };
 		4ADBD35727284BAB00B19B5C /* MoveVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveVaultViewController.swift; sourceTree = "<group>"; };
 		4ADC66BE27A44557002E6CC7 /* XCTestCase+Promises.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Promises.swift"; sourceTree = "<group>"; };
 		4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockMonitor.swift; sourceTree = "<group>"; };
@@ -941,6 +941,8 @@
 		740D367D266A18DF0058744D /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		740D3681266A19150058744D /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
+		741CD1C82939080D00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
+		741CD1CF2939083C00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
 		742679FA26A56B33004C61BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		742679FE26A578E2004C61BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A0326A5793E004C61BC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1071,7 +1073,6 @@
 			files = (
 				4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */,
 				4AED9A6F286B38DA00352951 /* Introspect in Frameworks */,
-				4A1673ED270DE4600075C724 /* libCryptomatorFileProvider.a in Frameworks */,
 				4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1182,7 +1183,6 @@
 				4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */,
 				4A85ECBD283CBF4700E23024 /* FileImportingServiceSourceTests.swift */,
 				4AB6A88F278E1E5D0016B01E /* FileProviderAdapterManagerTests.swift */,
-				4A1673E7270C675B0075C724 /* FileProviderCacheManagerTests.swift */,
 				4AEECD38279EB1EB00C6E2B5 /* FileProviderEnumeratorTests.swift */,
 				4A797F8E24AC6731007DDBE1 /* FileProviderItemTests.swift */,
 				4A9C8DFC27A007C2000063E4 /* FileProviderNotificatorTests.swift */,
@@ -1565,10 +1565,13 @@
 			isa = PBXGroup;
 			children = (
 				4A9D123E261E1DD400A670E2 /* WebDAVAuthenticating.swift */,
+				4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */,
 				4A9D1246261E227600A670E2 /* WebDAVAuthenticationCoordinator.swift */,
 				4AA22BFA261CA69F00A17486 /* WebDAVAuthenticationViewController.swift */,
 				4A9D1236261DAC5D00A670E2 /* WebDAVAuthenticationViewModel.swift */,
 				4A9D124E261F071F00A670E2 /* WebDAVAuthenticator+VC.swift */,
+				4A587FA728B55CD600C69A1E /* WebDAVCredentialCoordinator.swift */,
+				4A5672CE28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift */,
 			);
 			path = WebDAV;
 			sourceTree = "<group>";
@@ -1605,6 +1608,7 @@
 				4AA782D6282A7779001A71E3 /* CacheManagingServiceSource.swift */,
 				4A330930282EC7CE00876A3E /* FileImportingServiceSource.swift */,
 				4AEFF7F127145ADD00D6CB99 /* LogLevelUpdatingServiceSource.swift */,
+				4AD948192909A66900072110 /* MaintenanceModeHelperServiceSource.swift */,
 				4AA2531A28216E45003B45EE /* ServiceSource.swift */,
 				4AA2531828216BFD003B45EE /* UploadRetryingServiceSource.swift */,
 				4A24001926AE9F3A009DBC2E /* VaultLockingServiceSource.swift */,
@@ -1742,9 +1746,9 @@
 			children = (
 				4A1C6D632750EED900B41FFF /* IAPManagerMock.swift */,
 				4A1DB290275FA4AE00A5F27B /* IAPStoreMock.swift */,
-				4A3C5DD3272AF98700EB7C7A /* MaintenanceManagerMock.swift */,
 				4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */,
 				4A77390A286D8B300006B3C3 /* S3CredentialVerifierMock.swift */,
+				4A5672D028BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -1804,6 +1808,8 @@
 				4A644B48267B40C3008CBB9A /* SetVaultNameViewModelTests.swift */,
 				4A707803278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift */,
 				4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */,
+				4A587FC928BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift */,
+				4AD9481B2909BD9C00072110 /* XCTest+Async.swift */,
 				4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */,
 				4AF22C2727D8EFF100779802 /* XCTestCase+Promises.swift */,
 				4A6A5209268B2B7B006F7368 /* AddLocalVault */,
@@ -1875,7 +1881,6 @@
 				4A8F149D266A2A8200ADBCE4 /* FileProviderAdapter.swift */,
 				740375F12587AEB40023FF53 /* FileProviderAdapterError.swift */,
 				4A2482322670D6FB002D9F59 /* FileProviderAdapterManager.swift */,
-				4A1673E4270C5E6C0075C724 /* FileProviderCacheManager.swift */,
 				4AEECD34279EB0FD00C6E2B5 /* FileProviderEnumerator.swift */,
 				740375F32587AEB50023FF53 /* FileProviderItem.swift */,
 				740375FC2587AEB50023FF53 /* FileProviderItemList.swift */,
@@ -2154,7 +2159,7 @@
 				4AE97DA524572E4900452814 /* Frameworks */,
 				4AE97DA624572E4900452814 /* Resources */,
 				4A965F342523978B002D7CBC /* Embed Frameworks */,
-				4AEE469525263B2E0045DA9F /* Embed App Extensions */,
+				4AEE469525263B2E0045DA9F /* Embed Foundation Extensions */,
 				4A41D25026428D2900B5D787 /* Add URL Schemes */,
 				742595D72552EE0000A8A008 /* Set Build Number */,
 			);
@@ -2163,7 +2168,6 @@
 			dependencies = (
 				4AEE469125263B2E0045DA9F /* PBXTargetDependency */,
 				4AEE469425263B2E0045DA9F /* PBXTargetDependency */,
-				4A1673EF270DE4600075C724 /* PBXTargetDependency */,
 				4AD3D7DC282EBDE7008188CD /* PBXTargetDependency */,
 			);
 			name = Cryptomator;
@@ -2222,7 +2226,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1330;
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Skymatic GmbH";
 				TargetAttributes = {
 					4A136120276767D60077EB7F = {
@@ -2271,6 +2275,7 @@
 				bn,
 				ca,
 				cs,
+				da,
 				el,
 				es,
 				fr,
@@ -2393,6 +2398,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		4A33092F282EC72C00876A3E /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2412,6 +2418,7 @@
 		};
 		4A41D25026428D2900B5D787 /* Add URL Schemes */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2431,6 +2438,7 @@
 		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2450,6 +2458,7 @@
 		};
 		742595D82552EF5200A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2469,6 +2478,7 @@
 		};
 		742595D92552EFCB00A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -2542,7 +2552,6 @@
 				4A2060D3279AB38A00DA6C62 /* FileProviderNotificatorMock.swift in Sources */,
 				4A4F47F324B875070033328B /* URL+NameCollisionExtensionTests.swift in Sources */,
 				4AB6A894278F048D0016B01E /* FileProviderAdapterCacheTypeMock.swift in Sources */,
-				4A1673E8270C675B0075C724 /* FileProviderCacheManagerTests.swift in Sources */,
 				4A231B84271EFC6100987492 /* DownloadTaskManagerTests.swift in Sources */,
 				4ADC66C527A7F6D6002E6CC7 /* UnlockMonitorTests.swift in Sources */,
 				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
@@ -2639,6 +2648,7 @@
 				4A5AC43F275A32B300342AA7 /* TrialExpiredCoordinator.swift in Sources */,
 				4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */,
 				4A970FF4286C960E00337FDC /* S3CredentialVerifier.swift in Sources */,
+				4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
@@ -2651,6 +2661,7 @@
 				74C2BC4E26E8FCB200BCAA03 /* PurchaseViewController.swift in Sources */,
 				4AB8539E26BA8B4C00555F00 /* VaultDetailUnlockCoordinator.swift in Sources */,
 				4A4246F2275640C9005BE82D /* IAPViewController.swift in Sources */,
+				4A5672CF28BB83F5000D6BDA /* TLSCertificateValidationHelper.swift in Sources */,
 				4A53CC17267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift in Sources */,
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
@@ -2750,6 +2761,7 @@
 				74C2BC4C26E8E63700BCAA03 /* OnboardingCoordinator.swift in Sources */,
 				4A4B7E4C26B2FF41009BFDB1 /* TableViewCell.swift in Sources */,
 				4A61F6B72745353E007AA422 /* TableViewModel.swift in Sources */,
+				4A587FA828B55CD600C69A1E /* WebDAVCredentialCoordinator.swift in Sources */,
 				4A53CC11267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift in Sources */,
 				4A6CF80027428CCB0061380A /* VaultCellViewModel.swift in Sources */,
 				4AED9A73286B3D6D00352951 /* SwiftUI+Focus.swift in Sources */,
@@ -2832,21 +2844,23 @@
 				4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */,
 				4A3D6554267CF17B000DA764 /* CreateNewVaultPasswordViewModelTests.swift in Sources */,
 				4A1C6D642750EED900B41FFF /* IAPManagerMock.swift in Sources */,
-				4A3C5DD4272AF98700EB7C7A /* MaintenanceManagerMock.swift in Sources */,
 				4A5580552755226100E525B8 /* StoreObserverTests.swift in Sources */,
 				4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */,
 				4A91D8CC272ADC33003F8BD8 /* ChangePasswordViewModelTests.swift in Sources */,
 				4A77390B286D8B300006B3C3 /* S3CredentialVerifierMock.swift in Sources */,
 				4A644B49267B40C3008CBB9A /* SetVaultNameViewModelTests.swift in Sources */,
 				4AEFF7F627145F5A00D6CB99 /* FileProviderConnectorMock.swift in Sources */,
+				4A587FCA28BB777B00C69A1E /* WebDAVAuthenticationViewModelTests.swift in Sources */,
 				4AFCE56A25BAEE890069C4FC /* AccountListViewModelTests.swift in Sources */,
 				4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */,
 				4ABCF3522726D24800A7FBB7 /* MoveVaultViewModelTests.swift in Sources */,
 				4A644B59267CA3AD008CBB9A /* CreateNewFolderViewModelTests.swift in Sources */,
 				4A707804278DC37F00AEF4CE /* VaultKeepUnlockedViewModelTests.swift in Sources */,
 				4A6A5206268B2B24006F7368 /* MockError.swift in Sources */,
+				4AD9481C2909BD9C00072110 /* XCTest+Async.swift in Sources */,
 				4AF22C2827D8EFF100779802 /* XCTestCase+Promises.swift in Sources */,
 				4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */,
+				4A5672D128BB8523000D6BDA /* TLSCertificateValidationHelperMock.swift in Sources */,
 				4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */,
 				4A2C1E7B2760B09A000CD726 /* IAPViewModelTestCase.swift in Sources */,
 				4A6A5204268B2915006F7368 /* OpenExistingLocalVaultViewModelTests.swift in Sources */,
@@ -2910,6 +2924,7 @@
 				747F2F282587BC250072FB30 /* ReparentTaskDBManager.swift in Sources */,
 				4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */,
 				4A511D4E2660FF9E000A0E01 /* WorkflowScheduler.swift in Sources */,
+				4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */,
 				4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */,
 				4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,
@@ -2922,7 +2937,6 @@
 				4AE5196327F4702900BA6E4A /* WorkflowDependencyMiddleware.swift in Sources */,
 				4ADC66C127A7F426002E6CC7 /* UnlockMonitor.swift in Sources */,
 				4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */,
-				4A1673E6270C652A0075C724 /* FileProviderCacheManager.swift in Sources */,
 				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
 				4AE5196927F4A24D00BA6E4A /* WorkflowDependencyFactory.swift in Sources */,
 				4A3E2FEE271DCA160090BD44 /* MaintenanceDBManager.swift in Sources */,
@@ -2948,11 +2962,6 @@
 			isa = PBXTargetDependency;
 			target = 4AE97DA724572E4900452814 /* Cryptomator */;
 			targetProxy = 4A136127276767D60077EB7F /* PBXContainerItemProxy */;
-		};
-		4A1673EF270DE4600075C724 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 740375D62587AE7A0023FF53 /* CryptomatorFileProvider */;
-			targetProxy = 4A1673EE270DE4600075C724 /* PBXContainerItemProxy */;
 		};
 		4A51E602261C9A7000CC8C9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3010,30 +3019,31 @@
 				74275ACD28478DFC0058AD25 /* ar */,
 				74275ACE28478DFD0058AD25 /* bn */,
 				74275ACF28478DFE0058AD25 /* ca */,
-				74275AD028478DFF0058AD25 /* zh-HK */,
-				74275AD128478DFF0058AD25 /* zh-Hans */,
-				74275AD228478E000058AD25 /* zh-Hant */,
-				74275AD328478E010058AD25 /* hr */,
 				74275AD428478E020058AD25 /* cs */,
-				74275AD528478E030058AD25 /* nl */,
-				74275AD628478E040058AD25 /* fr */,
+				741CD1CF2939083C00577FDE /* da */,
 				74275AD728478E050058AD25 /* el */,
+				74275AE428478E130058AD25 /* es */,
+				74275AD628478E040058AD25 /* fr */,
 				74275AD828478E060058AD25 /* hi */,
+				74275AD328478E010058AD25 /* hr */,
 				74275AD928478E070058AD25 /* id */,
 				74275ADA28478E080058AD25 /* it */,
 				74275ADB28478E090058AD25 /* ja */,
 				74275ADC28478E0A0058AD25 /* ko */,
 				74275ADD28478E0B0058AD25 /* nb */,
+				74275AD528478E030058AD25 /* nl */,
 				74275ADE28478E0C0058AD25 /* pl */,
 				74275ADF28478E0D0058AD25 /* pt */,
 				74275AE028478E0E0058AD25 /* pt-BR */,
 				74275AE128478E0F0058AD25 /* ro */,
 				74275AE228478E100058AD25 /* ru */,
 				74275AE328478E120058AD25 /* sk */,
-				74275AE428478E130058AD25 /* es */,
-				74275AE528478E140058AD25 /* sw-TZ */,
 				74275AE628478E140058AD25 /* sv */,
+				74275AE528478E140058AD25 /* sw-TZ */,
 				74275AE728478E160058AD25 /* tr */,
+				74275AD128478DFF0058AD25 /* zh-Hans */,
+				74275AD228478E000058AD25 /* zh-Hant */,
+				74275AD028478DFF0058AD25 /* zh-HK */,
 			);
 			name = Intents.intentdefinition;
 			sourceTree = "<group>";
@@ -3055,6 +3065,7 @@
 				74E93B742810109E0047A116 /* bn */,
 				74AE94F027A0283500D71AEC /* ca */,
 				74BDA62B26CE8AE1007FBD72 /* cs */,
+				741CD1C82939080D00577FDE /* da */,
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
 				74267A0526A57947004C61BC /* fr */,
@@ -3243,7 +3254,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3305,7 +3316,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.4.1;
+				MARKETING_VERSION = 2.4.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";

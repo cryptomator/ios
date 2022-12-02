@@ -26,11 +26,13 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	private var observation: DatabaseCancellable?
 	private lazy var databaseChangedPublisher = CurrentValueSubject<Result<[TableViewCellViewModel], Error>, Never>(.success([]))
 	private var removedRow = false
+	private var cancellable: AnyCancellable?
 
 	init(with cloudProviderType: CloudProviderType, dbManager: DatabaseManager = DatabaseManager.shared, cloudAuthenticator: CloudAuthenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)) {
 		self.cloudProviderType = cloudProviderType
 		self.dbManager = dbManager
 		self.cloudAuthenticator = cloudAuthenticator
+		setupBinding()
 	}
 
 	private(set) var accounts = [AccountCellContent]()
@@ -79,7 +81,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			let credential = try PCloudCredential(userID: accountInfo.accountUID)
 			return createAccountCellContentPlaceholder(for: credential)
 		case .webDAV:
-			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountInfo.accountUID) else {
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			return createAccountCellContent(for: credential)
@@ -212,6 +214,25 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 		let updatedAccountListPositions = accountInfos.map { $0.accountListPosition }
 		try dbManager.updateAccountListPositions(updatedAccountListPositions)
+	}
+
+	private func setupBinding() {
+		if case CloudProviderType.webDAV = cloudProviderType {
+			cancellable = WebDAVCredentialManager.shared.didUpdate.sink { [weak self] in
+				self?.handleKeychainUpdate()
+			}
+		}
+	}
+
+	private func handleKeychainUpdate() {
+		guard !removedRow else { return }
+		do {
+			try refreshItems()
+			databaseChangedPublisher.send(.success(accounts))
+		} catch {
+			DDLogError("handleKeychainUpdate - refreshItems failed with error: \(error)")
+			databaseChangedPublisher.send(.failure(error))
+		}
 	}
 }
 

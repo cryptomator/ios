@@ -61,7 +61,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			getUsername(for: credential)
 			return "(…)"
 		case .webDAV:
-			let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: vault.delegateAccountUID)
+			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
 			return credential?.username
 		case .localFileSystem:
 			return nil

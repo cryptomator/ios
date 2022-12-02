@@ -17,53 +17,71 @@ import XCTest
 
 class ChangePasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
-	private var maintenanceManagerMock: MaintenanceManagerMock!
-	private var fileProviderConnectorMock: FileProviderConnectorMock!
+	private var fileProviderConnectorMock: CryptomatorCommonCore.FileProviderConnectorMock!
 	private var vaultLockingMock: VaultLockingMock!
 	private var viewModel: ChangePasswordViewModel!
 	private var vaultAccount: VaultAccount!
+	private var maintenanceHelperMock: MaintenanceModeHelperMock!
 
 	override func setUpWithError() throws {
-		vaultManagerMock = VaultManagerMock()
-		vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue = Promise(())
-		maintenanceManagerMock = MaintenanceManagerMock()
-		vaultLockingMock = VaultLockingMock()
-		fileProviderConnectorMock = FileProviderConnectorMock()
-		fileProviderConnectorMock.proxy = vaultLockingMock
+		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
-		viewModel = ChangePasswordViewModel(vaultAccount: vaultAccount, maintenanceManager: maintenanceManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		let domain = NSFileProviderDomain(vaultUID: vaultAccount.vaultUID, displayName: vaultAccount.vaultName)
+		viewModel = ChangePasswordViewModel(vaultAccount: vaultAccount, domain: domain, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
 	}
 
-	func testChangePassword() {
-		let expectation = XCTestExpectation()
+	private func setupMocks() {
+		vaultManagerMock = VaultManagerMock()
+		fileProviderConnectorMock = CryptomatorCommonCore.FileProviderConnectorMock()
+		maintenanceHelperMock = MaintenanceModeHelperMock()
+		vaultLockingMock = VaultLockingMock()
+
+		fileProviderConnectorMock.getXPCServiceNameDomainClosure = { serviceName, _ in
+			switch serviceName {
+			case .maintenanceModeHelper:
+				return self.maintenanceHelperMock!
+			case .vaultLocking:
+				return self.vaultLockingMock!
+			default:
+				XCTFail("Get XPC called for unexpected serviceName: \(serviceName)")
+				return Promise(MockError.notMocked)
+			}
+		}
+	}
+
+	func testChangePassword() async throws {
 		let oldPassword = "OldPassword"
 		let newPassword = "Password"
 		setOldPassword(oldPassword)
 		setNewPassword(newPassword)
 		setNewPasswordConfirmation(newPassword)
 
-		viewModel.changePassword().then {
-			XCTAssertEqual(1, self.maintenanceManagerMock.enableMaintenanceModeCallsCount)
-			XCTAssertEqual(1, self.maintenanceManagerMock.disableMaintenanceModeCallsCount)
-
-			XCTAssertEqual(1, self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount)
-			XCTAssertEqual(oldPassword, self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.oldPassphrase)
-			XCTAssertEqual(newPassword, self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.newPassphrase)
-			XCTAssertEqual(self.vaultAccount.vaultUID, self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.vaultUID)
-
-			XCTAssertEqual(1, self.vaultLockingMock.lockedVaults.count)
-			XCTAssertTrue(self.vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(self.vaultAccount.vaultUID)))
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
+		let maintenanceModeEnabled = XCTestExpectation()
+		let maintenanceModeDisabled = XCTestExpectation()
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = {
+			maintenanceModeEnabled.fulfill()
+			$0(nil)
 		}
-		wait(for: [expectation], timeout: 1.0)
-		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
+		maintenanceHelperMock.disableMaintenanceModeReplyClosure = {
+			maintenanceModeDisabled.fulfill()
+			$0(nil)
+		}
+		vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue = Promise(())
+
+		try await viewModel.changePassword()
+
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+
+		XCTAssertEqual(1, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount)
+		XCTAssertEqual(oldPassword, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.oldPassphrase)
+		XCTAssertEqual(newPassword, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.newPassphrase)
+		XCTAssertEqual(vaultAccount.vaultUID, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.vaultUID)
+
+		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 	}
 
-	func testEnableMaintenanceModeFailed() throws {
-		let expectation = XCTestExpectation()
+	func testEnableMaintenanceModeFailed() async throws {
 		let oldPassword = "OldPassword"
 		let newPassword = "Password"
 		setOldPassword(oldPassword)
@@ -71,26 +89,26 @@ class ChangePasswordViewModelTests: XCTestCase {
 		setNewPasswordConfirmation(newPassword)
 
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = { $0(MaintenanceModeError.runningCloudTask as NSError) }
 
-		viewModel.changePassword().then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case MaintenanceModeError.runningCloudTask = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
-			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
-		}.always {
-			expectation.fulfill()
+		await XCTAssertThrowsAsyncError(try await viewModel.changePassword()) { error in
+			XCTAssertEqual(.runningCloudTask, error as? MaintenanceModeError)
 		}
-		wait(for: [expectation], timeout: 1.0)
+		XCTAssertFalse(vaultManagerMock.moveVaultAccountToCalled)
+		XCTAssertFalse(maintenanceHelperMock.disableMaintenanceModeReplyCalled)
 	}
 
-	func testDisableMaintenanceModeAfterChangePassphraseFailed() {
-		let expectation = XCTestExpectation()
+	func testDisableMaintenanceModeAfterChangePassphraseFailed() async throws {
+		let maintenanceModeEnabled = XCTestExpectation()
+		let maintenanceModeDisabled = XCTestExpectation()
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = {
+			maintenanceModeEnabled.fulfill()
+			$0(nil)
+		}
+		maintenanceHelperMock.disableMaintenanceModeReplyClosure = {
+			maintenanceModeDisabled.fulfill()
+			$0(nil)
+		}
 
 		// Simulate change pass phrase failure
 		vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue = Promise(MasterkeyFileError.invalidPassphrase)
@@ -101,60 +119,54 @@ class ChangePasswordViewModelTests: XCTestCase {
 		setNewPassword(newPassword)
 		setNewPasswordConfirmation(newPassword)
 
-		viewModel.changePassword().then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+		await XCTAssertThrowsAsyncError(try await viewModel.changePassword()) { error in
 			XCTAssertEqual(.invalidOldPassword, error as? ChangePasswordViewModelError)
-			XCTAssertEqual(1, self.maintenanceManagerMock.enableMaintenanceModeCallsCount)
-			XCTAssertEqual(1, self.maintenanceManagerMock.disableMaintenanceModeCallsCount)
-			XCTAssertEqual(1, self.vaultLockingMock.lockedVaults.count)
-			XCTAssertTrue(self.vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(self.vaultAccount.vaultUID)))
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
-		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
+
+		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
-	func testChangePasswordFailForEmptyOldPassword() {
+	func testChangePasswordFailForEmptyOldPassword() async throws {
 		setNewPassword("Password")
 		setNewPasswordConfirmation("Password")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 
 		setOldPassword("")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 	}
 
-	func testChangePasswordFailForEmptyNewPassword() {
+	func testChangePasswordFailForEmptyNewPassword() async throws {
 		setOldPassword("OldPassword")
 		setNewPasswordConfirmation("Password")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 
 		setNewPassword("")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 	}
 
-	func testChangePasswordFailForEmptyNewPasswordConfirmation() {
+	func testChangePasswordFailForEmptyNewPasswordConfirmation() async throws {
 		setOldPassword("OldPassword")
 		setNewPassword("Password")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 
 		setNewPasswordConfirmation("")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.emptyPassword)
 	}
 
-	func testChangePasswordFailForNewPasswordUnderEightChars() {
+	func testChangePasswordFailForNewPasswordUnderEightChars() async throws {
 		setOldPassword("OldPassword")
 		setNewPassword("NewPass")
 		setNewPasswordConfirmation("NewPass")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.tooShortPassword)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.tooShortPassword)
 	}
 
-	func testChangePasswordFailForNonMatchingNewPasswordConfirmation() {
+	func testChangePasswordFailForNonMatchingNewPasswordConfirmation() async throws {
 		setOldPassword("OldPassword")
 		setNewPassword("Password")
 		setNewPasswordConfirmation("NewPassword1")
-		checkChangePasswordFail(with: ChangePasswordViewModelError.newPasswordsDoNotMatch)
+		try await checkChangePasswordFail(with: ChangePasswordViewModelError.newPasswordsDoNotMatch)
 	}
 
 	// MARK: Return Button Support
@@ -189,24 +201,17 @@ class ChangePasswordViewModelTests: XCTestCase {
 		wait(for: lastReturnButtonPressedRecorder)
 	}
 
-	private func checkChangePasswordFail(with expectedError: Error) {
-		let expectation = XCTestExpectation()
-		viewModel.changePassword().then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+	private func checkChangePasswordFail(with expectedError: Error) async throws {
+		await XCTAssertThrowsAsyncError(try await viewModel.changePassword()) { error in
 			XCTAssertEqual(expectedError as NSError, error as NSError)
 
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
+			XCTAssertFalse(maintenanceHelperMock.enableMaintenanceModeReplyCalled)
+			XCTAssertFalse(maintenanceHelperMock.disableMaintenanceModeReplyCalled)
 
 			XCTAssertFalse(self.vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCalled)
 
 			XCTAssert(self.vaultLockingMock.lockedVaults.isEmpty)
-
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
 	}
 
 	private func setOldPassword(_ password: String) {

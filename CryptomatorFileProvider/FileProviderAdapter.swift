@@ -894,7 +894,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	}
 
 	func convertIDToItemIdentifier(_ id: Int64) -> NSFileProviderItemIdentifier {
-		if id == itemMetadataManager.getRootContainerID() {
+		if id == NSFileProviderItemIdentifier.rootContainerDatabaseValue {
 			return .rootContainer
 		}
 		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: id)

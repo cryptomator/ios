@@ -25,7 +25,7 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 
 	func testCreateAndGetTaskRecord() throws {
 		let cloudPath = CloudPath("/Test")
-		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: ItemMetadataDBManager.rootContainerId, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let pageToken: String? = nil
 		let createdTask = try manager.createTask(for: itemMetadata, pageToken: pageToken)

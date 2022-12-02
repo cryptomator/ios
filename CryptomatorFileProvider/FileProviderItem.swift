@@ -36,14 +36,14 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	public var itemIdentifier: NSFileProviderItemIdentifier {
 		assert(metadata.id != nil)
 
-		guard let id = metadata.id, id != ItemMetadataDBManager.rootContainerId else {
+		guard let id = metadata.id, id != NSFileProviderItemIdentifier.rootContainerDatabaseValue else {
 			return .rootContainer
 		}
 		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: id)
 	}
 
 	public var parentItemIdentifier: NSFileProviderItemIdentifier {
-		if metadata.parentID == ItemMetadataDBManager.rootContainerId {
+		if metadata.parentID == NSFileProviderItemIdentifier.rootContainerDatabaseValue {
 			return .rootContainer
 		}
 		return NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: metadata.parentID)

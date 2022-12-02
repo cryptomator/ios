@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		coordinator?.start()
 		StoreObserver.shared.fallbackDelegate = coordinator
 		window = UIWindow(frame: UIScreen.main.bounds)
-		window?.tintColor = UIColor(named: "primary")
+		window?.tintColor = .cryptomatorPrimary
 		window?.rootViewController = coordinator?.rootViewController
 		window?.makeKeyAndVisible()
 		return true
@@ -132,7 +132,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {
 			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
-			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
+			try WebDAVCredentialManager.shared.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
 		} catch {
 			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")
 		}

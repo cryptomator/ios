@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import Foundation
 
@@ -13,36 +14,58 @@ public enum WebDAVAuthenticatorKeychainError: Error {
 	case credentialDuplicate(existingIdentifier: String)
 }
 
-public extension WebDAVAuthenticator {
-	static func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
-		return CryptomatorKeychain.webDAV.get(accountUID)
-	}
+public protocol WebDAVCredentialManaging {
+	var didUpdate: AnyPublisher<Void, Never> { get }
 
+	func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential?
 	/**
 	 Saves a WebDAV credential to the keychain.
 
-	 Checks for duplicates before saving the passed credential to the keychain.
+	 Checks for duplicates before saving the passed credential.
 	 A duplicate is defined as any other WebDAV credential with the same `baseURL` and `username`.
-	 - Throws: An WebDAVAuthenticatorKeychainError.credentialDuplicate if a WebDAVCredential already exists in the keychain with the same `baseURL` and `username` but a different identifier.
-	 The error includes the identifier (`existingIdentifier`) of the WebDAVCredentials item, which is already stored in the keychain and caused the error.
+	 - Throws: An WebDAVAuthenticatorKeychainError.credentialDuplicate if a WebDAVCredential already exists with the same `baseURL` and `username` but a different identifier.
+	 The error includes the identifier (`existingIdentifier`) of the WebDAVCredentials item, which is already stored and caused the error.
 	 */
-	static func saveCredentialToKeychain(_ credential: WebDAVCredential) throws {
-		let existingCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
+	func saveCredentialToKeychain(_ credential: WebDAVCredential) throws
+
+	func removeCredentialFromKeychain(with accountUID: String) throws
+
+	func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws
+}
+
+public struct WebDAVCredentialManager: WebDAVCredentialManaging {
+	public static let shared = WebDAVCredentialManager(keychain: CryptomatorKeychain.webDAV)
+
+	public var didUpdate: AnyPublisher<Void, Never> {
+		didUpdatePublisher.eraseToAnyPublisher()
+	}
+
+	let keychain: CryptomatorKeychainType
+	private let didUpdatePublisher = PassthroughSubject<Void, Never>()
+
+	public func getCredentialFromKeychain(with accountUID: String) -> WebDAVCredential? {
+		return keychain.get(accountUID)
+	}
+
+	public func saveCredentialToKeychain(_ credential: WebDAVCredential) throws {
+		let existingCredentials = try keychain.getAllWebDAVCredentials()
 		if let existingCredential = existingCredentials.first(where: { $0 == credential && $0.identifier != credential.identifier }) {
 			throw WebDAVAuthenticatorKeychainError.credentialDuplicate(existingIdentifier: existingCredential.identifier)
 		}
 
 		let jsonEnccoder = JSONEncoder()
 		let encodedCredential = try jsonEnccoder.encode(credential)
-		try CryptomatorKeychain.webDAV.set(credential.identifier, value: encodedCredential)
+		try keychain.set(credential.identifier, value: encodedCredential)
+		didUpdatePublisher.send(())
 	}
 
-	static func removeCredentialFromKeychain(with accountUID: String) throws {
-		try CryptomatorKeychain.webDAV.delete(accountUID)
+	public func removeCredentialFromKeychain(with accountUID: String) throws {
+		try keychain.delete(accountUID)
+		didUpdatePublisher.send(())
 	}
 
-	static func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws {
-		let existingCredentials = try CryptomatorKeychain.webDAV.getAllWebDAVCredentials()
+	public func removeUnusedWebDAVCredentials(existingAccountUIDs: [String]) throws {
+		let existingCredentials = try keychain.getAllWebDAVCredentials()
 		let unusedCredentials = existingCredentials.filter { !existingAccountUIDs.contains($0.identifier) }
 		for unusedCredential in unusedCredentials {
 			try removeCredentialFromKeychain(with: unusedCredential.identifier)
@@ -56,7 +79,7 @@ extension WebDAVCredential: Equatable {
 	}
 }
 
-extension CryptomatorKeychain {
+extension CryptomatorKeychainType {
 	func get(_ key: String) -> WebDAVCredential? {
 		guard let data = getAsData(key) else {
 			return nil

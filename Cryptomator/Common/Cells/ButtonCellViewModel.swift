@@ -11,7 +11,7 @@ import UIKit
 class ButtonCellViewModel<T>: BindableTableViewCellViewModel {
 	override var type: ConfigurableTableViewCell.Type { ButtonTableViewCell.self }
 	let action: T
-	init(action: T, title: String, titleTextColor: UIColor? = UIColor(named: "primary"), detailTitle: String? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
+	init(action: T, title: String, titleTextColor: UIColor? = .cryptomatorPrimary, detailTitle: String? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none) {
 		self.action = action
 		super.init(title: title, titleTextColor: titleTextColor, detailTitle: detailTitle, isEnabled: isEnabled, selectionStyle: selectionStyle, accessoryType: accessoryType)
 	}

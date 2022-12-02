@@ -9,7 +9,7 @@ import Foundation
 
 // swiftlint:disable all
 
-final class CryptomatorKeychainTypeMock: CryptomatorKeychainType {
+final class CryptomatorKeychainMock: CryptomatorKeychainType {
 	// MARK: - set
 
 	var setValueThrowableError: Error?
@@ -71,6 +71,25 @@ final class CryptomatorKeychainTypeMock: CryptomatorKeychainType {
 		deleteReceivedKey = key
 		deleteReceivedInvocations.append(key)
 		try deleteClosure?(key)
+	}
+
+	// MARK: - queryWithDict
+
+	var queryWithDictCallsCount = 0
+	var queryWithDictCalled: Bool {
+		queryWithDictCallsCount > 0
+	}
+
+	var queryWithDictReceivedQuery: [String: Any]?
+	var queryWithDictReceivedInvocations: [[String: AnyObject]] = []
+	var queryWithDictReturnValue: [String: Any]!
+	var queryWithDictClosure: (([String: AnyObject]) -> [String: Any])?
+
+	func queryWithDict(_ query: [String: AnyObject]) -> [String: Any] {
+		queryWithDictCallsCount += 1
+		queryWithDictReceivedQuery = query
+		queryWithDictReceivedInvocations.append(query)
+		return queryWithDictClosure.map({ $0(query) }) ?? queryWithDictReturnValue
 	}
 }
 // swiftlint:enable all

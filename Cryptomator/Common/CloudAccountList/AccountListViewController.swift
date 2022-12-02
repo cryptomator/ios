@@ -70,8 +70,7 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in
 			sender.setSelected(false)
 		})
-
-		if let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent), case CloudProviderType.s3 = viewModel.accountInfos[indexPath.row].cloudProviderType {
+		if let accountCellContent = sender.cell?.account, let indexPath = dataSource?.indexPath(for: accountCellContent), supportsEditing(viewModel.accountInfos[indexPath.row].cloudProviderType) {
 			let accountInfo = viewModel.accountInfos[indexPath.row]
 			let editAction = UIAlertAction(title: LocalizedString.getValue("common.button.edit"), style: .default) { [weak self] _ in
 				sender.setSelected(false)
@@ -126,6 +125,15 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		alertController.addAction(cancelAction)
 		present(alertController, animated: true)
 		return pendingPromise
+	}
+
+	private func supportsEditing(_ cloudProviderType: CloudProviderType) -> Bool {
+		switch cloudProviderType {
+		case .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud:
+			return false
+		case .s3, .webDAV:
+			return true
+		}
 	}
 }
 

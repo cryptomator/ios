@@ -36,9 +36,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		super.init()
 	}
 
-	public func invalidate() {
-		// TODO: perform invalidation of server connection if necessary
-	}
+	public func invalidate() {}
 
 	/**
 	 Since unexpected behavior can occur in combination with the FileProviderExtensionUI in the unauthenticated state, two special cases must be considered here:

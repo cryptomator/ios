@@ -1,7 +1,4 @@
-Hotfix for "empty vaults" bug. Here are the release notes of 2.4.0:
-
-- Added support for S3 (#238)
-- Added additional Shortcut intents for "Get Lock Status", "Open Vault", and "Lock Vault" (#229, #233)
-- Added quicker unlock when Touch ID / Face ID is set up (#225)
-- Fixed "Content Unavailable" error for folders with many items (#232, #243, #244)
-- Fixed flickering when opening account list for certain cloud storage services (#235, #236)
+- Added possibility to edit WebDAV connections (#256)
+- Added Danish translation
+- Fixed missing files when encrypted files are offloaded in iCloud Drive (#279)
+- Fixed flickering when vault list is empty (#257)

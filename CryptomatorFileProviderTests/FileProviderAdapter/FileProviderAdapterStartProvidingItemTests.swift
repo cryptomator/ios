@@ -14,7 +14,7 @@ import XCTest
 class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	private let itemID: Int64 = 2
 	private let cloudPath = CloudPath("/File 1")
-	private lazy var itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
+	private lazy var itemMetadata = ItemMetadata(id: 2, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 	private lazy var itemDirectory = tmpDirectory.appendingPathComponent("/\(itemID)")
 	private lazy var url = itemDirectory.appendingPathComponent("File 1")
 
@@ -70,7 +70,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 
 	func testStartProvidingItemWithConflictingLocalVersion() throws {
 		let expectation = XCTestExpectation()
-		let rootItemMetadata = ItemMetadata(id: metadataManagerMock.getRootContainerID(), name: "Home", type: .folder, size: nil, parentID: metadataManagerMock.getRootContainerID(), lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
 		try metadataManagerMock.cacheMetadata(rootItemMetadata)
 
 		// Create local folder for conflicting item

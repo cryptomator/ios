@@ -28,19 +28,23 @@ class RenameVaultViewController: SetVaultNameViewController {
 	}
 
 	@objc private func renameButtonClicked() {
+		Task {
+			await renameVault()
+		}
+	}
+
+	private func renameVault() async {
 		let hud = ProgressHUD()
 		hud.text = LocalizedString.getValue("vaultDetail.renameVault.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.renameVault().then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			guard let self = self else {
-				return
+		do {
+			try await viewModel.renameVault()
+			hud.transformToSelfDismissingSuccess {
+				self.coordinator?.setVaultName(self.viewModel.trimmedVaultName)
 			}
-			self.coordinator?.setVaultName(self.viewModel.trimmedVaultName)
-		}.catch { [weak self] error in
-			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+		} catch {
+			handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }

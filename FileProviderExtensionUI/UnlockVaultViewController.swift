@@ -19,7 +19,7 @@ class UnlockVaultViewController: UITableViewController {
 	private lazy var passwordCell: PasswordFieldCell = {
 		let cell = PasswordFieldCell()
 		cell.textField.becomeFirstResponder()
-		cell.textField.tintColor = UIColor(named: "primary")
+		cell.textField.tintColor = .cryptomatorPrimary
 		cell.textField.delegate = self
 		cell.selectionStyle = .none
 		return cell
@@ -68,7 +68,7 @@ class UnlockVaultViewController: UITableViewController {
 		let unlockButton = UIBarButtonItem(title: LocalizedString.getValue("unlockVault.button.unlock"), style: .done, target: self, action: #selector(unlock))
 		navigationItem.leftBarButtonItem = cancelButton
 		navigationItem.rightBarButtonItem = unlockButton
-		tableView.backgroundColor = UIColor(named: "background")
+		tableView.backgroundColor = .cryptomatorBackground
 		tableView.cellLayoutMarginsFollowReadableWidth = true
 	}
 
@@ -147,7 +147,7 @@ class UnlockVaultViewController: UITableViewController {
 			button.textLabel?.text = viewModel.getTitle(for: indexPath)
 			if let systemImageName = viewModel.getSystemImageName(for: indexPath) {
 				button.imageView?.image = UIImage(systemName: systemImageName)
-				button.imageView?.tintColor = UIColor(named: "primary")
+				button.imageView?.tintColor = .cryptomatorPrimary
 			}
 			return button
 		case .enableBiometricalUnlock:

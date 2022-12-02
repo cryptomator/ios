@@ -15,6 +15,26 @@ enum WorkflowMiddlewareError: Error {
 	case incompatibleMiddleware
 }
 
+/**
+ A Workflow Middleware.
+
+ Allows to wrap itself around the execution of a given task.
+ A implementation of `execute(task:)` may look like the following way:
+ ```swift
+ func execute(task: CloudTask) -> Promise<ReturnType> {
+   ... // some preprocessing logic (optional)
+   let nextMiddleware: NextMiddleware
+   do {
+      nextMiddleware = try getNext()
+   } catch {
+      return Promise(error)
+   }
+   return nextMiddleware.execute(task: task).then {
+      ... // some postprocessing logic (optional)
+   }
+ }
+ ```
+ */
 protocol WorkflowMiddleware {
 	associatedtype ReturnType
 	associatedtype NextMiddleware: WorkflowMiddleware where NextMiddleware.ReturnType == ReturnType
