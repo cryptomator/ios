@@ -20,7 +20,7 @@ struct WebDAVAuthentication: View {
 	@FocusStateLegacy private var focusedField: Fields? = .url
 
 	var body: some View {
-		List {
+		Form {
 			TextField(LocalizedString.getValue("common.cells.url"), text: $viewModel.url)
 				.keyboardType(.URL)
 				.disableAutocorrection(true)
