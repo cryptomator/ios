@@ -11,14 +11,14 @@ import CryptomatorCommonCore
 import SwiftUI
 import UIKit
 
-class S3AuthenticationViewController: UIHostingController<S3AuthenticationView> {
+class S3AuthenticationViewController: UIViewController {
 	weak var coordinator: (Coordinator & S3Authenticating)?
 	let viewModel: S3AuthenticationViewModel
 	private var subscriptions = Set<AnyCancellable>()
 
 	init(viewModel: S3AuthenticationViewModel) {
 		self.viewModel = viewModel
-		super.init(rootView: S3AuthenticationView(viewModel: viewModel))
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -28,6 +28,8 @@ class S3AuthenticationViewController: UIHostingController<S3AuthenticationView> 
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupSwiftUIView()
+
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
@@ -63,5 +65,14 @@ class S3AuthenticationViewController: UIHostingController<S3AuthenticationView> 
 
 	@objc func cancel() {
 		coordinator?.cancel()
+	}
+
+	private func setupSwiftUIView() {
+		let child = UIHostingController(rootView: S3AuthenticationView(viewModel: viewModel))
+		addChild(child)
+		view.addSubview(child.view)
+		child.didMove(toParent: self)
+		child.view.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate(child.view.constraints(equalTo: view))
 	}
 }
