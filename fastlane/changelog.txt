@@ -1,4 +1,1 @@
-- Added possibility to edit WebDAV connections (#256)
-- Added Danish translation
-- Fixed missing files when encrypted files are offloaded in iCloud Drive (#279)
-- Fixed flickering when vault list is empty (#257)
+- Fixed missing buttons when adding WebDAV/S3 connections on iOS 13/14 (#280, #282)
