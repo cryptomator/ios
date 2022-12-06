@@ -13,15 +13,15 @@ import Promises
 import SwiftUI
 import UIKit
 
-class WebDAVAuthenticationViewController: UIHostingController<WebDAVAuthentication> {
+class WebDAVAuthenticationViewController: UIViewController {
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
-	private var viewModel: WebDAVAuthenticationViewModel
+	private let viewModel: WebDAVAuthenticationViewModel
 	private var cancellables = Set<AnyCancellable>()
 	private var hud: ProgressHUD?
 
 	init(viewModel: WebDAVAuthenticationViewModel) {
 		self.viewModel = viewModel
-		super.init(rootView: WebDAVAuthentication(viewModel: viewModel))
+		super.init(nibName: nil, bundle: nil)
 	}
 
 	@available(*, unavailable)
@@ -31,6 +31,8 @@ class WebDAVAuthenticationViewController: UIHostingController<WebDAVAuthenticati
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupSwiftUIView()
+
 		title = "WebDAV"
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton
@@ -86,6 +88,15 @@ class WebDAVAuthenticationViewController: UIHostingController<WebDAVAuthenticati
 
 	@objc func cancel() {
 		coordinator?.cancel()
+	}
+
+	private func setupSwiftUIView() {
+		let child = UIHostingController(rootView: WebDAVAuthentication(viewModel: viewModel))
+		addChild(child)
+		view.addSubview(child.view)
+		child.didMove(toParent: self)
+		child.view.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate(child.view.constraints(equalTo: view))
 	}
 }
 
