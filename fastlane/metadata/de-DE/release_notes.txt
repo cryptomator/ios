@@ -1,4 +1,1 @@
-- Möglichkeit zum Bearbeiten von WebDAV-Verbindungen hinzugefügt (#256)
-- Dänische Übersetzung hinzugefügt
-- Fehlende Dateien behoben, wenn verschlüsselte Dateien in iCloud Drive nicht lokal vorliegen (#279)
-- Flackern behoben, wenn die Tresorliste leer ist (#257)
+- Fehlende Buttons beim Hinzufügen von WebDAV/S3-Verbindungen unter iOS 13/14 behoben (#280, #282)
