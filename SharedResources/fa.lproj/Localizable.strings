@@ -2,4 +2,6 @@
 "common.button.next" = "بعدی";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
 
+"settings.title" = "تنظیمات";
+
 "unlockVault.button.unlock" = "بازکردن قفل";
