@@ -1,5 +1,7 @@
 "common.button.change" = "تغییر";
 "common.button.next" = "بعدی";
+"common.cells.url" = "آدرس اینترنتی";
+"common.cells.username" = "نام کاربری";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
 
 "settings.title" = "تنظیمات";
