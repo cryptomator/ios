@@ -262,6 +262,7 @@
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manté HTTP";
+"webDAVAuthenticator.error.untrustedCertificate" = "El certificat d'aquest servidor no és de confiança. Potser haureu de tornar a afegir aquesta connexió WebDAV.";
 
 "Retry Upload" = "Torna a provar de pujar";
 "Clear from Cache" = "Eliminar de la memòria cau";
