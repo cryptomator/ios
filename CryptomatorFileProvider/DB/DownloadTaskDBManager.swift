@@ -10,7 +10,7 @@ import Foundation
 import GRDB
 
 protocol DownloadTaskManager {
-	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL) throws -> DownloadTask
+	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> DownloadTask
 	func removeTaskRecord(_ task: DownloadTaskRecord) throws
 }
 
@@ -24,11 +24,11 @@ class DownloadTaskDBManager: DownloadTaskManager {
 		}
 	}
 
-	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL) throws -> DownloadTask {
+	func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> DownloadTask {
 		try database.write { db in
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
 			try taskRecord.save(db)
-			return DownloadTask(taskRecord: taskRecord, itemMetadata: item)
+			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, onURLSessionTaskCreation: onURLSessionTaskCreation)
 		}
 	}
 

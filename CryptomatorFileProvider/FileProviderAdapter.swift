@@ -72,8 +72,23 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let workflowFactory: WorkflowFactoryLocking
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
+	private let taskRegistrator: SessionTaskRegistrator
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, coordinator: NSFileCoordinator, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     uploadTaskManager: UploadTaskManager,
+	     cachedFileManager: CachedFileManager,
+	     itemMetadataManager: ItemMetadataManager,
+	     reparentTaskManager: ReparentTaskManager,
+	     deletionTaskManager: DeletionTaskManager,
+	     itemEnumerationTaskManager: ItemEnumerationTaskManager,
+	     downloadTaskManager: DownloadTaskManager,
+	     scheduler: WorkflowScheduler,
+	     provider: CloudProvider,
+	     coordinator: NSFileCoordinator,
+	     notificator: FileProviderItemUpdateDelegate? = nil,
+	     localURLProvider: LocalURLProviderType,
+	     fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared,
+	     taskRegistrator: SessionTaskRegistrator) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager
@@ -99,6 +114,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.localURLProvider = localURLProvider
 		self.fullVersionChecker = fullVersionChecker
 		self.fileCoordinator = coordinator
+		self.taskRegistrator = taskRegistrator
 	}
 
 	/**
@@ -685,7 +701,15 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let task: DownloadTask
 		do {
 			let itemMetadata = try getCachedMetadata(for: identifier)
-			task = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: replaceExisting, localURL: localURL)
+			task = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: replaceExisting, localURL: localURL, onURLSessionTaskCreation: { [weak self] urlSessionTask in
+				self?.taskRegistrator.register(urlSessionTask, forItemWithIdentifier: identifier, completionHandler: { error in
+					if let error {
+						DDLogError("Register URLSessionTask for identifier: \(identifier) failed with error: \(error)")
+					} else {
+						DDLogInfo("Successfully registered URLSessionTask for identifier: \(identifier)")
+					}
+				})
+			})
 		} catch {
 			return Promise(error)
 		}

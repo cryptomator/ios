@@ -38,8 +38,8 @@ public class LocalizedCloudProviderDecorator: CloudProvider {
 		}
 	}
 
-	public func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
-		return delegate.downloadFile(from: cloudPath, to: localURL).recover { error -> Void in
+	public func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
+		return delegate.downloadFile(from: cloudPath, to: localURL, onTaskCreation: onTaskCreation).recover { error -> Void in
 			if let error = error as? CloudProviderError {
 				switch error {
 				case .itemAlreadyExists:

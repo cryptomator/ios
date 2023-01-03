@@ -106,7 +106,7 @@ final class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 		if let error = downloadFileFromToThrowableError {
 			return Promise(error)
 		}

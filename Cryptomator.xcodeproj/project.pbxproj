@@ -190,6 +190,7 @@
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */; };
 		4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */; };
+		4A7514A12937F777002E802E /* SessionTaskRegistrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */; };
 		4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */; };
@@ -715,6 +716,7 @@
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthentication.swift; sourceTree = "<group>"; };
 		4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAction.swift; sourceTree = "<group>"; };
+		4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskRegistrator.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptomatorIntents.entitlements; sourceTree = "<group>"; };
 		4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -1891,6 +1893,7 @@
 				4AEE6EE92825716400E1B35E /* ProgressManager.swift */,
 				4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */,
 				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
+				4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */,
 				4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */,
 				740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */,
 				4A74DBAF2821312200A332C4 /* Actions */,
@@ -2922,6 +2925,7 @@
 				4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */,
 				4A511D4E2660FF9E000A0E01 /* WorkflowScheduler.swift in Sources */,
 				4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */,
+				4A7514A12937F777002E802E /* SessionTaskRegistrator.swift in Sources */,
 				4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */,
 				4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,

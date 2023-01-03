@@ -12,9 +12,12 @@ import GRDB
 struct DownloadTask: CloudTask {
 	let taskRecord: DownloadTaskRecord
 	let itemMetadata: ItemMetadata
+	let onURLSessionTaskCreation: URLSessionTaskCreationClosure?
 
 	enum CodingKeys: String, CodingKey {
 		case taskRecord = "downloadTask"
 		case itemMetadata
 	}
 }
+
+typealias URLSessionTaskCreationClosure = (URLSessionDownloadTask) -> Void
