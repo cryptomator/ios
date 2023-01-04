@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+import PCloudSDKSwift
 
 public protocol CloudProviderManager {
 	func getProvider(with accountUID: String) throws -> CloudProvider
@@ -60,8 +61,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			                                     useBackgroundSession: useBackgroundSession,
 			                                     maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .pCloud:
-			let credential = try PCloudCredential(userID: accountUID)
-			provider = try PCloudCloudProvider(credential: credential)
+			provider = try createPCloudProvider(for: accountUID)
 		case .webDAV:
 			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
@@ -94,6 +94,17 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		} else {
 			return try S3CloudProvider(credential: credential)
 		}
+	}
+
+	private func createPCloudProvider(for accountUID: String) throws -> CloudProvider {
+		let credential = try PCloudCredential(userID: accountUID)
+		let client: PCloudClient
+		if useBackgroundSession {
+			client = PCloud.createBackgroundClient(with: credential.user, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		} else {
+			client = PCloud.createClient(with: credential.user)
+		}
+		return try PCloudCloudProvider(client: client)
 	}
 
 	public func providerShouldUpdate(with accountUID: String) {
