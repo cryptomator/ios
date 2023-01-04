@@ -218,7 +218,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 					}
 				}
 				// Network Stuff
-				self.uploadFile(taskRecord: localItemImportResult.uploadTaskRecord, completionHandler: localImportHandler).then { item in
+				self.uploadFile(taskRecord: localItemImportResult.uploadTaskRecord,
+				                completionHandler: localImportHandler,
+				                itemIdentifier: localItemImportResult.item.itemIdentifier).then { item in
 					self.notificator?.signalUpdate(for: item)
 				}.catch { error in
 					DDLogError("importDocument uploadFile failed: \(error)")
@@ -309,7 +311,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			DDLogError("itemChanged - register file in upload queue with url: \(url) and identifier: \(itemIdentifier) failed with error: \(error)")
 			return
 		}
-		uploadFile(taskRecord: uploadTaskRecord).then { item in
+		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
 	}
@@ -334,15 +336,23 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let localURL = localCachedFileInfo.localURL
 		let item = FileProviderItem(metadata: itemMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: nil)
 		notificator?.signalUpdate(for: item)
-		uploadFile(taskRecord: uploadTaskRecord).then { item in
+		uploadFile(taskRecord: uploadTaskRecord, itemIdentifier: itemIdentifier).then { item in
 			self.notificator?.signalUpdate(for: item)
 		}
 	}
 
-	func uploadFile(taskRecord: UploadTaskRecord, completionHandler: ((Error?) -> Void)? = nil) -> Promise<FileProviderItem> {
+	func uploadFile(taskRecord: UploadTaskRecord, completionHandler: ((Error?) -> Void)? = nil, itemIdentifier: NSFileProviderItemIdentifier) -> Promise<FileProviderItem> {
 		let task: UploadTask
 		do {
-			task = try uploadTaskManager.getTask(for: taskRecord)
+			task = try uploadTaskManager.getTask(for: taskRecord, onURLSessionTaskCreation: { [weak self] urlSessionTask in
+				self?.taskRegistrator.register(urlSessionTask, forItemWithIdentifier: itemIdentifier, completionHandler: { error in
+					if let error {
+						DDLogError("Register URLSessionUploadTask for identifier: \(itemIdentifier) failed with error: \(error)")
+					} else {
+						DDLogInfo("Successfully registered URLSessionUploadTask for identifier: \(itemIdentifier)")
+					}
+				})
+			})
 		} catch {
 			completionHandler?(error)
 			return Promise(error)

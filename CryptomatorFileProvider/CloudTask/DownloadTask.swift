@@ -20,4 +20,4 @@ struct DownloadTask: CloudTask {
 	}
 }
 
-typealias URLSessionTaskCreationClosure = (URLSessionDownloadTask) -> Void
+typealias URLSessionTaskCreationClosure = (URLSessionTask) -> Void

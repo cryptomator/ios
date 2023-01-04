@@ -53,8 +53,8 @@ public class LocalizedCloudProviderDecorator: CloudProvider {
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
-		return delegate.uploadFile(from: localURL, to: cloudPath, replaceExisting: replaceExisting).recover { error -> CloudItemMetadata in
+	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
+		return delegate.uploadFile(from: localURL, to: cloudPath, replaceExisting: replaceExisting, onTaskCreation: onTaskCreation).recover { error -> CloudItemMetadata in
 			if let error = error as? CloudProviderError {
 				switch error {
 				case .itemNotFound, .itemTypeMismatch:

@@ -129,7 +129,7 @@ final class CloudProviderMock: CloudProvider {
 	var uploadFileFromToReplaceExistingReturnValue: Promise<CloudItemMetadata>!
 	var uploadFileFromToReplaceExistingClosure: ((URL, CloudPath, Bool) -> Promise<CloudItemMetadata>)?
 
-	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
 		if let error = uploadFileFromToReplaceExistingThrowableError {
 			return Promise(error)
 		}
