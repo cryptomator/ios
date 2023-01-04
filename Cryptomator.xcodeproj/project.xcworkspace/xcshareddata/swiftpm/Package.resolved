@@ -21,7 +21,7 @@
       },
       {
         "package": "AWSiOSSDKV2",
-        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm",
+        "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
         "state": {
           "branch": null,
           "revision": "eae68dde708c17a3ed249f1926e96d5bda20d2d2",
@@ -35,6 +35,15 @@
           "branch": null,
           "revision": "c4bc0a49689999ae2c7c778f3830a6a6e694efb8",
           "version": "0.9.0"
+        }
+      },
+      {
+        "package": "CryptomatorCloudAccess",
+        "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
+        "state": {
+          "branch": "feature/upload_progress",
+          "revision": "d9c191f24bcdce037384e99ef93ad11f660d2542",
+          "version": null
         }
       },
       {
