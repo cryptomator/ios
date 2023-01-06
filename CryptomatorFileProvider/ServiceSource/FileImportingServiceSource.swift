@@ -25,7 +25,7 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 		          dbPath: dbPath,
 		          delegate: delegate,
 		          adapterManager: FileProviderAdapterManager.shared,
-		          fullVersionChecker: UserDefaultsFullVersionChecker.shared)
+		          fullVersionChecker: GlobalFullVersionChecker.default)
 	}
 
 	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding, fullVersionChecker: FullVersionChecker) {

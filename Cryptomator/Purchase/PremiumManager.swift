@@ -30,7 +30,12 @@ protocol PremiumManagerType {
 }
 
 class PremiumManager: PremiumManagerType {
+	#if FOOBAR
+	static let shared = AlwaysPremiumManager()
+	#else
 	static let shared = PremiumManager(cryptomatorSettings: CryptomatorUserDefaults.shared)
+	#endif
+
 	private var cryptomatorSettings: CryptomatorSettings
 
 	init(cryptomatorSettings: CryptomatorSettings) {
@@ -152,5 +157,15 @@ extension InAppReceipt {
 
 	func activeAutoRenewableSubscriptionPurchases(ofProductIdentifier productIdentifier: ProductIdentifier, forDate date: Date) -> InAppPurchase? {
 		return activeAutoRenewableSubscriptionPurchases(ofProductIdentifier: productIdentifier.rawValue, forDate: date)
+	}
+}
+
+class AlwaysPremiumManager: PremiumManagerType {
+	func refreshStatus() {
+		// no-op
+	}
+
+	func trialExpirationDate(for purchaseDate: Date) -> Date? {
+		return nil
 	}
 }

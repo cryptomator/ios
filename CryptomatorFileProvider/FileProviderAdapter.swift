@@ -73,7 +73,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, coordinator: NSFileCoordinator, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, downloadTaskManager: DownloadTaskManager, scheduler: WorkflowScheduler, provider: CloudProvider, coordinator: NSFileCoordinator, notificator: FileProviderItemUpdateDelegate? = nil, localURLProvider: LocalURLProviderType, fullVersionChecker: FullVersionChecker = GlobalFullVersionChecker.default) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
 		self.uploadTaskManager = uploadTaskManager

@@ -25,7 +25,7 @@ class OnboardingCoordinator: Coordinator {
 	}
 
 	func showIAP() {
-		guard !UserDefaultsFullVersionChecker.shared.isFullVersion else {
+		guard !GlobalFullVersionChecker.default.isFullVersion else {
 			navigationController.dismiss(animated: true)
 			return
 		}
