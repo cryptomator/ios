@@ -71,6 +71,14 @@ Submit a new beta build to TestFlight
 
 Deploy a new version to the App Store
 
+### ios update_app
+
+```sh
+[bundle exec] fastlane ios update_app
+```
+
+Update app settings to release a different version
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
