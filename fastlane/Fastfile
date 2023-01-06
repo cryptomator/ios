@@ -182,6 +182,9 @@ platform :ios do
       identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
     )
 
+    # Create the app constants file.
+    sh("./scripts/create-app-constants.sh  #{bundle_identifier}")
+
   end
 
     error do |lane, exception|
