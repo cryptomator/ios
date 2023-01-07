@@ -3,6 +3,7 @@
 "common.button.close" = "ببند";
 "common.button.done" = "انجام شده";
 "common.button.next" = "بعدی";
+"common.button.remove" = "حذف";
 "common.cells.url" = "آدرس اینترنتی";
 "common.cells.username" = "نام کاربری";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
@@ -12,3 +13,4 @@
 "s3Authentication.secretKey" = "کلید مخفی";
 
 "unlockVault.button.unlock" = "بازکردن قفل";
+"vaultDetail.button.moveVault" = "انتقال";
