@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nome utente";
 "common.footer.learnMore" = "Scopri di più.";
+"common.hud.authenticating" = "Autenticazione…";
 
 "accountList.header.title" = "Autenticazioni";
 "accountList.emptyList.message" = "Tocca qui per aggiungere un account";
@@ -211,6 +212,8 @@
 "s3Authentication.existingBucket" = "Secchio Esistente";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Paese";
+"s3Authentication.error.invalidCredentials" = "Credenziali non valide.";
+"s3Authentication.error.invalidEndpoint" = "L'endpoint fornito non corrisponde al formato di un URL.";
 
 "trialStatus.active" = "Attivo";
 "trialStatus.expired" = "Scaduta";

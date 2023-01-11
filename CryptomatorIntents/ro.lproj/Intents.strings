@@ -1,1 +1,33 @@
-"common.vault" = "Seif";
+"common.failureReason" = "Motivul eșuării";
+"common.false" = "fals";
+"common.folder" = "Dosar";
+"common.true" = "adevărat";
+"common.vault" = "Vault";
+
+"getFolderIntent.description" = "Returnează un obiect de tip dosar pentru calea dată în seiful dat.";
+"getFolderIntent.path" = "Locație";
+"getFolderIntent.text" = "Obține dosarul aflat in ${path} în ${vault}";
+"getFolderIntent.title" = "Obține Dosarul";
+
+"isUnlockedIntent.description" = "Returnează dacă seiful dat este deblocat.";
+"isUnlockedIntent.title" = "Este deblocat";
+
+"isVaultLockedIntent.title" = "Este Vault-ul deblocat";
+"isVaultUnlockedIntent.text" = "Este ${vault} deblocat?";
+
+"lockVaultIntent.description" = "Încuie vault-ul specificat.";
+"lockVaultIntent.text" = "Încuie ${vault}";
+"lockVaultIntent.title" = "Încuie Vault-ul";
+
+"openVaultIntent.description" = "Deschide vault-ul ales în aplicația Fișiere.";
+"openVaultIntent.text" = "Deschide ${vault} în aplicația 'Fișiere'";
+"openVaultIntent.title" = "Deschide seiful";
+
+"saveFileIntent.description" = "Salvează un fișier într-un vault.";
+"saveFileIntent.file" = "Fişier";
+"saveFileIntent.parameter.ignoreExisting" = "Ignoră fișierul existent cu același nume";
+"saveFileIntent.text" = "Salvează ${file} în ${folder}";
+"saveFileIntent.title" = "Salvează fișierul";
+
+"vaultFolder.displayName" = "Dosarul vault-ului";
+"vaultFolder.vaultIdentifier" = "Identificatorul vault-ului";

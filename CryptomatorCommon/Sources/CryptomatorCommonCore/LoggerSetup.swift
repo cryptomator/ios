@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import Foundation
 
 public enum LoggerSetup {
@@ -16,12 +17,15 @@ public enum LoggerSetup {
 		fileLogger.logFileManager.maximumNumberOfLogFiles = 7
 		DDLog.add(DDOSLogger.sharedInstance)
 		DDLog.add(fileLogger)
+		CloudAccessDDLog.add(DDOSLogger.sharedInstance)
+		CloudAccessDDLog.add(fileLogger)
 		setDynamicLogLevel(debugModeEnabled: CryptomatorUserDefaults.shared.debugModeEnabled)
 		return {}
 	}()
 
 	public static func setDynamicLogLevel(debugModeEnabled: Bool) {
 		dynamicLogLevel = debugModeEnabled ? .debug : .error
+		dynamicCloudAccessLogLevel = debugModeEnabled ? .debug : .error
 	}
 }
 

@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Map ophalen op locatie ${path} in ${vault}";
 "getFolderIntent.title" = "Map ophalen";
 
+"isUnlockedIntent.description" = "Geeft als resultaat of de gegeven kluis ontgrendeld is.";
+"isUnlockedIntent.title" = "Is ontgrendeld";
+
+"isVaultLockedIntent.title" = "Is kluis ontgrendeld";
+"isVaultUnlockedIntent.text" = "Is ${vault} ontgrendeld?";
+
+"lockVaultIntent.description" = "Vergrendelt de gegeven kluis.";
+"lockVaultIntent.text" = "Vergrendel ${vault}";
+"lockVaultIntent.title" = "Kluis vergrendelen";
+
+"openVaultIntent.description" = "Open deze kluis in de bestanden-app.";
+"openVaultIntent.text" = "Open ${vault} in de bestanden-app";
+"openVaultIntent.title" = "Kluis openen";
+
 "saveFileIntent.description" = "Slaat een bestand op naar een kluis.";
 "saveFileIntent.file" = "Bestand";
 "saveFileIntent.parameter.ignoreExisting" = "Negeer bestaand bestand met dezelfde naam";

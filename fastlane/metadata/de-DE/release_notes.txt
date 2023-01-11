@@ -1,7 +1,1 @@
-Hotfix für „leere Tresore“ Fehler. Hier sind die Release Notes von 2.4.0:
-
-- Unterstützung für S3 hinzugefügt (#238)
-- Zusätzliche Shortcut-Intents für „Sperrstatus abfragen“, „Tresor öffnen“ und „Tresor sperren“ hinzugefügt (#229, #233)
-- Schnelleres Entsperren hinzugefügt, wenn Touch ID / Face ID eingerichtet ist (#225)
-- Fehler „Inhalt nicht verfügbar“ bei Ordnern mit vielen Elementen behoben (#232, #243, #244)
-- Flackern beim Öffnen der Accountliste für bestimmte Cloud-Speicherdienste behoben (#235, #236)
+- Fehlende Buttons beim Hinzufügen von WebDAV/S3-Verbindungen unter iOS 13/14 behoben (#280, #282)

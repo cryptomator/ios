@@ -40,7 +40,7 @@ class WebDAVAuthenticationViewModel: ObservableObject {
 	var showUntrustedCertificateError: Bool {
 		get {
 			switch state {
-			case .untrustedCertificate(certificate: _, url: _):
+			case .untrustedCertificate:
 				return true
 			default:
 				return false

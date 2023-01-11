@@ -1,6 +1,11 @@
+"common.button.cancel" = "Cancelar";
+"common.button.change" = "Cambiar";
 "common.button.choose" = "Seleccionar";
+"common.button.close" = "Pechar";
 "common.button.create" = "Crear";
+"common.button.done" = "Feito";
 "common.button.edit" = "Editar";
+"common.button.next" = "Seguinte";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Tentar de novo";
 "common.cells.url" = "URL";

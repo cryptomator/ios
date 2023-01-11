@@ -16,9 +16,9 @@ protocol DefaultShowEditAccountBehavior {}
 extension Coordinator where Self: DefaultShowEditAccountBehavior {
 	func showEdit(for account: AccountInfo) {
 		switch account.cloudProviderType {
-		case .s3(type: _):
+		case .s3:
 			showEditForS3Account(account)
-		case .webDAV(type: _):
+		case .webDAV:
 			showEditForWebDAVAccount(account)
 		default:
 			return
