@@ -74,11 +74,11 @@ private class CloudProviderMockOld: CloudProvider {
 		return Promise(CloudProviderError.noInternetConnection)
 	}
 
-	func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 		return Promise(CloudProviderError.noInternetConnection)
 	}
 
-	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
 		return Promise(CloudProviderError.noInternetConnection)
 	}
 

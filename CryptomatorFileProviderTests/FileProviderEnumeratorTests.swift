@@ -20,6 +20,7 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	var adapterProvidingMock: FileProviderAdapterProvidingMock!
 	var adapterMock: FileProviderAdapterTypeMock!
 	var localURLProviderMock: LocalURLProviderMock!
+	var taskRegistratorMock: SessionTaskRegistratorMock!
 	let dbPath = FileManager.default.temporaryDirectory
 	let domain = NSFileProviderDomain(vaultUID: "VaultUID-12345", displayName: "Test Vault")
 	let items: [FileProviderItem] = [
@@ -36,6 +37,7 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 		adapterMock = FileProviderAdapterTypeMock()
 		adapterProvidingMock.unlockMonitor = UnlockMonitor()
 		localURLProviderMock = LocalURLProviderMock()
+		taskRegistratorMock = SessionTaskRegistratorMock()
 	}
 
 	func createSyncAnchor(from date: Date, locked: Bool = false) throws -> NSFileProviderSyncAnchor {
@@ -43,7 +45,7 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	}
 
 	func createFullyMockedEnumerator(for itemIdentifier: NSFileProviderItemIdentifier) -> FileProviderEnumerator {
-		return FileProviderEnumerator(enumeratedItemIdentifier: itemIdentifier, notificator: notificatorMock, domain: domain, dbPath: dbPath, localURLProvider: localURLProviderMock, adapterProvider: adapterProvidingMock)
+		return FileProviderEnumerator(enumeratedItemIdentifier: itemIdentifier, notificator: notificatorMock, domain: domain, dbPath: dbPath, localURLProvider: localURLProviderMock, adapterProvider: adapterProvidingMock, taskRegistrator: taskRegistratorMock)
 	}
 
 	func assertChangeObserverUpdated(deletedItems: [NSFileProviderItemIdentifier], updatedItems: [FileProviderItem], currentSyncAnchor: NSFileProviderSyncAnchor) {
@@ -64,7 +66,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
@@ -83,7 +85,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let nextPageToken = "Foo"
 		let nextFileProviderPage = NSFileProviderPage(nextPageToken.data(using: .utf8)!)
 		let itemList = FileProviderItemList(items: items, nextPageToken: nextFileProviderPage)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
@@ -101,7 +103,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let pageToken = "Foo"
 		let page = NSFileProviderPage(pageToken.data(using: .utf8)!)
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
 		enumerationObserverMock.finishEnumeratingUpToClosure = { _ in
 			expectation.fulfill()
@@ -117,7 +119,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(CloudProviderError.noInternetConnection)
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
@@ -133,7 +135,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = UnlockMonitorError.defaultLock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError = UnlockMonitorError.defaultLock
 		enumerationObserverMock.finishEnumeratingWithErrorClosure = { _ in
 			expectation.fulfill()
 		}
