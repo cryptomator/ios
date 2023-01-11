@@ -8,6 +8,9 @@
 "getFolderIntent.path" = "Popis umístění";
 "getFolderIntent.text" = "Získat složku, nacházející se v ${path} v ${vault}";
 "getFolderIntent.title" = "Získat složku";
+"lockVaultIntent.text" = "Zamknout ${vault}";
+"lockVaultIntent.title" = "Uzamknout trezor";
+"openVaultIntent.title" = "Otevřít trezor";
 
 "saveFileIntent.description" = "Ukládá soubor do souboru.";
 "saveFileIntent.file" = "Soubor";
