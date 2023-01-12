@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
@@ -18,6 +19,10 @@ class CacheManagingServiceSourceTests: XCTestCase {
 	var notificatorMock: FileProviderNotificatorTypeMock!
 	let domains = [NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier("1")),
 	               NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier("2"))]
+
+	override class func setUp() {
+		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+	}
 
 	override func setUpWithError() throws {
 		cacheManagerFactoryMock = CachedFileManagerFactoryMock()

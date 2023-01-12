@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import FileProvider
 import Promises
 import XCTest
@@ -24,8 +25,8 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	let dbPath = FileManager.default.temporaryDirectory
 	let domain = NSFileProviderDomain(vaultUID: "VaultUID-12345", displayName: "Test Vault")
 	let items: [FileProviderItem] = [
-		.init(metadata: ItemMetadata(id: 2, name: "Test.txt", type: .file, size: 100, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test.txt"), isPlaceholderItem: false), domainIdentifier: .test),
-		.init(metadata: ItemMetadata(id: 3, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false), domainIdentifier: .test)
+		.init(metadata: ItemMetadata(id: 2, name: "Test.txt", type: .file, size: 100, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test.txt"), isPlaceholderItem: false), domainIdentifier: .test, fullVersionChecker: UserDefaultsFullVersionChecker.default),
+		.init(metadata: ItemMetadata(id: 3, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false), domainIdentifier: .test, fullVersionChecker: UserDefaultsFullVersionChecker.default)
 	]
 	let deleteItemIdentifiers = [1, 2, 3].map { NSFileProviderItemIdentifier("\($0)") }
 

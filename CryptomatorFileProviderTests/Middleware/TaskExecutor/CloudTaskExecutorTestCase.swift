@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Promises
 import XCTest
 @testable import CryptomatorFileProvider
@@ -22,6 +23,10 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var downloadTaskManagerMock: DownloadTaskManagerMock!
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
+
+	override class func setUp() {
+		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+	}
 
 	override func setUpWithError() throws {
 		cloudProviderMock = CustomCloudProviderMock()
