@@ -29,6 +29,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	var workingSetObservationMock: WorkingSetObservingMock!
 	var fileProviderNotificatorMock: FileProviderNotificatorTypeMock!
 	var localURLProviderMock: LocalURLProviderMock!
+	var taskRegistratorMock: SessionTaskRegistratorMock!
 	private enum ErrorMock: Error {
 		case test
 	}
@@ -44,6 +45,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		workingSetObservationMock = WorkingSetObservingMock()
 		fileProviderNotificatorMock = FileProviderNotificatorTypeMock()
 		localURLProviderMock = LocalURLProviderMock()
+		taskRegistratorMock = SessionTaskRegistratorMock()
 		fileProviderAdapterManager = FileProviderAdapterManager(masterkeyCacheManager: masterkeyCacheManagerMock, vaultKeepUnlockedHelper: vaultKeepUnlockedHelperMock, vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock, vaultManager: vaultManagerMock, adapterCache: adapterCacheMock, notificatorManager: notificatorManagerMock, unlockMonitor: UnlockMonitor(), providerIdentifier: providerIdentifier)
 		tmpURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: true)
 		dbPath = tmpURL.appendingPathComponent("db.sqlite", isDirectory: false)
@@ -60,7 +62,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	func testGetAdapterNotCachedNoAutoUnlock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = false
-		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)) { error in
+		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
@@ -72,7 +74,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyReturnValue = CustomCloudProviderMock()
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
-		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)
+		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 
@@ -91,7 +93,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultManagerMock.createVaultProviderWithUIDMasterkeyThrowableError = ErrorMock.test
 		let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = masterkey
-		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)) { error in
+		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.test, error as? ErrorMock)
 		}
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
@@ -103,7 +105,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testGetAdapterNotCachedAutoUnlockMissingMasterkey() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReturnValue = true
 		masterkeyCacheManagerMock.getMasterkeyForVaultUIDReturnValue = nil
-		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)) { error in
+		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoUnlockVaultWithVaultUIDReceivedInvocations)
@@ -118,7 +120,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock)
-		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)
+		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)
 		XCTAssert(adapter === fileProviderAdapterStub)
 		try assertLastUsedDateSet()
 	}
@@ -129,7 +131,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
-		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)) { error in
+		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertEqual(1, maintenanceManagerMock.enableMaintenanceModeCallsCount)
@@ -144,7 +146,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
 		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
-		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)) { error in
+		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
 		XCTAssertFalse(maintenanceManagerMock.disableMaintenanceModeCalled)
@@ -177,7 +179,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let kek = [UInt8](repeating: 0x55, count: 32)
 		vaultManagerMock.manualUnlockVaultWithUIDKekReturnValue = CustomCloudProviderMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
-		try fileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock)
+		try fileProviderAdapterManager.unlockVault(with: domain.identifier, kek: kek, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)
 
 		XCTAssertEqual(1, vaultManagerMock.manualUnlockVaultWithUIDKekCallsCount)
 		XCTAssertEqual(vaultUID, vaultManagerMock.manualUnlockVaultWithUIDKekReceivedArguments?.vaultUID)

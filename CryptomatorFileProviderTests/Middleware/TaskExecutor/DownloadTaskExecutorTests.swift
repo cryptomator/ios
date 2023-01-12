@@ -22,7 +22,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
-		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
@@ -61,7 +61,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}
 
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
-		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 
@@ -92,7 +92,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
 		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: true, localURL: localURL)
-		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata)
+		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
 

@@ -86,7 +86,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!))
+		checkThrowsMaintenanceError(try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil))
 	}
 
 	// MARK: - Prevent enabling maintenance mode for running tasks
@@ -132,7 +132,7 @@ class MaintenanceManagerTests: XCTestCase {
 	func testPreventEnablingMaintenanceModeForRunningDownloadTask() throws {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
-		_ = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: false, localURL: URL(string: "/Test")!)
+		_ = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: false, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 

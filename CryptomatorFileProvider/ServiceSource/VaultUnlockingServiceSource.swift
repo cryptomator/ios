@@ -20,11 +20,14 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 		return domain.identifier.rawValue
 	}
 
-	public init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType?, dbPath: URL?, delegate: LocalURLProviderType) {
+	private let taskRegistrator: SessionTaskRegistrator
+
+	public init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType?, dbPath: URL?, delegate: LocalURLProviderType, taskRegistrator: SessionTaskRegistrator) {
 		self.domain = domain
 		self.notificator = notificator
 		self.dbPath = dbPath
 		self.localURLProvider = delegate
+		self.taskRegistrator = taskRegistrator
 		super.init(serviceName: .vaultUnlocking, exportedInterface: NSXPCInterface(with: VaultUnlocking.self))
 	}
 
@@ -40,7 +43,7 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 				return
 			}
 			do {
-				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator)
+				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, kek: kek, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
 				FileProviderAdapterManager.shared.unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
 				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
 				reply(nil)

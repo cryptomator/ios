@@ -18,6 +18,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	var localURLProviderMock: LocalURLProviderMock!
 	var fullVersionCheckerMock: FullVersionCheckerMock!
 	var fileProviderItemUpdateDelegateMock: FileProviderItemUpdateDelegateMock!
+	var taskRegistratorMock: SessionTaskRegistratorMock!
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
@@ -26,6 +27,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		fileProviderItemUpdateDelegateMock = FileProviderItemUpdateDelegateMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
+		taskRegistratorMock = SessionTaskRegistratorMock()
 		adapter = FileProviderAdapter(domainIdentifier: .test,
 		                              uploadTaskManager: uploadTaskManagerMock,
 		                              cachedFileManager: cachedFileManagerMock,
@@ -39,14 +41,15 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              coordinator: fileCoordinator,
 		                              notificator: fileProviderItemUpdateDelegateMock,
 		                              localURLProvider: localURLProviderMock,
-		                              fullVersionChecker: fullVersionCheckerMock)
+		                              fullVersionChecker: fullVersionCheckerMock,
+		                              taskRegistrator: taskRegistratorMock)
 		uploadTaskManagerMock.createNewTaskRecordForClosure = {
 			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		}
-		uploadTaskManagerMock.getTaskForClosure = {
+		uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationClosure = {
 			let id = $0.correspondingItem
 			let metadata = try XCTUnwrap(self.metadataManagerMock.cachedMetadata[id])
-			return UploadTask(taskRecord: $0, itemMetadata: metadata)
+			return UploadTask(taskRecord: $0, itemMetadata: metadata, onURLSessionTaskCreation: $1)
 		}
 	}
 
@@ -61,7 +64,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	}
 
 	func createFullyMockedAdapter() -> FileProviderAdapter {
-		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock)
+		return FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
 	}
 }
 
