@@ -314,7 +314,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	}
 
 	static var setupIAP: () -> Void = {
-		#if FOOBAR
+		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
 		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
 		#else

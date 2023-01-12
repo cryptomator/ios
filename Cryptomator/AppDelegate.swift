@@ -142,7 +142,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	private func setupIAP() {
-		#if FOOBAR
+		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
 		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
 		CryptomatorUserDefaults.shared.fullVersionUnlocked = true

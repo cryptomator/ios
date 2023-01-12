@@ -30,7 +30,7 @@ protocol PremiumManagerType {
 }
 
 class PremiumManager: PremiumManagerType {
-	#if FOOBAR
+	#if ALWAYS_PREMIUM
 	static let shared = AlwaysPremiumManager()
 	#else
 	static let shared = PremiumManager(cryptomatorSettings: CryptomatorUserDefaults.shared)
