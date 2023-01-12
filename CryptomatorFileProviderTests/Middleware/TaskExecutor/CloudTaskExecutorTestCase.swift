@@ -215,11 +215,11 @@ class CloudTaskExecutorTestCase: XCTestCase {
 			fetchItemListResponse?(cloudPath, pageToken) ?? Promise(MockError.notMocked)
 		}
 
-		func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+		func downloadFile(from cloudPath: CryptomatorCloudAccessCore.CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promises.Promise<Void> {
 			downloadFileResponse?(cloudPath, localURL) ?? Promise(MockError.notMocked)
 		}
 
-		func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+		func uploadFile(from localURL: URL, to cloudPath: CryptomatorCloudAccessCore.CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promises.Promise<CryptomatorCloudAccessCore.CloudItemMetadata> {
 			uploadFileResponse?(localURL, cloudPath, replaceExisting) ?? Promise(MockError.notMocked)
 		}
 
@@ -341,9 +341,9 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	class DownloadTaskManagerMock: DownloadTaskManager {
 		var removedTasks = [DownloadTaskRecord]()
 
-		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL) throws -> DownloadTask {
+		func createTask(for item: ItemMetadata, replaceExisting: Bool, localURL: URL, onURLSessionTaskCreation: CryptomatorFileProvider.URLSessionTaskCreationClosure?) throws -> DownloadTask {
 			let taskRecord = DownloadTaskRecord(correspondingItem: item.id!, replaceExisting: replaceExisting, localURL: localURL)
-			return DownloadTask(taskRecord: taskRecord, itemMetadata: item)
+			return DownloadTask(taskRecord: taskRecord, itemMetadata: item, onURLSessionTaskCreation: onURLSessionTaskCreation)
 		}
 
 		func removeTaskRecord(_ task: DownloadTaskRecord) throws {

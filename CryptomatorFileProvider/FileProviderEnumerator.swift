@@ -16,23 +16,26 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 	private let dbPath: URL
 	private let adapterProvider: FileProviderAdapterProviding
 	private let localURLProvider: LocalURLProviderType
+	private let taskRegistrator: SessionTaskRegistrator
 
-	public convenience init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType) {
+	public convenience init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType, taskRegistrator: SessionTaskRegistrator) {
 		self.init(enumeratedItemIdentifier: enumeratedItemIdentifier,
 		          notificator: notificator,
 		          domain: domain,
 		          dbPath: dbPath,
 		          localURLProvider: localURLProvider,
-		          adapterProvider: FileProviderAdapterManager.shared)
+		          adapterProvider: FileProviderAdapterManager.shared,
+		          taskRegistrator: taskRegistrator)
 	}
 
-	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType, adapterProvider: FileProviderAdapterProviding) {
+	init(enumeratedItemIdentifier: NSFileProviderItemIdentifier, notificator: FileProviderNotificatorType, domain: NSFileProviderDomain, dbPath: URL, localURLProvider: LocalURLProviderType, adapterProvider: FileProviderAdapterProviding, taskRegistrator: SessionTaskRegistrator) {
 		self.enumeratedItemIdentifier = enumeratedItemIdentifier
 		self.notificator = notificator
 		self.domain = domain
 		self.dbPath = dbPath
 		self.localURLProvider = localURLProvider
 		self.adapterProvider = adapterProvider
+		self.taskRegistrator = taskRegistrator
 		super.init()
 	}
 
@@ -70,7 +73,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 		adapterProvider.unlockMonitor.execute {
 			let adapter: FileProviderAdapterType
 			do {
-				adapter = try self.adapterProvider.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator)
+				adapter = try self.adapterProvider.getAdapter(forDomain: self.domain, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: self.notificator, taskRegistrator: self.taskRegistrator)
 			} catch {
 				self.handleEnumerateItemsError(error, for: observer)
 				return
@@ -115,7 +118,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 
 			let adapter: FileProviderAdapterType
 			do {
-				adapter = try adapterProvider.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
+				adapter = try adapterProvider.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator, taskRegistrator: taskRegistrator)
 			} catch {
 				if workingSetSyncAnchor.invalidated {
 					DDLogDebug("Working set for \(domain.displayName) is already invalidated -> return empty array")

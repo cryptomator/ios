@@ -94,7 +94,7 @@ class UploadTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let taskRecord = try manager.createNewTaskRecord(for: itemMetadata)
-		let fetchedTask = try manager.getTask(for: taskRecord)
+		let fetchedTask = try manager.getTask(for: taskRecord, onURLSessionTaskCreation: nil)
 		XCTAssertEqual(itemMetadata, fetchedTask.itemMetadata)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.taskRecord.correspondingItem)
 	}

@@ -20,7 +20,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		lastKnownSyncAnchor = try createSyncAnchor(from: .distantPast, locked: false)
-		enumerator = FileProviderEnumerator(enumeratedItemIdentifier: .workingSet, notificator: FileProviderNotificator(manager: EnumerationSignalingMock()), domain: domain, dbPath: dbPath, localURLProvider: localURLProviderMock, adapterProvider: adapterProvidingMock)
+		enumerator = FileProviderEnumerator(enumeratedItemIdentifier: .workingSet, notificator: FileProviderNotificator(manager: EnumerationSignalingMock()), domain: domain, dbPath: dbPath, localURLProvider: localURLProviderMock, adapterProvider: adapterProvidingMock, taskRegistrator: taskRegistratorMock)
 
 		setupEnumerateItemsObserver()
 		setupEnumerateChangesObserver()
@@ -53,7 +53,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let enumerator = createFullyMockedEnumerator(for: .workingSet)
 		let lastUnlockedDate = Date()
 		adapterMock.lastUnlockedDate = lastUnlockedDate
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 
 		notificatorMock.getItemIdentifiersToDeleteFromWorkingSetReturnValue = deleteItemIdentifiers
 		notificatorMock.popUpdateWorkingSetItemsReturnValue = items
@@ -74,7 +74,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let enumerator = createFullyMockedEnumerator(for: .workingSet)
 		let lastUnlockedDate = Date.distantPast
 		adapterMock.lastUnlockedDate = lastUnlockedDate
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 
 		notificatorMock.getItemIdentifiersToDeleteFromWorkingSetReturnValue = deleteItemIdentifiers
 		notificatorMock.popUpdateWorkingSetItemsReturnValue = items
@@ -94,7 +94,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .workingSet)
 		adapterMock.lastUnlockedDate = Date()
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		changeObserverMock.finishEnumeratingWithErrorClosure = { error in
 			XCTAssertEqual(NSFileProviderError(.syncAnchorExpired), error as? NSFileProviderError)
 			expectation.fulfill()
@@ -116,7 +116,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 	}
 
 	private func simulateLockedVault() {
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorThrowableError = UnlockMonitorError.defaultLock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError = UnlockMonitorError.defaultLock
 	}
 
 	private func assertWorkingSetDidNotChange() {

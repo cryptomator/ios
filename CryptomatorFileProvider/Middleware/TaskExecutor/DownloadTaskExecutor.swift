@@ -49,7 +49,12 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 		let itemMetadata = task.itemMetadata
 		return provider.fetchItemMetadata(at: itemMetadata.cloudPath).then { cloudMetadata -> Promise<Void> in
 			lastModifiedDate = cloudMetadata.lastModifiedDate
-			return self.provider.downloadFile(from: itemMetadata.cloudPath, to: downloadDestination)
+			return self.provider.downloadFile(from: itemMetadata.cloudPath, to: downloadDestination, onTaskCreation: { task in
+				guard let task else {
+					return
+				}
+				downloadTask.onURLSessionTaskCreation?(task)
+			})
 		}.then { _ -> FileProviderItem in
 			try self.downloadPostProcessing(for: itemMetadata, lastModifiedDate: lastModifiedDate, localURL: taskRecord.localURL, downloadDestination: downloadDestination)
 		}.always {
