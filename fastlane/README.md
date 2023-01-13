@@ -71,13 +71,13 @@ Submit a new beta build to TestFlight
 
 Deploy a new version to the App Store
 
-### ios update_app
+### ios apply_config
 
 ```sh
-[bundle exec] fastlane ios update_app
+[bundle exec] fastlane ios apply_config
 ```
 
-Update app configuration to release a different version
+Apply app configuration to release a different version
 
 ----
 
