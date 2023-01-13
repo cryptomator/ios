@@ -83,8 +83,9 @@ platform :ios do
   desc "Apply app configuration to release a different version"
   lane :apply_config do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH']
+      env_vars: ['CONFIG_NAME', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH']
     )
+    config_name = ENV['CONFIG_NAME']
     bundle_identifier = ENV['BUNDLE_IDENTIFIER']
     display_name = ENV['DISPLAY_NAME']
     app_group = ENV['APP_GROUP']
@@ -192,11 +193,14 @@ platform :ios do
       identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
     )
 
-    # Update the app constants file.
+    # Update the app constants file
     sh("./scripts/create-app-constants.sh #{bundle_identifier}")
 
-    # Update the app icon.
+    # Update the app icon
     sh("./scripts/create-app-icon.sh #{app_icon_file_path}")
+
+    # Update the cloud access secrets file
+    sh("./scripts/create-cloud-access-secrets.sh #{config_name}")
   end
 
   error do |lane, exception|
