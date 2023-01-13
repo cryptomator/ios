@@ -77,7 +77,7 @@ Deploy a new version to the App Store
 [bundle exec] fastlane ios update_app
 ```
 
-Update app settings to release a different version
+Update app configuration to release a different version
 
 ----
 

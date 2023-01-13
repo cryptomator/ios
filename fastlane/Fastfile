@@ -64,31 +64,29 @@ platform :ios do
   end
 
   """
-  Updates the app identifier and bundle identifier of the following targets:
+  Updates the app identifier of the following targets:
   - Cryptomator
   - FileProviderExtension
   - FileProviderExtensionUI
   - CryptomatorIntents
-  The app identifier and bundle identifier of the Cryptomator target are set to the same value.
-  The bundle identifier of the ofther targets are set to the bundle_identifier + the lowercased target name.
+  The bundle identifier is the base for the app identifier of all targets.
   The display name can be passed as an option and is the same for all targets.
   The app group is set to the app_group option. 
   The keychain sharing group is set to the keychain_group option with the prefix $(AppIdentifierPrefix).
   Updates the constants file to conveniently use the app group inside the Swift code.
   Sets the app icon to the file at the passed app_icon_file_path.
   """
-  desc "Update app settings to release a different version"
+  desc "Update app configuration to release a different version"
   lane :update_app do |options|
-    app_identifier = options[:app_identifier]
     bundle_identifier = options[:bundle_identifier]
     keychain_group = options[:keychain_group]
     app_icon_file_path = options[:app_icon_file_path]
 
-    # Update the app identifier and bundle identifier
+    # Update the app identifier
     update_app_identifier(
       xcodeproj: "Cryptomator.xcodeproj",
       plist_path: "Cryptomator/Info.plist",
-      app_identifier: app_identifier
+      app_identifier: bundle_identifier
     )
     update_app_identifier(
       xcodeproj: "Cryptomator.xcodeproj",
@@ -186,13 +184,13 @@ platform :ios do
     )
 
     # Update the app constants file.
-    sh("./scripts/create-app-constants.sh  #{bundle_identifier}")
+    sh("./scripts/create-app-constants.sh #{bundle_identifier}")
 
     # Update the app icon.
-    sh("./scripts/create-app-icon.sh  #{app_icon_file_path}")
+    sh("./scripts/create-app-icon.sh #{app_icon_file_path}")
   end
 
-    error do |lane, exception|
+  error do |lane, exception|
     # slack(message: exception.to_s, success: false)
   end
 end
