@@ -35,7 +35,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	override class func setUp() {
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		GlobalFullVersionChecker.default = FullVersionCheckerMock()
 	}
 
 	#warning("TODO: Replace unlockMonitor with mock")

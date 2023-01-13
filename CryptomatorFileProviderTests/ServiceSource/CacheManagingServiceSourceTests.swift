@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
-import CryptomatorCommonCore
 import Promises
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class CacheManagingServiceSourceTests: XCTestCase {
@@ -21,7 +21,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 	               NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier("2"))]
 
 	override class func setUp() {
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		GlobalFullVersionChecker.default = FullVersionCheckerMock()
 	}
 
 	override func setUpWithError() throws {

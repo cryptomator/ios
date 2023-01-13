@@ -7,9 +7,9 @@
 //
 
 import CryptomatorCloudAccessCore
-import CryptomatorCommonCore
 import Promises
 import XCTest
+@testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
 
 class CloudTaskExecutorTestCase: XCTestCase {
@@ -25,7 +25,7 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var tmpDirectory: URL!
 
 	override class func setUp() {
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		GlobalFullVersionChecker.default = FullVersionCheckerMock()
 	}
 
 	override func setUpWithError() throws {
