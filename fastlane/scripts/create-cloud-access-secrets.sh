@@ -2,7 +2,7 @@
 
 # Path is relative to the fastlane folder
 if [ -f ./scripts/.cloud-access-secrets.sh ]; then
-  source ./scripts/.cloud-access-secrets.sh ${1}
+  source ./scripts/.cloud-access-secrets.sh "${1}"
 else
   echo "warning: .cloud-access-secrets.sh could not be found, please see README for instructions"
 fi
