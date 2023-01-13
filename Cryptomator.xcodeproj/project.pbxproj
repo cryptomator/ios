@@ -2056,8 +2056,6 @@
 				4A136128276767D60077EB7F /* PBXTargetDependency */,
 			);
 			name = Snapshots;
-			packageProductDependencies = (
-			);
 			productName = Snapshots;
 			productReference = 4A136121276767D60077EB7F /* Snapshots.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -2308,8 +2306,8 @@
 			);
 			mainGroup = 4A5E5B202453119100BD6298;
 			packageReferences = (
-				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
-				4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */,
+				4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */,
 			);
 			productRefGroup = 4A5E5B2A2453119100BD6298 /* Products */;
 			projectDirPath = "";
@@ -2978,7 +2976,7 @@
 		};
 		4A9172722619F16C003C4043 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 4A9172712619F16C003C4043 /* CryptomatorCommonCore */;
+			productRef = 4A9172712619F16C003C4043;
 		};
 		4A9BED69268F379300721BAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3664,7 +3662,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
+		4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tikhop/TPInAppReceipt.git";
 			requirement = {
@@ -3672,7 +3670,7 @@
 				minimumVersion = 3.3.0;
 			};
 		};
-		4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
 			requirement = {
@@ -3685,14 +3683,10 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4A1521E327C55EA2006C96B2 /* TPInAppReceipt */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
+			package = 4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */;
 			productName = TPInAppReceipt;
 		};
 		4A33092C282EC23400876A3E /* CryptomatorCommonCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CryptomatorCommonCore;
-		};
-		4A9172712619F16C003C4043 /* CryptomatorCommonCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CryptomatorCommonCore;
 		};
@@ -3706,7 +3700,7 @@
 		};
 		4AED9A6E286B38DA00352951 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */;
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */

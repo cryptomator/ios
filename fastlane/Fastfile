@@ -5,6 +5,9 @@ default_platform(:ios)
 platform :ios do
   desc "Sync certificates and provisioning profiles for all targets"
   lane :certificates do
+    ensure_env_vars(
+      env_vars: ['SKYMATIC_MATCH_GIT_URL', 'BUNDLE_IDENTIFIER']
+    )
     match(type: "appstore")
     match(type: "development", force_for_new_devices: true)
   end
@@ -16,11 +19,17 @@ platform :ios do
 
   desc "Upload screenshots to App Store Connect"
   lane :upload_screenshots do
+    ensure_env_vars(
+      env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
+    )
     deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false)
   end
 
   desc "Update metadata in App Store Connect"
   lane :update_metadata do
+    ensure_env_vars(
+      env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
+    )
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)
   end
 
@@ -31,6 +40,10 @@ platform :ios do
 
   desc "Submit a new beta build to TestFlight"
   lane :beta do
+    ensure_env_vars(
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+    )
+    apply_config
     scan
     gym
     changelog = File.read("changelog.txt")
@@ -48,6 +61,10 @@ platform :ios do
 
   desc "Deploy a new version to the App Store"
   lane :app_store do
+    ensure_env_vars(
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+    )
+    apply_config
     scan
     gym
     changelog = File.read("changelog.txt")
@@ -61,6 +78,129 @@ platform :ios do
         "Changes" => changelog
       }
     )
+  end
+
+  desc "Apply app configuration to release a different version"
+  lane :apply_config do
+    ensure_env_vars(
+      env_vars: ['CONFIG_NAME', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH']
+    )
+    config_name = ENV['CONFIG_NAME']
+    bundle_identifier = ENV['BUNDLE_IDENTIFIER']
+    display_name = ENV['DISPLAY_NAME']
+    app_group = ENV['APP_GROUP']
+    keychain_group = ENV['KEYCHAIN_GROUP']
+    app_icon_file_path = ENV['APP_ICON_FILE_PATH']
+
+    # Update the app identifier
+    update_app_identifier(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "Cryptomator/Info.plist",
+      app_identifier: bundle_identifier
+    )
+    update_app_identifier(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "FileProviderExtension/Info.plist",
+      app_identifier: "#{bundle_identifier}.fileprovider"
+    )
+    update_app_identifier(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "FileProviderExtensionUI/Info.plist",
+      app_identifier: "#{bundle_identifier}.fileprovider-ui"
+    )
+    update_app_identifier(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "CryptomatorIntents/Info.plist",
+      app_identifier: "#{bundle_identifier}.intents"
+    )
+    update_app_identifier(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "CryptomatorTests/Info.plist",
+      app_identifier: "#{bundle_identifier}.tests"
+    )
+
+    # Update the display name
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "Cryptomator/Info.plist",
+      display_name: display_name
+    )
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "FileProviderExtension/Info.plist",
+      display_name: display_name
+    )
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "FileProviderExtensionUI/Info.plist",
+      display_name: display_name
+    )
+
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "CryptomatorIntents/Info.plist",
+      display_name: display_name
+    )
+
+    # Update the NSExtensionFileProviderDocumentGroup
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "FileProviderExtension/Info.plist",
+      block: proc do |plist|
+        plist["NSExtension"]["NSExtensionFileProviderDocumentGroup"] = app_group
+      end
+    )
+
+    # Update the app group for the Cryptomator target
+    update_app_group_identifiers(
+      entitlements_file: "Cryptomator/Cryptomator.entitlements",
+      app_group_identifiers: [app_group]
+    )
+
+    # Update the app group for the CryptomatorIntents target
+    update_app_group_identifiers(
+      entitlements_file: "CryptomatorIntents/CryptomatorIntents.entitlements",
+      app_group_identifiers: [app_group]
+    )
+
+    # Update the app group for the FileProviderExtension target
+    update_app_group_identifiers(
+      entitlements_file: "FileProviderExtension/FileProviderExtension.entitlements",
+      app_group_identifiers: [app_group]
+    )
+
+    # Update the app group for the FileProviderExtensionUI target
+    update_app_group_identifiers(
+      entitlements_file: "FileProviderExtensionUI/FileProviderExtensionUI.entitlements",
+      app_group_identifiers: [app_group]
+    )
+    
+    # Update the keychain sharing group for the Cryptomator target
+    update_keychain_access_groups(
+      entitlements_file: "Cryptomator/Cryptomator.entitlements",
+      identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
+    )
+
+    # Update the keychain sharing group for the FileProviderExtension target
+    update_keychain_access_groups(
+      entitlements_file: "FileProviderExtension/FileProviderExtension.entitlements",
+      identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
+    )
+
+    # Update the keychain sharing group for the FileProviderExtensionUI target
+    update_keychain_access_groups(
+      entitlements_file: "FileProviderExtensionUI/FileProviderExtensionUI.entitlements",
+      identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
+    )
+
+    # Update the app constants file
+    sh("./scripts/create-app-constants.sh #{bundle_identifier}")
+
+    # Update the app icon
+    sh("./scripts/create-app-icon.sh #{app_icon_file_path}")
+
+    # Update the cloud access secrets file
+    sh("./scripts/create-cloud-access-secrets.sh #{config_name}")
   end
 
   error do |lane, exception|

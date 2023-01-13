@@ -1,0 +1,1 @@
+- Fehlende Buttons beim Hinzufügen von WebDAV/S3-Verbindungen unter iOS 13/14 behoben (#280, #282)

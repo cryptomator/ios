@@ -24,7 +24,9 @@ jobs:
           ./Scripts/process.sh
           exit $?
       - name: Create CloudAccessSecrets
-        run: ./create-cloud-access-secrets-file.sh
+        run: |
+          cd fastlane
+          ./scripts/create-cloud-access-secrets.sh
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES | xcpretty
       - name: Test

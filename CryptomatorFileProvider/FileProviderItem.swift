@@ -24,7 +24,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fullVersionChecker: FullVersionChecker
 
-	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared) {
+	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = GlobalFullVersionChecker.default) {
 		self.metadata = metadata
 		self.domainIdentifier = domainIdentifier
 		self.error = error

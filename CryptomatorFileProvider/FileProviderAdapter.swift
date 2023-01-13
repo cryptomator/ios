@@ -87,7 +87,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	     coordinator: NSFileCoordinator,
 	     notificator: FileProviderItemUpdateDelegate? = nil,
 	     localURLProvider: LocalURLProviderType,
-	     fullVersionChecker: FullVersionChecker = UserDefaultsFullVersionChecker.shared,
+	     fullVersionChecker: FullVersionChecker = GlobalFullVersionChecker.default,
 	     taskRegistrator: SessionTaskRegistrator) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier

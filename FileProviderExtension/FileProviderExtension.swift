@@ -23,6 +23,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	override init() {
 		super.init()
 		LoggerSetup.oneTimeSetup()
+		FileProviderExtension.setupIAP()
 		if !FileProviderExtension.sharedDatabaseInitialized {
 			if let dbURL = CryptomatorDatabase.sharedDBURL {
 				do {
@@ -311,6 +312,17 @@ class FileProviderExtension: NSFileProviderExtension {
 			throw ErrorWrapper.wrapError(error, domain: domain)
 		}
 	}
+
+	static var setupIAP: () -> Void = {
+		#if ALWAYS_PREMIUM
+		DDLogDebug("Always activated premium")
+		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
+		#else
+		DDLogDebug("Freemium version")
+		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		#endif
+		return {}
+	}()
 }
 
 enum FileProviderDecoratorSetupError: Error {

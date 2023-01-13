@@ -27,7 +27,7 @@ public class RootFileProviderItem: NSObject, NSFileProviderItem {
 
 	private let fullVersionChecker: FullVersionChecker
 	override public convenience init() {
-		self.init(fullVersionChecker: UserDefaultsFullVersionChecker.shared)
+		self.init(fullVersionChecker: GlobalFullVersionChecker.default)
 	}
 
 	init(fullVersionChecker: FullVersionChecker) {
