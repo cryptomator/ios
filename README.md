@@ -26,7 +26,7 @@ export ONEDRIVE_REDIRECT_URI_SCHEME=...
 export PCLOUD_APP_KEY=...
 ```
 
-And then run `./fastlane/scripts/create-cloud-access-secrets-file.sh` once. Of course, if you change the secrets, you have to run that script again.
+And then run `./fastlane/scripts/create-cloud-access-secrets.sh` once. Of course, if you change the secrets, you have to run that script again.
 
 If you are building via a CI system, set these secret environment variables accordingly.
 
