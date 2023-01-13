@@ -13,7 +13,7 @@ public protocol FullVersionChecker {
 }
 
 /**
- Use a singleton to inject the full version checker conveniently at several initializers since compilation flags do not work  on Swift Package Manager level.
+ Use a singleton to inject the full version checker conveniently at several initializers since compilation flags do not work on Swift Package Manager level.
  Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
  */
 public enum GlobalFullVersionChecker {

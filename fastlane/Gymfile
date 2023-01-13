@@ -1,2 +1,3 @@
 scheme("Cryptomator")
 clean(true)
+xcargs(ENV["XCARGS"])

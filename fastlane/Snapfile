@@ -21,7 +21,7 @@ localize_simulator(true)
 
 disable_slide_to_type(true)
 
-xcargs "SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) SNAPSHOTS'"
+xcargs("SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) SNAPSHOTS'")
 
 # Erasing the simulator is necessary to bring the Files App to its original state
 erase_simulator(true)
