@@ -14,7 +14,7 @@ Download on the App Store: https://apps.apple.com/app/cryptomator-2/id1560822163
 
 ### Create Secrets
 
-If you are building with Xcode, create a `.cloud-access-secrets.sh` file in the root directory. Its contents should look something like this:
+If you are building with Xcode, create a `.cloud-access-secrets.sh` file in the `fastlane/scripts` directory. Its contents should look something like this:
 
 ```sh
 #!/bin/sh
@@ -26,7 +26,7 @@ export ONEDRIVE_REDIRECT_URI_SCHEME=...
 export PCLOUD_APP_KEY=...
 ```
 
-And then run `./create-cloud-access-secrets-file.sh` once. Of course, if you change the secrets, you have to run that script again.
+And then run `./fastlane/scripts/create-cloud-access-secrets-file.sh` once. Of course, if you change the secrets, you have to run that script again.
 
 If you are building via a CI system, set these secret environment variables accordingly.
 

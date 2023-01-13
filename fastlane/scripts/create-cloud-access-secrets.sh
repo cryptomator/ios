@@ -1,10 +1,11 @@
 #!/bin/sh
 if [ -f ./.cloud-access-secrets.sh ]; then
-  source ./.cloud-access-secrets.sh
+  source ./.cloud-access-secrets.sh ${1}
 else
   echo "warning: .cloud-access-secrets.sh could not be found, please see README for instructions"
 fi
-cat > ./CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swift << EOM
+# Path is relative to the fastlane folder
+cat > ../CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swift << EOM
 //
 //  CloudAccessSecrets.swift
 //  CryptomatorCommonCore
