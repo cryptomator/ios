@@ -30,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Uživatel";
 "common.footer.learnMore" = "Více informací.";
+"common.hud.authenticating" = "Ověřování…";
 
 "accountList.header.title" = "Ověření";
 "accountList.emptyList.message" = "Klepnutím sem přidáte účet";
@@ -106,6 +107,9 @@
 "fileProvider.uploadProgress.title" = "Nahrávání…";
 "fileProvider.uploadProgress.missingDomainError" = "Doména nebyla nalezena.";
 "getFolderIntent.error.noVaultSelected" = "Nebyl vybrán žádný trezor.";
+"intents.saveFile.missingFile" = "Zadaný soubor není platný.";
+"intents.saveFile.invalidFolder" = "Zadaná složka není platná.";
+"intents.saveFile.missingTemporaryFolder" = "Vytvoření dočasné složky se nezdařilo.";
 "intents.saveFile.selectedVaultNotFound" = "Vybraný trezor nebyl nalezen.";
 
 "keepUnlocked.alert.title" = "Zamknout trezor?";
