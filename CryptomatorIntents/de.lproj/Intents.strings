@@ -12,11 +12,11 @@
 "isUnlockedIntent.description" = "Gibt zurück, ob der angegebene Tresor entsperrt ist.";
 "isUnlockedIntent.title" = "Ist entsperrt";
 
-"isVaultLockedIntent.title" = "Tresor entsperrt";
+"isVaultLockedIntent.title" = "Ist Tresor entsperrt";
 "isVaultUnlockedIntent.text" = "Ist ${vault} entsperrt?";
 
 "lockVaultIntent.description" = "Sperrt den angegebenen Tresor.";
-"lockVaultIntent.text" = "Sperre ${vault}";
+"lockVaultIntent.text" = "${vault} sperren";
 "lockVaultIntent.title" = "Tresor sperren";
 
 "openVaultIntent.description" = "Öffnet den angegebenen Tresor in der Datei-App.";
@@ -25,9 +25,9 @@
 
 "saveFileIntent.description" = "Speichert eine Datei in einem Tresor.";
 "saveFileIntent.file" = "Datei";
-"saveFileIntent.parameter.ignoreExisting" = "Vorhandene Datei mit gleichem Namen ignorieren";
+"saveFileIntent.parameter.ignoreExisting" = "Bestehende Datei mit gleichem Namen ignorieren";
 "saveFileIntent.text" = "${file} in ${folder} speichern";
 "saveFileIntent.title" = "Datei speichern";
 
-"vaultFolder.displayName" = "Tresor-Ordner";
+"vaultFolder.displayName" = "Tresorordner";
 "vaultFolder.vaultIdentifier" = "Tresor-Bezeichnung";

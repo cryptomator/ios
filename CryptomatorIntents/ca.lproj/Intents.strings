@@ -7,6 +7,8 @@
 
 "isUnlockedIntent.description" = "Torna si la caixa forta indicada està desblocada.";
 "isUnlockedIntent.title" = "Desblocada";
+
+"isVaultLockedIntent.title" = "La caixa forta és blocada?";
 "isVaultUnlockedIntent.text" = "${vault} desblocada?";
 
 "lockVaultIntent.description" = "Bloca la caixa forta donada.";
@@ -19,6 +21,7 @@
 
 "saveFileIntent.description" = "Desa un fitxer a la caixa forta.";
 "saveFileIntent.file" = "Fitxer";
+"saveFileIntent.parameter.ignoreExisting" = "Ignora els fitxers existents amb el mateix nom";
 "saveFileIntent.text" = "Desa ${file} a ${folder}";
 "saveFileIntent.title" = "Desa el fitxer";
 
