@@ -193,6 +193,58 @@ platform :ios do
       identifiers: ["$(AppIdentifierPrefix)#{keychain_group}"]
     )
 
+    # Update the project provisioning
+    match(type: "appstore", readonly: true)
+    match(type: "development", readonly: true)
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}_appstore_profile-path"],
+      target_filter: "^Cryptomator$",
+      build_configuration: "Release"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}_development_profile-path"],
+      target_filter: "^Cryptomator$",
+      build_configuration: "Debug"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider_appstore_profile-path"],
+      target_filter: "^FileProviderExtension$",
+      build_configuration: "Release"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider_development_profile-path"],
+      target_filter: "^FileProviderExtension$",
+      build_configuration: "Debug"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider-ui_appstore_profile-path"],
+      target_filter: "^FileProviderExtensionUI$",
+      build_configuration: "Release"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider-ui_development_profile-path"],
+      target_filter: "^FileProviderExtensionUI$",
+      build_configuration: "Debug"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.intents_appstore_profile-path"],
+      target_filter: "^CryptomatorIntents$",
+      build_configuration: "Release"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.intents_development_profile-path"],
+      target_filter: "^CryptomatorIntents$",
+      build_configuration: "Debug"
+    )
+
     # Update the app constants file
     sh("./scripts/create-app-constants.sh #{bundle_identifier}")
 
