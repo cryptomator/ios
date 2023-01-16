@@ -1,1 +1,4 @@
-- Fixed missing buttons when adding WebDAV/S3 connections on iOS 13/14 (#280, #282)
+- Added download progress indication to Google Drive and WebDAV (#276, #293)
+- Added upload progress indication to WebDAV (#293)
+- Added background download/upload support to pCloud (#218, #293)
+- Fixed error when trying to use self-signed certificates with WebDAV (#291)
