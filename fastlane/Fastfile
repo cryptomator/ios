@@ -41,7 +41,7 @@ platform :ios do
   desc "Submit a new beta build to TestFlight"
   lane :beta do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -62,7 +62,7 @@ platform :ios do
   desc "Deploy a new version to the App Store"
   lane :app_store do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -91,6 +91,7 @@ platform :ios do
     app_group = ENV['APP_GROUP']
     keychain_group = ENV['KEYCHAIN_GROUP']
     app_icon_file_path = ENV['APP_ICON_FILE_PATH']
+    encryption_export_compliance_code = ENV['ENCRYPTION_EXPORT_COMPLIANCE_CODE']
 
     # Update the app identifier
     update_app_identifier(
@@ -140,6 +141,15 @@ platform :ios do
       xcodeproj: "Cryptomator.xcodeproj",
       plist_path: "CryptomatorIntents/Info.plist",
       display_name: display_name
+    )
+
+    # Update the ITSEncryptionExportComplianceCode
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "Cryptomator/Info.plist",
+      block: proc do |plist|
+        plist["ITSEncryptionExportComplianceCode"] = encryption_export_compliance_code
+      end
     )
 
     # Update the NSExtensionFileProviderDocumentGroup
@@ -194,14 +204,8 @@ platform :ios do
     )
 
     # Update the project provisioning
-    match(type: "appstore", readonly: true)
     match(type: "development", readonly: true)
-    update_project_provisioning(
-      xcodeproj: "Cryptomator.xcodeproj",
-      profile: ENV["sigh_#{bundle_identifier}_appstore_profile-path"],
-      target_filter: "^Cryptomator$",
-      build_configuration: "Release"
-    )
+    match(type: "appstore", readonly: true)
     update_project_provisioning(
       xcodeproj: "Cryptomator.xcodeproj",
       profile: ENV["sigh_#{bundle_identifier}_development_profile-path"],
@@ -210,8 +214,8 @@ platform :ios do
     )
     update_project_provisioning(
       xcodeproj: "Cryptomator.xcodeproj",
-      profile: ENV["sigh_#{bundle_identifier}.fileprovider_appstore_profile-path"],
-      target_filter: "^FileProviderExtension$",
+      profile: ENV["sigh_#{bundle_identifier}_appstore_profile-path"],
+      target_filter: "^Cryptomator$",
       build_configuration: "Release"
     )
     update_project_provisioning(
@@ -222,8 +226,8 @@ platform :ios do
     )
     update_project_provisioning(
       xcodeproj: "Cryptomator.xcodeproj",
-      profile: ENV["sigh_#{bundle_identifier}.fileprovider-ui_appstore_profile-path"],
-      target_filter: "^FileProviderExtensionUI$",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider_appstore_profile-path"],
+      target_filter: "^FileProviderExtension$",
       build_configuration: "Release"
     )
     update_project_provisioning(
@@ -234,8 +238,8 @@ platform :ios do
     )
     update_project_provisioning(
       xcodeproj: "Cryptomator.xcodeproj",
-      profile: ENV["sigh_#{bundle_identifier}.intents_appstore_profile-path"],
-      target_filter: "^CryptomatorIntents$",
+      profile: ENV["sigh_#{bundle_identifier}.fileprovider-ui_appstore_profile-path"],
+      target_filter: "^FileProviderExtensionUI$",
       build_configuration: "Release"
     )
     update_project_provisioning(
@@ -243,6 +247,12 @@ platform :ios do
       profile: ENV["sigh_#{bundle_identifier}.intents_development_profile-path"],
       target_filter: "^CryptomatorIntents$",
       build_configuration: "Debug"
+    )
+    update_project_provisioning(
+      xcodeproj: "Cryptomator.xcodeproj",
+      profile: ENV["sigh_#{bundle_identifier}.intents_appstore_profile-path"],
+      target_filter: "^CryptomatorIntents$",
+      build_configuration: "Release"
     )
 
     # Update the app constants file
