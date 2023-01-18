@@ -18,23 +18,26 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 	private let localURLProvider: LocalURLProviderType
 	private let adapterManager: FileProviderAdapterProviding
 	private let fullVersionChecker: FullVersionChecker
+	private let taskRegistrator: SessionTaskRegistrator
 
-	public convenience init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType) {
+	public convenience init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, taskRegistrator: SessionTaskRegistrator) {
 		self.init(domain: domain,
 		          notificator: notificator,
 		          dbPath: dbPath,
 		          delegate: delegate,
 		          adapterManager: FileProviderAdapterManager.shared,
-		          fullVersionChecker: UserDefaultsFullVersionChecker.shared)
+		          fullVersionChecker: GlobalFullVersionChecker.default,
+		          taskRegistrator: taskRegistrator)
 	}
 
-	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding, fullVersionChecker: FullVersionChecker) {
+	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding, fullVersionChecker: FullVersionChecker, taskRegistrator: SessionTaskRegistrator) {
 		self.domain = domain
 		self.notificator = notificator
 		self.dbPath = dbPath
 		self.localURLProvider = delegate
 		self.adapterManager = adapterManager
 		self.fullVersionChecker = fullVersionChecker
+		self.taskRegistrator = taskRegistrator
 		super.init(serviceName: .fileImporting, exportedInterface: NSXPCInterface(with: FileImporting.self))
 	}
 
@@ -55,7 +58,8 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 			adapter = try adapterManager.getAdapter(forDomain: domain,
 			                                        dbPath: dbPath,
 			                                        delegate: localURLProvider,
-			                                        notificator: notificator)
+			                                        notificator: notificator,
+			                                        taskRegistrator: taskRegistrator)
 		} catch {
 			throw ErrorWrapper.wrapError(error, domain: domain)._nsError
 		}
@@ -87,7 +91,8 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 			adapter = try adapterManager.getAdapter(forDomain: domain,
 			                                        dbPath: dbPath,
 			                                        delegate: localURLProvider,
-			                                        notificator: notificator)
+			                                        notificator: notificator,
+			                                        taskRegistrator: taskRegistrator)
 		} catch {
 			throw ErrorWrapper.wrapError(error, domain: domain)._nsError
 		}

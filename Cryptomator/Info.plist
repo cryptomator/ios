@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Cryptomator</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -63,7 +65,7 @@
 		<string>GetFolderIntent</string>
 		<string>IsVaultUnlockedIntent</string>
 		<string>LockVaultIntent</string>
-        <string>OpenVaultIntent</string>
+		<string>OpenVaultIntent</string>
 		<string>SaveFileIntent</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

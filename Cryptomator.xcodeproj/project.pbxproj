@@ -21,6 +21,7 @@
 		4A09E54E27071F4F0056D32A /* ErrorMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A09E54D27071F4F0056D32A /* ErrorMapper.swift */; };
 		4A0C07E225AC80C100B83211 /* UIView+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07E125AC80C100B83211 /* UIView+Preview.swift */; };
 		4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07EA25AC832900B83211 /* VaultListPosition.swift */; };
+		4A0EAAD2296F604200E27B56 /* SessionTaskRegistratorMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0EAAD1296F604200E27B56 /* SessionTaskRegistratorMock.swift */; };
 		4A123EA824BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */; };
 		4A136124276767D60077EB7F /* Snapshots.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A136123276767D60077EB7F /* Snapshots.swift */; };
 		4A13612D276768000077EB7F /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A13612C276768000077EB7F /* SnapshotHelper.swift */; };
@@ -190,6 +191,7 @@
 		4A717CD924C835740048E08F /* ReparentTaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */; };
 		4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */; };
 		4A74DBB1282132EC00A332C4 /* FileProviderAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */; };
+		4A7514A12937F777002E802E /* SessionTaskRegistrator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */; };
 		4A753DB92678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */; };
 		4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */; };
 		4A773909286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A773908286D87AB0006B3C3 /* S3AuthenticationViewModelTests.swift */; };
@@ -545,6 +547,7 @@
 		4A09E54D27071F4F0056D32A /* ErrorMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMapper.swift; sourceTree = "<group>"; };
 		4A0C07E125AC80C100B83211 /* UIView+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Preview.swift"; sourceTree = "<group>"; };
 		4A0C07EA25AC832900B83211 /* VaultListPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListPosition.swift; sourceTree = "<group>"; };
+		4A0EAAD1296F604200E27B56 /* SessionTaskRegistratorMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskRegistratorMock.swift; sourceTree = "<group>"; };
 		4A123EA724BEF5F0001D1CF7 /* CloudProviderPaginationMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudProviderPaginationMock.swift; sourceTree = "<group>"; };
 		4A136121276767D60077EB7F /* Snapshots.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Snapshots.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A136123276767D60077EB7F /* Snapshots.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snapshots.swift; sourceTree = "<group>"; };
@@ -715,6 +718,7 @@
 		4A717CD824C835740048E08F /* ReparentTaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReparentTaskManagerTests.swift; sourceTree = "<group>"; };
 		4A74337928B3E3AB00AECD21 /* WebDAVAuthentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebDAVAuthentication.swift; sourceTree = "<group>"; };
 		4A74DBB0282132EC00A332C4 /* FileProviderAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAction.swift; sourceTree = "<group>"; };
+		4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTaskRegistrator.swift; sourceTree = "<group>"; };
 		4A753DB82678A226005F79C1 /* OpenExistingLegacyVaultPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenExistingLegacyVaultPasswordViewModel.swift; sourceTree = "<group>"; };
 		4A753FBB2832A371006A9C3F /* CryptomatorIntents.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CryptomatorIntents.entitlements; sourceTree = "<group>"; };
 		4A773906286D86C20006B3C3 /* S3AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewModel.swift; sourceTree = "<group>"; };
@@ -1716,6 +1720,7 @@
 				4AA782E3282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift */,
 				4AEECD3A279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift */,
 				4AFBFA172829414A00E30818 /* ProgressManagerMock.swift */,
+				4A0EAAD1296F604200E27B56 /* SessionTaskRegistratorMock.swift */,
 				4ADC66C627A95E67002E6CC7 /* UnlockMonitorTaskExecutorMock.swift */,
 				4AAD444627E26D1800D16707 /* UploadTaskManagerMock.swift */,
 				4AEECD30279EA50D00C6E2B5 /* WorkingSetObservingMock.swift */,
@@ -1893,6 +1898,7 @@
 				4AEE6EE92825716400E1B35E /* ProgressManager.swift */,
 				4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */,
 				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
+				4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */,
 				4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */,
 				740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */,
 				4A74DBAF2821312200A332C4 /* Actions */,
@@ -2050,8 +2056,6 @@
 				4A136128276767D60077EB7F /* PBXTargetDependency */,
 			);
 			name = Snapshots;
-			packageProductDependencies = (
-			);
 			productName = Snapshots;
 			productReference = 4A136121276767D60077EB7F /* Snapshots.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
@@ -2302,8 +2306,8 @@
 			);
 			mainGroup = 4A5E5B202453119100BD6298;
 			packageReferences = (
-				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
-				4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */,
+				4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */,
 			);
 			productRefGroup = 4A5E5B2A2453119100BD6298 /* Products */;
 			projectDirPath = "";
@@ -2434,7 +2438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ./.cloud-access-secrets.sh ]; then\n  source ./.cloud-access-secrets.sh\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
+			shellScript = "if [ -f ./fastlane/scripts/.cloud-access-secrets.sh ]; then\n  source ./fastlane/scripts/.cloud-access-secrets.sh \"${CONFIG_NAME}\"\nelse\n  echo \"warning: .cloud-access-secrets.sh could not be found, please see README for instructions\"\nfi\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:0 string db-${DROPBOX_APP_KEY}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:1 string ${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n/usr/libexec/PlistBuddy -c \"Add :CFBundleURLTypes:1:CFBundleURLSchemes:2 string ${ONEDRIVE_REDIRECT_URI_SCHEME}\" \"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\necho \"Updated ${TARGET_BUILD_DIR}/${INFOPLIST_PATH} by adding URL schemes\"\n";
 		};
 		742595D72552EE0000A8A008 /* Set Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2564,6 +2568,7 @@
 				4AA782E4282A9007001A71E3 /* NSFileProviderDomainProviderMock.swift in Sources */,
 				4A9C8DFD27A007C2000063E4 /* FileProviderNotificatorTests.swift in Sources */,
 				4AB1C325265CE69700DC7A49 /* DownloadTaskExecutorTests.swift in Sources */,
+				4A0EAAD2296F604200E27B56 /* SessionTaskRegistratorMock.swift in Sources */,
 				4AEECD3B279EB24300C6E2B5 /* NSFileProviderEnumerationObserverMock.swift in Sources */,
 				4A8F149C266A29E400ADBCE4 /* OnlineItemNameCollisionHandlerTests.swift in Sources */,
 				4A8F14A2266A302A00ADBCE4 /* FileProviderAdapterTestCase.swift in Sources */,
@@ -2925,6 +2930,7 @@
 				4AB1D4EC27D0E027009060AB /* LocalURLProviderType.swift in Sources */,
 				4A511D4E2660FF9E000A0E01 /* WorkflowScheduler.swift in Sources */,
 				4AD9481A2909A66900072110 /* MaintenanceModeHelperServiceSource.swift in Sources */,
+				4A7514A12937F777002E802E /* SessionTaskRegistrator.swift in Sources */,
 				4A2482352671110A002D9F59 /* DBManagerError.swift in Sources */,
 				4AA2531B28216E45003B45EE /* ServiceSource.swift in Sources */,
 				4A2060D5279AF67C00DA6C62 /* WorkingSetObserver.swift in Sources */,
@@ -2970,7 +2976,7 @@
 		};
 		4A9172722619F16C003C4043 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 4A9172712619F16C003C4043 /* CryptomatorCommonCore */;
+			productRef = 4A9172712619F16C003C4043;
 		};
 		4A9BED69268F379300721BAA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -3254,7 +3260,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3316,7 +3322,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				MARKETING_VERSION = 2.4.3;
+				MARKETING_VERSION = 2.4.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
@@ -3424,7 +3430,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3448,7 +3453,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3656,7 +3660,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */ = {
+		4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/tikhop/TPInAppReceipt.git";
 			requirement = {
@@ -3664,7 +3668,7 @@
 				minimumVersion = 3.3.0;
 			};
 		};
-		4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+		4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
 			requirement = {
@@ -3677,14 +3681,10 @@
 /* Begin XCSwiftPackageProductDependency section */
 		4A1521E327C55EA2006C96B2 /* TPInAppReceipt */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */;
+			package = 4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt.git" */;
 			productName = TPInAppReceipt;
 		};
 		4A33092C282EC23400876A3E /* CryptomatorCommonCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CryptomatorCommonCore;
-		};
-		4A9172712619F16C003C4043 /* CryptomatorCommonCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CryptomatorCommonCore;
 		};
@@ -3698,7 +3698,7 @@
 		};
 		4AED9A6E286B38DA00352951 /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */;
 			productName = Introspect;
 		};
 /* End XCSwiftPackageProductDependency section */

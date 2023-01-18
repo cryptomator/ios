@@ -43,7 +43,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Vælg et navn til boksen.";
 "addVault.createNewVault.setVaultName.cells.name" = "Boks-navn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Boks navn må ikke være tomt.";
-"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer i din boks?";
+"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer af din boks?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" findes allerede på dette sted. Vælg et andet navn eller en anden placering.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detekterede en eksisterende boks på denne placering.\nFor at oprette en ny boks, skal du gå tilbage og vælge en anden mappe.";
 "addVault.createNewVault.password.enterPassword.header" = "Indtast en ny adgangskode.";
@@ -247,7 +247,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har allerede tilføjet denne boks.";
 
-"vaultDetail.button.changeVaultPassword" = "Skift password";
+"vaultDetail.button.changeVaultPassword" = "Skift adgangskode";
 "vaultDetail.button.lock" = "Lås nu";
 "vaultDetail.button.moveVault" = "Flyt";
 "vaultDetail.button.removeVault" = "Fjern fra listen over bokse";

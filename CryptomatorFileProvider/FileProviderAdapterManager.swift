@@ -16,7 +16,7 @@ import Promises
 
 protocol FileProviderAdapterProviding {
 	var unlockMonitor: UnlockMonitorType { get }
-	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType
+	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> FileProviderAdapterType
 }
 
 public class FileProviderAdapterManager: FileProviderAdapterProviding {
@@ -48,7 +48,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		self.providerIdentifier = providerIdentifier
 	}
 
-	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
+	public func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> FileProviderAdapterType {
 		try queue.sync {
 			let cachedAdapterItem = adapterCache.getItem(identifier: domain.identifier)
 			let vaultUID = domain.identifier.rawValue
@@ -66,7 +66,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 				adapter = cachedAdapter
 			} else {
 				DDLogDebug("Try to automatically unlock \(domain.displayName) - \(domain.identifier)")
-				let autoUnlockItem = try autoUnlockVault(withVaultUID: vaultUID, domainIdentifier: domain.identifier, dbPath: dbPath, delegate: delegate, notificator: notificator)
+				let autoUnlockItem = try autoUnlockVault(withVaultUID: vaultUID, domainIdentifier: domain.identifier, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator)
 				adapterCache.cacheItem(autoUnlockItem, identifier: domain.identifier)
 				adapter = autoUnlockItem.adapter
 			}
@@ -75,12 +75,13 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		}
 	}
 
-	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws {
+	// swiftlint:disable:next function_parameter_count
+	public func unlockVault(with domainIdentifier: NSFileProviderDomainIdentifier, kek: [UInt8], dbPath: URL?, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws {
 		guard let dbPath = dbPath else {
 			return
 		}
 		let provider = try vaultManager.manualUnlockVault(withUID: domainIdentifier.rawValue, kek: kek)
-		let item = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
+		let item = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator)
 		try vaultKeepUnlockedSettings.setLastUsedDate(Date(), forVaultUID: domainIdentifier.rawValue)
 		adapterCache.cacheItem(item, identifier: domainIdentifier)
 		let notificator = try notificatorManager.getFileProviderNotificator(for: NSFileProviderDomain(identifier: domainIdentifier, displayName: "", pathRelativeToDocumentStorage: ""))
@@ -121,7 +122,8 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		try maintenanceManager.disableMaintenanceMode()
 	}
 
-	private func autoUnlockVault(withVaultUID vaultUID: String, domainIdentifier: NSFileProviderDomainIdentifier, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
+	// swiftlint:disable:next function_parameter_count
+	private func autoUnlockVault(withVaultUID vaultUID: String, domainIdentifier: NSFileProviderDomainIdentifier, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> AdapterCacheItem {
 		guard vaultKeepUnlockedHelper.shouldAutoUnlockVault(withVaultUID: vaultUID) else {
 			try masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
 			throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
@@ -130,12 +132,13 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 			throw unlockMonitor.getUnlockError(forVaultUID: vaultUID)
 		}
 		let provider = try vaultManager.createVaultProvider(withUID: vaultUID, masterkey: cachedMasterkey)
-		let adapterCacheItem = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator)
+		let adapterCacheItem = try createAdapterCacheItem(domainIdentifier: domainIdentifier, cloudProvider: provider, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator)
 		notificator.refreshWorkingSet()
 		return adapterCacheItem
 	}
 
-	private func createAdapterCacheItem(domainIdentifier: NSFileProviderDomainIdentifier, cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType) throws -> AdapterCacheItem {
+	// swiftlint:disable:next function_parameter_count
+	private func createAdapterCacheItem(domainIdentifier: NSFileProviderDomainIdentifier, cloudProvider: CloudProvider, dbPath: URL, delegate: FileProviderAdapterDelegate, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> AdapterCacheItem {
 		let fileCoordinator = NSFileCoordinator()
 		fileCoordinator.purposeIdentifier = providerIdentifier
 		let database = try DatabaseHelper.default.getMigratedDB(at: dbPath, purposeIdentifier: providerIdentifier)
@@ -161,7 +164,8 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  provider: cloudProvider,
 		                                  coordinator: fileCoordinator,
 		                                  notificator: notificator,
-		                                  localURLProvider: delegate)
+		                                  localURLProvider: delegate,
+		                                  taskRegistrator: taskRegistrator)
 		let workingSetObserver = WorkingSetObserver(domainIdentifier: domainIdentifier, database: database, notificator: notificator, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
 		workingSetObserver.startObservation()
 		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver)

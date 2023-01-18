@@ -6,14 +6,11 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Foundation
 import GRDB
 
-struct UploadTask: CloudTask, FetchableRecord, Decodable {
+struct UploadTask: CloudTask {
 	let taskRecord: UploadTaskRecord
 	let itemMetadata: ItemMetadata
-
-	enum CodingKeys: String, CodingKey {
-		case taskRecord = "uploadTask"
-		case itemMetadata
-	}
+	let onURLSessionTaskCreation: URLSessionTaskCreationClosure?
 }

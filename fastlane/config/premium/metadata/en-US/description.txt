@@ -1,0 +1,41 @@
+The "Full Version" is basically the same as Cryptomator with the in-app purchase "Full Version" unlocked. This app is available for interested parties using Apple School Manager or Apple Business Manager that are unable to buy in-app purchases. Or if you want to gift the app to your friends or family. Happy crypting!
+
+---
+
+With Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily. Afterwards you upload them protected to your favorite cloud service.
+
+EASY-TO-USE
+
+Cryptomator is a simple tool for digital self-defense. It allows you to protect your cloud data by yourself and independently.
+
+• Simply create a vault and assign a password
+• No additional account or configuration needed
+• Unlock vaults with Face ID / Touch ID
+• Fully integrated into the Files app
+
+COMPATIBLE
+
+Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
+
+• Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, WebDAV- and S3-based cloud storage services
+• Create vaults in any location via other File Providers (third-party apps must support this)
+• Access your vaults on all your mobile devices and computers
+
+SECURE
+
+You don't have to trust Cryptomator blindly, because it is open source software. For you as a user, this means that everyone can see the code: https://github.com/cryptomator/ios
+
+• File content and filename encryption with AES and 256 bit key length
+• Vault password is secured with scrypt for enhanced brute-force resistance
+• Crypto implementation is publicly documented
+
+AWARD-WINNING
+
+Cryptomator received the CeBIT Innovation Award 2016 for Usable Security and Privacy. We're proud to provide security and privacy for hundreds of thousands of Cryptomator users.
+
+CRYPTOMATOR COMMUNITY
+
+Join the Cryptomator Community and participate in the conversations with other Cryptomator users: https://community.cryptomator.org
+
+• Follow us on Twitter @Cryptomator
+• Like us on Facebook /Cryptomator

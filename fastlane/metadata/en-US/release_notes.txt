@@ -1,1 +1,0 @@
-- Fixed missing buttons when adding WebDAV/S3 connections on iOS 13/14 (#280, #282)

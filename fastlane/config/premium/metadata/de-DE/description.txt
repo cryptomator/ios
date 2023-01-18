@@ -1,0 +1,41 @@
+Die „Vollversion“ ist im Grunde die gleiche Version wie Cryptomator mit dem In-App-Kauf „Vollversion“ freigeschaltet. Diese App ist für Interessenten verfügbar, die den Apple School Manager oder Apple Business Manager verwenden und keine In-App-Käufe tätigen können. Oder wenn du die App an deine Freunde oder Familie verschenken möchtest. Viel Spaß beim Verschlüsseln!
+
+---
+
+Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator ver­schlüsselst du deine Daten schnell und unkompliziert. Anschließend lädst du sie geschützt in deinen Lieblingscloudservice hoch.
+
+EINFACH
+
+Cryptomator ist ein einfaches Tool zur digitalen Selbstverteidigung. Es ermöglicht dir, deine Cloud-Daten eigenständig und unabhängig zu schützen.
+
+• Erstelle einen Tresor und vergib ein Passwort
+• Keine komplizierte Konfiguration und keine weiteren Accounts notwendig
+• Entsperr Tresore mit Face ID / Touch ID
+• Vollständig in die App „Dateien“ integriert
+
+KOMPATIBEL
+
+Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
+
+• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, WebDAV- und S3-basierten Cloudspeicher-Diensten
+• Erstelle auch Tresore an einem beliebigen Ort über andere Speicher-Anbieter (Drittanbieter-Apps müssen dies unterstützen)
+• Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
+
+SICHER
+
+Du musst Cryptomator nicht blind vertrauen, denn die App ist quelloffen, was für dich als Nutzer bedeutet, dass jeder den Code einsehen kann: https://github.com/cryptomator/ios
+
+• Verschlüsselung der Dateiinhalte und Dateinamen mit AES und 256-Bit-Schlüssellänge
+• Erhöhte Brute-Force-Resistenz des Tresor-Passworts durch Einsatz von scrypt
+• Verschlüsselungsimplementierung ist öffentlich dokumentiert
+
+PREISGEKRÖNT
+
+Cryptomator wurde mit dem CeBIT Innovation Award 2016 for Usable Security and Privacy ausgezeichnet. Wir freuen uns, hunderttausenden Cryptomator-Nutzern Sicherheit und Privatsphärenschutz bieten zu können.
+
+CRYPTOMATOR COMMUNITY
+
+Tritt der Cryptomator Community bei und tausche dich mit Cryptomator-Nutzern aus: https://community.cryptomator.org
+
+• Folge uns auf Twitter @Cryptomator
+• Like uns auf Facebook /Cryptomator

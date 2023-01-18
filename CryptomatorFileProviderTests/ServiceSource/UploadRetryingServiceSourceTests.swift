@@ -29,7 +29,8 @@ class UploadRetryingServiceSourceTests: XCTestCase {
 		                                            dbPath: dbPath,
 		                                            delegate: urlProviderMock,
 		                                            adapterManager: adapterProvidingMock,
-		                                            progressManager: progressManagerMock)
+		                                            progressManager: progressManagerMock,
+		                                            taskRegistrator: SessionTaskRegistratorMock())
 	}
 
 	override func tearDownWithError() throws {
@@ -38,7 +39,7 @@ class UploadRetryingServiceSourceTests: XCTestCase {
 
 	func testRetryUpload() throws {
 		let adapterMock = FileProviderAdapterTypeMock()
-		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorReturnValue = adapterMock
+		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		let expectation = XCTestExpectation()
 		let itemIdentifiers = [NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2),
 		                       NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)]

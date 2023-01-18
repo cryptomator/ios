@@ -43,7 +43,7 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	}
 
 	func execute(task: CloudTask) -> Promise<FileProviderItem> {
-		guard task is UploadTask else {
+		guard let uploadTask = task as? UploadTask else {
 			return Promise(WorkflowMiddlewareError.incompatibleCloudTask)
 		}
 		let itemMetadata = task.itemMetadata
@@ -70,7 +70,15 @@ class UploadTaskExecutor: WorkflowMiddleware {
 			progressManager.saveProgress(progress, for: NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID))
 		}
 		progress.becomeCurrent(withPendingUnitCount: 1)
-		let uploadPromise = provider.uploadFile(from: localURL, to: itemMetadata.cloudPath, replaceExisting: !itemMetadata.isPlaceholderItem)
+		let uploadPromise = provider.uploadFile(from: localURL,
+		                                        to: itemMetadata.cloudPath,
+		                                        replaceExisting: !itemMetadata.isPlaceholderItem,
+		                                        onTaskCreation: { task in
+		                                        	guard let task else {
+		                                        		return
+		                                        	}
+		                                        	uploadTask.onURLSessionTaskCreation?(task)
+		                                        })
 		progress.resignCurrent()
 		return uploadPromise.then { cloudItemMetadata in
 			try self.uploadPostProcessing(taskItemMetadata: itemMetadata, cloudItemMetadata: cloudItemMetadata, localURL: localURL, localFileSizeBeforeUpload: localFileSize)

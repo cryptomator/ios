@@ -1,0 +1,4 @@
+- Anzeige des Download-Fortschritts zu Google Drive und WebDAV hinzugefügt (#276, #293)
+- Anzeige des Upload-Fortschritts zu WebDAV hinzugefügt (#293)
+- Hintergrund-Download/Upload-Unterstützung zu pCloud hinzugefügt (#218, #293)
+- Fehler behoben, wenn versucht wurde, selbstsignierte Zertifikate mit WebDAV zu verwenden (#291)

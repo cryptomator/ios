@@ -28,25 +28,25 @@ final class FileProviderAdapterProvidingMock: FileProviderAdapterProviding {
 
 	// MARK: - getAdapter
 
-	var getAdapterForDomainDbPathDelegateNotificatorThrowableError: Error?
-	var getAdapterForDomainDbPathDelegateNotificatorCallsCount = 0
-	var getAdapterForDomainDbPathDelegateNotificatorCalled: Bool {
-		getAdapterForDomainDbPathDelegateNotificatorCallsCount > 0
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError: Error?
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorCallsCount = 0
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorCalled: Bool {
+		getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorCallsCount > 0
 	}
 
-	var getAdapterForDomainDbPathDelegateNotificatorReceivedArguments: (domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType)?
-	var getAdapterForDomainDbPathDelegateNotificatorReceivedInvocations: [(domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType?, notificator: FileProviderNotificatorType)] = []
-	var getAdapterForDomainDbPathDelegateNotificatorReturnValue: FileProviderAdapterType!
-	var getAdapterForDomainDbPathDelegateNotificatorClosure: ((NSFileProviderDomain, URL, LocalURLProviderType, FileProviderNotificatorType) throws -> FileProviderAdapterType)?
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReceivedArguments: (domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator)?
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReceivedInvocations: [(domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator)] = []
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue: FileProviderAdapterType!
+	var getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorClosure: ((NSFileProviderDomain, URL, LocalURLProviderType, FileProviderNotificatorType, SessionTaskRegistrator) throws -> FileProviderAdapterType)?
 
-	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType) throws -> FileProviderAdapterType {
-		if let error = getAdapterForDomainDbPathDelegateNotificatorThrowableError {
+	func getAdapter(forDomain domain: NSFileProviderDomain, dbPath: URL, delegate: LocalURLProviderType, notificator: FileProviderNotificatorType, taskRegistrator: SessionTaskRegistrator) throws -> FileProviderAdapterType {
+		if let error = getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError {
 			throw error
 		}
-		getAdapterForDomainDbPathDelegateNotificatorCallsCount += 1
-		getAdapterForDomainDbPathDelegateNotificatorReceivedArguments = (domain: domain, dbPath: dbPath, delegate: delegate, notificator: notificator)
-		getAdapterForDomainDbPathDelegateNotificatorReceivedInvocations.append((domain: domain, dbPath: dbPath, delegate: delegate, notificator: notificator))
-		return try getAdapterForDomainDbPathDelegateNotificatorClosure.map({ try $0(domain, dbPath, delegate, notificator) }) ?? getAdapterForDomainDbPathDelegateNotificatorReturnValue
+		getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorCallsCount += 1
+		getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReceivedArguments = (domain: domain, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator)
+		getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReceivedInvocations.append((domain: domain, dbPath: dbPath, delegate: delegate, notificator: notificator, taskRegistrator: taskRegistrator))
+		return try getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorClosure.map({ try $0(domain, dbPath, delegate, notificator, taskRegistrator) }) ?? getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue
 	}
 }
 
