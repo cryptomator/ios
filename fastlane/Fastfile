@@ -41,7 +41,7 @@ platform :ios do
   desc "Submit a new beta build to TestFlight"
   lane :beta do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -62,7 +62,7 @@ platform :ios do
   desc "Deploy a new version to the App Store"
   lane :app_store do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'METADATA_PATH']
+      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -91,6 +91,7 @@ platform :ios do
     app_group = ENV['APP_GROUP']
     keychain_group = ENV['KEYCHAIN_GROUP']
     app_icon_file_path = ENV['APP_ICON_FILE_PATH']
+    encryption_export_compliance_code = ENV['ENCRYPTION_EXPORT_COMPLIANCE_CODE']
 
     # Update the app identifier
     update_app_identifier(
@@ -140,6 +141,15 @@ platform :ios do
       xcodeproj: "Cryptomator.xcodeproj",
       plist_path: "CryptomatorIntents/Info.plist",
       display_name: display_name
+    )
+
+    # Update the ITSEncryptionExportComplianceCode
+    update_info_plist(
+      xcodeproj: "Cryptomator.xcodeproj",
+      plist_path: "Cryptomator/Info.plist",
+      block: proc do |plist|
+        plist["ITSEncryptionExportComplianceCode"] = encryption_export_compliance_code
+      end
     )
 
     # Update the NSExtensionFileProviderDocumentGroup
