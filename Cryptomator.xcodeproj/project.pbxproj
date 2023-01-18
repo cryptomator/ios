@@ -3430,7 +3430,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -3454,7 +3453,6 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CryptomatorIntents/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CryptomatorIntents;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2022 Skymatic GmbH. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
