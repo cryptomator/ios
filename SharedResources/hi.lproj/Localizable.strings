@@ -107,6 +107,12 @@
 "settings.debugMode" = "दोषमार्जक साधन";
 "settings.rateApp" = "एप्प का मूल्यांकन";
 "settings.sendLogFile" = "Log फ़ाइल भेजें";
+
+"s3Authentication.displayName" = "प्रदर्शित नाम";
+"s3Authentication.accessKey" = "ऐक्सेस कुंजी";
+"s3Authentication.secretKey" = "सीक्रेट कुंजी";
+"s3Authentication.existingBucket" = "मौजूदा बकेट";
+"s3Authentication.endpoint" = "एंडपॉइन्ट";
 "s3Authentication.region" = "क्षेत्र";
 "s3Authentication.error.invalidCredentials" = "अमान्य क्रेडेंशियल।";
 

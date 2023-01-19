@@ -10,6 +10,7 @@
 "common.button.cancel" = "Avbryt";
 "common.button.change" = "Endre";
 "common.button.choose" = "Velg";
+"common.button.clear" = "Tøm";
 "common.button.close" = "Lukk";
 "common.button.confirm" = "Bekreft";
 "common.button.create" = "Opprett";
@@ -29,6 +30,7 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Brukernavn";
 "common.footer.learnMore" = "Finn ut mer.";
+"common.hud.authenticating" = "Autentiserer…";
 
 "accountList.header.title" = "Godkjenninger";
 "accountList.emptyList.message" = "Trykk her for å legge til en konto";
@@ -97,6 +99,22 @@
 "fileProvider.error.defaultLock.title" = "Påkrevd å låse opp";
 "fileProvider.error.defaultLock.message" = "For å få tilgang til og vise innholdet i hvelvet ditt, må det låses opp.";
 "fileProvider.error.unlockButton" = "Lås opp";
+"fileProvider.clearFileFromCache.title" = "Tøm fil fra mellomlager";
+"fileProvider.clearFileFromCache.message" = "Dette fjerner kun den lokale filen fra enheten din og sletter ikke filen i nettskyen.";
+"fileProvider.fileImporting.error.missingPremium" = "Lås opp fullversjonen i Cryptomator-app'en for å få full skrivetilgang til hvelvene dine.";
+"fileProvider.uploadProgress.connecting" = "Kobler til…";
+"fileProvider.uploadProgress.message" = "Nåværende fremdrift: %@\n\nHvis du oppdager at opplastingsprosessen har stoppet opp, så kan du prøve å laste opp på nytt.";
+"fileProvider.uploadProgress.missing" = "Framdriften kunne ikke fastslås. Det kan hende den fremdeles kjører i bakgrunnen.";
+"fileProvider.uploadProgress.title" = "Laster opp…";
+"fileProvider.uploadProgress.missingDomainError" = "Kunne ikke finne domenenavn.";
+
+"getFolderIntent.error.missingPath" = "Ingen målmappe ble oppgitt. Vennligst oppgi en gyldig bane hvor en mappe skal returneres til.";
+"getFolderIntent.error.noVaultSelected" = "Ingen hvelv har blitt valgt.";
+"intents.saveFile.missingFile" = "Den oppgitte filen er ugyldig.";
+"intents.saveFile.invalidFolder" = "Den oppgitte mappen er ugyldig.";
+"intents.saveFile.missingTemporaryFolder" = "Kunne ikke opprette temporær mappe.";
+"intents.saveFile.lockedVault" = "Du må låse opp hvelvet ditt for å kunne bruke denne snarveien.";
+"intents.saveFile.selectedVaultNotFound" = "Det valgte hvelvet ble ikke funnet.";
 
 "keepUnlocked.alert.title" = "Låse hvelvet?";
 "keepUnlocked.alert.message" = "Hvelvet ditt må låses for at denne endringen skal kunne tre i kraft.";
@@ -172,6 +190,7 @@
 "settings.manageSubscriptions" = "Administrer abonnement";
 "settings.rateApp" = "Vurder appen";
 "settings.sendLogFile" = "Send loggfil";
+"settings.shortcutsGuide" = "Snarveisveiledning";
 "settings.unlockFullVersion" = "Lås opp fullversjonen";
 
 "snapshots.fileprovider.file1" = "/Regnskap.numbers";
@@ -193,6 +212,8 @@
 "s3Authentication.existingBucket" = "Eksisterende bøtte";
 "s3Authentication.endpoint" = "Endepunkt";
 "s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Ugyldig brukerinformasjon.";
+"s3Authentication.error.invalidEndpoint" = "Det angitte sluttpunktet samsvarer ikke med formatet til en URL.";
 
 "trialStatus.active" = "Aktiv";
 "trialStatus.expired" = "Utløpt";
@@ -263,3 +284,6 @@
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Serveren ser ikke ut til å være WebDAV-kompatibel. Sjekk om du har brukt riktig URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Sertifikatet til denne serveren er ikke klarert. Du må kanskje legge til denne WebDAV-tilkoblingen på nytt.";
+
+"Retry Upload" = "Forsøk å laste opp på nytt";
+"Clear from Cache" = "Tøm fra mellomlager";

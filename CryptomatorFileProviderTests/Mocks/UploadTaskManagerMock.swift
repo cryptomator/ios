@@ -148,25 +148,25 @@ final class UploadTaskManagerMock: UploadTaskManager {
 
 	// MARK: - getTask
 
-	var getTaskForThrowableError: Error?
-	var getTaskForCallsCount = 0
-	var getTaskForCalled: Bool {
-		getTaskForCallsCount > 0
+	var getTaskForOnURLSessionTaskCreationThrowableError: Error?
+	var getTaskForOnURLSessionTaskCreationCallsCount = 0
+	var getTaskForOnURLSessionTaskCreationCalled: Bool {
+		getTaskForOnURLSessionTaskCreationCallsCount > 0
 	}
 
-	var getTaskForReceivedUploadTask: UploadTaskRecord?
-	var getTaskForReceivedInvocations: [UploadTaskRecord] = []
-	var getTaskForReturnValue: UploadTask!
-	var getTaskForClosure: ((UploadTaskRecord) throws -> UploadTask)?
+	var getTaskForOnURLSessionTaskCreationReceivedArguments: (uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?)?
+	var getTaskForOnURLSessionTaskCreationReceivedInvocations: [(uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?)] = []
+	var getTaskForOnURLSessionTaskCreationReturnValue: UploadTask!
+	var getTaskForOnURLSessionTaskCreationClosure: ((UploadTaskRecord, URLSessionTaskCreationClosure?) throws -> UploadTask)?
 
-	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
-		if let error = getTaskForThrowableError {
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
+		if let error = getTaskForOnURLSessionTaskCreationThrowableError {
 			throw error
 		}
-		getTaskForCallsCount += 1
-		getTaskForReceivedUploadTask = uploadTask
-		getTaskForReceivedInvocations.append(uploadTask)
-		return try getTaskForClosure.map({ try $0(uploadTask) }) ?? getTaskForReturnValue
+		getTaskForOnURLSessionTaskCreationCallsCount += 1
+		getTaskForOnURLSessionTaskCreationReceivedArguments = (uploadTask: uploadTask, onURLSessionTaskCreation: onURLSessionTaskCreation)
+		getTaskForOnURLSessionTaskCreationReceivedInvocations.append((uploadTask: uploadTask, onURLSessionTaskCreation: onURLSessionTaskCreation))
+		return try getTaskForOnURLSessionTaskCreationClosure.map({ try $0(uploadTask, onURLSessionTaskCreation) }) ?? getTaskForOnURLSessionTaskCreationReturnValue
 	}
 }
 

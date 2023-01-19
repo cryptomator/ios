@@ -15,157 +15,140 @@ import XCTest
 @testable import CryptomatorCommonCore
 
 class MoveVaultViewModelTests: XCTestCase {
-	private var maintenanceManagerMock: MaintenanceManagerMock!
 	private var vaultManagerMock: VaultManagerMock!
-	private var fileProviderConnectorMock: FileProviderConnectorMock!
+	private var fileProviderConnectorMock: CryptomatorCommonCore.FileProviderConnectorMock!
 	private var cloudProviderMock: CloudProviderMock!
 	var viewModel: MoveVaultViewModel!
 	var vaultAccount: VaultAccount!
+	private var maintenanceHelperMock: MaintenanceModeHelperMock!
+	private var vaultLockingMock: VaultLockingMock!
 
 	override func setUpWithError() throws {
-		maintenanceManagerMock = MaintenanceManagerMock()
-		vaultManagerMock = VaultManagerMock()
-		fileProviderConnectorMock = FileProviderConnectorMock()
-		cloudProviderMock = CloudProviderMock()
+		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 		viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 	}
 
-	func testMoveVault() throws {
-		let expectation = XCTestExpectation()
+	private func setupMocks() {
+		vaultManagerMock = VaultManagerMock()
+		fileProviderConnectorMock = CryptomatorCommonCore.FileProviderConnectorMock()
+		cloudProviderMock = CloudProviderMock()
+		maintenanceHelperMock = MaintenanceModeHelperMock()
+		vaultLockingMock = VaultLockingMock()
+
+		fileProviderConnectorMock.getXPCServiceNameDomainClosure = { serviceName, _ in
+			switch serviceName {
+			case .maintenanceModeHelper:
+				return self.maintenanceHelperMock!
+			case .vaultLocking:
+				return self.vaultLockingMock!
+			default:
+				XCTFail("Get XPC called for unexpected serviceName: \(serviceName)")
+				return Promise(MockError.notMocked)
+			}
+		}
+	}
+
+	func testMoveVault() async throws {
 		let targetCloudPath = CloudPath("Baz")
-		let vaultLockingMock = VaultLockingMock()
-		fileProviderConnectorMock.proxy = vaultLockingMock
+		let maintenanceModeEnabled = XCTestExpectation()
+		let maintenanceModeDisabled = XCTestExpectation()
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = {
+			maintenanceModeEnabled.fulfill()
+			$0(nil)
+		}
+		maintenanceHelperMock.disableMaintenanceModeReplyClosure = {
+			maintenanceModeDisabled.fulfill()
+			$0(nil)
+		}
+
 		vaultManagerMock.moveVaultAccountToReturnValue = Promise(())
 
-		viewModel.moveVault(to: targetCloudPath).then {
-			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
-			XCTAssertEqual(targetCloudPath, self.vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
+		try await viewModel.moveVault(to: targetCloudPath)
+		XCTAssertEqual(1, vaultManagerMock.moveVaultAccountToCallsCount)
+		XCTAssertEqual(targetCloudPath, vaultManagerMock.moveVaultAccountToReceivedArguments?.targetVaultPath)
 
-			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
-			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(self.vaultAccount.vaultUID)))
+		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
+		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-			XCTAssertEqual(1, self.maintenanceManagerMock.enableMaintenanceModeCallsCount)
-			XCTAssertEqual(1, self.maintenanceManagerMock.disableMaintenanceModeCallsCount)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
-		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
-	func testRejectVaultsInTheLocalFileSystem() throws {
-		let expectation = XCTestExpectation()
+	func testRejectVaultsInTheLocalFileSystem() async throws {
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .localFileSystem(type: .custom))
-		viewModel.moveVault(to: CloudPath("Baz")).then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case MoveVaultViewModelError.vaultNotEligibleForMove = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
+		await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: CloudPath("Baz")), "") { error in
+			XCTAssertEqual(.vaultNotEligibleForMove, error as? MoveVaultViewModelError)
+
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
-		}.always {
-			expectation.fulfill()
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainCalled)
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainIdentifierCalled)
 		}
-		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testRejectMoveRootVault() throws {
-		let expectation = XCTestExpectation()
+	func testRejectMoveRootVault() async throws {
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/"), vaultName: "Foo")
 		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
-		viewModel.moveVault(to: CloudPath("/Bar")).then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case MoveVaultViewModelError.vaultNotEligibleForMove = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
+		await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: CloudPath("Bar")), "") { error in
+			XCTAssertEqual(.vaultNotEligibleForMove, error as? MoveVaultViewModelError)
+
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
-		}.always {
-			expectation.fulfill()
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainCalled)
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainIdentifierCalled)
 		}
-		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testRejectMoveVaultIntoItself() throws {
-		let expectation = XCTestExpectation()
+	func testRejectMoveVaultIntoItself() async throws {
 		let targetCloudPath = vaultAccount.vaultPath.appendingPathComponent("Test")
-		viewModel.moveVault(to: targetCloudPath).then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case MoveVaultViewModelError.moveVaultInsideItselfNotAllowed = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
+		await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: targetCloudPath), "") { error in
+			XCTAssertEqual(.moveVaultInsideItselfNotAllowed, error as? MoveVaultViewModelError)
+
 			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
-		}.always {
-			expectation.fulfill()
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainCalled)
+			XCTAssertFalse(fileProviderConnectorMock.getXPCServiceNameDomainIdentifierCalled)
 		}
-		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testEnableMaintenanceModeFailed() throws {
-		let expectation = XCTestExpectation()
-
+	func testEnableMaintenanceModeFailed() async throws {
 		// Simulate enable maintenance mode failure
-		maintenanceManagerMock.enableMaintenanceModeThrowableError = MaintenanceModeError.runningCloudTask
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = { $0(MaintenanceModeError.runningCloudTask as NSError) }
 
-		viewModel.moveVault(to: CloudPath("/Test")).then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case MaintenanceModeError.runningCloudTask = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
-			XCTAssertFalse(self.vaultManagerMock.moveVaultAccountToCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.enableMaintenanceModeCalled)
-			XCTAssertFalse(self.maintenanceManagerMock.disableMaintenanceModeCalled)
-		}.always {
-			expectation.fulfill()
+		await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: CloudPath("/Test")), "") { error in
+			XCTAssertEqual(.runningCloudTask, error as? MaintenanceModeError)
+
+			XCTAssertFalse(vaultManagerMock.moveVaultAccountToCalled)
+			XCTAssertEqual(1, maintenanceHelperMock.enableMaintenanceModeReplyCallsCount)
+			XCTAssertFalse(maintenanceHelperMock.disableMaintenanceModeReplyCalled)
 		}
-		wait(for: [expectation], timeout: 1.0)
 	}
 
-	func testDisableMaintenanceModeAfterVaultMoveFailure() throws {
-		let expectation = XCTestExpectation()
+	func testDisableMaintenanceModeAfterVaultMoveFailure() async throws {
 		let vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 		let viewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
-		let vaultLockingMock = VaultLockingMock()
-		fileProviderConnectorMock.proxy = vaultLockingMock
 
+		let maintenanceModeEnabled = XCTestExpectation()
+		let maintenanceModeDisabled = XCTestExpectation()
+		maintenanceHelperMock.enableMaintenanceModeReplyClosure = {
+			maintenanceModeEnabled.fulfill()
+			$0(nil)
+		}
+		maintenanceHelperMock.disableMaintenanceModeReplyClosure = {
+			maintenanceModeDisabled.fulfill()
+			$0(nil)
+		}
 		// Simulate vault move failure
 		vaultManagerMock.moveVaultAccountToReturnValue = Promise(CloudProviderError.itemAlreadyExists)
 
-		viewModel.moveVault(to: CloudPath("/Test")).then {
-			XCTFail("Promise fulfilled")
-		}.catch { error in
-			guard case CloudProviderError.itemAlreadyExists = error else {
-				XCTFail("Promise rejected with wrong error: \(error)")
-				return
-			}
+		await XCTAssertThrowsAsyncError(try await viewModel.moveVault(to: CloudPath("/Test")), "") { error in
+			XCTAssertEqual(.itemAlreadyExists, error as? CloudProviderError)
 
 			XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 			XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
 			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
-			XCTAssertEqual(1, self.maintenanceManagerMock.enableMaintenanceModeCallsCount)
-			XCTAssertEqual(1, self.maintenanceManagerMock.disableMaintenanceModeCallsCount)
-		}.always {
-			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
-		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
+
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
 	func testIsAllowedToMove() throws {
@@ -185,6 +168,12 @@ class MoveVaultViewModelTests: XCTestCase {
 		let cloudProviderAccount = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: cloudProviderType)
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
-		return MoveVaultViewModel(provider: cloudProviderMock, currentFolderChoosingCloudPath: currentFolderChoosingCloudPath, vaultInfo: vaultInfo, maintenanceManager: maintenanceManagerMock, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
+		return MoveVaultViewModel(provider: cloudProviderMock,
+		                          currentFolderChoosingCloudPath: currentFolderChoosingCloudPath,
+		                          vaultInfo: vaultInfo,
+		                          domain: domain,
+		                          vaultManager: vaultManagerMock,
+		                          fileProviderConnector: fileProviderConnectorMock)
 	}
 }

@@ -16,13 +16,13 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 	var middleware: OnlineItemNameCollisionHandler<Void>!
 	var itemMetadataManager: ItemMetadataDBManager!
 	var tmpDirURL: URL!
-	var dbPool: DatabasePool!
+	var dbPool: DatabaseWriter!
 
 	override func setUpWithError() throws {
 		tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
 		try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 		let dbURL = tmpDirURL.appendingPathComponent("db.sqlite", isDirectory: false)
-		dbPool = try DatabaseHelper.getMigratedDB(at: dbURL)
+		dbPool = try DatabaseHelper.default.getMigratedDB(at: dbURL, purposeIdentifier: "unit-test")
 		itemMetadataManager = ItemMetadataDBManager(database: dbPool)
 
 		middleware = OnlineItemNameCollisionHandler(itemMetadataManager: itemMetadataManager)

@@ -9,78 +9,94 @@
 import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Promises
+import SwiftUI
 import UIKit
 
-class WebDAVAuthenticationViewController: SingleSectionStaticUITableViewController {
+class WebDAVAuthenticationViewController: UIViewController {
 	weak var coordinator: (Coordinator & WebDAVAuthenticating)?
-	private var viewModel: WebDAVAuthenticationViewModelProtocol
-	private var lastReturnButtonPressedSubscriber: AnyCancellable?
+	private let viewModel: WebDAVAuthenticationViewModel
+	private var cancellables = Set<AnyCancellable>()
+	private var hud: ProgressHUD?
 
-	init(viewModel: WebDAVAuthenticationViewModelProtocol) {
+	init(viewModel: WebDAVAuthenticationViewModel) {
 		self.viewModel = viewModel
-		super.init(viewModel: viewModel)
+		super.init(nibName: nil, bundle: nil)
+	}
+
+	@available(*, unavailable)
+	@MainActor dynamic required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
 	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		setupSwiftUIView()
+
 		title = "WebDAV"
 		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
 		navigationItem.leftBarButtonItem = cancelButton
 		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(done))
 		navigationItem.rightBarButtonItem = doneButton
-		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
-			self?.done()
-		}
+		viewModel.$state.sink { [weak self] state in
+			self?.handleState(state)
+		}.store(in: &cancellables)
+		viewModel.saveButtonIsEnabled.sink { saveButtonIsEnabled in
+			doneButton.isEnabled = saveButtonIsEnabled
+		}.store(in: &cancellables)
 	}
 
 	@objc func done() {
-		addAccount(allowedCertificate: nil, allowHTTPConnection: false)
+		viewModel.saveAccount()
 	}
 
-	func addAccount(allowedCertificate: Data?, allowHTTPConnection: Bool) {
-		let credential: WebDAVCredential
-		do {
-			credential = try viewModel.createWebDAVCredentialFromInput(allowedCertificate: allowedCertificate, allowHTTPConnection: allowHTTPConnection)
-		} catch {
+	func handleState(_ state: WebDAVAuthenticationViewModel.State) {
+		switch state {
+		case .authenticating:
+			showHUD()
+		case let .error(error):
 			handleError(error)
-			return
+		case let .authenticated(credential):
+			hud?.transformToSelfDismissingSuccess().then {
+				self.coordinator?.authenticated(with: credential)
+			}
+		case .initial, .insecureConnectionNotAllowed, .untrustedCertificate:
+			break
 		}
+	}
 
-		let hud = ProgressHUD()
-		hud.text = LocalizedString.getValue("common.hud.authenticating")
-		hud.show(presentingViewController: self)
-		hud.showLoadingIndicator()
-		let addAccountPromise = viewModel.addAccount(credential: credential)
-		addAccountPromise.then { _ in
-			hud.transformToSelfDismissingSuccess()
-		}.then {
-			addAccountPromise
-		}.then { [weak self] credential in
-			guard let self = self else { return }
-			self.coordinator?.authenticated(with: credential)
-		}.catch { [weak self] error in
-			self?.handleError(error, hud: hud)
+	func handleError(_ error: Error) {
+		let precondition: Promise<Void>
+		if let hud = hud {
+			precondition = hud.dismiss(animated: true)
+		} else {
+			precondition = Promise(())
 		}
+		precondition.then { [weak self] in
+			guard let self = self else { return }
+			self.coordinator?.handleError(error, for: self)
+		}
+	}
+
+	func showHUD() {
+		hud = ProgressHUD()
+
+		hud?.text = LocalizedString.getValue("common.hud.authenticating")
+		hud?.show(presentingViewController: self)
+		hud?.showLoadingIndicator()
 	}
 
 	@objc func cancel() {
 		coordinator?.cancel()
 	}
 
-	private func handleError(_ error: Error, hud: ProgressHUD) {
-		hud.dismiss(animated: true).then { [weak self] in
-			self?.handleError(error)
-		}
-	}
-
-	private func handleError(_ error: Error) {
-		if case let WebDAVAuthenticationError.untrustedCertificate(certificate: certificate, url: url) = error {
-			coordinator?.handleUntrustedCertificate(certificate, url: url, for: self, viewModel: viewModel)
-		} else if case WebDAVAuthenticationError.httpConnection = error {
-			coordinator?.handleInsecureConnection(for: self, viewModel: viewModel)
-		} else {
-			coordinator?.handleError(error, for: self)
-		}
+	private func setupSwiftUIView() {
+		let child = UIHostingController(rootView: WebDAVAuthentication(viewModel: viewModel))
+		addChild(child)
+		view.addSubview(child.view)
+		child.didMove(toParent: self)
+		child.view.translatesAutoresizingMaskIntoConstraints = false
+		NSLayoutConstraint.activate(child.view.constraints(equalTo: view))
 	}
 }
 
@@ -89,26 +105,9 @@ import CryptomatorCloudAccessCore
 import Promises
 import SwiftUI
 
-class WebDAVAuthenticationViewModelMock: SingleSectionTableViewModel, WebDAVAuthenticationViewModelProtocol {
-	var lastReturnButtonPressed: AnyPublisher<Void, Never> {
-		PassthroughSubject<Void, Never>().eraseToAnyPublisher()
-	}
-
-	func transformURLToHTTPS() throws {}
-
-	func createWebDAVCredentialFromInput(allowedCertificate: Data?, allowHTTPConnection: Bool) throws -> WebDAVCredential {
-		WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil)
-	}
-
-	func addAccount(credential: WebDAVCredential) -> Promise<WebDAVCredential> {
-		return Promise(WebDAVCredential(baseURL: URL(string: ".")!, username: "", password: "", allowedCertificate: nil))
-	}
-}
-
 struct WebDAVAuthenticationVCPreview: PreviewProvider {
 	static var previews: some View {
-		let mock = WebDAVAuthenticationViewModelMock()
-		WebDAVAuthenticationViewController(viewModel: mock).toPreview()
+		WebDAVAuthenticationViewController(viewModel: .init()).toPreview()
 	}
 }
 #endif

@@ -14,6 +14,8 @@ import Promises
 // swiftlint:disable all
 
 final class CloudProviderMock: CloudProvider {
+	let tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+
 	var createdFolders: [String] {
 		return createFolderAtReceivedInvocations.map { $0.path }
 	}
@@ -23,9 +25,14 @@ final class CloudProviderMock: CloudProvider {
 	var cloudMetadata: [String: CloudItemMetadata] = [:]
 
 	init() {
+		try? FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true)
 		self.downloadFileFromToClosure = defaultDownloadFile(from:to:)
 		self.uploadFileFromToReplaceExistingClosure = defaultUploadFile(from:to:replaceExisting:)
 		self.fetchItemMetadataAtClosure = defaultFetchItemMetadata(at:)
+	}
+
+	deinit {
+		try? FileManager.default.removeItem(at: tmpDir)
 	}
 
 	// MARK: - fetchItemMetadata
@@ -106,7 +113,7 @@ final class CloudProviderMock: CloudProvider {
 		}
 	}
 
-	func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 		if let error = downloadFileFromToThrowableError {
 			return Promise(error)
 		}
@@ -129,7 +136,7 @@ final class CloudProviderMock: CloudProvider {
 	var uploadFileFromToReplaceExistingReturnValue: Promise<CloudItemMetadata>!
 	var uploadFileFromToReplaceExistingClosure: ((URL, CloudPath, Bool) -> Promise<CloudItemMetadata>)?
 
-	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
 		if let error = uploadFileFromToReplaceExistingThrowableError {
 			return Promise(error)
 		}
@@ -141,8 +148,13 @@ final class CloudProviderMock: CloudProvider {
 
 	private func defaultUploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
 		do {
-			let data = try Data(contentsOf: localURL)
+			let destinationURL = tmpDir.appendingPathComponent(cloudPath)
+			try FileManager.default.createDirectory(at: destinationURL.deletingLastPathComponent(), withIntermediateDirectories: true)
+			try FileManager.default.copyItem(at: localURL, to: destinationURL)
+			let data = try Data(contentsOf: destinationURL)
 			return Promise(CloudItemMetadata(name: cloudPath.lastPathComponent, cloudPath: cloudPath, itemType: .file, lastModifiedDate: uploadFileLastModifiedDate[cloudPath.path], size: data.count))
+		} catch CocoaError.fileWriteFileExists {
+			return Promise(CloudProviderError.itemAlreadyExists)
 		} catch {
 			return Promise(error)
 		}

@@ -76,7 +76,7 @@ class AddVaultCoordinator: Coordinator {
 	}
 
 	private func isAllowedToCreateNewVault() -> Bool {
-		return UserDefaultsFullVersionChecker.shared.isFullVersion
+		return GlobalFullVersionChecker.default.isFullVersion
 	}
 }
 

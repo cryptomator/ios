@@ -12,8 +12,8 @@ jobs:
       DEVICE: 'iPhone 12 Pro'
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v2
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         with:
           path: .build
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
@@ -24,7 +24,9 @@ jobs:
           ./Scripts/process.sh
           exit $?
       - name: Create CloudAccessSecrets
-        run: ./create-cloud-access-secrets-file.sh
+        run: |
+          cd fastlane
+          ./scripts/create-cloud-access-secrets.sh
       - name: Build
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES | xcpretty
       - name: Test

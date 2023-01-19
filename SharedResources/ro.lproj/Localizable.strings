@@ -10,11 +10,13 @@
 "common.button.cancel" = "Anulează";
 "common.button.change" = "Modifică";
 "common.button.choose" = "Alegeți";
+"common.button.clear" = "Goliți";
 "common.button.close" = "Închide";
 "common.button.confirm" = "Confirmați";
 "common.button.create" = "Creează";
 "common.button.createFolder" = "Creează dosar";
 "common.button.done" = "Finalizat";
+"common.button.download" = "Descarcă";
 "common.button.edit" = "Editează";
 "common.button.enable" = "Activează";
 "common.button.next" = "Următor";
@@ -28,6 +30,7 @@
 "common.cells.url" = "Adresa URL";
 "common.cells.username" = "Nume de utilizator";
 "common.footer.learnMore" = "Aflați mai multe.";
+"common.hud.authenticating" = "In proces de autentificare…";
 
 "accountList.header.title" = "Autentificări";
 "accountList.emptyList.message" = "Atinge aici pentru a adăuga un cont";
@@ -36,6 +39,7 @@
 
 "addVault.title" = "Adaugă seif";
 "addVault.createNewVault.title" = "Creează seif nou";
+"addVault.createNewVault.purchase" = "Crearea unui seif nou necesită versiunea completă a Criptomatorului.";
 "addVault.createNewVault.setVaultName.header.title" = "Alege un nume pentru seif.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nume seif";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Numele seifului nu poate fi gol.";
@@ -49,23 +53,30 @@
 "addVault.createNewVault.password.error.emptyPassword" = "Parola nu poate fi goală.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Parolele nu se potrivesc.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Parola trebuie să conțină cel puțin 8 caractere.";
+"addVault.createNewVault.progress" = "Se creează seiful…";
 "addVault.openExistingVault.title" = "Deschide un seif existent";
 "addVault.openExistingVault.chooseCloud.header" = "Unde este localizat seiful?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Criptomatorul a detectat seiful \"%@\".\nDoriți să adăugați acest seif?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adaugă acest seif";
 "addVault.openExistingVault.password.footer" = "Introduceți parola pentru „%@”.";
+"addVault.openExistingVault.progress" = "Adăugare seif…";
 "addVault.success.info" = "Seiful \"%@\" a fost adăugat cu succes.\nAccesați seiful prin intermediul aplicației fișiere.";
 "addVault.success.footer" = "Dacă nu ați făcut-o deja, activați Cryptomator în aplicația Fișiere.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Parola curentă este incorectă. Vă rugăm să încercați din nou.";
+"changePassword.header.currentPassword.title" = "Introduceți parola curentă.";
 "changePassword.header.newPassword.title" = "Introduceți o parolă nouă.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirmați noua parolă.";
+"changePassword.progress" = "Schimbare parolă…";
 
 "chooseFolder.emptyFolder.footer" = "Dosarul este gol";
 "chooseFolder.createNewFolder.header.title" = "Alegeți un nume pentru dosar.";
 "chooseFolder.createNewFolder.cells.name" = "Nume dosar";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Numele dosarului nu poate fi gol.";
+"chooseFolder.createNewFolder.progress" = "Se creează folderul…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" nu a putut fi găsit.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" există deja.";
@@ -81,7 +92,39 @@
 "fileProvider.onboarding.title" = "Bine ați venit";
 "fileProvider.onboarding.info" = "Vă mulțumim că ați ales Cryptomator pentru a vă proteja fișierele. Pentru a începe, mergeți la aplicația principală și adăugați un seif.";
 "fileProvider.onboarding.button.openCryptomator" = "Deschideți Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Deblocare Anulată";
+"fileProvider.error.biometricalAuthCanceled.message" = "Deblocarea prin %@ nu a reușit. Vă rugăm să încercați din nou.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Parolă greșită";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Parola care a fost salvată pentru %@ este greșită. Vă rugăm să încercați din nou și să introduceți parola pentru a reactiva %@.";
+"fileProvider.error.defaultLock.title" = "Deblocare necesară";
+"fileProvider.error.defaultLock.message" = "Este necesara deblocarea seifului pentru a accesa si vizualiza conținutul sau.";
 "fileProvider.error.unlockButton" = "Deblocați";
+"fileProvider.clearFileFromCache.title" = "Ștergeți fișierul din Cache";
+"fileProvider.clearFileFromCache.message" = "Aceasta opțiune elimină doar fișierul aflat local pe dispozitiv. Fișierul nu va fi șters din cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "Deblochează versiunea completă în aplicația Cryptomator pentru a obține acces la opțiunea de scriere în seifuri.";
+"fileProvider.uploadProgress.connecting" = "Se conectează…";
+"fileProvider.uploadProgress.message" = "Progresul actual: %@\n\nDacă observați că progresul de încărcare nu mai înaintează, puteți reîncerca încărcarea.";
+"fileProvider.uploadProgress.missing" = "Progresul nu a putut fi determinat. Este posibil să meargă în fundal.";
+"fileProvider.uploadProgress.title" = "Se încarcă…";
+"fileProvider.uploadProgress.missingDomainError" = "Domeniul nu a putut fi găsit.";
+
+"getFolderIntent.error.missingPath" = "Nu a fost furnizată nicio locație. Vă rugăm să alegeți o cale validă pentru care un dosar trebuie returnat.";
+"getFolderIntent.error.noVaultSelected" = "Nici un seif nu a fost ales.";
+"intents.saveFile.missingFile" = "Fișierul ales nu este valid.";
+"intents.saveFile.invalidFolder" = "Dosarul ales nu este valid.";
+"intents.saveFile.missingTemporaryFolder" = "Nu s-a putut crea dosarului temporar.";
+"intents.saveFile.lockedVault" = "Trebuie să deblocați seiful dvs. pentru a utiliza această scurtătură.";
+"intents.saveFile.selectedVaultNotFound" = "Seiful selectat nu a putut fi găsit.";
+
+"keepUnlocked.alert.title" = "Încuie seiful?";
+"keepUnlocked.alert.message" = "Această modificare necesită ca seiful dvs. să fie încuiat pentru a avea efect.";
+"keepUnlocked.alert.confirm" = "Confirmați și încuiați acum";
+"keepUnlocked.header" = "Specificați pentru cât timp doriți ca acest seif să rămână deblocat atunci când nu este folosit.";
+"keepUnlocked.footer.auto" = "Daca lăsați iOS sa decidă Cryptomatorul poate fi închis oricând este nevoie ca memoria sa fie eliberata, încuind seiful automat.";
+"keepUnlocked.footer.on" = "Folosind opțiunea selectată, cât timp seiful este deblocat o copie a cheii tale va trebui să fie stocată în iOS keychain.";
+"keepUnlockedDuration.auto" = "Lăsați iOS-ul sa decidă automat";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Indefinit";
 
 "localFileSystemAuthentication.createNewVault.header" = "În ecranul următor, alegeți locația de stocare pentru seiful dvs. nou.";
 "localFileSystemAuthentication.createNewVault.button" = "Selectați locația de stocare";
@@ -89,16 +132,79 @@
 "localFileSystemAuthentication.openExistingVault.header" = "În ecranul următor, alegeți folderul seifului dvs. existent.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selectaţi dosarul cu seif";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Dosarul selectat nu este un seif. Vă rugăm să încercaţi din nou cu un alt dosar.";
+"localFileSystemAuthentication.info.footer" = "Locațiile/Serviciile care sunt gri nu pot fi alese. Aceasta nu este o limitare a Criptomatorului.";
+
+"maintenanceModeError.runningCloudTask" = "Operațiunea nu poate fi executată deoarece alte operațiuni in fundal pentru acest seif trebuie sa termine mai întâi. Vă rugăm să încercați mai târziu.";
+
+"nameValidation.error.endsWithPeriod" = "Nu puteți folosi un nume care se termină cu un punct. Va rugam să alegeți un nume diferit.";
+"nameValidation.error.endsWithSpace" = "Nu puteți folosi un nume care se termină cu un spatiu. Va rugam să alegeți un nume diferit.";
+"nameValidation.error.containsIllegalCharacter" = "Nu puteți folosi un nume care conține \"%@\". Va rugam să alegeți un nume diferit.";
 
 "onboarding.title" = "Bine ați venit";
+"onboarding.info" = "Mulțumim că ai ales Cryptomator pentru protejarea fișierelelor dvs.\n\nCu Cryptomator, cheia datelor este în mâinile dvs. Cryptomatorul îți criptează datele rapid și ușor.\n\nAceastă aplicație este complet integrată în aplicația Fișiere. Asigurați-vă că activați Cryptomatorul în aplicația Fișiere pentru a accesa seifurile.";
+"onboarding.button.continue" = "Continuați";
+
+"purchase.beginFreeTrial.alert.title" = "Perioada de proba deblocata";
+"purchase.expiredTrial" = "Perioada de probă a expirat.";
+"purchase.footer.privacyPolicy" = "Politică de confidențialitate";
+"purchase.footer.termsOfUse" = "Termeni și condiții de utilizare";
+"purchase.header.feature.familySharing" = "Partajare cu familia";
+"purchase.header.feature.openSource" = "Dezvoltare open-source";
+"purchase.header.feature.writeAccess" = "Acces fără restricții la seifurile dvs.";
+"purchase.product.donateAndUpgrade" = "Donați & Faceți Tranziția";
+"purchase.product.freeUpgrade" = "Tranziție gratuita";
+"purchase.product.lifetimeLicense" = "Licență permanenta";
+"purchase.product.lifetimeLicense.duration" = "plată singulară";
+"purchase.product.pricing.free" = "Gratuit";
+"purchase.product.trial" = "30 de zile de încercare";
+"purchase.product.trial.expirationDate" = "Valabil până la data de: %@";
+"purchase.product.trial.duration" = "pentru 30 de zile";
+"purchase.product.yearlySubscription" = "Abonament anual";
+"purchase.product.yearlySubscription.duration" = "anual";
+"purchase.readOnlyMode.alert.title" = "Mod doar citire";
+"purchase.readOnlyMode.alert.message" = "Puteți debloca versiunea completă a Criptomatorului mai târziu în setări și puteți folosi aplicația în modul doar pentru citire până atunci.";
+"purchase.restorePurchase.button" = "Restabilește achiziția";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Continuați perioada de probă";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Acum poți folosi versiunea completă a Criptomatorului pentru o perioadă limitată de timp. Perioada ta de probă expiră la %@. După aceasta data, seifurile dumneavoastră vor fi accesibile doar în modul de citire.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Restabilirea licenței a fost efectuată cu succes";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Versiunea completă nu a fost găsită";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nu am putut găsi o versiune completă achiziționată anterior. Vă rugăm să alegeți o altă opțiune.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Eligibil pentru tranziție";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Se pare că încercați să faceți tranziția de la o versiune mai veche a Criptomatorului. În acest caz, va rugăm să alegeți opțiunea \"Ofertă de tranziție\".";
 "purchase.retry.button" = "Încercați din nou";
+"purchase.retry.footer" = "Produsele disponibile nu au putut fi încărcate.";
+"purchase.title" = "Deblochează versiunea completă";
+"purchase.unlockedFullVersion.message" = "Acum poți folosi versiunea completă a Criptomatorului. Criptare fericită!";
+"purchase.unlockedFullVersion.title" = "Vă mulțumim!";
+"purchase.error.unknown" = "Această achiziție nu este disponibilă în App Store dintr-un motiv necunoscut. Vă rugăm să încercați din nou mai târziu.\n\nDacă această eroare persistă, încercați să reporniți dispozitivul sau să vă re-conectați la contul dvs. Apple în setările iOS.";
 
 "settings.title" = "Setări";
 "settings.aboutCryptomator" = "Despre Cryptomator";
 "settings.aboutCryptomator.title" = "Versiunea %@ (%@)";
+"settings.cacheSize" = "Dimensiunea cache-ului";
 "settings.clearCache" = "Golește memoria cache";
+"settings.cloudServices" = "Servicii Cloud";
+"settings.contact" = "Contact";
+"settings.debugMode" = "Mod De Depanare";
 "settings.debugMode.alert.message" = "În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.";
+"settings.manageSubscriptions" = "Administrați-vă abonamentul";
+"settings.rateApp" = "Evaluați aplicația";
 "settings.sendLogFile" = "Trimiteți fişierul jurnal";
+"settings.shortcutsGuide" = "Ghid comenzi rapide";
+"settings.unlockFullVersion" = "Deblochează versiunea completă";
+
+"snapshots.fileprovider.file1" = "/Contabilizare.numere";
+"snapshots.fileprovider.file2" = "/Prezentare finală.key";
+"snapshots.fileprovider.file3" = "/Videoclip de prezentare.mov";
+"snapshots.fileprovider.file4" = "/Propunere.docx";
+"snapshots.fileprovider.file5" = "/Raport.pdf";
+"snapshots.fileprovider.folder3" = "/Proiect Secret";
+"snapshots.fileprovider.folder2" = "/Facturi";
+"snapshots.fileprovider.folder1" = "/Certificate";
+"snapshots.main.vault1" = "/Serviciu";
+"snapshots.main.vault2" = "/Familie";
+"snapshots.main.vault3" = "/Documente";
+"snapshots.main.vault4" = "/Excursie in California";
 
 "s3Authentication.displayName" = "Nume afișat";
 "s3Authentication.accessKey" = "Cheia de acces";
@@ -106,6 +212,11 @@
 "s3Authentication.existingBucket" = "Găleată existentă";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Regiune";
+"s3Authentication.error.invalidCredentials" = "Date de autentificare invalide.";
+"s3Authentication.error.invalidEndpoint" = "Criteriul final furnizat nu se potrivește cu formatul unui URL.";
+
+"trialStatus.active" = "Activ";
+"trialStatus.expired" = "Expirat";
 
 "unlockVault.button.unlock" = "Deblocați";
 "unlockVault.button.unlockVia" = "Deblocare prin %@";
@@ -113,11 +224,17 @@
 "unlockVault.enableBiometricalUnlock.switch" = "Activează %@";
 "unlockVault.enableBiometricalUnlock.footer" = "În loc să deblocați seiful dvs. cu parola, îl puteți debloca prin %@.";
 "unlockVault.evaluatePolicy.reason" = "Deblochează seiful tău";
+"unlockVault.progress" = "În curs de deblocare…";
 
 "untrustedTLSCertificate.title" = "Certificat TLS invalid";
 "untrustedTLSCertificate.message" = "Certificatul TLS al \"%@\" nu este valid. Vrei să ai încredere în el oricum?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "De încredere";
 "untrustedTLSCertificate.dismiss" = "Nu acreditați";
+
+"upgrade.title" = "Ofertă de tranziție";
+"upgrade.notEligible.alert.title" = "Tranziția a eșuat";
+"upgrade.notEligible.alert.message" = "Criptomatorul nu a putut detecta o versiune mai veche instalată pe dispozitivul dvs. Dacă ați cumpărat-o, descărcați-o din App Store și încercați din nou.";
+"upgrade.info" = "Mulțumim ca aveți încredere în Cryptomator de la prima versiune. Ca utilizator loial, sunteți eligibil pentru tranziția gratuita.";
 
 "urlSession.error.httpError.401" = "Nume utilizator și/sau parolă greșită.";
 "urlSession.error.httpError.403" = "Drepturi insuficiente pentru resursele solicitate.";
@@ -128,17 +245,27 @@
 "urlSession.error.httpError.default" = "Conexiunea la rețea a eșuat cu codul de stare %ld.";
 "urlSession.error.unexpectedResponse" = "A existat un răspuns neașteptat în rețea.";
 
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Acest seif a fost adăugat deja.";
+
 "vaultDetail.button.changeVaultPassword" = "Schimbați parola";
 "vaultDetail.button.lock" = "Blochează acum";
 "vaultDetail.button.moveVault" = "Mută";
 "vaultDetail.button.removeVault" = "Eliminați din lista de seifuri";
 "vaultDetail.button.renameVault" = "Redenumește";
+"vaultDetail.changePassword.footer" = "Alegeți o parolă puternică pentru seiful dvs., pe care doar dvs. o cunoașteți și păstrați-o într-un loc sigur.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Dacă activați %@, parola de seif va fi stocată în iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Parola dvs. de seif va fi necesară doar dacă autentificarea %@ eșuează.";
 "vaultDetail.info.footer.accessVault" = "Accesați seiful prin intermediul aplicației fișiere.";
 "vaultDetail.info.footer.accountInfo" = "Autentificat ca %@ prin %@.";
+"vaultDetail.keepUnlocked.title" = "Durata deblocării";
+"vaultDetail.keepUnlocked.footer.off" = "Deblocarea va fi necesară când Criptomatorul a fost oprit de către aplicația Fișiere.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Deblocarea va fi necesară atunci când seiful dvs. a fost inactiv pentru %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Deblocarea va fi necesara doar daca seiful este încuiat manual.";
 "vaultDetail.locked.footer" = "Seiful dvs. este la moment blocat.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a detectat un seif în această locație.\nPentru a crea un nou seif, vă rugăm să alegeți un folder diferit.";
+"vaultDetail.moveVault.progress" = "Se mută…";
 "vaultDetail.removeVault.footer" = "Acest lucru va elimina doar seiful din lista de seifuri și nu va șterge niciun fișier criptat.";
+"vaultDetail.renameVault.progress" = "In proces de redenumire…";
 "vaultDetail.unlocked.footer" = "Seiful dvs. este în prezent deblocat în aplicația fișiere.";
 "vaultDetail.unlockVault.footer" = "Introduceți parola pentru \"%@\" pentru a o stoca în iOS keychain și pentru a activa %@.";
 
@@ -148,7 +275,15 @@
 "vaultList.remove.alert.message" = "Acest lucru va elimina doar seiful din lista de seif. Nici o dată criptată nu va fi ștearsă. Puteți adăuga din nou seiful mai târziu.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Configurarea seifului nu este suportată. Vă rugăm să vă asigurați că rulați cea mai noua versiune de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Seiful cu versiunea %ld nu este acceptată. Acest seif a fost creat cu o versiune mai veche sau mai nouă de Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Folosiți HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Utilizarea HTTP este nesigură. Vă recomandăm să utilizați HTTPS în schimb. Dacă cunoașteți riscurile, puteți continua cu HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Schimbare la HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Păstrează HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Serverul nu pare a fi compatibil cu WebDAV. Vă rugăm să verificați dacă ați folosit adresa URL corectă.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Certificatul acestui server nu este de încredere. Ar putea fi necesar să adaugi din nou această conexiune WebDAV.";
+
+"Retry Upload" = "Reîncercați încărcarea";
+"Clear from Cache" = "Ștergeți fișierul din Cache";

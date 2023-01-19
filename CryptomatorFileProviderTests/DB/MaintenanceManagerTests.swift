@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
@@ -31,6 +32,14 @@ class MaintenanceManagerTests: XCTestCase {
 		deletionTaskManager = try DeletionTaskDBManager(database: inMemoryDB)
 		itemEnumerationTaskManager = try ItemEnumerationTaskDBManager(database: inMemoryDB)
 		downloadTaskManager = try DownloadTaskDBManager(database: inMemoryDB)
+	}
+
+	func testPreventEnablingMaintenanceModeTwice() throws {
+		try manager.enableMaintenanceMode()
+
+		XCTAssertThrowsError(try manager.enableMaintenanceMode()) { error in
+			XCTAssertEqual(.runningCloudTask, error as? MaintenanceModeError)
+		}
 	}
 
 	// MARK: - Prevent the creation of New tasks when in maintenance mode
@@ -77,7 +86,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!))
+		checkThrowsMaintenanceError(try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil))
 	}
 
 	// MARK: - Prevent enabling maintenance mode for running tasks
@@ -123,7 +132,7 @@ class MaintenanceManagerTests: XCTestCase {
 	func testPreventEnablingMaintenanceModeForRunningDownloadTask() throws {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
-		_ = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: false, localURL: URL(string: "/Test")!)
+		_ = try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: false, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil)
 		try assertOnlyFalseAllowedForInsertOrUpdate()
 	}
 

@@ -1,0 +1,289 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Fejl";
+"common.alert.attention.title" = "Vigtigt";
+"common.button.cancel" = "Annullér";
+"common.button.change" = "Skift";
+"common.button.choose" = "Vælg";
+"common.button.clear" = "Ryd";
+"common.button.close" = "Luk";
+"common.button.confirm" = "Bekræft";
+"common.button.create" = "Opret";
+"common.button.createFolder" = "Opret mappe";
+"common.button.done" = "Færdig";
+"common.button.download" = "Download";
+"common.button.edit" = "Redigér";
+"common.button.enable" = "Aktivér";
+"common.button.next" = "Næste";
+"common.button.ok" = "OK";
+"common.button.remove" = "Fjern";
+"common.button.retry" = "Forsøg igen";
+"common.button.signOut" = "Log ud";
+"common.button.verify" = "Bekræft";
+"common.cells.openInFilesApp" = "Åbn i Filer appen";
+"common.cells.password" = "Adgangskode";
+"common.cells.url" = "URL";
+"common.cells.username" = "Brugernavn";
+"common.footer.learnMore" = "Læs mere.";
+"common.hud.authenticating" = "Godkender…";
+
+"accountList.header.title" = "Godkendere";
+"accountList.emptyList.message" = "Tryk her for at tilføje en konto";
+"accountList.signOut.alert.title" = "Fjern associerede bokse?";
+"accountList.signOut.alert.message" = "Ved at logge ud, vil alle tilknyttede bokse blive fjernet fra listen. Ingen krypterede data vil blive slettet. Du kan logge ind igen og tilføje boksene igen senere.";
+
+"addVault.title" = "Tilføj boks";
+"addVault.createNewVault.title" = "Opret ny boks";
+"addVault.createNewVault.purchase" = "Oprettelse af en ny boks kræver den fulde version af Cryptomator.";
+"addVault.createNewVault.setVaultName.header.title" = "Vælg et navn til boksen.";
+"addVault.createNewVault.setVaultName.cells.name" = "Boks-navn";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Boks navn må ikke være tomt.";
+"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer af din boks?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" findes allerede på dette sted. Vælg et andet navn eller en anden placering.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detekterede en eksisterende boks på denne placering.\nFor at oprette en ny boks, skal du gå tilbage og vælge en anden mappe.";
+"addVault.createNewVault.password.enterPassword.header" = "Indtast en ny adgangskode.";
+"addVault.createNewVault.password.confirmPassword.header" = "Gentag den nye adgangskode.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Bekræft Adgangskode?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "VIGTIGT: Hvis du glemmer din adgangskode, er der ingen måde hvorpå dine data kan gendannes.";
+"addVault.createNewVault.password.error.emptyPassword" = "Adgangskoden må ikke være tom.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Adgangskoderne er ikke ens.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Adgangskoden skal indeholde mindst 8 tegn.";
+"addVault.createNewVault.progress" = "Opretter boks…";
+"addVault.openExistingVault.title" = "Open eksisterende boks";
+"addVault.openExistingVault.chooseCloud.header" = "Hvor er boksen placeret?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Kryptomator fandt boksen \"%@\".\nVil du tilføje denne boks?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Tilføj denne boks";
+"addVault.openExistingVault.password.footer" = "Indtast adgangskode for \"%@\".";
+"addVault.openExistingVault.progress" = "Tilføjer boks…";
+"addVault.success.info" = "Tilføjede boksen \"%@\".\nFå adgang til denne boks via Filer appen.";
+"addVault.success.footer" = "Hvis du ikke allerede har gjort det, så aktivér Cryptomator i Filer appen.";
+
+"biometryType.faceID" = "Ansigts ID";
+"biometryType.touchID" = "Fingeraftryk ID";
+
+"changePassword.error.invalidOldPassword" = "Nuværende adgangskode er forkert. Prøv venligst igen.";
+"changePassword.header.currentPassword.title" = "Indtast den nuværende adgangskode.";
+"changePassword.header.newPassword.title" = "Indtast en ny adgangskode.";
+"changePassword.header.newPasswordConfirmation.title" = "Gentag den nye adgangskode.";
+"changePassword.progress" = "Skifter adgangskode…";
+
+"chooseFolder.emptyFolder.footer" = "Mappen er tom";
+"chooseFolder.createNewFolder.header.title" = "Vælg et navn til mappen.";
+"chooseFolder.createNewFolder.cells.name" = "Mappenavn";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Mappenavn må ikke være tomt.";
+"chooseFolder.createNewFolder.progress" = "Opretter mappe…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" kunne ikke findes.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" findes allerede.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" har en uventet type.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Overordnet mappe \"%@\" eksisterer ikke.";
+"cloudProvider.error.pageTokenInvalid" = "Kunne ikke hentning mappens indhold.";
+"cloudProvider.error.quotaInsufficient" = "Dit lager har ikke tilstrækkelig plads.";
+"cloudProvider.error.unauthorized" = "Kan ikke udføre uautoriseret operation.";
+"cloudProvider.error.noInternetConnection" = "Internetforbindelse er påkrævet for denne operation.";
+
+"cloudProviderType.localFileSystem" = "Andre fil-kilder";
+
+"fileProvider.onboarding.title" = "Velkommen";
+"fileProvider.onboarding.info" = "Tak fordi du valgte Cryptomator til at beskytte dine filer. Åben appen og tilføj en boks, for at komme i gang.";
+"fileProvider.onboarding.button.openCryptomator" = "Åben Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Oplåsning annulleret";
+"fileProvider.error.biometricalAuthCanceled.message" = "Kunne ikke låse op med %@. Prøv venligst igen.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Forkert adgangskode";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Den adgangskode, der er gemt for %@ er forkert. Prøv venligst igen og indtast din adgangskode for at genaktivere %@.";
+"fileProvider.error.defaultLock.title" = "Oplåsning kræves";
+"fileProvider.error.defaultLock.message" = "For at tilgå, og vise, indholdet af din boks, skal den være låst op.";
+"fileProvider.error.unlockButton" = "Lås op";
+"fileProvider.clearFileFromCache.title" = "Ryd fil fra cache";
+"fileProvider.clearFileFromCache.message" = "Dette fjerner kun den lokale fil fra din enhed og sletter ikke filen i skyen.";
+"fileProvider.fileImporting.error.missingPremium" = "Lås den fulde version af Cryptomator op, inde i appen, for at få skriveadgang til dine bokse.";
+"fileProvider.uploadProgress.connecting" = "Forbinder…";
+"fileProvider.uploadProgress.message" = "Status: %@\n\nHvis din upload er gået i stå, kan du prøve igen.";
+"fileProvider.uploadProgress.missing" = "Kan ikke se status. Den kører måske stadig i baggrunden.";
+"fileProvider.uploadProgress.title" = "Uploader…";
+"fileProvider.uploadProgress.missingDomainError" = "Kunne ikke finde domæne.";
+
+"getFolderIntent.error.missingPath" = "Ingen sti blev angivet. Angiv venligst en gyldig sti til en mappe.";
+"getFolderIntent.error.noVaultSelected" = "Ingen boks er valgt.";
+"intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
+"intents.saveFile.invalidFolder" = "Den angivne mappe er ikke gyldig.";
+"intents.saveFile.missingTemporaryFolder" = "Kunne ikke oprette midlertidig mappe.";
+"intents.saveFile.lockedVault" = "Du skal låse din boks op for at bruge denne genvej.";
+"intents.saveFile.selectedVaultNotFound" = "Den valgte boks kunne ikke findes.";
+
+"keepUnlocked.alert.title" = "Lås boks?";
+"keepUnlocked.alert.message" = "Denne ændring kræver, at din boks låses før den træder i kraft.";
+"keepUnlocked.alert.confirm" = "Bekræft & lås nu";
+"keepUnlocked.header" = "Angiv hvor længe du ønsker at denne boks skal forblive låst op, når den er inaktiv.";
+"keepUnlocked.footer.auto" = "Lad iOS beslutte, betyder, at Cryptomator kan lukkes når som helst for at frigøre hukommelse. Bokse låses automatisk.";
+"keepUnlocked.footer.on" = "Med den valgte indstilling, kræves det at en kopi af din nøgle gemmes i iOS-nøglenringen - så længe boksen er låst op.";
+"keepUnlockedDuration.auto" = "Lad iOS beslutte automatisk";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Altid";
+
+"localFileSystemAuthentication.createNewVault.header" = "Vælg placeringen til din nye boks på næste skærmbillede.";
+"localFileSystemAuthentication.createNewVault.button" = "Vælg placering";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Der findes allerede en boks på denne placering. Prøv igen med en anden placering.";
+"localFileSystemAuthentication.openExistingVault.header" = "Vælg mappen hvori din boks befinder sig, på det næste skærmbillede.";
+"localFileSystemAuthentication.openExistingVault.button" = "Vælg mappen med boks-filerne";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappe er ikke en boks. Prøv venligst igen med en anden mappe.";
+"localFileSystemAuthentication.info.footer" = "Filudbydere, der er grå understøtter ikke \"mappe-vælger\". Dette er ikke en begrænsning i Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "Operationen kan ikke udføres fordi der er igangværende baggrunds-operationer for denne boks. Prøv igen senere.";
+
+"nameValidation.error.endsWithPeriod" = "Du kan ikke bruge et navn som slutter med et punktum. Vælg venligst et andet navn.";
+"nameValidation.error.endsWithSpace" = "Du kan ikke bruge et navn som slutter med et mellemrum. Vælg venligst et andet navn.";
+"nameValidation.error.containsIllegalCharacter" = "Du kan ikke bruge et navn som indeholder \"%@\". Vælg venligst et andet navn.";
+
+"onboarding.title" = "Velkommen";
+"onboarding.info" = "Tak fordi du valgte Cryptomator til at beskytte dine filer.\n\nMed Cryptomator har du selv fuld kontrol over nøglen til dine data. Cryptomator krypterer dine data hurtigt og nemt.\n\nDenne app er fuld integreret med Filer appen. Sørg for at aktivere Cryptomator i Filer appen senere, for at få adgang til dine bokse.";
+"onboarding.button.continue" = "Fortsæt";
+
+"purchase.beginFreeTrial.alert.title" = "Prøveperiode aktiveret";
+"purchase.expiredTrial" = "Dit prøveperiode er udløbet.";
+"purchase.footer.privacyPolicy" = "Privatlivspolitik";
+"purchase.footer.termsOfUse" = "Brugsvilkår";
+"purchase.header.feature.familySharing" = "Familiedeling";
+"purchase.header.feature.openSource" = "Open-source udvikling";
+"purchase.header.feature.writeAccess" = "Skriveadgang til dine bokse";
+"purchase.product.donateAndUpgrade" = "Donér & opgradér";
+"purchase.product.freeUpgrade" = "Gratis opgradering";
+"purchase.product.lifetimeLicense" = "Livstids-licens";
+"purchase.product.lifetimeLicense.duration" = "engangsbeløb";
+"purchase.product.pricing.free" = "Gratis";
+"purchase.product.trial" = "30-dages prøveperiode";
+"purchase.product.trial.expirationDate" = "Udløbsdato: %@";
+"purchase.product.trial.duration" = "i 30 dage";
+"purchase.product.yearlySubscription" = "Årligt abbonnement";
+"purchase.product.yearlySubscription.duration" = "årligt beløb";
+"purchase.readOnlyMode.alert.title" = "Skrivebeskyttet tilstand";
+"purchase.readOnlyMode.alert.message" = "Du kan aktivere den fulde version af Cryptomator i indstillingerne senere, og bruge den i skrivebeskyttet tilstand for nu.";
+"purchase.restorePurchase.button" = "Gendan køb";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Fortsætter prøveperiode";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Du kan nu bruge den fulde version af Cryptomator i en begrænset periode. Din prøveperiode udløber %@. Derefter vil dine bokse stadig være tilgængelige i skrivebeskyttet tilstand.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Gendannelse lykkedes";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Ingen fuld version";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Vi kunne ikke finde en tidligere købt fuld version, som vi kunne gendanne. Prøv venligst en anden mulighed.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Kvalificeret til opgradering";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Det ser ud til du prøver at opgradere fra en ældre version af Cryptomator. I så fald skal du vælge \"Tilbud på opgradering\"-muligheden i stedet.";
+"purchase.retry.button" = "Prøv igen";
+"purchase.retry.footer" = "Kunne ikke indlæse tilgængelige produkter.";
+"purchase.title" = "Lås op for fuld version";
+"purchase.unlockedFullVersion.message" = "Du kan nu bruge den fulde version af Cryptomator. God fornøjelse!";
+"purchase.unlockedFullVersion.title" = "Tak";
+"purchase.error.unknown" = "Dette køb er ikke tilgængeligt i App Store af en ukendt årsag. Prøv igen senere.\n\nHvis denne fejl fortsætter, så prøv at genstarte din enhed eller logge ud og ind igen med dit Apple-id i iOS-indstillingerne.";
+
+"settings.title" = "Indstillinger";
+"settings.aboutCryptomator" = "Om Cryptomator";
+"settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.cacheSize" = "Cachestørrelse";
+"settings.clearCache" = "Tøm cache";
+"settings.cloudServices" = "Tjenester i skyen";
+"settings.contact" = "Kontakt";
+"settings.debugMode" = "Fejlfindingstilstand";
+"settings.debugMode.alert.message" = "I denne tilstand kan følsomme data blive skrevet til en logfil på din enhed (f.eks. filnavne og stier). Adgangskoder, cookies osv. er udtrykkeligt udelukket.\n\nHusk at deaktivere fejlfindingstilstand så hurtigt som muligt.";
+"settings.manageSubscriptions" = "Administrér abonnement";
+"settings.rateApp" = "Bedøm app";
+"settings.sendLogFile" = "Send logfil";
+"settings.shortcutsGuide" = "Guide til genveje";
+"settings.unlockFullVersion" = "Lås op for fuld version";
+
+"snapshots.fileprovider.file1" = "/Bogholderi.numbers";
+"snapshots.fileprovider.file2" = "/Endelig præsentation.key";
+"snapshots.fileprovider.file3" = "/Produkt trailer.mov";
+"snapshots.fileprovider.file4" = "/Forslag.docx";
+"snapshots.fileprovider.file5" = "/Rapport.pdf";
+"snapshots.fileprovider.folder3" = "/Hemmeligs projekt";
+"snapshots.fileprovider.folder2" = "/Fakturaer";
+"snapshots.fileprovider.folder1" = "/Certifikater";
+"snapshots.main.vault1" = "/Arbejde";
+"snapshots.main.vault2" = "/Familie";
+"snapshots.main.vault3" = "/Dokumenter";
+"snapshots.main.vault4" = "/Tur til Californien";
+
+"s3Authentication.displayName" = "Vist navn";
+"s3Authentication.accessKey" = "Adgangsnøgle";
+"s3Authentication.secretKey" = "Hemmelig nøgle";
+"s3Authentication.existingBucket" = "Eksisterende bucket";
+"s3Authentication.endpoint" = "Slutpunkt";
+"s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Ugyldige loginoplysninger.";
+"s3Authentication.error.invalidEndpoint" = "Det angivne slutpunkt stemmer ikke overens med formatet af en URL.";
+
+"trialStatus.active" = "Aktiv";
+"trialStatus.expired" = "Udløbet";
+
+"unlockVault.button.unlock" = "Lås op";
+"unlockVault.button.unlockVia" = "Lås op via %@";
+"unlockVault.password.footer" = "Indtast adgangskode for \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Aktivér %@";
+"unlockVault.enableBiometricalUnlock.footer" = "I stedet for at låse din boks op med din adgangskode, kan du låse den op med %@.";
+"unlockVault.evaluatePolicy.reason" = "Lås din boks op";
+"unlockVault.progress" = "Låser op…";
+
+"untrustedTLSCertificate.title" = "Ugyldigt TLS certifikat";
+"untrustedTLSCertificate.message" = "TLS-certifikatet for \"%@\" er ugyldigt. Vil du stole på det alligevel?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Acceptér";
+"untrustedTLSCertificate.dismiss" = "Afvis";
+
+"upgrade.title" = "Tilbud på opgradering";
+"upgrade.notEligible.alert.title" = "Opgradering fejlede";
+"upgrade.notEligible.alert.message" = "Cryptomator kunne ikke finde en ældre version installeret på din enhed. Hvis du købte den, bedes du downloade den igen fra App Store og prøve igen.";
+"upgrade.info" = "Tak fordi du har stolet på Cryptomator siden version et. Du er berretiget til en gratis opgradering, fordi du er en loyal bruger.";
+
+"urlSession.error.httpError.401" = "Forkert brugernavn og/eller password.";
+"urlSession.error.httpError.403" = "Du har ikke tilladelse til at få adgang til ressourcen.";
+"urlSession.error.httpError.404" = "Siden kunne ikke findes.";
+"urlSession.error.httpError.405" = "Metoden er ikke understøttet af ressourcen.";
+"urlSession.error.httpError.409" = "Der er konflikt mellem din version, og serverens.";
+"urlSession.error.httpError.412" = "Adgang til ressourcen nægtet.";
+"urlSession.error.httpError.default" = "Netværksforbindelsen fejlede med statuskoden %ld.";
+"urlSession.error.unexpectedResponse" = "Vi fik et uventet svar fra netværket.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har allerede tilføjet denne boks.";
+
+"vaultDetail.button.changeVaultPassword" = "Skift adgangskode";
+"vaultDetail.button.lock" = "Lås nu";
+"vaultDetail.button.moveVault" = "Flyt";
+"vaultDetail.button.removeVault" = "Fjern fra listen over bokse";
+"vaultDetail.button.renameVault" = "Omdøb";
+"vaultDetail.changePassword.footer" = "Vælg en stærk adgangskode til din boks, som kun du kender og opbevar den på et sikkert sted.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Hvis du aktiverer %@, vil din boksadgangskode blive gemt i iOS-nøgleringen.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Din boksadgangskode skal kun angives, hvis %@-godkendelsen mislykkes.";
+"vaultDetail.info.footer.accessVault" = "Tilgå boksen via Filer appen.";
+"vaultDetail.info.footer.accountInfo" = "Logget ind som %@ via %@.";
+"vaultDetail.keepUnlocked.title" = "Hold låst op i";
+"vaultDetail.keepUnlocked.footer.off" = "Det vil være nødvendigt at låse boksen op igen, hvis Cryptomator bliver afsluttet af Filer appen.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Du skal låse boksen op igen, når din boks har været inaktiv i %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Du skal ikke låse boksen op igen, med mindre du låser den manuelt.";
+"vaultDetail.locked.footer" = "Din boks er i øjeblikket låst.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator fandt en eksisterende boks på denne placering.\nFor at flytte din boks, skal du gå tilbage og vælge en ny mappe.";
+"vaultDetail.moveVault.progress" = "Flytter…";
+"vaultDetail.removeVault.footer" = "Dette vil kun fjerne boksen fra listen, og sletter ikke nogen krypterede filer.";
+"vaultDetail.renameVault.progress" = "Omdøber…";
+"vaultDetail.unlocked.footer" = "Din boks er i øjeblikket låst op, i Filer appen.";
+"vaultDetail.unlockVault.footer" = "Indtast adgangskode for \"%@\" for at gemme den i iOS-nøgleringen og for at aktivere %@.";
+
+"vaultList.header.title" = "Bokse";
+"vaultList.emptyList.message" = "Tryk her for at tilføje en boks";
+"vaultList.remove.alert.title" = "Fjern boks?";
+"vaultList.remove.alert.message" = "Dette vil kun fjerne boksen fra listen. Ingen krypterede filer vil blive slettet. Du kan tilføje boksen igen senere.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Boks-konfigurationen er ikke understøttet. Sørg for, at du kører den nyeste version af Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Boks version %ld er ikke understøttet. Denne boks er blevet oprettet med en ældre, eller nyere, version af Cryptomator.";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Brug HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "Brug af HTTP er usikkert. Vi anbefaler at bruge HTTPS i stedet. Hvis du forstår risikoen, kan du fortsætte med HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Skift til HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Behold HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Serveren ser ikke ud til at være kompatibel med WebDAV. Kontrollér om du har brugt den korrekte URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Denne servers certifikat er ukendt. Du bliver måske nødt til at tilføje denne WebDAV-forbindelse igen.";
+
+"Retry Upload" = "Prøv at uploade igen";
+"Clear from Cache" = "Fjern fra cache";

@@ -17,7 +17,7 @@ protocol UploadTaskManager {
 	func updateTaskRecord(_ task: inout UploadTaskRecord, error: NSError) throws
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?]
 	func removeTaskRecord(for id: Int64) throws
-	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask
 }
 
 extension UploadTaskManager {
@@ -115,12 +115,12 @@ class UploadTaskDBManager: UploadTaskManager {
 		}
 	}
 
-	func getTask(for uploadTask: UploadTaskRecord) throws -> UploadTask {
+	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
 		try database.read { db in
 			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
-			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata)
+			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata, onURLSessionTaskCreation: onURLSessionTaskCreation)
 		}
 	}
 }

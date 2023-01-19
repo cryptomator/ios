@@ -112,7 +112,6 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testFileEnumerationPreservesLocalCachedFileInfo() throws {
 		let expectation = XCTestExpectation()
 		let path = CloudPath("/File 1")
@@ -202,7 +201,6 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 
 	// MARK: Folder
 
-	// swiftlint:disable:next function_body_length
 	func testFolderEnumeration() throws {
 		let expectation = XCTestExpectation(description: "Folder Enumeration")
 

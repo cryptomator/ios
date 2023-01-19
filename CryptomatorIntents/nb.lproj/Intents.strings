@@ -1,1 +1,33 @@
+"common.failureReason" = "Feilårsak";
+"common.false" = "usant";
+"common.folder" = "Mappe";
+"common.true" = "sant";
 "common.vault" = "Hvelv";
+
+"getFolderIntent.description" = "Returnerer et mappeobjekt for den angitte banen i det angitte hvelvet.";
+"getFolderIntent.path" = "Bane";
+"getFolderIntent.text" = "Få mappe lokalisert på ${path} i ${vault}";
+"getFolderIntent.title" = "Få mappe";
+
+"isUnlockedIntent.description" = "Retrurnerer om det angitte hvelvet er opplåst.";
+"isUnlockedIntent.title" = "Er låst opp";
+
+"isVaultLockedIntent.title" = "Er hvevet låst opp";
+"isVaultUnlockedIntent.text" = "Er ${vault} låst opp?";
+
+"lockVaultIntent.description" = "Låser det angitte hvelvet.";
+"lockVaultIntent.text" = "Lås ${vault}";
+"lockVaultIntent.title" = "Lås hvelvet";
+
+"openVaultIntent.description" = "Åpner det angitte hvelvet i Filer-app'en.";
+"openVaultIntent.text" = "Åpne ${vault} i Filer-app'en";
+"openVaultIntent.title" = "Åpne hvelvet";
+
+"saveFileIntent.description" = "Lagrer en fil i hvelvet.";
+"saveFileIntent.file" = "Fil";
+"saveFileIntent.parameter.ignoreExisting" = "Ignorerer eksisterende fil med samme navn";
+"saveFileIntent.text" = "Lagre ${file} i ${folder}";
+"saveFileIntent.title" = "Lagre fil";
+
+"vaultFolder.displayName" = "Hvelvmappe";
+"vaultFolder.vaultIdentifier" = "Hvelvidentifikator";

@@ -12,8 +12,16 @@ public protocol FullVersionChecker {
 	var hasExpiredTrial: Bool { get }
 }
 
+/**
+ Use a singleton to inject the full version checker conveniently at several initializers since compilation flags do not work on Swift Package Manager level.
+ Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
+ */
+public enum GlobalFullVersionChecker {
+	public static var `default`: FullVersionChecker!
+}
+
 public class UserDefaultsFullVersionChecker: FullVersionChecker {
-	public static let shared = UserDefaultsFullVersionChecker(cryptomatorSettings: CryptomatorUserDefaults.shared)
+	public static let `default` = UserDefaultsFullVersionChecker(cryptomatorSettings: CryptomatorUserDefaults.shared)
 	private let cryptomatorSettings: CryptomatorSettings
 
 	init(cryptomatorSettings: CryptomatorSettings) {
@@ -41,4 +49,11 @@ public class UserDefaultsFullVersionChecker: FullVersionChecker {
 			return false
 		}
 	}
+}
+
+public class AlwaysActivatedPremium: FullVersionChecker {
+	public let isFullVersion = true
+	public let hasExpiredTrial = false
+
+	public static let `default` = AlwaysActivatedPremium()
 }

@@ -1,5 +1,21 @@
+"common.button.cancel" = "انصراف";
 "common.button.change" = "تغییر";
+"common.button.choose" = "انتخاب کنید";
+"common.button.close" = "ببند";
+"common.button.done" = "انجام شده";
+"common.button.edit" = "ویرایش";
 "common.button.next" = "بعدی";
+"common.button.remove" = "حذف";
+"common.button.retry" = "تلاش مجدد";
+"common.cells.url" = "آدرس اینترنتی";
+"common.cells.username" = "نام کاربری";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
+"purchase.retry.button" = "تلاش مجدد";
+
+"settings.title" = "تنظیمات";
+"s3Authentication.accessKey" = "کلید دسترسی";
+"s3Authentication.secretKey" = "کلید مخفی";
 
 "unlockVault.button.unlock" = "بازکردن قفل";
+"vaultDetail.button.moveVault" = "انتقال";
+"vaultDetail.button.renameVault" = "تغییر نام";

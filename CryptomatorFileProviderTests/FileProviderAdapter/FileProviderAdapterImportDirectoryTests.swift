@@ -27,7 +27,7 @@ class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 		metadataManagerMock.cachedMetadata[1] = ItemMetadata(item: .init(name: "/", cloudPath: CloudPath("/"), itemType: .folder, lastModifiedDate: nil, size: nil), withParentID: 1)
 		let provider = CloudProviderGraphMock()
 		let scheduler = WorkflowSchedulerMock(maxParallelUploads: 2, maxParallelDownloads: 2)
-		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: scheduler, provider: provider, coordinator: fileCoordinator, localURLProvider: localURLProviderMock)
+		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: scheduler, provider: provider, coordinator: fileCoordinator, localURLProvider: localURLProviderMock, taskRegistrator: taskRegistratorMock)
 		var parentIdentifier: NSFileProviderItemIdentifier = .rootContainer
 
 		for _ in 0 ..< 5 {
@@ -66,11 +66,11 @@ class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 			return Promise(MockError.notMocked)
 		}
 
-		func downloadFile(from cloudPath: CloudPath, to localURL: URL) -> Promise<Void> {
+		func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 			return Promise(MockError.notMocked)
 		}
 
-		func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool) -> Promise<CloudItemMetadata> {
+		func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
 			return Promise(()).delay(1.0).then { _ -> Promise<CloudItemMetadata> in
 				do {
 					let data = try Data(contentsOf: localURL)

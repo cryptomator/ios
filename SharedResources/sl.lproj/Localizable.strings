@@ -1,0 +1,26 @@
+"common.button.cancel" = "Prekliči";
+"common.button.change" = "Spremeni";
+"common.button.choose" = "Izberi";
+"common.button.close" = "Zapri";
+"common.button.create" = "Ustvari";
+"common.button.done" = "Opravljeno";
+"common.button.edit" = "Uredi";
+"common.button.next" = "Naslednji";
+"common.button.ok" = "V redu";
+"common.button.remove" = "Odstrani";
+"common.button.retry" = "Poizkusi znova";
+"common.cells.url" = "URL naslov";
+"common.cells.username" = "Uporabniško ime";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "POMEMBNO: Če pozabite geslo, ni nobene možnosti za obnovitev vaših podatkov.";
+"purchase.retry.button" = "Poizkusi znova";
+
+"settings.title" = "Nastavitve";
+
+"s3Authentication.displayName" = "Prikazno ime";
+"s3Authentication.accessKey" = "Ključ za dostop";
+"s3Authentication.secretKey" = "Ključ";
+"s3Authentication.existingBucket" = "Obstoječ bucket";
+"s3Authentication.endpoint" = "Končna točka";
+"s3Authentication.region" = "Regija";
+"vaultDetail.button.moveVault" = "Premakni";
+"vaultDetail.button.renameVault" = "Preimenuj";

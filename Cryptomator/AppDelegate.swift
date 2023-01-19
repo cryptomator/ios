@@ -25,6 +25,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		// Set up logger
 		LoggerSetup.oneTimeSetup()
 
+		// Set up IAP Checker
+		setupIAP()
+
 		// Set up database
 		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
 			// MARK: Handle error
@@ -132,9 +135,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		_ = VaultDBManager.shared.removeAllUnusedFileProviderDomains()
 		do {
 			let webDAVAccountUIDs = try CloudProviderAccountDBManager.shared.getAllAccountUIDs(for: .webDAV(type: .custom))
-			try WebDAVAuthenticator.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
+			try WebDAVCredentialManager.shared.removeUnusedWebDAVCredentials(existingAccountUIDs: webDAVAccountUIDs)
 		} catch {
 			DDLogError("Clean up unused WebDAV Credentials failed with error: \(error)")
 		}
+	}
+
+	private func setupIAP() {
+		#if ALWAYS_PREMIUM
+		DDLogDebug("Always activated premium")
+		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
+		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
+		#else
+		DDLogDebug("Freemium version")
+		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		#endif
 	}
 }

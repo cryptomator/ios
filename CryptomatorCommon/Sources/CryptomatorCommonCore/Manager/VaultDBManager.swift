@@ -102,6 +102,7 @@ public class VaultDBManager: VaultManager {
 		} catch {
 			return Promise(error)
 		}
+		let cryptor = Cryptor(masterkey: masterkey, scheme: cipherCombo)
 		return provider.createFolder(at: vaultPath).then { _ -> Promise<CloudItemMetadata> in
 			try self.uploadMasterkey(masterkey, password: password, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { masterkeyFileMetadata -> Promise<CloudItemMetadata> in
@@ -109,7 +110,9 @@ public class VaultDBManager: VaultManager {
 			return try self.uploadVaultConfigToken(vaultConfigToken, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { vaultConfigMetadata -> Promise<Void> in
 			cachedVault.vaultConfigLastModifiedDate = vaultConfigMetadata.lastModifiedDate
-			return try self.createVaultFolderStructure(masterkey: masterkey, cipherCombo: cipherCombo, vaultPath: vaultPath, provider: provider)
+			return try self.createVaultFolderStructure(cryptor: cryptor, vaultPath: vaultPath, provider: provider)
+		}.then {
+			return try self.uploadRootDirIdFile(cryptor: cryptor, vaultPath: vaultPath, provider: provider, tmpDirURL: tmpDirURL)
 		}.then { _ -> Promise<Void> in
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 			_ = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
@@ -137,18 +140,21 @@ public class VaultDBManager: VaultManager {
 			return Promise(error)
 		}
 		let masterkeyCloudPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
-		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting)
+		return provider.uploadFile(from: localMasterkeyURL, to: masterkeyCloudPath, replaceExisting: replaceExisting).always {
+			try? FileManager.default.removeItem(at: localMasterkeyURL)
+		}
 	}
 
 	private func uploadVaultConfigToken(_ token: Data, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<CloudItemMetadata> {
 		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
 		try token.write(to: localVaultConfigURL)
 		let vaultConfigCloudPath = vaultPath.appendingPathComponent("vault.cryptomator")
-		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false)
+		return provider.uploadFile(from: localVaultConfigURL, to: vaultConfigCloudPath, replaceExisting: false).always {
+			try? FileManager.default.removeItem(at: localVaultConfigURL)
+		}
 	}
 
-	private func createVaultFolderStructure(masterkey: Masterkey, cipherCombo: CryptorScheme, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
-		let cryptor = Cryptor(masterkey: masterkey, scheme: cipherCombo)
+	private func createVaultFolderStructure(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider) throws -> Promise<Void> {
 		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
 		let dPath = vaultPath.appendingPathComponent("d")
 		return provider.createFolder(at: dPath).then { _ -> Promise<Void> in
@@ -156,6 +162,24 @@ public class VaultDBManager: VaultManager {
 			return provider.createFolder(at: twoCharsPath)
 		}.then {
 			provider.createFolder(at: rootDirPath)
+		}
+	}
+
+	private func uploadRootDirIdFile(cryptor: Cryptor, vaultPath: CloudPath, provider: CloudProvider, tmpDirURL: URL) throws -> Promise<Void> {
+		let cleartextDirIdFileURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		try Data().write(to: cleartextDirIdFileURL)
+		let ciphertextDirIdFileURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		try cryptor.encryptContent(from: cleartextDirIdFileURL, to: ciphertextDirIdFileURL)
+		try? FileManager.default.removeItem(at: cleartextDirIdFileURL)
+
+		let rootDirPath = try VaultDBManager.getRootDirectoryPath(for: cryptor, vaultPath: vaultPath)
+		let ciphertextDirIdFileCloudPath = rootDirPath.appendingPathComponent("dirid.c9r")
+		return provider.uploadFile(from: ciphertextDirIdFileURL, to: ciphertextDirIdFileCloudPath, replaceExisting: false).then { _ in
+			// ignore result
+		}.recover { _ in
+			// ignore error
+		}.always {
+			try? FileManager.default.removeItem(at: ciphertextDirIdFileURL)
 		}
 	}
 

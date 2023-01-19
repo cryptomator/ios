@@ -21,7 +21,7 @@ class CachedFileManagerTests: CacheTestCase {
 		try super.setUpWithError()
 		inMemoryDB = DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
-		manager = CachedFileDBManager(database: inMemoryDB)
+		manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: .init(fileCoordinator: .init()))
 		metadataManager = ItemMetadataDBManager(database: inMemoryDB)
 	}
 
@@ -252,6 +252,10 @@ class CacheTestCase: XCTestCase {
 
 private class CachedFileManagerHelperMock: CachedFileManagerHelper {
 	var removeItemClosure: ((URL) throws -> Void)?
+
+	init() {
+		super.init(fileCoordinator: .init())
+	}
 
 	override func removeItem(at url: URL) throws {
 		try removeItemClosure?(url)

@@ -17,6 +17,7 @@ protocol CryptomatorKeychainType {
 	func set(_ key: String, value: Data) throws
 	func getAsData(_ key: String) -> Data?
 	func delete(_ key: String) throws
+	func queryWithDict(_ query: [String: AnyObject]) -> [String: Any]
 }
 
 class CryptomatorKeychain: CryptomatorKeychainType {

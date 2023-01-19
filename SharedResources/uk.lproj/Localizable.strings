@@ -7,7 +7,7 @@
 
 "common.alert.error.title" = "Помилка";
 "common.alert.attention.title" = "Увага";
-"common.button.cancel" = "Відмінити";
+"common.button.cancel" = "Скасувати";
 "common.button.change" = "Змінити";
 "common.button.choose" = "Оберіть";
 "common.button.close" = "Закрити";
@@ -39,7 +39,7 @@
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
 "addVault.createNewVault.progress" = "Створення сховища…";
-"addVault.openExistingVault.title" = "Відкрити існуюче сховище";
+"addVault.openExistingVault.title" = "Відкрити сховище";
 "addVault.openExistingVault.detectedMasterkey.add" = "Додати це сховище";
 "addVault.openExistingVault.password.footer" = "Введіть пароль для \"%@\".";
 "addVault.openExistingVault.progress" = "Додавання сховища…";

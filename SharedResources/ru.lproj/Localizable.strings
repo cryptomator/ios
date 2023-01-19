@@ -147,7 +147,7 @@
 "purchase.beginFreeTrial.alert.title" = "Пробная версия разблокирована";
 "purchase.expiredTrial" = "Пробный период истёк.";
 "purchase.footer.privacyPolicy" = "Политика конфиденциальности";
-"purchase.footer.termsOfUse" = "Условия использования ";
+"purchase.footer.termsOfUse" = "Условия использования";
 "purchase.header.feature.familySharing" = "Семейный доступ";
 "purchase.header.feature.openSource" = "Разработка ПО с открытым кодом";
 "purchase.header.feature.writeAccess" = "Возможна запись в хранилища";

@@ -21,7 +21,7 @@ extension UIViewController {
 		func updateUIViewController(_ uiViewController: UIViewController, context: Context) {}
 	}
 
-	open func toPreview() -> some View {
+	public func toPreview() -> some View {
 		// inject self (the current view controller) for the preview
 		Preview(viewController: self)
 	}

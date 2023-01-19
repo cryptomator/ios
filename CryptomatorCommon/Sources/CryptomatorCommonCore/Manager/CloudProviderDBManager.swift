@@ -8,13 +8,17 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+import PCloudSDKSwift
 
 public protocol CloudProviderManager {
 	func getProvider(with accountUID: String) throws -> CloudProvider
-	static func providerShouldUpdate(with accountUID: String)
 }
 
-public class CloudProviderDBManager: CloudProviderManager {
+public protocol CloudProviderUpdating {
+	func providerShouldUpdate(with accountUID: String)
+}
+
+public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating {
 	static var cachedProvider = [String: CloudProvider]()
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	public var useBackgroundSession = true
@@ -57,10 +61,9 @@ public class CloudProviderDBManager: CloudProviderManager {
 			                                     useBackgroundSession: useBackgroundSession,
 			                                     maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .pCloud:
-			let credential = try PCloudCredential(userID: accountUID)
-			provider = try PCloudCloudProvider(credential: credential)
+			provider = try createPCloudProvider(for: accountUID)
 		case .webDAV:
-			guard let credential = WebDAVAuthenticator.getCredentialFromKeychain(with: accountUID) else {
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let client: WebDAVClient
@@ -93,8 +96,19 @@ public class CloudProviderDBManager: CloudProviderManager {
 		}
 	}
 
-	public static func providerShouldUpdate(with accountUID: String) {
-		cachedProvider[accountUID] = nil
+	private func createPCloudProvider(for accountUID: String) throws -> CloudProvider {
+		let credential = try PCloudCredential(userID: accountUID)
+		let client: PCloudClient
+		if useBackgroundSession {
+			client = PCloud.createBackgroundClient(with: credential.user, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		} else {
+			client = PCloud.createClient(with: credential.user)
+		}
+		return try PCloudCloudProvider(client: client)
+	}
+
+	public func providerShouldUpdate(with accountUID: String) {
+		CloudProviderDBManager.cachedProvider[accountUID] = nil
 		// call XPCService for FileProvider
 	}
 }

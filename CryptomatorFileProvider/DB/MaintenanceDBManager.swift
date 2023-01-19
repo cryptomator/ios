@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Foundation
 import GRDB
 
@@ -24,10 +25,6 @@ public protocol MaintenanceManager {
 	 Disables the maintenance mode for the FileProviderAdapter.
 	 */
 	func disableMaintenanceMode() throws
-}
-
-public enum MaintenanceModeError: Error {
-	case runningCloudTask
 }
 
 public class MaintenanceDBManager: MaintenanceManager {
@@ -49,10 +46,23 @@ public class MaintenanceDBManager: MaintenanceManager {
 		let entry = MaintenanceModeEntry(id: 1, flag: enabled)
 		do {
 			try database.write { db in
+				if enabled {
+					guard try assertNoMultiEnabling(db: db) else {
+						throw MaintenanceModeError.runningCloudTask
+					}
+				}
 				try entry.save(db)
 			}
 		} catch let error as DatabaseError where error.message == "Running Task" {
 			throw MaintenanceModeError.runningCloudTask
+		}
+	}
+
+	private func assertNoMultiEnabling(db: Database) throws -> Bool {
+		if let existingEntry = try MaintenanceModeEntry.fetchOne(db) {
+			return !existingEntry.flag
+		} else {
+			return true
 		}
 	}
 }

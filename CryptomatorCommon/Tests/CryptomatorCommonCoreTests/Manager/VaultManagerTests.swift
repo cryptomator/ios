@@ -119,7 +119,6 @@ class VaultManagerTests: XCTestCase {
 
 			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: try getUploadedMasterkeyFileData())
 			XCTAssertEqual(999, uploadedMasterkeyFile.version)
-
 			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: "pw")
 
 			let vaultAccount = try accountManager.getAccount(with: vaultUID)
@@ -130,19 +129,15 @@ class VaultManagerTests: XCTestCase {
 				XCTFail("Could not convert manager to VaultManagerMock")
 				return
 			}
-
 			XCTAssertEqual(1, managerMock.addedFileProviderDomainDisplayName.count)
 			XCTAssertEqual(vaultPath.lastPathComponent, managerMock.addedFileProviderDomainDisplayName[vaultUID])
 
 			let cachedVault = try getCachedVaultFromMock(withVaultUID: vaultUID)
-
 			let cachedMasterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 			let cachedMasterkey = try cachedMasterkeyFile.unlock(passphrase: "pw")
 			XCTAssertEqual(uploadedMasterkey, cachedMasterkey)
 
-			// Vault config checks
 			let uploadedVaultConfigToken = try getUploadedVaultConfigData()
-
 			guard let savedVaultConfigToken = cachedVault.vaultConfigToken else {
 				XCTFail("savedVaultConfigToken is nil")
 				return
@@ -151,6 +146,9 @@ class VaultManagerTests: XCTestCase {
 			let vaultConfig = try UnverifiedVaultConfig(token: savedVaultConfigToken)
 			XCTAssertEqual("SIV_CTRMAC", vaultConfig.allegedCipherCombo)
 			XCTAssertEqual(8, vaultConfig.allegedFormat)
+
+			let uploadedRootDirIdFile = try getUploadedData(at: CloudPath(cloudProviderMock.createdFolders[3]).appendingPathComponent("dirid.c9r"))
+			XCTAssertEqual(88, uploadedRootDirIdFile.count)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
@@ -159,7 +157,6 @@ class VaultManagerTests: XCTestCase {
 		wait(for: [expectation], timeout: 1.0)
 	}
 
-	// swiftlint:disable:next function_body_length
 	func testCreateFromExisting() throws {
 		let expectation = XCTestExpectation()
 		let delegateAccountUID = UUID().uuidString
@@ -325,7 +322,7 @@ class VaultManagerTests: XCTestCase {
 		manager.createNewVault(withVaultUID: UUID().uuidString, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).then {
 			XCTFail("Promise fulfilled")
 		}.catch { error in
-			guard case VaultAccountManagerError.vaultAccountAlreadyExists = error else {
+			guard case LocalizedCloudProviderError.itemAlreadyExists = error else {
 				XCTFail("Promise rejected but with the wrong error: \(error)")
 				return
 			}
@@ -658,7 +655,7 @@ class VaultManagerTests: XCTestCase {
 	private func getUploadedData(at cloudPath: CloudPath) throws -> Data {
 		let uploadedFileURL = cloudProviderMock.uploadFileFromToReplaceExistingReceivedInvocations
 			.filter { $0.cloudPath == cloudPath }
-			.map { $0.localURL }
+			.map { cloudProviderMock.tmpDir.appendingPathComponent($0.cloudPath) }
 			.first
 		return try Data(contentsOf: try XCTUnwrap(uploadedFileURL))
 	}

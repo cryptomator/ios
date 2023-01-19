@@ -1,1 +1,29 @@
+"common.failureReason" = "Motiu de la fallada";
+"common.false" = "fals";
+"common.folder" = "Carpeta";
+"common.true" = "cert";
 "common.vault" = "Caixa forta";
+"getFolderIntent.path" = "Ruta";
+
+"isUnlockedIntent.description" = "Torna si la caixa forta indicada està desblocada.";
+"isUnlockedIntent.title" = "Desblocada";
+
+"isVaultLockedIntent.title" = "La caixa forta és blocada?";
+"isVaultUnlockedIntent.text" = "${vault} desblocada?";
+
+"lockVaultIntent.description" = "Bloca la caixa forta donada.";
+"lockVaultIntent.text" = "Bloca ${vault}";
+"lockVaultIntent.title" = "Bloca caixa forta";
+
+"openVaultIntent.description" = "Obre la caixa forta donada en l'app Files.";
+"openVaultIntent.text" = "Obre ${vault} en l'app Files";
+"openVaultIntent.title" = "Obre la caixa forta";
+
+"saveFileIntent.description" = "Desa un fitxer a la caixa forta.";
+"saveFileIntent.file" = "Fitxer";
+"saveFileIntent.parameter.ignoreExisting" = "Ignora els fitxers existents amb el mateix nom";
+"saveFileIntent.text" = "Desa ${file} a ${folder}";
+"saveFileIntent.title" = "Desa el fitxer";
+
+"vaultFolder.displayName" = "Carpeta de caixa forta";
+"vaultFolder.vaultIdentifier" = "Identificador de la caixa forta";

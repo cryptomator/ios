@@ -9,6 +9,14 @@
 "getFolderIntent.text" = "Získat složku, nacházející se v ${path} v ${vault}";
 "getFolderIntent.title" = "Získat složku";
 
+"lockVaultIntent.description" = "Uzamkne daný trezor.";
+"lockVaultIntent.text" = "Zamknout ${vault}";
+"lockVaultIntent.title" = "Uzamknout trezor";
+
+"openVaultIntent.description" = "Otevře daný trezor v aplikaci Soubor.";
+"openVaultIntent.text" = "Otevřít ${vault} v aplikaci Soubory";
+"openVaultIntent.title" = "Otevřít trezor";
+
 "saveFileIntent.description" = "Ukládá soubor do souboru.";
 "saveFileIntent.file" = "Soubor";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorovat existující soubor se stejným názvem";

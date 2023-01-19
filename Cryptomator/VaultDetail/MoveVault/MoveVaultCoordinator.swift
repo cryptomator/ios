@@ -8,7 +8,6 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
-import CryptomatorFileProvider
 import UIKit
 
 class MoveVaultCoordinator: Coordinator {
@@ -16,13 +15,11 @@ class MoveVaultCoordinator: Coordinator {
 	lazy var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
 	private let vaultInfo: VaultInfo
-	private let maintenanceManager: MaintenanceManager
 	private let provider: CloudProvider
 
-	init(vaultInfo: VaultInfo, provider: CloudProvider, maintenanceManager: MaintenanceManager, navigationController: UINavigationController) {
+	init(vaultInfo: VaultInfo, provider: CloudProvider, navigationController: UINavigationController) {
 		self.vaultInfo = vaultInfo
 		self.provider = provider
-		self.maintenanceManager = maintenanceManager
 		self.navigationController = navigationController
 	}
 
@@ -39,7 +36,11 @@ class MoveVaultCoordinator: Coordinator {
 			handleError(error, for: navigationController)
 			return
 		}
-		let viewModel = MoveVaultViewModel(provider: provider, currentFolderChoosingCloudPath: cloudPath, vaultInfo: vaultInfo, maintenanceManager: maintenanceManager)
+		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
+		let viewModel = MoveVaultViewModel(provider: provider,
+		                                   currentFolderChoosingCloudPath: cloudPath,
+		                                   vaultInfo: vaultInfo,
+		                                   domain: domain)
 		let moveVaultViewController = MoveVaultViewController(viewModel: viewModel)
 		moveVaultViewController.title = vaultInfo.vaultName
 		moveVaultViewController.coordinator = self
@@ -75,11 +76,9 @@ extension MoveVaultCoordinator: FolderChoosing {
 	private func popBackToFirstNonMoveVaultViewController() {
 		var viewControllers: [UIViewController] = navigationController.viewControllers
 		viewControllers = viewControllers.reversed()
-		for currentViewController in viewControllers {
-			if !currentViewController.isKind(of: MoveVaultViewController.self) {
-				navigationController.popToViewController(currentViewController, animated: true)
-				break
-			}
+		for currentViewController in viewControllers where !currentViewController.isKind(of: MoveVaultViewController.self) {
+			navigationController.popToViewController(currentViewController, animated: true)
+			break
 		}
 	}
 }

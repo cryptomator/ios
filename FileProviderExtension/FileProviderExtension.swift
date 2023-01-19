@@ -23,6 +23,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	override init() {
 		super.init()
 		LoggerSetup.oneTimeSetup()
+		FileProviderExtension.setupIAP()
 		if !FileProviderExtension.sharedDatabaseInitialized {
 			if let dbURL = CryptomatorDatabase.sharedDBURL {
 				do {
@@ -218,12 +219,12 @@ class FileProviderExtension: NSFileProviderExtension {
 		#else
 		// TODO: Change error handling here
 		DDLogDebug("FPExt: enumerator(for: \(containerItemIdentifier)) called")
-		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider, let manager = NSFileProviderManager(for: domain) else {
 			// no domain ==> no installed vault
 			DDLogError("enumerator(for: \(containerItemIdentifier)) failed as the extension is not initialized")
 			throw NSFileProviderError(.notAuthenticated)
 		}
-		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: localURLProvider)
+		return FileProviderEnumerator(enumeratedItemIdentifier: containerItemIdentifier, notificator: notificator, domain: domain, dbPath: dbPath, localURLProvider: localURLProvider, taskRegistrator: manager)
 		#endif
 	}
 
@@ -259,10 +260,10 @@ class FileProviderExtension: NSFileProviderExtension {
 		                                                              dbPath: dbPath,
 		                                                              delegate: LocalURLProvider(domain: snapshotDomain)))
 		#else
-		if let domain = domain, let localURLProvider = localURLProvider, let dbPath = dbPath, let notificator = notificator {
-			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
-			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
-			serviceSources.append(FileImportingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider))
+		if let domain = domain, let localURLProvider = localURLProvider, let dbPath = dbPath, let notificator = notificator, let manager = NSFileProviderManager(for: domain) {
+			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
+			serviceSources.append(UploadRetryingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
+			serviceSources.append(FileImportingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))
 		}
 		#endif
 		let cacheManagingServiceSource = CacheManagingServiceSource(notificator: notificator)
@@ -272,6 +273,14 @@ class FileProviderExtension: NSFileProviderExtension {
 		serviceSources.append(cacheManagingServiceSource)
 		serviceSources.append(VaultLockingServiceSource())
 		serviceSources.append(LogLevelUpdatingServiceSource())
+		if let domain, let manager = NSFileProviderManager(for: domain) {
+			let maintenanceServiceSource = MaintenanceModeHelperServiceSource(
+				databaseHelper: DatabaseHelper.default,
+				providerIdentifier: manager.providerIdentifier,
+				domain: domain
+			)
+			serviceSources.append(maintenanceServiceSource)
+		}
 		return serviceSources
 	}
 
@@ -286,10 +295,14 @@ class FileProviderExtension: NSFileProviderExtension {
 	}
 
 	private func getAdapter() throws -> FileProviderAdapterType {
-		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider else {
+		guard let domain = domain, let dbPath = dbPath, let notificator = notificator, let localURLProvider = localURLProvider, let manager = NSFileProviderManager(for: domain) else {
 			throw FileProviderDecoratorSetupError.domainIsNil
 		}
-		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProvider, notificator: notificator)
+		return try FileProviderAdapterManager.shared.getAdapter(forDomain: domain,
+		                                                        dbPath: dbPath,
+		                                                        delegate: localURLProvider,
+		                                                        notificator: notificator,
+		                                                        taskRegistrator: manager)
 	}
 
 	func getAdapterWithWrappedError() throws -> FileProviderAdapterType {
@@ -299,6 +312,17 @@ class FileProviderExtension: NSFileProviderExtension {
 			throw ErrorWrapper.wrapError(error, domain: domain)
 		}
 	}
+
+	static var setupIAP: () -> Void = {
+		#if ALWAYS_PREMIUM
+		DDLogDebug("Always activated premium")
+		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
+		#else
+		DDLogDebug("Freemium version")
+		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		#endif
+		return {}
+	}()
 }
 
 enum FileProviderDecoratorSetupError: Error {

@@ -276,7 +276,7 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "不支援 %ld 版本的加密庫。這加密庫是使用 Cryptomator 較舊或較新版本建立的。";
 
 "webDAVAuthentication.httpConnection.alert.title" = "使用 HTTPS？";
-"webDAVAuthentication.httpConnection.alert.message" = "使用 HTTP 是不安全的。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP 並不安全。我們推薦使用 HTTPS 來取代。如果您瞭解風險，您可以使用 HTTP 繼續。";
 "webDAVAuthentication.httpConnection.change" = "更改為 HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "保持 HTTP";
 

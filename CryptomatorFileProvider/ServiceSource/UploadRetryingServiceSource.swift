@@ -17,22 +17,25 @@ public class UploadRetryingServiceSource: ServiceSource, UploadRetrying {
 	private let dbPath: URL
 	private let localURLProvider: LocalURLProviderType
 	private let progressManager: ProgressManager
+	private let taskRegistrator: SessionTaskRegistrator
 
-	public convenience init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType) {
+	public convenience init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, taskRegistrator: SessionTaskRegistrator) {
 		self.init(domain: domain,
 		          notificator: notificator,
 		          dbPath: dbPath,
 		          delegate: delegate,
-		          adapterManager: FileProviderAdapterManager.shared)
+		          adapterManager: FileProviderAdapterManager.shared,
+		          taskRegistrator: taskRegistrator)
 	}
 
-	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding = FileProviderAdapterManager.shared, progressManager: ProgressManager = InMemoryProgressManager.shared) {
+	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding = FileProviderAdapterManager.shared, progressManager: ProgressManager = InMemoryProgressManager.shared, taskRegistrator: SessionTaskRegistrator) {
 		self.domain = domain
 		self.notificator = notificator
 		self.dbPath = dbPath
 		self.localURLProvider = delegate
 		self.adapterManager = adapterManager
 		self.progressManager = progressManager
+		self.taskRegistrator = taskRegistrator
 		super.init(serviceName: .uploadRetryingService, exportedInterface: NSXPCInterface(with: UploadRetrying.self))
 	}
 
@@ -42,7 +45,8 @@ public class UploadRetryingServiceSource: ServiceSource, UploadRetrying {
 			adapter = try adapterManager.getAdapter(forDomain: domain,
 			                                        dbPath: dbPath,
 			                                        delegate: localURLProvider,
-			                                        notificator: notificator)
+			                                        notificator: notificator,
+			                                        taskRegistrator: taskRegistrator)
 		} catch {
 			reply(error)
 			return

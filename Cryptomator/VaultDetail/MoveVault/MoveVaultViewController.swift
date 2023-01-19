@@ -45,6 +45,12 @@ class MoveVaultViewController: ChooseFolderViewController {
 	}
 
 	@objc private func chooseFolder() {
+		Task {
+			await moveVault()
+		}
+	}
+
+	private func moveVault() async {
 		guard let viewModel = viewModel as? MoveVaultViewModelProtocol else {
 			return
 		}
@@ -52,12 +58,13 @@ class MoveVaultViewController: ChooseFolderViewController {
 		hud.text = LocalizedString.getValue("vaultDetail.moveVault.progress")
 		hud.show(presentingViewController: self)
 		hud.showLoadingIndicator()
-		viewModel.moveVault().then {
-			hud.transformToSelfDismissingSuccess()
-		}.then { [weak self] in
-			self?.coordinator?.chooseItem(Folder(path: viewModel.cloudPath))
-		}.catch { [weak self] error in
-			self?.handleError(error, coordinator: self?.coordinator, progressHUD: hud)
+		do {
+			try await viewModel.moveVault()
+			hud.transformToSelfDismissingSuccess {
+				self.coordinator?.chooseItem(Folder(path: viewModel.cloudPath))
+			}
+		} catch {
+			handleError(error, coordinator: coordinator, progressHUD: hud)
 		}
 	}
 }
