@@ -42,35 +42,6 @@ struct WebDAVAuthentication: View {
 		.introspectTableView(customize: { tableView in
 			tableView.backgroundColor = .cryptomatorBackground
 		})
-		.alert(isPresented: $viewModel.showUntrustedCertificateError) {
-			untrustedCertificateAlert
-		}
-		.alert(isPresented: $viewModel.showAllowInsecureConnectionAlert) {
-			insecureConnectionAlert
-		}
-	}
-
-	private var untrustedCertificateAlert: Alert {
-		Alert(title: Text(LocalizedString.getValue("untrustedTLSCertificate.title")),
-		      message: Text(LocalizedString.getValue("untrustedTLSCertificate.message")),
-		      primaryButton: .default(Text(LocalizedString.getValue("untrustedTLSCertificate.add")),
-		                              action: {
-		                              	viewModel.allowCertificate()
-		                              }),
-		      secondaryButton: .cancel(Text(LocalizedString.getValue("untrustedTLSCertificate.dismiss"))))
-	}
-
-	private var insecureConnectionAlert: Alert {
-		Alert(title: Text(LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.title")),
-		      message: Text(LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.message")),
-		      primaryButton: .default(Text(LocalizedString.getValue("webDAVAuthentication.httpConnection.change")),
-		                              action: {
-		                              	viewModel.saveAccountWithTransformedURL()
-		                              }),
-		      secondaryButton: .destructive(Text(LocalizedString.getValue("webDAVAuthentication.httpConnection.continue")),
-		                                    action: {
-		                                    	viewModel.saveAccountWithInsecureConnection()
-		                                    }))
 	}
 }
 
