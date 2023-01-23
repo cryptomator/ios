@@ -60,7 +60,11 @@ class WebDAVAuthenticationViewController: UIViewController {
 			hud?.transformToSelfDismissingSuccess().then {
 				self.coordinator?.authenticated(with: credential)
 			}
-		case .initial, .insecureConnectionNotAllowed, .untrustedCertificate:
+		case .insecureConnectionNotAllowed:
+			showInsecureConnectionAlert()
+		case let .untrustedCertificate(certificate: certificate, url: url):
+			showUntrustedCertificateAlert(certificate: certificate, url: url)
+		case .initial:
 			break
 		}
 	}
@@ -84,6 +88,51 @@ class WebDAVAuthenticationViewController: UIViewController {
 		hud?.text = LocalizedString.getValue("common.hud.authenticating")
 		hud?.show(presentingViewController: self)
 		hud?.showLoadingIndicator()
+	}
+
+	private func showUntrustedCertificateAlert(certificate: TLSCertificate, url: URL) {
+		let precondition: Promise<Void>
+		if let hud = hud {
+			precondition = hud.dismiss(animated: true)
+		} else {
+			precondition = Promise(())
+		}
+		precondition.then { [weak self] in
+			let message = String(format: LocalizedString.getValue("untrustedTLSCertificate.message"), url.absoluteString, certificate.fingerprint)
+			let alertController = UIAlertController(title: LocalizedString.getValue("untrustedTLSCertificate.title"),
+			                                        message: message,
+			                                        preferredStyle: .alert)
+			let addAction = UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.add"),
+			                              style: .default,
+			                              handler: { _ in self?.viewModel.saveAccountWithCertificate() })
+			alertController.addAction(addAction)
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.dismiss"), style: .cancel))
+			self?.present(alertController, animated: true)
+		}
+	}
+
+	private func showInsecureConnectionAlert() {
+		let precondition: Promise<Void>
+		if let hud = hud {
+			precondition = hud.dismiss(animated: true)
+		} else {
+			precondition = Promise(())
+		}
+		precondition.then { [weak self] in
+			let alertController = UIAlertController(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.title"),
+			                                        message: LocalizedString.getValue("webDAVAuthentication.httpConnection.alert.message"),
+			                                        preferredStyle: .alert)
+			let changeToHTTPSAction = UIAlertAction(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.change"), style: .default, handler: { _ in
+				self?.viewModel.saveAccountWithTransformedURL()
+			})
+
+			alertController.addAction(changeToHTTPSAction)
+			alertController.preferredAction = changeToHTTPSAction
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("webDAVAuthentication.httpConnection.continue"), style: .destructive, handler: { _ in
+				self?.viewModel.saveAccountWithInsecureConnection()
+			}))
+			self?.present(alertController, animated: true)
+		}
 	}
 
 	@objc func cancel() {
