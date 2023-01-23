@@ -1,4 +1,1 @@
-- Added download progress indication to Google Drive and WebDAV (#276, #293)
-- Added upload progress indication to WebDAV (#293)
-- Added background download/upload support to pCloud (#218, #293)
-- Fixed error when trying to use self-signed certificates with WebDAV (#291)
+- Fixed adding WebDAV connection stuck at "Authenticating…" when using self-signed certificate (#295, #298)
