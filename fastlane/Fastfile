@@ -4,9 +4,10 @@ default_platform(:ios)
 
 platform :ios do
   desc "Sync certificates and provisioning profiles for all targets"
-  lane :certificates do
+  desc "Requires --env to be set to 'freemium' or 'premium'"
+  lane :sync_certificates do
     ensure_env_vars(
-      env_vars: ['SKYMATIC_MATCH_GIT_URL', 'BUNDLE_IDENTIFIER']
+      env_vars: ['BUNDLE_IDENTIFIER', 'SKYMATIC_MATCH_GIT_URL']
     )
     match(type: "appstore")
     match(type: "development", force_for_new_devices: true)
@@ -18,6 +19,7 @@ platform :ios do
   end
 
   desc "Upload screenshots to App Store Connect"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :upload_screenshots do
     ensure_env_vars(
       env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
@@ -26,6 +28,7 @@ platform :ios do
   end
 
   desc "Update metadata in App Store Connect"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :update_metadata do
     ensure_env_vars(
       env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
@@ -33,15 +36,11 @@ platform :ios do
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)
   end
 
-  desc "Runs all the tests"
-  lane :test do
-    scan(open_report: true)
-  end
-
   desc "Submit a new beta build to TestFlight"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :beta do
     ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
+      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -59,16 +58,11 @@ platform :ios do
     )
   end
 
-  desc "Deploy a new version to the App Store"
+  desc "Deploy a new freemium and premium version to the App Store"
   lane :app_store do
-    ensure_env_vars(
-      env_vars: ['BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'METADATA_PATH']
-    )
-    apply_config
-    scan
-    gym
+    _app_store(env_file: ".env.premium")
+    _app_store(env_file: ".env.freemium")
     changelog = File.read("changelog.txt")
-    deliver(skip_screenshots: true, submit_for_review: true, submission_information: { add_id_info_uses_idfa: false })
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
@@ -80,10 +74,22 @@ platform :ios do
     )
   end
 
+  private_lane :_app_store do |options|
+    Dotenv.overload(options[:env_file])
+    ensure_env_vars(
+      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
+    )
+    apply_config
+    scan
+    gym
+    deliver(skip_screenshots: true, submit_for_review: true)
+  end
+
   desc "Apply app configuration to release a different version"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :apply_config do
     ensure_env_vars(
-      env_vars: ['CONFIG_NAME', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'APP_GROUP', 'KEYCHAIN_GROUP', 'APP_ICON_FILE_PATH']
+      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'CONFIG_NAME', 'DISPLAY_NAME', 'KEYCHAIN_GROUP']
     )
     config_name = ENV['CONFIG_NAME']
     bundle_identifier = ENV['BUNDLE_IDENTIFIER']

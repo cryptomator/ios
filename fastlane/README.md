@@ -15,13 +15,15 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios certificates
+### ios sync_certificates
 
 ```sh
-[bundle exec] fastlane ios certificates
+[bundle exec] fastlane ios sync_certificates
 ```
 
 Sync certificates and provisioning profiles for all targets
+
+Requires --env to be set to 'freemium' or 'premium'
 
 ### ios create_screenshots
 
@@ -39,6 +41,8 @@ Create screenshots in every language with every device
 
 Upload screenshots to App Store Connect
 
+Requires --env to be set to 'freemium' or 'premium'
+
 ### ios update_metadata
 
 ```sh
@@ -47,13 +51,7 @@ Upload screenshots to App Store Connect
 
 Update metadata in App Store Connect
 
-### ios test
-
-```sh
-[bundle exec] fastlane ios test
-```
-
-Runs all the tests
+Requires --env to be set to 'freemium' or 'premium'
 
 ### ios beta
 
@@ -63,13 +61,15 @@ Runs all the tests
 
 Submit a new beta build to TestFlight
 
+Requires --env to be set to 'freemium' or 'premium'
+
 ### ios app_store
 
 ```sh
 [bundle exec] fastlane ios app_store
 ```
 
-Deploy a new version to the App Store
+Deploy a new freemium and premium version to the App Store
 
 ### ios apply_config
 
@@ -78,6 +78,8 @@ Deploy a new version to the App Store
 ```
 
 Apply app configuration to release a different version
+
+Requires --env to be set to 'freemium' or 'premium'
 
 ----
 
