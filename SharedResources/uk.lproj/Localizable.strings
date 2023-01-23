@@ -10,6 +10,7 @@
 "common.button.cancel" = "Скасувати";
 "common.button.change" = "Змінити";
 "common.button.choose" = "Оберіть";
+"common.button.clear" = "Очистити";
 "common.button.close" = "Закрити";
 "common.button.confirm" = "Підтвердити";
 "common.button.create" = "Створити";
@@ -29,13 +30,18 @@
 "common.cells.url" = "Адреса посилання";
 "common.cells.username" = "Ім'я користувача";
 "common.footer.learnMore" = "Дізнатися більше.";
+"common.hud.authenticating" = "Аутентифікація…";
 
 "accountList.header.title" = "Аутентифікація";
+"accountList.emptyList.message" = "Натисніть тут, щоб додати обліковий запис";
+"accountList.signOut.alert.title" = "Видалити Пов'язані Vaults?";
 
 "addVault.title" = "Додати сховище";
 "addVault.createNewVault.title" = "Створити нове сховище";
 "addVault.createNewVault.purchase" = "Для створення нового vault необхідна повна версия Cryptomator.";
+"addVault.createNewVault.setVaultName.header.title" = "Оберіть назву для vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Назва Vault не може бути порожньою.";
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
 "addVault.createNewVault.progress" = "Створення сховища…";
