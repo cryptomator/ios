@@ -104,7 +104,7 @@ class WebDAVAuthenticationViewController: UIViewController {
 			                                        preferredStyle: .alert)
 			let addAction = UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.add"),
 			                              style: .default,
-			                              handler: { _ in self?.viewModel.allowCertificate() })
+			                              handler: { _ in self?.viewModel.saveAccountWithCertificate() })
 			alertController.addAction(addAction)
 			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("untrustedTLSCertificate.dismiss"), style: .cancel))
 			self?.present(alertController, animated: true)
