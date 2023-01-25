@@ -28,7 +28,7 @@
 "common.cells.openInFilesApp" = "Открыть в \"Файлах\"";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
-"common.cells.username" = "Логин";
+"common.cells.username" = "Имя пользователя";
 "common.footer.learnMore" = "Подробнее.";
 "common.hud.authenticating" = "Аутентификация…";
 
@@ -193,7 +193,7 @@
 "settings.shortcutsGuide" = "Руководство по ярлыкам";
 "settings.unlockFullVersion" = "Получить полную версию";
 
-"snapshots.fileprovider.file1" = "/Учёт.numbers";
+"snapshots.fileprovider.file1" = "/Отчётность.numbers";
 "snapshots.fileprovider.file2" = "/Финальная презентация.key";
 "snapshots.fileprovider.file3" = "/Трейлер продукта.mov";
 "snapshots.fileprovider.file4" = "/Заявка.docx";
@@ -204,7 +204,7 @@
 "snapshots.main.vault1" = "/Работа";
 "snapshots.main.vault2" = "/Семья";
 "snapshots.main.vault3" = "/Документы";
-"snapshots.main.vault4" = "/Поездка в Крым";
+"snapshots.main.vault4" = "/Поездка в Калифорнию";
 
 "s3Authentication.displayName" = "Отображаемое имя";
 "s3Authentication.accessKey" = "Ключ доступа";
