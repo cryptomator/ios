@@ -3,7 +3,11 @@
 "common.folder" = "Carpeta";
 "common.true" = "cert";
 "common.vault" = "Caixa forta";
+
+"getFolderIntent.description" = "Torna un objecte carpeta per la ruta indicada en la caixa forta indicada.";
 "getFolderIntent.path" = "Ruta";
+"getFolderIntent.text" = "Obté la carpeta situada a ${path} en ${vault}";
+"getFolderIntent.title" = "Obté carpeta";
 
 "isUnlockedIntent.description" = "Torna si la caixa forta indicada està desblocada.";
 "isUnlockedIntent.title" = "Desblocada";
@@ -11,11 +15,11 @@
 "isVaultLockedIntent.title" = "La caixa forta és blocada?";
 "isVaultUnlockedIntent.text" = "${vault} desblocada?";
 
-"lockVaultIntent.description" = "Bloca la caixa forta donada.";
+"lockVaultIntent.description" = "Bloca la caixa forta indicada.";
 "lockVaultIntent.text" = "Bloca ${vault}";
 "lockVaultIntent.title" = "Bloca caixa forta";
 
-"openVaultIntent.description" = "Obre la caixa forta donada en l'app Files.";
+"openVaultIntent.description" = "Obre la caixa forta indicada en l'app Files.";
 "openVaultIntent.text" = "Obre ${vault} en l'app Files";
 "openVaultIntent.title" = "Obre la caixa forta";
 
