@@ -9,6 +9,11 @@
 "common.button.retry" = "تلاش مجدد";
 "common.cells.url" = "آدرس اینترنتی";
 "common.cells.username" = "نام کاربری";
+
+"addVault.title" = "اضافه کردن گاوصندوق";
+"addVault.createNewVault.title" = "ساخت گاوصندوق جدید";
+"addVault.createNewVault.setVaultName.cells.name" = "نام گاوصندوق";
+"addVault.openExistingVault.title" = "باز کردن گاوصندوق موجود";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
 "purchase.retry.button" = "تلاش مجدد";
 
