@@ -350,6 +350,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 						DDLogError("Register URLSessionUploadTask for identifier: \(itemIdentifier) failed with error: \(error)")
 					} else {
 						DDLogInfo("Successfully registered URLSessionUploadTask for identifier: \(itemIdentifier)")
+						urlSessionTask.resume()
 					}
 				})
 			})
@@ -717,6 +718,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 						DDLogError("Register URLSessionTask for identifier: \(identifier) failed with error: \(error)")
 					} else {
 						DDLogInfo("Successfully registered URLSessionTask for identifier: \(identifier)")
+						urlSessionTask.resume()
 					}
 				})
 			})
