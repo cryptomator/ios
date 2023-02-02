@@ -1,1 +1,2 @@
-- Hinzufügen von WebDAV-Verbindungen behoben, die bei "Authentifizierung …" hingen, wenn ein selbstsigniertes Zertifikat verwendet wurde (#295, #298)
+- Zufällige Abstürze beim Herunterladen/Hochladen von Dateien über WebDAV behoben (#299, #301)
+- Nutzung von Apostrophen in Tresornamen (oder dem darin enthaltenen Pfad) in Google Drive behoben (#296)
