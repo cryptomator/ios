@@ -192,6 +192,16 @@
 "settings.sendLogFile" = "Envia el fitxer de registre";
 "settings.shortcutsGuide" = "Guia de dreceres";
 "settings.unlockFullVersion" = "Desbloca la versió completa";
+
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
 "snapshots.main.vault2" = "/Família";
 "snapshots.main.vault3" = "/Documents";
 "snapshots.main.vault4" = "/Viatge a Califòrnia";
@@ -220,6 +230,8 @@
 "untrustedTLSCertificate.message" = "El certificat TLS de \"%@\" no és vàlid. Vols confiar-hi igualment?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confia-hi";
 "untrustedTLSCertificate.dismiss" = "No hi confiïs";
+
+"upgrade.title" = "Oferta d'actualització";
 "upgrade.notEligible.alert.title" = "Ha fallat l'actualització";
 "upgrade.notEligible.alert.message" = "Cryptomator no ha pogut trobar una versió antiga en el dispositiu. Si la vau comprar, si us plau torneu-la a descarregar de la botiga d'aplicacions i torneu a intentar-ho.";
 "upgrade.info" = "Gràcies per confiar en Cryptomator des de la primera versió. Com a usuari fidel, sou elegible per a una actualització gratuïta.";
@@ -228,6 +240,7 @@
 "urlSession.error.httpError.403" = "Permisos insuficients sobre el recurs sol·licitat.";
 "urlSession.error.httpError.404" = "No s'ha trobat el recurs sol·licitat.";
 "urlSession.error.httpError.405" = "Mètode de sol·licitud no suportat pel recurs.";
+"urlSession.error.httpError.409" = "La petició entra en conflicte amb l'estat actual del recurs destinatari.";
 "urlSession.error.httpError.412" = "Accés denegat al recurs sol·licitat.";
 "urlSession.error.httpError.default" = "La connexió ha fallat amb codi d'estat %ld.";
 "urlSession.error.unexpectedResponse" = "Hi ha hagut una resposta de xarxa inesperada.";
@@ -245,6 +258,8 @@
 "vaultDetail.info.footer.accessVault" = "Accedeix a la caixa via l'app Files.";
 "vaultDetail.info.footer.accountInfo" = "Connectat com %@ via %@.";
 "vaultDetail.keepUnlocked.title" = "Durada del desblocatge";
+"vaultDetail.keepUnlocked.footer.off" = "Es requerirà Desblocar quan Cryptomator s'hagi tancat des de l'app Fitxers.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Es requerirà Desblocar quan la caixa forta estigui inactiva per %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "No caldrà desblocar fins que sigui blocada manualment.";
 "vaultDetail.locked.footer" = "La vostra caixa està blocada actualment.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator ha detectat una caixa forta en aquesta localització.\nPer tal de moure la caixa forta, si us plau, aneu enrere i trieu una altra carpeta.";
@@ -252,16 +267,22 @@
 "vaultDetail.removeVault.footer" = "Això només eliminarà la caixa forta de la llista de caixes fortes però no esborrarà cap fitxer encriptat.";
 "vaultDetail.renameVault.progress" = "S'està canviant el nom…";
 "vaultDetail.unlocked.footer" = "La vostra caixa forta ara està desblocada en l'app Files.";
+"vaultDetail.unlockVault.footer" = "Introduïu la paraula clau per \"%@\" per desar-la en el clauer d'iOS i per habilitar %@.";
 
 "vaultList.header.title" = "Caixes fortes";
 "vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";
 "vaultList.remove.alert.title" = "Elimina la caixa forta?";
 "vaultList.remove.alert.message" = "Això només eliminarà la caixa forta de la llista. No se suprimiran dades encriptades. Podreu re-afegir la caixa més endavant.";
 
+"vaultProviderFactory.error.unsupportedVaultConfig" = "La configuració de la caixa forta no està suportada. Si us plau assegureu-vos d'executar l'última versió de Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "La versió %ld de la caixa forta no està suportada. Aquesta caixa forta ha estat creada amb una altra versió de Cryptomator.";
+
 "webDAVAuthentication.httpConnection.alert.title" = "Utilizar HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "L'ús de HTTP no és segur. Recomanem fer servir HTTPS. Si ets conscient dels riscos, pots continuant fent servir HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Canvia a HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manté HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Sembla que el servidor no és WebDAV compatible. Si us plau comproveu que l' URL sigui correcta.";
 "webDAVAuthenticator.error.untrustedCertificate" = "El certificat d'aquest servidor no és de confiança. Potser haureu de tornar a afegir aquesta connexió WebDAV.";
 
 "Retry Upload" = "Torna a provar de pujar";
