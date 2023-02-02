@@ -1,1 +1,2 @@
-- Fixed adding WebDAV connection stuck at "Authenticating…" when using self-signed certificate (#295, #298)
+- Fixed random crashes when downloading/uploading files via WebDAV (#299, #301)
+- Fixed use of apostrophes in vault names (or their containing path) in Google Drive (#296)
