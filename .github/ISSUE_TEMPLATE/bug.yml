@@ -41,7 +41,9 @@ body:
         - Dropbox
         - Google Drive
         - OneDrive
+        - pCloud
         - WebDAV
+        - S3
         - Other File Provider
     validations:
       required: false
