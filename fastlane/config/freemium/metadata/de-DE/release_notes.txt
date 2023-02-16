@@ -1,2 +1,3 @@
-- Zufällige Abstürze beim Herunterladen/Hochladen von Dateien über WebDAV behoben (#299, #301)
-- Nutzung von Apostrophen in Tresornamen (oder dem darin enthaltenen Pfad) in Google Drive behoben (#296)
+- Zufällige Abstürze beim Herunterladen von Dateien über Google Drive behoben (#306)
+
+Leider hat die neue Anzeige des Download-Fortschritts, die wir in der Version 2.4.4 hinzugefügt haben, einige Probleme verursacht, die wir nicht erwartet hatten. Daher haben wir diese Funktion vorerst aus Google Drive entfernt. Möglicherweise werden wir sie in einer zukünftigen Version wieder einbauen.
