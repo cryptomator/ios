@@ -1,2 +1,3 @@
-- Fixed random crashes when downloading/uploading files via WebDAV (#299, #301)
-- Fixed use of apostrophes in vault names (or their containing path) in Google Drive (#296)
+- Fixed random crashes when downloading files via Google Drive (#306)
+
+Unfortunately, the new download progress indication that we added in 2.4.4 caused some issues we didn't anticipate. So we've removed this feature from Google Drive for now. We may revisit it in a future release.
