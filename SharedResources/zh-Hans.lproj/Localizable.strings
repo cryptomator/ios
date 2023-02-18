@@ -12,7 +12,7 @@
 "common.button.choose" = "选择";
 "common.button.clear" = "清除";
 "common.button.close" = "关闭";
-"common.button.confirm" = "确认";
+"common.button.confirm" = "确定";
 "common.button.create" = "新建";
 "common.button.createFolder" = "新建文件夹";
 "common.button.done" = "完成";
@@ -25,7 +25,7 @@
 "common.button.retry" = "重试";
 "common.button.signOut" = "退出登录";
 "common.button.verify" = "验证";
-"common.cells.openInFilesApp" = "在文管应用中打开";
+"common.cells.openInFilesApp" = "在文件管理器中打开";
 "common.cells.password" = "密码";
 "common.cells.url" = "URL";
 "common.cells.username" = "用户名";
