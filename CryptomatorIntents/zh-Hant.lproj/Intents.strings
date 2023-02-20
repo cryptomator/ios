@@ -2,7 +2,7 @@
 "common.false" = "否";
 "common.folder" = "資料夾";
 "common.true" = "是";
-"common.vault" = "加密檔案庫";
+"common.vault" = "保险库";
 
 "getFolderIntent.description" = "返回特定加密檔案庫內指定路徑的資料夾。";
 "getFolderIntent.path" = "路徑";

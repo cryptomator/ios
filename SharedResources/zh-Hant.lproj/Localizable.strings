@@ -19,14 +19,14 @@
 "common.button.download" = "下載";
 "common.button.edit" = "編輯";
 "common.button.enable" = "啟用";
-"common.button.next" = "繼續";
+"common.button.next" = "下一步";
 "common.button.ok" = "確認";
 "common.button.remove" = "移除";
 "common.button.retry" = "重試";
 "common.button.signOut" = "登出";
 "common.button.verify" = "驗證";
 "common.cells.openInFilesApp" = "在「檔案」應用程式中開啟";
-"common.cells.password" = "密碼";
+"common.cells.password" = "密码";
 "common.cells.url" = "網址";
 "common.cells.username" = "帳號";
 "common.footer.learnMore" = "了解更多。";
@@ -38,12 +38,12 @@
 "accountList.signOut.alert.message" = "登出後，所有關聯的加密檔案庫將從列表中移除。這並不會刪除任何加密數據。您可以稍後再次登入並重新添加加密檔案庫。";
 
 "addVault.title" = "新增加密檔案庫";
-"addVault.createNewVault.title" = "新建加密檔案庫";
+"addVault.createNewVault.title" = "创建新的保险库";
 "addVault.createNewVault.purchase" = "創建新的加密檔案庫需要 Cryptomator 完整版。";
 "addVault.createNewVault.setVaultName.header.title" = "為加密檔案庫命名.";
-"addVault.createNewVault.setVaultName.cells.name" = "加密檔案庫名稱";
+"addVault.createNewVault.setVaultName.cells.name" = "保险库名称";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "加密檔案庫名稱不可留空。";
-"addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "“%@”已經在此位置，請更換加密檔案庫名或位置";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 在此檢測到現有的加密檔案庫。\n如要建立新的加密檔案庫，請返回並選擇其他資料夾。";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
@@ -98,7 +98,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "保存在%@的密碼錯誤，請重試並輸入你的密碼來重新啟用%@";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
 "fileProvider.error.defaultLock.message" = "要存取加密庫和顯示其內容，需要先解鎖。";
-"fileProvider.error.unlockButton" = "解鎖";
+"fileProvider.error.unlockButton" = "解锁";
 "fileProvider.clearFileFromCache.title" = "清除快取檔䅁";
 "fileProvider.clearFileFromCache.message" = "這只會從您的本機上刪除文件，而不會刪除雲端的文件。";
 "fileProvider.fileImporting.error.missingPremium" = "解鎖 Cryptomator 完整版本以獲得寫入加密檔案庫的功能。";
@@ -219,7 +219,7 @@
 "trialStatus.active" = "生效中";
 "trialStatus.expired" = "已過期";
 
-"unlockVault.button.unlock" = "解鎖";
+"unlockVault.button.unlock" = "解锁";
 "unlockVault.button.unlockVia" = "使用%@解鎖";
 "unlockVault.password.footer" = "輸入 「%@」 的密碼：";
 "unlockVault.enableBiometricalUnlock.switch" = "啓用 %@";
@@ -248,7 +248,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "您已經添加了這個加密檔案庫。";
 
-"vaultDetail.button.changeVaultPassword" = "變更密碼";
+"vaultDetail.button.changeVaultPassword" = "更改密码";
 "vaultDetail.button.lock" = "立即鎖定";
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
