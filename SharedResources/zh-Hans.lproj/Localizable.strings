@@ -67,7 +67,7 @@
 "biometryType.touchID" = "触控 ID";
 
 "changePassword.error.invalidOldPassword" = "当前密码错误，请重试。";
-"changePassword.header.currentPassword.title" = "请输入当前密码";
+"changePassword.header.currentPassword.title" = "请输入当前密码。";
 "changePassword.header.newPassword.title" = "输入新密码。";
 "changePassword.header.newPasswordConfirmation.title" = "确认新密码。";
 "changePassword.progress" = "正在修改密码……";
@@ -212,7 +212,7 @@
 "s3Authentication.existingBucket" = "现有 Bucket";
 "s3Authentication.endpoint" = "端点";
 "s3Authentication.region" = "区域";
-"s3Authentication.error.invalidCredentials" = "无效凭证";
+"s3Authentication.error.invalidCredentials" = "无效凭证。";
 "s3Authentication.error.invalidEndpoint" = "提供的端点与URL格式不匹配。";
 
 "trialStatus.active" = "进行中";
