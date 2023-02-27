@@ -4,7 +4,7 @@
 "common.true" = "true";
 "common.vault" = "保险库";
 
-"getFolderIntent.description" = "返回给定保险库中给定路径的文件夹对象";
+"getFolderIntent.description" = "返回给定保险库中给定路径的文件夹对象。";
 "getFolderIntent.path" = "路径";
 "getFolderIntent.text" = "获取位于“${vault}”中 ${path} 的文件夹";
 "getFolderIntent.title" = "获取文件夹";
