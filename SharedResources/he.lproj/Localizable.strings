@@ -37,7 +37,7 @@
 "accountList.signOut.alert.title" = "הסרת כספות קשורות?";
 "accountList.signOut.alert.message" = "אם תנתק, כל הכספות הקשורות יוסרו מרשימת הכספות. לא ימחק מידע מוצפן. ניתן להכנס שוב ולהוסיף את הכספות בעתיד.";
 
-"addVault.title" = "הוספת כספת";
+"addVault.title" = "הוסף כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
 "addVault.createNewVault.purchase" = "יצירת כספת חדשה מצריך את הגרסה המלאה של Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "בחר שם לכספת.";
@@ -118,6 +118,27 @@
 
 "keepUnlocked.alert.title" = "לנעול את הכספת?";
 "keepUnlocked.alert.message" = "השינוי מצריך את נעילת הכספת כדי שיכנס לתוקף.";
+"keepUnlocked.alert.confirm" = "אשר ונעל כעת";
+"keepUnlocked.header" = "הגדר לכמה זמן הכספת תשאר לא נעולה בעת שאינה בשימוש.";
+"keepUnlocked.footer.auto" = "האפשרות לתת ל- iOS תאפשר לה לסגור את Cryptomator בכל עת כדי לשחרר זיכרון, פעולה שתגרום לנעילה אוטומטית של הכספת.";
+"keepUnlocked.footer.on" = "באמצעות האפשרות שנבחרה, יהיה צורך לשמור עותק של המפתח בצרור המפתחות של iOS למשך הזמן שהכספת לא נעולה.";
+"keepUnlockedDuration.auto" = "תן ל- iOS להחליט אוטומטית";
+"keepUnlockedDuration.auto.shortDisplayName" = "אוטומטי";
+"keepUnlockedDuration.indefinite" = "ללא הגבלה";
+
+"localFileSystemAuthentication.createNewVault.header" = "במסך הבא, בחר את המיקום לאחסנת הכספת החדשה שלך.";
+"localFileSystemAuthentication.createNewVault.button" = "בחר מקום אחסון";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "כספת כבר קיימת במיקום זה. נסה שוב עם מיקום אחסון שונה.";
+"localFileSystemAuthentication.openExistingVault.header" = "במסך הבא, בחר את התיקיה של הכספת הקיימת.";
+"localFileSystemAuthentication.openExistingVault.button" = "בחר את תיקיית הכספת";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "התיקיה שנבחרה אינה כספת. נסה שוב עם תיקיה אחרת.";
+"localFileSystemAuthentication.info.footer" = "ספקי קבצים אפורים אינם מאפשרים ״בחירת תיקיות״. זו אינה מגבלה של Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "לא ניתן לבצע את הפעולה עקב פעולות אחרות ברקע שנדרשות להסתיים לפני כן. נסה שוב מאוחר יותר.";
+
+"nameValidation.error.endsWithPeriod" = "לא ניתן להשתמש בשם שמסתיים בנקודה. אנא בחר שם אחר.";
+"nameValidation.error.endsWithSpace" = "לא ניתן להשתמש בשם שמסתיים ברווח. אנא בחר שם אחר.";
+"nameValidation.error.containsIllegalCharacter" = "לא ניתן להשתמש בשם שמכיל ״%@״. אנא בחר שם אחר.";
 
 "onboarding.title" = "ברוך הבא";
 "onboarding.button.continue" = "המשך";
@@ -186,6 +207,7 @@
 "urlSession.error.httpError.403" = "חסרות הרשאות לגשת למשאב.";
 "urlSession.error.httpError.404" = "המשאב המבוקש לא נמצא.";
 "urlSession.error.httpError.405" = "השיטה המבוקשת אינה נתמכת על ידי משאב היעד.";
+"urlSession.error.httpError.409" = "יש קונפליקט בין המצב הקיים לזה של משאב היעד.";
 "urlSession.error.httpError.default" = "חיבור לרשת נכשל עם קוד שגיאה %ld.";
 "urlSession.error.unexpectedResponse" = "אירעה שגיאת רשת בלתי צפויה.";
 
@@ -197,6 +219,12 @@
 "vaultDetail.button.removeVault" = "הסרת מרשימת הכספות";
 "vaultDetail.button.renameVault" = "שנה שם";
 "vaultDetail.changePassword.footer" = "יש לבחור סיסמה חזקה הידועה רק לך ולשמור אותה במקום בטוח.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "אם תאפשר %@, סיסמת הכספת תשמר בצרור המפתחות של iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "סיסמת הכספת תדרש רק אם אימות %@ יכשל.";
+"vaultDetail.info.footer.accessVault" = "הגישה אל הכספת מבוצעת דרך ישום Files.";
+"vaultDetail.info.footer.accountInfo" = "מחובר כ- %@ דרך %@.";
+"vaultDetail.keepUnlocked.title" = "משך שחרור נעילה";
+"vaultDetail.keepUnlocked.footer.off" = "שחרור נעילה ידרש כאשר Cryptomator יסגר על ידי הישום Files.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
