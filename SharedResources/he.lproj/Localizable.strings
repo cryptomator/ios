@@ -10,7 +10,9 @@
 "common.button.cancel" = "ביטול";
 "common.button.change" = "שנה";
 "common.button.choose" = "בחר";
+"common.button.clear" = "ניקוי";
 "common.button.close" = "סגירה";
+"common.button.confirm" = "אישור";
 "common.button.create" = "צור";
 "common.button.createFolder" = "צור תיקייה";
 "common.button.done" = "סיום";
@@ -21,6 +23,9 @@
 "common.button.ok" = "אישור";
 "common.button.remove" = "הסר";
 "common.button.retry" = "לנסות שוב";
+"common.button.signOut" = "התנתק";
+"common.button.verify" = "אמת";
+"common.cells.openInFilesApp" = "פתיחת ביישום Files";
 "common.cells.password" = "סיסמה";
 "common.cells.url" = "כתובת URL";
 "common.cells.username" = "שם משתמש";
@@ -28,11 +33,19 @@
 "common.hud.authenticating" = "בתהליך אימות…";
 
 "accountList.header.title" = "אימות";
+"accountList.emptyList.message" = "לחץ כאן להוספת חשבון";
+"accountList.signOut.alert.title" = "הסרת כספות קשורות?";
+"accountList.signOut.alert.message" = "אם תנתק, כל הכספות הקשורות יוסרו מרשימת הכספות. לא ימחק מידע מוצפן. ניתן להכנס שוב ולהוסיף את הכספות בעתיד.";
 
 "addVault.title" = "הוספת כספת";
 "addVault.createNewVault.title" = "צור כספת חדשה";
+"addVault.createNewVault.purchase" = "יצירת כספת חדשה מצריך את הגרסה המלאה של Cryptomator.";
+"addVault.createNewVault.setVaultName.header.title" = "בחר שם לכספת.";
 "addVault.createNewVault.setVaultName.cells.name" = "שם הכספת";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "שם הכספת לא יכול להיות ריק.";
 "addVault.createNewVault.chooseCloud.header" = "היכן Cryptomator צריך לשמור את הקבצים המוצפנים של הכספת שלך?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "%@ כבר קיים במיקום זה. בחר שם אחר לכספת או מיקום אחר.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator זיהה כספת קיימת במיקום זה.\nכדי ליצר כספת חדשה חזרו אחורה ובחרו תיקיה אחרת.";
 "addVault.createNewVault.password.enterPassword.header" = "בחירת סיסמה חדשה.";
 "addVault.createNewVault.password.confirmPassword.header" = "אישור סיסמה חדשה.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "אישור סיסמה?";
@@ -42,27 +55,69 @@
 "addVault.createNewVault.password.error.tooShortPassword" = "הסיסמא חייבת להכיל 8 תווים לפחות.";
 "addVault.createNewVault.progress" = "יוצר כספת…";
 "addVault.openExistingVault.title" = "פתיחת כספת קיימת";
+"addVault.openExistingVault.chooseCloud.header" = "איפה הכספת ממוקמת?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator זיהה את הכספת ״%@״.\nהאם ברצונך להוסיף את כספת זו?";
+"addVault.openExistingVault.detectedMasterkey.add" = "הוסף כספת זו";
+"addVault.openExistingVault.password.footer" = "הכנס/י סיסמה ל-\"%@\".";
 "addVault.openExistingVault.progress" = "מוסיף כספת…";
+"addVault.success.info" = "הכספת ״%@״ הוספה בהצלחה.\nהגישה לכספת דרך ישום Files.";
+"addVault.success.footer" = "הפעילו את Cryptomator בישום Files, אם טרם עשית זאת.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "הסיסמה הנוכחית שגויה. אנא נסה שנית.";
+"changePassword.header.currentPassword.title" = "הזן סיסמה נוכחית.";
 "changePassword.header.newPassword.title" = "בחירת סיסמה חדשה.";
 "changePassword.header.newPasswordConfirmation.title" = "אישור סיסמה חדשה.";
+"changePassword.progress" = "שנה סיסמה…";
 
 "chooseFolder.emptyFolder.footer" = "התיקייה ריקה";
+"chooseFolder.createNewFolder.header.title" = "בחר שם לתיקיה.";
 "chooseFolder.createNewFolder.cells.name" = "שם תיקייה";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "שם התיקיה לא יכול להיות ריק.";
 "chooseFolder.createNewFolder.progress" = "יוצר תיקייה…";
 
+"cloudProvider.error.itemNotFound" = "״%@״ לא נמצא.";
+"cloudProvider.error.itemAlreadyExists" = "״%@״ כבר קיים.";
+"cloudProvider.error.itemTypeMismatch" = "״%@״ מכיל פריט לא צפוי.";
+"cloudProvider.error.parentFolderDoesNotExist" = "תיקית אב ״%@״ לא קיימת.";
+"cloudProvider.error.pageTokenInvalid" = "לא ניתן להמשיך במשיכת תוכן התיקיה.";
+"cloudProvider.error.quotaInsufficient" = "חסר מקום פנוי באחסון שלך.";
+"cloudProvider.error.unauthorized" = "לא ניתן לבצע פעולה לא מאושרת.";
+"cloudProvider.error.noInternetConnection" = "תקשורת לאינטרנט נדרשת לפעולה זו.";
+
+"cloudProviderType.localFileSystem" = "ספק קבצים אחר";
+
 "fileProvider.onboarding.title" = "ברוך הבא";
+"fileProvider.onboarding.info" = "תודה שבחרת ב- Cryptomator להגנה על הקבצים שלך. להתחלה, פתח את האפליקציה והוסף כספת.";
+"fileProvider.onboarding.button.openCryptomator" = "פתח את Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "שחרור נעילה בוטל";
+"fileProvider.error.biometricalAuthCanceled.message" = "שחרור נעילה דרך %@ נכשל. אנא נסה שוב.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "סיסמה שגויה";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "הסיסמה השמורה עבור %@ שגויה. אנא נסה שוב והקש את הסיסמה להפעלה מחדש של %@.";
+"fileProvider.error.defaultLock.title" = "שחרור נעילה נדרש";
+"fileProvider.error.defaultLock.message" = "לגישה וצפיה בתוכן הכספת, יש לבצע שחרור נעילה.";
 "fileProvider.error.unlockButton" = "בטל נעילה";
+"fileProvider.clearFileFromCache.title" = "מחק את הקובץ מזיכרון המטמון";
+"fileProvider.clearFileFromCache.message" = "זה רק מוחק את הקובץ המקומי ממכשירך ולא מוחק את הקובץ בענן.";
+"fileProvider.fileImporting.error.missingPremium" = "בצע שחרר נעילה של הגרסה המלאה בישום Cryptomator לקבלת גישת כתיבה לכספות שלך.";
 "fileProvider.uploadProgress.connecting" = "התחברות…";
 "fileProvider.uploadProgress.message" = "תהליך נוכחי: %@\n\nאם תהליך ההעלאה תקוע, ניתן לנסות שוב.";
 "fileProvider.uploadProgress.missing" = "לא ניתן לקבוע את תהליך ההתקדמות. ייתכן והתהליך עדיין רץ ברקע.";
 "fileProvider.uploadProgress.title" = "העלאה…";
 "fileProvider.uploadProgress.missingDomainError" = "לא ניתן למצוא את הדומיין.";
+
+"getFolderIntent.error.missingPath" = "לא סופק נתיב. נא ספק נתיב תקין שממנו יש להחזיר תיקיה.";
 "getFolderIntent.error.noVaultSelected" = "לא נבחר קובץ vault.";
+"intents.saveFile.missingFile" = "הקובץ שסופק אינו תקין.";
 "intents.saveFile.invalidFolder" = "התיקייה שנבחרה איננה תקינה.";
+"intents.saveFile.missingTemporaryFolder" = "כשלון ביצירת תיקיה זמנית.";
+"intents.saveFile.lockedVault" = "עליך לבצע שחרור נעילה של הכספת כדי להשתמש בקיצור דרך זה.";
 "intents.saveFile.selectedVaultNotFound" = "ה vault שנבחר לא נמצא.";
+
+"keepUnlocked.alert.title" = "לנעול את הכספת?";
+"keepUnlocked.alert.message" = "השינוי מצריך את נעילת הכספת כדי שיכנס לתוקף.";
 
 "onboarding.title" = "ברוך הבא";
 "onboarding.button.continue" = "המשך";
@@ -70,8 +125,32 @@
 "purchase.unlockedFullVersion.title" = "תודה";
 
 "settings.title" = "הגדרות";
+"settings.aboutCryptomator" = "אודות Cryptomator";
+"settings.aboutCryptomator.title" = "גרסה %@ (%@)";
+"settings.cacheSize" = "גודל מטמון";
 "settings.clearCache" = "נקה מטמון";
+"settings.cloudServices" = "שירותי ענן";
+"settings.contact" = "צור קשר";
+"settings.debugMode" = "מצב ניפוי תקלות";
+"settings.debugMode.alert.message" = "במצב זה, מידע רגיש עשוי להכתב לקובץ לוג על מכשירך (כגון שמות קבצים ותיקיות). סיסמאות, עוגיות וכו׳ מוחרגים.\n\nזכור לבטל את מצב ניפוי התקלות בהקדם האפשרי.";
+"settings.manageSubscriptions" = "ניהול מנוי";
+"settings.rateApp" = "דרג את האפליקציה";
+"settings.sendLogFile" = "שלח קובץ לוג";
 "settings.shortcutsGuide" = "מדריך קיצורי דרך";
+"settings.unlockFullVersion" = "שחרור גרסה מלאה";
+
+"snapshots.fileprovider.file1" = "/הנהלת-חשבונות.numbers";
+"snapshots.fileprovider.file2" = "/מצגת סופית.key";
+"snapshots.fileprovider.file3" = "/קדימון המוצר.mov";
+"snapshots.fileprovider.file4" = "/הצעה.docx";
+"snapshots.fileprovider.file5" = "/דוח.pdf";
+"snapshots.fileprovider.folder3" = "/פרויקט סודי";
+"snapshots.fileprovider.folder2" = "/חשבוניות";
+"snapshots.fileprovider.folder1" = "/תעודות";
+"snapshots.main.vault1" = "/עבודה";
+"snapshots.main.vault2" = "/משפחה";
+"snapshots.main.vault3" = "/מסמכים";
+"snapshots.main.vault4" = "/טיול לקליפורניה";
 
 "s3Authentication.displayName" = "שם תצוגה";
 "s3Authentication.accessKey" = "מפתח גישה";
@@ -80,9 +159,33 @@
 "s3Authentication.endpoint" = "נקודת גישה";
 "s3Authentication.region" = "אזור";
 "s3Authentication.error.invalidCredentials" = "פרטי התחברות שגויים.";
+"s3Authentication.error.invalidEndpoint" = "היעד שסופק אינו מתאים למבנה של כתובת אתר.";
+
+"trialStatus.active" = "פעיל";
+"trialStatus.expired" = "פג תוקף";
 
 "unlockVault.button.unlock" = "בטל נעילה";
+"unlockVault.button.unlockVia" = "שחרר נעילה דרך %@";
+"unlockVault.password.footer" = "הכנס/י סיסמה ל-\"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "הפעלת %@";
+"unlockVault.enableBiometricalUnlock.footer" = "במקום לשחרר את נעילה הכספת עם הסיסמה שלך, ניתן לבצע שחרור נעילה דרך %@.";
+"unlockVault.evaluatePolicy.reason" = "שחרר את נעילה הכספת שלך";
+"unlockVault.progress" = "משחרר נעילה…";
+
+"untrustedTLSCertificate.title" = "תעודת תקשורת TLS לא חוקית";
+"untrustedTLSCertificate.message" = "תעודת התקשורת TLS של ״%@״ לא חוקית. האם ברצונך לסמוך עליה בכל זאת?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "סמוך";
+"untrustedTLSCertificate.dismiss" = "אל תסמוך";
+
+"upgrade.title" = "הצעת שדרוג";
+"upgrade.notEligible.alert.title" = "השדרוג נכשל";
+"upgrade.notEligible.alert.message" = "Cryptomator לא זיהה גרסה ישנה יותר המותקנת על המכשיר. אם קנית אותו, אנא הורד אותו שוב מחנות האפליקציות ונסה שוב.";
 "upgrade.info" = "תודה על התמיכה ב-Cryptomator מהגירסה הראשונה. לאות הערכה, יש לך זכאות לשדרוג חינם.";
+
+"urlSession.error.httpError.401" = "שם משתמש ו/או סיסמה שגויים.";
+"urlSession.error.httpError.403" = "חסרות הרשאות לגשת למשאב.";
+"urlSession.error.httpError.404" = "המשאב המבוקש לא נמצא.";
+"urlSession.error.httpError.405" = "השיטה המבוקשת אינה נתמכת על ידי משאב היעד.";
 "urlSession.error.httpError.default" = "חיבור לרשת נכשל עם קוד שגיאה %ld.";
 "urlSession.error.unexpectedResponse" = "אירעה שגיאת רשת בלתי צפויה.";
 
