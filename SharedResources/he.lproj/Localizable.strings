@@ -141,9 +141,42 @@
 "nameValidation.error.containsIllegalCharacter" = "לא ניתן להשתמש בשם שמכיל ״%@״. אנא בחר שם אחר.";
 
 "onboarding.title" = "ברוך הבא";
+"onboarding.info" = "תודה שבחרת ב- Cryptomator להגנה על הקבצים שלך.\n\nעם Cryptomator, המפתח למידע שלך בידיים שלך. Cryptomator מצפין את המידע מהר ובקלות.\n\nישום זה משולב באופן מלא עם ישום הקבצים Files. מאוחר יותר ודא שאיפשרת את Cryptomator בישום Files לצורך גישה אל הכספות.";
 "onboarding.button.continue" = "המשך";
+
+"purchase.beginFreeTrial.alert.title" = "תקופת ניסיון הופעלה";
+"purchase.expiredTrial" = "תקופת הניסיון פגה.";
+"purchase.footer.privacyPolicy" = "מדיניות פרטיות";
+"purchase.footer.termsOfUse" = "תנאי שימוש";
+"purchase.header.feature.familySharing" = "שיתוף משפחתי";
+"purchase.header.feature.openSource" = "פיתוח קוד-פתוח";
+"purchase.header.feature.writeAccess" = "גישה כתיבה לכספות שלך";
+"purchase.product.donateAndUpgrade" = "תרום ושדרג";
+"purchase.product.freeUpgrade" = "שדרוג חינם";
+"purchase.product.lifetimeLicense" = "רשיון לכל החיים";
+"purchase.product.lifetimeLicense.duration" = "חד פעמי";
+"purchase.product.pricing.free" = "חינם";
+"purchase.product.trial" = "30 ימי ניסיון";
+"purchase.product.trial.expirationDate" = "תאריך תפוגה: %@";
+"purchase.product.trial.duration" = "ל- 30 ימים";
+"purchase.product.yearlySubscription" = "מנוי שנתי";
+"purchase.product.yearlySubscription.duration" = "שנתי";
+"purchase.readOnlyMode.alert.title" = "מצב קריאה בלבד";
+"purchase.readOnlyMode.alert.message" = "אתה יכול לאפשר את הגרסה המלאה של Cryptomator במסך ההגדרות ולהשתמש בו במצב קריאה בלבד לעכשיו.";
+"purchase.restorePurchase.button" = "שחזר רכישה";
+"purchase.restorePurchase.validTrialFound.alert.title" = "תקופת הניסיון ממשיכה";
+"purchase.restorePurchase.validTrialFound.alert.message" = "אתה יכול להשתמש בגרסה המלאה של Cryptomator לזמן קצוב. תקופת הניסיון תפוג ב- %@. לאחר מכן, הכספות עדיין יהיו נגישות במצב קריאה בלבד.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "שוחזר בהצלחה";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "אין גרסה מלאה";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "לא הצלחנו למצוא רכישה קודמת של הגרסה המלאה שניתן לשחזר. אנא נסה אפשרות אחרת.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "זכאי לשדרוג";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "נראה שאתה מנסה לשדרג מגרסה ישנה של Cryptomator. אם זה המצב, אנא בחר באפשרות ״הצעת שדרוג״ במקום.";
 "purchase.retry.button" = "נסה שוב";
+"purchase.retry.footer" = "העלאת המוצרים הזמינים לא צלח.";
+"purchase.title" = "שחרור גרסה מלאה";
+"purchase.unlockedFullVersion.message" = "אתה יכול להשתמש בגרסה המלאה של Cryptomator. הצפנה נעימה!";
 "purchase.unlockedFullVersion.title" = "תודה";
+"purchase.error.unknown" = "הרגישה לא זמינה בחנות האפליקציות מסיבה לא ידועה. אנא נסה שוב מאוחר יותר.\n\nאם התקלה ממשיכה, נסה להפעיל מחדש את המכשיר או לצאת ולהכנס מחדש עם המשתמש אפל שלך באפליקצית ההגדרות של iOS.";
 
 "settings.title" = "הגדרות";
 "settings.aboutCryptomator" = "אודות Cryptomator";
