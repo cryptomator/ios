@@ -241,6 +241,7 @@
 "urlSession.error.httpError.404" = "המשאב המבוקש לא נמצא.";
 "urlSession.error.httpError.405" = "השיטה המבוקשת אינה נתמכת על ידי משאב היעד.";
 "urlSession.error.httpError.409" = "יש קונפליקט בין המצב הקיים לזה של משאב היעד.";
+"urlSession.error.httpError.412" = "הגישה למשאב היעד סורבה.";
 "urlSession.error.httpError.default" = "חיבור לרשת נכשל עם קוד שגיאה %ld.";
 "urlSession.error.unexpectedResponse" = "אירעה שגיאת רשת בלתי צפויה.";
 
@@ -258,9 +259,31 @@
 "vaultDetail.info.footer.accountInfo" = "מחובר כ- %@ דרך %@.";
 "vaultDetail.keepUnlocked.title" = "משך שחרור נעילה";
 "vaultDetail.keepUnlocked.footer.off" = "שחרור נעילה ידרש כאשר Cryptomator יסגר על ידי הישום Files.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "שחרור נעילה ידרש כאשר הכספת ללא פעילות למשך %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "לא ידרש שחרור נעילה אלא אם יבוצע נעילה ידנית.";
+"vaultDetail.locked.footer" = "הכספת שלך כרגע נעולה.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator זיהה כספת קיימת במיקום זה.\nכדי ליצר כספת חדשה חזרו אחורה ובחרו תיקיה אחרת.";
+"vaultDetail.moveVault.progress" = "מעביר…";
+"vaultDetail.removeVault.footer" = "זה רק יסיר את הכספת מרשימת הכספות ולא ימחק קבצים מוצפנים.";
+"vaultDetail.renameVault.progress" = "משנה שם…";
+"vaultDetail.unlocked.footer" = "הכספת שלך כרגע לא נעולה בישום Files.";
+"vaultDetail.unlockVault.footer" = "הקש סיסמה עבור ״%@״ לשמירתה בצרור המפתחות של iOS ולהפעלת %@.";
+
+"vaultList.header.title" = "כספות";
+"vaultList.emptyList.message" = "לחץ כאן להוספת כספת";
+"vaultList.remove.alert.title" = "הסר כספת?";
+"vaultList.remove.alert.message" = "זה רק יסיר את הכספת מרשימת הכספות ולא ימחק מידע מוצפן. אתה יכול להוסיף מחדש את הכספת בהמשך.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "תצורת הכספת אינה נתמכת. אנא ודא שאתה מריץ את הגרסה האחרונה של Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "גרסת כספת %ld אינה נתמכת. כספת זו נוצרה עם גרסה ישנה או חדשה יותר של Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "להשתמש ב-HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP הוא פרוטוקול לא מאובטח. אנו ממליצים להשתמש ב HTTPS במקום. אם אתה מבין את הסיכונים בכך, אתה יכול להמשיך להשתמש ב HTTP.";
 "webDAVAuthentication.httpConnection.change" = "עבור ל-HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "להשאיר HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "נראה שהשרת אינו תואם WebDAV. ודא שהשתמשת בכתובת הנכונה.";
+"webDAVAuthenticator.error.untrustedCertificate" = "התעודה של שרת זה אינה מהימנה. יתכן שתצטרך להוסיף מחדש את קישוריות WebDAV הזו.";
 
 "Retry Upload" = "לנסות העלאה שוב";
+"Clear from Cache" = "נקה מהמטמון";
