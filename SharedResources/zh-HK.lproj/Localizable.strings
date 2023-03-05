@@ -228,7 +228,7 @@
 "unlockVault.progress" = "解鎖中…";
 
 "untrustedTLSCertificate.title" = "無效的 TLS 憑證";
-"untrustedTLSCertificate.message" = "「%@」的 TLS 證書無效。您還是要信任它嗎？\n\nSHA-256: %@";
+"untrustedTLSCertificate.message" = "「%@」的 TLS 憑證無效。您還是要信任它嗎？\n\nSHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
