@@ -169,7 +169,7 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "恢复成功";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "未购买完整版";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "我们无法找到可供恢复的完整版本。请尝试其他选项。";
-"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "升级资格";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "可以升级";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "似乎您正在从 Cryptomator 的旧版本进行升级。在这种情况下，请选择“升级优惠”选项。";
 "purchase.retry.button" = "重试";
 "purchase.retry.footer" = "无法加载可用产品。";
