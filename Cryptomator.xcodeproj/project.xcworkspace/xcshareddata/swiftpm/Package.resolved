@@ -24,8 +24,8 @@
         "repositoryURL": "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
         "state": {
           "branch": null,
-          "revision": "eae68dde708c17a3ed249f1926e96d5bda20d2d2",
-          "version": "2.28.5"
+          "revision": "51d99d74be7249ac6444581bd1e394fb60ea86a3",
+          "version": "2.30.4"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/cryptomator/cloud-access-swift.git",
         "state": {
           "branch": null,
-          "revision": "99fa3b966d153cfb1ee34755bd3b4736b4a25ab6",
-          "version": "1.7.4"
+          "revision": "c9eaa84a3e73aceef10fc724d386eab3d6e3cbb7",
+          "version": "1.7.5"
         }
       },
       {
