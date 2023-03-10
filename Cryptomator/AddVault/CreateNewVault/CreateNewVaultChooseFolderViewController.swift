@@ -43,7 +43,7 @@ class CreateNewVaultChooseFolderViewController: ChooseFolderViewController {
 			return
 		}
 		do {
-			coordinator?.chooseItem(try viewModel.chooseCurrentFolder())
+			try coordinator?.chooseItem(viewModel.chooseCurrentFolder())
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}

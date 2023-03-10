@@ -93,7 +93,7 @@ extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 
 	public func setKeepUnlockedDuration(_ duration: KeepUnlockedDuration, forVaultUID vaultUID: String) throws {
 		let jsonEncoder = JSONEncoder()
-		try keychain.set(getKeepUnlockedDurationKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(duration))
+		try keychain.set(getKeepUnlockedDurationKey(forVaultUID: vaultUID), value: jsonEncoder.encode(duration))
 	}
 
 	public func removeKeepUnlockedDuration(forVaultUID vaultUID: String) throws {
@@ -112,7 +112,7 @@ extension VaultKeepUnlockedManager: VaultKeepUnlockedSettings {
 
 	public func setLastUsedDate(_ date: Date, forVaultUID vaultUID: String) throws {
 		let jsonEncoder = JSONEncoder()
-		try keychain.set(getLastUsedDateKey(forVaultUID: vaultUID), value: try jsonEncoder.encode(date))
+		try keychain.set(getLastUsedDateKey(forVaultUID: vaultUID), value: jsonEncoder.encode(date))
 	}
 
 	private func getKeepUnlockedDurationKey(forVaultUID vaultUID: String) -> String {

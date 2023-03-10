@@ -31,7 +31,7 @@ class SetVaultNameViewController: SingleSectionStaticUITableViewController {
 
 	@objc func nextButtonClicked() {
 		do {
-			coordinator?.setVaultName(try viewModel.getValidatedVaultName())
+			try coordinator?.setVaultName(viewModel.getValidatedVaultName())
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}

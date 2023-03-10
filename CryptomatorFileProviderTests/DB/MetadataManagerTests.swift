@@ -240,7 +240,7 @@ class MetadataManagerTests: XCTestCase {
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setTagData(to: tagData, forItemWithID: id)
 
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertEqual(tagData, cachedMetadata.tagData)
 	}
 
@@ -253,7 +253,7 @@ class MetadataManagerTests: XCTestCase {
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setTagData(to: nil, forItemWithID: id)
 
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertNil(cachedMetadata.tagData)
 	}
 
@@ -267,7 +267,7 @@ class MetadataManagerTests: XCTestCase {
 		try manager.cacheMetadata(itemMetadata)
 
 		let id = try XCTUnwrap(itemMetadata.id)
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertEqual(tagData, cachedMetadata.tagData)
 	}
 
@@ -281,7 +281,7 @@ class MetadataManagerTests: XCTestCase {
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setFavoriteRank(to: favoriteRank, forItemWithID: id)
 
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertEqual(favoriteRank, cachedMetadata.favoriteRank)
 	}
 
@@ -292,7 +292,7 @@ class MetadataManagerTests: XCTestCase {
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setFavoriteRank(to: nil, forItemWithID: id)
 
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertNil(cachedMetadata.favoriteRank)
 	}
 
@@ -306,7 +306,7 @@ class MetadataManagerTests: XCTestCase {
 		try manager.cacheMetadata(itemMetadata)
 
 		let id = try XCTUnwrap(itemMetadata.id)
-		let cachedMetadata = try XCTUnwrap(try manager.getCachedMetadata(for: id))
+		let cachedMetadata = try XCTUnwrap(manager.getCachedMetadata(for: id))
 		XCTAssertEqual(favoriteRank, cachedMetadata.favoriteRank)
 	}
 }
