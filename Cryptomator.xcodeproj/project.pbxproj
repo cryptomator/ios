@@ -1003,6 +1003,8 @@
 		74AE94EF27A0282300D71AEC /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94F027A0283500D71AEC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94F127A0285400D71AEC /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74B46E5529BB8629000C1CC0 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
+		74B46E5629BB863C000C1CC0 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Intents.strings; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		74C2BC4926E8E24A00BCAA03 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -2283,6 +2285,7 @@
 				el,
 				es,
 				fr,
+				he,
 				hi,
 				hr,
 				id,
@@ -3030,6 +3033,7 @@
 				74275AD728478E050058AD25 /* el */,
 				74275AE428478E130058AD25 /* es */,
 				74275AD628478E040058AD25 /* fr */,
+				74B46E5629BB863C000C1CC0 /* he */,
 				74275AD828478E060058AD25 /* hi */,
 				74275AD328478E010058AD25 /* hr */,
 				74275AD928478E070058AD25 /* id */,
@@ -3075,6 +3079,7 @@
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
 				74267A0526A57947004C61BC /* fr */,
+				74B46E5529BB8629000C1CC0 /* he */,
 				74A1B13D2726A9E60098224B /* hi */,
 				74E93B75281010E50047A116 /* hr */,
 				74AE94F127A0285400D71AEC /* id */,
