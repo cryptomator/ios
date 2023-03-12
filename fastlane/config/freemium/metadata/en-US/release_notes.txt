@@ -1,3 +1,2 @@
-- Fixed file upload errors with certain Nextcloud servers via WebDAV (#308)
-- Improved debug logging with WebDAV
-- Improved background upload support (you may need to reinstall the app for this to take effect)
+- Added Hebrew translation
+- Fixed "not found" error when listing a directory with unreachable files in iCloud Drive (#313)

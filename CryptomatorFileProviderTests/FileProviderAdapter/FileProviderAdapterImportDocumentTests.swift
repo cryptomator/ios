@@ -36,7 +36,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 
 		// Check that file was copied to the url provided by the localURLProvider
 		XCTAssert(FileManager.default.fileExists(atPath: expectedFileURL.path))
-		let contentOfCopiedFile = String(data: try Data(contentsOf: expectedFileURL), encoding: .utf8)
+		let contentOfCopiedFile = try String(data: Data(contentsOf: expectedFileURL), encoding: .utf8)
 		XCTAssertEqual(fileContent, contentOfCopiedFile)
 		// Check that the original file was not altered
 		XCTAssert(FileManager.default.contentsEqual(atPath: fileURL.path, andPath: expectedFileURL.path))
@@ -97,7 +97,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 
 		// Check that existing file at the url provided by the localURLProvider was not overwritten
 		XCTAssert(FileManager.default.fileExists(atPath: expectedFileURL.path))
-		let contentOfCopiedFile = String(data: try Data(contentsOf: expectedFileURL), encoding: .utf8)
+		let contentOfCopiedFile = try String(data: Data(contentsOf: expectedFileURL), encoding: .utf8)
 		XCTAssertEqual(existingFileContent, contentOfCopiedFile)
 
 		XCTAssertEqual(1, metadataManagerMock.removedMetadataID.count)
@@ -136,7 +136,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			XCTAssert(FileManager.default.fileExists(atPath: self.expectedFileURL.path))
 			let contentOfCopiedFile: String?
 			do {
-				contentOfCopiedFile = String(data: try Data(contentsOf: self.expectedFileURL), encoding: .utf8)
+				contentOfCopiedFile = try String(data: Data(contentsOf: self.expectedFileURL), encoding: .utf8)
 			} catch {
 				XCTFail("Content of copied file failed with error: \(error)")
 				return

@@ -117,7 +117,7 @@ class VaultManagerTests: XCTestCase {
 			XCTAssertTrue(cloudProviderMock.createdFolders[2].hasPrefix(CloudPath("/Vault/d/").path) && cloudProviderMock.createdFolders[2].count == 11)
 			XCTAssertTrue(cloudProviderMock.createdFolders[3].hasPrefix(cloudProviderMock.createdFolders[2] + "/") && cloudProviderMock.createdFolders[3].count == 42)
 
-			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: try getUploadedMasterkeyFileData())
+			let uploadedMasterkeyFile = try MasterkeyFile.withContentFromData(data: getUploadedMasterkeyFileData())
 			XCTAssertEqual(999, uploadedMasterkeyFile.version)
 			let uploadedMasterkey = try uploadedMasterkeyFile.unlock(passphrase: "pw")
 
@@ -657,7 +657,7 @@ class VaultManagerTests: XCTestCase {
 			.filter { $0.cloudPath == cloudPath }
 			.map { cloudProviderMock.tmpDir.appendingPathComponent($0.cloudPath) }
 			.first
-		return try Data(contentsOf: try XCTUnwrap(uploadedFileURL))
+		return try Data(contentsOf: XCTUnwrap(uploadedFileURL))
 	}
 }
 

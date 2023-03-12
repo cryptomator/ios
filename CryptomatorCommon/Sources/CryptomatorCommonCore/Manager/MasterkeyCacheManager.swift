@@ -30,7 +30,7 @@ public class MasterkeyCacheKeychainManager: MasterkeyCacheManager {
 	public func cacheMasterkey(_ masterkey: Masterkey, forVaultUID vaultUID: String) throws {
 		let cachedMasterkey = CachedMasterkey(rawKey: masterkey.rawKey)
 		let jsonEncoder = JSONEncoder()
-		try keychain.set(vaultUID, value: try jsonEncoder.encode(cachedMasterkey))
+		try keychain.set(vaultUID, value: jsonEncoder.encode(cachedMasterkey))
 	}
 
 	public func getMasterkey(forVaultUID vaultUID: String) throws -> Masterkey? {
