@@ -1,3 +1,2 @@
-- Fehler beim Hochladen von Dateien mit bestimmten Nextcloud-Servern über WebDAV behoben (#308)
-- Diagnose-Protokollierung mit WebDAV verbessert
-- Unterstützung für Uploads im Hintergrund verbessert (evtl. muss die App neu installiert werden, damit dies funktioniert)
+- Hebräische Übersetzung hinzugefügt
+- Fehler "nicht gefunden" beim Auflisten eines Verzeichnisses mit nicht erreichbaren Dateien in iCloud Drive behoben (#313)
