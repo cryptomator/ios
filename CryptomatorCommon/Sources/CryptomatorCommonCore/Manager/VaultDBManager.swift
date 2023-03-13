@@ -96,7 +96,7 @@ public class VaultDBManager: VaultManager {
 			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
 			masterkey = try Masterkey.createNew()
 			vaultConfigToken = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 			let masterkeyFileData = try exportMasterkey(masterkey, vaultVersion: VaultDBManager.fakeVaultVersion, password: password)
 			cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		} catch {
@@ -199,7 +199,7 @@ public class VaultDBManager: VaultManager {
 	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -235,7 +235,7 @@ public class VaultDBManager: VaultManager {
 	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, downloadedVaultConfig: DownloadedVaultConfig, downloadedMasterkey: DownloadedMasterkeyFile, vaultItem: VaultItem, password: String) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -266,7 +266,7 @@ public class VaultDBManager: VaultManager {
 	public func getUnverifiedVaultConfig(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedVaultConfig> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -284,7 +284,7 @@ public class VaultDBManager: VaultManager {
 	public func downloadMasterkeyFile(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedMasterkeyFile> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -303,7 +303,7 @@ public class VaultDBManager: VaultManager {
 	public func addExistingHubVault(vaultUID: String, delegateAccountUID: String, hubUserID: String, jweData: Data, privateKey: P384.KeyAgreement.PrivateKey, vaultItem: VaultItem, downloadedVaultConfig: DownloadedVaultConfig) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -358,7 +358,7 @@ public class VaultDBManager: VaultManager {
 	public func createLegacyFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, vaultItem: VaultItem, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let provider: LocalizedCloudProviderDecorator
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -508,7 +508,7 @@ public class VaultDBManager: VaultManager {
 		}
 		let provider: CloudProvider
 		do {
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: account.delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: account.delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
@@ -536,7 +536,7 @@ public class VaultDBManager: VaultManager {
 			masterkeyFileData = try changePassphrase(masterkeyFileData: cachedVault.masterkeyFileData, oldPassphrase: oldPassphrase, newPassphrase: newPassphrase)
 			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
 			try FileManager.default.createDirectory(at: tmpDirURL, withIntermediateDirectories: true)
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: vaultAccount.delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}

@@ -64,7 +64,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		let itemID: Int64 = 2
 		let itemMetadata = ItemMetadata(id: itemID, name: "Test.txt", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: sourceCloudPath, isPlaceholderItem: false)
 		metadataManagerMock.cachedMetadata[itemID] = itemMetadata
-		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: try XCTUnwrap(itemMetadata.id))
+		let itemIdentifier = try NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: XCTUnwrap(itemMetadata.id))
 		let newName = "RenamedTest.txt"
 		let result = try adapter.moveItemLocally(withIdentifier: itemIdentifier, toParentItemWithIdentifier: nil, newName: newName)
 		let item = result.item
@@ -232,17 +232,17 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 		try adapter.validateItemName("Foo Bar.pages")
 		try adapter.validateItemName("Foo")
 		try adapter.validateItemName(".foo")
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo."), localizedDescription: ItemNameValidatorError.nameEndsWithPeriod.localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Foo "), localizedDescription: ItemNameValidatorError.nameEndsWithSpace.localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\\o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\\").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo/o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("/").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo:o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(":").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo*o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("*").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo?o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("?").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo\"o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\"").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo<o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("<").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo>o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(">").localizedDescription)
-		assertThrowsInvalidNameCocoaError(try adapter.validateItemName("Fo|o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("|").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Foo."), localizedDescription: ItemNameValidatorError.nameEndsWithPeriod.localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Foo "), localizedDescription: ItemNameValidatorError.nameEndsWithSpace.localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo\\o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\\").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo/o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("/").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo:o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(":").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo*o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("*").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo?o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("?").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo\"o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("\"").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo<o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("<").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo>o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter(">").localizedDescription)
+		try assertThrowsInvalidNameCocoaError(adapter.validateItemName("Fo|o"), localizedDescription: ItemNameValidatorError.nameContainsIllegalCharacter("|").localizedDescription)
 	}
 
 	private func assertThrowsInvalidNameCocoaError(_ expression: @autoclosure () throws -> Void, localizedDescription: String) {

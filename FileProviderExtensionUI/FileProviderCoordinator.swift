@@ -124,7 +124,7 @@ class FileProviderCoordinator: Coordinator {
 		let provider: CloudProvider
 		do {
 			vaultAccount = try VaultAccountDBManager.shared.getAccount(with: vaultUID)
-			provider = LocalizedCloudProviderDecorator(delegate: try CloudProviderDBManager.shared.getProvider(with: vaultAccount.delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: CloudProviderDBManager.shared.getProvider(with: vaultAccount.delegateAccountUID))
 		} catch {
 			handleError(error)
 			return

@@ -276,7 +276,7 @@ class VaultDBCacheTests: XCTestCase {
 		} else {
 			data = updatedVaultConfigData
 		}
-		return Promise(try data.write(to: downloadDestination))
+		return try Promise(data.write(to: downloadDestination))
 	}
 
 	private func defaultFetchItemMetadataMock(_ cloudPath: CloudPath) -> Promise<CloudItemMetadata> {

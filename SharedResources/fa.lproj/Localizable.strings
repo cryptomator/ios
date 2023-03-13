@@ -2,6 +2,7 @@
 "common.button.change" = "تغییر";
 "common.button.choose" = "انتخاب کنید";
 "common.button.close" = "ببند";
+"common.button.create" = "ایجاد";
 "common.button.done" = "انجام شده";
 "common.button.edit" = "ویرایش";
 "common.button.next" = "بعدی";
@@ -9,12 +10,19 @@
 "common.button.retry" = "تلاش مجدد";
 "common.cells.url" = "آدرس اینترنتی";
 "common.cells.username" = "نام کاربری";
+
+"addVault.title" = "اضافه کردن گاوصندوق";
+"addVault.createNewVault.title" = "ساخت گاوصندوق جدید";
+"addVault.createNewVault.setVaultName.cells.name" = "نام گاوصندوق";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "مهم: اگر پسروردتان را از یاد ببرید، هیچ راهی برای بازگردانی اطلاعاتتان نیست.";
+"addVault.openExistingVault.title" = "باز کردن گاوصندوق موجود";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
 "purchase.retry.button" = "تلاش مجدد";
 
 "settings.title" = "تنظیمات";
 "s3Authentication.accessKey" = "کلید دسترسی";
 "s3Authentication.secretKey" = "کلید مخفی";
+"s3Authentication.region" = "منطقه";
 
 "unlockVault.button.unlock" = "بازکردن قفل";
 "vaultDetail.button.moveVault" = "انتقال";

@@ -50,7 +50,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try uploadTaskManager.createNewTaskRecord(for: itemMetadata))
+		try checkThrowsMaintenanceError(uploadTaskManager.createNewTaskRecord(for: itemMetadata))
 	}
 
 	func testPreventCreatingReparentTasks() throws {
@@ -59,7 +59,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: CloudPath("Foo"), newParentID: 1))
+		try checkThrowsMaintenanceError(reparentTaskManager.createTaskRecord(for: itemMetadata, targetCloudPath: CloudPath("Foo"), newParentID: 1))
 	}
 
 	func testPreventCreatingDeletionTasks() throws {
@@ -68,7 +68,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try deletionTaskManager.createTaskRecord(for: itemMetadata))
+		try checkThrowsMaintenanceError(deletionTaskManager.createTaskRecord(for: itemMetadata))
 	}
 
 	func testPreventCreatingItemEnumerationTasks() throws {
@@ -77,7 +77,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try itemEnumerationTaskManager.createTask(for: itemMetadata, pageToken: nil))
+		try checkThrowsMaintenanceError(itemEnumerationTaskManager.createTask(for: itemMetadata, pageToken: nil))
 	}
 
 	func testPreventCreatingDownloadTasks() throws {
@@ -86,7 +86,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 		// Prevent INSERT
 		try manager.enableMaintenanceMode()
-		checkThrowsMaintenanceError(try downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil))
+		try checkThrowsMaintenanceError(downloadTaskManager.createTask(for: itemMetadata, replaceExisting: true, localURL: URL(string: "/Test")!, onURLSessionTaskCreation: nil))
 	}
 
 	// MARK: - Prevent enabling maintenance mode for running tasks
@@ -157,7 +157,7 @@ class MaintenanceManagerTests: XCTestCase {
 
 	func assertOnlyFalseAllowedForInsertOrUpdate() throws {
 		// Prevent INSERT true
-		checkThrowsRunningTaskError(try manager.enableMaintenanceMode())
+		try checkThrowsRunningTaskError(manager.enableMaintenanceMode())
 
 		// Allow INSERT false
 		try manager.disableMaintenanceMode()
@@ -166,6 +166,6 @@ class MaintenanceManagerTests: XCTestCase {
 		try manager.disableMaintenanceMode()
 
 		// Prevent UPDATE with true
-		checkThrowsRunningTaskError(try manager.enableMaintenanceMode())
+		try checkThrowsRunningTaskError(manager.enableMaintenanceMode())
 	}
 }

@@ -42,7 +42,7 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	}
 
 	func createSyncAnchor(from date: Date, locked: Bool = false) throws -> NSFileProviderSyncAnchor {
-		return NSFileProviderSyncAnchor(try JSONEncoder().encode(SyncAnchor(invalidated: locked, date: date)))
+		return try NSFileProviderSyncAnchor(JSONEncoder().encode(SyncAnchor(invalidated: locked, date: date)))
 	}
 
 	func createFullyMockedEnumerator(for itemIdentifier: NSFileProviderItemIdentifier) -> FileProviderEnumerator {
@@ -159,9 +159,9 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		}
 		enumerator.enumerateChanges(for: changeObserverMock, from: syncAnchor)
 		wait(for: [expectation], timeout: 1.0)
-		assertChangeObserverUpdated(deletedItems: [],
-		                            updatedItems: items,
-		                            currentSyncAnchor: try createSyncAnchor(from: currentSyncAnchorDate))
+		try assertChangeObserverUpdated(deletedItems: [],
+		                                updatedItems: items,
+		                                currentSyncAnchor: createSyncAnchor(from: currentSyncAnchorDate))
 	}
 
 	private func assertWaitForSemaphoreCalled() {

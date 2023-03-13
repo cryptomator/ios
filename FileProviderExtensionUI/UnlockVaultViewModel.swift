@@ -312,7 +312,7 @@ class UnlockVaultViewModel {
 		let provider: CloudProvider
 		do {
 			vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-			provider = LocalizedCloudProviderDecorator(delegate: try providerManager.getProvider(with: vaultAccount.delegateAccountUID))
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: vaultAccount.delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}

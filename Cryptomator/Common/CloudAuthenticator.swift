@@ -37,7 +37,7 @@ class CloudAuthenticator {
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let credential = GoogleDriveCredential()
 		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: try credential.getAccountID(), cloudProviderType: .googleDrive)
+			let account = try CloudProviderAccount(accountUID: credential.getAccountID(), cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}

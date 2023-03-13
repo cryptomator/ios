@@ -183,7 +183,7 @@
 "settings.aboutCryptomator" = "關於 Cryptomator";
 "settings.aboutCryptomator.title" = "版本號%@（%@）";
 "settings.cacheSize" = "緩存大小";
-"settings.clearCache" = "清除緩存";
+"settings.clearCache" = "清除快取";
 "settings.cloudServices" = "雲端服務";
 "settings.contact" = "聯絡方式";
 "settings.debugMode" = "調試模式";
@@ -213,8 +213,8 @@
 "s3Authentication.existingBucket" = "現有儲存槽（Bucket）";
 "s3Authentication.endpoint" = "終端節點（Endpoint）";
 "s3Authentication.region" = "地域（Region）";
-"s3Authentication.error.invalidCredentials" = "憑證無效";
-"s3Authentication.error.invalidEndpoint" = "所提供的端點不符合網址格式";
+"s3Authentication.error.invalidCredentials" = "憑證無效。";
+"s3Authentication.error.invalidEndpoint" = "所提供的端點不符合 URL 格式。";
 
 "trialStatus.active" = "生效中";
 "trialStatus.expired" = "已過期";
@@ -228,7 +228,7 @@
 "unlockVault.progress" = "正在解鎖……";
 
 "untrustedTLSCertificate.title" = "無效的 TLS 憑證";
-"untrustedTLSCertificate.message" = "「%@」的 TLS 證書無效。您還是要信任它嗎？\n\nSHA-256: %@";
+"untrustedTLSCertificate.message" = "「%@」的 TLS 憑證無效。您還是要信任它嗎？\n\nSHA-256: %@";
 "untrustedTLSCertificate.add" = "信任";
 "untrustedTLSCertificate.dismiss" = "不信任";
 
