@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.7
 
 //
 //  Package.swift
@@ -34,14 +34,14 @@ let package = Package(
 			name: "CryptomatorCommon",
 			dependencies: [
 				"CryptomatorCommonCore",
-				"CryptomatorCloudAccess"
+				.product(name: "CryptomatorCloudAccess", package: "cloud-access-swift")
 			]
 		),
 		.target(
 			name: "CryptomatorCommonCore",
 			dependencies: [
-				"CocoaLumberjackSwift",
-				"CryptomatorCloudAccessCore"
+				.product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
+				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift")
 			]
 		),
 		.testTarget(
