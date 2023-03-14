@@ -1,8 +1,9 @@
 //
-//  File 2.swift
-//
+//  CryptomatorHubAuthenticator.swift
+//	CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 22.07.22.
+//  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
 import AppAuthCore
@@ -28,6 +29,9 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case unexpectedError
 	case unexpectedResponse
 	case deviceNameAlreadyExists
+
+	case invalidBaseURL
+	case invalidDeviceResourceURL
 }
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
@@ -36,7 +40,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
 		guard let baseURL = createBaseURL(vaultConfig: vaultConfig) else {
-			fatalError("TODO throw error")
+			throw CryptomatorHubAuthenticatorError.invalidBaseURL
 		}
 		let deviceID = try getDeviceID()
 		let url = baseURL.appendingPathComponent("/keys").appendingPathComponent("/\(deviceID)")
@@ -62,15 +66,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws {
 		let deviceID = try getDeviceID()
 		let publicKey = try CryptomatorHubKeyProvider.shared.getPublicKey()
-		let derPubKey: Data
-		if #available(iOS 14.0, *) {
-			derPubKey = publicKey.derRepresentation
-		} else {
-			fatalError("TODO: Increase the minimum deployment target or change representation")
-		}
+		let derPubKey = publicKey.derRepresentation
 		let dto = CreateDeviceDto(id: deviceID, name: name, publicKey: derPubKey.base64URLEncodedString())
 		guard let devicesResourceURL = URL(string: hubConfig.devicesResourceUrl) else {
-			fatalError("TODO: throw error")
+			throw CryptomatorHubAuthenticatorError.invalidDeviceResourceURL
 		}
 		let keyURL = devicesResourceURL.appendingPathComponent("\(deviceID)")
 		var request = URLRequest(url: keyURL)
@@ -103,12 +102,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	func getDeviceID() throws -> String {
 		let publicKey = try CryptomatorHubKeyProvider.shared.getPublicKey()
-		let digest: SHA256.Digest
-		if #available(iOS 14.0, *) {
-			digest = SHA256.hash(data: publicKey.derRepresentation)
-		} else {
-			fatalError("TODO: Increase the minimum deployment target or change representation")
-		}
+		let digest = SHA256.hash(data: publicKey.derRepresentation)
 		return digest.data.base16EncodedString
 	}
 
