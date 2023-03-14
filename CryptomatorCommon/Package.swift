@@ -13,7 +13,7 @@ import PackageDescription
 let package = Package(
 	name: "CryptomatorCommon",
 	platforms: [
-		.iOS(.v13)
+		.iOS(.v14)
 	],
 	products: [
 		.library(
