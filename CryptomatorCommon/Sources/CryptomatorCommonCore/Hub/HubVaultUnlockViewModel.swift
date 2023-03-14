@@ -24,7 +24,9 @@ class HubVaultUnlockViewModel: HubVaultViewModel {
 		self.unlockDelegate = coordinator
 		super.init(initialState: .loading(text: "Cryptomator is receiving and processing the response from Hub. Please wait."), vaultConfig: vaultConfig, coordinator: coordinator)
 		self.authState = hubAccount.authState
-		continueToAccessCheck()
+		Task {
+			await continueToAccessCheck()
+		}
 	}
 
 	override func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) {

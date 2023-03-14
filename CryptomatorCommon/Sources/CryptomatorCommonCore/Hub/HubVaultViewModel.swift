@@ -43,7 +43,7 @@ open class HubVaultViewModel: ObservableObject {
 		self.coordinator = coordinator
 	}
 
-	public func register() {
+	public func register() async {
 		error = nil
 		guard let hubConfig = vaultConfig.hub else {
 			error = AddHubVaultViewModelError.missingHubConfig
@@ -54,45 +54,42 @@ open class HubVaultViewModel: ObservableObject {
 			return
 		}
 
-		Task {
-			do {
-				try await deviceRegisteringService.registerDevice(withName: deviceName, hubConfig: hubConfig, authState: authState)
-			} catch {
-				setError(to: error)
-				return
-			}
-			setState(to: .deviceRegisteredSuccessfully)
+		do {
+			try await deviceRegisteringService.registerDevice(withName: deviceName, hubConfig: hubConfig, authState: authState)
+		} catch {
+			setError(to: error)
+			return
 		}
+		setState(to: .deviceRegisteredSuccessfully)
 	}
 
-	public func continueToAccessCheck() {
+	public func continueToAccessCheck() async {
 		setError(to: nil)
 		guard let authState = authState else {
 			setError(to: AddHubVaultViewModelError.missingAuthState)
 			return
 		}
 		setState(to: .loading(text: "Cryptomator is receiving and processing the response from Hub. Please wait."))
-		Task {
-			let authFlow: HubAuthenticationFlow
-			do {
-				authFlow = try await hubKeyService.receiveKey(authState: authState, vaultConfig: vaultConfig)
-			} catch {
-				setError(to: error)
-				return
-			}
-			switch authFlow {
-			case let .receivedExistingKey(data):
-				receivedExistingKey(data: data)
-			case .accessNotGranted:
-				setState(to: .accessNotGranted)
-			case .needsDeviceRegistration:
-				setState(to: .needsDeviceRegistration)
-			}
+
+		let authFlow: HubAuthenticationFlow
+		do {
+			authFlow = try await hubKeyService.receiveKey(authState: authState, vaultConfig: vaultConfig)
+		} catch {
+			setError(to: error)
+			return
+		}
+		switch authFlow {
+		case let .receivedExistingKey(data):
+			receivedExistingKey(data: data)
+		case .accessNotGranted:
+			setState(to: .accessNotGranted)
+		case .needsDeviceRegistration:
+			setState(to: .needsDeviceRegistration)
 		}
 	}
 
-	public func refresh() {
-		continueToAccessCheck()
+	public func refresh() async {
+		await continueToAccessCheck()
 	}
 
 	public func receivedExistingKey(data: Data) {

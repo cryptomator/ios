@@ -48,7 +48,7 @@ class AddHubVaultViewModel: HubVaultViewModel, HubVaultAdding {
 					return
 				}
 				self.authState = authState
-				continueToAccessCheck()
+				await continueToAccessCheck()
 			} catch {
 				setError(to: error)
 			}
