@@ -44,18 +44,18 @@ class AddHubVaultViewModel: HubVaultViewModel, HubVaultAdding {
 		Task {
 			do {
 				guard let authState = try await addHubVaultCoordinator?.authenticate(with: hubConfig) else {
-					setError(to: AddHubVaultViewModelError.missingAuthState)
+					await setError(to: AddHubVaultViewModelError.missingAuthState)
 					return
 				}
 				self.authState = authState
 				await continueToAccessCheck()
 			} catch {
-				setError(to: error)
+				await setError(to: error)
 			}
 		}
 	}
 
-	override func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) {
+	override func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) async {
 		addVault(jwe: jwe, privateKey: privateKey, hubAccount: hubAccount)
 	}
 
@@ -69,7 +69,9 @@ class AddHubVaultViewModel: HubVaultViewModel, HubVaultAdding {
 		                                 downloadedVaultConfig: downloadedVaultConfig).then {
 			self.addHubVaultCoordinator?.addedVault(withName: self.vaultItem.name, vaultUID: self.vaultUID)
 		}.catch { error in
-			self.setError(to: error)
+			Task {
+				await self.setError(to: error)
+			}
 		}
 	}
 }
