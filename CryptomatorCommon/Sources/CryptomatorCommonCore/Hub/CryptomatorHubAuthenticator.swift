@@ -32,6 +32,7 @@ public enum CryptomatorHubAuthenticatorError: Error {
 
 	case invalidBaseURL
 	case invalidDeviceResourceURL
+	case missingAccessToken
 }
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
@@ -46,7 +47,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let url = baseURL.appendingPathComponent("/keys").appendingPathComponent("/\(deviceID)")
 		let (accessToken, _) = try await authState.performAction()
 		guard let accessToken = accessToken else {
-			fatalError("TODO throw error")
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
 		}
 		var urlRequest = URLRequest(url: url)
 		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
@@ -78,7 +79,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		request.httpBody = try JSONEncoder().encode(dto)
 		let (accessToken, _) = try await authState.performAction()
 		guard let accessToken = accessToken else {
-			fatalError("TODO throw error")
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
 		}
 		request.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
 		let (_, response) = try await URLSession.shared.data(with: request)
