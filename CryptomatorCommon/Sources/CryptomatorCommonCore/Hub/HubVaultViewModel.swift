@@ -44,7 +44,7 @@ open class HubVaultViewModel: ObservableObject {
 	}
 
 	public func register() async {
-		error = nil
+		await setError(to: nil)
 		guard let hubConfig = vaultConfig.hub else {
 			error = AddHubVaultViewModelError.missingHubConfig
 			return
@@ -57,34 +57,34 @@ open class HubVaultViewModel: ObservableObject {
 		do {
 			try await deviceRegisteringService.registerDevice(withName: deviceName, hubConfig: hubConfig, authState: authState)
 		} catch {
-			setError(to: error)
+			await setError(to: error)
 			return
 		}
-		setState(to: .deviceRegisteredSuccessfully)
+		await setState(to: .deviceRegisteredSuccessfully)
 	}
 
 	public func continueToAccessCheck() async {
-		setError(to: nil)
+		await setError(to: nil)
 		guard let authState = authState else {
-			setError(to: AddHubVaultViewModelError.missingAuthState)
+			await setError(to: AddHubVaultViewModelError.missingAuthState)
 			return
 		}
-		setState(to: .loading(text: "Cryptomator is receiving and processing the response from Hub. Please wait."))
+		await setState(to: .loading(text: "Cryptomator is receiving and processing the response from Hub. Please wait."))
 
 		let authFlow: HubAuthenticationFlow
 		do {
 			authFlow = try await hubKeyService.receiveKey(authState: authState, vaultConfig: vaultConfig)
 		} catch {
-			setError(to: error)
+			await setError(to: error)
 			return
 		}
 		switch authFlow {
 		case let .receivedExistingKey(data):
-			receivedExistingKey(data: data)
+			await receivedExistingKey(data: data)
 		case .accessNotGranted:
-			setState(to: .accessNotGranted)
+			await setState(to: .accessNotGranted)
 		case .needsDeviceRegistration:
-			setState(to: .needsDeviceRegistration)
+			await setState(to: .needsDeviceRegistration)
 		}
 	}
 
@@ -92,7 +92,7 @@ open class HubVaultViewModel: ObservableObject {
 		await continueToAccessCheck()
 	}
 
-	public func receivedExistingKey(data: Data) {
+	public func receivedExistingKey(data: Data) async {
 		let privateKey: P384.KeyAgreement.PrivateKey
 		let jwe: JWE
 		let hubAccount: HubAccount
@@ -102,25 +102,23 @@ open class HubVaultViewModel: ObservableObject {
 			hubAccount = try HubAccount(authState: authState!)
 			try HubAccountManager.shared.saveHubAccount(hubAccount)
 		} catch {
-			setError(to: error)
+			await setError(to: error)
 			return
 		}
-		receivedExistingKey(jwe: jwe, privateKey: privateKey, hubAccount: hubAccount)
+		await receivedExistingKey(jwe: jwe, privateKey: privateKey, hubAccount: hubAccount)
 	}
 
-	open func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) {
+	open func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) async {
 		fatalError("Abstract method receivedExistingKey(jwe:privateKey:hubAccount:) not implemented")
 	}
 
+	@MainActor
 	public func setState(to newState: AddHubVaultViewModelState) {
-		DispatchQueue.main.async {
-			self.state = newState
-		}
+		state = newState
 	}
 
+	@MainActor
 	public func setError(to newError: Error?) {
-		DispatchQueue.main.async {
-			self.error = newError
-		}
+		error = newError
 	}
 }

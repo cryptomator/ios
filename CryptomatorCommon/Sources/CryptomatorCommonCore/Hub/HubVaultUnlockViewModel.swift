@@ -29,23 +29,33 @@ class HubVaultUnlockViewModel: HubVaultViewModel {
 		}
 	}
 
-	override func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) {
+	override func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey, hubAccount: HubAccount) async {
 		let masterkey: Masterkey
 		do {
 			masterkey = try JWEHelper.decrypt(jwe: jwe, with: privateKey)
 		} catch {
-			setError(to: error)
+			await setError(to: error)
 			return
 		}
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
-		getXPCPromise.then { xpc in
-			xpc.proxy.unlockVault(rawKey: masterkey.rawKey)
-		}.then {
-			self.unlockDelegate?.unlockedVault()
-		}.catch {
-			self.setError(to: $0)
-		}.always {
-			self.fileProviderConnector.invalidateXPC(getXPCPromise)
+		let xpc: XPC<VaultUnlocking>
+		do {
+			xpc = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
+			defer {
+				fileProviderConnector.invalidateXPC(xpc)
+			}
+			try await xpc.proxy.unlockVault(rawKey: masterkey.rawKey).getValue()
+			unlockDelegate?.unlockedVault()
+			fileProviderConnector.invalidateXPC(xpc)
+		} catch {
+			await setError(to: error)
 		}
+	}
+}
+
+extension Promise {
+	func getValue() async throws -> Value {
+		try await withCheckedThrowingContinuation({ continuation in
+			self.then(continuation.resume(returning:)).catch(continuation.resume(throwing:))
+		})
 	}
 }
