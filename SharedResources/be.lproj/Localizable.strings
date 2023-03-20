@@ -1,5 +1,6 @@
 "common.button.cancel" = "Скасаваць";
 "common.button.change" = "Змяніць";
+"common.button.choose" = "Абраць";
 "common.button.close" = "Зачыніць";
 "common.button.create" = "Стварыць";
 "common.button.done" = "Файна";
@@ -34,5 +35,6 @@
 "unlockVault.button.unlock" = "Адамкнуць";
 
 "vaultDetail.button.changeVaultPassword" = "Змяніць пароль";
+"vaultDetail.button.moveVault" = "Перамясціць";
 "vaultDetail.button.renameVault" = "Пераназваць";
 "vaultDetail.keepUnlocked.title" = "Працягласць размыкання";
