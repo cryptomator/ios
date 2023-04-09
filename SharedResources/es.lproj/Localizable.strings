@@ -40,14 +40,14 @@
 "addVault.title" = "Añadir bóveda";
 "addVault.createNewVault.title" = "Crear bóveda nueva";
 "addVault.createNewVault.purchase" = "Crear una bóveda nueva requiere la versión completa de Cryptomator.";
-"addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
+"addVault.createNewVault.setVaultName.header.title" = "Elija un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
 "addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
 "addVault.createNewVault.password.enterPassword.header" = "Ingrese una contraseña nueva.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirmar la contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirme la contraseña nueva.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "¿Confirmar contraseña?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: si olvida su contraseña no habrá manera de recuperar los datos.";
 "addVault.createNewVault.password.error.emptyPassword" = "La contraseña no puede estar vacía.";
@@ -69,7 +69,7 @@
 "changePassword.error.invalidOldPassword" = "La contraseña actual es incorrecta. Intente de nuevo.";
 "changePassword.header.currentPassword.title" = "Ingrese la contraseña actual.";
 "changePassword.header.newPassword.title" = "Ingrese una contraseña nueva.";
-"changePassword.header.newPasswordConfirmation.title" = "Confirmar la contraseña nueva.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirme la contraseña nueva.";
 "changePassword.progress" = "Cambiando contraseña…";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
