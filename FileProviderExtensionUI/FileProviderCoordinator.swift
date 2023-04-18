@@ -166,8 +166,6 @@ class FileProviderCoordinator: Coordinator {
 		                                   hubAuthenticator: CryptomatorHubAuthenticator.shared,
 		                                   onUnlocked: { [weak self] in self?.done() },
 		                                   onErrorAlertDismissed: { [weak self] in self?.done() })
-//		child.parentCoordinator = self
-//		child.delegate = self
 		childCoordinators.append(child)
 		child.start()
 	}
