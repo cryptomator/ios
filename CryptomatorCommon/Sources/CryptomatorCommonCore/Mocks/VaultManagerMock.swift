@@ -268,4 +268,5 @@ final class VaultManagerMock: VaultManager {
 	}
 }
 
+// swiftlint: enable all
 #endif
