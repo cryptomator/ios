@@ -15,6 +15,7 @@ public enum HubAuthenticationFlow {
 	case receivedExistingKey(Data)
 	case accessNotGranted
 	case needsDeviceRegistration
+	case licenseExceeded
 }
 
 public protocol HubDeviceRegistering {
@@ -55,6 +56,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		switch (response as? HTTPURLResponse)?.statusCode {
 		case 200:
 			return .receivedExistingKey(data)
+		case 402:
+			return .licenseExceeded
 		case 403:
 			return .accessNotGranted
 		case 404:

@@ -176,7 +176,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		case .hub:
 			handleHubVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
 		case .unknown:
-			fatalError("TODO: Display unsupported vault config error")
+			handleError(error: OpenExistingVaultCoordinatorError.unsupportedVaultConfig)
 		}
 	}
 
@@ -190,8 +190,14 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 	}
 
 	private func handleHubVaultConfig(_ downloadedVaultConfig: DownloadedVaultConfig, vaultItem: VaultItem) {
-		let child = CryptomatorHubCoordinator(vaultItem: vaultItem, accountUID: account.accountUID, downloadedVaultConfig: downloadedVaultConfig, navigationController: navigationController)
+		let child = AddHubVaultCoordinator(navigationController: navigationController,
+		                                   downloadedVaultConfig: downloadedVaultConfig,
+		                                   vaultUID: UUID().uuidString,
+		                                   accountUID: account.accountUID,
+		                                   vaultItem: vaultItem,
+		                                   hubAuthenticator: CryptomatorHubAuthenticator.shared)
 		child.parentCoordinator = self
+		child.delegate = self
 		childCoordinators.append(child)
 		child.start()
 	}
@@ -216,8 +222,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 	}
 }
 
-extension AuthenticatedOpenExistingVaultCoordinator: CryptomatorHubCoordinatorDelegate {
-	func addedVault(withName name: String, vaultUID: String) {
-		showSuccessfullyAddedVault(withName: name, vaultUID: vaultUID)
-	}
+enum OpenExistingVaultCoordinatorError: Error {
+	case unsupportedVaultConfig
+	// TODO: add Localization
 }

@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import CryptomatorCommon
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProviderUI
@@ -159,22 +160,14 @@ class FileProviderCoordinator: Coordinator {
 	}
 
 	func showHubLoginScreen(vaultConfig: UnverifiedVaultConfig, domain: NSFileProviderDomain) {
-		let hubAccount: HubAccount
-		do {
-			guard let retrievedHubAccount = try HubAccountManager.shared.getHubAccount(forVaultUID: domain.identifier.rawValue) else {
-				fatalError("TODO: add error")
-			}
-			hubAccount = retrievedHubAccount
-		} catch {
-			handleError(error)
-			return
-		}
-		let child = CryptomatorHubVaultUnlockCoordinator(navigationController: navigationController,
-		                                                 domain: domain,
-		                                                 hubAccount: hubAccount,
-		                                                 vaultConfig: vaultConfig)
-		child.parentCoordinator = self
-		child.delegate = self
+		let child = HubXPCLoginCoordinator(navigationController: navigationController,
+		                                   domain: domain,
+		                                   vaultConfig: vaultConfig,
+		                                   hubAuthenticator: CryptomatorHubAuthenticator.shared,
+		                                   onUnlocked: { [weak self] in self?.done() },
+		                                   onErrorAlertDismissed: { [weak self] in self?.done() })
+//		child.parentCoordinator = self
+//		child.delegate = self
 		childCoordinators.append(child)
 		child.start()
 	}
@@ -201,11 +194,5 @@ class FileProviderCoordinator: Coordinator {
 			return
 		}
 		handleError(error, for: hostViewController)
-	}
-}
-
-extension FileProviderCoordinator: HubVaultUnlockDelegate {
-	func unlockedVault() {
-		done()
 	}
 }

@@ -1,25 +1,15 @@
-//
-//  AddHubVaultView.swift
-//  Cryptomator
-//
-//  Created by Philipp Schmid on 21.07.22.
-//  Copyright © 2022 Skymatic GmbH. All rights reserved.
-//
-
 import SwiftUI
 
-public struct AddHubVaultView: View {
-	@ObservedObject var viewModel: HubVaultViewModel
+public struct HubAuthenticationView: View {
+	@ObservedObject var viewModel: HubAuthenticationViewModel
+
+	public init(viewModel: HubAuthenticationViewModel) {
+		self.viewModel = viewModel
+	}
+
 	public var body: some View {
 		VStack {
-			switch viewModel.state {
-			case .detectedVault:
-				Text("Detected Hub vault")
-				Button("Login") {
-					if let loginViewModel = viewModel as? HubVaultAdding {
-						loginViewModel.login()
-					}
-				}
+			switch viewModel.authenticationFlowState {
 			case .needsDeviceRegistration:
 				Text("This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.")
 				TextField("Device name", text: $viewModel.deviceName)
@@ -47,12 +37,14 @@ public struct AddHubVaultView: View {
 			case let .loading(text):
 				ProgressView()
 				Text(text)
+			case .userLogin:
+				HubLoginView(onLogin: { Task { await viewModel.login() }})
+			case .licenseExceeded:
+				CryptomatorErrorView(text: "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.")
+			case let .error(info):
+				CryptomatorErrorView(text: info)
 			}
 		}
 		.padding()
 	}
-}
-
-public protocol HubVaultAdding {
-	func login()
 }

@@ -290,6 +290,7 @@
 		4AC005F327C3D932006FFE87 /* PremiumManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */; };
 		4AC1157627F5BD890023F51B /* Promise+AllIgnoringResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */; };
 		4AC1157827F5BEFD0023F51B /* Promise+AllIgnoringResultsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC1157727F5BEFD0023F51B /* Promise+AllIgnoringResultsTests.swift */; };
+		4AC49CA029EF3BA6007AF41C /* DetectedHubVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC49C9F29EF3BA6007AF41C /* DetectedHubVaultViewModel.swift */; };
 		4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */; };
 		4AD0F61C24AF203F0026B765 /* FileProvider+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */; };
 		4AD3D7D6282EBDE7008188CD /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AD3D7D5282EBDE7008188CD /* Intents.framework */; };
@@ -360,6 +361,8 @@
 		4AF91CEB25A7306E00ACF01E /* DatabaseManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */; };
 		4AF91CF425A8BB0D00ACF01E /* VaultListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */; };
 		4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */; };
+		4AF9D44929C262B800EB3822 /* CryptomatorCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF9D44829C262B800EB3822 /* CryptomatorCommon */; };
+		4AF9D44B29C293E600EB3822 /* HubAddVaultCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF9D44A29C293E600EB3822 /* HubAddVaultCoordinator.swift */; };
 		4AFBFA142829206D00E30818 /* UploadProgressAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFBFA132829206D00E30818 /* UploadProgressAlertController.swift */; };
 		4AFBFA1628293FE200E30818 /* UploadRetryingServiceSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFBFA1528293FE200E30818 /* UploadRetryingServiceSourceTests.swift */; };
 		4AFBFA182829414A00E30818 /* ProgressManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFBFA172829414A00E30818 /* ProgressManagerMock.swift */; };
@@ -821,6 +824,7 @@
 		4AC005F227C3D932006FFE87 /* PremiumManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PremiumManagerMock.swift; sourceTree = "<group>"; };
 		4AC1157527F5BD890023F51B /* Promise+AllIgnoringResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+AllIgnoringResult.swift"; sourceTree = "<group>"; };
 		4AC1157727F5BEFD0023F51B /* Promise+AllIgnoringResultsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Promise+AllIgnoringResultsTests.swift"; sourceTree = "<group>"; };
+		4AC49C9F29EF3BA6007AF41C /* DetectedHubVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectedHubVaultViewModel.swift; sourceTree = "<group>"; };
 		4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+ProgressHUDError.swift"; sourceTree = "<group>"; };
 		4AD0F61B24AF203F0026B765 /* FileProvider+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileProvider+Actions.swift"; sourceTree = "<group>"; };
 		4AD3D7D4282EBDE7008188CD /* CryptomatorIntents.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CryptomatorIntents.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -895,6 +899,7 @@
 		4AF91CEA25A7306E00ACF01E /* DatabaseManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManagerTests.swift; sourceTree = "<group>"; };
 		4AF91CF325A8BB0D00ACF01E /* VaultListViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModelTests.swift; sourceTree = "<group>"; };
 		4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewModel.swift; sourceTree = "<group>"; };
+		4AF9D44A29C293E600EB3822 /* HubAddVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HubAddVaultCoordinator.swift; sourceTree = "<group>"; };
 		4AFBFA132829206D00E30818 /* UploadProgressAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadProgressAlertController.swift; sourceTree = "<group>"; };
 		4AFBFA1528293FE200E30818 /* UploadRetryingServiceSourceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadRetryingServiceSourceTests.swift; sourceTree = "<group>"; };
 		4AFBFA172829414A00E30818 /* ProgressManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressManagerMock.swift; sourceTree = "<group>"; };
@@ -1058,6 +1063,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4AF9D44929C262B800EB3822 /* CryptomatorCommon in Frameworks */,
 				4A9BED67268F379300721BAA /* libCryptomatorFileProvider.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1439,6 +1445,7 @@
 				4A3D655E268099F9000DA764 /* VaultCoordinatorError.swift */,
 				4A2FD08125B5E2BA008565C8 /* VaultInstalling.swift */,
 				4A644B45267A3D21008CBB9A /* CreateNewVault */,
+				4AF9D44C29C293F800EB3822 /* Hub */,
 				4A1EB0D6268A6CF5006D072B /* LocalVault */,
 				4AA8613F25C1AC4D002A59F5 /* OpenExistingVault */,
 			);
@@ -1871,6 +1878,15 @@
 			path = DB;
 			sourceTree = "<group>";
 		};
+		4AF9D44C29C293F800EB3822 /* Hub */ = {
+			isa = PBXGroup;
+			children = (
+				4AF9D44A29C293E600EB3822 /* HubAddVaultCoordinator.swift */,
+				4AC49C9F29EF3BA6007AF41C /* DetectedHubVaultViewModel.swift */,
+			);
+			path = Hub;
+			sourceTree = "<group>";
+		};
 		740375D82587AE7B0023FF53 /* CryptomatorFileProvider */ = {
 			isa = PBXGroup;
 			children = (
@@ -2131,6 +2147,7 @@
 			);
 			name = FileProviderExtensionUI;
 			packageProductDependencies = (
+				4AF9D44829C262B800EB3822 /* CryptomatorCommon */,
 			);
 			productName = "File Provider ExtensionUI";
 			productReference = 4AA621E4249A6A8400A0BCBD /* FileProviderExtensionUI.appex */;
@@ -2703,6 +2720,7 @@
 				4A4246F827565D87005BE82D /* PoppingCloseCoordinator.swift in Sources */,
 				4A66F58B25C489C7001BE15E /* OpenExistingVaultPasswordViewModel.swift in Sources */,
 				4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */,
+				4AF9D44B29C293E600EB3822 /* HubAddVaultCoordinator.swift in Sources */,
 				4A21B49226BBFFE9000D13DF /* AttributedTextHeaderFooterView.swift in Sources */,
 				4A707802278DC32800AEF4CE /* VaultKeepUnlockedViewModel.swift in Sources */,
 				4A90E7C327C79DCF00BC858B /* PurchaseCell.swift in Sources */,
@@ -2798,6 +2816,7 @@
 				4A2FD08B25B5E437008565C8 /* OpenExistingVaultCoordinator.swift in Sources */,
 				7469AD9A266E26B0000DCD45 /* URL+Zip.swift in Sources */,
 				4AB8539026BA844300555F00 /* Publisher+OptionalAssign.swift in Sources */,
+				4AC49CA029EF3BA6007AF41C /* DetectedHubVaultViewModel.swift in Sources */,
 				4A1C6D58274CE5BF00B41FFF /* LoadingCell.swift in Sources */,
 				4A3D65642680A4B7000DA764 /* LocalFileSystemAuthenticationViewController.swift in Sources */,
 				4AB1D4F427D61035009060AB /* AutoHidingLabel.swift in Sources */,
@@ -3711,6 +3730,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
+		};
+		4AF9D44829C262B800EB3822 /* CryptomatorCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CryptomatorCommon;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

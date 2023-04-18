@@ -23,6 +23,7 @@ public enum VaultManagerError: Error {
 	case moveVaultInsideItself
 	case invalidDecrypter
 	case invalidPayloadMasterkey
+	case missingVaultConfigToken
 }
 
 public protocol VaultManager {
@@ -35,9 +36,7 @@ public protocol VaultManager {
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
-
-	// swiftlint:disable:next function_parameter_count
-	func addExistingHubVault(vaultUID: String, delegateAccountUID: String, hubUserID: String, jweData: Data, privateKey: P384.KeyAgreement.PrivateKey, vaultItem: VaultItem, downloadedVaultConfig: DownloadedVaultConfig) -> Promise<Void>
+	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void>
 	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider
 }
 
@@ -47,8 +46,7 @@ public class VaultDBManager: VaultManager {
 	                                          vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool),
 	                                          passwordManager: VaultPasswordKeychainManager(),
 	                                          masterkeyCacheManager: MasterkeyCacheKeychainManager.shared,
-	                                          masterkeyCacheHelper: VaultKeepUnlockedManager.shared,
-	                                          hubAccountManager: HubAccountManager.shared)
+	                                          masterkeyCacheHelper: VaultKeepUnlockedManager.shared)
 	let providerManager: CloudProviderDBManager
 	let vaultAccountManager: VaultAccountManager
 	private static let fakeVaultVersion = 999
@@ -56,22 +54,19 @@ public class VaultDBManager: VaultManager {
 	private let passwordManager: VaultPasswordManager
 	private let masterkeyCacheManager: MasterkeyCacheManager
 	private let masterkeyCacheHelper: MasterkeyCacheHelper
-	private let hubAccountManager: HubAccountManager
 
 	init(providerManager: CloudProviderDBManager,
 	     vaultAccountManager: VaultAccountManager,
 	     vaultCache: VaultCache,
 	     passwordManager: VaultPasswordManager,
 	     masterkeyCacheManager: MasterkeyCacheManager,
-	     masterkeyCacheHelper: MasterkeyCacheHelper,
-	     hubAccountManager: HubAccountManager) {
+	     masterkeyCacheHelper: MasterkeyCacheHelper) {
 		self.providerManager = providerManager
 		self.vaultAccountManager = vaultAccountManager
 		self.vaultCache = vaultCache
 		self.passwordManager = passwordManager
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.masterkeyCacheHelper = masterkeyCacheHelper
-		self.hubAccountManager = hubAccountManager
 	}
 
 	// MARK: - Create New Vault
@@ -299,21 +294,25 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
-	// swiftlint:disable:next function_parameter_count
-	public func addExistingHubVault(vaultUID: String, delegateAccountUID: String, hubUserID: String, jweData: Data, privateKey: P384.KeyAgreement.PrivateKey, vaultItem: VaultItem, downloadedVaultConfig: DownloadedVaultConfig) -> Promise<Void> {
+	public func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+		let delegateAccountUID = vault.delegateAccountUID
 		let provider: LocalizedCloudProviderDecorator
 		do {
 			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
 		} catch {
 			return Promise(error)
 		}
+		let vaultItem = vault.vaultItem
+		let downloadedVaultConfig = vault.downloadedVaultConfig
+		let jweData = vault.jweData
+
 		let vaultPath = vaultItem.vaultPath
 		let vaultConfigMetadata = downloadedVaultConfig.metadata
 		let vaultConfigToken = downloadedVaultConfig.token
 		let masterkey: Masterkey
 		do {
 			let jwe = try JWE(compactSerialization: jweData)
-			masterkey = try JWEHelper.decrypt(jwe: jwe, with: privateKey)
+			masterkey = try JWEHelper.decrypt(jwe: jwe, with: vault.privateKey)
 		} catch {
 			return Promise(error)
 		}
@@ -322,6 +321,7 @@ public class VaultDBManager: VaultManager {
 		} catch {
 			return Promise(error)
 		}
+		let vaultUID = vault.vaultUID
 		let cachedVault = CachedVault(vaultUID: vaultUID,
 		                              masterkeyFileData: jweData,
 		                              vaultConfigToken: vaultConfigToken,
@@ -332,7 +332,6 @@ public class VaultDBManager: VaultManager {
 			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
 			try self.vaultAccountManager.saveNewAccount(vaultAccount)
 			do {
-				try self.hubAccountManager.linkVaultToHubAccount(vaultUID: vaultUID, hubUserID: hubUserID)
 				try self.postProcessVaultCreation(cachedVault: cachedVault, password: nil)
 			} catch {
 				try self.vaultAccountManager.removeAccount(with: vaultUID)
@@ -461,7 +460,7 @@ public class VaultDBManager: VaultManager {
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 
 		guard let vaultConfigToken = cachedVault.vaultConfigToken else {
-			fatalError("TODO: throw error")
+			throw VaultManagerError.missingVaultConfigToken
 		}
 		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
 		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
