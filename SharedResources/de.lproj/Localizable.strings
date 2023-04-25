@@ -42,7 +42,7 @@
 "addVault.createNewVault.purchase" = "Das Erstellen eines neuen Tresors erfordert die Vollversion von Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Wähle einen Namen für den Tresor.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tresorname";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname darf nicht leer sein.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tresorname muss ausgefüllt werden.";
 "addVault.createNewVault.chooseCloud.header" = "Wo soll Cryptomator die verschlüsselten Dateien deines Tresors ablegen?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "„%@“ existiert bereits an dieser Stelle. Wähle einen anderen Tresornamen oder einen anderen Ort.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator hat an diesem Ort einen bestehenden Tresor erkannt.\nUm einen neuen Tresor zu erstellen, gehe bitte zurück und wähle einen anderen Ordner aus.";
@@ -80,11 +80,11 @@
 
 "cloudProvider.error.itemNotFound" = "„%@“ konnte nicht gefunden werden.";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ existiert bereits.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" hat einen unerwarteten Elementtyp.";
+"cloudProvider.error.itemTypeMismatch" = "„%@“ hat einen unerwarteten Dateityp.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Übergeordneter Ordner „%@“ existiert nicht.";
 "cloudProvider.error.pageTokenInvalid" = "Abrufen von Verzeichnisinhalten konnte nicht fortgesetzt werden.";
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
-"cloudProvider.error.unauthorized" = "Unautorisierte Operation kann nicht ausgeführt werden.";
+"cloudProvider.error.unauthorized" = "Unautorisierte Operation konnte nicht ausgeführt werden.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
 
 "cloudProviderType.localFileSystem" = "Anderer Speicher-Anbieter";
@@ -108,9 +108,9 @@
 "fileProvider.uploadProgress.title" = "Wird hochgeladen …";
 "fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
 
-"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte gib einen gültigen Pfad zu einem Ordner an.";
+"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte geben Sie einen gültigen Pfad an, für den ein Ordner angegeben werden soll.";
 "getFolderIntent.error.noVaultSelected" = "Es wurde kein Tresor ausgewählt.";
-"intents.saveFile.missingFile" = "Die angegebene Datei ist ungültig.";
+"intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
 "intents.saveFile.missingTemporaryFolder" = "Erstellung eines temporären Ordners fehlgeschlagen.";
 "intents.saveFile.lockedVault" = "Du musst deinen Tresor entsperren, um diesen Kurzbefehl nutzen zu können.";
