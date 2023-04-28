@@ -12,3 +12,5 @@
 "fileProvider.error.unlockButton" = "Отключване";
 
 "unlockVault.button.unlock" = "Отключване";
+
+"vaultDetail.button.changeVaultPassword" = "Промяна на парола";
