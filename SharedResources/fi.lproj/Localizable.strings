@@ -1,0 +1,14 @@
+"common.button.cancel" = "Peruuta";
+"common.button.change" = "Muuta";
+"common.button.close" = "Sulje";
+"common.button.done" = "Valmis";
+"common.button.next" = "Seuraava";
+
+"addVault.title" = "Lisää Vault";
+"addVault.createNewVault.title" = "Luo Uusi Vault";
+"addVault.createNewVault.setVaultName.cells.name" = "Vault Nimi";
+"addVault.createNewVault.chooseCloud.header" = "Missä pitäisi Cryptomator tallentaa salattuja tiedostoja Vault?";
+"addVault.openExistingVault.title" = "Avaa Olemassaoleva Vault";
+"fileProvider.error.unlockButton" = "Avaa";
+
+"unlockVault.button.unlock" = "Avaa";
