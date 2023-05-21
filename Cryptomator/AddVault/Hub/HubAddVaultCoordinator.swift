@@ -45,24 +45,11 @@ class AddHubVaultCoordinator: Coordinator {
 	}
 
 	func start() {
-		let viewModel = DetectedHubVaultViewModel(onButtonTap: { [weak self] in
-			Task { [weak self] in
-				await self?.login()
-			}
-		})
-		let viewController = UIHostingController(rootView: CryptomatorSuccessView(viewModel: viewModel))
-		navigationController.pushViewController(viewController, animated: true)
-	}
-
-	func login() async {
 		let viewModel = HubAuthenticationViewModel(vaultConfig: downloadedVaultConfig.vaultConfig,
 		                                           hubUserAuthenticator: self,
 		                                           delegate: self)
-		await viewModel.login()
-		DispatchQueue.main.sync {
-			let viewController = UIHostingController(rootView: HubAuthenticationView(viewModel: viewModel))
-			navigationController.pushViewController(viewController, animated: false)
-		}
+		let viewController = HubAuthenticationViewController(viewModel: viewModel)
+		navigationController.pushViewController(viewController, animated: true)
 	}
 }
 

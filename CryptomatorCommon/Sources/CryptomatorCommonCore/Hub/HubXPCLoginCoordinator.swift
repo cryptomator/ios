@@ -36,7 +36,7 @@ public final class HubXPCLoginCoordinator: Coordinator {
 		let viewModel = HubAuthenticationViewModel(vaultConfig: vaultConfig,
 		                                           hubUserAuthenticator: self,
 		                                           delegate: self)
-		let viewController = UIHostingController(rootView: HubAuthenticationView(viewModel: viewModel))
+		let viewController = HubAuthenticationViewController(viewModel: viewModel)
 		navigationController.pushViewController(viewController, animated: true)
 	}
 }

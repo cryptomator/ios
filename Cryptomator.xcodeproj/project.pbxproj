@@ -326,8 +326,6 @@
 		4AEBE8C22653FAD40031487F /* WorkflowMiddleware.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */; };
 		4AED9A69286B303000352951 /* S3Authenticator+VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A68286B303000352951 /* S3Authenticator+VC.swift */; };
 		4AED9A6C286B305200352951 /* S3AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A6B286B305200352951 /* S3AuthenticationView.swift */; };
-		4AED9A6F286B38DA00352951 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 4AED9A6E286B38DA00352951 /* Introspect */; };
-		4AED9A73286B3D6D00352951 /* SwiftUI+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A72286B3D6C00352951 /* SwiftUI+Focus.swift */; };
 		4AED9A77286B4BEE00352951 /* S3AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */; };
 		4AED9A79286B4DF500352951 /* S3Authenticating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AED9A78286B4DF500352951 /* S3Authenticating.swift */; };
 		4AEE22F82861D6DC00A9C785 /* OpenVaultIntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */; };
@@ -867,7 +865,6 @@
 		4AEBE8C12653FAD40031487F /* WorkflowMiddleware.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkflowMiddleware.swift; sourceTree = "<group>"; };
 		4AED9A68286B303000352951 /* S3Authenticator+VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "S3Authenticator+VC.swift"; sourceTree = "<group>"; };
 		4AED9A6B286B305200352951 /* S3AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationView.swift; sourceTree = "<group>"; };
-		4AED9A72286B3D6C00352951 /* SwiftUI+Focus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SwiftUI+Focus.swift"; sourceTree = "<group>"; };
 		4AED9A76286B4BEE00352951 /* S3AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3AuthenticationViewController.swift; sourceTree = "<group>"; };
 		4AED9A78286B4DF500352951 /* S3Authenticating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = S3Authenticating.swift; sourceTree = "<group>"; };
 		4AEE22F72861D6DC00A9C785 /* OpenVaultIntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenVaultIntentHandler.swift; sourceTree = "<group>"; };
@@ -1082,7 +1079,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A9172822619F17C003C4043 /* CryptomatorCommon in Frameworks */,
-				4AED9A6F286B38DA00352951 /* Introspect in Frameworks */,
 				4A1521E427C55EA2006C96B2 /* TPInAppReceipt in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1506,7 +1502,6 @@
 				4A4246F727565D87005BE82D /* PoppingCloseCoordinator.swift */,
 				4A447E0325BF0B0F00D9520D /* SingleSectionTableViewController.swift */,
 				4A61F6B8274582E3007AA422 /* StaticUITableViewController.swift */,
-				4AED9A72286B3D6C00352951 /* SwiftUI+Focus.swift */,
 				4A61F6B62745353E007AA422 /* TableViewModel.swift */,
 				4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */,
 				4AC8626F273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift */,
@@ -2197,7 +2192,6 @@
 			packageProductDependencies = (
 				4A9172812619F17C003C4043 /* CryptomatorCommon */,
 				4A1521E327C55EA2006C96B2 /* TPInAppReceipt */,
-				4AED9A6E286B38DA00352951 /* Introspect */,
 			);
 			productName = Cryptomator;
 			productReference = 4AE97DA824572E4900452814 /* Cryptomator.app */;
@@ -2327,7 +2321,6 @@
 			mainGroup = 4A5E5B202453119100BD6298;
 			packageReferences = (
 				4A1521E227C55EA2006C96B2 /* XCRemoteSwiftPackageReference "TPInAppReceipt" */,
-				4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 4A5E5B2A2453119100BD6298 /* Products */;
 			projectDirPath = "";
@@ -2789,7 +2782,6 @@
 				4A587FA828B55CD600C69A1E /* WebDAVCredentialCoordinator.swift in Sources */,
 				4A53CC11267CBFA100853BB3 /* AddVaultSuccessCoordinator.swift in Sources */,
 				4A6CF80027428CCB0061380A /* VaultCellViewModel.swift in Sources */,
-				4AED9A73286B3D6D00352951 /* SwiftUI+Focus.swift in Sources */,
 				4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */,
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */,
@@ -3694,14 +3686,6 @@
 				minimumVersion = 3.3.0;
 			};
 		};
-		4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMinorVersion;
-				minimumVersion = 0.1.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -3725,11 +3709,6 @@
 		4AC4C98D288AD858008C6D2B /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppAuth;
-		};
-		4AED9A6E286B38DA00352951 /* Introspect */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 4AED9A6D286B38D900352951 /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
 		};
 		4AF9D44829C262B800EB3822 /* CryptomatorCommon */ = {
 			isa = XCSwiftPackageProductDependency;

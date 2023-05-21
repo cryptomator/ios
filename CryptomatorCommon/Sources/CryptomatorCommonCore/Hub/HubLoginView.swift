@@ -4,10 +4,11 @@ struct HubLoginView: View {
 	var onLogin: () -> Void
 
 	var body: some View {
-		Text("Login to unlock your vault")
-		Button("Login") {
-			onLogin()
-		}
+		CryptomatorSimpleButtonView(
+			buttonTitle: "Login",
+			onButtonTap: onLogin,
+			headerTitle: "Login to unlock your vault"
+		)
 	}
 }
 

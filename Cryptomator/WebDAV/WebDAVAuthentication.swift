@@ -39,9 +39,7 @@ struct WebDAVAuthentication: View {
 			}
 			.focusedLegacy($focusedField, equals: .password)
 		}
-		.introspectTableView(customize: { tableView in
-			tableView.backgroundColor = .cryptomatorBackground
-		})
+		.setListBackgroundColor(.cryptomatorBackground)
 	}
 }
 

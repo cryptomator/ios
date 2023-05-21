@@ -6,6 +6,7 @@
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
+import SwiftUI
 import UIKit
 
 public extension UIColor {
@@ -20,4 +21,10 @@ public extension UIColor {
 	static var cryptomatorYellow: UIColor {
 		return UIColor(named: "yellow")!
 	}
+}
+
+public extension Color {
+	static var cryptomatorPrimary: Color { Color(UIColor.cryptomatorPrimary) }
+	static var cryptomatorBackground: Color { Color(UIColor.cryptomatorBackground) }
+	static var cryptomatorYellow: Color { Color(UIColor.cryptomatorYellow) }
 }

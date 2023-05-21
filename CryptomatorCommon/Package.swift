@@ -27,7 +27,8 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/cryptomator/cloud-access-swift.git", branch: "feature/hub-poc"),
-		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.8.0"))
+		.package(url: "https://github.com/CocoaLumberjack/CocoaLumberjack.git", .upToNextMinor(from: "3.8.0")),
+		.package(url: "https://github.com/siteline/SwiftUI-Introspect.git", .upToNextMajor(from: "0.3.0"))
 	],
 	targets: [
 		.target(
@@ -41,7 +42,8 @@ let package = Package(
 			name: "CryptomatorCommonCore",
 			dependencies: [
 				.product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
-				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift")
+				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift"),
+				.product(name: "Introspect", package: "SwiftUI-Introspect")
 			]
 		),
 		.testTarget(

@@ -15,10 +15,14 @@ public class HubAuthenticationViewModel: ObservableObject {
 		case receivedExistingKey
 		case accessNotGranted
 		case licenseExceeded
-		case deviceRegisteredSuccessfully
-		case needsDeviceRegistration
+		case deviceRegistration(DeviceRegistration)
 		case loading(text: String)
 		case error(description: String)
+	}
+
+	public enum DeviceRegistration: Equatable {
+		case deviceName
+		case needsAuthorization
 	}
 
 	@Published var authenticationFlowState: State = .userLogin
@@ -75,7 +79,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 			await setStateToErrorState(with: error)
 			return
 		}
-		await setState(to: .deviceRegisteredSuccessfully)
+		await setState(to: .deviceRegistration(.needsAuthorization))
 	}
 
 	public func refresh() async {
@@ -102,7 +106,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 		case .accessNotGranted:
 			await setState(to: .accessNotGranted)
 		case .needsDeviceRegistration:
-			await setState(to: .needsDeviceRegistration)
+			await setState(to: .deviceRegistration(.deviceName))
 		case .licenseExceeded:
 			await setState(to: .licenseExceeded)
 		}
