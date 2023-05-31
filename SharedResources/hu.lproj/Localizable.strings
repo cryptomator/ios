@@ -14,19 +14,125 @@
 "common.cells.password" = "Jelszó";
 "common.cells.url" = "ULR";
 "common.cells.username" = "Felhasználónév";
+"common.footer.learnMore" = "További információk.";
+"common.hud.authenticating" = "Hitelesítés…";
+
+"accountList.header.title" = "Hitelesítések";
+"accountList.emptyList.message" = "Koppintson ide egy fiók hozzáadásához";
+"accountList.signOut.alert.title" = "Hozzátartozó széfek eltávolítása?";
+"accountList.signOut.alert.message" = "A kijelentkezéssel az összes hozzátartozó széf eltávolításra kerül a listából. Semmilyen titkosított adat nem törlődik. Később újra bejelentkezhet és újra felveheti a széfeket.";
 
 "addVault.title" = "Széf hozzáadása";
 "addVault.createNewVault.title" = "Új széf létrehozása";
+"addVault.createNewVault.purchase" = "Új széf létrehozásához meg kell vennie a Cryptomator teljes verzióját.";
+"addVault.createNewVault.setVaultName.header.title" = "Válasszon egy nevet az új széf számára.";
 "addVault.createNewVault.setVaultName.cells.name" = "A széf neve";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "A széf neve nem lehet üres.";
 "addVault.createNewVault.chooseCloud.header" = "Hova mentse a Cryptomator a széf titkosított fájljait?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" nevű széf már létezik ezen a helyen. Válasszon másik nevet vagy helyet a széfnek.";
+"addVault.createNewVault.detectedMasterkey.text" = "A Cryptomator talált egy már létező széfet ezen a helyen.\nÚj széf létrehozásához lépjen vissza és válasszon egy másik mappát.";
+"addVault.createNewVault.password.enterPassword.header" = "Adjon meg egy új jelszót.";
+"addVault.createNewVault.password.confirmPassword.header" = "Erősítse meg az új jelszót.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Jelszó megerősítése?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "FONTOS: Ha elfelejti a jelszavát, nincs mód az adatok helyreállítására.";
+"addVault.createNewVault.password.error.emptyPassword" = "A jelszó nem lehet üres.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "A jelszavak nem egyeznek.";
+"addVault.createNewVault.password.error.tooShortPassword" = "A jelszónak legalább 8 karaktert kell tartalmaznia.";
+"addVault.createNewVault.progress" = "Széf létrehozása…";
 "addVault.openExistingVault.title" = "Meglévő széf megnyitása";
+"addVault.openExistingVault.chooseCloud.header" = "Hol található a széf?";
+"addVault.openExistingVault.detectedMasterkey.text" = "A Cryptomator felismerte a következő széfet: \"%@\".\nSzeretné ezt a széfet hozzáadni?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Széf hozzáadása";
+"addVault.openExistingVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
+"addVault.openExistingVault.progress" = "Széf hozzáadása…";
+"addVault.success.info" = "Sikeresen megtörtént a következő széf hozzáadása: \"%@\".\nElérheti ezt a széfet a Fájlok appban.";
+"addVault.success.footer" = "Ha még nem tette volna, engedélyezze a Cryptomatort a Fájlok appban.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "A jelenlegi jelszó helytelen. Kérjük, próbálja újra.";
+"changePassword.header.currentPassword.title" = "Írja be a jelenlegi jelszót.";
+"changePassword.header.newPassword.title" = "Adjon meg egy új jelszót.";
+"changePassword.header.newPasswordConfirmation.title" = "Erősítse meg az új jelszót.";
+"changePassword.progress" = "Jelszó módosítása…";
+
+"chooseFolder.emptyFolder.footer" = "A mappa üres";
+"chooseFolder.createNewFolder.header.title" = "Válasszon egy nevet a mappa számára.";
+"chooseFolder.createNewFolder.cells.name" = "Mappa neve";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "A mappa neve nem lehet üres.";
+"chooseFolder.createNewFolder.progress" = "Mappa létrehozása…";
+
+"cloudProvider.error.itemNotFound" = "A(z) \"%@\" nem található.";
+"cloudProvider.error.itemAlreadyExists" = "A(z) \"%@\" már létezik.";
+"cloudProvider.error.itemTypeMismatch" = "A következőben egy nem várt elemtípus található: \"%@\".";
+"cloudProvider.error.parentFolderDoesNotExist" = "A szülőmappa \"%@\" nem létezik.";
+"cloudProvider.error.pageTokenInvalid" = "A könyvtár elemeinek lekérését nem tudtuk folytatni.";
+"cloudProvider.error.quotaInsufficient" = "Kevés a tárhely.";
+"cloudProvider.error.unauthorized" = "Nem lehet jogosulatlan műveletet végrehajtani.";
+"cloudProvider.error.noInternetConnection" = "Internet hozzáférés szükséges ehhez a művelethez.";
+
+"cloudProviderType.localFileSystem" = "Más fájlszolgáltató";
+
+"fileProvider.onboarding.title" = "Üdvözöljük";
+"fileProvider.onboarding.info" = "Köszönjük, hogy a Cryptomatort válaszotta fájlainak megvédéséhez. Kezdéshez menjen a fő appba és adjon hozzá egy széfet.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator megnyitása";
+"fileProvider.error.biometricalAuthCanceled.title" = "Feloldás megszakítva";
 "fileProvider.error.unlockButton" = "Feloldás";
+"purchase.product.donateAndUpgrade" = "Adományozás és frissítés";
+"purchase.product.freeUpgrade" = "Ingyenes frissítés";
+"purchase.product.lifetimeLicense" = "Örök licensz";
+"purchase.product.lifetimeLicense.duration" = "egyszeri";
+"purchase.product.pricing.free" = "Ingyenes";
+"purchase.product.trial" = "30 napos próbaverzió";
+"purchase.product.trial.expirationDate" = "Lejárati dátum: %@";
+"purchase.product.trial.duration" = "30 napig";
+"purchase.product.yearlySubscription" = "Éves előfizetés";
+"purchase.product.yearlySubscription.duration" = "évente";
+"purchase.readOnlyMode.alert.title" = "Csak olvasható mód";
+"purchase.readOnlyMode.alert.message" = "Feloldhatja a Cryptomator teljes verzióját a beállításokban később és addig használhatja csak olvasható módban.";
+"purchase.restorePurchase.button" = "Vásárlás visszaállítása";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Próbaidő folytatódott";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Mostmár használhatja a Cryptomator teljes verzióját korlátozott időre. A próbaidője lejár ekkor: %@. Azután a széfeit továbbra is elérheti csak olvasható módban.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Sikeres visszaállítás";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nincs teljes verzió";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Nem találtunk egy előzőleg megvásárolt teljes verziót, melyet visszaállíthattunk volna. Kérjük, próbáljon meg egy másik opciót.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Frissítésre jogosult";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Úgy tűnik, hogy a Cryptomator egy régebbi verziójáról próbál meg frissíteni. Ebben az esetben, kérjük válassza a \"Frissítési ajánlat\" opciót.";
 "purchase.retry.button" = "Újra";
+"purchase.retry.footer" = "Az elérhető termékek betöltése sikertelen.";
+"purchase.title" = "Teljes verzió feloldása";
+"purchase.unlockedFullVersion.message" = "Mostmár használhatja a Cryptomator teljes verzióját. Örömteli titkosítást!";
+"purchase.unlockedFullVersion.title" = "Köszönjük";
+"purchase.error.unknown" = "A vásárlás ismeretlen ok miatt nem elérhető az App Storeban. Kérjük, próbálja újra később.\n\nHa ez a probléma fennállna, próbálja meg újraindítani a készülékét vagy ki- és bejelentkezni az Apple ID-ból az iOS beállításokban.";
 
 "settings.title" = "Beállítások";
+"settings.aboutCryptomator" = "A Cryptomator névjegye";
+"settings.aboutCryptomator.title" = "Verzió %@ (%@)";
+"settings.cacheSize" = "Gyorsítótár mérete";
 "settings.clearCache" = "Gyorsítótár törlése";
+"settings.cloudServices" = "Felhőszolgáltatások";
+"settings.contact" = "Kapcsolat";
+"settings.debugMode" = "Hibakeresési mód";
 "settings.debugMode.alert.message" = "Ebben a módban érzékeny adatok kerülhetnek az eszközön lévő naplófájlba (pl. fájlnevek és -útvonalak). Ez jelszavakra és sütikre nem vonatkozik.\n\n Ne felejtse el minél hamarabb kikapcsolni a fejlesztői módot.";
+"settings.manageSubscriptions" = "Előfizetés kezelése";
+"settings.rateApp" = "Alkalmazás értékelése";
+"settings.sendLogFile" = "Naplófájl küldése";
+"settings.shortcutsGuide" = "Parancsok útmutató";
+"settings.unlockFullVersion" = "Teljes verzió feloldása";
+
+"snapshots.fileprovider.file1" = "/Könyevlés.numbers";
+"snapshots.fileprovider.file2" = "/Kész Előadás.key";
+"snapshots.fileprovider.file3" = "/Termék Filmelőzetes.mov";
+"snapshots.fileprovider.file4" = "/Javaslat.docx";
+"snapshots.fileprovider.file5" = "/Jelentés.pdf";
+"snapshots.fileprovider.folder3" = "/Titkos Projekt";
+"snapshots.fileprovider.folder2" = "/Számlák";
+"snapshots.fileprovider.folder1" = "/Tanúsítványok";
+"snapshots.main.vault1" = "/Munka";
+"snapshots.main.vault2" = "/Család";
+"snapshots.main.vault3" = "/Dokumentumok";
+"snapshots.main.vault4" = "/Utazás Kaliforniába";
 
 "s3Authentication.displayName" = "Megjelenítendő név";
 "s3Authentication.accessKey" = "Hozzáférési kulcs";
@@ -34,9 +140,12 @@
 "s3Authentication.existingBucket" = "Meglévő tartály";
 "s3Authentication.endpoint" = "Végpont";
 "s3Authentication.region" = "Régió";
+"s3Authentication.error.invalidCredentials" = "Érvénytelen hitelesítő adatok.";
+"s3Authentication.error.invalidEndpoint" = "A megadott végpont nem egyezik az URL formátumával.";
 
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
+"unlockVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ engedélyezése";
 "unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a széfet, a %@ segítségével is feloldhatja azt.";
 "unlockVault.evaluatePolicy.reason" = "Széf kinyitása";
