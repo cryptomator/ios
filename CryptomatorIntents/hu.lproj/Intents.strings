@@ -1,1 +1,8 @@
+"common.false" = "hamis";
+"common.folder" = "Mappa";
+"common.true" = "igaz";
 "common.vault" = "Széf";
+
+"getFolderIntent.description" = "Visszaad egy mappa objektumot a megadott útvonalhoz a megadott széfben.";
+"getFolderIntent.path" = "Útvonal";
+"getFolderIntent.text" = "Visszaadja a mappát ezen a helyen: ${path}, ebben a széfben: ${vault}";
