@@ -12,3 +12,5 @@
 "fileProvider.error.unlockButton" = "Avaa";
 
 "unlockVault.button.unlock" = "Avaa";
+
+"vaultDetail.button.changeVaultPassword" = "Vaihda salasana";
