@@ -4,6 +4,7 @@
 "common.button.choose" = "Pumili";
 "common.button.close" = "Isara";
 "common.button.create" = "Gumawa";
+"common.button.createFolder" = "Gumawa ng Folder";
 "common.button.done" = "Tapos na";
 "common.button.edit" = "I-edit";
 "common.button.enable" = "I-enable";
@@ -11,16 +12,28 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Tanggalin";
 "common.button.retry" = "Subukan muli";
+"common.cells.openInFilesApp" = "Ibuksan sa Files App";
+"common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
+"common.footer.learnMore" = "Matuto pa.";
+"accountList.emptyList.message" = "Pumindot dito para madagdag ang account";
 
 "addVault.title" = "Magdagdag ng Vault";
 "addVault.createNewVault.title" = "Gumawa ng Bagong Vault";
+"addVault.createNewVault.setVaultName.header.title" = "Pumili ng pangalan para sa vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Pangalan ng Vault";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Hindi pwedeng wala ang pangalan ng vault.";
 "addVault.createNewVault.chooseCloud.header" = "Saan maaaring ilagay ng Cryptomator ang mga encrypted files ng iyong vault?";
+"addVault.createNewVault.password.enterPassword.header" = "Maglagay ng bagong password.";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Walang paraan para maisalba ang iyong datos kapag nakalimutan ang iyong password.";
+"addVault.createNewVault.password.error.tooShortPassword" = "8 o higit pang karakter ang kailangan sa password.";
+"addVault.createNewVault.progress" = "Gumagawa ng Vault…";
 "addVault.openExistingVault.title" = "Magbukas ng Umiiral na Vault";
+"changePassword.header.newPassword.title" = "Maglagay ng bagong password.";
 "fileProvider.error.unlockButton" = "I-unlock";
+"getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
+"purchase.product.freeUpgrade" = "Libreng Upgrade";
 "purchase.retry.button" = "Subukan muli";
 
 "settings.title" = "Settings";
@@ -29,6 +42,7 @@
 "s3Authentication.region" = "Rehiyon";
 
 "unlockVault.button.unlock" = "I-unlock";
+"vaultDetail.button.lock" = "I-lock ngayon";
 "vaultDetail.button.moveVault" = "Ilipat";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
 
