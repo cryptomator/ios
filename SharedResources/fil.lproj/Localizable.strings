@@ -30,7 +30,9 @@
 "addVault.createNewVault.password.error.tooShortPassword" = "8 o higit pang karakter ang kailangan sa password.";
 "addVault.createNewVault.progress" = "Gumagawa ng Vault…";
 "addVault.openExistingVault.title" = "Magbukas ng Umiiral na Vault";
+"addVault.openExistingVault.chooseCloud.header" = "Saan matatagpuan ang vault?";
 "changePassword.header.newPassword.title" = "Maglagay ng bagong password.";
+"chooseFolder.createNewFolder.progress" = "Gumagawa ng Folder…";
 "fileProvider.error.unlockButton" = "I-unlock";
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
 "purchase.product.freeUpgrade" = "Libreng Upgrade";
