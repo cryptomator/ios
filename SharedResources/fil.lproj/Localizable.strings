@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Error";
 "common.alert.attention.title" = "Atensyon";
 "common.button.cancel" = "Kanselahin";
 "common.button.change" = "Baguhin";
