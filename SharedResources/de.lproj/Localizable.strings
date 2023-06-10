@@ -84,7 +84,7 @@
 "cloudProvider.error.parentFolderDoesNotExist" = "Übergeordneter Ordner „%@“ existiert nicht.";
 "cloudProvider.error.pageTokenInvalid" = "Abrufen von Verzeichnisinhalten konnte nicht fortgesetzt werden.";
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
-"cloudProvider.error.unauthorized" = "Unautorisierte Operation konnte nicht ausgeführt werden.";
+"cloudProvider.error.unauthorized" = "Unautorisierte Operation kann nicht ausgeführt werden.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
 
 "cloudProviderType.localFileSystem" = "Anderer Speicher-Anbieter";
