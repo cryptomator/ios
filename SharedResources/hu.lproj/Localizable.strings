@@ -13,6 +13,7 @@
 "common.button.close" = "Bezár";
 "common.button.confirm" = "Megerősítés";
 "common.button.create" = "Létrehozás";
+"common.button.createFolder" = "Mappa létrehozása";
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
 "common.button.enable" = "Engedélyezés";
@@ -20,6 +21,9 @@
 "common.button.ok" = "OK";
 "common.button.remove" = "Eltávolítás";
 "common.button.retry" = "Újra";
+"common.button.signOut" = "Kijelentkezés";
+"common.button.verify" = "Hitelesítés";
+"common.cells.openInFilesApp" = "Megnyitás ezzel: Fájlok";
 "common.cells.password" = "Jelszó";
 "common.cells.url" = "ULR";
 "common.cells.username" = "Felhasználónév";
@@ -88,6 +92,10 @@
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator megnyitása";
 "fileProvider.error.biometricalAuthCanceled.title" = "Feloldás megszakítva";
 "fileProvider.error.unlockButton" = "Feloldás";
+"fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
+"fileProvider.uploadProgress.title" = "Feltöltés…";
+"fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
+"onboarding.info" = "Köszönjük, hogy a Cryptomatort választotta fájlai védelméhez.\n\nA Cryptomatorral az adatainak kulcsa az ön kezében van. A Cryptomator titkosítja az adatait gyorsan és könnyedén.\n\nEz az alkalmazás teljesen integrálva van a Fájlok appba. Engedélyezze a Cryptomatort a Fájlok appban később, hogy hozzáférhessen a széfjeihez.";
 "purchase.product.donateAndUpgrade" = "Adományozás és frissítés";
 "purchase.product.freeUpgrade" = "Ingyenes frissítés";
 "purchase.product.lifetimeLicense" = "Örök licensz";
@@ -158,10 +166,17 @@
 "unlockVault.enableBiometricalUnlock.switch" = "%@ engedélyezése";
 "unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a széfet, a %@ segítségével is feloldhatja azt.";
 "unlockVault.evaluatePolicy.reason" = "Széf kinyitása";
+"unlockVault.progress" = "Feloldás…";
 
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
+"vaultDetail.button.lock" = "Zárolás most";
 "vaultDetail.button.moveVault" = "Áthelyezés";
 "vaultDetail.button.renameVault" = "Átnevezés";
+"vaultDetail.info.footer.accessVault" = "Elérheti a széfet a Fájlok appban.";
+"vaultDetail.info.footer.accountInfo" = "Bejelentkezve, mint %@ itt: %@.";
+"vaultDetail.keepUnlocked.title" = "Feloldás hossza";
+"vaultDetail.moveVault.progress" = "Áthelyezés…";
+"vaultDetail.unlocked.footer" = "A széfe jelenleg fel van oldva a Fájlok appban.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
 "webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
