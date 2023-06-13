@@ -1,8 +1,17 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Hiba";
 "common.alert.attention.title" = "Figyelem";
 "common.button.cancel" = "Mégse";
 "common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
 "common.button.close" = "Bezár";
+"common.button.confirm" = "Megerősítés";
 "common.button.create" = "Létrehozás";
 "common.button.done" = "Kész";
 "common.button.edit" = "Szerkeszt";
