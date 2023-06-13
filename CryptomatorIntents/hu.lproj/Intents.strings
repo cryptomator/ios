@@ -6,3 +6,16 @@
 "getFolderIntent.description" = "Visszaad egy mappa objektumot a megadott útvonalhoz a megadott széfben.";
 "getFolderIntent.path" = "Útvonal";
 "getFolderIntent.text" = "Visszaadja a mappát ezen a helyen: ${path}, ebben a széfben: ${vault}";
+
+"isUnlockedIntent.description" = "Visszaadja, hogy az adott széf fel van-e oldva.";
+"lockVaultIntent.text" = "${vault} zárolása";
+"lockVaultIntent.title" = "Széf zárolása";
+
+"openVaultIntent.description" = "Megnyitja az adott széfet a Fájlok appban.";
+"openVaultIntent.text" = "${vault} megnyitása a Fájlok appban";
+"openVaultIntent.title" = "Széf megnyitása";
+
+"saveFileIntent.description" = "Elment egy fájlt egy széfbe.";
+
+"vaultFolder.displayName" = "Széf mappa";
+"vaultFolder.vaultIdentifier" = "Széf azonosító";
