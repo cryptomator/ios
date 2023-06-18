@@ -26,6 +26,7 @@
 
 "settings.title" = "Cài đặt";
 "settings.clearCache" = "Xóa bộ nhớ Cache";
+"settings.debugMode.alert.message" = "Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.";
 
 "s3Authentication.displayName" = "Tên hiển thị";
 "s3Authentication.accessKey" = "Khoá Truy cập";
