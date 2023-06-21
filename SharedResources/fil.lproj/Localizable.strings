@@ -26,6 +26,7 @@
 "common.cells.username" = "Username";
 "common.footer.learnMore" = "Matuto pa.";
 "accountList.emptyList.message" = "Pumindot dito para madagdag ang account";
+"accountList.signOut.alert.title" = "Itangal ang mga associated na vaults?";
 
 "addVault.title" = "Magdagdag ng Vault";
 "addVault.createNewVault.title" = "Gumawa ng Bagong Vault";
@@ -41,8 +42,10 @@
 "addVault.openExistingVault.chooseCloud.header" = "Saan matatagpuan ang vault?";
 "changePassword.header.newPassword.title" = "Maglagay ng bagong password.";
 "chooseFolder.createNewFolder.progress" = "Gumagawa ng Folder…";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Mali ang Password";
 "fileProvider.error.unlockButton" = "I-unlock";
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
+"intents.saveFile.selectedVaultNotFound" = "Ang naselect na vault ay hindi makita.";
 "purchase.product.freeUpgrade" = "Libreng Upgrade";
 "purchase.retry.button" = "Subukan muli";
 
