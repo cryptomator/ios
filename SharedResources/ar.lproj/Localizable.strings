@@ -10,6 +10,7 @@
 "common.button.cancel" = "الغاء";
 "common.button.change" = "تغيير";
 "common.button.choose" = "اختر";
+"common.button.clear" = "مسح";
 "common.button.close" = "إغلاق";
 "common.button.confirm" = "تأكيد";
 "common.button.create" = "إنشاء";
@@ -29,6 +30,7 @@
 "common.cells.url" = "الرابط";
 "common.cells.username" = "اسم المستخدم";
 "common.footer.learnMore" = "معرفة المزيد.";
+"common.hud.authenticating" = "المصادقة…";
 
 "accountList.header.title" = "المصادقة";
 "accountList.emptyList.message" = "انقر هنا لإضافة حساب";
@@ -95,6 +97,9 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
 "fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.unlockButton" = "افتح";
+"fileProvider.uploadProgress.connecting" = "جاري الاتصال…";
+"keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
+"keepUnlockedDuration.indefinite" = "دائم";
 
 "localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
 "localFileSystemAuthentication.createNewVault.button" = "حدد موقع التخزين";
@@ -104,7 +109,24 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
 
 "onboarding.title" = "أهلاً وسهلاً";
+"onboarding.button.continue" = "استمرار";
+"purchase.footer.privacyPolicy" = "سياسة الخصوصية";
+"purchase.footer.termsOfUse" = "شروط الإستخدام";
+"purchase.header.feature.familySharing" = "مشاركة عائلية";
+"purchase.header.feature.openSource" = "تطوير مفتوح المصدر";
+"purchase.product.donateAndUpgrade" = "تبرع و ترقية";
+"purchase.product.freeUpgrade" = "ترقية مجانية";
+"purchase.product.lifetimeLicense" = "رخصة لمدى الحياة";
+"purchase.product.lifetimeLicense.duration" = "لمرة واحدة";
+"purchase.product.pricing.free" = "مجاناً";
+"purchase.product.trial" = "تجربة مجانية لمدة 30 يوم";
+"purchase.product.trial.expirationDate" = "تاريخ إنتهاء الصلاحية: %@";
+"purchase.product.trial.duration" = "لمدة 30 يوماً";
+"purchase.product.yearlySubscription.duration" = "سنوياً";
+"purchase.readOnlyMode.alert.title" = "وضع القراءة فقط";
+"purchase.restorePurchase.button" = "استعادة المشتريات";
 "purchase.retry.button" = "اعد المحاولة";
+"purchase.unlockedFullVersion.title" = "شكراً لك";
 
 "settings.title" = "الإعدادات";
 "settings.aboutCryptomator.title" = "الإصدار %@ (%@)";
@@ -112,8 +134,10 @@
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 "settings.cloudServices" = "الخدمات السحابية";
 "settings.debugMode.alert.message" = "في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.";
+"settings.manageSubscriptions" = "إدارة الاشتراك";
 "settings.rateApp" = "تقييم التطبيق";
 "settings.sendLogFile" = "إرسال ملف السجل";
+"settings.shortcutsGuide" = "دليل الاختصارات";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
 
 "s3Authentication.displayName" = "الاسم المعروض";
@@ -122,6 +146,10 @@
 "s3Authentication.existingBucket" = "مخزن موجود مسبقاً";
 "s3Authentication.endpoint" = "نقطة الوصول";
 "s3Authentication.region" = "المنطقة";
+"s3Authentication.error.invalidCredentials" = "معلومات الدخول خاطئة.";
+
+"trialStatus.active" = "مفعل";
+"trialStatus.expired" = "منتهية الصلاحية";
 
 "unlockVault.button.unlock" = "افتح";
 "unlockVault.button.unlockVia" = "فتح عبر %@";
@@ -146,12 +174,17 @@
 "vaultDetail.button.changeVaultPassword" = "تغيير كلمة المرور";
 "vaultDetail.button.lock" = "قفل الآن";
 "vaultDetail.button.moveVault" = "نقل";
+"vaultDetail.button.removeVault" = "إزالة من قائمة المخازن";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
 "vaultDetail.disabledBiometricalUnlock.footer" = "إذا مكّنت %@، سيتم تخزين كلمة المرور الخاصة بك في سلسلة مفاتيح iOS.";
+"vaultDetail.keepUnlocked.title" = "مدة الفتح";
+"vaultDetail.moveVault.progress" = "جاري النقل…";
+"vaultDetail.renameVault.progress" = "إعادة تسمية…";
 "vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%@\" لتخزينها في سلسلة مفاتيح iOS وتمكين %@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
+"vaultList.remove.alert.title" = "حذف المخزن؟";
 
 "webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
 "webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
