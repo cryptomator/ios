@@ -10,11 +10,13 @@
 "common.button.cancel" = "Mégse";
 "common.button.change" = "Változtat";
 "common.button.choose" = "Választás";
+"common.button.clear" = "Törlés";
 "common.button.close" = "Bezár";
 "common.button.confirm" = "Megerősítés";
 "common.button.create" = "Létrehozás";
 "common.button.createFolder" = "Mappa létrehozása";
 "common.button.done" = "Kész";
+"common.button.download" = "Letöltés";
 "common.button.edit" = "Szerkeszt";
 "common.button.enable" = "Engedélyezés";
 "common.button.next" = "Következő";
@@ -91,10 +93,20 @@
 "fileProvider.onboarding.info" = "Köszönjük, hogy a Cryptomatort válaszotta fájlainak megvédéséhez. Kezdéshez menjen a fő appba és adjon hozzá egy széfet.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator megnyitása";
 "fileProvider.error.biometricalAuthCanceled.title" = "Feloldás megszakítva";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Helytelen jelszó";
+"fileProvider.error.defaultLock.title" = "Feloldás szükséges";
 "fileProvider.error.unlockButton" = "Feloldás";
 "fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
+
+"keepUnlocked.alert.title" = "Széf zárolása?";
+"keepUnlocked.alert.message" = "Ezen módosítások végbemenéséhez szükséges a széfet zárolni.";
+"keepUnlocked.alert.confirm" = "Megerősítés és zárolás most";
+"keepUnlocked.header" = "Adja meg, hogy mennyi ideig legyen a széf feloldva amikor tétlen.";
+"keepUnlockedDuration.auto" = "Döntsön az iOS automatikusan";
+"keepUnlockedDuration.auto.shortDisplayName" = "Automatikus";
+"keepUnlockedDuration.indefinite" = "Korlátlan";
 "onboarding.info" = "Köszönjük, hogy a Cryptomatort választotta fájlai védelméhez.\n\nA Cryptomatorral az adatainak kulcsa az ön kezében van. A Cryptomator titkosítja az adatait gyorsan és könnyedén.\n\nEz az alkalmazás teljesen integrálva van a Fájlok appba. Engedélyezze a Cryptomatort a Fájlok appban később, hogy hozzáférhessen a széfjeihez.";
 "purchase.product.donateAndUpgrade" = "Adományozás és frissítés";
 "purchase.product.freeUpgrade" = "Ingyenes frissítés";
