@@ -101,15 +101,19 @@
 "fileProvider.error.unlockButton" = "Odemknout";
 "fileProvider.clearFileFromCache.title" = "Smazat soubor z mezipaměti";
 "fileProvider.clearFileFromCache.message" = "Pouze smaže soubor z Vašeho zařízení a ponechá soubor v cloudu.";
+"fileProvider.fileImporting.error.missingPremium" = "Odemkněte plnou verzi aplikace Cryptomator a získejte přístup k zápisu do vašeho trezoru.";
 "fileProvider.uploadProgress.connecting" = "Připojování…";
 "fileProvider.uploadProgress.message" = "Aktuální průběh: %@\n\nPokud se domníváte, že proces nahrávání je zaseknutý, můžete zkusit nahrávání znovu.";
 "fileProvider.uploadProgress.missing" = "Průběh nebylo možné zjistit. Může nadále pokračovat na pozadí.";
 "fileProvider.uploadProgress.title" = "Nahrávání…";
 "fileProvider.uploadProgress.missingDomainError" = "Doména nebyla nalezena.";
+
+"getFolderIntent.error.missingPath" = "Nebyla zadána žádná cesta. Uveďte prosím platnou cestu, pro kterou má být složka vrácena.";
 "getFolderIntent.error.noVaultSelected" = "Nebyl vybrán žádný trezor.";
 "intents.saveFile.missingFile" = "Zadaný soubor není platný.";
 "intents.saveFile.invalidFolder" = "Zadaná složka není platná.";
 "intents.saveFile.missingTemporaryFolder" = "Vytvoření dočasné složky se nezdařilo.";
+"intents.saveFile.lockedVault" = "Musíte odemknout váš trezor, abyste mohli používat tuto zkratku.";
 "intents.saveFile.selectedVaultNotFound" = "Vybraný trezor nebyl nalezen.";
 
 "keepUnlocked.alert.title" = "Zamknout trezor?";
@@ -209,6 +213,7 @@
 "s3Authentication.endpoint" = "Koncový bod";
 "s3Authentication.region" = "Oblast";
 "s3Authentication.error.invalidCredentials" = "Neplatné přihlašovací údaje.";
+"s3Authentication.error.invalidEndpoint" = "Zadaný endpoint neodpovídá formátu URL.";
 
 "trialStatus.active" = "Aktivní";
 "trialStatus.expired" = "Expirováno";
