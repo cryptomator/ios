@@ -8,6 +8,7 @@
 "getFolderIntent.path" = "Popis umístění";
 "getFolderIntent.text" = "Získat složku, nacházející se v ${path} v ${vault}";
 "getFolderIntent.title" = "Získat složku";
+"isUnlockedIntent.title" = "Odemčeno";
 
 "lockVaultIntent.description" = "Uzamkne daný trezor.";
 "lockVaultIntent.text" = "Zamknout ${vault}";
