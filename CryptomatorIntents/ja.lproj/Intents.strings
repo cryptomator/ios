@@ -10,7 +10,7 @@
 "getFolderIntent.title" = "フォルダーを戻す";
 
 "isUnlockedIntent.description" = "金庫が解錠かどうか戻します。";
-"isUnlockedIntent.title" = "解錠です";
+"isUnlockedIntent.title" = "解錠済";
 
 "isVaultLockedIntent.title" = "金庫が解錠ですか？";
 "isVaultUnlockedIntent.text" = "${vault} が解錠してありますか？";
