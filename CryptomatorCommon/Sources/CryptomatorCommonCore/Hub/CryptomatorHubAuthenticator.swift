@@ -71,7 +71,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let deviceID = try getDeviceID()
 		let publicKey = try CryptomatorHubKeyProvider.shared.getPublicKey()
 		let derPubKey = publicKey.derRepresentation
-		let dto = CreateDeviceDto(id: deviceID, name: name, publicKey: derPubKey.base64URLEncodedString())
+		let dto = CreateDeviceDto(id: deviceID, name: name, type: "MOBILE", publicKey: derPubKey.base64URLEncodedString())
 		guard let devicesResourceURL = URL(string: hubConfig.devicesResourceUrl) else {
 			throw CryptomatorHubAuthenticatorError.invalidDeviceResourceURL
 		}
@@ -113,6 +113,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	struct CreateDeviceDto: Codable {
 		let id: String
 		let name: String
+		let type: String
 		let publicKey: String
 	}
 }
