@@ -8,6 +8,7 @@
 "common.button.next" = "Далей";
 "common.button.ok" = "Добра";
 "common.button.remove" = "Выдаліць";
+"common.button.retry" = "Паспрабаваць ізноў";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
 "common.cells.username" = "Імя карыстальніка";
@@ -23,6 +24,7 @@
 "keepUnlocked.alert.confirm" = "Пацвердзіць і адразу замкнуць";
 "keepUnlockedDuration.auto" = "Дазволіць iOS прымаць рашэнне самастойна";
 "keepUnlockedDuration.auto.shortDisplayName" = "Аўтаматычна";
+"purchase.retry.button" = "Паспрабаваць ізноў";
 "purchase.unlockedFullVersion.title" = "Шчыры дзякуй";
 
 "settings.title" = "Налады";
