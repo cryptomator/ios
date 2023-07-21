@@ -19,7 +19,7 @@
 "common.button.download" = "Descargar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Activar";
-"common.button.next" = "Continuar";
+"common.button.next" = "Siguiente";
 "common.button.ok" = "Aceptar";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Reintentar";
@@ -209,8 +209,8 @@
 "s3Authentication.displayName" = "Nombre para mostrar";
 "s3Authentication.accessKey" = "Clave de acceso";
 "s3Authentication.secretKey" = "Clave secreta";
-"s3Authentication.existingBucket" = "Cubeta existente";
-"s3Authentication.endpoint" = "Punto final";
+"s3Authentication.existingBucket" = "Bucket existente";
+"s3Authentication.endpoint" = "Punto de enlace";
 "s3Authentication.region" = "Región";
 "s3Authentication.error.invalidCredentials" = "Credenciales inválidas.";
 "s3Authentication.error.invalidEndpoint" = "El punto final proporcionado no coincide con el formato de una URL.";
