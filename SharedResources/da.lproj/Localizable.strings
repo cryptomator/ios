@@ -15,7 +15,7 @@
 "common.button.confirm" = "Bekræft";
 "common.button.create" = "Opret";
 "common.button.createFolder" = "Opret mappe";
-"common.button.done" = "Ferdig";
+"common.button.done" = "Færdig";
 "common.button.download" = "Download";
 "common.button.edit" = "Redigér";
 "common.button.enable" = "Aktivér";
@@ -26,7 +26,7 @@
 "common.button.signOut" = "Log ud";
 "common.button.verify" = "Bekræft";
 "common.cells.openInFilesApp" = "Åbn i Filer appen";
-"common.cells.password" = "Passord";
+"common.cells.password" = "Adgangskode";
 "common.cells.url" = "URL";
 "common.cells.username" = "Brugernavn";
 "common.footer.learnMore" = "Læs mere.";
@@ -37,13 +37,13 @@
 "accountList.signOut.alert.title" = "Fjern associerede bokse?";
 "accountList.signOut.alert.message" = "Ved at logge ud, vil alle tilknyttede bokse blive fjernet fra listen. Ingen krypterede data vil blive slettet. Du kan logge ind igen og tilføje boksene igen senere.";
 
-"addVault.title" = "Legg til kvelv";
-"addVault.createNewVault.title" = "Opprett ein ny kvelv";
+"addVault.title" = "Tilføj boks";
+"addVault.createNewVault.title" = "Opret ny boks";
 "addVault.createNewVault.purchase" = "Oprettelse af en ny boks kræver den fulde version af Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Vælg et navn til boksen.";
-"addVault.createNewVault.setVaultName.cells.name" = "Namn på kvelven";
+"addVault.createNewVault.setVaultName.cells.name" = "Boks-navn";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Boks navn må ikke være tomt.";
-"addVault.createNewVault.chooseCloud.header" = "Kvar skal Cryptomator lagra dei krypterte filene i kvelven din?";
+"addVault.createNewVault.chooseCloud.header" = "Hvor skal Cryptomator gemme de krypterede filer af din boks?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" findes allerede på dette sted. Vælg et andet navn eller en anden placering.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detekterede en eksisterende boks på denne placering.\nFor at oprette en ny boks, skal du gå tilbage og vælge en anden mappe.";
 "addVault.createNewVault.password.enterPassword.header" = "Indtast en ny adgangskode.";
@@ -54,7 +54,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Adgangskoderne er ikke ens.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Adgangskoden skal indeholde mindst 8 tegn.";
 "addVault.createNewVault.progress" = "Opretter boks…";
-"addVault.openExistingVault.title" = "Opn ein eksisterande kvelv";
+"addVault.openExistingVault.title" = "Open eksisterende boks";
 "addVault.openExistingVault.chooseCloud.header" = "Hvor er boksen placeret?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Kryptomator fandt boksen \"%@\".\nVil du tilføje denne boks?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Tilføj denne boks";
@@ -247,7 +247,7 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Du har allerede tilføjet denne boks.";
 
-"vaultDetail.button.changeVaultPassword" = "Byt passord";
+"vaultDetail.button.changeVaultPassword" = "Skift adgangskode";
 "vaultDetail.button.lock" = "Lås nu";
 "vaultDetail.button.moveVault" = "Flyt";
 "vaultDetail.button.removeVault" = "Fjern fra listen over bokse";
