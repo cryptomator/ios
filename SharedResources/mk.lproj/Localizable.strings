@@ -7,7 +7,9 @@
 
 "common.alert.error.title" = "Грешка";
 "common.button.cancel" = "Излез";
+"common.button.change" = "Промени";
 "common.button.choose" = "Избор";
+"common.button.close" = "Затвори";
 "common.button.confirm" = "Потврди";
 "common.button.create" = "Создади";
 "common.button.createFolder" = "Креирај папка";
@@ -37,3 +39,7 @@
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Името не може да биде празно.";
 "addVault.createNewVault.chooseCloud.header" = "Каде би сакале Cryptomator да ги зачува шифрираните фајлови на Вашиот сеф?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" веќе постои на оваа локација. Изберете друго име за сефот или нова локација.";
+"addVault.openExistingVault.title" = "Отвори постоечки сеф";
+"fileProvider.error.unlockButton" = "Отклучи";
+
+"unlockVault.button.unlock" = "Отклучи";
