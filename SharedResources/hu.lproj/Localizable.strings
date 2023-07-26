@@ -107,7 +107,17 @@
 "keepUnlockedDuration.auto" = "Döntsön az iOS automatikusan";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatikus";
 "keepUnlockedDuration.indefinite" = "Korlátlan";
+
+"onboarding.title" = "Üdvözöljük";
 "onboarding.info" = "Köszönjük, hogy a Cryptomatort választotta fájlai védelméhez.\n\nA Cryptomatorral az adatainak kulcsa az ön kezében van. A Cryptomator titkosítja az adatait gyorsan és könnyedén.\n\nEz az alkalmazás teljesen integrálva van a Fájlok appba. Engedélyezze a Cryptomatort a Fájlok appban később, hogy hozzáférhessen a széfjeihez.";
+"onboarding.button.continue" = "Tovább";
+
+"purchase.beginFreeTrial.alert.title" = "Próbaverzió feloldva";
+"purchase.expiredTrial" = "A próbaidőszak lejárt.";
+"purchase.footer.privacyPolicy" = "Adatvédelmi irányelvek";
+"purchase.footer.termsOfUse" = "Használati feltételek";
+"purchase.header.feature.familySharing" = "Családon belüli megosztás";
+"purchase.header.feature.openSource" = "Nyílt forráskódú fejlesztés";
 "purchase.product.donateAndUpgrade" = "Adományozás és frissítés";
 "purchase.product.freeUpgrade" = "Ingyenes frissítés";
 "purchase.product.lifetimeLicense" = "Örök licensz";
@@ -172,6 +182,9 @@
 "s3Authentication.error.invalidCredentials" = "Érvénytelen hitelesítő adatok.";
 "s3Authentication.error.invalidEndpoint" = "A megadott végpont nem egyezik az URL formátumával.";
 
+"trialStatus.active" = "Aktív";
+"trialStatus.expired" = "Lejárt";
+
 "unlockVault.button.unlock" = "Kinyitás";
 "unlockVault.button.unlockVia" = "Kinyitva %@ által";
 "unlockVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
@@ -179,6 +192,15 @@
 "unlockVault.enableBiometricalUnlock.footer" = "Ahelyett, hogy jelszavával nyitná fel a széfet, a %@ segítségével is feloldhatja azt.";
 "unlockVault.evaluatePolicy.reason" = "Széf kinyitása";
 "unlockVault.progress" = "Feloldás…";
+
+"untrustedTLSCertificate.title" = "Érvénytelen TLS-tanúsítvány";
+"untrustedTLSCertificate.message" = "A \"%@\" TLS-tanúsítványa érvénytelen. Megjelöli mégis megbízhatóként?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Megbízható";
+"untrustedTLSCertificate.dismiss" = "Nem megbízható";
+
+"upgrade.title" = "Frissítési ajánlat";
+"upgrade.notEligible.alert.title" = "A frissítés nem sikerült";
+"urlSession.error.httpError.404" = "A keresett oldal nem található.";
 
 "vaultDetail.button.changeVaultPassword" = "Jelszó megváltoztatása";
 "vaultDetail.button.lock" = "Zárolás most";
@@ -189,6 +211,10 @@
 "vaultDetail.keepUnlocked.title" = "Feloldás hossza";
 "vaultDetail.moveVault.progress" = "Áthelyezés…";
 "vaultDetail.unlocked.footer" = "A széfe jelenleg fel van oldva a Fájlok appban.";
+
+"vaultList.header.title" = "Széfek";
+"vaultList.emptyList.message" = "Koppintson ide egy széf hozzáadásához";
+"vaultList.remove.alert.title" = "Széf eltávolitása?";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS használata";
 "webDAVAuthentication.httpConnection.alert.message" = "A HTTP használata nem biztonságos, helyette a HTTPS használata ajánlott. Ha ismeri a kockázatot, folytathatja HTTP-vel is.";
