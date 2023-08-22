@@ -13,10 +13,6 @@ public struct DatabaseURLProvider {
 	public static let shared = DatabaseURLProvider(documentStorageURLProvider: NSFileProviderManager.default)
 	let documentStorageURLProvider: DocumentStorageURLProvider
 
-	init(documentStorageURLProvider: DocumentStorageURLProvider) {
-		self.documentStorageURLProvider = documentStorageURLProvider
-	}
-
 	public func getDatabaseURL(for domain: NSFileProviderDomain) -> URL {
 		let documentStorageURL = documentStorageURLProvider.documentStorageURL
 		let domainURL = documentStorageURL.appendingPathComponent(domain.pathRelativeToDocumentStorage, isDirectory: true)
