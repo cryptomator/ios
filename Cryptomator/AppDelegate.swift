@@ -116,6 +116,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		switch userActivity.activityType {
 		case "OpenVaultIntent":
 			return handleOpenInFilesApp(for: userActivity)
+		case NSUserActivityTypeBrowsingWeb where urlIsHubAuth(userActivity.webpageURL):
+			return CryptomatorHubAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: userActivity.webpageURL!) ?? false
 		default:
 			DDLogInfo("Received an unsupported userActivity of type: \(String(describing: userActivity.activityType))")
 			return false
@@ -129,6 +131,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		}
 		FilesAppUtil.showFilesApp(forVaultUID: vaultUID)
 		return true
+	}
+
+	private func urlIsHubAuth(_ url: URL?) -> Bool {
+		guard let url = url else {
+			return false
+		}
+		return url.scheme == "https" && url.host == "ios.cryptomator.org" && url.path == "/hub/auth"
 	}
 
 	private func cleanup() {
