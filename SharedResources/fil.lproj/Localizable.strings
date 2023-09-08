@@ -51,10 +51,18 @@
 
 "settings.title" = "Settings";
 "settings.clearCache" = "Linisin ang Cache";
+"settings.debugMode.alert.message" = "Sa mode na ito, maaaring isulat ang sensitibong data sa isang log file sa iyong device (hal., mga filename at path). Ang mga password, cookies, atbp. ay tahasang hindi kasama.\n\nTandaang i-disable ang debug mode sa lalong madaling panahon.";
+
+"s3Authentication.displayName" = "Display Name";
 "s3Authentication.accessKey" = "Access Key";
+"s3Authentication.secretKey" = "Lihim na Susi";
+"s3Authentication.existingBucket" = "Umiiral na Balde";
+"s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Rehiyon";
 
 "unlockVault.button.unlock" = "I-unlock";
+
+"vaultDetail.button.changeVaultPassword" = "Palitan ANG password";
 "vaultDetail.button.lock" = "I-lock ngayon";
 "vaultDetail.button.moveVault" = "Ilipat";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
