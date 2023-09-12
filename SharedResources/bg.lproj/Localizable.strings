@@ -1,8 +1,11 @@
 "common.button.cancel" = "Отказ";
 "common.button.change" = "Променяне";
+"common.button.choose" = "Избор";
 "common.button.close" = "Затваряне";
 "common.button.done" = "Готово";
+"common.button.edit" = "Редактиране";
 "common.button.next" = "Напред";
+"common.button.remove" = "Премахване";
 "common.button.retry" = "Повторен опит";
 
 "addVault.title" = "Добавяне на хранилище";
@@ -19,3 +22,4 @@
 
 "vaultDetail.button.changeVaultPassword" = "Промяна на парола";
 "vaultDetail.button.moveVault" = "Преместване";
+"vaultDetail.button.renameVault" = "Преименуване";
