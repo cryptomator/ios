@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  FileProviderConnector.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 26.07.21.

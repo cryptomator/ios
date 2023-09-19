@@ -1,5 +1,5 @@
 //
-//  VaultPasswordKeychainManager.swift
+//  VaultPasswordManager.swift
 //  CryptomatorCommonCore
 //
 //  Created by Philipp Schmid on 09.07.21.

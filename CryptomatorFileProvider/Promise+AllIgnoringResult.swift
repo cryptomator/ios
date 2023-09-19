@@ -1,5 +1,5 @@
 //
-//  Promises+FinishedAll.swift
+//  Promise+AllIgnoringResult.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 31.03.22.
