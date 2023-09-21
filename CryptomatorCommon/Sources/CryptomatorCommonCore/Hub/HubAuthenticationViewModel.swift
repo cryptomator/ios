@@ -49,7 +49,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	public func login() async {
-		guard let hubConfig = vaultConfig.hub else {
+		guard let hubConfig = vaultConfig.allegedHubConfig else {
 			await setStateToErrorState(with: HubAuthenticationViewModelError.missingHubConfig)
 			return
 		}
@@ -64,7 +64,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	public func register() async {
-		guard let hubConfig = vaultConfig.hub else {
+		guard let hubConfig = vaultConfig.allegedHubConfig else {
 			await setStateToErrorState(with: HubAuthenticationViewModelError.missingHubConfig)
 			return
 		}
