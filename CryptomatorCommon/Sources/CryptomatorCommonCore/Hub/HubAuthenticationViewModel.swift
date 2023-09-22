@@ -13,11 +13,10 @@ public enum HubAuthenticationViewModelError: Error {
 public class HubAuthenticationViewModel: ObservableObject {
 	public enum State: Equatable {
 		case userLogin
-		case receivedExistingKey
 		case accessNotGranted
 		case licenseExceeded
 		case deviceRegistration(DeviceRegistration)
-		case loading(text: String)
+		case loading
 		case error(description: String)
 	}
 
@@ -92,7 +91,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 			await setStateToErrorState(with: HubAuthenticationViewModelError.missingAuthState)
 			return
 		}
-		await setState(to: .loading(text: "Cryptomator is receiving and processing the response from Hub. Please wait."))
+		await setState(to: .loading)
 
 		let authFlow: HubAuthenticationFlow
 		do {

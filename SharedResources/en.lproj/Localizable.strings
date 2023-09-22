@@ -21,6 +21,8 @@
 "common.button.enable" = "Enable";
 "common.button.next" = "Next";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Refresh";
+"common.button.register" = "Register";
 "common.button.remove" = "Remove";
 "common.button.retry" = "Retry";
 "common.button.signOut" = "Sign Out";
@@ -111,6 +113,17 @@
 
 "getFolderIntent.error.missingPath" = "No path was provided. Please provide a valid path for which a folder should be returned.";
 "getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
+
+"hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.loading" = "Cryptomator is receiving and processing the response from Hub. Please wait.";
+"hubAuthentication.accessNotGranted" = "Your device has not yet been authorized to access this vault. Ask the vault owner to authorize it.";
+"hubAuthentication.licenseExceeded" = "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.";
+"hubAuthentication.deviceRegistration." = "";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Device Name";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Register Device Successful";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "To access the vault, your device needs to be authorized by the vault owner.";
+
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";
 "intents.saveFile.missingTemporaryFolder" = "Failed to create temporary folder.";

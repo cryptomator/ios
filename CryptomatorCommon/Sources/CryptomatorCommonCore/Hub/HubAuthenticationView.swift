@@ -11,7 +11,7 @@ public struct HubAuthenticationView: View {
 		ZStack {
 			Color.cryptomatorBackground
 				.ignoresSafeArea()
-			VStack {
+			VStack(spacing: 20) {
 				switch viewModel.authenticationFlowState {
 				case .deviceRegistration:
 					HubDeviceRegistrationView(
@@ -20,21 +20,19 @@ public struct HubAuthenticationView: View {
 					)
 				case .accessNotGranted:
 					HubAccessNotGrantedView(onRefresh: { Task { await viewModel.refresh() }})
-				case .receivedExistingKey:
-					Text("Received existing key")
-				case let .loading(text):
+				case .loading:
 					ProgressView()
-					Text(text)
+					Text(LocalizedString.getValue("hubAuthentication.loading"))
 				case .userLogin:
 					HubLoginView(onLogin: { Task { await viewModel.login() }})
 				case .licenseExceeded:
-					CryptomatorErrorView(text: "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.")
-				case let .error(info):
-					CryptomatorErrorView(text: info)
+					CryptomatorErrorView(text: LocalizedString.getValue("hubAuthentication.licenseExceeded"))
+				case let .error(description):
+					CryptomatorErrorView(text: description)
 				}
 			}
 			.padding()
-			.navigationTitle("Hub Vault")
+			.navigationTitle(LocalizedString.getValue("hubAuthentication.title"))
 			.alert(
 				isPresented: .init(
 					get: { viewModel.authenticationFlowState == .deviceRegistration(.needsAuthorization) },
@@ -42,9 +40,9 @@ public struct HubAuthenticationView: View {
 				)
 			) {
 				Alert(
-					title: Text("Information"),
-					message: Text("To access the vault, your device needs to be authorized by the vault owner."),
-					dismissButton: .default(Text("Continue"))
+					title: Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.needsAuthorization.alert.title")),
+					message: Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.needsAuthorization.alert.message")),
+					dismissButton: .default(Text(LocalizedString.getValue("common.button.ok")))
 				)
 			}
 		}

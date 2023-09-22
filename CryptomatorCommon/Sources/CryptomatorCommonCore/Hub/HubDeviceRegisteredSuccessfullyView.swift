@@ -5,9 +5,9 @@ struct HubAccessNotGrantedView: View {
 
 	var body: some View {
 		CryptomatorSimpleButtonView(
-			buttonTitle: "Refresh",
+			buttonTitle: LocalizedString.getValue("common.button.refresh"),
 			onButtonTap: onRefresh,
-			headerTitle: "Your device has not vet been authorized to access this vault. Ask the vault owner to authorize it."
+			headerTitle: LocalizedString.getValue("hubAuthentication.accessNotGranted")
 		)
 	}
 }

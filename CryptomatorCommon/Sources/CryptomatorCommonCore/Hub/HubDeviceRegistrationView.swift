@@ -14,19 +14,19 @@ struct HubDeviceRegistrationView: View {
 		List {
 			Section {
 				TextField(
-					"",
+					LocalizedString.getValue("hubAuthentication.deviceRegistration.deviceName.cells.name"),
 					text: $deviceName,
 					onCommit: onRegisterTap
 				)
 				.focusedLegacy($field, equals: .deviceName)
 			} footer: {
-				Text("This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.")
+				Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.deviceName.footer.title"))
 			}
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
 		.toolbar {
 			ToolbarItem(placement: .primaryAction) {
-				Button("Register") {
+				Button(LocalizedString.getValue("common.button.register")) {
 					onRegisterTap()
 				}
 			}
