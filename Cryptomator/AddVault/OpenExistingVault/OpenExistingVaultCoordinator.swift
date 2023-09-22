@@ -214,7 +214,6 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 	// MARK: - VaultInstalling
 
 	func showSuccessfullyAddedVault(withName name: String, vaultUID: String) {
-		print("showSuccessfullyAddedVault")
 		let child = AddVaultSuccessCoordinator(vaultName: name, vaultUID: vaultUID, navigationController: navigationController)
 		child.parentCoordinator = self
 		childCoordinators.append(child)
