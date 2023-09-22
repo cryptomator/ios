@@ -58,6 +58,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
+"addVault.openExistingVault.downloadVault.progress" = "Downloading Vault…";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.openExistingVault.progress" = "Adding Vault…";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";

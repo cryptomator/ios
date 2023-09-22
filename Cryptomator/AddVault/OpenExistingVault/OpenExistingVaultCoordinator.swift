@@ -128,40 +128,47 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 			handleError(VaultCoordinatorError.wrongItemType, for: navigationController)
 			return
 		}
-
 		if vaultItem.isLegacyVault {
-			showAddExistingLegacyVault(vaultItem)
+			downloadAndProcessExistingLegacyVault(vaultItem)
 		} else {
-			let hud = ProgressHUD()
-			hud.text = "Downloading Vault…"
-			hud.show(presentingViewController: navigationController)
-			VaultDBManager.shared.getUnverifiedVaultConfig(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedVaultConfig in
-				all(hud.dismiss(animated: true), Promise(downloadedVaultConfig))
-			}.then { _, downloadedVaultConfig in
-				self.processDownloadedVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
-			}.catch { error in
-				hud.dismiss(animated: true).then {
-					self.handleError(error, for: self.navigationController)
-				}
+			downloadAndProcessExistingVault(vaultItem)
+		}
+	}
+
+	private func downloadAndProcessExistingLegacyVault(_ vaultItem: VaultItem) {
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
+		hud.show(presentingViewController: navigationController)
+		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedMasterkeyFile in
+			all(hud.dismiss(animated: true), Promise(downloadedMasterkeyFile))
+		}.then { _, downloadedMasterkeyFile in
+			self.processDownloadedMasterkeyFile(downloadedMasterkeyFile, vaultItem: vaultItem)
+		}.catch { error in
+			hud.dismiss(animated: true).then {
+				self.handleError(error, for: self.navigationController)
 			}
 		}
 	}
 
-	private func showAddExistingLegacyVault(_ vault: VaultItem) {
+	private func processDownloadedMasterkeyFile(_ downloadedMasterkeyFile: DownloadedMasterkeyFile, vaultItem: VaultItem) {
+		let viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider,
+		                                                         account: account,
+		                                                         vault: vaultItem,
+		                                                         vaultUID: UUID().uuidString,
+		                                                         downloadedMasterkeyFile: downloadedMasterkeyFile)
+		let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
+		passwordVC.coordinator = self
+		navigationController.pushViewController(passwordVC, animated: true)
+	}
+
+	private func downloadAndProcessExistingVault(_ vaultItem: VaultItem) {
 		let hud = ProgressHUD()
-		hud.text = "Downloading Vault…"
+		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
 		hud.show(presentingViewController: navigationController)
-		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vault).then { downloadedMasterkeyFile in
-			all(hud.dismiss(animated: true), Promise(downloadedMasterkeyFile))
-		}.then { _, downloadedMasterkeyFile in
-			let viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: self.provider,
-			                                                         account: self.account,
-			                                                         vault: vault,
-			                                                         vaultUID: UUID().uuidString,
-			                                                         downloadedMasterkeyFile: downloadedMasterkeyFile)
-			let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
-			passwordVC.coordinator = self
-			self.navigationController.pushViewController(passwordVC, animated: true)
+		VaultDBManager.shared.getUnverifiedVaultConfig(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedVaultConfig in
+			all(hud.dismiss(animated: true), Promise(downloadedVaultConfig))
+		}.then { _, downloadedVaultConfig in
+			self.processDownloadedVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
 		}.catch { error in
 			hud.dismiss(animated: true).then {
 				self.handleError(error, for: self.navigationController)
@@ -176,7 +183,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		case .hub:
 			handleHubVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
 		case .unknown:
-			handleError(error: OpenExistingVaultCoordinatorError.unsupportedVaultConfig)
+			handleError(error: VaultProviderFactoryError.unsupportedVaultConfig)
 		}
 	}
 
@@ -219,9 +226,4 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		childCoordinators.append(child)
 		child.start()
 	}
-}
-
-enum OpenExistingVaultCoordinatorError: Error {
-	case unsupportedVaultConfig
-	// TODO: add Localization
 }
