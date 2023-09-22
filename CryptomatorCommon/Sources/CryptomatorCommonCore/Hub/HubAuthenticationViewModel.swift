@@ -3,6 +3,7 @@ import CryptoKit
 import CryptomatorCloudAccessCore
 import Foundation
 import JOSESwift
+import UIKit
 
 public enum HubAuthenticationViewModelError: Error {
 	case missingHubConfig
@@ -26,7 +27,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	@Published var authenticationFlowState: State = .userLogin
-	@Published public var deviceName: String = ""
+	@Published public var deviceName: String = UIDevice.current.name
 
 	private let vaultConfig: UnverifiedVaultConfig
 	private let deviceRegisteringService: HubDeviceRegistering
