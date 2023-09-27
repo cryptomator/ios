@@ -265,7 +265,7 @@
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a detectat un seif în această locație.\nPentru a crea un nou seif, vă rugăm să alegeți un folder diferit.";
 "vaultDetail.moveVault.progress" = "Se mută…";
 "vaultDetail.removeVault.footer" = "Acest lucru va elimina doar seiful din lista de seifuri și nu va șterge niciun fișier criptat.";
-"vaultDetail.renameVault.progress" = "In proces de redenumire…";
+"vaultDetail.renameVault.progress" = "În proces de redenumire…";
 "vaultDetail.unlocked.footer" = "Seiful dvs. este în prezent deblocat în aplicația fișiere.";
 "vaultDetail.unlockVault.footer" = "Introduceți parola pentru \"%@\" pentru a o stoca în iOS keychain și pentru a activa %@.";
 
