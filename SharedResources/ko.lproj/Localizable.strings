@@ -151,6 +151,7 @@
 "vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
 "vaultDetail.button.moveVault" = "이동";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.renameVault.progress" = "이름변경중…";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
@@ -160,3 +161,5 @@
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니가?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
+
+"Retry Upload" = "업로드 재시도";
