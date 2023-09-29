@@ -7,6 +7,7 @@
 "common.button.next" = "Напред";
 "common.button.remove" = "Премахване";
 "common.button.retry" = "Повторен опит";
+"common.cells.password" = "Парола";
 
 "addVault.title" = "Добавяне на хранилище";
 "addVault.createNewVault.title" = "Ново хранилище";
