@@ -1,5 +1,5 @@
 //
-//  CryptomatorKeychain+S3.swift.swift
+//  CryptomatorKeychain+S3.swift
 //
 //
 //  Created by Philipp Schmid on 29.06.22.
