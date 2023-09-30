@@ -34,13 +34,5 @@ class IntentHandler: INExtension {
 	private static var oneTimeSetup: () -> Void = {
 		// Set up logger
 		LoggerSetup.oneTimeSetup()
-		if let dbURL = CryptomatorDatabase.sharedDBURL {
-			do {
-				let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-				CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			} catch {
-				DDLogError("Open shared database at \(dbURL) failed with error: \(error)")
-			}
-		}
 	}
 }

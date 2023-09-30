@@ -8,20 +8,17 @@
 
 import Combine
 import CryptomatorCommonCore
+import Dependencies
 import Foundation
 import GRDB
 
 class DatabaseManager {
 	public static var shared: DatabaseManager!
 
-	let dbPool: DatabasePool
-
-	init(dbPool: DatabasePool) throws {
-		self.dbPool = dbPool
-	}
+	@Dependency(\.database) private var database
 
 	func getAllVaults() throws -> [VaultInfo] {
-		try dbPool.read { db in
+		try database.read { db in
 			let request = VaultAccount.including(required: VaultAccount.delegateAccount).including(required: VaultAccount.vaultListPosition)
 			return try VaultInfo.fetchAll(db, request)
 		}
@@ -35,7 +32,7 @@ class DatabaseManager {
 		for i in tempPositions.indices {
 			tempPositions[i].position = nil
 		}
-		try dbPool.write { db in
+		try database.write { db in
 			try db.execute(sql: "PRAGMA ignore_check_constraints=YES")
 			for position in tempPositions {
 				try position.update(db)
@@ -51,18 +48,18 @@ class DatabaseManager {
 		let observation = ValueObservation
 			.tracking { try VaultAccount.fetchAll($0) }
 			.removeDuplicates()
-		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
+		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
 	func observeVaultAccount(withVaultUID vaultUID: String, onError: @escaping (Error) -> Void, onChange: @escaping (VaultAccount?) -> Void) -> DatabaseCancellable {
 		let observation = ValueObservation.tracking { db in
 			try VaultAccount.fetchOne(db, key: vaultUID)
 		}
-		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
+		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 
 	func getAllAccounts(for cloudProviderType: CloudProviderType) throws -> [AccountInfo] {
-		try dbPool.read { db in
+		try database.read { db in
 			let accountWithCloudProviderType = AccountListPosition.account.filter(Column("cloudProviderType") == cloudProviderType)
 			let request = AccountListPosition.including(required: accountWithCloudProviderType).order(Column("position"))
 			return try AccountInfo.fetchAll(db, request)
@@ -77,7 +74,7 @@ class DatabaseManager {
 		for i in tempPositions.indices {
 			tempPositions[i].position = nil
 		}
-		try dbPool.write { db in
+		try database.write { db in
 			try db.execute(sql: "PRAGMA ignore_check_constraints=YES")
 			for position in tempPositions {
 				try position.update(db)
@@ -102,7 +99,7 @@ class DatabaseManager {
 			.removeDuplicates()
 			.map { rows in rows.map(AccountWithDisplayName.init(row:)) }
 			.map { annotatedAccounts in annotatedAccounts.map(\.account) }
-		return observation.start(in: dbPool, scheduling: .immediate, onError: onError, onChange: onChange)
+		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}
 }
 

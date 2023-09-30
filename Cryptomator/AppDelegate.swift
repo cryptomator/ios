@@ -29,22 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupIAP()
 
 		// Set up database
-		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
-			// MARK: Handle error
+		DatabaseManager.shared = DatabaseManager()
 
-			DDLogError("dbURL is nil")
-			return false
-		}
-		do {
-			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
-		} catch {
-			// MARK: Handle error
-
-			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
-			return false
-		}
 		VaultDBManager.shared.recoverMissingFileProviderDomains().catch { error in
 			DDLogError("Recover missing FileProvider domains failed with error: \(error)")
 		}

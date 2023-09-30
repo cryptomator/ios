@@ -119,7 +119,7 @@ class UnlockVaultViewModel {
 		          passwordManager: VaultPasswordKeychainManager(),
 		          vaultAccountManager: VaultAccountDBManager.shared,
 		          providerManager: CloudProviderDBManager.shared,
-		          vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool))
+		          vaultCache: VaultDBCache())
 	}
 
 	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, vaultAccountManager: VaultAccountManager, providerManager: CloudProviderManager, vaultCache: VaultCache) {

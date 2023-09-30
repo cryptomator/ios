@@ -6,8 +6,43 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
+import Dependencies
 import Foundation
 import GRDB
+
+private enum CryptomatorDatabaseKey: DependencyKey {
+	static let liveValue: DatabaseWriter = CryptomatorDatabase.live
+
+	static var testValue: DatabaseWriter {
+		let inMemoryDB = DatabaseQueue(configuration: .defaultCryptomatorConfiguration)
+		do {
+			try CryptomatorDatabase.migrator.migrate(inMemoryDB)
+		} catch {
+			DDLogError("Failed to migrate in-memory database: \(error)")
+		}
+		return inMemoryDB
+	}
+}
+
+public extension DependencyValues {
+	var database: DatabaseWriter {
+		get { self[CryptomatorDatabaseKey.self] }
+		set { self[CryptomatorDatabaseKey.self] = newValue }
+	}
+}
+
+private enum CryptomatorDatabaseLocationKey: DependencyKey {
+	static var liveValue: URL? { CryptomatorDatabase.sharedDBURL }
+	static var testValue: URL? { FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: false) }
+}
+
+public extension DependencyValues {
+	var databaseLocation: URL? {
+		get { self[CryptomatorDatabaseLocationKey.self] }
+		set { self[CryptomatorDatabaseLocationKey.self] = newValue }
+	}
+}
 
 public enum CryptomatorDatabaseError: Error {
 	case dbDoesNotExist
@@ -15,22 +50,30 @@ public enum CryptomatorDatabaseError: Error {
 }
 
 public class CryptomatorDatabase {
-	public static var shared: CryptomatorDatabase!
+	static var live: DatabaseWriter {
+		@Dependency(\.databaseLocation) var databaseURL
 
-	public static var sharedDBURL: URL? {
+		guard let dbURL = databaseURL else {
+			fatalError("Could not get URL for shared database")
+		}
+		let database: DatabaseWriter
+		do {
+			database = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
+		} catch {
+			DDLogError("Failed to open shared database: \(error)")
+			fatalError("Could not open shared database")
+		}
+		do {
+			try CryptomatorDatabase.migrator.migrate(database)
+		} catch {
+			DDLogError("Failed to migrate database: \(error)")
+		}
+		return database
+	}
+
+	static var sharedDBURL: URL? {
 		let sharedContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName)
 		return sharedContainer?.appendingPathComponent("db.sqlite")
-	}
-
-	public let dbPool: DatabasePool
-	private static var oldSharedDBURL: URL? {
-		let sharedContainer = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: CryptomatorConstants.appGroupName)
-		return sharedContainer?.appendingPathComponent("main.sqlite")
-	}
-
-	public init(_ dbPool: DatabasePool) throws {
-		self.dbPool = dbPool
-		try CryptomatorDatabase.migrator.migrate(dbPool)
 	}
 
 	static var migrator: DatabaseMigrator {
@@ -48,7 +91,7 @@ public class CryptomatorDatabase {
 	}
 
 	// swiftlint:disable:next function_body_length
-	public class func v1Migration(_ db: Database) throws {
+	class func v1Migration(_ db: Database) throws {
 		// Common
 		try db.create(table: "cloudProviderAccounts") { table in
 			table.column("accountUID", .text).primaryKey()
@@ -157,12 +200,10 @@ public class CryptomatorDatabase {
 		var coordinatorError: NSError?
 		var dbPool: DatabasePool?
 		var dbError: Error?
-		var configuration = Configuration()
-		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
-		configuration.acceptsDoubleQuotedStringLiterals = true
+
 		coordinator.coordinate(writingItemAt: databaseURL, options: .forMerging, error: &coordinatorError, byAccessor: { _ in
 			do {
-				dbPool = try DatabasePool(path: databaseURL.path, configuration: configuration)
+				dbPool = try DatabasePool(path: databaseURL.path, configuration: .defaultCryptomatorConfiguration)
 			} catch {
 				dbError = error
 			}
@@ -193,7 +234,7 @@ public class CryptomatorDatabase {
 
 	private static func openReadOnlyDatabase(at databaseURL: URL) throws -> DatabasePool {
 		do {
-			var configuration = Configuration()
+			var configuration = Configuration.defaultCryptomatorConfiguration
 			configuration.readonly = true
 			let dbPool = try DatabasePool(path: databaseURL.path, configuration: configuration)
 
@@ -209,5 +250,14 @@ public class CryptomatorDatabase {
 				throw CryptomatorDatabaseError.dbDoesNotExist
 			}
 		}
+	}
+}
+
+extension Configuration {
+	static var defaultCryptomatorConfiguration: Configuration {
+		var configuration = Configuration()
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		configuration.acceptsDoubleQuotedStringLiterals = true
+		return configuration
 	}
 }

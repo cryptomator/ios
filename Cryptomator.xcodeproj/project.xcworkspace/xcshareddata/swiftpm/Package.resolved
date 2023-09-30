@@ -164,6 +164,15 @@
         }
       },
       {
+        "package": "Dependencies",
+        "repositoryURL": "https://github.com/PhilLibs/simple-swift-dependencies",
+        "state": {
+          "branch": null,
+          "revision": "36e2e7732b5fe2bfec76e4af78d2ef532fe09456",
+          "version": "0.1.0"
+        }
+      },
+      {
         "package": "swift-log",
         "repositoryURL": "https://github.com/apple/swift-log.git",
         "state": {
@@ -188,6 +197,15 @@
           "branch": null,
           "revision": "5b830d6ce6c34bb4bb976917576ab560e7945037",
           "version": "3.3.4"
+        }
+      },
+      {
+        "package": "xctest-dynamic-overlay",
+        "repositoryURL": "https://github.com/pointfreeco/xctest-dynamic-overlay",
+        "state": {
+          "branch": null,
+          "revision": "23cbf2294e350076ea4dbd7d5d047c1e76b03631",
+          "version": "1.0.2"
         }
       }
     ]

@@ -47,7 +47,7 @@ class VaultDetailUnlockVaultViewModel: SingleSectionTableViewModel, ReturnButton
 	}
 
 	func unlockVault() throws {
-		let cachedVault = try VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool).getCachedVault(withVaultUID: vault.vaultUID)
+		let cachedVault = try VaultDBCache().getCachedVault(withVaultUID: vault.vaultUID)
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
 		_ = try masterkeyFile.unlock(passphrase: password)
 		try passwordManager.setPassword(password, forVaultUID: vault.vaultUID)

@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Foundation
 import GRDB
 import Promises
@@ -21,7 +22,6 @@ class VaultDBCacheTests: XCTestCase {
 	private let vaultPath = CloudPath("/Vault")
 	private lazy var vaultAccount: VaultAccount = .init(vaultUID: vaultUID, delegateAccountUID: account.accountUID, vaultPath: vaultPath, vaultName: "Vault")
 	private let cloudProviderMock = CloudProviderMock()
-	private var inMemoryDB: DatabaseQueue!
 	private var masterkeyFileData: Data!
 	private var updatedMasterkeyFileData: Data!
 	private let masterkey = Masterkey.createFromRaw(aesMasterKey: [UInt8](repeating: 0x55, count: 32), macMasterKey: [UInt8](repeating: 0x77, count: 32))
@@ -40,16 +40,9 @@ class VaultDBCacheTests: XCTestCase {
 		vaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: masterkey.rawKey)
 		updatedVaultConfigData = try vaultConfig.toToken(keyId: "masterkeyfile:masterkey.cryptomator", rawKey: updatedMasterkey.rawKey)
 		defaultCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigData, lastUpToDateCheck: Date(timeIntervalSince1970: 0), masterkeyFileLastModifiedDate: Date(timeIntervalSince1970: 0), vaultConfigLastModifiedDate: Date(timeIntervalSince1970: 0))
-		var configuration = Configuration()
-		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
-		configuration.acceptsDoubleQuotedStringLiterals = true
-		inMemoryDB = DatabaseQueue(configuration: configuration)
-		vaultCache = VaultDBCache(dbWriter: inMemoryDB)
-		try CryptomatorDatabase.migrator.migrate(inMemoryDB)
-		try inMemoryDB.write { db in
-			try account.save(db)
-			try vaultAccount.save(db)
-		}
+
+		vaultCache = VaultDBCache()
+		try prepareDatabase()
 	}
 
 	func testCacheVault() throws {
@@ -74,9 +67,11 @@ class VaultDBCacheTests: XCTestCase {
 	}
 
 	func testCascadeOnVaultAccountDeletion() throws {
+		@Dependency(\.database) var database
+
 		try vaultCache.cache(defaultCachedVault)
 
-		_ = try inMemoryDB.write { db in
+		_ = try database.write { db in
 			try vaultAccount.delete(db)
 		}
 		XCTAssertThrowsError(try vaultCache.getCachedVault(withVaultUID: vaultUID)) { error in
@@ -303,5 +298,13 @@ class VaultDBCacheTests: XCTestCase {
 
 	private func assertDownloadedOnlyMasterkey() {
 		XCTAssertEqual([CloudPath("/Vault/masterkey.cryptomator")], cloudProviderMock.downloadFileFromToReceivedInvocations.map { $0.cloudPath })
+	}
+
+	private func prepareDatabase() throws {
+		@Dependency(\.database) var database
+		try database.write { db in
+			try account.save(db)
+			try vaultAccount.save(db)
+		}
 	}
 }
