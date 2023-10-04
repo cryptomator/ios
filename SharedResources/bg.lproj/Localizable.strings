@@ -2,12 +2,15 @@
 "common.button.change" = "Променяне";
 "common.button.choose" = "Избор";
 "common.button.close" = "Затваряне";
+"common.button.create" = "Създаване";
 "common.button.done" = "Готово";
 "common.button.edit" = "Редактиране";
 "common.button.next" = "Напред";
 "common.button.remove" = "Премахване";
 "common.button.retry" = "Повторен опит";
 "common.cells.password" = "Парола";
+"common.cells.url" = "URL";
+"common.cells.username" = "Потребител";
 
 "addVault.title" = "Добавяне на хранилище";
 "addVault.createNewVault.title" = "Ново хранилище";
@@ -18,6 +21,13 @@
 "purchase.retry.button" = "Повторен опит";
 
 "settings.title" = "Настройки";
+
+"s3Authentication.displayName" = "Показвано име";
+"s3Authentication.accessKey" = "Ключ за достъп";
+"s3Authentication.secretKey" = "Таен ключ";
+"s3Authentication.existingBucket" = "Bucket";
+"s3Authentication.endpoint" = "Крайна точка";
+"s3Authentication.region" = "Регион";
 
 "unlockVault.button.unlock" = "Отключване";
 
