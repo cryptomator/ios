@@ -16,6 +16,7 @@
 "addVault.createNewVault.title" = "Ново хранилище";
 "addVault.createNewVault.setVaultName.cells.name" = "Наименование";
 "addVault.createNewVault.chooseCloud.header" = "Къде Криптоматор ще държи шифрованите файлове на хранилището?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖНО: Ако забравите паролата няма начин да възстановите достъпа до данните.";
 "addVault.openExistingVault.title" = "Отваряне на хранилище";
 "fileProvider.error.unlockButton" = "Отключване";
 "purchase.retry.button" = "Повторен опит";
