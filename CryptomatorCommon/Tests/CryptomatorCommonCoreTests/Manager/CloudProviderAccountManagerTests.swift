@@ -10,27 +10,13 @@ import Foundation
 import GRDB
 import XCTest
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class CloudProviderAccountManagerTests: XCTestCase {
 	var accountManager: CloudProviderAccountDBManager!
-	var tmpDir: URL!
 
 	override func setUpWithError() throws {
-		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		let dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path)
-		try dbPool.write { db in
-			try db.create(table: CloudProviderAccount.databaseTableName) { table in
-				table.column(CloudProviderAccount.accountUIDKey, .text).primaryKey()
-				table.column(CloudProviderAccount.cloudProviderTypeKey, .text).notNull()
-			}
-		}
-		accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
-	}
-
-	override func tearDownWithError() throws {
-		accountManager = nil
-		try FileManager.default.removeItem(at: tmpDir)
+		accountManager = CloudProviderAccountDBManager()
 	}
 
 	func testSaveAccount() throws {

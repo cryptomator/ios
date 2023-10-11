@@ -16,13 +16,8 @@ class S3CredentialManagerTests: XCTestCase {
 	let displayName = "Cryptomator S3"
 
 	override func setUpWithError() throws {
-		var configuration = Configuration()
-		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
-		configuration.acceptsDoubleQuotedStringLiterals = true
-		let inMemoryDB = DatabaseQueue(configuration: configuration)
-		try CryptomatorDatabase.migrator.migrate(inMemoryDB)
 		cryptomatorKeychainMock = CryptomatorKeychainMock()
-		manager = S3CredentialManager(dbWriter: inMemoryDB, keychain: cryptomatorKeychainMock)
+		manager = S3CredentialManager(keychain: cryptomatorKeychainMock)
 	}
 
 	func testSaveCredential() throws {

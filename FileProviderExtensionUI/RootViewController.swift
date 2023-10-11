@@ -56,22 +56,7 @@ class RootViewController: FPUIActionExtensionViewController {
 	static var oneTimeSetup: () -> Void = {
 		// Set up logger
 		LoggerSetup.oneTimeSetup()
-		// Set up database
-		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
-			// MARK: Handle error
 
-			DDLogError("dbURL is nil")
-			return {}
-		}
-		do {
-			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-		} catch {
-			// MARK: Handle error
-
-			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
-			return {}
-		}
 		// Set up cloud storage services
 		CloudProviderDBManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)

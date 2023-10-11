@@ -12,9 +12,4 @@ import Foundation
 public struct FileProviderItemList {
 	public let items: [FileProviderItem]
 	public let nextPageToken: NSFileProviderPage?
-
-	init(items: [FileProviderItem], nextPageToken: NSFileProviderPage?) {
-		self.items = items
-		self.nextPageToken = nextPageToken
-	}
 }

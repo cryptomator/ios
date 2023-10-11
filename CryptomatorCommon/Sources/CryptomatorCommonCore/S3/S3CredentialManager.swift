@@ -6,6 +6,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 import GRDB
 
@@ -41,13 +42,13 @@ public extension CloudProviderAccount {
 }
 
 public struct S3CredentialManager: S3CredentialManagerType {
-	public static let shared = S3CredentialManager(dbWriter: CryptomatorDatabase.shared.dbPool, keychain: CryptomatorKeychain.s3)
-	let dbWriter: DatabaseWriter
+	@Dependency(\.database) var database
+	public static let shared = S3CredentialManager(keychain: CryptomatorKeychain.s3)
 	let keychain: CryptomatorKeychainType
 
 	public func save(credential: S3Credential, displayName: String) throws {
 		do {
-			try dbWriter.write { db in
+			try database.write { db in
 				let entry = S3DisplayName(id: credential.identifier, displayName: displayName)
 				try entry.save(db)
 				try keychain.saveS3Credential(credential)
@@ -56,14 +57,14 @@ public struct S3CredentialManager: S3CredentialManagerType {
 	}
 
 	public func removeCredential(with identifier: String) throws {
-		try dbWriter.write { db in
+		try database.write { db in
 			try S3DisplayName.deleteOne(db, key: ["id": identifier])
 			try keychain.delete(identifier)
 		}
 	}
 
 	public func getDisplayName(for identifier: String) throws -> String? {
-		try dbWriter.read { db in
+		try database.read { db in
 			let entry = try S3DisplayName.fetchOne(db, key: ["id": identifier])
 			return entry?.displayName
 		}
@@ -84,5 +85,5 @@ extension S3CredentialManager {
 		return inMemoryDB
 	}
 
-	public static let demo = S3CredentialManager(dbWriter: inMemoryDB, keychain: CryptomatorKeychain(service: "s3CredentialDemo"))
+	public static let demo = S3CredentialManager(keychain: CryptomatorKeychain(service: "s3CredentialDemo"))
 }

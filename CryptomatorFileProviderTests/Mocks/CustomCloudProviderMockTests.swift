@@ -1,5 +1,5 @@
 //
-//  CloudProviderMockTests.swift
+//  CustomCloudProviderMockTests.swift
 //  CryptomatorFileProviderTests
 //
 //  Created by Philipp Schmid on 01.07.20.

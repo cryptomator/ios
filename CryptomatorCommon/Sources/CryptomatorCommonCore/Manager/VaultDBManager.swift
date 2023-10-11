@@ -36,7 +36,7 @@ public protocol VaultManager {
 public class VaultDBManager: VaultManager {
 	public static let shared = VaultDBManager(providerManager: CloudProviderDBManager.shared,
 	                                          vaultAccountManager: VaultAccountDBManager.shared,
-	                                          vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool),
+	                                          vaultCache: VaultDBCache(),
 	                                          passwordManager: VaultPasswordKeychainManager(),
 	                                          masterkeyCacheManager: MasterkeyCacheKeychainManager.shared,
 	                                          masterkeyCacheHelper: VaultKeepUnlockedManager.shared)
