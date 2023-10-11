@@ -120,7 +120,7 @@ class FileProviderCoordinator: Coordinator {
 
 	func showManualLogin(for domain: NSFileProviderDomain, unlockError: UnlockError) {
 		let vaultUID = domain.identifier.rawValue
-		let vaultCache = VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool)
+		let vaultCache = VaultDBCache()
 		let vaultAccount: VaultAccount
 		let provider: CloudProvider
 		do {

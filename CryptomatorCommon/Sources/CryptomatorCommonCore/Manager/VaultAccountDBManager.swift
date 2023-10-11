@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 import GRDB
 
@@ -55,16 +56,12 @@ public enum VaultAccountManagerError: Error {
 }
 
 public class VaultAccountDBManager: VaultAccountManager {
-	public static let shared = VaultAccountDBManager(dbPool: CryptomatorDatabase.shared.dbPool)
-	private let dbPool: DatabasePool
-
-	public init(dbPool: DatabasePool) {
-		self.dbPool = dbPool
-	}
+	public static let shared = VaultAccountDBManager()
+	@Dependency(\.database) private var database
 
 	public func saveNewAccount(_ account: VaultAccount) throws {
 		do {
-			try dbPool.write { db in
+			try database.write { db in
 				try account.save(db)
 			}
 		} catch let error as DatabaseError where error.resultCode == .SQLITE_CONSTRAINT {
@@ -73,7 +70,7 @@ public class VaultAccountDBManager: VaultAccountManager {
 	}
 
 	public func removeAccount(with vaultUID: String) throws {
-		try dbPool.write { db in
+		try database.write { db in
 			guard try VaultAccount.deleteOne(db, key: vaultUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
@@ -81,7 +78,7 @@ public class VaultAccountDBManager: VaultAccountManager {
 	}
 
 	public func getAccount(with vaultUID: String) throws -> VaultAccount {
-		let fetchedAccount = try dbPool.read { db in
+		let fetchedAccount = try database.read { db in
 			return try VaultAccount.fetchOne(db, key: vaultUID)
 		}
 		guard let account = fetchedAccount else {
@@ -91,13 +88,13 @@ public class VaultAccountDBManager: VaultAccountManager {
 	}
 
 	public func getAllAccounts() throws -> [VaultAccount] {
-		try dbPool.read { db in
+		try database.read { db in
 			try VaultAccount.fetchAll(db)
 		}
 	}
 
 	public func updateAccount(_ account: VaultAccount) throws {
-		try dbPool.write { db in
+		try database.write { db in
 			try account.update(db)
 		}
 	}

@@ -349,6 +349,7 @@
 		4AF45359271F38FC00CF1919 /* RenameVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF45358271F38FC00CF1919 /* RenameVaultViewModelTests.swift */; };
 		4AF4535D27205F6200CF1919 /* VaultDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4535C27205F6200CF1919 /* VaultDetailCoordinator.swift */; };
 		4AF4535F272066A600CF1919 /* RenameVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4535E272066A600CF1919 /* RenameVaultViewController.swift */; };
+		4AF91A0F2AC2F025002357BA /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF91A0E2AC2F025002357BA /* Dependencies */; };
 		4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */; };
 		4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
 		4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */; };
@@ -1091,6 +1092,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A91728B2619F1D0003C4043 /* CryptomatorCommonCore in Frameworks */,
+				4AF91A0F2AC2F025002357BA /* Dependencies in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2225,6 +2227,7 @@
 			name = CryptomatorFileProvider;
 			packageProductDependencies = (
 				4A91728A2619F1D0003C4043 /* CryptomatorCommonCore */,
+				4AF91A0E2AC2F025002357BA /* Dependencies */,
 			);
 			productName = CryptomatorFileProvider;
 			productReference = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */;
@@ -3701,6 +3704,10 @@
 		4AC4C98D288AD858008C6D2B /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppAuth;
+		};
+		4AF91A0E2AC2F025002357BA /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Dependencies;
 		};
 		4AF9D44829C262B800EB3822 /* CryptomatorCommon */ = {
 			isa = XCSwiftPackageProductDependency;

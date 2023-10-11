@@ -13,27 +13,9 @@ import XCTest
 @testable import CryptomatorCommonCore
 
 class AccountListViewModelTests: XCTestCase {
-	var tmpDir: URL!
-	var dbPool: DatabasePool!
-	var cryptomatorDB: CryptomatorDatabase!
-	override func setUpWithError() throws {
-		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		let dbURL = tmpDir.appendingPathComponent("db.sqlite")
-		dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-		cryptomatorDB = try CryptomatorDatabase(dbPool)
-		_ = try DatabaseManager(dbPool: dbPool)
-	}
-
-	override func tearDownWithError() throws {
-		dbPool = nil
-		cryptomatorDB = nil
-		try FileManager.default.removeItem(at: tmpDir)
-	}
-
 	func testMoveRow() throws {
-		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let dbManagerMock = try DatabaseManagerMock()
+		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModelMock(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		try accountListViewModel.refreshItems()
@@ -57,8 +39,8 @@ class AccountListViewModelTests: XCTestCase {
 	}
 
 	func testRemoveRow() throws {
-		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let dbManagerMock = DatabaseManagerMock()
+		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModelMock(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		try accountListViewModel.refreshItems()
@@ -78,8 +60,8 @@ class AccountListViewModelTests: XCTestCase {
 	}
 
 	func testWebDAVAccountCellContent() throws {
-		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let dbManagerMock = DatabaseManagerMock()
+		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "https://www.example.com")!
@@ -90,8 +72,8 @@ class AccountListViewModelTests: XCTestCase {
 	}
 
 	func testWebDAVAccountCellContentWithPathInDetailLabel() throws {
-		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let dbManagerMock = DatabaseManagerMock()
+		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "https://www.example.com/path")!
@@ -102,8 +84,8 @@ class AccountListViewModelTests: XCTestCase {
 	}
 
 	func testWebDAVAccountCellContentWithUnknownHost() throws {
-		let dbManagerMock = try DatabaseManagerMock(dbPool: dbPool)
-		let accountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		let dbManagerMock = DatabaseManagerMock()
+		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
 		let baseURL = URL(string: "www")!
