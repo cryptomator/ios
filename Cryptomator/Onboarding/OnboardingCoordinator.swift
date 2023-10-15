@@ -7,12 +7,14 @@
 //
 
 import CryptomatorCommonCore
+import Dependencies
 import Foundation
 import UIKit
 
 class OnboardingCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
@@ -25,7 +27,7 @@ class OnboardingCoordinator: Coordinator {
 	}
 
 	func showIAP() {
-		guard !GlobalFullVersionChecker.default.isFullVersion else {
+		guard !fullVersionChecker.isFullVersion else {
 			navigationController.dismiss(animated: true)
 			return
 		}

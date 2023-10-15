@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 
@@ -17,7 +18,7 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 	private let dbPath: URL
 	private let localURLProvider: LocalURLProviderType
 	private let adapterManager: FileProviderAdapterProviding
-	private let fullVersionChecker: FullVersionChecker
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 	private let taskRegistrator: SessionTaskRegistrator
 
 	public convenience init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, taskRegistrator: SessionTaskRegistrator) {
@@ -26,17 +27,15 @@ public class FileImportingServiceSource: ServiceSource, FileImporting {
 		          dbPath: dbPath,
 		          delegate: delegate,
 		          adapterManager: FileProviderAdapterManager.shared,
-		          fullVersionChecker: GlobalFullVersionChecker.default,
 		          taskRegistrator: taskRegistrator)
 	}
 
-	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding, fullVersionChecker: FullVersionChecker, taskRegistrator: SessionTaskRegistrator) {
+	init(domain: NSFileProviderDomain, notificator: FileProviderNotificatorType, dbPath: URL, delegate: LocalURLProviderType, adapterManager: FileProviderAdapterProviding, taskRegistrator: SessionTaskRegistrator) {
 		self.domain = domain
 		self.notificator = notificator
 		self.dbPath = dbPath
 		self.localURLProvider = delegate
 		self.adapterManager = adapterManager
-		self.fullVersionChecker = fullVersionChecker
 		self.taskRegistrator = taskRegistrator
 		super.init(serviceName: .fileImporting, exportedInterface: NSXPCInterface(with: FileImporting.self))
 	}

@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
+import Dependencies
 import Foundation
 import UIKit
 
@@ -17,6 +18,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 
 	private let viewModel: VaultListViewModelProtocol
 	private var observer: NSObjectProtocol?
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
 	init(with viewModel: VaultListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -60,7 +62,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		super.viewDidAppear(animated)
 		if CryptomatorUserDefaults.shared.showOnboardingAtStartup {
 			coordinator?.showOnboarding()
-		} else if GlobalFullVersionChecker.default.hasExpiredTrial, !CryptomatorUserDefaults.shared.showedTrialExpiredAtStartup {
+		} else if fullVersionChecker.hasExpiredTrial, !CryptomatorUserDefaults.shared.showedTrialExpiredAtStartup {
 			coordinator?.showTrialExpired()
 		}
 	}

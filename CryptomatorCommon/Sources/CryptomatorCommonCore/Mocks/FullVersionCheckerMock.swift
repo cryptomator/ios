@@ -6,11 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-#if DEBUG
 import Foundation
 
 final class FullVersionCheckerMock: FullVersionChecker {
 	var isFullVersion: Bool = false
 	var hasExpiredTrial: Bool = false
 }
-#endif

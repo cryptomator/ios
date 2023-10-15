@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class FullVersionCheckerTests: XCTestCase {
 	var settingsMock: CryptomatorSettingsMock!
@@ -14,10 +15,11 @@ class FullVersionCheckerTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		settingsMock = CryptomatorSettingsMock()
+		DependencyValues.mockDependency(\.cryptomatorSettings, with: settingsMock)
 		settingsMock.fullVersionUnlocked = false
 		settingsMock.hasRunningSubscription = false
 		settingsMock.trialExpirationDate = nil
-		fullVersionChecker = UserDefaultsFullVersionChecker(cryptomatorSettings: settingsMock)
+		fullVersionChecker = UserDefaultsFullVersionChecker()
 	}
 
 	// MARK: Is Full Version

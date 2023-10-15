@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import MobileCoreServices
@@ -22,15 +23,14 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	let newestVersionLocallyCached: Bool
 	let localURL: URL?
 	let domainIdentifier: NSFileProviderDomainIdentifier
-	private let fullVersionChecker: FullVersionChecker
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
-	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil, fullVersionChecker: FullVersionChecker = GlobalFullVersionChecker.default) {
+	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil) {
 		self.metadata = metadata
 		self.domainIdentifier = domainIdentifier
 		self.error = error
 		self.newestVersionLocallyCached = newestVersionLocallyCached
 		self.localURL = localURL
-		self.fullVersionChecker = fullVersionChecker
 	}
 
 	public var itemIdentifier: NSFileProviderItemIdentifier {
