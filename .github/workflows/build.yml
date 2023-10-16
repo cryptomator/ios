@@ -39,7 +39,7 @@ jobs:
         run: |
           echo "BUILD_CMD=SWIFT_ACTIVE_COMPILATION_CONDITIONS='\$(inherited) ALWAYS_PREMIUM'" >> $GITHUB_ENV
       - name: Build
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES ${{ env.BUILD_CMD }} | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH ${{ env.BUILD_CMD }} | xcpretty
       - name: Test
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcpretty
       - name: Upload code coverage report
