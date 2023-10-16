@@ -2,15 +2,18 @@ name: Build
 
 on:
   [push]
+env:
+  DERIVED_DATA_PATH: 'DerivedData'
+  DEVICE: 'iPhone 14 Pro'
 
 jobs:
   build:
     name: Build and test
-    runs-on: macos-12
-    env:
-      DERIVED_DATA_PATH: 'DerivedData'
-      DEVICE: 'iPhone 12 Pro'
+    runs-on: macos-13
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
+    strategy:
+      matrix:
+        version: ['Freemium', 'Premium']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -27,11 +30,20 @@ jobs:
         run: |
           cd fastlane
           ./scripts/create-cloud-access-secrets.sh
+      - name: Configuration for Freemium
+        if: ${{ matrix.version == 'Freemium' }}
+        run: |
+          echo "BUILD_CMD=-enableCodeCoverage YES" >> $GITHUB_ENV
+      - name: Configuration for Premium
+        if: ${{ matrix.version == 'Premium' }}
+        run: |
+          echo "BUILD_CMD=SWIFT_ACTIVE_COMPILATION_CONDITIONS='\$(inherited) ALWAYS_PREMIUM'" >> $GITHUB_ENV
       - name: Build
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH -enableCodeCoverage YES ${{ env.BUILD_CMD }} | xcpretty
       - name: Test
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcpretty
       - name: Upload code coverage report
+        if: ${{ matrix.version == 'Freemium' }}
         run: |
           gem install slather
           slather coverage -x  --build-directory $DERIVED_DATA_PATH --ignore "$DERIVED_DATA_PATH/SourcePackages/*" --scheme AllTests Cryptomator.xcodeproj
@@ -39,3 +51,4 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         continue-on-error: true
+  
