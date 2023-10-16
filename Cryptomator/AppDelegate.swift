@@ -145,8 +145,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension FullVersionCheckerKey: DependencyKey {
 	public static var liveValue: FullVersionChecker {
 		#if ALWAYS_PREMIUM
-		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
-		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
+		return AlwaysActivatedPremium.default
 		#else
 		return UserDefaultsFullVersionChecker.default
 		#endif

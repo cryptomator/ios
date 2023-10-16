@@ -309,6 +309,7 @@ class FileProviderExtension: NSFileProviderExtension {
 	static var setupIAP: () -> Void = {
 		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
+		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 		#else
 		DDLogDebug("Freemium version")
 		#endif
@@ -323,8 +324,7 @@ class FileProviderExtension: NSFileProviderExtension {
 extension FullVersionCheckerKey: DependencyKey {
 	public static var liveValue: FullVersionChecker {
 		#if ALWAYS_PREMIUM
-		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
-		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
+		return AlwaysActivatedPremium.default
 		#else
 		return UserDefaultsFullVersionChecker.default
 		#endif
