@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import MobileCoreServices
@@ -25,12 +26,5 @@ public class RootFileProviderItem: NSObject, NSFileProviderItem {
 		}
 	}
 
-	private let fullVersionChecker: FullVersionChecker
-	override public convenience init() {
-		self.init(fullVersionChecker: GlobalFullVersionChecker.default)
-	}
-
-	init(fullVersionChecker: FullVersionChecker) {
-		self.fullVersionChecker = fullVersionChecker
-	}
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 }

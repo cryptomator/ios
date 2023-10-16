@@ -7,12 +7,14 @@
 //
 
 import CryptomatorCommonCore
+import Dependencies
 import Foundation
 import UIKit
 
 class AddVaultCoordinator: Coordinator {
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 	weak var parentCoordinator: MainCoordinator?
 
 	init(navigationController: UINavigationController) {
@@ -76,7 +78,7 @@ class AddVaultCoordinator: Coordinator {
 	}
 
 	private func isAllowedToCreateNewVault() -> Bool {
-		return GlobalFullVersionChecker.default.isFullVersion
+		fullVersionChecker.isFullVersion
 	}
 }
 

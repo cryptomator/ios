@@ -11,6 +11,7 @@ import MobileCoreServices
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
@@ -110,50 +111,55 @@ class FileProviderItemTests: XCTestCase {
 	func testUploadingItemRestrictsCapabilityToRead() {
 		let fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
 	func testUploadingFolderDoesNotRestrictCapabilities() {
 		let fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 
 		let cloudPath = CloudPath("/test")
 		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual([.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], item.capabilities)
 	}
 
 	func testCapabilitiesForRestrictedVersion() {
 		let fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = false
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
 	}
 
 	func testFailedUploadItemCapabilitiesForRestrictedVersion() {
 		let fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = false
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
 
 	func testFailedUploadFolderCapabilitiesForRestrictedVersion() {
 		let fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = false
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 
 		let cloudPath = CloudPath("/test")
 		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
 	}
 
