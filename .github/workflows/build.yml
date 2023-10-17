@@ -2,14 +2,14 @@ name: Build
 
 on:
   [push]
-env:
-  DERIVED_DATA_PATH: 'DerivedData'
-  DEVICE: 'iPhone 12 Pro'
 
 jobs:
   build:
     name: Build and test
     runs-on: macos-12
+    env:
+      DERIVED_DATA_PATH: 'DerivedData'
+      DEVICE: 'iPhone 12 Pro'
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
