@@ -13,7 +13,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        version: ['Freemium', 'Premium']
+        config: ['freemium', 'premium']
     steps:
       - uses: actions/checkout@v3
       - uses: actions/cache@v3
@@ -30,12 +30,12 @@ jobs:
         run: |
           cd fastlane
           ./scripts/create-cloud-access-secrets.sh
-      - name: Configuration for Freemium
-        if: ${{ matrix.version == 'Freemium' }}
+      - name: Configuration for freemium
+        if: ${{ matrix.config == 'freemium' }}
         run: |
           echo "BUILD_CMD=-enableCodeCoverage YES" >> $GITHUB_ENV
-      - name: Configuration for Premium
-        if: ${{ matrix.version == 'Premium' }}
+      - name: Configuration for premium
+        if: ${{ matrix.config == 'premium' }}
         run: |
           echo "BUILD_CMD=SWIFT_ACTIVE_COMPILATION_CONDITIONS='\$(inherited) ALWAYS_PREMIUM'" >> $GITHUB_ENV
       - name: Build
@@ -43,7 +43,7 @@ jobs:
       - name: Test
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcpretty
       - name: Upload code coverage report
-        if: ${{ matrix.version == 'Freemium' }}
+        if: ${{ matrix.config == 'freemium' }}
         run: |
           gem install slather
           slather coverage -x  --build-directory $DERIVED_DATA_PATH --ignore "$DERIVED_DATA_PATH/SourcePackages/*" --scheme AllTests Cryptomator.xcodeproj
@@ -51,4 +51,3 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         continue-on-error: true
-  
