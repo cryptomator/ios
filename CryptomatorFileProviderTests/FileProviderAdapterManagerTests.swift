@@ -34,10 +34,6 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		case test
 	}
 
-	override class func setUp() {
-		GlobalFullVersionChecker.default = FullVersionCheckerMock()
-	}
-
 	#warning("TODO: Replace unlockMonitor with mock")
 	override func setUpWithError() throws {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()

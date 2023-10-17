@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
+import Dependencies
 import FileProvider
 import MSAL
 
@@ -308,13 +309,26 @@ class FileProviderExtension: NSFileProviderExtension {
 	static var setupIAP: () -> Void = {
 		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
-		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
+		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 		#else
 		DDLogDebug("Freemium version")
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
 		#endif
 		return {}
 	}()
+}
+
+/**
+ Define the liveValue in the main target since compilation flags do not work on Swift Package Manager level.
+ Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
+ */
+extension FullVersionCheckerKey: DependencyKey {
+	public static var liveValue: FullVersionChecker {
+		#if ALWAYS_PREMIUM
+		return AlwaysActivatedPremium.default
+		#else
+		return UserDefaultsFullVersionChecker.default
+		#endif
+	}
 }
 
 enum FileProviderDecoratorSetupError: Error {
