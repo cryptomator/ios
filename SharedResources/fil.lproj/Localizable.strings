@@ -10,48 +10,201 @@
 "common.button.cancel" = "Kanselahin";
 "common.button.change" = "Baguhin";
 "common.button.choose" = "Pumili";
+"common.button.clear" = "Maaliwalas";
 "common.button.close" = "Isara";
+"common.button.confirm" = "Kumpirmahin";
 "common.button.create" = "Gumawa";
 "common.button.createFolder" = "Gumawa ng Folder";
 "common.button.done" = "Tapos na";
+"common.button.download" = "I-download";
 "common.button.edit" = "I-edit";
 "common.button.enable" = "I-enable";
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
 "common.button.remove" = "Tanggalin";
 "common.button.retry" = "Subukan muli";
+"common.button.signOut" = "Mag-sign Out";
+"common.button.verify" = "I-verify";
 "common.cells.openInFilesApp" = "Ibuksan sa Files App";
 "common.cells.password" = "Password";
 "common.cells.url" = "URL";
 "common.cells.username" = "Username";
 "common.footer.learnMore" = "Matuto pa.";
+"common.hud.authenticating" = "Pinapatunayan…";
+
+"accountList.header.title" = "Mga pagpapatunay";
 "accountList.emptyList.message" = "Pumindot dito para madagdag ang account";
 "accountList.signOut.alert.title" = "Itangal ang mga associated na vaults?";
+"accountList.signOut.alert.message" = "Sa pamamagitan ng pag-sign out, ang lahat ng nauugnay na vault ay aalisin sa listahan ng vault. Walang matatanggal na naka-encrypt na data. Maaari kang mag-sign in muli at muling idagdag ang mga vault sa ibang pagkakataon.";
 
 "addVault.title" = "Magdagdag ng Vault";
 "addVault.createNewVault.title" = "Gumawa ng Bagong Vault";
+"addVault.createNewVault.purchase" = "Ang paggawa ng bagong vault ay nangangailangan ng buong bersyon ng Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Pumili ng pangalan para sa vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Pangalan ng Vault";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Hindi pwedeng wala ang pangalan ng vault.";
 "addVault.createNewVault.chooseCloud.header" = "Saan maaaring ilagay ng Cryptomator ang mga encrypted files ng iyong vault?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "Umiiral na ang \"%@\" sa lokasyong ito. Pumili ng ibang pangalan o lokasyon ng vault.";
+"addVault.createNewVault.detectedMasterkey.text" = "Nakakita ang Cryptomator ng umiiral nang vault sa lokasyong ito.\nUpang gumawa ng bagong vault, mangyaring bumalik at pumili ng ibang folder.";
 "addVault.createNewVault.password.enterPassword.header" = "Maglagay ng bagong password.";
+"addVault.createNewVault.password.confirmPassword.header" = "Kumpirmahin ang bagong password.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Kumpirmahin ang Password?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Walang paraan para maisalba ang iyong datos kapag nakalimutan ang iyong password.";
+"addVault.createNewVault.password.error.emptyPassword" = "Hindi maaaring walang laman ang password.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Hindi tugma ang mga password.";
 "addVault.createNewVault.password.error.tooShortPassword" = "8 o higit pang karakter ang kailangan sa password.";
 "addVault.createNewVault.progress" = "Gumagawa ng Vault…";
 "addVault.openExistingVault.title" = "Magbukas ng Umiiral na Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Saan matatagpuan ang vault?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Natukoy ng Cryptomator ang vault na \"%@\".\nGusto mo bang idagdag ang vault na ito?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Idagdag ang Vault na ito";
+"addVault.openExistingVault.password.footer" = "Ipasok ang password para sa \"%@\".";
+"addVault.openExistingVault.progress" = "Idinaragdag ang Vault…";
+"addVault.success.info" = "Matagumpay na naidagdag ang vault na \"%@\".\nI-access ang vault na ito sa pamamagitan ng Files app.";
+"addVault.success.footer" = "Kung hindi mo pa nagagawa, paganahin ang Cryptomator sa Files app.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Pindutin ang ID";
+
+"changePassword.error.invalidOldPassword" = "Mali ang kasalukuyang password. Pakisubukang muli.";
+"changePassword.header.currentPassword.title" = "Ipasok ang kasalukuyang password.";
 "changePassword.header.newPassword.title" = "Maglagay ng bagong password.";
+"changePassword.header.newPasswordConfirmation.title" = "Kumpirmahin ang bagong password.";
+"changePassword.progress" = "Pinapalitan ang Password…";
+
+"chooseFolder.emptyFolder.footer" = "Walang laman ang folder";
+"chooseFolder.createNewFolder.header.title" = "Pumili ng pangalan para sa folder.";
+"chooseFolder.createNewFolder.cells.name" = "Pangalan ng Folder";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Hindi maaaring walang laman ang pangalan ng folder.";
 "chooseFolder.createNewFolder.progress" = "Gumagawa ng Folder…";
+
+"cloudProvider.error.itemNotFound" = "Hindi mahanap ang \"%@\".";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" mayroon na.";
+"cloudProvider.error.itemTypeMismatch" = "Ang \"%@\" ay may hindi inaasahang uri ng item.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Ang folder ng magulang na \"%@\" ay hindi umiiral.";
+"cloudProvider.error.pageTokenInvalid" = "Hindi maipagpatuloy ang pagkuha ng mga nilalaman ng direktoryo.";
+"cloudProvider.error.quotaInsufficient" = "Walang sapat na espasyo ang iyong storage.";
+"cloudProvider.error.unauthorized" = "Hindi magawa ang hindi awtorisadong operasyon.";
+"cloudProvider.error.noInternetConnection" = "Kailangan ng koneksyon sa internet para sa operasyong ito.";
+
+"cloudProviderType.localFileSystem" = "Iba pang File Provider";
+
+"fileProvider.onboarding.title" = "Maligayang pagdating";
+"fileProvider.onboarding.info" = "Salamat sa pagpili sa Cryptomator para protektahan ang iyong mga file. Upang makapagsimula, pumunta sa pangunahing app at magdagdag ng vault.";
+"fileProvider.onboarding.button.openCryptomator" = "Buksan ang Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Nakansela ang Unlock";
+"fileProvider.error.biometricalAuthCanceled.message" = "Hindi matagumpay ang pag-unlock sa pamamagitan ng %@. Pakisubukang muli.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Mali ang Password";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Mali ang password na na-save para sa %@. Pakisubukang muli at ilagay ang iyong password upang muling paganahin ang %@.";
+"fileProvider.error.defaultLock.title" = "Kinakailangan ang I-unlock";
+"fileProvider.error.defaultLock.message" = "Upang ma-access at maipakita ang mga nilalaman ng iyong vault, kailangan itong i-unlock.";
 "fileProvider.error.unlockButton" = "I-unlock";
+"fileProvider.clearFileFromCache.title" = "I-clear ang File mula sa Cache";
+"fileProvider.clearFileFromCache.message" = "Inaalis lang nito ang lokal na file sa iyong device at hindi tinatanggal ang file sa cloud.";
+"fileProvider.fileImporting.error.missingPremium" = "I-unlock ang buong bersyon sa Cryptomator app para magkaroon ng access sa pagsulat sa iyong mga vault.";
+"fileProvider.uploadProgress.connecting" = "Kumokonekta…";
+"fileProvider.uploadProgress.message" = "Kasalukuyang Pag-unlad: %@\n\nKung napapansin mong natigil ang pag-usad ng pag-upload, maaari mong subukang muli ang pag-upload.";
+"fileProvider.uploadProgress.missing" = "Hindi matukoy ang pag-unlad. Maaaring tumatakbo pa rin ito sa background.";
+"fileProvider.uploadProgress.title" = "Ina-upload…";
+"fileProvider.uploadProgress.missingDomainError" = "Hindi mahanap ang domain.";
+
+"getFolderIntent.error.missingPath" = "Walang ibinigay na landas. Mangyaring magbigay ng wastong landas kung saan dapat ibalik ang isang folder.";
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
+"intents.saveFile.missingFile" = "Ang ibinigay na file ay hindi wasto.";
+"intents.saveFile.invalidFolder" = "Ang ibinigay na folder ay hindi wasto.";
+"intents.saveFile.missingTemporaryFolder" = "Nabigong gumawa ng pansamantalang folder.";
+"intents.saveFile.lockedVault" = "Kailangan mong i-unlock ang iyong vault para magamit ang shortcut na ito.";
 "intents.saveFile.selectedVaultNotFound" = "Ang naselect na vault ay hindi makita.";
+
+"keepUnlocked.alert.title" = "Lock Vault?";
+"keepUnlocked.alert.message" = "Kinakailangan ng pagbabagong ito na i-lock ang iyong vault upang magkabisa.";
+"keepUnlocked.alert.confirm" = "Kumpirmahin at I-lock Ngayon";
+"keepUnlocked.header" = "Tukuyin kung gaano katagal mo gustong manatiling naka-unlock ang vault na ito kapag idle.";
+"keepUnlocked.footer.auto" = "Ang pagpapasya sa iOS ay nangangahulugan na ang Cryptomator ay maaaring wakasan anumang oras upang magbakante ng memorya, na awtomatikong nagla-lock sa vault.";
+"keepUnlocked.footer.on" = "Gamit ang napiling opsyon, kailangang maimbak ang isang kopya ng iyong key sa iOS keychain, hangga't naka-unlock ang vault.";
+"keepUnlockedDuration.auto" = "Hayaang Awtomatikong Magpasya ang iOS";
+"keepUnlockedDuration.auto.shortDisplayName" = "Auto";
+"keepUnlockedDuration.indefinite" = "Walang katiyakan";
+
+"localFileSystemAuthentication.createNewVault.header" = "Sa susunod na screen, piliin ang lokasyon ng storage para sa iyong bagong vault.";
+"localFileSystemAuthentication.createNewVault.button" = "Piliin ang Lokasyon ng Storage";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Mayroon nang vault sa lokasyong ito. Pakisubukang muli gamit ang ibang lokasyon ng storage.";
+"localFileSystemAuthentication.openExistingVault.header" = "Sa susunod na screen, piliin ang folder ng iyong kasalukuyang vault.";
+"localFileSystemAuthentication.openExistingVault.button" = "Piliin ang Vault Folder";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ang napiling folder ay hindi isang vault. Pakisubukang muli gamit ang ibang folder.";
+"localFileSystemAuthentication.info.footer" = "Hindi sinusuportahan ng mga file provider na naka-gray out ang \"pagpili ng mga folder.\" Ito ay hindi isang limitasyon ng Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "Hindi maisagawa ang operasyon dahil ang ibang mga pagpapatakbo sa background para sa vault na ito ay kailangang tapusin muna. Subukang muli mamaya.";
+
+"nameValidation.error.endsWithPeriod" = "Hindi ka maaaring gumamit ng pangalan na nagtatapos sa tuldok. Mangyaring pumili ng ibang pangalan.";
+"nameValidation.error.endsWithSpace" = "Hindi ka maaaring gumamit ng pangalan na nagtatapos sa isang puwang. Mangyaring pumili ng ibang pangalan.";
+"nameValidation.error.containsIllegalCharacter" = "Hindi ka maaaring gumamit ng pangalan na naglalaman ng \"%@\". Mangyaring pumili ng ibang pangalan.";
+
+"onboarding.title" = "Maligayang pagdating";
+"onboarding.info" = "Salamat sa pagpili sa Cryptomator para protektahan ang iyong mga file.\n\nSa Cryptomator, nasa iyong mga kamay ang susi sa iyong data. Ine-encrypt ng Cryptomator ang iyong data nang mabilis at madali.\n\nAng app na ito ay ganap na isinama sa Files app. Tiyaking paganahin ang Cryptomator sa Files app sa ibang pagkakataon upang ma-access ang iyong mga vault.";
+"onboarding.button.continue" = "Magpatuloy";
+
+"purchase.beginFreeTrial.alert.title" = "Na-unlock ang Pagsubok";
+"purchase.expiredTrial" = "Ang iyong pagsubok ay nag-expire na.";
+"purchase.footer.privacyPolicy" = "Patakaran sa Privacy";
+"purchase.footer.termsOfUse" = "Mga Tuntunin ng Paggamit";
+"purchase.header.feature.familySharing" = "Pagbabahaginan ng pamilya";
+"purchase.header.feature.openSource" = "Pag-unlad ng open-source";
+"purchase.header.feature.writeAccess" = "Magsulat ng access sa iyong mga vault";
+"purchase.product.donateAndUpgrade" = "Mag-donate at Mag-upgrade";
 "purchase.product.freeUpgrade" = "Libreng Upgrade";
+"purchase.product.lifetimeLicense" = "Panghabambuhay na Lisensya";
+"purchase.product.lifetimeLicense.duration" = "isang beses";
+"purchase.product.pricing.free" = "Libre";
+"purchase.product.trial" = "30-Araw na Pagsubok";
+"purchase.product.trial.expirationDate" = "Petsa ng pagkawalang bisa: %@";
+"purchase.product.trial.duration" = "sa loob ng 30 araw";
+"purchase.product.yearlySubscription" = "Taunang Subskripsyon";
+"purchase.product.yearlySubscription.duration" = "taun-taon";
+"purchase.readOnlyMode.alert.title" = "Read-Only Mode";
+"purchase.readOnlyMode.alert.message" = "Maaari mong i-unlock ang buong bersyon ng Cryptomator sa ibang pagkakataon sa mga setting at gamitin ito sa read-only na mode sa ngayon.";
+"purchase.restorePurchase.button" = "Ibalik ang Pagbili";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Ipinagpatuloy ang Pagsubok";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Magagamit mo na ngayon ang buong bersyon ng Cryptomator sa limitadong panahon. Mag-e-expire ang iyong trial sa %@. Pagkatapos nito, maa-access pa rin ang iyong mga vault sa read-only mode.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Ibalik ang Matagumpay";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Walang Buong Bersyon";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Hindi namin mahanap ang isang dating binili na buong bersyon na maaaring ibalik. Mangyaring subukan ang isa pang pagpipilian.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Kwalipikado para sa Pag-upgrade";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Mukhang sinusubukan mong mag-upgrade mula sa isang mas lumang bersyon ng Cryptomator. Kung ganoon, mangyaring piliin ang opsyon na \"I-upgrade ang Alok\" sa halip.";
 "purchase.retry.button" = "Subukan muli";
+"purchase.retry.footer" = "Hindi ma-load ang mga available na produkto.";
+"purchase.title" = "I-unlock ang Buong Bersyon";
+"purchase.unlockedFullVersion.message" = "Magagamit mo na ngayon ang buong bersyon ng Cryptomator. Maligayang pag-crypting!";
+"purchase.unlockedFullVersion.title" = "Salamat";
+"purchase.error.unknown" = "Hindi available ang pagbiling ito sa App Store sa hindi malamang dahilan. Pakisubukang muli sa ibang pagkakataon.\n\nKung magpapatuloy ang error na ito, subukang i-restart ang iyong device o mag-sign out at bumalik sa iyong Apple ID sa mga setting ng iOS.";
 
 "settings.title" = "Settings";
+"settings.aboutCryptomator" = "Tungkol sa Cryptomator";
+"settings.aboutCryptomator.title" = "Bersyon %@ (%@)";
+"settings.cacheSize" = "Laki ng Cache";
 "settings.clearCache" = "Linisin ang Cache";
+"settings.cloudServices" = "Mga Serbisyo sa Cloud";
+"settings.contact" = "Makipag-ugnayan";
+"settings.debugMode" = "Debug Mode";
 "settings.debugMode.alert.message" = "Sa mode na ito, maaaring isulat ang sensitibong data sa isang log file sa iyong device (hal., mga filename at path). Ang mga password, cookies, atbp. ay tahasang hindi kasama.\n\nTandaang i-disable ang debug mode sa lalong madaling panahon.";
+"settings.manageSubscriptions" = "Pamahalaan ang Subscription";
+"settings.rateApp" = "I-rate ang App";
+"settings.sendLogFile" = "Magpadala ng Log File";
+"settings.shortcutsGuide" = "Gabay sa Mga Shortcut";
+"settings.unlockFullVersion" = "I-unlock ang Buong Bersyon";
+
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Pangwakas na Presentasyon.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/ulat.pdf";
+"snapshots.fileprovider.folder3" = "/Lihim na Proyekto";
+"snapshots.fileprovider.folder2" = "/Lihim na Proyekto";
+"snapshots.fileprovider.folder1" = "/Mga Sertipiko";
+"snapshots.main.vault1" = "/Trabaho";
+"snapshots.main.vault2" = "/Pamilya";
+"snapshots.main.vault3" = "/Mga dokumento";
+"snapshots.main.vault4" = "/Paglalakbay sa California";
 
 "s3Authentication.displayName" = "Display Name";
 "s3Authentication.accessKey" = "Access Key";
@@ -59,14 +212,78 @@
 "s3Authentication.existingBucket" = "Umiiral na Balde";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Rehiyon";
+"s3Authentication.error.invalidCredentials" = "Di-wastong mga kredensyal.";
+"s3Authentication.error.invalidEndpoint" = "Ang ibinigay na endpoint ay hindi tumutugma sa format ng isang URL.";
+
+"trialStatus.active" = "Aktibo";
+"trialStatus.expired" = "Nag-expire na";
 
 "unlockVault.button.unlock" = "I-unlock";
+"unlockVault.button.unlockVia" = "I-unlock sa pamamagitan ng %@";
+"unlockVault.password.footer" = "Ipasok ang password para sa \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Paganahin ang %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Sa halip na i-unlock ang iyong vault gamit ang iyong password, maaari mo itong i-unlock sa pamamagitan ng %@.";
+"unlockVault.evaluatePolicy.reason" = "I-unlock ang iyong vault";
+"unlockVault.progress" = "Ina-unlock…";
+
+"untrustedTLSCertificate.title" = "Di-wastong TLS Certificate";
+"untrustedTLSCertificate.message" = "Ang TLS Certificate ng \"%@\" ay hindi wasto. Gusto mo pa rin bang magtiwala dito?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Magtiwala";
+"untrustedTLSCertificate.dismiss" = "Huwag Magtiwala";
+
+"upgrade.title" = "I-upgrade ang Alok";
+"upgrade.notEligible.alert.title" = "Nabigo ang pag-upgrade";
+"upgrade.notEligible.alert.message" = "Hindi matukoy ng Cryptomator ang isang mas lumang bersyon na naka-install sa iyong device. Kung binili mo ito, mangyaring muling i-download ito mula sa App Store at subukang muli.";
+"upgrade.info" = "Salamat sa pagtitiwala sa Cryptomator mula noong unang bersyon. Bilang isang tapat na user, karapat-dapat ka para sa isang libreng pag-upgrade.";
+
+"urlSession.error.httpError.401" = "Maling username at/o password.";
+"urlSession.error.httpError.403" = "Hindi sapat na mga karapatan sa hiniling na mapagkukunan.";
+"urlSession.error.httpError.404" = "Hindi nakita ang hiniling na mapagkukunan.";
+"urlSession.error.httpError.405" = "Ang paraan ng kahilingan ay hindi sinusuportahan ng target na mapagkukunan.";
+"urlSession.error.httpError.409" = "Humiling ng salungat sa kasalukuyang estado ng target na mapagkukunan.";
+"urlSession.error.httpError.412" = "Tinanggihan ang pag-access sa target na mapagkukunan.";
+"urlSession.error.httpError.default" = "Nabigo ang koneksyon sa network gamit ang status code na %ld.";
+"urlSession.error.unexpectedResponse" = "Nagkaroon ng hindi inaasahang tugon sa network.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Naidagdag mo na ang vault na ito.";
 
 "vaultDetail.button.changeVaultPassword" = "Palitan ANG password";
 "vaultDetail.button.lock" = "I-lock ngayon";
 "vaultDetail.button.moveVault" = "Ilipat";
+"vaultDetail.button.removeVault" = "Alisin sa Listahan ng Vault";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
+"vaultDetail.changePassword.footer" = "Pumili ng malakas na password para sa iyong vault na ikaw lang ang nakakaalam at itago ito sa isang ligtas na lugar.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Kung pinagana mo ang %@, maiimbak ang iyong password sa vault sa iOS keychain.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Kakailanganin lang ang iyong password sa vault kung nabigo ang %@ authentication.";
+"vaultDetail.info.footer.accessVault" = "I-access ang vault sa pamamagitan ng Files app.";
+"vaultDetail.info.footer.accountInfo" = "Naka-log in bilang %@ sa pamamagitan ng %@.";
+"vaultDetail.keepUnlocked.title" = "I-unlock ang Tagal";
+"vaultDetail.keepUnlocked.footer.off" = "Kakailanganin ang pag-unlock kapag ang Cryptomator ay winakasan ng Files app.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Kakailanganin ang pag-unlock kapag ang iyong vault ay naging idle para sa %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Walang pag-unlock ang kakailanganin maliban kung manu-manong naka-lock.";
+"vaultDetail.locked.footer" = "Kasalukuyang naka-lock ang iyong vault.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Nakakita ang Cryptomator ng umiiral nang vault sa lokasyong ito.\nUpang ilipat ang iyong vault, mangyaring bumalik at pumili ng ibang folder.";
+"vaultDetail.moveVault.progress" = "Gumagalaw…";
+"vaultDetail.removeVault.footer" = "Aalisin lang nito ang vault sa listahan ng vault at hindi tatanggalin ang anumang naka-encrypt na file.";
+"vaultDetail.renameVault.progress" = "Pinapalitan ang pangalan…";
+"vaultDetail.unlocked.footer" = "Kasalukuyang naka-unlock ang iyong vault sa Files app.";
+"vaultDetail.unlockVault.footer" = "Ilagay ang password para sa \"%@\" para iimbak ito sa iOS keychain at para paganahin ang %@.";
+
+"vaultList.header.title" = "Mga Vault";
+"vaultList.emptyList.message" = "Mag-tap dito para magdagdag ng vault";
+"vaultList.remove.alert.title" = "Alisin ang Vault?";
+"vaultList.remove.alert.message" = "Aalisin lang nito ang vault sa listahan ng vault. Walang matatanggal na naka-encrypt na data. Maaari mong muling idagdag ang vault sa ibang pagkakataon.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Hindi sinusuportahan ang configuration ng Vault. Pakitiyak na pinapatakbo mo ang pinakabagong bersyon ng Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Hindi sinusuportahan ang bersyon ng Vault na %ld. Ang vault na ito ay ginawa gamit ang mas luma o mas bagong bersyon ng Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Gamiting ang HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Ang pag-gamit ng HTTP ay hindi ligtas. Kung alam mo ang mga panganib, maaari kang tumuloy gamit ang HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Gawing HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Panatilihin ang HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Mukhang hindi compatible sa WebDAV ang server. Pakisuri kung ginamit mo ang tamang URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Ang sertipiko ng server na ito ay hindi pinagkakatiwalaan. Maaaring kailanganin mong muling idagdag ang koneksyon sa WebDAV na ito.";
+
+"Retry Upload" = "Subukan muli ang Pag-upload";
+"Clear from Cache" = "I-clear mula sa Cache";
