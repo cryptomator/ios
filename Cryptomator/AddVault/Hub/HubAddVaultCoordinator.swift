@@ -54,7 +54,9 @@ class AddHubVaultCoordinator: Coordinator {
 }
 
 extension AddHubVaultCoordinator: HubAuthenticationFlowDelegate {
-	func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey) async {
+	func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async {
+		let jwe = response.jwe
+		let privateKey = response.privateKey
 		let hubVault = ExistingHubVault(vaultUID: vaultUID,
 		                                delegateAccountUID: accountUID,
 		                                jweData: jwe.compactSerializedData,

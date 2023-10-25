@@ -12,7 +12,7 @@ import CryptomatorCloudAccessCore
 import Foundation
 
 public enum HubAuthenticationFlow {
-	case receivedExistingKey(Data)
+	case success(Data, [AnyHashable: Any])
 	case accessNotGranted
 	case needsDeviceRegistration
 	case licenseExceeded
@@ -53,9 +53,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		var urlRequest = URLRequest(url: url)
 		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
 		let (data, response) = try await URLSession.shared.data(with: urlRequest)
-		switch (response as? HTTPURLResponse)?.statusCode {
+		let httpResponse = response as? HTTPURLResponse
+		switch httpResponse?.statusCode {
 		case 200:
-			return .receivedExistingKey(data)
+			return .success(data, httpResponse?.allHeaderFields ?? [:])
 		case 402:
 			return .licenseExceeded
 		case 403:

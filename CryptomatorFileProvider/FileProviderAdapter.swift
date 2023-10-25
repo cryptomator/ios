@@ -74,6 +74,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
 	private let taskRegistrator: SessionTaskRegistrator
+	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
 	     uploadTaskManager: UploadTaskManager,

@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 @available(iOS 14.0, *)
 class FileProviderNotificatorTests: XCTestCase {
@@ -97,6 +98,11 @@ class FileProviderNotificatorTests: XCTestCase {
 		})
 
 		let actualItems = notificator.popUpdateContainerItems() as? [FileProviderItem]
+
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
 		XCTAssertEqual([updatedItem], actualItems?.sorted())
 		XCTAssert(notificator.popUpdateWorkingSetItems().isEmpty)
 		XCTAssert(notificator.getItemIdentifiersToDeleteFromWorkingSet().isEmpty)
@@ -109,6 +115,9 @@ class FileProviderNotificatorTests: XCTestCase {
 	}
 
 	private func assertUpdateWorkingSetHasUpdatedItems() {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let actualItems = notificator.popUpdateWorkingSetItems() as? [FileProviderItem]
 		XCTAssertEqual(updatedItems.sorted(), actualItems?.sorted())
 	}

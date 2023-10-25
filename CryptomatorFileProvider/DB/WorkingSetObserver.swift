@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import Dependencies
 import FileProvider
 import Foundation
 import GRDB
@@ -23,8 +24,13 @@ class WorkingSetObserver: WorkingSetObserving {
 	private let notificator: FileProviderNotificatorType
 	private var currentWorkingSetItems = Set<FileProviderItem>()
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	@Dependency(\.permissionProvider) private var permissionProvider
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, database: DatabaseReader, notificator: FileProviderNotificatorType, uploadTaskManager: UploadTaskManager, cachedFileManager: CachedFileManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     database: DatabaseReader,
+	     notificator: FileProviderNotificatorType,
+	     uploadTaskManager: UploadTaskManager,
+	     cachedFileManager: CachedFileManager) {
 		self.domainIdentifier = domainIdentifier
 		self.database = database
 		self.notificator = notificator

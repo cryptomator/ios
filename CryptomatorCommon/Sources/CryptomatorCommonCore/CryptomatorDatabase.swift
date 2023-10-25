@@ -199,13 +199,9 @@ public class CryptomatorDatabase {
 	}
 
 	class func initialHubSupportMigration(_ db: Database) throws {
-		try db.create(table: "hubAccountInfo", body: { table in
-			table.column("userID", .text).primaryKey()
-		})
 		try db.create(table: "hubVaultAccount", body: { table in
-			table.column("id", .integer).primaryKey()
-			table.column("vaultUID", .text).notNull().unique().references("vaultAccounts", onDelete: .cascade)
-			table.column("hubUserID", .text).notNull().references("hubAccountInfo", onDelete: .cascade)
+			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)
+			table.column("subscriptionState", .text).notNull()
 		})
 	}
 

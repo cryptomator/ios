@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import GRDB
@@ -32,12 +33,27 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 	private let notificatorManager: FileProviderNotificatorManagerType
 	private let queue = DispatchQueue(label: "FileProviderAdapterManager", qos: .userInitiated)
 	private let providerIdentifier: String
+	@Dependency(\.permissionProvider) private var permissionProvider
 
 	convenience init() {
-		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared, vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared, vaultManager: VaultDBManager.shared, adapterCache: FileProviderAdapterCache(), notificatorManager: FileProviderNotificatorManager.shared, unlockMonitor: UnlockMonitor(), providerIdentifier: NSFileProviderManager.default.providerIdentifier)
+		self.init(masterkeyCacheManager: MasterkeyCacheKeychainManager.shared,
+		          vaultKeepUnlockedHelper: VaultKeepUnlockedManager.shared,
+		          vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared,
+		          vaultManager: VaultDBManager.shared,
+		          adapterCache: FileProviderAdapterCache(),
+		          notificatorManager: FileProviderNotificatorManager.shared,
+		          unlockMonitor: UnlockMonitor(),
+		          providerIdentifier: NSFileProviderManager.default.providerIdentifier)
 	}
 
-	init(masterkeyCacheManager: MasterkeyCacheManager, vaultKeepUnlockedHelper: VaultKeepUnlockedHelper, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings, vaultManager: VaultManager, adapterCache: FileProviderAdapterCacheType, notificatorManager: FileProviderNotificatorManagerType, unlockMonitor: UnlockMonitorType, providerIdentifier: String) {
+	init(masterkeyCacheManager: MasterkeyCacheManager,
+	     vaultKeepUnlockedHelper: VaultKeepUnlockedHelper,
+	     vaultKeepUnlockedSettings: VaultKeepUnlockedSettings,
+	     vaultManager: VaultManager,
+	     adapterCache: FileProviderAdapterCacheType,
+	     notificatorManager: FileProviderNotificatorManagerType,
+	     unlockMonitor: UnlockMonitorType,
+	     providerIdentifier: String) {
 		self.masterkeyCacheManager = masterkeyCacheManager
 		self.vaultKeepUnlockedHelper = vaultKeepUnlockedHelper
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
@@ -190,7 +206,12 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  notificator: notificator,
 		                                  localURLProvider: delegate,
 		                                  taskRegistrator: taskRegistrator)
-		let workingSetObserver = WorkingSetObserver(domainIdentifier: domainIdentifier, database: database, notificator: notificator, uploadTaskManager: uploadTaskManager, cachedFileManager: cachedFileManager)
+
+		let workingSetObserver = WorkingSetObserver(domainIdentifier: domainIdentifier,
+		                                            database: database,
+		                                            notificator: notificator,
+		                                            uploadTaskManager: uploadTaskManager,
+		                                            cachedFileManager: cachedFileManager)
 		workingSetObserver.startObservation()
 		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver)
 	}
