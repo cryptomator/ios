@@ -19,12 +19,13 @@ public class RootFileProviderItem: NSObject, NSFileProviderItem {
 	public let typeIdentifier = kUTTypeFolder as String
 	public let documentSize: NSNumber? = nil
 	public var capabilities: NSFileProviderItemCapabilities {
-		if fullVersionChecker.isFullVersion {
-			return [.allowsAll]
-		} else {
-			return FileProviderItem.readOnlyCapabilities
-		}
+		return permissionProvider.getPermissionsForRootItem(at: domain?.identifier)
 	}
 
-	@Dependency(\.fullVersionChecker) private var fullVersionChecker
+	private let domain: NSFileProviderDomain?
+	@Dependency(\.permissionProvider) private var permissionProvider
+
+	public init(domain: NSFileProviderDomain?) {
+		self.domain = domain
+	}
 }

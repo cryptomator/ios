@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import GRDB
 import XCTest
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class WorkingSetObserverTests: XCTestCase {
 	var observer: WorkingSetObserver!
@@ -31,6 +32,9 @@ class WorkingSetObserverTests: XCTestCase {
 
 		XCTAssertEqual(1, notificatorMock.updateWorkingSetItemsCallsCount)
 		let actualUpdatedItems = notificatorMock.updateWorkingSetItemsReceivedItems as? [FileProviderItem]
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		XCTAssertEqual(updatedItems.sorted(), actualUpdatedItems?.sorted())
 		XCTAssertEqual(1, notificatorMock.refreshWorkingSetCallsCount)
 	}

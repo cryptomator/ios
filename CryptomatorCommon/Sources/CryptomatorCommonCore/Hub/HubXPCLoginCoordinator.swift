@@ -2,6 +2,7 @@ import AppAuthCore
 import CryptoKit
 import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
+import Dependencies
 import JOSESwift
 import SwiftUI
 import UIKit
@@ -15,6 +16,7 @@ public final class HubXPCLoginCoordinator: Coordinator {
 	let hubAuthenticator: HubAuthenticating
 	public let onUnlocked: () -> Void
 	public let onErrorAlertDismissed: () -> Void
+	@Dependency(\.hubRepository) private var hubRepository
 
 	public init(navigationController: UINavigationController,
 	            domain: NSFileProviderDomain,
@@ -42,25 +44,26 @@ public final class HubXPCLoginCoordinator: Coordinator {
 }
 
 extension HubXPCLoginCoordinator: HubAuthenticationFlowDelegate {
-	public func receivedExistingKey(jwe: JWE, privateKey: P384.KeyAgreement.PrivateKey) async {
+	public func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async {
 		let masterkey: Masterkey
 		do {
-			masterkey = try JWEHelper.decrypt(jwe: jwe, with: privateKey)
+			masterkey = try JWEHelper.decrypt(jwe: response.jwe, with: response.privateKey)
 		} catch {
 			handleError(error, for: navigationController, onOKTapped: onErrorAlertDismissed)
 			return
 		}
-		let xpc: XPC<VaultUnlocking>
 		do {
-			xpc = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
+			let xpc: XPC<VaultUnlocking> = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
 			defer {
 				fileProviderConnector.invalidateXPC(xpc)
 			}
 			try await xpc.proxy.unlockVault(rawKey: masterkey.rawKey).getValue()
-			fileProviderConnector.invalidateXPC(xpc)
+			let hubVault = HubVault(vaultUID: domain.identifier.rawValue, subscriptionState: response.subscriptionState)
+			try hubRepository.save(hubVault)
 			onUnlocked()
 		} catch {
 			handleError(error, for: navigationController, onOKTapped: onErrorAlertDismissed)
+			return
 		}
 	}
 }

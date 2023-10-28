@@ -1,4 +1,5 @@
 import AppAuthCore
+import CocoaLumberjackSwift
 import CryptoKit
 import CryptomatorCloudAccessCore
 import Foundation
@@ -8,6 +9,8 @@ import UIKit
 public enum HubAuthenticationViewModelError: Error {
 	case missingHubConfig
 	case missingAuthState
+	case missingSubscriptionHeader
+	case unexpectedSubscriptionHeader
 }
 
 public class HubAuthenticationViewModel: ObservableObject {
@@ -23,6 +26,10 @@ public class HubAuthenticationViewModel: ObservableObject {
 	public enum DeviceRegistration: Equatable {
 		case deviceName
 		case needsAuthorization
+	}
+
+	private enum Constants {
+		static var subscriptionState: String { "hub-subscription-state" }
 	}
 
 	@Published var authenticationFlowState: State = .userLogin
@@ -101,8 +108,8 @@ public class HubAuthenticationViewModel: ObservableObject {
 			return
 		}
 		switch authFlow {
-		case let .receivedExistingKey(data):
-			await receivedExistingKey(data: data)
+		case let .success(data, header):
+			await receivedExistingKey(data: data, header: header)
 		case .accessNotGranted:
 			await setState(to: .accessNotGranted)
 		case .needsDeviceRegistration:
@@ -112,17 +119,22 @@ public class HubAuthenticationViewModel: ObservableObject {
 		}
 	}
 
-	private func receivedExistingKey(data: Data) async {
+	private func receivedExistingKey(data: Data, header: [AnyHashable: Any]) async {
 		let privateKey: P384.KeyAgreement.PrivateKey
 		let jwe: JWE
+		let subscriptionState: HubSubscriptionState
 		do {
 			privateKey = try CryptomatorHubKeyProvider.shared.getPrivateKey()
 			jwe = try JWE(compactSerialization: data)
+			subscriptionState = try getSubscriptionState(from: header)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
 		}
-		await delegate?.receivedExistingKey(jwe: jwe, privateKey: privateKey)
+		let response = HubUnlockResponse(jwe: jwe,
+		                                 privateKey: privateKey,
+		                                 subscriptionState: subscriptionState)
+		await delegate?.didSuccessfullyRemoteUnlock(response)
 	}
 
 	@MainActor
@@ -132,5 +144,21 @@ public class HubAuthenticationViewModel: ObservableObject {
 
 	private func setStateToErrorState(with error: Error) async {
 		await setState(to: .error(description: error.localizedDescription))
+	}
+
+	private func getSubscriptionState(from header: [AnyHashable: Any]) throws -> HubSubscriptionState {
+		guard let subscriptionStateValue = header[Constants.subscriptionState] as? String else {
+			DDLogError("Can't retrieve hub subscription state from header -> missing value")
+			throw HubAuthenticationViewModelError.missingSubscriptionHeader
+		}
+		switch subscriptionStateValue {
+		case "ACTIVE":
+			return .active
+		case "INACTIVE":
+			return .inactive
+		default:
+			DDLogError("Can't retrieve hub subscription state from header -> unexpected value")
+			throw HubAuthenticationViewModelError.unexpectedSubscriptionHeader
+		}
 	}
 }

@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import FileProvider
 import Foundation
 
@@ -21,6 +22,7 @@ struct WorkflowFactory {
 	let downloadTaskManager: DownloadTaskManager
 	let dependencyFactory = WorkflowDependencyFactory()
 	let domainIdentifier: NSFileProviderDomainIdentifier
+	@Dependency(\.permissionProvider) private var permissionProvider
 
 	func createWorkflow(for deletionTask: DeletionTask) -> Workflow<Void> {
 		let taskExecutor = DeletionTaskExecutor(provider: provider, itemMetadataManager: itemMetadataManager)

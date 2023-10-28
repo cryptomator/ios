@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -32,8 +33,14 @@ class UploadTaskExecutor: WorkflowMiddleware {
 	let uploadTaskManager: UploadTaskManager
 	let domainIdentifier: NSFileProviderDomainIdentifier
 	let progressManager: ProgressManager
+	@Dependency(\.permissionProvider) private var permissionProvider
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, cachedFileManager: CachedFileManager, itemMetadataManager: ItemMetadataManager, uploadTaskManager: UploadTaskManager, progressManager: ProgressManager = InMemoryProgressManager.shared) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     provider: CloudProvider,
+	     cachedFileManager: CachedFileManager,
+	     itemMetadataManager: ItemMetadataManager,
+	     uploadTaskManager: UploadTaskManager,
+	     progressManager: ProgressManager = InMemoryProgressManager.shared) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.cachedFileManager = cachedFileManager

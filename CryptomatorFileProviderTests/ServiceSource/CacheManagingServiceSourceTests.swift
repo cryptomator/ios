@@ -11,6 +11,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class CacheManagingServiceSourceTests: XCTestCase {
 	var serviceSource: CacheManagingServiceSource!
@@ -57,6 +58,9 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let cacheManagerMock = CachedFileManagerMock()
 		cacheManagerFactoryMock.createCachedFileManagerForReturnValue = cacheManagerMock
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let domainIdentifier = NSFileProviderDomainIdentifier("Test-Domain")
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)

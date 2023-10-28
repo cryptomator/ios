@@ -12,6 +12,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	let itemID: Int64 = 2
@@ -26,6 +27,9 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 	// MARK: LocalItemImport
 
 	func testLocalItemImport() throws {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let fileURL = tmpDirectory.appendingPathComponent("ItemToBeImported.txt", isDirectory: false)
 		let fileContent = "TestContent"
 		try fileContent.write(to: fileURL, atomically: true, encoding: .utf8)
