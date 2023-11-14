@@ -35,41 +35,42 @@ public final class HubXPCLoginCoordinator: Coordinator {
 	}
 
 	public func start() {
-		let viewModel = HubAuthenticationViewModel(vaultConfig: vaultConfig,
-		                                           hubUserAuthenticator: self,
-		                                           delegate: self)
-		let viewController = HubAuthenticationViewController(viewModel: viewModel)
-		navigationController.pushViewController(viewController, animated: true)
+		let unlockHandler = HubXPCVaultUnlockHandler(fileProviderConnector: fileProviderConnector, domain: domain, delegate: self)
+		prepareNavigationControllerForLogin()
+		let child = HubAuthenticationCoordinator(navigationController: navigationController,
+		                                         vaultConfig: vaultConfig,
+		                                         hubAuthenticator: hubAuthenticator,
+		                                         unlockHandler: unlockHandler,
+		                                         parent: self,
+		                                         delegate: self)
+		childCoordinators.append(child)
+		child.start()
+	}
+
+	/// Prepares the `UINavigationController` for the hub authentication flow.
+	///
+	/// As the FileProviderExtensionUI is always shown as a sheet and the login is initially just a alert which asks the user to open a website, we want to hide the navigation bar initially.
+	private func prepareNavigationControllerForLogin() {
+		navigationController.setNavigationBarHidden(true, animated: false)
 	}
 }
 
-extension HubXPCLoginCoordinator: HubAuthenticationFlowDelegate {
-	public func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async {
-		let masterkey: Masterkey
-		do {
-			masterkey = try JWEHelper.decrypt(jwe: response.jwe, with: response.privateKey)
-		} catch {
-			handleError(error, for: navigationController, onOKTapped: onErrorAlertDismissed)
-			return
-		}
-		do {
-			let xpc: XPC<VaultUnlocking> = try await fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: domain)
-			defer {
-				fileProviderConnector.invalidateXPC(xpc)
-			}
-			try await xpc.proxy.unlockVault(rawKey: masterkey.rawKey).getValue()
-			let hubVault = HubVault(vaultUID: domain.identifier.rawValue, subscriptionState: response.subscriptionState)
-			try hubRepository.save(hubVault)
-			onUnlocked()
-		} catch {
-			handleError(error, for: navigationController, onOKTapped: onErrorAlertDismissed)
-			return
-		}
+extension HubXPCLoginCoordinator: HubVaultUnlockHandlerDelegate {
+	public func successfullyProcessedUnlockedVault() {
+		onUnlocked()
+	}
+
+	public func failedToProcessUnlockedVault(error: Error) {
+		handleError(error, for: navigationController, onOKTapped: onErrorAlertDismissed)
 	}
 }
 
-extension HubXPCLoginCoordinator: HubUserLogin {
-	public func authenticate(with hubConfig: HubConfig) async throws -> OIDAuthState {
-		try await hubAuthenticator.authenticate(with: hubConfig, from: navigationController)
+extension HubXPCLoginCoordinator: HubAuthenticationCoordinatorDelegate {
+	public func userDidCancelHubAuthentication() {
+		onErrorAlertDismissed()
+	}
+
+	public func userDismissedHubAuthenticationErrorMessage() {
+		onErrorAlertDismissed()
 	}
 }

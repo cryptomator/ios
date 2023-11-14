@@ -45,42 +45,40 @@ class AddHubVaultCoordinator: Coordinator {
 	}
 
 	func start() {
-		let viewModel = HubAuthenticationViewModel(vaultConfig: downloadedVaultConfig.vaultConfig,
-		                                           hubUserAuthenticator: self,
-		                                           delegate: self)
-		let viewController = HubAuthenticationViewController(viewModel: viewModel)
-		navigationController.pushViewController(viewController, animated: true)
+		let unlockHandler = AddHubVaultUnlockHandler(vaultUID: vaultUID,
+		                                             accountUID: accountUID, vaultItem: vaultItem,
+		                                             downloadedVaultConfig: downloadedVaultConfig,
+		                                             vaultManager: vaultManager,
+		                                             delegate: self)
+		let child = HubAuthenticationCoordinator(navigationController: navigationController,
+		                                         vaultConfig: downloadedVaultConfig.vaultConfig,
+		                                         hubAuthenticator: hubAuthenticator,
+		                                         unlockHandler: unlockHandler,
+		                                         parent: self,
+		                                         delegate: self)
+		childCoordinators.append(child)
+		child.start()
 	}
 }
 
-extension AddHubVaultCoordinator: HubAuthenticationFlowDelegate {
-	func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async {
-		let jwe = response.jwe
-		let privateKey = response.privateKey
-		let hubVault = ExistingHubVault(vaultUID: vaultUID,
-		                                delegateAccountUID: accountUID,
-		                                jweData: jwe.compactSerializedData,
-		                                privateKey: privateKey,
-		                                vaultItem: vaultItem,
-		                                downloadedVaultConfig: downloadedVaultConfig)
-		do {
-			try await vaultManager.addExistingHubVault(hubVault).getValue()
-			childDidFinish(self)
-			await showSuccessfullyAddedVault()
-		} catch {
-			DDLogError("Add existing Hub vault failed: \(error)")
-			handleError(error, for: navigationController)
-		}
-	}
-
-	@MainActor
-	private func showSuccessfullyAddedVault() {
+extension AddHubVaultCoordinator: HubVaultUnlockHandlerDelegate {
+	func successfullyProcessedUnlockedVault() {
 		delegate?.showSuccessfullyAddedVault(withName: vaultItem.name, vaultUID: vaultUID)
 	}
+
+	func failedToProcessUnlockedVault(error: Error) {
+		handleError(error, for: navigationController, onOKTapped: { [weak self] in
+			self?.parentCoordinator?.childDidFinish(self)
+		})
+	}
 }
 
-extension AddHubVaultCoordinator: HubUserLogin {
-	public func authenticate(with hubConfig: HubConfig) async throws -> OIDAuthState {
-		try await hubAuthenticator.authenticate(with: hubConfig, from: navigationController)
+extension AddHubVaultCoordinator: HubAuthenticationCoordinatorDelegate {
+	func userDidCancelHubAuthentication() {
+		// do nothing as the user already sees the login screen again
+	}
+
+	func userDismissedHubAuthenticationErrorMessage() {
+		// do nothing as the user already sees the login screen again
 	}
 }

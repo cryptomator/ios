@@ -20,15 +20,12 @@ public struct HubAuthenticationView: View {
 					)
 				case .accessNotGranted:
 					HubAccessNotGrantedView(onRefresh: { Task { await viewModel.refresh() }})
-				case .loading:
-					ProgressView()
-					Text(LocalizedString.getValue("hubAuthentication.loading"))
-				case .userLogin:
-					HubLoginView(onLogin: { Task { await viewModel.login() }})
 				case .licenseExceeded:
 					CryptomatorErrorView(text: LocalizedString.getValue("hubAuthentication.licenseExceeded"))
 				case let .error(description):
 					CryptomatorErrorView(text: description)
+				case .none:
+					EmptyView()
 				}
 			}
 			.padding()

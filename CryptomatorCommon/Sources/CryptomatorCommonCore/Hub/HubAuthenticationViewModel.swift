@@ -13,13 +13,19 @@ public enum HubAuthenticationViewModelError: Error {
 	case unexpectedSubscriptionHeader
 }
 
-public class HubAuthenticationViewModel: ObservableObject {
+public protocol HubAuthenticationViewModelDelegate: AnyObject {
+	@MainActor
+	func hubAuthenticationViewModelWantsToShowLoadingIndicator()
+
+	@MainActor
+	func hubAuthenticationViewModelWantsToHideLoadingIndicator() async
+}
+
+public final class HubAuthenticationViewModel: ObservableObject {
 	public enum State: Equatable {
-		case userLogin
 		case accessNotGranted
 		case licenseExceeded
 		case deviceRegistration(DeviceRegistration)
-		case loading
 		case error(description: String)
 	}
 
@@ -32,51 +38,35 @@ public class HubAuthenticationViewModel: ObservableObject {
 		static var subscriptionState: String { "hub-subscription-state" }
 	}
 
-	@Published var authenticationFlowState: State = .userLogin
+	@Published var authenticationFlowState: State?
 	@Published public var deviceName: String = UIDevice.current.name
+	private(set) var isLoggedIn = false
 
 	private let vaultConfig: UnverifiedVaultConfig
 	private let deviceRegisteringService: HubDeviceRegistering
 	private let hubKeyService: HubKeyReceiving
-	private let hubUserAuthenticator: HubUserLogin
 
-	private var authState: OIDAuthState?
-	private weak var delegate: HubAuthenticationFlowDelegate?
+	private let authState: OIDAuthState
+	private let unlockHandler: HubVaultUnlockHandler
+	private weak var delegate: HubAuthenticationViewModelDelegate?
 
-	public init(vaultConfig: UnverifiedVaultConfig,
+	public init(authState: OIDAuthState,
+	            vaultConfig: UnverifiedVaultConfig,
 	            deviceRegisteringService: HubDeviceRegistering = CryptomatorHubAuthenticator.shared,
-	            hubUserAuthenticator: HubUserLogin,
 	            hubKeyService: HubKeyReceiving = CryptomatorHubAuthenticator.shared,
-	            delegate: HubAuthenticationFlowDelegate?) {
+	            unlockHandler: HubVaultUnlockHandler,
+	            delegate: HubAuthenticationViewModelDelegate) {
+		self.authState = authState
 		self.vaultConfig = vaultConfig
 		self.deviceRegisteringService = deviceRegisteringService
-		self.hubUserAuthenticator = hubUserAuthenticator
 		self.hubKeyService = hubKeyService
+		self.unlockHandler = unlockHandler
 		self.delegate = delegate
-	}
-
-	public func login() async {
-		guard let hubConfig = vaultConfig.allegedHubConfig else {
-			await setStateToErrorState(with: HubAuthenticationViewModelError.missingHubConfig)
-			return
-		}
-		do {
-			authState = try await hubUserAuthenticator.authenticate(with: hubConfig)
-			await continueToAccessCheck()
-		} catch let error as NSError where error.domain == OIDGeneralErrorDomain && error.code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue {
-			// ignore user cancellation
-		} catch {
-			await setStateToErrorState(with: error)
-		}
 	}
 
 	public func register() async {
 		guard let hubConfig = vaultConfig.allegedHubConfig else {
 			await setStateToErrorState(with: HubAuthenticationViewModelError.missingHubConfig)
-			return
-		}
-		guard let authState = authState else {
-			await setStateToErrorState(with: HubAuthenticationViewModelError.missingAuthState)
 			return
 		}
 
@@ -94,11 +84,7 @@ public class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	public func continueToAccessCheck() async {
-		guard let authState = authState else {
-			await setStateToErrorState(with: HubAuthenticationViewModelError.missingAuthState)
-			return
-		}
-		await setState(to: .loading)
+		await delegate?.hubAuthenticationViewModelWantsToShowLoadingIndicator()
 
 		let authFlow: HubAuthenticationFlow
 		do {
@@ -107,6 +93,8 @@ public class HubAuthenticationViewModel: ObservableObject {
 			await setStateToErrorState(with: error)
 			return
 		}
+		await delegate?.hubAuthenticationViewModelWantsToHideLoadingIndicator()
+
 		switch authFlow {
 		case let .success(data, header):
 			await receivedExistingKey(data: data, header: header)
@@ -134,7 +122,8 @@ public class HubAuthenticationViewModel: ObservableObject {
 		let response = HubUnlockResponse(jwe: jwe,
 		                                 privateKey: privateKey,
 		                                 subscriptionState: subscriptionState)
-		await delegate?.didSuccessfullyRemoteUnlock(response)
+		await MainActor.run { isLoggedIn = true }
+		await unlockHandler.didSuccessfullyRemoteUnlock(response)
 	}
 
 	@MainActor
