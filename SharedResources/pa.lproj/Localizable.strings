@@ -1,18 +1,128 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "ਗਲਤੀ";
+"common.alert.attention.title" = "ਧਿਆਨ ਦਿਓ";
 "common.button.cancel" = "ਰੱਦ ਕਰੋ";
 "common.button.change" = "ਬਦਲੋ";
 "common.button.choose" = "ਚੁਣੋ";
+"common.button.clear" = "ਮਿਟਾਓ";
 "common.button.close" = "ਬੰਦ ਕਰੋ";
+"common.button.confirm" = "ਤਸਦੀਕ";
+"common.button.create" = "ਬਣਾਓ";
+"common.button.createFolder" = "ਫੋਲਡਰ ਬਣਾਓ";
 "common.button.done" = "ਮੁਕੰਮਲ";
+"common.button.download" = "ਡਾਊਨਲੋਡ";
+"common.button.edit" = "ਸੋਧੋ";
+"common.button.enable" = "ਸਮਰੱਥ";
 "common.button.next" = "ਅੱਗੇ";
+"common.button.ok" = "ਠੀਕ ਹੈ";
+"common.button.remove" = "ਹਟਾਓ";
+"common.button.retry" = "ਮੁੜ-ਕੋਸ਼ਿਸ਼";
+"common.button.signOut" = "ਸਾਈਨ ਆਉਟ";
+"common.button.verify" = "ਤਸਦੀਕ";
+"common.cells.openInFilesApp" = "Files ਐਪ ਵਿੱਚ ਖੋਲ੍ਹੋ";
 "common.cells.password" = "ਪਾਸਵਰਡ";
+"common.cells.url" = "URL";
+"common.cells.username" = "ਵਰਤੋਂਕਾਰ ਨਾਂ";
+"common.footer.learnMore" = "ਹੋਰ ਜਾਣੋ।";
+"common.hud.authenticating" = "ਪਰਮਾਣਿਤ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…";
+
+"accountList.header.title" = "ਪਰਮਾਣਕਿਤਾ";
+"accountList.emptyList.message" = "ਖਾਤਾ ਜੋੜਣ ਲਈ ਇੱਥੇ ਛੋਹੋ";
+"accountList.signOut.alert.title" = "ਸੰਬੰਧਿਤ ਖਾਤੇ ਹਟਾਉਣੇ ਹਨ?";
+"accountList.signOut.alert.message" = "ਸਾਈਨ ਆਉਟ ਕਰਨ ਨਾਲ ਵਾਲਟ ਸੂਚੀ ਵਿੱਚੋਂ ਸਾਰੇ ਸੰਬੰਧਿਤ ਵਾਲਟ ਹਟਾਏ ਜਾਣਗੇ। ਕੋਈ ਵੀ ਇੰਕ੍ਰਿਪਟ ਕੀਤਾ ਡਾਟੇ ਨਹੀਂ ਹਟਾਇਆ ਜਾਵੇਗਾ। ਤੁਸੀਂ ਮੁੜ ਸਾਈਨ ਕਰ ਸਕਦੇ ਹੋ ਅਤੇ ਵਾਲਟਾਂ ਨੂੰ ਫੇਰ ਜੋੜ ਸਕਦੇ ਹੋ।";
 
 "addVault.title" = "ਵਾਲਟ ਜੋੜੋ";
 "addVault.createNewVault.title" = "ਨਵਾਂ ਵਾਲਟ ਬਣਾਓ";
+"addVault.createNewVault.purchase" = "ਨਵਾਂ ਵਾਲਟ ਬਣਾਉਣ ਥਈ Cryptomator ਦਾ ਪੂਰਾ ਵਰਜ਼ਨ ਚਾਹੀਦਾ ਹੈ।";
+"addVault.createNewVault.setVaultName.header.title" = "ਵਾਲਟ ਲਈ ਨਵਾਂ ਚੁਣੋ।";
 "addVault.createNewVault.setVaultName.cells.name" = "ਵਾਲਟ ਦਾ ਨਾਂ";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "ਵਾਲਟ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।";
 "addVault.createNewVault.chooseCloud.header" = "ਤੁਹਾਡੇ ਵਾਲੇਟ ਲਈ ਇੰਕ੍ਰਿਪਟ ਕੀਤੀਆਂ ਫ਼ਾਇਲਾਂ Cryptomator ਕਿੱਥੇ ਸਟੋਰ ਕਰੇ?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "ਇਸ ਟਿਕਾਣੇ ਉੱਤੇ \"%@\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਵੱਖਰਾ ਵਾਲਟ ਨਾਂ ਜਾਂ ਟਿਕਾਣਾ ਚੁਣੋ।";
+"addVault.createNewVault.password.enterPassword.header" = "ਨਵਾਂ ਪਾਸਵਰਡ ਦਿਓ।";
+"addVault.createNewVault.password.confirmPassword.header" = "ਨਵੇਂ ਪਾਸਵਰਡ ਨੂੰ ਤਸਦੀਕ ਕਰੋ।";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "ਪਾਸਵਰਡ ਤਸਦੀਕ ਕਰਨਾ ਹੈ?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ਜ਼ਰੂਰੀ: ਜੇ ਤੁਸੀਂ ਆਪਣਾ ਪਾਸਵਰਡ ਭੁੱਲ ਗਏ ਤਾਂ ਤੁਹਾਡੇ ਡਾਟੇ ਨੂੰ ਬਹਾਲ ਕਰਨ ਦਾ ਕੋਈ ਵੀ ਢੰਗ ਨਹੀਂ ਹੈ।";
+"addVault.createNewVault.password.error.emptyPassword" = "ਪਾਸਵਰਡ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "ਪਾਸਵਰਡ ਮਿਲਦਾ ਨਹੀਂ ਹੈ।";
+"addVault.createNewVault.password.error.tooShortPassword" = "ਪਾਸਵਰਡ ਘੱਟੋ-ਘੱਟ 8 ਅੱਖਰਾਂ ਦਾ ਹੋਣਾ ਚਾਹੀਦਾ ਹੈ।";
+"addVault.createNewVault.progress" = "ਵਾਲਟ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ…";
 "addVault.openExistingVault.title" = "ਮੌਜੂਦਾ ਵਾਲਟ ਖੋਲ੍ਹੋ";
+"addVault.openExistingVault.chooseCloud.header" = "ਵਾਲਟ ਕਿੱਥੇ ਮੌਜੂਦ ਹੈ?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ਨੂੰ \"%@\" ਵਾਲਟ ਖੋਜਿਆ ਗਿਆ ਹੈ।\nਕੀ ਤੁਸੀ ਇਹ ਵਾਲਟ ਜੋੜਨਾ ਚਾਹੁੰਦੇ ਹੋ?";
+"addVault.openExistingVault.detectedMasterkey.add" = "ਇਹ ਵਾਲਟ ਜੋੜੋ";
+"addVault.openExistingVault.password.footer" = "\"%@\" ਲਈ ਪਾਸਵਰਡ ਦਿਓ।";
+"addVault.openExistingVault.progress" = "…ਵਾਲਟ ਜੋੜਿਆ ਜਾ ਰਿਹਾ ਹੈ";
+
+"biometryType.faceID" = "ਫੇਸ ID";
+"biometryType.touchID" = "ਟੱਚ ID";
+
+"changePassword.error.invalidOldPassword" = "ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਗਲਤ ਹੈ। ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
+"changePassword.header.currentPassword.title" = "ਮੌਜੂਦਾ ਪਾਸਵਰਡ ਦਿਓ।";
+"changePassword.header.newPassword.title" = "ਨਵਾਂ ਪਾਸਵਰਡ ਦਿਓ।";
+"changePassword.header.newPasswordConfirmation.title" = "ਨਵੇਂ ਪਾਸਵਰਡ ਨੂੰ ਤਸਦੀਕ ਕਰੋ।";
+"changePassword.progress" = "…ਪਾਸਵਰਡ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ";
+
+"chooseFolder.emptyFolder.footer" = "ਫੋਲਡਰ ਖਾਲੀ ਹੈ";
+"chooseFolder.createNewFolder.header.title" = "ਫੋਲਡਰ ਲਈ ਨਾਂ ਚੁਣੋ।";
+"chooseFolder.createNewFolder.cells.name" = "ਫੋਲਡਰ ਦਾ ਨਾਂ";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "ਫ਼ੋਲਡਰ ਨਾਂ ਖਾਲੀ ਨਹੀਂ ਹੋ ਸਕਦਾ ਹੈ।";
+"chooseFolder.createNewFolder.progress" = "…ਫੋਲਡਰ ਬਣਾਇਆ ਜਾ ਰਿਹਾ ਹੈ";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" ਲੱਭਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ।";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ।";
+"cloudProvider.error.quotaInsufficient" = "ਤੁਹਾਡੇ ਕੋਲ ਨਾ-ਕਾਫ਼ੀ ਖਾਲੀ ਥਾਂ ਹੈ।";
+
+"fileProvider.onboarding.title" = "ਜੀ ਆਇਆਂ ਨੂੰ";
+"fileProvider.onboarding.info" = "ਆਪਣੀਆਂ ਫਾਇਲਾਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਬਣਾਉਣ ਲਈ Cryptomator ਚੁਣਨ ਵਾਸਤੇ ਧੰਨਵਾਦ ਹੈ। ਸ਼ੁਰੂ ਕਰਨ ਲਈ ਮੁੱਖ ਐਪ ਉੱਤੇ ਜਾਓ ਅਤੇ ਵਾਲਟ ਜੋੜੋ।";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator ਖੋਲ੍ਹੋ";
+"fileProvider.error.biometricalAuthCanceled.title" = "ਅਣ-ਲਾਕ ਕਰਨ ਰੱਦ ਕੀਤਾ";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "ਗ਼ਲਤ ਪਾਸਵਰਡ";
 "fileProvider.error.unlockButton" = "ਅਣ-ਲਾਕ ਕਰੋ";
+"fileProvider.uploadProgress.connecting" = "…ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
+"fileProvider.uploadProgress.title" = "…ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
+
+"keepUnlocked.alert.title" = "ਵਾਲਟ ਲਾਕ ਕਰਨਾ ਹੈ?";
+"keepUnlocked.alert.confirm" = "ਤਸਦੀਕ ਅਤੇ ਹੁਣੇ ਲਾਕ ਕਰੋ";
+"purchase.footer.termsOfUse" = "ਵਰਤਣ ਦੀਆਂ ਸ਼ਰਤਾਂ";
+"purchase.header.feature.familySharing" = "ਪਰਿਵਾਰ ਲਈ ਸਾਂਝਾ";
+"purchase.header.feature.openSource" = "ਓਪਨ-ਸਰੋਤ ਵਿਕਾਸ";
+"purchase.header.feature.writeAccess" = "ਤੁਹਾਡੇ ਵਾਲਟਾਂ ਲਈ ਲਿਖਣ ਪਹੁੰਚ";
+"purchase.product.donateAndUpgrade" = "ਦਾਨ ਦਿਓ ਤੇ ਅੱਪਗਰੇਡ ਕਰੋ";
+"purchase.product.freeUpgrade" = "ਮੁਫ਼ਤ ਅੱਪਗਰੇਡ";
+"purchase.product.lifetimeLicense" = "ਜ਼ਿੰਗਦੀ ਭਰ ਲਈ ਲਸੰਸ";
+"purchase.product.lifetimeLicense.duration" = "ਇੱਕ-ਵਾਰ";
+"purchase.product.pricing.free" = "ਮੁਫ਼ਤ";
+"purchase.product.trial" = "30-ਦਿਨਾਂ ਲਈ ਅਜ਼ਮਾਇਸ਼";
+"purchase.product.trial.expirationDate" = "ਮਿਆਦ: %@";
+"purchase.product.trial.duration" = "30 ਦਿਨਾਂ ਲਈ";
+"purchase.product.yearlySubscription" = "ਸਾਲਨਾ ਮੈਂਬਰੀ";
+"purchase.product.yearlySubscription.duration" = "ਸਾਲਨਾ";
+"purchase.readOnlyMode.alert.title" = "ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ ਢੰਗ";
+"purchase.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
+"purchase.unlockedFullVersion.title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ";
+
+"settings.title" = "ਸੈਟਿੰਗਾਂ";
+"settings.aboutCryptomator" = "Cryptomator ਖੋਲ੍ਹੋ";
+"settings.aboutCryptomator.title" = "ਵਰਜ਼ਨ %@ (%@)";
+"settings.unlockFullVersion" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
 
 "unlockVault.button.unlock" = "ਅਣ-ਲਾਕ ਕਰੋ";
+"unlockVault.password.footer" = "\"%@\" ਲਈ ਪਾਸਵਰਡ ਦਿਓ।";
+"untrustedTLSCertificate.add" = "ਭਰੋਸਾ ਕਰੋ";
+"untrustedTLSCertificate.dismiss" = "ਭਰੋਸਾ ਨਾ ਕਰੋ";
+
+"upgrade.title" = "ਅੱਪਗਰੇਡ ਪੇਸ਼ਕਸ਼";
+"upgrade.notEligible.alert.title" = "ਅੱਪਗਰੇਡ ਫੇਲ੍ਹ ਹੈ";
 
 "vaultDetail.button.changeVaultPassword" = "ਪਾਸਵਰਡ ਬਦਲੋ";
+"vaultDetail.button.lock" = "ਹੁਣੇ ਲਾਕ ਕਰੋ";
+"vaultDetail.button.moveVault" = "ਭੇਜੋ";
+"vaultDetail.button.removeVault" = "ਵਾਲਟ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ";
+"vaultDetail.button.renameVault" = "ਨਾਂ ਬਦਲੋ";
