@@ -6,7 +6,7 @@ on:
 jobs:
   build:
     name: Build and test
-    runs-on: macos-12
+    runs-on: macos-13
     env:
       DERIVED_DATA_PATH: 'DerivedData'
       DEVICE: 'iPhone 12 Pro'
@@ -26,6 +26,8 @@ jobs:
         run: |
           ./Scripts/process.sh
           exit $?
+      - name: Select Xcode 14.3.1
+        run: sudo xcode-select -s /Applications/Xcode_14.3.1.app
       - name: Create CloudAccessSecrets
         run: |
           cd fastlane
