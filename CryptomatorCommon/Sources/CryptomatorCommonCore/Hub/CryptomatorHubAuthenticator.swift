@@ -9,6 +9,7 @@
 import AppAuthCore
 import CryptoKit
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 
 public enum HubAuthenticationFlow {
@@ -30,6 +31,7 @@ public enum CryptomatorHubAuthenticatorError: Error {
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
 	private static let scheme = "hub+"
+	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
 
 	public init() {}
 
@@ -63,7 +65,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws {
 		let deviceID = try getDeviceID()
-		let publicKey = try CryptomatorHubKeyProvider.shared.getPublicKey()
+		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
 		let derPubKey = publicKey.derRepresentation
 		let dto = CreateDeviceDto(id: deviceID, name: name, type: "MOBILE", publicKey: derPubKey.base64URLEncodedString())
 		guard let devicesResourceURL = URL(string: hubConfig.devicesResourceUrl) else {
@@ -99,7 +101,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	}
 
 	func getDeviceID() throws -> String {
-		let publicKey = try CryptomatorHubKeyProvider.shared.getPublicKey()
+		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
 		let digest = SHA256.hash(data: publicKey.derRepresentation)
 		return digest.data.base16EncodedString
 	}

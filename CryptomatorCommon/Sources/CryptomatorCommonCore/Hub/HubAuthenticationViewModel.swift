@@ -48,6 +48,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	private let unlockHandler: HubVaultUnlockHandler
 	@Dependency(\.hubDeviceRegisteringService) var deviceRegisteringService
 	@Dependency(\.hubKeyService) var hubKeyService
+	@Dependency(\.cryptomatorHubKeyProvider) var cryptomatorHubKeyProvider
 	private weak var delegate: HubAuthenticationViewModelDelegate?
 
 	public init(authState: OIDAuthState,
@@ -108,7 +109,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		let jwe: JWE
 		let subscriptionState: HubSubscriptionState
 		do {
-			privateKey = try CryptomatorHubKeyProvider.shared.getPrivateKey()
+			privateKey = try cryptomatorHubKeyProvider.getPrivateKey()
 			jwe = try JWE(compactSerialization: data)
 			subscriptionState = try getSubscriptionState(from: header)
 		} catch {
@@ -128,6 +129,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	private func setStateToErrorState(with error: Error) async {
+		await delegate?.hubAuthenticationViewModelWantsToHideLoadingIndicator()
 		await setState(to: .error(description: error.localizedDescription))
 	}
 
