@@ -10,6 +10,7 @@ import Base32
 import CryptoKit
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import UIKit
 
 enum HubAuthenticationError: Error {
@@ -51,4 +52,8 @@ extension CryptomatorHubAuthenticator: HubAuthenticating {
 			}
 		})
 	}
+}
+
+extension HubAuthenticatingKey: DependencyKey {
+	public static var liveValue: HubAuthenticating = CryptomatorHubAuthenticator()
 }

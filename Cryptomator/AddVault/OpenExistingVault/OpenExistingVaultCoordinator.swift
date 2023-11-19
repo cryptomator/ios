@@ -201,8 +201,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		                                   downloadedVaultConfig: downloadedVaultConfig,
 		                                   vaultUID: UUID().uuidString,
 		                                   accountUID: account.accountUID,
-		                                   vaultItem: vaultItem,
-		                                   hubAuthenticator: CryptomatorHubAuthenticator.shared)
+		                                   vaultItem: vaultItem)
 		child.parentCoordinator = self
 		child.delegate = self
 		childCoordinators.append(child)

@@ -1,5 +1,6 @@
 import AppAuthCore
 import CryptomatorCloudAccessCore
+import Dependencies
 import SwiftUI
 import UIKit
 
@@ -17,20 +18,18 @@ public final class HubAuthenticationCoordinator: Coordinator {
 	public weak var parent: Coordinator?
 
 	private let vaultConfig: UnverifiedVaultConfig
-	private let hubAuthenticator: HubAuthenticating
 	private var progressHUD: ProgressHUD?
 	private let unlockHandler: HubVaultUnlockHandler
+	@Dependency(\.hubAuthenticationService) var hubAuthenticator
 	private weak var delegate: HubAuthenticationCoordinatorDelegate?
 
 	public init(navigationController: UINavigationController,
 	            vaultConfig: UnverifiedVaultConfig,
-	            hubAuthenticator: HubAuthenticating,
 	            unlockHandler: HubVaultUnlockHandler,
 	            parent: Coordinator?,
 	            delegate: HubAuthenticationCoordinatorDelegate) {
 		self.navigationController = navigationController
 		self.vaultConfig = vaultConfig
-		self.hubAuthenticator = hubAuthenticator
 		self.unlockHandler = unlockHandler
 		self.parent = parent
 		self.delegate = delegate
@@ -86,7 +85,11 @@ public final class HubAuthenticationCoordinator: Coordinator {
 
 	private func hideProgressHUD() async {
 		await withCheckedContinuation { continuation in
-			progressHUD?.dismiss(animated: true, completion: { [weak self] in
+			guard let progressHUD else {
+				continuation.resume()
+				return
+			}
+			progressHUD.dismiss(animated: true, completion: { [weak self] in
 				continuation.resume()
 				self?.progressHUD = nil
 			})

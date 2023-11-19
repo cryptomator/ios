@@ -18,14 +18,6 @@ public enum HubAuthenticationFlow {
 	case licenseExceeded
 }
 
-public protocol HubDeviceRegistering {
-	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws
-}
-
-public protocol HubKeyReceiving {
-	func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow
-}
-
 public enum CryptomatorHubAuthenticatorError: Error {
 	case unexpectedError
 	case unexpectedResponse
@@ -38,7 +30,8 @@ public enum CryptomatorHubAuthenticatorError: Error {
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
 	private static let scheme = "hub+"
-	public static let shared = CryptomatorHubAuthenticator()
+
+	public init() {}
 
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
 		guard let baseURL = createBaseURL(vaultConfig: vaultConfig) else {

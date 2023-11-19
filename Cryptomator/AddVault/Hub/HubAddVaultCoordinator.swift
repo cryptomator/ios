@@ -23,7 +23,6 @@ class AddHubVaultCoordinator: Coordinator {
 	let vaultUID: String
 	let accountUID: String
 	let vaultItem: VaultItem
-	let hubAuthenticator: HubAuthenticating
 	let vaultManager: VaultManager
 	weak var parentCoordinator: Coordinator?
 	weak var delegate: (VaultInstalling & AnyObject)?
@@ -33,14 +32,12 @@ class AddHubVaultCoordinator: Coordinator {
 	     vaultUID: String,
 	     accountUID: String,
 	     vaultItem: VaultItem,
-	     hubAuthenticator: HubAuthenticating,
 	     vaultManager: VaultManager = VaultDBManager.shared) {
 		self.navigationController = navigationController
 		self.downloadedVaultConfig = downloadedVaultConfig
 		self.vaultUID = vaultUID
 		self.accountUID = accountUID
 		self.vaultItem = vaultItem
-		self.hubAuthenticator = hubAuthenticator
 		self.vaultManager = vaultManager
 	}
 
@@ -52,7 +49,6 @@ class AddHubVaultCoordinator: Coordinator {
 		                                             delegate: self)
 		let child = HubAuthenticationCoordinator(navigationController: navigationController,
 		                                         vaultConfig: downloadedVaultConfig.vaultConfig,
-		                                         hubAuthenticator: hubAuthenticator,
 		                                         unlockHandler: unlockHandler,
 		                                         parent: self,
 		                                         delegate: self)

@@ -2,6 +2,7 @@ import AppAuthCore
 import CocoaLumberjackSwift
 import CryptoKit
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 import JOSESwift
 import UIKit
@@ -43,23 +44,18 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	private(set) var isLoggedIn = false
 
 	private let vaultConfig: UnverifiedVaultConfig
-	private let deviceRegisteringService: HubDeviceRegistering
-	private let hubKeyService: HubKeyReceiving
-
 	private let authState: OIDAuthState
 	private let unlockHandler: HubVaultUnlockHandler
+	@Dependency(\.hubDeviceRegisteringService) var deviceRegisteringService
+	@Dependency(\.hubKeyService) var hubKeyService
 	private weak var delegate: HubAuthenticationViewModelDelegate?
 
 	public init(authState: OIDAuthState,
 	            vaultConfig: UnverifiedVaultConfig,
-	            deviceRegisteringService: HubDeviceRegistering = CryptomatorHubAuthenticator.shared,
-	            hubKeyService: HubKeyReceiving = CryptomatorHubAuthenticator.shared,
 	            unlockHandler: HubVaultUnlockHandler,
 	            delegate: HubAuthenticationViewModelDelegate) {
 		self.authState = authState
 		self.vaultConfig = vaultConfig
-		self.deviceRegisteringService = deviceRegisteringService
-		self.hubKeyService = hubKeyService
 		self.unlockHandler = unlockHandler
 		self.delegate = delegate
 	}
