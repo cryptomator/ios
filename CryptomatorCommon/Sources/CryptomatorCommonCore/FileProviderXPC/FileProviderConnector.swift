@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -46,6 +47,20 @@ public extension FileProviderConnector {
 	}
 }
 
+private enum FileProviderConnectorKey: DependencyKey {
+	static var liveValue: FileProviderConnector { FileProviderXPCConnector() }
+	#if DEBUG
+	static var testValue: FileProviderConnector = UnimplementedFileProviderConnector()
+	#endif
+}
+
+public extension DependencyValues {
+	var fileProviderConnector: FileProviderConnector {
+		get { self[FileProviderConnectorKey.self] }
+		set { self[FileProviderConnectorKey.self] = newValue }
+	}
+}
+
 public struct XPC<T> {
 	public let proxy: T
 	let doneHandler: () -> Void
@@ -68,8 +83,6 @@ public class FileProviderXPCConnector: FileProviderConnector {
 			return self.getXPC(serviceName: serviceName, domain: domain)
 		}
 	}
-
-	public static let shared = FileProviderXPCConnector()
 
 	public func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
 		var url = NSFileProviderManager.default.documentStorageURL
@@ -119,3 +132,17 @@ public extension XPC {
 		self.init(proxy: proxy, doneHandler: {})
 	}
 }
+
+#if DEBUG
+private struct UnimplementedFileProviderConnector: FileProviderConnector {
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
+		unimplemented("\(Self.self).getXPC(serviceName:domain:) not implemented", placeholder: Promise(UnimplementedError()))
+	}
+
+	func getXPC<T>(serviceName: NSFileProviderServiceName, domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<XPC<T>> {
+		unimplemented("\(Self.self).getXPC(serviceName:domainIdentifier:) not implemented", placeholder: Promise(UnimplementedError()))
+	}
+
+	private struct UnimplementedError: Error {}
+}
+#endif

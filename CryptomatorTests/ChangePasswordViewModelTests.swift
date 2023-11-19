@@ -14,6 +14,7 @@ import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class ChangePasswordViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
@@ -27,7 +28,8 @@ class ChangePasswordViewModelTests: XCTestCase {
 		setupMocks()
 		vaultAccount = VaultAccount(vaultUID: UUID().uuidString, delegateAccountUID: UUID().uuidString, vaultPath: CloudPath("/Foo/Bar"), vaultName: "Bar")
 		let domain = NSFileProviderDomain(vaultUID: vaultAccount.vaultUID, displayName: vaultAccount.vaultName)
-		viewModel = ChangePasswordViewModel(vaultAccount: vaultAccount, domain: domain, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
+		viewModel = ChangePasswordViewModel(vaultAccount: vaultAccount, domain: domain, vaultManager: vaultManagerMock)
 	}
 
 	private func setupMocks() {
@@ -70,7 +72,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 
 		try await viewModel.changePassword()
 
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 
 		XCTAssertEqual(1, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount)
 		XCTAssertEqual(oldPassword, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.oldPassphrase)
@@ -125,7 +127,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
 	func testChangePasswordFailForEmptyOldPassword() async throws {

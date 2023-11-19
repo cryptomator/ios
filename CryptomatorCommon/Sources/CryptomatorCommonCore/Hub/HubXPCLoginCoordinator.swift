@@ -12,23 +12,21 @@ public final class HubXPCLoginCoordinator: Coordinator {
 	public var navigationController: UINavigationController
 	let domain: NSFileProviderDomain
 	let vaultConfig: UnverifiedVaultConfig
-	let fileProviderConnector: FileProviderConnector
 	let hubAuthenticator: HubAuthenticating
 	public let onUnlocked: () -> Void
 	public let onErrorAlertDismissed: () -> Void
 	@Dependency(\.hubRepository) private var hubRepository
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	public init(navigationController: UINavigationController,
 	            domain: NSFileProviderDomain,
 	            vaultConfig: UnverifiedVaultConfig,
-	            fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared,
 	            hubAuthenticator: HubAuthenticating,
 	            onUnlocked: @escaping () -> Void,
 	            onErrorAlertDismissed: @escaping () -> Void) {
 		self.navigationController = navigationController
 		self.domain = domain
 		self.vaultConfig = vaultConfig
-		self.fileProviderConnector = fileProviderConnector
 		self.hubAuthenticator = hubAuthenticator
 		self.onUnlocked = onUnlocked
 		self.onErrorAlertDismissed = onErrorAlertDismissed

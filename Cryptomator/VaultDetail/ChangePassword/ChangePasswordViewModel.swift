@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -80,7 +81,7 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 	private let vaultAccount: VaultAccount
 	private let domain: NSFileProviderDomain
 	private let vaultManager: VaultManager
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private let newPasswordCellViewModel = TextFieldCellViewModel(type: .password)
@@ -100,11 +101,10 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 
 	private lazy var subscribers = Set<AnyCancellable>()
 
-	init(vaultAccount: VaultAccount, domain: NSFileProviderDomain, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(vaultAccount: VaultAccount, domain: NSFileProviderDomain, vaultManager: VaultManager = VaultDBManager.shared) {
 		self.vaultAccount = vaultAccount
 		self.domain = domain
 		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 		super.init()
 	}
 

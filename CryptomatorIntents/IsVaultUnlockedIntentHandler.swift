@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import Intents
@@ -14,6 +15,7 @@ import Promises
 
 class IsVaultUnlockedIntentHandler: NSObject, IsVaultUnlockedIntentHandling {
 	let vaultOptionsProvider: VaultOptionsProvider
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	init(vaultOptionsProvider: VaultOptionsProvider) {
 		self.vaultOptionsProvider = vaultOptionsProvider
@@ -46,7 +48,7 @@ class IsVaultUnlockedIntentHandler: NSObject, IsVaultUnlockedIntentHandling {
 	// MARK: Internal
 
 	private func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) async throws -> Bool {
-		let getXPCPromise: Promise<XPC<VaultLocking>> = FileProviderXPCConnector.shared.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<VaultLocking>> = fileProviderConnector.getXPC(serviceName: .vaultLocking, domainIdentifier: domainIdentifier)
 		return try await withCheckedThrowingContinuation({ continuation in
 			getXPCPromise.then { xpc in
 				xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
@@ -54,8 +56,8 @@ class IsVaultUnlockedIntentHandler: NSObject, IsVaultUnlockedIntentHandling {
 				continuation.resume(returning: $0)
 			}.catch {
 				continuation.resume(throwing: $0)
-			}.always {
-				FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+			}.always { [fileProviderConnector] in
+				fileProviderConnector.invalidateXPC(getXPCPromise)
 			}
 		})
 	}

@@ -11,6 +11,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
 import CryptomatorFileProvider
+import Dependencies
 import FileProvider
 import FileProviderUI
 import Foundation
@@ -106,7 +107,7 @@ class UnlockVaultViewModel {
 		}
 	}()
 
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 	private let vaultAccountManager: VaultAccountManager
 	private let providerManager: CloudProviderManager
 	private let vaultCache: VaultCache
@@ -115,17 +116,15 @@ class UnlockVaultViewModel {
 	public convenience init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
 		self.init(domain: domain,
 		          wrongBiometricalPassword: wrongBiometricalPassword,
-		          fileProviderConnector: FileProviderXPCConnector.shared,
 		          passwordManager: VaultPasswordKeychainManager(),
 		          vaultAccountManager: VaultAccountDBManager.shared,
 		          providerManager: CloudProviderDBManager.shared,
 		          vaultCache: VaultDBCache())
 	}
 
-	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, vaultAccountManager: VaultAccountManager, providerManager: CloudProviderManager, vaultCache: VaultCache) {
+	init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool, passwordManager: VaultPasswordManager, vaultAccountManager: VaultAccountManager, providerManager: CloudProviderManager, vaultCache: VaultCache) {
 		self.domain = domain
 		self.wrongBiometricalPassword = wrongBiometricalPassword
-		self.fileProviderConnector = fileProviderConnector
 		let context = LAContext()
 		if #unavailable(iOS 16) {
 			// Remove fallback title because "Enter password" also closes FileProviderExtensionUI (prior to iOS 16) and does not display the password input

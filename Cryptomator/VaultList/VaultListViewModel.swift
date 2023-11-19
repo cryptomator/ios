@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import GRDB
@@ -27,7 +28,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	var vaultCellViewModels: [VaultCellViewModel]
 	private let dbManager: DatabaseManager
 	private let vaultManager: VaultDBManager
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 	private var observation: DatabaseCancellable?
 	private lazy var subscribers = Set<AnyCancellable>()
 	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
@@ -35,13 +36,12 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 	private var removedRow = false
 
 	convenience init() {
-		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared)
+		self.init(dbManager: DatabaseManager.shared, vaultManager: VaultDBManager.shared)
 	}
 
-	init(dbManager: DatabaseManager, vaultManager: VaultDBManager, fileProviderConnector: FileProviderConnector) {
+	init(dbManager: DatabaseManager, vaultManager: VaultDBManager) {
 		self.dbManager = dbManager
 		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 		self.vaultCellViewModels = [VaultCellViewModel]()
 	}
 
