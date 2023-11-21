@@ -61,21 +61,17 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		return _sections
 	}
 
-	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = {
-		return [
-			.oldPassword: [oldPasswordCellViewModel],
-			.newPassword: [newPasswordCellViewModel],
-			.newPasswordConfirmation: [newPasswordConfirmationCellViewModel]
-		]
-	}()
+	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = [
+		.oldPassword: [oldPasswordCellViewModel],
+		.newPassword: [newPasswordCellViewModel],
+		.newPasswordConfirmation: [newPasswordConfirmationCellViewModel]
+	]
 
-	private lazy var _sections: [Section<ChangePasswordSection>] = {
-		return [
-			Section(id: .oldPassword, elements: [oldPasswordCellViewModel]),
-			Section(id: .newPassword, elements: [newPasswordCellViewModel]),
-			Section(id: .newPasswordConfirmation, elements: [newPasswordConfirmationCellViewModel])
-		]
-	}()
+	private lazy var _sections: [Section<ChangePasswordSection>] = [
+		Section(id: .oldPassword, elements: [oldPasswordCellViewModel]),
+		Section(id: .newPassword, elements: [newPasswordCellViewModel]),
+		Section(id: .newPasswordConfirmation, elements: [newPasswordConfirmationCellViewModel])
+	]
 
 	private static let minimumPasswordLength = 8
 	private let vaultAccount: VaultAccount

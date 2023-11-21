@@ -137,12 +137,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}
 
-	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = {
-		[.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
-		 .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
-		 .lockingSection: unlockSectionFooterViewModel,
-		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
-	}()
+	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = [.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
+	                                                                               .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
+	                                                                               .lockingSection: unlockSectionFooterViewModel,
+	                                                                               .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 
 	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value)
 
