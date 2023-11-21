@@ -115,10 +115,8 @@
 "getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.loading" = "Cryptomator is receiving and processing the response from Hub. Please wait.";
 "hubAuthentication.accessNotGranted" = "Your device has not yet been authorized to access this vault. Ask the vault owner to authorize it.";
 "hubAuthentication.licenseExceeded" = "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.";
-"hubAuthentication.deviceRegistration." = "";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Device Name";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Register Device Successful";
