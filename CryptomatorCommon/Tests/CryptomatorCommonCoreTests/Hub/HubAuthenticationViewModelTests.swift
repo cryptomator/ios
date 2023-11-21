@@ -38,6 +38,10 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToShowLoadingIndicatorCalled)
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToHideLoadingIndicatorCalled)
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
+		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
+		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
+		hubKeyProviderMock.getPrivateKeyReturnValue = P384.KeyAgreement.PrivateKey(compactRepresentable: false)
+
 		let calledReceiveKey = XCTestExpectation()
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigClosure = { _, _ in
 			calledReceiveKey.fulfill()
