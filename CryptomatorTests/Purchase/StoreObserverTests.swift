@@ -143,7 +143,7 @@ class StoreObserverTests: XCTestCase {
 			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
 			return
 		}
-		
+
 		// decrease the accuracy to 2 minutes to increase stability of the unit tests in the CI.
 		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
 
