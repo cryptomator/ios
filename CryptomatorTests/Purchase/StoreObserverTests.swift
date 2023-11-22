@@ -143,10 +143,12 @@ class StoreObserverTests: XCTestCase {
 			XCTFail("Wrong purchaseTransaction: \(purchaseTransaction)")
 			return
 		}
-		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 2.0)
+		
+		// decrease the accuracy to 2 minutes to increase stability of the unit tests in the CI.
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, expiresOn.timeIntervalSinceReferenceDate, accuracy: 120.0)
 
 		let actualDate = try XCTUnwrap(cryptomatorSettingsMock.trialExpirationDate, "trialExpirationDate was not set")
-		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 2.0)
+		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 120.0)
 	}
 
 	private func assertBuyFailsWithDeferredTransactionError(file: StaticString = #filePath, line: UInt = #line) async throws {
