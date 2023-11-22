@@ -42,32 +42,25 @@ class StoreObserverTests: XCTestCase {
 
 	// MARK: Buy Product
 
-	func testBuyFreeTrial() throws {
-		let expectation = XCTestExpectation()
-		storeManager.fetchProducts(with: [.thirtyDayTrial]).then { response -> Promise<PurchaseTransaction> in
-			XCTAssertEqual(1, response.products.count)
-			return self.storeObserver.buy(response.products[0])
-		}.then { purchaseTransaction in
-			try self.assertTrialStarted(purchaseTransaction: purchaseTransaction)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+	func testBuyFreeTrial() async throws {
+		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
+		XCTAssertEqual(1, response.products.count)
+
+		let purchaseTransaction = try await storeObserver.buy(response.products[0]).getValue()
+		try assertTrialStarted(purchaseTransaction: purchaseTransaction)
 	}
 
-	func testBuyFullVersion() throws {
-		assertFullVersionUnlockedWhenBuying(product: .fullVersion)
-		assertFullVersionUnlockedWhenBuying(product: .paidUpgrade)
-		assertFullVersionUnlockedWhenBuying(product: .freeUpgrade)
+	func testBuyFullVersion() async throws {
+		try await assertFullVersionUnlockedWhenBuying(product: .fullVersion)
+		try await assertFullVersionUnlockedWhenBuying(product: .paidUpgrade)
+		try await assertFullVersionUnlockedWhenBuying(product: .freeUpgrade)
 	}
 
 	// MARK: Deferred Transactions (Ask to buy)
 
 	// Only test the approved case as there is no transaction state changes if the transaction gets declined
 	// see https://developer.apple.com/forums/thread/685183
-	func testAskToBuy() throws {
+	func testAskToBuy() async throws {
 		session.askToBuyEnabled = true
 		XCTAssert(session.allTransactions().isEmpty)
 
@@ -84,42 +77,42 @@ class StoreObserverTests: XCTestCase {
 		}
 		storeObserver.fallbackDelegate = fallbackDelegateMock
 
-		assertBuyFailsWithDeferredTransactionError()
+		try await assertBuyFailsWithDeferredTransactionError()
 		try approveAskToBuyTransaction()
 
-		wait(for: [fallbackCalledExpectation], timeout: 1.0)
+		await fulfillment(of: [fallbackCalledExpectation])
 		XCTAssertEqual(1, fallbackDelegateMock.purchaseDidSucceedTransactionCallsCount)
 	}
 
-	func testRestoreRunningSubscription() {
+	func testRestoreRunningSubscription() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
 		cryptomatorSettingsMock.hasRunningSubscription = true
-		assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
+		try await assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	func testRestoreLifetimePremium() {
+	func testRestoreLifetimePremium() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
 		cryptomatorSettingsMock.fullVersionUnlocked = true
-		assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
+		try await assertRestored(with: .restoredFullVersion, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	func testRestoreTrial() {
+	func testRestoreTrial() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
 		let trialExpirationDate = Date.distantFuture
 		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
-		assertRestored(with: .restoredFreeTrial(expiresOn: trialExpirationDate), cryptomatorSettings: cryptomatorSettingsMock)
+		try await assertRestored(with: .restoredFreeTrial(expiresOn: trialExpirationDate), cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	func testRestoreExpiredTrial() {
+	func testRestoreExpiredTrial() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
 		let trialExpirationDate = Date.distantPast
 		cryptomatorSettingsMock.trialExpirationDate = trialExpirationDate
-		assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
+		try await assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	func testRestoreNothing() {
+	func testRestoreNothing() async throws {
 		let cryptomatorSettingsMock = CryptomatorSettingsMock()
-		assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
+		try await assertRestored(with: .noRestorablePurchases, cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
 	// MARK: - Internal
@@ -134,20 +127,14 @@ class StoreObserverTests: XCTestCase {
 		try session.approveAskToBuyTransaction(identifier: deferredTransaction.identifier)
 	}
 
-	private func assertFullVersionUnlockedWhenBuying(product: ProductIdentifier) {
-		let expectation = XCTestExpectation()
-		storeManager.fetchProducts(with: [product]).then { response -> Promise<PurchaseTransaction> in
-			XCTAssertEqual(1, response.products.count)
-			return self.storeObserver.buy(response.products[0])
-		}.then { purchaseTransaction in
-			XCTAssertEqual(.fullVersion, purchaseTransaction)
-			XCTAssert(self.cryptomatorSettingsMock.fullVersionUnlocked)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+	private func assertFullVersionUnlockedWhenBuying(product: ProductIdentifier, file: StaticString = #filePath, line: UInt = #line) async throws {
+		let response = try await storeManager.fetchProducts(with: [product]).getValue()
+		XCTAssertEqual(1, response.products.count)
+
+		let purchaseTransaction = try await storeObserver.buy(response.products[0]).getValue()
+
+		XCTAssertEqual(.fullVersion, purchaseTransaction)
+		XCTAssert(cryptomatorSettingsMock.fullVersionUnlocked)
 	}
 
 	private func assertTrialStarted(purchaseTransaction: PurchaseTransaction) throws {
@@ -162,39 +149,29 @@ class StoreObserverTests: XCTestCase {
 		XCTAssertEqual(expectedDate.timeIntervalSinceReferenceDate, actualDate.timeIntervalSinceReferenceDate, accuracy: 2.0)
 	}
 
-	private func assertBuyFailsWithDeferredTransactionError() {
-		let askToBuyExpectation = XCTestExpectation()
-		let fetchProductPromise = storeManager.fetchProducts(with: [.thirtyDayTrial])
-		fetchProductPromise.then { response -> Promise<PurchaseTransaction> in
-			XCTAssertEqual(1, response.products.count)
-			return self.storeObserver.buy(response.products[0])
-		}.then { _ in
-			XCTFail("Promise fulfilled")
-		}.catch { error in
+	private func assertBuyFailsWithDeferredTransactionError(file: StaticString = #filePath, line: UInt = #line) async throws {
+		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
+
+		XCTAssertEqual(1, response.products.count)
+
+		do {
+			_ = try await storeObserver.buy(response.products[0]).getValue()
+			XCTFail("Buy did not fail", file: file, line: line)
+		} catch {
 			XCTAssertEqual(.deferredTransaction, error as? StoreObserverError)
-		}.always {
-			askToBuyExpectation.fulfill()
 		}
-		wait(for: [askToBuyExpectation], timeout: 1.0)
 	}
 
-	private func assertRestored(with expectedResult: RestoreTransactionsResult, cryptomatorSettings: CryptomatorSettings) {
-		let expectation = XCTestExpectation()
+	private func assertRestored(with expectedResult: RestoreTransactionsResult, cryptomatorSettings: CryptomatorSettings, file: StaticString = #filePath, line: UInt = #line) async throws {
 		let premiumManagerMock = PremiumManagerTypeMock()
 		let storeObserver = StoreObserver(cryptomatorSettings: cryptomatorSettings, premiumManager: premiumManagerMock)
 
 		SKPaymentQueue.default().add(storeObserver)
 		SKPaymentQueue.default().remove(self.storeObserver)
 
-		storeObserver.restore().then { result in
-			XCTAssertEqual(expectedResult, result)
-			XCTAssert(premiumManagerMock.refreshStatusCalled)
-		}.catch { error in
-			XCTFail("Promise failed with error: \(error)")
-		}.always {
-			expectation.fulfill()
-		}
-		wait(for: [expectation], timeout: 1.0)
+		let result = try await storeObserver.restore().getValue()
+		XCTAssertEqual(expectedResult, result)
+		XCTAssert(premiumManagerMock.refreshStatusCalled)
 	}
 }
 
