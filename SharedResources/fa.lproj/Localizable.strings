@@ -6,6 +6,7 @@
 "common.button.done" = "انجام شده";
 "common.button.edit" = "ویرایش";
 "common.button.next" = "بعدی";
+"common.button.refresh" = "نوسازی";
 "common.button.remove" = "حذف";
 "common.button.retry" = "تلاش مجدد";
 "common.cells.url" = "آدرس اینترنتی";
