@@ -21,6 +21,7 @@
 "common.button.enable" = "有効にする";
 "common.button.next" = "次へ";
 "common.button.ok" = "OK";
+"common.button.refresh" = "更新";
 "common.button.remove" = "削除";
 "common.button.retry" = "再試行";
 "common.button.signOut" = "サインアウト";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "パスがありません。妥当なフォルダーのパスを指定してください。";
 "getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
+"hubAuthentication.accessNotGranted" = "お使いのデバイスはまだこの金庫にアクセスする権限がありません。金庫のオーナーに権限を与えてもらってください。";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには，金庫のオーナーが端末を認証する必要があります。";
+
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
 "intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
 "intents.saveFile.missingTemporaryFolder" = "臨時フォルダーの作成ができませんでした。";
