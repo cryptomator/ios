@@ -21,6 +21,7 @@
 "common.button.enable" = "Engedélyezés";
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Frissítés";
 "common.button.remove" = "Eltávolítás";
 "common.button.retry" = "Újra";
 "common.button.signOut" = "Kijelentkezés";
@@ -99,6 +100,10 @@
 "fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
+"hubAuthentication.accessNotGranted" = "Eszköze még nem kapott engedélyt ehhez a széfhez. Kérje a széf tulajdonosát, hogy engedélyezze a hozzáférést.";
+"hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "A széf hozzáféréséhez a széf tulajdonosának hitelesítenie kell az eszközét.";
 
 "keepUnlocked.alert.title" = "Széf zárolása?";
 "keepUnlocked.alert.message" = "Ezen módosítások végbemenéséhez szükséges a széfet zárolni.";
