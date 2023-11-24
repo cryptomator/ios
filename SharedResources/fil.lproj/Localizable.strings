@@ -21,6 +21,7 @@
 "common.button.enable" = "I-enable";
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
+"common.button.refresh" = "I-refresh";
 "common.button.remove" = "Tanggalin";
 "common.button.retry" = "Subukan muli";
 "common.button.signOut" = "Mag-sign Out";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Walang ibinigay na landas. Mangyaring magbigay ng wastong landas kung saan dapat ibalik ang isang folder.";
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
+"hubAuthentication.accessNotGranted" = "Hindi pa pinahihintulutan ang iyong device na i-access ang vault na ito. Hilingin sa may-ari ng vault na pahintulutan ito.";
+"hubAuthentication.licenseExceeded" = "Ang iyong Cryptomator Hub instance ay may di-wastong lisensya. Mangyaring ipagbigay-alam sa administrator ng Hub na mag-upgrade o mag-renew ng lisensya.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Pangalan ng device";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para ma-access ang vault, kailangang pahintulutan ng may-ari ng vault ang iyong device.";
+
 "intents.saveFile.missingFile" = "Ang ibinigay na file ay hindi wasto.";
 "intents.saveFile.invalidFolder" = "Ang ibinigay na folder ay hindi wasto.";
 "intents.saveFile.missingTemporaryFolder" = "Nabigong gumawa ng pansamantalang folder.";
