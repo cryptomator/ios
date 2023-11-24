@@ -7,6 +7,7 @@
 "common.button.edit" = "Uredi";
 "common.button.next" = "Naslednji";
 "common.button.ok" = "V redu";
+"common.button.refresh" = "Osveži";
 "common.button.remove" = "Odstrani";
 "common.button.retry" = "Poizkusi znova";
 "common.cells.url" = "URL naslov";
