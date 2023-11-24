@@ -22,6 +22,7 @@
 "common.button.next" = "Siguiente";
 "common.button.ok" = "Aceptar";
 "common.button.refresh" = "Recargar";
+"common.button.register" = "Registrarse";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Reintentar";
 "common.button.signOut" = "Cerrar sesión";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
+"addVault.openExistingVault.downloadVault.progress" = "Descargando bóveda…";
 "addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\".";
 "addVault.openExistingVault.progress" = "Añadiendo bóveda…";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
@@ -111,9 +113,13 @@
 
 "getFolderIntent.error.missingPath" = "No se ha proporcionado ninguna ruta. Proporcione una ruta válida para la que se debe devolver una carpeta.";
 "getFolderIntent.error.noVaultSelected" = "No se ha seleccionado una bóveda.";
+
+"hubAuthentication.title" = "Bóveda de Hub";
 "hubAuthentication.accessNotGranted" = "Su dispositivo aún no ha sido autorizado para acceder a esta bóveda. Pídale al propietario de la bóveda que lo autorice.";
 "hubAuthentication.licenseExceeded" = "Su instancia del Hub de Cryptomator tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nombre del dispositivo";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Este parece ser el primer acceso al Hub desde este dispositivo. Para identificarlo y autorizar el acceso, necesita nombrar este dispositivo.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registro del dispositivo exitoso";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acceder a la bóveda, su dispositivo debe ser autorizado por el propietario de la bóveda.";
 
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
