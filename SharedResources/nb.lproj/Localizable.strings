@@ -21,6 +21,7 @@
 "common.button.enable" = "Aktiver";
 "common.button.next" = "Neste";
 "common.button.ok" = "Ok";
+"common.button.refresh" = "Oppdater";
 "common.button.remove" = "Fjern";
 "common.button.retry" = "Prøv igjen";
 "common.button.signOut" = "Logg ut";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Ingen målmappe ble oppgitt. Vennligst oppgi en gyldig bane hvor en mappe skal returneres til.";
 "getFolderIntent.error.noVaultSelected" = "Ingen hvelv har blitt valgt.";
+"hubAuthentication.accessNotGranted" = "Enheten din har ikke blitt autorisert til å få tilgang til dette hvelvet ennå. Spør hvelveieren om å tillate det.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub instansen din har en ugyldig lisens. Vennligst informer en Hub-administrator om å oppgradere eller fornye lisensen.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnavn";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For å få tilgang til hvelvet, så må enheten din bli autorisert av hvelvets eier.";
+
 "intents.saveFile.missingFile" = "Den oppgitte filen er ugyldig.";
 "intents.saveFile.invalidFolder" = "Den oppgitte mappen er ugyldig.";
 "intents.saveFile.missingTemporaryFolder" = "Kunne ikke opprette temporær mappe.";
