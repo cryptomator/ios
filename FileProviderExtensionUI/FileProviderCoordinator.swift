@@ -163,7 +163,6 @@ class FileProviderCoordinator: Coordinator {
 		let child = HubXPCLoginCoordinator(navigationController: navigationController,
 		                                   domain: domain,
 		                                   vaultConfig: vaultConfig,
-		                                   hubAuthenticator: CryptomatorHubAuthenticator.shared,
 		                                   onUnlocked: { [weak self] in self?.done() },
 		                                   onErrorAlertDismissed: { [weak self] in self?.done() })
 		childCoordinators.append(child)

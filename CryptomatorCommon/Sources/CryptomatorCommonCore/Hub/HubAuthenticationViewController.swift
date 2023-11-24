@@ -24,13 +24,9 @@ public class HubAuthenticationViewController: UIViewController {
 
 	override public func viewDidLoad() {
 		super.viewDidLoad()
+		title = LocalizedString.getValue("hubAuthentication.title")
 
-		viewModel.$authenticationFlowState
-			.receive(on: DispatchQueue.main)
-			.sink(receiveValue: { [weak self] in
-				self?.updateToolbar(state: $0)
-			})
-			.store(in: &cancellables)
+		setupToolBar()
 		setupSwiftUIView()
 	}
 
@@ -41,6 +37,20 @@ public class HubAuthenticationViewController: UIViewController {
 		child.didMove(toParent: self)
 		child.view.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate(child.view.constraints(equalTo: view))
+	}
+
+	private func setupToolBar() {
+		if let initialState = viewModel.authenticationFlowState {
+			updateToolbar(state: initialState)
+		}
+
+		viewModel.$authenticationFlowState
+			.compactMap { $0 }
+			.receive(on: DispatchQueue.main)
+			.sink(receiveValue: { [weak self] in
+				self?.updateToolbar(state: $0)
+			})
+			.store(in: &cancellables)
 	}
 
 	/**

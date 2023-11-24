@@ -113,7 +113,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		let recorder = viewModel.$loginState.recordNext(2)
 
 		prepareViewModelWithDefaultValues()
-		viewModel.endpoint = "example invalid endpoint"
+		viewModel.endpoint = "https://example invalid endpoint"
 		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 
 		viewModel.saveS3Credential()

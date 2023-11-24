@@ -15,7 +15,7 @@ import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
-class VaultManagerMock: VaultDBManager {
+private final class VaultManagerMock: VaultDBManager {
 	var removedVaultUIDs = [String]()
 	var addedFileProviderDomainDisplayName = [String: String]()
 

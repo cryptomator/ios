@@ -8,6 +8,7 @@
 
 import Combine
 import CryptomatorCommonCore
+import Dependencies
 import Promises
 import UIKit
 
@@ -33,11 +34,10 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 
 	let vault: VaultInfo
 	private lazy var errorPublisher = PassthroughSubject<Error, Never>()
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
-	init(vault: VaultInfo, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(vault: VaultInfo) {
 		self.vault = vault
-		self.fileProviderConnector = fileProviderConnector
 	}
 
 	func lockVault() -> Promise<Void> {

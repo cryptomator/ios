@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import Combine
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import GRDB
 import LocalAuthentication
 import Promises
@@ -73,7 +74,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private let vaultInfo: VaultInfo
 	private let vaultManager: VaultManager
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 	private let context = LAContext()
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let passwordManager: VaultPasswordManager
@@ -136,12 +137,10 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		}
 	}
 
-	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = {
-		[.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
-		 .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
-		 .lockingSection: unlockSectionFooterViewModel,
-		 .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
-	}()
+	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = [.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
+	                                                                               .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
+	                                                                               .lockingSection: unlockSectionFooterViewModel,
+	                                                                               .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 
 	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value)
 
@@ -156,13 +155,12 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var observation: DatabaseCancellable?
 
 	convenience init(vaultInfo: VaultInfo) {
-		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: FileProviderXPCConnector.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
+		self.init(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, passwordManager: VaultPasswordKeychainManager(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: VaultKeepUnlockedManager.shared)
 	}
 
-	init(vaultInfo: VaultInfo, vaultManager: VaultManager, fileProviderConnector: FileProviderConnector, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings) {
+	init(vaultInfo: VaultInfo, vaultManager: VaultManager, passwordManager: VaultPasswordManager, dbManager: DatabaseManager, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings) {
 		self.vaultInfo = vaultInfo
 		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 		self.passwordManager = passwordManager
 		self.title = Bindable(vaultInfo.vaultName)
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings

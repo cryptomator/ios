@@ -9,6 +9,7 @@
 import Combine
 import CryptomatorCommonCore
 import CryptomatorFileProvider
+import Dependencies
 import Foundation
 import Promises
 import StoreKit
@@ -90,13 +91,13 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return viewModel
 	}()
 
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
+
 	private var subscribers = Set<AnyCancellable>()
 	private lazy var showDebugModeWarningPublisher = PassthroughSubject<Void, Never>()
 
-	init(cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared) {
 		self.cryptomatorSettings = cryptomatorSettings
-		self.fileProviderConnector = fileProviderConnector
 	}
 
 	func refreshCacheSize() -> Promise<Void> {
