@@ -21,6 +21,7 @@
 "common.button.enable" = "সক্রিয় করুন";
 "common.button.next" = "পরবর্তী";
 "common.button.ok" = "আচ্ছা";
+"common.button.refresh" = "রিফ্রেশ";
 "common.button.remove" = "বাতিল";
 "common.button.retry" = "পুনরায় চেষ্টা করুন";
 "common.button.signOut" = "সাইন আউট";
