@@ -21,6 +21,7 @@
 "common.button.enable" = "啟用";
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
+"common.button.refresh" = "重新整理";
 "common.button.remove" = "移除";
 "common.button.retry" = "重試";
 "common.button.signOut" = "登出";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "沒有提供路徑。請提供應返回資料夾的有效路徑。";
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密庫。";
+"hubAuthentication.accessNotGranted" = "您的設備權限尚未允許存取加密庫，請聯絡加密庫擁有者";
+"hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "想讀取檔加密庫，你的設備需得到檔案庫擁有者的授權。";
+
 "intents.saveFile.missingFile" = "提供的檔案無效。";
 "intents.saveFile.invalidFolder" = "提供的資料夾無效。";
 "intents.saveFile.missingTemporaryFolder" = "無法建立臨時資料夾。";
