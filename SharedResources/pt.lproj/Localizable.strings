@@ -21,6 +21,7 @@
 "common.button.enable" = "Ativar";
 "common.button.next" = "Seguinte";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Atualizar";
 "common.button.remove" = "Remover";
 "common.button.retry" = "Tentar de novo";
 "common.button.signOut" = "Terminar Sessão";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Trajeto não foi fornecido. Por favor, forneça um trajeto válido para o qual a pasta deve ser retornada.";
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre selecionado.";
+"hubAuthentication.accessNotGranted" = "O seu dispositivo ainda não foi autorizado a aceder a este cofre. Peça ao proprietário do cofre para o autorizar.";
+"hubAuthentication.licenseExceeded" = "A entidade do seu Cryptomator Hub tem uma licença inválida. Por favor, informe o administrador do Hub para atualizar ou renovar a licença.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para aceder ao cofre, o seu dispositivo precisa de ser autorizado pelo proprietário do cofre.";
+
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta especificada não é válida.";
 "intents.saveFile.missingTemporaryFolder" = "Não foi possível criar a pasta temporária.";
