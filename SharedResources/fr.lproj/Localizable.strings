@@ -21,6 +21,7 @@
 "common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Rafraîchir";
 "common.button.remove" = "Retirer";
 "common.button.retry" = "Réessayer";
 "common.button.signOut" = "Se déconnecter";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Aucun chemin n'a été fourni. Veuillez fournir un chemin d'accès valide pour lequel un dossier doit être renvoyé.";
 "getFolderIntent.error.noVaultSelected" = "Aucun coffre n'a été sélectionné.";
+"hubAuthentication.accessNotGranted" = "Votre appareil n'a pas encore été autorisé à accéder à ce coffre. Demandez au propriétaire du coffre de l'autoriser.";
+"hubAuthentication.licenseExceeded" = "Votre instance Cryptomator Hub a une licence invalide. Veuillez informer un administrateur Hub pour la mettre à niveau ou la renouveler.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom de l'appareil";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pour accéder au coffre, votre appareil doit être autorisé par le propriétaire du coffre.";
+
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
 "intents.saveFile.invalidFolder" = "Le dossier fourni n'est pas valide.";
 "intents.saveFile.missingTemporaryFolder" = "Impossible de créer un dossier temporaire.";
