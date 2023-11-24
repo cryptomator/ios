@@ -21,6 +21,7 @@
 "common.button.enable" = "Inschakelen";
 "common.button.next" = "Volgende";
 "common.button.ok" = "Ok";
+"common.button.refresh" = "Vernieuwen";
 "common.button.remove" = "Verwijderen";
 "common.button.retry" = "Opnieuw proberen";
 "common.button.signOut" = "Uitloggen";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Er is geen pad opgegeven. Geef een geldig pad om de folder weer te geven.";
 "getFolderIntent.error.noVaultSelected" = "Er is geen kluis geselecteerd.";
+"hubAuthentication.accessNotGranted" = "Uw apparaat is nog niet gemachtigd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om toestemming te geven.";
+"hubAuthentication.licenseExceeded" = "Uw Cryptomator Hub installatie heeft een ongeldige licentie. Informeer een Hub administrator om de licentie te upgraden of te verlengen.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Apparaatnaam";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Om toegang te krijgen tot de kluis, moet je apparaat worden gemachtigd door de eigenaar van de kluis.";
+
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
 "intents.saveFile.invalidFolder" = "De opgegeven map is niet geldig.";
 "intents.saveFile.missingTemporaryFolder" = "Aanmaken van tijdelijke map mislukt.";
