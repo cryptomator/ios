@@ -4,6 +4,7 @@
 "common.button.edit" = "మార్పు";
 "common.button.enable" = "ప్రారంభించు";
 "common.button.ok" = "సరే";
+"common.button.refresh" = "రిఫ్రెష్ చేయండి";
 "common.button.remove" = "తొలగించు";
 "common.button.retry" = "మళ్ళీ చేయండి";
 "common.cells.url" = "URL";
