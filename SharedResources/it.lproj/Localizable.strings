@@ -21,6 +21,7 @@
 "common.button.enable" = "Abilita";
 "common.button.next" = "Avanti";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Aggiorna";
 "common.button.remove" = "Rimuovi";
 "common.button.retry" = "Riprova";
 "common.button.signOut" = "Disconnettiti";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Non è stato fornito alcun percorso. Fornire un percorso valido per il quale deve essere restituita una cartella.";
 "getFolderIntent.error.noVaultSelected" = "Nessuna cassaforte è stata selezionata.";
+"hubAuthentication.accessNotGranted" = "Il tuo dispositivo non è ancora stato autorizzato ad accedere a questa cassaforte. Chiedi al proprietario della cassaforte di autorizzarlo.";
+"hubAuthentication.licenseExceeded" = "La tua istanza Cryptomator Hub ha una licenza non valida. Si prega di informare un amministratore Hub per aggiornare o rinnovare la licenza.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome Del Dispositivo";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per accedere al vault, il tuo dispositivo deve essere autorizzato dal proprietario del vault.";
+
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
 "intents.saveFile.invalidFolder" = "La cartella fornita non è valida.";
 "intents.saveFile.missingTemporaryFolder" = "Non è stato possibile creare la cartella temporanea.";
