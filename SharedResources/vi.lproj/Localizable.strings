@@ -9,6 +9,7 @@
 "common.button.enable" = "Bật";
 "common.button.next" = "Tiếp";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Làm mới";
 "common.button.remove" = "Xóa";
 "common.button.retry" = "Thử lại";
 "common.cells.password" = "Mật khẩu";
@@ -25,6 +26,10 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 "fileProvider.error.unlockButton" = "Mở khoá";
+"hubAuthentication.accessNotGranted" = "Thiết bị của bạn chưa được phép truy cập vault này. Yêu cầu chủ sở hữu cấp phép.";
+"hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Để truy cập vault, thiết bị của bạn cần được chủ sở hữu cho phép.";
 "purchase.retry.button" = "Thử lại";
 
 "settings.title" = "Cài đặt";
