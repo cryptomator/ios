@@ -21,6 +21,7 @@
 "common.button.enable" = "启用";
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
+"common.button.refresh" = "刷新";
 "common.button.remove" = "删除";
 "common.button.retry" = "重试";
 "common.button.signOut" = "退出登录";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "未提供路径，请提供文件夹应转到的有效路径。";
 "getFolderIntent.error.noVaultSelected" = "未选择任何保险库。";
+"hubAuthentication.accessNotGranted" = "您的设备尚未授权访问此保险库，请联系保险库所有者，";
+"hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 实例许可证无效，请联系Hub管理员升级或者续订许可证。";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "设备名称";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "要访问保险库，设备需得到保险库所有者的授权。";
+
 "intents.saveFile.missingFile" = "提供的文件无效。";
 "intents.saveFile.invalidFolder" = "提供的文件夹无效。";
 "intents.saveFile.missingTemporaryFolder" = "无法创建临时文件夹。";
