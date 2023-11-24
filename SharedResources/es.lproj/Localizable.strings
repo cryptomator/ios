@@ -21,6 +21,7 @@
 "common.button.enable" = "Activar";
 "common.button.next" = "Siguiente";
 "common.button.ok" = "Aceptar";
+"common.button.refresh" = "Recargar";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Reintentar";
 "common.button.signOut" = "Cerrar sesión";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "No se ha proporcionado ninguna ruta. Proporcione una ruta válida para la que se debe devolver una carpeta.";
 "getFolderIntent.error.noVaultSelected" = "No se ha seleccionado una bóveda.";
+"hubAuthentication.accessNotGranted" = "Su dispositivo aún no ha sido autorizado para acceder a esta bóveda. Pídale al propietario de la bóveda que lo autorice.";
+"hubAuthentication.licenseExceeded" = "Su instancia del Hub de Cryptomator tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nombre del dispositivo";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acceder a la bóveda, su dispositivo debe ser autorizado por el propietario de la bóveda.";
+
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada es inválida.";
 "intents.saveFile.missingTemporaryFolder" = "Error al crear la carpeta temporal.";
