@@ -21,6 +21,7 @@
 "common.button.enable" = "Włącz";
 "common.button.next" = "Dalej";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Odśwież";
 "common.button.remove" = "Usuń";
 "common.button.retry" = "Ponów";
 "common.button.signOut" = "Wyloguj";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Nie podano ścieżki. Proszę podać prawidłową ścieżkę do folderu.";
 "getFolderIntent.error.noVaultSelected" = "Nie wybrano sejfu.";
+"hubAuthentication.accessNotGranted" = "Twoje urządzenie nie zostało jeszcze upoważnione do dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.";
+"hubAuthentication.licenseExceeded" = "Twoja instancja Hub ma nieprawidłową licencję. Poproś administratora Hub o uaktualnienie lub odnowienie licencji.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nazwa urządzenia";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
+
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
 "intents.saveFile.invalidFolder" = "Wskazany folder jest niewłaściwy.";
 "intents.saveFile.missingTemporaryFolder" = "Nie udało się utworzyć katalogu tymczasowego.";
