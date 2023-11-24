@@ -21,6 +21,7 @@
 "common.button.enable" = "تفعيل";
 "common.button.next" = "التالي";
 "common.button.ok" = "موافق";
+"common.button.refresh" = "تحديث";
 "common.button.remove" = "حذف";
 "common.button.retry" = "اعد المحاولة";
 "common.button.signOut" = "تسجيل الخروج";
@@ -98,6 +99,10 @@
 "fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.unlockButton" = "افتح";
 "fileProvider.uploadProgress.connecting" = "جاري الاتصال…";
+"hubAuthentication.accessNotGranted" = "لم يتم بعد منح الإذن لجهازك بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.";
+"hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للدخول إلى الخزينة، يحتاج جهازك إلى إذن من مالك الخزينة.";
 "keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
 "keepUnlockedDuration.indefinite" = "دائم";
 
