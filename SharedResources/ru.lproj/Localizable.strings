@@ -22,6 +22,7 @@
 "common.button.next" = "Далее";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Обновить";
+"common.button.register" = "Регистрация";
 "common.button.remove" = "Удалить";
 "common.button.retry" = "Повторить";
 "common.button.signOut" = "Выйти";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Где находится хранилище?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator обнаружил хранилище \"%@\".\nДобавить это хранилище?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Добавить это хранилище";
+"addVault.openExistingVault.downloadVault.progress" = "Загрузка хранилища…";
 "addVault.openExistingVault.password.footer" = "Введите пароль для \"%@\".";
 "addVault.openExistingVault.progress" = "Добавление хранилища…";
 "addVault.success.info" = "Хранилище \"%@\" добавлено.\nДоступ к нему - через приложение \"Файлы\".";
@@ -111,9 +113,13 @@
 
 "getFolderIntent.error.missingPath" = "Не указан путь. Укажите правильный путь, по которому должна быть возвращена папка.";
 "getFolderIntent.error.noVaultSelected" = "Не выбрано хранилище.";
+
+"hubAuthentication.title" = "Хаб-хранилище";
 "hubAuthentication.accessNotGranted" = "Устройство ещё не авторизовано для доступа к этому хранилищу. Попросите владельца хранилища разрешить его.";
 "hubAuthentication.licenseExceeded" = "У вашего хаба Cryptomator неверная лицензия. Попросите администратора хаба обновить или продлить лицензию.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Имя устройства";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Похоже, это первый доступ к хабу с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройство успешно зарегистрировано";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Для доступа к хранилищу ваше устройство должно быть авторизовано владельцем хранилища.";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
