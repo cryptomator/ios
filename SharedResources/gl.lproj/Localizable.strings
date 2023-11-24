@@ -6,6 +6,7 @@
 "common.button.done" = "Feito";
 "common.button.edit" = "Editar";
 "common.button.next" = "Seguinte";
+"common.button.refresh" = "Actualizar";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Tentar de novo";
 "common.cells.url" = "URL";
