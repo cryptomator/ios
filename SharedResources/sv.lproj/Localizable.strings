@@ -21,6 +21,7 @@
 "common.button.enable" = "Aktivera";
 "common.button.next" = "Nästa";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Uppdatera";
 "common.button.remove" = "Ta bort";
 "common.button.retry" = "Försök igen";
 "common.button.signOut" = "Logga ut";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Ingen sökväg angavs. Vänligen ange en giltig sökväg för vilken en mapp ska returneras.";
 "getFolderIntent.error.noVaultSelected" = "Inget valv har valts.";
+"hubAuthentication.accessNotGranted" = "Din enhet har ännu inte behörighet att komma åt detta valv. Be valvägaren att godkänna det.";
+"hubAuthentication.licenseExceeded" = "Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnamn";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "För att komma åt valvet måste din enhet godkännas av valvägaren.";
+
 "intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";
 "intents.saveFile.invalidFolder" = "Den angivna mappen är inte giltig.";
 "intents.saveFile.missingTemporaryFolder" = "Det gick inte att skapa en temporär mapp.";
