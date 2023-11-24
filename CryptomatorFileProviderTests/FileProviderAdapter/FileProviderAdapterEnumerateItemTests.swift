@@ -9,6 +9,7 @@
 import CryptomatorCloudAccessCore
 import XCTest
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 	override func setUpWithError() throws {
@@ -34,6 +35,9 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 			ItemMetadata(id: 3, name: "TestFolder", type: .file, size: nil, parentID: 4, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Foo/TestFolder"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: 1, tagData: nil)
 		]
 		metadataManagerMock.workingSetMetadata = mockMetadata
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let expectation = XCTestExpectation()
 		adapter.enumerateItems(for: .workingSet, withPageToken: nil).then { itemList in
 			XCTAssertEqual(mockMetadata.map { FileProviderItem(metadata: $0, domainIdentifier: .test) }, itemList.items)

@@ -7,10 +7,12 @@
 //
 
 import CocoaLumberjackSwift
+import CryptoKit
 import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
 import FileProvider
 import Foundation
+import JOSESwift
 import os.log
 import Promises
 
@@ -19,6 +21,9 @@ public enum VaultManagerError: Error {
 	case vaultVersionNotSupported
 	case fileProviderDomainNotFound
 	case moveVaultInsideItself
+	case invalidDecrypter
+	case invalidPayloadMasterkey
+	case missingVaultConfigToken
 }
 
 public protocol VaultManager {
@@ -31,6 +36,8 @@ public protocol VaultManager {
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
+	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void>
+	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider
 }
 
 public class VaultDBManager: VaultManager {
@@ -219,6 +226,122 @@ public class VaultDBManager: VaultManager {
 		}
 	}
 
+	// swiftlint:disable:next function_parameter_count
+	public func createFromExisting(withVaultUID vaultUID: String, delegateAccountUID: String, downloadedVaultConfig: DownloadedVaultConfig, downloadedMasterkey: DownloadedMasterkeyFile, vaultItem: VaultItem, password: String) -> Promise<Void> {
+		let provider: LocalizedCloudProviderDecorator
+		do {
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		let vaultPath = vaultItem.vaultPath
+		let vaultConfigMetadata = downloadedVaultConfig.metadata
+		let vaultConfigToken = downloadedVaultConfig.token
+		let masterkeyFile = downloadedMasterkey.masterkeyFile
+		let masterkeyFileData = downloadedMasterkey.masterkeyFileData
+		let masterkeyFileMetadata = downloadedMasterkey.metadata
+		do {
+			let masterkey = try masterkeyFile.unlock(passphrase: password)
+			_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
+		} catch {
+			return Promise(error)
+		}
+		let vaultConfigLastModifiedDate = vaultConfigMetadata.lastModifiedDate
+		let masterkeyFileLastModifiedDate = masterkeyFileMetadata.lastModifiedDate
+		let lastUpToDateCheck: Date = (vaultConfigLastModifiedDate ?? .distantPast) < (masterkeyFileLastModifiedDate ?? .distantPast) ? masterkeyFileLastModifiedDate! : vaultConfigLastModifiedDate ?? Date()
+		let cachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: masterkeyFileData, vaultConfigToken: vaultConfigToken, lastUpToDateCheck: lastUpToDateCheck, masterkeyFileLastModifiedDate: masterkeyFileMetadata.lastModifiedDate, vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
+		return addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name).then {
+			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
+			try self.vaultAccountManager.saveNewAccount(vaultAccount)
+			try self.postProcessVaultCreation(cachedVault: cachedVault, password: password, storePasswordInKeychain: false)
+			DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
+		}
+	}
+
+	public func getUnverifiedVaultConfig(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedVaultConfig> {
+		let provider: LocalizedCloudProviderDecorator
+		do {
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		let tmpDirURL = FileManager.default.temporaryDirectory
+		let localVaultConfigURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		let vaultPath = vaultItem.vaultPath
+		let vaultConfigPath = vaultPath.appendingPathComponent("vault.cryptomator")
+		return provider.downloadFileWithMetadata(from: vaultConfigPath, to: localVaultConfigURL).then { vaultConfigMetadata -> DownloadedVaultConfig in
+			let vaultConfigToken = try Data(contentsOf: localVaultConfigURL)
+			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+			return DownloadedVaultConfig(vaultConfig: unverifiedVaultConfig, token: vaultConfigToken, metadata: vaultConfigMetadata)
+		}
+	}
+
+	public func downloadMasterkeyFile(delegateAccountUID: String, vaultItem: VaultItem) -> Promise<DownloadedMasterkeyFile> {
+		let provider: LocalizedCloudProviderDecorator
+		do {
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		let tmpDirURL = FileManager.default.temporaryDirectory
+		let localMasterkeyURL = tmpDirURL.appendingPathComponent(UUID().uuidString, isDirectory: false)
+		let vaultPath = vaultItem.vaultPath
+		let masterkeyPath = vaultPath.appendingPathComponent("masterkey.cryptomator")
+		return provider.downloadFileWithMetadata(from: masterkeyPath, to: localMasterkeyURL).then { masterkeyFileMetadata -> DownloadedMasterkeyFile in
+			let masterkeyFileData = try Data(contentsOf: localMasterkeyURL)
+			let masterkeyFile = try MasterkeyFile.withContentFromData(data: masterkeyFileData)
+			return DownloadedMasterkeyFile(masterkeyFile: masterkeyFile, metadata: masterkeyFileMetadata, masterkeyFileData: masterkeyFileData)
+		}
+	}
+
+	public func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+		let delegateAccountUID = vault.delegateAccountUID
+		let provider: LocalizedCloudProviderDecorator
+		do {
+			provider = try LocalizedCloudProviderDecorator(delegate: providerManager.getProvider(with: delegateAccountUID))
+		} catch {
+			return Promise(error)
+		}
+		let vaultItem = vault.vaultItem
+		let downloadedVaultConfig = vault.downloadedVaultConfig
+		let jweData = vault.jweData
+
+		let vaultPath = vaultItem.vaultPath
+		let vaultConfigMetadata = downloadedVaultConfig.metadata
+		let vaultConfigToken = downloadedVaultConfig.token
+		let masterkey: Masterkey
+		do {
+			let jwe = try JWE(compactSerialization: jweData)
+			masterkey = try JWEHelper.decrypt(jwe: jwe, with: vault.privateKey)
+		} catch {
+			return Promise(error)
+		}
+		do {
+			_ = try VaultProviderFactory.createVaultProvider(from: downloadedVaultConfig.vaultConfig, masterkey: masterkey, vaultPath: vaultPath, with: provider.delegate)
+		} catch {
+			return Promise(error)
+		}
+		let vaultUID = vault.vaultUID
+		let cachedVault = CachedVault(vaultUID: vaultUID,
+		                              masterkeyFileData: jweData,
+		                              vaultConfigToken: vaultConfigToken,
+		                              lastUpToDateCheck: Date(),
+		                              masterkeyFileLastModifiedDate: nil,
+		                              vaultConfigLastModifiedDate: vaultConfigMetadata.lastModifiedDate)
+		return addFileProviderDomain(forVaultUID: vaultUID, displayName: vaultItem.name).then {
+			let vaultAccount = VaultAccount(vaultUID: vaultUID, delegateAccountUID: delegateAccountUID, vaultPath: vaultPath, vaultName: vaultItem.name)
+			try self.vaultAccountManager.saveNewAccount(vaultAccount)
+			do {
+				try self.postProcessVaultCreation(cachedVault: cachedVault, password: nil)
+			} catch {
+				try self.vaultAccountManager.removeAccount(with: vaultUID)
+				_ = self.removeFileProviderDomain(withVaultUID: vaultUID)
+				throw error
+			}
+			DDLogInfo("Opened existing vault \"\(vaultItem.name)\" (\(vaultUID))")
+		}
+	}
+
 	/**
 	 Imports an existing legacy Vault.
 
@@ -333,6 +456,26 @@ public class VaultDBManager: VaultManager {
 		return try createVaultProvider(cachedVault: cachedVault, masterkey: masterkey, masterkeyFile: masterkeyFile)
 	}
 
+	public func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider {
+		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+
+		guard let vaultConfigToken = cachedVault.vaultConfigToken else {
+			throw VaultManagerError.missingVaultConfigToken
+		}
+		let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
+		let provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+		let masterkey = Masterkey.createFromRaw(rawKey: rawKey)
+		let decorator = try VaultProviderFactory.createVaultProvider(from: unverifiedVaultConfig,
+		                                                             masterkey: masterkey,
+		                                                             vaultPath: vaultAccount.vaultPath,
+		                                                             with: provider)
+		if masterkeyCacheHelper.shouldCacheMasterkey(forVaultUID: vaultUID) {
+			try masterkeyCacheManager.cacheMasterkey(masterkey, forVaultUID: vaultUID)
+		}
+		return decorator
+	}
+
 	public func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
@@ -420,6 +563,16 @@ public class VaultDBManager: VaultManager {
 	func postProcessVaultCreation(cachedVault: CachedVault, password: String, storePasswordInKeychain: Bool) throws {
 		try vaultCache.cache(cachedVault)
 		if storePasswordInKeychain {
+			try passwordManager.setPassword(password, forVaultUID: cachedVault.vaultUID)
+		}
+	}
+
+	/**
+	 Post-processing the vault creation by caching the vault and storing the corresponding master password (if set) in the keychain.
+	 */
+	func postProcessVaultCreation(cachedVault: CachedVault, password: String?) throws {
+		try vaultCache.cache(cachedVault)
+		if let password = password {
 			try passwordManager.setPassword(password, forVaultUID: cachedVault.vaultUID)
 		}
 	}
@@ -556,4 +709,20 @@ public extension NSFileProviderDomain {
 	convenience init(identifier: NSFileProviderDomainIdentifier) {
 		self.init(identifier: identifier, displayName: "")
 	}
+}
+
+public struct DownloadedVaultConfig {
+	public let vaultConfig: UnverifiedVaultConfig
+	let token: Data
+	let metadata: CloudItemMetadata
+}
+
+public struct DownloadedMasterkeyFile {
+	let masterkeyFile: MasterkeyFile
+	let metadata: CloudItemMetadata
+	let masterkeyFileData: Data
+}
+
+struct PayloadMasterkey: Codable {
+	let key: String
 }

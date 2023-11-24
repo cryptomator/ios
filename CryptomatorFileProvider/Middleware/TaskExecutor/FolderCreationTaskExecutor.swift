@@ -29,7 +29,9 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     provider: CloudProvider,
+	     itemMetadataManager: ItemMetadataManager) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager
@@ -53,11 +55,13 @@ class FolderCreationTaskExecutor: WorkflowMiddleware {
 		assert(itemMetadata.id != nil)
 		assert(itemMetadata.type == .folder)
 
-		return provider.createFolder(at: itemMetadata.cloudPath).then { _ -> FileProviderItem in
+		return provider.createFolder(at: itemMetadata.cloudPath).then { [domainIdentifier, itemMetadataManager] _ -> FileProviderItem in
 			itemMetadata.statusCode = .isUploaded
 			itemMetadata.isPlaceholderItem = false
-			try self.itemMetadataManager.updateMetadata(itemMetadata)
-			return FileProviderItem(metadata: itemMetadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: true)
+			try itemMetadataManager.updateMetadata(itemMetadata)
+			return FileProviderItem(metadata: itemMetadata,
+			                        domainIdentifier: domainIdentifier,
+			                        newestVersionLocallyCached: true)
 		}
 	}
 }

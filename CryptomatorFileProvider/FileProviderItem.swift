@@ -24,6 +24,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	let localURL: URL?
 	let domainIdentifier: NSFileProviderDomainIdentifier
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
+	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(metadata: ItemMetadata, domainIdentifier: NSFileProviderDomainIdentifier, newestVersionLocallyCached: Bool = false, localURL: URL? = nil, error: Error? = nil) {
 		self.metadata = metadata
@@ -50,19 +51,7 @@ public class FileProviderItem: NSObject, NSFileProviderItem {
 	}
 
 	public var capabilities: NSFileProviderItemCapabilities {
-		if metadata.statusCode == .uploadError {
-			return .allowsDeleting
-		}
-		if !fullVersionChecker.isFullVersion {
-			return FileProviderItem.readOnlyCapabilities
-		}
-		if metadata.type == .folder {
-			return [.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
-		}
-		if metadata.statusCode == .isUploading {
-			return .allowsReading
-		}
-		return [.allowsWriting, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting]
+		return permissionProvider.getPermissions(for: metadata, at: domainIdentifier)
 	}
 
 	public var filename: String {

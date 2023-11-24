@@ -7,13 +7,16 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
+import CryptomatorCommon
 import CryptomatorCommonCore
 import CryptomatorFileProvider
 import FileProviderUI
 import LocalAuthentication
 import UIKit
 
-class FileProviderCoordinator {
+class FileProviderCoordinator: Coordinator {
+	lazy var childCoordinators = [Coordinator]()
 	lazy var navigationController: UINavigationController = {
 		let appearance = UINavigationBarAppearance()
 		appearance.configureWithOpaqueBackground()
@@ -38,6 +41,8 @@ class FileProviderCoordinator {
 	func userCancelled() {
 		extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.userCancelled.rawValue), userInfo: nil))
 	}
+
+	func start() {}
 
 	func startWith(error: Error) {
 		let error = error as NSError
@@ -91,7 +96,7 @@ class FileProviderCoordinator {
 		if unlockError == .defaultLock, viewModel.canQuickUnlock {
 			performQuickUnlock(viewModel: viewModel)
 		} else {
-			showManualPasswordScreen(viewModel: viewModel)
+			showManualLogin(for: domain, unlockError: unlockError)
 		}
 	}
 
@@ -113,6 +118,57 @@ class FileProviderCoordinator {
 		}
 	}
 
+	func showManualLogin(for domain: NSFileProviderDomain, unlockError: UnlockError) {
+		let vaultUID = domain.identifier.rawValue
+		let vaultCache = VaultDBCache()
+		let vaultAccount: VaultAccount
+		let provider: CloudProvider
+		do {
+			vaultAccount = try VaultAccountDBManager.shared.getAccount(with: vaultUID)
+			provider = try LocalizedCloudProviderDecorator(delegate: CloudProviderDBManager.shared.getProvider(with: vaultAccount.delegateAccountUID))
+		} catch {
+			handleError(error)
+			return
+		}
+		vaultCache.refreshVaultCache(for: vaultAccount, with: provider).recover { error -> Void in
+			switch error {
+			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
+				break
+			default:
+				throw error
+			}
+		}.then {
+			let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
+			if let vaultConfigToken = cachedVault.vaultConfigToken {
+				let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
+				switch VaultConfigHelper.getType(for: unverifiedVaultConfig) {
+				case .hub:
+					self.showHubLoginScreen(vaultConfig: unverifiedVaultConfig, domain: domain)
+				case .masterkeyFile:
+					let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
+					self.showManualPasswordScreen(viewModel: viewModel)
+				case .unknown:
+					fatalError("TODO: throw error")
+				}
+			} else {
+				let viewModel = UnlockVaultViewModel(domain: domain, wrongBiometricalPassword: unlockError == .biometricalUnlockWrongPassword)
+				self.showManualPasswordScreen(viewModel: viewModel)
+			}
+		}.catch {
+			self.handleError($0)
+		}
+	}
+
+	func showHubLoginScreen(vaultConfig: UnverifiedVaultConfig, domain: NSFileProviderDomain) {
+		let child = HubXPCLoginCoordinator(navigationController: navigationController,
+		                                   domain: domain,
+		                                   vaultConfig: vaultConfig,
+		                                   onUnlocked: { [weak self] in self?.done() },
+		                                   onErrorAlertDismissed: { [weak self] in self?.done() })
+		childCoordinators.append(child)
+		child.start()
+	}
+
 	func showManualPasswordScreen(viewModel: UnlockVaultViewModel) {
 		let unlockVaultVC = UnlockVaultViewController(viewModel: viewModel)
 		unlockVaultVC.coordinator = self
@@ -128,5 +184,12 @@ class FileProviderCoordinator {
 		hostViewController.addChild(viewController)
 		hostViewController.view.addSubview(viewController.view)
 		viewController.didMove(toParent: hostViewController)
+	}
+
+	private func handleError(_ error: Error) {
+		guard let hostViewController = hostViewController else {
+			return
+		}
+		handleError(error, for: hostViewController)
 	}
 }

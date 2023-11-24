@@ -13,6 +13,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderEnumeratorTestCase: XCTestCase {
 	var enumerationObserverMock: NSFileProviderEnumerationObserverMock!
@@ -50,6 +51,10 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	}
 
 	func assertChangeObserverUpdated(deletedItems: [NSFileProviderItemIdentifier], updatedItems: [FileProviderItem], currentSyncAnchor: NSFileProviderSyncAnchor) {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
 		XCTAssertEqual([deletedItems], changeObserverMock.didDeleteItemsWithIdentifiersReceivedInvocations)
 		let receivedUpdatedItems = changeObserverMock.didUpdateReceivedInvocations as? [[FileProviderItem]]
 		XCTAssertEqual([updatedItems], receivedUpdatedItems)
@@ -179,6 +184,10 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 	}
 
 	private func assertEnumerateItemObserverSucceeded(itemList: FileProviderItemList) {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
 		XCTAssertEqual([itemList.nextPageToken], enumerationObserverMock.finishEnumeratingUpToReceivedInvocations)
 		let receivedInvocations = enumerationObserverMock.didEnumerateReceivedInvocations as? [[FileProviderItem]]
 		XCTAssertEqual([items], receivedInvocations)

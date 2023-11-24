@@ -12,7 +12,7 @@ import CryptomatorCryptoLib
 import Foundation
 import Promises
 
-// swiftlint:disable all
+// swiftlint: disable all
 
 final class VaultManagerMock: VaultManager {
 	// MARK: - createNewVault
@@ -220,7 +220,53 @@ final class VaultManagerMock: VaultManager {
 		changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedInvocations.append((oldPassphrase: oldPassphrase, newPassphrase: newPassphrase, vaultUID: vaultUID))
 		return changePassphraseOldPassphraseNewPassphraseForVaultUIDClosure.map({ $0(oldPassphrase, newPassphrase, vaultUID) }) ?? changePassphraseOldPassphraseNewPassphraseForVaultUIDReturnValue
 	}
+
+	// MARK: - addExistingHubVault
+
+	var addExistingHubVaultThrowableError: Error?
+	var addExistingHubVaultCallsCount = 0
+	var addExistingHubVaultCalled: Bool {
+		addExistingHubVaultCallsCount > 0
+	}
+
+	var addExistingHubVaultReceivedVault: ExistingHubVault?
+	var addExistingHubVaultReceivedInvocations: [ExistingHubVault] = []
+	var addExistingHubVaultReturnValue: Promise<Void>!
+	var addExistingHubVaultClosure: ((ExistingHubVault) -> Promise<Void>)?
+
+	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+		if let error = addExistingHubVaultThrowableError {
+			return Promise(error)
+		}
+		addExistingHubVaultCallsCount += 1
+		addExistingHubVaultReceivedVault = vault
+		addExistingHubVaultReceivedInvocations.append(vault)
+		return addExistingHubVaultClosure.map({ $0(vault) }) ?? addExistingHubVaultReturnValue
+	}
+
+	// MARK: - manualUnlockVault
+
+	var manualUnlockVaultWithUIDRawKeyThrowableError: Error?
+	var manualUnlockVaultWithUIDRawKeyCallsCount = 0
+	var manualUnlockVaultWithUIDRawKeyCalled: Bool {
+		manualUnlockVaultWithUIDRawKeyCallsCount > 0
+	}
+
+	var manualUnlockVaultWithUIDRawKeyReceivedArguments: (vaultUID: String, rawKey: [UInt8])?
+	var manualUnlockVaultWithUIDRawKeyReceivedInvocations: [(vaultUID: String, rawKey: [UInt8])] = []
+	var manualUnlockVaultWithUIDRawKeyReturnValue: CloudProvider!
+	var manualUnlockVaultWithUIDRawKeyClosure: ((String, [UInt8]) throws -> CloudProvider)?
+
+	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider {
+		if let error = manualUnlockVaultWithUIDRawKeyThrowableError {
+			throw error
+		}
+		manualUnlockVaultWithUIDRawKeyCallsCount += 1
+		manualUnlockVaultWithUIDRawKeyReceivedArguments = (vaultUID: vaultUID, rawKey: rawKey)
+		manualUnlockVaultWithUIDRawKeyReceivedInvocations.append((vaultUID: vaultUID, rawKey: rawKey))
+		return try manualUnlockVaultWithUIDRawKeyClosure.map({ try $0(vaultUID, rawKey) }) ?? manualUnlockVaultWithUIDRawKeyReturnValue
+	}
 }
 
-// swiftlint:enable all
+// swiftlint: enable all
 #endif

@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import Combine
 import CryptomatorCommonCore
 import CryptomatorCryptoLib
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -60,27 +61,23 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 		return _sections
 	}
 
-	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = {
-		return [
-			.oldPassword: [oldPasswordCellViewModel],
-			.newPassword: [newPasswordCellViewModel],
-			.newPasswordConfirmation: [newPasswordConfirmationCellViewModel]
-		]
-	}()
+	lazy var cells: [ChangePasswordSection: [BindableTableViewCellViewModel]] = [
+		.oldPassword: [oldPasswordCellViewModel],
+		.newPassword: [newPasswordCellViewModel],
+		.newPasswordConfirmation: [newPasswordConfirmationCellViewModel]
+	]
 
-	private lazy var _sections: [Section<ChangePasswordSection>] = {
-		return [
-			Section(id: .oldPassword, elements: [oldPasswordCellViewModel]),
-			Section(id: .newPassword, elements: [newPasswordCellViewModel]),
-			Section(id: .newPasswordConfirmation, elements: [newPasswordConfirmationCellViewModel])
-		]
-	}()
+	private lazy var _sections: [Section<ChangePasswordSection>] = [
+		Section(id: .oldPassword, elements: [oldPasswordCellViewModel]),
+		Section(id: .newPassword, elements: [newPasswordCellViewModel]),
+		Section(id: .newPasswordConfirmation, elements: [newPasswordConfirmationCellViewModel])
+	]
 
 	private static let minimumPasswordLength = 8
 	private let vaultAccount: VaultAccount
 	private let domain: NSFileProviderDomain
 	private let vaultManager: VaultManager
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	private let oldPasswordCellViewModel = TextFieldCellViewModel(type: .password, isInitialFirstResponder: true)
 	private let newPasswordCellViewModel = TextFieldCellViewModel(type: .password)
@@ -100,11 +97,10 @@ class ChangePasswordViewModel: TableViewModel<ChangePasswordSection>, ChangePass
 
 	private lazy var subscribers = Set<AnyCancellable>()
 
-	init(vaultAccount: VaultAccount, domain: NSFileProviderDomain, vaultManager: VaultManager = VaultDBManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(vaultAccount: VaultAccount, domain: NSFileProviderDomain, vaultManager: VaultManager = VaultDBManager.shared) {
 		self.vaultAccount = vaultAccount
 		self.domain = domain
 		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 		super.init()
 	}
 

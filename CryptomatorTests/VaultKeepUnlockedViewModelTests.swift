@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class VaultKeepUnlockedViewModelTests: XCTestCase {
 	var vaultKeepUnlockedSettingsMock: VaultKeepUnlockedSettingsMock!
@@ -26,6 +27,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		masterkeyCacheManagerMock = MasterkeyCacheManagerMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
 		vaultLockingMock = VaultLockingMock()
+		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 	}
 
 	func testDefaultConfiguration() throws {
@@ -203,8 +205,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		return VaultKeepUnlockedViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration,
 		                                  vaultInfo: vaultInfo,
 		                                  vaultKeepUnlockedSettings: vaultKeepUnlockedSettingsMock,
-		                                  masterkeyCacheManager: masterkeyCacheManagerMock,
-		                                  fileProviderConnector: fileProviderConnectorMock)
+		                                  masterkeyCacheManager: masterkeyCacheManagerMock)
 	}
 
 	private func assertSectionsAreCorrect(selectedKeepUnlockedDuration: KeepUnlockedDuration, viewModel: VaultKeepUnlockedViewModel) {

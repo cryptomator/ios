@@ -87,6 +87,9 @@ public class CryptomatorDatabase {
 		migrator.registerMigration("s3DisplayNameMigration") { db in
 			try s3DisplayNameMigration(db)
 		}
+		migrator.registerMigration("initialHubSupport") { db in
+			try initialHubSupportMigration(db)
+		}
 		return migrator
 	}
 
@@ -193,6 +196,13 @@ public class CryptomatorDatabase {
 		    WHERE id = OLD.accountUID;
 		END;
 		""")
+	}
+
+	class func initialHubSupportMigration(_ db: Database) throws {
+		try db.create(table: "hubVaultAccount", body: { table in
+			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)
+			table.column("subscriptionState", .text).notNull()
+		})
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

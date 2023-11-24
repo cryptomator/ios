@@ -186,6 +186,14 @@ private class PasswordVaultManagerMock: VaultManager {
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider {
 		throw MockError.notMocked
 	}
+
+	func addExistingHubVault(_ vault: ExistingHubVault) -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
+
+	func manualUnlockVault(withUID vaultUID: String, rawKey: [UInt8]) throws -> CloudProvider {
+		throw MockError.notMocked
+	}
 }
 
 private struct CreatedVault {

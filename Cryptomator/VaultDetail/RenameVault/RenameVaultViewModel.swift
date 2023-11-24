@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import GRDB
@@ -31,19 +32,18 @@ class RenameVaultViewModel: SetVaultNameViewModel, RenameVaultViewModelProtcol {
 	// swiftlint:disable:next weak_delegate
 	private let delegate: MoveVaultViewModel
 	private let vaultInfo: VaultInfo
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	init(provider: CloudProvider,
 	     vaultInfo: VaultInfo,
 	     domain: NSFileProviderDomain,
-	     vaultManager: VaultManager = VaultDBManager.shared,
-	     fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	     vaultManager: VaultManager = VaultDBManager.shared) {
 		self.delegate = MoveVaultViewModel(
 			provider: provider,
 			currentFolderChoosingCloudPath: CloudPath("/"),
 			vaultInfo: vaultInfo,
 			domain: domain,
-			vaultManager: vaultManager,
-			fileProviderConnector: fileProviderConnector
+			vaultManager: vaultManager
 		)
 		self.vaultInfo = vaultInfo
 	}

@@ -6,10 +6,13 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import AppAuth
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
+import Promises
 import UIKit
 
 class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
@@ -121,20 +124,88 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 	}
 
 	func chooseItem(_ item: Item) {
-		let viewModel: OpenExistingVaultPasswordViewModelProtocol
 		guard let vaultItem = item as? VaultDetailItem else {
 			handleError(VaultCoordinatorError.wrongItemType, for: navigationController)
 			return
 		}
 		if vaultItem.isLegacyVault {
-			viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
+			downloadAndProcessExistingLegacyVault(vaultItem)
 		} else {
-			viewModel = OpenExistingVaultPasswordViewModel(provider: provider, account: account, vault: vaultItem, vaultUID: UUID().uuidString)
+			downloadAndProcessExistingVault(vaultItem)
 		}
+	}
 
+	private func downloadAndProcessExistingLegacyVault(_ vaultItem: VaultItem) {
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
+		hud.show(presentingViewController: navigationController)
+		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedMasterkeyFile in
+			all(hud.dismiss(animated: true), Promise(downloadedMasterkeyFile))
+		}.then { _, downloadedMasterkeyFile in
+			self.processDownloadedMasterkeyFile(downloadedMasterkeyFile, vaultItem: vaultItem)
+		}.catch { error in
+			hud.dismiss(animated: true).then {
+				self.handleError(error, for: self.navigationController)
+			}
+		}
+	}
+
+	private func processDownloadedMasterkeyFile(_ downloadedMasterkeyFile: DownloadedMasterkeyFile, vaultItem: VaultItem) {
+		let viewModel = OpenExistingLegacyVaultPasswordViewModel(provider: provider,
+		                                                         account: account,
+		                                                         vault: vaultItem,
+		                                                         vaultUID: UUID().uuidString,
+		                                                         downloadedMasterkeyFile: downloadedMasterkeyFile)
 		let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
 		passwordVC.coordinator = self
 		navigationController.pushViewController(passwordVC, animated: true)
+	}
+
+	private func downloadAndProcessExistingVault(_ vaultItem: VaultItem) {
+		let hud = ProgressHUD()
+		hud.text = LocalizedString.getValue("addVault.openExistingVault.downloadVault.progress")
+		hud.show(presentingViewController: navigationController)
+		VaultDBManager.shared.getUnverifiedVaultConfig(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedVaultConfig in
+			all(hud.dismiss(animated: true), Promise(downloadedVaultConfig))
+		}.then { _, downloadedVaultConfig in
+			self.processDownloadedVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
+		}.catch { error in
+			hud.dismiss(animated: true).then {
+				self.handleError(error, for: self.navigationController)
+			}
+		}
+	}
+
+	private func processDownloadedVaultConfig(_ downloadedVaultConfig: DownloadedVaultConfig, vaultItem: VaultItem) {
+		switch VaultConfigHelper.getType(for: downloadedVaultConfig.vaultConfig) {
+		case .masterkeyFile:
+			handleMasterkeyFileVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
+		case .hub:
+			handleHubVaultConfig(downloadedVaultConfig, vaultItem: vaultItem)
+		case .unknown:
+			handleError(error: VaultProviderFactoryError.unsupportedVaultConfig)
+		}
+	}
+
+	private func handleMasterkeyFileVaultConfig(_ downloadedVaultConfig: DownloadedVaultConfig, vaultItem: VaultItem) {
+		VaultDBManager.shared.downloadMasterkeyFile(delegateAccountUID: account.accountUID, vaultItem: vaultItem).then { downloadedMasterkeyFile in
+			let viewModel = OpenExistingVaultPasswordViewModel(provider: self.provider, account: self.account, vault: vaultItem, vaultUID: UUID().uuidString, downloadedVaultConfig: downloadedVaultConfig, downloadedMasterkeyFile: downloadedMasterkeyFile)
+			let passwordVC = OpenExistingVaultPasswordViewController(viewModel: viewModel)
+			passwordVC.coordinator = self
+			self.navigationController.pushViewController(passwordVC, animated: true)
+		}
+	}
+
+	private func handleHubVaultConfig(_ downloadedVaultConfig: DownloadedVaultConfig, vaultItem: VaultItem) {
+		let child = AddHubVaultCoordinator(navigationController: navigationController,
+		                                   downloadedVaultConfig: downloadedVaultConfig,
+		                                   vaultUID: UUID().uuidString,
+		                                   accountUID: account.accountUID,
+		                                   vaultItem: vaultItem)
+		child.parentCoordinator = self
+		child.delegate = self
+		childCoordinators.append(child)
+		child.start()
 	}
 
 	func showCreateNewFolder(parentPath: CloudPath) {}

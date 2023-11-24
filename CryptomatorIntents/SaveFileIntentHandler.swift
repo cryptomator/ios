@@ -9,12 +9,15 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import Intents
 import Promises
 
 class SaveFileIntentHandler: NSObject, SaveFileIntentHandling {
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
+
 	func handle(intent: SaveFileIntent) async -> SaveFileIntentResponse {
 		guard let vaultFolder = intent.folder, let vaultIdentifier = vaultFolder.vaultIdentifier, let folderIdentifier = vaultFolder.identifier else {
 			return SaveFileIntentResponse(failureReason: LocalizedString.getValue("intents.saveFile.invalidFolder"))
@@ -85,7 +88,7 @@ class SaveFileIntentHandler: NSObject, SaveFileIntentHandling {
 	}
 
 	private func importFile(at localURL: URL, toParentItemIdentifier parentItemIdentifier: String, domainIdentifier: NSFileProviderDomainIdentifier) async throws {
-		let getXPCPromise: Promise<XPC<FileImporting>> = FileProviderXPCConnector.shared.getXPC(serviceName: .fileImporting, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<FileImporting>> = fileProviderConnector.getXPC(serviceName: .fileImporting, domainIdentifier: domainIdentifier)
 		try await withCheckedThrowingContinuation({ continuation in
 			getXPCPromise.then { xpc in
 				xpc.proxy.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier)
@@ -93,8 +96,8 @@ class SaveFileIntentHandler: NSObject, SaveFileIntentHandling {
 				continuation.resume()
 			}.catch {
 				continuation.resume(throwing: $0)
-			}.always {
-				FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+			}.always { [fileProviderConnector] in
+				fileProviderConnector.invalidateXPC(getXPCPromise)
 			}
 		})
 	}

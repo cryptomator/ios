@@ -69,7 +69,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		// resolve the given identifier to a record in the model
 		DDLogDebug("FPExt: item(for: \(identifier)) called")
 		if identifier == .rootContainer || identifier.rawValue == "File Provider Storage" || identifier.rawValue == domain?.identifier.rawValue {
-			return RootFileProviderItem()
+			return RootFileProviderItem(domain: domain)
 		}
 		let adapter = try getAdapterWithWrappedError()
 		return try adapter.item(for: identifier)

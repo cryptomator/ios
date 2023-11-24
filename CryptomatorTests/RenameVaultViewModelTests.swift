@@ -13,6 +13,7 @@ import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 	private var vaultManagerMock: VaultManagerMock!
@@ -31,6 +32,8 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		fileProviderConnectorMock = CryptomatorCommonCore.FileProviderConnectorMock()
 		maintenanceHelperMock = MaintenanceModeHelperMock()
 		vaultLockingMock = VaultLockingMock()
+
+		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 
 		fileProviderConnectorMock.getXPCServiceNameDomainClosure = { serviceName, _ in
 			switch serviceName {
@@ -101,7 +104,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
 	func testRenameVaultWithOldNameAsSubstring() async throws {
@@ -191,7 +194,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 		XCTAssertFalse(vaultManagerMock.moveVaultAccountToCalled)
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
 	private func createViewModel(vaultAccount: VaultAccount, cloudProviderType: CloudProviderType, viewControllerTitle: String? = nil) -> RenameVaultViewModel {
@@ -199,7 +202,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		let vaultListPosition = VaultListPosition(id: 1, position: 1, vaultUID: vaultAccount.vaultUID)
 		let vaultInfo = VaultInfo(vaultAccount: vaultAccount, cloudProviderAccount: cloudProviderAccount, vaultListPosition: vaultListPosition)
 		let domain = NSFileProviderDomain(vaultUID: vaultInfo.vaultUID, displayName: vaultInfo.vaultName)
-		return RenameVaultViewModel(provider: CloudProviderMock(), vaultInfo: vaultInfo, domain: domain, vaultManager: vaultManagerMock, fileProviderConnector: fileProviderConnectorMock)
+		return RenameVaultViewModel(provider: CloudProviderMock(), vaultInfo: vaultInfo, domain: domain, vaultManager: vaultManagerMock)
 	}
 
 	private func checkMaintenanceModeEnabledThenDisabled() {

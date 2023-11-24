@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import GRDB
@@ -28,19 +29,17 @@ class MoveVaultViewModel: ChooseFolderViewModel, MoveVaultViewModelProtocol {
 	private let vaultManager: VaultManager
 	private let vaultInfo: VaultInfo
 	private let domain: NSFileProviderDomain
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	init(provider: CloudProvider,
 	     currentFolderChoosingCloudPath: CloudPath,
 	     vaultInfo: VaultInfo,
 	     domain: NSFileProviderDomain,
 	     cloudProviderManager: CloudProviderManager = CloudProviderDBManager.shared,
-	     vaultManager: VaultManager = VaultDBManager.shared,
-	     fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	     vaultManager: VaultManager = VaultDBManager.shared) {
 		self.vaultInfo = vaultInfo
 		self.domain = domain
 		self.vaultManager = vaultManager
-		self.fileProviderConnector = fileProviderConnector
 		super.init(canCreateFolder: true, cloudPath: currentFolderChoosingCloudPath, provider: provider)
 	}
 

@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -30,8 +31,13 @@ class ReparentTaskExecutor: WorkflowMiddleware {
 	private let itemMetadataManager: ItemMetadataManager
 	private let cachedFileManager: CachedFileManager
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	@Dependency(\.permissionProvider) private var permissionProvider
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, reparentTaskManager: ReparentTaskManager, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     provider: CloudProvider,
+	     reparentTaskManager: ReparentTaskManager,
+	     itemMetadataManager: ItemMetadataManager,
+	     cachedFileManager: CachedFileManager) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.reparentTaskManager = reparentTaskManager
