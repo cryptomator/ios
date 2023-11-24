@@ -22,6 +22,7 @@
 "common.button.next" = "Volgende";
 "common.button.ok" = "Ok";
 "common.button.refresh" = "Vernieuwen";
+"common.button.register" = "Registreren";
 "common.button.remove" = "Verwijderen";
 "common.button.retry" = "Opnieuw proberen";
 "common.button.signOut" = "Uitloggen";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Wat is de locatie van de kluis?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detecteerde de kluis \"%@\".\nWilt u deze kluis toevoegen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Voeg deze kluis toe";
+"addVault.openExistingVault.downloadVault.progress" = "Kluis downloaden…";
 "addVault.openExistingVault.password.footer" = "Voer wachtwoord voor \"%@\" in.";
 "addVault.openExistingVault.progress" = "Kluis toevoegen…";
 "addVault.success.info" = "Kluis succesvol toegevoegd \"%@\".\nToegang tot deze kluis via de bestandsapp.";
@@ -111,9 +113,13 @@
 
 "getFolderIntent.error.missingPath" = "Er is geen pad opgegeven. Geef een geldig pad om de folder weer te geven.";
 "getFolderIntent.error.noVaultSelected" = "Er is geen kluis geselecteerd.";
+
+"hubAuthentication.title" = "Hub Kluis";
 "hubAuthentication.accessNotGranted" = "Uw apparaat is nog niet gemachtigd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om toestemming te geven.";
 "hubAuthentication.licenseExceeded" = "Uw Cryptomator Hub installatie heeft een ongeldige licentie. Informeer een Hub administrator om de licentie te upgraden of te verlengen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Apparaatnaam";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dit lijkt de eerste Hub toegang te zijn vanaf dit apparaat. Om dit apparaat te kunnen identificeren voor toegang autorisatie, moet u dit apparaat benoemen.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registratie van apparaat gelukt";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Om toegang te krijgen tot de kluis, moet je apparaat worden gemachtigd door de eigenaar van de kluis.";
 
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
