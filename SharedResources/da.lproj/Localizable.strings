@@ -21,6 +21,7 @@
 "common.button.enable" = "Aktivér";
 "common.button.next" = "Næste";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Opdatér";
 "common.button.remove" = "Fjern";
 "common.button.retry" = "Forsøg igen";
 "common.button.signOut" = "Log ud";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Ingen sti blev angivet. Angiv venligst en gyldig sti til en mappe.";
 "getFolderIntent.error.noVaultSelected" = "Ingen boks er valgt.";
+"hubAuthentication.accessNotGranted" = "Din enhed er endnu ikke blevet godkendt til at få adgang til denne boks. Spørg boks-ejeren om godkendelse.";
+"hubAuthentication.licenseExceeded" = "Din Cryptomator Hub har en ugyldig licens. Få venligst en Hub administrator til at opgradere eller forny licensen.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enheds-navn";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For at tilgå boksen, skal din enhed godkendes af boks-ejeren.";
+
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
 "intents.saveFile.invalidFolder" = "Den angivne mappe er ikke gyldig.";
 "intents.saveFile.missingTemporaryFolder" = "Kunne ikke oprette midlertidig mappe.";
