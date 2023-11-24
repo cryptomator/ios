@@ -22,6 +22,7 @@
 "common.button.next" = "Próximo";
 "common.button.ok" = "Ok";
 "common.button.refresh" = "Atualizar";
+"common.button.register" = "Registrar";
 "common.button.remove" = "Remover";
 "common.button.retry" = "Tentar Novamente";
 "common.button.signOut" = "Finalizar sessão";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "O Cryptomator detectou o cofre \"%@\".\nVocê gostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.downloadVault.progress" = "Baixando o cofre…";
 "addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\".";
 "addVault.openExistingVault.progress" = "Adicionando Cofre…";
 "addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAcesse-o pelo aplicativo Arquivos.";
@@ -111,10 +113,14 @@
 
 "getFolderIntent.error.missingPath" = "Nenhum caminho foi fornecido. Por favor, forneça um caminho válido para o qual a pasta deve ser retornada.";
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre foi selecionado.";
-"hubAuthentication.accessNotGranted" = "Seu dispositivo ainda não foi autorizado a acessar este cofre. Peça ao proprietário ou a um administrador deste cofre para autorizá-lo.";
+
+"hubAuthentication.title" = "Cofre do Hub";
+"hubAuthentication.accessNotGranted" = "Seu dispositivo ainda não foi autorizado a acessar este cofre. Peça ao proprietário do cofre para autorizá-lo.";
 "hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe um administrador do Hub para atualizar ou renovar a licença.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar este cofre, seu dispositivo precisa ser autorizado pelo proprietário do cofre que está tentando acessar.";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Este parece ser o seu primeiro acesso ao Hub deste dispositivo. Para ser identificado e ter autorização de acesso, você precisa nomear este dispositivo.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registrado com sucesso";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar o cofre, seu dispositivo precisa ser autorizado pelo proprietário do cofre.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta fornecida não é válida.";
