@@ -21,6 +21,7 @@
 "common.button.enable" = "Ενεργοποίηση";
 "common.button.next" = "Επόμενο";
 "common.button.ok" = "ΟΚ";
+"common.button.refresh" = "Ανανέωση";
 "common.button.remove" = "Αφαίρεση";
 "common.button.retry" = "Επανάληψη";
 "common.button.signOut" = "Αποσύνδεση";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Δε δόθηκε καμία διαδρομή. Παρακαλώ δώστε μια έγκυρη διαδρομή για την οποία θα πρέπει να επιστραφεί ένας φάκελος.";
 "getFolderIntent.error.noVaultSelected" = "Δεν έχει επιλεγεί κρύπτη.";
+"hubAuthentication.accessNotGranted" = "Η συσκευή σας δεν έχει ακόμη εξουσιοδοτηθεί να έχει πρόσβαση σε αυτή την κρύπτη. Ζητήστε από τον κάτοχο της κρύπτης να την εξουσιοδοτήσει.";
+"hubAuthentication.licenseExceeded" = "Η συνεδρία σας στο Cryptomator Hub έχει μη έγκυρη άδεια χρήσης. Ενημερώστε έναν διαχειριστή του Hub για να αναβαθμίσει ή να ανανεώσει την άδεια χρήσης.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Όνομα Συσκευής";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Για να αποκτήσετε πρόσβαση στην κρύπτη, η συσκευή σας πρέπει να είναι εξουσιοδοτημένη από τον κάτοχο της κρύπτης.";
+
 "intents.saveFile.missingFile" = "Το παρεχόμενο αρχείο δεν είναι έγκυρο.";
 "intents.saveFile.invalidFolder" = "Ο παρεχόμενος φάκελος δεν είναι έγκυρος.";
 "intents.saveFile.missingTemporaryFolder" = "Αποτυχία δημιουργίας προσωρινού φακέλου.";
