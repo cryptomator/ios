@@ -20,6 +20,7 @@
 "common.button.enable" = "활성화";
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
+"common.button.refresh" = "새로고침";
 "common.button.remove" = "제거";
 "common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
@@ -92,6 +93,10 @@
 "fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
 "fileProvider.uploadProgress.title" = "업로드 중…";
+"hubAuthentication.accessNotGranted" = "귀하의 기기는 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
+
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
 
