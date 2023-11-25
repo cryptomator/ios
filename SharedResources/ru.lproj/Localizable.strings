@@ -115,10 +115,10 @@
 "getFolderIntent.error.noVaultSelected" = "Не выбрано хранилище.";
 
 "hubAuthentication.title" = "Хаб-хранилище";
-"hubAuthentication.accessNotGranted" = "Устройство ещё не авторизовано для доступа к этому хранилищу. Попросите владельца хранилища разрешить его.";
-"hubAuthentication.licenseExceeded" = "У вашего хаба Cryptomator неверная лицензия. Попросите администратора хаба обновить или продлить лицензию.";
+"hubAuthentication.accessNotGranted" = "Ваше устройство ещё не авторизовано для доступа к этому хранилищу. Попросите владельца хранилища предоставить разрешение.";
+"hubAuthentication.licenseExceeded" = "У вашего Cryptomator Hub неверная лицензия. Попросите Hub администратора обновить или продлить лицензию.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Имя устройства";
-"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Похоже, это первый доступ к хабу с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Похоже, это первый доступ к Hub с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройство успешно зарегистрировано";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Для доступа к хранилищу ваше устройство должно быть авторизовано владельцем хранилища.";
 
