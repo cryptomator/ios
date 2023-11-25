@@ -21,7 +21,7 @@
 "common.button.enable" = "Activer";
 "common.button.next" = "Suivant";
 "common.button.ok" = "OK";
-"common.button.refresh" = "Rafraîchir";
+"common.button.refresh" = "Actualiser";
 "common.button.register" = "Inscription";
 "common.button.remove" = "Retirer";
 "common.button.retry" = "Réessayer";
@@ -118,8 +118,8 @@
 "hubAuthentication.accessNotGranted" = "Votre appareil n'a pas encore été autorisé à accéder à ce coffre. Demandez au propriétaire du coffre de l'autoriser.";
 "hubAuthentication.licenseExceeded" = "Votre instance Cryptomator Hub a une licence invalide. Veuillez informer un administrateur Hub pour la mettre à niveau ou la renouveler.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom de l'appareil";
-"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Il semble que cet appareil accède à Hub pour la première fois. Afin d'être identifié pour l'autorisation d'accès, vous devez nommer cet appareil.";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Inscription de l'appareil réussie";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Il semble que ce soit le premier accès à Hub depuis cet appareil. Afin de l'identifier pour l'autorisation d'accès, vous devez nommer cet appareil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enregistrement de l'appareil réussi";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pour accéder au coffre, votre appareil doit être autorisé par le propriétaire du coffre.";
 
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
