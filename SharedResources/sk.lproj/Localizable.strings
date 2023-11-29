@@ -22,6 +22,7 @@
 "common.button.next" = "Ďalej";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Obnoviť";
+"common.button.register" = "Registrovať";
 "common.button.remove" = "Odstrániť";
 "common.button.retry" = "Skúsiť znovu";
 "common.button.signOut" = "Odhlásiť";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umiestnený?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator zdetekoval trezor \"%@\".\n Prejete si pridať tento trezor?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Pridať tento trezor";
+"addVault.openExistingVault.downloadVault.progress" = "Sťahovanie trezora…";
 "addVault.openExistingVault.password.footer" = "Zadajte heslo pre \"%@\".";
 "addVault.openExistingVault.progress" = "Pridávanie trezora…";
 "addVault.success.info" = "Úspešne pridaný trezor \"%@\".\n Sprístupnený tento trezor prostredníctvom Súborovej aplikácie.";
@@ -111,9 +113,12 @@
 
 "getFolderIntent.error.missingPath" = "Nebola poskytnutá žiadna cesta. Prosím poskytnite platnú cestu pre adresár, ktorý by mal byť vrátený.";
 "getFolderIntent.error.noVaultSelected" = "Nebol zvolený žiaden trezor.";
+
+"hubAuthentication.title" = "Hub trezora";
 "hubAuthentication.accessNotGranted" = "Vaše zaradenie zatiaľ ešte nebolo autorizované pre pristúp tohto trezora. Požiadajte majiteľa trezora o autorizovanie.";
 "hubAuthentication.licenseExceeded" = "Vaša inštancia Cryptomator Hub-u má neplatnú licenciu. Prosím informujte Hub administrátora pre aktualizáciu alebo obnovenie licencie.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Názov zariadenia";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrácia zariadenia úspešná";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Sprístupniť trezor, Vaše zariadenie musí byť autorizované vlastníkom trezora.";
 
 "intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";
