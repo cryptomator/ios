@@ -22,6 +22,7 @@
 "common.button.next" = "次へ";
 "common.button.ok" = "OK";
 "common.button.refresh" = "更新";
+"common.button.register" = "登録";
 "common.button.remove" = "削除";
 "common.button.retry" = "再試行";
 "common.button.signOut" = "サインアウト";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
+"addVault.openExistingVault.downloadVault.progress" = "金庫をダウンロード…";
 "addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください。";
 "addVault.openExistingVault.progress" = "金庫を追加しています…";
 "addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
