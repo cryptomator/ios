@@ -22,6 +22,7 @@
 "common.button.next" = "Következő";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Frissítés";
+"common.button.register" = "Regisztráció";
 "common.button.remove" = "Eltávolítás";
 "common.button.retry" = "Újra";
 "common.button.signOut" = "Kijelentkezés";
