@@ -22,6 +22,7 @@
 "common.button.next" = "Avanti";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Aggiorna";
+"common.button.register" = "Registrati";
 "common.button.remove" = "Rimuovi";
 "common.button.retry" = "Riprova";
 "common.button.signOut" = "Disconnettiti";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Dove si trova la cassaforte?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha rilevato la cassaforte \"%@\".\nVorresti aggiungerla?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Aggiungi Questa Cassaforte";
+"addVault.openExistingVault.downloadVault.progress" = "Scaricamento Cassaforte…";
 "addVault.openExistingVault.password.footer" = "Inserisci la password per \"%@\".";
 "addVault.openExistingVault.progress" = "Aggiungendo la Cassaforte…";
 "addVault.success.info" = "Cassaforte \"%@\" aggiunta correttamente.\nAccedi a questa cassaforte tramite l'app File.";
@@ -111,9 +113,13 @@
 
 "getFolderIntent.error.missingPath" = "Non è stato fornito alcun percorso. Fornire un percorso valido per il quale deve essere restituita una cartella.";
 "getFolderIntent.error.noVaultSelected" = "Nessuna cassaforte è stata selezionata.";
+
+"hubAuthentication.title" = "Centrale delle Casseforti";
 "hubAuthentication.accessNotGranted" = "Il tuo dispositivo non è ancora stato autorizzato ad accedere a questa cassaforte. Chiedi al proprietario della cassaforte di autorizzarlo.";
 "hubAuthentication.licenseExceeded" = "La tua istanza Cryptomator Hub ha una licenza non valida. Si prega di informare un amministratore Hub per aggiornare o rinnovare la licenza.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome Del Dispositivo";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembra che questo sia il primo accesso alle Centrali delle Casseforti da questo dispositivo. Per poterlo identificare ai fini dell'autorizzazione all'accesso è necessario dare un nome a questo dispositivo.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrazione del dispositivo Riuscita";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per accedere al vault, il tuo dispositivo deve essere autorizzato dal proprietario del vault.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
