@@ -54,7 +54,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			return .success(data, httpResponse?.allHeaderFields ?? [:])
 		case 402:
 			return .licenseExceeded
-		case 403:
+		case 403, 410:
 			return .accessNotGranted
 		case 404:
 			return .needsDeviceRegistration
