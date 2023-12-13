@@ -121,6 +121,9 @@
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Register Device Successful";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "To access the vault, your device needs to be authorized by the vault owner.";
+"hubAuthentication.requireAccountInit.alert.title" = "Action required";
+"hubAuthentication.requireAccountInit.alert.message" = "To proceed, please complete the steps required in your Hub user profile.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Go to profile";
 
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";

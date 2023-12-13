@@ -17,6 +17,7 @@ public enum HubAuthenticationFlow {
 	case accessNotGranted
 	case needsDeviceRegistration
 	case licenseExceeded
+	case requiresAccountInitialization(at: URL)
 }
 
 public enum CryptomatorHubAuthenticatorError: Error {
@@ -58,6 +59,9 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			return .accessNotGranted
 		case 404:
 			return .needsDeviceRegistration
+		case 449:
+			let profileURL = baseURL.appendingPathComponent("/app/profile")
+			return .requiresAccountInitialization(at: profileURL)
 		default:
 			throw CryptomatorHubAuthenticatorError.unexpectedResponse
 		}

@@ -20,6 +20,9 @@ public protocol HubAuthenticationViewModelDelegate: AnyObject {
 
 	@MainActor
 	func hubAuthenticationViewModelWantsToHideLoadingIndicator() async
+
+	@MainActor
+	func hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: URL)
 }
 
 public final class HubAuthenticationViewModel: ObservableObject {
@@ -101,6 +104,8 @@ public final class HubAuthenticationViewModel: ObservableObject {
 			await setState(to: .deviceRegistration(.deviceName))
 		case .licenseExceeded:
 			await setState(to: .licenseExceeded)
+		case let .requiresAccountInitialization(profileURL):
+			await delegate?.hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: profileURL)
 		}
 	}
 
