@@ -22,6 +22,7 @@
 "common.button.next" = "Neste";
 "common.button.ok" = "Ok";
 "common.button.refresh" = "Oppdater";
+"common.button.register" = "Registrer";
 "common.button.remove" = "Fjern";
 "common.button.retry" = "Prøv igjen";
 "common.button.signOut" = "Logg ut";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Hvor er hvelvet plassert?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator oppdaget hvelvet \"%@\".\nØnsker du å legge til dette hvelvet?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Legg til dette hvelvet";
+"addVault.openExistingVault.downloadVault.progress" = "Laster ned hvelv…";
 "addVault.openExistingVault.password.footer" = "Skriv inn passordet for \"%@\".";
 "addVault.openExistingVault.progress" = "Legger til hvelv…";
 "addVault.success.info" = "Hvelvet \"%@\" ble lagt til.\nFå tilgang til dette hvelvet via Filer-appen.";
@@ -111,9 +113,13 @@
 
 "getFolderIntent.error.missingPath" = "Ingen målmappe ble oppgitt. Vennligst oppgi en gyldig bane hvor en mappe skal returneres til.";
 "getFolderIntent.error.noVaultSelected" = "Ingen hvelv har blitt valgt.";
+
+"hubAuthentication.title" = "Hub hvelv";
 "hubAuthentication.accessNotGranted" = "Enheten din har ikke blitt autorisert til å få tilgang til dette hvelvet ennå. Spør hvelveieren om å tillate det.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub instansen din har en ugyldig lisens. Vennligst informer en Hub-administrator om å oppgradere eller fornye lisensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnavn";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dette ser ut til å være den første Hub-tilgangen fra denne enheten. For å kunne identifisere den for tilgangsautorisasjon, må du å navngi denne enheten.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enhetsregistrering vellykket";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For å få tilgang til hvelvet, så må enheten din bli autorisert av hvelvets eier.";
 
 "intents.saveFile.missingFile" = "Den oppgitte filen er ugyldig.";
