@@ -60,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Hol található a széf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "A Cryptomator felismerte a következő széfet: \"%@\".\nSzeretné ezt a széfet hozzáadni?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Széf hozzáadása";
+"addVault.openExistingVault.downloadVault.progress" = "Széf letöltése…";
 "addVault.openExistingVault.password.footer" = "Írja be a jelszót a következőhöz: \"%@\".";
 "addVault.openExistingVault.progress" = "Széf hozzáadása…";
 "addVault.success.info" = "Sikeresen megtörtént a következő széf hozzáadása: \"%@\".\nElérheti ezt a széfet a Fájlok appban.";
@@ -98,6 +99,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Helytelen jelszó";
 "fileProvider.error.defaultLock.title" = "Feloldás szükséges";
 "fileProvider.error.unlockButton" = "Feloldás";
+"fileProvider.clearFileFromCache.title" = "Fájl törlése az átmeneti tárból";
 "fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
