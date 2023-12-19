@@ -100,13 +100,21 @@
 "fileProvider.error.defaultLock.title" = "Feloldás szükséges";
 "fileProvider.error.unlockButton" = "Feloldás";
 "fileProvider.clearFileFromCache.title" = "Fájl törlése az átmeneti tárból";
+"fileProvider.clearFileFromCache.message" = "Ez csak a helyi fájlt távolítja el az eszközről, de nem törli a fájlt a felhőben.";
+"fileProvider.fileImporting.error.missingPremium" = "Oldja fel a teljes verziót a Cryptomator alkalmazásban, hogy írási hozzáférést kapjon a széfjeihez.";
 "fileProvider.uploadProgress.connecting" = "Kapcsolódás…";
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
+"getFolderIntent.error.noVaultSelected" = "Nincs széf kiválasztva.";
 "hubAuthentication.accessNotGranted" = "Eszköze még nem kapott engedélyt ehhez a széfhez. Kérje a széf tulajdonosát, hogy engedélyezze a hozzáférést.";
 "hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Az eszköz regisztrációja sikeres";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "A széf hozzáféréséhez a széf tulajdonosának hitelesítenie kell az eszközét.";
+
+"intents.saveFile.missingFile" = "A megadott fájl érvénytelen.";
+"intents.saveFile.invalidFolder" = "A megadott mappa érvénytelen.";
+"intents.saveFile.missingTemporaryFolder" = "Nem sikerült létrehozni az ideiglenes mappát.";
 
 "keepUnlocked.alert.title" = "Széf zárolása?";
 "keepUnlocked.alert.message" = "Ezen módosítások végbemenéséhez szükséges a széfet zárolni.";
