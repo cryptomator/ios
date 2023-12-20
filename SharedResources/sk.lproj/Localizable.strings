@@ -118,6 +118,7 @@
 "hubAuthentication.accessNotGranted" = "Vaše zaradenie zatiaľ ešte nebolo autorizované pre pristúp tohto trezora. Požiadajte majiteľa trezora o autorizovanie.";
 "hubAuthentication.licenseExceeded" = "Vaša inštancia Cryptomator Hub-u má neplatnú licenciu. Prosím informujte Hub administrátora pre aktualizáciu alebo obnovenie licencie.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Názov zariadenia";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Zdá sa, že ide o prvý prístup k Hub-u z tohto zariadenia. Z dôvodu identifikácie prístupovej autorizácie, je potrebné pomenovať toto zariadenie.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrácia zariadenia úspešná";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Sprístupniť trezor, Vaše zariadenie musí byť autorizované vlastníkom trezora.";
 
