@@ -11,9 +11,10 @@ import CryptoKit
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
+import JOSESwift
 
 public enum HubAuthenticationFlow {
-	case success(Data, [AnyHashable: Any])
+	case success(encryptedVaultKey: String, encryptedUserKey: String)
 	case accessNotGranted
 	case needsDeviceRegistration
 	case licenseExceeded
@@ -28,43 +29,61 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case invalidBaseURL
 	case invalidDeviceResourceURL
 	case missingAccessToken
+	case incompatibleHubVersion
 }
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
 	private static let scheme = "hub+"
+	private static let minimumHubVersion = 1
 	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
 
 	public init() {}
 
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
-		guard let baseURL = createBaseURL(vaultConfig: vaultConfig) else {
+		guard let hubConfig = vaultConfig.allegedHubConfig, let vaultBaseURL = getVaultBaseURL(from: vaultConfig) else {
+			// handle error
+			fatalError()
+		}
+
+		guard let apiBaseURL = hubConfig.getAPIBaseURL(), let webAppURL = hubConfig.getWebAppURL() else {
+			// TODO: More specific error
 			throw CryptomatorHubAuthenticatorError.invalidBaseURL
 		}
-		let deviceID = try getDeviceID()
-		let url = baseURL.appendingPathComponent("/keys").appendingPathComponent("/\(deviceID)")
-		let (accessToken, _) = try await authState.performAction()
-		guard let accessToken = accessToken else {
-			throw CryptomatorHubAuthenticatorError.missingAccessToken
+
+		guard try await hubInstanceHasMinimumAPILevel(of: Self.minimumHubVersion, apiBaseURL: apiBaseURL, authState: authState) else {
+			throw CryptomatorHubAuthenticatorError.incompatibleHubVersion
 		}
-		var urlRequest = URLRequest(url: url)
-		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
-		let (data, response) = try await URLSession.shared.data(with: urlRequest)
-		let httpResponse = response as? HTTPURLResponse
-		switch httpResponse?.statusCode {
-		case 200:
-			return .success(data, httpResponse?.allHeaderFields ?? [:])
-		case 402:
-			return .licenseExceeded
-		case 403, 410:
+//		let deviceID = try getDeviceID()
+
+		let retrieveMasterkeyResponse = try await getVaultMasterKey(vaultBaseURL: vaultBaseURL,
+		                                                            authState: authState,
+		                                                            webAppURL: webAppURL)
+
+		let encryptedVaultKey: String
+		switch retrieveMasterkeyResponse {
+		case let .success(key):
+			encryptedVaultKey = key
+		case .accessNotGranted:
 			return .accessNotGranted
-		case 404:
-			return .needsDeviceRegistration
-		case 449:
-			let profileURL = baseURL.appendingPathComponent("/app/profile")
+		case .licenseExceeded:
+			return .licenseExceeded
+		case let .requiresAccountInitialization(profileURL):
 			return .requiresAccountInitialization(at: profileURL)
-		default:
-			throw CryptomatorHubAuthenticatorError.unexpectedResponse
+		case .legacyHubVersion:
+			throw CryptomatorHubAuthenticatorError.incompatibleHubVersion
 		}
+
+		let retrieveUserPrivateKeyResponse = try await getUserKey(apiBaseURL: apiBaseURL, authState: authState)
+
+		let encryptedUserKey: String
+		switch retrieveUserPrivateKeyResponse {
+		case let .unlockedSucceeded(deviceDto):
+			encryptedUserKey = deviceDto.userPrivateKey
+		case .deviceSetup:
+			return .needsDeviceRegistration
+		}
+
+		return .success(encryptedVaultKey: encryptedVaultKey, encryptedUserKey: encryptedUserKey)
 	}
 
 	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
@@ -155,7 +174,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 	}
 
-	func createBaseURL(vaultConfig: UnverifiedVaultConfig) -> URL? {
+	private func getVaultBaseURL(from vaultConfig: UnverifiedVaultConfig) -> URL? {
 		guard let keyId = vaultConfig.keyId, keyId.hasPrefix(CryptomatorHubAuthenticator.scheme) else {
 			return nil
 		}
@@ -163,10 +182,79 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		return URL(string: baseURLPath)
 	}
 
-	func getDeviceID() throws -> String {
+	private func getDeviceID() throws -> String {
 		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
 		let digest = SHA256.hash(data: publicKey.derRepresentation)
 		return digest.data.base16EncodedString
+	}
+
+	private func hubInstanceHasMinimumAPILevel(of minimumLevel: Int, apiBaseURL: URL, authState: OIDAuthState) async throws -> Bool {
+		let url = apiBaseURL.appendingPathComponent("config")
+		let (accessToken, _) = try await authState.performAction()
+		guard let accessToken = accessToken else {
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
+		}
+		var request = URLRequest(url: url)
+		request.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
+		let (data, response) = try await URLSession.shared.data(with: request)
+
+		guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+			throw CryptomatorHubAuthenticatorError.unexpectedResponse
+		}
+		let config = try JSONDecoder().decode(APIConfigDto.self, from: data)
+		return config.apiLevel >= minimumLevel
+	}
+
+	private func getVaultMasterKey(vaultBaseURL: URL, authState: OIDAuthState, webAppURL: URL) async throws -> RetrieveVaultMasterkeyEncryptedForUserResponse {
+		let url = vaultBaseURL.appendingPathComponent("access-token")
+		let (accessToken, _) = try await authState.performAction()
+		guard let accessToken = accessToken else {
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
+		}
+		var urlRequest = URLRequest(url: url)
+		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
+		let (data, response) = try await URLSession.shared.data(with: urlRequest)
+		let httpResponse = response as? HTTPURLResponse
+		switch httpResponse?.statusCode {
+		case 200:
+			guard let body = String(data: data, encoding: .utf8) else {
+				throw CryptomatorHubAuthenticatorError.unexpectedResponse
+			}
+			return .success(encryptedVaultKey: body)
+		case 402:
+			return .licenseExceeded
+		case 403, 410:
+			return .accessNotGranted
+		case 404:
+			return .legacyHubVersion
+		case 449:
+			let profileURL = webAppURL.appendingPathComponent("profile")
+			return .requiresAccountInitialization(at: profileURL)
+		default:
+			throw CryptomatorHubAuthenticatorError.unexpectedResponse
+		}
+	}
+
+	private func getUserKey(apiBaseURL: URL, authState: OIDAuthState) async throws -> RetrieveUserEncryptedPKResponse {
+		let deviceID = try getDeviceID()
+		let url = apiBaseURL.appendingPathComponent("devices").appendingPathComponent(deviceID)
+		let (accessToken, _) = try await authState.performAction()
+		guard let accessToken = accessToken else {
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
+		}
+		var urlRequest = URLRequest(url: url)
+		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
+		let (data, response) = try await URLSession.shared.data(with: urlRequest)
+		let httpResponse = response as? HTTPURLResponse
+
+		switch httpResponse?.statusCode {
+		case 200:
+			return try .unlockedSucceeded(JSONDecoder().decode(DeviceDto.self, from: data))
+		case 404:
+			return .deviceSetup
+		default:
+			throw CryptomatorHubAuthenticatorError.unexpectedResponse
+		}
 	}
 
 	struct CreateDeviceDto: Codable {
@@ -176,6 +264,30 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let publicKey: String
 		let userPrivateKey: String
 		let creationTime: String
+	}
+
+	private struct APIConfigDto: Codable {
+		let apiLevel: Int
+	}
+
+	private enum RetrieveUserEncryptedPKResponse {
+		// 200
+		case unlockedSucceeded(DeviceDto)
+		// 404
+		case deviceSetup
+	}
+
+	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
+		// 200
+		case success(encryptedVaultKey: String)
+		// 403, 410
+		case accessNotGranted
+		// 402
+		case licenseExceeded
+		// 449
+		case requiresAccountInitialization(at: URL)
+		// 404
+		case legacyHubVersion
 	}
 
 	private struct DeviceDto: Codable {
