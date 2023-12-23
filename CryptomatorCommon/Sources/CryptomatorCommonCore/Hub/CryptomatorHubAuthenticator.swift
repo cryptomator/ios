@@ -101,7 +101,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let deviceID = try getDeviceID()
 		let derPubKey = publicKey.derRepresentation
 
-		let now = getCurrentDateForDeviceCreation()
+		let now = ISO8601DateFormatter().string(from: Date())
 
 		let dto = CreateDeviceDto(id: deviceID,
 		                          name: name,
@@ -139,12 +139,6 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let userKey = try JWEHelper.decryptUserKey(jwe: jwe, setupCode: setupCode)
 
 		return try JWEHelper.encryptUserKey(userKey: userKey, deviceKey: publicKey)
-	}
-
-	private func getCurrentDateForDeviceCreation() -> String {
-		let formatter = ISO8601DateFormatter()
-		formatter.timeZone = TimeZone(secondsFromGMT: 0) // Set to UTC
-		return formatter.string(from: Date())
 	}
 
 	private func createDevice(_ dto: CreateDeviceDto, apiBaseURL: URL, authState: OIDAuthState) async throws {
