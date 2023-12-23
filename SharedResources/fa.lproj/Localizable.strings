@@ -21,8 +21,11 @@
 "purchase.retry.button" = "تلاش مجدد";
 
 "settings.title" = "تنظیمات";
+
+"s3Authentication.displayName" = "نام";
 "s3Authentication.accessKey" = "کلید دسترسی";
 "s3Authentication.secretKey" = "کلید مخفی";
+"s3Authentication.existingBucket" = "صندوقچه فعلی";
 "s3Authentication.region" = "منطقه";
 
 "unlockVault.button.unlock" = "بازکردن قفل";
