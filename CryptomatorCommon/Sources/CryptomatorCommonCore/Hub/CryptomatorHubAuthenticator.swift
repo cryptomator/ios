@@ -67,25 +67,84 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		}
 	}
 
-	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws {
-		let deviceID = try getDeviceID()
-		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
-		let derPubKey = publicKey.derRepresentation
-		let dto = CreateDeviceDto(id: deviceID, name: name, type: "MOBILE", publicKey: derPubKey.base64URLEncodedString())
-		guard let devicesResourceURL = URL(string: hubConfig.devicesResourceUrl) else {
-			throw CryptomatorHubAuthenticatorError.invalidDeviceResourceURL
+	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
+		guard let apiBaseURL = hubConfig.getAPIBaseURL() else {
+			// TODO: More specific error
+			throw CryptomatorHubAuthenticatorError.invalidBaseURL
 		}
-		let keyURL = devicesResourceURL.appendingPathComponent("\(deviceID)")
-		var request = URLRequest(url: keyURL)
-		request.httpMethod = "PUT"
-		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-		request.httpBody = try JSONEncoder().encode(dto)
+
+		let userDto = try await getUser(apiBaseURL: apiBaseURL, authState: authState)
+
+		let publicKey = try cryptomatorHubKeyProvider.getPublicKey()
+
+		let encryptedUserKeyJWE = try getEncryptedUserKeyJWE(userDto: userDto, setupCode: setupCode, publicKey: publicKey)
+
+		let deviceID = try getDeviceID()
+		let derPubKey = publicKey.derRepresentation
+
+		let now = getCurrentDateForDeviceCreation()
+
+		let dto = CreateDeviceDto(id: deviceID,
+		                          name: name,
+		                          type: "MOBILE",
+		                          publicKey: derPubKey.base64EncodedString(),
+		                          userPrivateKey: encryptedUserKeyJWE.compactSerializedString,
+		                          creationTime: now)
+
+		try await createDevice(dto, apiBaseURL: apiBaseURL, authState: authState)
+	}
+
+	private func getUser(apiBaseURL: URL, authState: OIDAuthState) async throws -> UserDTO {
+		let url = apiBaseURL.appendingPathComponent("users/me")
 		let (accessToken, _) = try await authState.performAction()
 		guard let accessToken = accessToken else {
 			throw CryptomatorHubAuthenticatorError.missingAccessToken
 		}
+		var request = URLRequest(url: url)
 		request.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
+		let (data, response) = try await URLSession.shared.data(with: request)
+		let httpResponse = response as? HTTPURLResponse
+		guard httpResponse?.statusCode == 200 else {
+			throw CryptomatorHubAuthenticatorError.unexpectedResponse
+		}
+		return try JSONDecoder().decode(UserDTO.self, from: data)
+	}
+
+	private func getEncryptedUserKeyJWE(userDto: UserDTO, setupCode: String, publicKey: P384.KeyAgreement.PublicKey) throws -> JWE {
+		guard let privateKey = userDto.privateKey.data(using: .utf8) else {
+			// TODO: Throw proper error
+			fatalError()
+		}
+		let jwe = try JWE(compactSerialization: privateKey)
+
+		let userKey = try JWEHelper.decryptUserKey(jwe: jwe, setupCode: setupCode)
+
+		return try JWEHelper.encryptUserKey(userKey: userKey, deviceKey: publicKey)
+	}
+
+	private func getCurrentDateForDeviceCreation() -> String {
+		let formatter = ISO8601DateFormatter()
+		formatter.timeZone = TimeZone(secondsFromGMT: 0) // Set to UTC
+		return formatter.string(from: Date())
+	}
+
+	private func createDevice(_ dto: CreateDeviceDto, apiBaseURL: URL, authState: OIDAuthState) async throws {
+		let deviceResourceURL = apiBaseURL.appendingPathComponent("devices")
+		let deviceURL = deviceResourceURL.appendingPathComponent(dto.id)
+
+		var request = URLRequest(url: deviceURL)
+		request.httpMethod = "PUT"
+		request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+		request.httpBody = try JSONEncoder().encode(dto)
+
+		let (accessToken, _) = try await authState.performAction()
+		guard let secondAccessToken = accessToken else {
+			throw CryptomatorHubAuthenticatorError.missingAccessToken
+		}
+		request.allHTTPHeaderFields = ["Authorization": "Bearer \(secondAccessToken)"]
+
 		let (_, response) = try await URLSession.shared.data(with: request)
+
 		switch (response as? HTTPURLResponse)?.statusCode {
 		case 201:
 			break
@@ -115,6 +174,12 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let name: String
 		let type: String
 		let publicKey: String
+		let userPrivateKey: String
+		let creationTime: String
+	}
+
+	private struct DeviceDto: Codable {
+		let userPrivateKey: String
 	}
 }
 
@@ -160,4 +225,22 @@ extension String {
 		guard hasPrefix(prefix) else { return self }
 		return String(dropFirst(prefix.count))
 	}
+}
+
+extension HubConfig {
+	func getAPIBaseURL() -> URL? {
+		return URL(string: apiBaseUrl)
+	}
+
+	func getWebAppURL() -> URL? {
+		getAPIBaseURL()?.deletingLastPathComponent().appendingPathComponent("app")
+	}
+}
+
+private struct UserDTO: Codable {
+	let id: String
+	let name: String
+	let publicKey: String
+	let privateKey: String
+	let setupCode: String
 }

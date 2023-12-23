@@ -13,7 +13,7 @@ import Foundation
 import XCTestDynamicOverlay
 
 public protocol HubDeviceRegistering {
-	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws
+	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws
 }
 
 private enum HubDeviceRegisteringKey: DependencyKey {
@@ -32,7 +32,7 @@ extension DependencyValues {
 
 #if DEBUG
 final class UnimplementedHubDeviceRegisteringService: HubDeviceRegistering {
-	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) async throws {
+	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
 		XCTFail("\(Self.self).registerDevice is unimplemented.")
 	}
 }
@@ -43,24 +43,24 @@ final class UnimplementedHubDeviceRegisteringService: HubDeviceRegistering {
 final class HubDeviceRegisteringMock: HubDeviceRegistering {
 	// MARK: - registerDevice
 
-	var registerDeviceWithNameHubConfigAuthStateThrowableError: Error?
-	var registerDeviceWithNameHubConfigAuthStateCallsCount = 0
-	var registerDeviceWithNameHubConfigAuthStateCalled: Bool {
-		registerDeviceWithNameHubConfigAuthStateCallsCount > 0
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeThrowableError: Error?
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeCallsCount = 0
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeCalled: Bool {
+		registerDeviceWithNameHubConfigAuthStateSetupCodeCallsCount > 0
 	}
 
-	var registerDeviceWithNameHubConfigAuthStateReceivedArguments: (name: String, hubConfig: HubConfig, authState: OIDAuthState)?
-	var registerDeviceWithNameHubConfigAuthStateReceivedInvocations: [(name: String, hubConfig: HubConfig, authState: OIDAuthState)] = []
-	var registerDeviceWithNameHubConfigAuthStateClosure: ((String, HubConfig, OIDAuthState) throws -> Void)?
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeReceivedArguments: (name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String)?
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeReceivedInvocations: [(name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String)] = []
+	var registerDeviceWithNameHubConfigAuthStateSetupCodeClosure: ((String, HubConfig, OIDAuthState, String) throws -> Void)?
 
-	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState) throws {
-		if let error = registerDeviceWithNameHubConfigAuthStateThrowableError {
+	func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) throws {
+		if let error = registerDeviceWithNameHubConfigAuthStateSetupCodeThrowableError {
 			throw error
 		}
-		registerDeviceWithNameHubConfigAuthStateCallsCount += 1
-		registerDeviceWithNameHubConfigAuthStateReceivedArguments = (name: name, hubConfig: hubConfig, authState: authState)
-		registerDeviceWithNameHubConfigAuthStateReceivedInvocations.append((name: name, hubConfig: hubConfig, authState: authState))
-		try registerDeviceWithNameHubConfigAuthStateClosure?(name, hubConfig, authState)
+		registerDeviceWithNameHubConfigAuthStateSetupCodeCallsCount += 1
+		registerDeviceWithNameHubConfigAuthStateSetupCodeReceivedArguments = (name: name, hubConfig: hubConfig, authState: authState, setupCode: setupCode)
+		registerDeviceWithNameHubConfigAuthStateSetupCodeReceivedInvocations.append((name: name, hubConfig: hubConfig, authState: authState, setupCode: setupCode))
+		try registerDeviceWithNameHubConfigAuthStateSetupCodeClosure?(name, hubConfig, authState, setupCode)
 	}
 }
 // swiftlint: enable all
