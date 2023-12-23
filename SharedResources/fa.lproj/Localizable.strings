@@ -26,6 +26,7 @@
 "s3Authentication.accessKey" = "کلید دسترسی";
 "s3Authentication.secretKey" = "کلید مخفی";
 "s3Authentication.existingBucket" = "صندوقچه فعلی";
+"s3Authentication.endpoint" = "نقطه انتهایی";
 "s3Authentication.region" = "منطقه";
 
 "unlockVault.button.unlock" = "بازکردن قفل";
