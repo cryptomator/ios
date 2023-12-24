@@ -139,6 +139,7 @@
 "s3Authentication.displayName" = "표시 이름";
 "s3Authentication.accessKey" = "액세스 키";
 "s3Authentication.secretKey" = "비밀키";
+"s3Authentication.existingBucket" = "이미 존재하는 버킷";
 "s3Authentication.endpoint" = "엔드포인트";
 "s3Authentication.region" = "지역";
 
