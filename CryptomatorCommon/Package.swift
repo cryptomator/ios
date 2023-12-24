@@ -45,7 +45,8 @@ let package = Package(
 				.product(name: "CocoaLumberjackSwift", package: "CocoaLumberjack"),
 				.product(name: "CryptomatorCloudAccessCore", package: "cloud-access-swift"),
 				.product(name: "Dependencies", package: "simple-swift-dependencies"),
-				.product(name: "Introspect", package: "SwiftUI-Introspect")
+				.product(name: "Introspect", package: "SwiftUI-Introspect"),
+				.product(name: "SwiftUIIntrospect", package: "SwiftUI-Introspect")
 			]
 		),
 		.testTarget(

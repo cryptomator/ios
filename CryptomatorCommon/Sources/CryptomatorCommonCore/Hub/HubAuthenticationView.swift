@@ -16,6 +16,7 @@ public struct HubAuthenticationView: View {
 				case .deviceRegistration:
 					HubDeviceRegistrationView(
 						deviceName: $viewModel.deviceName,
+						accountKey: $viewModel.setupCode,
 						onRegisterTap: { Task { await viewModel.register() }}
 					)
 				case .accessNotGranted:

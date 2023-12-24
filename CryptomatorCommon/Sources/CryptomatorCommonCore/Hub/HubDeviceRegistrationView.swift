@@ -2,12 +2,14 @@ import SwiftUI
 
 struct HubDeviceRegistrationView: View {
 	@Binding var deviceName: String
+	@Binding var accountKey: String
 	var onRegisterTap: () -> Void
 
 	@FocusStateLegacy private var field: Field? = .deviceName
 
 	private enum Field: CaseIterable {
 		case deviceName
+		case accountKey
 	}
 
 	var body: some View {
@@ -16,11 +18,25 @@ struct HubDeviceRegistrationView: View {
 				TextField(
 					LocalizedString.getValue("hubAuthentication.deviceRegistration.deviceName.cells.name"),
 					text: $deviceName,
-					onCommit: onRegisterTap
+					onCommit: { field = .accountKey }
 				)
 				.focusedLegacy($field, equals: .deviceName)
+				.backportedSubmitlabel(.next)
 			} footer: {
 				Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.deviceName.footer.title"))
+			}
+
+			Section {
+				TextField(
+					"Account Key",
+					text: $accountKey,
+					onCommit: onRegisterTap
+				)
+				.focusedLegacy($field, equals: .accountKey)
+				.backportedSubmitlabel(.done)
+			} footer: {
+				// TODO: Add localization
+				Text("Your Account Key is required to login from other apps or browsers. It can be found in your profile.")
 			}
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
@@ -36,6 +52,6 @@ struct HubDeviceRegistrationView: View {
 
 struct HubDeviceRegistrationView_Previews: PreviewProvider {
 	static var previews: some View {
-		HubDeviceRegistrationView(deviceName: .constant(""), onRegisterTap: {})
+		HubDeviceRegistrationView(deviceName: .constant(""), accountKey: .constant(""), onRegisterTap: {})
 	}
 }

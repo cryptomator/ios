@@ -44,6 +44,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 
 	@Published var authenticationFlowState: State?
 	@Published public var deviceName: String = UIDevice.current.name
+	@Published public var setupCode: String = ""
 	private(set) var isLoggedIn = false
 
 	private let vaultConfig: UnverifiedVaultConfig
@@ -71,7 +72,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		}
 
 		do {
-			try await deviceRegisteringService.registerDevice(withName: deviceName, hubConfig: hubConfig, authState: authState)
+			try await deviceRegisteringService.registerDevice(withName: deviceName, hubConfig: hubConfig, authState: authState, setupCode: setupCode)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
