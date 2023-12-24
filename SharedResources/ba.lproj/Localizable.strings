@@ -1,0 +1,21 @@
+"common.button.choose" = "Һайларға";
+"common.button.create" = "Яһа";
+"common.button.edit" = "Мөхәррирләргә";
+"common.button.refresh" = "Яңыртырға";
+"common.button.remove" = "Алып ташлау";
+"common.button.retry" = "Ҡабатларға";
+"common.cells.url" = "URL";
+"common.cells.username" = "Ҡулланыусы исеме";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "МӨҺИМ: әгәр серһүҙҙе онотһағыҙ, уны тергеҙеү ысулы юҡ.";
+"purchase.retry.button" = "Ҡабатларға";
+
+"settings.title" = "Көйләүҙәр";
+
+"s3Authentication.displayName" = "Күренәсәк исем";
+"s3Authentication.accessKey" = "Инеү асҡысы (Access Key)";
+"s3Authentication.secretKey" = "Серле асҡыс (Secret Key)";
+"s3Authentication.existingBucket" = "Булған кәрзин (Bucket)";
+"s3Authentication.endpoint" = "Ос нөктә (Endpoint)";
+"s3Authentication.region" = "Регион";
+"vaultDetail.button.moveVault" = "Күсер";
+"vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
