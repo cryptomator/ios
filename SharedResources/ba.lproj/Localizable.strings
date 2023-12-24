@@ -1,6 +1,9 @@
+"common.alert.attention.title" = "Иғтибар";
 "common.button.choose" = "Һайларға";
 "common.button.create" = "Яһа";
 "common.button.edit" = "Мөхәррирләргә";
+"common.button.enable" = "Ғәмәлгә индер";
+"common.button.ok" = "Ярай";
 "common.button.refresh" = "Яңыртырға";
 "common.button.remove" = "Алып ташлау";
 "common.button.retry" = "Ҡабатларға";
@@ -19,3 +22,5 @@
 "s3Authentication.region" = "Регион";
 "vaultDetail.button.moveVault" = "Күсер";
 "vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
