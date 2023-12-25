@@ -9,16 +9,23 @@
 import AppAuthCore
 import CryptoKit
 import CryptomatorCloudAccessCore
+import CryptomatorCryptoLib
 import Dependencies
 import Foundation
 import JOSESwift
 
 public enum HubAuthenticationFlow {
-	case success(encryptedVaultKey: String, encryptedUserKey: String)
+	case success(HubAuthenticationFlowSuccess)
 	case accessNotGranted
 	case needsDeviceRegistration
 	case licenseExceeded
 	case requiresAccountInitialization(at: URL)
+}
+
+public struct HubAuthenticationFlowSuccess {
+	public let encryptedUserKey: JWE
+	public let encryptedVaultKey: JWE
+	public let header: [AnyHashable: Any]
 }
 
 public enum CryptomatorHubAuthenticatorError: Error {
@@ -53,7 +60,6 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		guard try await hubInstanceHasMinimumAPILevel(of: Self.minimumHubVersion, apiBaseURL: apiBaseURL, authState: authState) else {
 			throw CryptomatorHubAuthenticatorError.incompatibleHubVersion
 		}
-//		let deviceID = try getDeviceID()
 
 		let retrieveMasterkeyResponse = try await getVaultMasterKey(vaultBaseURL: vaultBaseURL,
 		                                                            authState: authState,
@@ -83,7 +89,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			return .needsDeviceRegistration
 		}
 
-		return .success(encryptedVaultKey: encryptedVaultKey, encryptedUserKey: encryptedUserKey)
+		let encryptedUserKeyJWE = try JWE(compactSerialization: encryptedUserKey)
+		let encryptedVaultKeyJWE = try JWE(compactSerialization: encryptedVaultKey)
+
+		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: [:]))
 	}
 
 	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {

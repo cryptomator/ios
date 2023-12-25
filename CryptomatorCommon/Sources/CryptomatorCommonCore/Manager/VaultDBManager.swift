@@ -312,7 +312,7 @@ public class VaultDBManager: VaultManager {
 		let masterkey: Masterkey
 		do {
 			let jwe = try JWE(compactSerialization: jweData)
-			masterkey = try JWEHelper.decrypt(jwe: jwe, with: vault.privateKey)
+			masterkey = try JWEHelper.decryptVaultKey(jwe: jwe, with: vault.privateKey)
 		} catch {
 			return Promise(error)
 		}
