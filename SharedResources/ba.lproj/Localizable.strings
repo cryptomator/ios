@@ -24,3 +24,5 @@
 "vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP ҡулланыу хәүефһеҙ түгел. Уның урынына HTTPS ҡулланырға кәңәш итәбеҙ. Хәүефтәрҙе белһәгеҙ, HTTP менән дауам итә алаһығыҙ.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS ҡулланыу";
