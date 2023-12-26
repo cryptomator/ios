@@ -1,18 +1,48 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Хата";
 "common.alert.attention.title" = "Иғтибар";
+"common.button.cancel" = "Кире ал";
+"common.button.change" = "Үҙгәрт";
 "common.button.choose" = "Һайларға";
+"common.button.clear" = "Таҙала";
+"common.button.close" = "Яп";
+"common.button.confirm" = "Раҫла";
 "common.button.create" = "Яһа";
-"common.button.edit" = "Мөхәррирләргә";
+"common.button.createFolder" = "Папка өҫтәү";
+"common.button.done" = "Тамам";
+"common.button.download" = "Күсереп ал";
+"common.button.edit" = "Төҙәтергә";
 "common.button.enable" = "Ғәмәлгә индер";
+"common.button.next" = "Киләһе";
 "common.button.ok" = "Ярай";
 "common.button.refresh" = "Яңыртырға";
+"common.button.register" = "Теркәл";
 "common.button.remove" = "Алып ташлау";
 "common.button.retry" = "Ҡабатларға";
+"common.button.signOut" = "Сыҡ";
+"common.button.verify" = "Тикшер";
+"common.cells.openInFilesApp" = "Файлдар ҡушымтаһында ас";
+"common.cells.password" = "Серһүҙ";
 "common.cells.url" = "URL";
 "common.cells.username" = "Ҡулланыусы исеме";
+"common.footer.learnMore" = "Артабан уҡырға.";
+"common.hud.authenticating" = "Аутентификлау…";
+
+"accountList.header.title" = "Аутентификлауҙар";
+"accountList.emptyList.message" = "Иҫәп яҙмаһы өҫтәү өсөн бында баҫығыҙ";
+"accountList.signOut.alert.title" = "Бәйле һаҡлағыстарҙы юйырғамы?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "МӨҺИМ: әгәр серһүҙҙе онотһағыҙ, уны тергеҙеү ысулы юҡ.";
 "purchase.retry.button" = "Ҡабатларға";
 
 "settings.title" = "Көйләүҙәр";
+"settings.clearCache" = "Кэшты таҙартыу";
+"settings.debugMode.alert.message" = "Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.";
 
 "s3Authentication.displayName" = "Күренәсәк исем";
 "s3Authentication.accessKey" = "Инеү асҡысы (Access Key)";
@@ -22,6 +52,8 @@
 "s3Authentication.region" = "Регион";
 "vaultDetail.button.moveVault" = "Күсер";
 "vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
+
+"vaultList.header.title" = "Һаҡлағыстар";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP ҡулланыу хәүефһеҙ түгел. Уның урынына HTTPS ҡулланырға кәңәш итәбеҙ. Хәүефтәрҙе белһәгеҙ, HTTP менән дауам итә алаһығыҙ.";
