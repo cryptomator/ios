@@ -37,7 +37,32 @@
 "accountList.header.title" = "Аутентификлауҙар";
 "accountList.emptyList.message" = "Иҫәп яҙмаһы өҫтәү өсөн бында баҫығыҙ";
 "accountList.signOut.alert.title" = "Бәйле һаҡлағыстарҙы юйырғамы?";
+"accountList.signOut.alert.message" = "Сығыу менән бөтә бәйле һаҡлағыстар исемлектән алып ташланасаҡ. Шифрланған мәғлүмәттәр юйылмаясаҡ. Аҙаҡтан яңынан инеп һаҡлағыстарҙы ҡабаттан өҫтәй алаһығыҙ.";
+
+"addVault.title" = "Һаҡлағыс өҫтәү";
+"addVault.createNewVault.title" = "Яңы һаҡлағыс яһау";
+"addVault.createNewVault.purchase" = "Яңы һаҡлағыс яһау өсөн Cryptomator-ҙың тулы версияһы кәрәк.";
+"addVault.createNewVault.setVaultName.header.title" = "Һаҡлағысҡа исем һайлағыҙ.";
+"addVault.createNewVault.setVaultName.cells.name" = "Һаҡлағыс исеме";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Һаҡлағыс исеме буш була алмай.";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator һаҡлағысығыҙҙың шифрланған файлдарын ҡайҙа һаҡларға тейеш?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" был урында бар инде. Башҡа һаҡлағыс исеме йәки урын һайлағыҙ.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator был урында булған һаҡлағыс тапты.\nЯңы һаҡлағыс булдырыу өсөн кире ҡайтып икенсе каталог һайлағыҙ.";
+"addVault.createNewVault.password.enterPassword.header" = "Яңы серһүҙ яҙығыҙ.";
+"addVault.createNewVault.password.confirmPassword.header" = "Яңы серһүҙҙе раҫлағыҙ.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Серһүҙҙе раҫлайһығыҙмы?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "МӨҺИМ: әгәр серһүҙҙе онотһағыҙ, уны тергеҙеү ысулы юҡ.";
+"addVault.createNewVault.password.error.emptyPassword" = "Серһүҙ буш була алмай.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Серһүҙҙәр тап килмәй.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Серһүҙ кәмендә 8 билдәнән торорға тейеш.";
+"addVault.createNewVault.progress" = "Һаҡлағыс яһау…";
+"addVault.openExistingVault.title" = "Булған һаҡлағысты асыу";
+"addVault.openExistingVault.chooseCloud.header" = "Һаҡлағыс урыны ҡайҙа?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" һаҡлағысын тапты.\nБыл һаҡлағысты өҫтәргә теләйһегеҙме?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Был һаҡлағысты өҫтә";
+"addVault.openExistingVault.downloadVault.progress" = "Һаҡлағыс күсерелә…";
+"changePassword.header.newPassword.title" = "Яңы серһүҙ яҙығыҙ.";
+"changePassword.header.newPasswordConfirmation.title" = "Яңы серһүҙҙе раҫлағыҙ.";
 "purchase.retry.button" = "Ҡабатларға";
 
 "settings.title" = "Көйләүҙәр";
