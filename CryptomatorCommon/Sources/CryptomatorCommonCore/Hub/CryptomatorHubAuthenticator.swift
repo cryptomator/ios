@@ -33,6 +33,9 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case unexpectedResponse
 	case deviceNameAlreadyExists
 
+	case unexpectedPrivateKeyFormat
+	case invalidVaultConfig
+	case invalidHubConfig
 	case invalidBaseURL
 	case invalidDeviceResourceURL
 	case missingAccessToken
@@ -48,13 +51,11 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
 		guard let hubConfig = vaultConfig.allegedHubConfig, let vaultBaseURL = getVaultBaseURL(from: vaultConfig) else {
-			// handle error
-			fatalError()
+			throw CryptomatorHubAuthenticatorError.invalidVaultConfig
 		}
 
 		guard let apiBaseURL = hubConfig.getAPIBaseURL(), let webAppURL = hubConfig.getWebAppURL() else {
-			// TODO: More specific error
-			throw CryptomatorHubAuthenticatorError.invalidBaseURL
+			throw CryptomatorHubAuthenticatorError.invalidHubConfig
 		}
 
 		guard try await hubInstanceHasMinimumAPILevel(of: Self.minimumHubVersion, apiBaseURL: apiBaseURL, authState: authState) else {
@@ -97,7 +98,6 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
 		guard let apiBaseURL = hubConfig.getAPIBaseURL() else {
-			// TODO: More specific error
 			throw CryptomatorHubAuthenticatorError.invalidBaseURL
 		}
 
@@ -140,8 +140,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	private func getEncryptedUserKeyJWE(userDto: UserDTO, setupCode: String, publicKey: P384.KeyAgreement.PublicKey) throws -> JWE {
 		guard let privateKey = userDto.privateKey.data(using: .utf8) else {
-			// TODO: Throw proper error
-			fatalError()
+			throw CryptomatorHubAuthenticatorError.unexpectedPrivateKeyFormat
 		}
 		let jwe = try JWE(compactSerialization: privateKey)
 
