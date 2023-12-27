@@ -96,7 +96,19 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: [:]))
 	}
 
-	public func registerDevice(withName name: String, hubConfig: HubConfig, authState: OIDAuthState, setupCode: String) async throws {
+	/** Registers a new device.
+
+	    Registers a new mobile device at the hub instance derived from the `hubConfig` with the given `name`.
+
+	     The device registration consists of two requests:
+
+	     1. Request the encrypted user key which can be decrypted by using the `setupCode`.
+	     2. Send a Create Device request to the hub instance which contains the user key encrypted with the device key pair
+	 */
+	public func registerDevice(withName name: String,
+	                           hubConfig: HubConfig,
+	                           authState: OIDAuthState,
+	                           setupCode: String) async throws {
 		guard let apiBaseURL = hubConfig.getAPIBaseURL() else {
 			throw CryptomatorHubAuthenticatorError.invalidBaseURL
 		}
