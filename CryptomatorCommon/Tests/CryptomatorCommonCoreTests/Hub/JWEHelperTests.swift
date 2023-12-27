@@ -5,10 +5,12 @@
 //  Created by Philipp Schmid on 25.12.23.
 //  Copyright © 2023 Skymatic GmbH. All rights reserved.
 
+import CryptoKit
 import CryptomatorCommonCore
 import JOSESwift
 import SwiftECC
 import XCTest
+@testable import CryptomatorCryptoLib
 
 final class JWEHelperTests: XCTestCase {
 	// key pairs from frontend tests (crypto.spec.ts):
@@ -108,6 +110,44 @@ final class JWEHelperTests: XCTestCase {
 		""")
 
 		XCTAssertThrowsError(try JWEHelper.decryptUserKey(jwe: jwe, setupCode: "654321")) { error in
+			guard case JOSESwiftError.decryptingFailed = error else {
+				XCTFail("Unexpected error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testDecryptVaultKey() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlA\
+		tMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6IllUcEY3bGtTc3JvZVVUVFdCb21LNzBTN0\
+		FhVTJyc0ptMURpZ1ZzbjRMY2F5eUxFNFBabldkYmFVcE9jQVV5a1ciLCJ5IjoiLU5pS3loUktjSk52N\
+		m02Z0ZJUWc4cy1Xd1VXUW9uT3A5dkQ4cHpoa2tUU3U2RzFlU2FUTVlhZGltQ2Q4V0ExMSJ9LCJhcHUi\
+		OiIiLCJhcHYiOiIifQ..BECWGzd9UvhHcTJC.znt4TlS-qiNEjxiu2v-du_E1QOBnyBR6LCt865SHxD\
+		-kwRc1JwX_Lq9XVoFj2GnK9-9CgxhCLGurg5Jt9g38qv2brGAzWL7eSVeY1fIqdO_kUhLpGslRTN6h2\
+		U0NHJi2-iE.WDVI2kOk9Dy3PWHyIg8gKA
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+		let masterkey = try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)
+
+		let expectedEncKey = [UInt8](repeating: 0x55, count: 32)
+		let expectedMacKey = [UInt8](repeating: 0x77, count: 32)
+
+		XCTAssertEqual(masterkey.aesMasterKey, expectedEncKey)
+		XCTAssertEqual(masterkey.macMasterKey, expectedMacKey)
+	}
+
+	func testDecryptInvalidVaultKey_wrongKey() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImdodGR3VnNoUU8wRGFBdjVBOXBiZ1NCTW0yYzZKWVF4dkloR3p6RVdQTncxczZZcEFYeTRQTjBXRFJUWExtQ2wiLCJ5IjoiN3Rncm1Gd016NGl0ZmVQNzBndkpLcjRSaGdjdENCMEJHZjZjWE9WZ2M0bjVXMWQ4dFgxZ1RQakdrczNVSm1zUiJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..x6JWRGSojUJUJYpp.5BRuzcaV.lLIhGH7Wz0n_iTBAubDFZA
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+
+		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
 			guard case JOSESwiftError.decryptingFailed = error else {
 				XCTFail("Unexpected error: \(error)")
 				return
