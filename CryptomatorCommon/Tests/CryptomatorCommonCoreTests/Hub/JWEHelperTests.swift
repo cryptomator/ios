@@ -154,4 +154,68 @@ final class JWEHelperTests: XCTestCase {
 			}
 		}
 	}
+
+	func testDecryptInvalidVaultKey_payloadIsNotJSON() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6IkM2bWhsNE5BTHhEdHMwUlFlNXlyZWxQVDQyOGhDVzJNeUNYS3EwdUI0TDFMdnpXRHhVaVk3YTdZcEhJakJXcVoiLCJ5IjoiakM2dWc1NE9tbmdpNE9jUk1hdkNrczJpcFpXQjdkUmotR3QzOFhPSDRwZ2tpQ0lybWNlUnFxTnU3Z0c3Qk1yOSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..HNJJghL-SvERFz2v.N0z8YwFg.rYw29iX4i8XujdM4P4KKWg
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+
+		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
+			guard case DecodingError.dataCorrupted = error else {
+				XCTFail("Unexpected error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testDecryptInvalidVaultKey_jsonDoesNotContainKey() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6InB3R05vcXRnY093MkJ6RDVmSnpBWDJvMzUwSWNsY3A5cFdVTHZ5VDRqRWVCRWdCc3hhTVJXQ1ZyNlJMVUVXVlMiLCJ5IjoiZ2lIVEE5MlF3VU5lbmg1OFV1bWFfb09BX3hnYmFDVWFXSlRnb3Z4WjU4R212TnN4eUlQRElLSm9WV1h5X0R6OSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..jDbzdI7d67_cUjGD.01BPnMq_tQ.aG_uFA6FYqoPS64QAJ4VBQ
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+
+		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
+			guard case DecodingError.keyNotFound = error else {
+				XCTFail("Unexpected error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testDecryptInvalidVaultKey_jsonKeyIsNotAString() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6IkJyYm9UQkl5Y0NDUEdJQlBUekU2RjBnbTRzRjRCamZPN1I0a2x0aWlCaThKZkxxcVdXNVdUSVBLN01yMXV5QVUiLCJ5IjoiNUpGVUI0WVJiYjM2RUZpN2Y0TUxMcFFyZXd2UV9Tc3dKNHRVbFd1a2c1ZU04X1ZyM2pkeml2QXI2WThRczVYbSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..QEq4Z2m6iwBx2ioS.IBo8TbKJTS4pug.61Z-agIIXgP8bX10O_yEMA
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+
+		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
+			guard case DecodingError.typeMismatch = error else {
+				XCTFail("Unexpected error: \(error)")
+				return
+			}
+		}
+	}
+
+	func testDecryptInvalidVaultKey_invalidBase64Data() throws {
+		let jwe = try JWE(compactSerialization: """
+		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImNZdlVFZm9LYkJjenZySE5zQjUxOGpycUxPMGJDOW5lZjR4NzFFMUQ5dk95MXRqd1piZzV3cFI0OE5nU1RQdHgiLCJ5IjoiaWRJekhCWERzSzR2NTZEeU9yczJOcDZsSG1zb29fMXV0VTlzX3JNdVVkbkxuVXIzUXdLZkhYMWdaVXREM1RKayJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..0VZqu5ei9U3blGtq.eDvhU6drw7mIwvXu6Q.f05QnhI7JWG3IYHvexwdFQ
+		""")
+
+		let data = Data(base64Encoded: privKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+
+		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
+			guard case VaultManagerError.invalidPayloadMasterkey = error else {
+				XCTFail("Unexpected error: \(error)")
+				return
+			}
+		}
+	}
 }
