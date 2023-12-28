@@ -202,6 +202,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		return digest.data.base16EncodedString
 	}
 
+	/** Checks if the Cryptomator Hub Instance at `apiBaseURL` has at least the API level of `minimumLevel`.
+
+	    - Note: The legacy Hub which is not supported returns a 0
+	 */
 	private func hubInstanceHasMinimumAPILevel(of minimumLevel: Int, apiBaseURL: URL, authState: OIDAuthState) async throws -> Bool {
 		let url = apiBaseURL.appendingPathComponent("config")
 		let (accessToken, _) = try await authState.performAction()
@@ -355,7 +359,13 @@ extension String {
 
 extension HubConfig {
 	func getAPIBaseURL() -> URL? {
-		return URL(string: apiBaseUrl)
+		if let apiBaseUrl {
+			return URL(string: apiBaseUrl)
+		}
+		guard let deviceResourceURL = URL(string: devicesResourceUrl) else {
+			return nil
+		}
+		return deviceResourceURL.deletingLastPathComponent()
 	}
 
 	func getWebAppURL() -> URL? {
