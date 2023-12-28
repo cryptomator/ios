@@ -119,6 +119,7 @@
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizde geçersiz bir lisans var. Lisansı yükseltmesi veya yenilemesi için lütfen bir Hub yöneticisini bilgilendirin.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz adı";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Cihaz Kaydı Başarılı";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Kasaya erişmek için cihazınızın kasa sahibi tarafından yetkilendirilmesi gerekir.";
 
 "intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";
