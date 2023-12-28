@@ -22,6 +22,7 @@
 "common.button.next" = "İleri";
 "common.button.ok" = "Tamam";
 "common.button.refresh" = "Yenile";
+"common.button.register" = "Kaydol";
 "common.button.remove" = "Kaldır";
 "common.button.retry" = "Yeniden dene";
 "common.button.signOut" = "Çıkış Yap";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
+"addVault.openExistingVault.downloadVault.progress" = "Kasa indiriliyor…";
 "addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin.";
 "addVault.openExistingVault.progress" = "Kasa ekleniyor…";
 "addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
@@ -111,9 +113,12 @@
 
 "getFolderIntent.error.missingPath" = "Dizin sağlanmadı. Lütfen bir klasörün döndürüleceği geçerli bir dizin sağlayın.";
 "getFolderIntent.error.noVaultSelected" = "Herhangi bir kasa seçili değil.";
+
+"hubAuthentication.title" = "Hub Kasası";
 "hubAuthentication.accessNotGranted" = "Cihazınıza henüz bu kasaya erişim yetkisi verilmedi. Kasa sahibinden yetkilendirmesini isteyin.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizde geçersiz bir lisans var. Lisansı yükseltmesi veya yenilemesi için lütfen bir Hub yöneticisini bilgilendirin.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz adı";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Kasaya erişmek için cihazınızın kasa sahibi tarafından yetkilendirilmesi gerekir.";
 
 "intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";
