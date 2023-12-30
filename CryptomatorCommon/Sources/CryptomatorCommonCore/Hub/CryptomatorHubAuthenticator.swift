@@ -96,14 +96,15 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: [:]))
 	}
 
-	/** Registers a new device.
+	/**
+	 Registers a new device.
 
-	    Registers a new mobile device at the hub instance derived from the `hubConfig` with the given `name`.
+	 Registers a new mobile device at the Hub instance derived from the `hubConfig` with the given `name`.
 
-	     The device registration consists of two requests:
+	 The device registration consists of two requests:
 
-	     1. Request the encrypted user key which can be decrypted by using the `setupCode`.
-	     2. Send a Create Device request to the hub instance which contains the user key encrypted with the device key pair
+	 1. Request the encrypted user key which can be decrypted by using the `setupCode`.
+	 2. Send a Create Device request to the Hub instance which contains the user key encrypted with the device key pair.
 	 */
 	public func registerDevice(withName name: String,
 	                           hubConfig: HubConfig,
@@ -134,7 +135,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		try await createDevice(dto, apiBaseURL: apiBaseURL, authState: authState)
 	}
 
-	private func getUser(apiBaseURL: URL, authState: OIDAuthState) async throws -> UserDTO {
+	private func getUser(apiBaseURL: URL, authState: OIDAuthState) async throws -> UserDto {
 		let url = apiBaseURL.appendingPathComponent("users/me")
 		let (accessToken, _) = try await authState.performAction()
 		guard let accessToken = accessToken else {
@@ -147,10 +148,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		guard httpResponse?.statusCode == 200 else {
 			throw CryptomatorHubAuthenticatorError.unexpectedResponse
 		}
-		return try JSONDecoder().decode(UserDTO.self, from: data)
+		return try JSONDecoder().decode(UserDto.self, from: data)
 	}
 
-	private func getEncryptedUserKeyJWE(userDto: UserDTO, setupCode: String, publicKey: P384.KeyAgreement.PublicKey) throws -> JWE {
+	private func getEncryptedUserKeyJWE(userDto: UserDto, setupCode: String, publicKey: P384.KeyAgreement.PublicKey) throws -> JWE {
 		guard let privateKey = userDto.privateKey.data(using: .utf8) else {
 			throw CryptomatorHubAuthenticatorError.unexpectedPrivateKeyFormat
 		}
@@ -202,9 +203,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		return digest.data.base16EncodedString
 	}
 
-	/** Checks if the Cryptomator Hub Instance at `apiBaseURL` has at least the API level of `minimumLevel`.
+	/**
+	 Checks if the Hub instance at `apiBaseURL` has at least the API level of `minimumLevel`.
 
-	    - Note: The legacy Hub which is not supported returns a 0
+	 - Note: The legacy Hub which is not supported returns a 0.
 	 */
 	private func hubInstanceHasMinimumAPILevel(of minimumLevel: Int, apiBaseURL: URL, authState: OIDAuthState) async throws -> Bool {
 		let url = apiBaseURL.appendingPathComponent("config")
@@ -373,7 +375,7 @@ extension HubConfig {
 	}
 }
 
-private struct UserDTO: Codable {
+private struct UserDto: Codable {
 	let id: String
 	let name: String
 	let publicKey: String
