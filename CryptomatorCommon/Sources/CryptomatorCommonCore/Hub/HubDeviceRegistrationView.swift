@@ -35,8 +35,7 @@ struct HubDeviceRegistrationView: View {
 				.focusedLegacy($field, equals: .accountKey)
 				.backportedSubmitlabel(.done)
 			} footer: {
-				// TODO: Add localization
-				Text("Your Account Key is required to login from other apps or browsers. It can be found in your profile.")
+				Text(LocalizedString.getValue("hubAuthentication.deviceRegistration.accountKey.footer.title"))
 			}
 		}
 		.setListBackgroundColor(.cryptomatorBackground)
