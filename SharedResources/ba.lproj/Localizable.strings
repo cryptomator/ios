@@ -14,7 +14,7 @@
 "common.button.close" = "Яп";
 "common.button.confirm" = "Раҫла";
 "common.button.create" = "Яһа";
-"common.button.createFolder" = "Папка өҫтәү";
+"common.button.createFolder" = "Каталог өҫтәү";
 "common.button.done" = "Тамам";
 "common.button.download" = "Күсереп ал";
 "common.button.edit" = "Төҙәтергә";
@@ -61,8 +61,83 @@
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" һаҡлағысын тапты.\nБыл һаҡлағысты өҫтәргә теләйһегеҙме?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Был һаҡлағысты өҫтә";
 "addVault.openExistingVault.downloadVault.progress" = "Һаҡлағыс күсерелә…";
+"addVault.openExistingVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
+"addVault.openExistingVault.progress" = "Һаҡлағыс өҫтәү…";
+"addVault.success.info" = "\"%@\" һаҡлағысы өҫтәлде. \nФайлдар ҡушымтаһы аша һаҡлағысҡа инә алаһығыҙ.";
+"addVault.success.footer" = "Быға тиклем Cryptomator-ҙы ғәмәлгә индермәгән булһағыҙ, уны Файлдар ҡушымтаһы аша эшләп була.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Хәҙерге серһүҙ дөрөҫ түгел. Яңынан ҡабатлағыҙ.";
+"changePassword.header.currentPassword.title" = "Хәҙерге серһүҙҙе яҙығыҙ.";
 "changePassword.header.newPassword.title" = "Яңы серһүҙ яҙығыҙ.";
 "changePassword.header.newPasswordConfirmation.title" = "Яңы серһүҙҙе раҫлағыҙ.";
+"changePassword.progress" = "Серһүҙҙе үҙгәртеү…";
+
+"chooseFolder.emptyFolder.footer" = "Каталог буш";
+"chooseFolder.createNewFolder.header.title" = "Каталог өсөн исем һайлағыҙ.";
+"chooseFolder.createNewFolder.cells.name" = "Каталог исеме";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Каталог исеме буш була алмай.";
+"chooseFolder.createNewFolder.progress" = "Каталог яһау…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" табылманы.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" бар инде.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" көтөлмәгән элемент төрөнә эйә.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Төп каталог \"%@\" юҡ.";
+"cloudProvider.error.pageTokenInvalid" = "Каталогтың йөкмәткеһен алыуҙы дауам итеп булмай.";
+"cloudProvider.error.quotaInsufficient" = "Һаҡлағысығыҙҙа урын етмәй.";
+"cloudProvider.error.unauthorized" = "Рөхсәтһеҙ ғәмәлде башҡарып булмай.";
+"cloudProvider.error.noInternetConnection" = "Был ғәмәл өсөн интернет бәйләнеше кәрәк.";
+
+"cloudProviderType.localFileSystem" = "Башҡа файл провайдеры";
+
+"fileProvider.onboarding.title" = "Рәхим итегеҙ";
+"fileProvider.onboarding.info" = "Файлдарығыҙҙы һаҡлау өсөн Cryptomator һайлағанығыҙ өсөн рәхмәт. Башлар өсөн төп ҡушымтаға инеп һаҡлағыс өҫтәгеҙ.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator ас";
+"fileProvider.error.biometricalAuthCanceled.title" = "Биген асыу туҡтатылды";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@ аша бик асыу уңышһыҙ булды. Яңынан ҡабатлап ҡарағыҙ.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Серһүҙ дөрөҫ түгел";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ өсөн һаҡланған серһүҙ дөрөҫ түгел. Ҡабатлап ҡарағыҙ һәм %@ ғәмәлғә инһен өсөн серһүҙҙе яңынан яҙығыҙ.";
+"fileProvider.error.defaultLock.title" = "Бикте асыу кәрәкле";
+"fileProvider.error.defaultLock.message" = "Һаҡлағысығыҙға инеү һәм эстәлеген күреү өсөн, уны асырға кәрәк.";
+"fileProvider.error.unlockButton" = "Биген ас";
+"fileProvider.clearFileFromCache.title" = "Файлды кэштан таҙалау";
+"fileProvider.clearFileFromCache.message" = "Был йыһазығыҙҙағы урындағы файлды ғына алып ташлай һәм болоттағы файлды юймай.";
+"fileProvider.fileImporting.error.missingPremium" = "Һаҡлағыстарығыҙға яҙыу хоҡуғы алыу өсөн Cryptomator ҡушымтаһының тулы версияһын алырға.";
+"fileProvider.uploadProgress.connecting" = "Тоташыу…";
+"fileProvider.uploadProgress.message" = "Ағымдағы прогресс:%@\n\nӘгәр йөкләү процесы тотҡарлана икән, йөкләүҙе ҡабаттан башларға мөмкин.";
+"fileProvider.uploadProgress.missing" = "Прогресты билдәләп булмай. Артҡы планда һаман эшләп тороуы мөмкин.";
+"fileProvider.uploadProgress.title" = "Тейәү…";
+"fileProvider.uploadProgress.missingDomainError" = "Доменды табып булмай.";
+
+"getFolderIntent.error.missingPath" = "Бер ниндәй ҙә юл бирелмәгән. Каталогты кире ҡайтарыу өсөн дөрөҫ юл биреүегеҙҙе һорайбыҙ.";
+"getFolderIntent.error.noVaultSelected" = "Һаҡлағыс һайланмаған.";
+
+"hubAuthentication.title" = "Һаҡлағыс хабы";
+"hubAuthentication.accessNotGranted" = "Һеҙҙең йыһаз әлегә был һаҡлағысҡа инеү хоҡуғына эйә түгел. Һаҡлағыс хужаһынан рөхсәт һорағыҙ.";
+"hubAuthentication.licenseExceeded" = "Һеҙҙең Cryptomator хабығыҙ ғәмәлдән тыш рөхсәтнамәгә эйә. Рөхсәтнамәне яңыртыу йәки оҙайтыу өсөн Хаб администраторына хәбәр итегеҙ.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Йыһаз исеме";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Йыһазды теркәү уңышлы булды";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Һаҡлағысҡа инеү өсөн һаҡлағыс хужаһы йыһазығыҙға инеү рөхсәте бирергә тейеш.";
+
+"intents.saveFile.missingFile" = "Бирелгән файл ғәмәлдә түгел.";
+"intents.saveFile.invalidFolder" = "Бирелгән каталог ғәмәлдә түгел.";
+"intents.saveFile.missingTemporaryFolder" = "Ваҡытлыса каталогтар яһау уңышһыҙ тамамланды.";
+"intents.saveFile.lockedVault" = "Был ҡыҫҡа юлды ҡулланыр өсөн һаҡлағысты асырға кәрәк.";
+"intents.saveFile.selectedVaultNotFound" = "Һайланған һаҡлағысты табып булманы.";
+
+"keepUnlocked.alert.title" = "Һаҡлағысты бикләргәме?";
+"keepUnlockedDuration.auto.shortDisplayName" = "Авто";
+"keepUnlockedDuration.indefinite" = "Билдәһеҙ";
+
+"onboarding.title" = "Рәхим итегеҙ";
+"onboarding.button.continue" = "Дауам итергә";
+
+"purchase.beginFreeTrial.alert.title" = "Һынау версияһы асылды";
+"purchase.expiredTrial" = "Һынау вакыты бөттө.";
+"purchase.footer.privacyPolicy" = "Хосусилыҡ сәйәсәте";
 "purchase.retry.button" = "Ҡабатларға";
 
 "settings.title" = "Көйләүҙәр";
@@ -75,6 +150,7 @@
 "s3Authentication.existingBucket" = "Булған кәрзин (Bucket)";
 "s3Authentication.endpoint" = "Ос нөктә (Endpoint)";
 "s3Authentication.region" = "Регион";
+"unlockVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
 "vaultDetail.button.moveVault" = "Күсер";
 "vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
 
