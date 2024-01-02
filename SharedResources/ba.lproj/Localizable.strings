@@ -161,18 +161,62 @@
 "purchase.footer.privacyPolicy" = "Хосусилыҡ сәйәсәте";
 "purchase.footer.termsOfUse" = "Ҡулланыу шарттары";
 "purchase.header.feature.familySharing" = "Ғаилә менән уртаҡлашыу";
+"purchase.header.feature.openSource" = "Open-source эшләү";
+"purchase.header.feature.writeAccess" = "Һаҡлағыстарға яҙыу рөхсәте";
+"purchase.product.donateAndUpgrade" = "Иғәнә һәм яңыртыу";
+"purchase.product.freeUpgrade" = "Түләүһеҙ яңыртыу";
+"purchase.product.lifetimeLicense" = "Ғүмерлек рөхсәтнамә";
+"purchase.product.lifetimeLicense.duration" = "бер тапҡыр";
+"purchase.product.pricing.free" = "Түләүһеҙ";
+"purchase.product.trial" = "30 көнлөк һынау";
+"purchase.product.trial.expirationDate" = "Ҡулланыу ваҡыты: %@";
+"purchase.product.trial.duration" = "30 көн";
+"purchase.product.yearlySubscription" = "Йыллыҡ яҙылыу";
+"purchase.product.yearlySubscription.duration" = "йыл һайын";
+"purchase.readOnlyMode.alert.title" = "Уҡыу ғына режимы";
 "purchase.readOnlyMode.alert.message" = "Cryptomator ҡушымтаһының тулы версияһын һуңыраҡ көйләүҙәрҙә аса һәм уны хәҙергә тик уҡыу режимында ғына ҡуллана алаһығыҙ.";
+"purchase.restorePurchase.button" = "Һатып алыуҙы тергеҙеү";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Һынау дауам ителде";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomator-ҙың тулы версияһын хәҙер сикләүле ваҡытта ҡулланырға мөмкин. Һеҙҙең һынау ваҡыты %@- тамамлана. Шунан һуң да һаҡлағыстарығыҙға бары тик уҡыу режимында ғына инергә мөмкин буласаҡ.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Тергеҙеү уңышлы булды";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Тулы версия табылманы";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Элек һатып алынған, тергеҙелә алырлыҡ тулы версияны таба алманыҡ. Зинһар, икенсе вариантты һынап ҡарағыҙ.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Яңыртыу хоҡуғына эйә";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Cryptomator-ҙың иҫкерәк версияһынан яңыртырға тырышаһығыҙ шикелле. Был осраҡта уның урынына «Яңыртыу тәҡдиме» вариантын һайлағыҙ.";
 "purchase.retry.button" = "Ҡабатларға";
+"purchase.retry.footer" = "Булған продукттарҙы тейәп булмай.";
+"purchase.title" = "Тулы версияны асыу";
 "purchase.unlockedFullVersion.message" = "Хәҙер һеҙ Cryptomator-ҙың тулы версияһын ҡуллана алаһығыҙ. Хәйерле шифрлауҙар!";
+"purchase.unlockedFullVersion.title" = "Рәхмәт";
 "purchase.error.unknown" = "Был ҡушымта билдәһеҙ сәбәптәр арҡаһында App Store-ҙа юҡ. Зинһар, һуңыраҡ ҡабатлап ҡарағыҙ.\n\nӘгәр был хата ҡабатланһа, йыһазды яңынан эшләтеп ҡарағыҙ йәки iOS көйләүҙәрендә Apple ID-ғыҙҙан сығығыҙ һәм кире керегеҙ.";
 
 "settings.title" = "Көйләүҙәр";
+"settings.aboutCryptomator" = "Cryptomator тураһында";
+"settings.aboutCryptomator.title" = "%@ версияһы (%@)";
+"settings.cacheSize" = "Кэш күләме";
 "settings.clearCache" = "Кэшты таҙартыу";
+"settings.cloudServices" = "Болот хеҙмәттәре";
+"settings.contact" = "Бәйләнеш";
+"settings.debugMode" = "Төҙөкләндереү режимы";
 "settings.debugMode.alert.message" = "Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.";
+"settings.manageSubscriptions" = "Яҙылыуҙар менән идара итеү";
+"settings.rateApp" = "Ҡушымтаны баһаларға";
+"settings.sendLogFile" = "Журнал файлын ебәрергә";
+"settings.shortcutsGuide" = "Ҡыҫҡа юлдар гиды";
+"settings.unlockFullVersion" = "Тулы версияны асыу";
+
+"snapshots.fileprovider.file1" = "/Иҫәп-хисап.numbers";
+"snapshots.fileprovider.file2" = "/Һуңғы презентация.key";
+"snapshots.fileprovider.file3" = "/Продукт трейлеры.mov";
+"snapshots.fileprovider.file4" = "/Тәҡдим.docx";
+"snapshots.fileprovider.file5" = "/Хисаплама.pdf";
+"snapshots.fileprovider.folder3" = "/Серле проект";
+"snapshots.fileprovider.folder2" = "Фактуралар";
+"snapshots.fileprovider.folder1" = "/Сертификаттар";
+"snapshots.main.vault1" = "/Эш";
+"snapshots.main.vault2" = "/Ғаилә";
+"snapshots.main.vault3" = "/Документтар";
+"snapshots.main.vault4" = "/Калифорния сәйәхәте";
 
 "s3Authentication.displayName" = "Күренәсәк исем";
 "s3Authentication.accessKey" = "Инеү асҡысы (Access Key)";
@@ -180,16 +224,78 @@
 "s3Authentication.existingBucket" = "Булған кәрзин (Bucket)";
 "s3Authentication.endpoint" = "Ос нөктә (Endpoint)";
 "s3Authentication.region" = "Регион";
+"s3Authentication.error.invalidCredentials" = "Хаталы иҫәп яҙмаһы мәғлүмәттәре.";
 "s3Authentication.error.invalidEndpoint" = "Бирелгән ос нөктә URL-адресы форматына тап килмәй.";
+
+"trialStatus.active" = "Ғәмәлдә";
+"trialStatus.expired" = "Ваҡыты үткән";
+
+"unlockVault.button.unlock" = "Биген асырға";
+"unlockVault.button.unlockVia" = "%@ аша биген асырға";
 "unlockVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ ғәмәлдә";
+"unlockVault.enableBiometricalUnlock.footer" = "Һаҡлағысты серһүҙ менән асыу урынына уны %@ аша асырға мөмкин.";
+"unlockVault.evaluatePolicy.reason" = "Һаҡлағысығыҙҙы асыу";
+"unlockVault.progress" = "Бикте асыу…";
+
+"untrustedTLSCertificate.title" = "Ғәмәлдә булмаған TLS сертификаты";
+"untrustedTLSCertificate.message" = "\"%@\" TLS сертификаты ғәмәлдә түгел. Нисек булһа ла, уға ышанырға теләйһегеҙме?\n\nSHA-256: %@";
+"untrustedTLSCertificate.add" = "Ышанырға";
+"untrustedTLSCertificate.dismiss" = "Ышанмаҫҡа";
+
+"upgrade.title" = "Яңыртыу тәҡдиме";
+"upgrade.notEligible.alert.title" = "Яңыртыу уңышһыҙ булды";
+"upgrade.notEligible.alert.message" = "Cryptomator йыһазығыҙға ҡуйылған элекке версияны таба алманы. Әгәр уны һатып алған булһағыҙ, App Store-ҙан яңынан күсереп алып һәм яңынан ҡабатлағыҙ.";
+"upgrade.info" = "Беренсе версиянан Cryptomator-ға ышаныуығыҙ өсөн рәхмәт. Тоғро ҡулланыусы булараҡ, һеҙ бушлай яңыртыу хоҡуғына эйә.";
+
+"urlSession.error.httpError.401" = "Хаталы ҡулланыусы исеме һәм/йәки серһүҙ.";
+"urlSession.error.httpError.403" = "Һоралған ресурсҡа хоҡуҡтар етмәй.";
+"urlSession.error.httpError.404" = "Һоралған ресурс табылманы.";
+"urlSession.error.httpError.405" = "Һоратыу методы маҡсат ресурс тарафынан терәкләнмәй.";
+"urlSession.error.httpError.409" = "Һоратыу маҡсат ресурстың ағымдағы торошона тап килмәй.";
+"urlSession.error.httpError.412" = "Маҡсатлы ресурсҡа инеү тыйылды.";
+"urlSession.error.httpError.default" = "Селтәр бәйләнеше %ld статус коды менән уышһыҙ булды.";
+"urlSession.error.unexpectedResponse" = "Көтөлмәгән селтәр яуабы килде.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Был һаҡлағыс өҫтәлгән инде.";
+
+"vaultDetail.button.changeVaultPassword" = "Серһүҙҙе үҙгәртергә";
+"vaultDetail.button.lock" = "Бикләргә";
 "vaultDetail.button.moveVault" = "Күсер";
+"vaultDetail.button.removeVault" = "Һаҡлағыс исемлегенән алып ташларға";
 "vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
+"vaultDetail.changePassword.footer" = "Һаҡлағысығыҙ өсөн үҙегеҙ генә белгән көслө серһүҙ һайлағыҙ һәм уны хәүефһеҙ урында тотоғоҙ.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Әгәр һеҙ %@ ғәмәлдә булһа, һеҙҙең һаҡлағыс серһүҙегеҙ iOS-тың асҡыс сылбырында һаҡланасаҡ.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Һаҡлағыс пароле, %@ аутентификлауы уңышһыҙ булғанда ғына кәрәк буласаҡ.";
+"vaultDetail.info.footer.accessVault" = "Файлдар ҡушымтаһы аша һаҡлағысҡа инеү.";
+"vaultDetail.info.footer.accountInfo" = "%@ исеме менән %@ аша инелгән.";
+"vaultDetail.keepUnlocked.title" = "Асыҡ булыу ваҡыты";
+"vaultDetail.keepUnlocked.footer.off" = "Бикте асыу, Cryptomator Файлдар ҡушымтаһы тарафынан туҡтатылған ваҡытта кәрәк буласаҡ.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Бикте асыу, һаҡлағыс %@ буш торған ваҡытта кәрәк буласаҡ.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Ҡул менән бикләнмәһә, асыу талап ителмәйәсәк.";
+"vaultDetail.locked.footer" = "Һаҡлағысығыҙ хәҙерге ваҡытта бикле.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator был урында булған һаҡлағыс тапты.\nҺаҡлағысты күсереү өсөн кире ҡайтып икенсе каталог һайлағыҙ.";
+"vaultDetail.moveVault.progress" = "Күсереү…";
+"vaultDetail.removeVault.footer" = "Был һаҡлағысты исемлектән генә алып ташлай һәм шифрланған файлдарҙы юймай.";
+"vaultDetail.renameVault.progress" = "Исемен үҙгәртеү…";
+"vaultDetail.unlocked.footer" = "Әлеге ваҡытта һаҡлағыс Файлдар ҡушымтаһында асылған.";
+"vaultDetail.unlockVault.footer" = "\"%@\" серһүҙен iOS асҡыс сылбырында һаҡлау һәм %@ ҡулланыу өсөн серһүҙҙе яҙығыҙ.";
 
 "vaultList.header.title" = "Һаҡлағыстар";
+"vaultList.emptyList.message" = "Һаҡлағыс өҫтәү өсөн бында баҫығыҙ";
+"vaultList.remove.alert.title" = "Һаҡлағысты алып ташларғамы?";
+"vaultList.remove.alert.message" = "Был һаҡлағысты исемлектән генә алып ташлай. Шифрланған мәғлүмәттәр юйылмай. Һаҡлағысты һуңыраҡ яңынан өҫтәргә мөмкин.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Һаҡлағыс көйләүҙәре терәкһеҙ. Cryptomator-ҙың һуңғы версияһын эшләтеүегеҙҙе тикшерегеҙ.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Һаҡлағыстың терәкһеҙ версияһы: %ld. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP ҡулланыу хәүефһеҙ түгел. Уның урынына HTTPS ҡулланырға кәңәш итәбеҙ. Хәүефтәрҙе белһәгеҙ, HTTP менән дауам итә алаһығыҙ.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS ҡулланыу";
+"webDAVAuthentication.httpConnection.continue" = "HTTP ҡалһын";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Сервер WebDAV яраҡлы түгел кеүек. Дөрөҫ URL ҡулланғанығыҙҙы тикшерегеҙ.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Был серверҙың сертификаты ышанысһыҙ. Был WebDAV бәйләнешен яңынан өҫтәү кәрәк булыр.";
+
+"Retry Upload" = "Тейәүҙе ҡабатла";
+"Clear from Cache" = "Кэштан таҙала";
