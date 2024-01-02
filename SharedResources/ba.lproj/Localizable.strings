@@ -9,7 +9,7 @@
 "common.alert.attention.title" = "Иғтибар";
 "common.button.cancel" = "Кире ал";
 "common.button.change" = "Үҙгәрт";
-"common.button.choose" = "Һайларға";
+"common.button.choose" = "Һайла";
 "common.button.clear" = "Таҙала";
 "common.button.close" = "Яп";
 "common.button.confirm" = "Раҫла";
@@ -17,14 +17,14 @@
 "common.button.createFolder" = "Каталог өҫтәү";
 "common.button.done" = "Тамам";
 "common.button.download" = "Күсереп ал";
-"common.button.edit" = "Төҙәтергә";
+"common.button.edit" = "Төҙәт";
 "common.button.enable" = "Ғәмәлгә индер";
 "common.button.next" = "Киләһе";
 "common.button.ok" = "Ярай";
-"common.button.refresh" = "Яңыртырға";
+"common.button.refresh" = "Яңырт";
 "common.button.register" = "Теркәл";
 "common.button.remove" = "Алып ташлау";
-"common.button.retry" = "Ҡабатларға";
+"common.button.retry" = "Ҡабатла";
 "common.button.signOut" = "Сыҡ";
 "common.button.verify" = "Тикшер";
 "common.cells.openInFilesApp" = "Файлдар ҡушымтаһында ас";
@@ -130,7 +130,7 @@
 
 "keepUnlocked.alert.title" = "Һаҡлағысты бикләргәме?";
 "keepUnlocked.alert.message" = "Был үҙгәреш үҙ көсөнә инеү өсөн һаҡлағысты бикләүҙе талап итә.";
-"keepUnlocked.alert.confirm" = "Раҫларға һәм бикләргә";
+"keepUnlocked.alert.confirm" = "Раҫла һәм биклә";
 "keepUnlocked.header" = "Буш торғанда был һаҡлағыстың күпме ваҡыт бикһеҙ ҡалыуын һайлағыҙ.";
 "keepUnlocked.footer.auto" = "iOS-ҡа ҡарар ҡабул итеүҙе рөхсәт итеү, хәтерҙе бушатыу өсөн теләһә ҡайһы ваҡытта Cryptomator-ҙы туҡтатырға мөмкин тигәнде аңлата, был һаҡлағысты автоматик рәүештә бикләй.";
 "keepUnlocked.footer.on" = "Һайланған вариант ҡулланылғанда, һаҡлағыстың биге асылған саҡта, асҡыстың күсермәһе iOS-тың асҡыс сылбырында һаҡланырға тейеш.";
@@ -139,10 +139,10 @@
 "keepUnlockedDuration.indefinite" = "Билдәһеҙ";
 
 "localFileSystemAuthentication.createNewVault.header" = "Киләһе экранда яңы һаҡлағысығыҙ өсөн урын һайлағыҙ.";
-"localFileSystemAuthentication.createNewVault.button" = "Һаҡлау урыны һайларға";
+"localFileSystemAuthentication.createNewVault.button" = "Һаҡлау урыны һайла";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Был урында һаҡлағыс бар инде. Башҡа һаҡлау урыны менән ҡабатлап ҡарағыҙ.";
 "localFileSystemAuthentication.openExistingVault.header" = "Киләһе экранда булған һаҡлағысығыҙ өсөн каталог һайлағыҙ.";
-"localFileSystemAuthentication.openExistingVault.button" = "Һаҡлағыс каталогы һайларға";
+"localFileSystemAuthentication.openExistingVault.button" = "Һаҡлағыс каталогы һайла";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Һайланған каталог һаҡлағыс түгел. Зинһар, икенсе каталог менән ҡабатлап ҡарағыҙ.";
 "localFileSystemAuthentication.info.footer" = "Һоро төҫтәге файл провайдерҙары «каталогтар йыйыуҙы» хупламай. Был Cryptomator сикләүе түгел.";
 
@@ -154,7 +154,7 @@
 
 "onboarding.title" = "Рәхим итегеҙ";
 "onboarding.info" = "Файлдарығыҙҙы һаҡлау өсөн Cryptomator һайлағанығыҙ өсөн рәхмәтn\n\nCryptomator менән мәғлүмәттәрегеҙҙең асҡысы — һеҙҙең ҡулда. Cryptomator мәғлүмәттәрегеҙҙе тиҙ һәм еңел шифрлай.\n\nБыл ҡушымта тулыһынса Файлдар ҡушымтаһы менән берләштерелгән. Һуңыраҡ Файлдар ҡушымтаһында Cryptomator'ға һаҡлағыстарығыҙға инеү мөмкинлеген бирегеҙ.";
-"onboarding.button.continue" = "Дауам итергә";
+"onboarding.button.continue" = "Дауам ит";
 
 "purchase.beginFreeTrial.alert.title" = "Һынау версияһы асылды";
 "purchase.expiredTrial" = "Һынау вакыты бөттө.";
@@ -183,7 +183,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Элек һатып алынған, тергеҙелә алырлыҡ тулы версияны таба алманыҡ. Зинһар, икенсе вариантты һынап ҡарағыҙ.";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Яңыртыу хоҡуғына эйә";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Cryptomator-ҙың иҫкерәк версияһынан яңыртырға тырышаһығыҙ шикелле. Был осраҡта уның урынына «Яңыртыу тәҡдиме» вариантын һайлағыҙ.";
-"purchase.retry.button" = "Ҡабатларға";
+"purchase.retry.button" = "Ҡабатла";
 "purchase.retry.footer" = "Булған продукттарҙы тейәп булмай.";
 "purchase.title" = "Тулы версияны асыу";
 "purchase.unlockedFullVersion.message" = "Хәҙер һеҙ Cryptomator-ҙың тулы версияһын ҡуллана алаһығыҙ. Хәйерле шифрлауҙар!";
@@ -200,8 +200,8 @@
 "settings.debugMode" = "Төҙөкләндереү режимы";
 "settings.debugMode.alert.message" = "Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.";
 "settings.manageSubscriptions" = "Яҙылыуҙар менән идара итеү";
-"settings.rateApp" = "Ҡушымтаны баһаларға";
-"settings.sendLogFile" = "Журнал файлын ебәрергә";
+"settings.rateApp" = "Ҡушымтаны баһала";
+"settings.sendLogFile" = "Журнал файлын ебәр";
 "settings.shortcutsGuide" = "Ҡыҫҡа юлдар гиды";
 "settings.unlockFullVersion" = "Тулы версияны асыу";
 
@@ -230,8 +230,8 @@
 "trialStatus.active" = "Ғәмәлдә";
 "trialStatus.expired" = "Ваҡыты үткән";
 
-"unlockVault.button.unlock" = "Биген асырға";
-"unlockVault.button.unlockVia" = "%@ аша биген асырға";
+"unlockVault.button.unlock" = "Биген ас";
+"unlockVault.button.unlockVia" = "%@ аша биген ас";
 "unlockVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ ғәмәлдә";
 "unlockVault.enableBiometricalUnlock.footer" = "Һаҡлағысты серһүҙ менән асыу урынына уны %@ аша асырға мөмкин.";
@@ -240,7 +240,7 @@
 
 "untrustedTLSCertificate.title" = "Ғәмәлдә булмаған TLS сертификаты";
 "untrustedTLSCertificate.message" = "\"%@\" TLS сертификаты ғәмәлдә түгел. Нисек булһа ла, уға ышанырға теләйһегеҙме?\n\nSHA-256: %@";
-"untrustedTLSCertificate.add" = "Ышанырға";
+"untrustedTLSCertificate.add" = "Ышан";
 "untrustedTLSCertificate.dismiss" = "Ышанмаҫҡа";
 
 "upgrade.title" = "Яңыртыу тәҡдиме";
@@ -259,11 +259,11 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Был һаҡлағыс өҫтәлгән инде.";
 
-"vaultDetail.button.changeVaultPassword" = "Серһүҙҙе үҙгәртергә";
-"vaultDetail.button.lock" = "Бикләргә";
+"vaultDetail.button.changeVaultPassword" = "Серһүҙҙе үҙгәрт";
+"vaultDetail.button.lock" = "Биклә";
 "vaultDetail.button.moveVault" = "Күсер";
-"vaultDetail.button.removeVault" = "Һаҡлағыс исемлегенән алып ташларға";
-"vaultDetail.button.renameVault" = "Исемен үҙгәртергә";
+"vaultDetail.button.removeVault" = "Һаҡлағыс исемлегенән алып ташла";
+"vaultDetail.button.renameVault" = "Исемен үҙгәрт";
 "vaultDetail.changePassword.footer" = "Һаҡлағысығыҙ өсөн үҙегеҙ генә белгән көслө серһүҙ һайлағыҙ һәм уны хәүефһеҙ урында тотоғоҙ.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Әгәр һеҙ %@ ғәмәлдә булһа, һеҙҙең һаҡлағыс серһүҙегеҙ iOS-тың асҡыс сылбырында һаҡланасаҡ.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Һаҡлағыс пароле, %@ аутентификлауы уңышһыҙ булғанда ғына кәрәк буласаҡ.";
