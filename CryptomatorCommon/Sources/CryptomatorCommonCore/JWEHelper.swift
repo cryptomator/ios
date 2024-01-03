@@ -11,6 +11,11 @@ import Foundation
 import JOSESwift
 import SwiftECC
 
+public enum JWEHelperError: Error {
+	case invalidDecrypter
+	case invalidMasterkeyPayload
+}
+
 public enum JWEHelper {
 	public static func decryptVaultKey(jwe: JWE, with privateKey: P384.KeyAgreement.PrivateKey) throws -> Masterkey {
 		// see https://developer.apple.com/forums/thread/680554
@@ -20,8 +25,7 @@ public enum JWEHelper {
 		let decryptionKey = try ECPrivateKey(crv: "P-384", x: x.base64UrlEncodedString(), y: y.base64UrlEncodedString(), privateKey: k.base64UrlEncodedString())
 
 		guard let decrypter = Decrypter(keyManagementAlgorithm: .ECDH_ES, contentEncryptionAlgorithm: .A256GCM, decryptionKey: decryptionKey) else {
-			// TODO: Change Error
-			throw VaultManagerError.invalidDecrypter
+			throw JWEHelperError.invalidDecrypter
 		}
 		let payload = try jwe.decrypt(using: decrypter)
 		let payloadMasterkey = try JSONDecoder().decode(PayloadMasterkey.self, from: payload.data())
@@ -43,8 +47,7 @@ public enum JWEHelper {
 		guard let decrypter = Decrypter(keyManagementAlgorithm: .ECDH_ES,
 		                                contentEncryptionAlgorithm: .A256GCM,
 		                                decryptionKey: decryptionKey) else {
-			// TODO: Change Error
-			throw VaultManagerError.invalidDecrypter
+			throw JWEHelperError.invalidDecrypter
 		}
 		let payload = try jwe.decrypt(using: decrypter)
 		return try decodeUserKey(payload: payload)
@@ -54,8 +57,7 @@ public enum JWEHelper {
 		guard let decrypter = Decrypter(keyManagementAlgorithm: .PBES2_HS512_A256KW,
 		                                contentEncryptionAlgorithm: .A256GCM,
 		                                decryptionKey: setupCode) else {
-			// TODO: Change Error
-			throw VaultManagerError.invalidDecrypter
+			throw JWEHelperError.invalidDecrypter
 		}
 		let payload = try jwe.decrypt(using: decrypter)
 		return try decodeUserKey(payload: payload)
@@ -71,8 +73,7 @@ public enum JWEHelper {
 		guard let encrypter = Encrypter(keyManagementAlgorithm: .ECDH_ES,
 		                                contentEncryptionAlgorithm: .A256GCM,
 		                                encryptionKey: encryptionKey) else {
-			// TODO: Change Error
-			throw VaultManagerError.invalidDecrypter
+			throw JWEHelperError.invalidDecrypter
 		}
 		let payloadKey = try PayloadMasterkey(key: userKey.derPkcs8().base64EncodedString())
 		let payload = try Payload(JSONEncoder().encode(payloadKey))
@@ -83,8 +84,7 @@ public enum JWEHelper {
 		let decodedPayload = try JSONDecoder().decode(PayloadMasterkey.self, from: payload.data())
 
 		guard let privateKeyData = Data(base64Encoded: decodedPayload.key) else {
-			// TODO: Change
-			fatalError()
+			throw JWEHelperError.invalidMasterkeyPayload
 		}
 		return try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: privateKeyData)
 	}
