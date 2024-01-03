@@ -119,8 +119,11 @@
 "hubAuthentication.licenseExceeded" = "Twoja instancja Hub ma nieprawidłową licencję. Poproś administratora Hub o uaktualnienie lub odnowienie licencji.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nazwa urządzenia";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Rejestracja urządzenia powiodła się";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
+"hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
 
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
 "intents.saveFile.invalidFolder" = "Wskazany folder jest niewłaściwy.";
