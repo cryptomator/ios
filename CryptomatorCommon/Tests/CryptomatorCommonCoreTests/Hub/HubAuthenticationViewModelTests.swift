@@ -122,16 +122,19 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(receivedResponse?.subscriptionState, .active)
 	}
 
-	// TODO: Don't skip test as soon as the hub instance does return a valid header and we no longer hardcode a active hub subscription state!
-	func skip_testContinueToAccessCheck_success_hubSubscriptionStateIsInactive() async throws {
+	func testContinueToAccessCheck_success_hubSubscriptionStateIsInactive() async throws {
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
 		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
 
 		// GIVEN
-		// the hub key service returns success with an inactive Cryptomator Hub subscription state
+		// the hub key service returns success with an active Cryptomator Hub subscription state
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "INACTIVE"])
-		hubKeyProviderMock.getPrivateKeyReturnValue = P384.KeyAgreement.PrivateKey(compactRepresentable: false)
+
+		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
+		let data = Data(base64Encoded: devicePrivKey)!
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
 
 		// WHEN
 		// continue the access check

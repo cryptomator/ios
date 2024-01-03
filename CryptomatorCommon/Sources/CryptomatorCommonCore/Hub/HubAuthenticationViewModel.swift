@@ -117,7 +117,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		do {
 			let deviceKey = try cryptomatorHubKeyProvider.getPrivateKey()
 			userKey = try JWEHelper.decryptUserKey(jwe: flowResponse.encryptedUserKey, privateKey: deviceKey)
-			subscriptionState = .active // try getSubscriptionState(from: flowResponse.header) // TODO: Revert this after Cryptomator Hub adds the subscription state back to the header
+			subscriptionState = try getSubscriptionState(from: flowResponse.header)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
