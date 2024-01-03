@@ -105,4 +105,18 @@ extension HubAuthenticationCoordinator: HubAuthenticationViewModelDelegate {
 	public func hubAuthenticationViewModelWantsToHideLoadingIndicator() async {
 		await hideProgressHUD()
 	}
+
+	public func hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: URL) {
+		let alertController = UIAlertController(title: LocalizedString.getValue("hubAuthentication.requireAccountInit.alert.title"),
+		                                        message: LocalizedString.getValue("hubAuthentication.requireAccountInit.alert.message"),
+		                                        preferredStyle: .alert)
+
+		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel))
+		let goToProfileAction = UIAlertAction(title: LocalizedString.getValue("hubAuthentication.requireAccountInit.alert.actionButton"),
+		                                      style: .default,
+		                                      handler: { _ in UIApplication.shared.open(profileURL) })
+		alertController.addAction(goToProfileAction)
+
+		navigationController.present(alertController, animated: true)
+	}
 }

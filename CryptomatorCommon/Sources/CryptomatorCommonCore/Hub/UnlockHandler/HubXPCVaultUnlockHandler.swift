@@ -19,7 +19,7 @@ struct HubXPCVaultUnlockHandler: HubVaultUnlockHandler {
 	func didSuccessfullyRemoteUnlock(_ response: HubUnlockResponse) async {
 		let masterkey: Masterkey
 		do {
-			masterkey = try JWEHelper.decrypt(jwe: response.jwe, with: response.privateKey)
+			masterkey = try JWEHelper.decryptVaultKey(jwe: response.jwe, with: response.privateKey)
 		} catch {
 			await delegate?.failedToProcessUnlockedVault(error: error)
 			return

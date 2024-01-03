@@ -10,6 +10,15 @@
       }
     },
     {
+      "identity" : "asn1",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leif-ibsen/ASN1",
+      "state" : {
+        "revision" : "5bb6eca2e4b250995f189c3d04ec53b6cd8257c5",
+        "version" : "2.2.0"
+      }
+    },
+    {
       "identity" : "asn1swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tikhop/ASN1Swift",
@@ -23,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
       "state" : {
-        "revision" : "ca31418963a90bac80538e13f6b7af87ea14d279",
-        "version" : "2.33.4"
+        "revision" : "59fdc9ca7ff3f5d38e07af27526a527c199b8de6",
+        "version" : "2.33.7"
       }
     },
     {
@@ -37,12 +46,21 @@
       }
     },
     {
+      "identity" : "bigint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leif-ibsen/BigInt",
+      "state" : {
+        "revision" : "3fe07ec38afa732e86d4f3e867cb43b05d004941",
+        "version" : "1.14.0"
+      }
+    },
+    {
       "identity" : "cloud-access-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "1fe06a85f9ea38d9b22a84fb7dbd8de127c65f82",
-        "version" : "1.8.1"
+        "revision" : "63fd1cfee9e4d1c0a8d585dd0c7008eb37d2f037",
+        "version" : "1.9.0"
       }
     },
     {
@@ -60,6 +78,15 @@
       "location" : "https://github.com/cryptomator/cryptolib-swift.git",
       "state" : {
         "revision" : "6e5dbea6e05742ad82a074bf7ee8c3305d92fbae",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "digest",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leif-ibsen/Digest",
+      "state" : {
+        "revision" : "fd501645c5f14c17207c4ada4281a1e6b7cb03df",
         "version" : "1.1.0"
       }
     },
@@ -113,8 +140,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tobihagemann/JOSESwift.git",
       "state" : {
-        "revision" : "11442e7f1f803ef42281909c68f386b38afc5096",
-        "version" : "2.4.0-cryptomator"
+        "revision" : "3544f8117908ef12ea13b1c0927e0e3c0d30ee01",
+        "version" : "2.4.1-cryptomator"
       }
     },
     {
@@ -122,8 +149,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
       "state" : {
-        "revision" : "35846731c0971694f162b28fe8494c03b615ae74",
-        "version" : "1.2.16"
+        "revision" : "e9ef281b2f281c3ba2d32608138b1431cba5e4df",
+        "version" : "1.2.20"
       }
     },
     {
@@ -178,6 +205,15 @@
       "state" : {
         "revision" : "532d8b529501fb73a2455b179e0bbb6d49b652ed",
         "version" : "1.5.3"
+      }
+    },
+    {
+      "identity" : "swiftecc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/leif-ibsen/SwiftECC",
+      "state" : {
+        "revision" : "18c0e462882d0a4fa910472a0a6cc13ef97bbc21",
+        "version" : "5.0.0"
       }
     },
     {
