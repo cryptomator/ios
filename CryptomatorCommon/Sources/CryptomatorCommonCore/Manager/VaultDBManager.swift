@@ -21,8 +21,6 @@ public enum VaultManagerError: Error {
 	case vaultVersionNotSupported
 	case fileProviderDomainNotFound
 	case moveVaultInsideItself
-	case invalidDecrypter
-	case invalidPayloadMasterkey
 	case missingVaultConfigToken
 }
 

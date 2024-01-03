@@ -212,7 +212,7 @@ final class JWEHelperTests: XCTestCase {
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
-			guard case VaultManagerError.invalidPayloadMasterkey = error else {
+			guard case JWEHelperError.invalidMasterkeyPayload = error else {
 				XCTFail("Unexpected error: \(error)")
 				return
 			}

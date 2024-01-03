@@ -31,7 +31,7 @@ public enum JWEHelper {
 		let payloadMasterkey = try JSONDecoder().decode(PayloadMasterkey.self, from: payload.data())
 
 		guard let masterkeyData = Data(base64Encoded: payloadMasterkey.key) else {
-			throw VaultManagerError.invalidPayloadMasterkey
+			throw JWEHelperError.invalidMasterkeyPayload
 		}
 		return Masterkey.createFromRaw(rawKey: [UInt8](masterkeyData))
 	}
