@@ -79,7 +79,7 @@ public class VaultDBManager: VaultManager {
 	 */
 	public func createNewVault(withVaultUID vaultUID: String, delegateAccountUID: String, vaultPath: CloudPath, password: String, storePasswordInKeychain: Bool) -> Promise<Void> {
 		let tmpDirURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true).appendingPathComponent(UUID().uuidString, isDirectory: true)
-		let cipherCombo = CryptorScheme.sivCtrMac
+		let cipherCombo = CryptorScheme.sivGcm
 		let vaultConfig = VaultConfig.createNew(format: 8, cipherCombo: cipherCombo, shorteningThreshold: 220)
 		let masterkey: Masterkey
 		let provider: LocalizedCloudProviderDecorator

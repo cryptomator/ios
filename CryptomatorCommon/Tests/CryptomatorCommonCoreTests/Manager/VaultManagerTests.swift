@@ -125,11 +125,11 @@ class VaultManagerTests: XCTestCase {
 			}
 			XCTAssertEqual(uploadedVaultConfigToken, savedVaultConfigToken)
 			let vaultConfig = try UnverifiedVaultConfig(token: savedVaultConfigToken)
-			XCTAssertEqual("SIV_CTRMAC", vaultConfig.allegedCipherCombo)
+			XCTAssertEqual("SIV_GCM", vaultConfig.allegedCipherCombo)
 			XCTAssertEqual(8, vaultConfig.allegedFormat)
 
 			let uploadedRootDirIdFile = try getUploadedData(at: CloudPath(cloudProviderMock.createdFolders[3]).appendingPathComponent("dirid.c9r"))
-			XCTAssertEqual(88, uploadedRootDirIdFile.count)
+			XCTAssertEqual(68, uploadedRootDirIdFile.count)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {
