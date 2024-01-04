@@ -116,7 +116,11 @@
 "hubAuthentication.accessNotGranted" = "お使いのデバイスはまだこの金庫にアクセスする権限がありません。金庫のオーナーに権限を与えてもらってください。";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには，金庫のオーナーが端末を認証する必要があります。";
+"hubAuthentication.requireAccountInit.alert.title" = "要対応";
+"hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
 
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
 "intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
