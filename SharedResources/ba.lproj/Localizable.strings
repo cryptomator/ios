@@ -119,8 +119,12 @@
 "hubAuthentication.licenseExceeded" = "Һеҙҙең Cryptomator хабығыҙ ғәмәлдән тыш рөхсәтнамәгә эйә. Рөхсәтнамәне яңыртыу йәки оҙайтыу өсөн Хаб администраторына хәбәр итегеҙ.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Йыһаз исеме";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Яңы ҡушымталар йәки браузерҙарҙан инеү өсөн Һеҙҙең иҫәп-хисап асҡысы кәрәк. Уны профилегеҙҙә табырға мөмкин.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Йыһазды теркәү уңышлы булды";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Һаҡлағысҡа инеү өсөн һаҡлағыс хужаһы йыһазығыҙға инеү рөхсәте бирергә тейеш.";
+"hubAuthentication.requireAccountInit.alert.title" = "Кәрәкле эш-хәрәкәт";
+"hubAuthentication.requireAccountInit.alert.message" = "Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Профилгә күс";
 
 "intents.saveFile.missingFile" = "Бирелгән файл ғәмәлдә түгел.";
 "intents.saveFile.invalidFolder" = "Бирелгән каталог ғәмәлдә түгел.";
