@@ -32,9 +32,9 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Ҡулланыусы исеме";
 "common.footer.learnMore" = "Артабан уҡырға.";
-"common.hud.authenticating" = "Аутентификлау…";
+"common.hud.authenticating" = "Аутентиклау…";
 
-"accountList.header.title" = "Аутентификлауҙар";
+"accountList.header.title" = "Аутентиклауҙар";
 "accountList.emptyList.message" = "Иҫәп яҙмаһы өҫтәү өсөн бында баҫығыҙ";
 "accountList.signOut.alert.title" = "Бәйле һаҡлағыстарҙы юйырғамы?";
 "accountList.signOut.alert.message" = "Сығыу менән бөтә бәйле һаҡлағыстар исемлектән алып ташланасаҡ. Шифрланған мәғлүмәттәр юйылмаясаҡ. Аҙаҡтан яңынан инеп һаҡлағыстарҙы ҡабаттан өҫтәй алаһығыҙ.";
@@ -270,7 +270,7 @@
 "vaultDetail.button.renameVault" = "Исемен үҙгәрт";
 "vaultDetail.changePassword.footer" = "Һаҡлағысығыҙ өсөн үҙегеҙ генә белгән көслө серһүҙ һайлағыҙ һәм уны хәүефһеҙ урында тотоғоҙ.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Әгәр һеҙ %@ ғәмәлдә булһа, һеҙҙең һаҡлағыс серһүҙегеҙ iOS-тың асҡыс сылбырында һаҡланасаҡ.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Һаҡлағыс пароле, %@ аутентификлауы уңышһыҙ булғанда ғына кәрәк буласаҡ.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Һаҡлағыс пароле, %@ аутентиклауы уңышһыҙ булғанда ғына кәрәк буласаҡ.";
 "vaultDetail.info.footer.accessVault" = "Файлдар ҡушымтаһы аша һаҡлағысҡа инеү.";
 "vaultDetail.info.footer.accountInfo" = "%@ исеме менән %@ аша инелгән.";
 "vaultDetail.keepUnlocked.title" = "Асыҡ булыу ваҡыты";
@@ -290,7 +290,7 @@
 "vaultList.remove.alert.title" = "Һаҡлағысты алып ташларғамы?";
 "vaultList.remove.alert.message" = "Был һаҡлағысты исемлектән генә алып ташлай. Шифрланған мәғлүмәттәр юйылмай. Һаҡлағысты һуңыраҡ яңынан өҫтәргә мөмкин.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "Һаҡлағыс көйләүҙәре терәкһеҙ. Cryptomator-ҙың һуңғы версияһын эшләтеүегеҙҙе тикшерегеҙ.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Һаҡлағыс конфигурацияһы терәкһеҙ. Cryptomator-ҙың һуңғы версияһын эшләтеүегеҙҙе тикшерегеҙ.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Һаҡлағыстың терәкһеҙ версияһы: %ld. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
