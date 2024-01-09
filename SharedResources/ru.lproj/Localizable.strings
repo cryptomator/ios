@@ -119,12 +119,12 @@
 "hubAuthentication.licenseExceeded" = "У вашего Cryptomator Hub неверная лицензия. Попросите Hub администратора обновить или продлить лицензию.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Имя устройства";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Похоже, это первый доступ к Hub с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.";
-"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ключ вашего аккаунта требуется для входа в систему из новых приложений или браузеров. Его можно найти в вашем профиле.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Для входа в систему из новых приложений или браузеров требуется ключ вашего аккаунта. Он находится в вашем профиле.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройство успешно зарегистрировано";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Для доступа к хранилищу ваше устройство должно быть авторизовано владельцем хранилища.";
 "hubAuthentication.requireAccountInit.alert.title" = "Требуется действие";
 "hubAuthentication.requireAccountInit.alert.message" = "Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.";
-"hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в Профиль";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в профиль";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
 "intents.saveFile.invalidFolder" = "Выбрана некорректная папка.";
