@@ -62,7 +62,11 @@
 "hubAuthentication.accessNotGranted" = "Ваш пристрій ще не має прав доступу до цього vault. Попросіть власника vault надати їх.";
 "hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, повідомте адміністратору Hub, що потрібно оновити або продовжити ліцензію.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш Account Key необхідний для входу в систему з нових програм або браузерів. Його можна знайти в профілі.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб отримати доступ до vault, ваш пристрій повинен бути авторизований власником vault.";
+"hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
+"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "localFileSystemAuthentication.openExistingVault.button" = "Виберіть папку сховища";
 
