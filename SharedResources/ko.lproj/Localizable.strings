@@ -15,10 +15,12 @@
 "common.button.create" = "생성";
 "common.button.createFolder" = "폴더 생성";
 "common.button.done" = "완료";
+"common.button.download" = "다운로드";
 "common.button.edit" = "수정";
 "common.button.enable" = "활성화";
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
+"common.button.refresh" = "새로고침";
 "common.button.remove" = "제거";
 "common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
@@ -28,6 +30,9 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "사용자명";
 "common.footer.learnMore" = "자세히 알아보기";
+"common.hud.authenticating" = "로그인중…";
+
+"accountList.header.title" = "계정";
 "accountList.emptyList.message" = "여기를 눌러 계정 추가";
 "accountList.signOut.alert.title" = "연결된 Vault를 제거하시겠습니까?";
 "accountList.signOut.alert.message" = "로그아웃 시, 연결된 Vault가 목록에서 모두 제거됩니다. 암호화된 데이터가 삭제되는 것은 아닙니다. 다시 로그인 시 Vault를 다시 추가 할 수 있습니다.";
@@ -37,7 +42,9 @@
 "addVault.createNewVault.purchase" = "새로운 vault를 만들려면 정식 버전을 구입해야 합니다.";
 "addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault 이름은 비어있을 수 없습니다.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화 파일을 어디에 저장하시겠습니까?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"가 이미 존재합니다. 다른 vault명을 정하거나 다른 위치를 선택해주세요.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
@@ -60,6 +67,7 @@
 "biometryType.touchID" = "Touch ID";
 
 "changePassword.error.invalidOldPassword" = "기존 비밀번호가 올바르지 않습니다. 다시 시도하십시오.";
+"changePassword.header.currentPassword.title" = "기존 비밀번호를 입력해주세요.";
 "changePassword.header.newPassword.title" = "새 비밀번호를 입력하세요.";
 "changePassword.header.newPasswordConfirmation.title" = "새 비밀번호 확인.";
 "changePassword.progress" = "비밀번호 변경 중...";
@@ -70,6 +78,12 @@
 "chooseFolder.createNewFolder.error.emptyFolderName" = "폴더 이름이 비어 있어서는 안 됩니다.";
 "chooseFolder.createNewFolder.progress" = "폴더 생성 중...";
 
+"cloudProvider.error.itemNotFound" = "\"%@\"를 찾을 수 없습니다.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\"가 이미 존재합니다.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\"의 파일 타입이 올바르지 않습니다.";
+"cloudProvider.error.parentFolderDoesNotExist" = "상위 폴더 \"%@\"가 존재하지 않습니다.";
+"cloudProvider.error.quotaInsufficient" = "저장공간이 부족합니다.";
+
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
 
 "fileProvider.onboarding.title" = "환영합니다";
@@ -79,6 +93,10 @@
 "fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
 "fileProvider.uploadProgress.title" = "업로드 중…";
+"hubAuthentication.accessNotGranted" = "귀하의 기기는 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
+
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
 
@@ -121,6 +139,7 @@
 "s3Authentication.displayName" = "표시 이름";
 "s3Authentication.accessKey" = "액세스 키";
 "s3Authentication.secretKey" = "비밀키";
+"s3Authentication.existingBucket" = "이미 존재하는 버킷";
 "s3Authentication.endpoint" = "엔드포인트";
 "s3Authentication.region" = "지역";
 
@@ -138,6 +157,7 @@
 "vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
 "vaultDetail.button.moveVault" = "이동";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.renameVault.progress" = "이름변경중…";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
@@ -147,3 +167,5 @@
 "webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니가?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
+
+"Retry Upload" = "업로드 재시도";

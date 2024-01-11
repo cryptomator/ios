@@ -21,6 +21,8 @@
 "common.button.enable" = "Aktivieren";
 "common.button.next" = "Weiter";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Aktualisieren";
+"common.button.register" = "Registrieren";
 "common.button.remove" = "Entfernen";
 "common.button.retry" = "Wiederholen";
 "common.button.signOut" = "Ausloggen";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Wo befindet sich der Tresor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator hat den Tresor „%@“ erkannt.\nMöchtest du diesen Tresor hinzufügen?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Diesen Tresor hinzufügen";
+"addVault.openExistingVault.downloadVault.progress" = "Tresor wird heruntergeladen…";
 "addVault.openExistingVault.password.footer" = "Gib das Passwort für „%@“ ein.";
 "addVault.openExistingVault.progress" = "Tresor wird hinzugefügt …";
 "addVault.success.info" = "Tresor „%@“ erfolgreich hinzugefügt.\nGreife auf diesen Tresor über die App „Dateien“ zu.";
@@ -80,7 +83,7 @@
 
 "cloudProvider.error.itemNotFound" = "„%@“ konnte nicht gefunden werden.";
 "cloudProvider.error.itemAlreadyExists" = "„%@“ existiert bereits.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" hat einen unerwarteten Elementtyp.";
+"cloudProvider.error.itemTypeMismatch" = "„%@“ hat einen unerwarteten Dateityp.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Übergeordneter Ordner „%@“ existiert nicht.";
 "cloudProvider.error.pageTokenInvalid" = "Abrufen von Verzeichnisinhalten konnte nicht fortgesetzt werden.";
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
@@ -108,9 +111,22 @@
 "fileProvider.uploadProgress.title" = "Wird hochgeladen …";
 "fileProvider.uploadProgress.missingDomainError" = "Domain konnte nicht gefunden werden.";
 
-"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte gib einen gültigen Pfad zu einem Ordner an.";
+"getFolderIntent.error.missingPath" = "Es wurde kein Pfad angegeben. Bitte geben Sie einen gültigen Pfad an, für den ein Ordner angegeben werden soll.";
 "getFolderIntent.error.noVaultSelected" = "Es wurde kein Tresor ausgewählt.";
-"intents.saveFile.missingFile" = "Die angegebene Datei ist ungültig.";
+
+"hubAuthentication.title" = "Hubtresor";
+"hubAuthentication.accessNotGranted" = "Dein Gerät wurde noch nicht für den Zugriff auf diesen Tresor autorisiert. Bitte den Tresorbesitzer, dein Gerät zu autorisieren.";
+"hubAuthentication.licenseExceeded" = "Die Lizenz deiner Cryptomator-Hub-Instanz ist ungültig. Bitte informiere deinen Hub-Administrator, um die Lizenz zu erweitern oder zu erneuern.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Gerätename";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ihr Account Key ist erforderlich, um sich von neuen Anwendungen oder Browsern aus anzumelden. Sie können ihn in Ihrem Profil finden.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Gerät erfolgreich registriert";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Für Zugriff auf den Tresor muss dein Gerät vom Tresorbesitzer autorisiert werden.";
+"hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
+"hubAuthentication.requireAccountInit.alert.message" = "Um fortzufahren, führen Sie bitte die erforderlichen Schritte in Ihrem Hub Benutzerprofil aus.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
+
+"intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
 "intents.saveFile.missingTemporaryFolder" = "Erstellung eines temporären Ordners fehlgeschlagen.";
 "intents.saveFile.lockedVault" = "Du musst deinen Tresor entsperren, um diesen Kurzbefehl nutzen zu können.";

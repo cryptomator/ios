@@ -21,6 +21,8 @@
 "common.button.enable" = "启用";
 "common.button.next" = "下一步";
 "common.button.ok" = "确定";
+"common.button.refresh" = "刷新";
+"common.button.register" = "注册";
 "common.button.remove" = "删除";
 "common.button.retry" = "重试";
 "common.button.signOut" = "退出登录";
@@ -46,7 +48,7 @@
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 应该在哪里存储您保险库的加密文件？";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" 已存在于此位置，请更换保险库名称或位置。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 已在此路径检测到保险库。\n若想创建一个新的保险库，请返回并选择其他路径。";
-"addVault.createNewVault.password.enterPassword.header" = "输入新密码。";
+"addVault.createNewVault.password.enterPassword.header" = "输入新密码";
 "addVault.createNewVault.password.confirmPassword.header" = "确认新密码。";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "确认密码？";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示：一旦您忘记密码，将永远无法恢复您的数据。";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "该保险库的路径在哪？";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 检测到保险库 \"%@\"。\n您想要添加它吗？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加此保险库";
+"addVault.openExistingVault.downloadVault.progress" = "正在下载保险库…";
 "addVault.openExistingVault.password.footer" = "输入 \"%@\" 的密码。";
 "addVault.openExistingVault.progress" = "正在添加保险库……";
 "addVault.success.info" = "成功添加保险库 \"%@\"。\n现在可通过文管应用访问它。";
@@ -68,7 +71,7 @@
 
 "changePassword.error.invalidOldPassword" = "当前密码错误，请重试。";
 "changePassword.header.currentPassword.title" = "请输入当前密码。";
-"changePassword.header.newPassword.title" = "输入新密码。";
+"changePassword.header.newPassword.title" = "输入新密码";
 "changePassword.header.newPasswordConfirmation.title" = "确认新密码。";
 "changePassword.progress" = "正在修改密码……";
 
@@ -110,6 +113,19 @@
 
 "getFolderIntent.error.missingPath" = "未提供路径，请提供文件夹应转到的有效路径。";
 "getFolderIntent.error.noVaultSelected" = "未选择任何保险库。";
+
+"hubAuthentication.title" = "Hub 保险库";
+"hubAuthentication.accessNotGranted" = "您的设备尚未授权访问此保险库，请联系保险库所有者，";
+"hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 实例许可证无效，请联系Hub管理员升级或者续订许可证。";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "设备名称";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "这似乎是设备的首次 Hub 访问。为了识别它以进行访问授权，您需要命名此设备";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "从新应用或浏览器登录需要您的账户密钥，您可以在个人中心找到它";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "注册设备成功";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "要访问保险库，设备需得到保险库所有者的授权。";
+"hubAuthentication.requireAccountInit.alert.title" = "需要操作";
+"hubAuthentication.requireAccountInit.alert.message" = "要继续，请完成 Hub 用户中心所需的步骤";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "前往个人中心";
+
 "intents.saveFile.missingFile" = "提供的文件无效。";
 "intents.saveFile.invalidFolder" = "提供的文件夹无效。";
 "intents.saveFile.missingTemporaryFolder" = "无法创建临时文件夹。";

@@ -1,0 +1,33 @@
+"common.failureReason" = "Уңышһыҙлыҡ сәбәбе";
+"common.false" = "юҡ";
+"common.folder" = "Каталог";
+"common.true" = "эйе";
+"common.vault" = "Һаҡлағыс";
+
+"getFolderIntent.description" = "Күрһәтелгән һаҡлағыста бирелгән юл өсөн каталог объектын кире ҡайтара.";
+"getFolderIntent.path" = "Юл";
+"getFolderIntent.text" = "${vault} эсендәге ${path} юллы каталогты ал";
+"getFolderIntent.title" = "Каталогты ал";
+
+"isUnlockedIntent.description" = "Күрһәтелгән һаҡлағыстың асыҡмы икәнен күрһәтә.";
+"isUnlockedIntent.title" = "Бик асыу";
+
+"isVaultLockedIntent.title" = "Һаҡлағыс биге асыҡ";
+"isVaultUnlockedIntent.text" = "${vault} биге асыҡмы?";
+
+"lockVaultIntent.description" = "Күрһәтелгән һаҡлағысты бикләй.";
+"lockVaultIntent.text" = "${vault} биклә";
+"lockVaultIntent.title" = "Һаҡлағысты бикләү";
+
+"openVaultIntent.description" = "Файлдар ҡушымтаһында күрһәтелгән һаҡлағысты аса.";
+"openVaultIntent.text" = "Файлдар ҡушымтаһында ${vault} ас";
+"openVaultIntent.title" = "Һаҡлағыс асыу";
+
+"saveFileIntent.description" = "Файлды һаҡлағысҡа һаҡлай.";
+"saveFileIntent.file" = "Файл";
+"saveFileIntent.parameter.ignoreExisting" = "Бер иш исемле файлды иғтибарһыҙ ҡалдырырға";
+"saveFileIntent.text" = "${file} файлы ${folder} каталогына һаҡлай";
+"saveFileIntent.title" = "Файлды һаҡлау";
+
+"vaultFolder.displayName" = "Һаҡлағыс каталогы";
+"vaultFolder.vaultIdentifier" = "Һаҡлағыс идентификаторы";

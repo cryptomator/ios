@@ -1,0 +1,52 @@
+"common.button.cancel" = "Отказ";
+"common.button.change" = "Променяне";
+"common.button.choose" = "Избор";
+"common.button.close" = "Затваряне";
+"common.button.create" = "Създаване";
+"common.button.done" = "Готово";
+"common.button.edit" = "Редактиране";
+"common.button.next" = "Напред";
+"common.button.refresh" = "Презареждане";
+"common.button.register" = "Регистриране";
+"common.button.remove" = "Премахване";
+"common.button.retry" = "Повторен опит";
+"common.cells.password" = "Парола";
+"common.cells.url" = "URL";
+"common.cells.username" = "Потребител";
+
+"addVault.title" = "Добавяне на хранилище";
+"addVault.createNewVault.title" = "Ново хранилище";
+"addVault.createNewVault.setVaultName.cells.name" = "Наименование";
+"addVault.createNewVault.chooseCloud.header" = "Къде Криптоматор ще държи шифрованите файлове на хранилището?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖНО: Ако забравите паролата няма начин да възстановите достъпа до данните.";
+"addVault.openExistingVault.title" = "Отваряне на хранилище";
+"addVault.openExistingVault.downloadVault.progress" = "Изтегля се хранилище…";
+"fileProvider.error.unlockButton" = "Отключване";
+
+"hubAuthentication.title" = "Хранилище на Hub";
+"hubAuthentication.accessNotGranted" = "Устройството не е упълномощено за достъп до това хранилище. Поискайте достъп от собственика.";
+"hubAuthentication.licenseExceeded" = "Лиценза на екземпляра на Концентратора на Криптоматор който вие използвате е лиценз. Информирайте администратора на Концентратора, за да поднови или надгради лиценза.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Име на устройството";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Изглежда, че това е първи достъп до Hub от това устройство. За да го разпознаете при разрешаване на достъпа, трябва да му дадете име.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Вашият ключ за профила е необходим при вход от нови приложения или мрежови четци. Може да бъде намерен в профила.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройството е регистрирано";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "За да получи достъп до хранилището, устройството трябва да бъде упълномощено от собственика на хранилището.";
+"hubAuthentication.requireAccountInit.alert.title" = "Необходимо е действие";
+"hubAuthentication.requireAccountInit.alert.message" = "За да продължите завършете необходимите стъпки в потребителския профил в Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Към профила";
+"purchase.retry.button" = "Повторен опит";
+
+"settings.title" = "Настройки";
+
+"s3Authentication.displayName" = "Показвано име";
+"s3Authentication.accessKey" = "Ключ за достъп";
+"s3Authentication.secretKey" = "Таен ключ";
+"s3Authentication.existingBucket" = "Bucket";
+"s3Authentication.endpoint" = "Крайна точка";
+"s3Authentication.region" = "Регион";
+
+"unlockVault.button.unlock" = "Отключване";
+
+"vaultDetail.button.changeVaultPassword" = "Промяна на парола";
+"vaultDetail.button.moveVault" = "Преместване";
+"vaultDetail.button.renameVault" = "Преименуване";

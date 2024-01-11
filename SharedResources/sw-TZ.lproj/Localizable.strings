@@ -21,6 +21,7 @@
 "common.button.enable" = "Wezesha";
 "common.button.next" = "Nyingine";
 "common.button.ok" = "Sawa";
+"common.button.refresh" = "Onesha upya";
 "common.button.remove" = "Ondoa";
 "common.button.retry" = "Jaribu tena";
 "common.button.signOut" = "Ondoka";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Hakuna njia iliyotolewa. Tafadhali toa njia halali ambayo folda inapaswa kurejeshwa.";
 "getFolderIntent.error.noVaultSelected" = "Hakuna kuba iliyochaguliwa.";
+"hubAuthentication.accessNotGranted" = "Kifaa chako bado hakijaidhinishwa kufikia kuba hii. Uliza mwenye kuba aidhinishe.";
+"hubAuthentication.licenseExceeded" = "Mfano wako wa Cryptomator Hub una leseni batili. Tafadhali mjulishe msimamizi wa Hub ili kuboresha au kusasisha leseni.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Jina la Kifaa";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Ili kufikia kuba, kifaa chako kinahitaji kuidhinishwa na mmiliki wa kuba.";
+
 "intents.saveFile.missingFile" = "Faili iliyotolewa si sahihi.";
 "intents.saveFile.invalidFolder" = "Faili iliyotolewa si sahihi.";
 "intents.saveFile.missingTemporaryFolder" = "Imeshindwa kuunda folda ya muda.";

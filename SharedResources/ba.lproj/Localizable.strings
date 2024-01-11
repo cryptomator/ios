@@ -1,0 +1,305 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Хата";
+"common.alert.attention.title" = "Иғтибар";
+"common.button.cancel" = "Кире ал";
+"common.button.change" = "Үҙгәрт";
+"common.button.choose" = "Һайла";
+"common.button.clear" = "Таҙала";
+"common.button.close" = "Яп";
+"common.button.confirm" = "Раҫла";
+"common.button.create" = "Яһа";
+"common.button.createFolder" = "Каталог өҫтәү";
+"common.button.done" = "Тамам";
+"common.button.download" = "Күсереп ал";
+"common.button.edit" = "Төҙәт";
+"common.button.enable" = "Ғәмәлгә индер";
+"common.button.next" = "Киләһе";
+"common.button.ok" = "Ярай";
+"common.button.refresh" = "Яңырт";
+"common.button.register" = "Теркәл";
+"common.button.remove" = "Алып ташлау";
+"common.button.retry" = "Ҡабатла";
+"common.button.signOut" = "Сыҡ";
+"common.button.verify" = "Тикшер";
+"common.cells.openInFilesApp" = "Файлдар ҡушымтаһында ас";
+"common.cells.password" = "Серһүҙ";
+"common.cells.url" = "URL";
+"common.cells.username" = "Ҡулланыусы исеме";
+"common.footer.learnMore" = "Артабан уҡырға.";
+"common.hud.authenticating" = "Аутентиклау…";
+
+"accountList.header.title" = "Аутентиклауҙар";
+"accountList.emptyList.message" = "Иҫәп яҙмаһы өҫтәү өсөн бында баҫығыҙ";
+"accountList.signOut.alert.title" = "Бәйле һаҡлағыстарҙы юйырғамы?";
+"accountList.signOut.alert.message" = "Сығыу менән бөтә бәйле һаҡлағыстар исемлектән алып ташланасаҡ. Шифрланған мәғлүмәттәр юйылмаясаҡ. Аҙаҡтан яңынан инеп һаҡлағыстарҙы ҡабаттан өҫтәй алаһығыҙ.";
+
+"addVault.title" = "Һаҡлағыс өҫтәү";
+"addVault.createNewVault.title" = "Яңы һаҡлағыс яһау";
+"addVault.createNewVault.purchase" = "Яңы һаҡлағыс яһау өсөн Cryptomator-ҙың тулы версияһы кәрәк.";
+"addVault.createNewVault.setVaultName.header.title" = "Һаҡлағысҡа исем һайлағыҙ.";
+"addVault.createNewVault.setVaultName.cells.name" = "Һаҡлағыс исеме";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Һаҡлағыс исеме буш була алмай.";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator һаҡлағысығыҙҙың шифрланған файлдарын ҡайҙа һаҡларға тейеш?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" был урында бар инде. Башҡа һаҡлағыс исеме йәки урын һайлағыҙ.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator был урында булған һаҡлағыс тапты.\nЯңы һаҡлағыс булдырыу өсөн кире ҡайтып икенсе каталог һайлағыҙ.";
+"addVault.createNewVault.password.enterPassword.header" = "Яңы серһүҙ яҙығыҙ.";
+"addVault.createNewVault.password.confirmPassword.header" = "Яңы серһүҙҙе раҫлағыҙ.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Серһүҙҙе раҫлайһығыҙмы?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "МӨҺИМ: әгәр серһүҙҙе онотһағыҙ, уны тергеҙеү ысулы юҡ.";
+"addVault.createNewVault.password.error.emptyPassword" = "Серһүҙ буш була алмай.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Серһүҙҙәр тап килмәй.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Серһүҙ кәмендә 8 билдәнән торорға тейеш.";
+"addVault.createNewVault.progress" = "Һаҡлағыс яһау…";
+"addVault.openExistingVault.title" = "Булған һаҡлағысты асыу";
+"addVault.openExistingVault.chooseCloud.header" = "Һаҡлағыс урыны ҡайҙа?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" һаҡлағысын тапты.\nБыл һаҡлағысты өҫтәргә теләйһегеҙме?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Был һаҡлағысты өҫтә";
+"addVault.openExistingVault.downloadVault.progress" = "Һаҡлағыс күсерелә…";
+"addVault.openExistingVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
+"addVault.openExistingVault.progress" = "Һаҡлағыс өҫтәү…";
+"addVault.success.info" = "\"%@\" һаҡлағысы өҫтәлде. \nФайлдар ҡушымтаһы аша һаҡлағысҡа инә алаһығыҙ.";
+"addVault.success.footer" = "Быға тиклем Cryptomator-ҙы ғәмәлгә индермәгән булһағыҙ, уны Файлдар ҡушымтаһы аша эшләп була.";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Хәҙерге серһүҙ дөрөҫ түгел. Яңынан ҡабатлағыҙ.";
+"changePassword.header.currentPassword.title" = "Хәҙерге серһүҙҙе яҙығыҙ.";
+"changePassword.header.newPassword.title" = "Яңы серһүҙ яҙығыҙ.";
+"changePassword.header.newPasswordConfirmation.title" = "Яңы серһүҙҙе раҫлағыҙ.";
+"changePassword.progress" = "Серһүҙҙе үҙгәртеү…";
+
+"chooseFolder.emptyFolder.footer" = "Каталог буш";
+"chooseFolder.createNewFolder.header.title" = "Каталог өсөн исем һайлағыҙ.";
+"chooseFolder.createNewFolder.cells.name" = "Каталог исеме";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Каталог исеме буш була алмай.";
+"chooseFolder.createNewFolder.progress" = "Каталог яһау…";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" табылманы.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" бар инде.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" көтөлмәгән элемент төрөнә эйә.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Төп каталог \"%@\" юҡ.";
+"cloudProvider.error.pageTokenInvalid" = "Каталогтың йөкмәткеһен алыуҙы дауам итеп булмай.";
+"cloudProvider.error.quotaInsufficient" = "Һаҡлағысығыҙҙа урын етмәй.";
+"cloudProvider.error.unauthorized" = "Рөхсәтһеҙ ғәмәлде башҡарып булмай.";
+"cloudProvider.error.noInternetConnection" = "Был ғәмәл өсөн интернет бәйләнеше кәрәк.";
+
+"cloudProviderType.localFileSystem" = "Башҡа файл провайдеры";
+
+"fileProvider.onboarding.title" = "Рәхим итегеҙ";
+"fileProvider.onboarding.info" = "Файлдарығыҙҙы һаҡлау өсөн Cryptomator һайлағанығыҙ өсөн рәхмәт. Башлар өсөн төп ҡушымтаға инеп һаҡлағыс өҫтәгеҙ.";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator ас";
+"fileProvider.error.biometricalAuthCanceled.title" = "Биген асыу туҡтатылды";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@ аша бик асыу уңышһыҙ булды. Яңынан ҡабатлап ҡарағыҙ.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Серһүҙ дөрөҫ түгел";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ өсөн һаҡланған серһүҙ дөрөҫ түгел. Ҡабатлап ҡарағыҙ һәм %@ ғәмәлғә инһен өсөн серһүҙҙе яңынан яҙығыҙ.";
+"fileProvider.error.defaultLock.title" = "Бикте асыу кәрәкле";
+"fileProvider.error.defaultLock.message" = "Һаҡлағысығыҙға инеү һәм эстәлеген күреү өсөн, уны асырға кәрәк.";
+"fileProvider.error.unlockButton" = "Биген ас";
+"fileProvider.clearFileFromCache.title" = "Файлды кэштан таҙалау";
+"fileProvider.clearFileFromCache.message" = "Был йыһазығыҙҙағы урындағы файлды ғына алып ташлай һәм болоттағы файлды юймай.";
+"fileProvider.fileImporting.error.missingPremium" = "Һаҡлағыстарығыҙға яҙыу хоҡуғы алыу өсөн Cryptomator ҡушымтаһының тулы версияһын алырға.";
+"fileProvider.uploadProgress.connecting" = "Тоташыу…";
+"fileProvider.uploadProgress.message" = "Ағымдағы прогресс:%@\n\nӘгәр йөкләү процесы тотҡарлана икән, йөкләүҙе ҡабаттан башларға мөмкин.";
+"fileProvider.uploadProgress.missing" = "Прогресты билдәләп булмай. Артҡы планда һаман эшләп тороуы мөмкин.";
+"fileProvider.uploadProgress.title" = "Тейәү…";
+"fileProvider.uploadProgress.missingDomainError" = "Доменды табып булмай.";
+
+"getFolderIntent.error.missingPath" = "Бер ниндәй ҙә юл бирелмәгән. Каталогты кире ҡайтарыу өсөн дөрөҫ юл биреүегеҙҙе һорайбыҙ.";
+"getFolderIntent.error.noVaultSelected" = "Һаҡлағыс һайланмаған.";
+
+"hubAuthentication.title" = "Һаҡлағыс хабы";
+"hubAuthentication.accessNotGranted" = "Һеҙҙең йыһаз әлегә был һаҡлағысҡа инеү хоҡуғына эйә түгел. Һаҡлағыс хужаһынан рөхсәт һорағыҙ.";
+"hubAuthentication.licenseExceeded" = "Һеҙҙең Cryptomator хабығыҙ ғәмәлдән тыш рөхсәтнамәгә эйә. Рөхсәтнамәне яңыртыу йәки оҙайтыу өсөн Хаб администраторына хәбәр итегеҙ.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Йыһаз исеме";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Яңы ҡушымталар йәки браузерҙарҙан инеү өсөн Һеҙҙең иҫәп-хисап асҡысы кәрәк. Уны профилегеҙҙә табырға мөмкин.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Йыһазды теркәү уңышлы булды";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Һаҡлағысҡа инеү өсөн һаҡлағыс хужаһы йыһазығыҙға инеү рөхсәте бирергә тейеш.";
+"hubAuthentication.requireAccountInit.alert.title" = "Кәрәкле эш-хәрәкәт";
+"hubAuthentication.requireAccountInit.alert.message" = "Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Профилгә күс";
+
+"intents.saveFile.missingFile" = "Бирелгән файл ғәмәлдә түгел.";
+"intents.saveFile.invalidFolder" = "Бирелгән каталог ғәмәлдә түгел.";
+"intents.saveFile.missingTemporaryFolder" = "Ваҡытлыса каталогтар яһау уңышһыҙ тамамланды.";
+"intents.saveFile.lockedVault" = "Был ҡыҫҡа юлды ҡулланыр өсөн һаҡлағысты асырға кәрәк.";
+"intents.saveFile.selectedVaultNotFound" = "Һайланған һаҡлағысты табып булманы.";
+
+"keepUnlocked.alert.title" = "Һаҡлағысты бикләргәме?";
+"keepUnlocked.alert.message" = "Был үҙгәреш үҙ көсөнә инеү өсөн һаҡлағысты бикләүҙе талап итә.";
+"keepUnlocked.alert.confirm" = "Раҫла һәм биклә";
+"keepUnlocked.header" = "Буш торғанда был һаҡлағыстың күпме ваҡыт бикһеҙ ҡалыуын һайлағыҙ.";
+"keepUnlocked.footer.auto" = "iOS-ҡа ҡарар ҡабул итеүҙе рөхсәт итеү, хәтерҙе бушатыу өсөн теләһә ҡайһы ваҡытта Cryptomator-ҙы туҡтатырға мөмкин тигәнде аңлата, был һаҡлағысты автоматик рәүештә бикләй.";
+"keepUnlocked.footer.on" = "Һайланған вариант ҡулланылғанда, һаҡлағыстың биге асылған саҡта, асҡыстың күсермәһе iOS-тың асҡыс сылбырында һаҡланырға тейеш.";
+"keepUnlockedDuration.auto" = "iOS автоматик рәүештә ҡарар ҡабул итһен";
+"keepUnlockedDuration.auto.shortDisplayName" = "Авто";
+"keepUnlockedDuration.indefinite" = "Билдәһеҙ";
+
+"localFileSystemAuthentication.createNewVault.header" = "Киләһе экранда яңы һаҡлағысығыҙ өсөн урын һайлағыҙ.";
+"localFileSystemAuthentication.createNewVault.button" = "Һаҡлау урыны һайла";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Был урында һаҡлағыс бар инде. Башҡа һаҡлау урыны менән ҡабатлап ҡарағыҙ.";
+"localFileSystemAuthentication.openExistingVault.header" = "Киләһе экранда булған һаҡлағысығыҙ өсөн каталог һайлағыҙ.";
+"localFileSystemAuthentication.openExistingVault.button" = "Һаҡлағыс каталогы һайла";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Һайланған каталог һаҡлағыс түгел. Зинһар, икенсе каталог менән ҡабатлап ҡарағыҙ.";
+"localFileSystemAuthentication.info.footer" = "Һоро төҫтәге файл провайдерҙары «каталогтар йыйыуҙы» хупламай. Был Cryptomator сикләүе түгел.";
+
+"maintenanceModeError.runningCloudTask" = "Ғәмәлде башҡарып булмай сөнки башта был һаҡлағыстың башҡа ғәмәлдәре тамамланырға тейеш. Һуңыраҡ ҡабатлап ҡарағыҙ.";
+
+"nameValidation.error.endsWithPeriod" = "Нөктә менән тамамланған исемде ҡулланырға ярамай. Икенсе исем һайлағыҙ.";
+"nameValidation.error.endsWithSpace" = "Арауыҡ менән тамамланған исемде ҡулланырға ярамай. Икенсе исем һайлағыҙ.";
+"nameValidation.error.containsIllegalCharacter" = "\"%@\" булған исемде ҡулланырға ярамай. Икенсе исем һайлағыҙ.";
+
+"onboarding.title" = "Рәхим итегеҙ";
+"onboarding.info" = "Файлдарығыҙҙы һаҡлау өсөн Cryptomator һайлағанығыҙ өсөн рәхмәтn\n\nCryptomator менән мәғлүмәттәрегеҙҙең асҡысы — һеҙҙең ҡулда. Cryptomator мәғлүмәттәрегеҙҙе тиҙ һәм еңел шифрлай.\n\nБыл ҡушымта тулыһынса Файлдар ҡушымтаһы менән берләштерелгән. Һуңыраҡ Файлдар ҡушымтаһында Cryptomator'ға һаҡлағыстарығыҙға инеү мөмкинлеген бирегеҙ.";
+"onboarding.button.continue" = "Дауам ит";
+
+"purchase.beginFreeTrial.alert.title" = "Һынау версияһы асылды";
+"purchase.expiredTrial" = "Һынау вакыты бөттө.";
+"purchase.footer.privacyPolicy" = "Хосусилыҡ сәйәсәте";
+"purchase.footer.termsOfUse" = "Ҡулланыу шарттары";
+"purchase.header.feature.familySharing" = "Ғаилә менән уртаҡлашыу";
+"purchase.header.feature.openSource" = "Open-source эшләү";
+"purchase.header.feature.writeAccess" = "Һаҡлағыстарға яҙыу рөхсәте";
+"purchase.product.donateAndUpgrade" = "Иғәнә һәм яңыртыу";
+"purchase.product.freeUpgrade" = "Түләүһеҙ яңыртыу";
+"purchase.product.lifetimeLicense" = "Ғүмерлек рөхсәтнамә";
+"purchase.product.lifetimeLicense.duration" = "бер тапҡыр";
+"purchase.product.pricing.free" = "Түләүһеҙ";
+"purchase.product.trial" = "30 көнлөк һынау";
+"purchase.product.trial.expirationDate" = "Ҡулланыу ваҡыты: %@";
+"purchase.product.trial.duration" = "30 көн";
+"purchase.product.yearlySubscription" = "Йыллыҡ яҙылыу";
+"purchase.product.yearlySubscription.duration" = "йыл һайын";
+"purchase.readOnlyMode.alert.title" = "Уҡыу ғына режимы";
+"purchase.readOnlyMode.alert.message" = "Cryptomator ҡушымтаһының тулы версияһын һуңыраҡ көйләүҙәрҙә аса һәм уны хәҙергә тик уҡыу режимында ғына ҡуллана алаһығыҙ.";
+"purchase.restorePurchase.button" = "Һатып алыуҙы тергеҙеү";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Һынау дауам ителде";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Cryptomator-ҙың тулы версияһын хәҙер сикләүле ваҡытта ҡулланырға мөмкин. Һеҙҙең һынау ваҡыты %@- тамамлана. Шунан һуң да һаҡлағыстарығыҙға бары тик уҡыу режимында ғына инергә мөмкин буласаҡ.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Тергеҙеү уңышлы булды";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Тулы версия табылманы";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Элек һатып алынған, тергеҙелә алырлыҡ тулы версияны таба алманыҡ. Зинһар, икенсе вариантты һынап ҡарағыҙ.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Яңыртыу хоҡуғына эйә";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Cryptomator-ҙың иҫкерәк версияһынан яңыртырға тырышаһығыҙ шикелле. Был осраҡта уның урынына «Яңыртыу тәҡдиме» вариантын һайлағыҙ.";
+"purchase.retry.button" = "Ҡабатла";
+"purchase.retry.footer" = "Булған продукттарҙы тейәп булмай.";
+"purchase.title" = "Тулы версияны асыу";
+"purchase.unlockedFullVersion.message" = "Хәҙер һеҙ Cryptomator-ҙың тулы версияһын ҡуллана алаһығыҙ. Хәйерле шифрлауҙар!";
+"purchase.unlockedFullVersion.title" = "Рәхмәт";
+"purchase.error.unknown" = "Был ҡушымта билдәһеҙ сәбәптәр арҡаһында App Store-ҙа юҡ. Зинһар, һуңыраҡ ҡабатлап ҡарағыҙ.\n\nӘгәр был хата ҡабатланһа, йыһазды яңынан эшләтеп ҡарағыҙ йәки iOS көйләүҙәрендә Apple ID-ғыҙҙан сығығыҙ һәм кире керегеҙ.";
+
+"settings.title" = "Көйләүҙәр";
+"settings.aboutCryptomator" = "Cryptomator тураһында";
+"settings.aboutCryptomator.title" = "%@ версияһы (%@)";
+"settings.cacheSize" = "Кэш күләме";
+"settings.clearCache" = "Кэшты таҙартыу";
+"settings.cloudServices" = "Болот хеҙмәттәре";
+"settings.contact" = "Бәйләнеш";
+"settings.debugMode" = "Төҙөкләндереү режимы";
+"settings.debugMode.alert.message" = "Был режимда нескә мәғлүмәттәрҙең (мәҫәлән, файл исемдәре, юлдар) йыһаздың журнал файлына яҙылыуы ихтимал. Серһүҙҙәр, cookie-файлдар һ.б. тура алып ташлана.\n\nЯйлау (debug) режимын тиҙ арала ябырға онотмағыҙ.";
+"settings.manageSubscriptions" = "Яҙылыуҙар менән идара итеү";
+"settings.rateApp" = "Ҡушымтаны баһала";
+"settings.sendLogFile" = "Журнал файлын ебәр";
+"settings.shortcutsGuide" = "Ҡыҫҡа юлдар гиды";
+"settings.unlockFullVersion" = "Тулы версияны асыу";
+
+"snapshots.fileprovider.file1" = "/Иҫәп-хисап.numbers";
+"snapshots.fileprovider.file2" = "/Һуңғы презентация.key";
+"snapshots.fileprovider.file3" = "/Продукт трейлеры.mov";
+"snapshots.fileprovider.file4" = "/Тәҡдим.docx";
+"snapshots.fileprovider.file5" = "/Хисаплама.pdf";
+"snapshots.fileprovider.folder3" = "/Серле проект";
+"snapshots.fileprovider.folder2" = "Фактуралар";
+"snapshots.fileprovider.folder1" = "/Сертификаттар";
+"snapshots.main.vault1" = "/Эш";
+"snapshots.main.vault2" = "/Ғаилә";
+"snapshots.main.vault3" = "/Документтар";
+"snapshots.main.vault4" = "/Калифорния сәйәхәте";
+
+"s3Authentication.displayName" = "Күренәсәк исем";
+"s3Authentication.accessKey" = "Инеү асҡысы (Access Key)";
+"s3Authentication.secretKey" = "Серле асҡыс (Secret Key)";
+"s3Authentication.existingBucket" = "Булған кәрзин (Bucket)";
+"s3Authentication.endpoint" = "Ос нөктә (Endpoint)";
+"s3Authentication.region" = "Регион";
+"s3Authentication.error.invalidCredentials" = "Хаталы иҫәп яҙмаһы мәғлүмәттәре.";
+"s3Authentication.error.invalidEndpoint" = "Бирелгән ос нөктә URL-адресы форматына тап килмәй.";
+
+"trialStatus.active" = "Ғәмәлдә";
+"trialStatus.expired" = "Ваҡыты үткән";
+
+"unlockVault.button.unlock" = "Биген ас";
+"unlockVault.button.unlockVia" = "%@ аша биген ас";
+"unlockVault.password.footer" = "\"%@\" серһүҙен яҙығыҙ.";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ ғәмәлдә";
+"unlockVault.enableBiometricalUnlock.footer" = "Һаҡлағысты серһүҙ менән асыу урынына уны %@ аша асырға мөмкин.";
+"unlockVault.evaluatePolicy.reason" = "Һаҡлағысығыҙҙы асыу";
+"unlockVault.progress" = "Бикте асыу…";
+
+"untrustedTLSCertificate.title" = "Ғәмәлдә булмаған TLS сертификаты";
+"untrustedTLSCertificate.message" = "\"%@\" TLS сертификаты ғәмәлдә түгел. Нисек булһа ла, уға ышанырға теләйһегеҙме?\n\nSHA-256: %@";
+"untrustedTLSCertificate.add" = "Ышан";
+"untrustedTLSCertificate.dismiss" = "Ышанмаҫҡа";
+
+"upgrade.title" = "Яңыртыу тәҡдиме";
+"upgrade.notEligible.alert.title" = "Яңыртыу уңышһыҙ булды";
+"upgrade.notEligible.alert.message" = "Cryptomator йыһазығыҙға ҡуйылған элекке версияны таба алманы. Әгәр уны һатып алған булһағыҙ, App Store-ҙан яңынан күсереп алып һәм яңынан ҡабатлағыҙ.";
+"upgrade.info" = "Беренсе версиянан Cryptomator-ға ышаныуығыҙ өсөн рәхмәт. Тоғро ҡулланыусы булараҡ, һеҙ бушлай яңыртыу хоҡуғына эйә.";
+
+"urlSession.error.httpError.401" = "Хаталы ҡулланыусы исеме һәм/йәки серһүҙ.";
+"urlSession.error.httpError.403" = "Һоралған ресурсҡа хоҡуҡтар етмәй.";
+"urlSession.error.httpError.404" = "Һоралған ресурс табылманы.";
+"urlSession.error.httpError.405" = "Һоратыу методы маҡсат ресурс тарафынан терәкләнмәй.";
+"urlSession.error.httpError.409" = "Һоратыу маҡсат ресурстың ағымдағы торошона тап килмәй.";
+"urlSession.error.httpError.412" = "Маҡсатлы ресурсҡа инеү тыйылды.";
+"urlSession.error.httpError.default" = "Селтәр бәйләнеше %ld статус коды менән уышһыҙ булды.";
+"urlSession.error.unexpectedResponse" = "Көтөлмәгән селтәр яуабы килде.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Был һаҡлағыс өҫтәлгән инде.";
+
+"vaultDetail.button.changeVaultPassword" = "Серһүҙҙе үҙгәрт";
+"vaultDetail.button.lock" = "Биклә";
+"vaultDetail.button.moveVault" = "Күсер";
+"vaultDetail.button.removeVault" = "Һаҡлағыс исемлегенән алып ташла";
+"vaultDetail.button.renameVault" = "Исемен үҙгәрт";
+"vaultDetail.changePassword.footer" = "Һаҡлағысығыҙ өсөн үҙегеҙ генә белгән көслө серһүҙ һайлағыҙ һәм уны хәүефһеҙ урында тотоғоҙ.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Әгәр һеҙ %@ ғәмәлдә булһа, һеҙҙең һаҡлағыс серһүҙегеҙ iOS-тың асҡыс сылбырында һаҡланасаҡ.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Һаҡлағыс пароле, %@ аутентиклауы уңышһыҙ булғанда ғына кәрәк буласаҡ.";
+"vaultDetail.info.footer.accessVault" = "Файлдар ҡушымтаһы аша һаҡлағысҡа инеү.";
+"vaultDetail.info.footer.accountInfo" = "%@ исеме менән %@ аша инелгән.";
+"vaultDetail.keepUnlocked.title" = "Асыҡ булыу ваҡыты";
+"vaultDetail.keepUnlocked.footer.off" = "Бикте асыу, Cryptomator Файлдар ҡушымтаһы тарафынан туҡтатылған ваҡытта кәрәк буласаҡ.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Бикте асыу, һаҡлағыс %@ буш торған ваҡытта кәрәк буласаҡ.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Ҡул менән бикләнмәһә, асыу талап ителмәйәсәк.";
+"vaultDetail.locked.footer" = "Һаҡлағысығыҙ хәҙерге ваҡытта бикле.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator был урында булған һаҡлағыс тапты.\nҺаҡлағысты күсереү өсөн кире ҡайтып икенсе каталог һайлағыҙ.";
+"vaultDetail.moveVault.progress" = "Күсереү…";
+"vaultDetail.removeVault.footer" = "Был һаҡлағысты исемлектән генә алып ташлай һәм шифрланған файлдарҙы юймай.";
+"vaultDetail.renameVault.progress" = "Исемен үҙгәртеү…";
+"vaultDetail.unlocked.footer" = "Әлеге ваҡытта һаҡлағыс Файлдар ҡушымтаһында асылған.";
+"vaultDetail.unlockVault.footer" = "\"%@\" серһүҙен iOS асҡыс сылбырында һаҡлау һәм %@ ҡулланыу өсөн серһүҙҙе яҙығыҙ.";
+
+"vaultList.header.title" = "Һаҡлағыстар";
+"vaultList.emptyList.message" = "Һаҡлағыс өҫтәү өсөн бында баҫығыҙ";
+"vaultList.remove.alert.title" = "Һаҡлағысты алып ташларғамы?";
+"vaultList.remove.alert.message" = "Был һаҡлағысты исемлектән генә алып ташлай. Шифрланған мәғлүмәттәр юйылмай. Һаҡлағысты һуңыраҡ яңынан өҫтәргә мөмкин.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Һаҡлағыс конфигурацияһы терәкһеҙ. Cryptomator-ҙың һуңғы версияһын эшләтеүегеҙҙе тикшерегеҙ.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Һаҡлағыстың терәкһеҙ версияһы: %ld. Был һаҡлағыс Cryptomator-ҙың башҡа версияһы менән яһалған.";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS ҡулланырғамы?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP ҡулланыу хәүефһеҙ түгел. Уның урынына HTTPS ҡулланырға кәңәш итәбеҙ. Хәүефтәрҙе белһәгеҙ, HTTP менән дауам итә алаһығыҙ.";
+"webDAVAuthentication.httpConnection.change" = "HTTPS ҡулланыу";
+"webDAVAuthentication.httpConnection.continue" = "HTTP ҡалһын";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Сервер WebDAV яраҡлы түгел кеүек. Дөрөҫ URL ҡулланғанығыҙҙы тикшерегеҙ.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Был серверҙың сертификаты ышанысһыҙ. Был WebDAV бәйләнешен яңынан өҫтәү кәрәк булыр.";
+
+"Retry Upload" = "Тейәүҙе ҡабатла";
+"Clear from Cache" = "Кэштан таҙала";

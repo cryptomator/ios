@@ -1,1 +1,21 @@
+"common.false" = "غلط";
+"common.folder" = "پوشه";
+"common.true" = "درست";
 "common.vault" = "گاوصندوق";
+"getFolderIntent.path" = "مسیر";
+"getFolderIntent.title" = "دریافت پوشه";
+"isUnlockedIntent.title" = "باز شده است";
+
+"isVaultLockedIntent.title" = "گاوصندوق باز شده است";
+"isVaultUnlockedIntent.text" = "آیا ${vault} باز شده است؟";
+"lockVaultIntent.text" = "قفل کردن ${vault}";
+"lockVaultIntent.title" = "قفل کردن گاوصندوق";
+"openVaultIntent.title" = "باز کردن گاوصندوق";
+
+"saveFileIntent.description" = "یک فایل در گاوصندوق ذخیره میشود.";
+"saveFileIntent.file" = "فایل";
+"saveFileIntent.text" = "ذخیره ${file} در ${folder}";
+"saveFileIntent.title" = "دخیرهٔ پرونده‌";
+
+"vaultFolder.displayName" = "پوشه گاوصندوق";
+"vaultFolder.vaultIdentifier" = "مشخص کننده گاوصندوق";

@@ -21,6 +21,7 @@
 "common.button.enable" = "Aktifkan";
 "common.button.next" = "Lanjut";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Segarkan";
 "common.button.remove" = "Hapus";
 "common.button.retry" = "Coba lagi";
 "common.button.signOut" = "Keluar";
@@ -109,6 +110,7 @@
 
 "getFolderIntent.error.missingPath" = "Tidak ada path yang disediakan. Harap cantumkan path yang valid untuk folder yang harus dikembalikan.";
 "getFolderIntent.error.noVaultSelected" = "Tidak ada vault yang dipilih.";
+
 "intents.saveFile.missingFile" = "File yang disediakan tidak valid.";
 "intents.saveFile.invalidFolder" = "Folder yang disediakan tidak valid.";
 "intents.saveFile.missingTemporaryFolder" = "Gagal membuat folder sementara.";

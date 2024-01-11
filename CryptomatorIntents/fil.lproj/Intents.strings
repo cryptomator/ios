@@ -1,1 +1,33 @@
+"common.failureReason" = "Dahilan ng Pagkabigo";
+"common.false" = "mali";
+"common.folder" = "Folder";
+"common.true" = "totoo";
 "common.vault" = "Vault";
+
+"getFolderIntent.description" = "Nagbabalik ng folder object para sa ibinigay na path sa ibinigay na vault.";
+"getFolderIntent.path" = "Daan";
+"getFolderIntent.text" = "Kunin ang folder na matatagpuan sa ${path} sa ${vault}";
+"getFolderIntent.title" = "Kumuha ng Folder";
+
+"isUnlockedIntent.description" = "Ibinabalik kung naka-unlock ang ibinigay na vault.";
+"isUnlockedIntent.title" = "Naka-unlock";
+
+"isVaultLockedIntent.title" = "Naka-unlock ang vault";
+"isVaultUnlockedIntent.text" = "Naka-unlock ba ang ${vault}?";
+
+"lockVaultIntent.description" = "Nila-lock ang ibinigay na vault.";
+"lockVaultIntent.text" = "I-lock ang ${vault}";
+"lockVaultIntent.title" = "Lock Vault";
+
+"openVaultIntent.description" = "Binubuksan ang ibinigay na vault sa Files app.";
+"openVaultIntent.text" = "Buksan ang ${vault} sa Files app";
+"openVaultIntent.title" = "Buksan ang Vault";
+
+"saveFileIntent.description" = "Nagse-save ng file sa isang vault.";
+"saveFileIntent.file" = "file";
+"saveFileIntent.parameter.ignoreExisting" = "Huwag pansinin ang umiiral na file na may parehong pangalan";
+"saveFileIntent.text" = "I-save ang ${file} sa ${folder}";
+"saveFileIntent.title" = "I-save ang File";
+
+"vaultFolder.displayName" = "Vault Folder";
+"vaultFolder.vaultIdentifier" = "Vault Identifier";

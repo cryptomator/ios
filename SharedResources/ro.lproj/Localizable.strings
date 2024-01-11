@@ -21,6 +21,7 @@
 "common.button.enable" = "Activează";
 "common.button.next" = "Următor";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Împrospătează";
 "common.button.remove" = "Șterge";
 "common.button.retry" = "Încercați din nou";
 "common.button.signOut" = "Deconectare";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "Nu a fost furnizată nicio locație. Vă rugăm să alegeți o cale validă pentru care un dosar trebuie returnat.";
 "getFolderIntent.error.noVaultSelected" = "Nici un seif nu a fost ales.";
+"hubAuthentication.accessNotGranted" = "Dispozitivul dvs. nu a fost autorizat să acceseze acest seif. Solicitați proprietarului seifului să va autorizeze accesul.";
+"hubAuthentication.licenseExceeded" = "Instanța Hub are o licență invalidă. Vă rugăm să informați un administrator Hub să actualizeze sau să reînnoiască licența.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Numele dispozitivului";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pentru a accesa acest seif, dispozitivul dvs. trebuie să fie autorizat de proprietarul seifului.";
+
 "intents.saveFile.missingFile" = "Fișierul ales nu este valid.";
 "intents.saveFile.invalidFolder" = "Dosarul ales nu este valid.";
 "intents.saveFile.missingTemporaryFolder" = "Nu s-a putut crea dosarului temporar.";
@@ -265,7 +271,7 @@
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator a detectat un seif în această locație.\nPentru a crea un nou seif, vă rugăm să alegeți un folder diferit.";
 "vaultDetail.moveVault.progress" = "Se mută…";
 "vaultDetail.removeVault.footer" = "Acest lucru va elimina doar seiful din lista de seifuri și nu va șterge niciun fișier criptat.";
-"vaultDetail.renameVault.progress" = "In proces de redenumire…";
+"vaultDetail.renameVault.progress" = "În proces de redenumire…";
 "vaultDetail.unlocked.footer" = "Seiful dvs. este în prezent deblocat în aplicația fișiere.";
 "vaultDetail.unlockVault.footer" = "Introduceți parola pentru \"%@\" pentru a o stoca în iOS keychain și pentru a activa %@.";
 

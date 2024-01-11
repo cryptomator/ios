@@ -21,6 +21,7 @@
 "common.button.enable" = "सक्षम करें";
 "common.button.next" = "अगला";
 "common.button.ok" = "ठीक है";
+"common.button.refresh" = "रीफ्रेश करें";
 "common.button.remove" = "हटाएँ";
 "common.button.retry" = "पुन: प्रयास करें";
 "common.button.signOut" = "साइन आउट करें";
@@ -87,6 +88,7 @@
 "fileProvider.error.unlockButton" = "अनलॉक करें";
 "fileProvider.clearFileFromCache.title" = "कैशे से फ़ाइल साफ़ करें";
 "fileProvider.clearFileFromCache.message" = "यह केवल आपके डिवाइस से स्थानीय फ़ाइल को हटाता है और क्लाउड में फ़ाइल को नहीं हटाता";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "डिवाइस का नाम";
 
 "localFileSystemAuthentication.createNewVault.header" = "अगले स्क्रीन पर अपने कक्ष के लिए भंडार स्थान का चयन करें।";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";

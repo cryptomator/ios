@@ -19,8 +19,10 @@
 "common.button.download" = "Descargar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Activar";
-"common.button.next" = "Continuar";
+"common.button.next" = "Siguiente";
 "common.button.ok" = "Aceptar";
+"common.button.refresh" = "Recargar";
+"common.button.register" = "Registrarse";
 "common.button.remove" = "Eliminar";
 "common.button.retry" = "Reintentar";
 "common.button.signOut" = "Cerrar sesión";
@@ -40,14 +42,14 @@
 "addVault.title" = "Añadir bóveda";
 "addVault.createNewVault.title" = "Crear bóveda nueva";
 "addVault.createNewVault.purchase" = "Crear una bóveda nueva requiere la versión completa de Cryptomator.";
-"addVault.createNewVault.setVaultName.header.title" = "Elegir un nombre para la bóveda.";
+"addVault.createNewVault.setVaultName.header.title" = "Elija un nombre para la bóveda.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nombre de la bóveda";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "El nombre de la bóveda no puede estar vacío.";
 "addVault.createNewVault.chooseCloud.header" = "¿Dónde se deben almacenar los archivos cifrados de la bóveda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" ya existe en esta ubicación. Elija un nombre o ubicación diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator detectó una bóveda existente en esta ubicación.\nPara crear una bóveda nueva, por favor vuelva atrás y elija una carpeta diferente.";
 "addVault.createNewVault.password.enterPassword.header" = "Ingrese una contraseña nueva.";
-"addVault.createNewVault.password.confirmPassword.header" = "Confirmar la contraseña nueva.";
+"addVault.createNewVault.password.confirmPassword.header" = "Confirme la contraseña nueva.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "¿Confirmar contraseña?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: si olvida su contraseña no habrá manera de recuperar los datos.";
 "addVault.createNewVault.password.error.emptyPassword" = "La contraseña no puede estar vacía.";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "¿Dónde se ubica la bóveda?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detectó la bóveda \"%@\".\n¿Desea añadir esta bóveda?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Añadir esta bóveda";
+"addVault.openExistingVault.downloadVault.progress" = "Descargando bóveda…";
 "addVault.openExistingVault.password.footer" = "Ingresar contraseña para \"%@\".";
 "addVault.openExistingVault.progress" = "Añadiendo bóveda…";
 "addVault.success.info" = "Se ha añadido correctamente la bóveda \"%@\".\nAcceda a esta bóveda desde la aplicación de archivos.";
@@ -69,7 +72,7 @@
 "changePassword.error.invalidOldPassword" = "La contraseña actual es incorrecta. Intente de nuevo.";
 "changePassword.header.currentPassword.title" = "Ingrese la contraseña actual.";
 "changePassword.header.newPassword.title" = "Ingrese una contraseña nueva.";
-"changePassword.header.newPasswordConfirmation.title" = "Confirmar la contraseña nueva.";
+"changePassword.header.newPasswordConfirmation.title" = "Confirme la contraseña nueva.";
 "changePassword.progress" = "Cambiando contraseña…";
 
 "chooseFolder.emptyFolder.footer" = "La carpeta está vacía";
@@ -110,6 +113,19 @@
 
 "getFolderIntent.error.missingPath" = "No se ha proporcionado ninguna ruta. Proporcione una ruta válida para la que se debe devolver una carpeta.";
 "getFolderIntent.error.noVaultSelected" = "No se ha seleccionado una bóveda.";
+
+"hubAuthentication.title" = "Bóveda de Hub";
+"hubAuthentication.accessNotGranted" = "Su dispositivo aún no ha sido autorizado para acceder a esta bóveda. Pídale al propietario de la bóveda que lo autorice.";
+"hubAuthentication.licenseExceeded" = "Su instancia del Hub de Cryptomator tiene una licencia inválida. Informe a un administrador del Hub para actualizar o renovar la licencia.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nombre del dispositivo";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Este parece ser el primer acceso al Hub desde este dispositivo. Para identificarlo y autorizar el acceso, necesita nombrar este dispositivo.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Se requiere su clave de cuenta para iniciar sesión desde nuevas aplicaciones o navegadores. Puede encontrarse en su perfil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registro del dispositivo exitoso";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acceder a la bóveda, su dispositivo debe ser autorizado por el propietario de la bóveda.";
+"hubAuthentication.requireAccountInit.alert.title" = "Acción requerida";
+"hubAuthentication.requireAccountInit.alert.message" = "Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Ir al Perfil";
+
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada es inválida.";
 "intents.saveFile.missingTemporaryFolder" = "Error al crear la carpeta temporal.";
@@ -209,8 +225,8 @@
 "s3Authentication.displayName" = "Nombre para mostrar";
 "s3Authentication.accessKey" = "Clave de acceso";
 "s3Authentication.secretKey" = "Clave secreta";
-"s3Authentication.existingBucket" = "Cubeta existente";
-"s3Authentication.endpoint" = "Punto final";
+"s3Authentication.existingBucket" = "Bucket existente";
+"s3Authentication.endpoint" = "Punto de enlace";
 "s3Authentication.region" = "Región";
 "s3Authentication.error.invalidCredentials" = "Credenciales inválidas.";
 "s3Authentication.error.invalidEndpoint" = "El punto final proporcionado no coincide con el formato de una URL.";

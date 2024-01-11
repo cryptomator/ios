@@ -15,12 +15,14 @@
 "common.button.confirm" = "Confirmar";
 "common.button.create" = "Criar";
 "common.button.createFolder" = "Criar pasta";
-"common.button.done" = "Pronto";
+"common.button.done" = "Concluído";
 "common.button.download" = "Baixar";
 "common.button.edit" = "Editar";
 "common.button.enable" = "Habilitar";
 "common.button.next" = "Próximo";
 "common.button.ok" = "Ok";
+"common.button.refresh" = "Atualizar";
+"common.button.register" = "Registrar";
 "common.button.remove" = "Remover";
 "common.button.retry" = "Tentar Novamente";
 "common.button.signOut" = "Finalizar sessão";
@@ -43,7 +45,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
-"addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos encriptados do seu cofre?";
+"addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos criptografados do seu cofre?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@já existe neste local. Escolha um nome ou local de um cofre diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
 "addVault.createNewVault.password.enterPassword.header" = "Digite uma nova senha.";
@@ -54,17 +56,18 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "As senhas não coincidem.";
 "addVault.createNewVault.password.error.tooShortPassword" = "A senha deve conter pelo menos 8 caracteres.";
 "addVault.createNewVault.progress" = "Criando Cofre…";
-"addVault.openExistingVault.title" = "Abrir Cofre";
+"addVault.openExistingVault.title" = "Abrir Cofre Existente";
 "addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "O Cryptomator detectou o cofre \"%@\".\nVocê gostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.downloadVault.progress" = "Baixando o cofre…";
 "addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\".";
 "addVault.openExistingVault.progress" = "Adicionando Cofre…";
-"addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAcesse-o através do aplicativo Arquivos.";
+"addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAcesse-o pelo aplicativo Arquivos.";
 "addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
 
 "biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "ID do toque";
+"biometryType.touchID" = "Touch ID";
 
 "changePassword.error.invalidOldPassword" = "Senha atual incorreta. Favor tentar novamente.";
 "changePassword.header.currentPassword.title" = "Digite a senha atual.";
@@ -110,6 +113,15 @@
 
 "getFolderIntent.error.missingPath" = "Nenhum caminho foi fornecido. Por favor, forneça um caminho válido para o qual a pasta deve ser retornada.";
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre foi selecionado.";
+
+"hubAuthentication.title" = "Cofre do Hub";
+"hubAuthentication.accessNotGranted" = "Seu dispositivo ainda não foi autorizado a acessar este cofre. Peça ao proprietário do cofre para autorizá-lo.";
+"hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe um administrador do Hub para atualizar ou renovar a licença.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registrado com sucesso";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar o cofre, seu dispositivo precisa ser autorizado pelo proprietário do cofre.";
+
 "intents.saveFile.missingFile" = "O arquivo fornecido não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta fornecida não é válida.";
 "intents.saveFile.missingTemporaryFolder" = "Falha ao criar uma pasta temporária.";
@@ -148,7 +160,7 @@
 "purchase.expiredTrial" = "Seu período de teste expirou.";
 "purchase.footer.privacyPolicy" = "Política de Privacidade";
 "purchase.footer.termsOfUse" = "Termos de Uso";
-"purchase.header.feature.familySharing" = "Compartilhamento de família";
+"purchase.header.feature.familySharing" = "Compartilhamento familiar";
 "purchase.header.feature.openSource" = "Desenvolvimento de código aberto";
 "purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
 "purchase.product.donateAndUpgrade" = "Doe e faça um “upgrade”";
@@ -207,13 +219,13 @@
 "snapshots.main.vault4" = "/Viagem pra Califórnia";
 
 "s3Authentication.displayName" = "Nome de Exibição";
-"s3Authentication.accessKey" = "Chave de acesso";
+"s3Authentication.accessKey" = "Chave de Acesso";
 "s3Authentication.secretKey" = "Chave Secreta";
-"s3Authentication.existingBucket" = "Bucket do nome de domínio na URL existente";
-"s3Authentication.endpoint" = "URL para autenticação no Amazon S3 — “Endpoint”";
+"s3Authentication.existingBucket" = "Bucket existente";
+"s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Região";
 "s3Authentication.error.invalidCredentials" = "Credenciais inválidas.";
-"s3Authentication.error.invalidEndpoint" = "O Endpoint — “link” — fornecido não coincide com o formato de uma URL válida no Amazon S3.";
+"s3Authentication.error.invalidEndpoint" = "O endpoint fornecido não coincide com o formato de uma URL.";
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirado";
@@ -279,7 +291,7 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre %ld não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
-"webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos a utilização de HTTPS. Se você souber os riscos, você pode continuar com o HTTP.";
+"webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos utilizar HTTPS. Se você conhecer os riscos, pode continuar com HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manter HTTP";
 
