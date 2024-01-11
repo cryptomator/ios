@@ -44,7 +44,7 @@ public enum CryptomatorHubAuthenticatorError: Error {
 
 public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving {
 	private static let scheme = "hub+"
-	private static let minimumHubVersion = 1
+	private static let minimumHubVersion = 2
 	@Dependency(\.cryptomatorHubKeyProvider) private var cryptomatorHubKeyProvider
 
 	public init() {}

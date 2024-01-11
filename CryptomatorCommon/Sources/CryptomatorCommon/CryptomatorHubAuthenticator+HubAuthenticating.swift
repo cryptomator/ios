@@ -29,7 +29,7 @@ extension CryptomatorHubAuthenticator: HubAuthenticating {
 		guard let tokenEndpoint = URL(string: hubConfig.tokenEndpoint) else {
 			throw HubAuthenticationError.invalidTokenEndpoint
 		}
-		guard let redirectURL = URL(string: "hub.org.cryptomator.ios:/auth") else {
+		guard let redirectURL = URL(string: "org.cryptomator.ios:/hub/auth") else {
 			throw HubAuthenticationError.invalidRedirectURL
 		}
 		let configuration = OIDServiceConfiguration(authorizationEndpoint: authorizationEndpoint,
