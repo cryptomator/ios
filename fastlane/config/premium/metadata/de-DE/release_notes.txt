@@ -1,2 +1,2 @@
-- Hebräische Übersetzung hinzugefügt
-- Fehler "nicht gefunden" beim Auflisten eines Verzeichnisses mit nicht erreichbaren Dateien in iCloud Drive behoben (#313)
+- Unterstützung für Cryptomator Hub hinzugefügt (#315, #322, #323, #326, #329, #332)
+- Neue Tresore werden nun standardmäßig mit GCM-Verschlüsselung erstellt (#288)
