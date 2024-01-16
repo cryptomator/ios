@@ -1,2 +1,2 @@
-- Added support for Cryptomator Hub (#315, #322, #323, #326, #329, #332)
+- Added support for Cryptomator Hub (#315, #322, #323, #326, #329, #332, #333)
 - New vaults are now created with GCM encryption by default (#288)
