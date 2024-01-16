@@ -1,2 +1,3 @@
 - Unterstützung für Cryptomator Hub hinzugefügt (#315, #322, #323, #326, #329, #332, #333)
 - Neue Tresore werden nun standardmäßig mit GCM-Verschlüsselung erstellt (#288)
+- Übersetzungen für Bangla, Filipino und Ungarisch hinzugefügt
