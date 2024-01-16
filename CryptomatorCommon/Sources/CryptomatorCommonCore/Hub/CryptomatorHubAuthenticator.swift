@@ -67,9 +67,11 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		                                                            webAppURL: webAppURL)
 
 		let encryptedVaultKey: String
+		let unlockHeader: [AnyHashable: Any]
 		switch retrieveMasterkeyResponse {
-		case let .success(key):
+		case let .success(key, header):
 			encryptedVaultKey = key
+			unlockHeader = header
 		case .accessNotGranted:
 			return .accessNotGranted
 		case .licenseExceeded:
@@ -93,7 +95,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let encryptedUserKeyJWE = try JWE(compactSerialization: encryptedUserKey)
 		let encryptedVaultKeyJWE = try JWE(compactSerialization: encryptedVaultKey)
 
-		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: [:]))
+		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: unlockHeader))
 	}
 
 	/**
@@ -240,7 +242,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			guard let body = String(data: data, encoding: .utf8) else {
 				throw CryptomatorHubAuthenticatorError.unexpectedResponse
 			}
-			return .success(encryptedVaultKey: body)
+			return .success(encryptedVaultKey: body, header: httpResponse?.allHeaderFields ?? [:])
 		case 402:
 			return .licenseExceeded
 		case 403, 410:
@@ -299,7 +301,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
 		// 200
-		case success(encryptedVaultKey: String)
+		case success(encryptedVaultKey: String, header: [AnyHashable: Any])
 		// 403, 410
 		case accessNotGranted
 		// 402
