@@ -1002,6 +1002,12 @@
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
 		747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		74833F9D27E4CCD800C1C5F0 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748BF2062B571AE7006304AD /* ba */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ba; path = ba.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748BF20D2B571B0A006304AD /* ba */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ba; path = ba.lproj/Intents.strings; sourceTree = "<group>"; };
+		748BF20E2B571BAA006304AD /* fil */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fil; path = fil.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748BF20F2B571BB4006304AD /* fil */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fil; path = fil.lproj/Intents.strings; sourceTree = "<group>"; };
+		748BF2102B571C0C006304AD /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
+		748BF2112B571C11006304AD /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Intents.strings; sourceTree = "<group>"; };
 		74A1B13D2726A9E60098224B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94EF27A0282300D71AEC /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94F027A0283500D71AEC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2295,16 +2301,19 @@
 				Base,
 				de,
 				ar,
+				ba,
 				bn,
 				ca,
 				cs,
 				da,
 				el,
 				es,
+				fil,
 				fr,
 				he,
 				hi,
 				hr,
+				hu,
 				id,
 				it,
 				ja,
@@ -3046,16 +3055,19 @@
 				4A2745F7284769B800E70D5F /* en */,
 				74275ACC28478DFA0058AD25 /* de */,
 				74275ACD28478DFC0058AD25 /* ar */,
+				748BF20D2B571B0A006304AD /* ba */,
 				74275ACE28478DFD0058AD25 /* bn */,
 				74275ACF28478DFE0058AD25 /* ca */,
 				74275AD428478E020058AD25 /* cs */,
 				741CD1CF2939083C00577FDE /* da */,
 				74275AD728478E050058AD25 /* el */,
 				74275AE428478E130058AD25 /* es */,
+				748BF20F2B571BB4006304AD /* fil */,
 				74275AD628478E040058AD25 /* fr */,
 				74B46E5629BB863C000C1CC0 /* he */,
 				74275AD828478E060058AD25 /* hi */,
 				74275AD328478E010058AD25 /* hr */,
+				748BF2112B571C11006304AD /* hu */,
 				74275AD928478E070058AD25 /* id */,
 				74275ADA28478E080058AD25 /* it */,
 				74275ADB28478E090058AD25 /* ja */,
@@ -3092,16 +3104,19 @@
 				742679FA26A56B33004C61BC /* en */,
 				742679FE26A578E2004C61BC /* de */,
 				74AE94EF27A0282300D71AEC /* ar */,
+				748BF2062B571AE7006304AD /* ba */,
 				74E93B742810109E0047A116 /* bn */,
 				74AE94F027A0283500D71AEC /* ca */,
 				74BDA62B26CE8AE1007FBD72 /* cs */,
 				741CD1C82939080D00577FDE /* da */,
 				74267A0326A5793E004C61BC /* el */,
 				74267A0426A57944004C61BC /* es */,
+				748BF20E2B571BAA006304AD /* fil */,
 				74267A0526A57947004C61BC /* fr */,
 				74B46E5529BB8629000C1CC0 /* he */,
 				74A1B13D2726A9E60098224B /* hi */,
 				74E93B75281010E50047A116 /* hr */,
+				748BF2102B571C0C006304AD /* hu */,
 				74AE94F127A0285400D71AEC /* id */,
 				74267A0A26A5795C004C61BC /* it */,
 				74267A0B26A57960004C61BC /* ja */,
@@ -3285,7 +3300,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.9;
+				MARKETING_VERSION = 2.5.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3347,7 +3362,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.4.9;
+				MARKETING_VERSION = 2.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";
