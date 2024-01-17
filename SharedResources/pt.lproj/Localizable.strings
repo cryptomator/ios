@@ -21,6 +21,8 @@
 "common.button.enable" = "Ativar";
 "common.button.next" = "Seguinte";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Atualizar";
+"common.button.register" = "Registo";
 "common.button.remove" = "Remover";
 "common.button.retry" = "Tentar de novo";
 "common.button.signOut" = "Terminar Sessão";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Onde está o cofre localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detetou o cofre \"%@\".\nGostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
+"addVault.openExistingVault.downloadVault.progress" = "Descarregando o cofre…";
 "addVault.openExistingVault.password.footer" = "Insira a palavra-passe para \"%@\".";
 "addVault.openExistingVault.progress" = "A Adicionar Cofre…";
 "addVault.success.info" = "Cofre \"%@\" adicionado com sucesso.\nAccesse este cofre através da aplicação Ficherios.";
@@ -110,6 +113,19 @@
 
 "getFolderIntent.error.missingPath" = "Trajeto não foi fornecido. Por favor, forneça um trajeto válido para o qual a pasta deve ser retornada.";
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre selecionado.";
+
+"hubAuthentication.title" = "Cofre do Hub";
+"hubAuthentication.accessNotGranted" = "O seu dispositivo ainda não foi autorizado a aceder a este cofre. Peça ao proprietário do cofre para o autorizar.";
+"hubAuthentication.licenseExceeded" = "A entidade do seu Cryptomator Hub tem uma licença inválida. Por favor, informe o administrador do Hub para atualizar ou renovar a licença.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, é preciso dar um nome a este dispositivo.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "A sua chave de conta é necessária para iniciar sessão em novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registado com sucesso";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para aceder ao cofre, o seu dispositivo precisa de ser autorizado pelo proprietário do cofre.";
+"hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
+"hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
+
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta especificada não é válida.";
 "intents.saveFile.missingTemporaryFolder" = "Não foi possível criar a pasta temporária.";

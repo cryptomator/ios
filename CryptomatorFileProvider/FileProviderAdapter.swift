@@ -9,6 +9,7 @@
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -68,11 +69,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	private let provider: CloudProvider
 	private let localURLProvider: LocalURLProviderType
 	private let notificator: FileProviderItemUpdateDelegate?
-	private let fullVersionChecker: FullVersionChecker
+	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 	private let workflowFactory: WorkflowFactoryLocking
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 	private let fileCoordinator: NSFileCoordinator
 	private let taskRegistrator: SessionTaskRegistrator
+	@Dependency(\.permissionProvider) private var permissionProvider
 
 	init(domainIdentifier: NSFileProviderDomainIdentifier,
 	     uploadTaskManager: UploadTaskManager,
@@ -87,7 +89,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	     coordinator: NSFileCoordinator,
 	     notificator: FileProviderItemUpdateDelegate? = nil,
 	     localURLProvider: LocalURLProviderType,
-	     fullVersionChecker: FullVersionChecker = GlobalFullVersionChecker.default,
 	     taskRegistrator: SessionTaskRegistrator) {
 		self.lastUnlockedDate = Date()
 		self.domainIdentifier = domainIdentifier
@@ -112,7 +113,6 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		self.provider = provider
 		self.notificator = notificator
 		self.localURLProvider = localURLProvider
-		self.fullVersionChecker = fullVersionChecker
 		self.fileCoordinator = coordinator
 		self.taskRegistrator = taskRegistrator
 	}

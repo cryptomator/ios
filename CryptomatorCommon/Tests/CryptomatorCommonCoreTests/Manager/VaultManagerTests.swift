@@ -15,7 +15,7 @@ import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorCryptoLib
 
-class VaultManagerMock: VaultDBManager {
+private final class VaultManagerMock: VaultDBManager {
 	var removedVaultUIDs = [String]()
 	var addedFileProviderDomainDisplayName = [String: String]()
 
@@ -61,8 +61,6 @@ class VaultManagerTests: XCTestCase {
 	var masterkeyCacheManagerMock: MasterkeyCacheManagerMock!
 	var masterkeyCacheHelperMock: MasterkeyCacheHelperMock!
 	var cloudProviderMock: CloudProviderMock!
-	var tmpDir: URL!
-	var dbPool: DatabasePool!
 	let vaultUID = "VaultUID-12345"
 	let passphrase = "PW"
 	let delegateAccountUID = UUID().uuidString
@@ -74,17 +72,10 @@ class VaultManagerTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		cloudProviderMock = CloudProviderMock()
-		tmpDir = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
-		try FileManager.default.createDirectory(at: tmpDir, withIntermediateDirectories: true, attributes: nil)
-		var configuration = Configuration()
-		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
-		configuration.acceptsDoubleQuotedStringLiterals = true
-		dbPool = try DatabasePool(path: tmpDir.appendingPathComponent("db.sqlite").path, configuration: configuration)
-		try CryptomatorDatabase.migrator.migrate(dbPool)
 
-		providerAccountManager = CloudProviderAccountDBManager(dbPool: dbPool)
+		providerAccountManager = CloudProviderAccountDBManager()
 		providerManager = CloudProviderManagerMock(provider: cloudProviderMock, accountManager: providerAccountManager)
-		accountManager = VaultAccountDBManager(dbPool: dbPool)
+		accountManager = VaultAccountDBManager()
 		vaultCacheMock = VaultCacheMock()
 		vaultCacheMock.refreshVaultCacheForWithReturnValue = Promise(())
 		passwordManagerMock = VaultPasswordManagerMock()
@@ -92,16 +83,6 @@ class VaultManagerTests: XCTestCase {
 		masterkeyCacheHelperMock = MasterkeyCacheHelperMock()
 		masterkeyCacheHelperMock.shouldCacheMasterkeyForVaultUIDReturnValue = false
 		manager = VaultManagerMock(providerManager: providerManager, vaultAccountManager: accountManager, vaultCache: vaultCacheMock, passwordManager: passwordManagerMock, masterkeyCacheManager: masterkeyCacheManagerMock, masterkeyCacheHelper: masterkeyCacheHelperMock)
-	}
-
-	override func tearDownWithError() throws {
-		// Set all objects related to the sqlite database to nil to avoid warnings about database integrity when deleting the test database.
-		manager = nil
-		providerAccountManager = nil
-		providerManager = nil
-		accountManager = nil
-		dbPool = nil
-		try FileManager.default.removeItem(at: tmpDir)
 	}
 
 	func testCreateNewVault() throws {
@@ -144,11 +125,11 @@ class VaultManagerTests: XCTestCase {
 			}
 			XCTAssertEqual(uploadedVaultConfigToken, savedVaultConfigToken)
 			let vaultConfig = try UnverifiedVaultConfig(token: savedVaultConfigToken)
-			XCTAssertEqual("SIV_CTRMAC", vaultConfig.allegedCipherCombo)
+			XCTAssertEqual("SIV_GCM", vaultConfig.allegedCipherCombo)
 			XCTAssertEqual(8, vaultConfig.allegedFormat)
 
 			let uploadedRootDirIdFile = try getUploadedData(at: CloudPath(cloudProviderMock.createdFolders[3]).appendingPathComponent("dirid.c9r"))
-			XCTAssertEqual(88, uploadedRootDirIdFile.count)
+			XCTAssertEqual(68, uploadedRootDirIdFile.count)
 		}.catch { error in
 			XCTFail("Promise failed with error: \(error)")
 		}.always {

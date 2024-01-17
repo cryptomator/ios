@@ -11,6 +11,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class CacheManagingServiceSourceTests: XCTestCase {
 	var serviceSource: CacheManagingServiceSource!
@@ -19,10 +20,6 @@ class CacheManagingServiceSourceTests: XCTestCase {
 	var notificatorMock: FileProviderNotificatorTypeMock!
 	let domains = [NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier("1")),
 	               NSFileProviderDomain(identifier: NSFileProviderDomainIdentifier("2"))]
-
-	override class func setUp() {
-		GlobalFullVersionChecker.default = FullVersionCheckerMock()
-	}
 
 	override func setUpWithError() throws {
 		cacheManagerFactoryMock = CachedFileManagerFactoryMock()
@@ -61,6 +58,9 @@ class CacheManagingServiceSourceTests: XCTestCase {
 		let expectation = XCTestExpectation()
 		let cacheManagerMock = CachedFileManagerMock()
 		cacheManagerFactoryMock.createCachedFileManagerForReturnValue = cacheManagerMock
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
 		let domainIdentifier = NSFileProviderDomainIdentifier("Test-Domain")
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)

@@ -21,6 +21,8 @@
 "common.button.enable" = "Włącz";
 "common.button.next" = "Dalej";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Odśwież";
+"common.button.register" = "Zarejestruj";
 "common.button.remove" = "Usuń";
 "common.button.retry" = "Ponów";
 "common.button.signOut" = "Wyloguj";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Gdzie znajduje się sejf?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator wykrył sejf \"%@\".\nCzy chcesz dodać ten sejf?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Dodaj ten sejf";
+"addVault.openExistingVault.downloadVault.progress" = "Pobieranie sejfu…";
 "addVault.openExistingVault.password.footer" = "Wprowadź hasło dla \"%@\".";
 "addVault.openExistingVault.progress" = "Dodawanie sejfu…";
 "addVault.success.info" = "Dodano sejf \"%@\".\nUzyskaj dostęp do tego sejfu poprzez aplikację Pliki.";
@@ -110,6 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "Nie podano ścieżki. Proszę podać prawidłową ścieżkę do folderu.";
 "getFolderIntent.error.noVaultSelected" = "Nie wybrano sejfu.";
+
+"hubAuthentication.title" = "Hub sejfów";
+"hubAuthentication.accessNotGranted" = "Twoje urządzenie nie zostało jeszcze upoważnione do dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.";
+"hubAuthentication.licenseExceeded" = "Twoja instancja Hub ma nieprawidłową licencję. Poproś administratora Hub o uaktualnienie lub odnowienie licencji.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nazwa urządzenia";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Rejestracja urządzenia powiodła się";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
+"hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
+
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
 "intents.saveFile.invalidFolder" = "Wskazany folder jest niewłaściwy.";
 "intents.saveFile.missingTemporaryFolder" = "Nie udało się utworzyć katalogu tymczasowego.";

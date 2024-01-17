@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import Dependencies
 import Foundation
 
 public protocol CryptomatorSettings {
@@ -14,6 +15,20 @@ public protocol CryptomatorSettings {
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
 	var hasRunningSubscription: Bool { get set }
+}
+
+private enum CryptomatorSettingsKey: DependencyKey {
+	#if DEBUG
+	static let testValue: CryptomatorSettings = CryptomatorSettingsMock()
+	#endif
+	static let liveValue: CryptomatorSettings = CryptomatorUserDefaults.shared
+}
+
+public extension DependencyValues {
+	var cryptomatorSettings: CryptomatorSettings {
+		get { self[CryptomatorSettingsKey.self] }
+		set { self[CryptomatorSettingsKey.self] = newValue }
+	}
 }
 
 public class CryptomatorUserDefaults {

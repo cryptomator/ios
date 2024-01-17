@@ -21,6 +21,8 @@
 "common.button.enable" = "有効にする";
 "common.button.next" = "次へ";
 "common.button.ok" = "OK";
+"common.button.refresh" = "更新";
+"common.button.register" = "登録";
 "common.button.remove" = "削除";
 "common.button.retry" = "再試行";
 "common.button.signOut" = "サインアウト";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "金庫の場所";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomatorが金庫 \"%@\" を検出しました。\nこの金庫を追加しますか?";
 "addVault.openExistingVault.detectedMasterkey.add" = "この金庫を追加";
+"addVault.openExistingVault.downloadVault.progress" = "金庫をダウンロード…";
 "addVault.openExistingVault.password.footer" = "\"%@\" のパスワードを入力してください。";
 "addVault.openExistingVault.progress" = "金庫を追加しています…";
 "addVault.success.info" = "金庫 \"%@\" を正常に追加しました。\nファイル アプリからこの金庫にアクセスしてください。";
@@ -110,6 +113,15 @@
 
 "getFolderIntent.error.missingPath" = "パスがありません。妥当なフォルダーのパスを指定してください。";
 "getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
+"hubAuthentication.accessNotGranted" = "お使いのデバイスはまだこの金庫にアクセスする権限がありません。金庫のオーナーに権限を与えてもらってください。";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには，金庫のオーナーが端末を認証する必要があります。";
+"hubAuthentication.requireAccountInit.alert.title" = "要対応";
+"hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
+
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
 "intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
 "intents.saveFile.missingTemporaryFolder" = "臨時フォルダーの作成ができませんでした。";

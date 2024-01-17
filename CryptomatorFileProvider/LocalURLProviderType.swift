@@ -1,5 +1,5 @@
 //
-//  LocalURLProvider.swift
+//  LocalURLProviderType.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 03.03.22.

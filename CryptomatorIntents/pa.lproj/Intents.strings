@@ -1,1 +1,31 @@
+"common.failureReason" = "ਫੇਲ੍ਹ ਹੋਣ ਦਾ ਕਾਰਨ";
+"common.false" = "ਅਸਫ਼ਲ";
+"common.folder" = "ਫੋਲਡਰ";
+"common.true" = "ਸੱਚ";
 "common.vault" = "ਵਾਲਟ";
+
+"getFolderIntent.description" = "ਦਿੱਤੇ ਵਾਲਟ ਵਿੱਚ ਦਿੱਤੇ ਹੋਏ ਮਾਰਗ ਲਈ ਫੋਲਡਰ ਆਬਜੈਕਟ ਵਾਪਸ ਦਿੰਦਾ ਹੈ।";
+"getFolderIntent.path" = "ਮਾਰਗ";
+"getFolderIntent.text" = "${vault} ਵਿੱਚ ${path} ਉੱਤੇ ਮੌਜੂਦ ਫੋਲਡਰ ਲਵੋ";
+"getFolderIntent.title" = "ਫੋਲਡਰ ਲਵੋ";
+"isUnlockedIntent.title" = "ਅਣ-ਲਾਕ ਹੈ";
+
+"isVaultLockedIntent.title" = "ਵਾਲਟ ਅਣ-ਲਾਕ ਹੈ";
+"isVaultUnlockedIntent.text" = "${vault} ਅਣ-ਲਾਕ ਕਰਨਾ ਹੈ?";
+
+"lockVaultIntent.description" = "ਦਿੱਤੇ ਵਾਲਟ ਨੂੰ ਲਾਕ ਕਰਦਾ ਹੈ।";
+"lockVaultIntent.text" = "${vault} ਨੂੰ ਲਾਕ ਕਰੋ";
+"lockVaultIntent.title" = "ਵਾਲਟ ਲਾਕ ਕਰੋ";
+
+"openVaultIntent.description" = "ਫਾਇਲ ਐਪ ਵਿੱਚ ਦਿੱਤਾ ਵਾਲਟ ਖੋਲ੍ਹੋ।";
+"openVaultIntent.text" = "ਫਾਇਲਾਂ ਐਪ ਵਿੱਚ ${vault} ਨੂੰ ਖੋਲ੍ਹੋ";
+"openVaultIntent.title" = "ਵਾਲਟ ਖੋਲ੍ਹੋ";
+
+"saveFileIntent.description" = "ਫਾਇਲ ਨੂੰ ਵਾਲਟ ਵਿੱਚ ਖੋਲ੍ਹੋ।";
+"saveFileIntent.file" = "ਫਾਇਲ";
+"saveFileIntent.parameter.ignoreExisting" = "ਇੱਕੋ ਨਾਂ ਦੀ ਮੌਜੂਦਾ ਫਾਇਲ ਨੂੰ ਅਣਡਿੱਠਾ ਕਰੋ";
+"saveFileIntent.text" = "${folder} ਵਿੱਚ ${file} ਸੰਭਾਲੋ";
+"saveFileIntent.title" = "ਫਾਇਲ ਸੰਭਾਲੋ";
+
+"vaultFolder.displayName" = "ਵਾਲਟ ਫੋਲਡਰ";
+"vaultFolder.vaultIdentifier" = "ਵਾਲਟ ਪਛਾਣਕਰਤਾ";

@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
+import Dependencies
 import FileProvider
 import MSAL
 
@@ -25,27 +26,19 @@ class FileProviderExtension: NSFileProviderExtension {
 		LoggerSetup.oneTimeSetup()
 		FileProviderExtension.setupIAP()
 		if !FileProviderExtension.sharedDatabaseInitialized {
-			if let dbURL = CryptomatorDatabase.sharedDBURL {
-				do {
-					let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-					CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-					FileProviderExtension.sharedDatabaseInitialized = true
-					DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
-					GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-					OneDriveSetup.sharedContainerIdentifier = CryptomatorConstants.appGroupName
-					let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
-					oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
-					OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
-				} catch {
-					// MARK: Handle error
-
-					FileProviderExtension.databaseError = error
-					DDLogError("Failed to initialize FPExt sharedDB: \(error)")
-				}
-			} else {
+			do {
+				FileProviderExtension.sharedDatabaseInitialized = true
+				DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
+				GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				OneDriveSetup.sharedContainerIdentifier = CryptomatorConstants.appGroupName
+				let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
+				oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+				OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+			} catch {
 				// MARK: Handle error
 
-				DDLogError("FPExt - dbURL is nil")
+				FileProviderExtension.databaseError = error
+				DDLogError("Failed to initialize FPExt sharedDB: \(error)")
 			}
 		}
 
@@ -76,7 +69,7 @@ class FileProviderExtension: NSFileProviderExtension {
 		// resolve the given identifier to a record in the model
 		DDLogDebug("FPExt: item(for: \(identifier)) called")
 		if identifier == .rootContainer || identifier.rawValue == "File Provider Storage" || identifier.rawValue == domain?.identifier.rawValue {
-			return RootFileProviderItem()
+			return RootFileProviderItem(domain: domain)
 		}
 		let adapter = try getAdapterWithWrappedError()
 		return try adapter.item(for: identifier)
@@ -316,13 +309,26 @@ class FileProviderExtension: NSFileProviderExtension {
 	static var setupIAP: () -> Void = {
 		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
-		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
+		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 		#else
 		DDLogDebug("Freemium version")
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
 		#endif
 		return {}
 	}()
+}
+
+/**
+ Define the liveValue in the main target since compilation flags do not work on Swift Package Manager level.
+ Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
+ */
+extension FullVersionCheckerKey: DependencyKey {
+	public static var liveValue: FullVersionChecker {
+		#if ALWAYS_PREMIUM
+		return AlwaysActivatedPremium.default
+		#else
+		return UserDefaultsFullVersionChecker.default
+		#endif
+	}
 }
 
 enum FileProviderDecoratorSetupError: Error {

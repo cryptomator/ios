@@ -64,4 +64,26 @@ public class VaultUnlockingServiceSource: ServiceSource, VaultUnlocking {
 		DDLogInfo("endBiometricalUnlock called for \(vaultUID)")
 		FileProviderAdapterManager.shared.unlockMonitor.endBiometricalUnlock(forVaultUID: vaultUID)
 	}
+
+	public func unlockVault(rawKey: [UInt8], reply: @escaping (NSError?) -> Void) {
+		let domain = self.domain
+		let vaultUID = vaultUID
+		DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+			guard let notificator = self.notificator else {
+				DDLogError("Unlocking vault failed, unable to find FileProviderDomain")
+				reply(VaultManagerError.fileProviderDomainNotFound as NSError)
+				return
+			}
+			do {
+				try FileProviderAdapterManager.shared.unlockVault(with: domain.identifier, rawKey: rawKey, dbPath: self.dbPath, delegate: self.localURLProvider, notificator: notificator, taskRegistrator: self.taskRegistrator)
+				FileProviderAdapterManager.shared.unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
+				DDLogInfo("Unlocked vault \"\(domain.displayName)\" (\(domain.identifier.rawValue))")
+				reply(nil)
+			} catch {
+				FileProviderAdapterManager.shared.unlockMonitor.unlockFailed(forVaultUID: vaultUID)
+				DDLogError("Unlocking vault \"\(domain.displayName)\" (\(domain.identifier.rawValue)) failed with error: \(error)")
+				reply(XPCErrorHelper.bridgeError(error))
+			}
+		}
+	}
 }

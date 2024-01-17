@@ -21,6 +21,7 @@
 "common.button.enable" = "Увімкнути";
 "common.button.next" = "Далі";
 "common.button.ok" = "Гаразд";
+"common.button.refresh" = "Оновити";
 "common.button.remove" = "Прибрати";
 "common.button.retry" = "Повторити";
 "common.button.signOut" = "Вийти";
@@ -58,6 +59,14 @@
 "fileProvider.onboarding.button.openCryptomator" = "Відкрити Cryptomator";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Невірний пароль";
 "fileProvider.error.unlockButton" = "Розблокувати";
+"hubAuthentication.accessNotGranted" = "Ваш пристрій ще не має прав доступу до цього vault. Попросіть власника vault надати їх.";
+"hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, повідомте адміністратору Hub, що потрібно оновити або продовжити ліцензію.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш Account Key необхідний для входу в систему з нових програм або браузерів. Його можна знайти в профілі.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб отримати доступ до vault, ваш пристрій повинен бути авторизований власником vault.";
+"hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
+"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "localFileSystemAuthentication.openExistingVault.button" = "Виберіть папку сховища";
 
@@ -91,6 +100,7 @@
 "settings.clearCache" = "Очистити кеш";
 "settings.cloudServices" = "Хмарні сервіси";
 "settings.debugMode" = "Режим вiдладки";
+"settings.debugMode.alert.message" = "У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Паролі, файли cookie тощо не включаються.\n\nНе забудьте вимкнути режим налагодження за першої нагоди.";
 "settings.rateApp" = "Оцінити додаток";
 "settings.sendLogFile" = "Надіслати лог-файл";
 "settings.unlockFullVersion" = "Розблокувати повну версію";

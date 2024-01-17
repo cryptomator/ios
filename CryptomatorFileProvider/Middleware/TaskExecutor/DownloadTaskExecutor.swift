@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import Dependencies
 import Foundation
 import Promises
 
@@ -30,8 +31,13 @@ class DownloadTaskExecutor: WorkflowMiddleware {
 	private let downloadTaskManager: DownloadTaskManager
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
+	@Dependency(\.permissionProvider) private var permissionProvider
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, downloadTaskManager: DownloadTaskManager) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     provider: CloudProvider,
+	     itemMetadataManager: ItemMetadataManager,
+	     cachedFileManager: CachedFileManager,
+	     downloadTaskManager: DownloadTaskManager) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager

@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCryptoLib
+import Dependencies
 import Foundation
 import GRDB
 import Promises
@@ -22,7 +23,7 @@ public protocol VaultCache {
 public struct CachedVault: Codable, Equatable {
 	let vaultUID: String
 	public let masterkeyFileData: Data
-	let vaultConfigToken: Data?
+	public let vaultConfigToken: Data?
 	let lastUpToDateCheck: Date
 	var masterkeyFileLastModifiedDate: Date?
 	var vaultConfigLastModifiedDate: Date?
@@ -49,20 +50,18 @@ public enum VaultCacheError: Error {
 }
 
 public class VaultDBCache: VaultCache {
-	private let dbWriter: DatabaseWriter
+	@Dependency(\.database) var database
 
-	public init(dbWriter: DatabaseWriter) {
-		self.dbWriter = dbWriter
-	}
+	public init() {}
 
 	public func cache(_ entry: CachedVault) throws {
-		try dbWriter.write({ db in
+		try database.write({ db in
 			try entry.save(db)
 		})
 	}
 
 	public func getCachedVault(withVaultUID vaultUID: String) throws -> CachedVault {
-		try dbWriter.read({ db in
+		try database.read({ db in
 			guard let cachedVault = try CachedVault.fetchOne(db, key: vaultUID) else {
 				throw VaultCacheError.vaultNotFound
 			}
@@ -83,7 +82,7 @@ public class VaultDBCache: VaultCache {
 	}
 
 	public func setMasterkeyFileData(_ data: Data, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
-		_ = try dbWriter.write { db in
+		_ = try database.write { db in
 			try CachedVault.filter(CachedVault.Columns.vaultUID == vaultUID).updateAll(db,
 			                                                                           CachedVault.Columns.masterkeyFileData.set(to: data),
 			                                                                           CachedVault.Columns.masterkeyFileLastModifiedDate.set(to: lastModifiedDate))
@@ -153,7 +152,7 @@ public class VaultDBCache: VaultCache {
 	}
 
 	private func setVaultConfigData(_ data: Data?, forVaultUID vaultUID: String, lastModifiedDate: Date?) throws {
-		_ = try dbWriter.write { db in
+		_ = try database.write { db in
 			try CachedVault.filter(CachedVault.Columns.vaultUID == vaultUID).updateAll(db,
 			                                                                           CachedVault.Columns.vaultConfigToken.set(to: data),
 			                                                                           CachedVault.Columns.vaultConfigLastModifiedDate.set(to: lastModifiedDate))

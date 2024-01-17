@@ -37,7 +37,15 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 	private let provider: CloudProvider
 	private let domainIdentifier: NSFileProviderDomainIdentifier
 
-	init(domainIdentifier: NSFileProviderDomainIdentifier, provider: CloudProvider, itemMetadataManager: ItemMetadataManager, cachedFileManager: CachedFileManager, uploadTaskManager: UploadTaskManager, reparentTaskManager: ReparentTaskManager, deletionTaskManager: DeletionTaskManager, itemEnumerationTaskManager: ItemEnumerationTaskManager, deleteItemHelper: DeleteItemHelper) {
+	init(domainIdentifier: NSFileProviderDomainIdentifier,
+	     provider: CloudProvider,
+	     itemMetadataManager: ItemMetadataManager,
+	     cachedFileManager: CachedFileManager,
+	     uploadTaskManager: UploadTaskManager,
+	     reparentTaskManager: ReparentTaskManager,
+	     deletionTaskManager: DeletionTaskManager,
+	     itemEnumerationTaskManager: ItemEnumerationTaskManager,
+	     deleteItemHelper: DeleteItemHelper) {
 		self.domainIdentifier = domainIdentifier
 		self.provider = provider
 		self.itemMetadataManager = itemMetadataManager

@@ -1,5 +1,5 @@
 //
-//  TableViewCellViewModel.swift
+//  BindableTableViewCellViewModel.swift
 //  Cryptomator
 //
 //  Created by Philipp Schmid on 29.07.21.

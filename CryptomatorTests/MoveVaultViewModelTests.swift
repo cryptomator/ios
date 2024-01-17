@@ -13,6 +13,7 @@ import Promises
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
+@testable import Dependencies
 
 class MoveVaultViewModelTests: XCTestCase {
 	private var vaultManagerMock: VaultManagerMock!
@@ -35,6 +36,8 @@ class MoveVaultViewModelTests: XCTestCase {
 		cloudProviderMock = CloudProviderMock()
 		maintenanceHelperMock = MaintenanceModeHelperMock()
 		vaultLockingMock = VaultLockingMock()
+
+		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
 
 		fileProviderConnectorMock.getXPCServiceNameDomainClosure = { serviceName, _ in
 			switch serviceName {
@@ -71,7 +74,7 @@ class MoveVaultViewModelTests: XCTestCase {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
 	}
 
 	func testRejectVaultsInTheLocalFileSystem() async throws {
@@ -173,7 +176,6 @@ class MoveVaultViewModelTests: XCTestCase {
 		                          currentFolderChoosingCloudPath: currentFolderChoosingCloudPath,
 		                          vaultInfo: vaultInfo,
 		                          domain: domain,
-		                          vaultManager: vaultManagerMock,
-		                          fileProviderConnector: fileProviderConnectorMock)
+		                          vaultManager: vaultManagerMock)
 	}
 }

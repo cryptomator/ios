@@ -6,27 +6,31 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import Dependencies
 import Foundation
+
 public protocol FullVersionChecker {
 	var isFullVersion: Bool { get }
 	var hasExpiredTrial: Bool { get }
 }
 
-/**
- Use a singleton to inject the full version checker conveniently at several initializers since compilation flags do not work on Swift Package Manager level.
- Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
- */
-public enum GlobalFullVersionChecker {
-	public static var `default`: FullVersionChecker!
+public enum FullVersionCheckerKey {}
+
+extension FullVersionCheckerKey: TestDependencyKey {
+	public static let testValue: FullVersionChecker = FullVersionCheckerMock()
+}
+
+public extension DependencyValues {
+	var fullVersionChecker: FullVersionChecker {
+		get { self[FullVersionCheckerKey.self] }
+		set { self[FullVersionCheckerKey.self] = newValue }
+	}
 }
 
 public class UserDefaultsFullVersionChecker: FullVersionChecker {
-	public static let `default` = UserDefaultsFullVersionChecker(cryptomatorSettings: CryptomatorUserDefaults.shared)
-	private let cryptomatorSettings: CryptomatorSettings
+	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
 
-	init(cryptomatorSettings: CryptomatorSettings) {
-		self.cryptomatorSettings = cryptomatorSettings
-	}
+	public static let `default` = UserDefaultsFullVersionChecker()
 
 	public var isFullVersion: Bool {
 		if cryptomatorSettings.fullVersionUnlocked {

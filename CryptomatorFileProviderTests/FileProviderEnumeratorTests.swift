@@ -13,6 +13,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderEnumeratorTestCase: XCTestCase {
 	var enumerationObserverMock: NSFileProviderEnumerationObserverMock!
@@ -25,8 +26,8 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	let dbPath = FileManager.default.temporaryDirectory
 	let domain = NSFileProviderDomain(vaultUID: "VaultUID-12345", displayName: "Test Vault")
 	let items: [FileProviderItem] = [
-		.init(metadata: ItemMetadata(id: 2, name: "Test.txt", type: .file, size: 100, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test.txt"), isPlaceholderItem: false), domainIdentifier: .test, fullVersionChecker: FullVersionCheckerMock()),
-		.init(metadata: ItemMetadata(id: 3, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false), domainIdentifier: .test, fullVersionChecker: FullVersionCheckerMock())
+		.init(metadata: ItemMetadata(id: 2, name: "Test.txt", type: .file, size: 100, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test.txt"), isPlaceholderItem: false), domainIdentifier: .test),
+		.init(metadata: ItemMetadata(id: 3, name: "TestFolder", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/TestFolder"), isPlaceholderItem: false), domainIdentifier: .test)
 	]
 	let deleteItemIdentifiers = [1, 2, 3].map { NSFileProviderItemIdentifier("\($0)") }
 
@@ -50,6 +51,10 @@ class FileProviderEnumeratorTestCase: XCTestCase {
 	}
 
 	func assertChangeObserverUpdated(deletedItems: [NSFileProviderItemIdentifier], updatedItems: [FileProviderItem], currentSyncAnchor: NSFileProviderSyncAnchor) {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
 		XCTAssertEqual([deletedItems], changeObserverMock.didDeleteItemsWithIdentifiersReceivedInvocations)
 		let receivedUpdatedItems = changeObserverMock.didUpdateReceivedInvocations as? [[FileProviderItem]]
 		XCTAssertEqual([updatedItems], receivedUpdatedItems)
@@ -179,6 +184,10 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 	}
 
 	private func assertEnumerateItemObserverSucceeded(itemList: FileProviderItemList) {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
 		XCTAssertEqual([itemList.nextPageToken], enumerationObserverMock.finishEnumeratingUpToReceivedInvocations)
 		let receivedInvocations = enumerationObserverMock.didEnumerateReceivedInvocations as? [[FileProviderItem]]
 		XCTAssertEqual([items], receivedInvocations)

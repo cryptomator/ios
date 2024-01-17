@@ -64,4 +64,7 @@ final class FileProviderConnectorMock: FileProviderConnector {
 		return Promise(xpc ?? getXPCServiceNameDomainIdentifierReturnValue as! XPC<T>)
 	}
 }
+
+// swiftlint:enable all
+
 #endif

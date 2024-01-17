@@ -11,6 +11,7 @@ import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
 import CryptomatorCommon
 import CryptomatorCommonCore
+import Dependencies
 import MSAL
 import ObjectiveDropboxOfficial
 import StoreKit
@@ -29,22 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		setupIAP()
 
 		// Set up database
-		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
-			// MARK: Handle error
+		DatabaseManager.shared = DatabaseManager()
 
-			DDLogError("dbURL is nil")
-			return false
-		}
-		do {
-			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-			DatabaseManager.shared = try DatabaseManager(dbPool: dbPool)
-		} catch {
-			// MARK: Handle error
-
-			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
-			return false
-		}
 		VaultDBManager.shared.recoverMissingFileProviderDomains().catch { error in
 			DDLogError("Recover missing FileProvider domains failed with error: \(error)")
 		}
@@ -144,11 +131,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	private func setupIAP() {
 		#if ALWAYS_PREMIUM
 		DDLogDebug("Always activated premium")
-		GlobalFullVersionChecker.default = AlwaysActivatedPremium.default
 		CryptomatorUserDefaults.shared.fullVersionUnlocked = true
 		#else
 		DDLogDebug("Freemium version")
-		GlobalFullVersionChecker.default = UserDefaultsFullVersionChecker.default
+		#endif
+	}
+}
+
+/**
+ Define the liveValue in the main target since compilation flags do not work on Swift Package Manager level.
+ Be aware that it is needed to set the default value once per app launch (+ also when launching the FileProviderExtension).
+ */
+extension FullVersionCheckerKey: DependencyKey {
+	public static var liveValue: FullVersionChecker {
+		#if ALWAYS_PREMIUM
+		return AlwaysActivatedPremium.default
+		#else
+		return UserDefaultsFullVersionChecker.default
 		#endif
 	}
 }

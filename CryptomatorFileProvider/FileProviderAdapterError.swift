@@ -1,5 +1,5 @@
 //
-//  FileProviderDecoratorError.swift
+//  FileProviderAdapterError.swift
 //  CryptomatorFileProvider
 //
 //  Created by Philipp Schmid on 24.06.20.

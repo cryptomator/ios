@@ -21,6 +21,8 @@
 "common.button.enable" = "Aktivera";
 "common.button.next" = "Nästa";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Uppdatera";
+"common.button.register" = "Skapa konto";
 "common.button.remove" = "Ta bort";
 "common.button.retry" = "Försök igen";
 "common.button.signOut" = "Logga ut";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Var ligger valvet?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator upptäckte valvet \"%@\".\nVill du lägga till detta valv?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Lägg till detta valv";
+"addVault.openExistingVault.downloadVault.progress" = "Laddar ner valv…";
 "addVault.openExistingVault.password.footer" = "Ange lösenord för \"%@\".";
 "addVault.openExistingVault.progress" = "Lägger till valvet…";
 "addVault.success.info" = "Framgångsrikt lagt till valvet \"%@\".\nKom åt detta valv via Fil-appen.";
@@ -110,6 +113,19 @@
 
 "getFolderIntent.error.missingPath" = "Ingen sökväg angavs. Vänligen ange en giltig sökväg för vilken en mapp ska returneras.";
 "getFolderIntent.error.noVaultSelected" = "Inget valv har valts.";
+
+"hubAuthentication.title" = "Hubb valv";
+"hubAuthentication.accessNotGranted" = "Din enhet har ännu inte behörighet att komma åt detta valv. Be valvägaren att godkänna det.";
+"hubAuthentication.licenseExceeded" = "Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnamn";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Detta verkar vara den första Hub-åtkomsten från den här enheten. För att identifiera den för åtkomstbehörighet, måste du namnge den här enheten.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonyckel krävs för att logga in från nya appar eller webbläsare. Den finns i din profil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enhetsregistrering lyckades";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "För att komma åt valvet måste din enhet godkännas av valvägaren.";
+"hubAuthentication.requireAccountInit.alert.title" = "Åtgärd krävs";
+"hubAuthentication.requireAccountInit.alert.message" = "För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Gå till profil";
+
 "intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";
 "intents.saveFile.invalidFolder" = "Den angivna mappen är inte giltig.";
 "intents.saveFile.missingTemporaryFolder" = "Det gick inte att skapa en temporär mapp.";

@@ -11,6 +11,7 @@ import MobileCoreServices
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderItemTests: XCTestCase {
 	func testRootItem() {
@@ -107,54 +108,19 @@ class FileProviderItemTests: XCTestCase {
 
 	// MARK: Capabilities
 
-	func testUploadingItemRestrictsCapabilityToRead() {
-		let fullVersionCheckerMock = FullVersionCheckerMock()
-		fullVersionCheckerMock.isFullVersion = true
+	func testCapabilitiesArePassedThroughFromPermissionProvider() {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
 
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
-		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
-	}
+		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test)
 
-	func testUploadingFolderDoesNotRestrictCapabilities() {
-		let fullVersionCheckerMock = FullVersionCheckerMock()
-		fullVersionCheckerMock.isFullVersion = true
-
-		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
-		XCTAssertEqual([.allowsAddingSubItems, .allowsContentEnumerating, .allowsReading, .allowsDeleting, .allowsRenaming, .allowsReparenting], item.capabilities)
-	}
-
-	func testCapabilitiesForRestrictedVersion() {
-		let fullVersionCheckerMock = FullVersionCheckerMock()
-		fullVersionCheckerMock.isFullVersion = false
-
-		let cloudPath = CloudPath("/test.txt")
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
-		XCTAssertEqual(NSFileProviderItemCapabilities.allowsReading, item.capabilities)
-	}
-
-	func testFailedUploadItemCapabilitiesForRestrictedVersion() {
-		let fullVersionCheckerMock = FullVersionCheckerMock()
-		fullVersionCheckerMock.isFullVersion = false
-
-		let cloudPath = CloudPath("/test.txt")
-		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
-		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
-	}
-
-	func testFailedUploadFolderCapabilitiesForRestrictedVersion() {
-		let fullVersionCheckerMock = FullVersionCheckerMock()
-		fullVersionCheckerMock.isFullVersion = false
-
-		let cloudPath = CloudPath("/test")
-		let metadata = ItemMetadata(id: 2, name: "test", type: .folder, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
-		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, fullVersionChecker: fullVersionCheckerMock)
-		XCTAssertEqual(NSFileProviderItemCapabilities.allowsDeleting, item.capabilities)
+		let capabilities: [NSFileProviderItemCapabilities] = [.allowsAddingSubItems, .allowsContentEnumerating, .allowsDeleting, .allowsReading, .allowsReparenting, .allowsWriting]
+		for capability in capabilities {
+			permissionProviderMock.getPermissionsForAtReturnValue = capability
+			XCTAssertEqual(capability, item.capabilities)
+		}
 	}
 
 	// MARK: Evict File From Cache Action

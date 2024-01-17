@@ -21,6 +21,7 @@
 "common.button.enable" = "הפעל";
 "common.button.next" = "הבא";
 "common.button.ok" = "אישור";
+"common.button.refresh" = "רענן";
 "common.button.remove" = "הסר";
 "common.button.retry" = "לנסות שוב";
 "common.button.signOut" = "התנתק";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "לא סופק נתיב. נא ספק נתיב תקין שממנו יש להחזיר תיקיה.";
 "getFolderIntent.error.noVaultSelected" = "לא נבחר קובץ vault.";
+"hubAuthentication.accessNotGranted" = "המכשיר שלך טרם אושר לגשת לכספת הזאת. יש לבקש אישור גישה מבעל הכספת.";
+"hubAuthentication.licenseExceeded" = "הרישיון שמותקן במופע ה- Cryptomator האב שלך אינו תקף. אנא ידע את מנהל ההאב שלך לשדרג או לחדש את הרישיון.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "שם מכשיר";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "כדי לגשת לכספת, המכשיר שלך צריך לקבל הרשאה על ידי בעלי הכספת.";
+
 "intents.saveFile.missingFile" = "הקובץ שסופק אינו תקין.";
 "intents.saveFile.invalidFolder" = "התיקייה שנבחרה איננה תקינה.";
 "intents.saveFile.missingTemporaryFolder" = "כשלון ביצירת תיקיה זמנית.";

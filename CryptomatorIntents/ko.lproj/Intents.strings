@@ -1,1 +1,16 @@
+"common.failureReason" = "실패 사유";
+"common.folder" = "폴더";
 "common.vault" = "Vault";
+"getFolderIntent.path" = "경로";
+"getFolderIntent.title" = "폴더 열기";
+
+"lockVaultIntent.description" = "해당 vault를 잠급니다.";
+"lockVaultIntent.title" = "Vault 잠그기";
+"openVaultIntent.title" = "Vault 열기";
+"saveFileIntent.file" = "파일";
+"saveFileIntent.parameter.ignoreExisting" = "같은 이름을 가진 기존 파일 무시하기";
+"saveFileIntent.text" = "${file}을 ${folder}에 저장";
+"saveFileIntent.title" = "파일 저장하기";
+
+"vaultFolder.displayName" = "Vault 폴더";
+"vaultFolder.vaultIdentifier" = "Vault 식별자";

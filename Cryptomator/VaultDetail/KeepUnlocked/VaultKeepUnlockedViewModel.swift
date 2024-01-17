@@ -8,6 +8,7 @@
 
 import Combine
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import Promises
@@ -40,7 +41,7 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 	private(set) var keepUnlockedItems = [KeepUnlockedDurationItem]()
 	private let vaultKeepUnlockedSettings: VaultKeepUnlockedSettings
 	private let masterkeyCacheManager: MasterkeyCacheManager
-	private let fileProviderConnector: FileProviderConnector
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 	private let vaultInfo: VaultInfo
 	private let currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>
 	private var subscriber: AnyCancellable?
@@ -48,11 +49,10 @@ class VaultKeepUnlockedViewModel: TableViewModel<VaultKeepUnlockedSection>, Vaul
 		return vaultInfo.vaultUID
 	}
 
-	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>, vaultInfo: VaultInfo, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared, fileProviderConnector: FileProviderConnector = FileProviderXPCConnector.shared) {
+	init(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>, vaultInfo: VaultInfo, vaultKeepUnlockedSettings: VaultKeepUnlockedSettings = VaultKeepUnlockedManager.shared, masterkeyCacheManager: MasterkeyCacheManager = MasterkeyCacheKeychainManager.shared) {
 		self.vaultInfo = vaultInfo
 		self.vaultKeepUnlockedSettings = vaultKeepUnlockedSettings
 		self.masterkeyCacheManager = masterkeyCacheManager
-		self.fileProviderConnector = fileProviderConnector
 		self.currentKeepUnlockedDuration = currentKeepUnlockedDuration
 
 		self.keepUnlockedItems = KeepUnlockedDuration.allCases.map {

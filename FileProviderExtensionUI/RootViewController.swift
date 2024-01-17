@@ -10,6 +10,7 @@ import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import CryptomatorFileProvider
+import Dependencies
 import FileProviderUI
 import MSAL
 import Promises
@@ -23,6 +24,8 @@ class RootViewController: FPUIActionExtensionViewController {
 		return .init(extensionContext: extensionContext, hostViewController: self)
 		#endif
 	}()
+
+	@Dependency(\.fileProviderConnector) private var fileProviderConnector
 
 	override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
 		super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -56,22 +59,7 @@ class RootViewController: FPUIActionExtensionViewController {
 	static var oneTimeSetup: () -> Void = {
 		// Set up logger
 		LoggerSetup.oneTimeSetup()
-		// Set up database
-		guard let dbURL = CryptomatorDatabase.sharedDBURL else {
-			// MARK: Handle error
 
-			DDLogError("dbURL is nil")
-			return {}
-		}
-		do {
-			let dbPool = try CryptomatorDatabase.openSharedDatabase(at: dbURL)
-			CryptomatorDatabase.shared = try CryptomatorDatabase(dbPool)
-		} catch {
-			// MARK: Handle error
-
-			DDLogError("Initializing CryptomatorDatabase failed with error: \(error)")
-			return {}
-		}
 		// Set up cloud storage services
 		CloudProviderDBManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
@@ -87,7 +75,7 @@ class RootViewController: FPUIActionExtensionViewController {
 	}()
 
 	func retryUpload(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<UploadRetrying>> = FileProviderXPCConnector.shared.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<UploadRetrying>> = fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
 		getXPCPromise.then { xpc in
 			return wrap {
 				xpc.proxy.retryUpload(for: itemIdentifiers, reply: $0)
@@ -100,8 +88,8 @@ class RootViewController: FPUIActionExtensionViewController {
 		}.catch { error in
 			DDLogError("Retry upload failed with error: \(error)")
 			self.extensionContext.cancelRequest(withError: NSError(domain: FPUIErrorDomain, code: Int(FPUIExtensionErrorCode.failed.rawValue), userInfo: nil))
-		}.always {
-			FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+		}.always { [fileProviderConnector] in
+			fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 
@@ -113,7 +101,7 @@ class RootViewController: FPUIActionExtensionViewController {
 	}
 
 	func showUploadProgressAlert(for itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<UploadRetrying>> = FileProviderXPCConnector.shared.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<UploadRetrying>> = fileProviderConnector.getXPC(serviceName: .uploadRetryingService, domainIdentifier: domainIdentifier)
 		let progressAlert = RetryUploadAlertControllerFactory.createUploadProgressAlert(dismissAction: { [weak self] in
 			self?.cancel()
 		}, retryAction: { [weak self] in
@@ -123,9 +111,9 @@ class RootViewController: FPUIActionExtensionViewController {
 			let observeProgressPromise = progressAlert.observeProgress(itemIdentifier: itemIdentifiers[0], proxy: xpc.proxy)
 			let alertActionPromise = progressAlert.alertActionTriggered
 			return race([observeProgressPromise, alertActionPromise])
-		}.always {
+		}.always { [fileProviderConnector] in
 			self.extensionContext.completeRequest()
-			FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+			fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 		present(progressAlert, animated: true)
 	}
@@ -150,7 +138,7 @@ class RootViewController: FPUIActionExtensionViewController {
 	}
 
 	func evictFilesFromCache(with itemIdentifiers: [NSFileProviderItemIdentifier], domainIdentifier: NSFileProviderDomainIdentifier) {
-		let getXPCPromise: Promise<XPC<CacheManaging>> = FileProviderXPCConnector.shared.getXPC(serviceName: .cacheManaging, domainIdentifier: domainIdentifier)
+		let getXPCPromise: Promise<XPC<CacheManaging>> = fileProviderConnector.getXPC(serviceName: .cacheManaging, domainIdentifier: domainIdentifier)
 		getXPCPromise.then { xpc in
 			xpc.proxy.evictFilesFromCache(with: itemIdentifiers)
 		}.catch { error in
@@ -165,8 +153,8 @@ class RootViewController: FPUIActionExtensionViewController {
 			self.present(alertController, animated: true)
 		}.then {
 			self.extensionContext.completeRequest()
-		}.always {
-			FileProviderXPCConnector.shared.invalidateXPC(getXPCPromise)
+		}.always { [fileProviderConnector] in
+			fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
 	}
 

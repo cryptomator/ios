@@ -1,12 +1,15 @@
 "common.button.cancel" = "Скасаваць";
 "common.button.change" = "Змяніць";
+"common.button.choose" = "Абраць";
 "common.button.close" = "Зачыніць";
 "common.button.create" = "Стварыць";
 "common.button.done" = "Файна";
 "common.button.edit" = "Рэдагаваць";
 "common.button.next" = "Далей";
 "common.button.ok" = "Добра";
+"common.button.refresh" = "Абнавiць";
 "common.button.remove" = "Выдаліць";
+"common.button.retry" = "Паспрабаваць ізноў";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
 "common.cells.username" = "Імя карыстальніка";
@@ -17,11 +20,16 @@
 "addVault.createNewVault.chooseCloud.header" = "Дзе мусіць Cryptomator захоўваць зашыфраваныя файлы з тваёй скарбніцы?";
 "addVault.openExistingVault.title" = "Адчыніць існуючую скарбніцу";
 "fileProvider.error.unlockButton" = "Адамкнуць";
+"hubAuthentication.accessNotGranted" = "Тваёй прыладзе ў дадзены момант не дазволена мець доступ да гэтай скрабніцы. Запытайся ўладальніка скрабніцы за дазволам.";
+"hubAuthentication.licenseExceeded" = "Твая інстанцыя Cryptomator Hub мае некарэктную ліцэнзію. Калі ласка, паведамі адміністратару Hub пра гэта, каб абнавіць альбо аднавіць ліцэнзію.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва прылады";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Каб атрымаць доступ да скарбніцы, твая прылада мусіць быць спраўджанай уладальнікам скарбніцы.";
 
 "keepUnlocked.alert.title" = "Ці замкнуць скарбніцу?";
 "keepUnlocked.alert.confirm" = "Пацвердзіць і адразу замкнуць";
 "keepUnlockedDuration.auto" = "Дазволіць iOS прымаць рашэнне самастойна";
 "keepUnlockedDuration.auto.shortDisplayName" = "Аўтаматычна";
+"purchase.retry.button" = "Паспрабаваць ізноў";
 "purchase.unlockedFullVersion.title" = "Шчыры дзякуй";
 
 "settings.title" = "Налады";
@@ -34,5 +42,6 @@
 "unlockVault.button.unlock" = "Адамкнуць";
 
 "vaultDetail.button.changeVaultPassword" = "Змяніць пароль";
+"vaultDetail.button.moveVault" = "Перамясціць";
 "vaultDetail.button.renameVault" = "Пераназваць";
 "vaultDetail.keepUnlocked.title" = "Працягласць размыкання";

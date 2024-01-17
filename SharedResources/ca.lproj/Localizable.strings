@@ -21,6 +21,7 @@
 "common.button.enable" = "Activar";
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
+"common.button.refresh" = "Refresca";
 "common.button.remove" = "Elimina";
 "common.button.retry" = "Reintenta";
 "common.button.signOut" = "Tanca la sessió";
@@ -110,6 +111,11 @@
 
 "getFolderIntent.error.missingPath" = "No s'ha proporcionat cap ruta. Proporcioneu una ruta vàlida que retorni una carpeta.";
 "getFolderIntent.error.noVaultSelected" = "No s'ha seleccionat cap caixa forta.";
+"hubAuthentication.accessNotGranted" = "El vostre dispositiu no ha estat encara autoritzat a accedir a aquesta caixa forta. Demaneu autorització al propietari.";
+"hubAuthentication.licenseExceeded" = "Aquest Cryptomator Hub no té una llicència vàlida. Informa si us plau a l'administrador perquè actualitzi o renovi la llicència.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom del dispositiu";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per a accedir a la caixa forta, el vostre dispositiu ha de ser autoritzat pel propietari de la caixa.";
+
 "intents.saveFile.missingFile" = "El fitxer proporcionat no és vàlid.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada no és vàlida.";
 "intents.saveFile.missingTemporaryFolder" = "No s'ha pogut crear la carpeta temporal.";

@@ -21,6 +21,8 @@
 "common.button.enable" = "Enable";
 "common.button.next" = "Next";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Refresh";
+"common.button.register" = "Register";
 "common.button.remove" = "Remove";
 "common.button.retry" = "Retry";
 "common.button.signOut" = "Sign Out";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Add This Vault";
+"addVault.openExistingVault.downloadVault.progress" = "Downloading Vault…";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.openExistingVault.progress" = "Adding Vault…";
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
@@ -110,6 +113,19 @@
 
 "getFolderIntent.error.missingPath" = "No path was provided. Please provide a valid path for which a folder should be returned.";
 "getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
+
+"hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.accessNotGranted" = "Your device has not yet been authorized to access this vault. Ask the vault owner to authorize it.";
+"hubAuthentication.licenseExceeded" = "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Device Name";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Your Account Key is required to login from new apps or browsers. It can be found in your profile.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Register Device Successful";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "To access the vault, your device needs to be authorized by the vault owner.";
+"hubAuthentication.requireAccountInit.alert.title" = "Action Required";
+"hubAuthentication.requireAccountInit.alert.message" = "To proceed, please complete the steps required in your Hub user profile.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Go to Profile";
+
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";
 "intents.saveFile.missingTemporaryFolder" = "Failed to create temporary folder.";

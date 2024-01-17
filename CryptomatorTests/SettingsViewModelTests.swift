@@ -11,6 +11,7 @@ import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class SettingsViewModelTests: XCTestCase {
 	private var cryptomatorSettingsMock: CryptomatorSettingsMock!
@@ -25,7 +26,8 @@ class SettingsViewModelTests: XCTestCase {
 		}
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
 		fileProviderConnectorMock = FileProviderConnectorMock()
-		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock, fileProviderConnector: fileProviderConnectorMock)
+		DependencyValues.mockDependency(\.fileProviderConnector, with: fileProviderConnectorMock)
+		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
 	// - MARK: Cache Section

@@ -24,10 +24,6 @@ class CloudTaskExecutorTestCase: XCTestCase {
 	var deleteItemHelper: DeleteItemHelper!
 	var tmpDirectory: URL!
 
-	override class func setUp() {
-		GlobalFullVersionChecker.default = FullVersionCheckerMock()
-	}
-
 	override func setUpWithError() throws {
 		cloudProviderMock = CustomCloudProviderMock()
 		metadataManagerMock = MetadataManagerMock()

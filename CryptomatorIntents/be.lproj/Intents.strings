@@ -3,3 +3,11 @@
 
 "isVaultLockedIntent.title" = "Ці разамкнёна скарбніца";
 "isVaultUnlockedIntent.text" = "Ці ${vault} разамкнёны?";
+"openVaultIntent.title" = "Адчыніць скарбніцу";
+
+"saveFileIntent.description" = "Захаваць файл у скарбніцы.";
+"saveFileIntent.file" = "Файл";
+"saveFileIntent.title" = "Захаваць файл";
+
+"vaultFolder.displayName" = "Тэчка скарбніцы";
+"vaultFolder.vaultIdentifier" = "Ідэнтыфікатар скарбніцы";

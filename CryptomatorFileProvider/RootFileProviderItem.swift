@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import MobileCoreServices
@@ -18,19 +19,13 @@ public class RootFileProviderItem: NSObject, NSFileProviderItem {
 	public let typeIdentifier = kUTTypeFolder as String
 	public let documentSize: NSNumber? = nil
 	public var capabilities: NSFileProviderItemCapabilities {
-		if fullVersionChecker.isFullVersion {
-			return [.allowsAll]
-		} else {
-			return FileProviderItem.readOnlyCapabilities
-		}
+		return permissionProvider.getPermissionsForRootItem(at: domain?.identifier)
 	}
 
-	private let fullVersionChecker: FullVersionChecker
-	override public convenience init() {
-		self.init(fullVersionChecker: GlobalFullVersionChecker.default)
-	}
+	private let domain: NSFileProviderDomain?
+	@Dependency(\.permissionProvider) private var permissionProvider
 
-	init(fullVersionChecker: FullVersionChecker) {
-		self.fullVersionChecker = fullVersionChecker
+	public init(domain: NSFileProviderDomain?) {
+		self.domain = domain
 	}
 }

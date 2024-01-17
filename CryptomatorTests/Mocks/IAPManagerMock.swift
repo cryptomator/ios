@@ -1,5 +1,5 @@
 //
-//  IAPManager.swift
+//  IAPManagerMock.swift
 //  CryptomatorTests
 //
 //  Created by Philipp Schmid on 26.11.21.

@@ -6,7 +6,9 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import UIKit
+
 protocol PoppingCloseCoordinator: Coordinator {
 	var oldTopViewController: UIViewController? { get }
 }

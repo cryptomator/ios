@@ -29,6 +29,7 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
 	static let upgrade = CryptomatorKeychain(service: "upgrade")
 	static let keepUnlocked = CryptomatorKeychain(service: "keepUnlocked")
+	static let hub = CryptomatorKeychain(service: "hub")
 
 	init(service: String) {
 		self.service = service

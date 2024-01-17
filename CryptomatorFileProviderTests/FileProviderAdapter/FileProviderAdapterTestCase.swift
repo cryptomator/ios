@@ -11,6 +11,7 @@ import Promises
 import XCTest
 @testable import CryptomatorCommonCore
 @testable import CryptomatorFileProvider
+@testable import Dependencies
 
 class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 	let fileCoordinator = NSFileCoordinator()
@@ -27,6 +28,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		fileProviderItemUpdateDelegateMock = FileProviderItemUpdateDelegateMock()
 		fullVersionCheckerMock = FullVersionCheckerMock()
 		fullVersionCheckerMock.isFullVersion = true
+		DependencyValues.mockDependency(\.fullVersionChecker, with: fullVersionCheckerMock)
 		taskRegistratorMock = SessionTaskRegistratorMock()
 		adapter = FileProviderAdapter(domainIdentifier: .test,
 		                              uploadTaskManager: uploadTaskManagerMock,
@@ -41,7 +43,6 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              coordinator: fileCoordinator,
 		                              notificator: fileProviderItemUpdateDelegateMock,
 		                              localURLProvider: localURLProviderMock,
-		                              fullVersionChecker: fullVersionCheckerMock,
 		                              taskRegistrator: taskRegistratorMock)
 		uploadTaskManagerMock.createNewTaskRecordForClosure = {
 			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)

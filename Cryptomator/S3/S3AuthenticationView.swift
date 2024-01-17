@@ -56,9 +56,7 @@ struct S3AuthenticationView: View {
 			          .disableAutocorrection(true)
 			          .autocapitalization(.none)
 		}
-		.introspectTableView(customize: { tableView in
-			tableView.backgroundColor = .cryptomatorBackground
-		})
+		.setListBackgroundColor(.cryptomatorBackground)
 	}
 }
 

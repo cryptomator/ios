@@ -1,0 +1,20 @@
+"common.button.cancel" = "Peruuta";
+"common.button.change" = "Muuta";
+"common.button.close" = "Sulje";
+"common.button.done" = "Valmis";
+"common.button.next" = "Seuraava";
+
+"addVault.title" = "Lisää Vault";
+"addVault.createNewVault.title" = "Luo Uusi Vault";
+"addVault.createNewVault.setVaultName.cells.name" = "Vault Nimi";
+"addVault.createNewVault.chooseCloud.header" = "Missä pitäisi Cryptomator tallentaa salattuja tiedostoja Vault?";
+"addVault.openExistingVault.title" = "Avaa Olemassaoleva Vault";
+"fileProvider.error.unlockButton" = "Avaa";
+"hubAuthentication.accessNotGranted" = "Laitteellasi ei ole pääsyvaltuutusta tähän holviin. Pyydä holvin omistajaa lisäämän valtuutus laitteellesi.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub:illasi ei ole voimassa olevaa lisenssiä. Ole hyvä ja ilmoita Hubin järjestelmänvalvojalle lisenssin päivittämiseksi tai sen uusimiseksi.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Laitteen Nimi";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Käyttääksesi holvia, holvin omistajan on valtuutettava laitteesi.";
+
+"unlockVault.button.unlock" = "Avaa";
+
+"vaultDetail.button.changeVaultPassword" = "Vaihda salasana";

@@ -9,6 +9,7 @@
 "common.button.enable" = "Bật";
 "common.button.next" = "Tiếp";
 "common.button.ok" = "OK";
+"common.button.refresh" = "Làm mới";
 "common.button.remove" = "Xóa";
 "common.button.retry" = "Thử lại";
 "common.cells.password" = "Mật khẩu";
@@ -21,13 +22,25 @@
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator nên lưu trữ các tệp được mã hóa trong vault của bạn ở đâu?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "QUAN TRỌNG: Nếu bạn quên mật khẩu, không có cách nào để khôi phục dữ liệu của bạn.";
 "addVault.openExistingVault.title" = "Mở Vault Hiện Có";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
 "fileProvider.error.unlockButton" = "Mở khoá";
+"hubAuthentication.accessNotGranted" = "Thiết bị của bạn chưa được phép truy cập vault này. Yêu cầu chủ sở hữu cấp phép.";
+"hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Để truy cập vault, thiết bị của bạn cần được chủ sở hữu cho phép.";
 "purchase.retry.button" = "Thử lại";
 
 "settings.title" = "Cài đặt";
 "settings.clearCache" = "Xóa bộ nhớ Cache";
+"settings.debugMode.alert.message" = "Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.";
 
 "s3Authentication.displayName" = "Tên hiển thị";
+"s3Authentication.accessKey" = "Khoá Truy cập";
+"s3Authentication.secretKey" = "Khoá Bí mật";
+"s3Authentication.existingBucket" = "Bucket Hiện có";
+"s3Authentication.endpoint" = "Điểm cuối";
 "s3Authentication.region" = "Khu vực";
 
 "unlockVault.button.unlock" = "Mở khoá";
