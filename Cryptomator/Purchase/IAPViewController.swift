@@ -316,16 +316,16 @@ class BaseIAPViewModel {
 	}
 
 	private func setEnabledFlagForAllButtonCellViewModels(to enabled: Bool) {
-		cells.forEach {
-			if case let Item.purchaseCell(purchaseCellViewModel) = $0 {
+		for cell in cells {
+			if case let Item.purchaseCell(purchaseCellViewModel) = cell {
 				purchaseCellViewModel.purchaseButtonViewModel.isEnabled.value = enabled
 			}
 		}
 	}
 
 	private func setIsLoading(to isLoading: Bool, forCellWith productIdentifier: ProductIdentifier) {
-		cells.forEach {
-			if case let Item.purchaseCell(purchaseCellViewModel) = $0, purchaseCellViewModel.productIdentifier == productIdentifier {
+		for cell in cells {
+			if case let Item.purchaseCell(purchaseCellViewModel) = cell, purchaseCellViewModel.productIdentifier == productIdentifier {
 				purchaseCellViewModel.purchaseButtonViewModel.isLoading.value = isLoading
 			}
 		}

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+
 class SystemSymbolButtonCell: ButtonTableViewCell {
 	override func configure(with viewModel: TableViewCellViewModel) {
 		super.configure(with: viewModel)

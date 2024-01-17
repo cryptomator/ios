@@ -7,6 +7,7 @@
 
 import Foundation
 @testable import CryptomatorCommonCore
+
 // swiftlint:disable all
 final class HubVaultUnlockHandlerDelegateMock: HubVaultUnlockHandlerDelegate {
 	// MARK: - successfullyProcessedUnlockedVault

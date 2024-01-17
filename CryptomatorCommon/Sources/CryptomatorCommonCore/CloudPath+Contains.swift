@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import Foundation
+
 public extension CloudPath {
 	func contains(_ other: CloudPath) -> Bool {
 		return pathComponents.starts(with: other.pathComponents)

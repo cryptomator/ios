@@ -8,6 +8,7 @@
 
 import FileProvider
 import Foundation
+
 @objc public protocol LogLevelUpdating: NSFileProviderServiceSource {
 	func logLevelUpdated()
 }

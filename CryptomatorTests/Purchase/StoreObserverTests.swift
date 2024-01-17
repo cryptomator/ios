@@ -200,8 +200,8 @@ private class StoreObserverDelegateMock: StoreObserverDelegate {
 @available(iOS 14.0, *)
 extension SKPaymentQueue {
 	func removeAllObservers() {
-		transactionObservers.forEach {
-			remove($0)
+		for transactionObserver in transactionObservers {
+			remove(transactionObserver)
 		}
 	}
 }

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public enum XPCErrorHelper {
 	/**
 	 Bridges a Swift Error to an XPC compatible NSError.

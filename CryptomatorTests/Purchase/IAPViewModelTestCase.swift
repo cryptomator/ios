@@ -84,8 +84,8 @@ class IAPViewModelTestCase: XCTestCase {
 
 	func recordEnabledStatusForAllButtonCellViewModels(next: Int, viewModel: BaseIAPViewModel) -> [Recorder<Bool, Never>] {
 		var recorders = [Recorder<Bool, Never>]()
-		viewModel.cells.forEach {
-			if case let BaseIAPViewModel.Item.purchaseCell(cellViewModel) = $0 {
+		for cell in viewModel.cells {
+			if case let BaseIAPViewModel.Item.purchaseCell(cellViewModel) = cell {
 				let buttonCellViewModel = cellViewModel.purchaseButtonViewModel
 				recorders.append(buttonCellViewModel.isEnabled.$value.recordNext(next))
 			}
@@ -125,8 +125,8 @@ class IAPViewModelTestCase: XCTestCase {
 	}
 
 	private func assertCorrectEnabledStatusHistoryForAllButtonCellViewModels(recorders: [Recorder<Bool, Never>]) {
-		recorders.forEach({
-			XCTAssertEqual([true, false, true], $0.getElements())
-		})
+		for recorder in recorders {
+			XCTAssertEqual([true, false, true], recorder.getElements())
+		}
 	}
 }

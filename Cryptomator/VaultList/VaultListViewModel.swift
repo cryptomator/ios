@@ -111,7 +111,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 				xpc.proxy.getUnlockedVaultDomainIdentifiers(reply: handler)
 			}
 		}.then { unlockedVaultDomainIdentifiers -> Void in
-			unlockedVaultDomainIdentifiers.forEach { domainIdentifier in
+			for domainIdentifier in unlockedVaultDomainIdentifiers {
 				let vaultInfo = self.vaultCellViewModels.first { $0.vault.vaultUID == domainIdentifier.rawValue }
 				vaultInfo?.setVaultUnlockStatus(unlocked: true)
 			}
