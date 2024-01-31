@@ -5,6 +5,7 @@
 "getFolderIntent.title" = "폴더 열기";
 
 "lockVaultIntent.description" = "해당 vault를 잠급니다.";
+"lockVaultIntent.text" = "${vault} 잠금";
 "lockVaultIntent.title" = "Vault 잠그기";
 "openVaultIntent.title" = "Vault 열기";
 "saveFileIntent.file" = "파일";
