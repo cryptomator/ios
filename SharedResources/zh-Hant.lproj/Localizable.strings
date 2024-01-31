@@ -118,6 +118,7 @@
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "想讀取檔案庫，你的設備需得到檔案庫擁有者的授權。";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
 "intents.saveFile.invalidFolder" = "提供的資料夾無效。";
