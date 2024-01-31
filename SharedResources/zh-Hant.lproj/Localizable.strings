@@ -22,6 +22,7 @@
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.refresh" = "重新整理";
+"common.button.register" = "註冊";
 "common.button.remove" = "移除";
 "common.button.retry" = "重試";
 "common.button.signOut" = "登出";
@@ -114,6 +115,8 @@
 "hubAuthentication.accessNotGranted" = "您的設備權限尚未允許存取檔案庫，請聯絡檔案庫擁有者";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "想讀取檔案庫，你的設備需得到檔案庫擁有者的授權。";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
