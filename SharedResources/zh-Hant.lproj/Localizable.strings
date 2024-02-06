@@ -113,6 +113,8 @@
 
 "getFolderIntent.error.missingPath" = "沒有提供路徑。請提供應返回資料夾的有效路徑。";
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密檔案庫。";
+
+"hubAuthentication.title" = "Hub 加密檔案庫";
 "hubAuthentication.accessNotGranted" = "您的設備權限尚未允許存取檔案庫，請聯絡檔案庫擁有者";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
@@ -121,6 +123,7 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "想讀取檔案庫，你的設備需得到檔案庫擁有者的授權。";
 "hubAuthentication.requireAccountInit.alert.title" = "需進一步操作";
+"hubAuthentication.requireAccountInit.alert.message" = "請完成您使用者檔案中所需的步驟，以便繼續進行。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
