@@ -123,6 +123,7 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Rejestracja urządzenia powiodła się";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
 "hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
+"hubAuthentication.requireAccountInit.alert.message" = "Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
 
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
