@@ -103,6 +103,9 @@
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للدخول إلى الخزينة، يحتاج جهازك إلى إذن من مالك الخزينة.";
+
+"keepUnlocked.alert.title" = "قفل المخزن؟";
+"keepUnlocked.alert.confirm" = "تأكيد واقفل الآن";
 "keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
 "keepUnlockedDuration.indefinite" = "دائم";
 
