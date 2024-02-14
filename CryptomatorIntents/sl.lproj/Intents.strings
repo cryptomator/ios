@@ -1,3 +1,4 @@
+"common.failureReason" = "Vzrok za neuspeh";
 "common.folder" = "Mapa";
 "common.vault" = "Trezor";
 "getFolderIntent.path" = "Pot";
