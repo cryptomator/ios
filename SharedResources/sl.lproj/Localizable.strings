@@ -14,6 +14,9 @@
 "common.button.retry" = "Poizkusi znova";
 "common.cells.url" = "URL naslov";
 "common.cells.username" = "Uporabniško ime";
+
+"addVault.title" = "Dodaj trezor";
+"addVault.createNewVault.setVaultName.cells.name" = "Ime trezorja";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "POMEMBNO: Če pozabite geslo, ni nobene možnosti za obnovitev vaših podatkov.";
 "fileProvider.error.unlockButton" = "Odkleni";
 "purchase.retry.button" = "Poizkusi znova";
