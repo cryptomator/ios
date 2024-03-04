@@ -22,6 +22,8 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
+      - name: Install SwiftLint
+        run: brew install swiftlint
       - name: Run process.sh script
         run: |
           ./Scripts/process.sh
