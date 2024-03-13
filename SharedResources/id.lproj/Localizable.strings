@@ -8,7 +8,7 @@
 "common.alert.error.title" = "Kesalahan";
 "common.alert.attention.title" = "Perhatian";
 "common.button.cancel" = "Batalkan";
-"common.button.change" = "Ganti";
+"common.button.change" = "Ubah";
 "common.button.choose" = "Pilih";
 "common.button.clear" = "Hapus";
 "common.button.close" = "Tutup";
@@ -22,6 +22,7 @@
 "common.button.next" = "Lanjut";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Segarkan";
+"common.button.register" = "Daftar";
 "common.button.remove" = "Hapus";
 "common.button.retry" = "Coba lagi";
 "common.button.signOut" = "Keluar";
@@ -31,9 +32,10 @@
 "common.cells.url" = "URL";
 "common.cells.username" = "Nama pengguna";
 "common.footer.learnMore" = "Selengkapnya.";
+"common.hud.authenticating" = "Mengotentikasi…";
 
 "accountList.header.title" = "Otentikasi";
-"accountList.emptyList.message" = "Klik untuk menambah akun";
+"accountList.emptyList.message" = "Ketuk disini untuk menambah akun";
 "accountList.signOut.alert.title" = "Hapus Vault Terkait?";
 "accountList.signOut.alert.message" = "Dengan keluar, semua vault terkait akan dihapus dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat masuk lagi dan menambahkan kembali vault nanti.";
 
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Dimana lokasi vault berada?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault \"%@\".\nApakah Anda ingin menambahkan vault ini?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Tambah Vault Ini";
+"addVault.openExistingVault.downloadVault.progress" = "Mengunduh Vault…";
 "addVault.openExistingVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
 "addVault.openExistingVault.progress" = "Menambahkan Vault…";
 "addVault.success.info" = "Berhasil menambahkan vault \"%@\".\nAkses vault ini melalui aplikasi Files.";
@@ -110,6 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "Tidak ada path yang disediakan. Harap cantumkan path yang valid untuk folder yang harus dikembalikan.";
 "getFolderIntent.error.noVaultSelected" = "Tidak ada vault yang dipilih.";
+
+"hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.accessNotGranted" = "Perangkat Anda belum diizinkan mengakses vault ini. Minta pemilik vault untuk mengizinkannya.";
+"hubAuthentication.licenseExceeded" = "Contoh Cryptomator Hub Anda memiliki lisensi yang tidak valid. Mohon informasikan kepada administrator Hub untuk meningkatkan atau memperbarui lisensi.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nama Perangkat";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Berhasil Mendaftarkan Perangkat";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Untuk mengakses vault perangkat Anda harus diotorisasi oleh pemilik vault.";
+"hubAuthentication.requireAccountInit.alert.title" = "Diperlukan Tindakan";
+"hubAuthentication.requireAccountInit.alert.message" = "Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Buka Profil";
 
 "intents.saveFile.missingFile" = "File yang disediakan tidak valid.";
 "intents.saveFile.invalidFolder" = "Folder yang disediakan tidak valid.";
@@ -213,6 +228,8 @@
 "s3Authentication.existingBucket" = "Bucket yang sudah ada";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Region";
+"s3Authentication.error.invalidCredentials" = "Kredensial tidak valid.";
+"s3Authentication.error.invalidEndpoint" = "Endpoint yang diberikan tidak cocok dengan format URL.";
 
 "trialStatus.active" = "Aktifkan";
 "trialStatus.expired" = "Kadaluarsa";
