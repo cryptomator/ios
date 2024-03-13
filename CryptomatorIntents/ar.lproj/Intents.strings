@@ -1,1 +1,11 @@
 "common.vault" = "الخزينة";
+"openVaultIntent.title" = "افتح المخزن";
+
+"saveFileIntent.description" = "يحفظ الملف إلى المخزن.";
+"saveFileIntent.file" = "الملف";
+"saveFileIntent.parameter.ignoreExisting" = "تجاهل الملف الموجود بنفس الاسم";
+"saveFileIntent.text" = "حفظ ${file} إلى ${folder}";
+"saveFileIntent.title" = "احفظ الملف";
+
+"vaultFolder.displayName" = "مجلد المخزن";
+"vaultFolder.vaultIdentifier" = "معرّف المخزن";

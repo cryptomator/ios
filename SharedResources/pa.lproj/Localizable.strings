@@ -103,6 +103,10 @@
 "fileProvider.uploadProgress.connecting" = "…ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "fileProvider.uploadProgress.title" = "…ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "getFolderIntent.error.noVaultSelected" = "ਕੋਈ ਵਾਲਟ ਨਹੀਂ ਚੁਣਿਆ ਹੈ।";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "ਤੁਹਾਡੀ Account Key ਨਵੀਆਂ ਐਪਾਂ ਜਾਂ ਬਰਾਊਜ਼ਰਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰਨ ਸਮੇਂ ਚਾਹੀਦੀ ਹੈ। ਇਸ ਨੂੰ ਤੁਹਾਡੇ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ।";
+"hubAuthentication.requireAccountInit.alert.title" = "ਕਾਰਵਾਈ ਦੀ ਲੋੜ ਹੈ";
+"hubAuthentication.requireAccountInit.alert.message" = "ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ";
 
 "keepUnlocked.alert.title" = "ਵਾਲਟ ਲਾਕ ਕਰਨਾ ਹੈ?";
 "keepUnlocked.alert.confirm" = "ਤਸਦੀਕ ਅਤੇ ਹੁਣੇ ਲਾਕ ਕਰੋ";

@@ -119,8 +119,12 @@
 "hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe um administrador do Hub para atualizar ou renovar a licença.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Sua Chave de Conta é necessária para acessar a partir de novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registrado com sucesso";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar o cofre, seu dispositivo precisa ser autorizado pelo proprietário do cofre.";
+"hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
+"hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, por favor preencha as etapas necessárias no seu perfil de usuário do Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Ir para o Perfil";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta fornecida não é válida.";

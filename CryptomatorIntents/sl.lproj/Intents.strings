@@ -1,0 +1,11 @@
+"common.failureReason" = "Vzrok za neuspeh";
+"common.folder" = "Mapa";
+"common.vault" = "Trezor";
+"getFolderIntent.path" = "Pot";
+"isUnlockedIntent.title" = "Je zaklenjen";
+"lockVaultIntent.title" = "Zakleni trezor";
+"openVaultIntent.title" = "Odpri trezor";
+"saveFileIntent.file" = "Datoteka";
+"saveFileIntent.title" = "Shrani datoteko";
+
+"vaultFolder.displayName" = "Mapa trezorja";
