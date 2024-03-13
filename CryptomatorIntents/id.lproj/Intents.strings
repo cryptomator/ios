@@ -9,6 +9,20 @@
 "getFolderIntent.text" = "Mengambil folder yang berada di ${path} di dalam ${vault}";
 "getFolderIntent.title" = "Ambil Folder";
 
+"isUnlockedIntent.description" = "Mengembalikan apakah vault yang diberikan tidak terkunci.";
+"isUnlockedIntent.title" = "Tidak Terkunci";
+
+"isVaultLockedIntent.title" = "Vault tidak terkunci";
+"isVaultUnlockedIntent.text" = "Apakah ${vault} tidak terkunci?";
+
+"lockVaultIntent.description" = "Mengunci vault yang diberikan.";
+"lockVaultIntent.text" = "Kunci ${vault}";
+"lockVaultIntent.title" = "Kunci Vault";
+
+"openVaultIntent.description" = "Membuka vault yang diberikan di aplikasi Files.";
+"openVaultIntent.text" = "Membuka ${vault} di Files aplikasi";
+"openVaultIntent.title" = "Buka Vault";
+
 "saveFileIntent.description" = "Simpan sebuah file ke vault.";
 "saveFileIntent.file" = "File";
 "saveFileIntent.parameter.ignoreExisting" = "Abaikan file yang sudah ada dengan nama yang sama";
