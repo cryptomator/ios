@@ -55,6 +55,7 @@ protocol ConfigurableTableViewCell: UITableViewCell {
 }
 
 import Combine
+
 protocol ViewModel {
 	var error: AnyPublisher<Error, Never> { get }
 }

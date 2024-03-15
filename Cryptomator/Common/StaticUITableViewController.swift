@@ -36,7 +36,7 @@ class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewControl
 	func applySnapshot(sections: [Section<SectionType>], animatingDifferences: Bool = true) {
 		var snapshot = NSDiffableDataSourceSnapshot<SectionType, TableViewCellViewModel>()
 		snapshot.appendSections(sections.map { $0.id })
-		sections.forEach { section in
+		for section in sections {
 			snapshot.appendItems(section.elements, toSection: section.id)
 		}
 		// A snapshot can only be applied animated when the view is visible.

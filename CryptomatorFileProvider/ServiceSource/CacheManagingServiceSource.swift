@@ -67,8 +67,8 @@ public class CacheManagingServiceSource: ServiceSource, CacheManaging {
 	}
 
 	private func clearCache(for domains: [NSFileProviderDomain]) throws {
-		try domains.forEach {
-			let cacheManager = try cachedManagerFactory.createCachedFileManager(for: $0)
+		for domain in domains {
+			let cacheManager = try cachedManagerFactory.createCachedFileManager(for: domain)
 			try cacheManager.clearCache()
 		}
 	}

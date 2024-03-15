@@ -150,4 +150,7 @@
 "vaultList.header.title" = "कक्षों का नाम";
 "vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";
 "vaultList.remove.alert.title" = "कक्ष हटाना चाहेंगे?";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS का उपयोग करें?";
+"webDAVAuthentication.httpConnection.change" = "HTTPS में बदलें";
 "Clear from Cache" = "कैशे से फ़ाइल साफ़ करें";

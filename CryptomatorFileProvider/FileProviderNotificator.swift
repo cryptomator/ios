@@ -142,7 +142,7 @@ public class FileProviderNotificator: FileProviderNotificatorType {
 
 	public func updateWorkingSetItems(_ items: [NSFileProviderItem]) {
 		queue.sync(flags: .barrier) {
-			items.forEach { item in
+			for item in items {
 				signalDeleteWorkingSetItemIdentifier.remove(item.itemIdentifier)
 				signalUpdateWorkingSetItem[item.itemIdentifier] = item
 			}

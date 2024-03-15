@@ -10,6 +10,7 @@ import CryptomatorCloudAccessCore
 import FileProvider
 import Foundation
 import GRDB
+
 public protocol DatabaseHelping {
 	func getDatabaseURL(for domain: NSFileProviderDomain) -> URL
 	func getMigratedDB(at databaseURL: URL, purposeIdentifier: String) throws -> DatabaseWriter

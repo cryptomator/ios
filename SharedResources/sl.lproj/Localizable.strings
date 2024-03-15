@@ -1,3 +1,4 @@
+"common.alert.attention.title" = "Pozor";
 "common.button.cancel" = "Prekliči";
 "common.button.change" = "Spremeni";
 "common.button.choose" = "Izberi";
@@ -5,6 +6,7 @@
 "common.button.create" = "Ustvari";
 "common.button.done" = "Opravljeno";
 "common.button.edit" = "Uredi";
+"common.button.enable" = "Omogoči";
 "common.button.next" = "Naslednji";
 "common.button.ok" = "V redu";
 "common.button.refresh" = "Osveži";
@@ -12,7 +14,11 @@
 "common.button.retry" = "Poizkusi znova";
 "common.cells.url" = "URL naslov";
 "common.cells.username" = "Uporabniško ime";
+
+"addVault.title" = "Dodaj trezor";
+"addVault.createNewVault.setVaultName.cells.name" = "Ime trezorja";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "POMEMBNO: Če pozabite geslo, ni nobene možnosti za obnovitev vaših podatkov.";
+"fileProvider.error.unlockButton" = "Odkleni";
 "purchase.retry.button" = "Poizkusi znova";
 
 "settings.title" = "Nastavitve";
@@ -23,5 +29,9 @@
 "s3Authentication.existingBucket" = "Obstoječ bucket";
 "s3Authentication.endpoint" = "Končna točka";
 "s3Authentication.region" = "Regija";
+
+"unlockVault.button.unlock" = "Odkleni";
 "vaultDetail.button.moveVault" = "Premakni";
 "vaultDetail.button.renameVault" = "Preimenuj";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Uporabi HTTPS?";

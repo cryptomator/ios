@@ -217,8 +217,8 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 			.init(duration: .oneHour, isSelected: false),
 			.init(duration: .indefinite, isSelected: false)
 		]
-		expectedKeepUnlockedItems.forEach {
-			$0.isSelected.value = $0.duration == selectedKeepUnlockedDuration
+		for expectedKeepUnlockedItem in expectedKeepUnlockedItems {
+			expectedKeepUnlockedItem.isSelected.value = expectedKeepUnlockedItem.duration == selectedKeepUnlockedDuration
 		}
 		let expectedSections: [Section<VaultKeepUnlockedSection>] = [
 			Section(id: .main, elements: viewModel.keepUnlockedItems)

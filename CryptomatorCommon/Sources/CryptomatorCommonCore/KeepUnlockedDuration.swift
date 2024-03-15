@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 public enum KeepUnlockedDuration: CaseIterable, Codable {
 	case auto
 	case fiveMinutes

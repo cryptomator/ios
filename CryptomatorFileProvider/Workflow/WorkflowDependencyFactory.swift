@@ -40,7 +40,7 @@ class WorkflowDependencyFactory {
 	public func createDependencies(paths: [CloudPath], lockType: LockType) -> WorkflowDependency {
 		let unlock = Promise<Void>.pending()
 		var locks = [Promise<Void>]()
-		paths.forEach { path in
+		for path in paths {
 			let lock = createLock(path: path, type: lockType)
 			locks.append(lock)
 			createUnlock(path: path, type: lockType, basedOn: unlock)

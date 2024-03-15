@@ -7,6 +7,7 @@
 //
 
 import Foundation
+
 protocol VaultPasswordChanging {
 	func changedPassword()
 }

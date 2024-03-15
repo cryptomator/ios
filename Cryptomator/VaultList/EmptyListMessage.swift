@@ -71,7 +71,7 @@ class EmptyListMessage: UIView {
 
 		private var shapeLayer: CAShapeLayer {
 			// swiftlint:disable:next force_cast
-			return self.layer as! CAShapeLayer
+			return layer as! CAShapeLayer
 		}
 
 		override func layoutSubviews() {
