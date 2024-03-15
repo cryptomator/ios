@@ -1,3 +1,1 @@
-- Added support for Cryptomator Hub (#315, #322, #323, #326, #329, #332, #333)
-- New vaults are now created with GCM encryption by default (#288)
-- Added Bangla, Filipino, and Hungarian translations
+- Fixed "Content Unavailable" error when unlocking vault that was created on macOS in iCloud Drive (#316)
