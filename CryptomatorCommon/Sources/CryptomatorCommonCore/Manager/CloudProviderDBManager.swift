@@ -12,16 +12,23 @@ import PCloudSDKSwift
 
 public protocol CloudProviderManager {
 	func getProvider(with accountUID: String) throws -> CloudProvider
+	func getBackgroundSessionProvider(with accountUID: String, sessionIdentifier: String) throws -> CloudProvider
 }
 
 public protocol CloudProviderUpdating {
 	func providerShouldUpdate(with accountUID: String)
 }
 
+struct CachedProvider {
+	let accountUID: String
+	let provider: CloudProvider
+	let backgroundSessionIdentifier: String?
+	var isBackgroundSession: Bool { backgroundSessionIdentifier != nil }
+}
+
 public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating {
-	static var cachedProvider = [String: CloudProvider]()
+	static var cachedProvider = [CachedProvider]()
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
-	public var useBackgroundSession = true
 	let accountManager: CloudProviderAccountDBManager
 
 	private let maxPageSizeForFileProvider = 500
@@ -31,17 +38,25 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	}
 
 	public func getProvider(with accountUID: String) throws -> CloudProvider {
-		if let provider = CloudProviderDBManager.cachedProvider[accountUID] {
-			return provider
+		if let entry = CloudProviderDBManager.cachedProvider.first(where: {
+			$0.accountUID == accountUID && !$0.isBackgroundSession
+		}) {
+			return entry.provider
+		}
+		return try createProvider(for: accountUID)
+	}
+
+	public func getBackgroundSessionProvider(with accountUID: String, sessionIdentifier: String) throws -> any CloudProvider {
+		if let entry = CloudProviderDBManager.cachedProvider.first(where: {
+			$0.accountUID == accountUID && $0.backgroundSessionIdentifier == sessionIdentifier
+		}) {
+			return entry.provider
 		}
 		return try createProvider(for: accountUID)
 	}
 
 	/**
 	 Creates and returns a cloud provider for the given `accountUID`.
-
-	 If `useBackgroundURLSession` is set to `true`, the number of returned items from a `fetchItemList(forFolderAt:pageToken:)` call is limited to 500.
-	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
 	 */
 	func createProvider(for accountUID: String) throws -> CloudProvider {
 		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
@@ -49,66 +64,122 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		switch cloudProviderType {
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: accountUID)
-			provider = DropboxCloudProvider(credential: credential, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = DropboxCloudProvider(credential: credential, maxPageSize: .max)
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountUID)
-			provider = try GoogleDriveCloudProvider(credential: credential,
-			                                        useBackgroundSession: useBackgroundSession,
-			                                        maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = try GoogleDriveCloudProvider(credential: credential, maxPageSize: .max)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider(credential: credential,
-			                                     useBackgroundSession: useBackgroundSession,
-			                                     maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: .max)
 		case .pCloud:
-			provider = try createPCloudProvider(for: accountUID)
+			let credential = try PCloudCredential(userID: accountUID)
+			let client = PCloud.createClient(with: credential.user)
+			provider = try PCloudCloudProvider(client: client)
 		case .webDAV:
-			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
-				throw CloudProviderAccountError.accountNotFoundError
-			}
-			let client: WebDAVClient
-			if useBackgroundSession {
-				client = WebDAVClient.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-			} else {
-				client = WebDAVClient(credential: credential)
-			}
-			provider = try WebDAVProvider(with: client, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			let credential = try getWebDAVCredential(for: accountUID)
+			let client = WebDAVClient(credential: credential)
+			provider = try WebDAVProvider(with: client, maxPageSize: .max)
 		case .localFileSystem:
 			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
-			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
 		case .s3:
-			provider = try createS3Provider(for: accountUID)
+			let credential = try getS3Credential(for: accountUID)
+			provider = try S3CloudProvider(credential: credential)
 		}
-		CloudProviderDBManager.cachedProvider[accountUID] = provider
+		CloudProviderDBManager.cachedProvider.append(
+			.init(
+				accountUID: accountUID,
+				provider: provider,
+				backgroundSessionIdentifier: nil
+			)
+		)
 		return provider
 	}
 
-	private func createS3Provider(for accountUID: String) throws -> CloudProvider {
+	// swiftlint:disable:next orphaned_doc_comment
+	/**
+	 Creates and returns a cloud provider for the given `accountUID` using a background URLSession with the given `sessionIdentifier`.
+
+	 The number of returned items from a `fetchItemList(forFolderAt:pageToken:)` call is limited to 500.
+	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
+	 */
+	// swiftlint:disable:next function_body_length
+	func createBackgroundSessionProvider(for accountUID: String, sessionIdentifier: String) throws -> CloudProvider {
+		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
+		let provider: CloudProvider
+
+		switch cloudProviderType {
+		case .dropbox:
+			let credential = DropboxCredential(tokenUID: accountUID)
+			provider = DropboxCloudProvider(credential: credential, maxPageSize: maxPageSizeForFileProvider)
+		case .googleDrive:
+			let credential = GoogleDriveCredential(userID: accountUID)
+			provider = try GoogleDriveCloudProvider.withBackgroundSession(
+				credential: credential,
+				maxPageSize: maxPageSizeForFileProvider,
+				sessionIdentifier: sessionIdentifier,
+				sharedContainerIdentifier: CryptomatorConstants.appGroupName
+			)
+		case .oneDrive:
+			let credential = try OneDriveCredential(with: accountUID)
+			provider = try OneDriveCloudProvider.withBackgroundSession(
+				credential: credential,
+				maxPageSize: maxPageSizeForFileProvider,
+				identifier: sessionIdentifier
+			)
+		case .pCloud:
+			let credential = try PCloudCredential(userID: accountUID)
+			let client = PCloud.createBackgroundClient(
+				with: credential.user,
+				sessionIdentifier: sessionIdentifier,
+				sharedContainerIdentifier: CryptomatorConstants.appGroupName
+			)
+			provider = try PCloudCloudProvider(client: client)
+		case .webDAV:
+			let credential = try getWebDAVCredential(for: accountUID)
+			let client = WebDAVClient.withBackgroundSession(
+				credential: credential,
+				sessionIdentifier: sessionIdentifier,
+				sharedContainerIdentifier: CryptomatorConstants.appGroupName
+			)
+			provider = try WebDAVProvider(with: client, maxPageSize: maxPageSizeForFileProvider)
+		case .localFileSystem:
+			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
+		case .s3:
+			let credential = try getS3Credential(for: accountUID)
+			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		}
+		CloudProviderDBManager.cachedProvider.append(
+			.init(
+				accountUID: accountUID,
+				provider: provider,
+				backgroundSessionIdentifier: sessionIdentifier
+			)
+		)
+		return provider
+	}
+
+	private func getS3Credential(for accountUID: String) throws -> S3Credential {
 		guard let credential = S3CredentialManager.shared.getCredential(with: accountUID) else {
 			throw CloudProviderAccountError.accountNotFoundError
 		}
-		if useBackgroundSession {
-			return try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		} else {
-			return try S3CloudProvider(credential: credential)
-		}
+		return credential
 	}
 
-	private func createPCloudProvider(for accountUID: String) throws -> CloudProvider {
-		let credential = try PCloudCredential(userID: accountUID)
-		let client: PCloudClient
-		if useBackgroundSession {
-			client = PCloud.createBackgroundClient(with: credential.user, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		} else {
-			client = PCloud.createClient(with: credential.user)
+	private func getWebDAVCredential(for accountUID: String) throws -> WebDAVCredential {
+		guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
+			throw CloudProviderAccountError.accountNotFoundError
 		}
-		return try PCloudCloudProvider(client: client)
+		return credential
 	}
 
 	public func providerShouldUpdate(with accountUID: String) {
-		CloudProviderDBManager.cachedProvider[accountUID] = nil
+		CloudProviderDBManager.cachedProvider.removeAll(where: { $0.accountUID == accountUID })
 		// call XPCService for FileProvider
 	}
 }
