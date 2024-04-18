@@ -25,12 +25,12 @@ class CloudProviderManagerTests: XCTestCase {
 		DropboxSetup.constants = DropboxSetup(appKey: "", sharedContainerIdentifier: nil, keychainService: nil, forceForegroundSession: false)
 		let account = CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox)
 		try accountManager.saveNewAccount(account)
-		XCTAssertNil(CloudProviderDBManager.cachedProvider[account.accountUID])
+		XCTAssert(CloudProviderDBManager.cachedProvider.isEmpty)
 		let provider = try manager.getProvider(with: account.accountUID)
 		guard provider is DropboxCloudProvider else {
 			XCTFail("Provider has wrong type")
 			return
 		}
-		XCTAssertNotNil(CloudProviderDBManager.cachedProvider[account.accountUID])
+		XCTAssertEqual(CloudProviderDBManager.cachedProvider.filter { $0.accountUID == account.accountUID }.count, 1)
 	}
 }

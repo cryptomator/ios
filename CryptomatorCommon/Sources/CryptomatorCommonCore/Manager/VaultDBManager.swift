@@ -483,7 +483,8 @@ public class VaultDBManager: VaultManager {
 	private func createVaultProvider(cachedVault: CachedVault, masterkey: Masterkey, masterkeyFile: MasterkeyFile) throws -> CloudProvider {
 		let vaultUID = cachedVault.vaultUID
 		let vaultAccount = try vaultAccountManager.getAccount(with: vaultUID)
-		let provider = try providerManager.getProvider(with: vaultAccount.delegateAccountUID)
+		// it's important to use the vaultUID as background URLSession identifier to avoid identifier collisions
+		let provider = try providerManager.getBackgroundSessionProvider(with: vaultAccount.delegateAccountUID, sessionIdentifier: vaultUID)
 		let decorator: CloudProvider
 		if let vaultConfigToken = cachedVault.vaultConfigToken {
 			let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)
