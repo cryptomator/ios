@@ -60,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Kde je trezor umístěn?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detekoval trezor \"%@\".\nChcete přidat tento trezor?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Přidat tento trezor";
+"addVault.openExistingVault.downloadVault.progress" = "Stahování trezoru…";
 "addVault.openExistingVault.password.footer" = "Zadejte heslo pro \"%@\".";
 "addVault.openExistingVault.progress" = "Přidávání trezoru…";
 "addVault.success.info" = "Úspěšně přidán trezor \"%@\".\nPřistupujte k tomuto trezoru prostřednictvím aplikace Soubory.";
