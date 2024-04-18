@@ -30,11 +30,12 @@ class FileProviderExtension: NSFileProviderExtension {
 				FileProviderExtension.sharedDatabaseInitialized = true
 				DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
 				GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-				BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-				OneDriveSetup.sharedContainerIdentifier = CryptomatorConstants.appGroupName
 				let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
 				oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
-				OneDriveSetup.clientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+				let oneDriveClientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
+				OneDriveSetup.constants = OneDriveSetup(clientApplication: oneDriveClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			} catch {
 				// MARK: Handle error
 

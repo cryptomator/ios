@@ -22,6 +22,7 @@
 "common.button.next" = "Další";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Načíst znovu";
+"common.button.register" = "Registrovat";
 "common.button.remove" = "Odstranit";
 "common.button.retry" = "Opakovat";
 "common.button.signOut" = "Odhlásit se";
@@ -113,7 +114,10 @@
 "getFolderIntent.error.noVaultSelected" = "Nebyl vybrán žádný trezor.";
 "hubAuthentication.accessNotGranted" = "Vaše zařízení dosud nebylo oprávněno k přístupu k tomuto trezoru. Požádejte vlastníka trezoru, aby jej autorizoval.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Název zařízení";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrace zařízení úspěšná";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pro přístup k trezoru musí být vaše zařízení autorizováno majitelem trezoru.";
+"hubAuthentication.requireAccountInit.alert.title" = "Požadována akce";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Jít na profil";
 
 "intents.saveFile.missingFile" = "Zadaný soubor není platný.";
 "intents.saveFile.invalidFolder" = "Zadaná složka není platná.";

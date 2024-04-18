@@ -52,8 +52,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let authenticator = PCloudAuthenticator(appKey: CloudAccessSecrets.pCloudAppKey)
-		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+		return PCloudAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			try credential.saveToKeychain()
 			let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
 			try self.accountManager.saveNewAccount(account)
