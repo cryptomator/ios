@@ -1,1 +1,1 @@
-- Fehler "Inhalt nicht verfügbar" beim Entsperren eines Tresors, der auf macOS in iCloud Drive erstellt wurde, behoben (#316)
+- Fehler "Inhalt nicht verfügbar" beim Entsperren mehrerer Tresore in Google Drive, OneDrive, pCloud und WebDAV behoben (#342, #345, #351)

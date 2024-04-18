@@ -1,1 +1,1 @@
-- Fixed "Content Unavailable" error when unlocking vault that was created on macOS in iCloud Drive (#316)
+- Fixed "Content Unavailable" error when unlocking multiple vaults in Google Drive, OneDrive, pCloud, and WebDAV (#342, #345, #351)
