@@ -69,7 +69,7 @@
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
         "branch" : "feature/boxcloud-integration",
-        "revision" : "b8f691fc35531689ee8122f1e11d0c2d9135ab40"
+        "revision" : "4d99667b9467e1a35d379386d9c023fee6ec6942"
       }
     },
     {
