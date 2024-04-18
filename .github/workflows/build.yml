@@ -6,11 +6,10 @@ on:
 jobs:
   build:
     name: Build and test
-    runs-on: macos-14
+    runs-on: [self-hosted, macOS, ARM64]
     env:
       DERIVED_DATA_PATH: 'DerivedData'
       DEVICE: 'iPhone 15 Pro'
-    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
         config: ['freemium', 'premium']
