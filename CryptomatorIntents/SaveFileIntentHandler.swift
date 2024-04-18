@@ -124,7 +124,7 @@ extension CloudProviderType {
 	var assetName: String {
 		switch self {
 		case .box:
-			return "dropbox-vault" // TODO: Replace with box-vault when asset is available
+			return "box-vault"
 		case .dropbox:
 			return "dropbox-vault"
 		case .googleDrive:

@@ -19,7 +19,7 @@ extension UIImage {
 		var assetName: String
 		switch cloudProviderType {
 		case .box:
-			assetName = "dropbox-vault" // TODO: Replace with box-vault when asset is available
+			assetName = "box-vault"
 		case .dropbox:
 			assetName = "dropbox-vault"
 		case .googleDrive:
@@ -54,7 +54,7 @@ extension UIImage {
 		var assetName: String
 		switch cloudProviderType {
 		case .box:
-			assetName = "dropbox" // TODO: Replace with box when asset is available
+			assetName = "box"
 		case .dropbox:
 			assetName = "dropbox"
 		case .googleDrive:
