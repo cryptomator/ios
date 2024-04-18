@@ -18,6 +18,8 @@ extension UIImage {
 	convenience init?(vaultIconFor cloudProviderType: CloudProviderType, state: UIImage.State) {
 		var assetName: String
 		switch cloudProviderType {
+		case .box:
+			assetName = "dropbox-vault" // TODO: Replace with box-vault when asset is available
 		case .dropbox:
 			assetName = "dropbox-vault"
 		case .googleDrive:
@@ -51,6 +53,8 @@ extension UIImage {
 	convenience init?(storageIconFor cloudProviderType: CloudProviderType) {
 		var assetName: String
 		switch cloudProviderType {
+		case .box:
+			assetName = "dropbox" // TODO: Replace with box when asset is available
 		case .dropbox:
 			assetName = "dropbox"
 		case .googleDrive:

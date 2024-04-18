@@ -12,6 +12,8 @@ import Foundation
 extension CloudProviderType {
 	func localizedString() -> String {
 		switch self {
+		case .box:
+			return "Box"
 		case .dropbox:
 			return "Dropbox"
 		case .googleDrive:

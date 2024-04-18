@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
       "state" : {
-        "revision" : "59fdc9ca7ff3f5d38e07af27526a527c199b8de6",
-        "version" : "2.33.7"
+        "revision" : "8ff8bebfe24271f7b16c5abaeb78daf82bee3a80",
+        "version" : "2.34.2"
       }
     },
     {
@@ -55,12 +55,21 @@
       }
     },
     {
+      "identity" : "box-ios-sdk",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/box/box-ios-sdk.git",
+      "state" : {
+        "revision" : "daffd86b861a5f5882655bf7a01b891f6b808c1f",
+        "version" : "5.5.0"
+      }
+    },
+    {
       "identity" : "cloud-access-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "63fd1cfee9e4d1c0a8d585dd0c7008eb37d2f037",
-        "version" : "1.9.0"
+        "branch" : "feature/boxcloud-integration",
+        "revision" : "b8f691fc35531689ee8122f1e11d0c2d9135ab40"
       }
     },
     {
@@ -95,8 +104,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/phil1995/dropbox-sdk-obj-c-spm.git",
       "state" : {
-        "revision" : "f0eafe25d26c52377c4a1c08f1dbd77320164994",
-        "version" : "7.0.0"
+        "revision" : "87c1fcf96622ab90a956bdf89331ddb4164f4855",
+        "version" : "7.2.0"
       }
     },
     {
@@ -104,8 +113,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/google-api-objectivec-client-for-rest.git",
       "state" : {
-        "revision" : "40930b2c3add6234b8be1a780c08cf88b6a7a1f7",
-        "version" : "3.2.0"
+        "revision" : "bcb0439b37d16d39da6f62139d4009d09e7aef14",
+        "version" : "3.4.0"
       }
     },
     {
@@ -149,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
       "state" : {
-        "revision" : "e9ef281b2f281c3ba2d32608138b1431cba5e4df",
-        "version" : "1.2.20"
+        "revision" : "71a4d3c476e5cda907f33f155550faa5ad9a0fb2",
+        "version" : "1.3.2"
       }
     },
     {

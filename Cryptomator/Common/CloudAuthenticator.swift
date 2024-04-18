@@ -61,6 +61,15 @@ class CloudAuthenticator {
 		}
 	}
 
+	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		let tokenStore = BoxTokenStore()
+		return BoxAuthenticator.authenticate(from: viewController, tokenStore: tokenStore).then { _, userId -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: userId, cloudProviderType: .box)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
@@ -79,6 +88,8 @@ class CloudAuthenticator {
 
 	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		switch cloudProviderType {
+		case .box:
+			return authenticateBox(from: viewController)
 		case .dropbox:
 			return authenticateDropbox(from: viewController)
 		case .googleDrive:
@@ -98,6 +109,10 @@ class CloudAuthenticator {
 
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
+		case .box:
+			let tokenStore = BoxTokenStore()
+			let credential = BoxCredential(tokenStore: tokenStore)
+			credential.deauthenticate()
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()

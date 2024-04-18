@@ -52,23 +52,24 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = DropboxCloudProvider(credential: credential, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountUID)
-			provider = try GoogleDriveCloudProvider(credential: credential,
-			                                        useBackgroundSession: useBackgroundSession,
-			                                        maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = try GoogleDriveCloudProvider(credential: credential, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider(credential: credential,
-			                                     useBackgroundSession: useBackgroundSession,
-			                                     maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
+			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .pCloud:
 			provider = try createPCloudProvider(for: accountUID)
+		case .box:
+			let tokenStore = BoxTokenStore()
+			let credential = BoxCredential(tokenStore: tokenStore)
+			provider = try BoxCloudProvider(credential: credential,
+			                                maxPageSize: useBackgroundSession ? maxPageSizeForFileProvider : .max)
 		case .webDAV:
 			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let client: WebDAVClient
 			if useBackgroundSession {
-				client = WebDAVClient.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: accountUID, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			} else {
 				client = WebDAVClient(credential: credential)
 			}
@@ -100,7 +101,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		let credential = try PCloudCredential(userID: accountUID)
 		let client: PCloudClient
 		if useBackgroundSession {
-			client = PCloud.createBackgroundClient(with: credential.user, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+			client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: accountUID, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		} else {
 			client = PCloud.createClient(with: credential.user)
 		}

@@ -44,6 +44,11 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 
 	func getUsername() -> String? {
 		switch vault.cloudProviderType {
+		case .box:
+			let tokenStore = BoxTokenStore()
+			let credential = BoxCredential(tokenStore: tokenStore)
+			getUsername(for: credential)
+			return "(…)"
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: vault.delegateAccountUID)
 			getUsername(for: credential)
@@ -82,6 +87,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 	}
 
 	func getUsername(for credential: PCloudCredential) {
+		credential.getUsername().then { username in
+			let loggedInText = self.createLoggedInText(forUsername: username)
+			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+			self.attributedText.value = attributedText
+		}
+	}
+
+	func getUsername(for credential: BoxCredential) {
 		credential.getUsername().then { username in
 			let loggedInText = self.createLoggedInText(forUsername: username)
 			let attributedText = self.createAttributedText(loggedInText: loggedInText)

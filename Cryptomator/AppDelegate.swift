@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import BoxSDK
 import CocoaLumberjackSwift
 import CryptomatorCloudAccess
 import CryptomatorCloudAccessCore
@@ -41,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		CloudProviderDBManager.shared.useBackgroundSession = false
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: nil)
+		BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: nil)
+
 		let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
 		oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
 		do {
