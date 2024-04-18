@@ -98,14 +98,12 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		return provider
 	}
 
-	// swiftlint:disable:next orphaned_doc_comment
 	/**
 	 Creates and returns a cloud provider for the given `accountUID` using a background URLSession with the given `sessionIdentifier`.
 
 	 The number of returned items from a `fetchItemList(forFolderAt:pageToken:)` call is limited to 500.
 	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
 	 */
-	// swiftlint:disable:next function_body_length
 	func createBackgroundSessionProvider(for accountUID: String, sessionIdentifier: String) throws -> CloudProvider {
 		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
 		let provider: CloudProvider
@@ -116,32 +114,17 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = DropboxCloudProvider(credential: credential, maxPageSize: maxPageSizeForFileProvider)
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountUID)
-			provider = try GoogleDriveCloudProvider.withBackgroundSession(
-				credential: credential,
-				maxPageSize: maxPageSizeForFileProvider,
-				sessionIdentifier: sessionIdentifier
-			)
+			provider = try GoogleDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider.withBackgroundSession(
-				credential: credential,
-				maxPageSize: maxPageSizeForFileProvider,
-				sessionIdentifier: sessionIdentifier
-			)
+			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
-			let client = PCloud.createBackgroundClient(
-				with: credential.user,
-				sessionIdentifier: sessionIdentifier
-			)
+			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)
 			provider = try PCloudCloudProvider(client: client)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
-			let client = WebDAVClient.withBackgroundSession(
-				credential: credential,
-				sessionIdentifier: sessionIdentifier,
-				sharedContainerIdentifier: CryptomatorConstants.appGroupName
-			)
+			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			provider = try WebDAVProvider(with: client, maxPageSize: maxPageSizeForFileProvider)
 		case .localFileSystem:
 			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
