@@ -210,7 +210,7 @@ public class FileProviderAdapter: FileProviderAdapterType {
 					}
 					return completionHandler(nil, NSFileProviderError(.noSuchItem))
 				}
-				let localImportHandler: Error? -> Void = { error in
+				let localImportHandler: (Error?) -> Void = { error in
 					if let error = error {
 						completionHandler(nil, error)
 					} else {
