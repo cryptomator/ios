@@ -119,22 +119,20 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = try GoogleDriveCloudProvider.withBackgroundSession(
 				credential: credential,
 				maxPageSize: maxPageSizeForFileProvider,
-				sessionIdentifier: sessionIdentifier,
-				sharedContainerIdentifier: CryptomatorConstants.appGroupName
+				sessionIdentifier: sessionIdentifier
 			)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
 			provider = try OneDriveCloudProvider.withBackgroundSession(
 				credential: credential,
 				maxPageSize: maxPageSizeForFileProvider,
-				identifier: sessionIdentifier
+				sessionIdentifier: sessionIdentifier
 			)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(
 				with: credential.user,
-				sessionIdentifier: sessionIdentifier,
-				sharedContainerIdentifier: CryptomatorConstants.appGroupName
+				sessionIdentifier: sessionIdentifier
 			)
 			provider = try PCloudCloudProvider(client: client)
 		case .webDAV:
