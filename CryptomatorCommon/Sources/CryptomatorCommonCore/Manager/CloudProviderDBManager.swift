@@ -52,7 +52,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		}) {
 			return entry.provider
 		}
-		return try createProvider(for: accountUID)
+		return try createBackgroundSessionProvider(for: accountUID, sessionIdentifier: sessionIdentifier)
 	}
 
 	/**
