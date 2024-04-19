@@ -21,7 +21,8 @@
 "common.button.enable" = "Aktivér";
 "common.button.next" = "Næste";
 "common.button.ok" = "OK";
-"common.button.refresh" = "Opdatér";
+"common.button.refresh" = "Genopfrisk";
+"common.button.register" = "Registrer";
 "common.button.remove" = "Fjern";
 "common.button.retry" = "Forsøg igen";
 "common.button.signOut" = "Log ud";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Hvor er boksen placeret?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Kryptomator fandt boksen \"%@\".\nVil du tilføje denne boks?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Tilføj denne boks";
+"addVault.openExistingVault.downloadVault.progress" = "Downloader Boks…";
 "addVault.openExistingVault.password.footer" = "Indtast adgangskode for \"%@\".";
 "addVault.openExistingVault.progress" = "Tilføjer boks…";
 "addVault.success.info" = "Tilføjede boksen \"%@\".\nFå adgang til denne boks via Filer appen.";
@@ -111,10 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "Ingen sti blev angivet. Angiv venligst en gyldig sti til en mappe.";
 "getFolderIntent.error.noVaultSelected" = "Ingen boks er valgt.";
+
+"hubAuthentication.title" = "Hub Boks";
 "hubAuthentication.accessNotGranted" = "Din enhed er endnu ikke blevet godkendt til at få adgang til denne boks. Spørg boks-ejeren om godkendelse.";
 "hubAuthentication.licenseExceeded" = "Din Cryptomator Hub har en ugyldig licens. Få venligst en Hub administrator til at opgradere eller forny licensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enheds-navn";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Det ser ud til at dette er første gang denne enhed tilgår Hub. For at kunne identificere den for adgangstilladelse, skal du navngive denne enhed.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonøgle er påkrævet til at logge ind fra nye apps eller browsere. Den kan findes i din profil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrering af Enhed Lykkedes";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For at tilgå boksen, skal din enhed godkendes af boks-ejeren.";
+"hubAuthentication.requireAccountInit.alert.title" = "Handling Påkrævet";
+"hubAuthentication.requireAccountInit.alert.message" = "For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til Profil";
 
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
 "intents.saveFile.invalidFolder" = "Den angivne mappe er ikke gyldig.";

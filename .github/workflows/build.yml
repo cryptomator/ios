@@ -6,11 +6,10 @@ on:
 jobs:
   build:
     name: Build and test
-    runs-on: macos-14
+    runs-on: [self-hosted, macOS, ARM64]
     env:
       DERIVED_DATA_PATH: 'DerivedData'
       DEVICE: 'iPhone 15 Pro'
-    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
         config: ['freemium', 'premium']
@@ -32,8 +31,8 @@ jobs:
         run: |
           cd fastlane
           ./scripts/create-cloud-access-secrets.sh
-      - name: Select Xcode 15.2
-        run: sudo xcode-select -s /Applications/Xcode_15.2.app
+      - name: Select Xcode 15.3
+        run: sudo xcode-select -s /Applications/Xcode_15.3.app
       - name: Configuration for freemium
         if: ${{ matrix.config == 'freemium' }}
         run: |
