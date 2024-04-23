@@ -113,6 +113,8 @@
 
 "getFolderIntent.error.missingPath" = "Nebyla zadána žádná cesta. Uveďte prosím platnou cestu, pro kterou má být složka vrácena.";
 "getFolderIntent.error.noVaultSelected" = "Nebyl vybrán žádný trezor.";
+
+"hubAuthentication.title" = "Hub trezor";
 "hubAuthentication.accessNotGranted" = "Vaše zařízení dosud nebylo oprávněno k přístupu k tomuto trezoru. Požádejte vlastníka trezoru, aby jej autorizoval.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Název zařízení";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrace zařízení úspěšná";
