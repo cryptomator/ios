@@ -117,9 +117,11 @@
 "hubAuthentication.title" = "Hub trezor";
 "hubAuthentication.accessNotGranted" = "Vaše zařízení dosud nebylo oprávněno k přístupu k tomuto trezoru. Požádejte vlastníka trezoru, aby jej autorizoval.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Název zařízení";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Váš Account Key je vyžadován k přihlášení z nových aplikací nebo prohlížečů. Naleznete jej ve vašem profilu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrace zařízení úspěšná";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pro přístup k trezoru musí být vaše zařízení autorizováno majitelem trezoru.";
 "hubAuthentication.requireAccountInit.alert.title" = "Požadována akce";
+"hubAuthentication.requireAccountInit.alert.message" = "Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Jít na profil";
 
 "intents.saveFile.missingFile" = "Zadaný soubor není platný.";
