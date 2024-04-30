@@ -28,7 +28,7 @@
 "common.button.verify" = "Перевірити";
 "common.cells.openInFilesApp" = "Відкрити в Files";
 "common.cells.password" = "Пароль";
-"common.cells.url" = "Адреса посилання";
+"common.cells.url" = "URL-посилання";
 "common.cells.username" = "Ім'я користувача";
 "common.footer.learnMore" = "Дізнатися більше.";
 "common.hud.authenticating" = "Аутентифікація…";
@@ -120,11 +120,11 @@
 "settings.sendLogFile" = "Надіслати лог-файл";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
 
-"s3Authentication.displayName" = "Ім'я для відображення";
+"s3Authentication.displayName" = "Публічне ім'я";
 "s3Authentication.accessKey" = "Ключ доступу";
 "s3Authentication.secretKey" = "Секретний ключ";
-"s3Authentication.existingBucket" = "Існуючий бакет";
-"s3Authentication.endpoint" = "Кінцева точка";
+"s3Authentication.existingBucket" = "Існуючий кошик";
+"s3Authentication.endpoint" = "Кінцева адреса з іменем хосту, портом і шляхом до кошика";
 "s3Authentication.region" = "Регіон";
 
 "trialStatus.active" = "Активно";
