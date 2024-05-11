@@ -147,43 +147,80 @@
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Сховище вже існує в цьому місці. Будь ласка, спробуйте ще раз з іншим місцем зберігання.";
 "localFileSystemAuthentication.openExistingVault.header" = "У наступному вікні виберіть папку вашого чинного сховища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Виберіть папку сховища";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Вибрана папка не є сховищем. Будь ласка, спробуйте ще раз іншу папку.";
+"localFileSystemAuthentication.info.footer" = "Файлові сервіси, які виділені сірим не підтримують \"вибір папки\". Це не обмеження Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "Неможливо виконати операцію, тому що спочатку мають бути завершені інші фонові операції з цим сховищем. Будь ласка, спробуйте ще раз пізніше.";
+
+"nameValidation.error.endsWithPeriod" = "Не можна використовувати назву, що закінчується прочерком. Будь ласка, виберіть іншу назву.";
+"nameValidation.error.endsWithSpace" = "Не можна використовувати назву, яка закінчується пробілом. Будь ласка, оберіть іншу назву.";
+"nameValidation.error.containsIllegalCharacter" = "Ви не можете використовувати назву, яка містить \"%@\". Виберіть іншу назву.";
 
 "onboarding.title" = "Вітаємо";
+"onboarding.info" = "Дякуємо, що вибрали Cryptomator для захисту ваших файлів.\n\nІз Cryptomator ключ до ваших даних - лише у ваших руках. Cryptomator швидко і легко шифрує ваші дані.\n\nЦей додаток повністю інтегровано до додатка Файли. Переконайтесь пізніше, що активували Cryptomator в додатку Файли, щоб отримувати доступ до своїх сховищ.";
 "onboarding.button.continue" = "Продовжити";
 
 "purchase.beginFreeTrial.alert.title" = "Пробний період розблоковано";
-"purchase.expiredTrial" = "Пробний період вичерпано.";
+"purchase.expiredTrial" = "Пробний період завершився.";
 "purchase.footer.privacyPolicy" = "Політика конфіденційності";
 "purchase.footer.termsOfUse" = "Умови користування";
 "purchase.header.feature.familySharing" = "Сімейний доступ";
-"purchase.header.feature.openSource" = "Open-source розробка";
-"purchase.header.feature.writeAccess" = "Доступ на запис до vaults";
-"purchase.product.donateAndUpgrade" = "Пожертвування та Повна версія";
-"purchase.product.freeUpgrade" = "Безплатна ліцензія";
+"purchase.header.feature.openSource" = "Розробка з відкритим кодом";
+"purchase.header.feature.writeAccess" = "Доступ на запис до ваших сховищ";
+"purchase.product.donateAndUpgrade" = "Пожертвування та покращення";
+"purchase.product.freeUpgrade" = "Безкоштовне покращення";
 "purchase.product.lifetimeLicense" = "Довічна ліцензія";
 "purchase.product.lifetimeLicense.duration" = "одноразово";
-"purchase.product.pricing.free" = "Безплатно";
+"purchase.product.pricing.free" = "Безкоштовно";
 "purchase.product.trial" = "30-денний пробний період";
+"purchase.product.trial.expirationDate" = "Дата завершення: %@";
 "purchase.product.trial.duration" = "на 30 днів";
 "purchase.product.yearlySubscription" = "Щорічна підписка";
 "purchase.product.yearlySubscription.duration" = "щорічно";
-"purchase.readOnlyMode.alert.title" = "Режим \"Тільки зчитування\"";
-"purchase.readOnlyMode.alert.message" = "Ви можете розблокувати повну версію Cryptomator пізніше у налаштування та використовувати у режими \"тільки зчитування\" зараз.";
+"purchase.readOnlyMode.alert.title" = "Режим лише для читання";
+"purchase.readOnlyMode.alert.message" = "Ви можете розблокувати повну версію Cryptomator пізніше у налаштування, а зараз користуватись у режимі \"лише для читання\".";
+"purchase.restorePurchase.button" = "Відновити покупку";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Продовжується пробний період";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Тепер ви можете використовувати повну версію Cryptomator протягом обмеженого часу. Ваш пробний період триватиме до %@. Після того ваші сховища залишаться доступними лише в режимі для читання.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Відновлення успішне";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Повна версія відсутня";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Нам не вдалось знайти раніше придбану повну версію, яка може бути відновлена. Будь ласка, спробуйте іншу опцію.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Придатний для покращення";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Схоже, ви намагаєтеся оновити зі старої версії Cryptomator. У такому разі виберіть опцію \"Пропозиції з покращення\".";
 "purchase.retry.button" = "Повторити";
+"purchase.retry.footer" = "Не вдалося завантажити доступні продукти.";
 "purchase.title" = "Розблокувати повну версію";
+"purchase.unlockedFullVersion.message" = "Тепер ви можете використовувати повну версію Cryptomator. Вдалого шифрування!";
 "purchase.unlockedFullVersion.title" = "Дякуємо Вам!";
+"purchase.error.unknown" = "Ця покупка недоступна в App Store з невідомої причини. Будь ласка, спробуйте пізніше.\n\nЯкщо помилка повторюватиметься і надалі - спробуйте перезавантажити ваш пристрій або вийти та увійти назад у ваш Apple ID в налаштуваннях iOS.";
 
 "settings.title" = "Налаштування";
 "settings.aboutCryptomator" = "Про Cryptomator";
 "settings.aboutCryptomator.title" = "Версія %@ (%@)";
 "settings.cacheSize" = "Розмір кешу";
-"settings.clearCache" = "Очистити кеш";
+"settings.clearCache" = "Почистити кеш";
 "settings.cloudServices" = "Хмарні сервіси";
-"settings.debugMode" = "Режим вiдладки";
+"settings.contact" = "Контакти";
+"settings.debugMode" = "Режим налагодження";
 "settings.debugMode.alert.message" = "У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте вимкнути режим налагодження якнайшвидше.";
+"settings.manageSubscriptions" = "Управління передплатою";
 "settings.rateApp" = "Оцінити додаток";
 "settings.sendLogFile" = "Надіслати лог-файл";
+"settings.shortcutsGuide" = "Посібник з ярликів";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
+
+"snapshots.fileprovider.file1" = "/Розрахунки.numbers";
+"snapshots.fileprovider.file2" = "/Остаточна презентація.key";
+"snapshots.fileprovider.file3" = "/Презентація продукту.mov";
+"snapshots.fileprovider.file4" = "/Пропозиції.docx";
+"snapshots.fileprovider.file5" = "/Звіт.pdf";
+"snapshots.fileprovider.folder3" = "/Таємний проєкт";
+"snapshots.fileprovider.folder2" = "/Рахунки на оплату";
+"snapshots.fileprovider.folder1" = "/Сертифікати";
+"snapshots.main.vault1" = "/Робота";
+"snapshots.main.vault2" = "/Родина";
+"snapshots.main.vault3" = "/Документи";
+"snapshots.main.vault4" = "/Поїздка до Каліфорнії";
 
 "s3Authentication.displayName" = "Публічне ім'я";
 "s3Authentication.accessKey" = "Ключ доступу";
@@ -191,25 +228,56 @@
 "s3Authentication.existingBucket" = "Існуючий кошик";
 "s3Authentication.endpoint" = "Кінцева адреса з іменем хосту, портом і шляхом до кошика";
 "s3Authentication.region" = "Регіон";
+"s3Authentication.error.invalidCredentials" = "Невірні дані облікового запису.";
+"s3Authentication.error.invalidEndpoint" = "Надана кінцева точка не відповідає формату URL.";
 
 "trialStatus.active" = "Активно";
-"trialStatus.expired" = "Пробний період завершено";
+"trialStatus.expired" = "Вичерпано";
 
 "unlockVault.button.unlock" = "Розблокувати";
+"unlockVault.button.unlockVia" = "Розблокувати через %@";
 "unlockVault.password.footer" = "Введіть пароль для \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Увімкнути %@";
+"unlockVault.enableBiometricalUnlock.footer" = "Замість розблокування сховища паролем, ви можете розблоковувати його через %@.";
+"unlockVault.evaluatePolicy.reason" = "Розблокуйте ваше сховище";
 "unlockVault.progress" = "Розблокування…";
+
+"untrustedTLSCertificate.title" = "Невірний TLS сертифікат";
+"untrustedTLSCertificate.message" = "TLS сертифікат \"%@\" невірний. Хочете довіряти йому за будь-яких умов?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Довіряти";
 "untrustedTLSCertificate.dismiss" = "Не довіряти";
 
-"upgrade.title" = "Ліцензії";
-"upgrade.info" = "Дякуємо за довіру до Cryptomator від першої версії. Як лояльному користувачу, вам надається можливість отримання безплатної ліцензії.";
+"upgrade.title" = "Пропозиції для покращення";
+"upgrade.notEligible.alert.title" = "Помилка оновлення";
+"upgrade.notEligible.alert.message" = "Cryptomator не зміг виявити стару версію, встановлену на вашому пристрої. Якщо ви її придбали, завантажте ще раз з App Store і спробуйте ще раз.";
+"upgrade.info" = "Дякуємо, що ви з Cryptomator від самого початку. Як лояльному користувачу, вам надається можливість отримання безоплатної ліцензії.";
+
+"urlSession.error.httpError.401" = "Неправильне ім'я користувача та/або пароль.";
+"urlSession.error.httpError.403" = "Недостатньо прав для запиту ресурсу.";
+"urlSession.error.httpError.404" = "Запитаний ресурс не знайдено.";
+"urlSession.error.httpError.405" = "Метод запиту не підтримується цільовим ресурсом.";
+"urlSession.error.httpError.409" = "Запит суперечить поточному стану цільового ресурсу.";
+"urlSession.error.httpError.412" = "Доступ до цільового ресурсу заборонений.";
+"urlSession.error.httpError.default" = "Не вдалось під'єднатися до мережі з кодом статусу %ld.";
+"urlSession.error.unexpectedResponse" = "Сталася неочікувана відповідь мережі.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Ви вже додали це сховище.";
 
 "vaultDetail.button.changeVaultPassword" = "Змінити пароль";
 "vaultDetail.button.lock" = "Заблокувати зараз";
 "vaultDetail.button.moveVault" = "Перемістити";
-"vaultDetail.button.removeVault" = "Вилучити зі списку сховищів";
+"vaultDetail.button.removeVault" = "Вилучити зі списку сховищ";
 "vaultDetail.button.renameVault" = "Перейменувати";
-"vaultDetail.locked.footer" = "Ваше сховище зараз заблоковане.";
+"vaultDetail.changePassword.footer" = "Оберіть надійний пароль для свого сховища, про який знаєте лише ви та зберігайте його в надійному місці.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви активуєте %@, ваш пароль до сховища буде збережено у ланцюжку ключів iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Буде необхідний ваш пароль сховища лише якщо авторизація %@ буде невдалою.";
+"vaultDetail.info.footer.accessVault" = "Доступ до цього сховища здійснюйте через додаток Файли.";
+"vaultDetail.info.footer.accountInfo" = "Увійшов як %@ через %@.";
+"vaultDetail.keepUnlocked.title" = "Залишити розблокованим";
+"vaultDetail.keepUnlocked.footer.off" = "Розблокування буде потрібне, коли Cryptomator буде закритий додатком Файли.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Буде потрібно розблокувати, якщо ваше сховище простоюватиме більше %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Розблокування не буде потрібне, поки не заблокуєте вручну.";
+"vaultDetail.locked.footer" = "Ваше сховище наразі заблоковане.";
 "vaultDetail.moveVault.progress" = "Переміщення…";
 "vaultDetail.renameVault.progress" = "Перейменування…";
 
