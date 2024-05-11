@@ -57,35 +57,95 @@
 "addVault.createNewVault.password.error.tooShortPassword" = "Пароль має містити щонайменше 8 символів.";
 "addVault.createNewVault.progress" = "Створення сховища…";
 "addVault.openExistingVault.title" = "Відкрити чинне сховище";
+"addVault.openExistingVault.chooseCloud.header" = "Де розташовано сховище?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator виявив сховище \"%@\".\nБажаєте його додати?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Додати це сховище";
 "addVault.openExistingVault.downloadVault.progress" = "Завантаження сховища…";
 "addVault.openExistingVault.password.footer" = "Введіть пароль для \"%@\".";
 "addVault.openExistingVault.progress" = "Додавання сховища…";
+"addVault.success.info" = "Успішно додано сховище \"%@\".\nОтримайте доступ до нього через додаток Файли.";
+"addVault.success.footer" = "Якщо ви ще цього не зробили, то увімкніть Cryptomator в додатку Файли.";
 
-"biometryType.faceID" = "Face ID";
-"biometryType.touchID" = "Touch ID";
+"biometryType.faceID" = "Ідентифікація за обличчям";
+"biometryType.touchID" = "Ідентифікація за відбитками пальців";
+
+"changePassword.error.invalidOldPassword" = "Поточний пароль хибний. Будь ласка, спробуйте ще раз.";
 "changePassword.header.currentPassword.title" = "Введіть поточний пароль.";
 "changePassword.header.newPassword.title" = "Введіть новий пароль.";
 "changePassword.header.newPasswordConfirmation.title" = "Підтвердіть новий пароль.";
 "changePassword.progress" = "Зміна пароля…";
 
+"chooseFolder.emptyFolder.footer" = "Папка порожня";
+"chooseFolder.createNewFolder.header.title" = "Виберіть назву для папки.";
+"chooseFolder.createNewFolder.cells.name" = "Назва папки";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Назва папки не може бути порожня.";
+"chooseFolder.createNewFolder.progress" = "Створення папки…";
+
 "cloudProvider.error.itemNotFound" = "\"%@\" не знайдено.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" вже існує.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" має несподіваний тип предмету.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Батьківська папка \"%@\" не існує.";
+"cloudProvider.error.pageTokenInvalid" = "Не вдалося отримати вміст папки для продовження.";
+"cloudProvider.error.quotaInsufficient" = "На вашому накопичувачі недостатньо місця.";
+"cloudProvider.error.unauthorized" = "Не вдалося виконати несанкціоновану операцію.";
+"cloudProvider.error.noInternetConnection" = "Для цієї операції необхідне підключення до Інтернету.";
+
+"cloudProviderType.localFileSystem" = "Інший файловий сервіс";
 
 "fileProvider.onboarding.title" = "Вітаємо";
+"fileProvider.onboarding.info" = "Дякуємо, що обрали Cryptomator для захисту ваших файлів. Щоб розпочати, зайдіть в основний додаток та додайте сховище.";
 "fileProvider.onboarding.button.openCryptomator" = "Відкрити Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Розблокування скасовано";
+"fileProvider.error.biometricalAuthCanceled.message" = "Не вдалося розблокувати за допомогою %@. Будь ласка, спробуйте ще раз.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Невірний пароль";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Збережений для %@ пароль неправильний. Будь ласка, спробуйте ще раз і введіть ваш пароль для повторного увімкнення %@.";
+"fileProvider.error.defaultLock.title" = "Потрібно розблокувати";
+"fileProvider.error.defaultLock.message" = "Щоб отримати доступ і показати вміст вашого сховища, воно має бути розблоковане.";
 "fileProvider.error.unlockButton" = "Розблокувати";
+"fileProvider.clearFileFromCache.title" = "Очистити файл з кешу";
+"fileProvider.clearFileFromCache.message" = "Це видаляє лише локальний файл з вашого пристрою, але не видаляє файл у хмарі.";
+"fileProvider.fileImporting.error.missingPremium" = "Розблокуйте повну версію Cryptomater, щоб отримати доступ для запису у ваші сховища.";
 "fileProvider.uploadProgress.connecting" = "Підключення…";
+"fileProvider.uploadProgress.message" = "Поточний прогрес: %@\n\nЯкщо ви помітили, що прогрес вивантаження не змінюється тривалий час, ви можете його перезапустити.";
+"fileProvider.uploadProgress.missing" = "Не вдалося визначити прогрес. Робота все ще може здійснюватись у фоновому режимі.";
+"fileProvider.uploadProgress.title" = "Вивантаження…";
+"fileProvider.uploadProgress.missingDomainError" = "Не вдалося знайти домен.";
+
+"getFolderIntent.error.missingPath" = "Не вказано шлях. Будь ласка, введіть коректний шлях до папки.";
+"getFolderIntent.error.noVaultSelected" = "Сховище не вибрано.";
+
+"hubAuthentication.title" = "Сховище Hub";
 "hubAuthentication.accessNotGranted" = "Ваш пристрій ще не має прав доступу до цього сховища. Попросіть власника сховища дозволити доступ.";
 "hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, зв'яжіться з адміністратором Hub, щоб оновити або продовжити дію ліцензії.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
-"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш Account Key необхідний для входу в систему з нових програм або браузерів. Його можна знайти в профілі.";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб отримати доступ до vault, ваш пристрій повинен бути авторизований власником vault.";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Реєстрація пристрою успішна";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб використовувати сховище, його власник має дозволити доступ вашому пристрою.";
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
-"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
+"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, завершіть обов'язкові кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
+
+"intents.saveFile.missingFile" = "Цей файл неправильний.";
+"intents.saveFile.invalidFolder" = "Вказана папка неприпустима.";
+"intents.saveFile.missingTemporaryFolder" = "Не вдалося створити тимчасову папку.";
+"intents.saveFile.lockedVault" = "Щоб скористатися цим ярликом, потрібно розблокувати своє сховище.";
+"intents.saveFile.selectedVaultNotFound" = "Вибране сховище не знайдено.";
+
+"keepUnlocked.alert.title" = "Заблокувати сховище?";
+"keepUnlocked.alert.message" = "Щоб зміна набула чинності - необхідно заблокувати ваше сховище.";
+"keepUnlocked.alert.confirm" = "Підтвердити та заблокувати зараз";
+"keepUnlocked.header" = "Вкажіть, як довго ви хочете, щоб це сховище залишалося розблокованим, коли воно не використовується.";
+"keepUnlocked.footer.auto" = "Дозвіл iOS вирішувати означає, що Cryptomator може бути зупинений в будь-який час для звільнення пам'яті, що автоматично заблокує сховище.";
+"keepUnlocked.footer.on" = "Використовуючи вибрану опцію, копію вашого ключа потрібно зберігати в ланцюжку ключів iOS, доки сховище буде розблоковано.";
+"keepUnlockedDuration.auto" = "Дозволити iOS вирішувати автоматично";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
+"keepUnlockedDuration.indefinite" = "Необмежений";
+
+"localFileSystemAuthentication.createNewVault.header" = "У наступному вікні виберіть місце зберігання для вашого нового сховища.";
+"localFileSystemAuthentication.createNewVault.button" = "Обрати місце зберігання";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Сховище вже існує в цьому місці. Будь ласка, спробуйте ще раз з іншим місцем зберігання.";
+"localFileSystemAuthentication.openExistingVault.header" = "У наступному вікні виберіть папку вашого чинного сховища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Виберіть папку сховища";
 
 "onboarding.title" = "Вітаємо";
