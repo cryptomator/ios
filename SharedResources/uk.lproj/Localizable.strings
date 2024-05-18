@@ -278,14 +278,28 @@
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Буде потрібно розблокувати, якщо ваше сховище простоюватиме більше %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Розблокування не буде потрібне, поки не заблокуєте вручну.";
 "vaultDetail.locked.footer" = "Ваше сховище наразі заблоковане.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator виявив чинне сховище за цим розташуванням.\nЩоб перемістити ваше сховище, будь ласка, поверніться та оберіть іншу папку.";
 "vaultDetail.moveVault.progress" = "Переміщення…";
+"vaultDetail.removeVault.footer" = "Це прибере сховище лише зі списку сховищ, але не видалить зашифрованих файлів.";
 "vaultDetail.renameVault.progress" = "Перейменування…";
+"vaultDetail.unlocked.footer" = "Ваше сховище вже розблоковано в додатку \"Файли\".";
+"vaultDetail.unlockVault.footer" = "Введіть пароль для \"%@\" для зберігання його у ланцюжку ключів iOS та активації %@.";
 
 "vaultList.header.title" = "Сховища";
 "vaultList.emptyList.message" = "Натисніть тут, щоб додати сховище";
 "vaultList.remove.alert.title" = "Видалити сховище?";
+"vaultList.remove.alert.message" = "Буде видалено лише сховище зі списку сховищ. Жодні зашифровані дані не будуть видалені. Ви можете повторно додати сховище пізніше.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Конфігурація сховища не підтримується. Переконайтеся, що ви використовуєте останню версію Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Сховище %ld-ї версії не підтримується. Це сховище було створене старішою або новішою версією Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Використовувати HTTPS?";
 "webDAVAuthentication.httpConnection.alert.message" = "Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Змінити на HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Залишити HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Схоже, сервер не сумісний з WebDAV. Будь ласка, перевірте, чи ви використовували правильну URL-адресу.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Сертифікат цього сервера ненадійний. Вам, можливо, доведеться повторно додати це з'єднання WebDAV.";
+
+"Retry Upload" = "Повторити вивантаження";
+"Clear from Cache" = "Видалити з кешу";
