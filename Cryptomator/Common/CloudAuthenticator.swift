@@ -62,10 +62,14 @@ class CloudAuthenticator {
 
 	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let tokenStore = BoxTokenStore()
-		return BoxAuthenticator.authenticate(from: viewController, tokenStore: tokenStore).then { _, userId -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: userId, cloudProviderType: .box)
-			try self.accountManager.saveNewAccount(account)
-			return account
+		let credential = BoxCredential(tokenStore: tokenStore)
+
+		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStore).then { _ -> Promise<CloudProviderAccount> in
+			return credential.getUserId().then { userId in
+				let account = CloudProviderAccount(accountUID: userId, cloudProviderType: .box)
+				try self.accountManager.saveNewAccount(account)
+				return account
+			}
 		}
 	}
 

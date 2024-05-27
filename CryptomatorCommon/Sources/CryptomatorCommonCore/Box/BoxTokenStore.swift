@@ -5,7 +5,7 @@
 //  Created by Majid Achhoud on 10.04.24.
 //
 
-import BoxSDK
+import BoxSdkGen
 import Foundation
 
 public enum BoxTokenStoreError: Error {
@@ -13,52 +13,52 @@ public enum BoxTokenStoreError: Error {
 	case cantSaveToKeychain
 }
 
-public struct BoxTokenStore: TokenStore {
+public struct BoxTokenStore: TokenStorage {
 	public init() {}
 
-	public func read(completion: @escaping (Result<TokenInfo, any Error>) -> Void) {
+	public func store(token: AccessToken) async throws {
+		do {
+			try CryptomatorKeychain.box.saveBoxTokenInfo(token)
+		} catch {
+			throw BoxTokenStoreError.cantSaveToKeychain
+		}
+	}
+
+	public func get() async throws -> AccessToken? {
 		guard let tokenInfo = CryptomatorKeychain.box.getBoxTokenInfo() else {
-			completion(.failure(BoxTokenStoreError.keychainNoValue))
-			return
+			throw BoxTokenStoreError.keychainNoValue
 		}
-		completion(.success(tokenInfo))
+		return tokenInfo
 	}
 
-	public func write(tokenInfo: TokenInfo, completion: @escaping (Result<Void, any Error>) -> Void) {
-		guard let newTokenInfo = try? CryptomatorKeychain.box.saveBoxTokenInfo(tokenInfo) else {
-			completion(.failure(BoxTokenStoreError.cantSaveToKeychain))
-			return
-		}
-		completion(.success(newTokenInfo))
-	}
-
-	public func clear(completion: @escaping (Result<Void, any Error>) -> Void) {
+	public func clear() async throws {
 		do {
 			try CryptomatorKeychain.box.deleteTokenInfo()
-			completion(.success(()))
 		} catch {
-			completion(.failure(error))
+			throw error
 		}
 	}
 }
 
 extension CryptomatorKeychain {
-	func getBoxTokenInfo() -> TokenInfo? {
+	func getBoxTokenInfo() -> AccessToken? {
 		guard let data = getAsData("foo") else {
 			return nil
 		}
 		do {
 			let jsonDecoder = JSONDecoder()
-			return try jsonDecoder.decode(TokenInfo.self, from: data)
+			return try jsonDecoder.decode(AccessToken.self, from: data)
 		} catch {
 			return nil
 		}
 	}
 
-	func saveBoxTokenInfo(_ tokenInfo: TokenInfo) throws {
+	func saveBoxTokenInfo(_ tokenInfo: AccessToken) throws {
 		let jsonEncoder = JSONEncoder()
 		let encodedUser = try jsonEncoder.encode(tokenInfo)
 		try set("foo", value: encodedUser)
+		let encodedToken = try jsonEncoder.encode(tokenInfo)
+		try set("foo", value: encodedToken)
 	}
 
 	func deleteTokenInfo() throws {

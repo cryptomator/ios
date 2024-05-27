@@ -55,21 +55,12 @@
       }
     },
     {
-      "identity" : "box-ios-sdk",
+      "identity" : "box-swift-sdk-gen",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/box/box-ios-sdk.git",
+      "location" : "https://github.com/box/box-swift-sdk-gen.git",
       "state" : {
-        "revision" : "daffd86b861a5f5882655bf7a01b891f6b808c1f",
-        "version" : "5.5.0"
-      }
-    },
-    {
-      "identity" : "cloud-access-swift",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cryptomator/cloud-access-swift.git",
-      "state" : {
-        "branch" : "feature/boxcloud-integration",
-        "revision" : "4d99667b9467e1a35d379386d9c023fee6ec6942"
+        "revision" : "e5069af728c4b4f048078dfb5aed683c926da857",
+        "version" : "0.2.0"
       }
     },
     {
