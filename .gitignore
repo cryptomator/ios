@@ -44,3 +44,6 @@ fastlane/Preview.html
 fastlane/screenshots/screenshots.html
 fastlane/screenshots/*/*.png
 fastlane/test_output
+
+# Fluid Attacks
+**/fastlane/fluidattacks/results.csv
