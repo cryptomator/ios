@@ -46,7 +46,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		switch vault.cloudProviderType {
 		case .box:
 			let tokenStore = BoxTokenStore()
-			let credential = BoxCredential(tokenStore: tokenStore)
+			let credential = BoxCredential(tokenStorage: tokenStore)
 			getUsername(for: credential)
 			return "(…)"
 		case .dropbox:

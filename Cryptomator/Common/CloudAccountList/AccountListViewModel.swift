@@ -71,7 +71,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return all(accountInfos
 			.map { accountInfo in
 				let tokenStore = BoxTokenStore()
-				let credential = BoxCredential(tokenStore: tokenStore)
+				let credential = BoxCredential(tokenStorage: tokenStore)
 				boxCredentials[accountInfo.accountUID] = credential // Workaround: Fixing lifecycle issue with Box credential/client
 				return credential
 			}

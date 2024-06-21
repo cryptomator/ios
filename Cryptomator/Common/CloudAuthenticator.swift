@@ -62,7 +62,7 @@ class CloudAuthenticator {
 
 	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let tokenStore = BoxTokenStore()
-		let credential = BoxCredential(tokenStore: tokenStore)
+		let credential = BoxCredential(tokenStorage: tokenStore)
 
 		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStore).then { _ -> Promise<CloudProviderAccount> in
 			return credential.getUserId().then { userId in
@@ -114,7 +114,7 @@ class CloudAuthenticator {
 		switch account.cloudProviderType {
 		case .box:
 			let tokenStore = BoxTokenStore()
-			let credential = BoxCredential(tokenStore: tokenStore)
+			let credential = BoxCredential(tokenStorage: tokenStore)
 			credential.deauthenticate()
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: account.accountUID)
