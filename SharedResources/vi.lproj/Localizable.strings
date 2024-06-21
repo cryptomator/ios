@@ -1,20 +1,38 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Lỗi";
 "common.alert.attention.title" = "Chú ý";
 "common.button.cancel" = "Hủy";
 "common.button.change" = "Thay đổi";
 "common.button.choose" = "Chọn";
+"common.button.clear" = "Xóa";
 "common.button.close" = "Đóng";
+"common.button.confirm" = "Xác nhận";
 "common.button.create" = "Tạo";
-"common.button.done" = "Xong";
+"common.button.createFolder" = "Tạo Thư mục";
+"common.button.done" = "Hoàn thành";
+"common.button.download" = "Tải xuống";
 "common.button.edit" = "Chỉnh sửa";
 "common.button.enable" = "Bật";
 "common.button.next" = "Tiếp";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Làm mới";
+"common.button.register" = "Đăng ký";
 "common.button.remove" = "Xóa";
 "common.button.retry" = "Thử lại";
+"common.button.signOut" = "Đăng xuất";
+"common.button.verify" = "Xác minh";
+"common.cells.openInFilesApp" = "Mở trong ứng dụng Tệp";
 "common.cells.password" = "Mật khẩu";
 "common.cells.url" = "URL";
 "common.cells.username" = "Tên đăng nhập";
+"common.footer.learnMore" = "Tìm hiểu thêm.";
+"common.hud.authenticating" = "Đang xác thực…";
 
 "addVault.title" = "Thêm Vault";
 "addVault.createNewVault.title" = "Tạo Vault mới";
@@ -25,16 +43,56 @@
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"chooseFolder.emptyFolder.footer" = "Thư mục rỗng";
+"chooseFolder.createNewFolder.header.title" = "Chọn tên cho thư mục.";
+"chooseFolder.createNewFolder.cells.name" = "Tên thư mục";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Tên thư mục không được để trống.";
+"chooseFolder.createNewFolder.progress" = "Đang tạo thư mục…";
+
+"fileProvider.onboarding.title" = "Chào mừng";
 "fileProvider.error.unlockButton" = "Mở khoá";
 "hubAuthentication.accessNotGranted" = "Thiết bị của bạn chưa được phép truy cập vault này. Yêu cầu chủ sở hữu cấp phép.";
 "hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Để truy cập vault, thiết bị của bạn cần được chủ sở hữu cho phép.";
+"keepUnlocked.alert.confirm" = "Xác nhận & Khóa ngay";
+"keepUnlockedDuration.auto" = "Để iOS tự động quyết định";
+"keepUnlockedDuration.auto.shortDisplayName" = "Tự động";
+"keepUnlockedDuration.indefinite" = "Vô thời hạn";
+
+"onboarding.title" = "Chào mừng";
+"onboarding.button.continue" = "Tiếp tục";
+"purchase.expiredTrial" = "Bản dùng thử của bạn đã hết hạn.";
+"purchase.footer.privacyPolicy" = "Chính sách bảo mật";
+"purchase.footer.termsOfUse" = "Điều khoản sử dụng";
+"purchase.header.feature.familySharing" = "Chia sẻ trong gia đình";
+"purchase.product.donateAndUpgrade" = "Ủng hộ & Nâng cấp";
+"purchase.product.freeUpgrade" = "Nâng cấp miễn phí";
+"purchase.product.lifetimeLicense" = "Giấy phép trọn đời";
+"purchase.product.lifetimeLicense.duration" = "một lần";
+"purchase.product.pricing.free" = "Miễn phí";
+"purchase.product.trial" = "Trải nghiệm 30 ngày";
+"purchase.product.trial.expirationDate" = "Ngày hết hạn: %@";
+"purchase.product.trial.duration" = "trong 30 ngày";
+"purchase.product.yearlySubscription" = "Đăng Ký Theo Năm";
+"purchase.product.yearlySubscription.duration" = "hàng năm";
+"purchase.readOnlyMode.alert.title" = "Chế độ chỉ đọc";
+"purchase.restorePurchase.button" = "Khôi phục lại lượt mua";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Tiếp tục trải nghiệm";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Khôi phục thành công";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Không có bản đầy đủ";
 "purchase.retry.button" = "Thử lại";
 
-"settings.title" = "Cài đặt";
+"settings.title" = "Các cài đặt";
+"settings.aboutCryptomator.title" = "Phiên bản %@ (%@)";
+"settings.cacheSize" = "Kích thước bộ nhớ đệm";
 "settings.clearCache" = "Xóa bộ nhớ Cache";
+"settings.contact" = "Liên hệ";
+"settings.debugMode" = "Chế độ debug";
 "settings.debugMode.alert.message" = "Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.";
+"settings.rateApp" = "Đánh giá ứng dụng";
+"settings.unlockFullVersion" = "Mở khóa bản đầy đủ";
 
 "s3Authentication.displayName" = "Tên hiển thị";
 "s3Authentication.accessKey" = "Khoá Truy cập";
@@ -44,12 +102,26 @@
 "s3Authentication.region" = "Khu vực";
 
 "unlockVault.button.unlock" = "Mở khoá";
+"unlockVault.evaluatePolicy.reason" = "Mở Vault của bạn";
+"unlockVault.progress" = "Đang mở…";
+
+"untrustedTLSCertificate.title" = "Chứng chỉ TLS không hợp lệ";
+"untrustedTLSCertificate.message" = "Chứng chỉ TLS của \"%@\" không hợp lệ. Bạn có muốn tin tưởng nó không?\n\n SHA-256: %@";
+"untrustedTLSCertificate.add" = "Tin tưởng";
+"untrustedTLSCertificate.dismiss" = "Không tin tưởng";
+
+"upgrade.title" = "Ưu đãi nâng cấp";
+"upgrade.notEligible.alert.title" = "Nâng cấp thất bại";
 
 "vaultDetail.button.changeVaultPassword" = "Đổi mật khẩu";
 "vaultDetail.button.moveVault" = "Di chuyển";
+"vaultDetail.button.removeVault" = "Xóa khỏi Danh sách Vault";
 "vaultDetail.button.renameVault" = "Đổi tên";
+"vaultDetail.keepUnlocked.title" = "Thời lượng mở khóa";
 "vaultDetail.locked.footer" = "Vault của bạn hiện đang bị khóa.";
 "vaultDetail.moveVault.progress" = "Đang di chuyển…";
+
+"vaultList.header.title" = "Danh sách Vault";
 "vaultList.emptyList.message" = "Bấm vào đây để thêm vault";
 "vaultList.remove.alert.title" = "Xóa Vault?";
 
