@@ -4,4 +4,7 @@
 "common.vault" = "Vault";
 "getFolderIntent.path" = "Đường dẫn";
 "isUnlockedIntent.title" = "Đã mở khóa";
+"openVaultIntent.title" = "Mở Vault";
 "saveFileIntent.file" = "Tệp";
+"saveFileIntent.text" = "Lưu ${file} vào ${folder}";
+"saveFileIntent.title" = "Lưu tệp";
