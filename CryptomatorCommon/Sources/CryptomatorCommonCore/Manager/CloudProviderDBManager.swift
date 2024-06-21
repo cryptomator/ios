@@ -75,6 +75,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createClient(with: credential.user)
 			provider = try PCloudCloudProvider(client: client)
+		case .box:
+			let tokenStore = BoxTokenStore()
+			let credential = BoxCredential(tokenStorage: tokenStore)
+			provider = try BoxCloudProvider(credential: credential, maxPageSize: .max)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient(credential: credential)
@@ -122,6 +126,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)
 			provider = try PCloudCloudProvider(client: client)
+		case .box:
+			let tokenStore = BoxTokenStore()
+			let credential = BoxCredential(tokenStorage: tokenStore)
+			provider = try BoxCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)

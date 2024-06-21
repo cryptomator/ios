@@ -55,12 +55,12 @@
       }
     },
     {
-      "identity" : "cloud-access-swift",
+      "identity" : "box-swift-sdk-gen",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/cryptomator/cloud-access-swift.git",
+      "location" : "https://github.com/box/box-swift-sdk-gen.git",
       "state" : {
-        "revision" : "cd7a18abcaf09349f066363c7524b738f4f4ad79",
-        "version" : "1.10.1"
+        "revision" : "e5069af728c4b4f048078dfb5aed683c926da857",
+        "version" : "0.2.0"
       }
     },
     {

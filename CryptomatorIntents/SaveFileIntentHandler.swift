@@ -123,6 +123,8 @@ extension SaveFileIntentResponse {
 extension CloudProviderType {
 	var assetName: String {
 		switch self {
+		case .box:
+			return "box-vault"
 		case .dropbox:
 			return "dropbox-vault"
 		case .googleDrive:

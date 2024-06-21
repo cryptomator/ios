@@ -20,6 +20,8 @@ cat > ../CryptomatorCommon/Sources/CryptomatorCommonCore/CloudAccessSecrets.swif
 import Foundation
 
 public enum CloudAccessSecrets {
+	public static let boxClientId = "${BOX_CLIENT_ID}"
+	public static let boxClientSecret = "${BOX_CLIENT_SECRET}"
 	public static let dropboxAppKey = "${DROPBOX_APP_KEY}"
 	public static let dropboxURLScheme = "db-${DROPBOX_APP_KEY}"
 	public static let googleDriveClientId = "${GOOGLE_DRIVE_CLIENT_ID}"
