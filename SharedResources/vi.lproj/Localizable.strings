@@ -33,16 +33,38 @@
 "common.cells.username" = "Tên đăng nhập";
 "common.footer.learnMore" = "Tìm hiểu thêm.";
 "common.hud.authenticating" = "Đang xác thực…";
+"accountList.emptyList.message" = "Bấm vào đây để thêm tài khoản";
 
 "addVault.title" = "Thêm Vault";
 "addVault.createNewVault.title" = "Tạo Vault mới";
+"addVault.createNewVault.setVaultName.header.title" = "Chọn tên cho vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Tên Vault";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Tên vault không thể để trống.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator nên lưu trữ các tệp được mã hóa trong vault của bạn ở đâu?";
+"addVault.createNewVault.password.enterPassword.header" = "Nhập mật khẩu mới.";
+"addVault.createNewVault.password.confirmPassword.header" = "Xác nhận mật khẩu mới.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Xác nhận mật khẩu?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "QUAN TRỌNG: Nếu bạn quên mật khẩu, không có cách nào để khôi phục dữ liệu của bạn.";
+"addVault.createNewVault.password.error.emptyPassword" = "Mật khẩu không thể để trống.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Mật khẩu không khớp.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Mật khẩu phải chứa tối thiểu 8 ký tự.";
+"addVault.createNewVault.progress" = "Đang tạo Vault…";
 "addVault.openExistingVault.title" = "Mở Vault Hiện Có";
+"addVault.openExistingVault.chooseCloud.header" = "Vault hiện đang ở đâu?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator tìm thấy vault \"%@\".\nBạn có muốn thêm vault này?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Thêm vault này";
+"addVault.openExistingVault.downloadVault.progress" = "Đang tải Vault…";
+"addVault.openExistingVault.password.footer" = "Nhập mật khẩu cho \"%@\".";
+"addVault.openExistingVault.progress" = "Đang thêm Vault…";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "Mật khẩu hiện tại sai. Vui lòng thử lại.";
+"changePassword.header.currentPassword.title" = "Nhập mật khẩu hiện tại.";
+"changePassword.header.newPassword.title" = "Nhập mật khẩu mới.";
+"changePassword.header.newPasswordConfirmation.title" = "Xác nhận mật khẩu mới.";
+"changePassword.progress" = "Đang đổi mật khẩu…";
 
 "chooseFolder.emptyFolder.footer" = "Thư mục rỗng";
 "chooseFolder.createNewFolder.header.title" = "Chọn tên cho thư mục.";
@@ -50,12 +72,28 @@
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Tên thư mục không được để trống.";
 "chooseFolder.createNewFolder.progress" = "Đang tạo thư mục…";
 
+"cloudProvider.error.itemNotFound" = "Không thể tìm thấy \"%@\".";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" đã tồn tại.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Thư mục mẹ \"%@\" không tồn tại.";
+
 "fileProvider.onboarding.title" = "Chào mừng";
+"fileProvider.onboarding.button.openCryptomator" = "Mở Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Đã hủy mở khóa";
+"fileProvider.error.biometricalAuthCanceled.message" = "Mở khóa qua %@ không thành công. Vui lòng thử lại.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Sai mật khẩu";
+"fileProvider.error.defaultLock.title" = "Cần mở khóa";
 "fileProvider.error.unlockButton" = "Mở khoá";
+"fileProvider.clearFileFromCache.title" = "Xóa tệp khỏi bộ nhớ đệm";
+"fileProvider.uploadProgress.connecting" = "Đang kết nối…";
+"fileProvider.uploadProgress.title" = "Đang tải lên…";
+"fileProvider.uploadProgress.missingDomainError" = "Không thể tìm thấy tên miền.";
 "hubAuthentication.accessNotGranted" = "Thiết bị của bạn chưa được phép truy cập vault này. Yêu cầu chủ sở hữu cấp phép.";
 "hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Để truy cập vault, thiết bị của bạn cần được chủ sở hữu cho phép.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Xem hồ sơ";
+
+"keepUnlocked.alert.title" = "Khóa Vault?";
 "keepUnlocked.alert.confirm" = "Xác nhận & Khóa ngay";
 "keepUnlockedDuration.auto" = "Để iOS tự động quyết định";
 "keepUnlockedDuration.auto.shortDisplayName" = "Tự động";
@@ -63,10 +101,13 @@
 
 "onboarding.title" = "Chào mừng";
 "onboarding.button.continue" = "Tiếp tục";
+
+"purchase.beginFreeTrial.alert.title" = "Đã kích hoạt bản dùng thử";
 "purchase.expiredTrial" = "Bản dùng thử của bạn đã hết hạn.";
 "purchase.footer.privacyPolicy" = "Chính sách bảo mật";
 "purchase.footer.termsOfUse" = "Điều khoản sử dụng";
 "purchase.header.feature.familySharing" = "Chia sẻ trong gia đình";
+"purchase.header.feature.writeAccess" = "Quyền ghi vào những vault của bạn";
 "purchase.product.donateAndUpgrade" = "Ủng hộ & Nâng cấp";
 "purchase.product.freeUpgrade" = "Nâng cấp miễn phí";
 "purchase.product.lifetimeLicense" = "Giấy phép trọn đời";
@@ -83,8 +124,11 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Khôi phục thành công";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Không có bản đầy đủ";
 "purchase.retry.button" = "Thử lại";
+"purchase.title" = "Mở khóa bản đầy đủ";
+"purchase.unlockedFullVersion.title" = "Cảm ơn bạn";
 
 "settings.title" = "Các cài đặt";
+"settings.aboutCryptomator" = "Về Cryptomator";
 "settings.aboutCryptomator.title" = "Phiên bản %@ (%@)";
 "settings.cacheSize" = "Kích thước bộ nhớ đệm";
 "settings.clearCache" = "Xóa bộ nhớ Cache";
@@ -93,6 +137,14 @@
 "settings.debugMode.alert.message" = "Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.";
 "settings.rateApp" = "Đánh giá ứng dụng";
 "settings.unlockFullVersion" = "Mở khóa bản đầy đủ";
+"snapshots.fileprovider.file3" = "/Trailer sản phẩm.mov";
+"snapshots.fileprovider.file5" = "/Báo cáo.pdf";
+"snapshots.fileprovider.folder3" = "/Dự án bí mật";
+"snapshots.fileprovider.folder2" = "/Hóa đơn";
+"snapshots.main.vault1" = "/Công việc";
+"snapshots.main.vault2" = "/Gia đình";
+"snapshots.main.vault3" = "/Tài liệu";
+"snapshots.main.vault4" = "/Chuyến đi đến California";
 
 "s3Authentication.displayName" = "Tên hiển thị";
 "s3Authentication.accessKey" = "Khoá Truy cập";
@@ -100,8 +152,15 @@
 "s3Authentication.existingBucket" = "Bucket Hiện có";
 "s3Authentication.endpoint" = "Điểm cuối";
 "s3Authentication.region" = "Khu vực";
+"s3Authentication.error.invalidCredentials" = "Thông tin không hợp lệ.";
+
+"trialStatus.active" = "Hoạt động";
+"trialStatus.expired" = "Hết hạn";
 
 "unlockVault.button.unlock" = "Mở khoá";
+"unlockVault.button.unlockVia" = "Mở khóa thông qua %@";
+"unlockVault.password.footer" = "Nhập mật khẩu cho \"%@\".";
+"unlockVault.enableBiometricalUnlock.switch" = "Kích hoạt %@";
 "unlockVault.evaluatePolicy.reason" = "Mở Vault của bạn";
 "unlockVault.progress" = "Đang mở…";
 
@@ -113,13 +172,21 @@
 "upgrade.title" = "Ưu đãi nâng cấp";
 "upgrade.notEligible.alert.title" = "Nâng cấp thất bại";
 
+"urlSession.error.httpError.401" = "Tên người dùng và/hoặc mật khẩu không đúng.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Bạn đã thêm vault này rồi.";
+
 "vaultDetail.button.changeVaultPassword" = "Đổi mật khẩu";
+"vaultDetail.button.lock" = "Khóa ngay";
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.removeVault" = "Xóa khỏi Danh sách Vault";
 "vaultDetail.button.renameVault" = "Đổi tên";
+"vaultDetail.info.footer.accessVault" = "Truy cập vault thông qua ứng dụng Tệp.";
+"vaultDetail.info.footer.accountInfo" = "Đăng nhập bằng %@ qua %@.";
 "vaultDetail.keepUnlocked.title" = "Thời lượng mở khóa";
 "vaultDetail.locked.footer" = "Vault của bạn hiện đang bị khóa.";
 "vaultDetail.moveVault.progress" = "Đang di chuyển…";
+"vaultDetail.renameVault.progress" = "Đang đổi tên…";
 
 "vaultList.header.title" = "Danh sách Vault";
 "vaultList.emptyList.message" = "Bấm vào đây để thêm vault";
@@ -130,3 +197,4 @@
 "webDAVAuthentication.httpConnection.change" = "Chuyển sang HTTPS";
 
 "Retry Upload" = "Thử tải lên lại";
+"Clear from Cache" = "Xóa khỏi bộ nhớ đệm";
