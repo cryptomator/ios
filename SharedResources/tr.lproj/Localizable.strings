@@ -172,10 +172,10 @@
 "purchase.product.lifetimeLicense" = "Ömür Boyu Kullanım Lisansı";
 "purchase.product.lifetimeLicense.duration" = "bir kez";
 "purchase.product.pricing.free" = "Ücretsiz";
-"purchase.product.trial" = "30-Gün Deneme";
+"purchase.product.trial" = "30 Günlük Deneme";
 "purchase.product.trial.expirationDate" = "Bitiş Tarihi: %@";
 "purchase.product.trial.duration" = "30 gün boyunca";
-"purchase.product.yearlySubscription" = "Yıllık abonelik";
+"purchase.product.yearlySubscription" = "Yıllık Abonelik";
 "purchase.product.yearlySubscription.duration" = "yıllık";
 "purchase.readOnlyMode.alert.title" = "Yalnızca okuma modu";
 "purchase.readOnlyMode.alert.message" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";

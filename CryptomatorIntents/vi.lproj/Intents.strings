@@ -1,7 +1,13 @@
+"common.failureReason" = "Lý do thất bại";
 "common.false" = "sai";
 "common.folder" = "Thư mục";
 "common.true" = "đúng";
 "common.vault" = "Vault";
 "getFolderIntent.path" = "Đường dẫn";
 "isUnlockedIntent.title" = "Đã mở khóa";
+"lockVaultIntent.text" = "Khóa ${vault}";
+"lockVaultIntent.title" = "Khóa Vault";
+"openVaultIntent.title" = "Mở Vault";
 "saveFileIntent.file" = "Tệp";
+"saveFileIntent.text" = "Lưu ${file} vào ${folder}";
+"saveFileIntent.title" = "Lưu tệp";

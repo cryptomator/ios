@@ -48,7 +48,7 @@
 "addVault.createNewVault.chooseCloud.header" = "Où Cryptomator doit-il stocker les fichiers chiffrés de votre coffre ?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" existe déjà à cet emplacement. Choisissez un autre nom de coffre ou un autre emplacement.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator a détecté un coffre existant à cet endroit.\nAfin de créer un nouveau coffre, veuillez revenir en arrière et choisir un dossier différent.";
-"addVault.createNewVault.password.enterPassword.header" = "Entrer un nouveau mot de passe.";
+"addVault.createNewVault.password.enterPassword.header" = "Entrez un nouveau mot de passe.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirmez le nouveau mot de passe.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmer le mot de passe ?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANT: Si vous oubliez votre mot de passe, il n'y aura aucun moyen de récupérer vos données.";
@@ -71,7 +71,7 @@
 
 "changePassword.error.invalidOldPassword" = "Le mot de passe actuel est incorrect. Veuillez réessayer.";
 "changePassword.header.currentPassword.title" = "Entrez votre mot de passe actuel.";
-"changePassword.header.newPassword.title" = "Entrer un nouveau mot de passe.";
+"changePassword.header.newPassword.title" = "Entrez un nouveau mot de passe.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirmez le nouveau mot de passe.";
 "changePassword.progress" = "Changement du mot de passe…";
 
