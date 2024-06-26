@@ -85,11 +85,17 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var subscribers = Set<AnyCancellable>()
 
 	private lazy var sections: [VaultDetailSection] = {
+		var sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection, .removeVaultSection]
+
 		if vaultIsEligibleToMove() {
-			return [.vaultInfoSection, .lockingSection, .moveVaultSection, .changeVaultPasswordSection, .removeVaultSection]
-		} else {
-			return [.vaultInfoSection, .lockingSection, .changeVaultPasswordSection, .removeVaultSection]
+			sections.append(.moveVaultSection)
 		}
+
+		if vaultInfo.vaultConfigType != .hub {
+			sections.append(.changeVaultPasswordSection)
+		}
+
+		return sections
 	}()
 
 	private lazy var lockButton: ButtonCellViewModel<VaultDetailButtonAction> = {
