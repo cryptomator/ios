@@ -22,6 +22,7 @@
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
 "common.button.refresh" = "I-refresh";
+"common.button.register" = "Magparehistro";
 "common.button.remove" = "Tanggalin";
 "common.button.retry" = "Subukan muli";
 "common.button.signOut" = "Mag-sign Out";
@@ -115,6 +116,9 @@
 "hubAuthentication.licenseExceeded" = "Ang iyong Cryptomator Hub instance ay may di-wastong lisensya. Mangyaring ipagbigay-alam sa administrator ng Hub na mag-upgrade o mag-renew ng lisensya.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Pangalan ng device";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para ma-access ang vault, kailangang pahintulutan ng may-ari ng vault ang iyong device.";
+"hubAuthentication.requireAccountInit.alert.title" = "Kinakailangan ang pagkilos";
+"hubAuthentication.requireAccountInit.alert.message" = "Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Pumunta sa Profile";
 
 "intents.saveFile.missingFile" = "Ang ibinigay na file ay hindi wasto.";
 "intents.saveFile.invalidFolder" = "Ang ibinigay na folder ay hindi wasto.";
