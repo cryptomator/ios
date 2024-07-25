@@ -1,4 +1,26 @@
+"common.failureReason" = "سبب الفشل";
+"common.false" = "خطأ";
+"common.folder" = "المجلد";
+"common.true" = "صحيح";
 "common.vault" = "الخزينة";
+
+"getFolderIntent.description" = "يعيد كائن المجلد للمسار المحدد في الخزانة المعطاة.";
+"getFolderIntent.path" = "المسار";
+"getFolderIntent.text" = "احصل على المجلد الموجود في ${path} في ${vault}";
+"getFolderIntent.title" = "احصل على المجلد";
+
+"isUnlockedIntent.description" = "يعيد ما إذا كانت الخزانة المعطاة غير مقفلة.";
+"isUnlockedIntent.title" = "غير مقفلة";
+
+"isVaultLockedIntent.title" = "هل الخزانة غير مغلقة";
+"isVaultUnlockedIntent.text" = "هل ${vault} غير مقفلة؟";
+
+"lockVaultIntent.description" = "يقفل الخزانة المعطاة.";
+"lockVaultIntent.text" = "قفل ${vault}";
+"lockVaultIntent.title" = "قفل الخزنة";
+
+"openVaultIntent.description" = "يفتح الخزانة المعطاة في تطبيق الملفات.";
+"openVaultIntent.text" = "افتح ${vault} في تطبيق الملفات";
 "openVaultIntent.title" = "افتح المخزن";
 
 "saveFileIntent.description" = "يحفظ الملف إلى المخزن.";
