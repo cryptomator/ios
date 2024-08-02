@@ -119,11 +119,11 @@
 "hubAuthentication.licenseExceeded" = "Die Lizenz deiner Cryptomator-Hub-Instanz ist ungültig. Bitte informiere deinen Hub-Administrator, um die Lizenz zu erweitern oder zu erneuern.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Gerätename";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.";
-"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ihr Account Key ist erforderlich, um sich von neuen Anwendungen oder Browsern aus anzumelden. Sie können ihn in Ihrem Profil finden.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Um sich von neuen Apps oder Browsern aus anzumelden, ist dein Account Key erforderlich. Er befindet sich in deinem Profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Gerät erfolgreich registriert";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Für Zugriff auf den Tresor muss dein Gerät vom Tresorbesitzer autorisiert werden.";
 "hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
-"hubAuthentication.requireAccountInit.alert.message" = "Um fortzufahren, führen Sie bitte die erforderlichen Schritte in Ihrem Hub Benutzerprofil aus.";
+"hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
 
 "intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";

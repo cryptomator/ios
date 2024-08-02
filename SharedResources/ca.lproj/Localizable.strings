@@ -22,6 +22,7 @@
 "common.button.next" = "Següent";
 "common.button.ok" = "D'acord";
 "common.button.refresh" = "Refresca";
+"common.button.register" = "Registre";
 "common.button.remove" = "Elimina";
 "common.button.retry" = "Reintenta";
 "common.button.signOut" = "Tanca la sessió";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "On es troba la caixa forta?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ha detectat la caixa forta \"%@\".\nVoleu afegir aquesta caixa forta?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Afegeix aquesta caixa forta";
+"addVault.openExistingVault.downloadVault.progress" = "Descàrrega de la caixa forta…";
 "addVault.openExistingVault.password.footer" = "Introduïu la contrasenya per a \"%@\".";
 "addVault.openExistingVault.progress" = "Ara s'afegeix la caixa forta…";
 "addVault.success.info" = "S'ha afegit la caixa forta \"%@\".\nAccediu a la caixa forta via l'app de fitxers.";
@@ -111,10 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "No s'ha proporcionat cap ruta. Proporcioneu una ruta vàlida que retorni una carpeta.";
 "getFolderIntent.error.noVaultSelected" = "No s'ha seleccionat cap caixa forta.";
+
+"hubAuthentication.title" = "Caixa forta de Hub";
 "hubAuthentication.accessNotGranted" = "El vostre dispositiu no ha estat encara autoritzat a accedir a aquesta caixa forta. Demaneu autorització al propietari.";
 "hubAuthentication.licenseExceeded" = "Aquest Cryptomator Hub no té una llicència vàlida. Informa si us plau a l'administrador perquè actualitzi o renovi la llicència.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom del dispositiu";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembla que és el primer accés al Hub des d'aquest dispositiu. Per identificar-lo i poder autoritzar l'accés heu de posar nom a aquest dispositiu.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Cal la vostra Account Key per a iniciar sessió des d'una aplicació o navegador nous. La trobareu al vostre perfil.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registre de dispositiu correcte";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per a accedir a la caixa forta, el vostre dispositiu ha de ser autoritzat pel propietari de la caixa.";
+"hubAuthentication.requireAccountInit.alert.title" = "Acció necessària";
+"hubAuthentication.requireAccountInit.alert.message" = "Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d'usuari de Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Vés al perfil";
 
 "intents.saveFile.missingFile" = "El fitxer proporcionat no és vàlid.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada no és vàlida.";

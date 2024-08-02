@@ -1,27 +1,30 @@
 name: Build
 
 on:
-  [push]
+  push:
+  pull_request_target:
+    types: [labeled]
 
 jobs:
   build:
     name: Build and test
-    runs-on: macos-13
+    runs-on: [self-hosted, macOS, ARM64]
     env:
       DERIVED_DATA_PATH: 'DerivedData'
-      DEVICE: 'iPhone 14 Pro'
-    if: "!contains(github.event.head_commit.message, '[ci skip]') && !contains(github.event.head_commit.message, '[skip ci]')"
+      DEVICE: 'iPhone 15 Pro'
     strategy:
       matrix:
         config: ['freemium', 'premium']
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
         with:
           path: .build
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
+      - name: Install SwiftLint
+        run: brew install swiftlint
       - name: Run process.sh script
         run: |
           ./Scripts/process.sh
@@ -30,8 +33,8 @@ jobs:
         run: |
           cd fastlane
           ./scripts/create-cloud-access-secrets.sh
-      - name: Select Xcode 15.1
-        run: sudo xcode-select -s /Applications/Xcode_15.1.app
+      - name: Select Xcode 15.3
+        run: sudo xcode-select -s /Applications/Xcode_15.3.app
       - name: Configuration for freemium
         if: ${{ matrix.config == 'freemium' }}
         run: |

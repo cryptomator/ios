@@ -22,6 +22,7 @@
 "common.button.next" = "繼續";
 "common.button.ok" = "確認";
 "common.button.refresh" = "重新整理";
+"common.button.register" = "註冊";
 "common.button.remove" = "移除";
 "common.button.retry" = "重試";
 "common.button.signOut" = "登出";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "加密檔案庫位於什麼地方？";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator 在此檢測到加密檔案庫「%@」。\n您想把這加密檔案庫加到列表嗎？";
 "addVault.openExistingVault.detectedMasterkey.add" = "添加這個加密檔案庫";
+"addVault.openExistingVault.downloadVault.progress" = "正在下載保險庫…";
 "addVault.openExistingVault.password.footer" = "輸入 「%@」 的密碼：";
 "addVault.openExistingVault.progress" = "正在添加加密檔案庫……";
 "addVault.success.info" = "成功添加加密檔案庫“%@”\n現在可以通過文件管理訪問加密檔案庫";
@@ -111,10 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "沒有提供路徑。請提供應返回資料夾的有效路徑。";
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密檔案庫。";
+
+"hubAuthentication.title" = "Hub 加密檔案庫";
 "hubAuthentication.accessNotGranted" = "您的設備權限尚未允許存取檔案庫，請聯絡檔案庫擁有者";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "需要您的帳戶金鑰才能從新應用或瀏覽器登入。 可以在你的個人資料中找到它。";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "想讀取檔案庫，你的設備需得到檔案庫擁有者的授權。";
+"hubAuthentication.requireAccountInit.alert.title" = "需進一步操作";
+"hubAuthentication.requireAccountInit.alert.message" = "請完成您使用者檔案中所需的步驟，以便繼續進行。";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
 "intents.saveFile.invalidFolder" = "提供的資料夾無效。";
