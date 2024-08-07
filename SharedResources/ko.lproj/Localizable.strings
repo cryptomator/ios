@@ -95,9 +95,13 @@
 "fileProvider.error.biometricalAuthCanceled.title" = "잠금 해제 취소됨";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "잘못된 비밀번호입니다";
 "fileProvider.error.defaultLock.title" = "잠금 해제 필요";
+"fileProvider.error.defaultLock.message" = "Vault에 접근하여 내부 데이터를 보기 위해서는 잠금을 해제해야 합니다.";
 "fileProvider.error.unlockButton" = "잠금해제";
+"fileProvider.clearFileFromCache.title" = "캐시에서 파일 지우기";
+"fileProvider.clearFileFromCache.message" = "이는 현재 기기에 있는 로컬 파일들만 지웁니다. 클라우드에 있는 데이터는 유지됩니다.";
 "fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
+"fileProvider.uploadProgress.message" = "현재 진행도: %@\n\n만약 업로드가 멈추었다면, 재시도할 수 있습니다.";
 "fileProvider.uploadProgress.title" = "업로드 중…";
 "hubAuthentication.accessNotGranted" = "귀하의 기기는 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
@@ -105,6 +109,10 @@
 
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
+"keepUnlocked.alert.message" = "이 설정을 바꾸기 위해서는 vault를 잠궈야 합니다.";
+"keepUnlockedDuration.auto" = "iOS가 자동으로 잠그게 하기";
+"keepUnlockedDuration.auto.shortDisplayName" = "자동";
+"keepUnlockedDuration.indefinite" = "자동 잠금 해제";
 
 "localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
@@ -118,6 +126,7 @@
 "purchase.footer.termsOfUse" = "이용 약관";
 "purchase.header.feature.familySharing" = "가족 공유";
 "purchase.header.feature.openSource" = "오픈소스 소프트웨어";
+"purchase.header.feature.writeAccess" = "Vault 데이터 변경";
 "purchase.product.donateAndUpgrade" = "후원 및 업그레이드";
 "purchase.product.freeUpgrade" = "무료 업그레이드";
 "purchase.product.lifetimeLicense" = "평생 라이선스";
@@ -139,7 +148,9 @@
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
 "settings.clearCache" = "캐시 지우기";
 "settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.";
+"settings.rateApp" = "앱 평가하기";
 "settings.sendLogFile" = "로그파일 전송";
+"settings.shortcutsGuide" = "단축키 가이드";
 "settings.unlockFullVersion" = "정식 버전 잠금 해제";
 
 "s3Authentication.displayName" = "표시 이름";
@@ -163,6 +174,8 @@
 "vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
 "vaultDetail.button.moveVault" = "이동";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.keepUnlocked.title" = "잠금 해제 기간";
+"vaultDetail.moveVault.progress" = "이동 중…";
 "vaultDetail.renameVault.progress" = "이름변경중…";
 
 "vaultList.header.title" = "Vault";
