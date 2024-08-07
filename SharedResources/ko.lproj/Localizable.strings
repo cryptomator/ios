@@ -10,6 +10,7 @@
 "common.button.cancel" = "취소";
 "common.button.change" = "변경";
 "common.button.choose" = "선택";
+"common.button.clear" = "지우기";
 "common.button.close" = "닫기";
 "common.button.confirm" = "확인";
 "common.button.create" = "생성";
@@ -21,6 +22,7 @@
 "common.button.next" = "다음";
 "common.button.ok" = "OK";
 "common.button.refresh" = "새로고침";
+"common.button.register" = "등록";
 "common.button.remove" = "제거";
 "common.button.retry" = "재시도";
 "common.button.signOut" = "로그아웃";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Vault가 어디에 위치하고 있습니까?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
 "addVault.openExistingVault.detectedMasterkey.add" = "이 Vault 추가";
+"addVault.openExistingVault.downloadVault.progress" = "Vault 다운로드중…";
 "addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
 "addVault.openExistingVault.progress" = "Vault 추가 중...";
 "addVault.success.info" = "\"%@\" Vault가 성공적으로 추가되었습니다.\n파일 앱을 통해 이 Vault에 접근할 수 있습니다.";
@@ -89,6 +92,9 @@
 "fileProvider.onboarding.title" = "환영합니다";
 "fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator 열기";
+"fileProvider.error.biometricalAuthCanceled.title" = "잠금 해제 취소됨";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "잘못된 비밀번호입니다";
+"fileProvider.error.defaultLock.title" = "잠금 해제 필요";
 "fileProvider.error.unlockButton" = "잠금해제";
 "fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
