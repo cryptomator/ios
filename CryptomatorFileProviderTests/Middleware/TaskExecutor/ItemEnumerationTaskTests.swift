@@ -300,7 +300,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
 			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 			self.cloudProviderMock.files["/File 1"] = nil
-			self.cloudProviderMock.files["/NewFileFromCloud"] = "NewFileFromCloud content".data(using: .utf8)!
+			self.cloudProviderMock.files["/NewFileFromCloud"] = Data("NewFileFromCloud content".utf8)
 			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 			return taskExecutor.execute(task: secondEnumerationTask)
@@ -418,9 +418,10 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(2, fileProviderItemList.items.count)
 			// Check that a next page exists
 			XCTAssertNotNil(fileProviderItemList.nextPageToken)
-			guard let tokenData = fileProviderItemList.nextPageToken, let nextPageToken = String(data: tokenData.rawValue, encoding: .utf8) else {
+			guard let tokenData = fileProviderItemList.nextPageToken else {
 				throw NSError(domain: "ItemEnumerationTaskExecutorTestError", code: -100, userInfo: ["localizedDescription": "No page token"])
 			}
+			let nextPageToken = String(decoding: tokenData.rawValue, as: UTF8.self)
 			// Check that the (possible) old items have been marked as maybe outdated
 			XCTAssert(self.metadataManagerMock.cachedMetadata[2]?.isMaybeOutdated ?? false)
 			XCTAssert(self.metadataManagerMock.cachedMetadata[3]?.isMaybeOutdated ?? false)

@@ -25,13 +25,13 @@ extension CloudProviderType: DatabaseValueConvertible {
 		guard let data = try? jsonEncoder.encode(self) else {
 			return .null
 		}
-		let string = String(data: data, encoding: .utf8)
-		return string?.databaseValue ?? .null
+		let string = String(decoding: data, as: UTF8.self)
+		return string.databaseValue
 	}
 
 	public static func fromDatabaseValue(_ dbValue: DatabaseValue) -> Self? {
 		guard let string = String.fromDatabaseValue(dbValue) else { return nil }
-		guard let data = string.data(using: .utf8) else { return nil }
+		let data = Data(string.utf8)
 		let jsonDecoder = JSONDecoder()
 		return try? jsonDecoder.decode(CloudProviderType.self, from: data)
 	}

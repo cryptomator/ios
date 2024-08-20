@@ -17,16 +17,13 @@ public protocol VaultPasswordManager {
 }
 
 public enum VaultPasswordManagerError: Error {
-	case encodingError
 	case passwordNotFound
 }
 
 public class VaultPasswordKeychainManager: VaultPasswordManager {
 	public init() {}
 	public func setPassword(_ password: String, forVaultUID vaultUID: String) throws {
-		guard let data = password.data(using: .utf8) else {
-			throw VaultPasswordManagerError.encodingError
-		}
+		let data = Data(password.utf8)
 		try CryptomatorUserPresenceKeychain.vaultPassword.set(vaultUID, value: data)
 	}
 
@@ -56,9 +53,7 @@ public class VaultPasswordKeychainManager: VaultPasswordManager {
 		guard let data = CryptomatorUserPresenceKeychain.vaultPassword.getAsData(vaultUID, context: context) else {
 			throw VaultPasswordManagerError.passwordNotFound
 		}
-		guard let password = String(data: data, encoding: .utf8) else {
-			throw VaultPasswordManagerError.encodingError
-		}
+		let password = String(decoding: data, as: UTF8.self)
 		return password
 	}
 }

@@ -236,7 +236,7 @@ class MetadataManagerTests: XCTestCase {
 		let cloudPath = CloudPath("/File.txt")
 		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 		try manager.cacheMetadata(itemMetadata)
-		let tagData = "Foo".data(using: .utf8)!
+		let tagData = Data("Foo".utf8)
 		let id = try XCTUnwrap(itemMetadata.id)
 		try manager.setTagData(to: tagData, forItemWithID: id)
 
@@ -246,7 +246,7 @@ class MetadataManagerTests: XCTestCase {
 
 	func testSetTagDataToNil() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let tagData = "Foo".data(using: .utf8)!
+		let tagData = Data("Foo".utf8)
 		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
 		try manager.cacheMetadata(itemMetadata)
 
@@ -259,7 +259,7 @@ class MetadataManagerTests: XCTestCase {
 
 	func testCacheMetadataDoesNotOverwriteExistingTagData() throws {
 		let cloudPath = CloudPath("/File.txt")
-		let tagData = "Foo".data(using: .utf8)!
+		let tagData = Data("Foo".utf8)
 		let itemMetadata = ItemMetadata(name: "File.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false, tagData: tagData)
 		try manager.cacheMetadata(itemMetadata)
 

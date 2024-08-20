@@ -109,7 +109,8 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 				let localURL = localCachedFileInfo?.localURL
 				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
 			}
-			if let nextPageTokenData = itemList.nextPageToken?.data(using: .utf8) {
+			if let nextPageToken = itemList.nextPageToken {
+				let nextPageTokenData = Data(nextPageToken.utf8)
 				return FileProviderItemList(items: items, nextPageToken: NSFileProviderPage(nextPageTokenData))
 			}
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
