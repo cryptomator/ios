@@ -86,18 +86,13 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private lazy var sections: [VaultDetailSection] = {
 		var sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection]
-
 		if vaultIsEligibleToMove() {
 			sections.append(.moveVaultSection)
 		}
-
-		if vaultInfo.vaultConfigType != .hub {
+		if vaultInfo.vaultConfigType == .masterkeyFile {
 			sections.append(.changeVaultPasswordSection)
 		}
-
-		// Ensure removeVaultSection is always the last element
 		sections.append(.removeVaultSection)
-
 		return sections
 	}()
 
