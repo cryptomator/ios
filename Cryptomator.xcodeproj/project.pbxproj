@@ -1037,7 +1037,6 @@
 		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
-		B31428D72C04D02800BD61D5 /* cloud-access-swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "cloud-access-swift"; path = "../cloud-access-swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1340,7 +1339,6 @@
 		4A5E5B202453119100BD6298 = {
 			isa = PBXGroup;
 			children = (
-				B31428D72C04D02800BD61D5 /* cloud-access-swift */,
 				4A0698692619EF9C00A67F30 /* CryptomatorCommon */,
 				4AE97DA924572E4900452814 /* Cryptomator */,
 				4A51E5FD261C9A7000CC8C9B /* CryptomatorCommonHostedTests */,
