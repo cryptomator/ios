@@ -24,7 +24,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let username = "user"
 		let password = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let identifier = UUID().uuidString
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 
@@ -47,7 +47,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let username = "user"
 		let password = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let identifier = UUID().uuidString
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 
@@ -61,7 +61,7 @@ class WebDAVKeychainTests: XCTestCase {
 		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password + "Foo", allowedCertificate: certificate, identifier: UUID().uuidString), originalCredential: credential)
 
 		// Different Certificate is still a duplicate if baseURL and username already exists in the keychain and the identifier does not match
-		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: "CertificateData1".data(using: .utf8), identifier: UUID().uuidString), originalCredential: credential)
+		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: Data("CertificateData1".utf8), identifier: UUID().uuidString), originalCredential: credential)
 
 		// Missing Certificate is still a duplicate if baseURL and username already exists in the keychain and the identifier does not match
 		checkSaveThrowsDuplicateErrorAndKeychainDidNotChange(for: WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: nil, identifier: UUID().uuidString), originalCredential: credential)
@@ -72,7 +72,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let username = "user"
 		let password = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let identifier = UUID().uuidString
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 		XCTAssertNoThrow(try manager.saveCredentialToKeychain(credential))
@@ -85,7 +85,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let username = "user"
 		let password = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let identifier = UUID().uuidString
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 		XCTAssertNoThrow(try manager.saveCredentialToKeychain(credential))
@@ -112,7 +112,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let firstUsername = "user"
 		let firstPassword = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let firstIdentifier = UUID().uuidString
 		let firstCredential = WebDAVCredential(baseURL: baseURL, username: firstUsername, password: firstPassword, allowedCertificate: certificate, identifier: firstIdentifier)
 
@@ -151,7 +151,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let baseURL = URL(string: "www.testurl.com")!
 		let firstUsername = "user"
 		let firstPassword = "pass"
-		let certificate = "CertificateData".data(using: .utf8)
+		let certificate = Data("CertificateData".utf8)
 		let firstIdentifier = UUID().uuidString
 		let firstCredential = WebDAVCredential(baseURL: baseURL, username: firstUsername, password: firstPassword, allowedCertificate: certificate, identifier: firstIdentifier)
 		try manager.saveCredentialToKeychain(firstCredential)

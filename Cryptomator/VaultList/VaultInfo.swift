@@ -57,6 +57,16 @@ public class VaultInfo: Decodable, FetchableRecord {
 			vaultListPosition.position = newValue
 		}
 	}
+
+	var vaultConfigType: VaultConfigType {
+		if let cachedVault = try? VaultDBCache().getCachedVault(withVaultUID: vaultUID),
+		   let vaultConfigToken = cachedVault.vaultConfigToken,
+		   let unverifiedVaultConfig = try? UnverifiedVaultConfig(token: vaultConfigToken) {
+			return VaultConfigHelper.getType(for: unverifiedVaultConfig)
+		} else {
+			return .unknown
+		}
+	}
 }
 
 extension VaultInfo: Equatable {

@@ -239,7 +239,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 }
 
 private extension WebDAVCredential {
-	static let mockCertificate = "Certificate".data(using: .utf8)!
+	static let mockCertificate = Data("Certificate".utf8)
 	static let mock = WebDAVCredential(baseURL: URL(string: "https://example.com")!, username: "user", password: "pass", allowedCertificate: nil)
 	static let mockWithAllowedCertificate = WebDAVCredential(baseURL: URL(string: "https://example.com")!, username: "user", password: "pass", allowedCertificate: mockCertificate)
 	static let mockWithInsecureConnection = WebDAVCredential(baseURL: URL(string: "http://example.com")!, username: "user", password: "pass", allowedCertificate: nil)

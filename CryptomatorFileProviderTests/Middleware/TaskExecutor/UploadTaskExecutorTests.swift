@@ -29,7 +29,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
-			XCTAssertEqual("TestContent".data(using: .utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
+			XCTAssertEqual(Data("TestContent".utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
 
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
 			let updatedItemMetadata = self.metadataManagerMock.updatedMetadata[0]
@@ -104,7 +104,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		uploadTaskExecutor.execute(task: uploadTask).then { item in
 			// Verify that the file has been modified since the upload began.
-			XCTAssertNotEqual("TestContent".data(using: .utf8), cloudProviderUploadInconsistencyMock.createdFiles["/FileToBeUploaded"])
+			XCTAssertNotEqual(Data("TestContent".utf8), cloudProviderUploadInconsistencyMock.createdFiles["/FileToBeUploaded"])
 
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count)
 			let updatedItemMetadata = self.metadataManagerMock.updatedMetadata[0]

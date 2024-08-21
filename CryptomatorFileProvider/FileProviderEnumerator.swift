@@ -67,7 +67,7 @@ public class FileProviderEnumerator: NSObject, NSFileProviderEnumerator {
 
 		var pageToken: String?
 		if page != NSFileProviderPage.initialPageSortedByDate as NSFileProviderPage, page != NSFileProviderPage.initialPageSortedByName as NSFileProviderPage {
-			pageToken = String(data: page.rawValue, encoding: .utf8)
+			pageToken = String(decoding: page.rawValue, as: UTF8.self)
 		}
 		DDLogDebug("enumerateItems called for identifier: \(enumeratedItemIdentifier) - initialPage \(pageToken == nil)")
 		adapterProvider.unlockMonitor.execute {
