@@ -7,6 +7,7 @@
 //
 
 import AuthenticationServices
+import CocoaLumberjackSwift
 import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
@@ -108,7 +109,8 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 
 	func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
 		guard let window = UIApplication.shared.windows.first else {
-			fatalError("No window could be found.")
+			DDLogInfo("No window could be found as presentation anchor.")
+			return ASPresentationAnchor()
 		}
 		return window
 	}
