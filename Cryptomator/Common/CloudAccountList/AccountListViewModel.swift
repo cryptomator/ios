@@ -37,7 +37,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	private(set) var accounts = [AccountCellContent]()
 	private(set) var accountInfos = [AccountInfo]()
-	private(set) var boxCredentials = [String: BoxCredential]()
 	var title: String {
 		cloudProviderType.localizedString()
 	}

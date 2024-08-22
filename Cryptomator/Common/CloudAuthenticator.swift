@@ -65,6 +65,7 @@ class CloudAuthenticator {
 		let credential = BoxCredential(tokenStorage: tokenStorage)
 		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).then { _ -> Promise<CloudProviderAccount> in
 			return credential.getUserID().then { userID in
+				tokenStorage.userID = userID // this will actually save the access token to the keychain
 				let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
 				try self.accountManager.saveNewAccount(account)
 				return account
@@ -114,7 +115,7 @@ class CloudAuthenticator {
 		case .box:
 			let tokenStorage = BoxTokenStorage(userID: account.accountUID)
 			let credential = BoxCredential(tokenStorage: tokenStorage)
-			credential.deauthenticate()
+			_ = credential.deauthenticate()
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: account.accountUID)
 			credential.deauthenticate()

@@ -7,16 +7,19 @@
 //
 
 import BoxSdkGen
+import CocoaLumberjackSwift
 import Foundation
 
 public class BoxTokenStorage: TokenStorage {
 	public var userID: String? {
 		didSet {
-			if let token = pendingToken, let _ = userID {
-				_Concurrency.Task {
-					try await store(token: token)
+			if let token = pendingToken, let userID = userID {
+				do {
+					try CryptomatorKeychain.box.saveBoxAccessToken(token, for: userID)
+					pendingToken = nil
+				} catch {
+					DDLogError("Saving Box access token to keychain failed with error: \(error)")
 				}
-				pendingToken = nil
 			}
 		}
 	}
