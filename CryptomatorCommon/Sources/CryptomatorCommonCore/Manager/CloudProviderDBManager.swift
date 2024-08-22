@@ -62,12 +62,21 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
 		let provider: CloudProvider
 		switch cloudProviderType {
+		case .box:
+			let tokenStorage = BoxTokenStorage(userID: accountUID)
+			let credential = BoxCredential(tokenStorage: tokenStorage)
+			provider = try BoxCloudProvider(credential: credential, maxPageSize: .max)
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: accountUID)
 			provider = DropboxCloudProvider(credential: credential, maxPageSize: .max)
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountUID)
 			provider = try GoogleDriveCloudProvider(credential: credential, maxPageSize: .max)
+		case .localFileSystem:
+			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
 			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: .max)
@@ -75,22 +84,13 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createClient(with: credential.user)
 			provider = try PCloudCloudProvider(client: client)
-		case .box:
-			let tokenStore = BoxTokenStore()
-			let credential = BoxCredential(tokenStorage: tokenStore)
-			provider = try BoxCloudProvider(credential: credential, maxPageSize: .max)
+		case .s3:
+			let credential = try getS3Credential(for: accountUID)
+			provider = try S3CloudProvider(credential: credential)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient(credential: credential)
 			provider = try WebDAVProvider(with: client, maxPageSize: .max)
-		case .localFileSystem:
-			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
-				throw CloudProviderAccountError.accountNotFoundError
-			}
-			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
-		case .s3:
-			let credential = try getS3Credential(for: accountUID)
-			provider = try S3CloudProvider(credential: credential)
 		}
 		CloudProviderDBManager.cachedProvider.append(
 			.init(
@@ -113,12 +113,21 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		let provider: CloudProvider
 
 		switch cloudProviderType {
+		case .box:
+			let tokenStorage = BoxTokenStorage(userID: accountUID)
+			let credential = BoxCredential(tokenStorage: tokenStorage)
+			provider = try BoxCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: accountUID)
 			provider = DropboxCloudProvider(credential: credential, maxPageSize: maxPageSizeForFileProvider)
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountUID)
 			provider = try GoogleDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+		case .localFileSystem:
+			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
 			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
@@ -126,22 +135,13 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)
 			provider = try PCloudCloudProvider(client: client)
-		case .box:
-			let tokenStore = BoxTokenStore()
-			let credential = BoxCredential(tokenStorage: tokenStore)
-			provider = try BoxCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+		case .s3:
+			let credential = try getS3Credential(for: accountUID)
+			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			provider = try WebDAVProvider(with: client, maxPageSize: maxPageSizeForFileProvider)
-		case .localFileSystem:
-			guard let rootURL = try LocalFileSystemBookmarkManager.getBookmarkedRootURL(for: accountUID) else {
-				throw CloudProviderAccountError.accountNotFoundError
-			}
-			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
-		case .s3:
-			let credential = try getS3Credential(for: accountUID)
-			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		}
 		CloudProviderDBManager.cachedProvider.append(
 			.init(

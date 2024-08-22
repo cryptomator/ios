@@ -18,16 +18,16 @@ extension CloudProviderType {
 			return "Dropbox"
 		case .googleDrive:
 			return "Google Drive"
+		case let .localFileSystem(localFileSystemType):
+			return localFileSystemType.localizedString()
 		case .oneDrive:
 			return "OneDrive"
 		case .pCloud:
 			return "pCloud"
-		case .webDAV:
-			return "WebDAV"
-		case let .localFileSystem(localFileSystemType):
-			return localFileSystemType.localizedString()
 		case .s3:
 			return "S3"
+		case .webDAV:
+			return "WebDAV"
 		}
 	}
 }

@@ -69,12 +69,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	func refreshBoxItems() -> Promise<Void> {
 		return all(accountInfos
-			.map { accountInfo in
-				let tokenStore = BoxTokenStore()
-				let credential = BoxCredential(tokenStorage: tokenStore)
-				boxCredentials[accountInfo.accountUID] = credential // Workaround: Fixing lifecycle issue with Box credential/client
-				return credential
-			}
+			.map { BoxCredential(tokenStorage: BoxTokenStorage(userID: $0.accountUID)) }
 			.map { self.createAccountCellContent(for: $0) }
 		).then { accounts in
 			self.accounts = accounts
@@ -83,31 +78,31 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
+		case .box:
+			return createAccountCellContentPlaceholder()
 		case .dropbox:
 			return createAccountCellContentPlaceholder()
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
+		case .localFileSystem:
+			throw AccountListError.unsupportedCloudProviderType
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .pCloud:
 			return createAccountCellContentPlaceholder()
-		case .box:
-			return createAccountCellContentPlaceholder()
-		case .webDAV:
-			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
-				throw CloudProviderAccountError.accountNotFoundError
-			}
-			return createAccountCellContent(for: credential)
-		case .localFileSystem:
-			throw AccountListError.unsupportedCloudProviderType
 		case .s3:
 			guard let credential = S3CredentialManager.shared.getCredential(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
 			return createAccountCellContent(for: credential, displayName: displayName)
+		case .webDAV:
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			return createAccountCellContent(for: credential)
 		}
 	}
 

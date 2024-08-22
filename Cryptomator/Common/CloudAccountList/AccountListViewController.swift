@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import AuthenticationServices
 import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
@@ -13,13 +14,6 @@ import Promises
 import UIKit
 
 class AccountListViewController: ListViewController<AccountCellContent>, ASWebAuthenticationPresentationContextProviding {
-	func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
-		guard let window = UIApplication.shared.windows.first else {
-			fatalError("No window could be found.")
-		}
-		return window
-	}
-
 	weak var coordinator: (Coordinator & AccountListing)?
 	private let viewModel: AccountListViewModelProtocol
 
@@ -35,7 +29,6 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		title = viewModel.title
-		updateAddButtonStatus()
 	}
 
 	override func setEditing(_ editing: Bool, animated: Bool) {
@@ -74,7 +67,6 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 				self.handleLogout(sender)
 			}.always {
 				sender.setSelected(false)
-				self.updateAddButtonStatus()
 			}
 		})
 		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel, handler: { _ in
@@ -96,19 +88,8 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 	}
 
 	@objc func addNewAccount() {
-		updateAddButtonStatus()
-		if viewModel.accountInfos.contains(where: { $0.cloudProviderType == .box }) {
-			return
-		}
 		setEditing(false, animated: true)
 		coordinator?.showAddAccount(for: viewModel.cloudProviderType, from: self)
-	}
-
-	private func updateAddButtonStatus() {
-		if viewModel.cloudProviderType == .box {
-			let hasBoxAccount = viewModel.accountInfos.contains(where: { $0.cloudProviderType == .box })
-			navigationItem.rightBarButtonItem?.isEnabled = !hasBoxAccount
-		}
 	}
 
 	// MARK: - UITableViewDelegate
@@ -123,6 +104,15 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 		}
 	}
 
+	// MARK: - ASWebAuthenticationPresentationContextProviding
+
+	func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+		guard let window = UIApplication.shared.windows.first else {
+			fatalError("No window could be found.")
+		}
+		return window
+	}
+
 	// MARK: - Internal
 
 	private func handleLogout(_ sender: AccountCellButton) {
@@ -131,7 +121,6 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 		}
 		do {
 			try removeRow(at: indexPath)
-			updateAddButtonStatus()
 		} catch {
 			handleError(error)
 		}
@@ -151,7 +140,7 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 
 	private func supportsEditing(_ cloudProviderType: CloudProviderType) -> Bool {
 		switch cloudProviderType {
-		case .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud, .box:
+		case .box, .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud:
 			return false
 		case .s3, .webDAV:
 			return true
@@ -161,7 +150,6 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 
 #if DEBUG
 
-import AuthenticationServices
 import Combine
 import CryptomatorCommonCore
 import Promises

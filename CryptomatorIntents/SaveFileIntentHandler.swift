@@ -129,16 +129,16 @@ extension CloudProviderType {
 			return "dropbox-vault"
 		case .googleDrive:
 			return "google-drive-vault"
+		case let .localFileSystem(type):
+			return type.assetName
 		case .oneDrive:
 			return "onedrive-vault"
 		case .pCloud:
 			return "pcloud-vault"
-		case .webDAV:
-			return "webdav-vault"
-		case let .localFileSystem(type):
-			return type.assetName
 		case .s3:
 			return "s3-vault"
+		case .webDAV:
+			return "webdav-vault"
 		}
 	}
 }

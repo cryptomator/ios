@@ -61,12 +61,11 @@ class CloudAuthenticator {
 	}
 
 	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		let tokenStore = BoxTokenStore()
-		let credential = BoxCredential(tokenStorage: tokenStore)
-
-		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStore).then { _ -> Promise<CloudProviderAccount> in
-			return credential.getUserId().then { userId in
-				let account = CloudProviderAccount(accountUID: userId, cloudProviderType: .box)
+		let tokenStorage = BoxTokenStorage()
+		let credential = BoxCredential(tokenStorage: tokenStorage)
+		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).then { _ -> Promise<CloudProviderAccount> in
+			return credential.getUserID().then { userID in
+				let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
 				try self.accountManager.saveNewAccount(account)
 				return account
 			}
@@ -97,24 +96,24 @@ class CloudAuthenticator {
 			return authenticateDropbox(from: viewController)
 		case .googleDrive:
 			return authenticateGoogleDrive(from: viewController)
+		case .localFileSystem:
+			return Promise(CloudAuthenticatorError.functionNotYetSupported)
 		case .oneDrive:
 			return authenticateOneDrive(from: viewController)
 		case .pCloud:
 			return authenticatePCloud(from: viewController)
-		case .webDAV:
-			return authenticateWebDAV(from: viewController)
-		case .localFileSystem:
-			return Promise(CloudAuthenticatorError.functionNotYetSupported)
 		case .s3:
 			return authenticateS3(from: viewController)
+		case .webDAV:
+			return authenticateWebDAV(from: viewController)
 		}
 	}
 
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
-			let tokenStore = BoxTokenStore()
-			let credential = BoxCredential(tokenStorage: tokenStore)
+			let tokenStorage = BoxTokenStorage(userID: account.accountUID)
+			let credential = BoxCredential(tokenStorage: tokenStorage)
 			credential.deauthenticate()
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: account.accountUID)
@@ -122,18 +121,18 @@ class CloudAuthenticator {
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: account.accountUID)
 			credential.deauthenticate()
+		case .localFileSystem:
+			break
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: account.accountUID)
 			try credential.deauthenticate()
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
-		case .webDAV:
-			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
-		case .localFileSystem:
-			break
 		case .s3:
 			try S3CredentialManager.shared.removeCredential(with: account.accountUID)
+		case .webDAV:
+			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		}
 		let correspondingVaults = try vaultAccountManager.getAllAccounts().filter { $0.delegateAccountUID == account.accountUID }
 		_ = Promise<Void>(on: .global()) { fulfill, _ in
