@@ -35,6 +35,7 @@ class FileProviderExtension: NSFileProviderExtension {
 				let oneDriveClientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
 				OneDriveSetup.constants = OneDriveSetup(clientApplication: oneDriveClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 				PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			} catch {
 				// MARK: Handle error
 

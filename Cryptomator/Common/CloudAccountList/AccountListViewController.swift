@@ -6,13 +6,15 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import AuthenticationServices
+import CocoaLumberjackSwift
 import CryptomatorCommon
 import CryptomatorCommonCore
 import Foundation
 import Promises
 import UIKit
 
-class AccountListViewController: ListViewController<AccountCellContent> {
+class AccountListViewController: ListViewController<AccountCellContent>, ASWebAuthenticationPresentationContextProviding {
 	weak var coordinator: (Coordinator & AccountListing)?
 	private let viewModel: AccountListViewModelProtocol
 
@@ -103,6 +105,16 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 		}
 	}
 
+	// MARK: - ASWebAuthenticationPresentationContextProviding
+
+	func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+		guard let window = UIApplication.shared.windows.first else {
+			DDLogInfo("No window could be found as presentation anchor.")
+			return ASPresentationAnchor()
+		}
+		return window
+	}
+
 	// MARK: - Internal
 
 	private func handleLogout(_ sender: AccountCellButton) {
@@ -130,7 +142,7 @@ class AccountListViewController: ListViewController<AccountCellContent> {
 
 	private func supportsEditing(_ cloudProviderType: CloudProviderType) -> Bool {
 		switch cloudProviderType {
-		case .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud:
+		case .box, .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud:
 			return false
 		case .s3, .webDAV:
 			return true

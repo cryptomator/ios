@@ -72,6 +72,7 @@ class RootViewController: FPUIActionExtensionViewController {
 			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 		PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: nil)
+		BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: nil)
 		return {}
 	}()
 

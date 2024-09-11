@@ -44,6 +44,11 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 
 	func getUsername() -> String? {
 		switch vault.cloudProviderType {
+		case .box:
+			let tokenStorage = BoxTokenStorage(userID: vault.delegateAccountUID)
+			let credential = BoxCredential(tokenStorage: tokenStorage)
+			getUsername(for: credential)
+			return "(…)"
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: vault.delegateAccountUID)
 			getUsername(for: credential)
@@ -51,6 +56,8 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: vault.delegateAccountUID)
 			return try? credential.getUsername()
+		case .localFileSystem:
+			return nil
 		case .oneDrive:
 			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)
 			return try? credential?.getUsername()
@@ -60,16 +67,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			}
 			getUsername(for: credential)
 			return "(…)"
-		case .webDAV:
-			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
-			return credential?.username
-		case .localFileSystem:
-			return nil
 		case .s3:
 			guard let displayName = try? S3CredentialManager.shared.getDisplayName(for: vault.delegateAccountUID) else {
 				return nil
 			}
 			return displayName
+		case .webDAV:
+			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
+			return credential?.username
 		}
 	}
 
@@ -82,6 +87,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 	}
 
 	func getUsername(for credential: PCloudCredential) {
+		credential.getUsername().then { username in
+			let loggedInText = self.createLoggedInText(forUsername: username)
+			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+			self.attributedText.value = attributedText
+		}
+	}
+
+	func getUsername(for credential: BoxCredential) {
 		credential.getUsername().then { username in
 			let loggedInText = self.createLoggedInText(forUsername: username)
 			let attributedText = self.createAttributedText(loggedInText: loggedInText)

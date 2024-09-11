@@ -49,6 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
 		PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: nil)
+		BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: nil)
 
 		// Set up payment queue
 		SKPaymentQueue.default().add(StoreObserver.shared)

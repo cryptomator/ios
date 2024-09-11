@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/ASN1",
       "state" : {
-        "revision" : "8a5cb6ce9b4a009a5b8d82465caf1aafb720096e",
-        "version" : "2.5.0"
+        "revision" : "4b4e82513e3b4d51a7573972fd7123222dd3a3bd",
+        "version" : "2.6.0"
       }
     },
     {
@@ -23,8 +23,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/tikhop/ASN1Swift",
       "state" : {
-        "revision" : "177417b6bf89431a0750ee640012b6aed8961c6a",
-        "version" : "1.2.5"
+        "revision" : "403cd95194e6a962e16db7c0d373d89fce83e0f7",
+        "version" : "1.2.7"
       }
     },
     {
@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/aws-amplify/aws-sdk-ios-spm.git",
       "state" : {
-        "revision" : "cfcf97f6994b6ffd9a3244dc638458f5822aba56",
-        "version" : "2.34.0"
+        "revision" : "8ff8bebfe24271f7b16c5abaeb78daf82bee3a80",
+        "version" : "2.34.2"
       }
     },
     {
@@ -50,8 +50,17 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/BigInt",
       "state" : {
-        "revision" : "ba54c8b51392627d4cc9b05a672cce558be56e04",
-        "version" : "1.17.0"
+        "revision" : "bf55e4ce076a5e2dde0db13d9b03d820cfad420d",
+        "version" : "1.19.0"
+      }
+    },
+    {
+      "identity" : "box-swift-sdk-gen",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/box/box-swift-sdk-gen.git",
+      "state" : {
+        "revision" : "7b2e3963a4f9d7c608ba9176fa3c32d260599906",
+        "version" : "0.3.1"
       }
     },
     {
@@ -59,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "cd7a18abcaf09349f066363c7524b738f4f4ad79",
-        "version" : "1.10.1"
+        "revision" : "6ee5a3374c1530c0808b7855e567cac2b7618952",
+        "version" : "1.11.0"
       }
     },
     {
@@ -86,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/Digest",
       "state" : {
-        "revision" : "1202dcb976e481e7c228492c5a8d5159cfa4ea97",
-        "version" : "1.4.0"
+        "revision" : "05f079878ec5fb05c7d9c94f35dbc4f5ec054d54",
+        "version" : "1.6.0"
       }
     },
     {
@@ -149,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
       "state" : {
-        "revision" : "9d15d7980a52945dd17ea529bcf4c92f2c0d9a12",
-        "version" : "1.3.1"
+        "revision" : "d2f81ded070ac6452b2a6acb5bc45eb566427fe7",
+        "version" : "1.3.3"
       }
     },
     {
@@ -203,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "e97a6fcb1ab07462881ac165fdbb37f067e205d5",
-        "version" : "1.5.4"
+        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
+        "version" : "1.6.1"
       }
     },
     {
@@ -239,8 +248,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "b13b1d1a8e787a5ffc71ac19dcaf52183ab27ba2",
-        "version" : "1.1.1"
+        "revision" : "96beb108a57f24c8476ae1f309239270772b2940",
+        "version" : "1.2.5"
       }
     }
   ],

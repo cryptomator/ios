@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #
 # Git command to transform staged files according to a command that accepts file
 # content on stdin and produces output on stdout. This command is useful in
@@ -7,27 +7,28 @@
 # ignoring unstaged changes.
 #
 # Usage: git-format-staged [OPTION]... [FILE]...
-# Example: git-format-staged --formatter 'prettier --stdin' '*.js'
+# Example: git-format-staged --formatter 'prettier --stdin-filepath "{}"' '*.js'
 #
-# Tested with Python 3.6 and Python 2.7.
+# Tested with Python versions 3.8 - 3.13.
 #
 # Original author: Jesse Hallett <jesse@sitr.us>
 
 from __future__ import print_function
+
 import argparse
-from fnmatch import fnmatch
-from gettext import gettext as _
 import os
 import re
 import subprocess
 import sys
+from fnmatch import fnmatch
+from gettext import gettext as _
 
 # The string $VERSION is replaced during the publish process.
 VERSION = '$VERSION'
 PROG = sys.argv[0]
 
 def info(msg):
-    print(msg, file=sys.stderr)
+    print(msg, file=sys.stdout)
 
 def warn(msg):
     print('{}: warning: {}'.format(PROG, msg), file=sys.stderr)
@@ -36,7 +37,7 @@ def fatal(msg):
     print('{}: error: {}'.format(PROG, msg), file=sys.stderr)
     exit(1)
 
-def format_staged_files(file_patterns, formatter, git_root, update_working_tree=True, write=True):
+def format_staged_files(file_patterns, formatter, git_root, update_working_tree=True, write=True, verbose=False):
     try:
         output = subprocess.check_output([
             'git', 'diff-index',
@@ -48,9 +49,12 @@ def format_staged_files(file_patterns, formatter, git_root, update_working_tree=
         for line in output.splitlines():
             entry = parse_diff(line.decode('utf-8'))
             entry_path = normalize_path(entry['src_path'], relative_to=git_root)
+            if entry['dst_mode'] == '120000':
+                # Do not process symlinks
+                continue
             if not (matches_some_path(file_patterns, entry_path)):
                 continue
-            if format_file_in_index(formatter, entry, update_working_tree=update_working_tree, write=write):
+            if format_file_in_index(formatter, entry, update_working_tree=update_working_tree, write=write, verbose=verbose):
                 info('Reformatted {} with {}'.format(entry['src_path'], formatter))
     except Exception as err:
         fatal(str(err))
@@ -58,9 +62,9 @@ def format_staged_files(file_patterns, formatter, git_root, update_working_tree=
 # Run formatter on file in the git index. Creates a new git object with the
 # result, and replaces the content of the file in the index with that object.
 # Returns hash of the new object if formatting produced any changes.
-def format_file_in_index(formatter, diff_entry, update_working_tree=True, write=True):
+def format_file_in_index(formatter, diff_entry, update_working_tree=True, write=True, verbose=False):
     orig_hash = diff_entry['dst_hash']
-    new_hash = format_object(formatter, orig_hash, diff_entry['src_path'])
+    new_hash = format_object(formatter, orig_hash, diff_entry['src_path'], verbose=verbose)
 
     # If the new hash is the same then the formatter did not make any changes.
     if not write or new_hash == orig_hash:
@@ -83,17 +87,20 @@ def format_file_in_index(formatter, diff_entry, update_working_tree=True, write=
 
     return new_hash
 
-file_path_placeholder = re.compile('\{\}')
+file_path_placeholder = re.compile(r'\{\}')
 
 # Run formatter on a git blob identified by its hash. Writes output to a new git
 # blob, and returns the hash of the new blob.
-def format_object(formatter, object_hash, file_path):
+def format_object(formatter, object_hash, file_path, verbose=False):
     get_content = subprocess.Popen(
             ['git', 'cat-file', '-p', object_hash],
             stdout=subprocess.PIPE
             )
+    command = re.sub(file_path_placeholder, file_path, formatter)
+    if verbose:
+        info(command)
     format_content = subprocess.Popen(
-            re.sub(file_path_placeholder, file_path, formatter),
+            command,
             shell=True,
             stdin=get_content.stdout,
             stdout=subprocess.PIPE
@@ -142,7 +149,7 @@ def replace_file_in_index(diff_entry, new_object_hash):
 
 def patch_working_file(path, orig_object_hash, new_object_hash):
     patch = subprocess.check_output(
-            ['git', 'diff', orig_object_hash, new_object_hash]
+            ['git', 'diff', '--no-ext-diff', '--color=never', orig_object_hash, new_object_hash]
             )
 
     # Substitute object hashes in patch header with path to working tree file
@@ -161,7 +168,7 @@ def patch_working_file(path, orig_object_hash, new_object_hash):
         raise Exception('could not apply formatting changes to working tree file {}'.format(path))
 
 # Format: src_mode dst_mode src_hash dst_hash status/score? src_path dst_path?
-diff_pat = re.compile('^:(\d+) (\d+) ([a-f0-9]+) ([a-f0-9]+) ([A-Z])(\d+)?\t([^\t]+)(?:\t([^\t]+))?$')
+diff_pat = re.compile(r'^:(\d+) (\d+) ([a-f0-9]+) ([a-f0-9]+) ([A-Z])(\d+)?\t([^\t]+)(?:\t([^\t]+))?$')
 
 # Parse output from `git diff-index`
 def parse_diff(diff):
@@ -179,7 +186,7 @@ def parse_diff(diff):
             'dst_path': m.group(8)
             }
 
-zeroed_pat = re.compile('^0+$')
+zeroed_pat = re.compile(r'^0+$')
 
 # Returns the argument unless the argument is a string of zeroes, in which case
 # returns `None`
@@ -228,12 +235,12 @@ class CustomArgumentParser(argparse.ArgumentParser):
 if __name__ == '__main__':
     parser = CustomArgumentParser(
             description='Transform staged files using a formatting command that accepts content via stdin and produces a result via stdout.',
-            epilog='Example: %(prog)s --formatter "prettier --stdin" "src/*.js" "test/*.js"'
+            epilog='Example: %(prog)s --formatter "prettier --stdin-filepath \'{}\'" "src/*.js" "test/*.js"'
             )
     parser.add_argument(
             '--formatter', '-f',
             required=True,
-            help='Shell command to format files, will run once per file. Occurrences of the placeholder `{}` will be replaced with a path to the file being formatted. (Example: "prettier --stdin --stdin-filepath \'{}\'")'
+            help='Shell command to format files, will run once per file. Occurrences of the placeholder `{}` will be replaced with a path to the file being formatted. (Example: "prettier --stdin-filepath \'{}\'")'
             )
     parser.add_argument(
             '--no-update-working-tree',
@@ -252,6 +259,11 @@ if __name__ == '__main__':
             help='Display version of %(prog)s'
             )
     parser.add_argument(
+            '--verbose',
+            help='Show the formatting commands that are running',
+            action='store_true'
+            )
+    parser.add_argument(
             'files',
             nargs='+',
             help='Patterns that specify files to format. The formatter will only transform staged files that are given here. Patterns may be literal file paths, or globs which will be tested against staged file paths using Python\'s fnmatch function. For example "src/*.js" will match all files with a .js extension in src/ and its subdirectories. Patterns may be negated to exclude files using a "!" character. Patterns are evaluated left-to-right. (Example: "main.js" "src/*.js" "test/*.js" "!test/todo/*")'
@@ -263,5 +275,6 @@ if __name__ == '__main__':
             formatter=vars(args)['formatter'],
             git_root=get_git_root(),
             update_working_tree=not vars(args)['no_update_working_tree'],
-            write=not vars(args)['no_write']
+            write=not vars(args)['no_write'],
+            verbose=vars(args)['verbose']
             )
