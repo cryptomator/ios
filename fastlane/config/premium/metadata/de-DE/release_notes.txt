@@ -1,1 +1,4 @@
-- Fehler "Inhalt nicht verfügbar" beim Entsperren mehrerer Tresore in Google Drive, OneDrive, pCloud und WebDAV behoben (#342, #345, #351)
+- Unterstützung für Box hinzugefügt (#319, #352)
+- „Unautorisiert“-Fehler beim Datei-Upload in OneDrive behoben (#358)
+- Option „Passwort ändern“ für Cryptomator Hub Tresore entfernt (#360, #367)
+- Slowenische und ukrainische Übersetzungen hinzugefügt

@@ -1,1 +1,4 @@
-- Fixed "Content Unavailable" error when unlocking multiple vaults in Google Drive, OneDrive, pCloud, and WebDAV (#342, #345, #351)
+- Added support for Box (#319, #352)
+- Fixed "Unauthorized" error during file upload in OneDrive (#358)
+- Removed "Change Password" option for Cryptomator Hub vaults (#360, #367)
+- Added Slovenian and Ukrainian translations
