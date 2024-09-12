@@ -1013,6 +1013,10 @@
 		748BF20F2B571BB4006304AD /* fil */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fil; path = fil.lproj/Intents.strings; sourceTree = "<group>"; };
 		748BF2102B571C0C006304AD /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Localizable.strings; sourceTree = "<group>"; };
 		748BF2112B571C11006304AD /* hu */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hu; path = hu.lproj/Intents.strings; sourceTree = "<group>"; };
+		749D911D2C93089D00FAD1A4 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		749D911E2C9308A700FAD1A4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		749D912C2C9308DD00FAD1A4 /* sl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sl; path = sl.lproj/Intents.strings; sourceTree = "<group>"; };
+		749D912D2C9308DE00FAD1A4 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Intents.strings; sourceTree = "<group>"; };
 		74A1B13D2726A9E60098224B /* hi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hi; path = hi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94EF27A0282300D71AEC /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74AE94F027A0283500D71AEC /* ca */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ca; path = ca.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2332,9 +2336,11 @@
 				ro,
 				ru,
 				sk,
+				sl,
 				sv,
 				"sw-TZ",
 				tr,
+				uk,
 				"zh-Hans",
 				"zh-Hant",
 				"zh-HK",
@@ -3090,9 +3096,11 @@
 				74275AE128478E0F0058AD25 /* ro */,
 				74275AE228478E100058AD25 /* ru */,
 				74275AE328478E120058AD25 /* sk */,
+				749D912C2C9308DD00FAD1A4 /* sl */,
 				74275AE628478E140058AD25 /* sv */,
 				74275AE528478E140058AD25 /* sw-TZ */,
 				74275AE728478E160058AD25 /* tr */,
+				749D912D2C9308DE00FAD1A4 /* uk */,
 				74275AD128478DFF0058AD25 /* zh-Hans */,
 				74275AD228478E000058AD25 /* zh-Hant */,
 				74275AD028478DFF0058AD25 /* zh-HK */,
@@ -3139,9 +3147,11 @@
 				74DFF9DA26DF87A0009981ED /* ro */,
 				74267A1626A5798C004C61BC /* ru */,
 				74267A1726A57990004C61BC /* sk */,
+				749D911D2C93089D00FAD1A4 /* sl */,
 				74267A1A26A5799A004C61BC /* sv */,
 				74397A852832A09B00CB9410 /* sw-TZ */,
 				74267A1C26A5799F004C61BC /* tr */,
+				749D911E2C9308A700FAD1A4 /* uk */,
 				74267A1D26A579A4004C61BC /* zh-Hans */,
 				74397A842832A05E00CB9410 /* zh-Hant */,
 				74626665283BD2D20070924B /* zh-HK */,
