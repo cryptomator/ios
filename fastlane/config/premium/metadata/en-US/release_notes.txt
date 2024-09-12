@@ -1,4 +1,4 @@
-- Added support for Box (#319, #352)
-- Fixed "Unauthorized" error during file upload in OneDrive (#358)
-- Removed "Change Password" option for Cryptomator Hub vaults (#360, #367)
-- Added Slovenian and Ukrainian translations
+- Introducing support for Box, allowing secure access to vaults stored on Box (#319, #352).
+- Added Slovenian and Ukrainian translations.
+- Fixed an issue that caused "Unauthorized" errors when uploading files to OneDrive (#358).
+- Removed the "Change Password" option for Hub vaults (#360, #367).

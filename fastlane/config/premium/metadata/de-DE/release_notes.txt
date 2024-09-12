@@ -1,4 +1,4 @@
-- Unterstützung für Box hinzugefügt (#319, #352)
-- „Unautorisiert“-Fehler beim Datei-Upload in OneDrive behoben (#358)
-- Option „Passwort ändern“ für Cryptomator Hub Tresore entfernt (#360, #367)
-- Slowenische und ukrainische Übersetzungen hinzugefügt
+- Einführung der Unterstützung für Box, um sicheren Zugriff auf in Box gespeicherte Tresore zu ermöglichen (#319, #352).
+- Übersetzungen ins Slowenische und Ukrainische hinzugefügt.
+- Fehler behoben, der beim Hochladen von Dateien auf OneDrive die Fehlermeldung „Unautorisiert“ verursachte (#358).
+- Option „Passwort ändern“ für Hub-Tresore entfernt (#360, #367).
