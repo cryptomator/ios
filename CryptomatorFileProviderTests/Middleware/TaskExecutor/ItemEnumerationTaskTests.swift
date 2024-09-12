@@ -418,10 +418,9 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(2, fileProviderItemList.items.count)
 			// Check that a next page exists
 			XCTAssertNotNil(fileProviderItemList.nextPageToken)
-			guard let tokenData = fileProviderItemList.nextPageToken else {
+			guard let tokenData = fileProviderItemList.nextPageToken, let nextPageToken = String(data: tokenData.rawValue, encoding: .utf8) else {
 				throw NSError(domain: "ItemEnumerationTaskExecutorTestError", code: -100, userInfo: ["localizedDescription": "No page token"])
 			}
-			let nextPageToken = String(decoding: tokenData.rawValue, as: UTF8.self)
 			// Check that the (possible) old items have been marked as maybe outdated
 			XCTAssert(self.metadataManagerMock.cachedMetadata[2]?.isMaybeOutdated ?? false)
 			XCTAssert(self.metadataManagerMock.cachedMetadata[3]?.isMaybeOutdated ?? false)

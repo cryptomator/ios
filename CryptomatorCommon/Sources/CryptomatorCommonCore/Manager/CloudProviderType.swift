@@ -23,10 +23,9 @@ public enum CloudProviderType: Codable, Equatable, Hashable {
 extension CloudProviderType: DatabaseValueConvertible {
 	public var databaseValue: DatabaseValue {
 		let jsonEncoder = JSONEncoder()
-		guard let data = try? jsonEncoder.encode(self) else {
+		guard let data = try? jsonEncoder.encode(self), let string = String(data: data, encoding: .utf8) else {
 			return .null
 		}
-		let string = String(decoding: data, as: UTF8.self)
 		return string.databaseValue
 	}
 

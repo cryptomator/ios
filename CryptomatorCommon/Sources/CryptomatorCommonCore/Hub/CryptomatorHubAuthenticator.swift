@@ -234,7 +234,9 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		let httpResponse = response as? HTTPURLResponse
 		switch httpResponse?.statusCode {
 		case 200:
-			let body = String(decoding: data, as: UTF8.self)
+			guard let body = String(data: data, encoding: .utf8) else {
+				throw CryptomatorHubAuthenticatorError.unexpectedResponse
+			}
 			return .success(encryptedVaultKey: body, header: httpResponse?.allHeaderFields ?? [:])
 		case 402:
 			return .licenseExceeded

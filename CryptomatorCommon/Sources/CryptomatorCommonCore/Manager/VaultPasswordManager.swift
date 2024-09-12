@@ -17,6 +17,7 @@ public protocol VaultPasswordManager {
 }
 
 public enum VaultPasswordManagerError: Error {
+	case encodingError
 	case passwordNotFound
 }
 
@@ -53,7 +54,9 @@ public class VaultPasswordKeychainManager: VaultPasswordManager {
 		guard let data = CryptomatorUserPresenceKeychain.vaultPassword.getAsData(vaultUID, context: context) else {
 			throw VaultPasswordManagerError.passwordNotFound
 		}
-		let password = String(decoding: data, as: UTF8.self)
+		guard let password = String(data: data, encoding: .utf8) else {
+			throw VaultPasswordManagerError.encodingError
+		}
 		return password
 	}
 }
