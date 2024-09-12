@@ -22,6 +22,7 @@
 "common.button.next" = "Sunod";
 "common.button.ok" = "OK";
 "common.button.refresh" = "I-refresh";
+"common.button.register" = "Magparehistro";
 "common.button.remove" = "Tanggalin";
 "common.button.retry" = "Subukan muli";
 "common.button.signOut" = "Mag-sign Out";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "Saan matatagpuan ang vault?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Natukoy ng Cryptomator ang vault na \"%@\".\nGusto mo bang idagdag ang vault na ito?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Idagdag ang Vault na ito";
+"addVault.openExistingVault.downloadVault.progress" = "Nagda-download ang vault…";
 "addVault.openExistingVault.password.footer" = "Ipasok ang password para sa \"%@\".";
 "addVault.openExistingVault.progress" = "Idinaragdag ang Vault…";
 "addVault.success.info" = "Matagumpay na naidagdag ang vault na \"%@\".\nI-access ang vault na ito sa pamamagitan ng Files app.";
@@ -111,10 +113,18 @@
 
 "getFolderIntent.error.missingPath" = "Walang ibinigay na landas. Mangyaring magbigay ng wastong landas kung saan dapat ibalik ang isang folder.";
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
+
+"hubAuthentication.title" = "Hub Vault";
 "hubAuthentication.accessNotGranted" = "Hindi pa pinahihintulutan ang iyong device na i-access ang vault na ito. Hilingin sa may-ari ng vault na pahintulutan ito.";
 "hubAuthentication.licenseExceeded" = "Ang iyong Cryptomator Hub instance ay may di-wastong lisensya. Mangyaring ipagbigay-alam sa administrator ng Hub na mag-upgrade o mag-renew ng lisensya.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Pangalan ng device";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Mukhang ito ang unang access sa Hub mula sa device na ito. Upang matukoy ito para sa awtorisasyon sa pag-access, kailangan mong pangalanan ang device na ito.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ang iyong Account Key ay kailangan para mag login galing sa bagong apps o browser. Mahahanap mo ito sa iyong profile.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Matagumpay ang pag register ng device";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para ma-access ang vault, kailangang pahintulutan ng may-ari ng vault ang iyong device.";
+"hubAuthentication.requireAccountInit.alert.title" = "Kinakailangan ang pagkilos";
+"hubAuthentication.requireAccountInit.alert.message" = "Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Pumunta sa Profile";
 
 "intents.saveFile.missingFile" = "Ang ibinigay na file ay hindi wasto.";
 "intents.saveFile.invalidFolder" = "Ang ibinigay na folder ay hindi wasto.";
