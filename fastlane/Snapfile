@@ -1,7 +1,10 @@
+# Workaround: https://www.jessesquires.com/blog/2024/01/04/simctl-status_bar-still-broken/
+ios_version("16.0")
+
 # A list of devices you want to take the screenshots from
 devices([
-  "iPhone 15 Pro Max",
-  "iPad Pro 13-inch (M4)",
+  "iPhone 14 Pro Max",
+  "iPad Pro (12.9-inch) (5th generation)",
 ])
 
 languages([
@@ -13,7 +16,9 @@ languages([
 scheme("Snapshots")
 
 # Set the status bar to 9:41 AM, and show full battery and reception. See also override_status_bar_arguments for custom options.
+ENV["SNAPSHOT_SIMULATOR_WAIT_FOR_BOOT_TIMEOUT"] = "10" # This should already be the default value, but it isn't for some reason
 override_status_bar(true)
+override_status_bar_arguments("--time 2007-01-09T09:41:00+02:00 --dataNetwork wifi --wifiMode active --wifiBars 3 --cellularMode active --operatorName '' --cellularBars 4 --batteryState charged --batteryLevel 100 --dataNetwork wifi") # Workaround for daylight saving time, probably not needed otherwise
 
 localize_simulator(true)
 
