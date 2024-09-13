@@ -8,6 +8,7 @@
 
 import XCTest
 
+@MainActor
 class Snapshots: XCTestCase {
 	var app: XCUIApplication!
 	var filesApp: XCUIApplication!
@@ -166,19 +167,6 @@ class Snapshots: XCTestCase {
 		XCTAssert(filesApp.wait(for: .runningForeground, timeout: 5.0))
 
 		navigateFromRecentsToFilesAppOverview()
-
-		// Tap on More Locations
-		tapMoreLocationsInFilesAppOverview()
-
-		// Enable Cryptomator as FileProvider
-		let browseCollectionView = filesApp.collectionViews["Browse View"]
-		let cryptomatorCell = browseCollectionView.cells["DOC.sidebar.item.Cryptomator"]
-		let cryptomatorCellSwitch = cryptomatorCell.switches.firstMatch
-		XCTAssert(cryptomatorCellSwitch.waitForIsHittable(timeout: 3.0))
-		cryptomatorCellSwitch.tap()
-
-		// Press Done
-		tapDoneButtonInFilesAppOverview()
 	}
 
 	private func navigateFromRecentsToFilesAppOverview() {
@@ -186,38 +174,7 @@ class Snapshots: XCTestCase {
 			return
 		}
 		// Tap on Browse
-		filesApp.tabBars["DOC.browsingModeTabBar"].buttons.element(boundBy: 1).tap(withNumberOfTaps: 2, numberOfTouches: 1)
-	}
-
-	private func tapDoneButtonInFilesAppOverview() {
-		let doneButton: XCUIElement
-		switch UIDevice.current.userInterfaceIdiom {
-		case .phone:
-			doneButton = filesApp.navigationBars["FullDocumentManagerViewControllerNavigationBar"].buttons.firstMatch
-		case .pad:
-			doneButton = filesApp.navigationBars.firstMatch.buttons.element(boundBy: 1)
-		default:
-			XCTFail("Tap Done button in Files app overview is not supported for device: \(UIDevice.current.userInterfaceIdiom)")
-			return
-		}
-		XCTAssert(doneButton.waitForIsHittable(timeout: 3.0))
-		doneButton.tap()
-	}
-
-	private func tapMoreLocationsInFilesAppOverview() {
-		let index: Int
-		switch UIDevice.current.userInterfaceIdiom {
-		case .phone:
-			index = 2
-		case .pad:
-			index = 3
-		default:
-			XCTFail("Tap Done button in Files app overview is not supported for device: \(UIDevice.current.userInterfaceIdiom)")
-			return
-		}
-		let moreLocationsCell = filesApp.cells.element(boundBy: index)
-		XCTAssert(moreLocationsCell.waitForIsHittable(timeout: 3.0))
-		moreLocationsCell.tap()
+		filesApp.tabBars["DOC.browsingModeTabBar"].buttons.element(boundBy: 2).tap(withNumberOfTaps: 2, numberOfTouches: 1)
 	}
 
 	private func snapshotFilesOverview() {
@@ -232,6 +189,10 @@ class Snapshots: XCTestCase {
 		let cryptomatorCell = browseCollectionView.cells["DOC.sidebar.item.Cryptomator"]
 		// Start Cryptomator FileProvider
 		cryptomatorCell.tap()
+
+		// Enable Cryptomator as FileProvider
+		let activateButton = filesApp.alerts.element(boundBy: 0).buttons.element(boundBy: 1)
+		activateButton.tap()
 
 		// Unlock Screen
 		let vaultUnlockTableView = filesApp.tables["Snapshot_UnlockVaultViewController"]

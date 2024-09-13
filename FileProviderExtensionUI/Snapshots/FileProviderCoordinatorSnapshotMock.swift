@@ -8,6 +8,8 @@
 
 #if SNAPSHOTS
 import CryptomatorCommonCore
+import CryptomatorFileProvider
+import Dependencies
 import FileProviderUI
 import LocalAuthentication
 import Promises
@@ -21,8 +23,8 @@ class FileProviderCoordinatorSnapshotMock: FileProviderCoordinator {
 		super.init(extensionContext: extensionContext, hostViewController: hostViewController)
 	}
 
-	override func showManualPasswordScreen(viewModel: UnlockVaultViewModel) {
-		let viewModel = UnlockVaultViewModelSnapshotMock(domain: NSFileProviderDomain(vaultUID: "123", displayName: ""))
+	override func showManualLogin(for domain: NSFileProviderDomain, unlockError: UnlockError) {
+		let viewModel = UnlockVaultViewModelSnapshotMock(domain: domain)
 		let unlockVaultVC = UnlockVaultViewController(viewModel: viewModel)
 		unlockVaultVC.coordinator = self
 		navigationController.pushViewController(unlockVaultVC, animated: false)
@@ -33,11 +35,10 @@ class UnlockVaultViewModelSnapshotMock: UnlockVaultViewModel {
 	init(domain: NSFileProviderDomain) {
 		super.init(domain: domain,
 		           wrongBiometricalPassword: false,
-		           fileProviderConnector: FileProviderXPCConnector.shared,
 		           passwordManager: VaultPasswordManagerSnapshotMock(),
 		           vaultAccountManager: VaultAccountDBManager.shared,
 		           providerManager: CloudProviderDBManager.shared,
-		           vaultCache: VaultDBCache(dbWriter: CryptomatorDatabase.shared.dbPool))
+		           vaultCache: VaultDBCache())
 	}
 }
 
@@ -64,7 +65,8 @@ extension UnlockVaultViewController {
 	}()
 
 	@objc func swizzled_unlock() {
-		let getXPCPromise: Promise<XPC<VaultUnlocking>> = FileProviderXPCConnector.shared.getXPC(serviceName: .vaultUnlocking, domain: nil)
+		@Dependency(\.fileProviderConnector) var fileProviderConnector
+		let getXPCPromise: Promise<XPC<VaultUnlocking>> = fileProviderConnector.getXPC(serviceName: .vaultUnlocking, domain: nil)
 		getXPCPromise.then { xpc in
 			xpc.proxy.unlockVault(kek: [UInt8](), reply: { [weak self] _ in
 				self?.coordinator?.done()
