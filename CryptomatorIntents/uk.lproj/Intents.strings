@@ -1,33 +1,33 @@
-"common.failureReason" = "Причина Помилки";
-"common.false" = "false";
-"common.folder" = "Каталог";
-"common.true" = "true";
+"common.failureReason" = "Причина помилки";
+"common.false" = "хибний";
+"common.folder" = "Папка";
+"common.true" = "вірний";
 "common.vault" = "Сховище";
 
-"getFolderIntent.description" = "Повертає об'єкт каталогу для заданого шляху у вибраному vault.";
+"getFolderIntent.description" = "Повертає вміст папки для заданого шляху у вибраному сховищі.";
 "getFolderIntent.path" = "Шлях";
-"getFolderIntent.text" = "Отримати каталог розташований у ${path} в ${vault}";
-"getFolderIntent.title" = "Отримати Каталог";
+"getFolderIntent.text" = "Отримати папку, розташовану за ${path} в ${vault}";
+"getFolderIntent.title" = "Отримати папку";
 
-"isUnlockedIntent.description" = "Повертає чи вибраний vault розблоковано.";
-"isUnlockedIntent.title" = "Чи Розблоковано";
+"isUnlockedIntent.description" = "Інформує, чи обране сховище розблоковано.";
+"isUnlockedIntent.title" = "Розблоковано";
 
-"isVaultLockedIntent.title" = "Чи vault розблоковано";
+"isVaultLockedIntent.title" = "Чи розблоковано сховище";
 "isVaultUnlockedIntent.text" = "Чи ${vault} розблоковано?";
 
-"lockVaultIntent.description" = "Заблокує вибраний vault.";
+"lockVaultIntent.description" = "Заблокує вибране сховище.";
 "lockVaultIntent.text" = "Заблокувати ${vault}";
-"lockVaultIntent.title" = "Заблокувати Vault";
+"lockVaultIntent.title" = "Заблокувати сховище";
 
-"openVaultIntent.description" = "Відкриває вибраний vault у додатку \"Файли\".";
+"openVaultIntent.description" = "Відкриває вибране сховище у додатку \"Файли\".";
 "openVaultIntent.text" = "Відкрити ${vault} у додатку \"Файли\"";
-"openVaultIntent.title" = "Відкрити Vault";
+"openVaultIntent.title" = "Відкрити сховище";
 
-"saveFileIntent.description" = "Зберігає файл до vault.";
+"saveFileIntent.description" = "Зберігає файл до сховища.";
 "saveFileIntent.file" = "Файл";
-"saveFileIntent.parameter.ignoreExisting" = "Ігнорувати існуючий файл з таким самим ім'ям";
+"saveFileIntent.parameter.ignoreExisting" = "Ігнорувати існуючий файл з такою самою назвою";
 "saveFileIntent.text" = "Зберегти ${file} до ${folder}";
-"saveFileIntent.title" = "Зберегти Файл";
+"saveFileIntent.title" = "Зберегти файл";
 
-"vaultFolder.displayName" = "Каталог Vault";
-"vaultFolder.vaultIdentifier" = "Ідентифікатор Vault";
+"vaultFolder.displayName" = "Папка сховища";
+"vaultFolder.vaultIdentifier" = "Ідентифікатор сховища";

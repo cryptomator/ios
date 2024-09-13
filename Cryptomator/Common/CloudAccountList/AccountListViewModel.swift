@@ -66,44 +66,53 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	func refreshBoxItems() -> Promise<Void> {
+		return all(accountInfos
+			.map { BoxCredential(tokenStorage: BoxTokenStorage(userID: $0.accountUID)) }
+			.map { self.createAccountCellContent(for: $0) }
+		).then { accounts in
+			self.accounts = accounts
+		}
+	}
+
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
+		case .box:
+			return createAccountCellContentPlaceholder()
 		case .dropbox:
-			let credential = DropboxCredential(tokenUID: accountInfo.accountUID)
-			return createAccountCellContentPlaceholder(for: credential)
+			return createAccountCellContentPlaceholder()
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
+		case .localFileSystem:
+			throw AccountListError.unsupportedCloudProviderType
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .pCloud:
-			let credential = try PCloudCredential(userID: accountInfo.accountUID)
-			return createAccountCellContentPlaceholder(for: credential)
-		case .webDAV:
-			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
-				throw CloudProviderAccountError.accountNotFoundError
-			}
-			return createAccountCellContent(for: credential)
-		case .localFileSystem:
-			throw AccountListError.unsupportedCloudProviderType
+			return createAccountCellContentPlaceholder()
 		case .s3:
 			guard let credential = S3CredentialManager.shared.getCredential(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
 			return createAccountCellContent(for: credential, displayName: displayName)
+		case .webDAV:
+			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
+				throw CloudProviderAccountError.accountNotFoundError
+			}
+			return createAccountCellContent(for: credential)
 		}
+	}
+
+	private func createAccountCellContentPlaceholder() -> AccountCellContent {
+		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
 	}
 
 	private func createAccountCellContent(for credential: DropboxCredential) -> Promise<AccountCellContent> {
 		return credential.getUsername().then { username in
 			AccountCellContent(mainLabelText: username, detailLabelText: nil)
 		}
-	}
-
-	private func createAccountCellContentPlaceholder(for credential: DropboxCredential) -> AccountCellContent {
-		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
 	}
 
 	private func createAccountCellContent(for credential: GoogleDriveCredential) throws -> AccountCellContent {
@@ -122,8 +131,10 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
-	private func createAccountCellContentPlaceholder(for credential: PCloudCredential) -> AccountCellContent {
-		return AccountCellContent(mainLabelText: "(…)", detailLabelText: nil)
+	func createAccountCellContent(for credential: BoxCredential) -> Promise<AccountCellContent> {
+		return credential.getUsername().then { username in
+			AccountCellContent(mainLabelText: username, detailLabelText: nil)
+		}
 	}
 
 	func createAccountCellContent(for credential: WebDAVCredential) -> AccountCellContent {
@@ -199,6 +210,12 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				}
 			} else if self.cloudProviderType == .pCloud {
 				self.refreshPCloudItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			} else if self.cloudProviderType == .box {
+				self.refreshBoxItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))

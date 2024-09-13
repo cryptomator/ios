@@ -174,7 +174,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 	private func simulateFileChangeInTheCloud() {
 		// Simulate an file update in the cloud by enforce an newer lastModifiedDate in the cloud and change the file content in the cloud
 		cloudProviderMock.lastModifiedDate[cloudPath.path] = Date(timeIntervalSince1970: 10)
-		cloudProviderMock.files[cloudPath.path] = "Updated File 1 content".data(using: .utf8)
+		cloudProviderMock.files[cloudPath.path] = Data("Updated File 1 content".utf8)
 	}
 
 	class WorkFlowSchedulerStartProvidingItemMock: WorkflowScheduler {

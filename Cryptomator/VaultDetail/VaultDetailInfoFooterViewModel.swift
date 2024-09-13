@@ -26,7 +26,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		let infoText = loggedInText + LocalizedString.getValue("vaultDetail.info.footer.accessVault")
 		let text = NSMutableAttributedString(string: infoText)
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/access-vault/#enable-cryptomator-in-files-app")!])
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/latest/ios/access-vault/#enable-cryptomator-in-files-app")!])
 		text.append(learnMoreLink)
 		return text
 	}
@@ -44,6 +44,11 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 
 	func getUsername() -> String? {
 		switch vault.cloudProviderType {
+		case .box:
+			let tokenStorage = BoxTokenStorage(userID: vault.delegateAccountUID)
+			let credential = BoxCredential(tokenStorage: tokenStorage)
+			getUsername(for: credential)
+			return "(…)"
 		case .dropbox:
 			let credential = DropboxCredential(tokenUID: vault.delegateAccountUID)
 			getUsername(for: credential)
@@ -51,6 +56,8 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		case .googleDrive:
 			let credential = GoogleDriveCredential(userID: vault.delegateAccountUID)
 			return try? credential.getUsername()
+		case .localFileSystem:
+			return nil
 		case .oneDrive:
 			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)
 			return try? credential?.getUsername()
@@ -60,16 +67,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			}
 			getUsername(for: credential)
 			return "(…)"
-		case .webDAV:
-			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
-			return credential?.username
-		case .localFileSystem:
-			return nil
 		case .s3:
 			guard let displayName = try? S3CredentialManager.shared.getDisplayName(for: vault.delegateAccountUID) else {
 				return nil
 			}
 			return displayName
+		case .webDAV:
+			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
+			return credential?.username
 		}
 	}
 
@@ -82,6 +87,14 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 	}
 
 	func getUsername(for credential: PCloudCredential) {
+		credential.getUsername().then { username in
+			let loggedInText = self.createLoggedInText(forUsername: username)
+			let attributedText = self.createAttributedText(loggedInText: loggedInText)
+			self.attributedText.value = attributedText
+		}
+	}
+
+	func getUsername(for credential: BoxCredential) {
 		credential.getUsername().then { username in
 			let loggedInText = self.createLoggedInText(forUsername: username)
 			let attributedText = self.createAttributedText(loggedInText: loggedInText)

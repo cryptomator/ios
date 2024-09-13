@@ -22,6 +22,7 @@
 "common.button.next" = "Următor";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Împrospătează";
+"common.button.register" = "Înregistrare";
 "common.button.remove" = "Șterge";
 "common.button.retry" = "Încercați din nou";
 "common.button.signOut" = "Deconectare";
@@ -35,12 +36,12 @@
 
 "accountList.header.title" = "Autentificări";
 "accountList.emptyList.message" = "Atinge aici pentru a adăuga un cont";
-"accountList.signOut.alert.title" = "Eliminați Seifele asociate?";
-"accountList.signOut.alert.message" = "Prin deconectare, toate seifurile asociate vor fi șterse din lista de seife. Nicio informație criptată nu va fi ștearsă. Puteți să vă conectați din nou și să readăugați seifurile mai târziu.";
+"accountList.signOut.alert.title" = "Eliminați Seifurile asociate?";
+"accountList.signOut.alert.message" = "Prin deconectare, toate seifurile asociate vor fi șterse din lista de seifuri. Nicio informație criptată nu va fi ștearsă. Puteți să vă conectați din nou și să readăugați seifurile mai târziu.";
 
 "addVault.title" = "Adaugă seif";
 "addVault.createNewVault.title" = "Creează seif nou";
-"addVault.createNewVault.purchase" = "Crearea unui seif nou necesită versiunea completă a Criptomatorului.";
+"addVault.createNewVault.purchase" = "Crearea unui seif nou necesită versiunea completă a Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Alege un nume pentru seif.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nume seif";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Numele seifului nu poate fi gol.";
@@ -57,8 +58,9 @@
 "addVault.createNewVault.progress" = "Se creează seiful…";
 "addVault.openExistingVault.title" = "Deschide un seif existent";
 "addVault.openExistingVault.chooseCloud.header" = "Unde este localizat seiful?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Criptomatorul a detectat seiful \"%@\".\nDoriți să adăugați acest seif?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator a detectat seiful \"%@\".\nDoriți să adăugați acest seif?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adaugă acest seif";
+"addVault.openExistingVault.downloadVault.progress" = "Se descarcă Seiful…";
 "addVault.openExistingVault.password.footer" = "Introduceți parola pentru „%@”.";
 "addVault.openExistingVault.progress" = "Adăugare seif…";
 "addVault.success.info" = "Seiful \"%@\" a fost adăugat cu succes.\nAccesați seiful prin intermediul aplicației fișiere.";
@@ -111,10 +113,17 @@
 
 "getFolderIntent.error.missingPath" = "Nu a fost furnizată nicio locație. Vă rugăm să alegeți o cale validă pentru care un dosar trebuie returnat.";
 "getFolderIntent.error.noVaultSelected" = "Nici un seif nu a fost ales.";
+
+"hubAuthentication.title" = "Seif Hub";
 "hubAuthentication.accessNotGranted" = "Dispozitivul dvs. nu a fost autorizat să acceseze acest seif. Solicitați proprietarului seifului să va autorizeze accesul.";
 "hubAuthentication.licenseExceeded" = "Instanța Hub are o licență invalidă. Vă rugăm să informați un administrator Hub să actualizeze sau să reînnoiască licența.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Numele dispozitivului";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispozitiv de înregistrare cu succes";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pentru a accesa acest seif, dispozitivul dvs. trebuie să fie autorizat de proprietarul seifului.";
+"hubAuthentication.requireAccountInit.alert.title" = "Operație necesară";
+"hubAuthentication.requireAccountInit.alert.message" = "Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Mergi la profil";
 
 "intents.saveFile.missingFile" = "Fișierul ales nu este valid.";
 "intents.saveFile.invalidFolder" = "Dosarul ales nu este valid.";
@@ -126,8 +135,8 @@
 "keepUnlocked.alert.message" = "Această modificare necesită ca seiful dvs. să fie încuiat pentru a avea efect.";
 "keepUnlocked.alert.confirm" = "Confirmați și încuiați acum";
 "keepUnlocked.header" = "Specificați pentru cât timp doriți ca acest seif să rămână deblocat atunci când nu este folosit.";
-"keepUnlocked.footer.auto" = "Daca lăsați iOS sa decidă Cryptomatorul poate fi închis oricând este nevoie ca memoria sa fie eliberata, încuind seiful automat.";
-"keepUnlocked.footer.on" = "Folosind opțiunea selectată, cât timp seiful este deblocat o copie a cheii tale va trebui să fie stocată în iOS keychain.";
+"keepUnlocked.footer.auto" = "A lăsa iOS să decidă înseamnă că Cryptomator poate fi oprit în orice moment pentru a elibera memoria, ceea ce blochează automat seiful.";
+"keepUnlocked.footer.on" = "Folosind opțiunea selectată, o copie a cheii tale trebuie să fie stocată în tastatura iOS, atâta timp cât seiful este deblocat.";
 "keepUnlockedDuration.auto" = "Lăsați iOS-ul sa decidă automat";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinit";
@@ -138,7 +147,7 @@
 "localFileSystemAuthentication.openExistingVault.header" = "În ecranul următor, alegeți folderul seifului dvs. existent.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selectaţi dosarul cu seif";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Dosarul selectat nu este un seif. Vă rugăm să încercaţi din nou cu un alt dosar.";
-"localFileSystemAuthentication.info.footer" = "Locațiile/Serviciile care sunt gri nu pot fi alese. Aceasta nu este o limitare a Criptomatorului.";
+"localFileSystemAuthentication.info.footer" = "Locațiile/Serviciile care sunt gri nu pot fi alese. Aceasta nu este o limitare a Criyptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operațiunea nu poate fi executată deoarece alte operațiuni in fundal pentru acest seif trebuie sa termine mai întâi. Vă rugăm să încercați mai târziu.";
 
@@ -239,7 +248,7 @@
 
 "upgrade.title" = "Ofertă de tranziție";
 "upgrade.notEligible.alert.title" = "Tranziția a eșuat";
-"upgrade.notEligible.alert.message" = "Criptomatorul nu a putut detecta o versiune mai veche instalată pe dispozitivul dvs. Dacă ați cumpărat-o, descărcați-o din App Store și încercați din nou.";
+"upgrade.notEligible.alert.message" = "Cryptomator nu a putut detecta o versiune mai veche instalată pe dispozitivul dvs. Dacă ați cumpărat-o, descărcați-o din App Store și încercați din nou.";
 "upgrade.info" = "Mulțumim ca aveți încredere în Cryptomator de la prima versiune. Ca utilizator loial, sunteți eligibil pentru tranziția gratuita.";
 
 "urlSession.error.httpError.401" = "Nume utilizator și/sau parolă greșită.";

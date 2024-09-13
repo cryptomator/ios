@@ -35,6 +35,7 @@ class FileProviderExtension: NSFileProviderExtension {
 				let oneDriveClientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
 				OneDriveSetup.constants = OneDriveSetup(clientApplication: oneDriveClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 				PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			} catch {
 				// MARK: Handle error
 
@@ -249,10 +250,9 @@ class FileProviderExtension: NSFileProviderExtension {
 		#if SNAPSHOTS
 		let snapshotVaultPath = CloudPath(LocalizedString.getValue("snapshots.main.vault1"))
 		let snapshotDomain = NSFileProviderDomain(vaultUID: "12345", displayName: snapshotVaultPath.lastPathComponent)
-		serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(domain: snapshotDomain,
-		                                                              notificator: notificator,
-		                                                              dbPath: dbPath,
-		                                                              delegate: LocalURLProvider(domain: snapshotDomain)))
+		if let manager = NSFileProviderManager(for: snapshotDomain) {
+			serviceSources.append(VaultUnlockingServiceSourceSnapshotMock(domain: snapshotDomain, notificator: notificator, dbPath: dbPath, delegate: LocalURLProvider(domain: snapshotDomain), taskRegistrator: manager))
+		}
 		#else
 		if let domain = domain, let localURLProvider = localURLProvider, let dbPath = dbPath, let notificator = notificator, let manager = NSFileProviderManager(for: domain) {
 			serviceSources.append(VaultUnlockingServiceSource(domain: domain, notificator: notificator, dbPath: dbPath, delegate: localURLProvider, taskRegistrator: manager))

@@ -8,6 +8,7 @@
 
 #if SNAPSHOTS
 import CryptomatorCommonCore
+import Dependencies
 import FileProvider
 import Foundation
 import LocalAuthentication
@@ -31,9 +32,7 @@ class SnapshotCoordinator: MainCoordinator {
 	}
 
 	override func showVaultDetail(for vaultInfo: VaultInfo) {
-		let snapshotFileProviderConnectorMock = SnapshotFileProviderConnectorMock()
-		snapshotFileProviderConnectorMock.proxy = SnapshotVaultLockingMock()
-		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, fileProviderConnector: snapshotFileProviderConnectorMock, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: SnapshotVaultKeepUnlockedSettings())
+		let viewModel = VaultDetailViewModel(vaultInfo: vaultInfo, vaultManager: VaultDBManager.shared, passwordManager: SnapshotVaultPasswordManagerMock(), dbManager: DatabaseManager.shared, vaultKeepUnlockedSettings: SnapshotVaultKeepUnlockedSettings())
 		let vaultDetailViewController = VaultDetailViewController(viewModel: viewModel)
 		let detailNavigationController = BaseNavigationController(rootViewController: vaultDetailViewController)
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
@@ -57,8 +56,23 @@ class SnapshotCoordinator: MainCoordinator {
 	}
 }
 
+private enum FileProviderConnectorKey: DependencyKey {
+	static var liveValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
+	#if DEBUG
+	static var testValue: FileProviderConnector = SnapshotFileProviderConnectorMock()
+	#endif
+}
+
+public extension DependencyValues {
+	var fileProviderConnector: FileProviderConnector {
+		get { self[FileProviderConnectorKey.self] }
+		set { self[FileProviderConnectorKey.self] = newValue }
+	}
+}
+
 private class SnapshotFileProviderConnectorMock: FileProviderConnector {
-	var proxy: Any?
+	let proxy = SnapshotVaultLockingMock()
+
 	func getXPC<T>(serviceName: NSFileProviderServiceName, domain: NSFileProviderDomain?) -> Promise<XPC<T>> {
 		return getCastedProxy()
 	}

@@ -68,7 +68,7 @@ private class VaultSuccessFooterView: UITableViewHeaderFooterView {
 
 		let text = NSMutableAttributedString(string: LocalizedString.getValue("addVault.success.footer"), attributes: [NSAttributedString.Key.foregroundColor: UIColor.secondaryLabel])
 		text.append(NSAttributedString(string: " "))
-		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/1.6/ios/access-vault/#enable-cryptomator-in-files-app")!])
+		let learnMoreLink = NSAttributedString(string: LocalizedString.getValue("common.footer.learnMore"), attributes: [NSAttributedString.Key.link: URL(string: "https://docs.cryptomator.org/en/latest/ios/access-vault/#enable-cryptomator-in-files-app")!])
 		text.append(learnMoreLink)
 		textView.attributedText = text
 		textView.isUserInteractionEnabled = true

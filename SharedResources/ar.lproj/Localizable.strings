@@ -22,6 +22,7 @@
 "common.button.next" = "التالي";
 "common.button.ok" = "موافق";
 "common.button.refresh" = "تحديث";
+"common.button.register" = "تسجيل";
 "common.button.remove" = "حذف";
 "common.button.retry" = "اعد المحاولة";
 "common.button.signOut" = "تسجيل الخروج";
@@ -40,6 +41,7 @@
 
 "addVault.title" = "أضِف مخزنًا";
 "addVault.createNewVault.title" = "إنشاء مخزن جديد";
+"addVault.createNewVault.purchase" = "إنشاء خزانة جديدة يتطلب النسخة الكاملة من Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "اختر اسماً للمخزن.";
 "addVault.createNewVault.setVaultName.cells.name" = "اسم الخزينة";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "اسم المخزن لا يمكن أن يكون فارغاً.";
@@ -58,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "أين يقع المخزن ؟";
 "addVault.openExistingVault.detectedMasterkey.text" = "اكتشف Cryptomator مخزن \"%@\".\nهل ترغب في إضافة هذا المخزن ؟";
 "addVault.openExistingVault.detectedMasterkey.add" = "إضافة هذا المخزن";
+"addVault.openExistingVault.downloadVault.progress" = "جارٍ تنزيل الخزانة...";
 "addVault.openExistingVault.password.footer" = "أدخل كلمة المرور ل \"%@\".";
 "addVault.openExistingVault.progress" = "جاري إضافة مخزن…";
 "addVault.success.info" = "تمت إضافة مخزن%@بنجاح.\nالوصول إلى هذا المخزن عبر تطبيق الملفات.";
@@ -97,15 +100,45 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "كلمة المرور خاطئة";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
 "fileProvider.error.defaultLock.title" = "يلزم فك القفل";
+"fileProvider.error.defaultLock.message" = "للوصول إلى محتويات خزانتك وعرضها، يجب فتح قفلها.";
 "fileProvider.error.unlockButton" = "افتح";
+"fileProvider.clearFileFromCache.title" = "مسح الملف من ذاكرة التخزين المؤقت";
+"fileProvider.clearFileFromCache.message" = "هذا يزيل الملف المحلي من جهازك فقط ولا يحذف الملف من السحابة.";
+"fileProvider.fileImporting.error.missingPremium" = "افتح النسخة الكاملة في تطبيق Cryptomator للحصول على إمكانية الكتابة في خزائنك.";
 "fileProvider.uploadProgress.connecting" = "جاري الاتصال…";
+"fileProvider.uploadProgress.message" = "التقدم الحالي: %@\n\nإذا لاحظت أن تقدم التحميل عالق، يمكنك إعادة المحاولة.";
+"fileProvider.uploadProgress.missing" = "تعذر تحديد التقدم. قد يكون لا يزال يعمل في الخلفية.";
+"fileProvider.uploadProgress.title" = "جاري الرفع …";
+"fileProvider.uploadProgress.missingDomainError" = "تعذر العثور على النطاق.";
+
+"getFolderIntent.error.missingPath" = "لم يتم تقديم مسار. يرجى تقديم مسار صالح لإرجاع المجلد المطلوب.";
+"getFolderIntent.error.noVaultSelected" = "لم يتم تحديد أي خزانة.";
+
+"hubAuthentication.title" = "خزانة Hub";
 "hubAuthentication.accessNotGranted" = "لم يتم بعد منح الإذن لجهازك بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.";
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "تم تسجيل الجهاز بنجاح";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للدخول إلى الخزينة، يحتاج جهازك إلى إذن من مالك الخزينة.";
+"hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
+"hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
+
+"intents.saveFile.missingFile" = "الملف المقدم غير صالح.";
+"intents.saveFile.invalidFolder" = "المجلد المقدم غير صالح.";
+"intents.saveFile.missingTemporaryFolder" = "فشل في إنشاء مجلد مؤقت.";
+"intents.saveFile.lockedVault" = "تحتاج إلى فتح خزانتك لاستخدام هذا الاختصار.";
+"intents.saveFile.selectedVaultNotFound" = "تعذر العثور على الخزانة المحددة.";
 
 "keepUnlocked.alert.title" = "قفل المخزن؟";
+"keepUnlocked.alert.message" = "يتطلب هذا التغيير قفل الخزانة لتطبيقه.";
 "keepUnlocked.alert.confirm" = "تأكيد واقفل الآن";
+"keepUnlocked.header" = "حدد المدة التي تريد أن تبقى فيها هذه الخزانة غير مقفلة عند الخمول.";
+"keepUnlocked.footer.auto" = "السماح لنظام iOS بالبت يعني أنه يمكن إنهاء تطبيق Cryptomator في أي وقت لتوفير الذاكرة، مما يؤدي إلى قفل الخزانة تلقائيًا.";
+"keepUnlocked.footer.on" = "باستخدام الخِيار المحدد، يجب تخزين نسخة من مفتاحك في سلسلة مفاتيح iOS مادام أن الخزانة غير مقفلة.";
+"keepUnlockedDuration.auto" = "السماح لنظام iOS بالتحديد تلقائيًا";
 "keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
 "keepUnlockedDuration.indefinite" = "دائم";
 
@@ -115,13 +148,25 @@
 "localFileSystemAuthentication.openExistingVault.header" = "في الشاشة التالية، اختر مجلد المخزن الموجود لديك.";
 "localFileSystemAuthentication.openExistingVault.button" = "حدد مجلد المخزن";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
+"localFileSystemAuthentication.info.footer" = "موفرو الملفات الذين يظهرون باللون الرمادي لا يدعمون \"اختيار المجلدات\". هذا ليس قيدًا من Cryptomator.";
+
+"maintenanceModeError.runningCloudTask" = "لا يمكن تنفيذ العملية لأن العمليات الخلفية الأخرى لهذه الخزانة يجب أن تنتهي أولاً. يرجى المحاولة مرة أخرى لاحقًا.";
+
+"nameValidation.error.endsWithPeriod" = "لا يمكنك استخدام اسم ينتهي بنقطة. يرجى اختيار اسم آخر.";
+"nameValidation.error.endsWithSpace" = "لا يمكنك استخدام اسم ينتهي بمسافة. يرجى اختيار اسم آخر.";
+"nameValidation.error.containsIllegalCharacter" = "لا يمكنك استخدام اسم يحتوي على \"%@\". يرجى اختيار اسم آخر.";
 
 "onboarding.title" = "أهلاً وسهلاً";
+"onboarding.info" = "شكرًا لاختيارك Cryptomator لحماية ملفاتك.\n\nمع Cryptomator، المفتاح لبياناتك في يديك. يقوم Cryptomator بتشفير بياناتك بسرعة وسهولة.\n\nهذا التطبيق مدمج بالكامل في تطبيق الملفات. تأكد من تفعيل Cryptomator في تطبيق الملفات لاحقًا للوصول إلى خزائنك.";
 "onboarding.button.continue" = "استمرار";
+
+"purchase.beginFreeTrial.alert.title" = "تم فتح التجربة";
+"purchase.expiredTrial" = "انتهت الفترة التجريبية الخاصة بك.";
 "purchase.footer.privacyPolicy" = "سياسة الخصوصية";
 "purchase.footer.termsOfUse" = "شروط الإستخدام";
 "purchase.header.feature.familySharing" = "مشاركة عائلية";
 "purchase.header.feature.openSource" = "تطوير مفتوح المصدر";
+"purchase.header.feature.writeAccess" = "إمكانية التعديل في خزائنك";
 "purchase.product.donateAndUpgrade" = "تبرع و ترقية";
 "purchase.product.freeUpgrade" = "ترقية مجانية";
 "purchase.product.lifetimeLicense" = "رخصة لمدى الحياة";
@@ -130,23 +175,52 @@
 "purchase.product.trial" = "تجربة مجانية لمدة 30 يوم";
 "purchase.product.trial.expirationDate" = "تاريخ إنتهاء الصلاحية: %@";
 "purchase.product.trial.duration" = "لمدة 30 يوماً";
+"purchase.product.yearlySubscription" = "اشتراك سنوي";
 "purchase.product.yearlySubscription.duration" = "سنوياً";
 "purchase.readOnlyMode.alert.title" = "وضع القراءة فقط";
+"purchase.readOnlyMode.alert.message" = "يمكنك فتح النسخة الكاملة من Cryptomator لاحقًا في الإعدادات واستخدامها في وضع القراءة فقط حاليًا.";
 "purchase.restorePurchase.button" = "استعادة المشتريات";
+"purchase.restorePurchase.validTrialFound.alert.title" = "استمرار التجربة";
+"purchase.restorePurchase.validTrialFound.alert.message" = "يمكنك الآن استخدام النسخة الكاملة من Cryptomator لفترة محدودة. تنتهي فترة التجربة الخاصة بك في %@. بعد ذلك، ستظل خزائنك متاحة في وضع القراءة فقط.";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "تمت الاستعادة بنجاح";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "لا توجد نسخة كاملة";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "لم نتمكن من العثور على نسخة كاملة تم شراؤها مسبقًا يمكن استعادتها. يرجى تجربة خيار آخر.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "مؤهل للترقية";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "يبدو أنك تحاول الترقية من إصدار أقدم من Cryptomator. في هذه الحالة، يرجى اختيار خيار \"عرض الترقية\" بدلاً من ذلك.";
 "purchase.retry.button" = "اعد المحاولة";
+"purchase.retry.footer" = "تعذر تحميل المنتجات المتاحة.";
+"purchase.title" = "فتح النسخة الكاملة";
+"purchase.unlockedFullVersion.message" = "يمكنك الآن استخدام النسخة الكاملة من Cryptomter. تشفير سعيد!";
 "purchase.unlockedFullVersion.title" = "شكراً لك";
+"purchase.error.unknown" = "هذه الشراء غير متاح في متجر التطبيقات لسبب غير معروف. يرجى المحاولة مرة أخرى لاحقًا.\n\nإذا استمرت هذه المشكلة، حاول إعادة تشغيل جهازك أو تسجيل الخروج وتسجيل الدخول مرة أخرى إلى حساب Apple ID الخاص بك في إعدادات iOS.";
 
 "settings.title" = "الإعدادات";
+"settings.aboutCryptomator" = "حول Cryptomator";
 "settings.aboutCryptomator.title" = "الإصدار %@ (%@)";
 "settings.cacheSize" = "حجم ذاكرة التخزين المؤقت";
 "settings.clearCache" = "مسح بيانات الذاكرة المؤقتة";
 "settings.cloudServices" = "الخدمات السحابية";
+"settings.contact" = "إتصل بنا";
+"settings.debugMode" = "وضع التصحيح";
 "settings.debugMode.alert.message" = "في هذا الوضع، يمكن كتابة البيانات الحساسة إلى ملف تسجيل على جهازك (على سبيل المثال أسماء الملفات والمسارات). كلمة المرور، ملفات تعريف الارتباط، إلخ. مستبعدة صراحة.\n\nتذكر تعطيل وضع التصحيح في أقرب وقت ممكن.";
 "settings.manageSubscriptions" = "إدارة الاشتراك";
 "settings.rateApp" = "تقييم التطبيق";
 "settings.sendLogFile" = "إرسال ملف السجل";
 "settings.shortcutsGuide" = "دليل الاختصارات";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
+
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
 
 "s3Authentication.displayName" = "الاسم المعروض";
 "s3Authentication.accessKey" = "مفتاح الوصول";
@@ -155,6 +229,7 @@
 "s3Authentication.endpoint" = "نقطة الوصول";
 "s3Authentication.region" = "المنطقة";
 "s3Authentication.error.invalidCredentials" = "معلومات الدخول خاطئة.";
+"s3Authentication.error.invalidEndpoint" = "النقطة النهائية المقدمة لا تتطابق مع تنسيق عنوان URL.";
 
 "trialStatus.active" = "مفعل";
 "trialStatus.expired" = "منتهية الصلاحية";
@@ -171,11 +246,20 @@
 "untrustedTLSCertificate.message" = "شهادة TLS من \"%@\" غير صالحة. هل تريد أن تثق بها على أي حال؟\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "ثق";
 "untrustedTLSCertificate.dismiss" = "لا تثق";
+
+"upgrade.title" = "عرض الترقية";
 "upgrade.notEligible.alert.title" = "فشل الترقية";
+"upgrade.notEligible.alert.message" = "لم يتمكن Cryptomator من اكتشاف إصدار أقدم مثبت على جهازك. إذا كنت قد اشتريته، يرجى إعادة تنزيله من متجر التطبيقات والمحاولة مرة أخرى.";
+"upgrade.info" = "شكرًا لثقتك في Cryptomator منذ الإصدار الأول. كـ مستخدم مخلص، أنت مؤهل للحصول على ترقية مجانية.";
 
 "urlSession.error.httpError.401" = "خطأ في اسم المستخدم و/أو كلمة المرور.";
+"urlSession.error.httpError.403" = "حقوق غير كافية للوصول إلى المورد المطلوب.";
 "urlSession.error.httpError.404" = "لم يتم العثور على المورد المطلوب.";
+"urlSession.error.httpError.405" = "طريقة الطلب غير مدعومة من قبل المورد المستهدف.";
+"urlSession.error.httpError.409" = "الطلب يتعارض مع الحالة الحالية للمورد المستهدف.";
 "urlSession.error.httpError.412" = "تم رفض الوصول إلى المورد المستهدف.";
+"urlSession.error.httpError.default" = "فشل اتصال الشبكة مع رمز الحالة %ld.";
+"urlSession.error.unexpectedResponse" = "كان هناك استجابة غير متوقعة من الشبكة.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "لقد أضفت هذا المخزن مسبقاً.";
 
@@ -184,16 +268,38 @@
 "vaultDetail.button.moveVault" = "نقل";
 "vaultDetail.button.removeVault" = "إزالة من قائمة المخازن";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
+"vaultDetail.changePassword.footer" = "اختر كلمة مرور قوية لخزانتك يعرفها فقط أنت واحفظها في مكان آمن.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "إذا مكّنت %@، سيتم تخزين كلمة المرور الخاصة بك في سلسلة مفاتيح iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "ستكون كلمة مرور خزينتك مطلوبة فقط إذا فشلت مصادقة %@.";
+"vaultDetail.info.footer.accessVault" = "الوصول إلى الخزانة عبر تطبيق الملفات.";
+"vaultDetail.info.footer.accountInfo" = "تم تسجيل الدخول كـ %@ عبر %@.";
 "vaultDetail.keepUnlocked.title" = "مدة الفتح";
+"vaultDetail.keepUnlocked.footer.off" = "سيتعين فتح القفل عندما يتم إنهاء Cryptomator بواسطة تطبيق الملفات.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "سيتعين فتح القفل عندما تكون خزانتك غير نشطة لمدة %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "لن يكون من الضروري فتح القفل ما لم يتم قفله يدويًا.";
+"vaultDetail.locked.footer" = "خزانتك مقفلة حاليًا.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "اكتشف Cryptomator وجود خزانة قائمة في هذا الموقع.\nللنقل، يرجى العودة واختيار مجلد مختلف.";
 "vaultDetail.moveVault.progress" = "جاري النقل…";
+"vaultDetail.removeVault.footer" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن ولن يحذف أي ملفات مشفرة.";
 "vaultDetail.renameVault.progress" = "إعادة تسمية…";
+"vaultDetail.unlocked.footer" = "خزانتك غير مقفلة حاليًا في تطبيق الملفات.";
 "vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%@\" لتخزينها في سلسلة مفاتيح iOS وتمكين %@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
 "vaultList.remove.alert.title" = "حذف المخزن؟";
+"vaultList.remove.alert.message" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن. لن يتم حذف أي بيانات مشفرة. يمكنك إعادة إضافة الخزانة لاحقًا.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "إعدادات المخزن غير مدعومة. يرجى التأكد من أنك تستخدم أحدث إصدار من Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "إصدار الخزانة %ld غير مدعوم. تم إنشاء هذه الخزانة بإصدار أقدم أو أحدث من Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "إستخدام HTTPS؟";
 "webDAVAuthentication.httpConnection.alert.message" = "استخدام HTTP غير آمن. نوصي باستخدام HTTPS بدلاً من ذلك. إذا كنت تعرف المخاطر، يمكنك الاستمرار مع HTTP.";
 "webDAVAuthentication.httpConnection.change" = "تغيير إلى HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "ابقَ على HTTP";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "يبدو أن الخادم غير متوافق مع WebDAV. يرجى التحقق مما إذا كنت قد استخدمت عنوان URL الصحيح.";
+"webDAVAuthenticator.error.untrustedCertificate" = "شهادة هذا الخادم غير موثوق بها. قد تحتاج إلى إعادة إضافة هذا الاتصال بـ WebDAV.";
+
+"Retry Upload" = "حاول الرفع مجددًا";
+"Clear from Cache" = "مسح من ذاكرة التخزين المؤقت";

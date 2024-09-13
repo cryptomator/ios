@@ -49,7 +49,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func showCloudServices() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .pCloud, .webDAV(type: .custom), .s3(type: .custom)], headerTitle: "")
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom)], headerTitle: "")
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("settings.cloudServices")
 		chooseCloudVC.coordinator = self
@@ -70,7 +70,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func openShortcutsGuide() {
-		if let shortcutsGuideURL = URL(string: "https://docs.cryptomator.org/en/1.6/ios/shortcuts-guide/") {
+		if let shortcutsGuideURL = URL(string: "https://docs.cryptomator.org/en/latest/ios/shortcuts-guide/") {
 			UIApplication.shared.open(shortcutsGuideURL)
 		}
 	}

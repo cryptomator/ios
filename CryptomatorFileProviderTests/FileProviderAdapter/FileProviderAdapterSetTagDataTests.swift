@@ -16,7 +16,7 @@ class FileProviderAdapterSetTagDataTests: FileProviderAdapterTestCase {
 	func testSetTagData() throws {
 		let expectation = XCTestExpectation()
 		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .file, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
-		let tagData = "Foo".data(using: .utf8)!
+		let tagData = Data("Foo".utf8)
 
 		adapter.setTagData(tagData, forItemIdentifier: itemIdentifier) { item, error in
 			XCTAssertNil(error)

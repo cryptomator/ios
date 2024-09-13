@@ -29,5 +29,5 @@
 "saveFileIntent.text" = "Salvează ${file} în ${folder}";
 "saveFileIntent.title" = "Salvează fișierul";
 
-"vaultFolder.displayName" = "Dosarul vault-ului";
+"vaultFolder.displayName" = "Dosarul seifului";
 "vaultFolder.vaultIdentifier" = "Identificatorul vault-ului";

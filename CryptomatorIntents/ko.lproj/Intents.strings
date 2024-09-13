@@ -8,6 +8,8 @@
 "lockVaultIntent.text" = "${vault} 잠금";
 "lockVaultIntent.title" = "Vault 잠그기";
 "openVaultIntent.title" = "Vault 열기";
+
+"saveFileIntent.description" = "파일을 vault에 저장합니다.";
 "saveFileIntent.file" = "파일";
 "saveFileIntent.parameter.ignoreExisting" = "같은 이름을 가진 기존 파일 무시하기";
 "saveFileIntent.text" = "${file}을 ${folder}에 저장";

@@ -66,7 +66,7 @@ class VaultListViewModelTests: XCTestCase {
 	}
 
 	func testRemoveRow() throws {
-		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: "".data(using: .utf8)!, vaultConfigToken: nil, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
+		let cachedVault = CachedVault(vaultUID: "vault2", masterkeyFileData: Data("".utf8), vaultConfigToken: nil, lastUpToDateCheck: Date(), masterkeyFileLastModifiedDate: nil, vaultConfigLastModifiedDate: nil)
 		try vaultCacheMock.cache(cachedVault)
 
 		let dbManagerMock = DatabaseManagerMock()

@@ -300,7 +300,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 			XCTAssertEqual(1, self.itemEnumerationTaskManagerMock.removedTaskRecords.count)
 			XCTAssert(self.itemEnumerationTaskManagerMock.removedTaskRecords.contains(where: { $0 == enumerationTaskRecord }))
 			self.cloudProviderMock.files["/File 1"] = nil
-			self.cloudProviderMock.files["/NewFileFromCloud"] = "NewFileFromCloud content".data(using: .utf8)!
+			self.cloudProviderMock.files["/NewFileFromCloud"] = Data("NewFileFromCloud content".utf8)
 			let enumerationTaskRecord = ItemEnumerationTaskRecord(correspondingItem: rootItemMetadata.id!, pageToken: nil)
 			let secondEnumerationTask = ItemEnumerationTask(taskRecord: enumerationTaskRecord, itemMetadata: rootItemMetadata)
 			return taskExecutor.execute(task: secondEnumerationTask)

@@ -1,6 +1,7 @@
 disabled_rules:
   - file_length
   - line_length
+  - redundant_void_return
   - todo
   - type_body_length
 
@@ -13,6 +14,9 @@ included:
   - CryptomatorFileProviderTests
   - FileProviderExtension
   - FileProviderExtensionUI
+
+excluded:
+  - CryptomatorCommon/.build
 
 identifier_name:
   min_length: 1

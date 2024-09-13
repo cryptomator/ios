@@ -89,7 +89,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let page = NSFileProviderPage(NSFileProviderPage.initialPageSortedByName as Data)
 		let nextPageToken = "Foo"
-		let nextFileProviderPage = NSFileProviderPage(nextPageToken.data(using: .utf8)!)
+		let nextFileProviderPage = NSFileProviderPage(Data(nextPageToken.utf8))
 		let itemList = FileProviderItemList(items: items, nextPageToken: nextFileProviderPage)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)
@@ -107,7 +107,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 		let expectation = XCTestExpectation()
 		let enumerator = createFullyMockedEnumerator(for: .rootContainer)
 		let pageToken = "Foo"
-		let page = NSFileProviderPage(pageToken.data(using: .utf8)!)
+		let page = NSFileProviderPage(Data(pageToken.utf8))
 		let itemList = FileProviderItemList(items: items, nextPageToken: nil)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		adapterMock.enumerateItemsForWithPageTokenReturnValue = Promise(itemList)

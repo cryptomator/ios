@@ -18,20 +18,22 @@ extension UIImage {
 	convenience init?(vaultIconFor cloudProviderType: CloudProviderType, state: UIImage.State) {
 		var assetName: String
 		switch cloudProviderType {
+		case .box:
+			assetName = "box-vault"
 		case .dropbox:
 			assetName = "dropbox-vault"
 		case .googleDrive:
 			assetName = "google-drive-vault"
+		case let .localFileSystem(localFileSystemType):
+			assetName = UIImage.getVaultIcon(for: localFileSystemType)
 		case .oneDrive:
 			assetName = "onedrive-vault"
 		case .pCloud:
 			assetName = "pcloud-vault"
-		case .webDAV:
-			assetName = "webdav-vault"
-		case let .localFileSystem(localFileSystemType):
-			assetName = UIImage.getVaultIcon(for: localFileSystemType)
 		case .s3:
 			assetName = "s3-vault"
+		case .webDAV:
+			assetName = "webdav-vault"
 		}
 		if state == .highlighted {
 			assetName += "-selected"
@@ -51,20 +53,22 @@ extension UIImage {
 	convenience init?(storageIconFor cloudProviderType: CloudProviderType) {
 		var assetName: String
 		switch cloudProviderType {
+		case .box:
+			assetName = "box"
 		case .dropbox:
 			assetName = "dropbox"
 		case .googleDrive:
 			assetName = "google-drive"
+		case let .localFileSystem(localFileSystemType):
+			assetName = UIImage.getStorageIcon(for: localFileSystemType)
 		case .oneDrive:
 			assetName = "onedrive"
 		case .pCloud:
 			assetName = "pcloud"
-		case .webDAV:
-			assetName = "webdav"
-		case let .localFileSystem(localFileSystemType):
-			assetName = UIImage.getStorageIcon(for: localFileSystemType)
 		case .s3:
 			assetName = "s3"
+		case .webDAV:
+			assetName = "webdav"
 		}
 		self.init(named: assetName)
 	}

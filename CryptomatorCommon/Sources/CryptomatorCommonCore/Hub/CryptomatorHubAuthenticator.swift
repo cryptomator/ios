@@ -33,7 +33,6 @@ public enum CryptomatorHubAuthenticatorError: Error {
 	case unexpectedResponse
 	case deviceNameAlreadyExists
 
-	case unexpectedPrivateKeyFormat
 	case invalidVaultConfig
 	case invalidHubConfig
 	case invalidBaseURL
@@ -154,13 +153,9 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	}
 
 	private func getEncryptedUserKeyJWE(userDto: UserDto, setupCode: String, publicKey: P384.KeyAgreement.PublicKey) throws -> JWE {
-		guard let privateKey = userDto.privateKey.data(using: .utf8) else {
-			throw CryptomatorHubAuthenticatorError.unexpectedPrivateKeyFormat
-		}
+		let privateKey = Data(userDto.privateKey.utf8)
 		let jwe = try JWE(compactSerialization: privateKey)
-
 		let userKey = try JWEHelper.decryptUserKey(jwe: jwe, setupCode: setupCode)
-
 		return try JWEHelper.encryptUserKey(userKey: userKey, deviceKey: publicKey)
 	}
 

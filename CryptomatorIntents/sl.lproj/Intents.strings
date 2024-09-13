@@ -1,11 +1,33 @@
 "common.failureReason" = "Vzrok za neuspeh";
+"common.false" = "napačno";
 "common.folder" = "Mapa";
+"common.true" = "pravilno";
 "common.vault" = "Trezor";
+
+"getFolderIntent.description" = "Vrne objekt z mapo za dano pot v danem trezorju.";
 "getFolderIntent.path" = "Pot";
+"getFolderIntent.text" = "Pridobi mapo na lokaciji ${path} v ${vault}";
+"getFolderIntent.title" = "Pridobi mapo";
+
+"isUnlockedIntent.description" = "Vrne če je določen trezor odklenjen.";
 "isUnlockedIntent.title" = "Je zaklenjen";
+
+"isVaultLockedIntent.title" = "Ali je trezor zaklenjen";
+"isVaultUnlockedIntent.text" = "Ali je ${vault} odklenjen?";
+
+"lockVaultIntent.description" = "Zaklene določen trezor.";
+"lockVaultIntent.text" = "Zakleni ${vault}";
 "lockVaultIntent.title" = "Zakleni trezor";
+
+"openVaultIntent.description" = "Odpre določen trezor v aplikaciji Datoteke.";
+"openVaultIntent.text" = "Odpre ${vault} v aplikaciji Datoteke";
 "openVaultIntent.title" = "Odpri trezor";
+
+"saveFileIntent.description" = "Shrani datoteko v trezor.";
 "saveFileIntent.file" = "Datoteka";
+"saveFileIntent.parameter.ignoreExisting" = "Ignoriraj obstoječo datoteko z enakim imenom";
+"saveFileIntent.text" = "Shrani ${file} v ${folder}";
 "saveFileIntent.title" = "Shrani datoteko";
 
 "vaultFolder.displayName" = "Mapa trezorja";
+"vaultFolder.vaultIdentifier" = "Identifikator trezorja";

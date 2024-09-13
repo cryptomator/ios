@@ -28,11 +28,11 @@ class CustomCloudProviderMock: CloudProvider {
 		"/Directory 1/Directory 2"
 	]
 	var files: [String: Data?] = [
-		"/File 1": "File 1 content".data(using: .utf8),
-		"/File 2": "File 2 content".data(using: .utf8),
-		"/File 3": "File 3 content".data(using: .utf8),
-		"/File 4": "File 4 content".data(using: .utf8),
-		"/Directory 1/File 5": "File 5 content".data(using: .utf8)
+		"/File 1": Data("File 1 content".utf8),
+		"/File 2": Data("File 2 content".utf8),
+		"/File 3": Data("File 3 content".utf8),
+		"/File 4": Data("File 4 content".utf8),
+		"/Directory 1/File 5": Data("File 5 content".utf8)
 	]
 	var lastModifiedDate: [String: Date?] = ["/Directory 1": nil,
 	                                         "/Directory 1/Directory 2": nil,

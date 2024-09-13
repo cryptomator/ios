@@ -157,7 +157,7 @@
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros.\n\n Com Cryptomator, a chave para os seus dados está nas suas mãos. O Cryptomator criptografa os seus dados de maneira rápida e fácil.\n\n Este aplicativo está totalmente integrado no aplicativo Ficheiros. Certifique-se de ativar o Cryptomator no aplicativo Ficheiros para puder aceder aos seus cofres.";
+"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger os seus ficheiros.\n\n Com o Cryptomator, a chave para os seus dados está nas suas mãos. O Cryptomator criptografa os seus dados de forma rápida e fácil.\n\n Esta aplicação está totalmente integrada na aplicação Ficheiros. Certifique-se de ativar o Cryptomator na aplicação Ficheiros para poder aceder aos seus cofres.";
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Versão de teste desbloqueada";
