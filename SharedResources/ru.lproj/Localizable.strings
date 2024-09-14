@@ -30,7 +30,7 @@
 "common.cells.openInFilesApp" = "Открыть в \"Файлах\"";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL";
-"common.cells.username" = "Имя пользователя";
+"common.cells.username" = "Логин";
 "common.footer.learnMore" = "Подробнее.";
 "common.hud.authenticating" = "Аутентификация…";
 
@@ -225,7 +225,7 @@
 "s3Authentication.displayName" = "Отображаемое имя";
 "s3Authentication.accessKey" = "Ключ доступа";
 "s3Authentication.secretKey" = "Секретный ключ";
-"s3Authentication.existingBucket" = "Существующий бакет";
+"s3Authentication.existingBucket" = "Имеющийся бакет";
 "s3Authentication.endpoint" = "Конечная точка";
 "s3Authentication.region" = "Регион";
 "s3Authentication.error.invalidCredentials" = "Неверные учётные данные.";
