@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/Digest",
       "state" : {
-        "revision" : "bb5de567a7b109a473ef5fddd3f02f1e5b9e2a41",
-        "version" : "1.7.0"
+        "revision" : "844a17be22efaa443130d081f2c4fa5f12c68e91",
+        "version" : "1.8.0"
       }
     },
     {
@@ -221,8 +221,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/SwiftECC",
       "state" : {
-        "revision" : "0efa7eed9eeedb93e6d42bc4a18a40ef5c1ef2d0",
-        "version" : "5.3.0"
+        "revision" : "05733024083e9ef1a57f436dc59fe00bdf42d2a2",
+        "version" : "5.4.0"
       }
     },
     {

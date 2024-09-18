@@ -5,6 +5,7 @@
 //  Created by Philipp Schmid on 29.06.22.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
@@ -78,11 +79,16 @@ public struct S3CredentialManager: S3CredentialManagerType {
 extension S3CredentialManager {
 	private static var inMemoryDB: DatabaseQueue {
 		var configuration = Configuration()
-		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
+		// Workaround for a SQLite regression (siehe https://github.com/groue/GRDB.swift/issues/1171 für weitere Details)
 		configuration.acceptsDoubleQuotedStringLiterals = true
-		let inMemoryDB = DatabaseQueue(configuration: configuration)
-		try? CryptomatorDatabase.migrator.migrate(inMemoryDB)
-		return inMemoryDB
+		do {
+			let inMemoryDB = try DatabaseQueue(configuration: configuration)
+			try CryptomatorDatabase.migrator.migrate(inMemoryDB)
+			return inMemoryDB
+		} catch {
+			DDLogError("Failed to initialize in-memory database: \(error)")
+			fatalError("Failed to initialize in-memory database")
+		}
 	}
 
 	public static let demo = S3CredentialManager(keychain: CryptomatorKeychain(service: "s3CredentialDemo"))

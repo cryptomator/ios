@@ -15,13 +15,14 @@ private enum CryptomatorDatabaseKey: DependencyKey {
 	static let liveValue: DatabaseWriter = CryptomatorDatabase.live
 
 	static var testValue: DatabaseWriter {
-		let inMemoryDB = DatabaseQueue(configuration: .defaultCryptomatorConfiguration)
 		do {
+			let inMemoryDB = try DatabaseQueue(configuration: .defaultCryptomatorConfiguration)
 			try CryptomatorDatabase.migrator.migrate(inMemoryDB)
+			return inMemoryDB
 		} catch {
-			DDLogError("Failed to migrate in-memory database: \(error)")
+			DDLogError("Failed to initialize in-memory database: \(error)")
+			fatalError("Failed to initialize in-memory database")
 		}
-		return inMemoryDB
 	}
 }
 

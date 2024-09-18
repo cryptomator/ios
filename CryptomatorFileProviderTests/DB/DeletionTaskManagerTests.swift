@@ -16,7 +16,7 @@ class DeletionTaskManagerTests: XCTestCase {
 	var itemMetadataManager: ItemMetadataDBManager!
 
 	override func setUpWithError() throws {
-		let inMemoryDB = DatabaseQueue()
+		let inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
 		manager = try DeletionTaskDBManager(database: inMemoryDB)
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)
