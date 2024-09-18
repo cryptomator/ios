@@ -31,7 +31,7 @@ private struct HubVaultRow: Codable, Equatable, PersistableRecord, FetchableReco
 		case vaultUID, subscriptionState
 	}
 
-	public func encode(to container: inout PersistenceContainer) {
+	public func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.vaultUID] = vaultUID
 		container[Columns.subscriptionState] = subscriptionState
 	}

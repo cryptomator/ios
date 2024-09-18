@@ -35,7 +35,7 @@ public struct VaultAccount: Decodable, FetchableRecord, TableRecord, Equatable {
 }
 
 extension VaultAccount: PersistableRecord {
-	public func encode(to container: inout PersistenceContainer) {
+	public func encode(to container: inout PersistenceContainer) throws {
 		container[VaultAccount.vaultUIDKey] = vaultUID
 		container[VaultAccount.delegateAccountUIDKey] = delegateAccountUID
 		container[VaultAccount.vaultPathKey] = vaultPath

@@ -18,17 +18,17 @@ struct VaultListPosition: Codable {
 extension VaultListPosition: FetchableRecord, MutablePersistableRecord {
 	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
 
-	mutating func didInsert(with rowID: Int64, for column: String?) {
-		id = rowID
+	mutating func didInsert(_ inserted: InsertionSuccess) {
+		id = inserted.rowID
 	}
 
-	init(row: Row) {
+	init(row: Row) throws {
 		self.id = row[Column.rowID]
 		self.position = row[Columns.position]
 		self.vaultUID = row[Columns.vaultUID]
 	}
 
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Column.rowID] = id
 		container[Columns.position] = position
 		container[Columns.vaultUID] = vaultUID

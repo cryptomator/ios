@@ -35,7 +35,7 @@ extension CachedVault: FetchableRecord, TableRecord, PersistableRecord {
 		case vaultUID, masterkeyFileData, vaultConfigToken, lastUpToDateCheck, masterkeyFileLastModifiedDate, vaultConfigLastModifiedDate
 	}
 
-	public func encode(to container: inout PersistenceContainer) {
+	public func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.vaultUID] = vaultUID
 		container[Columns.masterkeyFileData] = masterkeyFileData
 		container[Columns.vaultConfigToken] = vaultConfigToken
