@@ -79,7 +79,7 @@ public struct S3CredentialManager: S3CredentialManagerType {
 extension S3CredentialManager {
 	private static var inMemoryDB: DatabaseQueue {
 		var configuration = Configuration()
-		// Workaround for a SQLite regression (siehe https://github.com/groue/GRDB.swift/issues/1171 für weitere Details)
+		// Workaround for a SQLite regression (see https://github.com/groue/GRDB.swift/issues/1171 for more details)
 		configuration.acceptsDoubleQuotedStringLiterals = true
 		do {
 			let inMemoryDB = try DatabaseQueue(configuration: configuration)
