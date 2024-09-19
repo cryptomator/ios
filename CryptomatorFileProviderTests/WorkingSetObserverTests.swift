@@ -22,7 +22,7 @@ class WorkingSetObserverTests: XCTestCase {
 
 	override func setUpWithError() throws {
 		notificatorMock = FileProviderNotificatorTypeMock()
-		observer = WorkingSetObserver(domainIdentifier: .test, database: try DatabaseQueue(), notificator: notificatorMock, uploadTaskManager: UploadTaskManagerMock(), cachedFileManager: CloudTaskExecutorTestCase.CachedFileManagerMock())
+		observer = try WorkingSetObserver(domainIdentifier: .test, database: DatabaseQueue(), notificator: notificatorMock, uploadTaskManager: UploadTaskManagerMock(), cachedFileManager: CloudTaskExecutorTestCase.CachedFileManagerMock())
 	}
 
 	func testHandleNewWorkingSetUpdate() throws {
