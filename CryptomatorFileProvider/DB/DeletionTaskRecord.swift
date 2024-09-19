@@ -30,7 +30,7 @@ extension DeletionTaskRecord {
 }
 
 extension DeletionTaskRecord: PersistableRecord {
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.correspondingItem] = correspondingItem
 		container[Columns.cloudPath] = cloudPath
 		container[Columns.parentID] = parentID

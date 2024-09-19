@@ -21,7 +21,7 @@ struct DownloadTaskRecord: Decodable, FetchableRecord, TableRecord {
 }
 
 extension DownloadTaskRecord: PersistableRecord {
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.correspondingItem] = correspondingItem
 		container[Columns.replaceExisting] = replaceExisting
 		container[Columns.localURL] = localURL

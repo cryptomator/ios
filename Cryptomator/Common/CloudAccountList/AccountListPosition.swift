@@ -20,17 +20,17 @@ extension AccountListPosition: FetchableRecord, MutablePersistableRecord {
 	static let databaseSelection: [SQLSelectable] = [AllColumns(), Column.rowID]
 	static let account = belongsTo(CloudProviderAccount.self)
 
-	mutating func didInsert(with rowID: Int64, for column: String?) {
-		id = rowID
+	mutating func didInsert(_ inserted: InsertionSuccess) {
+		id = inserted.rowID
 	}
 
-	init(row: Row) {
+	init(row: Row) throws {
 		self.id = row[Column.rowID]
 		self.position = row[Columns.position]
 		self.accountUID = row[Columns.accountUID]
 	}
 
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Column.rowID] = id
 		container[Columns.position] = position
 		container[Columns.accountUID] = accountUID

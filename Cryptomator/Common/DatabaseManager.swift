@@ -97,7 +97,7 @@ class DatabaseManager {
 		let observation = ValueObservation
 			.tracking { db in try Row.fetchAll(db, request) }
 			.removeDuplicates()
-			.map { rows in rows.map(AccountWithDisplayName.init(row:)) }
+			.map { rows in try rows.map(AccountWithDisplayName.init(row:)) }
 			.map { annotatedAccounts in annotatedAccounts.map(\.account) }
 		return observation.start(in: database, scheduling: .immediate, onError: onError, onChange: onChange)
 	}

@@ -18,7 +18,7 @@ class UploadTaskManagerTests: XCTestCase {
 	var inMemoryDB: DatabaseQueue!
 
 	override func setUpWithError() throws {
-		inMemoryDB = DatabaseQueue()
+		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
 		manager = UploadTaskDBManager(database: inMemoryDB)
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)

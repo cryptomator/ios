@@ -19,7 +19,7 @@ class CachedFileManagerTests: CacheTestCase {
 
 	override func setUpWithError() throws {
 		try super.setUpWithError()
-		inMemoryDB = DatabaseQueue()
+		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
 		manager = CachedFileDBManager(database: inMemoryDB, fileManagerHelper: .init(fileCoordinator: .init()))
 		metadataManager = ItemMetadataDBManager(database: inMemoryDB)
