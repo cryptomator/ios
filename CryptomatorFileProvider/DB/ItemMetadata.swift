@@ -68,6 +68,10 @@ public class ItemMetadata: Record, Codable {
 		super.init()
 	}
 
+	override public func didInsert(_ inserted: InsertionSuccess) {
+		id = inserted.rowID
+	}
+
 	override public func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.id] = id
 		container[Columns.name] = name
@@ -83,10 +87,6 @@ public class ItemMetadata: Record, Codable {
 		container[Columns.tagData] = tagData
 	}
 
-	override public func didInsert(_ inserted: InsertionSuccess) {
-		id = inserted.rowID
-	}
-
 	enum Columns: String, ColumnExpression {
 		case id, name, type, size, parentID, lastModifiedDate, statusCode, cloudPath, isPlaceholderItem, isMaybeOutdated, favoriteRank, tagData
 	}
@@ -97,7 +97,6 @@ public class ItemMetadata: Record, Codable {
 }
 
 extension ItemStatus: DatabaseValueConvertible {}
-
 extension ItemMetadata: Equatable {
 	public static func == (lhs: ItemMetadata, rhs: ItemMetadata) -> Bool {
 		lhs.id == rhs.id && lhs.name == rhs.name && lhs.type == rhs.type && lhs.size == rhs.size && lhs.parentID == rhs.parentID && lhs.lastModifiedDate == rhs.lastModifiedDate && lhs.statusCode == rhs.statusCode && lhs.cloudPath == rhs.cloudPath && lhs.isPlaceholderItem == rhs.isPlaceholderItem && lhs.isMaybeOutdated == rhs.isMaybeOutdated && lhs.favoriteRank == rhs.favoriteRank && lhs.tagData == rhs.tagData
