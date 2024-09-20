@@ -14,6 +14,7 @@
 "common.button.close" = "ปิด";
 "common.button.confirm" = "ยืนยัน";
 "common.button.create" = "สร้าง";
+"common.button.createFolder" = "สร้างโฟลเดอร์";
 "common.button.done" = "เสร็จสิ้น";
 "common.button.download" = "ดาวน์โหลด";
 "common.button.edit" = "แก้ไข";
@@ -34,27 +35,45 @@
 "common.hud.authenticating" = "กำลังตรวจสอบ…";
 
 "accountList.header.title" = "การรับรอง";
+"accountList.emptyList.message" = "แตะที่นี่เพื่อเพิ่มบัญชี";
 
 "addVault.title" = "เพิ่ม Vault";
 "addVault.createNewVault.title" = "สร้าง Vault ใหม่";
+"addVault.createNewVault.setVaultName.header.title" = "เลือกชื่อให้ Vault";
 "addVault.createNewVault.setVaultName.cells.name" = "ชื่อ Vault";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "ชื่อ vault ไม่สามารถเว้นว่างได้";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator ควรเก็บไฟล์ของคุณไว้ที่ไหน?";
+"addVault.createNewVault.password.enterPassword.header" = "ป้อนรหัสผ่านใหม่ของคุณ";
+"addVault.createNewVault.password.confirmPassword.header" = "ป้อนรหัสผ่านใหม่ของคุณอีกครั้ง";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "ยืนยันรหัสผ่าน?";
+"addVault.createNewVault.password.error.emptyPassword" = "รหัสผ่านไม่สามารถเว้นว่างได้";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "รหัสผ่านไม่ตรงกัน";
+"addVault.createNewVault.password.error.tooShortPassword" = "รหัสผ่านต้องมีตัวอักษรอย่างน้อย 8 ตัว";
 "addVault.createNewVault.progress" = "กำลังสร้าง Vault…";
 "addVault.openExistingVault.title" = "เปิด Vault";
 "addVault.openExistingVault.detectedMasterkey.add" = "เพิ่ม Vault นี้";
 "addVault.openExistingVault.downloadVault.progress" = "กำลังดาวน์โหลด Vault…";
 "addVault.openExistingVault.password.footer" = "ใส่รหัสผ่านสำหรับ \"%@\"";
+"addVault.openExistingVault.progress" = "กำลังเพิ่ม Vault…";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
+
+"changePassword.error.invalidOldPassword" = "รหัสผ่านปัจจุบันผิด กรุญาลองใหม่อีกครั้ง";
+"changePassword.header.currentPassword.title" = "ใส่รหัสผ่านปัจจุบัน";
+"changePassword.header.newPassword.title" = "ป้อนรหัสผ่านใหม่ของคุณ";
+"changePassword.header.newPasswordConfirmation.title" = "ป้อนรหัสผ่านใหม่ของคุณอีกครั้ง";
 "changePassword.progress" = "กำลังเปลี่ยนรหัสผ่าน…";
 
 "chooseFolder.emptyFolder.footer" = "โฟลเดอร์นี้ว่างเปล่า";
+"chooseFolder.createNewFolder.header.title" = "เลือกชื่อให้โฟลเดอร์";
 "chooseFolder.createNewFolder.cells.name" = "ชื่อโฟลเดอร์";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "ชื่อโฟลเดอร์ไม่สามารถเว้นว่างได้";
 "chooseFolder.createNewFolder.progress" = "กำลังสร้างโฟลเดอร์…";
 
 "cloudProvider.error.itemNotFound" = "ไม่พบ \"%@\"";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" มีอยู่แล้ว";
+"cloudProvider.error.quotaInsufficient" = "คุณมีพื้นที่ว่างไม่เพียงพอ";
 
 "cloudProviderType.localFileSystem" = "ผู้ให้บริการอื่น";
 
@@ -64,6 +83,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "รหัสผ่านไม่ถูกต้อง";
 "fileProvider.error.defaultLock.title" = "ต้องปลดล็อก";
 "fileProvider.error.unlockButton" = "ปลดล็อก";
+"fileProvider.clearFileFromCache.title" = "ล้างไฟล์จากแคช";
 "fileProvider.uploadProgress.connecting" = "เชื่อมต่อ...";
 "fileProvider.uploadProgress.title" = "กำลังอัปโหลด...";
 "fileProvider.uploadProgress.missingDomainError" = "ไม่พบโดเมน";
@@ -72,7 +92,9 @@
 "hubAuthentication.accessNotGranted" = "อุปกรณ์ของคุณยังไม่ได้รับการอนุญาตให้เข้าถึง vault นี้ โปรดขอให้เจ้าของ vault อนุญาต";
 "hubAuthentication.licenseExceeded" = "ระบบ Cryptomator Hub ของคุณมีสิทธิ์การใช้ไม่ถูกต้อง โปรดแจ้งผู้ดูแล Hub เพื่ออัปเกรดหรือต่ออายุสิทธิ์การใช้";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ชื่ออุปกรณ์";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "ลงทะเบียนอุปกรณ์สำเร็จ";
 "hubAuthentication.requireAccountInit.alert.title" = "โปรดดำเนินการ";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "ไปยังโปร์ไฟล์";
 
 "keepUnlocked.alert.title" = "ล็อก Vault?";
 "keepUnlocked.alert.confirm" = "ยืนยันและล็อกทันที";
@@ -88,12 +110,15 @@
 "purchase.beginFreeTrial.alert.title" = "ปลดล็อกการทดลองการใช้งานแล้ว";
 "purchase.expiredTrial" = "ระยะเวลาทดลองใช้งานของคุณหมดอายุแล้ว";
 "purchase.footer.privacyPolicy" = "นโยบายความเป็นส่วนตัว";
+"purchase.footer.termsOfUse" = "เงื่อนไขการใช้งาน";
 "purchase.header.feature.familySharing" = "การแชร์กันในครอบครัว";
 "purchase.header.feature.openSource" = "การพัฒนาแบบ Open-source";
 "purchase.product.donateAndUpgrade" = "บริจาค & อัปเกรด";
+"purchase.product.freeUpgrade" = "อัปเกรดฟรี";
 "purchase.product.lifetimeLicense" = "สิทธิ์ใช้งานตลอดชีพ";
 "purchase.product.lifetimeLicense.duration" = "ครั้งเดียว";
 "purchase.product.pricing.free" = "ฟรี";
+"purchase.product.trial" = "ทดลองใช้ 30 วัน";
 "purchase.product.trial.expirationDate" = "วันหมดอายุ: %@";
 "purchase.product.trial.duration" = "30 วัน";
 "purchase.product.yearlySubscription" = "สมาชิกรายปี";
@@ -103,6 +128,7 @@
 "purchase.restorePurchase.validTrialFound.alert.title" = "การทดลองใช้งานดำเนินการต่อ";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "การกู้คืนสำเร็จ";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "ไม่มีเวอร์ชันเต็ม";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "สามารถอัปเกรดได้";
 "purchase.retry.button" = "ลอง​ใหม่";
 "purchase.title" = "ปลดล็อกเวอร์ชั่นเต็ม";
 "purchase.unlockedFullVersion.title" = "ขอบคุณ";
@@ -117,11 +143,13 @@
 "settings.debugMode" = "โหมดดีบัก";
 "settings.manageSubscriptions" = "จัดการการสมัครสมาชิก";
 "settings.rateApp" = "ให้คะแนนแอป";
+"settings.sendLogFile" = "ส่งไฟล์บันทึก";
 "settings.shortcutsGuide" = "คู่มือทางลัด";
 "settings.unlockFullVersion" = "ปลดล็อกเวอร์ชั่นเต็ม";
 
 "snapshots.fileprovider.file1" = "/การบัญชี.numbers";
 "snapshots.fileprovider.file2" = "/การนำเสนอครั้งสุดท้าย.key";
+"snapshots.fileprovider.file3" = "/ตัวอย่างผลิตภัณฑ์.mov";
 "snapshots.fileprovider.file4" = "/ข้อเสนอ.docx";
 "snapshots.fileprovider.file5" = "/รายงาน.pdf";
 "snapshots.fileprovider.folder3" = "/โปรเจ็คลับ";
@@ -149,6 +177,8 @@
 "untrustedTLSCertificate.title" = "TLS Certificate ไม่ถูกต้อง";
 "untrustedTLSCertificate.add" = "เชื่อถือ";
 "untrustedTLSCertificate.dismiss" = "ไม่เชื่อถือ";
+
+"upgrade.title" = "ข้อเสนอการอัปเกรด";
 "upgrade.notEligible.alert.title" = "การอัปเกรดล้มเหลว";
 
 "vaultDetail.button.changeVaultPassword" = "เปลี่ยนรหัสผ่าน";
@@ -159,14 +189,19 @@
 "vaultDetail.disabledBiometricalUnlock.footer" = "หากคุณเปิดใช้งาน %@ รหัสผ่าน vault ของคุณจะถูกเก็บไว้ในพวงกุญแจ iOS";
 "vaultDetail.info.footer.accountInfo" = "เข้าสู่ระบบในฐานะ %@ ผ่าน %@";
 "vaultDetail.keepUnlocked.title" = "ระยะเวลาในการปลดล็อก";
+"vaultDetail.locked.footer" = "Vault ของคุณถูกล็อกอยู่";
 "vaultDetail.moveVault.progress" = "กำลังย้าย…";
+"vaultDetail.removeVault.footer" = "ขั้นตอนนี้เพียงลบ vault ออกจากรายการทั้งหมด แต่ไม่ลบไฟล์ที่ถูกเข้ารหัสใดๆ";
 "vaultDetail.renameVault.progress" = "กำลังเปลี่ยนชื่อ…";
 "vaultDetail.unlockVault.footer" = "กรอกรหัสผ่านสำหรับ \"%@\" เพื่อเก็บไว้ในพวงกุญแจ iOS และเปิดใช้งาน %@";
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "แตะที่นี่เพื่อเพิ่ม vault";
+"vaultList.remove.alert.title" = "ลบ Vault?";
 
 "webDAVAuthentication.httpConnection.alert.title" = "ใช้ HTTPS?";
 "webDAVAuthentication.httpConnection.change" = "เปลี่ยนเป็น HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "ใช้ HTTPS";
+
+"Retry Upload" = "ลองอัปโหลดอีกครั้ง";
 "Clear from Cache" = "ล้างจากแคช";
