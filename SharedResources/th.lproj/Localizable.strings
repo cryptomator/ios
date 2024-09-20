@@ -1,14 +1,40 @@
 "common.button.cancel" = "ยกเลิก";
 "common.button.change" = "เปลี่ยน";
 "common.button.close" = "ปิด";
+"common.button.confirm" = "ยืนยัน";
 "common.button.done" = "เสร็จสิ้น";
+"common.button.edit" = "แก้ไข";
 "common.button.next" = "ถัดไป";
+"common.button.ok" = "ตกลง";
+"common.button.refresh" = "รีเฟรช";
+"common.button.retry" = "ลอง​ใหม่";
+"common.cells.password" = "รหัสผ่าน";
+"common.cells.url" = "URL";
 
 "addVault.title" = "เพิ่ม Vault";
 "addVault.createNewVault.title" = "สร้าง Vault ใหม่";
 "addVault.createNewVault.setVaultName.cells.name" = "ชื่อ Vault";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator ควรเก็บไฟล์ของคุณไว้ที่ไหน?";
 "addVault.openExistingVault.title" = "เปิด Vault";
+
+"biometryType.faceID" = "Face ID";
+
+"fileProvider.onboarding.title" = "ยินดีต้อนรับ";
 "fileProvider.error.unlockButton" = "ปลดล็อก";
+"hubAuthentication.accessNotGranted" = "อุปกรณ์ของคุณยังไม่ได้รับการอนุญาตให้เข้าถึง vault นี้ โปรดขอให้เจ้าของ vault อนุญาต";
+"hubAuthentication.licenseExceeded" = "ระบบ Cryptomator Hub ของคุณมีสิทธิ์การใช้ไม่ถูกต้อง โปรดแจ้งผู้ดูแล Hub เพื่ออัปเกรดหรือต่ออายุสิทธิ์การใช้";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "ชื่ออุปกรณ์";
+"keepUnlockedDuration.auto.shortDisplayName" = "อัตโนมัติ";
+
+"onboarding.title" = "ยินดีต้อนรับ";
+"purchase.product.pricing.free" = "ฟรี";
+"purchase.retry.button" = "ลอง​ใหม่";
+"settings.contact" = "ติดต่อ";
+"snapshots.main.vault2" = "/ครอบครัว";
+"trialStatus.expired" = "หมดอายุ";
 
 "unlockVault.button.unlock" = "ปลดล็อก";
+
+"vaultDetail.button.changeVaultPassword" = "เปลี่ยนรหัสผ่าน";
+"vaultDetail.button.moveVault" = "ย้าย";
+"vaultDetail.moveVault.progress" = "กำลังย้าย…";
