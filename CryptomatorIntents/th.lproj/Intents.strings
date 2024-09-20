@@ -1,1 +1,4 @@
+"common.true" = "ถูกต้อง";
 "common.vault" = "Vault";
+"getFolderIntent.path" = "ที่อยู่";
+"saveFileIntent.file" = "ไฟล์";
