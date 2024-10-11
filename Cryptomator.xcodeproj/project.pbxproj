@@ -434,7 +434,8 @@
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
-		B330CB452CB5735300C21E03 /* ReauthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* ReauthenticationViewController.swift */; };
+		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
+		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1042,7 +1043,8 @@
 		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
-		B330CB442CB5735000C21E03 /* ReauthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReauthenticationViewController.swift; sourceTree = "<group>"; };
+		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
+		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1665,8 +1667,9 @@
 				4A9FCB0B251A02A3002A8B41 /* FileProviderExtensionUI.entitlements */,
 				4AA621EB249A6A8400A0BCBD /* Info.plist */,
 				4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */,
+				B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */,
 				4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */,
-				B330CB442CB5735000C21E03 /* ReauthenticationViewController.swift */,
+				B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */,
 				4A6A520C268B5EF7006F7368 /* RootViewController.swift */,
 				4A9BED65268F2D9C00721BAA /* UnlockVaultViewController.swift */,
 				4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */,
@@ -2673,7 +2676,8 @@
 				4A804082276952C300D7D999 /* FileProviderCoordinatorSnapshotMock.swift in Sources */,
 				4A9BED66268F2D9D00721BAA /* UnlockVaultViewController.swift in Sources */,
 				4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */,
-				B330CB452CB5735300C21E03 /* ReauthenticationViewController.swift in Sources */,
+				B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */,
+				B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */,
 				4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */,
 				4AFD8C0F269304A700F77BA6 /* UnlockVaultViewModel.swift in Sources */,
 			);

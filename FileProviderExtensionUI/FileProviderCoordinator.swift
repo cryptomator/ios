@@ -16,7 +16,6 @@ import LocalAuthentication
 import UIKit
 
 class FileProviderCoordinator: Coordinator {
-	private var isReauthenticationInProgress = false
 	lazy var childCoordinators = [Coordinator]()
 	lazy var navigationController: UINavigationController = {
 		let appearance = UINavigationBarAppearance()
@@ -81,12 +80,12 @@ class FileProviderCoordinator: Coordinator {
 		navigationController.pushViewController(onboardingVC, animated: false)
 	}
 
-	func showReauthentication(vaultName: String) {
-		let reauthenticationVC = ReauthenticationViewController(vaultName: vaultName)
-		reauthenticationVC.coordinator = self
-		navigationController.pushViewController(reauthenticationVC, animated: true)
+	func showUnauthorizedError(vaultName: String) {
+		let unauthorizedErrorVC = UnauthorizedErrorViewController(vaultName: vaultName)
+		unauthorizedErrorVC.coordinator = self
+		navigationController.pushViewController(unauthorizedErrorVC, animated: true)
 	}
-	
+
 	func openCryptomatorApp() {
 		let url = URL(string: "cryptomator:")!
 		extensionContext.open(url) { success in
@@ -142,16 +141,11 @@ class FileProviderCoordinator: Coordinator {
 			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
 				break
 			case LocalizedCloudProviderError.unauthorized:
-				self.showReauthentication(vaultName: domain.displayName)
-				self.isReauthenticationInProgress = true
-				return
+				throw FileProviderCoordinatorError.unauthorized(vaultName: domain.displayName)
 			default:
 				throw error
 			}
 		}.then {
-			guard !self.isReauthenticationInProgress else {
-					return
-				}
 			let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 			if let vaultConfigToken = cachedVault.vaultConfigToken {
 				let unverifiedVaultConfig = try UnverifiedVaultConfig(token: vaultConfigToken)

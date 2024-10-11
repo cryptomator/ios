@@ -1,5 +1,5 @@
 //
-//  ReauthenticationViewController.swift
+//  UnauthorizedErrorViewController.swift
 //  Cryptomator
 //
 //  Created by Majid Achhoud on 08.10.24.
@@ -9,7 +9,7 @@
 import CryptomatorCommonCore
 import UIKit
 
-class ReauthenticationViewController: UITableViewController {
+class UnauthorizedErrorViewController: UITableViewController {
 	weak var coordinator: FileProviderCoordinator?
 	private var vaultName: String
 
@@ -60,7 +60,7 @@ class ReauthenticationViewController: UITableViewController {
 	// MARK: - UITableViewDelegate
 
 	override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-		return ReauthenticationHeaderView(vaultName: vaultName)
+		return UnauthorizedErrorHeaderView(vaultName: vaultName)
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -69,7 +69,7 @@ class ReauthenticationViewController: UITableViewController {
 	}
 }
 
-private class ReauthenticationHeaderView: LargeHeaderFooterView {
+private class UnauthorizedErrorHeaderView: LargeHeaderFooterView {
 	init(vaultName: String) {
 		let config = UIImage.SymbolConfiguration(pointSize: 100)
 		let symbolImage = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: config)?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
@@ -79,4 +79,3 @@ private class ReauthenticationHeaderView: LargeHeaderFooterView {
 		super.init(image: symbolImage, infoText: infoText)
 	}
 }
-

@@ -101,7 +101,6 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Das für %@ gespeicherte Passwort ist falsch. Bitte versuche es erneut und gib dein Passwort ein, um %@ wieder zu aktivieren.";
 "fileProvider.error.defaultLock.title" = "Entsperren erforderlich";
 "fileProvider.error.defaultLock.message" = "Um auf den Inhalt deines Tresors zuzugreifen und ihn anzuzeigen, muss dieser entsperrt werden.";
-"fileprovider.error.reauthentication" = "Der Cloud-Zugriff auf Ihren Tresor \"%@\" muss neu authentifiziert werden. Öffnen Sie die Haupt-App, um dies zu tun.";
 "fileProvider.error.unlockButton" = "Entsperren";
 "fileProvider.clearFileFromCache.title" = "Datei aus Cache löschen";
 "fileProvider.clearFileFromCache.message" = "Dies entfernt nur die lokale Datei von deinem Gerät und löscht nicht die Datei in der Cloud.";
