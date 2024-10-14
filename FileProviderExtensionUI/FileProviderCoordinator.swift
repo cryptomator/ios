@@ -198,6 +198,15 @@ class FileProviderCoordinator: Coordinator {
 		guard let hostViewController = hostViewController else {
 			return
 		}
+
+		if let fileProviderError = error as? FileProviderCoordinatorError {
+			switch fileProviderError {
+			case let .unauthorized(vaultName):
+				showUnauthorizedError(vaultName: vaultName)
+				return
+			}
+		}
+
 		handleError(error, for: hostViewController)
 	}
 }
