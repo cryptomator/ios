@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Het wachtwoord dat is opgeslagen voor %@ is verkeerd. Probeer het opnieuw en voer uw wachtwoord in om %@ opnieuw in te schakelen.";
 "fileProvider.error.defaultLock.title" = "Ontgrendeling vereist";
 "fileProvider.error.defaultLock.message" = "Om toegang te krijgen tot de inhoud van je kluis, moet deze worden ontgrendeld.";
+"fileprovider.error.unauthorized.text" = "De toegang tot uw kluis \"%@\" is geweigerd. Open de hoofdapplicatie om uw verbinding te controleren en indien nodig opnieuw te verifiëren.";
 "fileProvider.error.unlockButton" = "Ontgrendel";
 "fileProvider.clearFileFromCache.title" = "Wissen uit cache";
 "fileProvider.clearFileFromCache.message" = "Dit verwijdert alleen het lokale bestand van uw apparaat en verwijdert het bestand in de cloud niet.";
