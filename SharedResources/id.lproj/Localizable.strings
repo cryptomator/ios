@@ -39,11 +39,11 @@
 "accountList.signOut.alert.title" = "Hapus Vault Terkait?";
 "accountList.signOut.alert.message" = "Dengan keluar, semua vault terkait akan dihapus dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat masuk lagi dan menambahkan kembali vault nanti.";
 
-"addVault.title" = "Tambah Vault";
+"addVault.title" = "Tambah Brankas";
 "addVault.createNewVault.title" = "Buat Vault Baru";
 "addVault.createNewVault.purchase" = "Membuat vault baru memerlukan Cryptomator versi lengkap.";
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
-"addVault.createNewVault.setVaultName.cells.name" = "Nama Vault";
+"addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
 "addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
