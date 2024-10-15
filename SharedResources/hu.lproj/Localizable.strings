@@ -98,6 +98,7 @@
 "fileProvider.error.biometricalAuthCanceled.title" = "Feloldás megszakítva";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Helytelen jelszó";
 "fileProvider.error.defaultLock.title" = "Feloldás szükséges";
+"fileprovider.error.unauthorized.text" = "A(z) „%@” széfhez való hozzáférés megtagadva. Nyissa meg a főalkalmazást a kapcsolat ellenőrzéséhez, és hitelesítse újra, ha szükséges.";
 "fileProvider.error.unlockButton" = "Feloldás";
 "fileProvider.clearFileFromCache.title" = "Fájl törlése az átmeneti tárból";
 "fileProvider.clearFileFromCache.message" = "Ez csak a helyi fájlt távolítja el az eszközről, de nem törli a fájlt a felhőben.";
