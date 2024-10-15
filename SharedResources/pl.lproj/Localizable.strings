@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Hasło zapisane dla %@ jest błędne. Spróbuj ponownie i wpisz hasło, aby ponownie włączyć %@.";
 "fileProvider.error.defaultLock.title" = "Wymagane odblokowanie";
 "fileProvider.error.defaultLock.message" = "Sejf musi być odblokowany aby zobaczyć i mieć dostęp do jego zawartości.";
+"fileprovider.error.unauthorized.text" = "Dostęp do Twojego sejfu \"%@\" został odrzucony. Otwórz aplikację, aby sprawdzić połączenie i w razie konieczności ponownie się uwierzytelnić.";
 "fileProvider.error.unlockButton" = "Odblokuj";
 "fileProvider.clearFileFromCache.title" = "Usuń plik z pamięci podręcznej";
 "fileProvider.clearFileFromCache.message" = "Powoduje to jedynie usunięcie pliku lokalnego z urządzenia, a nie usunięcie pliku w chmurze.";
