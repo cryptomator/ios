@@ -101,7 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "The password that has been saved for %@ is wrong. Please try again and enter your password to re-enable %@.";
 "fileProvider.error.defaultLock.title" = "Unlock Required";
 "fileProvider.error.defaultLock.message" = "To access and show the contents of your vault, it has to be unlocked.";
-"fileprovider.error.reauthentication" = "Access to your vault \"%@\" was denied. Open the main app to check your connection and re-authenticate if needed.";
+"fileprovider.error.unauthorized.text" = "Access to your vault \"%@\" was denied. Open the main app to check your connection and re-authenticate if needed.";
 "fileProvider.error.unlockButton" = "Unlock";
 "fileProvider.clearFileFromCache.title" = "Clear File from Cache";
 "fileProvider.clearFileFromCache.message" = "This only removes the local file from your device and does not delete the file in the cloud.";

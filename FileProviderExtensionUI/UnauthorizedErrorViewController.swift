@@ -71,10 +71,10 @@ class UnauthorizedErrorViewController: UITableViewController {
 
 private class UnauthorizedErrorHeaderView: LargeHeaderFooterView {
 	init(vaultName: String) {
-		let config = UIImage.SymbolConfiguration(pointSize: 100)
+		let config = UIImage.SymbolConfiguration(pointSize: 120)
 		let symbolImage = UIImage(systemName: "exclamationmark.triangle.fill", withConfiguration: config)?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
 
-		let infoText = String(format: LocalizedString.getValue("fileprovider.error.reauthentication"), vaultName)
+		let infoText = String(format: LocalizedString.getValue("fileprovider.error.unauthorized.text"), vaultName)
 
 		super.init(image: symbolImage, infoText: infoText)
 	}

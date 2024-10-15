@@ -63,6 +63,13 @@ class FileProviderCoordinator: Coordinator {
 
 	func handleError(_ error: Error, for viewController: UIViewController) {
 		DDLogError("Error: \(error)")
+		if let fileProviderError = error as? FileProviderCoordinatorError {
+			switch fileProviderError {
+			case let .unauthorized(vaultName):
+				showUnauthorizedError(vaultName: vaultName)
+				return
+			}
+		}
 		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
 		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
 		viewController.present(alertController, animated: true)
@@ -198,15 +205,6 @@ class FileProviderCoordinator: Coordinator {
 		guard let hostViewController = hostViewController else {
 			return
 		}
-
-		if let fileProviderError = error as? FileProviderCoordinatorError {
-			switch fileProviderError {
-			case let .unauthorized(vaultName):
-				showUnauthorizedError(vaultName: vaultName)
-				return
-			}
-		}
-
 		handleError(error, for: hostViewController)
 	}
 }
