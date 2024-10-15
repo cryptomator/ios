@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Сохранённый пароль для %@ неверный. Попробуйте ещё раз и введите пароль для активации %@.";
 "fileProvider.error.defaultLock.title" = "Требуется разблокировка";
 "fileProvider.error.defaultLock.message" = "Хранилище должно быть разблокировано, чтобы получить доступ к его содержимому.";
+"fileprovider.error.unauthorized.text" = "Отказано в доступе к хранилищу \"%@\". Откройте главное приложение, чтобы проверить соединение и при необходимости заново авторизоваться.";
 "fileProvider.error.unlockButton" = "Разблокировать";
 "fileProvider.clearFileFromCache.title" = "Удалить файл из кэша";
 "fileProvider.clearFileFromCache.message" = "Эта операция удаляет только локальный файл с вашего устройства, но не из облака.";
