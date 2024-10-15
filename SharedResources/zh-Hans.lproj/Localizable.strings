@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "已保存至 %@ 的密码不正确，请重新输入您的密码以重新启用 %@。";
 "fileProvider.error.defaultLock.title" = "需要解锁";
 "fileProvider.error.defaultLock.message" = "需解锁才能访问和显示您的保险库中的内容。";
+"fileprovider.error.unauthorized.text" = "无法访问您的密码库 \"%@\" 。打开主应用程序以检查您的连接，并在需要时重新验证。";
 "fileProvider.error.unlockButton" = "解锁";
 "fileProvider.clearFileFromCache.title" = "清除缓存文件";
 "fileProvider.clearFileFromCache.message" = "该操作仅会删除设备中的本地文件，不会删除云存储中的文件";
