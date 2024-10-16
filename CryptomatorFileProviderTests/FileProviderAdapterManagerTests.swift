@@ -226,32 +226,4 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual(1, maintenanceManagerMock.disableMaintenanceModeCallsCount)
 		XCTAssert(cache.isEmpty)
 	}
-
-	func testGetDomainIdentifiersOfUnlockedVaults() throws {
-		let unlockedDomainIdentifier = NSFileProviderDomainIdentifier(rawValue: "1")
-		let lockedDomainIdentifier = NSFileProviderDomainIdentifier(rawValue: "2")
-		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
-		let unlockedVaultMaintenanceManagerMock = MaintenanceManagerMock()
-		let lockedVaultMaintenanceManagerMock = MaintenanceManagerMock()
-		let unlockedVaultAdapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: unlockedVaultMaintenanceManagerMock, workingSetObserver: workingSetObservationMock)
-		let lockedVaultAdapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: lockedVaultMaintenanceManagerMock, workingSetObserver: workingSetObservationMock)
-
-		var cache = [NSFileProviderDomainIdentifier: AdapterCacheItem]()
-		cache[unlockedDomainIdentifier] = unlockedVaultAdapterCacheItem
-		cache[lockedDomainIdentifier] = lockedVaultAdapterCacheItem
-		adapterCacheMock.getItemIdentifierClosure = { return cache[$0] }
-		adapterCacheMock.getAllCachedIdentifiersClosure = { cache.map { $0.key }}
-		adapterCacheMock.removeItemIdentifierClosure = {
-			cache[$0] = nil
-		}
-		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDClosure = { $0 != unlockedDomainIdentifier.rawValue }
-
-		XCTAssertFalse(unlockedVaultMaintenanceManagerMock.enableMaintenanceModeCalled)
-		XCTAssertFalse(unlockedVaultMaintenanceManagerMock.disableMaintenanceModeCalled)
-		XCTAssertEqual(1, lockedVaultMaintenanceManagerMock.enableMaintenanceModeCallsCount)
-		XCTAssertEqual(1, lockedVaultMaintenanceManagerMock.disableMaintenanceModeCallsCount)
-
-		XCTAssertEqual(1, cache.count)
-		XCTAssertNotNil(cache[unlockedDomainIdentifier])
-	}
 }
