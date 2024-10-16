@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "383c51e1a9b6dee3d7b0a1652270aa0aacd29917",
-        "version" : "1.12.0"
+        "revision" : "299be2306bc133b6eefbf18c172a1b5ed9808a44",
+        "version" : "1.12.1"
       }
     },
     {
