@@ -40,7 +40,7 @@ platform :ios do
   desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :beta do
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
+      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -77,7 +77,7 @@ platform :ios do
   private_lane :_app_store do |options|
     Dotenv.overload(options[:env_file])
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
+      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -89,14 +89,16 @@ platform :ios do
   desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :apply_config do
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_FILE_PATH', 'BUNDLE_IDENTIFIER', 'CONFIG_NAME', 'DISPLAY_NAME', 'KEYCHAIN_GROUP']
+      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'CONFIG_NAME', 'DISPLAY_NAME', 'KEYCHAIN_GROUP']
     )
     config_name = ENV['CONFIG_NAME']
     bundle_identifier = ENV['BUNDLE_IDENTIFIER']
     display_name = ENV['DISPLAY_NAME']
     app_group = ENV['APP_GROUP']
     keychain_group = ENV['KEYCHAIN_GROUP']
-    app_icon_file_path = ENV['APP_ICON_FILE_PATH']
+    app_icon_light_file_path = ENV['APP_ICON_LIGHT_FILE_PATH']
+    app_icon_dark_file_path = ENV['APP_ICON_DARK_FILE_PATH']
+    app_icon_tinted_file_path = ENV['APP_ICON_TINTED_FILE_PATH']
     encryption_export_compliance_code = ENV['ENCRYPTION_EXPORT_COMPLIANCE_CODE']
 
     # Update the app identifier
@@ -265,7 +267,7 @@ platform :ios do
     sh("./scripts/create-app-constants.sh #{bundle_identifier}")
 
     # Update the app icon
-    sh("./scripts/create-app-icon.sh #{app_icon_file_path}")
+    sh("./scripts/create-app-icon.sh #{app_icon_light_file_path} #{app_icon_dark_file_path} #{app_icon_tinted_file_path}")
 
     # Update the cloud access secrets file
     sh("./scripts/create-cloud-access-secrets.sh #{config_name}")
