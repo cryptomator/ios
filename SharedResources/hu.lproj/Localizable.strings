@@ -107,6 +107,8 @@
 "fileProvider.uploadProgress.title" = "Feltöltés…";
 "fileProvider.uploadProgress.missingDomainError" = "A domain nem található.";
 "getFolderIntent.error.noVaultSelected" = "Nincs széf kiválasztva.";
+
+"hubAuthentication.title" = "Hub széf";
 "hubAuthentication.accessNotGranted" = "Eszköze még nem kapott engedélyt ehhez a széfhez. Kérje a széf tulajdonosát, hogy engedélyezze a hozzáférést.";
 "hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
