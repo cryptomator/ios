@@ -246,8 +246,6 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		}
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDClosure = { $0 != unlockedDomainIdentifier.rawValue }
 
-		XCTAssertEqual([unlockedDomainIdentifier], fileProviderAdapterManager.getDomainIdentifiersOfUnlockedVaults())
-
 		XCTAssertFalse(unlockedVaultMaintenanceManagerMock.enableMaintenanceModeCalled)
 		XCTAssertFalse(unlockedVaultMaintenanceManagerMock.disableMaintenanceModeCalled)
 		XCTAssertEqual(1, lockedVaultMaintenanceManagerMock.enableMaintenanceModeCallsCount)

@@ -14,7 +14,6 @@ import Promises
 	func lockVault(domainIdentifier: NSFileProviderDomainIdentifier)
 	func gracefulLockVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Error?) -> Void)
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void)
-	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void)
 }
 
 public extension NSFileProviderServiceName {
@@ -39,12 +38,6 @@ public extension VaultLocking {
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier) -> Promise<Bool> {
 		return wrap { replyHandler in
 			self.getIsUnlockedVault(domainIdentifier: domainIdentifier, reply: replyHandler)
-		}
-	}
-
-	func getUnlockedVaultDomainIdentifiers() -> Promise<[NSFileProviderDomainIdentifier]> {
-		return wrap { replyHandler in
-			self.getUnlockedVaultDomainIdentifiers(reply: replyHandler)
 		}
 	}
 }

@@ -35,8 +35,4 @@ public class VaultLockingServiceSource: ServiceSource, VaultLocking {
 	public func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
 		reply(FileProviderAdapterManager.shared.vaultIsUnlocked(domainIdentifier: domainIdentifier))
 	}
-
-	public func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
-		reply(FileProviderAdapterManager.shared.getDomainIdentifiersOfUnlockedVaults())
-	}
 }

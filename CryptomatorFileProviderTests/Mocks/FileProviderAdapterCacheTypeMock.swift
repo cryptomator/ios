@@ -75,9 +75,4 @@ final class FileProviderAdapterCacheTypeMock: FileProviderAdapterCacheType {
 
 	var getAllCachedIdentifiersReturnValue: [NSFileProviderDomainIdentifier]!
 	var getAllCachedIdentifiersClosure: (() -> [NSFileProviderDomainIdentifier])?
-
-	func getAllCachedIdentifiers() -> [NSFileProviderDomainIdentifier] {
-		getAllCachedIdentifiersCallsCount += 1
-		return getAllCachedIdentifiersClosure.map({ $0() }) ?? getAllCachedIdentifiersReturnValue
-	}
 }

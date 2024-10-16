@@ -16,7 +16,6 @@ protocol VaultCellViewModelProtocol: TableViewCellViewModel, ViewModel {
 	var vault: VaultInfo { get }
 	var lockButtonIsHidden: AnyPublisher<Bool, Never> { get }
 	func lockVault() -> Promise<Void>
-	func setVaultUnlockStatus(unlocked: Bool)
 }
 
 class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
@@ -46,16 +45,12 @@ class VaultCellViewModel: TableViewCellViewModel, VaultCellViewModelProtocol {
 		return getXPCPromise.then { xpc in
 			xpc.proxy.lockVault(domainIdentifier: domainIdentifier)
 		}.then {
-			self.setVaultUnlockStatus(unlocked: false)
+			self.vault.vaultIsUnlocked.value = false
 		}.catch { error in
 			self.errorPublisher.send(error)
 		}.always {
 			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
-	}
-
-	func setVaultUnlockStatus(unlocked: Bool) {
-		vault.vaultIsUnlocked.value = unlocked
 	}
 
 	override func hash(into hasher: inout Hasher) {

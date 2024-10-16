@@ -244,10 +244,6 @@ class VaultLockingMock: VaultLocking {
 		reply(unlockedVaults.contains(domainIdentifier))
 	}
 
-	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
-		reply(unlockedVaults)
-	}
-
 	let serviceName = NSFileProviderServiceName("org.cryptomator.ios.vault-locking")
 
 	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {

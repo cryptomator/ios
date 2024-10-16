@@ -100,10 +100,6 @@ private class SnapshotVaultLockingMock: VaultLocking {
 		reply(true)
 	}
 
-	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
-		fatalError()
-	}
-
 	var serviceName: NSFileProviderServiceName = .init("org.cryptomator.ios.vault-locking")
 
 	func makeListenerEndpoint() throws -> NSXPCListenerEndpoint {
