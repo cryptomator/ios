@@ -107,10 +107,7 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		let promises = vaultCellViewModels.map { vaultCellViewModel in
 			return checkVaultUnlockStatus(for: vaultCellViewModel.vault)
 		}
-
-		return all(promises).then {_ in
-			print("All vault lock states refreshed.")
-		}
+		return all(ignoringResult: promises)
 	}
 
 	private func checkVaultUnlockStatus(for vault: VaultInfo) -> Promise<Void> {
