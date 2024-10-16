@@ -117,10 +117,10 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		return getXPCPromise.then { xpc in
 			return xpc.proxy.getIsUnlockedVault(domainIdentifier: domainIdentifier)
 		}.then { isUnlocked -> Void in
-			print("Vault \(vault.vaultUID) unlock status: \(isUnlocked ? "Unlocked" : "Locked")")
+			DDLogDebug("Vault \(vault.vaultUID) unlock status: \(isUnlocked ? "Unlocked" : "Locked")")
 			vault.vaultIsUnlocked.value = isUnlocked
 		}.catch { error in
-			print("Failed to check unlock status for vault \(vault.vaultUID): \(error)")
+			DDLogError("Failed to check unlock status for vault \(vault.vaultUID): \(error)")
 		}.always {
 			self.fileProviderConnector.invalidateXPC(getXPCPromise)
 		}
