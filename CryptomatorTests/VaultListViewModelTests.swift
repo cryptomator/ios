@@ -131,10 +131,9 @@ class VaultListViewModelTests: XCTestCase {
 		vaultLockingMock.unlockedVaults.append(NSFileProviderDomainIdentifier("vault1"))
 
 		vaultListViewModel.refreshVaultLockStates().then {
-			XCTAssertNil(self.fileProviderConnectorMock.passedDomain)
+			XCTAssertEqual(self.fileProviderConnectorMock.passedDomainIdentifier?.rawValue, "vault1")
 			XCTAssertEqual(NSFileProviderServiceName("org.cryptomator.ios.vault-locking"), self.fileProviderConnectorMock.passedServiceName)
 
-			XCTAssertEqual(1, vaultLockingMock.unlockedVaults.count)
 			let unlockedVaults = vaultListViewModel.getVaults().filter({ $0.vaultIsUnlocked.value })
 			XCTAssertEqual(1, unlockedVaults.count)
 			XCTAssertTrue(unlockedVaults.contains(where: { $0.vaultUID == "vault1" }))
@@ -144,7 +143,7 @@ class VaultListViewModelTests: XCTestCase {
 			expectation.fulfill()
 		}
 		wait(for: [expectation], timeout: 1.0)
-		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
+		XCTAssertEqual(2, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 }
 
@@ -243,10 +242,6 @@ class VaultLockingMock: VaultLocking {
 
 	func getIsUnlockedVault(domainIdentifier: NSFileProviderDomainIdentifier, reply: @escaping (Bool) -> Void) {
 		reply(unlockedVaults.contains(domainIdentifier))
-	}
-
-	func getUnlockedVaultDomainIdentifiers(reply: @escaping ([NSFileProviderDomainIdentifier]) -> Void) {
-		reply(unlockedVaults)
 	}
 
 	let serviceName = NSFileProviderServiceName("org.cryptomator.ios.vault-locking")

@@ -141,12 +141,6 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		return adapterCache.getItem(identifier: domainIdentifier) != nil
 	}
 
-	public func getDomainIdentifiersOfUnlockedVaults() -> [NSFileProviderDomainIdentifier] {
-		let cachedIdentifiers = adapterCache.getAllCachedIdentifiers()
-		cachedIdentifiers.forEach { updateLockStatus(domainIdentifier: $0) }
-		return adapterCache.getAllCachedIdentifiers()
-	}
-
 	/**
 	 Locks a vault gracefully.
 
@@ -250,7 +244,6 @@ protocol FileProviderAdapterCacheType {
 	func cacheItem(_ item: AdapterCacheItem, identifier: NSFileProviderDomainIdentifier)
 	func removeItem(identifier: NSFileProviderDomainIdentifier)
 	func getItem(identifier: NSFileProviderDomainIdentifier) -> AdapterCacheItem?
-	func getAllCachedIdentifiers() -> [NSFileProviderDomainIdentifier]
 }
 
 class FileProviderAdapterCache: FileProviderAdapterCacheType {
@@ -272,12 +265,6 @@ class FileProviderAdapterCache: FileProviderAdapterCacheType {
 	func getItem(identifier: NSFileProviderDomainIdentifier) -> AdapterCacheItem? {
 		queue.sync {
 			return cachedAdapters[identifier]
-		}
-	}
-
-	func getAllCachedIdentifiers() -> [NSFileProviderDomainIdentifier] {
-		queue.sync {
-			return cachedAdapters.map { $0.key }
 		}
 	}
 }

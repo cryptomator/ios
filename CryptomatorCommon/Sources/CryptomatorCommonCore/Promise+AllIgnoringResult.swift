@@ -9,7 +9,7 @@
 import Foundation
 import Promises
 
-func all<Value, Container: Sequence>(ignoringResult promises: Container) -> Promise<Void> where Container.Element == Promise<Value> {
+public func all<Value, Container: Sequence>(ignoringResult promises: Container) -> Promise<Void> where Container.Element == Promise<Value> {
 	return any(promises).then { _ -> Void in
 		// discard result
 	}.recover { _ -> Void in

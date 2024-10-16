@@ -8,6 +8,7 @@
 
 import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Foundation
 import Promises
 

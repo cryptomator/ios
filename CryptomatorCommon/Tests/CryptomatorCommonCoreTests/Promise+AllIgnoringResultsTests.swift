@@ -1,14 +1,14 @@
 //
 //  Promise+AllIgnoringResultsTests.swift
-//  CryptomatorFileProviderTests
+//  CryptomatorCommonCoreTests
 //
 //  Created by Philipp Schmid on 31.03.22.
 //  Copyright © 2022 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCommonCore
 import Promises
 import XCTest
-@testable import CryptomatorFileProvider
 
 class Promise_AllIgnoringResultsTests: XCTestCase {
 	func testWaitForAll() throws {
