@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "%@ に保存されたパスワードが間違っています。 %@ を再度有効にするには、再度パスワードを入力してください。";
 "fileProvider.error.defaultLock.title" = "ロック解除が必要です";
 "fileProvider.error.defaultLock.message" = "保管庫の内容にアクセスして表示するには、ロックを解除する必要があります。";
+"fileprovider.error.unauthorized.text" = "金庫「%@」へのアクセスが拒否されました。メインアプリを開いて接続を確認し、必要なら再認証してください。";
 "fileProvider.error.unlockButton" = "解錠";
 "fileProvider.clearFileFromCache.title" = "キャッシュからファイルをクリア";
 "fileProvider.clearFileFromCache.message" = "これにより、デバイスからローカルファイルが削除されるだけで、クラウド内のファイルは削除されません。";
@@ -113,10 +114,14 @@
 
 "getFolderIntent.error.missingPath" = "パスがありません。妥当なフォルダーのパスを指定してください。";
 "getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
+
+"hubAuthentication.title" = "";
 "hubAuthentication.accessNotGranted" = "お使いのデバイスはまだこの金庫にアクセスする権限がありません。金庫のオーナーに権限を与えてもらってください。";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには，金庫のオーナーが端末を認証する必要があります。";
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
