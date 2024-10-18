@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Ο κωδικός πρόσβασης που έχει αποθηκευτεί για %@ είναι λάθος. Παρακαλώ προσπαθήστε ξανά και εισάγετε τον κωδικό πρόσβασής σας για να ενεργοποιήσετε ξανά %@.";
 "fileProvider.error.defaultLock.title" = "Απαιτείται Ξεκλείδωμα";
 "fileProvider.error.defaultLock.message" = "Για να αποκτήσετε πρόσβαση και να εμφανίσετε τα περιεχόμενα της κρύπτη σας, πρέπει να ξεκλειδωθεί.";
+"fileprovider.error.unauthorized.text" = "Η πρόσβαση στην κρύπτη σας \"%@\" απαγορεύτηκε. Ανοίξτε την κύρια εφαρμογή για να ελέγξετε τη σύνδεσή σας και να επαληθεύσετε ξανά την ταυτότητα εάν χρειάζεται.";
 "fileProvider.error.unlockButton" = "Ξεκλείδωμα";
 "fileProvider.clearFileFromCache.title" = "Εκκαθάριση αρχείου από την προσωρινή μνήμη";
 "fileProvider.clearFileFromCache.message" = "Αυτό καταργεί μόνο το τοπικό αρχείο από τη συσκευή σας και δεν διαγράφει το αρχείο στο cloud.";
