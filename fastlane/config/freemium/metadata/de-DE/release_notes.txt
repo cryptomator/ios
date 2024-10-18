@@ -1,4 +1,3 @@
-- Einführung der Unterstützung für Box, um sicheren Zugriff auf in Box gespeicherte Tresore zu ermöglichen (#319, #352).
-- Übersetzungen ins Slowenische und Ukrainische hinzugefügt.
-- Fehler behoben, der beim Hochladen von Dateien auf OneDrive die Fehlermeldung „Unautorisiert“ verursachte (#358).
-- Option „Passwort ändern“ für Hub-Tresore entfernt (#360, #367).
+- Varianten von App-Icons für den dunklen und den eingefärbten Modus hinzugefügt (#385).
+- Verständlicheren Fehlerdialog eingeführt, wenn der Zugriff auf einen Tresor verweigert wird und eine erneute Authentifizierung erforderlich ist (#18, #384).
+- Fehlendes Schloss-Symbol in der Tresorliste behoben (#346, #386).
