@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Le mot de passe qui a été sauvegardé pour %@ est incorrect. Veuillez réessayer et entrer votre mot de passe pour réactiver %@.";
 "fileProvider.error.defaultLock.title" = "Déverrouillage requis";
 "fileProvider.error.defaultLock.message" = "Pour accéder et afficher le contenu de votre coffre, il doit être déverrouillé.";
+"fileprovider.error.unauthorized.text" = "Accès à votre coffre \"%@\" refusé. Ouvrez l'application principale pour vérifier votre connexion et réauthentifiez-vous si nécessaire.";
 "fileProvider.error.unlockButton" = "Déverrouiller";
 "fileProvider.clearFileFromCache.title" = "Effacer le fichier du cache";
 "fileProvider.clearFileFromCache.message" = "Cela ne supprime le fichier local que de votre appareil et ne supprime pas le fichier dans le cloud.";
