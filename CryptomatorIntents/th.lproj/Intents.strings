@@ -1,1 +1,15 @@
+"common.failureReason" = "สาเหตุความขัดข้อง";
+"common.false" = "เท็จ";
+"common.folder" = "โฟลเดอร์";
+"common.true" = "ถูกต้อง";
 "common.vault" = "Vault";
+"getFolderIntent.path" = "ที่อยู่";
+"isUnlockedIntent.title" = "ปลดล็อกแล้ว";
+
+"lockVaultIntent.description" = "ล็อก vault ที่กำหนด";
+"lockVaultIntent.title" = "ล็อก Vault";
+"openVaultIntent.title" = "เปิด Vault";
+
+"saveFileIntent.description" = "บันทึกไฟล์ลงใน vault";
+"saveFileIntent.file" = "ไฟล์";
+"saveFileIntent.title" = "บันทึกไฟล์";

@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Heslo ktoré bolo uložené pre %@ je nesprávne. Prosím skúste znovu a vložte Vaše heslo pre znovu povolenie %@.";
 "fileProvider.error.defaultLock.title" = "Odomknutie požadované";
 "fileProvider.error.defaultLock.message" = "K prístupu a videniu obsahu Vášho trezora, musí byť odomknutý.";
+"fileprovider.error.unauthorized.text" = "Pristúp k Vášmu trezoru „%@\" bol zamietnutý. Otvorte hlavnú aplikáciu pre kontrolu pripojenia a v prípade potreby znovu sa autentizujte.";
 "fileProvider.error.unlockButton" = "Odomknúť";
 "fileProvider.clearFileFromCache.title" = "Vymazať súbor z Cache";
 "fileProvider.clearFileFromCache.message" = "Toto odstráni lokálny súbor iba z Vašeho zariadenia a neodstráni súbor v cloude.";
