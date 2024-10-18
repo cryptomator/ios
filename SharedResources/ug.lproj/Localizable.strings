@@ -1,0 +1,18 @@
+"common.button.cancel" = "بىكار قىل";
+"common.button.change" = "ئۆزگەرت";
+"common.button.close" = "ياپ";
+"common.button.done" = "تامام";
+"common.button.next" = "كېيىنكى";
+"common.cells.password" = "پارول";
+
+"addVault.title" = "ئامبار قوش";
+"addVault.createNewVault.setVaultName.cells.name" = "ئامبار ئىسمى";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator ئامبىرىڭىزنىڭ شىفىرلانغان ھۆججەتلىرىنى قەيەردە ساقلىشى كېرەك?";
+"fileProvider.error.unlockButton" = "قۇلۇپنى ئاچ";
+"hubAuthentication.accessNotGranted" = "ئۈسكۈنىڭىز تېخى بۇ ئامبارغا كىرىشكە ھوقۇقلاندۇرۇلمىغان. ئامبار ئىگىسىدىن ھوقۇقلاندۇرۇشنى تەلەپ قىلىڭ.";
+"hubAuthentication.licenseExceeded" = "سىزنىڭ Cryptomator Hub نۇسخىڭىزنىڭ ئىناۋەتسىز ئىجازەتنامىسى بار. Hub باشقۇرغۇچىسىغا ئىجازەتنامىنى يۇقىرى دەرىجىگە كۆتۈر.";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "ئۈسكۈنە ئىسمى";
+
+"unlockVault.button.unlock" = "قۇلۇپنى ئاچ";
+
+"vaultDetail.button.changeVaultPassword" = "پارولنى ئۆزگەرتىش";
