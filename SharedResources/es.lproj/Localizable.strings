@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "La contraseña guardada para %@ es incorrecta. Intente de nuevo e ingrese su contraseña para volver a habilitar %@.";
 "fileProvider.error.defaultLock.title" = "Desbloqueo requerido";
 "fileProvider.error.defaultLock.message" = "Para acceder y mostrar el contenido de su bóveda hay que desbloquearla.";
+"fileprovider.error.unauthorized.text" = "Se ha denegado el acceso a tu bóveda \"%@\". Abre la aplicación principal para comprobar tu conexión y volver a autenticarte si es necesario.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 "fileProvider.clearFileFromCache.title" = "Borrar archivo de la caché";
 "fileProvider.clearFileFromCache.message" = "Esto solo elimina el archivo local de su dispositivo y no lo elimina de la nube.";
