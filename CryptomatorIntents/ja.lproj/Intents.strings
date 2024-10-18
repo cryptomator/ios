@@ -12,7 +12,7 @@
 "isUnlockedIntent.description" = "金庫が解錠かどうか戻します。";
 "isUnlockedIntent.title" = "解錠済";
 
-"isVaultLockedIntent.title" = "金庫が解錠ですか？";
+"isVaultLockedIntent.title" = "金庫は解錠済みか？";
 "isVaultUnlockedIntent.text" = "${vault} が解錠してありますか？";
 
 "lockVaultIntent.description" = "金庫を施錠します。";
