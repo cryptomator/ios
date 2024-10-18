@@ -15,6 +15,7 @@
 "addVault.title" = "اضافه کردن گاوصندوق";
 "addVault.createNewVault.title" = "ساخت گاوصندوق جدید";
 "addVault.createNewVault.setVaultName.cells.name" = "نام گاوصندوق";
+"addVault.createNewVault.chooseCloud.header" = "کجا باید کریپتوماتور فایل های رمزگذاری شده گاوصندوق شما را نگهداری کند؟";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "مهم: اگر پسروردتان را از یاد ببرید، هیچ راهی برای بازگردانی اطلاعاتتان نیست.";
 "addVault.openExistingVault.title" = "باز کردن گاوصندوق موجود";
 "fileProvider.error.unlockButton" = "بازکردن قفل";
