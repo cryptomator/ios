@@ -101,7 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "A senha que foi salva para %@ está errada. Por favor, tente novamente e digite sua senha para reativar %@.";
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
 "fileProvider.error.defaultLock.message" = "Para aceder e mostrar o conteúdo do seu cofre, ele tem de estar desbloqueado.";
-"fileprovider.error.unauthorized.text" = "O acesso ao seu cofre \"%@\" foi negado. Abra a aplicação principal para verificar a sua ligação e autenticar novamente, se necessário.";
+"fileprovider.error.unauthorized.text" = "O acesso ao seu cofre \"%@\" foi negado. Abra a aplicação principal para verificar a sua ligação e autentique-se de novo, se necessário.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 "fileProvider.clearFileFromCache.title" = "Limpar Arquivo de Cache";
 "fileProvider.clearFileFromCache.message" = "Isto apenas remove o ficheiro local do dispositivo e não o apaga na nuvem.";

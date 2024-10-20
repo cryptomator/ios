@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Lösenordet som har sparats för %@ är felaktigt. Försök igen och ange ditt lösenord för att återaktivera %@.";
 "fileProvider.error.defaultLock.title" = "Upplåsning krävs";
 "fileProvider.error.defaultLock.message" = "För att komma åt och visa innehållet i ditt valv måste det låsas upp.";
+"fileprovider.error.unauthorized.text" = "Åtkomst till ditt valv \"%@\" nekades. Öppna huvudappen för att kontrollera din anslutning och återautentisera om det behövs.";
 "fileProvider.error.unlockButton" = "Lås upp";
 "fileProvider.clearFileFromCache.title" = "Ta bort fil från buffert";
 "fileProvider.clearFileFromCache.message" = "Detta tar bara bort den lokala filen från din enhet och tar inte bort filen i molnet.";
