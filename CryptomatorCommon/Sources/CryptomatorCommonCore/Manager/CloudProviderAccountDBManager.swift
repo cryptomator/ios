@@ -24,7 +24,7 @@ public struct CloudProviderAccount: Decodable, FetchableRecord, TableRecord, Equ
 }
 
 extension CloudProviderAccount: PersistableRecord {
-	public func encode(to container: inout PersistenceContainer) {
+	public func encode(to container: inout PersistenceContainer) throws {
 		container[CloudProviderAccount.accountUIDKey] = accountUID
 		container[CloudProviderAccount.cloudProviderTypeKey] = cloudProviderType
 	}

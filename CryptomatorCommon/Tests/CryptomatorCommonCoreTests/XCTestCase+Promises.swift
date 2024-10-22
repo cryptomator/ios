@@ -37,4 +37,13 @@ extension XCTestCase {
 		}
 		wait(for: [expectation], timeout: 1.0)
 	}
+
+	func XCTAssertGetsNotExecuted<T>(_ promise: Promise<T>, timeout seconds: TimeInterval = 1.0, file: StaticString = #filePath, line: UInt = #line) {
+		let expectation = XCTestExpectation()
+		expectation.isInverted = true
+		promise.always {
+			expectation.fulfill()
+		}
+		wait(for: [expectation], timeout: seconds)
+	}
 }

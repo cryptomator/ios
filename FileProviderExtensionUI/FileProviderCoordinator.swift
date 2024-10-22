@@ -63,9 +63,13 @@ class FileProviderCoordinator: Coordinator {
 
 	func handleError(_ error: Error, for viewController: UIViewController) {
 		DDLogError("Error: \(error)")
-		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
-		alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
-		viewController.present(alertController, animated: true)
+		if let fileProviderError = error as? FileProviderCoordinatorError, case let .unauthorized(vaultName) = fileProviderError {
+			showUnauthorizedError(vaultName: vaultName)
+		} else {
+			let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.error.title"), message: error.localizedDescription, preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
+			viewController.present(alertController, animated: true)
+		}
 	}
 
 	func done() {
@@ -78,6 +82,12 @@ class FileProviderCoordinator: Coordinator {
 		let onboardingVC = OnboardingViewController()
 		onboardingVC.coordinator = self
 		navigationController.pushViewController(onboardingVC, animated: false)
+	}
+
+	func showUnauthorizedError(vaultName: String) {
+		let unauthorizedErrorVC = UnauthorizedErrorViewController(vaultName: vaultName)
+		unauthorizedErrorVC.coordinator = self
+		navigationController.pushViewController(unauthorizedErrorVC, animated: true)
 	}
 
 	func openCryptomatorApp() {
@@ -134,6 +144,8 @@ class FileProviderCoordinator: Coordinator {
 			switch error {
 			case CloudProviderError.noInternetConnection, LocalizedCloudProviderError.itemNotFound:
 				break
+			case LocalizedCloudProviderError.unauthorized:
+				throw FileProviderCoordinatorError.unauthorized(vaultName: domain.displayName)
 			default:
 				throw error
 			}

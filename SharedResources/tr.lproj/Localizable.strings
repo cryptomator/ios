@@ -117,7 +117,7 @@
 "hubAuthentication.title" = "Hub Kasası";
 "hubAuthentication.accessNotGranted" = "Cihazınıza henüz bu kasaya erişim yetkisi verilmedi. Kasa sahibinden yetkilendirmesini isteyin.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizde geçersiz bir lisans var. Lisansı yükseltmesi veya yenilemesi için lütfen bir Hub yöneticisini bilgilendirin.";
-"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz adı";
+"hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz Adı";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Yeni uygulamalardan veya tarayıcılardan giriş yapmak için Hesap Anahtarınız gereklidir. Profilinizde bulunabilir.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Cihaz Kaydı Başarılı";
@@ -225,7 +225,7 @@
 "s3Authentication.displayName" = "Görünen Ad";
 "s3Authentication.accessKey" = "Erişim Anahtarı";
 "s3Authentication.secretKey" = "Gizli Anahtar";
-"s3Authentication.existingBucket" = "Mevcut kova";
+"s3Authentication.existingBucket" = "Mevcut Kova";
 "s3Authentication.endpoint" = "Uç nokta";
 "s3Authentication.region" = "Bölge";
 "s3Authentication.error.invalidCredentials" = "Geçersiz kimlik bilgileri.";

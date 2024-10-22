@@ -76,7 +76,7 @@ private struct MaintenanceModeEntry: Decodable, FetchableRecord, TableRecord, Pe
 		case id, flag
 	}
 
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.id] = id
 		container[Columns.flag] = flag
 	}

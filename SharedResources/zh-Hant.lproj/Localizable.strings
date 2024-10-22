@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "保存在%@的密碼錯誤，請重試並輸入你的密碼來重新啟用%@";
 "fileProvider.error.defaultLock.title" = "需要解鎖";
 "fileProvider.error.defaultLock.message" = "要存取加密庫和顯示其內容，需要先解鎖。";
+"fileprovider.error.unauthorized.text" = "存取檔案庫%@被拒絕。請開啟主程式並確認您的網路連線以重新取得授權。";
 "fileProvider.error.unlockButton" = "解鎖";
 "fileProvider.clearFileFromCache.title" = "清除快取檔䅁";
 "fileProvider.clearFileFromCache.message" = "這只會從您的本機上刪除文件，而不會刪除雲端的文件。";

@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "La password salvata per %@ è errata. Riprova e inserisci la password per riabilitare %@.";
 "fileProvider.error.defaultLock.title" = "Richiesto Sblocco";
 "fileProvider.error.defaultLock.message" = "La cassaforte deve essere sbloccata per accedere e vedere il contenuto.";
+"fileprovider.error.unauthorized.text" = "L'accesso alla cassaforte \"%@\" è stato negato. Apri l'app principale per controllare la tua connessione e autenticati nuovamente, se necessario.";
 "fileProvider.error.unlockButton" = "Sblocca";
 "fileProvider.clearFileFromCache.title" = "Cancella file dalla cache";
 "fileProvider.clearFileFromCache.message" = "Questo rimuove solo il file locale dal dispositivo e non elimina il file nel cloud.";

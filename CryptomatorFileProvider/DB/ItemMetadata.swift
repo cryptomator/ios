@@ -32,7 +32,7 @@ public class ItemMetadata: Record, Codable {
 	var favoriteRank: Int64?
 	var tagData: Data?
 
-	required init(row: Row) {
+	required init(row: Row) throws {
 		self.id = row[Columns.id]
 		self.name = row[Columns.name]
 		self.type = row[Columns.type]
@@ -45,7 +45,7 @@ public class ItemMetadata: Record, Codable {
 		self.isMaybeOutdated = row[Columns.isMaybeOutdated]
 		self.favoriteRank = row[Columns.favoriteRank]
 		self.tagData = row[Columns.tagData]
-		super.init(row: row)
+		try super.init(row: row)
 	}
 
 	convenience init(item: CloudItemMetadata, withParentID parentID: Int64, isPlaceholderItem: Bool = false) {
@@ -68,11 +68,11 @@ public class ItemMetadata: Record, Codable {
 		super.init()
 	}
 
-	override public func didInsert(with rowID: Int64, for column: String?) {
-		id = rowID
+	override public func didInsert(_ inserted: InsertionSuccess) {
+		id = inserted.rowID
 	}
 
-	override public func encode(to container: inout PersistenceContainer) {
+	override public func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.id] = id
 		container[Columns.name] = name
 		container[Columns.type] = type

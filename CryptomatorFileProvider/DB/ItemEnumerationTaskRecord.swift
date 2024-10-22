@@ -20,7 +20,7 @@ struct ItemEnumerationTaskRecord: Decodable, FetchableRecord, TableRecord {
 }
 
 extension ItemEnumerationTaskRecord: PersistableRecord {
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.correspondingItem] = correspondingItem
 		container[Columns.pageToken] = pageToken
 	}

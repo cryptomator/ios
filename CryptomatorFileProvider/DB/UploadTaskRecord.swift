@@ -40,7 +40,7 @@ struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 }
 
 extension UploadTaskRecord: PersistableRecord {
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.correspondingItem] = correspondingItem
 		container[Columns.lastFailedUploadDate] = lastFailedUploadDate
 		container[Columns.uploadErrorCode] = uploadErrorCode

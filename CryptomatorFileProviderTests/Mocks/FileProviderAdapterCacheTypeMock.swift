@@ -65,19 +65,4 @@ final class FileProviderAdapterCacheTypeMock: FileProviderAdapterCacheType {
 		getItemIdentifierReceivedInvocations.append(identifier)
 		return getItemIdentifierClosure.map({ $0(identifier) }) ?? getItemIdentifierReturnValue
 	}
-
-	// MARK: - getAllCachedIdentifiers
-
-	var getAllCachedIdentifiersCallsCount = 0
-	var getAllCachedIdentifiersCalled: Bool {
-		getAllCachedIdentifiersCallsCount > 0
-	}
-
-	var getAllCachedIdentifiersReturnValue: [NSFileProviderDomainIdentifier]!
-	var getAllCachedIdentifiersClosure: (() -> [NSFileProviderDomainIdentifier])?
-
-	func getAllCachedIdentifiers() -> [NSFileProviderDomainIdentifier] {
-		getAllCachedIdentifiersCallsCount += 1
-		return getAllCachedIdentifiersClosure.map({ $0() }) ?? getAllCachedIdentifiersReturnValue
-	}
 }

@@ -17,7 +17,7 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 	var inMemoryDB: DatabaseQueue!
 
 	override func setUpWithError() throws {
-		inMemoryDB = DatabaseQueue()
+		inMemoryDB = try DatabaseQueue()
 		try DatabaseHelper.migrate(inMemoryDB)
 		manager = try ItemEnumerationTaskDBManager(database: inMemoryDB)
 		itemMetadataManager = ItemMetadataDBManager(database: inMemoryDB)

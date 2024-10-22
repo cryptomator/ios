@@ -23,7 +23,7 @@ struct LocalCachedFileInfo: Decodable, FetchableRecord, TableRecord {
 }
 
 extension LocalCachedFileInfo: PersistableRecord {
-	func encode(to container: inout PersistenceContainer) {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.lastModifiedDate] = lastModifiedDate
 		container[Columns.correspondingItem] = correspondingItem
 		container[Columns.localLastModifiedDate] = localLastModifiedDate
