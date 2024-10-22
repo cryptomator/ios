@@ -1,4 +1,3 @@
-- Introducing support for Box, allowing secure access to vaults stored on Box (#319, #352).
-- Added Slovenian and Ukrainian translations.
-- Fixed an issue that caused "Unauthorized" errors when uploading files to OneDrive (#358).
-- Removed the "Change Password" option for Hub vaults (#360, #367).
+- Added app icon variants for dark mode and tinted mode (#385).
+- Introduced a clearer error screen when access to a vault is denied and a re-authentication is required (#18, #384).
+- Fixed missing lock icon in the vaults list (#346, #386).
