@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Kata sandi yang tersimpan untuk %@ salah. Silahkan coba lagi dan masukkan kata sandi Anda untuk mengaktifkan kembali %@.";
 "fileProvider.error.defaultLock.title" = "Kunci Perlu Dibuka";
 "fileProvider.error.defaultLock.message" = "Kunci perlu dibuka untuk mengakses dan menunjukkan isi vault Anda.";
+"fileprovider.error.unauthorized.text" = "Akses ke brankas Anda '%@' ditolak. Buka aplikasi utama untuk memeriksa sambungan dan masuk kembali jika diperlukan.";
 "fileProvider.error.unlockButton" = "Buka Kunci";
 "fileProvider.clearFileFromCache.title" = "Hapus File dari Cache";
 "fileProvider.clearFileFromCache.message" = "Ini hanya akan menghapus file lokal di perangkat Anda dan tidak akan menghapus file yang ada di cloud.";
