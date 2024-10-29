@@ -49,7 +49,7 @@
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bu konumda mevcut. Farklı bir kasa adı veya konum seçin.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
 "addVault.createNewVault.password.enterPassword.header" = "Yeni bir parola girin.";
-"addVault.createNewVault.password.confirmPassword.header" = "Yeni şifreyi onaylayın.";
+"addVault.createNewVault.password.confirmPassword.header" = "Yeni parolayı onaylayın.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Parolayı onaylıyor musunuz?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.";
 "addVault.createNewVault.password.error.emptyPassword" = "Parola boş bırakılamaz.";
@@ -178,7 +178,7 @@
 "purchase.product.trial.duration" = "30 gün boyunca";
 "purchase.product.yearlySubscription" = "Yıllık Abonelik";
 "purchase.product.yearlySubscription.duration" = "yıllık";
-"purchase.readOnlyMode.alert.title" = "Yalnızca okuma modu";
+"purchase.readOnlyMode.alert.title" = "Sadece Okuma Modu";
 "purchase.readOnlyMode.alert.message" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
@@ -199,10 +199,10 @@
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
 "settings.cacheSize" = "Önbellek Boyutu";
-"settings.clearCache" = "Önbelleği temizle";
+"settings.clearCache" = "Önbelleği Temizle";
 "settings.cloudServices" = "Bulut Servisleri";
 "settings.contact" = "İletişim";
-"settings.debugMode" = "Hata ayıklama Modu";
+"settings.debugMode" = "Hata Ayıklama Modu";
 "settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. dosya adları ve yolları) yazılabilir. Parolalar, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
 "settings.manageSubscriptions" = "Aboneliği Yönet";
 "settings.rateApp" = "Uygulamayı Değerlendir";
@@ -210,8 +210,8 @@
 "settings.shortcutsGuide" = "Kısayol Kılavuzu";
 "settings.unlockFullVersion" = "Tam Sürümün Kilidini Aç";
 
-"snapshots.fileprovider.file1" = "/Sayıları.hesaplıyor";
-"snapshots.fileprovider.file2" = "/Son Sunum.anahtarı";
+"snapshots.fileprovider.file1" = "/Muhasebe.numbers";
+"snapshots.fileprovider.file2" = "/Son Sunum.key";
 "snapshots.fileprovider.file3" = "/Ürün Deneme.mov";
 "snapshots.fileprovider.file4" = "/Teklif.docx";
 "snapshots.fileprovider.file5" = "/Rapor.pdf";
@@ -221,7 +221,7 @@
 "snapshots.main.vault1" = "/İş";
 "snapshots.main.vault2" = "/Aile";
 "snapshots.main.vault3" = "/Belgeler";
-"snapshots.main.vault4" = "/Kaliforniya gezisi";
+"snapshots.main.vault4" = "/Kaliforniya Gezisi";
 
 "s3Authentication.displayName" = "Görünen Ad";
 "s3Authentication.accessKey" = "Erişim Anahtarı";
@@ -239,7 +239,7 @@
 "unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
 "unlockVault.password.footer" = "\"%@\" için parola girin.";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
-"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
+"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini parolanızla açmak yerine, %@ ile açabilirsiniz.";
 "unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
 "unlockVault.progress" = "Kilit açılıyor…";
 
@@ -264,12 +264,12 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Bu kasayı zaten eklediniz.";
 
-"vaultDetail.button.changeVaultPassword" = "Şifreyi Değiştir";
+"vaultDetail.button.changeVaultPassword" = "Parolayı Değiştir";
 "vaultDetail.button.lock" = "Şimdi Kilitle";
 "vaultDetail.button.moveVault" = "Taşı";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
 "vaultDetail.button.renameVault" = "Yeniden Adlandır";
-"vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir şifre seçin.";
+"vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir parola seçin.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";
