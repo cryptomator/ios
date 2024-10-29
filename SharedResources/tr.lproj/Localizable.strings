@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "%@ için kaydedilen parola yanlış. Lütfen tekrar deneyin ve %@'ı yeniden etkinleştirmek için şifrenizi girin.";
 "fileProvider.error.defaultLock.title" = "Kilit açma gerekli";
 "fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
+"fileprovider.error.unauthorized.text" = "\"%@\" kasanıza erişim reddedildi. Bağlantınızı kontrol etmek ve gerekirse yeniden kimlik doğrulaması yapmak için uygulamayı açın.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
 "fileProvider.clearFileFromCache.title" = "Dosyayı Önbellekten Temizle";
 "fileProvider.clearFileFromCache.message" = "Bu yalnızca cihazınızdan yerel dosyayı kaldırır ve bulut içindeki dosyayı silmez.";
