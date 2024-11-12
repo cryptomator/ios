@@ -1,8 +1,10 @@
 "common.button.cancel" = "Peruuta";
-"common.button.change" = "Muuta";
+"common.button.change" = "Vaihda";
+"common.button.choose" = "Valitse";
 "common.button.close" = "Sulje";
 "common.button.done" = "Valmis";
 "common.button.next" = "Seuraava";
+"common.button.remove" = "Poista";
 
 "addVault.title" = "Lisää Vault";
 "addVault.createNewVault.title" = "Luo Uusi Vault";
@@ -18,3 +20,5 @@
 "unlockVault.button.unlock" = "Avaa";
 
 "vaultDetail.button.changeVaultPassword" = "Vaihda salasana";
+"vaultDetail.button.moveVault" = "Siirrä";
+"vaultDetail.button.renameVault" = "Nimeä uudelleen";
