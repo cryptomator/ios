@@ -1,16 +1,69 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Virhe";
+"common.alert.attention.title" = "Huomio";
 "common.button.cancel" = "Peruuta";
 "common.button.change" = "Vaihda";
 "common.button.choose" = "Valitse";
+"common.button.clear" = "Tyhjennä";
 "common.button.close" = "Sulje";
+"common.button.confirm" = "Vahvista";
+"common.button.create" = "Luo";
+"common.button.createFolder" = "Luo kansio";
 "common.button.done" = "Valmis";
+"common.button.download" = "Lataa";
+"common.button.edit" = "Muokkaa";
+"common.button.enable" = "Hyväksy";
 "common.button.next" = "Seuraava";
+"common.button.ok" = "OK";
+"common.button.refresh" = "Päivitä";
 "common.button.remove" = "Poista";
+"common.button.retry" = "Yritä uudelleen";
+"common.button.signOut" = "Kirjaudu ulos";
+"common.button.verify" = "Vahvista";
+"common.cells.password" = "Salasana";
+"common.cells.url" = "URL";
+"common.cells.username" = "Käyttäjätunnus";
+"common.footer.learnMore" = "Lue Lisää.";
+"accountList.emptyList.message" = "Napauta tästä lisätäksesi tili";
+"accountList.signOut.alert.title" = "Poista liitetyt holvit?";
+"accountList.signOut.alert.message" = "Kirjautuessasi ulos kaikki liitetyt holvit poistetaan holvilistasta. Salattua dataa ei poisteta. Voit kirjautua sisään ja lisätä holvit myöhemmin uudelleen.";
 
-"addVault.title" = "Lisää Vault";
+"addVault.title" = "Lisää holvi";
 "addVault.createNewVault.title" = "Luo Uusi Vault";
-"addVault.createNewVault.setVaultName.cells.name" = "Vault Nimi";
-"addVault.createNewVault.chooseCloud.header" = "Missä pitäisi Cryptomator tallentaa salattuja tiedostoja Vault?";
+"addVault.createNewVault.setVaultName.cells.name" = "Holvin nimi";
+"addVault.createNewVault.chooseCloud.header" = "Missä Cryptomatorin tulisi säilyttää holvisi salattuja tiedostoja?";
+"addVault.createNewVault.password.enterPassword.header" = "Syötä uusi salasana.";
+"addVault.createNewVault.password.confirmPassword.header" = "Vahvista uusi salasana.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Vahvista salasana?";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "TÄRKEÄÄ: Jos unohdat salasanasi, tietojasi ei voida palauttaa.";
+"addVault.createNewVault.password.error.emptyPassword" = "Salasana ei voi olla tyhjä.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Salasanat eivät täsmää.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Salasanassa pitää olla vähintää 8 merkkiä.";
+"addVault.createNewVault.progress" = "Luodaan holvia…";
 "addVault.openExistingVault.title" = "Avaa Olemassaoleva Vault";
+"addVault.openExistingVault.chooseCloud.header" = "Missä holvi sijaitsee?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Lisää tämä holvi";
+"addVault.openExistingVault.downloadVault.progress" = "Ladataan holvia…";
+"addVault.openExistingVault.password.footer" = "Syötä holvin \"%@\" salasana.";
+"addVault.openExistingVault.progress" = "Lisätään holvia…";
+
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
+"changePassword.header.newPassword.title" = "Syötä uusi salasana.";
+"changePassword.header.newPasswordConfirmation.title" = "Vahvista uusi salasana.";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" ei löytynyt.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" on jo olemassa.";
+
+"fileProvider.onboarding.title" = "Tervetuloa";
+"fileProvider.onboarding.button.openCryptomator" = "Avaa Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Avaus peruutettu";
 "fileProvider.error.unlockButton" = "Avaa";
 "hubAuthentication.accessNotGranted" = "Laitteellasi ei ole pääsyvaltuutusta tähän holviin. Pyydä holvin omistajaa lisäämän valtuutus laitteellesi.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub:illasi ei ole voimassa olevaa lisenssiä. Ole hyvä ja ilmoita Hubin järjestelmänvalvojalle lisenssin päivittämiseksi tai sen uusimiseksi.";
@@ -18,6 +71,7 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Käyttääksesi holvia, holvin omistajan on valtuutettava laitteesi.";
 
 "unlockVault.button.unlock" = "Avaa";
+"unlockVault.password.footer" = "Syötä holvin \"%@\" salasana.";
 
 "vaultDetail.button.changeVaultPassword" = "Vaihda salasana";
 "vaultDetail.button.moveVault" = "Siirrä";
