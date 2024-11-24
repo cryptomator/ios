@@ -22,6 +22,7 @@
 "common.button.next" = "ਅੱਗੇ";
 "common.button.ok" = "ਠੀਕ ਹੈ";
 "common.button.refresh" = "ਤਾਜ਼ਾ ਕਰੋ";
+"common.button.register" = "ਰਜਿਸਟਰ ਕਰੋ";
 "common.button.remove" = "ਹਟਾਓ";
 "common.button.retry" = "ਮੁੜ-ਕੋਸ਼ਿਸ਼";
 "common.button.signOut" = "ਸਾਈਨ ਆਉਟ";
@@ -59,6 +60,7 @@
 "addVault.openExistingVault.chooseCloud.header" = "ਵਾਲਟ ਕਿੱਥੇ ਮੌਜੂਦ ਹੈ?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator ਨੂੰ \"%@\" ਵਾਲਟ ਖੋਜਿਆ ਗਿਆ ਹੈ।\nਕੀ ਤੁਸੀ ਇਹ ਵਾਲਟ ਜੋੜਨਾ ਚਾਹੁੰਦੇ ਹੋ?";
 "addVault.openExistingVault.detectedMasterkey.add" = "ਇਹ ਵਾਲਟ ਜੋੜੋ";
+"addVault.openExistingVault.downloadVault.progress" = "ਵਾਲਟ ਡਾਊਨਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ…";
 "addVault.openExistingVault.password.footer" = "\"%@\" ਲਈ ਪਾਸਵਰਡ ਦਿਓ।";
 "addVault.openExistingVault.progress" = "…ਵਾਲਟ ਜੋੜਿਆ ਜਾ ਰਿਹਾ ਹੈ";
 "addVault.success.info" = "\"%@\" ਵਾਲਟ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਜੋੜਿਆ ਗਿਆ ਹੈ।\nਇਸ ਵਾਲਟ ਨੂੰ Files ਐਪ ਰਾਹੀਂ ਵਰਤੋਂ।";
@@ -142,6 +144,9 @@
 "purchase.product.yearlySubscription" = "ਸਾਲਨਾ ਮੈਂਬਰੀ";
 "purchase.product.yearlySubscription.duration" = "ਸਾਲਨਾ";
 "purchase.readOnlyMode.alert.title" = "ਕੇਵਲ ਪੜ੍ਹਨ ਲਈ ਢੰਗ";
+"purchase.restorePurchase.button" = "ਖਰੀਦਦਾਰੀ ਨੂੰ ਬਹਾਲ ਕਰੋ";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "ਬਹਾਲ ਕਰਨਾ ਕਾਮਯਾਬ ਰਿਹਾ";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਨਹੀਂ ਹੈ";
 "purchase.retry.button" = "ਮੁੜ-ਕੋਸ਼ਿਸ਼";
 "purchase.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
 "purchase.unlockedFullVersion.title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ";
@@ -192,6 +197,9 @@
 "vaultDetail.button.moveVault" = "ਭੇਜੋ";
 "vaultDetail.button.removeVault" = "ਵਾਲਟ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ";
 "vaultDetail.button.renameVault" = "ਨਾਂ ਬਦਲੋ";
+"vaultDetail.info.footer.accountInfo" = "%@ ਰਾਹੀਂ %@ ਵਜੋਂ ਲਾਗਇਨ ਕੀਤਾ।";
+"vaultDetail.keepUnlocked.title" = "ਅਣ-ਲਾਕ ਦਾ ਅੰਤਰਾਲ";
+"vaultDetail.locked.footer" = "ਤੁਹਾਡਾ ਵਾਲਟ ਇਸ ਵੇਲੇ ਅਣ-ਲਾਕ ਹੈ।";
 "vaultDetail.moveVault.progress" = "…ਭੇਜਿਆ ਜਾ ਰਿਹਾ ਹੈ";
 "vaultDetail.renameVault.progress" = "…ਨਾਂ ਬਦਲਿਆ ਜਾ ਰਿਹਾ ਹੈ";
 
