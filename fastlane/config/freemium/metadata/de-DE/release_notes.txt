@@ -1,3 +1,1 @@
-- Varianten von App-Icons für den dunklen und den eingefärbten Modus hinzugefügt (#385).
-- Verständlicheren Fehlerdialog eingeführt, wenn der Zugriff auf einen Tresor verweigert wird und eine erneute Authentifizierung erforderlich ist (#18, #384).
-- Fehlendes Schloss-Symbol in der Tresorliste behoben (#346, #386).
+Kleine Anpassungen, um zeitnahe und relevante Updates zu bieten. Wir wünschen viel Spaß mit der App!

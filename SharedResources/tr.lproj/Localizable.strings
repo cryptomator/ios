@@ -28,13 +28,13 @@
 "common.button.signOut" = "Çıkış Yap";
 "common.button.verify" = "Doğrula";
 "common.cells.openInFilesApp" = "Dosyalar Uygulamasında Aç";
-"common.cells.password" = "Şifre";
+"common.cells.password" = "Parola";
 "common.cells.url" = "URL";
 "common.cells.username" = "Kullanıcı adı";
 "common.footer.learnMore" = "Daha fazla bilgi edin.";
 "common.hud.authenticating" = "Kimlik doğrulanıyor…";
 
-"accountList.header.title" = "Kimlik Doğrulaması";
+"accountList.header.title" = "Kimlikler";
 "accountList.emptyList.message" = "Hesap eklemek için buraya dokunun";
 "accountList.signOut.alert.title" = "İlişkili Kasalar Kaldırılsın mı?";
 "accountList.signOut.alert.message" = "Oturumu kapattığınızda, ilişkili tüm kasalar kasa listesinden kaldırılacaktır. Şifrelenmiş hiçbir veri silinmeyecektir. Tekrar oturum açabilir ve kasaları daha sonra yeniden ekleyebilirsiniz.";
@@ -48,20 +48,20 @@
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator kasanızın şifreli dosyalarını nerede depolasın?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" bu konumda mevcut. Farklı bir kasa adı veya konum seçin.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator bu konumda mevcut bir kasa tespit etti.\nYeni bir kasa oluşturmak için lütfen geri dönün ve farklı bir klasör seçin.";
-"addVault.createNewVault.password.enterPassword.header" = "Yeni bir şifre girin.";
-"addVault.createNewVault.password.confirmPassword.header" = "Yeni şifreyi onaylayın.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Şifreyi onaylıyor musunuz?";
+"addVault.createNewVault.password.enterPassword.header" = "Yeni bir parola girin.";
+"addVault.createNewVault.password.confirmPassword.header" = "Yeni parolayı onaylayın.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Parolayı onaylıyor musunuz?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ÖNEMLİ UYARI: Parolanızı unutursanız, verilerinizi kurtarmanın herhangi bir yolu yoktur.";
-"addVault.createNewVault.password.error.emptyPassword" = "Şifre boş bırakılamaz.";
-"addVault.createNewVault.password.error.nonMatchingPasswords" = "Şifreler eşleşmiyor.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Şifre en az 8 karakter içermelidir.";
+"addVault.createNewVault.password.error.emptyPassword" = "Parola boş bırakılamaz.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Parolalar eşleşmiyor.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Parola en az 8 karakter içermelidir.";
 "addVault.createNewVault.progress" = "Kasa oluşturuluyor…";
-"addVault.openExistingVault.title" = "Varolan Kasayı Aç";
+"addVault.openExistingVault.title" = "Var Olan Kasayı Aç";
 "addVault.openExistingVault.chooseCloud.header" = "Kasa nerede bulunuyor?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator \"%@\" kasasını algıladı.\nBu kasayı eklemek ister misiniz?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Bu Kasayı Ekle";
 "addVault.openExistingVault.downloadVault.progress" = "Kasa indiriliyor…";
-"addVault.openExistingVault.password.footer" = "\"%@\" için şifre girin.";
+"addVault.openExistingVault.password.footer" = "\"%@\" için parola girin.";
 "addVault.openExistingVault.progress" = "Kasa ekleniyor…";
 "addVault.success.info" = "\"%@\" kasası başarıyla eklendi.\nDosyalar uygulamasından bu kasaya erişebilirsiniz.";
 "addVault.success.footer" = "Henüz yapmadıysanız, Dosyalar uygulamasında Cryptomator'ı etkinleştirin.";
@@ -69,17 +69,17 @@
 "biometryType.faceID" = "Yüz kimliği";
 "biometryType.touchID" = "Dokunmatik kimlik";
 
-"changePassword.error.invalidOldPassword" = "Mevcut şifre yanlış. Lütfen tekrar deneyin.";
-"changePassword.header.currentPassword.title" = "Mevcut şifreyi girin.";
-"changePassword.header.newPassword.title" = "Yeni bir şifre girin.";
-"changePassword.header.newPasswordConfirmation.title" = "Yeni şifreyi onaylayın.";
-"changePassword.progress" = "Şifre değiştiriliyor…";
+"changePassword.error.invalidOldPassword" = "Mevcut parola yanlış. Lütfen tekrar deneyin.";
+"changePassword.header.currentPassword.title" = "Mevcut parolayı girin.";
+"changePassword.header.newPassword.title" = "Yeni bir parola girin.";
+"changePassword.header.newPasswordConfirmation.title" = "Yeni parolayı onaylayın.";
+"changePassword.progress" = "Parola değiştiriliyor…";
 
 "chooseFolder.emptyFolder.footer" = "Klasör Boş";
 "chooseFolder.createNewFolder.header.title" = "Klasör için bir ad seçin.";
 "chooseFolder.createNewFolder.cells.name" = "Klasör Adı";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Klasör adı boş olamaz.";
-"chooseFolder.createNewFolder.progress" = "Klasör oluşturuluyor…";
+"chooseFolder.createNewFolder.progress" = "Klasör Oluşturuluyor…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" bulunamadı.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" zaten mevcut.";
@@ -87,27 +87,28 @@
 "cloudProvider.error.parentFolderDoesNotExist" = "\"%@\" ana klasörü mevcut değil.";
 "cloudProvider.error.pageTokenInvalid" = "Dizin içeriğini alma işlemine devam edilemedi.";
 "cloudProvider.error.quotaInsufficient" = "Depolama alanınız yetersiz.";
-"cloudProvider.error.unauthorized" = "İşlem, yetkisiz gerçekleştirilemiyor.";
+"cloudProvider.error.unauthorized" = "Yetkisiz işlem gerçekleştirilemiyor.";
 "cloudProvider.error.noInternetConnection" = "Bu işlem için İnternet bağlantısı gerekiyor.";
 
 "cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
 
 "fileProvider.onboarding.title" = "Hoş geldiniz";
 "fileProvider.onboarding.info" = "Dosyalarınızı korumak için Cryptomator'ı seçtiğiniz için teşekkür ederiz. Başlamak için uygulamaya gidin ve bir kasa ekleyin.";
-"fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı aç";
-"fileProvider.error.biometricalAuthCanceled.title" = "Kilidi açma iptal edildi";
+"fileProvider.onboarding.button.openCryptomator" = "Cryptomator'ı Aç";
+"fileProvider.error.biometricalAuthCanceled.title" = "Kilit açma iptal edildi";
 "fileProvider.error.biometricalAuthCanceled.message" = "%@ yoluyla kilit açma işlemi başarılı olmadı. Lütfen tekrar deneyin.";
-"fileProvider.error.biometricalAuthWrongPassword.title" = "Yanlış şifre";
-"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ için kaydedilen parola yanlış. Lütfen tekrar deneyin ve %@'ı yeniden etkinleştirmek için şifrenizi girin.";
-"fileProvider.error.defaultLock.title" = "Kilit açma gerekli";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Yanlış Parola";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@ için kaydedilen parola yanlış. Lütfen tekrar deneyin ve %@'ı yeniden etkinleştirmek için parolanızı girin.";
+"fileProvider.error.defaultLock.title" = "Kilit Açma Gerekli";
 "fileProvider.error.defaultLock.message" = "Kasanızın içeriğine erişmek ve göstermek için kilidinin açılması gerekir.";
+"fileprovider.error.unauthorized.text" = "\"%@\" kasanıza erişim reddedildi. Bağlantınızı kontrol etmek ve gerekirse yeniden kimlik doğrulaması yapmak için uygulamayı açın.";
 "fileProvider.error.unlockButton" = "Kilidi Aç";
 "fileProvider.clearFileFromCache.title" = "Dosyayı Önbellekten Temizle";
 "fileProvider.clearFileFromCache.message" = "Bu yalnızca cihazınızdan yerel dosyayı kaldırır ve bulut içindeki dosyayı silmez.";
 "fileProvider.fileImporting.error.missingPremium" = "Kasalarınıza yazma erişimi elde etmek için Cryptomator uygulamasında tam sürümün kilidini açın.";
 "fileProvider.uploadProgress.connecting" = "Bağlanıyor…";
 "fileProvider.uploadProgress.message" = "Mevcut Süreç: %@\n\nYükleme sürecinin takıldığını fark ederseniz, yeniden yüklemeyi deneyebilirsiniz.";
-"fileProvider.uploadProgress.missing" = "İlerleme saptanamadı. Hala arka planda çalışıyor olabilir.";
+"fileProvider.uploadProgress.missing" = "İlerleme durumu tespit edilemedi. Hala arka planda çalışıyor olabilir.";
 "fileProvider.uploadProgress.title" = "Yükleniyor…";
 "fileProvider.uploadProgress.missingDomainError" = "Alan adı bulunamadı.";
 
@@ -115,8 +116,8 @@
 "getFolderIntent.error.noVaultSelected" = "Herhangi bir kasa seçili değil.";
 
 "hubAuthentication.title" = "Hub Kasası";
-"hubAuthentication.accessNotGranted" = "Cihazınıza henüz bu kasaya erişim yetkisi verilmedi. Kasa sahibinden yetkilendirmesini isteyin.";
-"hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizde geçersiz bir lisans var. Lisansı yükseltmesi veya yenilemesi için lütfen bir Hub yöneticisini bilgilendirin.";
+"hubAuthentication.accessNotGranted" = "Cihazınız henüz bu kasaya erişim için yetkilendirilmedi. Kasa sahibinden yetkilendirmesini isteyin.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizin geçersiz bir lisansı var. Lütfen lisansı yükseltmek veya yenilemek için bir Hub yöneticisini bilgilendirin.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz Adı";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Yeni uygulamalardan veya tarayıcılardan giriş yapmak için Hesap Anahtarınız gereklidir. Profilinizde bulunabilir.";
@@ -177,7 +178,7 @@
 "purchase.product.trial.duration" = "30 gün boyunca";
 "purchase.product.yearlySubscription" = "Yıllık Abonelik";
 "purchase.product.yearlySubscription.duration" = "yıllık";
-"purchase.readOnlyMode.alert.title" = "Yalnızca okuma modu";
+"purchase.readOnlyMode.alert.title" = "Sadece Okuma Modu";
 "purchase.readOnlyMode.alert.message" = "Cryptomator'ın tam sürümünün kilidini daha sonra ayarlardan açabilir ve şimdilik sadece okuma modunda kullanabilirsiniz.";
 "purchase.restorePurchase.button" = "Satın Almayı Geri Yükle";
 "purchase.restorePurchase.validTrialFound.alert.title" = "Deneme süresi devam ediyor";
@@ -198,19 +199,19 @@
 "settings.aboutCryptomator" = "Cryptomator Hakkında";
 "settings.aboutCryptomator.title" = "Sürüm %@ (%@)";
 "settings.cacheSize" = "Önbellek Boyutu";
-"settings.clearCache" = "Önbelleği temizle";
+"settings.clearCache" = "Önbelleği Temizle";
 "settings.cloudServices" = "Bulut Servisleri";
 "settings.contact" = "İletişim";
-"settings.debugMode" = "Hata ayıklama Modu";
-"settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. Dosya adları ve yolları) yazılabilir. Şifreler, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
+"settings.debugMode" = "Hata Ayıklama Modu";
+"settings.debugMode.alert.message" = "Bu modda, hassas veriler cihazınızdaki bir günlük dosyasına (örn. dosya adları ve yolları) yazılabilir. Parolalar, tanımlama vb. bilgiler hariç tutulmuştur.\n\nHata ayıklama modunu mümkün olan en kısa sürede devre dışı bırakmayı unutmayın.";
 "settings.manageSubscriptions" = "Aboneliği Yönet";
 "settings.rateApp" = "Uygulamayı Değerlendir";
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 "settings.shortcutsGuide" = "Kısayol Kılavuzu";
 "settings.unlockFullVersion" = "Tam Sürümün Kilidini Aç";
 
-"snapshots.fileprovider.file1" = "/Sayıları.hesaplıyor";
-"snapshots.fileprovider.file2" = "/Son Sunum.anahtarı";
+"snapshots.fileprovider.file1" = "/Muhasebe.numbers";
+"snapshots.fileprovider.file2" = "/Son Sunum.key";
 "snapshots.fileprovider.file3" = "/Ürün Deneme.mov";
 "snapshots.fileprovider.file4" = "/Teklif.docx";
 "snapshots.fileprovider.file5" = "/Rapor.pdf";
@@ -220,7 +221,7 @@
 "snapshots.main.vault1" = "/İş";
 "snapshots.main.vault2" = "/Aile";
 "snapshots.main.vault3" = "/Belgeler";
-"snapshots.main.vault4" = "/Kaliforniya gezisi";
+"snapshots.main.vault4" = "/Kaliforniya Gezisi";
 
 "s3Authentication.displayName" = "Görünen Ad";
 "s3Authentication.accessKey" = "Erişim Anahtarı";
@@ -236,9 +237,9 @@
 
 "unlockVault.button.unlock" = "Kilidi Aç";
 "unlockVault.button.unlockVia" = "Kilidi %@ ile aç";
-"unlockVault.password.footer" = "\"%@\" için şifre girin.";
+"unlockVault.password.footer" = "\"%@\" için parola girin.";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ etkinleştir";
-"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini şifrenizle açmak yerine, %@ ile açabilirsiniz.";
+"unlockVault.enableBiometricalUnlock.footer" = "Kasanızın kilidini parolanızla açmak yerine, %@ ile açabilirsiniz.";
 "unlockVault.evaluatePolicy.reason" = "Kasanızın kilidini açın";
 "unlockVault.progress" = "Kilit açılıyor…";
 
@@ -263,12 +264,12 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Bu kasayı zaten eklediniz.";
 
-"vaultDetail.button.changeVaultPassword" = "Şifreyi Değiştir";
+"vaultDetail.button.changeVaultPassword" = "Parolayı Değiştir";
 "vaultDetail.button.lock" = "Şimdi Kilitle";
 "vaultDetail.button.moveVault" = "Taşı";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
-"vaultDetail.button.renameVault" = "Yeniden adlandır";
-"vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir şifre seçin.";
+"vaultDetail.button.renameVault" = "Yeniden Adlandır";
+"vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir parola seçin.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";
 "vaultDetail.info.footer.accessVault" = "Dosyalar uygulaması aracılığıyla kasaya erişin.";

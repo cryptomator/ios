@@ -17,8 +17,14 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	weak var coordinator: MainCoordinator?
 
 	private let viewModel: VaultListViewModelProtocol
-	private var observer: NSObjectProtocol?
+	private var willEnterForegroundObserver: NSObjectProtocol?
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
+	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
+
+	#if !ALWAYS_PREMIUM
+	private var bannerView: UIView?
+	private var fullVersionPurchasedObserver: NSObjectProtocol?
+	#endif
 
 	init(with viewModel: VaultListViewModelProtocol) {
 		self.viewModel = viewModel
@@ -44,11 +50,18 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		let addNewVaulButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addNewVault))
 		navigationItem.rightBarButtonItem = addNewVaulButton
 
-		observer = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
+		willEnterForegroundObserver = NotificationCenter.default.addObserver(forName: UIApplication.willEnterForegroundNotification, object: nil, queue: .main) { [weak self] _ in
 			self?.viewModel.refreshVaultLockStates().catch { error in
 				DDLogError("Refresh vault lock states failed with error: \(error)")
 			}
 		}
+
+		#if !ALWAYS_PREMIUM
+		fullVersionPurchasedObserver = NotificationCenter.default.addObserver(forName: .purchasedFullVersionNotification, object: nil, queue: .main) { [weak self] _ in
+			self?.dismissBanner()
+		}
+		checkAndShowBanner()
+		#endif
 	}
 
 	override func viewWillAppear(_ animated: Bool) {
@@ -108,4 +121,94 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			coordinator?.showVaultDetail(for: vaultCellViewModel.vault)
 		}
 	}
+
+	// MARK: - Discount Banner
+
+	#if !ALWAYS_PREMIUM
+	private func checkAndShowBanner() {
+		let currentYear = Calendar.current.component(.year, from: Date())
+		let currentMonth = Calendar.current.component(.month, from: Date())
+		if currentYear == 2024, currentMonth == 12, !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription), !cryptomatorSettings.december2024BannerDismissed {
+			showBanner()
+		}
+	}
+
+	private func showBanner() {
+		let banner = UIView()
+		banner.backgroundColor = UIColor.cryptomatorPrimary
+		banner.translatesAutoresizingMaskIntoConstraints = false
+		banner.layer.cornerRadius = 12
+		banner.layer.masksToBounds = true
+
+		let emojiLabel = UILabel()
+		emojiLabel.text = "🎁"
+		emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+		emojiLabel.setContentHuggingPriority(.required, for: .horizontal)
+		emojiLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+		let textLabel = UILabel()
+		textLabel.text = "Lifetime License is 33%* off in December!"
+		textLabel.textColor = .white
+		textLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
+		textLabel.adjustsFontSizeToFitWidth = true
+		textLabel.minimumScaleFactor = 0.5
+		textLabel.numberOfLines = 2
+		textLabel.translatesAutoresizingMaskIntoConstraints = false
+
+		let dismissButton = UIButton(type: .close)
+		dismissButton.addTarget(self, action: #selector(dismissBanner), for: .touchUpInside)
+		dismissButton.translatesAutoresizingMaskIntoConstraints = false
+		dismissButton.setContentHuggingPriority(.required, for: .horizontal)
+		dismissButton.setContentCompressionResistancePriority(.required, for: .horizontal)
+
+		banner.addSubview(emojiLabel)
+		banner.addSubview(textLabel)
+		banner.addSubview(dismissButton)
+
+		NSLayoutConstraint.activate([
+			emojiLabel.leadingAnchor.constraint(equalTo: banner.leadingAnchor, constant: 16),
+			emojiLabel.centerYAnchor.constraint(equalTo: banner.centerYAnchor),
+
+			textLabel.leadingAnchor.constraint(equalTo: emojiLabel.trailingAnchor, constant: 8),
+			textLabel.centerYAnchor.constraint(equalTo: banner.centerYAnchor),
+
+			dismissButton.leadingAnchor.constraint(equalTo: textLabel.trailingAnchor, constant: 8),
+			dismissButton.trailingAnchor.constraint(equalTo: banner.trailingAnchor, constant: -16),
+			dismissButton.centerYAnchor.constraint(equalTo: banner.centerYAnchor)
+		])
+
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(bannerTapped))
+		banner.addGestureRecognizer(tapGestureRecognizer)
+
+		view.addSubview(banner)
+
+		NSLayoutConstraint.activate([
+			banner.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+			banner.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+			banner.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+			banner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			banner.heightAnchor.constraint(equalToConstant: 50)
+		])
+
+		bannerView = banner
+	}
+
+	@objc private func dismissBanner() {
+		UIView.animate(withDuration: 0.3, animations: {
+			self.bannerView?.alpha = 0
+		}, completion: { _ in
+			self.bannerView?.removeFromSuperview()
+			self.bannerView = nil
+		})
+		CryptomatorUserDefaults.shared.december2024BannerDismissed = true
+	}
+
+	@objc private func bannerTapped() {
+		coordinator?.showPurchase()
+	}
+	#endif
+}
+
+extension Notification.Name {
+	static let purchasedFullVersionNotification = Notification.Name("PurchasedFullVersionNotification")
 }
