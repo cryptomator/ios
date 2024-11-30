@@ -169,7 +169,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 
 	private var lifetimeLicenseCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
-		                           productDetail: "🎁 33%* off in December",
+		                           productDetail: nil,
 		                           price: "$11.99",
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 		                           productIdentifier: .fullVersion))
