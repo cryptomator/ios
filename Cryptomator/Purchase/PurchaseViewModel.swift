@@ -93,8 +93,12 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 
 	private func addLifetimeLicenseItem() {
 		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
+			// Temporarily added for December 2024 Sale
+			let currentYear = Calendar.current.component(.year, from: Date())
+			let currentMonth = Calendar.current.component(.month, from: Date())
+			let productDetail = currentYear == 2024 && currentMonth == 12 ? "🎁 33%* off in December" : nil
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
-			                                      productDetail: "🎁 33%* off in December",
+			                                      productDetail: productDetail,
 			                                      price: localizedPrice,
 			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 			                                      productIdentifier: .fullVersion)
