@@ -49,8 +49,13 @@ class PurchaseCoordinator: Coordinator {
 
 	func fullVersionPurchased() {
 		PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController).then {
+			if let windowScene = self.navigationController.view.window?.windowScene {
+				SKStoreReviewController.requestReview(in: windowScene)
+			}
 			self.unlockedPro()
 		}
+		// Temporarily added for December 2024 Sale
+		NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 	}
 
 	func handleRestoreResult(_ result: RestoreTransactionsResult) {

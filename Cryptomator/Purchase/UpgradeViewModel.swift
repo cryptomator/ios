@@ -34,6 +34,7 @@ class UpgradeViewModel: BaseIAPViewModel, ProductFetching {
 	func addFreeUpgradeItem() {
 		guard products[.freeUpgrade] != nil else { return }
 		let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.freeUpgrade"),
+		                                      productDetail: nil,
 		                                      price: LocalizedString.getValue("purchase.product.pricing.free"),
 		                                      purchaseDetail: nil,
 		                                      productIdentifier: .freeUpgrade)
@@ -43,6 +44,7 @@ class UpgradeViewModel: BaseIAPViewModel, ProductFetching {
 	func addPaidUpgradeItem() {
 		if let product = products[.paidUpgrade], let localizedPrice = product.localizedPrice {
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.donateAndUpgrade"),
+			                                      productDetail: nil,
 			                                      price: localizedPrice,
 			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 			                                      productIdentifier: .paidUpgrade)
