@@ -13,6 +13,8 @@
 "fileProvider.error.unlockButton" = "Atslēgt";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
 
+"settings.title" = "Iestatījumi";
+
 "unlockVault.button.unlock" = "Atslēgt";
 
 "vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
