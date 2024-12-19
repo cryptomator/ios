@@ -119,6 +119,7 @@
 "hubAuthentication.licenseExceeded" = "Instanța Hub are o licență invalidă. Vă rugăm să informați un administrator Hub să actualizeze sau să reînnoiască licența.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Numele dispozitivului";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Cheia contului dvs. este necesară pentru a vă conecta din aplicații sau browsere noi. Aceasta poate fi găsită în profilul dvs.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispozitiv de înregistrare cu succes";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pentru a accesa acest seif, dispozitivul dvs. trebuie să fie autorizat de proprietarul seifului.";
 "hubAuthentication.requireAccountInit.alert.title" = "Operație necesară";
@@ -198,7 +199,7 @@
 "settings.aboutCryptomator.title" = "Versiunea %@ (%@)";
 "settings.cacheSize" = "Dimensiunea cache-ului";
 "settings.clearCache" = "Golește memoria cache";
-"settings.cloudServices" = "Servicii Cloud";
+"settings.cloudServices" = "Servicii in nor.";
 "settings.contact" = "Contact";
 "settings.debugMode" = "Mod De Depanare";
 "settings.debugMode.alert.message" = "În acest mod, datele sensibile pot fi scrise într-un fișier jurnal de pe dispozitivul dumneavoastră (de exemplu, nume de fișiere și căi de fișiere). Parolele, cookie-urile etc. sunt excluse în mod explicit.\n\nNu uitați să dezactivați modul de depanare cât mai curând posibil.";
