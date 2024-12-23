@@ -80,6 +80,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
 			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: .max)
+		case .sharePoint:
+			let credential = try SharePointCredential(with: accountUID)
+			provider = try MicrosoftGraphCloudProvider(credential: credential, maxPageSize: .max)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createClient(with: credential.user)
@@ -130,6 +133,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountUID)
+			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+		case .sharePoint:
+			let credential = try SharePointCredential(with: accountUID)
 			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)

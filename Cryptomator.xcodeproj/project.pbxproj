@@ -433,6 +433,10 @@
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
 		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
+		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
+		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
+		B34C532A2D142BA700F30FE9 /* SharePointURLSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */; };
+		B34C532C2D142BF600F30FE9 /* URLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C532B2D142BE000F30FE9 /* URLValidator.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
 /* End PBXBuildFile section */
 
@@ -1040,6 +1044,11 @@
 		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
 		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
+		B34C53212D1355D900F30FE9 /* cloud-access-swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "cloud-access-swift"; path = "../cloud-access-swift"; sourceTree = SOURCE_ROOT; };
+		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
+		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
+		B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointURLSetting.swift; sourceTree = "<group>"; };
+		B34C532B2D142BE000F30FE9 /* URLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLValidator.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1378,6 +1387,10 @@
 		4A644B45267A3D21008CBB9A /* CreateNewVault */ = {
 			isa = PBXGroup;
 			children = (
+				B34C532B2D142BE000F30FE9 /* URLValidator.swift */,
+				B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */,
+				B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */,
+				B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */,
 				4A644B4A267B4C08008CBB9A /* CreateNewVaultChooseFolderViewController.swift */,
 				4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */,
 				4A644B4C267B55E4008CBB9A /* CreateNewVaultCoordinator.swift */,
@@ -2718,6 +2731,7 @@
 				4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */,
 				4AC005F127C3D80B006FFE87 /* PremiumManager.swift in Sources */,
 				4ADD2342267383BE00374E4E /* AddVaultSuccessViewModel.swift in Sources */,
+				B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */,
 				4AB1D4F827D68026009060AB /* IAPHeaderView.swift in Sources */,
 				4A79E26926B16993008C9959 /* ActionButton.swift in Sources */,
 				4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */,
@@ -2820,17 +2834,20 @@
 				4A0C07EB25AC832900B83211 /* VaultListPosition.swift in Sources */,
 				4A3D658226838991000DA764 /* OpenExistingLocalVaultViewModel.swift in Sources */,
 				4AC86270273598CC00E15BA5 /* UIViewController+ProgressHUDError.swift in Sources */,
+				B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */,
 				4AB1D4FD27D69BB2009060AB /* TrialCell.swift in Sources */,
 				4A2FD08225B5E2BA008565C8 /* VaultInstalling.swift in Sources */,
 				74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */,
 				4A53B6D32722F92D000DC367 /* MoveVaultViewModel.swift in Sources */,
 				4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */,
+				B34C532C2D142BF600F30FE9 /* URLValidator.swift in Sources */,
 				4AED9A69286B303000352951 /* S3Authenticator+VC.swift in Sources */,
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A8A6424286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift in Sources */,
 				4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */,
 				4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */,
+				B34C532A2D142BA700F30FE9 /* SharePointURLSetting.swift in Sources */,
 				4A21B49C26BD68C2000D13DF /* UIControl+Publisher.swift in Sources */,
 				4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */,
 				4A4B7E4A26B2C071009BFDB1 /* ButtonCellViewModel.swift in Sources */,

@@ -43,12 +43,20 @@ class CloudAuthenticator {
 		}
 	}
 
-	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		OneDriveAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
+	func authenticateMicrosoftGraph(from viewController: UIViewController, providerType: CloudProviderType) -> Promise<CloudProviderAccount> {
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: providerType).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: providerType)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
+	}
+
+	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return authenticateMicrosoftGraph(from: viewController, providerType: .oneDrive)
+	}
+
+	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return authenticateMicrosoftGraph(from: viewController, providerType: .sharePoint)
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -103,6 +111,8 @@ class CloudAuthenticator {
 			return authenticateOneDrive(from: viewController)
 		case .pCloud:
 			return authenticatePCloud(from: viewController)
+		case .sharePoint:
+			return authenticateSharePoint(from: viewController)
 		case .s3:
 			return authenticateS3(from: viewController)
 		case .webDAV:
@@ -126,6 +136,9 @@ class CloudAuthenticator {
 			break
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: account.accountUID)
+			try credential.deauthenticate()
+		case .sharePoint:
+			let credential = try SharePointCredential(with: account.accountUID)
 			try credential.deauthenticate()
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)

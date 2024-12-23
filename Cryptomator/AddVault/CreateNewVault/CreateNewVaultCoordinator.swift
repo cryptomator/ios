@@ -11,12 +11,13 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
-class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
+class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator, SharePointURLSetting {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
 
 	private let vaultName: String
+	private var currentSharePointAccount: AccountInfo?
 
 	init(navigationController: UINavigationController, vaultName: String) {
 		self.navigationController = navigationController
@@ -24,7 +25,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .sharePoint, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 		chooseCloudVC.coordinator = self
@@ -44,15 +45,34 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
+		authenticator.authenticate(cloudProviderType, from: viewController).then { _ in
+		}
+	}
+
+	func showEnterSharePointURL(for account: AccountInfo) {
+		let viewModel = EnterSharePointURLViewModel(account: account)
+		let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
+		enterURLVC.coordinator = self
+		navigationController.pushViewController(enterURLVC, animated: true)
+	}
+
+	func setSharePointURL(_ url: String) {
+		guard let account = currentSharePointAccount else { return }
+		do {
 			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			self.startFolderChooser(with: provider, account: account)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		} catch {
+			handleError(error, for: navigationController)
 		}
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		if account.cloudProviderType == .sharePoint {
+			showEnterSharePointURL(for: account)
+		} else {
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		}
 	}
 
 	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {

@@ -89,6 +89,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		case .oneDrive:
 			let credential = try OneDriveCredential(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
+		case .sharePoint:
+			let credential = try SharePointCredential(with: accountInfo.accountUID)
+			return try createAccountCellContent(for: credential)
 		case .pCloud:
 			return createAccountCellContentPlaceholder()
 		case .s3:
@@ -121,6 +124,11 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
+		let username = try credential.getUsername()
+		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+	}
+
+	func createAccountCellContent(for credential: SharePointCredential) throws -> AccountCellContent {
 		let username = try credential.getUsername()
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}

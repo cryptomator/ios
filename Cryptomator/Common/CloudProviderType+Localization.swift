@@ -22,6 +22,8 @@ extension CloudProviderType {
 			return localFileSystemType.localizedString()
 		case .oneDrive:
 			return "OneDrive"
+		case .sharePoint:
+			return "SharePoint"
 		case .pCloud:
 			return "pCloud"
 		case .s3:

@@ -67,6 +67,9 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			}
 			getUsername(for: credential)
 			return "(…)"
+		case .sharePoint:
+			let credential = try? SharePointCredential(with: vault.delegateAccountUID)
+			return try? credential?.getUsername()
 		case .s3:
 			guard let displayName = try? S3CredentialManager.shared.getDisplayName(for: vault.delegateAccountUID) else {
 				return nil

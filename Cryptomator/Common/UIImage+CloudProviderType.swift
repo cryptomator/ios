@@ -28,6 +28,8 @@ extension UIImage {
 			assetName = UIImage.getVaultIcon(for: localFileSystemType)
 		case .oneDrive:
 			assetName = "onedrive-vault"
+		case .sharePoint:
+			assetName = "sharepoint-vault"
 		case .pCloud:
 			assetName = "pcloud-vault"
 		case .s3:
@@ -63,6 +65,8 @@ extension UIImage {
 			assetName = UIImage.getStorageIcon(for: localFileSystemType)
 		case .oneDrive:
 			assetName = "onedrive"
+		case .sharePoint:
+			assetName = "sharepoint"
 		case .pCloud:
 			assetName = "pcloud"
 		case .s3:
