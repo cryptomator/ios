@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
 "fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.defaultLock.message" = "للوصول إلى محتويات خزانتك وعرضها، يجب فتح قفلها.";
+"fileprovider.error.unauthorized.text" = "تم رفض الوصول إلى مخزن \"%@\" الخاص بك. افتح التطبيق الرئيسي للتحقق من اتصالك وإعادة المصادقة إذا لزم الأمر.";
 "fileProvider.error.unlockButton" = "افتح";
 "fileProvider.clearFileFromCache.title" = "مسح الملف من ذاكرة التخزين المؤقت";
 "fileProvider.clearFileFromCache.message" = "هذا يزيل الملف المحلي من جهازك فقط ولا يحذف الملف من السحابة.";
