@@ -101,7 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Збережений для %@ пароль неправильний. Будь ласка, спробуйте ще раз і введіть ваш пароль для повторного увімкнення %@.";
 "fileProvider.error.defaultLock.title" = "Потрібно розблокувати";
 "fileProvider.error.defaultLock.message" = "Щоб отримати доступ і показати вміст вашого сховища, воно має бути розблоковане.";
-"fileprovider.error.unauthorized.text" = "Доступ до вашого сховища \"%@\" був відмовлений. Відкрийте головний додаток, щоб перевірити підключення та повторно пройти автентифікацію, якщо це необхідно.";
+"fileprovider.error.unauthorized.text" = "У доступі до вашого сховища \"%@\" відмовлено. Відкрийте головний додаток, щоб перевірити підключення та повторно пройти автентифікацію, якщо це необхідно.";
 "fileProvider.error.unlockButton" = "Розблокувати";
 "fileProvider.clearFileFromCache.title" = "Очистити файл з кешу";
 "fileProvider.clearFileFromCache.message" = "Це видаляє лише локальний файл з вашого пристрою, але не видаляє файл у хмарі.";
