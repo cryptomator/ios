@@ -78,10 +78,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
 		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: .max)
-		case .sharePoint:
-			let credential = try SharePointCredential(with: accountUID)
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountUID)
 			provider = try MicrosoftGraphCloudProvider(credential: credential, maxPageSize: .max)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
@@ -90,6 +87,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		case .s3:
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider(credential: credential)
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountUID)
+			provider = try MicrosoftGraphCloudProvider(credential: credential, maxPageSize: .max)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient(credential: credential)
@@ -132,11 +132,8 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
 		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
-		case .sharePoint:
-			let credential = try SharePointCredential(with: accountUID)
-			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountUID)
+			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)
@@ -144,6 +141,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		case .s3:
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountUID)
+			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)

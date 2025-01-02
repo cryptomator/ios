@@ -43,20 +43,20 @@ class CloudAuthenticator {
 		}
 	}
 
-	func authenticateMicrosoftGraph(from viewController: UIViewController, providerType: CloudProviderType) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: providerType).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: providerType)
+	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return MicrosoftGraphAuthenticator.authenticateForOneDrive(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
-	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return authenticateMicrosoftGraph(from: viewController, providerType: .oneDrive)
-	}
-
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return authenticateMicrosoftGraph(from: viewController, providerType: .sharePoint)
+		return MicrosoftGraphAuthenticator.authenticateForSharePoint(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .sharePoint)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -120,6 +120,7 @@ class CloudAuthenticator {
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
@@ -135,16 +136,16 @@ class CloudAuthenticator {
 		case .localFileSystem:
 			break
 		case .oneDrive:
-			let credential = try OneDriveCredential(with: account.accountUID)
-			try credential.deauthenticate()
-		case .sharePoint:
-			let credential = try SharePointCredential(with: account.accountUID)
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: account.accountUID)
 			try credential.deauthenticate()
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
 		case .s3:
 			try S3CredentialManager.shared.removeCredential(with: account.accountUID)
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		}

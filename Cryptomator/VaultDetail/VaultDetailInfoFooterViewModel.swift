@@ -42,6 +42,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		return String(format: LocalizedString.getValue("vaultDetail.info.footer.accountInfo"), username, vault.cloudProviderType.localizedString()) + " "
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func getUsername() -> String? {
 		switch vault.cloudProviderType {
 		case .box:
@@ -59,22 +60,22 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		case .localFileSystem:
 			return nil
 		case .oneDrive:
-			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)
-			return try? credential?.getUsername()
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: vault.delegateAccountUID)
+			return try? credential.getUsername()
 		case .pCloud:
 			guard let credential = try? PCloudCredential(userID: vault.delegateAccountUID) else {
 				return nil
 			}
 			getUsername(for: credential)
 			return "(…)"
-		case .sharePoint:
-			let credential = try? SharePointCredential(with: vault.delegateAccountUID)
-			return try? credential?.getUsername()
 		case .s3:
 			guard let displayName = try? S3CredentialManager.shared.getDisplayName(for: vault.delegateAccountUID) else {
 				return nil
 			}
 			return displayName
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: vault.delegateAccountUID)
+			return try? credential.getUsername()
 		case .webDAV:
 			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
 			return credential?.username

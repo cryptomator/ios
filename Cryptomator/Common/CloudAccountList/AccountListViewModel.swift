@@ -75,6 +75,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
 		case .box:
@@ -87,10 +88,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
 		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountInfo.accountUID)
-			return try createAccountCellContent(for: credential)
-		case .sharePoint:
-			let credential = try SharePointCredential(with: accountInfo.accountUID)
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountInfo.accountUID)
 			return try createAccountCellContent(for: credential)
 		case .pCloud:
 			return createAccountCellContentPlaceholder()
@@ -100,6 +98,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			}
 			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
 			return createAccountCellContent(for: credential, displayName: displayName)
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountInfo.accountUID)
+			return try createAccountCellContent(for: credential)
 		case .webDAV:
 			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
@@ -123,12 +124,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
-		let username = try credential.getUsername()
-		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
-	}
-
-	func createAccountCellContent(for credential: SharePointCredential) throws -> AccountCellContent {
+	func createAccountCellContent(for credential: MicrosoftGraphCredential) throws -> AccountCellContent {
 		let username = try credential.getUsername()
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
