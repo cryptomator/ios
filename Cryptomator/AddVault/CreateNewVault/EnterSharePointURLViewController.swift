@@ -28,10 +28,13 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 	}
 
 	@objc func nextButtonClicked() {
+		guard let coordinator = coordinator else { return }
 		do {
-			try coordinator?.setSharePointURL(viewModel.getValidatedSharePointURL())
+			let url = try viewModel.getValidatedSharePointURL()
+			coordinator.setSharePointURL(url)
 		} catch {
-			coordinator?.handleError(error, for: self)
+			print("Error validating SharePoint URL: \(error)")
+			coordinator.handleError(error, for: self)
 		}
 	}
 

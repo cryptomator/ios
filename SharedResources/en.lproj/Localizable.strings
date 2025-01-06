@@ -70,6 +70,10 @@
 "addVault.openExistingVault.downloadVault.progress" = "Downloading Vault…";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.openExistingVault.progress" = "Adding Vault…";
+
+"addVault.selectDrive.navigation.title" = "Select Drive";
+"addVault.selectDrive.header.description" = "Select the SharePoint drive where the encrypted vault will be located.";
+
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 

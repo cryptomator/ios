@@ -24,10 +24,18 @@ extension URLValidatorError: LocalizedError {
 
 public enum URLValidator {
 	public static func validateSharePointURL(urlString: String) throws {
-		let pattern = #"^https:\/\/[a-zA-Z0-9\-]+\.sharepoint\.com\/sites\/[a-zA-Z0-9\-]+$"#
-		let regex = try NSRegularExpression(pattern: pattern)
-		let range = NSRange(location: 0, length: urlString.utf16.count)
-		if regex.firstMatch(in: urlString, options: [], range: range) == nil {
+		guard let url = URL(string: urlString) else {
+			throw URLValidatorError.invalidURLFormat
+		}
+
+		guard url.scheme == "https",
+			  let host = url.host,
+			  host.contains(".sharepoint.com") else {
+			throw URLValidatorError.invalidURLFormat
+		}
+
+		let path = url.path
+		guard path.contains("/sites/") else {
 			throw URLValidatorError.invalidURLFormat
 		}
 	}

@@ -15,10 +15,12 @@ import Foundation
 import Promises
 import UIKit
 
-class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
+class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator, SharePointURLSetting {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: AddVaultCoordinator?
+
+	private var currentSharePointAccount: AccountInfo?
 
 	init(navigationController: UINavigationController) {
 		self.navigationController = navigationController
@@ -43,6 +45,13 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 		}
 	}
 
+	func showEnterSharePointURL(for account: AccountInfo) {
+		let viewModel = EnterSharePointURLViewModel(account: account)
+		let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
+		enterURLVC.coordinator = self
+		navigationController.pushViewController(enterURLVC, animated: true)
+	}
+
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
@@ -52,8 +61,47 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		if account.cloudProviderType == .sharePoint {
+			currentSharePointAccount = account
+			showEnterSharePointURL(for: account)
+		} else {
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		}
+	}
+
+	func setSharePointURL(_ url: String) {
+		guard let account = currentSharePointAccount else { return }
+
+		let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+		let discovery = MicrosoftGraphDiscovery(credential: credential)
+
+		showDriveList(discovery: discovery, sharePointURL: url)
+	}
+
+	private func showDriveList(discovery: MicrosoftGraphDiscovery, sharePointURL: String) {
+		guard let account = currentSharePointAccount else { return }
+		let viewModel = SharePointDriveListViewModel(discovery: discovery, sharePointURL: sharePointURL, account: account)
+		viewModel.didSelectDrive = { [weak self] drive in
+			self?.handleDriveSelection(drive: drive)
+		}
+		let driveListVC = SharePointDriveListViewController(viewModel: viewModel)
+		navigationController.pushViewController(driveListVC, animated: true)
+	}
+
+	private func handleDriveSelection(drive: MicrosoftGraphDrive) {
+		guard let account = currentSharePointAccount else {
+			print("No current SharePoint account available")
+			return
+		}
+		do {
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+			let provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: drive.identifier)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		} catch {
+			print("Error creating provider: \(error)")
+			handleError(error, for: navigationController)
+		}
 	}
 
 	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {

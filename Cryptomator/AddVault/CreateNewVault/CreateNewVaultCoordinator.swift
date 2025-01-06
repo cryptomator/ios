@@ -56,22 +56,46 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 		navigationController.pushViewController(enterURLVC, animated: true)
 	}
 
-	func setSharePointURL(_ url: String) {
-		guard let account = currentSharePointAccount else { return }
-		do {
-			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			startFolderChooser(with: provider, account: account.cloudProviderAccount)
-		} catch {
-			handleError(error, for: navigationController)
-		}
-	}
-
 	func selectedAccont(_ account: AccountInfo) throws {
 		if account.cloudProviderType == .sharePoint {
+			currentSharePointAccount = account
 			showEnterSharePointURL(for: account)
 		} else {
 			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		}
+	}
+
+	func setSharePointURL(_ url: String) {
+		guard let account = currentSharePointAccount else { return }
+
+		let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+		let discovery = MicrosoftGraphDiscovery(credential: credential)
+
+		showDriveList(discovery: discovery, sharePointURL: url)
+	}
+
+	private func showDriveList(discovery: MicrosoftGraphDiscovery, sharePointURL: String) {
+		guard let account = currentSharePointAccount else { return }
+		let viewModel = SharePointDriveListViewModel(discovery: discovery, sharePointURL: sharePointURL, account: account)
+		viewModel.didSelectDrive = { [weak self] drive in
+			self?.handleDriveSelection(drive: drive)
+		}
+		let driveListVC = SharePointDriveListViewController(viewModel: viewModel)
+		navigationController.pushViewController(driveListVC, animated: true)
+	}
+
+	private func handleDriveSelection(drive: MicrosoftGraphDrive) {
+		guard let account = currentSharePointAccount else {
+			print("No current SharePoint account available")
+			return
+		}
+		do {
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+			let provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: drive.identifier)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		} catch {
+			handleError(error, for: navigationController)
 		}
 	}
 
