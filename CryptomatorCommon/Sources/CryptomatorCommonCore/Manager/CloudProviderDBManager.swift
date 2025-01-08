@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import Combine
 import CryptomatorCloudAccessCore
 import Foundation
 import PCloudSDKSwift
@@ -30,11 +31,13 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	static var cachedProvider = [CachedProvider]()
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	let accountManager: CloudProviderAccountDBManager
+	let driveManager: MicrosoftGraphDriveManaging
 
 	private let maxPageSizeForFileProvider = 500
 
-	init(accountManager: CloudProviderAccountDBManager) {
+	init(accountManager: CloudProviderAccountDBManager, driveManager: MicrosoftGraphDriveManaging = MicrosoftGraphDriveManager.shared) {
 		self.accountManager = accountManager
+		self.driveManager = driveManager
 	}
 
 	public func getProvider(with accountUID: String) throws -> CloudProvider {
@@ -88,8 +91,12 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider(credential: credential)
 		case .sharePoint:
-			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountUID)
-			provider = try MicrosoftGraphCloudProvider(credential: credential, maxPageSize: .max)
+			let allDrives = try driveManager.getDrivesFromKeychain(for: accountUID)
+			guard let drive = allDrives.first else {
+				throw CloudProviderError.itemNotFound
+			}
+			let (credential, driveID) = try getSharePointCredentialAndDriveIdentifier(for: accountUID, driveID: drive.identifier)
+			provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: driveID, maxPageSize: .max)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient(credential: credential)
@@ -142,8 +149,12 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 		case .sharePoint:
-			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountUID)
-			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+			let allDrives = try driveManager.getDrivesFromKeychain(for: accountUID)
+			guard let drive = allDrives.first else {
+				throw CloudProviderError.itemNotFound
+			}
+			let (credential, driveID) = try getSharePointCredentialAndDriveIdentifier(for: accountUID, driveID: drive.identifier)
+			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, driveIdentifier: driveID, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
@@ -157,6 +168,14 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			)
 		)
 		return provider
+	}
+
+	private func getSharePointCredentialAndDriveIdentifier(for accountUID: String, driveID: String) throws -> (MicrosoftGraphCredential, String) {
+		guard let drive = try driveManager.getDriveFromKeychain(for: accountUID, driveID: driveID) else {
+			throw CloudProviderError.itemNotFound
+		}
+		let credential = MicrosoftGraphCredential(identifier: drive.identifier, scopes: MicrosoftGraphScopes.sharePoint)
+		return (credential, drive.identifier)
 	}
 
 	private func getS3Credential(for accountUID: String) throws -> S3Credential {

@@ -91,6 +91,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 			return
 		}
 		do {
+			try MicrosoftGraphDriveManager.shared.saveDriveToKeychain(drive, for: account.accountUID)
 			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
 			let provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: drive.identifier)
 			startFolderChooser(with: provider, account: account.cloudProviderAccount)
