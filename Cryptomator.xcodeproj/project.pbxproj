@@ -437,6 +437,8 @@
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
 		B34C532A2D142BA700F30FE9 /* SharePointURLSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */; };
 		B34C532C2D142BF600F30FE9 /* URLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C532B2D142BE000F30FE9 /* URLValidator.swift */; };
+		B379DBBF2D27F595003B5849 /* SharePointDriveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */; };
+		B379DBC12D27F5B5003B5849 /* SharePointDriveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
 /* End PBXBuildFile section */
 
@@ -1049,6 +1051,8 @@
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
 		B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointURLSetting.swift; sourceTree = "<group>"; };
 		B34C532B2D142BE000F30FE9 /* URLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLValidator.swift; sourceTree = "<group>"; };
+		B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointDriveListViewController.swift; sourceTree = "<group>"; };
+		B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointDriveListViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -1387,6 +1391,8 @@
 		4A644B45267A3D21008CBB9A /* CreateNewVault */ = {
 			isa = PBXGroup;
 			children = (
+				B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */,
+				B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */,
 				B34C532B2D142BE000F30FE9 /* URLValidator.swift */,
 				B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */,
 				B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */,
@@ -2789,6 +2795,7 @@
 				4A4B7E7426B954D2009BFDB1 /* HeaderFooterViewModel.swift in Sources */,
 				4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */,
 				74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */,
+				B379DBBF2D27F595003B5849 /* SharePointDriveListViewController.swift in Sources */,
 				4A644B53267BAFDA008CBB9A /* CreateNewFolderViewModel.swift in Sources */,
 				4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */,
 				4AF4535F272066A600CF1919 /* RenameVaultViewController.swift in Sources */,
@@ -2804,6 +2811,7 @@
 				4AF91D0D25A8D5EF00ACF01E /* ListViewModel.swift in Sources */,
 				4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */,
 				4A61F6B9274582E3007AA422 /* StaticUITableViewController.swift in Sources */,
+				B379DBC12D27F5B5003B5849 /* SharePointDriveListViewModel.swift in Sources */,
 				4A21B49426BC0127000D13DF /* BindableAttributedTextHeaderFooterViewModel.swift in Sources */,
 				740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */,
 				4AF45356271F2A8300CF1919 /* RenameVaultViewModel.swift in Sources */,
