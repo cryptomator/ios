@@ -127,16 +127,17 @@
 "getFolderIntent.error.noVaultSelected" = "No vault has been selected.";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.accessNotGranted" = "Your device has not yet been authorized to access this vault. Ask the vault owner to authorize it.";
+"hubAuthentication.accessNotGranted" = "Your user has not yet been authorized to access this vault. Ask the vault owner to authorize it.";
 "hubAuthentication.licenseExceeded" = "Your Cryptomator Hub instance has an invalid license. Please inform a Hub administrator to upgrade or renew the license.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Device Name";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "This seems to be the first Hub access from this device. In order to identify it for access authorization, you need to name this device.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Your Account Key is required to login from new apps or browsers. It can be found in your profile.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Register Device Successful";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "To access the vault, your device needs to be authorized by the vault owner.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "To access the vault";
 "hubAuthentication.requireAccountInit.alert.title" = "Action Required";
 "hubAuthentication.requireAccountInit.alert.message" = "To proceed, please complete the steps required in your Hub user profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Go to Profile";
+"hubAuthentication.vaultArchived" = "This vault has been archived. Please ask the vault owner to unarchive it.";
 
 "intents.saveFile.missingFile" = "The provided file is not valid.";
 "intents.saveFile.invalidFolder" = "The provided folder is not valid.";

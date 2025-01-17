@@ -20,7 +20,9 @@ public struct HubAuthenticationView: View {
 						onRegisterTap: { Task { await viewModel.register() }}
 					)
 				case .accessNotGranted:
-					HubAccessNotGrantedView(onRefresh: { Task { await viewModel.refresh() }})
+                    CryptomatorErrorWithRefreshView(headerTitle: LocalizedString.getValue("hubAuthentication.accessNotGranted"), onRefresh: { Task { await viewModel.refresh() }})
+                case .vaultArchived:
+                    CryptomatorErrorWithRefreshView(headerTitle: LocalizedString.getValue("hubAuthentication.vaultArchived"), onRefresh: { Task { await viewModel.refresh() }})
 				case .licenseExceeded:
 					CryptomatorErrorView(text: LocalizedString.getValue("hubAuthentication.licenseExceeded"))
 				case let .error(description):
