@@ -49,6 +49,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public init() {}
 
+	// swiftlint:disable cyclomatic_complexity
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
 		guard let hubConfig = vaultConfig.allegedHubConfig, let vaultBaseURL = getVaultBaseURL(from: vaultConfig) else {
 			throw CryptomatorHubAuthenticatorError.invalidVaultConfig
@@ -99,6 +100,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 		return .success(.init(encryptedUserKey: encryptedUserKeyJWE, encryptedVaultKey: encryptedVaultKeyJWE, header: unlockHeader))
 	}
+
+	// swiftlint:enable cyclomatic_complexity
 
 	/**
 	 Registers a new device.
