@@ -305,7 +305,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
 		// 200
 		case success(encryptedVaultKey: String, header: [AnyHashable: Any])
-		// 403, 410
+		// 403
 		case accessNotGranted
 		// 402
 		case licenseExceeded
