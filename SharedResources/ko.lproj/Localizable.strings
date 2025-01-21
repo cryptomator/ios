@@ -247,8 +247,26 @@
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
 
+"upgrade.title" = "업그레이드 제안";
+"upgrade.notEligible.alert.title" = "업그레이드 실패";
+"upgrade.notEligible.alert.message" = "Cryptomator가 이 기기에 설치된 구버전을 찾을 수 없습니다. 만약 구매하였다면, App Store에서 다시 설치하고 다시 시도해 주십시오.";
+"upgrade.info" = "버전 1부터 Cryptomator를 신뢰해주셔서 감사합니다. 충성고객으로서 무료 업그레이드 자격이 있습니다.";
+
+"urlSession.error.httpError.401" = "사용자명/비밀번호가 잘못되었습니다.";
+"urlSession.error.httpError.403" = "요청한 자료에 대한 권한이 부족합니다.";
+"urlSession.error.httpError.404" = "요청한 자료를 찾을 수 없습니다.";
+"urlSession.error.httpError.405" = "요청 메소드가 대상 자료에 지원되지 않습니다.";
+"urlSession.error.httpError.409" = "요청이 대상 자료의 현재 상태에 상충됩니다.";
+"urlSession.error.httpError.412" = "대상 자료에 대한 접근이 거부되었습니다.";
+"urlSession.error.httpError.default" = "네트워크 연결이 코드 %ld로 실패하였습니다.";
+"urlSession.error.unexpectedResponse" = "예상치 못한 네트워크 응답이 발생했습니다.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "이미 추가된 Vault입니다.";
+
 "vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
+"vaultDetail.button.lock" = "지금 잠그기";
 "vaultDetail.button.moveVault" = "이동";
+"vaultDetail.button.removeVault" = "Vault 목록에서 제거하기";
 "vaultDetail.button.renameVault" = "이름 변경";
 "vaultDetail.keepUnlocked.title" = "잠금 해제 기간";
 "vaultDetail.moveVault.progress" = "이동 중…";
