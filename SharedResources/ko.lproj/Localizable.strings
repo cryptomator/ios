@@ -45,13 +45,13 @@
 "addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault 이름은 비어있을 수 없습니다.";
-"addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화 파일을 어디에 저장하시겠습니까?";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화된 파일을 어디에 저장하시겠습니까?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"가 이미 존재합니다. 다른 vault명을 정하거나 다른 위치를 선택해주세요.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "비밀번호를 확인하셨습니까?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 수 없습니다.";
 "addVault.createNewVault.password.error.emptyPassword" = "비밀번호를 입력해야 합니다.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "비밀번호가 일치하지 않습니다.";
 "addVault.createNewVault.password.error.tooShortPassword" = "비밀번호는 최소 8자 이상이어야 합니다.";
