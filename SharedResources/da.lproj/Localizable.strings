@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Den adgangskode, der er gemt for %@ er forkert. Prøv venligst igen og indtast din adgangskode for at genaktivere %@.";
 "fileProvider.error.defaultLock.title" = "Oplåsning kræves";
 "fileProvider.error.defaultLock.message" = "For at tilgå, og vise, indholdet af din boks, skal den være låst op.";
+"fileprovider.error.unauthorized.text" = "Adgang til din boks \"%@\" blev nægtet. Åben hovedappen for at tjekke din forbindelse, og gen-godkend hvis nødvendigt.";
 "fileProvider.error.unlockButton" = "Lås op";
 "fileProvider.clearFileFromCache.title" = "Ryd fil fra cache";
 "fileProvider.clearFileFromCache.message" = "Dette fjerner kun den lokale fil fra din enhed og sletter ikke filen i skyen.";
