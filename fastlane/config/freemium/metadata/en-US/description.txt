@@ -33,7 +33,7 @@ CRYPTOMATOR COMMUNITY
 
 Join the Cryptomator Community and participate in the conversations with other Cryptomator users: https://community.cryptomator.org
 
-• Follow us on Mastodon <a href="https://mastodon.online/@cryptomator">@cryptomator@mastodon.online</a>
+• Follow us on Mastodon @cryptomator@mastodon.online
 • Like us on Facebook /Cryptomator
 
 ---
