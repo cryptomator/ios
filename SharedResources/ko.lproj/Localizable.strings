@@ -46,7 +46,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault 이름은 비어있을 수 없습니다.";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화된 파일을 어디에 저장하시겠습니까?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"가 이미 존재합니다. 다른 vault명을 정하거나 다른 위치를 선택해주세요.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"가 이미 존재합니다. 다른 Vault 이름을 정하거나 다른 위치를 선택해주세요.．";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
@@ -130,6 +130,7 @@
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
 "intents.saveFile.missingTemporaryFolder" = "임시 폴더를 만들 수 없습니다.";
+"intents.saveFile.lockedVault" = "이 단축어를 이용하려면 Vault를 잠금 해제해야 합니다.．";
 "intents.saveFile.selectedVaultNotFound" = "해당 Vault를 찾을 수 없습니다.";
 
 "keepUnlocked.alert.title" = "Vault를 잠그시겠습니까?";
@@ -268,9 +269,20 @@
 "vaultDetail.button.moveVault" = "이동";
 "vaultDetail.button.removeVault" = "Vault 목록에서 제거하기";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.changePassword.footer" = "Vault에 대해 자신만 아는 강력한 암호를 선택하고, 안전한 장소에 두십시오.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "%@를 활성화하면, Vault 암호가 iOS 키체인에 저장될 것입니다.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Vault 암호는 %@ 인증이 실패할 때에만 요구됩니다.";
+"vaultDetail.info.footer.accessVault" = "파일 앱으로 이 Vault에 접근하십시오.";
+"vaultDetail.info.footer.accountInfo" = "%@로 %@에 로그인 되어 있습니다.";
 "vaultDetail.keepUnlocked.title" = "잠금 해제 기간";
+"vaultDetail.keepUnlocked.footer.off" = "파일 앱이 Cryptomator를 종료했을 때 잠금 해제가 요구됩니다.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Vault가 %@ 동안 유휴 상태일 때 잠금 해제가 요구됩니다.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "수동으로 잠그지 않으면 잠금 해제가 요구되지 않습니다.";
+"vaultDetail.locked.footer" = "Vault가 현재 잠겨있습니다.";
 "vaultDetail.moveVault.progress" = "이동 중…";
+"vaultDetail.removeVault.footer" = "이 동작은 Vault 목록에서 Vault를 지우지만 암호화된 파일은 지우지 않습니다.";
 "vaultDetail.renameVault.progress" = "이름변경중…";
+"vaultDetail.unlocked.footer" = "파일 앱에서 Vault가 잠금 해제되어 있습니다.．";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
