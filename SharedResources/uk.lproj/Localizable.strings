@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Це прибере сховище лише зі списку сховищ, але не видалить зашифрованих файлів.";
 "vaultDetail.renameVault.progress" = "Перейменування…";
 "vaultDetail.unlocked.footer" = "Ваше сховище вже розблоковано в додатку \"Файли\".";
-"vaultDetail.unlockVault.footer" = "Введіть пароль для \"%@\" для зберігання його у ланцюжку ключів iOS та активації %@.";
 
 "vaultList.header.title" = "Сховища";
 "vaultList.emptyList.message" = "Натисніть тут, щоб додати сховище";
