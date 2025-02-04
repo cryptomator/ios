@@ -18,3 +18,4 @@
 "unlockVault.button.unlock" = "Atslēgt";
 
 "vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
+"vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
