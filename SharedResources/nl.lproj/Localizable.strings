@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Dit verwijdert alleen de kluis uit de lijst en verwijdert geen versleutelde bestanden.";
 "vaultDetail.renameVault.progress" = "Naam wijzigen…";
 "vaultDetail.unlocked.footer" = "Je kluis is momenteel ontgrendeld in de Bestandenapp.";
+"vaultDetail.unlockVault.footer" = "Voer wachtwoord voor \"%1$@\" in om het in de iOS-sleutelhanger op te slaan en %2$@ in te schakelen.";
 
 "vaultList.header.title" = "Kluizen";
 "vaultList.emptyList.message" = "Klik hier om een kluis toe te voegen";
