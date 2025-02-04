@@ -283,7 +283,6 @@
 "vaultDetail.removeVault.footer" = "Això només eliminarà la caixa forta de la llista de caixes fortes però no esborrarà cap fitxer encriptat.";
 "vaultDetail.renameVault.progress" = "S'està canviant el nom…";
 "vaultDetail.unlocked.footer" = "La vostra caixa forta ara està desblocada en l'app Files.";
-"vaultDetail.unlockVault.footer" = "Introduïu la paraula clau per \"%@\" per desar-la en el clauer d'iOS i per habilitar %@.";
 
 "vaultList.header.title" = "Caixes fortes";
 "vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";
