@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρύπτης και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
 "vaultDetail.renameVault.progress" = "Μετονομασία…";
 "vaultDetail.unlocked.footer" = "Η κρύπτη σας είναι ξεκλειδωμένη αυτή τη στιγμή στην εφαρμογή Αρχείων.";
+"vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για \"%1$@\" για να το αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %2$@.";
 
 "vaultList.header.title" = "Κρύπτες";
 "vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε μια κρύπτη";
