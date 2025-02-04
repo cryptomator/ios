@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Hanya menghapus vault dari daftar vault dan tidak menghapus file terenkripsi yang ada.";
 "vaultDetail.renameVault.progress" = "Mengubah nama…";
 "vaultDetail.unlocked.footer" = "Vault Anda saat ini tidak terkunci di aplikasi File.";
-"vaultDetail.unlockVault.footer" = "Masukkan kata sandi untuk \"%@\" untuk mengaktifkan dan menyimpannya di iOS keychain %@.";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "Ketuk di sini untuk menambahkan vault";
