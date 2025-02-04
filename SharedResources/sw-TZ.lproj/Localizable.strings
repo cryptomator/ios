@@ -273,7 +273,6 @@
 "vaultDetail.removeVault.footer" = "Hii itaondoa tu kuba kutoka kwenye orodha ya kuba na sio kufuta faili zozote zilizosimbwa kwa njia fiche.";
 "vaultDetail.renameVault.progress" = "Inaita jina jipya…";
 "vaultDetail.unlocked.footer" = "Kuba yako imefunguliwa kwa sasa katika programu ya Mafaili.";
-"vaultDetail.unlockVault.footer" = "Ingiza nenosiri la \"%@\" ili kuihifadhi kwenye kitufe cha iOS na kuwezesha %@.";
 
 "vaultList.header.title" = "Kuba";
 "vaultList.emptyList.message" = "Gonga hapa ili kuongeza kuba";
