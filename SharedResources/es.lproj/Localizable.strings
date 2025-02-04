@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Esto solo eliminará la bóveda de la lista de bóvedas y no eliminará ningún archivo cifrado.";
 "vaultDetail.renameVault.progress" = "Renombrando…";
 "vaultDetail.unlocked.footer" = "Su bóveda está actualmente desbloqueada en la aplicación Archivos.";
+"vaultDetail.unlockVault.footer" = "Ingrese la contraseña de \"%1$@\" para guardarla en el llavero de iOS y para habilitar %2$@.";
 
 "vaultList.header.title" = "Bóvedas";
 "vaultList.emptyList.message" = "Pulse aquí para añadir una bóveda";
