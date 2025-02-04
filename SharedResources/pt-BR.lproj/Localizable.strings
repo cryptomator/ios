@@ -285,7 +285,6 @@ Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não excluir nenhum arquivo criptografado.";
 "vaultDetail.renameVault.progress" = "Renomeando…";
 "vaultDetail.unlocked.footer" = "Seu cofre está atualmente desbloqueado no aplicativo Arquivos.";
-"vaultDetail.unlockVault.footer" = "Digite a senha para \"%@\" para armazená-lo no keychain do iOS e habilitar %@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
