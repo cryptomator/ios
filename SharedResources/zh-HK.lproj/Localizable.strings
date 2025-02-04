@@ -274,7 +274,6 @@
 "vaultDetail.removeVault.footer" = "這只會從列表中移除加密庫，而不會刪除任何加密文件。";
 "vaultDetail.renameVault.progress" = "重新命名中…";
 "vaultDetail.unlocked.footer" = "加密庫目前在「檔䅁」應用程式中解鎖。";
-"vaultDetail.unlockVault.footer" = "輸入「%@」的密碼以將其儲存在 iOS 鑰匙圈中並啟用 %@。";
 
 "vaultList.header.title" = "加密庫";
 "vaultList.emptyList.message" = "點擊此處來加入加密庫";
