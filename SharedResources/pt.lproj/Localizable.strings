@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
 "vaultDetail.renameVault.progress" = "A Renomear…";
 "vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
+"vaultDetail.unlockVault.footer" = "Introduzir palavra-passe de \"%1$@\" para guardar no porta-chaves do iOS e ativar %2$@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
