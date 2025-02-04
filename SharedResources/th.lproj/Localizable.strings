@@ -193,7 +193,6 @@
 "vaultDetail.moveVault.progress" = "กำลังย้าย…";
 "vaultDetail.removeVault.footer" = "ขั้นตอนนี้เพียงลบ vault ออกจากรายการทั้งหมด แต่ไม่ลบไฟล์ที่ถูกเข้ารหัสใดๆ";
 "vaultDetail.renameVault.progress" = "กำลังเปลี่ยนชื่อ…";
-"vaultDetail.unlockVault.footer" = "กรอกรหัสผ่านสำหรับ \"%@\" เพื่อเก็บไว้ในพวงกุญแจ iOS และเปิดใช้งาน %@";
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "แตะที่นี่เพื่อเพิ่ม vault";
