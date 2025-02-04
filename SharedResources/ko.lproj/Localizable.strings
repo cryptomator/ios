@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "이 동작은 Vault 목록에서 Vault를 지우지만 암호화된 파일은 지우지 않습니다.";
 "vaultDetail.renameVault.progress" = "이름 변경 중…";
 "vaultDetail.unlocked.footer" = "파일 앱에서 Vault가 잠금 해제되어 있습니다.";
-"vaultDetail.unlockVault.footer" = "%@를 활성화하고 iOS 키체인에 비밀번호를 저장하기 위해 \"%@\"에 대한 비밀번호를 입력하십시오.";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
