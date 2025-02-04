@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Detta kommer bara att ta bort valvet från valvlistan och inte ta bort några krypterade filer.";
 "vaultDetail.renameVault.progress" = "Döper om…";
 "vaultDetail.unlocked.footer" = "Ditt valv är för närvarande upplåst i appen Filer.";
-"vaultDetail.unlockVault.footer" = "Ange lösenord för \"%@\" för att lagra det i iOS nyckelring och för att aktivera %@.";
 
 "vaultList.header.title" = "Valv";
 "vaultList.emptyList.message" = "Klicka här för att lägga till valv";
