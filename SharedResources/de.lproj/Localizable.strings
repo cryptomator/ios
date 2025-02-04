@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt und keine verschlüsselten Daten gelöscht.";
 "vaultDetail.renameVault.progress" = "Tresor wird umbenannt …";
 "vaultDetail.unlocked.footer" = "Dein Tresor ist in der App „Dateien“ zurzeit entsperrt.";
-"vaultDetail.unlockVault.footer" = "Gib das Passwort für „%@“ ein, um es im iOS-Schlüsselbund zu speichern und %@ zu aktivieren.";
 
 "vaultList.header.title" = "Tresore";
 "vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";
