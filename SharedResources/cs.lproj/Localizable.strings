@@ -282,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "Tímto odstraníte pouze trezor ze seznamu trezorů a neodstraníte žádné šifrované soubory.";
 "vaultDetail.renameVault.progress" = "Přejmenování…";
 "vaultDetail.unlocked.footer" = "Váš trezor je v současné době odemčen v aplikaci Soubory.";
-"vaultDetail.unlockVault.footer" = "Zadejte heslo pro \"%@\" pro uložení do iOS klíčenky a pro povolení %@.";
 
 "vaultList.header.title" = "Trezory";
 "vaultList.emptyList.message" = "Klikněte zde pro přidání nového trezoru";
