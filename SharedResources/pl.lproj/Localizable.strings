@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Spowoduje to wyłącznie usunięcie sejfu z listy, zaszyfrowane pliki nie zostaną skasowane.";
 "vaultDetail.renameVault.progress" = "Zmiana nazwy…";
 "vaultDetail.unlocked.footer" = "Twój sejf jest obecnie odblokowany w aplikacji Pliki.";
-"vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%@\", aby zapisać je w pęku kluczy iOS i aktywować %@.";
 
 "vaultList.header.title" = "Sejfy";
 "vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";
