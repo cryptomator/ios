@@ -283,7 +283,6 @@
 "vaultDetail.removeVault.footer" = "Aalisin lang nito ang vault sa listahan ng vault at hindi tatanggalin ang anumang naka-encrypt na file.";
 "vaultDetail.renameVault.progress" = "Pinapalitan ang pangalan…";
 "vaultDetail.unlocked.footer" = "Kasalukuyang naka-unlock ang iyong vault sa Files app.";
-"vaultDetail.unlockVault.footer" = "Ilagay ang password para sa \"%@\" para iimbak ito sa iOS keychain at para paganahin ang %@.";
 
 "vaultList.header.title" = "Mga Vault";
 "vaultList.emptyList.message" = "Mag-tap dito para magdagdag ng vault";
