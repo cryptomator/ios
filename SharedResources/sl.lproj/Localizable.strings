@@ -226,7 +226,6 @@
 "vaultDetail.removeVault.footer" = "To bo samo odstranilo trezor s seznama trezorjev in ne bo izbrisalo nobenih zašifriranih datotek.";
 "vaultDetail.renameVault.progress" = "Preimenovanje …";
 "vaultDetail.unlocked.footer" = "Vaš trezor je trenutno odklenjen v aplikaciji Datoteke.";
-"vaultDetail.unlockVault.footer" = "Vnesite geslo za \"%@\", da ga shranite v iOS ključni verigi in omogočite %@.";
 
 "vaultList.header.title" = "Trezorji";
 "vaultList.emptyList.message" = "Tapnite tu za dodajanje trezorja";
