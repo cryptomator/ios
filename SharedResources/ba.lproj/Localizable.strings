@@ -283,7 +283,6 @@
 "vaultDetail.removeVault.footer" = "Был һаҡлағысты исемлектән генә алып ташлай һәм шифрланған файлдарҙы юймай.";
 "vaultDetail.renameVault.progress" = "Исемен үҙгәртеү…";
 "vaultDetail.unlocked.footer" = "Әлеге ваҡытта һаҡлағыс Файлдар ҡушымтаһында асылған.";
-"vaultDetail.unlockVault.footer" = "\"%@\" серһүҙен iOS асҡыс сылбырында һаҡлау һәм %@ ҡулланыу өсөн серһүҙҙе яҙығыҙ.";
 
 "vaultList.header.title" = "Һаҡлағыстар";
 "vaultList.emptyList.message" = "Һаҡлағыс өҫтәү өсөн бында баҫығыҙ";
