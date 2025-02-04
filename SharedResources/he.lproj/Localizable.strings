@@ -273,7 +273,6 @@
 "vaultDetail.removeVault.footer" = "זה רק יסיר את הכספת מרשימת הכספות ולא ימחק קבצים מוצפנים.";
 "vaultDetail.renameVault.progress" = "משנה שם…";
 "vaultDetail.unlocked.footer" = "הכספת שלך כרגע לא נעולה בישום Files.";
-"vaultDetail.unlockVault.footer" = "הקש סיסמה עבור ״%@״ לשמירתה בצרור המפתחות של iOS ולהפעלת %@.";
 
 "vaultList.header.title" = "כספות";
 "vaultList.emptyList.message" = "לחץ כאן להוספת כספת";
