@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Будет удалено только хранилище из списка, но не зашифрованные файлы.";
 "vaultDetail.renameVault.progress" = "Переименование…";
 "vaultDetail.unlocked.footer" = "Сейчас хранилище разблокировано в приложении \"Файлы\".";
-"vaultDetail.unlockVault.footer" = "Введите пароль для \"%@\", чтобы сохранить его в Связке ключей iOS и включить %@.";
 
 "vaultList.header.title" = "Хранилища";
 "vaultList.emptyList.message" = "Нажмите здесь, чтобы добавить хранилище";
