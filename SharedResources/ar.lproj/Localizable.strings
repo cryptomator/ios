@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن ولن يحذف أي ملفات مشفرة.";
 "vaultDetail.renameVault.progress" = "إعادة تسمية…";
 "vaultDetail.unlocked.footer" = "خزانتك غير مقفلة حاليًا في تطبيق الملفات.";
-"vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%@\" لتخزينها في سلسلة مفاتيح iOS وتمكين %@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
