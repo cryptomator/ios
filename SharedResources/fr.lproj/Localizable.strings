@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Cela ne supprimera que le coffre de la liste des coffres et ne supprimera aucun fichier chiffré.";
 "vaultDetail.renameVault.progress" = "Renommage…";
 "vaultDetail.unlocked.footer" = "Votre coffre est actuellement déverrouillé dans l'application Fichiers.";
-"vaultDetail.unlockVault.footer" = "Entrez le mot de passe pour \"%@\" pour le stocker dans le porte-clés iOS et pour activer %@.";
 
 "vaultList.header.title" = "Coffres";
 "vaultList.emptyList.message" = "Appuyez ici pour ajouter un coffre";
