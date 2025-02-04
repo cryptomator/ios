@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Questo rimuoverà solo la cassaforte dall'elenco della cassaforte e non eliminerà alcun file crittografato.";
 "vaultDetail.renameVault.progress" = "Rinominando…";
 "vaultDetail.unlocked.footer" = "La tua cassaforte è attualmente sbloccata nell'app File.";
+"vaultDetail.unlockVault.footer" = "Inserisci la password per \"%1$@\" per memorizzarla nel portachiavi iOS e per abilitare %2$@.";
 
 "vaultList.header.title" = "Cassaforti";
 "vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";
