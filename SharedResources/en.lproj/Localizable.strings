@@ -284,7 +284,7 @@
 "vaultDetail.removeVault.footer" = "This will only remove the vault from the vault list and not delete any encrypted files.";
 "vaultDetail.renameVault.progress" = "Renaming…";
 "vaultDetail.unlocked.footer" = "Your vault is currently unlocked in the Files app.";
-"vaultDetail.unlockVault.footer" = "Enter password for \"%@\" to store it in the iOS keychain and to enable %@.";
+"vaultDetail.unlockVault.footer" = "Enter password for \"%1$@\" to store it in the iOS keychain and to enable %2$@.";
 
 "vaultList.header.title" = "Vaults";
 "vaultList.emptyList.message" = "Tap here to add a vault";
