@@ -284,7 +284,6 @@
 "vaultDetail.removeVault.footer" = "Dette vil kun fjerne boksen fra listen, og sletter ikke nogen krypterede filer.";
 "vaultDetail.renameVault.progress" = "Omdøber…";
 "vaultDetail.unlocked.footer" = "Din boks er i øjeblikket låst op, i Filer appen.";
-"vaultDetail.unlockVault.footer" = "Indtast adgangskode for \"%@\" for at gemme den i iOS-nøgleringen og for at aktivere %@.";
 
 "vaultList.header.title" = "Bokse";
 "vaultList.emptyList.message" = "Tryk her for at tilføje en boks";
