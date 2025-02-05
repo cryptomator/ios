@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "金庫のリストから金庫が削除されます。暗号化されたファイルは削除されません。";
 "vaultDetail.renameVault.progress" = "名前を変更しています…";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
+"vaultDetail.unlockVault.footer" = "%2$@ を有効にするため「%1$@」のパスワードを入力してください。パスワードは iOS キーチェーンに保存されます。";
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";
