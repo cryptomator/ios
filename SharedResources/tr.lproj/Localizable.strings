@@ -284,6 +284,7 @@
 "vaultDetail.removeVault.footer" = "Bu, yalnızca kasayı kasa listesinden kaldırır ve şifrelenmiş dosyaları silmez.";
 "vaultDetail.renameVault.progress" = "Yeniden adlandırılıyor…";
 "vaultDetail.unlocked.footer" = "Kasanızın kilidi şu anda Dosyalar uygulamasında açık.";
+"vaultDetail.unlockVault.footer" = "iOS anahtar zincirinde saklamak ve %2$@ öğesini etkinleştirmek için “%1$@” parolasını girin.";
 
 "vaultList.header.title" = "Kasalar";
 "vaultList.emptyList.message" = "Kasa eklemek için buraya tıklayın";
