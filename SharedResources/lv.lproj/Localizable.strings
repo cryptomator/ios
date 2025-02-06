@@ -1,21 +1,59 @@
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
+"common.button.choose" = "Izvēlēties";
 "common.button.close" = "Aizvērt";
 "common.button.done" = "Darīts";
+"common.button.edit" = "Labot";
 "common.button.next" = "Tālāk";
+"common.button.ok" = "Labi";
+"common.button.remove" = "Noņemt";
 "common.cells.password" = "Parole";
 
-"addVault.title" = "Pievienot glabātuvi";
+"addVault.title" = "Pievienot glabātavu";
 "addVault.createNewVault.title" = "Izveidot jaunu glabātuvi";
-"addVault.createNewVault.setVaultName.cells.name" = "Glabātuves nosaukums";
-"addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu glabāt jūsu glabātuves šifrētos failus?";
-"addVault.openExistingVault.title" = "Atvērt esošu glabātuvi";
+"addVault.createNewVault.setVaultName.cells.name" = "Glabātavas nosaukums";
+"addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu saglabāt glabātavs šifrētās datnes?";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai izveidotu jaunu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
+"addVault.openExistingVault.title" = "Atvērt esošu glabātavu";
+"addVault.openExistingVault.chooseCloud.header" = "Kur atrodas glabātava?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator noteica glabātavu \"%@\".\nVai pievienot šo glabātavu?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Pievienot šo glabātavu";
+"addVault.openExistingVault.downloadVault.progress" = "Lejupielādē glabātavu…";
+"addVault.openExistingVault.password.footer" = "Jāievada \"%@\" parole.";
+"addVault.openExistingVault.progress" = "Pievieno glabātavu…";
+"addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
+"fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
+"fileProvider.error.biometricalAuthCanceled.message" = "Atslēgšana ar %@ nebija sekmīga. Lūgums mēģināt vēlreiz.";
 "fileProvider.error.unlockButton" = "Atslēgt";
+"hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
+"hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
+"localFileSystemAuthentication.openExistingVault.header" = "Nākamajā skatā jāizvēlas savas esošās glabātavas mape.";
+"localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
+"localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
+"purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.unlockedFullVersion.title" = "Paldies!";
+"purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
 
 "settings.title" = "Iestatījumi";
+"settings.aboutCryptomator" = "Par Cryptomator";
+"s3Authentication.accessKey" = "Piekļuves atslēga";
 
 "unlockVault.button.unlock" = "Atslēgt";
+"unlockVault.password.footer" = "Jāievada \"%@\" parole.";
+"upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
 "vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
+"vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
+
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Glabātavas versija %ld nav atbalstīta. Šī krātuve tika izveidota vecākā vai jaunākā Cryptomator versijā.";
+
+"webDAVAuthenticator.error.unsupportedProtocol" = "Izskatās, ka serveris nav saderīgs ar WebDAV. Lūgums pārbaudīt, vai tiek izmantots pareizs URL.";
