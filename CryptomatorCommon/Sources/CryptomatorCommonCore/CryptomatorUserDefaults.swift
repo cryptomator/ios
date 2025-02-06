@@ -15,9 +15,6 @@ public protocol CryptomatorSettings {
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
 	var hasRunningSubscription: Bool { get set }
-	#if !ALWAYS_PREMIUM
-	var december2024BannerDismissed: Bool { get set }
-	#endif
 }
 
 private enum CryptomatorSettingsKey: DependencyKey {
@@ -111,11 +108,4 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}
-
-	#if !ALWAYS_PREMIUM
-	public var december2024BannerDismissed: Bool {
-		get { read() ?? false }
-		set { write(value: newValue) }
-	}
-	#endif
 }

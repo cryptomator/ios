@@ -77,7 +77,6 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 
 	private var freeUpgradeCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.freeUpgrade"),
-		                           productDetail: nil,
 		                           price: LocalizedString.getValue("purchase.product.pricing.free"),
 		                           purchaseDetail: nil,
 		                           productIdentifier: .freeUpgrade))
@@ -85,7 +84,6 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 
 	private var paidUpgradeCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.donateAndUpgrade"),
-		                           productDetail: nil,
 		                           price: "$1.99",
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 		                           productIdentifier: .paidUpgrade))
