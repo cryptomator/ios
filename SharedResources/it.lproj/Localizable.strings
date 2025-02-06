@@ -121,9 +121,11 @@
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembra che questo sia il primo accesso alle Centrali delle Casseforti da questo dispositivo. Per poterlo identificare ai fini dell'autorizzazione all'accesso è necessario dare un nome a questo dispositivo.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "La chiave del tuo account è richiesta per accedere da nuove applicazioni o browser. Può essere trovata nel tuo profilo.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrazione del dispositivo Riuscita";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per accedere alla cassaforte, il proprietario deve autorizzarti.";
 "hubAuthentication.requireAccountInit.alert.title" = "Azione richiesta";
 "hubAuthentication.requireAccountInit.alert.message" = "Per procedere, completa i passaggi richiesti nel tuo profilo dell'Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vai al profilo";
+"hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
 "intents.saveFile.invalidFolder" = "La cartella fornita non è valida.";
