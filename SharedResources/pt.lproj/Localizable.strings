@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre selecionado.";
 
 "hubAuthentication.title" = "Cofre do Hub";
-"hubAuthentication.accessNotGranted" = "O seu dispositivo ainda não foi autorizado a aceder a este cofre. Peça ao proprietário do cofre para o autorizar.";
 "hubAuthentication.licenseExceeded" = "A entidade do seu Cryptomator Hub tem uma licença inválida. Por favor, informe o administrador do Hub para atualizar ou renovar a licença.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, é preciso dar um nome a este dispositivo.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "A sua chave de conta é necessária para iniciar sessão em novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registado com sucesso";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para aceder ao cofre, o seu dispositivo precisa de ser autorizado pelo proprietário do cofre.";
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
