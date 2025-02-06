@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Vault가 선택되지 않았습니다.";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.accessNotGranted" = "귀하의 기기는 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "이 기기로부터 첫번째 Hub 접근입니다. 접근 허가를 위해 인식할 수 있도록 이름을 붙이십시오.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "새로운 앱이나 브라우저에서 로그인하기 위해 Account Key가 필요합니다. 프로필에서 찾을 수 있습니다.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "기기 등록 성공";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Vault에 접근하기 위해서는 이 기기를 Vault 소유주가 허가해야 합니다.";
 "hubAuthentication.requireAccountInit.alert.title" = "조치가 필요함";
 "hubAuthentication.requireAccountInit.alert.message" = "진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "프로필로 가기";
