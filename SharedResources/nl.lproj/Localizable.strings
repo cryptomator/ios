@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Er is geen kluis geselecteerd.";
 
 "hubAuthentication.title" = "Hub Kluis";
+"hubAuthentication.accessNotGranted" = "U bent niet gemachtigd om toegang te krijgen tot deze kluis. Vraag de eigenaar van de kluis om u toestemming te geven.";
 "hubAuthentication.licenseExceeded" = "Uw Cryptomator Hub installatie heeft een ongeldige licentie. Contacteer een Hub administrator om de licentie te upgraden of te verlengen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Naam van toestel";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registratie van toestel gelukt";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Om toegang te krijgen tot de kluis, moet de eigenaar van de kluis je toestemming verlenen.";
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
 "hubAuthentication.requireAccountInit.alert.message" = "Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ga naar Profiel";
+"hubAuthentication.vaultArchived" = "Deze kluis is gearchiveerd. Vraag de eigenaar van de kluis om de kluis te unarchiveren.";
 
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
 "intents.saveFile.invalidFolder" = "De opgegeven map is niet geldig.";
