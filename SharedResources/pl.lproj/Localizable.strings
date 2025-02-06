@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Nie wybrano sejfu.";
 
 "hubAuthentication.title" = "Hub sejfów";
-"hubAuthentication.accessNotGranted" = "Twoje urządzenie nie zostało jeszcze upoważnione do dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.";
 "hubAuthentication.licenseExceeded" = "Twoja instancja Hub ma nieprawidłową licencję. Poproś administratora Hub o uaktualnienie lub odnowienie licencji.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nazwa urządzenia";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Rejestracja urządzenia powiodła się";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
 "hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
 "hubAuthentication.requireAccountInit.alert.message" = "Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
