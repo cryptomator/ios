@@ -116,6 +116,7 @@
 "getFolderIntent.error.noVaultSelected" = "Nessuna cassaforte è stata selezionata.";
 
 "hubAuthentication.title" = "Centrale delle Casseforti";
+"hubAuthentication.accessNotGranted" = "Non hai l'autorizzazione per accedere a questa cassaforte. Chiedi al proprietario di autorizzarti.";
 "hubAuthentication.licenseExceeded" = "La tua istanza Cryptomator Hub ha una licenza non valida. Si prega di informare un amministratore Hub per aggiornare o rinnovare la licenza.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome Del Dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembra che questo sia il primo accesso alle Centrali delle Casseforti da questo dispositivo. Per poterlo identificare ai fini dell'autorizzazione all'accesso è necessario dare un nome a questo dispositivo.";
