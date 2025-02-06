@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "Ni bil izbran noben trezor.";
 
 "hubAuthentication.title" = "Hub trezor";
-"hubAuthentication.accessNotGranted" = "Vaša naprava še ni bila avtorizirana za dostopanje do tega trezorja. Lastnika trezorja vprašajte za avtorizacijo.";
 "hubAuthentication.licenseExceeded" = "Vaša Cryptomator Hub instanca ima neveljavno licenco. Prosimo obvestite Hub administratorja, da mora nadgraditi ali obnoviti licenco.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ime naprave";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Zdi se, da prvič dostopate do Hub-a s te naprave. Napravo morate poimenovati, da jo lahko identificirate za avtorizacijo za dostop.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Vaš Account Key je zahtevan za prijavo z novih aplikacij ali brskalnikov. Najdete ga lahko v svojem profilu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registracije naprave uspešna";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lastnik trezorja mora odobriti vašo napravo za dostopanje do trezorja.";
 "hubAuthentication.requireAccountInit.alert.title" = "Potrebno dejanje";
 "hubAuthentication.requireAccountInit.alert.message" = "Za nadaljevanje, prosimo zaključite zahtevane korake v svojem Hub uporabniškem profilu.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Pojdi v profil";
