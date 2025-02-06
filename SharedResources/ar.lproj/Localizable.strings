@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "لم يتم تحديد أي خزانة.";
 
 "hubAuthentication.title" = "خزانة Hub";
-"hubAuthentication.accessNotGranted" = "لم يتم بعد منح الإذن لجهازك بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.";
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "تم تسجيل الجهاز بنجاح";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للدخول إلى الخزينة، يحتاج جهازك إلى إذن من مالك الخزينة.";
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
