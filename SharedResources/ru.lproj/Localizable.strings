@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Не выбрано хранилище.";
 
 "hubAuthentication.title" = "Хаб-хранилище";
+"hubAuthentication.accessNotGranted" = "У вас нет разрешения на доступ к этому хранилищу. Попросите владельца хранилища авторизовать вас.";
 "hubAuthentication.licenseExceeded" = "У вашего Cryptomator Hub неверная лицензия. Попросите Hub администратора обновить или продлить лицензию.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Имя устройства";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Похоже, это первый доступ к Hub с данного устройства. Чтобы идентифицировать его для предоставления доступа, нужно дать устройству имя.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Для входа в систему из новых приложений или браузеров требуется ключ вашего аккаунта. Он находится в вашем профиле.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройство успешно зарегистрировано";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Для доступа к хранилищу его владелец должен предоставить вам разрешение.";
 "hubAuthentication.requireAccountInit.alert.title" = "Требуется действие";
 "hubAuthentication.requireAccountInit.alert.message" = "Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в профиль";
+"hubAuthentication.vaultArchived" = "Это хранилище помещено в архив. Попросите владельца хранилища разархивировать его.";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
 "intents.saveFile.invalidFolder" = "Выбрана некорректная папка.";
