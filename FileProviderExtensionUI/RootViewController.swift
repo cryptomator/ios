@@ -49,6 +49,7 @@ class RootViewController: FPUIActionExtensionViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		view.tintColor = .cryptomatorPrimary
 		RootViewController.oneTimeSetup()
 	}
 
