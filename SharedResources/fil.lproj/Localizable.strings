@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "Walang vault na napili.";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.accessNotGranted" = "Hindi pa pinahihintulutan ang iyong device na i-access ang vault na ito. Hilingin sa may-ari ng vault na pahintulutan ito.";
 "hubAuthentication.licenseExceeded" = "Ang iyong Cryptomator Hub instance ay may di-wastong lisensya. Mangyaring ipagbigay-alam sa administrator ng Hub na mag-upgrade o mag-renew ng lisensya.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Pangalan ng device";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Mukhang ito ang unang access sa Hub mula sa device na ito. Upang matukoy ito para sa awtorisasyon sa pag-access, kailangan mong pangalanan ang device na ito.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ang iyong Account Key ay kailangan para mag login galing sa bagong apps o browser. Mahahanap mo ito sa iyong profile.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Matagumpay ang pag register ng device";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para ma-access ang vault, kailangang pahintulutan ng may-ari ng vault ang iyong device.";
 "hubAuthentication.requireAccountInit.alert.title" = "Kinakailangan ang pagkilos";
 "hubAuthentication.requireAccountInit.alert.message" = "Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Pumunta sa Profile";
