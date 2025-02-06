@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "Nici un seif nu a fost ales.";
 
 "hubAuthentication.title" = "Seif Hub";
-"hubAuthentication.accessNotGranted" = "Dispozitivul dvs. nu a fost autorizat să acceseze acest seif. Solicitați proprietarului seifului să va autorizeze accesul.";
 "hubAuthentication.licenseExceeded" = "Instanța Hub are o licență invalidă. Vă rugăm să informați un administrator Hub să actualizeze sau să reînnoiască licența.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Numele dispozitivului";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Se pare că este prima data când accesați Hub-ul de pe acest dispozitiv. Trebuie sa denumiți acest dispozitiv pentru autorizarea accesului.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Cheia contului dvs. este necesară pentru a vă conecta din aplicații sau browsere noi. Aceasta poate fi găsită în profilul dvs.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispozitiv de înregistrare cu succes";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pentru a accesa acest seif, dispozitivul dvs. trebuie să fie autorizat de proprietarul seifului.";
 "hubAuthentication.requireAccountInit.alert.title" = "Operație necesară";
 "hubAuthentication.requireAccountInit.alert.message" = "Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Mergi la profil";
