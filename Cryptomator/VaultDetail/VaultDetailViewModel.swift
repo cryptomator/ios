@@ -121,7 +121,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 
 	private var lockSectionCells: [BindableTableViewCellViewModel] {
 		var cells: [BindableTableViewCellViewModel] = [lockButton, keepUnlockedCellViewModel]
-		if let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
+		if vaultInfo.vaultConfigType != .hub, let biometryTypeName = context.enrolledBiometricsAuthenticationName() {
 			let switchCellViewModel = getSwitchCellViewModel(biometryTypeName: biometryTypeName)
 			cells.append(switchCellViewModel)
 		}
@@ -146,7 +146,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	                                                                               .lockingSection: unlockSectionFooterViewModel,
 	                                                                               .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 
-	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value)
+	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value, vaultInfo: vaultInfo)
 
 	private lazy var vaultInfoCellViewModel = BindableTableViewCellViewModel(title: vaultInfo.vaultName, detailTitle: vaultInfo.vaultPath.path, detailTitleTextColor: .secondaryLabel, image: UIImage(vaultIconFor: vaultInfo.cloudProviderType, state: .normal), selectionStyle: .none)
 	private lazy var renameVaultCellViewModel = ButtonCellViewModel.createDisclosureButton(action: VaultDetailButtonAction.showRenameVault, title: LocalizedString.getValue("vaultDetail.button.renameVault"), detailTitle: vaultName)

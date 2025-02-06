@@ -20,6 +20,7 @@ public enum HubAuthenticationFlow {
 	case needsDeviceRegistration
 	case licenseExceeded
 	case requiresAccountInitialization(at: URL)
+	case vaultArchived
 }
 
 public struct HubAuthenticationFlowSuccess {
@@ -48,6 +49,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 
 	public init() {}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	public func receiveKey(authState: OIDAuthState, vaultConfig: UnverifiedVaultConfig) async throws -> HubAuthenticationFlow {
 		guard let hubConfig = vaultConfig.allegedHubConfig, let vaultBaseURL = getVaultBaseURL(from: vaultConfig) else {
 			throw CryptomatorHubAuthenticatorError.invalidVaultConfig
@@ -79,6 +81,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			return .requiresAccountInitialization(at: profileURL)
 		case .legacyHubVersion:
 			throw CryptomatorHubAuthenticatorError.incompatibleHubVersion
+		case .vaultArchived:
+			return .vaultArchived
 		}
 
 		let retrieveUserPrivateKeyResponse = try await getUserKey(apiBaseURL: apiBaseURL, authState: authState)
@@ -240,8 +244,10 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			return .success(encryptedVaultKey: body, header: httpResponse?.allHeaderFields ?? [:])
 		case 402:
 			return .licenseExceeded
-		case 403, 410:
+		case 403:
 			return .accessNotGranted
+		case 410:
+			return .vaultArchived
 		case 404:
 			return .legacyHubVersion
 		case 449:
@@ -297,7 +303,7 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
 		// 200
 		case success(encryptedVaultKey: String, header: [AnyHashable: Any])
-		// 403, 410
+		// 403
 		case accessNotGranted
 		// 402
 		case licenseExceeded
@@ -305,6 +311,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 		case requiresAccountInitialization(at: URL)
 		// 404
 		case legacyHubVersion
+		// 410
+		case vaultArchived
 	}
 
 	private struct DeviceDto: Codable {
