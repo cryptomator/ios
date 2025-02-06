@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "Ingen hvelv har blitt valgt.";
 
 "hubAuthentication.title" = "Hub hvelv";
-"hubAuthentication.accessNotGranted" = "Enheten din har ikke blitt autorisert til å få tilgang til dette hvelvet ennå. Spør hvelveieren om å tillate det.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub instansen din har en ugyldig lisens. Vennligst informer en Hub-administrator om å oppgradere eller fornye lisensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnavn";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dette ser ut til å være den første Hub-tilgangen fra denne enheten. For å kunne identifisere den for tilgangsautorisasjon, må du å navngi denne enheten.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonøkkel kreves for å logge inn fra nye apper eller nettlesere. Den finner du i profilen din.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enhetsregistrering vellykket";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For å få tilgang til hvelvet, så må enheten din bli autorisert av hvelvets eier.";
 "hubAuthentication.requireAccountInit.alert.title" = "Påkrevd handling";
 "hubAuthentication.requireAccountInit.alert.message" = "For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til profil";
