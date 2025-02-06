@@ -89,7 +89,6 @@
 "fileProvider.uploadProgress.missingDomainError" = "ไม่พบโดเมน";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.accessNotGranted" = "อุปกรณ์ของคุณยังไม่ได้รับการอนุญาตให้เข้าถึง vault นี้ โปรดขอให้เจ้าของ vault อนุญาต";
 "hubAuthentication.licenseExceeded" = "ระบบ Cryptomator Hub ของคุณมีสิทธิ์การใช้ไม่ถูกต้อง โปรดแจ้งผู้ดูแล Hub เพื่ออัปเกรดหรือต่ออายุสิทธิ์การใช้";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ชื่ออุปกรณ์";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "ลงทะเบียนอุปกรณ์สำเร็จ";
