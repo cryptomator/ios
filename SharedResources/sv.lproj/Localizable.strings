@@ -116,6 +116,7 @@
 "getFolderIntent.error.noVaultSelected" = "Inget valv har valts.";
 
 "hubAuthentication.title" = "Hubb valv";
+"hubAuthentication.accessNotGranted" = "Du har inte behörighet att komma åt detta valv. Be valvägaren att godkänna dig.";
 "hubAuthentication.licenseExceeded" = "Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnamn";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Detta verkar vara den första Hub-åtkomsten från den här enheten. För att identifiera den för åtkomstbehörighet, måste du namnge den här enheten.";
