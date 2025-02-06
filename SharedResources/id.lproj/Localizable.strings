@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Tidak ada vault yang dipilih.";
 
 "hubAuthentication.title" = "Hub Vault";
-"hubAuthentication.accessNotGranted" = "Perangkat Anda belum diizinkan mengakses vault ini. Minta pemilik vault untuk mengizinkannya.";
 "hubAuthentication.licenseExceeded" = "Contoh Cryptomator Hub Anda memiliki lisensi yang tidak valid. Mohon informasikan kepada administrator Hub untuk meningkatkan atau memperbarui lisensi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nama Perangkat";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Berhasil Mendaftarkan Perangkat";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Untuk mengakses vault perangkat Anda harus diotorisasi oleh pemilik vault.";
 "hubAuthentication.requireAccountInit.alert.title" = "Diperlukan Tindakan";
 "hubAuthentication.requireAccountInit.alert.message" = "Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Buka Profil";
