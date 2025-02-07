@@ -126,7 +126,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
 "hubAuthentication.requireAccountInit.alert.message" = "Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ga naar Profiel";
-"hubAuthentication.vaultArchived" = "Deze kluis is gearchiveerd. Vraag de eigenaar van de kluis om de kluis te unarchiveren.";
+"hubAuthentication.vaultArchived" = "Deze kluis is gearchiveerd. Vraag de eigenaar van de kluis om de kluis te dearchiveren.";
 
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
 "intents.saveFile.invalidFolder" = "De opgegeven map is niet geldig.";
