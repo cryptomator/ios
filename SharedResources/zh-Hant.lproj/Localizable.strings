@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密檔案庫。";
 
 "hubAuthentication.title" = "Hub 加密檔案庫";
+"hubAuthentication.accessNotGranted" = "您沒有存取此加密檔案庫的權限。請與向加密檔案庫的所有者獲取授權。";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "似乎這是第一次 Hub 訪問此設備。為了辨識它以授權訪問，您需要命名此設備。";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "需要您的帳戶金鑰才能從新應用或瀏覽器登入。 可以在你的個人資料中找到它。";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "註冊設備成功";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "如要存取加密檔案庫，請向加密檔案庫的所有者獲取權限。";
 "hubAuthentication.requireAccountInit.alert.title" = "需進一步操作";
 "hubAuthentication.requireAccountInit.alert.message" = "請完成您使用者檔案中所需的步驟，以便繼續進行。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
+"hubAuthentication.vaultArchived" = "這個加密檔案庫以被封存。請向加密檔案庫的所有者要求解封。";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
 "intents.saveFile.invalidFolder" = "提供的資料夾無效。";
@@ -283,6 +286,7 @@
 "vaultDetail.removeVault.footer" = "這只會從列表中移除加密檔案庫，而不會刪除任何加密文件。";
 "vaultDetail.renameVault.progress" = "正在重命名……";
 "vaultDetail.unlocked.footer" = "您的加密檔案庫目前在「檔䅁」應用程式中解鎖。";
+"vaultDetail.unlockVault.footer" = "輸入「%1$@」的密碼以將其儲存在 iOS 鑰匙圈中並啟用 %2$@。";
 
 "vaultList.header.title" = "加密檔案庫";
 "vaultList.emptyList.message" = "點擊此處以添加加密檔案庫";
