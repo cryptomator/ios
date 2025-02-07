@@ -6,7 +6,9 @@
 "common.button.edit" = "Labot";
 "common.button.next" = "Tālāk";
 "common.button.ok" = "Labi";
+"common.button.refresh" = "Atsvaidzināt";
 "common.button.remove" = "Noņemt";
+"common.button.retry" = "Mēģināt vēlreiz";
 "common.cells.password" = "Parole";
 
 "addVault.title" = "Pievienot glabātavu";
@@ -36,6 +38,7 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.retry.button" = "Mēģināt vēlreiz";
 "purchase.unlockedFullVersion.title" = "Paldies!";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
 
@@ -51,6 +54,8 @@
 
 "vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
 "vaultDetail.button.moveVault" = "Pārvietot";
+"vaultDetail.button.renameVault" = "Pārdēvēt";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
