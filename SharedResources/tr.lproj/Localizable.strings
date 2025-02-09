@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Herhangi bir kasa seçili değil.";
 
 "hubAuthentication.title" = "Hub Kasası";
+"hubAuthentication.accessNotGranted" = "Bu kasaya erişme izniniz yok. Kasa sahibinden size yetki vermesini isteyin.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub örneğinizin geçersiz bir lisansı var. Lütfen lisansı yükseltmek veya yenilemek için bir Hub yöneticisini bilgilendirin.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Cihaz Adı";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Bu cihazdan ilk Hub erişimi gibi görünüyor. Erişim yetkilendirmesini tanımlamak için bu cihazı isimlendirmeniz gerekir.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Yeni uygulamalardan veya tarayıcılardan giriş yapmak için Hesap Anahtarınız gereklidir. Profilinizde bulunabilir.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Cihaz Kaydı Başarılı";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Kasaya erişmek için kasa sahibinin size izin vermesi gerekir.";
 "hubAuthentication.requireAccountInit.alert.title" = "Eylem Gerekiyor";
 "hubAuthentication.requireAccountInit.alert.message" = "Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Profile Git";
+"hubAuthentication.vaultArchived" = "Bu kasa arşivlendi. Lütfen kasa sahibinden onu açmasını isteyin.";
 
 "intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";
 "intents.saveFile.invalidFolder" = "Sağlanan klasör geçersiz.";
