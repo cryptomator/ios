@@ -124,6 +124,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
 "hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
+"hubAuthentication.vaultArchived" = "Dieser Tresor wurde archiviert. Bitte frage den Tresor-Eigentümer, um ihn zu dearchivieren.";
 
 "intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
