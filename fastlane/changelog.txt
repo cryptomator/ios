@@ -1,1 +1,3 @@
-Small adjustments to provide you with timely and relevant updates. We hope you enjoy the app!
+- Improved error messages for Hub vaults (#397, #398, #404).
+- Removed unusable Touch ID / Face ID option for Hub vaults (#396, #404).
+- Removed rename/move actions for Hub vaults to prevent unintended modifications (#406).
