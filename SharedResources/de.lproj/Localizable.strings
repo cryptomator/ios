@@ -116,11 +116,13 @@
 "getFolderIntent.error.noVaultSelected" = "Es wurde kein Tresor ausgewählt.";
 
 "hubAuthentication.title" = "Hubtresor";
+"hubAuthentication.accessNotGranted" = "Du hast keine Berechtigung, auf diesen Tresor zuzugreifen. Bitte den Tresor-Eigentümer, dich zu autorisieren.";
 "hubAuthentication.licenseExceeded" = "Die Lizenz deiner Cryptomator-Hub-Instanz ist ungültig. Bitte informiere deinen Hub-Administrator, um die Lizenz zu erweitern oder zu erneuern.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Gerätename";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Um sich von neuen Apps oder Browsern aus anzumelden, ist dein Account Key erforderlich. Er befindet sich in deinem Profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Gerät erfolgreich registriert";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Um auf den Tresor zugreifen zu können, muss der Tresor-Eigentümer die Berechtigung dazu erteilen.";
 "hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
 "hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
