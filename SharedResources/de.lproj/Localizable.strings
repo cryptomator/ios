@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Es wurde kein Tresor ausgewählt.";
 
 "hubAuthentication.title" = "Hubtresor";
-"hubAuthentication.accessNotGranted" = "Dein Gerät wurde noch nicht für den Zugriff auf diesen Tresor autorisiert. Bitte den Tresorbesitzer, dein Gerät zu autorisieren.";
+"hubAuthentication.accessNotGranted" = "Du hast keine Berechtigung, auf diesen Tresor zuzugreifen. Bitte den Tresor-Eigentümer, dich zu autorisieren.";
 "hubAuthentication.licenseExceeded" = "Die Lizenz deiner Cryptomator-Hub-Instanz ist ungültig. Bitte informiere deinen Hub-Administrator, um die Lizenz zu erweitern oder zu erneuern.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Gerätename";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dies scheint der erste Hub-Zugriff von diesem Gerät zu sein. Um es für die Zugriffsberechtigung zu identifizieren, musst du diesem Gerät einen Namen geben.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Um sich von neuen Apps oder Browsern aus anzumelden, ist dein Account Key erforderlich. Er befindet sich in deinem Profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Gerät erfolgreich registriert";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Für Zugriff auf den Tresor muss dein Gerät vom Tresorbesitzer autorisiert werden.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Um auf den Tresor zugreifen zu können, muss der Tresor-Eigentümer die Berechtigung dazu erteilen.";
 "hubAuthentication.requireAccountInit.alert.title" = "Handlung erforderlich";
 "hubAuthentication.requireAccountInit.alert.message" = "Schließe bitte die erforderlichen Schritte in deinem Hub-Benutzerprofil ab, um fortzufahren.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Zum Profil";
+"hubAuthentication.vaultArchived" = "Dieser Tresor wurde archiviert. Bitte frage den Tresor-Eigentümer, um ihn zu dearchivieren.";
 
 "intents.saveFile.missingFile" = "Die bereitgestellte Datei ist nicht gültig.";
 "intents.saveFile.invalidFolder" = "Der angegebene Ordner ist ungültig.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Dadurch wird nur der Tresor aus der Tresorliste entfernt und keine verschlüsselten Daten gelöscht.";
 "vaultDetail.renameVault.progress" = "Tresor wird umbenannt …";
 "vaultDetail.unlocked.footer" = "Dein Tresor ist in der App „Dateien“ zurzeit entsperrt.";
-"vaultDetail.unlockVault.footer" = "Gib das Passwort für „%@“ ein, um es im iOS-Schlüsselbund zu speichern und %@ zu aktivieren.";
+"vaultDetail.unlockVault.footer" = "Gib das Passwort für „%1$@“ ein, um es im iOS-Schlüsselbund zu speichern und %2$@ zu aktivieren.";
 
 "vaultList.header.title" = "Tresore";
 "vaultList.emptyList.message" = "Tipp hier, um einen Tresor hinzuzufügen";

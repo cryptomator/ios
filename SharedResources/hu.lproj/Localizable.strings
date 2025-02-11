@@ -114,11 +114,9 @@
 "getFolderIntent.error.noVaultSelected" = "Nincs széf kiválasztva.";
 
 "hubAuthentication.title" = "Hub széf";
-"hubAuthentication.accessNotGranted" = "Eszköze még nem kapott engedélyt ehhez a széfhez. Kérje a széf tulajdonosát, hogy engedélyezze a hozzáférést.";
 "hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Az eszköz regisztrációja sikeres";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "A széf hozzáféréséhez a széf tulajdonosának hitelesítenie kell az eszközét.";
 
 "intents.saveFile.missingFile" = "A megadott fájl érvénytelen.";
 "intents.saveFile.invalidFolder" = "A megadott mappa érvénytelen.";

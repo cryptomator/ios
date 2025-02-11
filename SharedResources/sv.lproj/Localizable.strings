@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Inget valv har valts.";
 
 "hubAuthentication.title" = "Hubb valv";
-"hubAuthentication.accessNotGranted" = "Din enhet har ännu inte behörighet att komma åt detta valv. Be valvägaren att godkänna det.";
+"hubAuthentication.accessNotGranted" = "Du har inte behörighet att komma åt detta valv. Be valvägaren att godkänna dig.";
 "hubAuthentication.licenseExceeded" = "Din Cryptomator Hub-instans har en ogiltig licens. Vänligen informera en Hub administratör för att uppgradera eller förnya licensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enhetsnamn";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Detta verkar vara den första Hub-åtkomsten från den här enheten. För att identifiera den för åtkomstbehörighet, måste du namnge den här enheten.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonyckel krävs för att logga in från nya appar eller webbläsare. Den finns i din profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enhetsregistrering lyckades";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "För att komma åt valvet måste din enhet godkännas av valvägaren.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "För att komma åt valvet måste valvägaren ge dig behörighet.";
 "hubAuthentication.requireAccountInit.alert.title" = "Åtgärd krävs";
 "hubAuthentication.requireAccountInit.alert.message" = "För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå till profil";
+"hubAuthentication.vaultArchived" = "Detta valv har arkiverats. Be valvägaren att avarkivera det.";
 
 "intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";
 "intents.saveFile.invalidFolder" = "Den angivna mappen är inte giltig.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Detta kommer bara att ta bort valvet från valvlistan och inte ta bort några krypterade filer.";
 "vaultDetail.renameVault.progress" = "Döper om…";
 "vaultDetail.unlocked.footer" = "Ditt valv är för närvarande upplåst i appen Filer.";
-"vaultDetail.unlockVault.footer" = "Ange lösenord för \"%@\" för att lagra det i iOS nyckelring och för att aktivera %@.";
+"vaultDetail.unlockVault.footer" = "Ange lösenord för \"%1$@\" för att lagra det i iOS nyckelring och för att aktivera %2$@.";
 
 "vaultList.header.title" = "Valv";
 "vaultList.emptyList.message" = "Klicka här för att lägga till valv";

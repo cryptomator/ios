@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "Һаҡлағыс һайланмаған.";
 
 "hubAuthentication.title" = "Һаҡлағыс хабы";
-"hubAuthentication.accessNotGranted" = "Һеҙҙең йыһаз әлегә был һаҡлағысҡа инеү хоҡуғына эйә түгел. Һаҡлағыс хужаһынан рөхсәт һорағыҙ.";
 "hubAuthentication.licenseExceeded" = "Һеҙҙең Cryptomator хабығыҙ ғәмәлдән тыш рөхсәтнамәгә эйә. Рөхсәтнамәне яңыртыу йәки оҙайтыу өсөн Хаб администраторына хәбәр итегеҙ.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Йыһаз исеме";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Был, күрәһең, был ҡоролманан Хабҡа тәү инеү ваҡыты. Инеүҙе рөхсәт итеү өсөн йыһазды асыҡлаусы исем атарға кәрәк.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Яңы ҡушымталар йәки браузерҙарҙан инеү өсөн Һеҙҙең иҫәп-хисап асҡысы кәрәк. Уны профилегеҙҙә табырға мөмкин.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Йыһазды теркәү уңышлы булды";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Һаҡлағысҡа инеү өсөн һаҡлағыс хужаһы йыһазығыҙға инеү рөхсәте бирергә тейеш.";
 "hubAuthentication.requireAccountInit.alert.title" = "Кәрәкле эш-хәрәкәт";
 "hubAuthentication.requireAccountInit.alert.message" = "Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Профилгә күс";
@@ -283,7 +281,6 @@
 "vaultDetail.removeVault.footer" = "Был һаҡлағысты исемлектән генә алып ташлай һәм шифрланған файлдарҙы юймай.";
 "vaultDetail.renameVault.progress" = "Исемен үҙгәртеү…";
 "vaultDetail.unlocked.footer" = "Әлеге ваҡытта һаҡлағыс Файлдар ҡушымтаһында асылған.";
-"vaultDetail.unlockVault.footer" = "\"%@\" серһүҙен iOS асҡыс сылбырында һаҡлау һәм %@ ҡулланыу өсөн серһүҙҙе яҙығыҙ.";
 
 "vaultList.header.title" = "Һаҡлағыстар";
 "vaultList.emptyList.message" = "Һаҡлағыс өҫтәү өсөн бында баҫығыҙ";

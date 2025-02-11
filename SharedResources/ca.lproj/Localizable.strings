@@ -115,13 +115,11 @@
 "getFolderIntent.error.noVaultSelected" = "No s'ha seleccionat cap caixa forta.";
 
 "hubAuthentication.title" = "Caixa forta de Hub";
-"hubAuthentication.accessNotGranted" = "El vostre dispositiu no ha estat encara autoritzat a accedir a aquesta caixa forta. Demaneu autorització al propietari.";
 "hubAuthentication.licenseExceeded" = "Aquest Cryptomator Hub no té una llicència vàlida. Informa si us plau a l'administrador perquè actualitzi o renovi la llicència.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom del dispositiu";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembla que és el primer accés al Hub des d'aquest dispositiu. Per identificar-lo i poder autoritzar l'accés heu de posar nom a aquest dispositiu.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Cal la vostra Account Key per a iniciar sessió des d'una aplicació o navegador nous. La trobareu al vostre perfil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registre de dispositiu correcte";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per a accedir a la caixa forta, el vostre dispositiu ha de ser autoritzat pel propietari de la caixa.";
 "hubAuthentication.requireAccountInit.alert.title" = "Acció necessària";
 "hubAuthentication.requireAccountInit.alert.message" = "Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d'usuari de Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vés al perfil";
@@ -283,7 +281,6 @@
 "vaultDetail.removeVault.footer" = "Això només eliminarà la caixa forta de la llista de caixes fortes però no esborrarà cap fitxer encriptat.";
 "vaultDetail.renameVault.progress" = "S'està canviant el nom…";
 "vaultDetail.unlocked.footer" = "La vostra caixa forta ara està desblocada en l'app Files.";
-"vaultDetail.unlockVault.footer" = "Introduïu la paraula clau per \"%@\" per desar-la en el clauer d'iOS i per habilitar %@.";
 
 "vaultList.header.title" = "Caixes fortes";
 "vaultList.emptyList.message" = "Feu clic aquí per afegir una caixa forta";

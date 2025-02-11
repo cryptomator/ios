@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "未选择任何保险库。";
 
 "hubAuthentication.title" = "Hub 保险库";
-"hubAuthentication.accessNotGranted" = "您的设备尚未授权访问此保险库，请联系保险库所有者。";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 实例许可证无效，请联系Hub管理员升级或者续订许可证。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "设备名称";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "这似乎是设备的首次 Hub 访问。为了识别它以进行访问授权，您需要命名此设备";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "从新应用或浏览器登录需要您的账户密钥，您可以在个人中心找到它";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "注册设备成功";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "要访问保险库，设备需得到保险库所有者的授权。";
 "hubAuthentication.requireAccountInit.alert.title" = "需要操作";
 "hubAuthentication.requireAccountInit.alert.message" = "要继续，请完成 Hub 用户中心所需的步骤";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "前往个人中心";
@@ -284,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
 "vaultDetail.renameVault.progress" = "正在重命名……";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
-"vaultDetail.unlockVault.footer" = "请输入 \"%@\" 的密码以将其存储到 iOS 钥匙串并启用 %@。";
 
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";

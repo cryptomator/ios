@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Nie wybrano sejfu.";
 
 "hubAuthentication.title" = "Hub sejfów";
-"hubAuthentication.accessNotGranted" = "Twoje urządzenie nie zostało jeszcze upoważnione do dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.";
+"hubAuthentication.accessNotGranted" = "Nie masz uprawnień dostępu do tego sejfu. Poproś właściciela sejfu o autoryzację.";
 "hubAuthentication.licenseExceeded" = "Twoja instancja Hub ma nieprawidłową licencję. Poproś administratora Hub o uaktualnienie lub odnowienie licencji.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nazwa urządzenia";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Wygląda że jest to pierwszy dostęp do Huba z tego urządzenia. Aby zidentyfikować go w celu autoryzacji dostępu, musisz nazwać to urządzenie.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Twój Klucz Konta jest wymagany do zalogowania się z nowych aplikacji lub przeglądarek. Można go znaleźć w twoim profilu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Rejestracja urządzenia powiodła się";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby dostać się do sejfu, Twoje urządzenie musi być autoryzowane przez właściciela sejfu.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Aby uzyskać dostęp do sejfu, jego właściciel musi udzielić Ci pozwolenia.";
 "hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
 "hubAuthentication.requireAccountInit.alert.message" = "Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
+"hubAuthentication.vaultArchived" = "Ten sejf został zarchiwizowany. Poproś właściciela o jego przywrócenie z archiwum.";
 
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";
 "intents.saveFile.invalidFolder" = "Wskazany folder jest niewłaściwy.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Spowoduje to wyłącznie usunięcie sejfu z listy, zaszyfrowane pliki nie zostaną skasowane.";
 "vaultDetail.renameVault.progress" = "Zmiana nazwy…";
 "vaultDetail.unlocked.footer" = "Twój sejf jest obecnie odblokowany w aplikacji Pliki.";
-"vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%@\", aby zapisać je w pęku kluczy iOS i aktywować %@.";
+"vaultDetail.unlockVault.footer" = "Wprowadź hasło dla \"%1$@\", aby zapisać je w bazie kluczy iOS i włączyć %2$@.";
 
 "vaultList.header.title" = "Sejfy";
 "vaultList.emptyList.message" = "Kliknij tutaj, aby dodać sejf";

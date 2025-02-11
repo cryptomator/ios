@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
 
 "hubAuthentication.title" = "";
-"hubAuthentication.accessNotGranted" = "お使いのデバイスはまだこの金庫にアクセスする権限がありません。金庫のオーナーに権限を与えてもらってください。";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには，金庫のオーナーが端末を認証する必要があります。";
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
@@ -284,7 +282,7 @@
 "vaultDetail.removeVault.footer" = "金庫のリストから金庫が削除されます。暗号化されたファイルは削除されません。";
 "vaultDetail.renameVault.progress" = "名前を変更しています…";
 "vaultDetail.unlocked.footer" = "金庫はファイル アプリで解錠されています。";
-"vaultDetail.unlockVault.footer" = "iOS keychain に保存し %@ を有効にするには \"%@\" のパスワードを入力してください。";
+"vaultDetail.unlockVault.footer" = "%2$@ を有効にするため「%1$@」のパスワードを入力してください。パスワードは iOS キーチェーンに保存されます。";
 
 "vaultList.header.title" = "金庫";
 "vaultList.emptyList.message" = "ここをタップして金庫を追加";

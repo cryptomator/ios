@@ -116,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Nebol zvolený žiaden trezor.";
 
 "hubAuthentication.title" = "Hub trezora";
-"hubAuthentication.accessNotGranted" = "Vaše zaradenie zatiaľ ešte nebolo autorizované pre pristúp tohto trezora. Požiadajte majiteľa trezora o autorizovanie.";
 "hubAuthentication.licenseExceeded" = "Vaša inštancia Cryptomator Hub-u má neplatnú licenciu. Prosím informujte Hub administrátora pre aktualizáciu alebo obnovenie licencie.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Názov zariadenia";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Zdá sa, že ide o prvý prístup k Hub-u z tohto zariadenia. Z dôvodu identifikácie prístupovej autorizácie, je potrebné pomenovať toto zariadenie.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Váš kľúč účtu je vyžadovaný pre prihlásenie z nových aplikácii alebo prehliadačov. Môžete ho nájsť vo vašom profile.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrácia zariadenia úspešná";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Sprístupniť trezor, Vaše zariadenie musí byť autorizované vlastníkom trezora.";
 "hubAuthentication.requireAccountInit.alert.title" = "Vyžaduje sa akcia";
 "hubAuthentication.requireAccountInit.alert.message" = "Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Prejsť na profil";
@@ -284,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "Toto iba odstráni trezor zo zoznamu trezorov a nezmaže žiadne zakódované súbory.";
 "vaultDetail.renameVault.progress" = "Premenovanie…";
 "vaultDetail.unlocked.footer" = "Váš trezor je aktuálne odomknutý v súborovej aplikácii.";
-"vaultDetail.unlockVault.footer" = "Vložte heslo pre \"%@\" pre jeho uloženie v iOS keychain a pre povolenie %@.";
 
 "vaultList.header.title" = "Trezory";
 "vaultList.emptyList.message" = "Kliknúť sem pre pridanie trezora";

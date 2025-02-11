@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Збережений для %@ пароль неправильний. Будь ласка, спробуйте ще раз і введіть ваш пароль для повторного увімкнення %@.";
 "fileProvider.error.defaultLock.title" = "Потрібно розблокувати";
 "fileProvider.error.defaultLock.message" = "Щоб отримати доступ і показати вміст вашого сховища, воно має бути розблоковане.";
+"fileprovider.error.unauthorized.text" = "У доступі до вашого сховища \"%@\" відмовлено. Відкрийте головний додаток, щоб перевірити підключення та повторно пройти автентифікацію, якщо це необхідно.";
 "fileProvider.error.unlockButton" = "Розблокувати";
 "fileProvider.clearFileFromCache.title" = "Очистити файл з кешу";
 "fileProvider.clearFileFromCache.message" = "Це видаляє лише локальний файл з вашого пристрою, але не видаляє файл у хмарі.";
@@ -115,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Сховище не вибрано.";
 
 "hubAuthentication.title" = "Сховище Hub";
-"hubAuthentication.accessNotGranted" = "Ваш пристрій ще не має прав доступу до цього сховища. Попросіть власника сховища дозволити доступ.";
 "hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, зв'яжіться з адміністратором Hub, щоб оновити або продовжити дію ліцензії.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Реєстрація пристрою успішна";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб використовувати сховище, його власник має дозволити доступ вашому пристрою.";
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
 "hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, завершіть обов'язкові кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
@@ -283,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "Це прибере сховище лише зі списку сховищ, але не видалить зашифрованих файлів.";
 "vaultDetail.renameVault.progress" = "Перейменування…";
 "vaultDetail.unlocked.footer" = "Ваше сховище вже розблоковано в додатку \"Файли\".";
-"vaultDetail.unlockVault.footer" = "Введіть пароль для \"%@\" для зберігання його у ланцюжку ключів iOS та активації %@.";
 
 "vaultList.header.title" = "Сховища";
 "vaultList.emptyList.message" = "Натисніть тут, щоб додати сховище";
