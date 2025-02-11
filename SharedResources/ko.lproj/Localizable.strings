@@ -116,6 +116,7 @@
 "getFolderIntent.error.noVaultSelected" = "Vault가 선택되지 않았습니다.";
 
 "hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.accessNotGranted" = "이 Vault에 접근할 권한이 없습니다. Vault 소유자에게 허가를 요청하십시오.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "이 기기로부터 첫번째 Hub 접근입니다. 접근 허가를 위해 인식할 수 있도록 이름을 붙이십시오.";
