@@ -24,13 +24,11 @@
 "fileProvider.error.unlockButton" = "Отключване";
 
 "hubAuthentication.title" = "Хранилище на Hub";
-"hubAuthentication.accessNotGranted" = "Устройството не е упълномощено за достъп до това хранилище. Поискайте достъп от собственика.";
 "hubAuthentication.licenseExceeded" = "Лиценза на екземпляра на Концентратора на Криптоматор който вие използвате е лиценз. Информирайте администратора на Концентратора, за да поднови или надгради лиценза.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Име на устройството";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Изглежда, че това е първи достъп до Hub от това устройство. За да го разпознаете при разрешаване на достъпа, трябва да му дадете име.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Вашият ключ за профила е необходим при вход от нови приложения или мрежови четци. Може да бъде намерен в профила.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Устройството е регистрирано";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "За да получи достъп до хранилището, устройството трябва да бъде упълномощено от собственика на хранилището.";
 "hubAuthentication.requireAccountInit.alert.title" = "Необходимо е действие";
 "hubAuthentication.requireAccountInit.alert.message" = "За да продължите завършете необходимите стъпки в потребителския профил в Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Към профила";

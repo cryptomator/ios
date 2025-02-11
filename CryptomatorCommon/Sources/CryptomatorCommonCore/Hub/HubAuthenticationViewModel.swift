@@ -32,6 +32,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		case licenseExceeded
 		case deviceRegistration(DeviceRegistration)
 		case error(description: String)
+		case vaultArchived
 	}
 
 	public enum DeviceRegistration: Equatable {
@@ -108,6 +109,8 @@ public final class HubAuthenticationViewModel: ObservableObject {
 			await setState(to: .licenseExceeded)
 		case let .requiresAccountInitialization(profileURL):
 			await delegate?.hubAuthenticationViewModelWantsToShowNeedsAccountInitAlert(profileURL: profileURL)
+		case .vaultArchived:
+			await setState(to: .vaultArchived)
 		}
 	}
 

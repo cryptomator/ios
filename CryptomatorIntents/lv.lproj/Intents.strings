@@ -1,1 +1,7 @@
+"common.failureReason" = "Neizdošanās Iemesls";
 "common.vault" = "Glabātava";
+"getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
+"saveFileIntent.file" = "Datne";
+
+"vaultFolder.displayName" = "Glabātavas mape";
+"vaultFolder.vaultIdentifier" = "Glabātavas identifikators";

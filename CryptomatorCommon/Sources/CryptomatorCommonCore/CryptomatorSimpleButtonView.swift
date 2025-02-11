@@ -12,18 +12,16 @@ struct CryptomatorSimpleButtonView: View {
 					onButtonTap()
 				}
 			} header: {
-				HStack {
-					Spacer()
-					VStack(alignment: .center, spacing: 20) {
-						Image("bot-vault")
-						Text(headerTitle)
-							.textCase(.none)
-							.foregroundColor(.primary)
-							.font(.body)
-					}
-					.padding(.bottom, 12)
-					Spacer()
+				VStack(alignment: .center, spacing: 20) {
+					Image("bot-vault")
+					Text(headerTitle)
+						.textCase(.none)
+						.foregroundColor(.primary)
+						.font(.body)
+						.multilineTextAlignment(.center)
 				}
+				.frame(maxWidth: .infinity)
+				.padding(.bottom, 20)
 			}
 		}
 		.setListBackgroundColor(.cryptomatorBackground)

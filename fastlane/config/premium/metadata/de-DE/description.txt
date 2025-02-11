@@ -37,5 +37,5 @@ CRYPTOMATOR COMMUNITY
 
 Tritt der Cryptomator Community bei und tausche dich mit Cryptomator-Nutzern aus: https://community.cryptomator.org
 
-• Folge uns auf Twitter @Cryptomator
+• Folge uns auf Mastodon @cryptomator@mastodon.online
 • Like uns auf Facebook /Cryptomator

@@ -1,12 +1,26 @@
 "common.failureReason" = "실패 사유";
+"common.false" = "거짓";
 "common.folder" = "폴더";
+"common.true" = "참";
 "common.vault" = "Vault";
+
+"getFolderIntent.description" = "주어진 Vault 내부의 주어진 위치에 대한 폴더 객체를 반환합니다.";
 "getFolderIntent.path" = "경로";
+"getFolderIntent.text" = "${vault} 내부의 ${path}에 위치한 폴더 반환";
 "getFolderIntent.title" = "폴더 열기";
+
+"isUnlockedIntent.description" = "주어진 Vault가 잠금 해제되었는지 아닌지를 반환합니다.";
+"isUnlockedIntent.title" = "잠금 해제됨";
+
+"isVaultLockedIntent.title" = "Vault 잠금 해제됨";
+"isVaultUnlockedIntent.text" = "${vault} 잠금 해제됨?";
 
 "lockVaultIntent.description" = "해당 vault를 잠급니다.";
 "lockVaultIntent.text" = "${vault} 잠금";
 "lockVaultIntent.title" = "Vault 잠그기";
+
+"openVaultIntent.description" = "파일 앱에서 해당 Vault를 엽니다.";
+"openVaultIntent.text" = "파일 앱에서 ${vault} 열기";
 "openVaultIntent.title" = "Vault 열기";
 
 "saveFileIntent.description" = "파일을 vault에 저장합니다.";

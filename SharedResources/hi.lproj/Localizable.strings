@@ -145,7 +145,6 @@
 "vaultDetail.locked.footer" = "आपका कक्ष अभी बंध है।";
 "vaultDetail.removeVault.footer" = "यह केवल कक्ष का नाम कक्ष-तालिका से हटा देगा। आपके कूट दस्तावेज नहीं मिटेंगे।";
 "vaultDetail.unlocked.footer" = "आपका कक्ष अभी \"फ़ाइल एप\" में खुला है।";
-"vaultDetail.unlockVault.footer" = "\"%@\" के कूट शब्द को iOS कूट शृंखला में संग्रह करने के लिए और %@ संचालित करने के लिए कूट शब्द भरें।";
 
 "vaultList.header.title" = "कक्षों का नाम";
 "vaultList.emptyList.message" = "कक्ष जोड़ने के लिए यहाँ दबाएँ";

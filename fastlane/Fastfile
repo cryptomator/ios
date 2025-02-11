@@ -24,7 +24,7 @@ platform :ios do
     ensure_env_vars(
       env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
     )
-    deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false)
+    deliver(skip_binary_upload: true, skip_metadata: true, overwrite_screenshots: true, run_precheck_before_submit: false, force: true)
   end
 
   desc "Update metadata in App Store Connect"
@@ -33,7 +33,7 @@ platform :ios do
     ensure_env_vars(
       env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
     )
-    deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false)
+    deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false, force: true)
   end
 
   desc "Submit a new beta build to TestFlight"
@@ -82,7 +82,7 @@ platform :ios do
     apply_config
     scan
     gym
-    deliver(skip_screenshots: true, submit_for_review: true)
+    deliver(skip_screenshots: true, submit_for_review: true, force: true)
   end
 
   desc "Apply app configuration to release a different version"

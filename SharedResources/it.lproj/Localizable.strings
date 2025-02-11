@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Nessuna cassaforte è stata selezionata.";
 
 "hubAuthentication.title" = "Centrale delle Casseforti";
-"hubAuthentication.accessNotGranted" = "Il tuo dispositivo non è ancora stato autorizzato ad accedere a questa cassaforte. Chiedi al proprietario della cassaforte di autorizzarlo.";
+"hubAuthentication.accessNotGranted" = "Non hai l'autorizzazione per accedere a questa cassaforte. Chiedi al proprietario di autorizzarti.";
 "hubAuthentication.licenseExceeded" = "La tua istanza Cryptomator Hub ha una licenza non valida. Si prega di informare un amministratore Hub per aggiornare o rinnovare la licenza.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome Del Dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Sembra che questo sia il primo accesso alle Centrali delle Casseforti da questo dispositivo. Per poterlo identificare ai fini dell'autorizzazione all'accesso è necessario dare un nome a questo dispositivo.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "La chiave del tuo account è richiesta per accedere da nuove applicazioni o browser. Può essere trovata nel tuo profilo.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrazione del dispositivo Riuscita";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per accedere al vault, il tuo dispositivo deve essere autorizzato dal proprietario del vault.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Per accedere alla cassaforte, il proprietario deve autorizzarti.";
 "hubAuthentication.requireAccountInit.alert.title" = "Azione richiesta";
 "hubAuthentication.requireAccountInit.alert.message" = "Per procedere, completa i passaggi richiesti nel tuo profilo dell'Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vai al profilo";
+"hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
 "intents.saveFile.invalidFolder" = "La cartella fornita non è valida.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Questo rimuoverà solo la cassaforte dall'elenco della cassaforte e non eliminerà alcun file crittografato.";
 "vaultDetail.renameVault.progress" = "Rinominando…";
 "vaultDetail.unlocked.footer" = "La tua cassaforte è attualmente sbloccata nell'app File.";
-"vaultDetail.unlockVault.footer" = "Inserisci la password per \"%@\" per memorizzarla nel portachiavi iOS e per abilitare %@.";
+"vaultDetail.unlockVault.footer" = "Inserisci la password per \"%1$@\" per memorizzarla nel portachiavi iOS e per abilitare %2$@.";
 
 "vaultList.header.title" = "Cassaforti";
 "vaultList.emptyList.message" = "Tocca qui per aggiungere una cassaforte";

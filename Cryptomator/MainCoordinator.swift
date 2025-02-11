@@ -78,15 +78,6 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
 	}
 
-	// Temporarily added for December 2024 Sale
-	func showPurchase() {
-		let modalNavigationController = BaseNavigationController()
-		let child = PurchaseCoordinator(navigationController: modalNavigationController)
-		childCoordinators.append(child)
-		navigationController.topViewController?.present(modalNavigationController, animated: true)
-		child.start()
-	}
-
 	// MARK: - UINavigationControllerDelegate
 
 	func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
@@ -124,8 +115,6 @@ extension MainCoordinator: StoreObserverDelegate {
 		switch transaction {
 		case .fullVersion, .yearlySubscription:
 			showFullVersionAlert()
-			// Temporarily added for December 2024 Sale
-			NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 		case let .freeTrial(expiresOn):
 			showTrialAlert(expirationDate: expiresOn)
 		case .unknown:
