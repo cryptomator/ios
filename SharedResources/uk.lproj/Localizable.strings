@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Сховище не вибрано.";
 
 "hubAuthentication.title" = "Сховище Hub";
+"hubAuthentication.accessNotGranted" = "Ви не маєте дозволу для доступу до цього сховища. Попросіть власника сховища про дозвіл.";
 "hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, зв'яжіться з адміністратором Hub, щоб оновити або продовжити дію ліцензії.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Реєстрація пристрою успішна";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб отримати доступ до сховища, його власник має надати вам дозвіл.";
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
 "hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, завершіть обов'язкові кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
+"hubAuthentication.vaultArchived" = "Це сховище було архівовано. Будь ласка, попросіть власника сховища розархівувати його.";
 
 "intents.saveFile.missingFile" = "Цей файл неправильний.";
 "intents.saveFile.invalidFolder" = "Вказана папка неприпустима.";
