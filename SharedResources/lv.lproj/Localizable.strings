@@ -25,6 +25,7 @@
 "addVault.openExistingVault.password.footer" = "Jāievada \"%@\" parole.";
 "addVault.openExistingVault.progress" = "Pievieno glabātavu…";
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
+"addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
 "fileProvider.error.biometricalAuthCanceled.message" = "Atslēgšana ar %@ nebija sekmīga. Lūgums mēģināt vēlreiz.";
@@ -34,6 +35,7 @@
 "fileProvider.fileImporting.error.missingPremium" = "Jāatslēdz pilnā versija Cryptomator lietotnē, lai savās glabātavās iegūtu rakstīšanas piekļuvi.";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
@@ -42,6 +44,7 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.retry.button" = "Mēģināt vēlreiz";
 "purchase.unlockedFullVersion.title" = "Paldies!";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
