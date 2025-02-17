@@ -27,14 +27,17 @@
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
+"cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
 "fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
 "fileProvider.error.biometricalAuthCanceled.message" = "Atslēgšana ar %@ nebija sekmīga. Lūgums mēģināt vēlreiz.";
+"fileprovider.error.unauthorized.text" = "Piekļuve glabātavai \"%@\" tika atteikta. Jāatver galvenā lietotne, lai pārbaudītu savu savienojumu un, ja nepieciešams, atkārtoti pilnvarotu.";
 "fileProvider.error.unlockButton" = "Atslēgt";
 "fileProvider.clearFileFromCache.title" = "Iztīrīt datni no kešatmiņas";
 "fileProvider.clearFileFromCache.message" = "Šī darbība tikai noņem ierīcē esošo datni un neizdzēš to mākonī.";
 "fileProvider.fileImporting.error.missingPremium" = "Jāatslēdz pilnā versija Cryptomator lietotnē, lai savās glabātavās iegūtu rakstīšanas piekļuvi.";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
