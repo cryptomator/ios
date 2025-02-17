@@ -38,7 +38,7 @@ class SharePointDriveListViewModel: SingleSectionTableViewModel {
 
 	private func fetchSiteAndDrives() {
 		guard let urlComponents = URL(string: sharePointURL),
-			  let hostName = urlComponents.host else {
+		      let hostName = urlComponents.host else {
 			print("Invalid SharePoint URL")
 			return
 		}
@@ -65,11 +65,11 @@ class SharePointDriveListViewModel: SingleSectionTableViewModel {
 	}
 
 	override func getHeaderTitle(for section: Int) -> String? {
-		   guard section == 0 else { return nil }
-		   return LocalizedString.getValue("addVault.selectDrive.navigation.title")
-	   }
+		guard section == 0 else { return nil }
+		return LocalizedString.getValue("addVault.selectDrive.navigation.title")
+	}
 
 	override var title: String? {
 		return LocalizedString.getValue("addVault.selectDrive.header.description")
-	   }
+	}
 }

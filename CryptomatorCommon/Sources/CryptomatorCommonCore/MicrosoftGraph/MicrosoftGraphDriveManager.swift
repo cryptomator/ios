@@ -5,9 +5,9 @@
 //  Created by Majid Achhoud on 07.01.25.
 //
 
-import Foundation
-import CryptomatorCloudAccessCore
 import Combine
+import CryptomatorCloudAccessCore
+import Foundation
 
 public enum MicrosoftGraphDriveManagerError: Error {
 	case driveDuplicate(existingIdentifier: String)

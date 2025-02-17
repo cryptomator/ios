@@ -29,8 +29,8 @@ public enum URLValidator {
 		}
 
 		guard url.scheme == "https",
-			  let host = url.host,
-			  host.contains(".sharepoint.com") else {
+		      let host = url.host,
+		      host.contains(".sharepoint.com") else {
 			throw URLValidatorError.invalidURLFormat
 		}
 
