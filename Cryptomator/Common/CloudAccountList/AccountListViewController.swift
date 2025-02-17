@@ -142,7 +142,7 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 
 	private func supportsEditing(_ cloudProviderType: CloudProviderType) -> Bool {
 		switch cloudProviderType {
-		case .box, .dropbox, .googleDrive, .localFileSystem, .oneDrive, .pCloud:
+		case .box, .dropbox, .googleDrive, .localFileSystem, .oneDrive, .sharePoint, .pCloud:
 			return false
 		case .s3, .webDAV:
 			return true

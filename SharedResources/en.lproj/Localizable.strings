@@ -56,6 +56,13 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.createNewVault.progress" = "Creating Vault…";
+
+"addVault.enterSharePointURL.title" = "Enter SharePoint URL";
+"addVault.enterSharePointURL.placeholder" = "SharePoint Site URL";
+"addVault.enterSharePointURL.header.title" = "Enter the URL of the SharePoint Site.";
+"addVault.enterSharePointURL.error.emptyURL" = "The URL cannot be empty.";
+"addVault.enterSharePointURL.error.invalidURL" = "The entered URL is invalid. Please use the format https://{companyname}.sharepoint.com/sites/{SiteName}.";
+
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
@@ -63,6 +70,10 @@
 "addVault.openExistingVault.downloadVault.progress" = "Downloading Vault…";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.openExistingVault.progress" = "Adding Vault…";
+
+"addVault.selectDrive.navigation.title" = "Select Drive";
+"addVault.selectDrive.header.description" = "Select the SharePoint drive where the encrypted vault will be located.";
+
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 

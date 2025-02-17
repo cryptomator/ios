@@ -17,6 +17,7 @@ public enum CloudProviderType: Codable, Equatable, Hashable {
 	case oneDrive
 	case pCloud
 	case s3(type: S3Type)
+	case sharePoint
 	case webDAV(type: WebDAVType)
 }
 

@@ -137,6 +137,8 @@ extension CloudProviderType {
 			return "pcloud-vault"
 		case .s3:
 			return "s3-vault"
+		case .sharePoint:
+			return "sharepoint-vault"
 		case .webDAV:
 			return "webdav-vault"
 		}
