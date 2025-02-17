@@ -31,7 +31,7 @@ class SharePointDriveListViewController: BaseUITableViewController {
 			self?.tableView.reloadData()
 		}
 
-		self.title = LocalizedString.getValue("addVault.selectDrive.navigation.title")
+		title = LocalizedString.getValue("addVault.selectDrive.navigation.title")
 	}
 
 	// MARK: - UITableViewDataSource
@@ -66,4 +66,3 @@ class SharePointDriveListViewController: BaseUITableViewController {
 		tableView.deselectRow(at: indexPath, animated: true)
 	}
 }
-

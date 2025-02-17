@@ -61,6 +61,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	/**
 	 Creates and returns a cloud provider for the given `accountUID`.
 	 */
+	// swiftlint:disable:next cyclomatic_complexity
 	func createProvider(for accountUID: String) throws -> CloudProvider {
 		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
 		let provider: CloudProvider
@@ -118,6 +119,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	 The number of returned items from a `fetchItemList(forFolderAt:pageToken:)` call is limited to 500.
 	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
 	 */
+	// swiftlint:disable:next cyclomatic_complexity
 	func createBackgroundSessionProvider(for accountUID: String, sessionIdentifier: String) throws -> CloudProvider {
 		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
 		let provider: CloudProvider
