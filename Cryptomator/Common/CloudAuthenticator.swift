@@ -111,10 +111,10 @@ class CloudAuthenticator {
 			return authenticateOneDrive(from: viewController)
 		case .pCloud:
 			return authenticatePCloud(from: viewController)
-		case .sharePoint:
-			return authenticateSharePoint(from: viewController)
 		case .s3:
 			return authenticateS3(from: viewController)
+		case .sharePoint:
+			return authenticateSharePoint(from: viewController)
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		}
