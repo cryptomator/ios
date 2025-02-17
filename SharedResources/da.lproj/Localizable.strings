@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Den adgangskode, der er gemt for %@ er forkert. Prøv venligst igen og indtast din adgangskode for at genaktivere %@.";
 "fileProvider.error.defaultLock.title" = "Oplåsning kræves";
 "fileProvider.error.defaultLock.message" = "For at tilgå, og vise, indholdet af din boks, skal den være låst op.";
+"fileprovider.error.unauthorized.text" = "Adgang til din boks \"%@\" blev nægtet. Åben hovedappen for at tjekke din forbindelse, og gen-godkend hvis nødvendigt.";
 "fileProvider.error.unlockButton" = "Lås op";
 "fileProvider.clearFileFromCache.title" = "Ryd fil fra cache";
 "fileProvider.clearFileFromCache.message" = "Dette fjerner kun den lokale fil fra din enhed og sletter ikke filen i skyen.";
@@ -115,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "Ingen boks er valgt.";
 
 "hubAuthentication.title" = "Hub Boks";
-"hubAuthentication.accessNotGranted" = "Din enhed er endnu ikke blevet godkendt til at få adgang til denne boks. Spørg boks-ejeren om godkendelse.";
 "hubAuthentication.licenseExceeded" = "Din Cryptomator Hub har en ugyldig licens. Få venligst en Hub administrator til at opgradere eller forny licensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enheds-navn";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Det ser ud til at dette er første gang denne enhed tilgår Hub. For at kunne identificere den for adgangstilladelse, skal du navngive denne enhed.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonøgle er påkrævet til at logge ind fra nye apps eller browsere. Den kan findes i din profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrering af Enhed Lykkedes";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For at tilgå boksen, skal din enhed godkendes af boks-ejeren.";
 "hubAuthentication.requireAccountInit.alert.title" = "Handling Påkrævet";
 "hubAuthentication.requireAccountInit.alert.message" = "For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til Profil";
@@ -283,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "Dette vil kun fjerne boksen fra listen, og sletter ikke nogen krypterede filer.";
 "vaultDetail.renameVault.progress" = "Omdøber…";
 "vaultDetail.unlocked.footer" = "Din boks er i øjeblikket låst op, i Filer appen.";
-"vaultDetail.unlockVault.footer" = "Indtast adgangskode for \"%@\" for at gemme den i iOS-nøgleringen og for at aktivere %@.";
 
 "vaultList.header.title" = "Bokse";
 "vaultList.emptyList.message" = "Tryk her for at tilføje en boks";

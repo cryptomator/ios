@@ -1,1 +1,3 @@
-Kleine Anpassungen, um zeitnahe und relevante Updates zu bieten. Wir wünschen viel Spaß mit der App!
+- Fehlermeldungen für Hub-Tresore verbessert (#397, #398, #404).
+- Unbrauchbare Touch ID / Face ID Option für Hub Tresore entfernt (#396, #404).
+- Aktionen für Umbenennen/Verschieben von Hub-Tresoren entfernt, um unbeabsichtigte Änderungen zu verhindern (#406).

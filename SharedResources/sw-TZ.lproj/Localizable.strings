@@ -111,10 +111,8 @@
 
 "getFolderIntent.error.missingPath" = "Hakuna njia iliyotolewa. Tafadhali toa njia halali ambayo folda inapaswa kurejeshwa.";
 "getFolderIntent.error.noVaultSelected" = "Hakuna kuba iliyochaguliwa.";
-"hubAuthentication.accessNotGranted" = "Kifaa chako bado hakijaidhinishwa kufikia kuba hii. Uliza mwenye kuba aidhinishe.";
 "hubAuthentication.licenseExceeded" = "Mfano wako wa Cryptomator Hub una leseni batili. Tafadhali mjulishe msimamizi wa Hub ili kuboresha au kusasisha leseni.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Jina la Kifaa";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Ili kufikia kuba, kifaa chako kinahitaji kuidhinishwa na mmiliki wa kuba.";
 
 "intents.saveFile.missingFile" = "Faili iliyotolewa si sahihi.";
 "intents.saveFile.invalidFolder" = "Faili iliyotolewa si sahihi.";
@@ -273,7 +271,6 @@
 "vaultDetail.removeVault.footer" = "Hii itaondoa tu kuba kutoka kwenye orodha ya kuba na sio kufuta faili zozote zilizosimbwa kwa njia fiche.";
 "vaultDetail.renameVault.progress" = "Inaita jina jipya…";
 "vaultDetail.unlocked.footer" = "Kuba yako imefunguliwa kwa sasa katika programu ya Mafaili.";
-"vaultDetail.unlockVault.footer" = "Ingiza nenosiri la \"%@\" ili kuihifadhi kwenye kitufe cha iOS na kuwezesha %@.";
 
 "vaultList.header.title" = "Kuba";
 "vaultList.emptyList.message" = "Gonga hapa ili kuongeza kuba";

@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Aucun coffre n'a été sélectionné.";
 
 "hubAuthentication.title" = "Coffre dans Hub";
-"hubAuthentication.accessNotGranted" = "Votre appareil n'a pas encore été autorisé à accéder à ce coffre-fort. Demandez au propriétaire du coffre-fort de l'autoriser.";
+"hubAuthentication.accessNotGranted" = "Vous n'avez pas la permission d'accéder à ce coffre. Demandez au propriétaire du coffre de vous y autoriser.";
 "hubAuthentication.licenseExceeded" = "Votre instance Cryptomator Hub a une licence invalide. Veuillez informer un administrateur Hub pour la mettre à niveau ou la renouveler.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nom de l'appareil";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Il semble que ce soit le premier accès au Hub à partir de cet appareil. Afin de l'identifier pour l'autorisation d'accès, vous devez nommer cet appareil.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Votre clé de compte est requise pour vous connecter depuis de nouvelles applications ou de nouveaux navigateurs. Elle se trouve dans votre profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Enregistrement de l'appareil réussi";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pour accéder au coffre-fort, votre appareil doit être autorisé par le propriétaire du coffre-fort.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Pour accéder au coffre, le propriétaire du coffre doit vous en accorder la permission.";
 "hubAuthentication.requireAccountInit.alert.title" = "Action requise";
 "hubAuthentication.requireAccountInit.alert.message" = "Pour continuer, veuillez compléter les étapes requises dans votre profil d'utilisateur Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Aller au profil";
+"hubAuthentication.vaultArchived" = "Ce coffre a été archivé. Veuillez demander au propriétaire du coffre de le désarchiver.";
 
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";
 "intents.saveFile.invalidFolder" = "Le dossier fourni n'est pas valide.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Cela ne supprimera que le coffre de la liste des coffres et ne supprimera aucun fichier chiffré.";
 "vaultDetail.renameVault.progress" = "Renommage…";
 "vaultDetail.unlocked.footer" = "Votre coffre est actuellement déverrouillé dans l'application Fichiers.";
-"vaultDetail.unlockVault.footer" = "Entrez le mot de passe pour \"%@\" pour le stocker dans le porte-clés iOS et pour activer %@.";
+"vaultDetail.unlockVault.footer" = "Entrez le mot de passe de \"%1$@\" pour le stocker dans le Trousseau iOS et activer %2$@.";
 
 "vaultList.header.title" = "Coffres";
 "vaultList.emptyList.message" = "Appuyez ici pour ajouter un coffre";

@@ -42,16 +42,16 @@
 "addVault.title" = "Vault 추가";
 "addVault.createNewVault.title" = "새 Vault 생성";
 "addVault.createNewVault.purchase" = "새로운 vault를 만들려면 정식 버전을 구입해야 합니다.";
-"addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시요.";
+"addVault.createNewVault.setVaultName.header.title" = "Vault의 이름을 선택해주십시오.";
 "addVault.createNewVault.setVaultName.cells.name" = "Vault 이름";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Vault 이름은 비어있을 수 없습니다.";
-"addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화 파일을 어디에 저장하시겠습니까?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"가 이미 존재합니다. 다른 vault명을 정하거나 다른 위치를 선택해주세요.";
+"addVault.createNewVault.chooseCloud.header" = "Cryptomator Vault의 암호화된 파일을 어디에 저장하시겠습니까?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "해당 위치에 \"%@\"이(가) 이미 존재합니다. 다른 Vault 이름을 정하거나 다른 위치를 선택하십시오.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "addVault.createNewVault.password.enterPassword.header" = "새 비밀번호를 입력하세요.";
 "addVault.createNewVault.password.confirmPassword.header" = "새 비밀번호 확인.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "비밀번호를 확인하셨습니까?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구 할 방법이 없습니다.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "중요: 만약 비밀번호를 잊어버린 경우, 데이터를 복구할 수 없습니다.";
 "addVault.createNewVault.password.error.emptyPassword" = "비밀번호를 입력해야 합니다.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "비밀번호가 일치하지 않습니다.";
 "addVault.createNewVault.password.error.tooShortPassword" = "비밀번호는 최소 8자 이상이어야 합니다.";
@@ -61,7 +61,7 @@
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator가 \"%@\" Vault를 감지하였습니다.\n 이 Vault를 추가하시길 원하십니까?";
 "addVault.openExistingVault.detectedMasterkey.add" = "이 Vault 추가";
 "addVault.openExistingVault.downloadVault.progress" = "Vault 다운로드중…";
-"addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
+"addVault.openExistingVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시오.";
 "addVault.openExistingVault.progress" = "Vault 추가 중...";
 "addVault.success.info" = "\"%@\" Vault가 성공적으로 추가되었습니다.\n파일 앱을 통해 이 Vault에 접근할 수 있습니다.";
 "addVault.success.footer" = "아직 Cryptomator를 파일 앱에서 사용가능토록 설정하지 않은 경우, 사용가능하게 설정바랍니다.";
@@ -76,51 +76,93 @@
 "changePassword.progress" = "비밀번호 변경 중...";
 
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
-"chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시요.";
+"chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시오.";
 "chooseFolder.createNewFolder.cells.name" = "폴더명";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "폴더 이름이 비어 있어서는 안 됩니다.";
 "chooseFolder.createNewFolder.progress" = "폴더 생성 중...";
 
-"cloudProvider.error.itemNotFound" = "\"%@\"를 찾을 수 없습니다.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\"가 이미 존재합니다.";
+"cloudProvider.error.itemNotFound" = "\"%@\"을(를) 찾을 수 없습니다.";
+"cloudProvider.error.itemAlreadyExists" = "\"%@\"이(가) 이미 존재합니다.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\"의 파일 타입이 올바르지 않습니다.";
-"cloudProvider.error.parentFolderDoesNotExist" = "상위 폴더 \"%@\"가 존재하지 않습니다.";
+"cloudProvider.error.parentFolderDoesNotExist" = "상위 폴더 \"%@\"이(가) 존재하지 않습니다.";
+"cloudProvider.error.pageTokenInvalid" = "디렉토리의 내용물을 불러올 수 없습니다.";
 "cloudProvider.error.quotaInsufficient" = "저장공간이 부족합니다.";
+"cloudProvider.error.unauthorized" = "허가되지 않은 작업을 수행할 수 없습니다.";
+"cloudProvider.error.noInternetConnection" = "이 작업은 인터넷 연결이 필요합니다.";
 
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
 
 "fileProvider.onboarding.title" = "환영합니다";
-"fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시요.";
+"fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시오.";
 "fileProvider.onboarding.button.openCryptomator" = "Cryptomator 열기";
 "fileProvider.error.biometricalAuthCanceled.title" = "잠금 해제 취소됨";
+"fileProvider.error.biometricalAuthCanceled.message" = "%@을(를) 통한 잠금 해제가 실패했습니다. 다시 시도해 주세요.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "잘못된 비밀번호입니다";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "%@의 저장된 비밀번호가 맞지 않습니다. 다시 시도하여 %@을(를) 재활성화 하기 위해 비밀번호를 입력하십시오.";
 "fileProvider.error.defaultLock.title" = "잠금 해제 필요";
 "fileProvider.error.defaultLock.message" = "Vault에 접근하여 내부 데이터를 보기 위해서는 잠금을 해제해야 합니다.";
-"fileProvider.error.unlockButton" = "잠금해제";
+"fileprovider.error.unauthorized.text" = "\"%@\"에 대한 접근이 거부되었습니다. 메인 앱을 열어 연결을 확인하고 필요시 재인증하십시오.";
+"fileProvider.error.unlockButton" = "잠금 해제";
 "fileProvider.clearFileFromCache.title" = "캐시에서 파일 지우기";
 "fileProvider.clearFileFromCache.message" = "이는 현재 기기에 있는 로컬 파일들만 지웁니다. 클라우드에 있는 데이터는 유지됩니다.";
 "fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하십시오.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
 "fileProvider.uploadProgress.message" = "현재 진행도: %@\n\n만약 업로드가 멈추었다면, 재시도할 수 있습니다.";
+"fileProvider.uploadProgress.missing" = "진행도가 인식되지 않습니다. 백그라운드에서 작동중일 수 있습니다.";
 "fileProvider.uploadProgress.title" = "업로드 중…";
-"hubAuthentication.accessNotGranted" = "귀하의 기기는 아직 이 저장소에 액세스할 수 있는 권한이 없습니다. Vault 소유자에게 승인을 요청하세요.";
+"fileProvider.uploadProgress.missingDomainError" = "도메인을 찾을 수 없습니다.";
+
+"getFolderIntent.error.missingPath" = "경로가 지정되지 않았습니다. 폴더가 반환되는 유효한 경로를 지정해주세요.";
+"getFolderIntent.error.noVaultSelected" = "Vault가 선택되지 않았습니다.";
+
+"hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.accessNotGranted" = "이 Vault에 접근할 권한이 없습니다. Vault 소유자에게 허가를 요청하십시오.";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub 인스턴스에 잘못된 라이선스가 있습니다. 라이센스를 업그레이드하거나 갱신하려면 허브 관리자에게 알리십시오.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "기기 이름";
+"hubAuthentication.deviceRegistration.deviceName.footer.title" = "이 기기로부터 첫번째 Hub 접근입니다. 접근 허가를 위해 인식할 수 있도록 이름을 붙이십시오.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "새로운 앱이나 브라우저에서 로그인하기 위해 Account Key가 필요합니다. 프로필에서 찾을 수 있습니다.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "기기 등록 성공";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Vault에 접근하려면, 소유자가 권한을 허가해야 합니다.";
+"hubAuthentication.requireAccountInit.alert.title" = "조치가 필요함";
+"hubAuthentication.requireAccountInit.alert.message" = "진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "프로필로 가기";
+"hubAuthentication.vaultArchived" = "이 Vault는 아카이브되었습니다. Vault 소유자에게 아카이브를 해제하도록 요청하십시오.";
 
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
 "intents.saveFile.invalidFolder" = "폴더가 올바르지 않습니다.";
-"keepUnlocked.alert.message" = "이 설정을 바꾸기 위해서는 vault를 잠궈야 합니다.";
+"intents.saveFile.missingTemporaryFolder" = "임시 폴더를 만들 수 없습니다.";
+"intents.saveFile.lockedVault" = "이 단축어를 이용하려면 Vault를 잠금 해제해야 합니다.";
+"intents.saveFile.selectedVaultNotFound" = "해당 Vault를 찾을 수 없습니다.";
+
+"keepUnlocked.alert.title" = "Vault를 잠그시겠습니까?";
+"keepUnlocked.alert.message" = "이 설정을 바꾸기 위해서는 Vault를 잠궈야 합니다.";
+"keepUnlocked.alert.confirm" = "확인 & 지금 잠그기";
+"keepUnlocked.header" = "사용하지 않을 때에 얼마나 오래 잠금 해제 할것인지 지정하십시오.";
+"keepUnlocked.footer.auto" = "iOS가 지정하게 하는 것은 메모리 확보를 위해 언제든 Cryptomator가 종료되어 자동으로 Vault를 잠그는 것을 의미합니다.";
+"keepUnlocked.footer.on" = "이 설정을 활성화함으로써 Vault가 잠금 해제되어있는 동안 암호가 iOS 키체인에 저장됩니다.";
 "keepUnlockedDuration.auto" = "iOS가 자동으로 잠그게 하기";
 "keepUnlockedDuration.auto.shortDisplayName" = "자동";
 "keepUnlockedDuration.indefinite" = "자동 잠금 해제";
 
-"localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시요.";
+"localFileSystemAuthentication.createNewVault.header" = "다음 화면에서, 새 Vault의 저장위치를 선택하여 주십시오.";
 "localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
-"localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시요.";
+"localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "이 위치에 이미 Vault가 존재합니다. 다른 저장소 위치에서 다시 시도해 주십시오.";
+"localFileSystemAuthentication.openExistingVault.header" = "다음 화면에서, Vault의 폴더를 선택하여 주십시오.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "선택된 폴더는 Vault가 아닙니다. 다른 폴더에서 다시 시도해 주십시오.";
+"localFileSystemAuthentication.info.footer" = "회색으로 처리된 파일 앱은 폴더 선택을 지원하지 않습니다. 이는 Cryptomator의 제약사항이 아닙니다.";
+
+"maintenanceModeError.runningCloudTask" = "이 Vault에 대한 다른 우선 백그라운드 작업으로 인해 작업이 불가능합니다. 잠시 후 다시 시도해 주십시오.";
+
+"nameValidation.error.endsWithPeriod" = "마침표로 끝나는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
+"nameValidation.error.endsWithSpace" = "공백으로 끝나는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
+"nameValidation.error.containsIllegalCharacter" = "\"%@\"을(를) 포함하는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
 
 "onboarding.title" = "환영합니다";
+"onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택해 주셔서 감사합니다.\n\nCryptomator에서는 데이터에 대한 열쇠는 사용자가 갖고 있습니다. Cryptomator는 데이터를 쉽고 빠르게 암호화 합니다.\n\n이 앱은 파일 앱과 완전히 연동되어 있습니다. 이후 파일 앱에서 Cryptomator를 활성화하여 Vault에 접근하십시오.";
 "onboarding.button.continue" = "계속하기";
+
+"purchase.beginFreeTrial.alert.title" = "체험판 열림";
 "purchase.expiredTrial" = "체험판이 만료되었습니다.";
 "purchase.footer.privacyPolicy" = "개인정보 보호정책";
 "purchase.footer.termsOfUse" = "이용 약관";
@@ -130,28 +172,57 @@
 "purchase.product.donateAndUpgrade" = "후원 및 업그레이드";
 "purchase.product.freeUpgrade" = "무료 업그레이드";
 "purchase.product.lifetimeLicense" = "평생 라이선스";
+"purchase.product.lifetimeLicense.duration" = "일회성";
 "purchase.product.pricing.free" = "무료";
 "purchase.product.trial" = "30일 체험판";
 "purchase.product.trial.expirationDate" = "만료일: %@";
 "purchase.product.trial.duration" = "30일간 사용 가능";
-"purchase.restorePurchase.validTrialFound.alert.message" = "제한된 기간 동안 Cryptomator의 정식 버전을 사용할 수 있습니다. 체험판은 %@에 만료됩니다. 그 후, vault는 읽기 전용 모드로 접근할 수 있습니다.";
+"purchase.product.yearlySubscription" = "연간 구독";
+"purchase.product.yearlySubscription.duration" = "연간";
+"purchase.readOnlyMode.alert.title" = "읽기 전용 모드";
+"purchase.readOnlyMode.alert.message" = "설정에서 Cryptomator의 정식 버전을 해제할 수 있으며, 지금은 읽기 전용 모드로 사용할 수 있습니다.";
+"purchase.restorePurchase.button" = "구매 복원";
+"purchase.restorePurchase.validTrialFound.alert.title" = "체험판 계속됨";
+"purchase.restorePurchase.validTrialFound.alert.message" = "제한된 기간 동안 Cryptomator의 정식 버전을 사용할 수 있습니다. 체험판은 %@에 만료됩니다. 그 후, Vault는 읽기 전용 모드로 접근할 수 있습니다.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "복원 완료";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "정식 버전 없음";
-"purchase.restorePurchase.fullVersionNotFound.alert.message" = "이전에 구입한 복구를 위한 정식 버전을 찾을 수 없습니다. 다른 옵션을 선택하십시오.";
-"purchase.retry.button" = "재시도";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "이전에 구입한 정식 버전을 찾을 수 없습니다. 다른 옵션을 선택하십시오.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "업그레이드 자격 있음";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Cryptomator의 구버전에서 업그레이드 하려는 것 같습니다. 만약 그렇다면 대신 \"업그레이드 제안\" 옵션을 선택해주십시오.";
+"purchase.retry.button" = "다시 시도";
+"purchase.retry.footer" = "이용가능한 제품을 불러올 수 없습니다.";
 "purchase.title" = "정식 버전 구입";
 "purchase.unlockedFullVersion.message" = "이제 Cryptomator의 정식 버전을 사용할 수 있습니다.";
 "purchase.unlockedFullVersion.title" = "감사합니다";
+"purchase.error.unknown" = "알 수 없는 이유로 App Store에서의 결제가 실패했습니다. 잠시 후 다시 시도해 주십시오.\n\n만약 이 에러가 지속된다면, 기기를 재시작하거나 iOS 설정에서 Apple ID에 다시 로그인해 보십시오.";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";
 "settings.aboutCryptomator.title" = "버전 %@ (%@)";
+"settings.cacheSize" = "캐시 크기";
 "settings.clearCache" = "캐시 지우기";
+"settings.cloudServices" = "클라우드 서비스";
+"settings.contact" = "문의하기";
+"settings.debugMode" = "디버그 모드";
 "settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다.(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화 하세요.";
+"settings.manageSubscriptions" = "구독 관리";
 "settings.rateApp" = "앱 평가하기";
 "settings.sendLogFile" = "로그파일 전송";
 "settings.shortcutsGuide" = "단축키 가이드";
 "settings.unlockFullVersion" = "정식 버전 잠금 해제";
+
+"snapshots.fileprovider.file1" = "/Accounting.numbers";
+"snapshots.fileprovider.file2" = "/Final Presentation.key";
+"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file4" = "/Proposal.docx";
+"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.folder3" = "/Secret Project";
+"snapshots.fileprovider.folder2" = "/Invoices";
+"snapshots.fileprovider.folder1" = "/Certificates";
+"snapshots.main.vault1" = "/Work";
+"snapshots.main.vault2" = "/Family";
+"snapshots.main.vault3" = "/Documents";
+"snapshots.main.vault4" = "/Trip to California";
 
 "s3Authentication.displayName" = "표시 이름";
 "s3Authentication.accessKey" = "액세스 키";
@@ -159,32 +230,78 @@
 "s3Authentication.existingBucket" = "이미 존재하는 버킷";
 "s3Authentication.endpoint" = "엔드포인트";
 "s3Authentication.region" = "지역";
+"s3Authentication.error.invalidCredentials" = "로그인 정보가 틀립니다.";
+"s3Authentication.error.invalidEndpoint" = "주어진 엔드포인트가 URL의 형식과 일치하지 않습니다.";
 
 "trialStatus.active" = "활성화됨";
 "trialStatus.expired" = "만료됨";
 
-"unlockVault.button.unlock" = "잠금해제";
-"unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시요.";
+"unlockVault.button.unlock" = "잠금 해제";
+"unlockVault.button.unlockVia" = "%@(으)로 잠금 해제";
+"unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시오.";
+"unlockVault.enableBiometricalUnlock.switch" = "%@ 활성화";
+"unlockVault.enableBiometricalUnlock.footer" = "비밀번호로 잠금 해제하는 대신 %@를 통해 잠금 해제 할 수 있습니다.";
+"unlockVault.evaluatePolicy.reason" = "Vault 잠금 해제";
+"unlockVault.progress" = "잠금 해제 중...";
 
 "untrustedTLSCertificate.title" = "유효하지 않은 TLS 인증서";
-"untrustedTLSCertificate.message" = "\"%@\" TLD 인증서가 유효하지 않습니다. 아무튼 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
+"untrustedTLSCertificate.message" = "\"%@\"의 TLS 인증서가 유효하지 않습니다. 그래도 신뢰하고 계속하시겠습니까?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "신뢰하기";
 "untrustedTLSCertificate.dismiss" = "신뢰하지 않기";
 
+"upgrade.title" = "업그레이드 제안";
+"upgrade.notEligible.alert.title" = "업그레이드 실패";
+"upgrade.notEligible.alert.message" = "Cryptomator가 이 기기에 설치된 구버전을 찾을 수 없습니다. 만약 구매하였다면, App Store에서 다시 설치하고 다시 시도해 주십시오.";
+"upgrade.info" = "버전 1부터 Cryptomator를 신뢰해주셔서 감사합니다. 충성고객으로서 무료 업그레이드 자격이 있습니다.";
+
+"urlSession.error.httpError.401" = "사용자명/비밀번호가 잘못되었습니다.";
+"urlSession.error.httpError.403" = "요청한 자료에 대한 권한이 부족합니다.";
+"urlSession.error.httpError.404" = "요청한 자료를 찾을 수 없습니다.";
+"urlSession.error.httpError.405" = "요청 메소드가 대상 자료에 지원되지 않습니다.";
+"urlSession.error.httpError.409" = "요청이 대상 자료의 현재 상태에 상충됩니다.";
+"urlSession.error.httpError.412" = "대상 자료에 대한 접근이 거부되었습니다.";
+"urlSession.error.httpError.default" = "네트워크 연결이 코드 %ld로 실패하였습니다.";
+"urlSession.error.unexpectedResponse" = "예상치 못한 네트워크 응답이 발생했습니다.";
+
+"vaultAccountManager.error.vaultAccountAlreadyExists" = "이미 추가된 Vault입니다.";
+
 "vaultDetail.button.changeVaultPassword" = "비밀번호 변경";
+"vaultDetail.button.lock" = "지금 잠그기";
 "vaultDetail.button.moveVault" = "이동";
+"vaultDetail.button.removeVault" = "Vault 목록에서 제거하기";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.changePassword.footer" = "Vault에 대해 자신만 아는 강력한 암호를 선택하고, 안전한 장소에 두십시오.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "%@을(를) 활성화하면, Vault 암호가 iOS 키체인에 저장될 것입니다.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Vault 암호는 %@ 인증이 실패할 때에만 요구됩니다.";
+"vaultDetail.info.footer.accessVault" = "파일 앱으로 이 Vault에 접근하십시오.";
+"vaultDetail.info.footer.accountInfo" = "%@(으)로 %@에 로그인 되어 있습니다.";
 "vaultDetail.keepUnlocked.title" = "잠금 해제 기간";
+"vaultDetail.keepUnlocked.footer.off" = "파일 앱이 Cryptomator를 종료했을 때 잠금 해제가 요구됩니다.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Vault가 %@ 동안 유휴 상태일 때 잠금 해제가 요구됩니다.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "수동으로 잠그지 않으면 잠금 해제가 요구되지 않습니다.";
+"vaultDetail.locked.footer" = "Vault가 현재 잠겨있습니다.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator가 이 위치에 있는 Vault를 감지하였습니다.\n 새 Vault를 생성하기 위해, 다른 경로를 선택하시기 바랍니다.";
 "vaultDetail.moveVault.progress" = "이동 중…";
-"vaultDetail.renameVault.progress" = "이름변경중…";
+"vaultDetail.removeVault.footer" = "이 동작은 Vault 목록에서 Vault를 지우지만 암호화된 파일은 지우지 않습니다.";
+"vaultDetail.renameVault.progress" = "이름 변경 중…";
+"vaultDetail.unlocked.footer" = "파일 앱에서 Vault가 잠금 해제되어 있습니다.";
+"vaultDetail.unlockVault.footer" = "비밀번호를 iOS 키체인에 저장하여 %2$@를 활성화 하기 위해 \"%1$@\"의 비밀번호를 입력하십시오.";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "여기를 눌러 Vault 추가";
 "vaultList.remove.alert.title" = "Vault 제거?";
 "vaultList.remove.alert.message" = "Vault 목록에서만 Vault가 제거될 것입니다. 암호화 된 데이터가 삭제되지 않습니다. 이 Vault를 나중에 다시 추가할 수 있습니다.";
 
-"webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니가?";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "Vault 구성이 지원되지 않습니다. 최신 버전의 Cryptomator를 사용하고 있는지 확인해 주십시오.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "Valut 버전 %ld는 지원되지 않습니다. 이 Vault는 다른 버전의 Cryptomator에서 만들어졌습니다.";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS를 사용하겠습니까?";
 "webDAVAuthentication.httpConnection.alert.message" = "HTTP 사용은 안전하지 않습니다. HTTPS 사용을 권장합니다. HTTP 사용으로 야기될 문제를 숙지하고 있다면, HTTP를 사용할 수 있습니다.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
+"webDAVAuthentication.httpConnection.continue" = "HTTP 유지";
 
-"Retry Upload" = "업로드 재시도";
+"webDAVAuthenticator.error.unsupportedProtocol" = "서버가 WebDAV를 지원하지 않습니다. 올바른 URL을 사용하는지 확인하십시오.";
+"webDAVAuthenticator.error.untrustedCertificate" = "이 서버의 인증서를 신뢰할 수 없습니다. 이 WebDAV 연결을 다시 설정해야 할 수 있습니다.";
+
+"Retry Upload" = "업로드 다시 하기";
+"Clear from Cache" = "캐시에서 지우기";

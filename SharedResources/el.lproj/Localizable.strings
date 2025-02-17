@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Δεν έχει επιλεγεί κρύπτη.";
 
 "hubAuthentication.title" = "Κρύπτη Hub";
-"hubAuthentication.accessNotGranted" = "Η συσκευή σας δεν έχει ακόμη εξουσιοδοτηθεί να έχει πρόσβαση σε αυτή την κρύπτη. Ζητήστε από τον κάτοχο της κρύπτης να την εξουσιοδοτήσει.";
+"hubAuthentication.accessNotGranted" = "Δεν έχετε άδεια πρόσβασης σε αυτή την κρύπτη. Ζητήστε από τον ιδιοκτήτη της κρύπτης να σας εξουσιοδοτήσει.";
 "hubAuthentication.licenseExceeded" = "Η συνεδρία σας στο Cryptomator Hub έχει μη έγκυρη άδεια χρήσης. Ενημερώστε έναν διαχειριστή του Hub για να αναβαθμίσει ή να ανανεώσει την άδεια χρήσης.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Όνομα Συσκευής";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Αυτή φαίνεται να είναι η πρώτη πρόσβαση στο Hub από αυτήν τη συσκευή. Για να την αναγνωρίσετε για εξουσιοδότηση πρόσβασης, πρέπει να ονομάσετε αυτήν τη συσκευή.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Το Κλειδί Λογαριασμού σας απαιτείται για να συνδεθείτε από νέες εφαρμογές ή προγράμματα περιήγησης. Μπορείτε να το βρείτε στο προφίλ σας.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Επιτυχής Εγγραφή Συσκευής";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Για να αποκτήσετε πρόσβαση στην κρύπτη, η συσκευή σας πρέπει να είναι εξουσιοδοτημένη από τον κάτοχο της κρύπτης.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Για να αποκτήσετε πρόσβαση στην κρύπτη, ο κάτοχος της κρύπτης πρέπει να σας χορηγήσει άδεια.";
 "hubAuthentication.requireAccountInit.alert.title" = "Απαιτείται Ενέργεια";
 "hubAuthentication.requireAccountInit.alert.message" = "Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Πηγαίνετε στο Προφίλ";
+"hubAuthentication.vaultArchived" = "Αυτή η κρύπτη έχει αρχειοθετηθεί. Ζητήστε από τον κάτοχο της κρύπτης να το αποαρχειοθετήσει.";
 
 "intents.saveFile.missingFile" = "Το παρεχόμενο αρχείο δεν είναι έγκυρο.";
 "intents.saveFile.invalidFolder" = "Ο παρεχόμενος φάκελος δεν είναι έγκυρος.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Αυτό θα αφαιρέσει μόνο την κρύπτη από τη λίστα κρύπτης και δεν θα διαγράψει κρυπτογραφημένα αρχεία.";
 "vaultDetail.renameVault.progress" = "Μετονομασία…";
 "vaultDetail.unlocked.footer" = "Η κρύπτη σας είναι ξεκλειδωμένη αυτή τη στιγμή στην εφαρμογή Αρχείων.";
-"vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για το \"%@\" για να τον αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %@.";
+"vaultDetail.unlockVault.footer" = "Εισάγετε τον κωδικό πρόσβασης για \"%1$@\" για να το αποθηκεύσετε στο iOS keychain και για να ενεργοποιήσετε %2$@.";
 
 "vaultList.header.title" = "Κρύπτες";
 "vaultList.emptyList.message" = "Πατήστε εδώ για να προσθέσετε μια κρύπτη";

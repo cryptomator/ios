@@ -9,7 +9,6 @@
 "addVault.createNewVault.setVaultName.cells.name" = "ئامبار ئىسمى";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator ئامبىرىڭىزنىڭ شىفىرلانغان ھۆججەتلىرىنى قەيەردە ساقلىشى كېرەك?";
 "fileProvider.error.unlockButton" = "قۇلۇپنى ئاچ";
-"hubAuthentication.accessNotGranted" = "ئۈسكۈنىڭىز تېخى بۇ ئامبارغا كىرىشكە ھوقۇقلاندۇرۇلمىغان. ئامبار ئىگىسىدىن ھوقۇقلاندۇرۇشنى تەلەپ قىلىڭ.";
 "hubAuthentication.licenseExceeded" = "سىزنىڭ Cryptomator Hub نۇسخىڭىزنىڭ ئىناۋەتسىز ئىجازەتنامىسى بار. Hub باشقۇرغۇچىسىغا ئىجازەتنامىنى يۇقىرى دەرىجىگە كۆتۈر.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ئۈسكۈنە ئىسمى";
 

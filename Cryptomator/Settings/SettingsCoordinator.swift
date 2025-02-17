@@ -70,7 +70,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func openShortcutsGuide() {
-		if let shortcutsGuideURL = URL(string: "https://docs.cryptomator.org/en/latest/ios/shortcuts-guide/") {
+		if let shortcutsGuideURL = URL(string: "https://docs.cryptomator.org/ios/shortcuts-guide/") {
 			UIApplication.shared.open(shortcutsGuideURL)
 		}
 	}

@@ -54,8 +54,6 @@ class PurchaseCoordinator: Coordinator {
 			}
 			self.unlockedPro()
 		}
-		// Temporarily added for December 2024 Sale
-		NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 	}
 
 	func handleRestoreResult(_ result: RestoreTransactionsResult) {

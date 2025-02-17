@@ -101,6 +101,7 @@
 "fileProvider.error.biometricalAuthWrongPassword.message" = "كلمة المرور التي تم حفظها لـ %@ خاطئة. الرجاء المحاولة مرة أخرى وإدخال كلمة المرور الخاصة بك لإعادة تمكين %@.";
 "fileProvider.error.defaultLock.title" = "يلزم فك القفل";
 "fileProvider.error.defaultLock.message" = "للوصول إلى محتويات خزانتك وعرضها، يجب فتح قفلها.";
+"fileprovider.error.unauthorized.text" = "تم رفض الوصول إلى مخزن \"%@\" الخاص بك. افتح التطبيق الرئيسي للتحقق من اتصالك وإعادة المصادقة إذا لزم الأمر.";
 "fileProvider.error.unlockButton" = "افتح";
 "fileProvider.clearFileFromCache.title" = "مسح الملف من ذاكرة التخزين المؤقت";
 "fileProvider.clearFileFromCache.message" = "هذا يزيل الملف المحلي من جهازك فقط ولا يحذف الملف من السحابة.";
@@ -115,13 +116,11 @@
 "getFolderIntent.error.noVaultSelected" = "لم يتم تحديد أي خزانة.";
 
 "hubAuthentication.title" = "خزانة Hub";
-"hubAuthentication.accessNotGranted" = "لم يتم بعد منح الإذن لجهازك بالوصول إلى هذا المخزن. اطلب من مالك المخزن أن يأذن بذلك.";
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "تم تسجيل الجهاز بنجاح";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للدخول إلى الخزينة، يحتاج جهازك إلى إذن من مالك الخزينة.";
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
@@ -283,7 +282,6 @@
 "vaultDetail.removeVault.footer" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن ولن يحذف أي ملفات مشفرة.";
 "vaultDetail.renameVault.progress" = "إعادة تسمية…";
 "vaultDetail.unlocked.footer" = "خزانتك غير مقفلة حاليًا في تطبيق الملفات.";
-"vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%@\" لتخزينها في سلسلة مفاتيح iOS وتمكين %@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";

@@ -153,7 +153,6 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 
 	private var purchaseTrialCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.trial"),
-		                           productDetail: nil,
 		                           price: LocalizedString.getValue("purchase.product.pricing.free"),
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.trial.duration"),
 		                           productIdentifier: .thirtyDayTrial))
@@ -161,7 +160,6 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 
 	private var yearlySubscriptionCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.yearlySubscription"),
-		                           productDetail: nil,
 		                           price: "$5.99",
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.yearlySubscription.duration"),
 		                           productIdentifier: .yearlySubscription))
@@ -169,7 +167,6 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 
 	private var lifetimeLicenseCell: Item {
 		return .purchaseCell(.init(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
-		                           productDetail: nil,
 		                           price: "$11.99",
 		                           purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 		                           productIdentifier: .fullVersion))

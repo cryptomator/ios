@@ -116,16 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre selecionado.";
 
 "hubAuthentication.title" = "Cofre do Hub";
-"hubAuthentication.accessNotGranted" = "O seu dispositivo ainda não foi autorizado a aceder a este cofre. Peça ao proprietário do cofre para o autorizar.";
+"hubAuthentication.accessNotGranted" = "Não tem permissão para aceder a este cofre. Peça ao proprietário do cofre para o autorizar.";
 "hubAuthentication.licenseExceeded" = "A entidade do seu Cryptomator Hub tem uma licença inválida. Por favor, informe o administrador do Hub para atualizar ou renovar a licença.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, é preciso dar um nome a este dispositivo.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "A sua chave de conta é necessária para iniciar sessão em novos aplicativos ou navegadores. Ela pode ser encontrada no seu perfil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registado com sucesso";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para aceder ao cofre, o seu dispositivo precisa de ser autorizado pelo proprietário do cofre.";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para aceder ao cofre, o proprietário do cofre tem de dar-lhe permissão.";
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
+"hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para o desarquivar.";
 
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
 "intents.saveFile.invalidFolder" = "A pasta especificada não é válida.";
@@ -284,7 +285,7 @@
 "vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não irá apagar nenhum ficheiro encriptado.";
 "vaultDetail.renameVault.progress" = "A Renomear…";
 "vaultDetail.unlocked.footer" = "O seu cofre está de momento desbloqueado na aplicação Ficheiros.";
-"vaultDetail.unlockVault.footer" = "Insira a palavra-passe de \"%@\" para a armazenar no Porta-chaves do iOS e para ativar %@.";
+"vaultDetail.unlockVault.footer" = "Introduzir palavra-passe de \"%1$@\" para guardar no porta-chaves do iOS e ativar %2$@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";

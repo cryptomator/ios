@@ -87,10 +87,8 @@
 "fileProvider.uploadProgress.connecting" = "Đang kết nối…";
 "fileProvider.uploadProgress.title" = "Đang tải lên…";
 "fileProvider.uploadProgress.missingDomainError" = "Không thể tìm thấy tên miền.";
-"hubAuthentication.accessNotGranted" = "Thiết bị của bạn chưa được phép truy cập vault này. Yêu cầu chủ sở hữu cấp phép.";
 "hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
-"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Để truy cập vault, thiết bị của bạn cần được chủ sở hữu cho phép.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Xem hồ sơ";
 
 "keepUnlocked.alert.title" = "Khóa Vault?";
