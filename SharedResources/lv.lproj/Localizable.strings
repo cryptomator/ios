@@ -10,6 +10,9 @@
 "common.button.remove" = "Noņemt";
 "common.button.retry" = "Mēģināt vēlreiz";
 "common.cells.password" = "Parole";
+"common.cells.url" = "URL";
+"common.cells.username" = "Lietotājvārds";
+"common.footer.learnMore" = "Uzzināt vairāk.";
 
 "addVault.title" = "Pievienot glabātavu";
 "addVault.createNewVault.title" = "Izveidot jaunu glabātuvi";
@@ -28,8 +31,12 @@
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
+
+"fileProvider.onboarding.title" = "Laipni lūdzam";
 "fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
+"fileProvider.onboarding.button.openCryptomator" = "Atvērt Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.message" = "Atslēgšana ar %@ nebija sekmīga. Lūgums mēģināt vēlreiz.";
+"fileProvider.error.biometricalAuthWrongPassword.title" = "Nepareiza parole";
 "fileprovider.error.unauthorized.text" = "Piekļuve glabātavai \"%@\" tika atteikta. Jāatver galvenā lietotne, lai pārbaudītu savu savienojumu un, ja nepieciešams, atkārtoti pilnvarotu.";
 "fileProvider.error.unlockButton" = "Atslēgt";
 "fileProvider.clearFileFromCache.title" = "Iztīrīt datni no kešatmiņas";
@@ -38,6 +45,7 @@
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
