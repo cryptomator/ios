@@ -2,6 +2,7 @@
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
 "common.button.close" = "Aizvērt";
+"common.button.create" = "Izveidot";
 "common.button.done" = "Darīts";
 "common.button.edit" = "Labot";
 "common.button.next" = "Tālāk";
@@ -49,6 +50,8 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
+
+"keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
 "localFileSystemAuthentication.openExistingVault.header" = "Nākamajā skatā jāizvēlas savas esošās glabātavas mape.";
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
