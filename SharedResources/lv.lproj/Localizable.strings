@@ -10,6 +10,7 @@
 "common.button.refresh" = "Atsvaidzināt";
 "common.button.remove" = "Noņemt";
 "common.button.retry" = "Mēģināt vēlreiz";
+"common.cells.openInFilesApp" = "Atvērt datņu lietotnē";
 "common.cells.password" = "Parole";
 "common.cells.url" = "URL";
 "common.cells.username" = "Lietotājvārds";
@@ -33,11 +34,16 @@
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
 
+"cloudProviderType.localFileSystem" = "Cits datņu nodrošinātājs";
+
 "fileProvider.onboarding.title" = "Laipni lūdzam";
 "fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
 "fileProvider.onboarding.button.openCryptomator" = "Atvērt Cryptomator";
+"fileProvider.error.biometricalAuthCanceled.title" = "Atslēgšana atcelta";
 "fileProvider.error.biometricalAuthCanceled.message" = "Atslēgšana ar %@ nebija sekmīga. Lūgums mēģināt vēlreiz.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Nepareiza parole";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "Parole, kas tika saglabāta %@, ir nepareiza. Lūgums mēģināt vēlreiz un ievadīt savu paroli, lai atkārtoti iespējotu %@.";
+"fileProvider.error.defaultLock.title" = "Nepieciešama atslēgšana";
 "fileprovider.error.unauthorized.text" = "Piekļuve glabātavai \"%@\" tika atteikta. Jāatver galvenā lietotne, lai pārbaudītu savu savienojumu un, ja nepieciešams, atkārtoti pilnvarotu.";
 "fileProvider.error.unlockButton" = "Atslēgt";
 "fileProvider.clearFileFromCache.title" = "Iztīrīt datni no kešatmiņas";
@@ -67,6 +73,7 @@
 "settings.aboutCryptomator" = "Par Cryptomator";
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
+"settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
 
 "unlockVault.button.unlock" = "Atslēgt";
