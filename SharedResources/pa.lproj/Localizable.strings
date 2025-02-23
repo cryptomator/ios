@@ -107,6 +107,8 @@
 "fileProvider.uploadProgress.connecting" = "…ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "fileProvider.uploadProgress.title" = "…ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "getFolderIntent.error.noVaultSelected" = "ਕੋਈ ਵਾਲਟ ਨਹੀਂ ਚੁਣਿਆ ਹੈ।";
+
+"hubAuthentication.title" = "Hub ਵਾਲਟ";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ਡਿਵਾਈਸ ਦਾ ਨਾਂ";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "ਤੁਹਾਡੀ Account Key ਨਵੀਆਂ ਐਪਾਂ ਜਾਂ ਬਰਾਊਜ਼ਰਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰਨ ਸਮੇਂ ਚਾਹੀਦੀ ਹੈ। ਇਸ ਨੂੰ ਤੁਹਾਡੇ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ।";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "ਡਿਵਾਈਸ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਰਜਿਸਟਰ ਕੀਤਾ";
