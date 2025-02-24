@@ -107,8 +107,11 @@
 "fileProvider.uploadProgress.connecting" = "…ਕਨੈਕਟ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "fileProvider.uploadProgress.title" = "…ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ";
 "getFolderIntent.error.noVaultSelected" = "ਕੋਈ ਵਾਲਟ ਨਹੀਂ ਚੁਣਿਆ ਹੈ।";
+
+"hubAuthentication.title" = "Hub ਵਾਲਟ";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ਡਿਵਾਈਸ ਦਾ ਨਾਂ";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "ਤੁਹਾਡੀ Account Key ਨਵੀਆਂ ਐਪਾਂ ਜਾਂ ਬਰਾਊਜ਼ਰਾਂ ਵਿੱਚ ਲਾਗਇਨ ਕਰਨ ਸਮੇਂ ਚਾਹੀਦੀ ਹੈ। ਇਸ ਨੂੰ ਤੁਹਾਡੇ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੱਭਿਆ ਜਾ ਸਕਦਾ ਹੈ।";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "ਡਿਵਾਈਸ ਨੂੰ ਕਾਮਯਾਬੀ ਨਾਲ ਰਜਿਸਟਰ ਕੀਤਾ";
 "hubAuthentication.requireAccountInit.alert.title" = "ਕਾਰਵਾਈ ਦੀ ਲੋੜ ਹੈ";
 "hubAuthentication.requireAccountInit.alert.message" = "ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ";
@@ -147,6 +150,7 @@
 "purchase.restorePurchase.button" = "ਖਰੀਦਦਾਰੀ ਨੂੰ ਬਹਾਲ ਕਰੋ";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "ਬਹਾਲ ਕਰਨਾ ਕਾਮਯਾਬ ਰਿਹਾ";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਨਹੀਂ ਹੈ";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "ਅੱਪਗਰੇਡ ਲਈ ਪਾਤਰ ਹੈ";
 "purchase.retry.button" = "ਮੁੜ-ਕੋਸ਼ਿਸ਼";
 "purchase.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
 "purchase.unlockedFullVersion.title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ";
@@ -206,6 +210,10 @@
 "vaultList.header.title" = "ਵਾਲਟ";
 "vaultList.emptyList.message" = "ਵਾਲਟ ਜੋੜਨ ਲਈ ਇੱਥੇ ਛੂਹੋ";
 "vaultList.remove.alert.title" = "ਵਾਲਟ ਹਟਾਉਣਾ ਹੈ?";
+
+"webDAVAuthentication.httpConnection.alert.title" = "HTTPS ਵਰਤਣਾ ਹੈ?";
+"webDAVAuthentication.httpConnection.change" = "HTTPS ਲਈ ਬਦਲੋ";
+"webDAVAuthentication.httpConnection.continue" = "HTTP ਰੱਖੋ";
 
 "Retry Upload" = "ਅੱਪਲੋਡ ਦੀ ਮੁੜ ਕੋਸ਼ਿਸ਼ ਕਰੋ";
 "Clear from Cache" = "ਕੈਸ਼ ਤੋਂ ਮਿਟਾਓ";
