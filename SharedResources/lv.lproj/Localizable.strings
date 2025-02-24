@@ -21,6 +21,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Glabātavas nosaukums";
 "addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu saglabāt glabātavs šifrētās datnes?";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai izveidotu jaunu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
+"addVault.createNewVault.password.enterPassword.header" = "Jāievada jaunā parole.";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.";
 "addVault.openExistingVault.title" = "Atvērt esošu glabātavu";
 "addVault.openExistingVault.chooseCloud.header" = "Kur atrodas glabātava?";
@@ -31,6 +32,7 @@
 "addVault.openExistingVault.progress" = "Pievieno glabātavu…";
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
+"changePassword.header.newPassword.title" = "Jāievada jaunā parole.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
 
@@ -85,6 +87,7 @@
 "vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
 
