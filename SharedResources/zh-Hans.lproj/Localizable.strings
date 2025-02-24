@@ -126,6 +126,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "需要操作";
 "hubAuthentication.requireAccountInit.alert.message" = "要继续，请完成 Hub 用户中心所需的步骤";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "前往个人中心";
+"hubAuthentication.vaultArchived" = "此保险库已存档，请让其所有者取消存档";
 
 "intents.saveFile.missingFile" = "提供的文件无效。";
 "intents.saveFile.invalidFolder" = "提供的文件夹无效。";
@@ -284,6 +285,7 @@
 "vaultDetail.removeVault.footer" = "这只会从保险库列表中移除，并不会删除任何加密文件。";
 "vaultDetail.renameVault.progress" = "正在重命名……";
 "vaultDetail.unlocked.footer" = "您的保险库目前已在文件应用中解锁。";
+"vaultDetail.unlockVault.footer" = "请输入“%1$@”的密码以将其存储到 iOS 钥匙串并启用%2$@";
 
 "vaultList.header.title" = "保险库";
 "vaultList.emptyList.message" = "点击此处添加保险库";
