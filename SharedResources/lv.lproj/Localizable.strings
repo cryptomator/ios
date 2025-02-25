@@ -54,20 +54,35 @@
 "fileProvider.fileImporting.error.missingPremium" = "Jāatslēdz pilnā versija Cryptomator lietotnē, lai savās glabātavās iegūtu rakstīšanas piekļuvi.";
 "fileProvider.uploadProgress.connecting" = "Savienojas…";
 "fileProvider.uploadProgress.message" = "Pašreizējā virzība: %@\n\nJa tiek novērots, ka augšupielāde ir iestrēgusi, to var mēģināt sākt no jauna.";
+"fileProvider.uploadProgress.missing" = "Virzību nevarēja noteikt. Tā joprojām varētu darboties fonā.";
+"fileProvider.uploadProgress.title" = "Augšuplādē…";
+"fileProvider.uploadProgress.missingDomainError" = "Nevarēja atrast domēnu.";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
+"hubAuthentication.requireAccountInit.alert.message" = "Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Doties uz profilu";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
 
+"intents.saveFile.missingFile" = "Sniegtā datne nav derīga.";
+"intents.saveFile.invalidFolder" = "Sniegtā mape nav derīga.";
+"intents.saveFile.missingTemporaryFolder" = "Neizdevāš izveidot pagaidu mapi.";
+"intents.saveFile.lockedVault" = "Ir nepieciešams atslēgt savu glabātavu, lai izmantotu šo saīsni.";
+"intents.saveFile.selectedVaultNotFound" = "Atlasītā glabātava nav atrodama.";
+
 "keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
+
+"localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
+"localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
 "localFileSystemAuthentication.openExistingVault.header" = "Nākamajā skatā jāizvēlas savas esošās glabātavas mape.";
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
+"onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.retry.button" = "Mēģināt vēlreiz";
@@ -79,6 +94,16 @@
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
+"settings.sendLogFile" = "Nosūtīt žurnāla datni";
+
+"snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
+"snapshots.fileprovider.file2" = "/Gala prezentācija.key";
+"snapshots.fileprovider.file3" = "/Preces reklāmrullītis.mov";
+"snapshots.fileprovider.file4" = "/Piedāvājums.docx";
+"snapshots.fileprovider.file5" = "/Atskaite.pdf";
+"snapshots.fileprovider.folder3" = "/Slepens projekts";
+"snapshots.fileprovider.folder2" = "/Rēķini";
+"snapshots.fileprovider.folder1" = "/Sertifikāti";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
 
 "unlockVault.button.unlock" = "Atslēgt";
@@ -91,7 +116,11 @@
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
+"vaultDetail.info.footer.accessVault" = "Glabātavai var piekļūt datņu lietotnē.";
+"vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
+"vaultDetail.removeVault.footer" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta un neizdzēsīs nevienu šifrēto datni.";
+"vaultDetail.unlocked.footer" = "Glabātava pašreiz ir atslēgta datņu lietonē.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
