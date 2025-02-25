@@ -1,7 +1,15 @@
 "common.failureReason" = "Neizdošanās Iemesls";
 "common.vault" = "Glabātava";
 "getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
+
+"openVaultIntent.description" = "Atver norādīto glabātavu datņu lietotnē.";
+"openVaultIntent.text" = "Atvērt ${vault} datņu lietotnē";
+
+"saveFileIntent.description" = "Saglabā datni glabātavā.";
 "saveFileIntent.file" = "Datne";
+"saveFileIntent.parameter.ignoreExisting" = "Neņemt vērā esošu datni ar tādu pašu nosaukumu";
+"saveFileIntent.text" = "Saglabāt ${file} ${folder}";
+"saveFileIntent.title" = "Saglabāt datni";
 
 "vaultFolder.displayName" = "Glabātavas mape";
 "vaultFolder.vaultIdentifier" = "Glabātavas identifikators";
