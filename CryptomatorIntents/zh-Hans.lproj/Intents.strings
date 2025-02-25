@@ -9,11 +9,11 @@
 "getFolderIntent.text" = "获取位于“${vault}”中 ${path} 的文件夹";
 "getFolderIntent.title" = "获取文件夹";
 
-"isUnlockedIntent.description" = "返回指定的保险库是否已解锁。";
-"isUnlockedIntent.title" = "已解锁？";
+"isUnlockedIntent.description" = "返回是否已解锁指定的保险库。";
+"isUnlockedIntent.title" = "已解锁";
 
 "isVaultLockedIntent.title" = "保险库是否已解锁";
-"isVaultUnlockedIntent.text" = "${vault} 保险库是否已解锁。";
+"isVaultUnlockedIntent.text" = "是否已解锁保险库:${vault} ？";
 
 "lockVaultIntent.description" = "锁定指定的保险库。";
 "lockVaultIntent.text" = "锁定 ${vault}";
