@@ -46,11 +46,14 @@
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Nepareiza parole";
 "fileProvider.error.biometricalAuthWrongPassword.message" = "Parole, kas tika saglabāta %@, ir nepareiza. Lūgums mēģināt vēlreiz un ievadīt savu paroli, lai atkārtoti iespējotu %@.";
 "fileProvider.error.defaultLock.title" = "Nepieciešama atslēgšana";
+"fileProvider.error.defaultLock.message" = "Lai piekļūtu un redzētu savas glabātavas saturu, tā ir jāatslēdz.";
 "fileprovider.error.unauthorized.text" = "Piekļuve glabātavai \"%@\" tika atteikta. Jāatver galvenā lietotne, lai pārbaudītu savu savienojumu un, ja nepieciešams, atkārtoti pilnvarotu.";
 "fileProvider.error.unlockButton" = "Atslēgt";
 "fileProvider.clearFileFromCache.title" = "Iztīrīt datni no kešatmiņas";
 "fileProvider.clearFileFromCache.message" = "Šī darbība tikai noņem ierīcē esošo datni un neizdzēš to mākonī.";
 "fileProvider.fileImporting.error.missingPremium" = "Jāatslēdz pilnā versija Cryptomator lietotnē, lai savās glabātavās iegūtu rakstīšanas piekļuvi.";
+"fileProvider.uploadProgress.connecting" = "Savienojas…";
+"fileProvider.uploadProgress.message" = "Pašreizējā virzība: %@\n\nJa tiek novērots, ka augšupielāde ir iestrēgusi, to var mēģināt sākt no jauna.";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.";
