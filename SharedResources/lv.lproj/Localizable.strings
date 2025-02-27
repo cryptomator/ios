@@ -4,6 +4,7 @@
 "common.button.close" = "Aizvērt";
 "common.button.create" = "Izveidot";
 "common.button.done" = "Darīts";
+"common.button.download" = "Lejupielādēt";
 "common.button.edit" = "Labot";
 "common.button.next" = "Tālāk";
 "common.button.ok" = "Labi";
@@ -108,6 +109,7 @@
 
 "unlockVault.button.unlock" = "Atslēgt";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
+"upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
