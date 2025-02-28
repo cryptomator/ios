@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "金庫は選択されていません。";
 
 "hubAuthentication.title" = "";
+"hubAuthentication.accessNotGranted" = "この金庫にアクセスする権限がありません。金庫の所有者に許可を求めて下さい。";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub インスタンスのライセンスが無効です。ライセンスをアップグレードまたは更新するには、Hub の管理者にご連絡ください。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "デバイス名";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "アカウントキーは新しいアプリやブラウザからログインするために必要です。プロフィール中に記載されています。";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "金庫にアクセスするためには、金庫の所有者が権限を許可する必要があります。";
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
+"hubAuthentication.vaultArchived" = "この金庫はアーカイブされています。金庫の所有者にアーカイブ解除を依頼してください。";
 
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
 "intents.saveFile.invalidFolder" = "指定されたフォルダーはだめです。";
