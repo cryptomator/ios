@@ -129,4 +129,6 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Glabātavas versija %ld nav atbalstīta. Šī krātuve tika izveidota vecākā vai jaunākā Cryptomator versijā.";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Izskatās, ka serveris nav saderīgs ar WebDAV. Lūgums pārbaudīt, vai tiek izmantots pareizs URL.";
+
+"Retry Upload" = "Mēģināt augšupielādēt atkārtoti";
 "Clear from Cache" = "Iztīrīt no kešatmiņas";
