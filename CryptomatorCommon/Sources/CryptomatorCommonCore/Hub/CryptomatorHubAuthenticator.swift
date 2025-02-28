@@ -233,7 +233,8 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 			throw CryptomatorHubAuthenticatorError.missingAccessToken
 		}
 		var urlRequest = URLRequest(url: url)
-		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)"]
+		let deviceID = try getDeviceID()
+		urlRequest.allHTTPHeaderFields = ["Authorization": "Bearer \(accessToken)", "Hub-Device-ID": deviceID]
 		let (data, response) = try await URLSession.shared.data(with: urlRequest)
 		let httpResponse = response as? HTTPURLResponse
 		switch httpResponse?.statusCode {
