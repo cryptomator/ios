@@ -122,6 +122,7 @@
 "vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "vaultDetail.removeVault.footer" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta un neizdzēsīs nevienu šifrēto datni.";
+"vaultDetail.renameVault.progress" = "Pārdēvē…";
 "vaultDetail.unlocked.footer" = "Glabātava pašreiz ir atslēgta datņu lietonē.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
 
