@@ -44,8 +44,16 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		OneDriveAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+		return MicrosoftGraphAuthenticator.authenticateForOneDrive(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
+			try self.accountManager.saveNewAccount(account)
+			return account
+		}
+	}
+
+	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return MicrosoftGraphAuthenticator.authenticateForSharePoint(from: viewController).then { credential -> CloudProviderAccount in
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .sharePoint)
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
@@ -105,11 +113,14 @@ class CloudAuthenticator {
 			return authenticatePCloud(from: viewController)
 		case .s3:
 			return authenticateS3(from: viewController)
+		case .sharePoint:
+			return authenticateSharePoint(from: viewController)
 		case .webDAV:
 			return authenticateWebDAV(from: viewController)
 		}
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
@@ -125,13 +136,16 @@ class CloudAuthenticator {
 		case .localFileSystem:
 			break
 		case .oneDrive:
-			let credential = try OneDriveCredential(with: account.accountUID)
+			let credential = MicrosoftGraphCredential.createForOneDrive(with: account.accountUID)
 			try credential.deauthenticate()
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
 		case .s3:
 			try S3CredentialManager.shared.removeCredential(with: account.accountUID)
+		case .sharePoint:
+			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		}

@@ -32,6 +32,8 @@ extension UIImage {
 			assetName = "pcloud-vault"
 		case .s3:
 			assetName = "s3-vault"
+		case .sharePoint:
+			assetName = "sharepoint-vault"
 		case .webDAV:
 			assetName = "webdav-vault"
 		}
@@ -67,6 +69,8 @@ extension UIImage {
 			assetName = "pcloud"
 		case .s3:
 			assetName = "s3"
+		case .sharePoint:
+			assetName = "sharepoint"
 		case .webDAV:
 			assetName = "webdav"
 		}

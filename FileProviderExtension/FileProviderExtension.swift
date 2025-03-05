@@ -30,10 +30,10 @@ class FileProviderExtension: NSFileProviderExtension {
 				FileProviderExtension.sharedDatabaseInitialized = true
 				DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: false)
 				GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-				let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
-				oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
-				let oneDriveClientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
-				OneDriveSetup.constants = OneDriveSetup(clientApplication: oneDriveClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
+				let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: CloudAccessSecrets.microsoftGraphRedirectURI, authority: nil)
+				microsoftGraphConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+				let microsoftGraphClientApplication = try MSALPublicClientApplication(configuration: microsoftGraphConfiguration)
+				MicrosoftGraphSetup.constants = MicrosoftGraphSetup(clientApplication: microsoftGraphClientApplication, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 				PCloudSetup.constants = PCloudSetup(appKey: CloudAccessSecrets.pCloudAppKey, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 				BoxSetup.constants = BoxSetup(clientId: CloudAccessSecrets.boxClientId, clientSecret: CloudAccessSecrets.boxClientSecret, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
 			} catch {

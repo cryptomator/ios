@@ -56,6 +56,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Passwords do not match.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Password must contain at least 8 characters.";
 "addVault.createNewVault.progress" = "Creating Vault…";
+
 "addVault.openExistingVault.title" = "Open Existing Vault";
 "addVault.openExistingVault.chooseCloud.header" = "Where is the vault located?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator detected the vault \"%@\".\nWould you like to add this vault?";
@@ -63,6 +64,7 @@
 "addVault.openExistingVault.downloadVault.progress" = "Downloading Vault…";
 "addVault.openExistingVault.password.footer" = "Enter password for \"%@\".";
 "addVault.openExistingVault.progress" = "Adding Vault…";
+
 "addVault.success.info" = "Successfully added vault \"%@\".\nAccess this vault via the Files app.";
 "addVault.success.footer" = "If you haven't already, enable Cryptomator in the Files app.";
 
@@ -232,6 +234,15 @@
 "s3Authentication.region" = "Region";
 "s3Authentication.error.invalidCredentials" = "Invalid credentials.";
 "s3Authentication.error.invalidEndpoint" = "The provided endpoint does not match the format of a URL.";
+
+"sharePoint.enterURL.title" = "Enter SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
+"sharePoint.enterURL.header.title" = "Enter the URL of the SharePoint site in this format: https://<company>.sharepoint.com/sites/<site>";
+"sharePoint.urlValidator.error.emptyURL" = "The URL cannot be empty.";
+"sharePoint.urlValidator.error.invalidURL" = "The URL is invalid. Please use this format: https://<company>.sharepoint.com/sites/<site>";
+"sharePoint.selectDrive.title" = "Select Drive";
+"sharePoint.selectDrive.header.title" = "Select the SharePoint drive you want to work with.";
+"sharePoint.selectDrive.emptyList.footer" = "No Drives Available";
 
 "trialStatus.active" = "Active";
 "trialStatus.expired" = "Expired";

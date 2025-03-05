@@ -26,6 +26,8 @@ extension CloudProviderType {
 			return "pCloud"
 		case .s3:
 			return "S3"
+		case .sharePoint:
+			return "SharePoint"
 		case .webDAV:
 			return "WebDAV"
 		}

@@ -15,7 +15,7 @@ import Foundation
 import Promises
 import UIKit
 
-class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
+class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, FolderChooserStarting, DefaultShowEditAccountBehavior, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: AddVaultCoordinator?
@@ -25,7 +25,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .sharePoint, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		chooseCloudVC.coordinator = self
@@ -52,11 +52,18 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		if account.cloudProviderType == .sharePoint {
+			let child = SharePointCoordinator(navigationController: navigationController, account: account)
+			childCoordinators.append(child)
+			child.parentCoordinator = self
+			child.start()
+		} else {
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		}
 	}
 
-	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
+	func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
 		let child = AuthenticatedOpenExistingVaultCoordinator(navigationController: navigationController, provider: provider, account: account)
 		childCoordinators.append(child)
 		child.parentCoordinator = self
