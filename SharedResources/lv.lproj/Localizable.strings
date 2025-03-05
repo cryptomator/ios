@@ -21,6 +21,7 @@
 "addVault.createNewVault.title" = "Izveidot jaunu glabātuvi";
 "addVault.createNewVault.setVaultName.cells.name" = "Glabātavas nosaukums";
 "addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu saglabāt glabātavs šifrētās datnes?";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" jau pastāv šajā vietā. Jāizvēlas cits glabātavas nosaukums vai atrašanās vieta.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai izveidotu jaunu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "addVault.createNewVault.password.enterPassword.header" = "Jāievada jaunā parole.";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.";
@@ -35,6 +36,7 @@
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
 "changePassword.header.newPassword.title" = "Jāievada jaunā parole.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Vecākmape \"%@\" nepastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
 
 "cloudProviderType.localFileSystem" = "Cits datņu nodrošinātājs";
@@ -106,11 +108,15 @@
 "snapshots.fileprovider.folder2" = "/Rēķini";
 "snapshots.fileprovider.folder1" = "/Sertifikāti";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
+"s3Authentication.existingBucket" = "Esošs krājums";
+"s3Authentication.endpoint" = "Galapunkts";
 
 "unlockVault.button.unlock" = "Atslēgt";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
 "upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
+
+"urlSession.error.httpError.401" = "Nepareizs lietotājvārds un/vai parole.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
