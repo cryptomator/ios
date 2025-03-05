@@ -6,9 +6,8 @@
 //  Copyright © 2024 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCommonCore
-import UIKit
+import Foundation
 
 protocol SharePointURLSetting: AnyObject {
-	func setSharePointURL(_ url: String)
+	func setSharePointURL(_ url: URL)
 }

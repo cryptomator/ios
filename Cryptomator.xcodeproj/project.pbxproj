@@ -389,6 +389,8 @@
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
 		742679FC26A56CF9004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		742679FD26A56CFA004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
+		743D95FC2D76EE9F002D73C3 /* SharePointCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D95FB2D76EE9A002D73C3 /* SharePointCoordinator.swift */; };
+		743D95FE2D76F0C5002D73C3 /* FolderChooserStarting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D95FD2D76F0C2002D73C3 /* FolderChooserStarting.swift */; };
 		74420BC32BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */; };
 		74420BC42BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */; };
 		74420BC52BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */; };
@@ -436,7 +438,7 @@
 		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
 		B34C532A2D142BA700F30FE9 /* SharePointURLSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */; };
-		B34C532C2D142BF600F30FE9 /* URLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C532B2D142BE000F30FE9 /* URLValidator.swift */; };
+		B34C532C2D142BF600F30FE9 /* SharePointURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C532B2D142BE000F30FE9 /* SharePointURLValidator.swift */; };
 		B379DBBF2D27F595003B5849 /* SharePointDriveListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */; };
 		B379DBC12D27F5B5003B5849 /* SharePointDriveListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
@@ -1004,6 +1006,8 @@
 		74275AE728478E160058AD25 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Intents.strings; sourceTree = "<group>"; };
 		74397A842832A05E00CB9410 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		74397A852832A09B00CB9410 /* sw-TZ */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "sw-TZ"; path = "sw-TZ.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		743D95FB2D76EE9A002D73C3 /* SharePointCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointCoordinator.swift; sourceTree = "<group>"; };
+		743D95FD2D76F0C2002D73C3 /* FolderChooserStarting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderChooserStarting.swift; sourceTree = "<group>"; };
 		74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		7460FFED26FB6C100018BCC4 /* pt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt; path = pt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
@@ -1050,7 +1054,7 @@
 		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
 		B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointURLSetting.swift; sourceTree = "<group>"; };
-		B34C532B2D142BE000F30FE9 /* URLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLValidator.swift; sourceTree = "<group>"; };
+		B34C532B2D142BE000F30FE9 /* SharePointURLValidator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointURLValidator.swift; sourceTree = "<group>"; };
 		B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointDriveListViewController.swift; sourceTree = "<group>"; };
 		B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointDriveListViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
@@ -1391,12 +1395,6 @@
 		4A644B45267A3D21008CBB9A /* CreateNewVault */ = {
 			isa = PBXGroup;
 			children = (
-				B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */,
-				B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */,
-				B34C532B2D142BE000F30FE9 /* URLValidator.swift */,
-				B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */,
-				B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */,
-				B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */,
 				4A644B4A267B4C08008CBB9A /* CreateNewVaultChooseFolderViewController.swift */,
 				4A53CC16267CDBFF00853BB3 /* CreateNewVaultChooseFolderViewModel.swift */,
 				4A644B4C267B55E4008CBB9A /* CreateNewVaultCoordinator.swift */,
@@ -1404,9 +1402,9 @@
 				4A53CC14267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift */,
 				4A1EB0CF2689C7F8006D072B /* DetectedVaultFailureView.swift */,
 				4A1EB0CD2689C7A3006D072B /* DetectedVaultFailureViewController.swift */,
-				4A644B4E267B9E6A008CBB9A /* VaultNaming.swift */,
 				4A644B43267A3BEC008CBB9A /* SetVaultNameViewController.swift */,
 				4A644B46267A3D43008CBB9A /* SetVaultNameViewModel.swift */,
+				4A644B4E267B9E6A008CBB9A /* VaultNaming.swift */,
 				4A1EB0D3268A5A44006D072B /* LocalVault */,
 			);
 			path = CreateNewVault;
@@ -1476,6 +1474,7 @@
 				4A447DBB25BF003400D9520D /* ChooseCloudViewModel.swift */,
 				4A2FD07825B5D98B008565C8 /* CloudCell.swift */,
 				4A447DB225BEF68100D9520D /* CloudChoosing.swift */,
+				743D95FD2D76F0C2002D73C3 /* FolderChooserStarting.swift */,
 				4A3D655E268099F9000DA764 /* VaultCoordinatorError.swift */,
 				4A2FD08125B5E2BA008565C8 /* VaultInstalling.swift */,
 				4A644B45267A3D21008CBB9A /* CreateNewVault */,
@@ -1506,7 +1505,6 @@
 		4A8195DB25ADB8AD00F7DDA1 /* VaultList */ = {
 			isa = PBXGroup;
 			children = (
-				4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */,
 				74FC576025ADED030003ED27 /* VaultCell.swift */,
 				4A6CF7FF27428CCB0061380A /* VaultCellViewModel.swift */,
 				4AF91CD825A722A600ACF01E /* VaultInfo.swift */,
@@ -1532,6 +1530,7 @@
 				4A8A6423286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift */,
 				4A512D69274277FF00DC26F8 /* EditableDataSource.swift */,
 				4AFCE4DC25B8514F0069C4FC /* EditableTableViewHeader.swift */,
+				4A2FD04325B1C3BB008565C8 /* EmptyListMessage.swift */,
 				74D365B9268B5DB0005ECD69 /* FilesAppUtil.swift */,
 				4A63E4662742A8CB00026989 /* ListViewController.swift */,
 				4AF91D0C25A8D5EF00ACF01E /* ListViewModel.swift */,
@@ -1827,6 +1826,7 @@
 				74F5DC1A26DCD2E300AFE989 /* Purchase */,
 				7408E6C8267797DC00D7FAEA /* Resources */,
 				740D367C266A18C80058744D /* Settings */,
+				743D95FA2D76EE88002D73C3 /* SharePoint */,
 				4A13613027676F610077EB7F /* Snapshots */,
 				4A4B7E4026B2ABC4009BFDB1 /* VaultDetail */,
 				4A8195DB25ADB8AD00F7DDA1 /* VaultList */,
@@ -2034,6 +2034,20 @@
 				7408E6CB26779BC200D7FAEA /* About */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		743D95FA2D76EE88002D73C3 /* SharePoint */ = {
+			isa = PBXGroup;
+			children = (
+				B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */,
+				B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */,
+				743D95FB2D76EE9A002D73C3 /* SharePointCoordinator.swift */,
+				B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */,
+				B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */,
+				B34C53292D142B9200F30FE9 /* SharePointURLSetting.swift */,
+				B34C532B2D142BE000F30FE9 /* SharePointURLValidator.swift */,
+			);
+			path = SharePoint;
 			sourceTree = "<group>";
 		};
 		74C2BC4626E8E1FD00BCAA03 /* Onboarding */ = {
@@ -2750,6 +2764,7 @@
 				4A3D655F268099F9000DA764 /* VaultCoordinatorError.swift in Sources */,
 				4AF22C2627D8DE6500779802 /* NSAttributedString+Extension.swift in Sources */,
 				4AF4535D27205F6200CF1919 /* VaultDetailCoordinator.swift in Sources */,
+				743D95FC2D76EE9F002D73C3 /* SharePointCoordinator.swift in Sources */,
 				4AB52338275F7AB0009B8D99 /* LoadingButtonCellViewModel.swift in Sources */,
 				4A1EB0CC2689C3DE006D072B /* CreateNewLocalVaultCoordinator.swift in Sources */,
 				4A644B57267C958F008CBB9A /* ChildCoordinator.swift in Sources */,
@@ -2793,6 +2808,7 @@
 				4AFCE4D425B842830069C4FC /* AccountListing.swift in Sources */,
 				4A1DB293275FB3BD00A5F27B /* SystemSymbolButtonCell.swift in Sources */,
 				4A4B7E7426B954D2009BFDB1 /* HeaderFooterViewModel.swift in Sources */,
+				743D95FE2D76F0C5002D73C3 /* FolderChooserStarting.swift in Sources */,
 				4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */,
 				74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */,
 				B379DBBF2D27F595003B5849 /* SharePointDriveListViewController.swift in Sources */,
@@ -2848,7 +2864,7 @@
 				74C2BC5226E8FCD000BCAA03 /* PurchaseCoordinator.swift in Sources */,
 				4A53B6D32722F92D000DC367 /* MoveVaultViewModel.swift in Sources */,
 				4A4B7E4426B2B1A5009BFDB1 /* BindableTableViewCellViewModel.swift in Sources */,
-				B34C532C2D142BF600F30FE9 /* URLValidator.swift in Sources */,
+				B34C532C2D142BF600F30FE9 /* SharePointURLValidator.swift in Sources */,
 				4AED9A69286B303000352951 /* S3Authenticator+VC.swift in Sources */,
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,

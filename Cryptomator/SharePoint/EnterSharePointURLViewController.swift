@@ -3,6 +3,7 @@
 //  Cryptomator
 //
 //  Created by Majid Achhoud on 03.12.24.
+//  Copyright © 2024 Skymatic GmbH. All rights reserved.
 //
 
 import Combine
@@ -10,9 +11,10 @@ import CryptomatorCommonCore
 import UIKit
 
 class EnterSharePointURLViewController: SingleSectionStaticUITableViewController {
-	weak var coordinator: (SharePointURLSetting & Coordinator)?
+	weak var coordinator: (Coordinator & SharePointURLSetting)?
 	private var viewModel: EnterSharePointURLViewModelProtocol
 	private var lastReturnButtonPressedSubscriber: AnyCancellable?
+
 	init(viewModel: EnterSharePointURLViewModelProtocol) {
 		self.viewModel = viewModel
 		super.init(viewModel: viewModel)
@@ -33,7 +35,6 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 			let url = try viewModel.getValidatedSharePointURL()
 			coordinator.setSharePointURL(url)
 		} catch {
-			print("Error validating SharePoint URL: \(error)")
 			coordinator.handleError(error, for: self)
 		}
 	}
@@ -42,3 +43,13 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 		nextButtonClicked()
 	}
 }
+
+#if DEBUG
+import SwiftUI
+
+struct EnterSharePointURLVCPreview: PreviewProvider {
+	static var previews: some View {
+		EnterSharePointURLViewController(viewModel: EnterSharePointURLViewModel()).toPreview()
+	}
+}
+#endif
