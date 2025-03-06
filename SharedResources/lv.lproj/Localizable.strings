@@ -2,6 +2,7 @@
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
 "common.button.close" = "Aizvērt";
+"common.button.confirm" = "Apstiprināt";
 "common.button.create" = "Izveidot";
 "common.button.done" = "Darīts";
 "common.button.download" = "Lejupielādēt";
@@ -24,6 +25,8 @@
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" jau pastāv šajā vietā. Jāizvēlas cits glabātavas nosaukums vai atrašanās vieta.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai izveidotu jaunu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "addVault.createNewVault.password.enterPassword.header" = "Jāievada jaunā parole.";
+"addVault.createNewVault.password.confirmPassword.header" = "Apstiprināt jauno paroli.";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Apstiprināt paroli?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.";
 "addVault.openExistingVault.title" = "Atvērt esošu glabātavu";
 "addVault.openExistingVault.chooseCloud.header" = "Kur atrodas glabātava?";
@@ -35,6 +38,7 @@
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
 "changePassword.header.newPassword.title" = "Jāievada jaunā parole.";
+"changePassword.header.newPasswordConfirmation.title" = "Apstiprināt jauno paroli.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Vecākmape \"%@\" nepastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
@@ -77,6 +81,7 @@
 "intents.saveFile.selectedVaultNotFound" = "Atlasītā glabātava nav atrodama.";
 
 "keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
+"keepUnlocked.alert.confirm" = "Apstiprināt un uzreiz aizslēgt";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
 "localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
