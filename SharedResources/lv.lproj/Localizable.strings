@@ -27,7 +27,7 @@
 "addVault.createNewVault.password.enterPassword.header" = "Jāievada jaunā parole.";
 "addVault.createNewVault.password.confirmPassword.header" = "Apstiprināt jauno paroli.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Apstiprināt paroli?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta sava parole, nav iespējams atkopt savus datus.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta parole, nav iespējams atkopt savus datus.";
 "addVault.openExistingVault.title" = "Atvērt esošu glabātavu";
 "addVault.openExistingVault.chooseCloud.header" = "Kur atrodas glabātava?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator noteica glabātavu \"%@\".\nVai pievienot šo glabātavu?";
@@ -94,6 +94,7 @@
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.retry.button" = "Mēģināt vēlreiz";
+"purchase.unlockedFullVersion.message" = "Tagad var izmantot pilno Cryptomator versiju. Laimīgu šifrēšanu!";
 "purchase.unlockedFullVersion.title" = "Paldies!";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
 
@@ -102,6 +103,7 @@
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
+"settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
 
 "snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
