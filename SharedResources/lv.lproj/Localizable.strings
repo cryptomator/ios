@@ -18,6 +18,8 @@
 "common.cells.username" = "Lietotājvārds";
 "common.footer.learnMore" = "Uzzināt vairāk.";
 
+"accountList.header.title" = "Autentificēšanās";
+
 "addVault.title" = "Pievienot glabātavu";
 "addVault.createNewVault.title" = "Izveidot jaunu glabātuvi";
 "addVault.createNewVault.setVaultName.cells.name" = "Glabātavas nosaukums";
@@ -64,12 +66,16 @@
 "fileProvider.uploadProgress.missing" = "Virzību nevarēja noteikt. Tā joprojām varētu darboties fonā.";
 "fileProvider.uploadProgress.title" = "Augšuplādē…";
 "fileProvider.uploadProgress.missingDomainError" = "Nevarēja atrast domēnu.";
+
+"hubAuthentication.title" = "Hub glabātava";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
+"hubAuthentication.licenseExceeded" = "Cryptomator Hub instancei ir nederīga licence. Lūgums ziņot Hub pārvaldītājam, lai uzlabo vai atjauno licenci.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Ierīces nosaukums";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Šis izskatās pēc pirmās piekļuves Hub šajā ierīcē. Lai to varētu identificēt piekļuves pilnvarošanai, nepiciešams šai ierīcei piešķirt nosaukumu.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Konta atslēga ir nepieciešama, lai pieteiktos jaunās lietotnēs vai pārlūkos. To var atrast savā profilā.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Sekmīga ierīces reģistrēšana";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Lai piekļūtu glabātavai, tās īpašniekam ir jānodrošina piekļuve tai.";
+"hubAuthentication.requireAccountInit.alert.title" = "Nepieciešama darbība";
 "hubAuthentication.requireAccountInit.alert.message" = "Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Doties uz profilu";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
@@ -114,9 +120,15 @@
 "snapshots.fileprovider.folder3" = "/Slepens projekts";
 "snapshots.fileprovider.folder2" = "/Rēķini";
 "snapshots.fileprovider.folder1" = "/Sertifikāti";
+
+"s3Authentication.displayName" = "Attēlojamais vārds";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
+"s3Authentication.secretKey" = "Slepenā atslēga";
 "s3Authentication.existingBucket" = "Esošs krājums";
 "s3Authentication.endpoint" = "Galapunkts";
+"s3Authentication.region" = "Apgabals";
+"s3Authentication.error.invalidCredentials" = "Nederīgi pieteikšanās dati.";
+"s3Authentication.error.invalidEndpoint" = "Norādītais galapunkts neatbilst URL uzbūvei.";
 
 "unlockVault.button.unlock" = "Atslēgt";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
@@ -141,6 +153,11 @@
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Glabātavas versija %ld nav atbalstīta. Šī krātuve tika izveidota vecākā vai jaunākā Cryptomator versijā.";
+
+"webDAVAuthentication.httpConnection.alert.title" = "Izmantot HTTPS?";
+"webDAVAuthentication.httpConnection.alert.message" = "HTTP izmantošana ir nedroša. Mēs iesakām tā vietā izmantot HTTPS. Ja ir skaidri iespējamie riski, var turpināt ar HTTP.";
+"webDAVAuthentication.httpConnection.change" = "Mainīt uz HTTPS";
+"webDAVAuthentication.httpConnection.continue" = "Paturēt HTTP";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Izskatās, ka serveris nav saderīgs ar WebDAV. Lūgums pārbaudīt, vai tiek izmantots pareizs URL.";
 
