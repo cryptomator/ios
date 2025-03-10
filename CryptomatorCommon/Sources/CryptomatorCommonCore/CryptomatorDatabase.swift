@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
 import GRDB
@@ -90,6 +91,9 @@ public class CryptomatorDatabase {
 		}
 		migrator.registerMigration("initialHubSupport") { db in
 			try initialHubSupportMigration(db)
+		}
+		migrator.registerMigration("microsoftGraphAccountMigration") { db in
+			try microsoftGraphAccountMigration(db)
 		}
 		return migrator
 	}
@@ -204,6 +208,41 @@ public class CryptomatorDatabase {
 			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)
 			table.column("subscriptionState", .text).notNull()
 		})
+	}
+
+	/**
+	 Migrates the database to support Microsoft Graph accounts.
+
+	 Since a `CloudProviderAccount` gets saved in the database after the Microsoft Graph account has been saved, it is not possible to use a simple foreign key constraint.
+	 Therefore, an `ON DELETE CASCADE` is implemented via the trigger `microsoft_graph_account_deletion`.
+	 */
+	class func microsoftGraphAccountMigration(_ db: Database) throws {
+		try db.create(table: "microsoftGraphAccounts") { table in
+			table.column("uid", .text).primaryKey()
+			table.column("accountUID", .text).notNull()
+			table.column("driveID", .text)
+			table.column("type", .text).notNull()
+		}
+		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = 'oneDrive'")
+		for row in rows {
+			let oldUID: String = row["accountUID"]
+			let newUID = UUID().uuidString
+			let newCloudProviderType = CloudProviderType.microsoftGraph(type: .oneDrive).databaseValue
+			try db.execute(sql: "UPDATE cloudProviderAccounts SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newUID, newCloudProviderType, oldUID])
+			try db.execute(sql: "UPDATE vaultAccounts SET delegateAccountUID = ? WHERE delegateAccountUID = ?", arguments: [newUID, oldUID])
+			try db.execute(sql: "UPDATE accountListPosition SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newUID, newCloudProviderType, oldUID])
+			let newMicrosoftGraphType = MicrosoftGraphType.oneDrive.databaseValue
+			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (uid, accountUID, driveID, type) VALUES (?, ?, NULL, ?)", arguments: [newUID, oldUID, newMicrosoftGraphType])
+		}
+		try db.execute(sql: """
+		CREATE TRIGGER microsoft_graph_account_deletion
+		AFTER DELETE
+		ON cloudProviderAccounts
+		BEGIN
+			DELETE FROM microsoftGraphAccounts
+			WHERE uid = OLD.accountUID;
+		END;
+		""")
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

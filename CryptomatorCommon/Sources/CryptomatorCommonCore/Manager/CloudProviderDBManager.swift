@@ -6,7 +6,6 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
-import Combine
 import CryptomatorCloudAccessCore
 import Foundation
 import PCloudSDKSwift
@@ -31,13 +30,11 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	static var cachedProvider = [CachedProvider]()
 	public static let shared = CloudProviderDBManager(accountManager: CloudProviderAccountDBManager.shared)
 	let accountManager: CloudProviderAccountDBManager
-	let driveManager: MicrosoftGraphDriveManaging
 
 	private let maxPageSizeForFileProvider = 500
 
-	init(accountManager: CloudProviderAccountDBManager, driveManager: MicrosoftGraphDriveManaging = MicrosoftGraphDriveManager.shared) {
+	init(accountManager: CloudProviderAccountDBManager) {
 		self.accountManager = accountManager
-		self.driveManager = driveManager
 	}
 
 	public func getProvider(with accountUID: String) throws -> CloudProvider {
@@ -61,11 +58,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	/**
 	 Creates and returns a cloud provider for the given `accountUID`.
 	 */
-	// swiftlint:disable:next cyclomatic_complexity
 	func createProvider(for accountUID: String) throws -> CloudProvider {
-		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
+		let account = try accountManager.getAccount(for: accountUID)
 		let provider: CloudProvider
-		switch cloudProviderType {
+		switch account.cloudProviderType {
 		case .box:
 			let tokenStorage = BoxTokenStorage(userID: accountUID)
 			let credential = BoxCredential(tokenStorage: tokenStorage)
@@ -81,9 +77,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
-		case .oneDrive:
-			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountUID)
-			provider = try MicrosoftGraphCloudProvider(credential: credential, maxPageSize: .max)
+		case let .microsoftGraph(type):
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
+			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
+			provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: account.driveID, maxPageSize: .max)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createClient(with: credential.user)
@@ -91,13 +88,6 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		case .s3:
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider(credential: credential)
-		case .sharePoint:
-			let allDrives = try driveManager.getDrivesFromKeychain(for: accountUID)
-			guard let drive = allDrives.first else {
-				throw CloudProviderError.itemNotFound
-			}
-			let (credential, driveID) = try getSharePointCredentialAndDriveIdentifier(for: accountUID, driveID: drive.identifier)
-			provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: driveID, maxPageSize: .max)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient(credential: credential)
@@ -119,12 +109,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	 The number of returned items from a `fetchItemList(forFolderAt:pageToken:)` call is limited to 500.
 	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
 	 */
-	// swiftlint:disable:next cyclomatic_complexity
 	func createBackgroundSessionProvider(for accountUID: String, sessionIdentifier: String) throws -> CloudProvider {
-		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
+		let account = try accountManager.getAccount(for: accountUID)
 		let provider: CloudProvider
-
-		switch cloudProviderType {
+		switch account.cloudProviderType {
 		case .box:
 			let tokenStorage = BoxTokenStorage(userID: accountUID)
 			let credential = BoxCredential(tokenStorage: tokenStorage)
@@ -140,9 +128,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
-		case .oneDrive:
-			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountUID)
-			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+		case let .microsoftGraph(type):
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
+			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
+			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, driveIdentifier: account.driveID, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)
@@ -150,13 +139,6 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 		case .s3:
 			let credential = try getS3Credential(for: accountUID)
 			provider = try S3CloudProvider.withBackgroundSession(credential: credential, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
-		case .sharePoint:
-			let allDrives = try driveManager.getDrivesFromKeychain(for: accountUID)
-			guard let drive = allDrives.first else {
-				throw CloudProviderError.itemNotFound
-			}
-			let (credential, driveID) = try getSharePointCredentialAndDriveIdentifier(for: accountUID, driveID: drive.identifier)
-			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, driveIdentifier: driveID, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .webDAV:
 			let credential = try getWebDAVCredential(for: accountUID)
 			let client = WebDAVClient.withBackgroundSession(credential: credential, sessionIdentifier: sessionIdentifier, sharedContainerIdentifier: CryptomatorConstants.appGroupName)
@@ -170,14 +152,6 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			)
 		)
 		return provider
-	}
-
-	private func getSharePointCredentialAndDriveIdentifier(for accountUID: String, driveID: String) throws -> (MicrosoftGraphCredential, String) {
-		guard let drive = try driveManager.getDriveFromKeychain(for: accountUID, driveID: driveID) else {
-			throw CloudProviderError.itemNotFound
-		}
-		let credential = MicrosoftGraphCredential(identifier: drive.identifier, scopes: MicrosoftGraphScopes.sharePoint)
-		return (credential, drive.identifier)
 	}
 
 	private func getS3Credential(for accountUID: String) throws -> S3Credential {

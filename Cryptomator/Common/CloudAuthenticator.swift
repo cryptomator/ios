@@ -25,6 +25,29 @@ class CloudAuthenticator {
 		self.vaultAccountManager = vaultAccountManager
 	}
 
+	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		switch cloudProviderType {
+		case .box:
+			return authenticateBox(from: viewController)
+		case .dropbox:
+			return authenticateDropbox(from: viewController)
+		case .googleDrive:
+			return authenticateGoogleDrive(from: viewController)
+		case .localFileSystem:
+			return Promise(CloudAuthenticatorError.functionNotYetSupported)
+		case .microsoftGraph(type: .oneDrive):
+			return authenticateOneDrive(from: viewController)
+		case .microsoftGraph(type: .sharePoint):
+			return authenticateSharePoint(from: viewController)
+		case .pCloud:
+			return authenticatePCloud(from: viewController)
+		case .s3:
+			return authenticateS3(from: viewController)
+		case .webDAV:
+			return authenticateWebDAV(from: viewController)
+		}
+	}
+
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let authenticator = DropboxAuthenticator()
 		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
@@ -44,17 +67,23 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticateForOneDrive(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).then { credential -> CloudProviderAccount in
+			let uid = UUID().uuidString
+			let microsoftGraphAccount = MicrosoftGraphAccount(uid: uid, accountUID: credential.identifier, type: .oneDrive)
+			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
+			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .microsoftGraph(type: .oneDrive))
 			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticateForSharePoint(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .sharePoint)
-			try self.accountManager.saveNewAccount(account)
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential -> CloudProviderAccount in
+			let uid = UUID().uuidString
+			let microsoftGraphAccount = MicrosoftGraphAccount(uid: uid, accountUID: credential.identifier, type: .sharePoint)
+			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
+			let account = CloudProviderAccount(accountUID: uid, cloudProviderType: .microsoftGraph(type: .sharePoint))
+			// Do not call `try self.accountManager.saveNewAccount(account)` yet, it will be saved in `SharePointCoordinator`
 			return account
 		}
 	}
@@ -97,30 +126,6 @@ class CloudAuthenticator {
 		}
 	}
 
-	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		switch cloudProviderType {
-		case .box:
-			return authenticateBox(from: viewController)
-		case .dropbox:
-			return authenticateDropbox(from: viewController)
-		case .googleDrive:
-			return authenticateGoogleDrive(from: viewController)
-		case .localFileSystem:
-			return Promise(CloudAuthenticatorError.functionNotYetSupported)
-		case .oneDrive:
-			return authenticateOneDrive(from: viewController)
-		case .pCloud:
-			return authenticatePCloud(from: viewController)
-		case .s3:
-			return authenticateS3(from: viewController)
-		case .sharePoint:
-			return authenticateSharePoint(from: viewController)
-		case .webDAV:
-			return authenticateWebDAV(from: viewController)
-		}
-	}
-
-	// swiftlint:disable:next cyclomatic_complexity
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
@@ -135,17 +140,13 @@ class CloudAuthenticator {
 			credential.deauthenticate()
 		case .localFileSystem:
 			break
-		case .oneDrive:
-			let credential = MicrosoftGraphCredential.createForOneDrive(with: account.accountUID)
-			try credential.deauthenticate()
+		case let .microsoftGraph(type):
+			try deauthenticateMicrosoftGraph(account: account, type: type)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
 		case .s3:
 			try S3CredentialManager.shared.removeCredential(with: account.accountUID)
-		case .sharePoint:
-			let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
-			try credential.deauthenticate()
 		case .webDAV:
 			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		}
@@ -163,6 +164,16 @@ class CloudAuthenticator {
 			try self.accountManager.removeAccount(with: account.accountUID)
 		}.catch { error in
 			DDLogError("Deauthenticate account: \(account) failed with error: \(error)")
+		}
+	}
+
+	func deauthenticateMicrosoftGraph(account: CloudProviderAccount, type: MicrosoftGraphType) throws {
+		let microsoftGraphAccount = try MicrosoftGraphAccountDBManager.shared.getAccount(for: account.accountUID)
+		if try MicrosoftGraphAccountDBManager.shared.multipleAccountsExist(for: microsoftGraphAccount.accountUID) {
+			DDLogInfo("Skipped deauthentication for accountUID \(microsoftGraphAccount.accountUID) because it appears multiple times in the database.")
+		} else {
+			let credential = MicrosoftGraphCredential(identifier: microsoftGraphAccount.accountUID, type: type)
+			try credential.deauthenticate()
 		}
 	}
 }

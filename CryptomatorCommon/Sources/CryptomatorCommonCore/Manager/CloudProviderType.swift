@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import Foundation
 import GRDB
 
@@ -14,10 +15,9 @@ public enum CloudProviderType: Codable, Equatable, Hashable {
 	case dropbox
 	case googleDrive
 	case localFileSystem(type: LocalFileSystemType)
-	case oneDrive
+	case microsoftGraph(type: MicrosoftGraphType)
 	case pCloud
 	case s3(type: S3Type)
-	case sharePoint
 	case webDAV(type: WebDAVType)
 }
 

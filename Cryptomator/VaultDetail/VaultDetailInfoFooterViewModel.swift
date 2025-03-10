@@ -59,8 +59,11 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			return try? credential.getUsername()
 		case .localFileSystem:
 			return nil
-		case .oneDrive:
-			let credential = MicrosoftGraphCredential.createForOneDrive(with: vault.delegateAccountUID)
+		case let .microsoftGraph(type):
+			guard let account = try? MicrosoftGraphAccountDBManager.shared.getAccount(for: vault.delegateAccountUID) else {
+				return nil
+			}
+			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
 			return try? credential.getUsername()
 		case .pCloud:
 			guard let credential = try? PCloudCredential(userID: vault.delegateAccountUID) else {
@@ -73,9 +76,6 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 				return nil
 			}
 			return displayName
-		case .sharePoint:
-			let credential = MicrosoftGraphCredential.createForSharePoint(with: vault.delegateAccountUID)
-			return try? credential.getUsername()
 		case .webDAV:
 			let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: vault.delegateAccountUID)
 			return credential?.username

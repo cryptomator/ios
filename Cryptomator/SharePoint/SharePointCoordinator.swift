@@ -23,14 +23,20 @@ class SharePointCoordinator: SharePointURLSetting, Coordinator {
 	}
 
 	func start() {
-		let viewModel = EnterSharePointURLViewModel()
-		let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
-		enterURLVC.coordinator = self
-		navigationController.pushViewController(enterURLVC, animated: true)
+		do {
+			_ = try CloudProviderAccountDBManager.shared.getAccount(for: account.accountUID)
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			parentCoordinator?.startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		} catch {
+			let viewModel = EnterSharePointURLViewModel()
+			let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
+			enterURLVC.coordinator = self
+			navigationController.pushViewController(enterURLVC, animated: true)
+		}
 	}
 
 	func setSharePointURL(_ url: URL) {
-		let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
+		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: .sharePoint)
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
 		showDriveList(discovery: discovery, sharePointURL: url)
 	}
@@ -43,9 +49,9 @@ class SharePointCoordinator: SharePointURLSetting, Coordinator {
 	}
 
 	func didSelectDrive(_ drive: MicrosoftGraphDrive) throws {
-		try MicrosoftGraphDriveManager.shared.saveDriveToKeychain(drive, for: account.accountUID)
-		let credential = MicrosoftGraphCredential.createForSharePoint(with: account.accountUID)
-		let provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: drive.identifier)
+		try MicrosoftGraphAccountDBManager.shared.updateDriveID(for: account.accountUID, driveID: drive.identifier)
+		try CloudProviderAccountDBManager.shared.saveNewAccount(account.cloudProviderAccount)
+		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 		parentCoordinator?.startFolderChooser(with: provider, account: account.cloudProviderAccount)
 	}
 }

@@ -41,7 +41,7 @@ class SharePointDriveListViewModel {
 	}
 
 	private func fetchDrives(for siteIdentifier: String) {
-		discovery.fetchSharePointDocumentLibraries(for: siteIdentifier).then { drives in
+		discovery.fetchSharePointDrives(for: siteIdentifier).then { drives in
 			self.drives = drives
 			self.changeListener?()
 		}.catch { error in

@@ -57,6 +57,15 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	func refreshMicrosoftGraphItems() -> Promise<Void> {
+		return all(accountInfos
+			.compactMap { try? MicrosoftGraphAccountDBManager.shared.getAccount(for: $0.accountUID) }
+			.compactMap { try? self.createAccountCellContent(for: $0) }
+		).then { accounts in
+			self.accounts = accounts
+		}
+	}
+
 	func refreshPCloudItems() -> Promise<Void> {
 		return all(accountInfos
 			.compactMap { try? PCloudCredential(userID: $0.accountUID) }
@@ -75,7 +84,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
-	// swiftlint:disable:next cyclomatic_complexity
 	func createAccountCellContent(from accountInfo: AccountInfo) throws -> AccountCellContent {
 		switch cloudProviderType {
 		case .box:
@@ -87,9 +95,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			return try createAccountCellContent(for: credential)
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
-		case .oneDrive:
-			let credential = MicrosoftGraphCredential.createForOneDrive(with: accountInfo.accountUID)
-			return try createAccountCellContent(for: credential)
+		case let .microsoftGraph(type):
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountInfo.accountUID)
+			return try createAccountCellContentPlaceholder(for: account)
 		case .pCloud:
 			return createAccountCellContentPlaceholder()
 		case .s3:
@@ -98,9 +106,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			}
 			let displayName = try S3CredentialManager.shared.getDisplayName(for: credential)
 			return createAccountCellContent(for: credential, displayName: displayName)
-		case .sharePoint:
-			let credential = MicrosoftGraphCredential.createForSharePoint(with: accountInfo.accountUID)
-			return try createAccountCellContent(for: credential)
 		case .webDAV:
 			guard let credential = WebDAVCredentialManager.shared.getCredentialFromKeychain(with: accountInfo.accountUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
@@ -124,9 +129,24 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	func createAccountCellContent(for credential: MicrosoftGraphCredential) throws -> AccountCellContent {
+	func createAccountCellContentPlaceholder(for account: MicrosoftGraphAccount) throws -> AccountCellContent {
+		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: account.type)
 		let username = try credential.getUsername()
-		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+		let detailLabelText = account.driveID != nil ? "(…)" : nil
+		return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
+	}
+
+	func createAccountCellContent(for account: MicrosoftGraphAccount) throws -> Promise<AccountCellContent> {
+		guard let driveID = account.driveID else {
+			return try Promise(createAccountCellContentPlaceholder(for: account))
+		}
+		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: account.type)
+		let username = try credential.getUsername()
+		let discovery = MicrosoftGraphDiscovery(credential: credential)
+		return discovery.fetchDrive(for: driveID).then { drive in
+			let detailLabelText = "\(drive.name ?? "<unknown-drive-name>")"
+			return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
+		}
 	}
 
 	func createAccountCellContent(for credential: PCloudCredential) -> Promise<AccountCellContent> {
@@ -180,6 +200,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	// swiftlint:disable:next function_body_length
 	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
 		observation = dbManager.observeCloudProviderAccounts(onError: { error in
 			DDLogError("Observe vault accounts failed with error: \(error)")
@@ -206,24 +227,33 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				// Also fixes the problem that an empty account list is sent a second time via the `databaseChangedPublisher`.
 				return
 			}
-			if self.cloudProviderType == .dropbox {
-				self.refreshDropboxItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
-			} else if self.cloudProviderType == .pCloud {
-				self.refreshPCloudItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
-			} else if self.cloudProviderType == .box {
+			switch self.cloudProviderType {
+			case .box:
 				self.refreshBoxItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))
 				}
+			case .dropbox:
+				self.refreshDropboxItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			case .microsoftGraph:
+				self.refreshMicrosoftGraphItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			case .pCloud:
+				self.refreshPCloudItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			default:
+				break
 			}
 		})
 		return databaseChangedPublisher.eraseToAnyPublisher()

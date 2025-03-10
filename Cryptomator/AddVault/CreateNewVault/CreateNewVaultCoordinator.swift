@@ -24,7 +24,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserSta
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .sharePoint, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .microsoftGraph(type: .oneDrive), .microsoftGraph(type: .sharePoint), .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.createNewVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.createNewVault.title")
 		chooseCloudVC.coordinator = self
@@ -51,7 +51,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserSta
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		if account.cloudProviderType == .sharePoint {
+		if account.cloudProviderType == .microsoftGraph(type: .sharePoint) {
 			let child = SharePointCoordinator(navigationController: navigationController, account: account)
 			childCoordinators.append(child)
 			child.parentCoordinator = self
