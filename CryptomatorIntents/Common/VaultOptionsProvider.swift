@@ -31,11 +31,11 @@ struct VaultOptionsProvider {
 	func provideVaultOptionsCollection() async throws -> INObjectCollection<Vault> {
 		let vaultAccounts = try vaultAccountManager.getAllAccounts()
 		let vaults: [Vault] = try vaultAccounts.map {
-			let cloudProviderType = try cloudProviderAccountManager.getCloudProviderType(for: $0.delegateAccountUID)
+			let cloudProviderAccount = try cloudProviderAccountManager.getAccount(for: $0.delegateAccountUID)
 			return Vault(identifier: $0.vaultUID,
 			             display: $0.vaultName,
 			             subtitle: $0.vaultPath.path,
-			             image: .init(type: cloudProviderType))
+			             image: .init(type: cloudProviderAccount.cloudProviderType))
 		}
 		return INObjectCollection(items: vaults)
 	}

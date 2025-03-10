@@ -131,8 +131,8 @@ extension CloudProviderType {
 			return "google-drive-vault"
 		case let .localFileSystem(type):
 			return type.assetName
-		case .oneDrive:
-			return "onedrive-vault"
+		case let .microsoftGraph(type):
+			return type.assetName
 		case .pCloud:
 			return "pcloud-vault"
 		case .s3:
@@ -150,6 +150,17 @@ extension LocalFileSystemType {
 			return "file-provider-vault"
 		case .iCloudDrive:
 			return "icloud-drive-vault"
+		}
+	}
+}
+
+extension MicrosoftGraphType {
+	var assetName: String {
+		switch self {
+		case .oneDrive:
+			return "onedrive-vault"
+		case .sharePoint:
+			return "sharepoint-vault"
 		}
 	}
 }

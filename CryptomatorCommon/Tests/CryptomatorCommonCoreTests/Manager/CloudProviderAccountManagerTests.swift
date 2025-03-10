@@ -23,18 +23,18 @@ class CloudProviderAccountManagerTests: XCTestCase {
 		let accountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .googleDrive)
 		try accountManager.saveNewAccount(account)
-		let fetchedCloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
-		XCTAssertEqual(CloudProviderType.googleDrive, fetchedCloudProviderType)
+		let fetchedAccount = try accountManager.getAccount(for: accountUID)
+		XCTAssertEqual(CloudProviderType.googleDrive, fetchedAccount.cloudProviderType)
 	}
 
 	func testRemoveAccount() throws {
 		let accountUID = UUID().uuidString
 		let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .googleDrive)
 		try accountManager.saveNewAccount(account)
-		let fetchedCloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
-		XCTAssertEqual(CloudProviderType.googleDrive, fetchedCloudProviderType)
+		let fetchedAccount = try accountManager.getAccount(for: accountUID)
+		XCTAssertEqual(CloudProviderType.googleDrive, fetchedAccount.cloudProviderType)
 		try accountManager.removeAccount(with: accountUID)
-		XCTAssertThrowsError(try accountManager.getCloudProviderType(for: accountUID)) { error in
+		XCTAssertThrowsError(try accountManager.getAccount(for: accountUID)) { error in
 			guard case CloudProviderAccountError.accountNotFoundError = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
