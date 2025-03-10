@@ -19,10 +19,15 @@
 "common.footer.learnMore" = "Uzzināt vairāk.";
 
 "accountList.header.title" = "Autentificēšanās";
+"accountList.emptyList.message" = "Piesist šeit, lai pievienotu kontu";
+"accountList.signOut.alert.message" = "Atsakoties visas saistītās glabātavas tiks noņemtas no glabātavu saraksta. Šifrētie dati netiks izdzēsti. Pēc tam var atkal pieteikties un pievienot glabātavas no jauna.";
 
 "addVault.title" = "Pievienot glabātavu";
 "addVault.createNewVault.title" = "Izveidot jaunu glabātuvi";
+"addVault.createNewVault.purchase" = "Jaunas glabātavas izveidošanai ir nepieciešama pilnā Cryptomator versija.";
+"addVault.createNewVault.setVaultName.header.title" = "Jāizvēlas glabātavas nosaukums.";
 "addVault.createNewVault.setVaultName.cells.name" = "Glabātavas nosaukums";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Glabātavas nosaukums nevar būt tukšs.";
 "addVault.createNewVault.chooseCloud.header" = "Kur Cryptomator vajadzētu saglabāt glabātavs šifrētās datnes?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" jau pastāv šajā vietā. Jāizvēlas cits glabātavas nosaukums vai atrašanās vieta.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai izveidotu jaunu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
@@ -30,6 +35,10 @@
 "addVault.createNewVault.password.confirmPassword.header" = "Apstiprināt jauno paroli.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Apstiprināt paroli?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "SVARĪGI: ja tiek aizmirsta parole, nav iespējams atkopt savus datus.";
+"addVault.createNewVault.password.error.emptyPassword" = "Parole nevar būt tukša.";
+"addVault.createNewVault.password.error.nonMatchingPasswords" = "Paroles nesakrīt.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Parolē jābūt vismaz 8 rakstzīmēm.";
+"addVault.createNewVault.progress" = "Izveido glabātavu…";
 "addVault.openExistingVault.title" = "Atvērt esošu glabātavu";
 "addVault.openExistingVault.chooseCloud.header" = "Kur atrodas glabātava?";
 "addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator noteica glabātavu \"%@\".\nVai pievienot šo glabātavu?";
@@ -96,6 +105,7 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
+"nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
@@ -132,6 +142,7 @@
 
 "unlockVault.button.unlock" = "Atslēgt";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
+"untrustedTLSCertificate.add" = "Uzticēties";
 "upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
 
@@ -150,6 +161,8 @@
 "vaultDetail.renameVault.progress" = "Pārdēvē…";
 "vaultDetail.unlocked.footer" = "Glabātava pašreiz ir atslēgta datņu lietonē.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
+"vaultList.emptyList.message" = "Piesist šeit, lai pievienotu glabātavu";
+"vaultList.remove.alert.message" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta. Šifrētie dati netiks izdzēsti. Vēlāk glabātavu var pievienot no jauna.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Glabātavas versija %ld nav atbalstīta. Šī krātuve tika izveidota vecākā vai jaunākā Cryptomator versijā.";
@@ -160,6 +173,7 @@
 "webDAVAuthentication.httpConnection.continue" = "Paturēt HTTP";
 
 "webDAVAuthenticator.error.unsupportedProtocol" = "Izskatās, ka serveris nav saderīgs ar WebDAV. Lūgums pārbaudīt, vai tiek izmantots pareizs URL.";
+"webDAVAuthenticator.error.untrustedCertificate" = "Šī servera sertifikātam nav uzticamības. Var būt nepieciešams pievienot šo WebDAV savienojumu no jauna.";
 
 "Retry Upload" = "Mēģināt augšupielādēt atkārtoti";
 "Clear from Cache" = "Iztīrīt no kešatmiņas";
