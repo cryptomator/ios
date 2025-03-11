@@ -15,28 +15,22 @@ class SharePointCoordinator: SharePointURLSetting, Coordinator {
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: (Coordinator & FolderChooserStarting)?
 
-	private let account: AccountInfo
+	private let credentialID: String
 
 	init(navigationController: UINavigationController, account: AccountInfo) {
 		self.navigationController = navigationController
-		self.account = account
+		self.credentialID = account.accountUID // Here is an exception that `account.accountUID` actually contains the `credentialID`.
 	}
 
 	func start() {
-		do {
-			_ = try CloudProviderAccountDBManager.shared.getAccount(for: account.accountUID)
-			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			parentCoordinator?.startFolderChooser(with: provider, account: account.cloudProviderAccount)
-		} catch {
-			let viewModel = EnterSharePointURLViewModel()
-			let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
-			enterURLVC.coordinator = self
-			navigationController.pushViewController(enterURLVC, animated: true)
-		}
+		let viewModel = EnterSharePointURLViewModel()
+		let enterURLVC = EnterSharePointURLViewController(viewModel: viewModel)
+		enterURLVC.coordinator = self
+		navigationController.pushViewController(enterURLVC, animated: true)
 	}
 
 	func setSharePointURL(_ url: URL) {
-		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: .sharePoint)
+		let credential = MicrosoftGraphCredential(identifier: credentialID, type: .sharePoint)
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
 		showDriveList(discovery: discovery, sharePointURL: url)
 	}
@@ -49,9 +43,12 @@ class SharePointCoordinator: SharePointURLSetting, Coordinator {
 	}
 
 	func didSelectDrive(_ drive: MicrosoftGraphDrive) throws {
-		try MicrosoftGraphAccountDBManager.shared.updateDriveID(for: account.accountUID, driveID: drive.identifier)
-		try CloudProviderAccountDBManager.shared.saveNewAccount(account.cloudProviderAccount)
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		parentCoordinator?.startFolderChooser(with: provider, account: account.cloudProviderAccount)
+		let newAccountUID = UUID().uuidString
+		let cloudProviderAccount = CloudProviderAccount(accountUID: newAccountUID, cloudProviderType: .microsoftGraph(type: .sharePoint))
+		try CloudProviderAccountDBManager.shared.saveNewAccount(cloudProviderAccount) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
+		let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: newAccountUID, credentialID: credentialID, type: .sharePoint)
+		try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
+		let provider = try CloudProviderDBManager.shared.getProvider(with: newAccountUID)
+		parentCoordinator?.startFolderChooser(with: provider, account: cloudProviderAccount)
 	}
 }

@@ -13,19 +13,19 @@ import GRDB
 
 public struct MicrosoftGraphAccount: Codable, FetchableRecord, TableRecord, Equatable {
 	public static let databaseTableName = "microsoftGraphAccounts"
-	static let uidKey = "uid"
 	static let accountUIDKey = "accountUID"
+	static let credentialIDKey = "credentialID"
 	static let driveIDKey = "driveID"
 	static let typeKey = "type"
 
-	public let uid: String
 	public let accountUID: String
+	public let credentialID: String
 	public let driveID: String?
 	public let type: MicrosoftGraphType
 
-	public init(uid: String, accountUID: String, driveID: String? = nil, type: MicrosoftGraphType) {
-		self.uid = uid
+	public init(accountUID: String, credentialID: String, driveID: String? = nil, type: MicrosoftGraphType) {
 		self.accountUID = accountUID
+		self.credentialID = credentialID
 		self.driveID = driveID
 		self.type = type
 	}
@@ -33,8 +33,8 @@ public struct MicrosoftGraphAccount: Codable, FetchableRecord, TableRecord, Equa
 
 extension MicrosoftGraphAccount: PersistableRecord {
 	public func encode(to container: inout PersistenceContainer) {
-		container[MicrosoftGraphAccount.uidKey] = uid
 		container[MicrosoftGraphAccount.accountUIDKey] = accountUID
+		container[MicrosoftGraphAccount.credentialIDKey] = credentialID
 		container[MicrosoftGraphAccount.driveIDKey] = driveID
 		container[MicrosoftGraphAccount.typeKey] = type
 	}
@@ -45,20 +45,18 @@ public enum MicrosoftGraphAccountError: Error {
 }
 
 public protocol MicrosoftGraphAccountManager {
-	func getAccount(for uid: String) throws -> MicrosoftGraphAccount
-	func multipleAccountsExist(for accountUID: String) throws -> Bool
+	func getAccount(for accountUID: String) throws -> MicrosoftGraphAccount
+	func multipleAccountsExist(for credentialID: String) throws -> Bool
 	func saveNewAccount(_ account: MicrosoftGraphAccount) throws
-	func updateDriveID(for uid: String, driveID: String?) throws
-	func removeAccount(with uid: String) throws
 }
 
 public class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager {
 	@Dependency(\.database) var database
 	public static let shared = MicrosoftGraphAccountDBManager()
 
-	public func getAccount(for uid: String) throws -> MicrosoftGraphAccount {
+	public func getAccount(for accountUID: String) throws -> MicrosoftGraphAccount {
 		let account = try database.read { db in
-			try MicrosoftGraphAccount.fetchOne(db, key: uid)
+			try MicrosoftGraphAccount.fetchOne(db, key: accountUID)
 		}
 		guard let account = account else {
 			throw MicrosoftGraphAccountError.accountNotFoundError
@@ -66,11 +64,9 @@ public class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager {
 		return account
 	}
 
-	public func multipleAccountsExist(for accountUID: String) throws -> Bool {
+	public func multipleAccountsExist(for credentialID: String) throws -> Bool {
 		let count = try database.read { db in
-			try Int.fetchOne(db,
-			                 sql: "SELECT COUNT(*) FROM \(MicrosoftGraphAccount.databaseTableName) WHERE \(MicrosoftGraphAccount.accountUIDKey) = ?",
-			                 arguments: [accountUID]) ?? 0
+			try Int.fetchOne(db, sql: "SELECT COUNT(*) FROM \(MicrosoftGraphAccount.databaseTableName) WHERE \(MicrosoftGraphAccount.credentialIDKey) = ?", arguments: [credentialID]) ?? 0
 		}
 		return count > 1
 	}
@@ -78,24 +74,6 @@ public class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager {
 	public func saveNewAccount(_ account: MicrosoftGraphAccount) throws {
 		try database.write { db in
 			try account.save(db)
-		}
-	}
-
-	public func updateDriveID(for uid: String, driveID: String?) throws {
-		try database.write { db in
-			guard var account = try MicrosoftGraphAccount.fetchOne(db, key: uid) else {
-				throw MicrosoftGraphAccountError.accountNotFoundError
-			}
-			account = MicrosoftGraphAccount(uid: account.uid, accountUID: account.accountUID, driveID: driveID, type: account.type)
-			try account.update(db)
-		}
-	}
-
-	public func removeAccount(with uid: String) throws {
-		try database.write { db in
-			guard try MicrosoftGraphAccount.deleteOne(db, key: uid) else {
-				throw MicrosoftGraphAccountError.accountNotFoundError
-			}
 		}
 	}
 }

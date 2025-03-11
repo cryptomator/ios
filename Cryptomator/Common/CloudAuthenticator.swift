@@ -68,23 +68,20 @@ class CloudAuthenticator {
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).then { credential -> CloudProviderAccount in
-			let uid = UUID().uuidString
-			let microsoftGraphAccount = MicrosoftGraphAccount(uid: uid, accountUID: credential.identifier, type: .oneDrive)
+			let accountUID = UUID().uuidString
+			let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .microsoftGraph(type: .oneDrive))
+			try self.accountManager.saveNewAccount(account) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
+			let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: accountUID, credentialID: credential.identifier, type: .oneDrive)
 			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .microsoftGraph(type: .oneDrive))
-			try self.accountManager.saveNewAccount(account)
 			return account
 		}
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential -> CloudProviderAccount in
-			let uid = UUID().uuidString
-			let microsoftGraphAccount = MicrosoftGraphAccount(uid: uid, accountUID: credential.identifier, type: .sharePoint)
-			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
-			let account = CloudProviderAccount(accountUID: uid, cloudProviderType: .microsoftGraph(type: .sharePoint))
-			// Do not call `try self.accountManager.saveNewAccount(account)` yet, it will be saved in `SharePointCoordinator`
-			return account
+			// Do not save Cloud Provider and Microsoft Graph accounts yet, they will be saved in `SharePointCoordinator`.
+			// Temporarily use `credential.identifier` as `accountUID`, but it will be replaced with a new UUID.
+			return CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .microsoftGraph(type: .sharePoint))
 		}
 	}
 
@@ -169,10 +166,10 @@ class CloudAuthenticator {
 
 	func deauthenticateMicrosoftGraph(account: CloudProviderAccount, type: MicrosoftGraphType) throws {
 		let microsoftGraphAccount = try MicrosoftGraphAccountDBManager.shared.getAccount(for: account.accountUID)
-		if try MicrosoftGraphAccountDBManager.shared.multipleAccountsExist(for: microsoftGraphAccount.accountUID) {
-			DDLogInfo("Skipped deauthentication for accountUID \(microsoftGraphAccount.accountUID) because it appears multiple times in the database.")
+		if try MicrosoftGraphAccountDBManager.shared.multipleAccountsExist(for: microsoftGraphAccount.credentialID) {
+			DDLogInfo("Skipped deauthentication for accountUID \(microsoftGraphAccount.accountUID) because the credentialID \(microsoftGraphAccount.credentialID) appears multiple times in the database.")
 		} else {
-			let credential = MicrosoftGraphCredential(identifier: microsoftGraphAccount.accountUID, type: type)
+			let credential = MicrosoftGraphCredential(identifier: microsoftGraphAccount.credentialID, type: type)
 			try credential.deauthenticate()
 		}
 	}

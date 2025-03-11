@@ -63,7 +63,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			guard let account = try? MicrosoftGraphAccountDBManager.shared.getAccount(for: vault.delegateAccountUID) else {
 				return nil
 			}
-			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
 			return try? credential.getUsername()
 		case .pCloud:
 			guard let credential = try? PCloudCredential(userID: vault.delegateAccountUID) else {

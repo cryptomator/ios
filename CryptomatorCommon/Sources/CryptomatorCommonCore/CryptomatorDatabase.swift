@@ -210,39 +210,25 @@ public class CryptomatorDatabase {
 		})
 	}
 
-	/**
-	 Migrates the database to support Microsoft Graph accounts.
-
-	 Since a `CloudProviderAccount` gets saved in the database after the Microsoft Graph account has been saved, it is not possible to use a simple foreign key constraint.
-	 Therefore, an `ON DELETE CASCADE` is implemented via the trigger `microsoft_graph_account_deletion`.
-	 */
 	class func microsoftGraphAccountMigration(_ db: Database) throws {
 		try db.create(table: "microsoftGraphAccounts") { table in
-			table.column("uid", .text).primaryKey()
-			table.column("accountUID", .text).notNull()
+			table.column("accountUID", .text).primaryKey().references("cloudProviderAccounts", onDelete: .cascade)
+			table.column("credentialID", .text).notNull()
 			table.column("driveID", .text)
 			table.column("type", .text).notNull()
+			table.uniqueKey(["credentialID", "driveID", "type"])
 		}
 		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = 'oneDrive'")
 		for row in rows {
-			let oldUID: String = row["accountUID"]
-			let newUID = UUID().uuidString
+			let oldAccountUID: String = row["accountUID"] // which is the `credentialID`
+			let newAccountUID = UUID().uuidString
 			let newCloudProviderType = CloudProviderType.microsoftGraph(type: .oneDrive).databaseValue
-			try db.execute(sql: "UPDATE cloudProviderAccounts SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newUID, newCloudProviderType, oldUID])
-			try db.execute(sql: "UPDATE vaultAccounts SET delegateAccountUID = ? WHERE delegateAccountUID = ?", arguments: [newUID, oldUID])
-			try db.execute(sql: "UPDATE accountListPosition SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newUID, newCloudProviderType, oldUID])
+			try db.execute(sql: "UPDATE cloudProviderAccounts SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newAccountUID, newCloudProviderType, oldAccountUID])
+			try db.execute(sql: "UPDATE vaultAccounts SET delegateAccountUID = ? WHERE delegateAccountUID = ?", arguments: [newAccountUID, oldAccountUID])
+			try db.execute(sql: "UPDATE accountListPosition SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newAccountUID, newCloudProviderType, oldAccountUID])
 			let newMicrosoftGraphType = MicrosoftGraphType.oneDrive.databaseValue
-			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (uid, accountUID, driveID, type) VALUES (?, ?, NULL, ?)", arguments: [newUID, oldUID, newMicrosoftGraphType])
+			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (accountUID, credentialID, driveID, type) VALUES (?, ?, NULL, ?)", arguments: [newAccountUID, oldAccountUID, newMicrosoftGraphType])
 		}
-		try db.execute(sql: """
-		CREATE TRIGGER microsoft_graph_account_deletion
-		AFTER DELETE
-		ON cloudProviderAccounts
-		BEGIN
-			DELETE FROM microsoftGraphAccounts
-			WHERE uid = OLD.accountUID;
-		END;
-		""")
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

@@ -95,7 +95,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			return try createAccountCellContent(for: credential)
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
-		case let .microsoftGraph(type):
+		case .microsoftGraph:
 			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountInfo.accountUID)
 			return try createAccountCellContentPlaceholder(for: account)
 		case .pCloud:
@@ -130,7 +130,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	}
 
 	func createAccountCellContentPlaceholder(for account: MicrosoftGraphAccount) throws -> AccountCellContent {
-		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: account.type)
+		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
 		let detailLabelText = account.driveID != nil ? "(…)" : nil
 		return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
@@ -140,7 +140,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		guard let driveID = account.driveID else {
 			return try Promise(createAccountCellContentPlaceholder(for: account))
 		}
-		let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: account.type)
+		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
 		return discovery.fetchDrive(for: driveID).then { drive in

@@ -79,7 +79,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
 		case let .microsoftGraph(type):
 			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
-			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
 			provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: account.driveID, maxPageSize: .max)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
@@ -130,7 +130,7 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
 		case let .microsoftGraph(type):
 			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
-			let credential = MicrosoftGraphCredential(identifier: account.accountUID, type: type)
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
 			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, driveIdentifier: account.driveID, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
