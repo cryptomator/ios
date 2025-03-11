@@ -12,7 +12,7 @@ import Foundation
 import UIKit
 
 class SharePointDriveListViewController: SingleSectionTableViewController {
-	weak var coordinator: SharePointCoordinator?
+	weak var coordinator: (Coordinator & SharePointAuthenticating)?
 	private var viewModel: SharePointDriveListViewModel
 
 	init(viewModel: SharePointDriveListViewModel) {
@@ -24,6 +24,8 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 		super.viewDidLoad()
 		title = LocalizedString.getValue("sharePoint.selectDrive.title")
 		tableView.register(TableViewCell.self, forCellReuseIdentifier: "SharePointDriveCell")
+		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+		navigationItem.leftBarButtonItem = cancelButton
 		// pull to refresh
 		initRefreshControl()
 		viewModel.startListenForChanges { [weak self] in
@@ -44,6 +46,10 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 
 	@objc func pullToRefresh() {
 		viewModel.refreshItems()
+	}
+
+	@objc func cancel() {
+		coordinator?.cancel()
 	}
 
 	// MARK: - UITableViewDataSource
@@ -86,7 +92,7 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedDrive = viewModel.drives[indexPath.row]
 		do {
-			try coordinator?.didSelectDrive(selectedDrive)
+			try coordinator?.driveSelected(selectedDrive, with: viewModel.credential)
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}

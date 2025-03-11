@@ -11,14 +11,16 @@ import CryptomatorCommonCore
 import Foundation
 
 class SharePointDriveListViewModel {
+	let credential: MicrosoftGraphCredential
 	private let discovery: MicrosoftGraphDiscovery
 	private let sharePointURL: URL
 	private var changeListener: (() -> Void)?
 	private var errorListener: ((Error) -> Void)?
 	private(set) var drives: [MicrosoftGraphDrive] = []
 
-	init(discovery: MicrosoftGraphDiscovery, sharePointURL: URL) {
-		self.discovery = discovery
+	init(credential: MicrosoftGraphCredential, sharePointURL: URL) {
+		self.credential = credential
+		self.discovery = MicrosoftGraphDiscovery(credential: credential)
 		self.sharePointURL = sharePointURL
 	}
 

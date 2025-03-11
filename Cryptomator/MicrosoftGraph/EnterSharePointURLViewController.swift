@@ -11,7 +11,7 @@ import CryptomatorCommonCore
 import UIKit
 
 class EnterSharePointURLViewController: SingleSectionStaticUITableViewController {
-	weak var coordinator: (Coordinator & SharePointURLSetting)?
+	weak var coordinator: (Coordinator & SharePointAuthenticating)?
 	private var viewModel: EnterSharePointURLViewModelProtocol
 	private var lastReturnButtonPressedSubscriber: AnyCancellable?
 
@@ -24,6 +24,8 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 		super.viewDidLoad()
 		let doneButton = UIBarButtonItem(title: LocalizedString.getValue("common.button.next"), style: .done, target: self, action: #selector(nextButtonClicked))
 		navigationItem.rightBarButtonItem = doneButton
+		let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancel))
+		navigationItem.leftBarButtonItem = cancelButton
 		lastReturnButtonPressedSubscriber = viewModel.lastReturnButtonPressed.sink { [weak self] in
 			self?.lastReturnButtonPressedAction()
 		}
@@ -33,10 +35,14 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 		guard let coordinator = coordinator else { return }
 		do {
 			let url = try viewModel.getValidatedSharePointURL()
-			coordinator.setSharePointURL(url)
+			coordinator.sharePointURLSet(url, from: self)
 		} catch {
 			coordinator.handleError(error, for: self)
 		}
+	}
+
+	@objc func cancel() {
+		coordinator?.cancel()
 	}
 
 	func lastReturnButtonPressedAction() {

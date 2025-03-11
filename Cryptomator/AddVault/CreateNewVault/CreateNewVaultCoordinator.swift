@@ -11,7 +11,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
-class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserStarting, DefaultShowEditAccountBehavior, Coordinator {
+class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
@@ -45,15 +45,8 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserSta
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
-			if account.cloudProviderType == .microsoftGraph(type: .sharePoint) {
-				let child = SharePointCoordinator(navigationController: self.navigationController, account: account)
-				self.childCoordinators.append(child)
-				child.parentCoordinator = self
-				child.start()
-			} else {
-				let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-				self.startFolderChooser(with: provider, account: account)
-			}
+			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+			self.startFolderChooser(with: provider, account: account)
 		}.catch { error in
 			guard case CloudAuthenticatorError.userCanceled = error else {
 				self.handleError(error, for: self.navigationController)
@@ -67,7 +60,7 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserSta
 		startFolderChooser(with: provider, account: account.cloudProviderAccount)
 	}
 
-	func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
+	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
 		let child = AuthenticatedCreateNewVaultCoordinator(navigationController: navigationController, provider: provider, account: account, vaultName: vaultName)
 		childCoordinators.append(child)
 		child.parentCoordinator = self

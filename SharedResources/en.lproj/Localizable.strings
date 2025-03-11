@@ -213,6 +213,15 @@
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
 
+"sharePoint.enterURL.title" = "Enter SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
+"sharePoint.enterURL.header.title" = "Enter the URL of the SharePoint site in this format: https://<company>.sharepoint.com/sites/<site>";
+"sharePoint.urlValidator.error.emptyURL" = "The URL cannot be empty.";
+"sharePoint.urlValidator.error.invalidURL" = "The URL is invalid. Please use this format: https://<company>.sharepoint.com/sites/<site>";
+"sharePoint.selectDrive.title" = "Select Drive";
+"sharePoint.selectDrive.header.title" = "Select the SharePoint drive you want to work with.";
+"sharePoint.selectDrive.emptyList.footer" = "No Drives Available";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -234,15 +243,6 @@
 "s3Authentication.region" = "Region";
 "s3Authentication.error.invalidCredentials" = "Invalid credentials.";
 "s3Authentication.error.invalidEndpoint" = "The provided endpoint does not match the format of a URL.";
-
-"sharePoint.enterURL.title" = "Enter SharePoint URL";
-"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
-"sharePoint.enterURL.header.title" = "Enter the URL of the SharePoint site in this format: https://<company>.sharepoint.com/sites/<site>";
-"sharePoint.urlValidator.error.emptyURL" = "The URL cannot be empty.";
-"sharePoint.urlValidator.error.invalidURL" = "The URL is invalid. Please use this format: https://<company>.sharepoint.com/sites/<site>";
-"sharePoint.selectDrive.title" = "Select Drive";
-"sharePoint.selectDrive.header.title" = "Select the SharePoint drive you want to work with.";
-"sharePoint.selectDrive.emptyList.footer" = "No Drives Available";
 
 "trialStatus.active" = "Active";
 "trialStatus.expired" = "Expired";

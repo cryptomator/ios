@@ -27,7 +27,7 @@ class EnterSharePointURLViewModel: SingleSectionTableViewModel, EnterSharePointU
 		return LocalizedString.getValue("sharePoint.enterURL.title")
 	}
 
-	let sharePointURLCellViewModel = TextFieldCellViewModel(type: .normal, placeholder: LocalizedString.getValue("sharePoint.enterURL.placeholder"), isInitialFirstResponder: true)
+	let sharePointURLCellViewModel = TextFieldCellViewModel(type: .url, text: "https://", placeholder: LocalizedString.getValue("sharePoint.enterURL.placeholder"), isInitialFirstResponder: true)
 
 	var trimmedSharePointURL: String {
 		return sharePointURLCellViewModel.input.value.trimmingCharacters(in: .whitespacesAndNewlines)

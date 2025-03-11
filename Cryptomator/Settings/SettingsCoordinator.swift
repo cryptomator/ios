@@ -120,13 +120,7 @@ extension SettingsCoordinator: CloudChoosing {
 extension SettingsCoordinator: AccountListing, DefaultShowEditAccountBehavior {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
-			if account.cloudProviderType == .microsoftGraph(type: .sharePoint) {
-				let child = SharePointCoordinator(navigationController: self.navigationController, account: account)
-				self.childCoordinators.append(child)
-				child.start()
-			}
-		}.catch { error in
+		authenticator.authenticate(cloudProviderType, from: viewController).catch { error in
 			guard case CloudAuthenticatorError.userCanceled = error else {
 				self.handleError(error, for: self.navigationController)
 				return
