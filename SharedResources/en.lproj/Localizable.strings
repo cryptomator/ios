@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "The necessary permissions to access the resources couldn't be obtained. Please try using a different account.";
+
 "nameValidation.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
 "nameValidation.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
 "nameValidation.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";

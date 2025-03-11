@@ -45,21 +45,26 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, FolderChooserSta
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
-			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			self.startFolderChooser(with: provider, account: account)
+			if account.cloudProviderType == .microsoftGraph(type: .sharePoint) {
+				let child = SharePointCoordinator(navigationController: self.navigationController, account: account)
+				self.childCoordinators.append(child)
+				child.parentCoordinator = self
+				child.start()
+			} else {
+				let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+				self.startFolderChooser(with: provider, account: account)
+			}
+		}.catch { error in
+			guard case CloudAuthenticatorError.userCanceled = error else {
+				self.handleError(error, for: self.navigationController)
+				return
+			}
 		}
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {
-		if account.cloudProviderType == .microsoftGraph(type: .sharePoint) {
-			let child = SharePointCoordinator(navigationController: navigationController, account: account)
-			childCoordinators.append(child)
-			child.parentCoordinator = self
-			child.start()
-		} else {
-			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-			startFolderChooser(with: provider, account: account.cloudProviderAccount)
-		}
+		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
+		startFolderChooser(with: provider, account: account.cloudProviderAccount)
 	}
 
 	func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {

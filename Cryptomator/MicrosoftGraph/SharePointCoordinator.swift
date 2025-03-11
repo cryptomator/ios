@@ -17,7 +17,7 @@ class SharePointCoordinator: SharePointURLSetting, Coordinator {
 
 	private let credentialID: String
 
-	init(navigationController: UINavigationController, account: AccountInfo) {
+	init(navigationController: UINavigationController, account: CloudProviderAccount) {
 		self.navigationController = navigationController
 		self.credentialID = account.accountUID // Here is an exception that `account.accountUID` actually contains the `credentialID`.
 	}

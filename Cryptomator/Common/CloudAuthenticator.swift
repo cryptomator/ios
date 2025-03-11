@@ -50,7 +50,13 @@ class CloudAuthenticator {
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let authenticator = DropboxAuthenticator()
-		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+		return authenticator.authenticate(from: viewController).recover { error -> DropboxCredential in
+			if case DropboxAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -59,7 +65,13 @@ class CloudAuthenticator {
 
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let credential = GoogleDriveCredential()
-		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
+		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).recover { error -> Void in
+			if case GoogleDriveAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { () -> CloudProviderAccount in
 			let account = try CloudProviderAccount(accountUID: credential.getAccountID(), cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -67,7 +79,13 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).then { credential -> CloudProviderAccount in
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).recover { error -> MicrosoftGraphCredential in
+			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { credential -> CloudProviderAccount in
 			let accountUID = UUID().uuidString
 			let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .microsoftGraph(type: .oneDrive))
 			try self.accountManager.saveNewAccount(account) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
@@ -78,7 +96,13 @@ class CloudAuthenticator {
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential -> CloudProviderAccount in
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).recover { error -> MicrosoftGraphCredential in
+			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { credential -> CloudProviderAccount in
 			// Do not save Cloud Provider and Microsoft Graph accounts yet, they will be saved in `SharePointCoordinator`.
 			// Temporarily use `credential.identifier` as `accountUID`, but it will be replaced with a new UUID.
 			return CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .microsoftGraph(type: .sharePoint))
@@ -86,7 +110,13 @@ class CloudAuthenticator {
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return PCloudAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+		return PCloudAuthenticator.authenticate(from: viewController).recover { error -> PCloudCredential in
+			if case PCloudAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { credential -> CloudProviderAccount in
 			try credential.saveToKeychain()
 			let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
 			try self.accountManager.saveNewAccount(account)
@@ -97,7 +127,13 @@ class CloudAuthenticator {
 	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let tokenStorage = BoxTokenStorage()
 		let credential = BoxCredential(tokenStorage: tokenStorage)
-		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).then { _ -> Promise<CloudProviderAccount> in
+		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).recover { error -> BoxCredential in
+			if case BoxAuthenticatorError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { _ -> Promise<CloudProviderAccount> in
 			return credential.getUserID().then { userID in
 				tokenStorage.userID = userID // this will actually save the access token to the keychain
 				let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
@@ -177,4 +213,5 @@ class CloudAuthenticator {
 
 enum CloudAuthenticatorError: Error {
 	case functionNotYetSupported
+	case userCanceled
 }
