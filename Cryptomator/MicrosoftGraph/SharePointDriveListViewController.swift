@@ -67,7 +67,7 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 	}
 
 	override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-		return LocalizedString.getValue("sharePoint.selectDrive.header.description")
+		return LocalizedString.getValue("sharePoint.selectDrive.header.title")
 	}
 
 	override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
