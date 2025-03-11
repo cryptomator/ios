@@ -96,19 +96,12 @@ class CloudAuthenticator {
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return SharePointAuthenticator.authenticate(from: viewController).recover { error -> MicrosoftGraphCredential in
+		return SharePointAuthenticator.authenticate(from: viewController).recover { error -> CloudProviderAccount in
 			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
 				throw CloudAuthenticatorError.userCanceled
 			} else {
 				throw error
 			}
-		}.then { credential -> CloudProviderAccount in
-			let accountUID = UUID().uuidString
-			let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .microsoftGraph(type: .sharePoint))
-			try self.accountManager.saveNewAccount(account) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
-			let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: accountUID, credentialID: credential.identifier, type: .sharePoint)
-			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
-			return account
 		}
 	}
 

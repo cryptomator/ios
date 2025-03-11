@@ -13,7 +13,7 @@ import Promises
 import UIKit
 
 class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating {
-	let pendingAuthentication = Promise<MicrosoftGraphCredential>.pending()
+	let pendingAuthentication = Promise<CloudProviderAccount>.pending()
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
@@ -48,11 +48,17 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 	}
 
 	func driveSelected(_ drive: MicrosoftGraphDrive, with credential: MicrosoftGraphCredential) throws {
-		pendingAuthentication.fulfill(credential)
+		let newAccountUID = UUID().uuidString
+		let cloudProviderAccount = CloudProviderAccount(accountUID: newAccountUID, cloudProviderType: .microsoftGraph(type: .sharePoint))
+		try CloudProviderAccountDBManager.shared.saveNewAccount(cloudProviderAccount) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
+		let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: newAccountUID, credentialID: credential.identifier, driveID: drive.identifier, type: .sharePoint)
+		try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
+		pendingAuthentication.fulfill(cloudProviderAccount)
 		close()
 	}
 
 	func cancel() {
+		pendingAuthentication.reject(MicrosoftGraphAuthenticatorError.userCanceled)
 		close()
 	}
 

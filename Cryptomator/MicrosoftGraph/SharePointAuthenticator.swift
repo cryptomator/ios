@@ -6,14 +6,14 @@
 //  Copyright © 2025 Skymatic GmbH. All rights reserved.
 //
 
-import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import Promises
 import UIKit
 
 public class SharePointAuthenticator {
 	private static var coordinator: SharePointAuthenticationCoordinator?
 
-	public static func authenticate(from viewController: UIViewController) -> Promise<MicrosoftGraphCredential> {
+	public static func authenticate(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let navigationController = BaseNavigationController()
 		let sharePointCoordinator = SharePointAuthenticationCoordinator(navigationController: navigationController)
 		coordinator = sharePointCoordinator
