@@ -108,6 +108,7 @@
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.restorePurchase.validTrialFound.alert.message" = "Tagad ierobežotu laiku var izmantot pilno Cryptomator versiju. Izmēģinājums beigsies %@. Pēc tam glabātavām joprojām varēs piekļūt tikai lasāmā režīmā.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.retry.button" = "Mēģināt vēlreiz";
 "purchase.unlockedFullVersion.message" = "Tagad var izmantot pilno Cryptomator versiju. Laimīgu šifrēšanu!";
@@ -147,6 +148,7 @@
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
 
 "urlSession.error.httpError.401" = "Nepareizs lietotājvārds un/vai parole.";
+"urlSession.error.httpError.412" = "Piekļuve mērķa avotam tika atteikta.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
