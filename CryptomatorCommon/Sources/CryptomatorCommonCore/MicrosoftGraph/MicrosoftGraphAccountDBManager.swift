@@ -50,6 +50,7 @@ public enum MicrosoftGraphAccountError: Error {
 
 public protocol MicrosoftGraphAccountManager {
 	func getAccount(for accountUID: String) throws -> MicrosoftGraphAccount
+	func getAccount(credentialID: String, driveID: String?, type: MicrosoftGraphType) throws -> MicrosoftGraphAccount
 	func multipleAccountsExist(for credentialID: String) throws -> Bool
 	func saveNewAccount(_ account: MicrosoftGraphAccount) throws
 }
@@ -61,6 +62,18 @@ public class MicrosoftGraphAccountDBManager: MicrosoftGraphAccountManager {
 	public func getAccount(for accountUID: String) throws -> MicrosoftGraphAccount {
 		let account = try database.read { db in
 			try MicrosoftGraphAccount.fetchOne(db, key: accountUID)
+		}
+		guard let account = account else {
+			throw MicrosoftGraphAccountError.accountNotFoundError
+		}
+		return account
+	}
+
+	public func getAccount(credentialID: String, driveID: String?, type: MicrosoftGraphType) throws -> MicrosoftGraphAccount {
+		let account = try database.read { db in
+			return try MicrosoftGraphAccount
+				.filter(Column(MicrosoftGraphAccount.credentialIDKey) == credentialID && Column(MicrosoftGraphAccount.driveIDKey) == driveID && Column(MicrosoftGraphAccount.typeKey) == type.databaseValue)
+				.fetchOne(db)
 		}
 		guard let account = account else {
 			throw MicrosoftGraphAccountError.accountNotFoundError

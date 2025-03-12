@@ -219,6 +219,11 @@ public class CryptomatorDatabase {
 			table.column("type", .text).notNull()
 			table.uniqueKey(["credentialID", "driveID", "type"])
 		}
+		try db.execute(sql: """
+		CREATE UNIQUE INDEX uq_microsoftGraphAccounts_nullDriveID
+		ON microsoftGraphAccounts (credentialID, type)
+		WHERE driveID IS NULL
+		""")
 		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = 'oneDrive'")
 		for row in rows {
 			let oldAccountUID: String = row["accountUID"] // which is the `credentialID`

@@ -18,11 +18,13 @@ class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
 	private let vaultManager: VaultManager
 	private let vaultAccountManager: VaultAccountManager
+	private let microsoftGraphAccountManager: MicrosoftGraphAccountManager
 
-	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared, vaultAccountManager: VaultAccountManager = VaultAccountDBManager.shared) {
+	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared, vaultAccountManager: VaultAccountManager = VaultAccountDBManager.shared, microsoftGraphAccountManager: MicrosoftGraphAccountManager = MicrosoftGraphAccountDBManager.shared) {
 		self.accountManager = accountManager
 		self.vaultManager = vaultManager
 		self.vaultAccountManager = vaultAccountManager
+		self.microsoftGraphAccountManager = microsoftGraphAccountManager
 	}
 
 	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -79,24 +81,17 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).recover { error -> MicrosoftGraphCredential in
+		return OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager).recover { error -> CloudProviderAccount in
 			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
 				throw CloudAuthenticatorError.userCanceled
 			} else {
 				throw error
 			}
-		}.then { credential -> CloudProviderAccount in
-			let accountUID = UUID().uuidString
-			let account = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .microsoftGraph(type: .oneDrive))
-			try self.accountManager.saveNewAccount(account) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
-			let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: accountUID, credentialID: credential.identifier, type: .oneDrive)
-			try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
-			return account
 		}
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return SharePointAuthenticator.authenticate(from: viewController).recover { error -> CloudProviderAccount in
+		return SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager).recover { error -> CloudProviderAccount in
 			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
 				throw CloudAuthenticatorError.userCanceled
 			} else {
@@ -197,8 +192,8 @@ class CloudAuthenticator {
 	}
 
 	func deauthenticateMicrosoftGraph(account: CloudProviderAccount, type: MicrosoftGraphType) throws {
-		let microsoftGraphAccount = try MicrosoftGraphAccountDBManager.shared.getAccount(for: account.accountUID)
-		if try MicrosoftGraphAccountDBManager.shared.multipleAccountsExist(for: microsoftGraphAccount.credentialID) {
+		let microsoftGraphAccount = try microsoftGraphAccountManager.getAccount(for: account.accountUID)
+		if try microsoftGraphAccountManager.multipleAccountsExist(for: microsoftGraphAccount.credentialID) {
 			DDLogInfo("Skipped deauthentication for accountUID \(microsoftGraphAccount.accountUID) because the credentialID \(microsoftGraphAccount.credentialID) appears multiple times in the database.")
 		} else {
 			let credential = MicrosoftGraphCredential(identifier: microsoftGraphAccount.credentialID, type: type)

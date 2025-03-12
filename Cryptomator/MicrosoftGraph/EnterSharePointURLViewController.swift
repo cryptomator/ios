@@ -35,7 +35,7 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 		guard let coordinator = coordinator else { return }
 		do {
 			let url = try viewModel.getValidatedSharePointURL()
-			coordinator.sharePointURLSet(url, from: self)
+			coordinator.setURL(url, from: self)
 		} catch {
 			coordinator.handleError(error, for: self)
 		}
