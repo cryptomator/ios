@@ -34,7 +34,7 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 		MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential in
 			self.showDriveList(credential: credential, url: url)
 		}.catch { error in
-			guard case CloudAuthenticatorError.userCanceled = error else {
+			guard case CocoaError.userCancelled = error else {
 				self.handleError(error, for: self.navigationController)
 				return
 			}
@@ -54,7 +54,7 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 	}
 
 	func cancel() {
-		pendingAuthentication.reject(MicrosoftGraphAuthenticatorError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 		close()
 	}
 

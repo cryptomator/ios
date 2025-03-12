@@ -52,13 +52,7 @@ class CloudAuthenticator {
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let authenticator = DropboxAuthenticator()
-		return authenticator.authenticate(from: viewController).recover { error -> DropboxCredential in
-			if case DropboxAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { credential -> CloudProviderAccount in
+		return authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.tokenUID, cloudProviderType: .dropbox)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -67,13 +61,7 @@ class CloudAuthenticator {
 
 	func authenticateGoogleDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let credential = GoogleDriveCredential()
-		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).recover { error -> Void in
-			if case GoogleDriveAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { () -> CloudProviderAccount in
+		return GoogleDriveAuthenticator.authenticate(credential: credential, from: viewController).then { () -> CloudProviderAccount in
 			let account = try CloudProviderAccount(accountUID: credential.getAccountID(), cloudProviderType: .googleDrive)
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -81,33 +69,15 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager).recover { error -> CloudProviderAccount in
-			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}
+		return OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
 	}
 
 	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager).recover { error -> CloudProviderAccount in
-			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}
+		return SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return PCloudAuthenticator.authenticate(from: viewController).recover { error -> PCloudCredential in
-			if case PCloudAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { credential -> CloudProviderAccount in
+		return PCloudAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			try credential.saveToKeychain()
 			let account = CloudProviderAccount(accountUID: credential.userID, cloudProviderType: .pCloud)
 			try self.accountManager.saveNewAccount(account)
@@ -118,13 +88,7 @@ class CloudAuthenticator {
 	func authenticateBox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
 		let tokenStorage = BoxTokenStorage()
 		let credential = BoxCredential(tokenStorage: tokenStorage)
-		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).recover { error -> BoxCredential in
-			if case BoxAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { _ -> Promise<CloudProviderAccount> in
+		return BoxAuthenticator.authenticate(from: viewController, tokenStorage: tokenStorage).then { _ -> Promise<CloudProviderAccount> in
 			return credential.getUserID().then { userID in
 				tokenStorage.userID = userID // this will actually save the access token to the keychain
 				let account = CloudProviderAccount(accountUID: userID, cloudProviderType: .box)
@@ -135,13 +99,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticateWebDAV(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return WebDAVAuthenticator.authenticate(from: viewController).recover { error -> WebDAVCredential in
-			if case WebDAVAuthenticationError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { credential -> CloudProviderAccount in
+		return WebDAVAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .webDAV(type: .custom))
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -149,13 +107,7 @@ class CloudAuthenticator {
 	}
 
 	func authenticateS3(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return S3Authenticator.authenticate(from: viewController).recover { error -> S3Credential in
-			if case S3AuthenticationError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { credential -> CloudProviderAccount in
+		return S3Authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
 			try self.accountManager.saveNewAccount(account)
 			return account
@@ -216,5 +168,4 @@ class CloudAuthenticator {
 
 enum CloudAuthenticatorError: Error {
 	case functionNotYetSupported
-	case userCanceled
 }

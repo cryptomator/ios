@@ -48,7 +48,7 @@ class S3AuthenticationCoordinator: Coordinator, S3Authenticating {
 	}
 
 	func cancel() {
-		pendingAuthentication.reject(S3AuthenticationError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 		close()
 	}
 

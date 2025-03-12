@@ -49,7 +49,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 			self.startFolderChooser(with: provider, account: account)
 		}.catch { error in
-			guard case CloudAuthenticatorError.userCanceled = error else {
+			guard case CocoaError.userCancelled = error else {
 				self.handleError(error, for: self.navigationController)
 				return
 			}

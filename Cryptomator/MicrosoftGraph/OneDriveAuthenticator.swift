@@ -15,13 +15,7 @@ import UIKit
 
 public class OneDriveAuthenticator {
 	public static func authenticate(from viewController: UIViewController, cloudProviderAccountManager: CloudProviderAccountManager, microsoftGraphAccountManager: MicrosoftGraphAccountManager) -> Promise<CloudProviderAccount> {
-		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).recover { error -> MicrosoftGraphCredential in
-			if case MicrosoftGraphAuthenticatorError.userCanceled = error {
-				throw CloudAuthenticatorError.userCanceled
-			} else {
-				throw error
-			}
-		}.then { credential -> CloudProviderAccount in
+		return MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .oneDrive).then { credential -> CloudProviderAccount in
 			let accountUID = UUID().uuidString
 			let cloudProviderAccount = CloudProviderAccount(accountUID: accountUID, cloudProviderType: .microsoftGraph(type: .oneDrive))
 			try cloudProviderAccountManager.saveNewAccount(cloudProviderAccount) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.

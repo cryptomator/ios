@@ -17,8 +17,6 @@ extension MicrosoftGraphAuthenticatorError: LocalizedError {
 			return nil
 		case .serverDeclinedScopes:
 			return LocalizedString.getValue("microsoftGraphAuthenticator.error.serverDeclinedScopes")
-		case .userCanceled:
-			return nil
 		}
 	}
 }

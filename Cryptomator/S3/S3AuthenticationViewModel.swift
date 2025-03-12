@@ -97,7 +97,6 @@ enum S3AuthenticationError: Error {
 	case emptyField
 	case invalidEndpoint
 	case invalidCredentials
-	case userCanceled
 }
 
 extension S3AuthenticationError: LocalizedError {
@@ -109,8 +108,6 @@ extension S3AuthenticationError: LocalizedError {
 			return LocalizedString.getValue("s3Authentication.error.invalidEndpoint")
 		case .invalidCredentials:
 			return LocalizedString.getValue("s3Authentication.error.invalidCredentials")
-		case .userCanceled:
-			return nil
 		}
 	}
 }

@@ -123,7 +123,7 @@ class VaultDetailViewController: BaseUITableViewController {
 
 	private func showUnlockScreen(for vault: VaultInfo, biometryTypeName: String) {
 		coordinator?.unlockVault(vault, biometryTypeName: biometryTypeName).recover { error -> Void in
-			guard case VaultDetailUnlockError.userCanceled = error else {
+			guard case CocoaError.userCancelled = error else {
 				throw error
 			}
 		}.catch { [weak self] error in
