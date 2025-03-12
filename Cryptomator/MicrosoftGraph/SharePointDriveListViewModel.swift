@@ -12,8 +12,9 @@ import Foundation
 
 class SharePointDriveListViewModel {
 	let credential: MicrosoftGraphCredential
+	let sharePointURL: URL
+
 	private let discovery: MicrosoftGraphDiscovery
-	private let sharePointURL: URL
 	private var changeListener: (() -> Void)?
 	private var errorListener: ((Error) -> Void)?
 	private(set) var drives: [MicrosoftGraphDrive] = []

@@ -132,7 +132,15 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func createAccountCellContentPlaceholder(for account: MicrosoftGraphAccount) throws -> AccountCellContent {
 		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
-		let detailLabelText = account.driveID != nil ? "(…)" : nil
+		var detailLabelTextComponents: [String] = []
+		if let siteURL = account.siteURL?.absoluteString, let regex = try? NSRegularExpression(pattern: SharePointURLValidator.pattern), let match = regex.firstMatch(in: siteURL, range: NSRange(siteURL.startIndex..., in: siteURL)), let companyRange = Range(match.range(at: 1), in: siteURL), let siteRange = Range(match.range(at: 2), in: siteURL) {
+			detailLabelTextComponents.append(String(siteURL[companyRange]))
+			detailLabelTextComponents.append(String(siteURL[siteRange]))
+		}
+		if account.driveID != nil {
+			detailLabelTextComponents.append("(…)")
+		}
+		let detailLabelText = detailLabelTextComponents.joined(separator: " • ")
 		return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
 	}
 
@@ -144,7 +152,13 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		let username = try credential.getUsername()
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
 		return discovery.fetchDrive(for: driveID).then { drive in
-			let detailLabelText = "\(drive.name ?? "<unknown-drive-name>")"
+			var detailLabelTextComponents: [String] = []
+			if let siteURL = account.siteURL?.absoluteString, let regex = try? NSRegularExpression(pattern: SharePointURLValidator.pattern), let match = regex.firstMatch(in: siteURL, range: NSRange(siteURL.startIndex..., in: siteURL)), let companyRange = Range(match.range(at: 1), in: siteURL), let siteRange = Range(match.range(at: 2), in: siteURL) {
+				detailLabelTextComponents.append(String(siteURL[companyRange]))
+				detailLabelTextComponents.append(String(siteURL[siteRange]))
+			}
+			detailLabelTextComponents.append("\(drive.name ?? "<unknown-drive-name>")")
+			let detailLabelText = detailLabelTextComponents.joined(separator: " • ")
 			return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
 		}
 	}

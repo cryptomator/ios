@@ -47,11 +47,11 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 		navigationController.pushViewController(driveListVC, animated: true)
 	}
 
-	func driveSelected(_ drive: MicrosoftGraphDrive, with credential: MicrosoftGraphCredential) throws {
+	func driveSelected(_ drive: MicrosoftGraphDrive, for sharePointURL: URL, with credential: MicrosoftGraphCredential) throws {
 		let newAccountUID = UUID().uuidString
 		let cloudProviderAccount = CloudProviderAccount(accountUID: newAccountUID, cloudProviderType: .microsoftGraph(type: .sharePoint))
 		try CloudProviderAccountDBManager.shared.saveNewAccount(cloudProviderAccount) // Make sure to save this first, because Microsoft Graph account has a reference to the Cloud Provider account.
-		let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: newAccountUID, credentialID: credential.identifier, driveID: drive.identifier, type: .sharePoint)
+		let microsoftGraphAccount = MicrosoftGraphAccount(accountUID: newAccountUID, credentialID: credential.identifier, driveID: drive.identifier, siteURL: sharePointURL, type: .sharePoint)
 		try MicrosoftGraphAccountDBManager.shared.saveNewAccount(microsoftGraphAccount)
 		pendingAuthentication.fulfill(cloudProviderAccount)
 		close()

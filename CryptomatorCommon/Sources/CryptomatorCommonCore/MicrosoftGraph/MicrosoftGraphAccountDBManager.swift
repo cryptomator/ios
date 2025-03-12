@@ -16,17 +16,20 @@ public struct MicrosoftGraphAccount: Codable, FetchableRecord, TableRecord, Equa
 	static let accountUIDKey = "accountUID"
 	static let credentialIDKey = "credentialID"
 	static let driveIDKey = "driveID"
+	static let siteURLKey = "siteURL"
 	static let typeKey = "type"
 
 	public let accountUID: String
 	public let credentialID: String
 	public let driveID: String?
+	public let siteURL: URL?
 	public let type: MicrosoftGraphType
 
-	public init(accountUID: String, credentialID: String, driveID: String? = nil, type: MicrosoftGraphType) {
+	public init(accountUID: String, credentialID: String, driveID: String? = nil, siteURL: URL? = nil, type: MicrosoftGraphType) {
 		self.accountUID = accountUID
 		self.credentialID = credentialID
 		self.driveID = driveID
+		self.siteURL = siteURL
 		self.type = type
 	}
 }
@@ -36,6 +39,7 @@ extension MicrosoftGraphAccount: PersistableRecord {
 		container[MicrosoftGraphAccount.accountUIDKey] = accountUID
 		container[MicrosoftGraphAccount.credentialIDKey] = credentialID
 		container[MicrosoftGraphAccount.driveIDKey] = driveID
+		container[MicrosoftGraphAccount.siteURLKey] = siteURL
 		container[MicrosoftGraphAccount.typeKey] = type
 	}
 }

@@ -92,7 +92,7 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedDrive = viewModel.drives[indexPath.row]
 		do {
-			try coordinator?.driveSelected(selectedDrive, with: viewModel.credential)
+			try coordinator?.driveSelected(selectedDrive, for: viewModel.sharePointURL, with: viewModel.credential)
 		} catch {
 			coordinator?.handleError(error, for: self)
 		}

@@ -11,6 +11,6 @@ import UIKit
 
 protocol SharePointAuthenticating: AnyObject {
 	func sharePointURLSet(_ sharePointURL: URL, from viewController: UIViewController)
-	func driveSelected(_ drive: MicrosoftGraphDrive, with credential: MicrosoftGraphCredential) throws
+	func driveSelected(_ drive: MicrosoftGraphDrive, for sharePointURL: URL, with credential: MicrosoftGraphCredential) throws
 	func cancel()
 }

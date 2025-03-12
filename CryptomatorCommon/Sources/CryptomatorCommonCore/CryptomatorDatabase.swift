@@ -215,6 +215,7 @@ public class CryptomatorDatabase {
 			table.column("accountUID", .text).primaryKey().references("cloudProviderAccounts", onDelete: .cascade)
 			table.column("credentialID", .text).notNull()
 			table.column("driveID", .text)
+			table.column("siteURL", .text)
 			table.column("type", .text).notNull()
 			table.uniqueKey(["credentialID", "driveID", "type"])
 		}
@@ -227,7 +228,7 @@ public class CryptomatorDatabase {
 			try db.execute(sql: "UPDATE vaultAccounts SET delegateAccountUID = ? WHERE delegateAccountUID = ?", arguments: [newAccountUID, oldAccountUID])
 			try db.execute(sql: "UPDATE accountListPosition SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newAccountUID, newCloudProviderType, oldAccountUID])
 			let newMicrosoftGraphType = MicrosoftGraphType.oneDrive.databaseValue
-			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (accountUID, credentialID, driveID, type) VALUES (?, ?, NULL, ?)", arguments: [newAccountUID, oldAccountUID, newMicrosoftGraphType])
+			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (accountUID, credentialID, driveID, siteURL, type) VALUES (?, ?, NULL, NULL, ?)", arguments: [newAccountUID, oldAccountUID, newMicrosoftGraphType])
 		}
 	}
 
