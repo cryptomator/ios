@@ -133,9 +133,8 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
 		var detailLabelTextComponents: [String] = []
-		if let siteURL = account.siteURL?.absoluteString, let regex = try? NSRegularExpression(pattern: SharePointURLValidator.pattern), let match = regex.firstMatch(in: siteURL, range: NSRange(siteURL.startIndex..., in: siteURL)), let companyRange = Range(match.range(at: 1), in: siteURL), let siteRange = Range(match.range(at: 2), in: siteURL) {
-			detailLabelTextComponents.append(String(siteURL[companyRange]))
-			detailLabelTextComponents.append(String(siteURL[siteRange]))
+		if let siteURL = account.siteURL?.absoluteString.replacingOccurrences(of: "https://", with: "") {
+			detailLabelTextComponents.append(siteURL)
 		}
 		if account.driveID != nil {
 			detailLabelTextComponents.append("(…)")
@@ -153,9 +152,8 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		let discovery = MicrosoftGraphDiscovery(credential: credential)
 		return discovery.fetchDrive(for: driveID).then { drive in
 			var detailLabelTextComponents: [String] = []
-			if let siteURL = account.siteURL?.absoluteString, let regex = try? NSRegularExpression(pattern: SharePointURLValidator.pattern), let match = regex.firstMatch(in: siteURL, range: NSRange(siteURL.startIndex..., in: siteURL)), let companyRange = Range(match.range(at: 1), in: siteURL), let siteRange = Range(match.range(at: 2), in: siteURL) {
-				detailLabelTextComponents.append(String(siteURL[companyRange]))
-				detailLabelTextComponents.append(String(siteURL[siteRange]))
+			if let siteURL = account.siteURL?.absoluteString.replacingOccurrences(of: "https://", with: "") {
+				detailLabelTextComponents.append(siteURL)
 			}
 			detailLabelTextComponents.append("\(drive.name ?? "<unknown-drive-name>")")
 			let detailLabelText = detailLabelTextComponents.joined(separator: " • ")

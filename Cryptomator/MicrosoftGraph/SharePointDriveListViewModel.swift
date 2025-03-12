@@ -36,7 +36,8 @@ class SharePointDriveListViewModel {
 			errorListener?(SharePointURLValidatorError.invalidURL)
 			return
 		}
-		discovery.fetchSharePointSite(for: hostName, serverRelativePath: url.lastPathComponent).then { site in
+		let serverRelativePath = url.relativePath
+		discovery.fetchSharePointSite(for: hostName, serverRelativePath: serverRelativePath).then { site in
 			self.fetchDrives(for: site.identifier)
 		}.catch { error in
 			self.errorListener?(error)

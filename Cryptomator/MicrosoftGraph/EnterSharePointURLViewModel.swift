@@ -30,7 +30,11 @@ class EnterSharePointURLViewModel: SingleSectionTableViewModel, EnterSharePointU
 	let sharePointURLCellViewModel = TextFieldCellViewModel(type: .url, text: "https://", placeholder: LocalizedString.getValue("sharePoint.enterURL.placeholder"), isInitialFirstResponder: true)
 
 	var trimmedSharePointURL: String {
-		return sharePointURLCellViewModel.input.value.trimmingCharacters(in: .whitespacesAndNewlines)
+		var trimmedSharePointURL = sharePointURLCellViewModel.input.value.trimmingCharacters(in: .whitespacesAndNewlines)
+		while trimmedSharePointURL.hasSuffix("/") && trimmedSharePointURL.count > "https://".count {
+			trimmedSharePointURL = String(trimmedSharePointURL.dropLast())
+		}
+		return trimmedSharePointURL
 	}
 
 	private lazy var subscribers = Set<AnyCancellable>()
