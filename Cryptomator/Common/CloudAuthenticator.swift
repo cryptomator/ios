@@ -149,7 +149,13 @@ class CloudAuthenticator {
 	}
 
 	func authenticateS3(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		return S3Authenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
+		return S3Authenticator.authenticate(from: viewController).recover { error -> S3Credential in
+			if case S3AuthenticationError.userCanceled = error {
+				throw CloudAuthenticatorError.userCanceled
+			} else {
+				throw error
+			}
+		}.then { credential -> CloudProviderAccount in
 			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .s3(type: .custom))
 			try self.accountManager.saveNewAccount(account)
 			return account

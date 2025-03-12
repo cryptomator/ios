@@ -224,8 +224,8 @@ public class CryptomatorDatabase {
 		ON microsoftGraphAccounts (credentialID, type)
 		WHERE driveID IS NULL
 		""")
-		enum LegacyOneDriveCloudProviderType: Codable, DatabaseValueConvertible { case oneDrive }
-		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = ?", arguments: [LegacyOneDriveCloudProviderType.oneDrive.databaseValue])
+		enum LegacyCloudProviderType: Codable, DatabaseValueConvertible { case oneDrive }
+		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = ?", arguments: [LegacyCloudProviderType.oneDrive.databaseValue])
 		for row in rows {
 			let oldAccountUID: String = row["accountUID"] // which is the `credentialID`
 			let newAccountUID = UUID().uuidString
