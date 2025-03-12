@@ -213,7 +213,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		child.start()
 	}
 
-	func showCreateNewFolder(parentPath: CloudPath) {}
+	func showCreateNewFolder(parentPath: CloudPath, delegate: ChooseFolderViewModelProtocol?) {}
 
 	func handleError(error: Error) {
 		navigationController.popViewController(animated: true)

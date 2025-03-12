@@ -31,7 +31,6 @@ class MoveVaultCoordinator: Coordinator {
 		let provider: CloudProvider
 		do {
 			provider = try CloudProviderDBManager.shared.getProvider(with: vaultInfo.delegateAccountUID)
-
 		} catch {
 			handleError(error, for: navigationController)
 			return
@@ -64,10 +63,11 @@ extension MoveVaultCoordinator: FolderChoosing {
 		close()
 	}
 
-	func showCreateNewFolder(parentPath: CloudPath) {
+	func showCreateNewFolder(parentPath: CloudPath, delegate: ChooseFolderViewModelProtocol?) {
 		let modalNavigationController = BaseNavigationController()
 		let child = AuthenticatedFolderCreationCoordinator(navigationController: modalNavigationController, provider: provider, parentPath: parentPath)
 		child.parentCoordinator = self
+		child.delegate = delegate
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()

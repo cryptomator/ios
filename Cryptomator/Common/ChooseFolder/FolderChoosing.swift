@@ -12,7 +12,7 @@ protocol FolderChoosing: AnyObject {
 	func showItems(for path: CloudPath)
 	func close()
 	func chooseItem(_ item: Item)
-	func showCreateNewFolder(parentPath: CloudPath)
+	func showCreateNewFolder(parentPath: CloudPath, delegate: ChooseFolderViewModelProtocol?)
 	func handleError(error: Error)
 }
 

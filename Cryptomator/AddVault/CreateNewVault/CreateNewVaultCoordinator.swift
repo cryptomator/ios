@@ -140,10 +140,11 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 		navigationController.pushViewController(passwordVC, animated: true)
 	}
 
-	func showCreateNewFolder(parentPath: CloudPath) {
+	func showCreateNewFolder(parentPath: CloudPath, delegate: ChooseFolderViewModelProtocol?) {
 		let modalNavigationController = BaseNavigationController()
 		let child = AuthenticatedFolderCreationCoordinator(navigationController: modalNavigationController, provider: provider, parentPath: parentPath)
 		child.parentCoordinator = self
+		child.delegate = delegate
 		childCoordinators.append(child)
 		navigationController.topViewController?.present(modalNavigationController, animated: true)
 		child.start()
@@ -168,6 +169,7 @@ private class AuthenticatedCreateNewVaultCoordinator: FolderChoosing, VaultInsta
 
 class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoordinator {
 	weak var parentCoordinator: Coordinator?
+	weak var delegate: ChooseFolderViewModelProtocol?
 	var childCoordinators = [Coordinator]()
 	var navigationController: UINavigationController
 	private let provider: CloudProvider
@@ -188,6 +190,7 @@ class AuthenticatedFolderCreationCoordinator: FolderCreating, ChildCoordinator {
 
 	func createdNewFolder(at folderPath: CloudPath) {
 		navigationController.dismiss(animated: true)
+		delegate?.addItem(CloudItemMetadata(name: folderPath.lastPathComponent, cloudPath: folderPath, itemType: .folder, lastModifiedDate: nil, size: nil))
 		if let folderChoosingParentCoordinator = parentCoordinator as? FolderChoosing {
 			folderChoosingParentCoordinator.showItems(for: folderPath)
 		}

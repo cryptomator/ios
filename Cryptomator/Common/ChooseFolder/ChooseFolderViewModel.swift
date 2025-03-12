@@ -11,7 +11,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 
-protocol ChooseFolderViewModelProtocol {
+protocol ChooseFolderViewModelProtocol: AnyObject {
 	var canCreateFolder: Bool { get }
 	var cloudPath: CloudPath { get }
 	var foundMasterkey: Bool { get }
@@ -19,6 +19,7 @@ protocol ChooseFolderViewModelProtocol {
 	var items: [CloudItemMetadata] { get }
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void, onVaultDetection: @escaping (VaultDetailItem) -> Void)
 	func refreshItems()
+	func addItem(_ item: CloudItemMetadata)
 }
 
 class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
@@ -61,5 +62,11 @@ class ChooseFolderViewModel: ChooseFolderViewModelProtocol {
 		}.catch { error in
 			self.errorListener?(error)
 		}
+	}
+
+	func addItem(_ item: CloudItemMetadata) {
+		items.append(item)
+		items.sort { $0.name.localizedStandardCompare($1.name) == .orderedAscending }
+		changeListener?()
 	}
 }
