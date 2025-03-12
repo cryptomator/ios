@@ -48,8 +48,12 @@
 "addVault.openExistingVault.progress" = "Pievieno glabātavu…";
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
+
+"changePassword.error.invalidOldPassword" = "Pašreizējā parole ir nepareiza. Lūgums mēģināt vēlreiz.";
+"changePassword.header.currentPassword.title" = "Jāievada pašreizējā parole.";
 "changePassword.header.newPassword.title" = "Jāievada jaunā parole.";
 "changePassword.header.newPasswordConfirmation.title" = "Apstiprināt jauno paroli.";
+"changePassword.progress" = "Maina paroli…";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Vecākmape \"%@\" nepastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
@@ -143,6 +147,7 @@
 
 "unlockVault.button.unlock" = "Atslēgt";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
+"unlockVault.enableBiometricalUnlock.footer" = "Glabātavas atslēgšanas ar paroli vietā to var atslēgt ar %@.";
 "untrustedTLSCertificate.add" = "Uzticēties";
 "upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
@@ -152,9 +157,11 @@
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
-"vaultDetail.button.changeVaultPassword" = "Mainīt paroli";
+"vaultDetail.button.changeVaultPassword" = "Nomainīt paroli";
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
+"vaultDetail.changePassword.footer" = "Jāizvēlas tikai sev zināma stipra glabātavas parole un jātur tā drošā vietā.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ja iespējo %@, glabātavas parole tiks glabāta iOS atslēgu saišķī.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
 "vaultDetail.info.footer.accessVault" = "Glabātavai var piekļūt datņu lietotnē.";
 "vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
