@@ -398,6 +398,8 @@
 		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		7469AD9A266E26B0000DCD45 /* URL+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469AD99266E26B0000DCD45 /* URL+Zip.swift */; };
+		7478BA452D81800C00BD3250 /* OneDriveAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478BA442D81800900BD3250 /* OneDriveAuthenticator.swift */; };
+		7478BA472D8181F300BD3250 /* SharePointCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478BA462D8181EF00BD3250 /* SharePointCredential.swift */; };
 		747C35172762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */; };
 		747F2EB52587B7780072FB30 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		747F2F1F2587BC250072FB30 /* FileProviderNotificator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740375F02587AEB40023FF53 /* FileProviderNotificator.swift */; };
@@ -1013,6 +1015,8 @@
 		7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingNavigationController.swift; sourceTree = "<group>"; };
 		74626665283BD2D20070924B /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		7469AD99266E26B0000DCD45 /* URL+Zip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Zip.swift"; sourceTree = "<group>"; };
+		7478BA442D81800900BD3250 /* OneDriveAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OneDriveAuthenticator.swift; sourceTree = "<group>"; };
+		7478BA462D8181EF00BD3250 /* SharePointCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharePointCredential.swift; sourceTree = "<group>"; };
 		747C35162762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextHeaderFooterViewModel.swift; sourceTree = "<group>"; };
 		74833F9D27E4CCD800C1C5F0 /* nb */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nb; path = nb.lproj/Localizable.strings; sourceTree = "<group>"; };
 		748BF2062B571AE7006304AD /* ba */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ba; path = ba.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2043,9 +2047,11 @@
 				B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */,
 				B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */,
 				74A295EC2D80869700C54136 /* MicrosoftGraphAuthenticatorError+Localization.swift */,
+				7478BA442D81800900BD3250 /* OneDriveAuthenticator.swift */,
 				B34C53292D142B9200F30FE9 /* SharePointAuthenticating.swift */,
 				743D95FB2D76EE9A002D73C3 /* SharePointAuthenticationCoordinator.swift */,
 				74A295EE2D80902500C54136 /* SharePointAuthenticator.swift */,
+				7478BA462D8181EF00BD3250 /* SharePointCredential.swift */,
 				B379DBBE2D27F58C003B5849 /* SharePointDriveListViewController.swift */,
 				B379DBC02D27F5A4003B5849 /* SharePointDriveListViewModel.swift */,
 				B34C532B2D142BE000F30FE9 /* SharePointURLValidator.swift */,
@@ -2737,6 +2743,7 @@
 				4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */,
 				4A970FF4286C960E00337FDC /* S3CredentialVerifier.swift in Sources */,
 				4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */,
+				7478BA472D8181F300BD3250 /* SharePointCredential.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
 				4A9D124F261F071F00A670E2 /* WebDAVAuthenticator+VC.swift in Sources */,
@@ -2823,6 +2830,7 @@
 				4A1673E3270C4DD90075C724 /* LoadingWithLabelCellViewModel.swift in Sources */,
 				4AFCE4DD25B8514F0069C4FC /* EditableTableViewHeader.swift in Sources */,
 				4A2FD07025B5D5FB008565C8 /* ChooseCloudViewController.swift in Sources */,
+				7478BA452D81800C00BD3250 /* OneDriveAuthenticator.swift in Sources */,
 				4A1EB0CA2689C373006D072B /* LocalVaultAdding.swift in Sources */,
 				4A4B7E6D26B9462F009BFDB1 /* Bindable.swift in Sources */,
 				4A512D6A274277FF00DC26F8 /* EditableDataSource.swift in Sources */,
