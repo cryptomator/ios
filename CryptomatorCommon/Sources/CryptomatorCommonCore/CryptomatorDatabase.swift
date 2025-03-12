@@ -225,7 +225,7 @@ public class CryptomatorDatabase {
 		WHERE driveID IS NULL
 		""")
 		enum LegacyOneDriveCloudProviderType: Codable, DatabaseValueConvertible { case oneDrive }
-		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = '?'", arguments: [LegacyOneDriveCloudProviderType.oneDrive.databaseValue])
+		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = ?", arguments: [LegacyOneDriveCloudProviderType.oneDrive.databaseValue])
 		for row in rows {
 			let oldAccountUID: String = row["accountUID"] // which is the `credentialID`
 			let newAccountUID = UUID().uuidString
