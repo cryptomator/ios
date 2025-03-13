@@ -92,7 +92,7 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedDrive = viewModel.drives[indexPath.row]
 		do {
-			let credential = SharePointCredential(siteURL: viewModel.url, credential: viewModel.credential, driveID: selectedDrive.identifier)
+			let credential = SharePointCredential(siteURL: viewModel.siteURL, credential: viewModel.credential, driveID: selectedDrive.identifier)
 			try coordinator?.authenticated(credential)
 		} catch {
 			coordinator?.handleError(error, for: self)

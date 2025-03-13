@@ -216,8 +216,8 @@
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
 "sharePoint.enterURL.header.title" = "Enter the URL of the SharePoint site in this format: https://<company>.sharepoint.com/sites/<site>";
-"sharePoint.urlValidator.error.emptyURL" = "The URL cannot be empty.";
-"sharePoint.urlValidator.error.invalidURL" = "The URL is invalid. Please use this format: https://<company>.sharepoint.com/sites/<site>";
+"sharePoint.urlValidation.error.emptyURL" = "The URL cannot be empty.";
+"sharePoint.urlValidation.error.invalidURL" = "The URL is invalid. Please use this format: https://<company>.sharepoint.com/sites/<site>";
 "sharePoint.selectDrive.title" = "Select Drive";
 "sharePoint.selectDrive.header.title" = "Select the SharePoint drive you want to work with.";
 "sharePoint.selectDrive.emptyList.footer" = "No Drives Available";

@@ -10,7 +10,7 @@ import CryptomatorCloudAccessCore
 import UIKit
 
 protocol SharePointAuthenticating: AnyObject {
-	func setURL(_ url: URL, from viewController: UIViewController)
+	func setSiteURL(_ siteURL: URL, from viewController: UIViewController)
 	func authenticated(_ credential: SharePointCredential) throws
 	func cancel()
 }

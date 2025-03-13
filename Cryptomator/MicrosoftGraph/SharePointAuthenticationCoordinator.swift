@@ -30,9 +30,9 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 		navigationController.pushViewController(enterURLVC, animated: true)
 	}
 
-	func setURL(_ url: URL, from viewController: UIViewController) {
+	func setSiteURL(_ siteURL: URL, from viewController: UIViewController) {
 		MicrosoftGraphAuthenticator.authenticate(from: viewController, for: .sharePoint).then { credential in
-			self.showDriveList(credential: credential, url: url)
+			self.showDriveList(credential: credential, siteURL: siteURL)
 		}.catch { error in
 			guard case CocoaError.userCancelled = error else {
 				self.handleError(error, for: self.navigationController)
@@ -41,8 +41,8 @@ class SharePointAuthenticationCoordinator: Coordinator, SharePointAuthenticating
 		}
 	}
 
-	private func showDriveList(credential: MicrosoftGraphCredential, url: URL) {
-		let viewModel = SharePointDriveListViewModel(credential: credential, url: url)
+	private func showDriveList(credential: MicrosoftGraphCredential, siteURL: URL) {
+		let viewModel = SharePointDriveListViewModel(credential: credential, siteURL: siteURL)
 		let driveListVC = SharePointDriveListViewController(viewModel: viewModel)
 		driveListVC.coordinator = self
 		navigationController.pushViewController(driveListVC, animated: true)

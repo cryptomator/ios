@@ -34,8 +34,8 @@ class EnterSharePointURLViewController: SingleSectionStaticUITableViewController
 	@objc func nextButtonClicked() {
 		guard let coordinator = coordinator else { return }
 		do {
-			let url = try viewModel.getValidatedSharePointURL()
-			coordinator.setURL(url, from: self)
+			let siteURL = try viewModel.getValidatedSharePointURL()
+			coordinator.setSiteURL(siteURL, from: self)
 		} catch {
 			coordinator.handleError(error, for: self)
 		}

@@ -12,17 +12,17 @@ import Foundation
 
 class SharePointDriveListViewModel {
 	let credential: MicrosoftGraphCredential
-	let url: URL
+	let siteURL: URL
 
 	private let discovery: MicrosoftGraphDiscovery
 	private var changeListener: (() -> Void)?
 	private var errorListener: ((Error) -> Void)?
 	private(set) var drives: [MicrosoftGraphDrive] = []
 
-	init(credential: MicrosoftGraphCredential, url: URL) {
+	init(credential: MicrosoftGraphCredential, siteURL: URL) {
 		self.credential = credential
 		self.discovery = MicrosoftGraphDiscovery(credential: credential)
-		self.url = url
+		self.siteURL = siteURL
 	}
 
 	func startListenForChanges(onChange: @escaping () -> Void, onError: @escaping (Error) -> Void) {
@@ -32,12 +32,7 @@ class SharePointDriveListViewModel {
 	}
 
 	func refreshItems() {
-		guard let hostName = url.host else {
-			errorListener?(SharePointURLValidatorError.invalidURL)
-			return
-		}
-		let serverRelativePath = url.relativePath
-		discovery.fetchSharePointSite(for: hostName, serverRelativePath: serverRelativePath).then { site in
+		discovery.fetchSharePointSite(for: siteURL).then { site in
 			self.fetchDrives(for: site.identifier)
 		}.catch { error in
 			self.errorListener?(error)

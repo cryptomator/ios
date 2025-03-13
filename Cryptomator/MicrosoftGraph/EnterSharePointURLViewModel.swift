@@ -7,6 +7,7 @@
 //
 
 import Combine
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 
@@ -40,7 +41,10 @@ class EnterSharePointURLViewModel: SingleSectionTableViewModel, EnterSharePointU
 	private lazy var subscribers = Set<AnyCancellable>()
 
 	func getValidatedSharePointURL() throws -> URL {
-		return try SharePointURLValidator.validateSharePointURL(urlString: trimmedSharePointURL)
+		guard let url = URL(string: trimmedSharePointURL) else {
+			throw SharePointURLValidationError.invalidURL
+		}
+		return try url.validateForSharePoint()
 	}
 
 	override func getHeaderTitle(for section: Int) -> String? {
