@@ -101,6 +101,7 @@
 
 "keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
 "keepUnlocked.alert.confirm" = "Apstiprināt un uzreiz aizslēgt";
+"keepUnlocked.footer.on" = "Izmantojot atlasīto iespēju atslēgas kopija ir jāglabā iOS atslēgu saišķī, kamēr vien glabātava ir atslēgta.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
 "localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
@@ -110,6 +111,8 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
+
+"onboarding.title" = "Laipni lūdzam";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Tagad ierobežotu laiku var izmantot pilno Cryptomator versiju. Izmēģinājums beigsies %@. Pēc tam glabātavām joprojām varēs piekļūt tikai lasāmā režīmā.";
