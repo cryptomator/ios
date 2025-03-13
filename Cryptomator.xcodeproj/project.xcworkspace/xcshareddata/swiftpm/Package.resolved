@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/openid/AppAuth-iOS.git",
       "state" : {
-        "revision" : "c89ed571ae140f8eb1142735e6e23d7bb8c34cb2",
-        "version" : "1.7.5"
+        "revision" : "2781038865a80e2c425a1da12cc1327bcd56501f",
+        "version" : "1.7.6"
       }
     },
     {
@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/ASN1",
       "state" : {
-        "revision" : "4b4e82513e3b4d51a7573972fd7123222dd3a3bd",
-        "version" : "2.6.0"
+        "revision" : "e38d1b8b43d8b53ffadde9836f34289176bb7a0c",
+        "version" : "2.7.0"
       }
     },
     {
@@ -50,8 +50,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/BigInt",
       "state" : {
-        "revision" : "bf55e4ce076a5e2dde0db13d9b03d820cfad420d",
-        "version" : "1.19.0"
+        "revision" : "afb70a0038bfbba845271b60fa9a58d5840f8017",
+        "version" : "1.21.0"
       }
     },
     {
@@ -68,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/cryptomator/cloud-access-swift.git",
       "state" : {
-        "revision" : "299be2306bc133b6eefbf18c172a1b5ed9808a44",
-        "version" : "1.12.1"
+        "revision" : "dad2308e68f2be8965df72647c47f5ad9547feb3",
+        "version" : "2.0.0"
       }
     },
     {
@@ -95,8 +95,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/leif-ibsen/Digest",
       "state" : {
-        "revision" : "844a17be22efaa443130d081f2c4fa5f12c68e91",
-        "version" : "1.8.0"
+        "revision" : "1b9858026d5d3cb7b371fb1683ece54a654dfb21",
+        "version" : "1.11.0"
       }
     },
     {
@@ -158,8 +158,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/AzureAD/microsoft-authentication-library-for-objc.git",
       "state" : {
-        "revision" : "b8733236bfd16e10849f4752a4d1c4621e4bf930",
-        "version" : "1.5.0"
+        "revision" : "bad310566a9f86cc5f41b0a4e29618f7f7d5d5f6",
+        "version" : "1.5.1"
       }
     },
     {
@@ -185,8 +185,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pCloud/pcloud-sdk-swift.git",
       "state" : {
-        "revision" : "ad1a7d8b3a59f12185d7bc89ff7a1b8c087ed0c0",
-        "version" : "3.2.2"
+        "revision" : "cc81e0250a9f378019470c78ce9a8bb501dcaeda",
+        "version" : "3.2.3"
       }
     },
     {
@@ -212,8 +212,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-log",
       "state" : {
-        "revision" : "9cb486020ebf03bfa5b5df985387a14a98744537",
-        "version" : "1.6.1"
+        "revision" : "3d8596ed08bd13520157f0355e35caed215ffbfa",
+        "version" : "1.6.3"
       }
     },
     {
@@ -248,8 +248,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
       "state" : {
-        "revision" : "bc2a151366f2cd0e347274544933bc2acb00c9fe",
-        "version" : "1.4.0"
+        "revision" : "39de59b2d47f7ef3ca88a039dff3084688fe27f4",
+        "version" : "1.5.2"
       }
     }
   ],
