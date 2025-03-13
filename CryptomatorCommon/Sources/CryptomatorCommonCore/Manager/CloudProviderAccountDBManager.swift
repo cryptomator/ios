@@ -50,7 +50,7 @@ public class CloudProviderAccountDBManager: CloudProviderAccountManager {
 			return try CloudProviderAccount.fetchOne(db, key: accountUID)
 		}
 		guard let account = account else {
-			throw MicrosoftGraphAccountError.accountNotFoundError
+			throw CloudProviderAccountError.accountNotFoundError
 		}
 		return account
 	}
