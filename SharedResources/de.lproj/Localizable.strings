@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Der Vorgang kann nicht durchgeführt werden, da zuerst andere Hintergrundprozesse für diesen Tresor beendet werden müssen. Bitte versuche es später erneut.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Die notwendigen Berechtigungen für den Zugriff auf die Ressourcen konnten nicht abgerufen werden. Bitte versuche es mit einem anderen Konto erneut.";
+
 "nameValidation.error.endsWithPeriod" = "Namen dürfen nicht mit einem Punkt enden. Wähle einen anderen Namen.";
 "nameValidation.error.endsWithSpace" = "Namen dürfen nicht mit einem Leerzeichen enden. Wähle einen anderen Namen.";
 "nameValidation.error.containsIllegalCharacter" = "Namen dürfen kein „%@“ beinhalten. Wähle einen anderen Namen.";
