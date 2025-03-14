@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "A operação não pode ser realizada porque outras operações em segundo plano para este cofre têm que terminar primeiro. Por favor, tente novamente mais tarde.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "As permissões necessárias para acessar os recursos não puderam ser obtidos. Por favor, tente utilizar uma conta diferente.";
+
 "nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
 "nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termina com um espaço. Por favor, escolha outro nome.";
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
@@ -210,6 +212,15 @@
 "settings.sendLogFile" = "Enviar arquivo de log";
 "settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloqueie a Versão Completa";
+
+"sharePoint.enterURL.title" = "Digite URL do SharePoint";
+"sharePoint.enterURL.placeholder" = "URL do Site SharePoint";
+"sharePoint.enterURL.header.title" = "Use este formato de URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "A URL não pode ser vazia.";
+"sharePoint.urlValidation.error.invalidURL" = "A URL é inválida. Por favor, use este formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Selecionar Biblioteca de Documentos";
+"sharePoint.selectDrive.header.title" = "Selecione a biblioteca de documentos SharePoint com a qual você deseja trabalhar.";
+"sharePoint.selectDrive.emptyList.footer" = "Não há Bibliotecas de Documentos Disponíveis";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
