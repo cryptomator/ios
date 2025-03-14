@@ -210,6 +210,9 @@
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.shortcutsGuide" = "Snelkoppelingen Gids";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
+"sharePoint.selectDrive.title" = "Selecteer documentbibliotheek";
+"sharePoint.selectDrive.header.title" = "Selecteer de SharePoint documentbibliotheek waarmee u wilt werken.";
+"sharePoint.selectDrive.emptyList.footer" = "Geen documentbibliotheken beschikbaar";
 
 "snapshots.fileprovider.file1" = "/Rekening.getallen";
 "snapshots.fileprovider.file2" = "/Laatste presentatie.key";
