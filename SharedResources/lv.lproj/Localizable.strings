@@ -110,6 +110,8 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
+
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nevarēja iegūt nepieciešamāš atļaujas, lai piekļūtu resursiem. Lūgums mēģināt izmantot citu kontu.";
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 
 "onboarding.title" = "Laipni lūdzam";
@@ -129,6 +131,15 @@
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
 "settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
+
+"sharePoint.enterURL.title" = "Jāievada SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint vietnes URL";
+"sharePoint.enterURL.header.title" = "Jāizmanto šāda URL uzbūve:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL nevar būt tukšs.";
+"sharePoint.urlValidation.error.invalidURL" = "URL ir nederīgs. Lūgums izmantot šādu uzbūvi: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Atlasīt dokumentu bibliotēku";
+"sharePoint.selectDrive.header.title" = "Atlasīt SharePoint dokumentu bibliotēku, ar kuru ir vēlme strādāt.";
+"sharePoint.selectDrive.emptyList.footer" = "Nav pieejama neviena dokumentu bibliotēka";
 
 "snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
 "snapshots.fileprovider.file2" = "/Gala prezentācija.key";
