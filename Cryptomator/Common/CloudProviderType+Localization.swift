@@ -31,6 +31,27 @@ extension CloudProviderType {
 			return "WebDAV"
 		}
 	}
+
+	func localizedSecondaryString() -> String? {
+		switch self {
+		case .box:
+			return nil
+		case .dropbox:
+			return nil
+		case .googleDrive:
+			return nil
+		case .localFileSystem:
+			return nil
+		case let .microsoftGraph(type):
+			return type.localizedSecondaryString()
+		case .pCloud:
+			return nil
+		case .s3:
+			return nil
+		case .webDAV:
+			return nil
+		}
+	}
 }
 
 extension LocalFileSystemType {
@@ -51,6 +72,15 @@ extension MicrosoftGraphType {
 			return "OneDrive"
 		case .sharePoint:
 			return "SharePoint"
+		}
+	}
+
+	func localizedSecondaryString() -> String? {
+		switch self {
+		case .oneDrive:
+			return nil
+		case .sharePoint:
+			return LocalizedString.getValue("cloudProviderType.sharePoint.secondary")
 		}
 	}
 }

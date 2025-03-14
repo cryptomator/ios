@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "cloudProviderType.localFileSystem" = "Other File Provider";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Welcome";
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
