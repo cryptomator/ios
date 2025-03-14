@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internet verbinding nodig voor deze actie.";
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Welkom";
 "fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
