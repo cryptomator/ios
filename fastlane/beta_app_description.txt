@@ -1,0 +1,5 @@
+Welcome to the beta test of Cryptomator!
+
+With Cryptomator, the key to your data is in your hands. Cryptomator secures and encrypts your sensitive data in your favorite cloud service. So you can rest assured that only you can access your data.
+
+This beta version allows you to test new features and improvements before the public release. Your feedback helps us enhance security, stability, and usability. Feel free to reach us at testflight@cryptomator.org.

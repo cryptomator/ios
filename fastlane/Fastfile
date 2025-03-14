@@ -46,7 +46,8 @@ platform :ios do
     scan
     gym
     changelog = File.read("changelog.txt")
-    pilot(changelog: changelog, distribute_external: true, groups: ["External Testers"])
+    beta_app_description = File.read("beta_app_description.txt")
+    pilot(beta_app_feedback_email: "testflight@cryptomator.org", beta_app_description: beta_app_description, changelog: changelog, distribute_external: true, groups: ["External Testers"])
     version = get_version_number(target: "Cryptomator")
     build = `git rev-list --count $(git rev-parse --abbrev-ref HEAD) | tr -d " \t\n\r"`
     slack(
