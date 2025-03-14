@@ -218,9 +218,9 @@
 "sharePoint.enterURL.header.title" = "Use this URL format:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "The URL cannot be empty.";
 "sharePoint.urlValidation.error.invalidURL" = "The URL is invalid. Please use this format: https://{…}.sharepoint.com/{sites|teams}/{…}";
-"sharePoint.selectDrive.title" = "Select Drive";
-"sharePoint.selectDrive.header.title" = "Select the SharePoint drive you want to work with.";
-"sharePoint.selectDrive.emptyList.footer" = "No Drives Available";
+"sharePoint.selectDrive.title" = "Select Document Library";
+"sharePoint.selectDrive.header.title" = "Select the SharePoint document library you want to work with.";
+"sharePoint.selectDrive.emptyList.footer" = "No Document Libraries Available";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
