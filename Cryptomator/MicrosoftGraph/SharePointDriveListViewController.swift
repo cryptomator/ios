@@ -62,7 +62,7 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "SharePointDriveCell", for: indexPath)
 		let drive = viewModel.drives[indexPath.row]
 		cell.textLabel?.text = drive.name
-		cell.imageView?.image = UIImage(systemName: "folder")
+		cell.imageView?.image = UIImage(systemName: "books.vertical")
 		return cell
 	}
 
