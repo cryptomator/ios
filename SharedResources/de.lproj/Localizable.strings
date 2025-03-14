@@ -213,6 +213,15 @@
 "settings.shortcutsGuide" = "Leitfaden für Kurzbefehle";
 "settings.unlockFullVersion" = "Vollversion freischalten";
 
+"sharePoint.enterURL.title" = "SharePoint-URL eingeben";
+"sharePoint.enterURL.placeholder" = "SharePoint-Site-URL";
+"sharePoint.enterURL.header.title" = "Nutze dieses URL-Format:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "Die URL muss ausgefüllt werden.";
+"sharePoint.urlValidation.error.invalidURL" = "Die URL ist ungültig. Bitte nutze dieses Format: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Dokumentenbibliothek auswählen";
+"sharePoint.selectDrive.header.title" = "Wähle die SharePoint-Dokumentenbibliothek aus, mit der du arbeiten möchtest.";
+"sharePoint.selectDrive.emptyList.footer" = "Keine Dokumentenbibliotheken verfügbar";
+
 "snapshots.fileprovider.file1" = "/Buchhaltung.numbers";
 "snapshots.fileprovider.file2" = "/Abschlusspräsentation.key";
 "snapshots.fileprovider.file3" = "/Produkttrailer.mov";
