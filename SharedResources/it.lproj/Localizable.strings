@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "L'operazione non può essere eseguita perché altre operazioni in background per questa cassaforte devono prima terminare. Riprova più tardi.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Non è stato possibile ottenere i permessi necessari per accedere alle risorse. Prova a utilizzare un altro account.";
+
 "nameValidation.error.endsWithPeriod" = "Non è possibile utilizzare un nome che termina con uno spazio. Si prega di scegliere un altro nome.";
 "nameValidation.error.endsWithSpace" = "Non è possibile utilizzare un nome che termina con uno spazio. Si prega di scegliere un altro nome.";
 "nameValidation.error.containsIllegalCharacter" = "Non è possibile usare un nome che contiene \"%@\". Scegliere un altro nome.";
@@ -210,6 +212,12 @@
 "settings.sendLogFile" = "Invia File di Registro";
 "settings.shortcutsGuide" = "Guida alle scorciatoie";
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
+
+"sharePoint.enterURL.title" = "Inserisci l'URL di SharePoint";
+"sharePoint.enterURL.placeholder" = "URL sito di SharePoint";
+"sharePoint.enterURL.header.title" = "Usa questo formato URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "L'URL non può essere vuoto.";
+"sharePoint.urlValidation.error.invalidURL" = "L'URL non è valido. Si prega di utilizzare questo formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Presentatione Finale.Key";
