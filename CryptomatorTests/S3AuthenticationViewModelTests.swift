@@ -105,7 +105,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		wait(for: recorder, timeout: 1.0)
 		let stateChanges = recorder.getElements()
-		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3AuthenticationViewModelError.invalidCredentials)]
+		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3AuthenticationError.invalidCredentials)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
 	}
 
@@ -120,7 +120,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		wait(for: recorder, timeout: 1.0)
 		let stateChanges = recorder.getElements()
-		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationViewModelError.invalidEndpoint)]
+		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationError.invalidEndpoint)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
 	}
 

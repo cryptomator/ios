@@ -41,10 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		DropboxSetup.constants = DropboxSetup(appKey: CloudAccessSecrets.dropboxAppKey, sharedContainerIdentifier: nil, keychainService: CryptomatorConstants.mainAppBundleId, forceForegroundSession: true)
 		GoogleDriveSetup.constants = GoogleDriveSetup(clientId: CloudAccessSecrets.googleDriveClientId, redirectURL: CloudAccessSecrets.googleDriveRedirectURL!, sharedContainerIdentifier: nil)
 		do {
-			let oneDriveConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.oneDriveClientId, redirectUri: CloudAccessSecrets.oneDriveRedirectURI, authority: nil)
-			oneDriveConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
-			let oneDriveClientApplication = try MSALPublicClientApplication(configuration: oneDriveConfiguration)
-			OneDriveSetup.constants = OneDriveSetup(clientApplication: oneDriveClientApplication, sharedContainerIdentifier: nil)
+			let microsoftGraphConfiguration = MSALPublicClientApplicationConfig(clientId: CloudAccessSecrets.microsoftGraphClientId, redirectUri: CloudAccessSecrets.microsoftGraphRedirectURI, authority: nil)
+			microsoftGraphConfiguration.cacheConfig.keychainSharingGroup = CryptomatorConstants.mainAppBundleId
+			let microsoftGraphClientApplication = try MSALPublicClientApplication(configuration: microsoftGraphConfiguration)
+			MicrosoftGraphSetup.constants = MicrosoftGraphSetup(clientApplication: microsoftGraphClientApplication, sharedContainerIdentifier: nil)
 		} catch {
 			DDLogError("Setting up OneDrive failed with error: \(error)")
 		}
@@ -80,14 +80,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 					let credential = DropboxCredential(tokenUID: tokenUid)
 					DropboxAuthenticator.pendingAuthentication?.fulfill(credential)
 				} else if authResult.isCancel() {
-					DropboxAuthenticator.pendingAuthentication?.reject(DropboxAuthenticatorError.userCanceled)
+					DropboxAuthenticator.pendingAuthentication?.reject(CocoaError(.userCancelled))
 				} else if authResult.isError() {
 					DropboxAuthenticator.pendingAuthentication?.reject(authResult.nsError)
 				}
 			}
 		} else if url.scheme == CloudAccessSecrets.googleDriveRedirectURLScheme {
 			return GoogleDriveAuthenticator.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url) ?? false
-		} else if url.scheme == CloudAccessSecrets.oneDriveRedirectURIScheme {
+		} else if url.scheme == CloudAccessSecrets.microsoftGraphRedirectURIScheme {
 			return MSALPublicClientApplication.handleMSALResponse(url, sourceApplication: options[.sourceApplication] as? String)
 		}
 		return false

@@ -35,7 +35,7 @@ public enum CloudProviderAccountError: Error {
 }
 
 public protocol CloudProviderAccountManager {
-	func getCloudProviderType(for accountUID: String) throws -> CloudProviderType
+	func getAccount(for accountUID: String) throws -> CloudProviderAccount
 	func getAllAccountUIDs(for type: CloudProviderType) throws -> [String]
 	func saveNewAccount(_ account: CloudProviderAccount) throws
 	func removeAccount(with accountUID: String) throws
@@ -45,14 +45,14 @@ public class CloudProviderAccountDBManager: CloudProviderAccountManager {
 	@Dependency(\.database) var database
 	public static let shared = CloudProviderAccountDBManager()
 
-	public func getCloudProviderType(for accountUID: String) throws -> CloudProviderType {
-		let cloudAccount = try database.read { db in
+	public func getAccount(for accountUID: String) throws -> CloudProviderAccount {
+		let account = try database.read { db in
 			return try CloudProviderAccount.fetchOne(db, key: accountUID)
 		}
-		guard let providerType = cloudAccount?.cloudProviderType else {
+		guard let account = account else {
 			throw CloudProviderAccountError.accountNotFoundError
 		}
-		return providerType
+		return account
 	}
 
 	public func getAllAccountUIDs(for type: CloudProviderType) throws -> [String] {

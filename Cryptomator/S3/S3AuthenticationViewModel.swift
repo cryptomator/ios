@@ -52,11 +52,11 @@ class S3AuthenticationViewModel: ObservableObject {
 
 	func saveS3Credential() {
 		guard !secretKey.isEmpty, !accessKey.isEmpty, !existingBucket.isEmpty, !endpoint.isEmpty, !region.isEmpty, !displayName.isEmpty else {
-			loginState = .error(S3AuthenticationViewModelError.emptyField)
+			loginState = .error(S3AuthenticationError.emptyField)
 			return
 		}
 		guard let url = URL(string: endpoint) else {
-			loginState = .error(S3AuthenticationViewModelError.invalidEndpoint)
+			loginState = .error(S3AuthenticationError.invalidEndpoint)
 			return
 		}
 		let credential = S3Credential(accessKey: accessKey,
@@ -78,7 +78,7 @@ class S3AuthenticationViewModel: ObservableObject {
 		let convertedError: Error
 		switch error {
 		case LocalizedCloudProviderError.unauthorized, CloudProviderError.unauthorized:
-			convertedError = S3AuthenticationViewModelError.invalidCredentials
+			convertedError = S3AuthenticationError.invalidCredentials
 		default:
 			convertedError = error
 		}
@@ -93,13 +93,13 @@ enum S3LoginState {
 	case notLoggedIn
 }
 
-enum S3AuthenticationViewModelError: Error {
+enum S3AuthenticationError: Error {
 	case emptyField
 	case invalidEndpoint
 	case invalidCredentials
 }
 
-extension S3AuthenticationViewModelError: LocalizedError {
+extension S3AuthenticationError: LocalizedError {
 	var errorDescription: String? {
 		switch self {
 		case .emptyField:

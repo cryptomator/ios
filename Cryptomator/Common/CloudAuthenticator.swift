@@ -18,11 +18,36 @@ class CloudAuthenticator {
 	private let accountManager: CloudProviderAccountManager
 	private let vaultManager: VaultManager
 	private let vaultAccountManager: VaultAccountManager
+	private let microsoftGraphAccountManager: MicrosoftGraphAccountManager
 
-	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared, vaultAccountManager: VaultAccountManager = VaultAccountDBManager.shared) {
+	init(accountManager: CloudProviderAccountManager, vaultManager: VaultManager = VaultDBManager.shared, vaultAccountManager: VaultAccountManager = VaultAccountDBManager.shared, microsoftGraphAccountManager: MicrosoftGraphAccountManager = MicrosoftGraphAccountDBManager.shared) {
 		self.accountManager = accountManager
 		self.vaultManager = vaultManager
 		self.vaultAccountManager = vaultAccountManager
+		self.microsoftGraphAccountManager = microsoftGraphAccountManager
+	}
+
+	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		switch cloudProviderType {
+		case .box:
+			return authenticateBox(from: viewController)
+		case .dropbox:
+			return authenticateDropbox(from: viewController)
+		case .googleDrive:
+			return authenticateGoogleDrive(from: viewController)
+		case .localFileSystem:
+			return Promise(CloudAuthenticatorError.functionNotYetSupported)
+		case .microsoftGraph(type: .oneDrive):
+			return authenticateOneDrive(from: viewController)
+		case .microsoftGraph(type: .sharePoint):
+			return authenticateSharePoint(from: viewController)
+		case .pCloud:
+			return authenticatePCloud(from: viewController)
+		case .s3:
+			return authenticateS3(from: viewController)
+		case .webDAV:
+			return authenticateWebDAV(from: viewController)
+		}
 	}
 
 	func authenticateDropbox(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -44,11 +69,11 @@ class CloudAuthenticator {
 	}
 
 	func authenticateOneDrive(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		OneDriveAuthenticator.authenticate(from: viewController).then { credential -> CloudProviderAccount in
-			let account = CloudProviderAccount(accountUID: credential.identifier, cloudProviderType: .oneDrive)
-			try self.accountManager.saveNewAccount(account)
-			return account
-		}
+		return OneDriveAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
+	}
+
+	func authenticateSharePoint(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
+		return SharePointAuthenticator.authenticate(from: viewController, cloudProviderAccountManager: accountManager, microsoftGraphAccountManager: microsoftGraphAccountManager)
 	}
 
 	func authenticatePCloud(from viewController: UIViewController) -> Promise<CloudProviderAccount> {
@@ -89,27 +114,6 @@ class CloudAuthenticator {
 		}
 	}
 
-	func authenticate(_ cloudProviderType: CloudProviderType, from viewController: UIViewController) -> Promise<CloudProviderAccount> {
-		switch cloudProviderType {
-		case .box:
-			return authenticateBox(from: viewController)
-		case .dropbox:
-			return authenticateDropbox(from: viewController)
-		case .googleDrive:
-			return authenticateGoogleDrive(from: viewController)
-		case .localFileSystem:
-			return Promise(CloudAuthenticatorError.functionNotYetSupported)
-		case .oneDrive:
-			return authenticateOneDrive(from: viewController)
-		case .pCloud:
-			return authenticatePCloud(from: viewController)
-		case .s3:
-			return authenticateS3(from: viewController)
-		case .webDAV:
-			return authenticateWebDAV(from: viewController)
-		}
-	}
-
 	func deauthenticate(account: CloudProviderAccount) throws {
 		switch account.cloudProviderType {
 		case .box:
@@ -124,9 +128,8 @@ class CloudAuthenticator {
 			credential.deauthenticate()
 		case .localFileSystem:
 			break
-		case .oneDrive:
-			let credential = try OneDriveCredential(with: account.accountUID)
-			try credential.deauthenticate()
+		case let .microsoftGraph(type):
+			try deauthenticateMicrosoftGraph(account: account, type: type)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: account.accountUID)
 			try credential.deauthenticate()
@@ -149,6 +152,16 @@ class CloudAuthenticator {
 			try self.accountManager.removeAccount(with: account.accountUID)
 		}.catch { error in
 			DDLogError("Deauthenticate account: \(account) failed with error: \(error)")
+		}
+	}
+
+	func deauthenticateMicrosoftGraph(account: CloudProviderAccount, type: MicrosoftGraphType) throws {
+		let microsoftGraphAccount = try microsoftGraphAccountManager.getAccount(for: account.accountUID)
+		if try microsoftGraphAccountManager.multipleAccountsExist(for: microsoftGraphAccount.credentialID) {
+			DDLogInfo("Skipped deauthentication for accountUID \(microsoftGraphAccount.accountUID) because the credentialID \(microsoftGraphAccount.credentialID) appears multiple times in the database.")
+		} else {
+			let credential = MicrosoftGraphCredential(identifier: microsoftGraphAccount.credentialID, type: type)
+			try credential.deauthenticate()
 		}
 	}
 }

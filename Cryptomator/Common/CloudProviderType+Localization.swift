@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 
@@ -18,10 +19,10 @@ extension CloudProviderType {
 			return "Dropbox"
 		case .googleDrive:
 			return "Google Drive"
-		case let .localFileSystem(localFileSystemType):
-			return localFileSystemType.localizedString()
-		case .oneDrive:
-			return "OneDrive"
+		case let .localFileSystem(type):
+			return type.localizedString()
+		case let .microsoftGraph(type):
+			return type.localizedString()
 		case .pCloud:
 			return "pCloud"
 		case .s3:
@@ -39,6 +40,17 @@ extension LocalFileSystemType {
 			return LocalizedString.getValue("cloudProviderType.localFileSystem")
 		case .iCloudDrive:
 			return "iCloud Drive"
+		}
+	}
+}
+
+extension MicrosoftGraphType {
+	func localizedString() -> String {
+		switch self {
+		case .oneDrive:
+			return "OneDrive"
+		case .sharePoint:
+			return "SharePoint"
 		}
 	}
 }

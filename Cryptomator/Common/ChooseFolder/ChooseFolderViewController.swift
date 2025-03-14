@@ -81,7 +81,7 @@ class ChooseFolderViewController: SingleSectionTableViewController {
 	}
 
 	@objc func createNewFolder() {
-		coordinator?.showCreateNewFolder(parentPath: viewModel.cloudPath)
+		coordinator?.showCreateNewFolder(parentPath: viewModel.cloudPath, delegate: viewModel)
 	}
 
 	@objc func pullToRefresh() {
@@ -205,6 +205,8 @@ private class ChooseFolderViewModelMock: ChooseFolderViewModelProtocol {
 	}
 
 	func refreshItems() {}
+
+	func addItem(_ item: CloudItemMetadata) {}
 }
 
 struct ChooseFolderVCPreview: PreviewProvider {

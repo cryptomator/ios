@@ -15,7 +15,6 @@ import Promises
 enum WebDAVAuthenticationError: Error {
 	case invalidInput
 	case untrustedCertificate(certificate: TLSCertificate, url: URL)
-	case userCanceled
 	case httpConnection
 }
 

@@ -10,10 +10,6 @@ import CryptomatorCommonCore
 import Promises
 import UIKit
 
-enum VaultDetailUnlockError: Error {
-	case userCanceled
-}
-
 class VaultDetailUnlockCoordinator: NSObject, Coordinator, VaultPasswordVerifying, UIAdaptivePresentationControllerDelegate {
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
@@ -48,7 +44,7 @@ class VaultDetailUnlockCoordinator: NSObject, Coordinator, VaultPasswordVerifyin
 	}
 
 	func cancel() {
-		pendingAuthentication.reject(VaultDetailUnlockError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 		close()
 	}
 
@@ -56,6 +52,6 @@ class VaultDetailUnlockCoordinator: NSObject, Coordinator, VaultPasswordVerifyin
 
 	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
 		// User has canceled the authentication by closing the modal via swipe
-		pendingAuthentication.reject(VaultDetailUnlockError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 	}
 }

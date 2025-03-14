@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import Foundation
 import StoreKit
@@ -49,7 +50,7 @@ class SettingsCoordinator: Coordinator {
 	}
 
 	func showCloudServices() {
-		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .oneDrive, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom)], headerTitle: "")
+		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .microsoftGraph(type: .oneDrive), .microsoftGraph(type: .sharePoint), .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom)], headerTitle: "")
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("settings.cloudServices")
 		chooseCloudVC.coordinator = self
@@ -119,7 +120,12 @@ extension SettingsCoordinator: CloudChoosing {
 extension SettingsCoordinator: AccountListing, DefaultShowEditAccountBehavior {
 	func showAddAccount(for cloudProviderType: CloudProviderType, from viewController: UIViewController) {
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
-		_ = authenticator.authenticate(cloudProviderType, from: viewController)
+		authenticator.authenticate(cloudProviderType, from: viewController).catch { error in
+			guard case CocoaError.userCancelled = error else {
+				self.handleError(error, for: self.navigationController)
+				return
+			}
+		}
 	}
 
 	func selectedAccont(_ account: AccountInfo) throws {}

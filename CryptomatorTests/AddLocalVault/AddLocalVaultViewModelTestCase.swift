@@ -56,14 +56,15 @@ class AddLocalVaultViewModelTestCase: XCTestCase {
 	}
 
 	class CloudProviderAccountManagerMock: CloudProviderAccountManager {
-		var savedAccounts = [CloudProviderAccount]()
-		func getCloudProviderType(for accountUID: String) throws -> CloudProviderType {
+		func getAccount(for accountUID: String) throws -> CryptomatorCommonCore.CloudProviderAccount {
 			throw MockError.notMocked
 		}
 
 		func getAllAccountUIDs(for type: CloudProviderType) throws -> [String] {
 			throw MockError.notMocked
 		}
+
+		var savedAccounts = [CloudProviderAccount]()
 
 		func saveNewAccount(_ account: CloudProviderAccount) throws {
 			savedAccounts.append(account)

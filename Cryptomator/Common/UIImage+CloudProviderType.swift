@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
@@ -24,10 +25,10 @@ extension UIImage {
 			assetName = "dropbox-vault"
 		case .googleDrive:
 			assetName = "google-drive-vault"
-		case let .localFileSystem(localFileSystemType):
-			assetName = UIImage.getVaultIcon(for: localFileSystemType)
-		case .oneDrive:
-			assetName = "onedrive-vault"
+		case let .localFileSystem(type):
+			assetName = UIImage.getVaultIcon(for: type)
+		case let .microsoftGraph(type):
+			assetName = UIImage.getVaultIcon(for: type)
 		case .pCloud:
 			assetName = "pcloud-vault"
 		case .s3:
@@ -50,6 +51,15 @@ extension UIImage {
 		}
 	}
 
+	private static func getVaultIcon(for type: MicrosoftGraphType) -> String {
+		switch type {
+		case .oneDrive:
+			return "onedrive-vault"
+		case .sharePoint:
+			return "sharepoint-vault"
+		}
+	}
+
 	convenience init?(storageIconFor cloudProviderType: CloudProviderType) {
 		var assetName: String
 		switch cloudProviderType {
@@ -59,10 +69,10 @@ extension UIImage {
 			assetName = "dropbox"
 		case .googleDrive:
 			assetName = "google-drive"
-		case let .localFileSystem(localFileSystemType):
-			assetName = UIImage.getStorageIcon(for: localFileSystemType)
-		case .oneDrive:
-			assetName = "onedrive"
+		case let .localFileSystem(type):
+			assetName = UIImage.getStorageIcon(for: type)
+		case let .microsoftGraph(type):
+			assetName = UIImage.getStorageIcon(for: type)
 		case .pCloud:
 			assetName = "pcloud"
 		case .s3:
@@ -79,6 +89,15 @@ extension UIImage {
 			return "file-provider"
 		case .iCloudDrive:
 			return "icloud-drive"
+		}
+	}
+
+	private static func getStorageIcon(for type: MicrosoftGraphType) -> String {
+		switch type {
+		case .oneDrive:
+			return "onedrive"
+		case .sharePoint:
+			return "sharepoint"
 		}
 	}
 }
