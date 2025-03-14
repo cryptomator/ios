@@ -218,6 +218,9 @@
 "sharePoint.enterURL.header.title" = "Použite tento URL formát: \nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "URL nemôže byť prázdne.";
 "sharePoint.urlValidation.error.invalidURL" = "URL je nesprávne. Použite prosím tento formát: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Vyberte Knižnicu dokumentov";
+"sharePoint.selectDrive.header.title" = "Vyberte knižnicu dokumentov SharePoint, s ktorou chcete pracovať.";
+"sharePoint.selectDrive.emptyList.footer" = "Nie sú dostupné žiadne knižnice dokumentov";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
