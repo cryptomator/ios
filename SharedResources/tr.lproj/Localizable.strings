@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Bu kasa için diğer arka plan işlemlerinin önce tamamlanması gerektiğinden işlem gerçekleştirilemez. Lütfen daha sonra tekrar deneyiniz.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Kaynağa erişim için gerekli izinleri alamadı. Lütfen farklı bir hesap ile deneyin.";
+
 "nameValidation.error.endsWithPeriod" = "Nokta ile biten bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
 "nameValidation.error.endsWithSpace" = "Boşluk ile biten bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
 "nameValidation.error.containsIllegalCharacter" = "\"%@\" içeren bir isim kullanamazsınız. Lütfen başka bir isim seçin.";
@@ -210,6 +212,12 @@
 "settings.sendLogFile" = "Günlük Dosyasını Gönder";
 "settings.shortcutsGuide" = "Kısayol Kılavuzu";
 "settings.unlockFullVersion" = "Tam Sürümün Kilidini Aç";
+
+"sharePoint.enterURL.title" = "SharePoint URL'si Girin";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL'si";
+"sharePoint.enterURL.header.title" = "Bu URL formatını kullanın:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL boş olamaz.";
+"sharePoint.urlValidation.error.invalidURL" = "URL geçersiz. Lütfen bu formatı kullanın: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
 "snapshots.fileprovider.file1" = "/Muhasebe.numbers";
 "snapshots.fileprovider.file2" = "/Son Sunum.key";
