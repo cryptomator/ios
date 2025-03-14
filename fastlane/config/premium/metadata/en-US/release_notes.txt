@@ -1,1 +1,1 @@
-- Improved compatibility with upcoming Cryptomator Hub update.
+- Introducing support for SharePoint, allowing secure access to vaults stored in a SharePoint document library, including Microsoft Teams (#402).
