@@ -216,6 +216,9 @@
 
 "sharePoint.enterURL.title" = "Entrez l'URL SharePoint";
 "sharePoint.enterURL.placeholder" = "URL du site SharePoint";
+"sharePoint.enterURL.header.title" = "Utilisez ce format d'URL :\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "L'URL ne peut pas être vide.";
+"sharePoint.urlValidation.error.invalidURL" = "L'URL n'est pas valide. Veuillez utiliser ce format : https://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.selectDrive.title" = "Sélectionner la bibliothèque de documents";
 "sharePoint.selectDrive.header.title" = "Sélectionnez la bibliothèque de documents SharePoint avec laquelle vous voulez travailler.";
 "sharePoint.selectDrive.emptyList.footer" = "Aucune bibliothèque de documents disponible";
