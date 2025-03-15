@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Для этой операции требуется подключение к Интернету.";
 
 "cloudProviderType.localFileSystem" = "Другой файловый провайдер";
+"cloudProviderType.sharePoint.secondary" = "вкл. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Добро пожаловать";
 "fileProvider.onboarding.info" = "Благодарим, что выбрали Cryptomator для защиты своих файлов. Чтобы начать, перейдите в главное приложение и добавьте хранилище.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Операция не может быть выполнена, так как для этого хранилища необходимо завершить другие фоновые операции. Повторите попытку позже.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Не удалось получить разрешения на доступ к ресурсам. Попробуйте использовать другую учётную запись.";
+
 "nameValidation.error.endsWithPeriod" = "Нельзя использовать имя, оканчивающееся точкой. Выберите другое имя.";
 "nameValidation.error.endsWithSpace" = "Нельзя использовать имя, оканчивающееся пробелом. Выберите другое имя.";
 "nameValidation.error.containsIllegalCharacter" = "Нельзя использовать имя, содержащее \"%@\". Выберите другое имя.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Отправить журнал";
 "settings.shortcutsGuide" = "Руководство по ярлыкам";
 "settings.unlockFullVersion" = "Получить полную версию";
+
+"sharePoint.enterURL.title" = "Введите URL-адрес SharePoint";
+"sharePoint.enterURL.placeholder" = "URL-адрес сайта SharePoint";
+"sharePoint.enterURL.header.title" = "Используйте этот формат URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL-адрес не может быть пустым.";
+"sharePoint.urlValidation.error.invalidURL" = "Недопустимый URL. Используйте этот формат: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Выбрать библиотеку документов";
+"sharePoint.selectDrive.header.title" = "Выберите библиотеку документов SharePoint, с которой вы хотите работать.";
+"sharePoint.selectDrive.emptyList.footer" = "Библиотеки документов недоступны";
 
 "snapshots.fileprovider.file1" = "/Отчётность.numbers";
 "snapshots.fileprovider.file2" = "/Финальная презентация.key";

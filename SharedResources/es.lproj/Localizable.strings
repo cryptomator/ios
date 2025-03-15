@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Se necesita conexión a Internet para esta operación.";
 
 "cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Bienvenido";
 "fileProvider.onboarding.info" = "Gracias por elegir Cryptomator para proteger sus archivos. Para empezar, vaya a la aplicación principal y añada una bóveda.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "La operación no puede realizarse porque otras operaciones en segundo plano para esta bóveda deben finalizar primero. Intente de nuevo más tarde.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "No se han podido obtener los permisos necesarios para acceder a los recursos. Por favor, intente usar una cuenta diferente.";
+
 "nameValidation.error.endsWithPeriod" = "No puede usar un nombre que termine con un punto. Elija otro nombre.";
 "nameValidation.error.endsWithSpace" = "No puede usar un nombre que termine con un espacio. Elija otro nombre.";
 "nameValidation.error.containsIllegalCharacter" = "No puede usar un nombre que contenga \"%@\". Elija otro nombre.";
@@ -210,6 +213,12 @@
 "settings.sendLogFile" = "Enviar archivo de registro";
 "settings.shortcutsGuide" = "Guía de accesos directos";
 "settings.unlockFullVersion" = "Desbloquear versión completa";
+
+"sharePoint.enterURL.title" = "Introduzca la URL de SharePoint";
+"sharePoint.enterURL.placeholder" = "URL del sitio SharePoint";
+"sharePoint.enterURL.header.title" = "Utilice este formato URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "La URL no puede estar vacío.";
+"sharePoint.urlValidation.error.invalidURL" = "La URL no es válida. Por favor utiliza este formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
 "snapshots.fileprovider.file1" = "/Números.contables";
 "snapshots.fileprovider.file2" = "/Presentación final.key";

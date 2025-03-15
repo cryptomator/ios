@@ -189,6 +189,9 @@
 "sharePoint.enterURL.header.title" = "Használja ezt az URL-formátumot:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "Az URL nem lehet üres.";
 "sharePoint.urlValidation.error.invalidURL" = "Az URL érvénytelen. Kérlem használja ezt az formátumot: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Dokumentumkönyvtár kiválasztása";
+"sharePoint.selectDrive.header.title" = "Válassza ki a SharePoint dokumentumkönyvtárat, amellyel dolgozni szeretne.";
+"sharePoint.selectDrive.emptyList.footer" = "Nincsenek elérhető dokumentumkönyvtárak";
 
 "snapshots.fileprovider.file1" = "/Könyevlés.numbers";
 "snapshots.fileprovider.file2" = "/Kész Előadás.key";
