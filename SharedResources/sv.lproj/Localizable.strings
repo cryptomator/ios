@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internetanslutning behövs för denna operation.";
 
 "cloudProviderType.localFileSystem" = "Annan filleverantör";
+"cloudProviderType.sharePoint.secondary" = "inkl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Välkommen";
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
