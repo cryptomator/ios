@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Kļūda";
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
@@ -103,6 +111,7 @@
 
 "keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
 "keepUnlocked.alert.confirm" = "Apstiprināt un uzreiz aizslēgt";
+"keepUnlocked.footer.auto" = "Ļaut iOS izlemt nozīmē, ka Cryptomator darbība var jebkurā laikā tikt pārtraukta, lai atbrīvotu atmiņu, kas automātiski aizslēdz glabātavu.";
 "keepUnlocked.footer.on" = "Izmantojot atlasīto iespēju atslēgas kopija ir jāglabā iOS atslēgu saišķī, kamēr vien glabātava ir atslēgta.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
