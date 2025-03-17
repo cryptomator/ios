@@ -56,12 +56,16 @@
 "addVault.openExistingVault.progress" = "Pievieno glabātavu…";
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
+"biometryType.touchID" = "Pirksta nospieduma ID";
 
 "changePassword.error.invalidOldPassword" = "Pašreizējā parole ir nepareiza. Lūgums mēģināt vēlreiz.";
 "changePassword.header.currentPassword.title" = "Jāievada pašreizējā parole.";
 "changePassword.header.newPassword.title" = "Jāievada jaunā parole.";
 "changePassword.header.newPasswordConfirmation.title" = "Apstiprināt jauno paroli.";
 "changePassword.progress" = "Maina paroli…";
+
+"chooseFolder.emptyFolder.footer" = "Tukša mape";
+"chooseFolder.createNewFolder.cells.name" = "Mapes nosaukums";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Vecākmape \"%@\" nepastāv.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
@@ -128,6 +132,14 @@
 "onboarding.title" = "Laipni lūdzam";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.product.lifetimeLicense.duration" = "vienreiz";
+"purchase.product.pricing.free" = "Bezmaksas";
+"purchase.product.trial" = "30 dienu izmēģinājuma versija";
+"purchase.product.trial.expirationDate" = "Beidzas: %@";
+"purchase.product.trial.duration" = "30 dienas";
+"purchase.product.yearlySubscription" = "Gada abonements";
+"purchase.product.yearlySubscription.duration" = "gads";
+"purchase.readOnlyMode.alert.title" = "Tikai lasīšanas režīms";
 "purchase.readOnlyMode.alert.message" = "Pilno Cryptomator versiju var atslēgt vēlāk iestatījumos un pagaidām izmantot tikai lasāmā režīmā.";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Tagad ierobežotu laiku var izmantot pilno Cryptomator versiju. Izmēģinājums beigsies %@. Pēc tam glabātavām joprojām varēs piekļūt tikai lasāmā režīmā.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
@@ -145,6 +157,8 @@
 "settings.aboutCryptomator.title" = "Versija %@ (%@)";
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
+"settings.contact" = "Kontakti";
+"settings.debugMode" = "Atkļūdošanas režīms";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
 "settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
@@ -167,6 +181,9 @@
 "snapshots.fileprovider.folder3" = "/Slepens projekts";
 "snapshots.fileprovider.folder2" = "/Rēķini";
 "snapshots.fileprovider.folder1" = "/Sertifikāti";
+"snapshots.main.vault1" = "/Darbs";
+"snapshots.main.vault2" = "/Ģimene";
+"snapshots.main.vault3" = "/Dokumenti";
 
 "s3Authentication.displayName" = "Attēlojamais vārds";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
@@ -177,9 +194,15 @@
 "s3Authentication.error.invalidCredentials" = "Nederīgi pieteikšanās dati.";
 "s3Authentication.error.invalidEndpoint" = "Norādītais galapunkts neatbilst URL uzbūvei.";
 
+"trialStatus.active" = "Aktīvs";
+"trialStatus.expired" = "Beidzies";
+
 "unlockVault.button.unlock" = "Atslēgt";
+"unlockVault.button.unlockVia" = "Atbloķēt ar %@";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
+"unlockVault.enableBiometricalUnlock.switch" = "Iespējot %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Glabātavas atslēgšanas ar paroli vietā to var atslēgt ar %@.";
+"unlockVault.evaluatePolicy.reason" = "Atbloķēt savu glabātavu";
 "untrustedTLSCertificate.add" = "Uzticēties";
 "upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
@@ -217,5 +240,5 @@
 "webDAVAuthenticator.error.unsupportedProtocol" = "Izskatās, ka serveris nav saderīgs ar WebDAV. Lūgums pārbaudīt, vai tiek izmantots pareizs URL.";
 "webDAVAuthenticator.error.untrustedCertificate" = "Šī servera sertifikātam nav uzticamības. Var būt nepieciešams pievienot šo WebDAV savienojumu no jauna.";
 
-"Retry Upload" = "Mēģināt augšupielādēt atkārtoti";
+"Retry Upload" = "Mēģināt vēlreiz augšupielādēt";
 "Clear from Cache" = "Iztīrīt no kešatmiņas";
