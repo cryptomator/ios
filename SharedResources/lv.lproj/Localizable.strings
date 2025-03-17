@@ -1,3 +1,11 @@
+/* 
+  Localizable.strings
+  Cryptomator
+
+  Copyright © 2021 Skymatic GmbH. All rights reserved.
+*/
+
+"common.alert.error.title" = "Kļūda";
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
@@ -59,6 +67,7 @@
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
 
 "cloudProviderType.localFileSystem" = "Cits datņu nodrošinātājs";
+"cloudProviderType.sharePoint.secondary" = "arī Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Laipni lūdzam";
 "fileProvider.onboarding.info" = "Paldies par izvēlēšanos izmantot Cryptomator, lai aizsargātu savas datnes! Lai uzsākktu, jādodas uz galveno lietotni un jāpievieno glabātava.";
@@ -79,6 +88,7 @@
 "fileProvider.uploadProgress.missing" = "Virzību nevarēja noteikt. Tā joprojām varētu darboties fonā.";
 "fileProvider.uploadProgress.title" = "Augšuplādē…";
 "fileProvider.uploadProgress.missingDomainError" = "Nevarēja atrast domēnu.";
+"getFolderIntent.error.noVaultSelected" = "Netika atlasīta neviena glabātava.";
 
 "hubAuthentication.title" = "Hub glabātava";
 "hubAuthentication.accessNotGranted" = "Nav atļaujas piekļūt šai glabātavai. Jālūdz tās īpašniekam, lai pilnvaro piekļuvi.";
@@ -101,6 +111,7 @@
 
 "keepUnlocked.alert.title" = "Aizslēgt glabātavu?";
 "keepUnlocked.alert.confirm" = "Apstiprināt un uzreiz aizslēgt";
+"keepUnlocked.footer.auto" = "Ļaut iOS izlemt nozīmē, ka Cryptomator darbība var jebkurā laikā tikt pārtraukta, lai atbrīvotu atmiņu, kas automātiski aizslēdz glabātavu.";
 "keepUnlocked.footer.on" = "Izmantojot atlasīto iespēju atslēgas kopija ir jāglabā iOS atslēgu saišķī, kamēr vien glabātava ir atslēgta.";
 
 "localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
@@ -110,25 +121,43 @@
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
+
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nevarēja iegūt nepieciešamāš atļaujas, lai piekļūtu resursiem. Lūgums mēģināt izmantot citu kontu.";
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 
 "onboarding.title" = "Laipni lūdzam";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.readOnlyMode.alert.message" = "Pilno Cryptomator versiju var atslēgt vēlāk iestatījumos un pagaidām izmantot tikai lasāmā režīmā.";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Tagad ierobežotu laiku var izmantot pilno Cryptomator versiju. Izmēģinājums beigsies %@. Pēc tam glabātavām joprojām varēs piekļūt tikai lasāmā režīmā.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
+"purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nav pilnā versija";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Mēs nevarējām atrast iepriekš iegādātu pilno versiku, kuru varētu atjaunot. Lūgums mēģināt citu iespēju.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Izskatās, ka tiek mēģināts uzlabot no vecākas Cryptomator versijas. Tādā gadījumā lūgums atlasīt \"Uzlabošanas piedāvājums\" iespēju.";
 "purchase.retry.button" = "Mēģināt vēlreiz";
+"purchase.title" = "Atslēgt pilno versiju";
 "purchase.unlockedFullVersion.message" = "Tagad var izmantot pilno Cryptomator versiju. Laimīgu šifrēšanu!";
 "purchase.unlockedFullVersion.title" = "Paldies!";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
 
 "settings.title" = "Iestatījumi";
 "settings.aboutCryptomator" = "Par Cryptomator";
+"settings.aboutCryptomator.title" = "Versija %@ (%@)";
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
 "settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
+"settings.unlockFullVersion" = "Atslēgt pilno versiju";
+
+"sharePoint.enterURL.title" = "Jāievada SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint vietnes URL";
+"sharePoint.enterURL.header.title" = "Jāizmanto šāda URL uzbūve:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL nevar būt tukšs.";
+"sharePoint.urlValidation.error.invalidURL" = "URL ir nederīgs. Lūgums izmantot šādu uzbūvi: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Atlasīt dokumentu bibliotēku";
+"sharePoint.selectDrive.header.title" = "Atlasīt SharePoint dokumentu bibliotēku, ar kuru ir vēlme strādāt.";
+"sharePoint.selectDrive.emptyList.footer" = "Nav pieejama neviena dokumentu bibliotēka";
 
 "snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
 "snapshots.fileprovider.file2" = "/Gala prezentācija.key";
@@ -168,6 +197,7 @@
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
 "vaultDetail.info.footer.accessVault" = "Glabātavai var piekļūt datņu lietotnē.";
 "vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Atslēgšana nebūs nepieciešama, līdz tā tiks pašrocīgi aizslēgta.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "vaultDetail.removeVault.footer" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta un neizdzēsīs nevienu šifrēto datni.";
 "vaultDetail.renameVault.progress" = "Pārdēvē…";

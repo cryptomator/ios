@@ -2,7 +2,7 @@ Die „Vollversion“ ist im Grunde die gleiche Version wie Cryptomator mit dem 
 
 ---
 
-Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator ver­schlüsselst du deine Daten schnell und unkompliziert. Anschließend lädst du sie geschützt in deinen Lieblingscloudservice hoch.
+Mit Cryptomator liegt der Schlüssel zu deinen Daten bei dir. Durch Cryptomator sicherst und verschlüsselst du deine sensiblen Daten in deiner Lieblingscloud. So bleiben sie privat und vor unbefugtem Zugriff geschützt.
 
 EINFACH
 
@@ -17,7 +17,7 @@ KOMPATIBEL
 
 Cryptomator ist kompatibel mit den meistgenutzten Cloudspeichern und verfügbar für alle gängigen Betriebssysteme.
 
-• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, Box, WebDAV- und S3-basierten Cloudspeicher-Diensten
+• Kompatibel mit iCloud Drive, Dropbox, Google Drive, OneDrive, SharePoint (inkl. Microsoft Teams), pCloud, Box, WebDAV- und S3-basierten Cloudspeicher-Diensten
 • Erstelle auch Tresore an einem beliebigen Ort über andere Speicher-Anbieter (Drittanbieter-Apps müssen dies unterstützen)
 • Greife auf deine Tresore von allen deinen mobilen Endgeräten und Computern zu
 

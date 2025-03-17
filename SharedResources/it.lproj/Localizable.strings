@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Connessione Internet necessaria per questa operazione.";
 
 "cloudProviderType.localFileSystem" = "Altro Fornitore di File";
+"cloudProviderType.sharePoint.secondary" = "incl. Team Microsoft";
 
 "fileProvider.onboarding.title" = "Benvenuto";
 "fileProvider.onboarding.info" = "Grazie per aver scelto Cryptomator per proteggere i tuoi file. Per iniziare, vai all'app principale e aggiungi una cassaforte.";
@@ -218,6 +219,9 @@
 "sharePoint.enterURL.header.title" = "Usa questo formato URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "L'URL non può essere vuoto.";
 "sharePoint.urlValidation.error.invalidURL" = "L'URL non è valido. Si prega di utilizzare questo formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Seleziona la libreria dei documenti";
+"sharePoint.selectDrive.header.title" = "Selezionare la libreria dei documenti SharePoint con la quale vuoi lavorare.";
+"sharePoint.selectDrive.emptyList.footer" = "Nessuna libreria dei documenti disponibile";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Presentatione Finale.Key";

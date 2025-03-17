@@ -26,6 +26,7 @@ class CloudCell: UITableViewCell {
 	func configure(with cloudProviderType: CloudProviderType) {
 		imageView?.image = UIImage(storageIconFor: cloudProviderType)
 		textLabel?.text = cloudProviderType.localizedString()
+		detailTextLabel?.text = cloudProviderType.localizedSecondaryString()
 	}
 
 	@available(iOS 14, *)
@@ -36,6 +37,7 @@ class CloudCell: UITableViewCell {
 		var content = defaultContentConfiguration().updated(for: state)
 		content.image = UIImage(storageIconFor: cloudProviderType)
 		content.text = cloudProviderType.localizedString()
+		content.secondaryText = cloudProviderType.localizedSecondaryString()
 		contentConfiguration = content
 	}
 }
