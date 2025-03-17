@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "cloudProviderType.localFileSystem" = "Other File Provider";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Welcome";
 "fileProvider.onboarding.info" = "Thanks for choosing Cryptomator to protect your files. To get started, go to the main app and add a vault.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Operation cannot be performed because other background operations for this vault have to finish first. Please try again later.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "The necessary permissions to access the resources couldn't be obtained. Please try using a different account.";
+
 "nameValidation.error.endsWithPeriod" = "You can't use a name that ends with a period. Please choose another name.";
 "nameValidation.error.endsWithSpace" = "You can't use a name that ends with a space. Please choose another name.";
 "nameValidation.error.containsIllegalCharacter" = "You can't use a name that contains \"%@\". Please choose another name.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
+
+"sharePoint.enterURL.title" = "Enter SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
+"sharePoint.enterURL.header.title" = "Use this URL format:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "The URL cannot be empty.";
+"sharePoint.urlValidation.error.invalidURL" = "The URL is invalid. Please use this format: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Select Document Library";
+"sharePoint.selectDrive.header.title" = "Select the SharePoint document library you want to work with.";
+"sharePoint.selectDrive.emptyList.footer" = "No Document Libraries Available";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";

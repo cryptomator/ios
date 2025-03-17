@@ -150,6 +150,8 @@
 
 "maintenanceModeError.runningCloudTask" = "L'operació no ha pogut completar-se perquè encara han de finalitzar altres operacions en segon pla per aquesta caixa forta. Torni a provar més tard.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "No s'han pogut obtenir els permisos necessaris per accedir als recursos. Prova d'utilitzar un compte diferent.";
+
 "nameValidation.error.endsWithPeriod" = "El nom no pot acabar amb un punt. Si us plau, modifiqui'l.";
 "nameValidation.error.endsWithSpace" = "El nom no pot acabar amb un espai. Si us plau, modifiqui'l.";
 "nameValidation.error.containsIllegalCharacter" = "El nom no pot contenir \"%@\". Si us plau, modifiqui'l.";
@@ -206,6 +208,15 @@
 "settings.sendLogFile" = "Envia el fitxer de registre";
 "settings.shortcutsGuide" = "Guia de dreceres";
 "settings.unlockFullVersion" = "Desbloca la versió completa";
+
+"sharePoint.enterURL.title" = "Introdueix l'URL de SharePoint";
+"sharePoint.enterURL.placeholder" = "URL del lloc de SharePoint";
+"sharePoint.enterURL.header.title" = "Utilitza aquest format d'URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "L'URL no pot estar buit.";
+"sharePoint.urlValidation.error.invalidURL" = "L'URL és invàlid. Utilitza aquest format: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Selecciona biblioteca de documents";
+"sharePoint.selectDrive.header.title" = "Selecciona la biblioteca de documents de SharePoint amb la qual vols treballar.";
+"sharePoint.selectDrive.emptyList.footer" = "No hi ha biblioteques de documents disponibles";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";

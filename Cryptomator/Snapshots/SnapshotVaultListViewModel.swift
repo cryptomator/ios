@@ -26,7 +26,7 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 		.init(title: "", message: "", confirmButtonText: "")
 	}
 
-	private lazy var vaultCellViewModels: [VaultCellViewModel] = createVaulCells()
+	private lazy var vaultCellViewModels: [VaultCellViewModel] = createVaultCells()
 
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {}
 
@@ -44,9 +44,9 @@ class SnapshotVaultListViewModel: VaultListViewModelProtocol {
 		}.eraseToAnyPublisher()
 	}
 
-	private func createVaulCells() -> [VaultCellViewModel] {
+	private func createVaultCells() -> [VaultCellViewModel] {
 		let cloudProviderAccounts = [
-			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .oneDrive),
+			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .microsoftGraph(type: .oneDrive)),
 			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .googleDrive),
 			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .dropbox),
 			CloudProviderAccount(accountUID: UUID().uuidString, cloudProviderType: .localFileSystem(type: .iCloudDrive))

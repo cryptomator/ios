@@ -33,6 +33,21 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		return LocalizedString.getValue("purchase.title")
 	}
 
+	// Temporarily added for Spring 2025 Sale
+	override var infoText: NSAttributedString? {
+		if SalePromo.isSpring2025Active() {
+			return NSAttributedString(
+				string: "*Note: The discount amount may vary by region.",
+				attributes: [
+					.font: UIFont.preferredFont(forTextStyle: .footnote),
+					.foregroundColor: UIColor.secondaryLabel
+				]
+			)
+		} else {
+			return nil
+		}
+	}
+
 	private let cryptomatorSettings: CryptomatorSettings
 
 	init(storeManager: IAPStore = StoreManager.shared, iapManager: IAPManager = StoreObserver.shared, cryptomatorSettings: CryptomatorSettings = CryptomatorUserDefaults.shared, minimumDisplayTime: TimeInterval = 1.0) {
@@ -56,6 +71,7 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 			cells.append(.trialCell(TrialCellViewModel(expirationDate: trialExpirationDate)))
 		} else {
 			cells.append(.purchaseCell(PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.trial"),
+			                                                 productDetail: nil,
 			                                                 price: LocalizedString.getValue("purchase.product.pricing.free"),
 			                                                 purchaseDetail: LocalizedString.getValue("purchase.product.trial.duration"),
 			                                                 productIdentifier: .thirtyDayTrial)))
@@ -65,6 +81,7 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 	private func addSubscriptionItem() {
 		if let product = products[.yearlySubscription], let localizedPrice = product.localizedPrice {
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.yearlySubscription"),
+			                                      productDetail: nil,
 			                                      price: localizedPrice,
 			                                      purchaseDetail: LocalizedString.getValue("purchase.product.yearlySubscription.duration"),
 			                                      productIdentifier: .yearlySubscription)
@@ -74,7 +91,10 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 
 	private func addLifetimeLicenseItem() {
 		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
+			// Temporarily added for Spring 2025 Sale
+			let productDetail = SalePromo.isSpring2025Active() ? "\(SalePromo.spring2025Emoji) \(SalePromo.spring2025Discount)" : nil
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
+			                                      productDetail: productDetail,
 			                                      price: localizedPrice,
 			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
 			                                      productIdentifier: .fullVersion)

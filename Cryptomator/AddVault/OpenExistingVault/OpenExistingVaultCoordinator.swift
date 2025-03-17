@@ -25,7 +25,7 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 	}
 
 	func start() {
-		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .oneDrive, .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
+		let viewModel = ChooseCloudViewModel(clouds: [.localFileSystem(type: .iCloudDrive), .dropbox, .googleDrive, .microsoftGraph(type: .oneDrive), .microsoftGraph(type: .sharePoint), .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom), .localFileSystem(type: .custom)], headerTitle: LocalizedString.getValue("addVault.openExistingVault.chooseCloud.header"))
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)
 		chooseCloudVC.title = LocalizedString.getValue("addVault.openExistingVault.title")
 		chooseCloudVC.coordinator = self
@@ -48,6 +48,11 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 		authenticator.authenticate(cloudProviderType, from: viewController).then { account in
 			let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
 			self.startFolderChooser(with: provider, account: account)
+		}.catch { error in
+			guard case CocoaError.userCancelled = error else {
+				self.handleError(error, for: self.navigationController)
+				return
+			}
 		}
 	}
 
@@ -208,7 +213,7 @@ private class AuthenticatedOpenExistingVaultCoordinator: VaultInstalling, Folder
 		child.start()
 	}
 
-	func showCreateNewFolder(parentPath: CloudPath) {}
+	func showCreateNewFolder(parentPath: CloudPath, delegate: ChooseFolderViewModelProtocol?) {}
 
 	func handleError(error: Error) {
 		navigationController.popViewController(animated: true)

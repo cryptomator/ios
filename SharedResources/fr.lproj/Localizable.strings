@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Connexion Internet requise pour cette opération.";
 
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
+"cloudProviderType.sharePoint.secondary" = "Microsoft Teams inclus";
 
 "fileProvider.onboarding.title" = "Bienvenue";
 "fileProvider.onboarding.info" = "Merci d'avoir choisi Cryptomator pour protéger vos fichiers. Pour commencer, allez dans l'application principale et ajoutez un coffre.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "L'opération ne peut pas être effectuée car d'autres opérations en arrière-plan pour ce coffre doivent d'abord se terminer. Veuillez réessayer plus tard.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Les permissions nécessaires pour accéder aux ressources n'ont pas pu être obtenues. Essayez d'utiliser un autre compte.";
+
 "nameValidation.error.endsWithPeriod" = "Vous ne pouvez pas utiliser un nom qui se termine par un point. Veuillez choisir un autre nom.";
 "nameValidation.error.endsWithSpace" = "Vous ne pouvez pas utiliser un nom qui se termine par un espace. Veuillez choisir un autre nom.";
 "nameValidation.error.containsIllegalCharacter" = "Vous ne pouvez pas utiliser un nom qui contient \"%@\". Veuillez choisir un autre nom.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 "settings.shortcutsGuide" = "Guide des raccourcis";
 "settings.unlockFullVersion" = "Débloquer la version complète";
+
+"sharePoint.enterURL.title" = "Entrez l'URL SharePoint";
+"sharePoint.enterURL.placeholder" = "URL du site SharePoint";
+"sharePoint.enterURL.header.title" = "Utilisez ce format d'URL :\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "L'URL ne peut pas être vide.";
+"sharePoint.urlValidation.error.invalidURL" = "L'URL n'est pas valide. Veuillez utiliser ce format : https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Sélectionner la bibliothèque de documents";
+"sharePoint.selectDrive.header.title" = "Sélectionnez la bibliothèque de documents SharePoint avec laquelle vous voulez travailler.";
+"sharePoint.selectDrive.emptyList.footer" = "Aucune bibliothèque de documents disponible";
 
 "snapshots.fileprovider.file1" = "Compte.numéros";
 "snapshots.fileprovider.file2" = "Présentation Finale.key";

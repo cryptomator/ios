@@ -45,7 +45,7 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 	}
 
 	func cancel() {
-		pendingAuthentication.reject(WebDAVAuthenticationError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 		close()
 	}
 
@@ -53,6 +53,6 @@ class WebDAVAuthenticationCoordinator: NSObject, Coordinator, WebDAVAuthenticati
 
 	func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
 		// User has canceled the authentication by closing the modal via swipe
-		pendingAuthentication.reject(WebDAVAuthenticationError.userCanceled)
+		pendingAuthentication.reject(CocoaError(.userCancelled))
 	}
 }

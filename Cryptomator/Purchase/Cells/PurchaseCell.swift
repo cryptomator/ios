@@ -12,6 +12,7 @@ import UIKit
 
 struct PurchaseCellViewModel: Hashable {
 	let productName: String
+	let productDetail: String?
 	let price: String
 	let purchaseDetail: String?
 	let purchaseButtonViewModel = PurchaseButtonViewModel()
@@ -36,6 +37,7 @@ class PurchaseCell: IAPCell {
 
 	func configure(with viewModel: PurchaseCellViewModel) {
 		productTitleLabel.text = viewModel.productName
+		productDetailLabel.text = viewModel.productDetail
 		accessory.button.setTitle(viewModel.price, for: .normal)
 		accessory.detailLabel.text = viewModel.purchaseDetail
 		accessory.configure(with: viewModel.purchaseButtonViewModel)

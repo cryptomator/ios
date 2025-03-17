@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internetanslutning behövs för denna operation.";
 
 "cloudProviderType.localFileSystem" = "Annan filleverantör";
+"cloudProviderType.sharePoint.secondary" = "inkl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Välkommen";
 "fileProvider.onboarding.info" = "Tack för att du väljer Cryptomator för att skydda dina filer. För att komma igång, gå till huvudfönstret och lägg till ett valv.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Åtgärden kan inte utföras eftersom andra bakgrundsåtgärder för detta valv måste avslutas först. Försök igen senare.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Det gick inte att få tillgång till resurserna. Försök att använda ett annat konto.";
+
 "nameValidation.error.endsWithPeriod" = "Du kan inte använda ett namn som slutar med en period. Välj ett annat namn.";
 "nameValidation.error.endsWithSpace" = "Du kan inte använda ett namn som slutar med en blanksteg. Välj ett annat namn.";
 "nameValidation.error.containsIllegalCharacter" = "Du kan inte använda ett namn som innehåller \"%@\". Välj ett annat namn.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Skicka loggfil";
 "settings.shortcutsGuide" = "Vägledning till genvägar";
 "settings.unlockFullVersion" = "Lås upp fullversion";
+
+"sharePoint.enterURL.title" = "Ange SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint URL";
+"sharePoint.enterURL.header.title" = "Använd detta URL format:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "Webbadressen kan inte vara tom.";
+"sharePoint.urlValidation.error.invalidURL" = "URL-adressen är ogiltig. Använd detta format: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Välj dokumentbibliotek";
+"sharePoint.selectDrive.header.title" = "Välj det SharePoint dokumentbibliotek du vill arbeta med.";
+"sharePoint.selectDrive.emptyList.footer" = "Inga dokumentbibliotek tillgängliga";
 
 "snapshots.fileprovider.file1" = "/Budget.numbers";
 "snapshots.fileprovider.file2" = "/Slutlig presentation.key";

@@ -42,6 +42,7 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 		return String(format: LocalizedString.getValue("vaultDetail.info.footer.accountInfo"), username, vault.cloudProviderType.localizedString()) + " "
 	}
 
+	// swiftlint:disable:next cyclomatic_complexity
 	func getUsername() -> String? {
 		switch vault.cloudProviderType {
 		case .box:
@@ -58,9 +59,12 @@ class VaultDetailInfoFooterViewModel: BindableAttributedTextHeaderFooterViewMode
 			return try? credential.getUsername()
 		case .localFileSystem:
 			return nil
-		case .oneDrive:
-			let credential = try? OneDriveCredential(with: vault.delegateAccountUID)
-			return try? credential?.getUsername()
+		case let .microsoftGraph(type):
+			guard let account = try? MicrosoftGraphAccountDBManager.shared.getAccount(for: vault.delegateAccountUID) else {
+				return nil
+			}
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
+			return try? credential.getUsername()
 		case .pCloud:
 			guard let credential = try? PCloudCredential(userID: vault.delegateAccountUID) else {
 				return nil

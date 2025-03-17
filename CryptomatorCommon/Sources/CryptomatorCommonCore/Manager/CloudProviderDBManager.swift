@@ -59,9 +59,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	 Creates and returns a cloud provider for the given `accountUID`.
 	 */
 	func createProvider(for accountUID: String) throws -> CloudProvider {
-		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
+		let account = try accountManager.getAccount(for: accountUID)
 		let provider: CloudProvider
-		switch cloudProviderType {
+		switch account.cloudProviderType {
 		case .box:
 			let tokenStorage = BoxTokenStorage(userID: accountUID)
 			let credential = BoxCredential(tokenStorage: tokenStorage)
@@ -77,9 +77,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: .max)
-		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider(credential: credential, maxPageSize: .max)
+		case let .microsoftGraph(type):
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
+			provider = try MicrosoftGraphCloudProvider(credential: credential, driveIdentifier: account.driveID, maxPageSize: .max)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createClient(with: credential.user)
@@ -109,10 +110,9 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 	 This is necessary because otherwise memory limit problems can occur with folders with many items in the `FileProviderExtension` where a background `URLSession` is used.
 	 */
 	func createBackgroundSessionProvider(for accountUID: String, sessionIdentifier: String) throws -> CloudProvider {
-		let cloudProviderType = try accountManager.getCloudProviderType(for: accountUID)
+		let account = try accountManager.getAccount(for: accountUID)
 		let provider: CloudProvider
-
-		switch cloudProviderType {
+		switch account.cloudProviderType {
 		case .box:
 			let tokenStorage = BoxTokenStorage(userID: accountUID)
 			let credential = BoxCredential(tokenStorage: tokenStorage)
@@ -128,9 +128,10 @@ public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating
 				throw CloudProviderAccountError.accountNotFoundError
 			}
 			provider = try LocalFileSystemProvider(rootURL: rootURL, maxPageSize: maxPageSizeForFileProvider)
-		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountUID)
-			provider = try OneDriveCloudProvider.withBackgroundSession(credential: credential, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
+		case let .microsoftGraph(type):
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountUID)
+			let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: type)
+			provider = try MicrosoftGraphCloudProvider.withBackgroundSession(credential: credential, driveIdentifier: account.driveID, maxPageSize: maxPageSizeForFileProvider, sessionIdentifier: sessionIdentifier)
 		case .pCloud:
 			let credential = try PCloudCredential(userID: accountUID)
 			let client = PCloud.createBackgroundClient(with: credential.user, sessionIdentifier: sessionIdentifier)

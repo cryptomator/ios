@@ -27,9 +27,9 @@ public enum CloudAccessSecrets {
 	public static let googleDriveClientId = "${GOOGLE_DRIVE_CLIENT_ID}"
 	public static let googleDriveRedirectURLScheme = "${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}"
 	public static let googleDriveRedirectURL = URL(string: "${GOOGLE_DRIVE_REDIRECT_URL_SCHEME}:/oauthredirect")
-	public static let oneDriveClientId = "${ONEDRIVE_CLIENT_ID}"
-	public static let oneDriveRedirectURIScheme = "${ONEDRIVE_REDIRECT_URI_SCHEME}"
-	public static let oneDriveRedirectURI = "${ONEDRIVE_REDIRECT_URI_SCHEME}://auth"
+	public static let microsoftGraphClientId = "${MICROSOFT_GRAPH_CLIENT_ID}"
+	public static let microsoftGraphRedirectURIScheme = "${MICROSOFT_GRAPH_REDIRECT_URI_SCHEME}"
+	public static let microsoftGraphRedirectURI = "${MICROSOFT_GRAPH_REDIRECT_URI_SCHEME}://auth"
 	public static let pCloudAppKey = "${PCLOUD_APP_KEY}"
 }
 EOM

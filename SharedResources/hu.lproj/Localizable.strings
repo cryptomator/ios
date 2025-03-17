@@ -130,6 +130,8 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatikus";
 "keepUnlockedDuration.indefinite" = "Korlátlan";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Az erőforrásokhoz való hozzáféréshez szükséges engedélyeket nem sikerült megszerezni. Kérjük, próbálkozzon egy másik fiókkal.";
+
 "onboarding.title" = "Üdvözöljük";
 "onboarding.info" = "Köszönjük, hogy a Cryptomatort választotta fájlai védelméhez.\n\nA Cryptomatorral az adatainak kulcsa az ön kezében van. A Cryptomator titkosítja az adatait gyorsan és könnyedén.\n\nEz az alkalmazás teljesen integrálva van a Fájlok appba. Engedélyezze a Cryptomatort a Fájlok appban később, hogy hozzáférhessen a széfjeihez.";
 "onboarding.button.continue" = "Tovább";
@@ -181,6 +183,15 @@
 "settings.sendLogFile" = "Naplófájl küldése";
 "settings.shortcutsGuide" = "Parancsok útmutató";
 "settings.unlockFullVersion" = "Teljes verzió feloldása";
+
+"sharePoint.enterURL.title" = "SharePoint URL megadása";
+"sharePoint.enterURL.placeholder" = "SharePoint webhely URL címe";
+"sharePoint.enterURL.header.title" = "Használja ezt az URL-formátumot:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "Az URL nem lehet üres.";
+"sharePoint.urlValidation.error.invalidURL" = "Az URL érvénytelen. Kérlem használja ezt az formátumot: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Dokumentumkönyvtár kiválasztása";
+"sharePoint.selectDrive.header.title" = "Válassza ki a SharePoint dokumentumkönyvtárat, amellyel dolgozni szeretne.";
+"sharePoint.selectDrive.emptyList.footer" = "Nincsenek elérhető dokumentumkönyvtárak";
 
 "snapshots.fileprovider.file1" = "/Könyevlés.numbers";
 "snapshots.fileprovider.file2" = "/Kész Előadás.key";

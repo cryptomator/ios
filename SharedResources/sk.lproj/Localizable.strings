@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Operáciu nie je možné vykonať pretože iné operácie na pozadí v tomto trezore musia skončit prvé. Prosím skúste neskôr.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nepodarilo sa získať potrebné povolenia na prístup k zdrojom. Skúste použiť iný účet.";
+
 "nameValidation.error.endsWithPeriod" = "Nemôžte použiť meno ktoré končí znakom bodka. Prosím zvoľte iné meno.";
 "nameValidation.error.endsWithSpace" = "Nemôžte použiť meno ktoré končí znakom medzera. Prosím zvoľte iné meno.";
 "nameValidation.error.containsIllegalCharacter" = "Nemôžte použiť meno ktoré končí znakom \"%@\". Prosím zvoľte iné meno.";
@@ -210,6 +212,15 @@
 "settings.sendLogFile" = "Zaslať Log súbor";
 "settings.shortcutsGuide" = "Sprievodca skratkami";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
+
+"sharePoint.enterURL.title" = "Vložte SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint stránka URL";
+"sharePoint.enterURL.header.title" = "Použite tento URL formát: \nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL nemôže byť prázdne.";
+"sharePoint.urlValidation.error.invalidURL" = "URL je nesprávne. Použite prosím tento formát: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Vyberte Knižnicu dokumentov";
+"sharePoint.selectDrive.header.title" = "Vyberte knižnicu dokumentov SharePoint, s ktorou chcete pracovať.";
+"sharePoint.selectDrive.emptyList.footer" = "Nie sú dostupné žiadne knižnice dokumentov";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";

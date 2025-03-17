@@ -7,6 +7,7 @@
 //
 
 import CocoaLumberjackSwift
+import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
 import GRDB
@@ -90,6 +91,9 @@ public class CryptomatorDatabase {
 		}
 		migrator.registerMigration("initialHubSupport") { db in
 			try initialHubSupportMigration(db)
+		}
+		migrator.registerMigration("microsoftGraphAccountMigration") { db in
+			try microsoftGraphAccountMigration(db)
 		}
 		return migrator
 	}
@@ -204,6 +208,34 @@ public class CryptomatorDatabase {
 			table.column("vaultUID", .text).primaryKey().references("vaultAccounts", onDelete: .cascade)
 			table.column("subscriptionState", .text).notNull()
 		})
+	}
+
+	class func microsoftGraphAccountMigration(_ db: Database) throws {
+		try db.create(table: "microsoftGraphAccounts") { table in
+			table.column("accountUID", .text).primaryKey().references("cloudProviderAccounts", onDelete: .cascade)
+			table.column("credentialID", .text).notNull()
+			table.column("driveID", .text)
+			table.column("siteURL", .text)
+			table.column("type", .text).notNull()
+			table.uniqueKey(["credentialID", "driveID", "type"])
+		}
+		try db.execute(sql: """
+		CREATE UNIQUE INDEX uq_microsoftGraphAccounts_nullDriveID
+		ON microsoftGraphAccounts (credentialID, type)
+		WHERE driveID IS NULL
+		""")
+		enum LegacyCloudProviderType: Codable, DatabaseValueConvertible { case oneDrive }
+		let rows = try Row.fetchAll(db, sql: "SELECT accountUID FROM cloudProviderAccounts WHERE cloudProviderType = ?", arguments: [LegacyCloudProviderType.oneDrive.databaseValue])
+		for row in rows {
+			let oldAccountUID: String = row["accountUID"] // which is the `credentialID`
+			let newAccountUID = UUID().uuidString
+			let newCloudProviderType = CloudProviderType.microsoftGraph(type: .oneDrive).databaseValue
+			try db.execute(sql: "UPDATE cloudProviderAccounts SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newAccountUID, newCloudProviderType, oldAccountUID])
+			try db.execute(sql: "UPDATE vaultAccounts SET delegateAccountUID = ? WHERE delegateAccountUID = ?", arguments: [newAccountUID, oldAccountUID])
+			try db.execute(sql: "UPDATE accountListPosition SET accountUID = ?, cloudProviderType = ? WHERE accountUID = ?", arguments: [newAccountUID, newCloudProviderType, oldAccountUID])
+			let newMicrosoftGraphType = MicrosoftGraphType.oneDrive.databaseValue
+			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (accountUID, credentialID, driveID, siteURL, type) VALUES (?, ?, NULL, NULL, ?)", arguments: [newAccountUID, oldAccountUID, newMicrosoftGraphType])
+		}
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

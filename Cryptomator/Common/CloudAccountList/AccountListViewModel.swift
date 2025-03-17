@@ -57,6 +57,15 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	func refreshMicrosoftGraphItems() -> Promise<Void> {
+		return all(accountInfos
+			.compactMap { try? MicrosoftGraphAccountDBManager.shared.getAccount(for: $0.accountUID) }
+			.compactMap { try? self.createAccountCellContent(for: $0) }
+		).then { accounts in
+			self.accounts = accounts
+		}
+	}
+
 	func refreshPCloudItems() -> Promise<Void> {
 		return all(accountInfos
 			.compactMap { try? PCloudCredential(userID: $0.accountUID) }
@@ -86,9 +95,9 @@ class AccountListViewModel: AccountListViewModelProtocol {
 			return try createAccountCellContent(for: credential)
 		case .localFileSystem:
 			throw AccountListError.unsupportedCloudProviderType
-		case .oneDrive:
-			let credential = try OneDriveCredential(with: accountInfo.accountUID)
-			return try createAccountCellContent(for: credential)
+		case .microsoftGraph:
+			let account = try MicrosoftGraphAccountDBManager.shared.getAccount(for: accountInfo.accountUID)
+			return try createAccountCellContentPlaceholder(for: account)
 		case .pCloud:
 			return createAccountCellContentPlaceholder()
 		case .s3:
@@ -120,9 +129,36 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
 	}
 
-	func createAccountCellContent(for credential: OneDriveCredential) throws -> AccountCellContent {
+	func createAccountCellContentPlaceholder(for account: MicrosoftGraphAccount) throws -> AccountCellContent {
+		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
 		let username = try credential.getUsername()
-		return AccountCellContent(mainLabelText: username, detailLabelText: nil)
+		var detailLabelTextComponents: [String] = []
+		if let siteURL = account.siteURL?.absoluteString.replacingOccurrences(of: "https://", with: "") {
+			detailLabelTextComponents.append(siteURL)
+		}
+		if account.driveID != nil {
+			detailLabelTextComponents.append("(…)")
+		}
+		let detailLabelText = detailLabelTextComponents.joined(separator: " • ")
+		return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
+	}
+
+	func createAccountCellContent(for account: MicrosoftGraphAccount) throws -> Promise<AccountCellContent> {
+		guard let driveID = account.driveID else {
+			return try Promise(createAccountCellContentPlaceholder(for: account))
+		}
+		let credential = MicrosoftGraphCredential(identifier: account.credentialID, type: account.type)
+		let username = try credential.getUsername()
+		let discovery = MicrosoftGraphDiscovery(credential: credential)
+		return discovery.fetchDrive(for: driveID).then { drive in
+			var detailLabelTextComponents: [String] = []
+			if let siteURL = account.siteURL?.absoluteString.replacingOccurrences(of: "https://", with: "") {
+				detailLabelTextComponents.append(siteURL)
+			}
+			detailLabelTextComponents.append("\(drive.name ?? "<unknown-drive-name>")")
+			let detailLabelText = detailLabelTextComponents.joined(separator: " • ")
+			return AccountCellContent(mainLabelText: username, detailLabelText: detailLabelText)
+		}
 	}
 
 	func createAccountCellContent(for credential: PCloudCredential) -> Promise<AccountCellContent> {
@@ -176,6 +212,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		}
 	}
 
+	// swiftlint:disable:next function_body_length
 	func startListenForChanges() -> AnyPublisher<Result<[TableViewCellViewModel], Error>, Never> {
 		observation = dbManager.observeCloudProviderAccounts(onError: { error in
 			DDLogError("Observe vault accounts failed with error: \(error)")
@@ -202,24 +239,33 @@ class AccountListViewModel: AccountListViewModelProtocol {
 				// Also fixes the problem that an empty account list is sent a second time via the `databaseChangedPublisher`.
 				return
 			}
-			if self.cloudProviderType == .dropbox {
-				self.refreshDropboxItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
-			} else if self.cloudProviderType == .pCloud {
-				self.refreshPCloudItems().then {
-					self.databaseChangedPublisher.send(.success(self.accounts))
-				}.catch { error in
-					self.databaseChangedPublisher.send(.failure(error))
-				}
-			} else if self.cloudProviderType == .box {
+			switch self.cloudProviderType {
+			case .box:
 				self.refreshBoxItems().then {
 					self.databaseChangedPublisher.send(.success(self.accounts))
 				}.catch { error in
 					self.databaseChangedPublisher.send(.failure(error))
 				}
+			case .dropbox:
+				self.refreshDropboxItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			case .microsoftGraph:
+				self.refreshMicrosoftGraphItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			case .pCloud:
+				self.refreshPCloudItems().then {
+					self.databaseChangedPublisher.send(.success(self.accounts))
+				}.catch { error in
+					self.databaseChangedPublisher.send(.failure(error))
+				}
+			default:
+				break
 			}
 		})
 		return databaseChangedPublisher.eraseToAnyPublisher()

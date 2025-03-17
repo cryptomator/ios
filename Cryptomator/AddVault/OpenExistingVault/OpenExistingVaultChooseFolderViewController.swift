@@ -102,6 +102,8 @@ private class OpenExistingVaultChooseFolderViewModelMock: ChooseFolderViewModelP
 	}
 
 	func refreshItems() {}
+
+	func addItem(_ item: CloudItemMetadata) {}
 }
 
 struct OpenExistingVaultChooseFolderVCPreview: PreviewProvider {
