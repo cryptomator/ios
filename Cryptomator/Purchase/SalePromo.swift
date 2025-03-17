@@ -6,6 +6,7 @@
 //  Copyright © 2025 Skymatic GmbH. All rights reserved.
 //
 
+#if !ALWAYS_PREMIUM
 import Dependencies
 import Foundation
 
@@ -30,3 +31,4 @@ struct SalePromo {
 		return SalePromo.isSpring2025Active() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.spring2025BannerDismissed
 	}
 }
+#endif
