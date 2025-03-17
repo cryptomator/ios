@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internet verbinding nodig voor deze actie.";
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Welkom";
 "fileProvider.onboarding.info" = "Bedankt voor het kiezen van Cryptomator om uw bestanden te beschermen. Om te beginnen, ga naar de app en voeg een kluis toe.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "De bewerking kan niet worden uitgevoerd omdat andere achtergrondbewerkingen voor deze kluis eerst moeten worden afgerond. Probeer het later opnieuw.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "De benodigde machtigingen voor toegang tot de bronnen konden niet worden verkregen. Probeer een ander account.";
+
 "nameValidation.error.endsWithPeriod" = "U kunt geen naam gebruiken die eindigt met een punt. Kies een andere naam.";
 "nameValidation.error.endsWithSpace" = "U kunt geen naam gebruiken die eindigt met een spatie. Kies een andere naam.";
 "nameValidation.error.containsIllegalCharacter" = "U kunt geen naam gebruiken die \"%@\" bevat. Kies een andere naam.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.shortcutsGuide" = "Snelkoppelingen Gids";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
+
+"sharePoint.enterURL.title" = "Voer SharePoint URL in";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
+"sharePoint.enterURL.header.title" = "Gebruik dit URL-formaat:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL mag niet leeg zijn.";
+"sharePoint.urlValidation.error.invalidURL" = "De URL is ongeldig. Gebruik dit formaat: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Selecteer documentbibliotheek";
+"sharePoint.selectDrive.header.title" = "Selecteer de SharePoint documentbibliotheek waarmee u wilt werken.";
+"sharePoint.selectDrive.emptyList.footer" = "Geen documentbibliotheken beschikbaar";
 
 "snapshots.fileprovider.file1" = "/Rekening.getallen";
 "snapshots.fileprovider.file2" = "/Laatste presentatie.key";
