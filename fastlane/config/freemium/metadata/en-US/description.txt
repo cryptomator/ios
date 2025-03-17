@@ -1,4 +1,4 @@
-With Cryptomator, the key to your data is in your hands. Cryptomator encrypts your data quickly and easily. Afterwards you upload them protected to your favorite cloud service.
+With Cryptomator, the key to your data is in your hands. Cryptomator secures and encrypts your sensitive data in your favorite cloud service. So you can rest assured that only you can access your data.
 
 EASY-TO-USE
 
@@ -13,7 +13,7 @@ COMPATIBLE
 
 Cryptomator is compatible with the most commonly used cloud storages and available for all major operating systems.
 
-• Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, pCloud, Box, WebDAV- and S3-based cloud storage services
+• Compatible with iCloud Drive, Dropbox, Google Drive, OneDrive, SharePoint (incl. Microsoft Teams), pCloud, Box, WebDAV- and S3-based cloud storage services
 • Create vaults in any location via other File Providers (third-party apps must support this)
 • Access your vaults on all your mobile devices and computers
 
