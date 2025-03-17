@@ -387,6 +387,7 @@
 		740D367E266A18DF0058744D /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D367D266A18DF0058744D /* SettingsViewController.swift */; };
 		740D3682266A19150058744D /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3681266A19150058744D /* SettingsViewModel.swift */; };
 		740D3684266A1B180058744D /* SettingsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 740D3683266A1B180058744D /* SettingsCoordinator.swift */; };
+		741D72902D882BE900B936EE /* SalePromo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741D728F2D882BE100B936EE /* SalePromo.swift */; };
 		742679FC26A56CF9004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		742679FD26A56CFA004C61BC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
 		743D95FC2D76EE9F002D73C3 /* SharePointAuthenticationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 743D95FB2D76EE9A002D73C3 /* SharePointAuthenticationCoordinator.swift */; };
@@ -963,6 +964,7 @@
 		740D3683266A1B180058744D /* SettingsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCoordinator.swift; sourceTree = "<group>"; };
 		741CD1C82939080D00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Localizable.strings; sourceTree = "<group>"; };
 		741CD1CF2939083C00577FDE /* da */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = da; path = da.lproj/Intents.strings; sourceTree = "<group>"; };
+		741D728F2D882BE100B936EE /* SalePromo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalePromo.swift; sourceTree = "<group>"; };
 		742679FA26A56B33004C61BC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		742679FE26A578E2004C61BC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74267A0326A5793E004C61BC /* el */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = el; path = el.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2100,6 +2102,7 @@
 				4AB1D4F527D626C5009060AB /* PurchaseFooterView.swift */,
 				74C2BC4D26E8FCB200BCAA03 /* PurchaseViewController.swift */,
 				74C2BC4F26E8FCC100BCAA03 /* PurchaseViewModel.swift */,
+				741D728F2D882BE100B936EE /* SalePromo.swift */,
 				4A1C6D612750DC1700B41FFF /* SKProduct+LocalizedPrice.swift */,
 				74F5DC1E26DD036D00AFE989 /* StoreManager.swift */,
 				74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */,
@@ -2742,6 +2745,7 @@
 				4A773907286D86C20006B3C3 /* S3AuthenticationViewModel.swift in Sources */,
 				4A970FF4286C960E00337FDC /* S3CredentialVerifier.swift in Sources */,
 				4A74337A28B3E3AB00AECD21 /* WebDAVAuthentication.swift in Sources */,
+				741D72902D882BE900B936EE /* SalePromo.swift in Sources */,
 				7478BA472D8181F300BD3250 /* SharePointCredential.swift in Sources */,
 				4A644B4F267B9E6A008CBB9A /* VaultNaming.swift in Sources */,
 				4A4B7E7726B95576009BFDB1 /* BaseHeaderFooterView.swift in Sources */,
