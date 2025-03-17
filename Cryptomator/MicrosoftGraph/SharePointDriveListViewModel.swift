@@ -16,6 +16,7 @@ class SharePointDriveListViewModel {
 
 	private let discovery: MicrosoftGraphDiscovery
 	private var changeListener: (() -> Void)?
+	private var driveListener: ((MicrosoftGraphDrive) -> Void)?
 	private var errorListener: ((Error) -> Void)?
 	private(set) var drives: [MicrosoftGraphDrive] = []
 
@@ -25,8 +26,9 @@ class SharePointDriveListViewModel {
 		self.siteURL = siteURL
 	}
 
-	func startListenForChanges(onChange: @escaping () -> Void, onError: @escaping (Error) -> Void) {
+	func startListenForChanges(onChange: @escaping () -> Void, onDriveDetection: @escaping (MicrosoftGraphDrive) -> Void, onError: @escaping (Error) -> Void) {
 		changeListener = onChange
+		driveListener = onDriveDetection
 		errorListener = onError
 		refreshItems()
 	}
@@ -42,7 +44,11 @@ class SharePointDriveListViewModel {
 	private func fetchDrives(for siteIdentifier: String) {
 		discovery.fetchSharePointDrives(for: siteIdentifier).then { drives in
 			self.drives = drives
-			self.changeListener?()
+			if drives.count == 1, let drive = drives.first {
+				self.driveListener?(drive)
+			} else {
+				self.changeListener?()
+			}
 		}.catch { error in
 			self.errorListener?(error)
 		}

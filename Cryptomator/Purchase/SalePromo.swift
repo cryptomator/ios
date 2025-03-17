@@ -27,6 +27,10 @@ struct SalePromo {
 	}
 
 	func shouldShowSpring2025Banner() -> Bool {
+		#if !ALWAYS_PREMIUM
 		return SalePromo.isSpring2025Active() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.spring2025BannerDismissed
+		#else
+		return false
+		#endif
 	}
 }

@@ -31,9 +31,21 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 		viewModel.startListenForChanges { [weak self] in
 			self?.refreshControl?.endRefreshing()
 			self?.tableView.reloadData()
+		} onDriveDetection: { [weak self] drive in
+			guard let self = self else { return }
+			self.selectDrive(drive)
 		} onError: { [weak self] error in
 			guard let self = self else { return }
 			self.coordinator?.handleError(error, for: self)
+		}
+	}
+
+	private func selectDrive(_ drive: MicrosoftGraphDrive) {
+		do {
+			let credential = SharePointCredential(siteURL: viewModel.siteURL, credential: viewModel.credential, driveID: drive.identifier)
+			try coordinator?.authenticated(credential)
+		} catch {
+			coordinator?.handleError(error, for: self)
 		}
 	}
 
@@ -91,11 +103,6 @@ class SharePointDriveListViewController: SingleSectionTableViewController {
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let selectedDrive = viewModel.drives[indexPath.row]
-		do {
-			let credential = SharePointCredential(siteURL: viewModel.siteURL, credential: viewModel.credential, driveID: selectedDrive.identifier)
-			try coordinator?.authenticated(credential)
-		} catch {
-			coordinator?.handleError(error, for: self)
-		}
+		selectDrive(selectedDrive)
 	}
 }
