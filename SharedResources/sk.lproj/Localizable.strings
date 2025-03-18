@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internetové pripojenie je potrebné k tejto operácii.";
 
 "cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
+"cloudProviderType.sharePoint.secondary" = "vrátane Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Vitajte";
 "fileProvider.onboarding.info" = "Ďakujeme že ste si zvolili Cryptomator k ochrane Vašich súborov. Pre začatie vstúpte do hlavnej aplikácie a pridajte trezor.";
