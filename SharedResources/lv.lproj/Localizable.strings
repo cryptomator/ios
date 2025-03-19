@@ -66,9 +66,15 @@
 
 "chooseFolder.emptyFolder.footer" = "Tukša mape";
 "chooseFolder.createNewFolder.cells.name" = "Mapes nosaukums";
+
+"cloudProvider.error.itemNotFound" = "\"%@\" nevarēja atrast.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
+"cloudProvider.error.itemTypeMismatch" = "\"%@\" ir neparedzēts vienuma veids.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Vecākmape \"%@\" nepastāv.";
+"cloudProvider.error.pageTokenInvalid" = "Mapes satura noalsi nevarēja turpināt.";
+"cloudProvider.error.quotaInsufficient" = "Krātuvē trūkst vietas.";
 "cloudProvider.error.unauthorized" = "Nebija iespējams veikt darbību, kas nav pilnvarota.";
+"cloudProvider.error.noInternetConnection" = "Šai darbībai ir nepieciešams savienojums ar internetu.";
 
 "cloudProviderType.localFileSystem" = "Cits datņu nodrošinātājs";
 "cloudProviderType.sharePoint.secondary" = "arī Microsoft Teams";
@@ -126,6 +132,8 @@
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
 
+"maintenanceModeError.runningCloudTask" = "Darbību nevar veikt, jo vispirms ir jābeidzas citām šīs glabātavas fona darbībām. Lūgums vēlāk mēģināt vēlreiz.";
+
 "microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nevarēja iegūt nepieciešamāš atļaujas, lai piekļūtu resursiem. Lūgums mēģināt izmantot citu kontu.";
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 
@@ -157,6 +165,7 @@
 "settings.aboutCryptomator.title" = "Versija %@ (%@)";
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
+"settings.cloudServices" = "Mākoņpakalpojumi";
 "settings.contact" = "Kontakti";
 "settings.debugMode" = "Atkļūdošanas režīms";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
