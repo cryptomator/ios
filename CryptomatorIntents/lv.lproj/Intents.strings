@@ -2,6 +2,12 @@
 "common.vault" = "Glabātava";
 "getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
 
+"isUnlockedIntent.description" = "Atgriež, vai norādītā glabātava ir atslēgta.";
+"isUnlockedIntent.title" = "Ir atslēgta";
+
+"isVaultLockedIntent.title" = "Vai glabātava ir atslēgta";
+"isVaultUnlockedIntent.text" = "${vault} ir atslēgta?";
+
 "openVaultIntent.description" = "Atver norādīto glabātavu datņu lietotnē.";
 "openVaultIntent.text" = "Atvērt ${vault} datņu lietotnē";
 
