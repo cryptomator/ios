@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "操作无法进行，因为此保险库仍有后台任务在进行，请稍后再试。";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "无法获取访问资源所需的权限，请尝试使用其他账户";
+
 "nameValidation.error.endsWithPeriod" = "您不能使用以句号结尾的名称。请选择另一个名称。";
 "nameValidation.error.endsWithSpace" = "您不能使用一个以空格结尾的名称。请选择另一个名称。";
 "nameValidation.error.containsIllegalCharacter" = "您不能使用包含 \"%@\" 的名称。请选择另一个名称。";
@@ -210,6 +212,15 @@
 "settings.sendLogFile" = "发送日志文件";
 "settings.shortcutsGuide" = "快捷方式指南";
 "settings.unlockFullVersion" = "解锁完整版";
+
+"sharePoint.enterURL.title" = "输入 SharePoint 链接";
+"sharePoint.enterURL.placeholder" = "SharePoint 网站链接";
+"sharePoint.enterURL.header.title" = "使用以下网站格式：\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "链接不能为空";
+"sharePoint.urlValidation.error.invalidURL" = "链接无效，请使用以下格式：https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "选择文档库";
+"sharePoint.selectDrive.header.title" = "选择要处理的 SharePoint 文档库";
+"sharePoint.selectDrive.emptyList.footer" = "无可用的文档库";
 
 "snapshots.fileprovider.file1" = "/会计.numbers";
 "snapshots.fileprovider.file2" = "/最终报告.key";
