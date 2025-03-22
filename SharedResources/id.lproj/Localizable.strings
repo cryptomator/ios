@@ -10,7 +10,7 @@
 "common.button.cancel" = "Batalkan";
 "common.button.change" = "Ubah";
 "common.button.choose" = "Pilih";
-"common.button.clear" = "Hapus";
+"common.button.clear" = "Bersihkan";
 "common.button.close" = "Tutup";
 "common.button.confirm" = "Konfirmasi";
 "common.button.create" = "Buat";
@@ -26,7 +26,7 @@
 "common.button.remove" = "Hapus";
 "common.button.retry" = "Coba lagi";
 "common.button.signOut" = "Keluar";
-"common.button.verify" = "Buka";
+"common.button.verify" = "Verifikasi";
 "common.cells.openInFilesApp" = "Buka di Aplikasi File";
 "common.cells.password" = "Kata Sandi";
 "common.cells.url" = "URL";
@@ -36,7 +36,7 @@
 
 "accountList.header.title" = "Otentikasi";
 "accountList.emptyList.message" = "Ketuk disini untuk menambah akun";
-"accountList.signOut.alert.title" = "Hapus Vault Terkait?";
+"accountList.signOut.alert.title" = "Hapus BrankasTerkait?";
 "accountList.signOut.alert.message" = "Dengan keluar, semua vault terkait akan dihapus dari daftar vault. Tidak ada data terenkripsi yang akan dihapus. Anda dapat masuk lagi dan menambahkan kembali vault nanti.";
 
 "addVault.title" = "Tambah Brankas";
@@ -45,7 +45,7 @@
 "addVault.createNewVault.setVaultName.header.title" = "Pilih nama vault.";
 "addVault.createNewVault.setVaultName.cells.name" = "Nama Brankas";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "Nama Vault tidak boleh kosong.";
-"addVault.createNewVault.chooseCloud.header" = "Dimana Cryptomator seharusnya menyimpan vault berisi file enkripsi Anda?";
+"addVault.createNewVault.chooseCloud.header" = "Di mana Cryptomator mesti menyimpan berkas terenkripsi dari brankas Anda?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" sudah ada di lokasi ini. Pilih nama vault atau lokasi berbeda.";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault sudah ada di lokasi ini.\nUntuk membuat vault baru, silahkan kembali dan pilih folder lain.";
 "addVault.createNewVault.password.enterPassword.header" = "Masukkan kata sandi baru.";
@@ -57,12 +57,12 @@
 "addVault.createNewVault.password.error.tooShortPassword" = "Kata Sandi minimal harus 8 karakter.";
 "addVault.createNewVault.progress" = "Membuat Vault…";
 "addVault.openExistingVault.title" = "Buka Vault yang Tersedia";
-"addVault.openExistingVault.chooseCloud.header" = "Dimana lokasi vault berada?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator mendeteksi vault \"%@\".\nApakah Anda ingin menambahkan vault ini?";
-"addVault.openExistingVault.detectedMasterkey.add" = "Tambah Vault Ini";
-"addVault.openExistingVault.downloadVault.progress" = "Mengunduh Vault…";
+"addVault.openExistingVault.chooseCloud.header" = "Dimana lokasi brankas berada?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator mendeteksi brankas \"%@\".\nApakah Anda ingin menambahkan brankas ini?";
+"addVault.openExistingVault.detectedMasterkey.add" = "Tambah Brankas Ini";
+"addVault.openExistingVault.downloadVault.progress" = "Mengunduh Brankas…";
 "addVault.openExistingVault.password.footer" = "Masukkan kata sandi untuk \"%@\".";
-"addVault.openExistingVault.progress" = "Menambahkan Vault…";
+"addVault.openExistingVault.progress" = "Menambahkan Brankas…";
 "addVault.success.info" = "Berhasil menambahkan vault \"%@\".\nAkses vault ini melalui aplikasi Files.";
 "addVault.success.footer" = "Jika belum, aktifkan Cryptomator di aplikasi Files.";
 
@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Diperlukan koneksi internet.";
 
 "cloudProviderType.localFileSystem" = "Provider Lainnya";
+"cloudProviderType.sharePoint.secondary" = "termasuk Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Selamat Datang";
 "fileProvider.onboarding.info" = "Terima kasih telah memilih Cryptomator untuk melindungi file Anda. Untuk memulai, buka aplikasi utama dan tambahkan vault.";
@@ -116,14 +117,17 @@
 "getFolderIntent.error.noVaultSelected" = "Tidak ada vault yang dipilih.";
 
 "hubAuthentication.title" = "Hub Vault";
+"hubAuthentication.accessNotGranted" = "Anda tidak punya izin untuk mengakses brankas ini. Mintalah ke pemilik brankas untuk mengotorisasi Anda.";
 "hubAuthentication.licenseExceeded" = "Contoh Cryptomator Hub Anda memiliki lisensi yang tidak valid. Mohon informasikan kepada administrator Hub untuk meningkatkan atau memperbarui lisensi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nama Perangkat";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Tampaknya ini adalah akses Hub pertama dari perangkat ini. Untuk mengidentifikasi otorisasi akses ini, Anda perlu memberi nama untuk perangkat ini.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Kunci Akun Anda diperlukan untuk masuk dari aplikasi atau browser baru. Kunci dapat ditemukan di profil Anda.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Berhasil Mendaftarkan Perangkat";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Untuk mengakses brankas, pemilik brankas perlu memberikan Anda izin.";
 "hubAuthentication.requireAccountInit.alert.title" = "Diperlukan Tindakan";
 "hubAuthentication.requireAccountInit.alert.message" = "Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Buka Profil";
+"hubAuthentication.vaultArchived" = "Brankas ini telah diarsipkan. Mintalah ke pemilik brankas untuk membongkar arsip itu.";
 
 "intents.saveFile.missingFile" = "File yang disediakan tidak valid.";
 "intents.saveFile.invalidFolder" = "Folder yang disediakan tidak valid.";
@@ -150,6 +154,8 @@
 "localFileSystemAuthentication.info.footer" = "Penyedia layanan file yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operasi tidak dapat dilakukan karena operasi di background lainnya untuk vault ini harus diselesaikan terlebih dahulu. Silakan coba lagi nanti.";
+
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Izin yang diperlukan untuk mengakses sumber daya tidak bisa diperoleh. Harap coba memakai akun lain.";
 
 "nameValidation.error.endsWithPeriod" = "Anda tidak bisa menggunakan nama yang diakhiri dengan titik. Mohon gunakan nama yang lain.";
 "nameValidation.error.endsWithSpace" = "Anda tidak bisa menggunakan nama yang diakhiri dengan spasi. Mohon gunakan nama yang lain.";
@@ -207,6 +213,15 @@
 "settings.sendLogFile" = "Kirim File Log";
 "settings.shortcutsGuide" = "Panduan Shortcut";
 "settings.unlockFullVersion" = "Buka Versi Lengkap";
+
+"sharePoint.enterURL.title" = "Masukkan URL SharePoint";
+"sharePoint.enterURL.placeholder" = "URL Situs SharePoint";
+"sharePoint.enterURL.header.title" = "Gunakan format URL ini:\nhttps://{...}.sharepoint.com/{situs|tim|/{...}";
+"sharePoint.urlValidation.error.emptyURL" = "URL tidak boleh kosong.";
+"sharePoint.urlValidation.error.invalidURL" = "URL tidak valid. Harap gunakan format ini: https://{…}.sharepoint.com/{situs|tim}/{…}";
+"sharePoint.selectDrive.title" = "Pilih Pustaka Dokumen";
+"sharePoint.selectDrive.header.title" = "Pilih pustaka dokumen SharePoint yang Anda ingin pakai kerja.";
+"sharePoint.selectDrive.emptyList.footer" = "Tidak Ada Pustaka Dokumen Yang Tersedia";
 
 "snapshots.fileprovider.file1" = "/Akuntansi.numbers";
 "snapshots.fileprovider.file2" = "/Presentasi Akhir.key";
@@ -282,6 +297,7 @@
 "vaultDetail.removeVault.footer" = "Hanya menghapus vault dari daftar vault dan tidak menghapus file terenkripsi yang ada.";
 "vaultDetail.renameVault.progress" = "Mengubah nama…";
 "vaultDetail.unlocked.footer" = "Vault Anda saat ini tidak terkunci di aplikasi File.";
+"vaultDetail.unlockVault.footer" = "Masukkan kata sandi untuk \"%1$@\" untuk menyimpannya di iOS keychain dan untuk mengaktifkan %2$@.";
 
 "vaultList.header.title" = "Vault";
 "vaultList.emptyList.message" = "Ketuk di sini untuk menambahkan vault";
