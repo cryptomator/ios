@@ -147,6 +147,7 @@
 
 "purchase.beginFreeTrial.alert.title" = "Izmēģinājums atslēgts";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.product.lifetimeLicense" = "Mūža licence";
 "purchase.product.lifetimeLicense.duration" = "vienreiz";
 "purchase.product.pricing.free" = "Bezmaksas";
 "purchase.product.trial" = "30 dienu izmēģinājuma versija";
