@@ -66,6 +66,7 @@
 
 "chooseFolder.emptyFolder.footer" = "Tukša mape";
 "chooseFolder.createNewFolder.cells.name" = "Mapes nosaukums";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Mapes nosaukums nevar būt tukšs.";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" nevarēja atrast.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
@@ -98,6 +99,8 @@
 "fileProvider.uploadProgress.missing" = "Virzību nevarēja noteikt. Tā joprojām varētu darboties fonā.";
 "fileProvider.uploadProgress.title" = "Augšuplādē…";
 "fileProvider.uploadProgress.missingDomainError" = "Nevarēja atrast domēnu.";
+
+"getFolderIntent.error.missingPath" = "Netika norādīts ceļš. Lūgums norādīt derīgu ceļu, kas norāda uz mapi.";
 "getFolderIntent.error.noVaultSelected" = "Netika atlasīta neviena glabātava.";
 
 "hubAuthentication.title" = "Hub glabātava";
@@ -140,6 +143,9 @@
 "maintenanceModeError.runningCloudTask" = "Darbību nevar veikt, jo vispirms ir jābeidzas citām šīs glabātavas fona darbībām. Lūgums vēlāk mēģināt vēlreiz.";
 
 "microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nevarēja iegūt nepieciešamāš atļaujas, lai piekļūtu resursiem. Lūgums mēģināt izmantot citu kontu.";
+
+"nameValidation.error.endsWithPeriod" = "Nevar izmantot nosaukumu, kas beidzas ar punktu. Lūgums izvēlēties citu nosaukumu.";
+"nameValidation.error.endsWithSpace" = "Nevar izmantot nosaukumu, kas beidzas ar atstarpi. Lūgums izvēlēties citu nosaukumu.";
 "nameValidation.error.containsIllegalCharacter" = "Nevar izmantot nosaukumu, kas satur \"%@\". Lūgums izvēlēties citu nosaukumu.";
 
 "onboarding.title" = "Laipni lūdzam";
@@ -226,7 +232,13 @@
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
 
 "urlSession.error.httpError.401" = "Nepareizs lietotājvārds un/vai parole.";
+"urlSession.error.httpError.403" = "Nepietiekamas tiesības pieprasītā avota izmantošanai.";
+"urlSession.error.httpError.404" = "Pieprasītais avots nav atrasts.";
+"urlSession.error.httpError.405" = "Mērķa avots neatbalsta šo pieprasījuma veidu.";
+"urlSession.error.httpError.409" = "Pieprasījums ir pretrunā ar pašreizējo mērķa avota stāvokli.";
 "urlSession.error.httpError.412" = "Piekļuve mērķa avotam tika atteikta.";
+"urlSession.error.httpError.default" = "Tīkla savienojums neizdevās ar stāvokļa kodu %ld.";
+"urlSession.error.unexpectedResponse" = "Bija neparedzēta tīkla atbilde.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
