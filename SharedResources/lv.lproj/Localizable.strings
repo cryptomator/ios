@@ -6,6 +6,7 @@
 */
 
 "common.alert.error.title" = "Kļūda";
+"common.alert.attention.title" = "Uzmanību";
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
@@ -15,6 +16,7 @@
 "common.button.done" = "Darīts";
 "common.button.download" = "Lejupielādēt";
 "common.button.edit" = "Labot";
+"common.button.enable" = "Iespējot";
 "common.button.next" = "Tālāk";
 "common.button.ok" = "Labi";
 "common.button.refresh" = "Atsvaidzināt";
@@ -65,6 +67,7 @@
 "changePassword.progress" = "Maina paroli…";
 
 "chooseFolder.emptyFolder.footer" = "Tukša mape";
+"chooseFolder.createNewFolder.header.title" = "Jāizvēlas mapes nosaukums.";
 "chooseFolder.createNewFolder.cells.name" = "Mapes nosaukums";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Mapes nosaukums nevar būt tukšs.";
 
@@ -181,8 +184,8 @@
 "settings.clearCache" = "Notīrīt kešatmiņu";
 "settings.cloudServices" = "Mākoņpakalpojumi";
 "settings.contact" = "Kontakti";
-"settings.debugMode" = "Atkļūdošanas režīms";
-"settings.debugMode.alert.message" = "Ar atkļūdošanu jutīgi datni var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
+"settings.debugMode" = "Atkļūdošana";
+"settings.debugMode.alert.message" = "Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
 "settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
 "settings.unlockFullVersion" = "Atslēgt pilno versiju";
