@@ -8,6 +8,10 @@
 "isVaultLockedIntent.title" = "Vai glabātava ir atslēgta";
 "isVaultUnlockedIntent.text" = "${vault} ir atslēgta?";
 
+"lockVaultIntent.description" = "Aizslēdz norādīto glabātavu.";
+"lockVaultIntent.text" = "Aizslēgt ${vault}";
+"lockVaultIntent.title" = "Aizslēgt glabātavu";
+
 "openVaultIntent.description" = "Atver norādīto glabātavu datņu lietotnē.";
 "openVaultIntent.text" = "Atvērt ${vault} datņu lietotnē";
 
