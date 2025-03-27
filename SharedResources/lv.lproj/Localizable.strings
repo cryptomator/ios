@@ -246,6 +246,7 @@
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Šī glabātava jau ir pievienota.";
 
 "vaultDetail.button.changeVaultPassword" = "Nomainīt paroli";
+"vaultDetail.button.lock" = "Aizslēgt tagad";
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
 "vaultDetail.changePassword.footer" = "Jāizvēlas tikai sev zināma stipra glabātavas parole un jātur tā drošā vietā.";
@@ -256,6 +257,7 @@
 "vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Atslēgšana būs nepieciešama, kad glabātava būs bijusi dīkstāvē %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Atslēgšana nebūs nepieciešama, ja vien nenotiks pašrocīga aizslēgšana.";
+"vaultDetail.locked.footer" = "Glabātava šobrīd ir aizslēgta.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
 "vaultDetail.removeVault.footer" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta un neizdzēsīs nevienu šifrēto datni.";
 "vaultDetail.renameVault.progress" = "Pārdēvē…";
