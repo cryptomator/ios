@@ -211,6 +211,7 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+"sharePoint.urlValidation.error.emptyURL" = "網址不能空白。";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
