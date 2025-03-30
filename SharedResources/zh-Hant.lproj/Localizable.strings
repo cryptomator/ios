@@ -212,6 +212,7 @@
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
 "sharePoint.urlValidation.error.emptyURL" = "網址不能空白。";
+"sharePoint.urlValidation.error.invalidURL" = "無效的網址。請使用此格式: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
