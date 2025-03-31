@@ -186,8 +186,10 @@
 "settings.contact" = "Kontakti";
 "settings.debugMode" = "Atkļūdošana";
 "settings.debugMode.alert.message" = "Ar atkļūdošanu jūtīgi dati var tikt ierakstīti žurnāla datnē šajā ierīcē (piemēram, datņu nosaukumi un ceļi). Paroles, sīkdatnes utt. noteikti netiek iekļautas.\n\nJāatceras atspējot atkļūdošanu, tiklīdz tas ir iespējams.";
+"settings.manageSubscriptions" = "Pārvaldīt abonementu";
 "settings.rateApp" = "Novērtēt lietotni";
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
+"settings.shortcutsGuide" = "Saīšņu norādes";
 "settings.unlockFullVersion" = "Atslēgt pilno versiju";
 
 "sharePoint.enterURL.title" = "Jāievada SharePoint URL";
