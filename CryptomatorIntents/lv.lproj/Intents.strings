@@ -1,5 +1,7 @@
 "common.failureReason" = "Neizdošanās Iemesls";
 "common.vault" = "Glabātava";
+
+"getFolderIntent.description" = "Atgriež norādītā ceļa mapes objektu norādītajā glabātavā.";
 "getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
 
 "isUnlockedIntent.description" = "Atgriež, vai norādītā glabātava ir atslēgta.";
@@ -14,6 +16,7 @@
 
 "openVaultIntent.description" = "Atver norādīto glabātavu datņu lietotnē.";
 "openVaultIntent.text" = "Atvērt ${vault} datņu lietotnē";
+"openVaultIntent.title" = "Atvērt glabātavu";
 
 "saveFileIntent.description" = "Saglabā datni glabātavā.";
 "saveFileIntent.file" = "Datne";
