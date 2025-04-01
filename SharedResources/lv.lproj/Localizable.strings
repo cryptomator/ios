@@ -13,6 +13,7 @@
 "common.button.close" = "Aizvērt";
 "common.button.confirm" = "Apstiprināt";
 "common.button.create" = "Izveidot";
+"common.button.createFolder" = "Izveidot mapi";
 "common.button.done" = "Darīts";
 "common.button.download" = "Lejupielādēt";
 "common.button.edit" = "Labot";
@@ -20,6 +21,7 @@
 "common.button.next" = "Tālāk";
 "common.button.ok" = "Labi";
 "common.button.refresh" = "Atsvaidzināt";
+"common.button.register" = "Reģistrēt";
 "common.button.remove" = "Noņemt";
 "common.button.retry" = "Mēģināt vēlreiz";
 "common.cells.openInFilesApp" = "Atvērt datņu lietotnē";
@@ -59,6 +61,8 @@
 "addVault.openExistingVault.progress" = "Pievieno glabātavu…";
 "addVault.success.info" = "Glabātava \"%@\" sekmīgi pievienota.\nTai var piekļūt ar datņu lietotni.";
 "addVault.success.footer" = "Ja tas vēl nav izdarīts, datņu lietotnē jāiespējo Cryptomator.";
+
+"biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Pirksta nospieduma ID";
 
 "changePassword.error.invalidOldPassword" = "Pašreizējā parole ir nepareiza. Lūgums mēģināt vēlreiz.";
@@ -71,6 +75,7 @@
 "chooseFolder.createNewFolder.header.title" = "Jāizvēlas mapes nosaukums.";
 "chooseFolder.createNewFolder.cells.name" = "Mapes nosaukums";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "Mapes nosaukums nevar būt tukšs.";
+"chooseFolder.createNewFolder.progress" = "Izveido mapi…";
 
 "cloudProvider.error.itemNotFound" = "\"%@\" nevarēja atrast.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" jau pastāv.";
@@ -121,7 +126,7 @@
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
 
 "intents.saveFile.missingFile" = "Sniegtā datne nav derīga.";
-"intents.saveFile.invalidFolder" = "Sniegtā mape nav derīga.";
+"intents.saveFile.invalidFolder" = "Norādītā mape nav derīga.";
 "intents.saveFile.missingTemporaryFolder" = "Neizdevāš izveidot pagaidu mapi.";
 "intents.saveFile.lockedVault" = "Ir nepieciešams atslēgt savu glabātavu, lai izmantotu šo saīsni.";
 "intents.saveFile.selectedVaultNotFound" = "Atlasītā glabātava nav atrodama.";
