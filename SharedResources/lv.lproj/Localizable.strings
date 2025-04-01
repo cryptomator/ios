@@ -30,6 +30,7 @@
 
 "accountList.header.title" = "Autentificēšanās";
 "accountList.emptyList.message" = "Piesist šeit, lai pievienotu kontu";
+"accountList.signOut.alert.title" = "Noņemt saistītās glabātavas?";
 "accountList.signOut.alert.message" = "Atsakoties visas saistītās glabātavas tiks noņemtas no glabātavu saraksta. Šifrētie dati netiks izdzēsti. Pēc tam var atkal pieteikties un pievienot glabātavas no jauna.";
 
 "addVault.title" = "Pievienot glabātavu";
@@ -212,6 +213,7 @@
 "snapshots.main.vault1" = "/Darbs";
 "snapshots.main.vault2" = "/Ģimene";
 "snapshots.main.vault3" = "/Dokumenti";
+"snapshots.main.vault4" = "/Ceļojums uz Kaliforniju";
 
 "s3Authentication.displayName" = "Attēlojamais vārds";
 "s3Authentication.accessKey" = "Piekļuves atslēga";
@@ -250,22 +252,28 @@
 "vaultDetail.button.changeVaultPassword" = "Nomainīt paroli";
 "vaultDetail.button.lock" = "Aizslēgt tagad";
 "vaultDetail.button.moveVault" = "Pārvietot";
+"vaultDetail.button.removeVault" = "Noņemt no glabātavu saraksta";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
 "vaultDetail.changePassword.footer" = "Jāizvēlas tikai sev zināma stipra glabātavas parole un jātur tā drošā vietā.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ja iespējo %@, glabātavas parole tiks glabāta iOS atslēgu saišķī.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
 "vaultDetail.info.footer.accessVault" = "Glabātavai var piekļūt datņu lietotnē.";
+"vaultDetail.info.footer.accountInfo" = "Pieteicies kā %@ ar %@.";
 "vaultDetail.keepUnlocked.title" = "Atslēgšanas ilgums";
 "vaultDetail.keepUnlocked.footer.off" = "Atslēgšana būs nepieciešama, kad datņu lietotne pātrauks Cryptomator darbību.";
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "Atslēgšana būs nepieciešama, kad glabātava būs bijusi dīkstāvē %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Atslēgšana nebūs nepieciešama, ja vien nenotiks pašrocīga aizslēgšana.";
 "vaultDetail.locked.footer" = "Glabātava šobrīd ir aizslēgta.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator noteica šajā atrašanās vietā esošu glabātavu.\nLai pārvietotu savu glabātavu, lūgums doties atpakaļ un izvēlēties citu mapi.";
+"vaultDetail.moveVault.progress" = "Pārvieto…";
 "vaultDetail.removeVault.footer" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta un neizdzēsīs nevienu šifrēto datni.";
 "vaultDetail.renameVault.progress" = "Pārdēvē…";
 "vaultDetail.unlocked.footer" = "Glabātava pašreiz ir atslēgta datņu lietonē.";
 "vaultDetail.unlockVault.footer" = "Jāievada \"%1$@\" parole, lai to glabāt iOS atslēgu saišķī un iespējotu %2$@.";
+
+"vaultList.header.title" = "Glabātavas";
 "vaultList.emptyList.message" = "Piesist šeit, lai pievienotu glabātavu";
+"vaultList.remove.alert.title" = "Noņemt glabātavu?";
 "vaultList.remove.alert.message" = "Šī darbība tikai noņems glabātavu no glabātavu saraksta. Šifrētie dati netiks izdzēsti. Vēlāk glabātavu var pievienot no jauna.";
 
 "vaultProviderFactory.error.unsupportedVaultConfig" = "Glabātavas konfigurācija nav atbalstīta. Lūgums pārliecināties, ka tiek izmantota jaunākā Cryptomator versija.";
