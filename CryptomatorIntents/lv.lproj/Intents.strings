@@ -1,8 +1,11 @@
 "common.failureReason" = "Neizdošanās Iemesls";
+"common.folder" = "Mape";
 "common.vault" = "Glabātava";
 
 "getFolderIntent.description" = "Atgriež norādītā ceļa mapes objektu norādītajā glabātavā.";
+"getFolderIntent.path" = "Ceļš";
 "getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
+"getFolderIntent.title" = "Iegūt mapi";
 
 "isUnlockedIntent.description" = "Atgriež, vai norādītā glabātava ir atslēgta.";
 "isUnlockedIntent.title" = "Ir atslēgta";
