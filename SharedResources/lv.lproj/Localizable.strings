@@ -161,7 +161,10 @@
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
 
 "purchase.beginFreeTrial.alert.title" = "Izmēģinājums atslēgts";
+"purchase.footer.privacyPolicy" = "Privātuma pamatnostādnes";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
+"purchase.product.donateAndUpgrade" = "Ziedot un uzlabot";
+"purchase.product.freeUpgrade" = "Bezmaksas uzlabojums";
 "purchase.product.lifetimeLicense" = "Mūža licence";
 "purchase.product.lifetimeLicense.duration" = "vienreiz";
 "purchase.product.pricing.free" = "Bezmaksas";
@@ -176,6 +179,7 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nav pilnā versija";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Mēs nevarējām atrast iepriekš iegādātu pilno versiku, kuru varētu atjaunot. Lūgums mēģināt citu iespēju.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Tiesīgs uz uzlabojumu";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Izskatās, ka tiek mēģināts uzlabot no vecākas Cryptomator versijas. Tādā gadījumā lūgums atlasīt \"Uzlabošanas piedāvājums\" iespēju.";
 "purchase.retry.button" = "Mēģināt vēlreiz";
 "purchase.title" = "Atslēgt pilno versiju";
@@ -233,13 +237,20 @@
 "trialStatus.expired" = "Beidzies";
 
 "unlockVault.button.unlock" = "Atslēgt";
-"unlockVault.button.unlockVia" = "Atbloķēt ar %@";
+"unlockVault.button.unlockVia" = "Atslēgt ar %@";
 "unlockVault.password.footer" = "Jāievada \"%@\" parole.";
 "unlockVault.enableBiometricalUnlock.switch" = "Iespējot %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Glabātavas atslēgšanas ar paroli vietā to var atslēgt ar %@.";
-"unlockVault.evaluatePolicy.reason" = "Atbloķēt savu glabātavu";
+"unlockVault.evaluatePolicy.reason" = "Atslēgt savu glabātavu";
 "unlockVault.progress" = "Atslēdz…";
+
+"untrustedTLSCertificate.title" = "Nederīgs SSL sertifikāts";
+"untrustedTLSCertificate.message" = "\"%@\" TLS sertifikāts ir nederīgs. Vai vienalga tam uzticēties?\n\nSHA-256: %@";
 "untrustedTLSCertificate.add" = "Uzticēties";
+"untrustedTLSCertificate.dismiss" = "Neuzticēties";
+
+"upgrade.title" = "Uzlabojuma piedāvājums";
+"upgrade.notEligible.alert.title" = "Uzlabošana neizdevās";
 "upgrade.notEligible.alert.message" = "Cryptomator nevarēja noteikt ierīcē uzstādītu vecāku versiju. Ja tā tika nopirkta, lūgumas atkārtoti to lejupielādēt lietotņu veikalā un mēģināt vēlreiz.";
 "upgrade.info" = "Paldies par uzticēšanos Cryptomator kopš pirmās versijas! Kā uzticamam lietotājam Tev ir pieejams bezmaksas uzlabojums.";
 
