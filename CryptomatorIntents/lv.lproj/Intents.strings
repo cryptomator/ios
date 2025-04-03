@@ -1,5 +1,7 @@
 "common.failureReason" = "Neizdošanās Iemesls";
+"common.false" = "nē";
 "common.folder" = "Mape";
+"common.true" = "jā";
 "common.vault" = "Glabātava";
 
 "getFolderIntent.description" = "Atgriež norādītā ceļa mapes objektu norādītajā glabātavā.";
