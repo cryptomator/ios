@@ -10,6 +10,7 @@
 "common.button.cancel" = "Atcelt";
 "common.button.change" = "Mainīt";
 "common.button.choose" = "Izvēlēties";
+"common.button.clear" = "Notīrīt";
 "common.button.close" = "Aizvērt";
 "common.button.confirm" = "Apstiprināt";
 "common.button.create" = "Izveidot";
@@ -24,11 +25,14 @@
 "common.button.register" = "Reģistrēt";
 "common.button.remove" = "Noņemt";
 "common.button.retry" = "Mēģināt vēlreiz";
+"common.button.signOut" = "Atteikties";
+"common.button.verify" = "Apliecināt";
 "common.cells.openInFilesApp" = "Atvērt datņu lietotnē";
 "common.cells.password" = "Parole";
 "common.cells.url" = "URL";
 "common.cells.username" = "Lietotājvārds";
 "common.footer.learnMore" = "Uzzināt vairāk.";
+"common.hud.authenticating" = "Autentificē…";
 
 "accountList.header.title" = "Autentificēšanās";
 "accountList.emptyList.message" = "Piesist šeit, lai pievienotu kontu";
@@ -159,9 +163,14 @@
 
 "onboarding.title" = "Laipni lūdzam";
 "onboarding.info" = "Paldies par Cryptomator izvēlēšanos savu datņu aizsargāšanai.\n\nAr Cryptomator atslēga uz Taviem datiem ir Tavās rokās. Cryptomator šifrē datus ātri un bez pūlēm.\n\nŠī lietotne ir pilnībā iekļauta datņu lietotnē. Vēlāk jāpārliecinās, ka Cryptomator ir iespējots datņu lietotnē, lai piekļūtu savām glabātavām.";
+"onboarding.button.continue" = "Turpināt";
 
 "purchase.beginFreeTrial.alert.title" = "Izmēģinājums atslēgts";
+"purchase.expiredTrial" = "Izmēģinājuma laiks ir beidzies.";
 "purchase.footer.privacyPolicy" = "Privātuma pamatnostādnes";
+"purchase.footer.termsOfUse" = "Izmantošanas nosacījumi";
+"purchase.header.feature.familySharing" = "Koplietošana ar ģimeni";
+"purchase.header.feature.openSource" = "Atvērtā pirmkoda izstrāde";
 "purchase.header.feature.writeAccess" = "Rakstīšanas piekļuve glabātavām";
 "purchase.product.donateAndUpgrade" = "Ziedot un uzlabot";
 "purchase.product.freeUpgrade" = "Bezmaksas uzlabojums";
@@ -175,6 +184,8 @@
 "purchase.product.yearlySubscription.duration" = "ik gadu";
 "purchase.readOnlyMode.alert.title" = "Tikai lasīšanas režīms";
 "purchase.readOnlyMode.alert.message" = "Pilno Cryptomator versiju var atslēgt vēlāk iestatījumos un pagaidām izmantot tikai lasāmā režīmā.";
+"purchase.restorePurchase.button" = "Atjaunot pirkumu";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Izmēģinājuma laiks turpinās";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Tagad ierobežotu laiku var izmantot pilno Cryptomator versiju. Izmēģinājums beigsies %@. Pēc tam glabātavām joprojām varēs piekļūt tikai lasāmā režīmā.";
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Sekmīga atjaunošana";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Nav pilnā versija";
@@ -182,6 +193,7 @@
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Tiesīgs uz uzlabojumu";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Izskatās, ka tiek mēģināts uzlabot no vecākas Cryptomator versijas. Tādā gadījumā lūgums atlasīt \"Uzlabošanas piedāvājums\" iespēju.";
 "purchase.retry.button" = "Mēģināt vēlreiz";
+"purchase.retry.footer" = "Nevarēja ielādēt pieejamos produktus.";
 "purchase.title" = "Atslēgt pilno versiju";
 "purchase.unlockedFullVersion.message" = "Tagad var izmantot pilno Cryptomator versiju. Laimīgu šifrēšanu!";
 "purchase.unlockedFullVersion.title" = "Paldies!";
