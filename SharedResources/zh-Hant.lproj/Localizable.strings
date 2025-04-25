@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "此操作需要連線至互聯網。";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+"cloudProviderType.sharePoint.secondary" = "包括 Microsoft Teams";
 
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.info" = "感謝您選擇 Cryptomator 來保護您的文件。若要開始，請前往主應用程序並添加一個加密檔案庫";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "無法執行操作，因為此加密檔案庫的其他後台操作必須要先完成。請稍後再試。";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "存取資源必要的權限無法取得。請嘗試使用其它帳號。";
+
 "nameValidation.error.endsWithPeriod" = "您不能使用以句點（.）結尾的名稱。請選擇其他名稱。";
 "nameValidation.error.endsWithSpace" = "您不能使用以空格（ ）結尾的名稱。請選擇其他名稱。";
 "nameValidation.error.containsIllegalCharacter" = "您不能使用具有「%@」的名稱。請選擇其他名稱。";
@@ -211,6 +214,9 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+
+"sharePoint.enterURL.title" = "輸入 SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint 網站 URL";
 "sharePoint.urlValidation.error.emptyURL" = "網址不能空白。";
 "sharePoint.urlValidation.error.invalidURL" = "無效的網址。請使用此格式: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
