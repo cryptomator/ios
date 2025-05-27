@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Conexão à Internet necessária para esta operação.";
 
 "cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
+"cloudProviderType.sharePoint.secondary" = "Incl. Equipes Microsoft";
 
 "fileProvider.onboarding.title" = "Bem vindo";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";

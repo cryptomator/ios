@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "이 작업은 인터넷 연결이 필요합니다.";
 
 "cloudProviderType.localFileSystem" = "다른 파일 앱";
+"cloudProviderType.sharePoint.secondary" = "마이크로소프트 팀즈 포함";
 
 "fileProvider.onboarding.title" = "환영합니다";
 "fileProvider.onboarding.info" = "파일을 보호하기 위해 Cryptomator를 선택하여 주셔서 감사합니다. 시작하기 위해 메인으로 이동하신 후 Vault를 추가하십시오.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "이 Vault에 대한 다른 우선 백그라운드 작업으로 인해 작업이 불가능합니다. 잠시 후 다시 시도해 주십시오.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "해당 리소스에 접근하기 위한 필수 권한을 얻을 수 없습니다. 다른 계정으로 시도하십시오.";
+
 "nameValidation.error.endsWithPeriod" = "마침표로 끝나는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
 "nameValidation.error.endsWithSpace" = "공백으로 끝나는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
 "nameValidation.error.containsIllegalCharacter" = "\"%@\"을(를) 포함하는 이름은 사용할 수 없습니다. 다른 이름을 선택해 주십시오.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "로그파일 전송";
 "settings.shortcutsGuide" = "단축키 가이드";
 "settings.unlockFullVersion" = "정식 버전 잠금 해제";
+
+"sharePoint.enterURL.title" = "SharePoint URL 입력";
+"sharePoint.enterURL.placeholder" = "SharePoint Site URL";
+"sharePoint.enterURL.header.title" = "이 URL 형태를 따르십시오:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL을 입력하십시오.";
+"sharePoint.urlValidation.error.invalidURL" = "URL이 유효하지 않습니다. 이 형태를 따르십시오: \nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "문서 라이브러리 선택하기";
+"sharePoint.selectDrive.header.title" = "작업하고자 하는 SharePoint 문서 라이브러리를 선택하십시오";
+"sharePoint.selectDrive.emptyList.footer" = "문서 라이브러리 없음";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";

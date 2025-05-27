@@ -1,9 +1,27 @@
 "common.failureReason" = "Neizdošanās Iemesls";
+"common.false" = "nē";
+"common.folder" = "Mape";
+"common.true" = "jā";
 "common.vault" = "Glabātava";
+
+"getFolderIntent.description" = "Atgriež norādītā ceļa mapes objektu norādītajā glabātavā.";
+"getFolderIntent.path" = "Ceļš";
 "getFolderIntent.text" = "Iegūt mapi, kura atrodas ${path} glabātavā ${vault}";
+"getFolderIntent.title" = "Iegūt mapi";
+
+"isUnlockedIntent.description" = "Atgriež, vai norādītā glabātava ir atslēgta.";
+"isUnlockedIntent.title" = "Ir atslēgta";
+
+"isVaultLockedIntent.title" = "Vai glabātava ir atslēgta";
+"isVaultUnlockedIntent.text" = "${vault} ir atslēgta?";
+
+"lockVaultIntent.description" = "Aizslēdz norādīto glabātavu.";
+"lockVaultIntent.text" = "Aizslēgt ${vault}";
+"lockVaultIntent.title" = "Aizslēgt glabātavu";
 
 "openVaultIntent.description" = "Atver norādīto glabātavu datņu lietotnē.";
 "openVaultIntent.text" = "Atvērt ${vault} datņu lietotnē";
+"openVaultIntent.title" = "Atvērt glabātavu";
 
 "saveFileIntent.description" = "Saglabā datni glabātavā.";
 "saveFileIntent.file" = "Datne";

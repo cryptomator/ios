@@ -46,12 +46,12 @@
 "addVault.createNewVault.setVaultName.cells.name" = "加密檔案庫名稱";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "加密檔案庫名稱不可留空。";
 "addVault.createNewVault.chooseCloud.header" = "Cryptomator 應該將您加密後的檔案存放在哪裡？";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "“%@”已經在此位置，請更換加密檔案庫名或位置";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "此位置已存在 「%@」。選擇不同的加密檔案庫名稱或位置。";
 "addVault.createNewVault.detectedMasterkey.text" = "Cryptomator 在此檢測到現有的加密檔案庫。\n如要建立新的加密檔案庫，請返回並選擇其他資料夾。";
 "addVault.createNewVault.password.enterPassword.header" = "輸入新密碼.";
 "addVault.createNewVault.password.confirmPassword.header" = "確認新密碼.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "確認密碼？";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "重要：如果您遺忘了密碼，您的數據將無法被恢復。";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "重要提示： 如果您忘記了密碼，將無法復原資料。";
 "addVault.createNewVault.password.error.emptyPassword" = "密碼不可留空。";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "密碼不符.";
 "addVault.createNewVault.password.error.tooShortPassword" = "密碼必須包含至少8個字符。";
@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "此操作需要連線至互聯網。";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
+"cloudProviderType.sharePoint.secondary" = "包括 Microsoft Teams";
 
 "fileProvider.onboarding.title" = "歡迎";
 "fileProvider.onboarding.info" = "感謝您選擇 Cryptomator 來保護您的文件。若要開始，請前往主應用程序並添加一個加密檔案庫";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "無法執行操作，因為此加密檔案庫的其他後台操作必須要先完成。請稍後再試。";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "存取資源必要的權限無法取得。請嘗試使用其它帳號。";
+
 "nameValidation.error.endsWithPeriod" = "您不能使用以句點（.）結尾的名稱。請選擇其他名稱。";
 "nameValidation.error.endsWithSpace" = "您不能使用以空格（ ）結尾的名稱。請選擇其他名稱。";
 "nameValidation.error.containsIllegalCharacter" = "您不能使用具有「%@」的名稱。請選擇其他名稱。";
@@ -211,6 +214,15 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+
+"sharePoint.enterURL.title" = "輸入 SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint 網站 URL";
+"sharePoint.enterURL.header.title" = "使用這個 URL 格式：\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "網址不能空白。";
+"sharePoint.urlValidation.error.invalidURL" = "無效的網址。請使用此格式: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "選擇文件庫";
+"sharePoint.selectDrive.header.title" = "選擇您要使用的 SharePoint 文件庫。";
+"sharePoint.selectDrive.emptyList.footer" = "沒有可用的文件庫";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
