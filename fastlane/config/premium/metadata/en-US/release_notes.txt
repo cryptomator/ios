@@ -1,1 +1,1 @@
-- Introducing support for SharePoint, allowing secure access to vaults stored in a SharePoint document library, including Microsoft Teams (#402).
+- Fixed endless loading when calculating cache size in settings.
