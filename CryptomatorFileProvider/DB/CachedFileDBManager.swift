@@ -140,9 +140,13 @@ class CachedFileDBManager: CachedFileManager {
 				  WHERE \(UploadTaskRecord.databaseTableName).correspondingItem IS NULL
 			""")
 			return try entries.reduce(0) {
-				let attributes = try $1.localURL.resourceValues(forKeys: [.fileSizeKey])
-				let filesize = attributes.fileSize ?? 0
-				return filesize + $0
+				do {
+					let attributes = try $1.localURL.resourceValues(forKeys: [.fileSizeKey])
+					let filesize = attributes.fileSize ?? 0
+					return filesize + $0
+				} catch CocoaError.fileReadNoSuchFile {
+					return $0
+				}
 			}
 		})
 	}
