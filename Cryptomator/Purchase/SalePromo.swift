@@ -13,12 +13,12 @@ struct SalePromo {
 	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
 
 	static let shared = SalePromo()
-	static let spring2025Emoji = "🌸"
-	static let spring2025Discount = "25%* off until March 31"
+	static let summer2025Emoji = "☀️"
+	static let summer2025Discount = "25%* off until June 30"
 
-	static func isSpring2025Active() -> Bool {
-		let saleStartComponents = DateComponents(year: 2025, month: 3, day: 20)
-		let saleEndComponents = DateComponents(year: 2025, month: 3, day: 31)
+	static func isSummer2025Active() -> Bool {
+		let saleStartComponents = DateComponents(year: 2025, month: 6, day: 1)
+		let saleEndComponents = DateComponents(year: 2025, month: 6, day: 30)
 		guard let saleStartDate = Calendar.current.date(from: saleStartComponents), let saleEndDate = Calendar.current.date(from: saleEndComponents) else {
 			return false
 		}
@@ -26,9 +26,9 @@ struct SalePromo {
 		return now >= saleStartDate && now <= saleEndDate
 	}
 
-	func shouldShowSpring2025Banner() -> Bool {
+	func shouldShowSummer2025Banner() -> Bool {
 		#if !ALWAYS_PREMIUM
-		return SalePromo.isSpring2025Active() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.spring2025BannerDismissed
+		return SalePromo.isSummer2025Active() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.summer2025BannerDismissed
 		#else
 		return false
 		#endif

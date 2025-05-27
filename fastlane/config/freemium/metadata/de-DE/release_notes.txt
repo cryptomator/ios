@@ -1,1 +1,1 @@
-- Einführung der Unterstützung für SharePoint, um sicheren Zugriff auf in einer SharePoint-Dokumentenbibliothek gespeicherte Tresore zu ermöglichen, einschließlich Microsoft Teams (#402).
+- Endloses Laden beim Berechnen der Cache-Größe in den Einstellungen behoben.

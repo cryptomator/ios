@@ -16,7 +16,7 @@ public protocol CryptomatorSettings {
 	var fullVersionUnlocked: Bool { get set }
 	var hasRunningSubscription: Bool { get set }
 	#if !ALWAYS_PREMIUM
-	var spring2025BannerDismissed: Bool { get set }
+	var summer2025BannerDismissed: Bool { get set }
 	#endif
 }
 
@@ -113,7 +113,7 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 	}
 
 	#if !ALWAYS_PREMIUM
-	public var spring2025BannerDismissed: Bool {
+	public var summer2025BannerDismissed: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}

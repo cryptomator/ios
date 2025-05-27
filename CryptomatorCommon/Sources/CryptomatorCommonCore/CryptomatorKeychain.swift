@@ -25,7 +25,6 @@ class CryptomatorKeychain: CryptomatorKeychainType {
 	static let bundleId = CryptomatorConstants.mainAppBundleId
 	static let box = CryptomatorKeychain(service: "box.auth")
 	static let pCloud = CryptomatorKeychain(service: "pCloud.auth")
-	static let microsoftGraph = CryptomatorKeychain(service: "microsoftGraph.auth")
 	static let s3 = CryptomatorKeychain(service: "s3.auth")
 	static let webDAV = CryptomatorKeychain(service: "webDAV.auth")
 	static let localFileSystem = CryptomatorKeychain(service: "localFileSystem.auth")
