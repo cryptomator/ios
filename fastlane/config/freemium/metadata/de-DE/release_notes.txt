@@ -1,1 +1,1 @@
-- Endloses Laden beim Berechnen der Cache-Größe in den Einstellungen behoben.
+- Probleme beim Laden von WebDAV-Konten und beim Löschen von Tresoren behoben (#415).
