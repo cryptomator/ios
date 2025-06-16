@@ -139,15 +139,18 @@ class CloudAuthenticator {
 			try WebDAVCredentialManager.shared.removeCredentialFromKeychain(with: account.accountUID)
 		}
 		let correspondingVaults = try vaultAccountManager.getAllAccounts().filter { $0.delegateAccountUID == account.accountUID }
-		_ = Promise<Void>(on: .global()) { fulfill, _ in
-			for correspondingVault in correspondingVaults {
-				do {
-					try awaitPromise(self.vaultManager.removeVault(withUID: correspondingVault.vaultUID))
-				} catch {
-					DDLogError("Remove corresponding vault: \(correspondingVault.vaultName) after deauthenticated account: \(account) - failed with error: \(error)")
+		let vaultUIDs = correspondingVaults.map { $0.vaultUID }
+
+		_ = Promise<Void>(on: .global()) { fulfill, reject in
+			do {
+				if !vaultUIDs.isEmpty {
+					try awaitPromise(self.vaultManager.removeVaults(withUIDs: vaultUIDs))
+					DDLogInfo("Removed \(vaultUIDs.count) vaults for deauthenticated account: \(account)")
 				}
+				fulfill(())
+			} catch {
+				reject(error)
 			}
-			fulfill(())
 		}.then {
 			try self.accountManager.removeAccount(with: account.accountUID)
 		}.catch { error in
