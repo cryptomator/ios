@@ -171,6 +171,10 @@ private class PasswordVaultManagerMock: VaultManager {
 		return Promise(MockError.notMocked)
 	}
 
+	func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void> {
+		return Promise(MockError.notMocked)
+	}
+
 	func removeAllUnusedFileProviderDomains() -> Promise<Void> {
 		return Promise(MockError.notMocked)
 	}

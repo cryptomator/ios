@@ -193,6 +193,10 @@ private class VaultAccountManagerMock: VaultAccountManager {
 	func removeAccount(with vaultUID: String) throws {
 		removedVaultUIDs.append(vaultUID)
 	}
+
+	func removeAccounts(with vaultUIDs: [String]) throws {
+		removedVaultUIDs.append(contentsOf: vaultUIDs)
+	}
 }
 
 private class VaultDBManagerMock: VaultDBManager {
