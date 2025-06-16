@@ -36,6 +36,12 @@ platform :ios do
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false, force: true)
   end
 
+  desc "Run unit tests"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
+  lane :test do
+    scan
+  end
+
   desc "Submit a new beta build to TestFlight"
   desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :beta do

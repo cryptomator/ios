@@ -1,5 +1,5 @@
 scheme("AllTests")
-device("iPhone 15")
+device("iPhone 16")
 clean(true)
 output_types("html")
 skip_slack(true)
