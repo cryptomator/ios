@@ -211,6 +211,7 @@
 
 "sharePoint.enterURL.title" = "ادخل رابط SharePoint";
 "sharePoint.enterURL.placeholder" = "رابط موقع SharePoint";
+"sharePoint.urlValidation.error.emptyURL" = "الرابط لا يمكن أن يكون فارغا.";
 "sharePoint.selectDrive.title" = "حدد مكتبة المستندات";
 "sharePoint.selectDrive.emptyList.footer" = "لا توجد مكاتب مستندات متوفرة حاليا";
 
