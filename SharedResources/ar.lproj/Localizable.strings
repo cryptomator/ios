@@ -116,6 +116,7 @@
 "getFolderIntent.error.noVaultSelected" = "لم يتم تحديد أي خزانة.";
 
 "hubAuthentication.title" = "خزانة Hub";
+"hubAuthentication.accessNotGranted" = "ليس لديك الإذن للوصول إلى هذه الخزنة. اطلب من مالك الخزنة أن يأذن لك.";
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
@@ -208,6 +209,11 @@
 "settings.shortcutsGuide" = "دليل الاختصارات";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
 
+"sharePoint.enterURL.title" = "ادخل رابط SharePoint";
+"sharePoint.enterURL.placeholder" = "رابط موقع SharePoint";
+"sharePoint.selectDrive.title" = "حدد مكتبة المستندات";
+"sharePoint.selectDrive.emptyList.footer" = "لا توجد مكاتب مستندات متوفرة حاليا";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -282,6 +288,7 @@
 "vaultDetail.removeVault.footer" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن ولن يحذف أي ملفات مشفرة.";
 "vaultDetail.renameVault.progress" = "إعادة تسمية…";
 "vaultDetail.unlocked.footer" = "خزانتك غير مقفلة حاليًا في تطبيق الملفات.";
+"vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%1$@\" لتخزينها في 'سلسلة مفاتيح iOS' وتمكين %2$@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";
