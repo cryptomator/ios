@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Для цієї операції необхідне підключення до Інтернету.";
 
 "cloudProviderType.localFileSystem" = "Інший файловий сервіс";
+"cloudProviderType.sharePoint.secondary" = "включно з Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Вітаємо";
 "fileProvider.onboarding.info" = "Дякуємо, що обрали Cryptomator для захисту ваших файлів. Щоб розпочати, зайдіть в основний додаток та додайте сховище.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Неможливо виконати операцію, тому що спочатку мають бути завершені інші фонові операції з цим сховищем. Будь ласка, спробуйте ще раз пізніше.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Не вдалося отримати необхідні дозволи для доступу до ресурсів. Спробуйте використовувати інший обліковий запис.";
+
 "nameValidation.error.endsWithPeriod" = "Не можна використовувати назву, що закінчується прочерком. Будь ласка, виберіть іншу назву.";
 "nameValidation.error.endsWithSpace" = "Не можна використовувати назву, яка закінчується пробілом. Будь ласка, оберіть іншу назву.";
 "nameValidation.error.containsIllegalCharacter" = "Ви не можете використовувати назву, яка містить \"%@\". Виберіть іншу назву.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Надіслати лог-файл";
 "settings.shortcutsGuide" = "Посібник з ярликів";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
+
+"sharePoint.enterURL.title" = "Введіть URL-адресу SharePoint";
+"sharePoint.enterURL.placeholder" = "URL-адреса SharePoint";
+"sharePoint.enterURL.header.title" = "Використовуйте такий формат URL-адреси:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL-адреса не може бути порожньою.";
+"sharePoint.urlValidation.error.invalidURL" = "URL-адреса недійсна. Будь ласка, використовуйте такий формат: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Вибрати бібліотеку документів";
+"sharePoint.selectDrive.header.title" = "Виберіть бібліотеку документів SharePoint, з якою ви хочете працювати.";
+"sharePoint.selectDrive.emptyList.footer" = "Немає доступних бібліотек документів";
 
 "snapshots.fileprovider.file1" = "/Розрахунки.numbers";
 "snapshots.fileprovider.file2" = "/Остаточна презентація.key";
