@@ -155,7 +155,7 @@
 
 "maintenanceModeError.runningCloudTask" = "Неможливо виконати операцію, тому що спочатку мають бути завершені інші фонові операції з цим сховищем. Будь ласка, спробуйте ще раз пізніше.";
 
-"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Не вдалося отримати необхідні дозволи для доступу до ресурсів. Спробуйте використовувати інший обліковий запис.";
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Не вдалося отримати необхідні дозволи для доступу до ресурсів. Спробуйте використати інший обліковий запис.";
 
 "nameValidation.error.endsWithPeriod" = "Не можна використовувати назву, що закінчується прочерком. Будь ласка, виберіть іншу назву.";
 "nameValidation.error.endsWithSpace" = "Не можна використовувати назву, яка закінчується пробілом. Будь ласка, оберіть іншу назву.";
@@ -219,7 +219,7 @@
 "sharePoint.enterURL.header.title" = "Використовуйте такий формат URL-адреси:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "URL-адреса не може бути порожньою.";
 "sharePoint.urlValidation.error.invalidURL" = "URL-адреса недійсна. Будь ласка, використовуйте такий формат: https://{…}.sharepoint.com/{sites|teams}/{…}";
-"sharePoint.selectDrive.title" = "Вибрати бібліотеку документів";
+"sharePoint.selectDrive.title" = "Виберіть бібліотеку документів";
 "sharePoint.selectDrive.header.title" = "Виберіть бібліотеку документів SharePoint, з якою ви хочете працювати.";
 "sharePoint.selectDrive.emptyList.footer" = "Немає доступних бібліотек документів";
 
