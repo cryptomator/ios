@@ -23,13 +23,13 @@
 "common.button.ok" = "Гаразд";
 "common.button.refresh" = "Оновити";
 "common.button.register" = "Зареєструвати";
-"common.button.remove" = "Прибрати";
+"common.button.remove" = "Вилучити";
 "common.button.retry" = "Повторити";
 "common.button.signOut" = "Вийти";
 "common.button.verify" = "Перевірити";
 "common.cells.openInFilesApp" = "Відкрити в додатку Файли";
 "common.cells.password" = "Пароль";
-"common.cells.url" = "URL-посилання";
+"common.cells.url" = "URL-адреса";
 "common.cells.username" = "Ім'я користувача";
 "common.footer.learnMore" = "Дізнатися більше.";
 "common.hud.authenticating" = "Авторизація…";
@@ -51,7 +51,7 @@
 "addVault.createNewVault.password.enterPassword.header" = "Введіть новий пароль.";
 "addVault.createNewVault.password.confirmPassword.header" = "Підтвердіть новий пароль.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Підтверджуєте пароль?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете пароль, то не зможете відновити дані.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете свій пароль, відновити дані буде неможливо.";
 "addVault.createNewVault.password.error.emptyPassword" = "Пароль не може бути порожнім.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Паролі не збігаються.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Пароль має містити щонайменше 8 символів.";
@@ -118,14 +118,14 @@
 
 "hubAuthentication.title" = "Сховище Hub";
 "hubAuthentication.accessNotGranted" = "Ви не маєте дозволу для доступу до цього сховища. Попросіть власника сховища про дозвіл.";
-"hubAuthentication.licenseExceeded" = "У вашого Cryptomator Hub недійсна ліцензія. Будь ласка, зв'яжіться з адміністратором Hub, щоб оновити або продовжити дію ліцензії.";
+"hubAuthentication.licenseExceeded" = "Ваш екземпляр Cryptomator Hub має недійсну ліцензію. Будь ласка, повідомте адміністратора Hub для оновлення або поновлення ліцензії.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Назва пристрою";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Схоже, це перша спроба доступу до Hub з цього пристрою. Для того, щоб ідентифікувати його для надання доступу, вам потрібно назвати цей пристрій.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Ваш ключ облікового запису необхідний для входу в систему з нових програм. Його можна знайти у своєму профілі.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Реєстрація пристрою успішна";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Щоб отримати доступ до сховища, його власник має надати вам дозвіл.";
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
-"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, завершіть обов'язкові кроки у вашому профілі користувача Hub.";
+"hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
 "hubAuthentication.vaultArchived" = "Це сховище було архівовано. Будь ласка, попросіть власника сховища розархівувати його.";
 
@@ -207,7 +207,7 @@
 "settings.cloudServices" = "Хмарні сервіси";
 "settings.contact" = "Контакти";
 "settings.debugMode" = "Режим налагодження";
-"settings.debugMode.alert.message" = "У цьому режимі чутливі дані можуть бути записані в файл журналу на вашому пристрої (наприклад, імена файлів і шляхи). Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте вимкнути режим налагодження якнайшвидше.";
+"settings.debugMode.alert.message" = "У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.";
 "settings.manageSubscriptions" = "Управління передплатою";
 "settings.rateApp" = "Оцінити додаток";
 "settings.sendLogFile" = "Надіслати лог-файл";
@@ -236,10 +236,10 @@
 "snapshots.main.vault3" = "/Документи";
 "snapshots.main.vault4" = "/Поїздка до Каліфорнії";
 
-"s3Authentication.displayName" = "Публічне ім'я";
+"s3Authentication.displayName" = "Відображуване ім'я";
 "s3Authentication.accessKey" = "Ключ доступу";
 "s3Authentication.secretKey" = "Секретний ключ";
-"s3Authentication.existingBucket" = "Існуючий кошик";
+"s3Authentication.existingBucket" = "Наявний кошик";
 "s3Authentication.endpoint" = "Кінцева адреса з іменем хосту, портом і шляхом до кошика";
 "s3Authentication.region" = "Регіон";
 "s3Authentication.error.invalidCredentials" = "Невірні дані облікового запису.";
@@ -308,7 +308,7 @@
 "vaultProviderFactory.error.unsupportedVaultVersion" = "Сховище %ld-ї версії не підтримується. Це сховище було створене старішою або новішою версією Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Використовувати HTTPS?";
-"webDAVAuthentication.httpConnection.alert.message" = "Використання HTTP небезпечне. Рекомендуємо замість цього використовувати HTTPS. Якщо ви усвідомлюєте ризики, ви можете продовжити з HTTP.";
+"webDAVAuthentication.httpConnection.alert.message" = "Використання HTTP є небезпечним. Ми рекомендуємо використовувати HTTPS. Якщо ви усвідомлюєте ризики, то можете продовжити з HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Змінити на HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Залишити HTTP";
 
