@@ -9,7 +9,7 @@
 "common.alert.attention.title" = "Увага";
 "common.button.cancel" = "Скасувати";
 "common.button.change" = "Змінити";
-"common.button.choose" = "Оберіть";
+"common.button.choose" = "Обрати";
 "common.button.clear" = "Очистити";
 "common.button.close" = "Закрити";
 "common.button.confirm" = "Підтвердити";
@@ -27,7 +27,7 @@
 "common.button.retry" = "Повторити";
 "common.button.signOut" = "Вийти";
 "common.button.verify" = "Перевірити";
-"common.cells.openInFilesApp" = "Відкрити в додатку Файли";
+"common.cells.openInFilesApp" = "Відкрити в програмі «Файли»";
 "common.cells.password" = "Пароль";
 "common.cells.url" = "URL-адреса";
 "common.cells.username" = "Ім'я користувача";
@@ -36,40 +36,40 @@
 
 "accountList.header.title" = "Авторизація";
 "accountList.emptyList.message" = "Натисніть тут, щоб додати обліковий запис";
-"accountList.signOut.alert.title" = "Видалити пов'язані сховища?";
-"accountList.signOut.alert.message" = "Якщо вийти, то всі пов'язані з обліковим записом сховища будуть видалені зі списку сховищ. Зашифровані дані не будуть видалені. Ви можете увійти знову і повторно додати сховища пізніше.";
+"accountList.signOut.alert.title" = "Вилучити пов'язані сховища?";
+"accountList.signOut.alert.message" = "Після виходу з облікового запису всі пов’язані сховища буде вилучено зі списку сховищ. Зашифровані дані не будуть видалені. Ви зможете знову увійти та повторно додати сховища пізніше.";
 
-"addVault.title" = "Додавання сховища";
-"addVault.createNewVault.title" = "Створення нового сховища";
-"addVault.createNewVault.purchase" = "Для створення нового сховища необхідна повна версія Cryptomator.";
+"addVault.title" = "Додати сховище";
+"addVault.createNewVault.title" = "Створити нове сховище";
+"addVault.createNewVault.purchase" = "Для створення нового сховища потрібна повна версія Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Оберіть назву для сховища.";
 "addVault.createNewVault.setVaultName.cells.name" = "Назва сховища";
-"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Назва сховища не може бути порожньою.";
+"addVault.createNewVault.setVaultName.error.emptyVaultName" = "Поле «Назва сховища» не може бути порожнім.";
 "addVault.createNewVault.chooseCloud.header" = "Де Cryptomator має зберігати зашифровані файли вашого сховища?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" вже існує в цьому місці. Виберіть інше ім'я сховища або розташування.";
-"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator виявив чинне сховище за цим розташуванням.\nЩоб створити нове сховище, будь ласка, поверніться та оберіть іншу папку.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "«%@» уже існує в цьому розташуванні. Оберіть іншу назву сховища або інше розташування.";
+"addVault.createNewVault.detectedMasterkey.text" = "Cryptomator виявив наявне сховище в цьому розташуванні.\nЩоб створити нове сховище, будь ласка, поверніться та оберіть іншу папку.";
 "addVault.createNewVault.password.enterPassword.header" = "Введіть новий пароль.";
 "addVault.createNewVault.password.confirmPassword.header" = "Підтвердіть новий пароль.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Підтверджуєте пароль?";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Підтвердити пароль?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "ВАЖЛИВО: Якщо ви забудете свій пароль, відновити дані буде неможливо.";
-"addVault.createNewVault.password.error.emptyPassword" = "Пароль не може бути порожнім.";
+"addVault.createNewVault.password.error.emptyPassword" = "Поле «Пароль» не може бути порожнім.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Паролі не збігаються.";
-"addVault.createNewVault.password.error.tooShortPassword" = "Пароль має містити щонайменше 8 символів.";
+"addVault.createNewVault.password.error.tooShortPassword" = "Пароль повинен містити принаймні 8 символів.";
 "addVault.createNewVault.progress" = "Створення сховища…";
-"addVault.openExistingVault.title" = "Відкрити чинне сховище";
-"addVault.openExistingVault.chooseCloud.header" = "Де розташовано сховище?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator виявив сховище \"%@\".\nБажаєте його додати?";
+"addVault.openExistingVault.title" = "Відкрити наявне сховище";
+"addVault.openExistingVault.chooseCloud.header" = "Де розташоване сховище?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator виявив сховище «%@».\nХочете його додати?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Додати це сховище";
 "addVault.openExistingVault.downloadVault.progress" = "Завантаження сховища…";
-"addVault.openExistingVault.password.footer" = "Введіть пароль для \"%@\".";
+"addVault.openExistingVault.password.footer" = "Введіть пароль для «%@».";
 "addVault.openExistingVault.progress" = "Додавання сховища…";
-"addVault.success.info" = "Успішно додано сховище \"%@\".\nОтримайте доступ до нього через додаток Файли.";
-"addVault.success.footer" = "Якщо ви ще цього не зробили, то увімкніть Cryptomator в додатку Файли.";
+"addVault.success.info" = "Сховище «%@» успішно додано.\nДоступ до нього можна отримати через програму «Файли».";
+"addVault.success.footer" = "Якщо ви ще цього не зробили, увімкніть Cryptomator у програмі «Файли».";
 
-"biometryType.faceID" = "Ідентифікація за обличчям";
-"biometryType.touchID" = "Ідентифікація за відбитками пальців";
+"biometryType.faceID" = "Face ID";
+"biometryType.touchID" = "Touch ID";
 
-"changePassword.error.invalidOldPassword" = "Поточний пароль хибний. Будь ласка, спробуйте ще раз.";
+"changePassword.error.invalidOldPassword" = "Поточний пароль неправильний. Будь ласка, спробуйте ще раз.";
 "changePassword.header.currentPassword.title" = "Введіть поточний пароль.";
 "changePassword.header.newPassword.title" = "Введіть новий пароль.";
 "changePassword.header.newPasswordConfirmation.title" = "Підтвердіть новий пароль.";
@@ -78,23 +78,23 @@
 "chooseFolder.emptyFolder.footer" = "Папка порожня";
 "chooseFolder.createNewFolder.header.title" = "Виберіть назву для папки.";
 "chooseFolder.createNewFolder.cells.name" = "Назва папки";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "Назва папки не може бути порожня.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "Поле «Назва папки» не може бути порожнім.";
 "chooseFolder.createNewFolder.progress" = "Створення папки…";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" не знайдено.";
-"cloudProvider.error.itemAlreadyExists" = "\"%@\" вже існує.";
-"cloudProvider.error.itemTypeMismatch" = "\"%@\" має несподіваний тип предмету.";
-"cloudProvider.error.parentFolderDoesNotExist" = "Батьківська папка \"%@\" не існує.";
-"cloudProvider.error.pageTokenInvalid" = "Не вдалося отримати вміст папки для продовження.";
-"cloudProvider.error.quotaInsufficient" = "На вашому накопичувачі недостатньо місця.";
+"cloudProvider.error.itemNotFound" = "«%@» не знайдено.";
+"cloudProvider.error.itemAlreadyExists" = "«%@» вже існує.";
+"cloudProvider.error.itemTypeMismatch" = "«%@» має неочікуваний тип об'єкта.";
+"cloudProvider.error.parentFolderDoesNotExist" = "Батьківська папка «%@» не існує.";
+"cloudProvider.error.pageTokenInvalid" = "Не вдалося продовжити завантаження вмісту каталогу.";
+"cloudProvider.error.quotaInsufficient" = "Недостатньо місця у вашому сховищі даних.";
 "cloudProvider.error.unauthorized" = "Не вдалося виконати несанкціоновану операцію.";
-"cloudProvider.error.noInternetConnection" = "Для цієї операції необхідне підключення до Інтернету.";
+"cloudProvider.error.noInternetConnection" = "Для цієї операції потрібне з’єднання з інтернетом.";
 
 "cloudProviderType.localFileSystem" = "Інший файловий сервіс";
 "cloudProviderType.sharePoint.secondary" = "включно з Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Вітаємо";
-"fileProvider.onboarding.info" = "Дякуємо, що обрали Cryptomator для захисту ваших файлів. Щоб розпочати, зайдіть в основний додаток та додайте сховище.";
+"fileProvider.onboarding.info" = "Дякуємо, що обрали Cryptomator для захисту ваших файлів. Щоб почати, перейдіть до основної програми та додайте сховище.";
 "fileProvider.onboarding.button.openCryptomator" = "Відкрити Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Розблокування скасовано";
 "fileProvider.error.biometricalAuthCanceled.message" = "Не вдалося розблокувати за допомогою %@. Будь ласка, спробуйте ще раз.";
@@ -250,7 +250,7 @@
 
 "unlockVault.button.unlock" = "Розблокувати";
 "unlockVault.button.unlockVia" = "Розблокувати через %@";
-"unlockVault.password.footer" = "Введіть пароль для \"%@\".";
+"unlockVault.password.footer" = "Введіть пароль для «%@».";
 "unlockVault.enableBiometricalUnlock.switch" = "Увімкнути %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Замість розблокування сховища паролем, ви можете розблоковувати його через %@.";
 "unlockVault.evaluatePolicy.reason" = "Розблокуйте ваше сховище";
