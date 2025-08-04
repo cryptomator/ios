@@ -264,15 +264,15 @@
 "upgrade.title" = "Пропозиція оновлення";
 "upgrade.notEligible.alert.title" = "Помилка оновлення";
 "upgrade.notEligible.alert.message" = "Cryptomator не зміг виявити старішу версію, встановлену на вашому пристрої. Якщо ви її придбали, будь ласка, завантажте її з App Store знову та спробуйте ще раз.";
-"upgrade.info" = "Дякуємо, що ви з Cryptomator від самого початку. Як лояльному користувачу, вам надається можливість отримання безоплатної ліцензії.";
+"upgrade.info" = "Дякуємо, що довіряєте Cryptomator із першої версії. Як відданий користувач, ви маєте право на безплатне оновлення.";
 
 "urlSession.error.httpError.401" = "Неправильне ім'я користувача та/або пароль.";
-"urlSession.error.httpError.403" = "Недостатньо прав для запиту ресурсу.";
+"urlSession.error.httpError.403" = "Недостатньо прав для доступу до запитаного ресурсу.";
 "urlSession.error.httpError.404" = "Запитаний ресурс не знайдено.";
 "urlSession.error.httpError.405" = "Метод запиту не підтримується цільовим ресурсом.";
 "urlSession.error.httpError.409" = "Запит суперечить поточному стану цільового ресурсу.";
 "urlSession.error.httpError.412" = "Доступ до цільового ресурсу заборонений.";
-"urlSession.error.httpError.default" = "Не вдалось під'єднатися до мережі з кодом статусу %ld.";
+"urlSession.error.httpError.default" = "Збій мережевого з'єднання зі статусом %ld.";
 "urlSession.error.unexpectedResponse" = "Сталася неочікувана відповідь мережі.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Ви вже додали це сховище.";
@@ -282,17 +282,17 @@
 "vaultDetail.button.moveVault" = "Перемістити";
 "vaultDetail.button.removeVault" = "Вилучити зі списку сховищ";
 "vaultDetail.button.renameVault" = "Перейменувати";
-"vaultDetail.changePassword.footer" = "Оберіть надійний пароль для свого сховища, про який знаєте лише ви та зберігайте його в надійному місці.";
-"vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви активуєте %@, ваш пароль до сховища буде збережено у ланцюжку ключів iOS.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "Буде необхідний ваш пароль сховища лише якщо авторизація %@ буде невдалою.";
-"vaultDetail.info.footer.accessVault" = "Доступ до цього сховища здійснюйте через додаток Файли.";
-"vaultDetail.info.footer.accountInfo" = "Увійшов як %@ через %@.";
+"vaultDetail.changePassword.footer" = "Виберіть надійний пароль для свого сховища, який знатимете лише ви, і зберігайте його в безпечному місці.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви ввімкнете «%@», пароль вашого сховища буде збережено у зв'язці ключів iOS.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Ваш пароль до сховища буде потрібен лише у випадку невдалої автентифікації за допомогою «%@».";
+"vaultDetail.info.footer.accessVault" = "Отримайте доступ до сховища через програму «Файли».";
+"vaultDetail.info.footer.accountInfo" = "Ви увійшли як «%@» через «%@».";
 "vaultDetail.keepUnlocked.title" = "Залишити розблокованим";
-"vaultDetail.keepUnlocked.footer.off" = "Розблокування буде потрібне, коли Cryptomator буде закритий додатком Файли.";
-"vaultDetail.keepUnlocked.footer.limitedDuration" = "Буде потрібно розблокувати, якщо ваше сховище простоюватиме більше %@.";
-"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Розблокування не буде потрібне, поки не заблокуєте вручну.";
+"vaultDetail.keepUnlocked.footer.off" = "Розблокування буде потрібно, якщо програму Cryptomator буде закрито програмою «Файли».";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "Розблокування буде потрібно, якщо ваше сховище простоюватиме більше %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Розблокування не буде потрібне, доки ви не заблокуєте сховище вручну.";
 "vaultDetail.locked.footer" = "Ваше сховище наразі заблоковане.";
-"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator виявив чинне сховище за цим розташуванням.\nЩоб перемістити ваше сховище, будь ласка, поверніться та оберіть іншу папку.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "Cryptomator виявив наявне сховище в цьому розташуванні.\nЩоб перемістити своє сховище, будь ласка, поверніться та оберіть іншу папку.";
 "vaultDetail.moveVault.progress" = "Переміщення…";
 "vaultDetail.removeVault.footer" = "Це прибере сховище лише зі списку сховищ, але не видалить зашифрованих файлів.";
 "vaultDetail.renameVault.progress" = "Перейменування…";
