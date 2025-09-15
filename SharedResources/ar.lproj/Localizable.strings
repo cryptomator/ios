@@ -154,6 +154,8 @@
 
 "maintenanceModeError.runningCloudTask" = "لا يمكن تنفيذ العملية لأن العمليات الخلفية الأخرى لهذه الخزانة يجب أن تنتهي أولاً. يرجى المحاولة مرة أخرى لاحقًا.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "لا يمكن الحصول على الأوذنات اللازمة للوصول إلى المورد. الرجاء محاولة استخدام حساب مختلف.";
+
 "nameValidation.error.endsWithPeriod" = "لا يمكنك استخدام اسم ينتهي بنقطة. يرجى اختيار اسم آخر.";
 "nameValidation.error.endsWithSpace" = "لا يمكنك استخدام اسم ينتهي بمسافة. يرجى اختيار اسم آخر.";
 "nameValidation.error.containsIllegalCharacter" = "لا يمكنك استخدام اسم يحتوي على \"%@\". يرجى اختيار اسم آخر.";
@@ -213,8 +215,11 @@
 
 "sharePoint.enterURL.title" = "ادخل رابط SharePoint";
 "sharePoint.enterURL.placeholder" = "رابط موقع SharePoint";
+"sharePoint.enterURL.header.title" = "استخدم هذا الرابط:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "الرابط لا يمكن أن يكون فارغا.";
+"sharePoint.urlValidation.error.invalidURL" = "الرابط غير صالح. الرجاء استخدام هذا التنسيق: https://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.selectDrive.title" = "حدد مكتبة المستندات";
+"sharePoint.selectDrive.header.title" = "حدد مكتبة SharePoint التي تريد العمل معها.";
 "sharePoint.selectDrive.emptyList.footer" = "لا توجد مكاتب مستندات متوفرة حاليا";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
