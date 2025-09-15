@@ -122,9 +122,11 @@
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "تم تسجيل الجهاز بنجاح";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للوصول إلى الخزنة، يحتاج مالك الخزنة إلى منحك الإذن.";
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
+"hubAuthentication.vaultArchived" = "تم أرشفة هذه الخزنة، الرجاء طلب من مالك الخزنة إلغاء أرشفته.";
 
 "intents.saveFile.missingFile" = "الملف المقدم غير صالح.";
 "intents.saveFile.invalidFolder" = "المجلد المقدم غير صالح.";
