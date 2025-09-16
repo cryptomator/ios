@@ -52,9 +52,9 @@ class AccountListViewModelTests: XCTestCase {
 
 		XCTAssertEqual(1, accountListViewModel.accounts.count)
 		XCTAssertEqual(1, accountListViewModel.accountInfos.count)
-		XCTAssertEqual(1, dbManagerMock.updatedPositions.count)
-		XCTAssertEqual("account2", dbManagerMock.updatedPositions[0].accountUID)
-		XCTAssertEqual(0, dbManagerMock.updatedPositions[0].position)
+
+		// No renumber on delete: positions may have gaps and we don't update here
+		XCTAssertEqual(0, dbManagerMock.updatedPositions.count)
 
 		XCTAssertEqual("account1", cloudAuthenticatorMock.deauthenticatedAccounts[0].accountUID)
 	}

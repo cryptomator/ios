@@ -84,7 +84,6 @@ class VaultListViewModel: ViewModel, VaultListViewModelProtocol {
 		let removedVaultCell = vaultCellViewModels.remove(at: index)
 		do {
 			_ = try vaultManager.removeVault(withUID: removedVaultCell.vault.vaultUID)
-			try updateVaultListPositions()
 		} catch {
 			removedRow = false
 			throw error
