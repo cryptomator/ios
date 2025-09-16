@@ -95,6 +95,9 @@ public class CryptomatorDatabase {
 		migrator.registerMigration("microsoftGraphAccountMigration") { db in
 			try microsoftGraphAccountMigration(db)
 		}
+		migrator.registerMigration("removePositionRenumberingOnDelete") { db in
+			try removePositionRenumberingOnDelete(db)
+		}
 		return migrator
 	}
 
@@ -236,6 +239,18 @@ public class CryptomatorDatabase {
 			let newMicrosoftGraphType = MicrosoftGraphType.oneDrive.databaseValue
 			try db.execute(sql: "INSERT INTO microsoftGraphAccounts (accountUID, credentialID, driveID, siteURL, type) VALUES (?, ?, NULL, NULL, ?)", arguments: [newAccountUID, oldAccountUID, newMicrosoftGraphType])
 		}
+	}
+
+	/**
+	 Removes renumbering triggers for vault and account list positions.
+
+	 Decrement-in-place renumbering can violate UNIQUE(position) due to SQLite's immediate constraint checking and unspecified row update order.
+	 Gaps after deletes are acceptable: ORDER BY position preserves relative order, inserts still append via creation triggers, and app code renumbers only when the user explicitly reorders.
+	 This avoids unnecessary writes and race risks.
+	 */
+	class func removePositionRenumberingOnDelete(_ db: Database) throws {
+		try db.execute(sql: "DROP TRIGGER IF EXISTS position_update")
+		try db.execute(sql: "DROP TRIGGER IF EXISTS accountList_position_update")
 	}
 
 	public static func openSharedDatabase(at databaseURL: URL) throws -> DatabasePool {

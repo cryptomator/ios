@@ -8,7 +8,13 @@
 
 Cryptomator offers multi-platform transparent client-side encryption of your files in the cloud.
 
-Download on the App Store: https://apps.apple.com/app/cryptomator-2/id1560822163
+Download on the App Store: https://apps.apple.com/app/cryptomator/id1560822163
+
+## Special Shoutout
+
+Continuous integration hosting is provided by [MacStadium](https://www.macstadium.com/company/opensource).
+
+<a href="https://www.macstadium.com/company/opensource"><img src="https://uploads-ssl.webflow.com/5ac3c046c82724970fc60918/5c019d917bba312af7553b49_MacStadium-developerlogo.png" alt="MacStadium" height="100"></a>
 
 ## Building
 
