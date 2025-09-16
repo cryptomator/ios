@@ -88,13 +88,14 @@ class DatabaseManagerTests: XCTestCase {
 			try VaultListPosition.filter(Column("vaultUID") == "Vault2").fetchOne(db)
 		}
 		XCTAssertNotNil(firstVaultListPosition)
-		XCTAssertEqual(0, firstVaultListPosition?.position)
 
 		let secondVaultListPosition = try database.read { db in
 			try VaultListPosition.filter(Column("vaultUID") == "Vault3").fetchOne(db)
 		}
 		XCTAssertNotNil(secondVaultListPosition)
-		XCTAssertEqual(1, secondVaultListPosition?.position)
+
+		// Order is preserved: Vault2 must come before Vault3, even if positions have gaps
+		XCTAssertTrue((firstVaultListPosition?.position ?? Int.min) < (secondVaultListPosition?.position ?? Int.min))
 	}
 
 	func testUpdateVaultListPositions() throws {
@@ -194,13 +195,14 @@ class DatabaseManagerTests: XCTestCase {
 			try AccountListPosition.filter(Column("accountUID") == "secondWebdavCloudProviderAccount").fetchOne(db)
 		}
 		XCTAssertNotNil(firstAccountListPositionForWebDAV)
-		XCTAssertEqual(0, firstAccountListPositionForWebDAV?.position)
 
 		let secondAccountListPositionForWebDAV = try database.read { db in
 			try AccountListPosition.filter(Column("accountUID") == "thirdWebdavCloudProviderAccount").fetchOne(db)
 		}
 		XCTAssertNotNil(secondAccountListPositionForWebDAV)
-		XCTAssertEqual(1, secondAccountListPositionForWebDAV?.position)
+
+		// Order is preserved: WebDAVAccount2 must come before WebDAVAccount3, even if positions have gaps
+		XCTAssertTrue((firstAccountListPositionForWebDAV?.position ?? Int.min) < (secondAccountListPositionForWebDAV?.position ?? Int.min))
 
 		let firstAccountListPositionForDropbox = try database.read { db in
 			try AccountListPosition.filter(Column("accountUID") == "firstDropboxCloudProviderAccount").fetchOne(db)

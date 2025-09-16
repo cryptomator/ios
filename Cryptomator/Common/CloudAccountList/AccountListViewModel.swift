@@ -43,8 +43,23 @@ class AccountListViewModel: AccountListViewModelProtocol {
 
 	func refreshItems() throws {
 		let refreshedAccountInfos = try dbManager.getAllAccounts(for: cloudProviderType)
-		let refreshedAccounts = try refreshedAccountInfos.map { try createAccountCellContent(from: $0) }
-		accountInfos = refreshedAccountInfos
+		var refreshedAccounts: [AccountCellContent] = []
+		var validAccountInfos: [AccountInfo] = []
+
+		for accountInfo in refreshedAccountInfos {
+			do {
+				let accountContent = try createAccountCellContent(from: accountInfo)
+				refreshedAccounts.append(accountContent)
+				validAccountInfos.append(accountInfo)
+			} catch CloudProviderAccountError.accountNotFoundError {
+				DDLogError("Account \(accountInfo.accountUID) not found in keychain, skipping")
+			} catch {
+				DDLogError("Error creating account cell content for \(accountInfo.accountUID): \(error)")
+				throw error
+			}
+		}
+
+		accountInfos = validAccountInfos
 		accounts = refreshedAccounts
 	}
 
@@ -205,7 +220,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		let removedAccountInfo = accountInfos.remove(at: index)
 		do {
 			try cloudAuthenticator.deauthenticate(account: removedAccountInfo.cloudProviderAccount)
-			try updateAccountListPositions()
 		} catch {
 			removedRow = false
 			throw error

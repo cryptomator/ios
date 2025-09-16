@@ -53,6 +53,16 @@ Update metadata in App Store Connect
 
 Requires --env to be set to 'freemium' or 'premium'
 
+### ios test
+
+```sh
+[bundle exec] fastlane ios test
+```
+
+Run unit tests
+
+Requires --env to be set to 'freemium' or 'premium'
+
 ### ios beta
 
 ```sh

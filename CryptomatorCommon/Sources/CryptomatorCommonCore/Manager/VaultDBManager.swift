@@ -31,6 +31,7 @@ public protocol VaultManager {
 	func manualUnlockVault(withUID vaultUID: String, kek: [UInt8]) throws -> CloudProvider
 	func createVaultProvider(withUID vaultUID: String, masterkey: Masterkey) throws -> CloudProvider
 	func removeVault(withUID vaultUID: String) throws -> Promise<Void>
+	func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void>
 	func removeAllUnusedFileProviderDomains() -> Promise<Void>
 	func moveVault(account: VaultAccount, to targetVaultPath: CloudPath) -> Promise<Void>
 	func changePassphrase(oldPassphrase: String, newPassphrase: String, forVaultUID vaultUID: String) -> Promise<Void>
@@ -403,6 +404,49 @@ public class VaultDBManager: VaultManager {
 		} catch {
 			DDLogError("Removing vault \(vaultUID) failed with error: \(error)")
 			throw error
+		}
+	}
+
+	/**
+	 Removes multiple vaults at once, handling database operations in a single transaction to avoid constraint violations.
+	 - Precondition: `VaultAccount`s for the `vaultUIDs` exist in the database.
+	 - Postcondition: All specified vaults are removed from the database, keychain, and FileProvider.
+	 */
+	public func removeVaults(withUIDs vaultUIDs: [String]) throws -> Promise<Void> {
+		guard !vaultUIDs.isEmpty else {
+			return Promise(())
+		}
+
+		return Promise<Void>(on: .global()) { fulfill, reject in
+			do {
+				// Remove passwords and cached masterkeys for all vaults
+				for vaultUID in vaultUIDs {
+					do {
+						try self.passwordManager.removePassword(forVaultUID: vaultUID)
+						try self.masterkeyCacheManager.removeCachedMasterkey(forVaultUID: vaultUID)
+					} catch {
+						DDLogError("Failed to remove password/masterkey for vault \(vaultUID): \(error)")
+					}
+				}
+
+				// Remove all FileProvider domains
+				for vaultUID in vaultUIDs {
+					do {
+						try awaitPromise(self.removeFileProviderDomain(withVaultUID: vaultUID))
+					} catch {
+						DDLogError("Failed to remove FileProvider domain for vault \(vaultUID): \(error)")
+					}
+				}
+
+				// Remove all vault accounts in a single transaction
+				try self.vaultAccountManager.removeAccounts(with: vaultUIDs)
+				DDLogInfo("Removed \(vaultUIDs.count) vaults")
+
+				fulfill(())
+			} catch {
+				DDLogError("Removing vaults failed with error: \(error)")
+				reject(error)
+			}
 		}
 	}
 

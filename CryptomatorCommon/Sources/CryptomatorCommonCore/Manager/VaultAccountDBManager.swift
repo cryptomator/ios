@@ -6,6 +6,7 @@
 //  Copyright © 2020 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Dependencies
 import Foundation
@@ -46,6 +47,7 @@ extension VaultAccount: PersistableRecord {
 public protocol VaultAccountManager {
 	func saveNewAccount(_ account: VaultAccount) throws
 	func removeAccount(with vaultUID: String) throws
+	func removeAccounts(with vaultUIDs: [String]) throws
 	func getAccount(with vaultUID: String) throws -> VaultAccount
 	func getAllAccounts() throws -> [VaultAccount]
 	func updateAccount(_ account: VaultAccount) throws
@@ -74,6 +76,18 @@ public class VaultAccountDBManager: VaultAccountManager {
 			guard try VaultAccount.deleteOne(db, key: vaultUID) else {
 				throw CloudProviderAccountError.accountNotFoundError
 			}
+		}
+	}
+
+	public func removeAccounts(with vaultUIDs: [String]) throws {
+		guard !vaultUIDs.isEmpty else {
+			return
+		}
+		let deletedCount = try database.write { db in
+			try VaultAccount.deleteAll(db, keys: vaultUIDs)
+		}
+		if deletedCount != vaultUIDs.count {
+			DDLogError("Expected to delete \(vaultUIDs.count) vault accounts, but only deleted \(deletedCount)")
 		}
 	}
 

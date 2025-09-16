@@ -1,4 +1,4 @@
-fastlane_version("2.222.0")
+fastlane_version("2.228.0")
 
 default_platform(:ios)
 
@@ -34,6 +34,12 @@ platform :ios do
       env_vars: ['BUNDLE_IDENTIFIER', 'METADATA_PATH']
     )
     deliver(skip_binary_upload: true, skip_screenshots: true, run_precheck_before_submit: false, force: true)
+  end
+
+  desc "Run unit tests"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
+  lane :test do
+    scan
   end
 
   desc "Submit a new beta build to TestFlight"
