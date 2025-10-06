@@ -38,7 +38,7 @@ class WorkflowDependencyFactory {
 	 - Parameter paths: The paths for which dependencies are to be created. These are the full paths that affect a workflow.
 	 - Parameter lockType: The lock type used to construct the leaf nodes (the nodes for the respective full path).
 	 */
-	public func createDependencies(paths: [CloudPath], lockType: LockType) -> WorkflowDependency {
+	func createDependencies(paths: [CloudPath], lockType: LockType) -> WorkflowDependency {
 		let unlock = Promise<Void>.pending()
 		var locks = [Promise<Void>]()
 		for path in paths {
@@ -58,7 +58,7 @@ class WorkflowDependencyFactory {
 	 - Parameter path: The path for which dependencies are to be created. These is the full path that affect a workflow.
 	 - Parameter lockType: The lock type used to construct the leaf nodes (the nodes for the respective full path).
 	 */
-	public func createDependencies(for path: CloudPath, lockType: LockType) -> WorkflowDependency {
+	func createDependencies(for path: CloudPath, lockType: LockType) -> WorkflowDependency {
 		return createDependencies(paths: [path], lockType: lockType)
 	}
 

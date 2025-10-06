@@ -10,7 +10,7 @@ public extension View {
 struct ListBackgroundModifier: ViewModifier {
 	let color: Color
 
-	public func body(content: Content) -> some View {
+	func body(content: Content) -> some View {
 		if #available(iOS 16, *) {
 			content
 				.scrollContentBackground(.hidden)

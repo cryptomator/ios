@@ -70,7 +70,7 @@ class LockManager {
 
 	// MARK: - Path Locks
 
-	public func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
+	func getPathLockForReading(at path: CloudPath) -> FileSystemLock {
 		let partialPaths = path.getPartialCloudPaths()
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let readLockPromise = pendingStartLockPromise.then {
@@ -82,7 +82,7 @@ class LockManager {
 		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	public func getPathLockForWriting(at path: CloudPath) -> FileSystemLock {
+	func getPathLockForWriting(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let writeLockPromise = pendingStartLockPromise.then {
 			self.getPathLock(for: path)
@@ -95,7 +95,7 @@ class LockManager {
 
 	// MARK: - Data Locks
 
-	public func getDataLockForReading(at path: CloudPath) -> FileSystemLock {
+	func getDataLockForReading(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let readLockPromise = pendingStartLockPromise.then {
 			self.getDataLock(for: path)
@@ -106,7 +106,7 @@ class LockManager {
 		return FileSystemLock(lockPromise: readLockPromise, startLockPromise: pendingStartLockPromise)
 	}
 
-	public func getDataLockForWriting(at path: CloudPath) -> FileSystemLock {
+	func getDataLockForWriting(at path: CloudPath) -> FileSystemLock {
 		let pendingStartLockPromise = Promise<Void>.pending()
 		let writeLockPromise = pendingStartLockPromise.then {
 			self.getDataLock(for: path)
