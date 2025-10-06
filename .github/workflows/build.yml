@@ -23,8 +23,6 @@ jobs:
           key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
           restore-keys: |
             ${{ runner.os }}-spm-
-      - name: Install SwiftLint
-        run: brew install swiftlint
       - name: Run process.sh script
         run: |
           ./Scripts/process.sh
@@ -33,8 +31,6 @@ jobs:
         run: |
           cd fastlane
           ./scripts/create-cloud-access-secrets.sh
-      - name: Select Xcode 15.3
-        run: sudo xcode-select -s /Applications/Xcode_15.3.app
       - name: Configuration for freemium
         if: ${{ matrix.config == 'freemium' }}
         run: |
@@ -44,9 +40,9 @@ jobs:
         run: |
           echo "BUILD_CMD=SWIFT_ACTIVE_COMPILATION_CONDITIONS='\$(inherited) ALWAYS_PREMIUM'" >> $GITHUB_ENV
       - name: Build
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH ${{ env.BUILD_CMD }} | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH ${{ env.BUILD_CMD }} | xcbeautify
       - name: Test
-        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcpretty
+        run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcbeautify
       - name: Upload code coverage report
         if: ${{ matrix.config == 'freemium' }}
         run: |
