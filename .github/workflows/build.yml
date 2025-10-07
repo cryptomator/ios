@@ -11,7 +11,7 @@ jobs:
     runs-on: [self-hosted, macOS, ARM64]
     env:
       DERIVED_DATA_PATH: 'DerivedData'
-      DEVICE: 'iPhone 15 Pro'
+      DEVICE: 'iPhone 17 Pro'
     strategy:
       matrix:
         config: ['freemium', 'premium']
