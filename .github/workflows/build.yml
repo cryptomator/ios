@@ -17,6 +17,10 @@ jobs:
         config: ['freemium', 'premium']
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Disable shallow clone for SonarCloud analysis
+          # https://docs.sonarsource.com/sonarqube-cloud/advanced-setup/ci-based-analysis/github-actions-for-sonarcloud
+          fetch-depth: 0
       - uses: actions/cache@v4
         with:
           path: .build
@@ -43,12 +47,14 @@ jobs:
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild clean build-for-testing -scheme 'AllTests' -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH ${{ env.BUILD_CMD }} | xcbeautify
       - name: Test
         run: set -o pipefail && env NSUnbufferedIO=YES xcodebuild test-without-building -xctestrun $(find . -type f -name "*.xctestrun") -destination "name=$DEVICE" -derivedDataPath $DERIVED_DATA_PATH | xcbeautify
-      - name: Upload code coverage report
+      - name: Generate coverage report
         if: ${{ matrix.config == 'freemium' }}
         run: |
-          gem install slather
-          slather coverage -x  --build-directory $DERIVED_DATA_PATH --ignore "$DERIVED_DATA_PATH/SourcePackages/*" --scheme AllTests Cryptomator.xcodeproj
-          bash <(curl -Ls https://coverage.codacy.com/get.sh)
+          xcresult_path=$(find $DERIVED_DATA_PATH/Logs/Test -name "*.xcresult" | head -n 1)
+          bash Scripts/xccov-to-sonarqube-generic.sh "$xcresult_path" > sonarqube-generic-coverage.xml
+      - name: SonarCloud Scan
+        if: ${{ matrix.config == 'freemium' }}
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         continue-on-error: true
