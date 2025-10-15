@@ -218,6 +218,10 @@
 "sharePoint.enterURL.placeholder" = "URL Ιστοσελίδας SharePoint";
 "sharePoint.enterURL.header.title" = "Χρήση αυτής της φόρμας URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "Αυτός ο σύνδεσμος δεν μπορεί να είναι άδειος.";
+"sharePoint.urlValidation.error.invalidURL" = "Η διεύθυνση URL δεν είναι έγκυρη. Χρησιμοποιήστε αυτήν τη μορφή: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Επιλογή Βιβλιοθήκης Εγγράφων";
+"sharePoint.selectDrive.header.title" = "Επιλέξτε τη βιβλιοθήκη εγγράφων SharePoint με την οποία θέλετε να εργαστείτε.";
+"sharePoint.selectDrive.emptyList.footer" = "Δεν Υπάρχουν Διαθέσιμες Βιβλιοθήκες Εγγράφων";
 
 "snapshots.fileprovider.file1" = "/Λογιστική.αριθμοί";
 "snapshots.fileprovider.file2" = "/Τελική Παρουσίαση.key";
