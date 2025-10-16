@@ -121,7 +121,7 @@
 "hubAuthentication.licenseExceeded" = "Uw Cryptomator Hub installatie heeft een ongeldige licentie. Contacteer een Hub administrator om de licentie te upgraden of te verlengen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Naam van toestel";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.";
-"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Uw Account Key is vereist om in te loggen vanuit nieuwe apps of browsers. Het is te vinden in je profiel.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registratie van toestel gelukt";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Om toegang te krijgen tot de kluis, moet de eigenaar van de kluis je toestemming verlenen.";
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
