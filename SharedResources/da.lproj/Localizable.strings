@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Internetforbindelse er påkrævet for denne operation.";
 
 "cloudProviderType.localFileSystem" = "Andre fil-kilder";
+"cloudProviderType.sharePoint.secondary" = "inkl. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Velkommen";
 "fileProvider.onboarding.info" = "Tak fordi du valgte Cryptomator til at beskytte dine filer. Åben appen og tilføj en boks, for at komme i gang.";
@@ -116,14 +117,17 @@
 "getFolderIntent.error.noVaultSelected" = "Ingen boks er valgt.";
 
 "hubAuthentication.title" = "Hub Boks";
+"hubAuthentication.accessNotGranted" = "Du har ikke tilladelse til at tilgå denne boks. Bed bokseejeren om at godkende dig.";
 "hubAuthentication.licenseExceeded" = "Din Cryptomator Hub har en ugyldig licens. Få venligst en Hub administrator til at opgradere eller forny licensen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Enheds-navn";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Det ser ud til at dette er første gang denne enhed tilgår Hub. For at kunne identificere den for adgangstilladelse, skal du navngive denne enhed.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Din kontonøgle er påkrævet til at logge ind fra nye apps eller browsere. Den kan findes i din profil.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registrering af Enhed Lykkedes";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "For at få adgang til boksen skal ejeren af boksen give dig tilladelse.";
 "hubAuthentication.requireAccountInit.alert.title" = "Handling Påkrævet";
 "hubAuthentication.requireAccountInit.alert.message" = "For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til Profil";
+"hubAuthentication.vaultArchived" = "Denne boks er blevet arkiveret. Bed venligst ejeren af boksen om at fjerne arkiveringen.";
 
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";
 "intents.saveFile.invalidFolder" = "Den angivne mappe er ikke gyldig.";
@@ -150,6 +154,8 @@
 "localFileSystemAuthentication.info.footer" = "Filudbydere, der er grå understøtter ikke \"mappe-vælger\". Dette er ikke en begrænsning i Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "Operationen kan ikke udføres fordi der er igangværende baggrunds-operationer for denne boks. Prøv igen senere.";
+
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "De nødvendige tilladelser til at få adgang til ressourcerne kunne ikke opnås. Prøv at bruge en anden konto.";
 
 "nameValidation.error.endsWithPeriod" = "Du kan ikke bruge et navn som slutter med et punktum. Vælg venligst et andet navn.";
 "nameValidation.error.endsWithSpace" = "Du kan ikke bruge et navn som slutter med et mellemrum. Vælg venligst et andet navn.";
@@ -207,6 +213,15 @@
 "settings.sendLogFile" = "Send logfil";
 "settings.shortcutsGuide" = "Guide til genveje";
 "settings.unlockFullVersion" = "Lås op for fuld version";
+
+"sharePoint.enterURL.title" = "Indtast SharePoint URL";
+"sharePoint.enterURL.placeholder" = "SharePoint Websted URL";
+"sharePoint.enterURL.header.title" = "Brug dette URL-format:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "URL adressen må ikke være tom.";
+"sharePoint.urlValidation.error.invalidURL" = "URL'en er ugyldig. Brug dette format: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Vælg dokumentbibliotek";
+"sharePoint.selectDrive.header.title" = "Vælg det SharePoint-dokumentbibliotek, du vil arbejde med.";
+"sharePoint.selectDrive.emptyList.footer" = "Ingen dokumentbiblioteker tilgængelige";
 
 "snapshots.fileprovider.file1" = "/Bogholderi.numbers";
 "snapshots.fileprovider.file2" = "/Endelig præsentation.key";
@@ -282,6 +297,7 @@
 "vaultDetail.removeVault.footer" = "Dette vil kun fjerne boksen fra listen, og sletter ikke nogen krypterede filer.";
 "vaultDetail.renameVault.progress" = "Omdøber…";
 "vaultDetail.unlocked.footer" = "Din boks er i øjeblikket låst op, i Filer appen.";
+"vaultDetail.unlockVault.footer" = "Indtast adgangskode for \"%1$@\" for at gemme den i iOS-nøgleringen og for at aktivere %2$@.";
 
 "vaultList.header.title" = "Bokse";
 "vaultList.emptyList.message" = "Tryk her for at tilføje en boks";
