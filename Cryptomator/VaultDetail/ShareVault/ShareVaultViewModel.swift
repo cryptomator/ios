@@ -44,28 +44,28 @@ class ShareVaultViewModel: ShareVaultViewModelProtocol {
 	init(type: ShareVaultType) {
 		switch type {
 		case .normal:
-			headerTitle = LocalizedString.getValue("shareVault.header.title")
-			headerSubtitle = nil
-			featuresText = LocalizedString.getValue("shareVault.header.features")
-			hubSteps = nil
-			footerText = LocalizedString.getValue("shareVault.footer.text")
-			docsButtonTitle = LocalizedString.getValue("shareVault.footer.link")
-			docsURL = URL(string: "https://docs.cryptomator.org/security/best-practices/#sharing-of-vaults")
-			forTeamsButtonTitle = LocalizedString.getValue("shareVault.button.visitHub")
-			forTeamsURL = URL(string: "https://cryptomator.org/for-teams/")
-		case .hub(let hubURL):
-			headerTitle = LocalizedString.getValue("shareVault.hub.header.title")
-			headerSubtitle = LocalizedString.getValue("shareVault.hub.header.subtitle")
-			featuresText = nil
-			hubSteps = [
+			self.headerTitle = LocalizedString.getValue("shareVault.header.title")
+			self.headerSubtitle = nil
+			self.featuresText = LocalizedString.getValue("shareVault.header.features")
+			self.hubSteps = nil
+			self.footerText = LocalizedString.getValue("shareVault.footer.text")
+			self.docsButtonTitle = LocalizedString.getValue("shareVault.footer.link")
+			self.docsURL = URL(string: "https://docs.cryptomator.org/security/best-practices/#sharing-of-vaults")
+			self.forTeamsButtonTitle = LocalizedString.getValue("shareVault.button.visitHub")
+			self.forTeamsURL = URL(string: "https://cryptomator.org/for-teams/")
+		case let .hub(hubURL):
+			self.headerTitle = LocalizedString.getValue("shareVault.hub.header.title")
+			self.headerSubtitle = LocalizedString.getValue("shareVault.hub.header.subtitle")
+			self.featuresText = nil
+			self.hubSteps = [
 				("1.circle.fill", LocalizedString.getValue("shareVault.hub.step1")),
 				("2.circle.fill", LocalizedString.getValue("shareVault.hub.step2"))
 			]
-			footerText = nil
-			docsButtonTitle = nil
-			docsURL = nil
-			forTeamsButtonTitle = LocalizedString.getValue("shareVault.hub.button.openHub")
-			forTeamsURL = hubURL
+			self.footerText = nil
+			self.docsButtonTitle = nil
+			self.docsURL = nil
+			self.forTeamsButtonTitle = LocalizedString.getValue("shareVault.hub.button.openHub")
+			self.forTeamsURL = hubURL
 		}
 	}
 }

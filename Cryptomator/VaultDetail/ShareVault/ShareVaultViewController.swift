@@ -223,7 +223,16 @@ class ShareVaultViewController: UIViewController {
 		let contentLayoutGuide = scrollView.contentLayoutGuide
 		let frameLayoutGuide = scrollView.frameLayoutGuide
 
-		var constraints: [NSLayoutConstraint] = [
+		var constraints = createBaseConstraints(contentLayoutGuide: contentLayoutGuide, frameLayoutGuide: frameLayoutGuide)
+		let topAnchor = addOptionalSubtitleConstraints(to: &constraints)
+		let lastContentView = addContentConstraints(to: &constraints, topAnchor: topAnchor)
+		addFooterConstraints(to: &constraints, lastContentView: lastContentView)
+
+		NSLayoutConstraint.activate(constraints)
+	}
+
+	private func createBaseConstraints(contentLayoutGuide: UILayoutGuide, frameLayoutGuide: UILayoutGuide) -> [NSLayoutConstraint] {
+		return [
 			scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
 			scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -255,39 +264,40 @@ class ShareVaultViewController: UIViewController {
 			visitHubButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -LayoutConstants.standardSpacing),
 			visitHubButton.heightAnchor.constraint(equalToConstant: LayoutConstants.buttonHeight)
 		]
+	}
 
-		// Add subtitle constraints if it exists
-		let topAnchorForContent: NSLayoutYAxisAnchor
-		if viewModel.headerSubtitle != nil {
-			constraints.append(contentsOf: [
-				subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: LayoutConstants.titleToSubtitleSpacing),
-				subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.horizontalPadding),
-				subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstants.horizontalPadding)
-			])
-			topAnchorForContent = subtitleLabel.bottomAnchor
-		} else {
-			topAnchorForContent = titleLabel.bottomAnchor
+	private func addOptionalSubtitleConstraints(to constraints: inout [NSLayoutConstraint]) -> NSLayoutYAxisAnchor {
+		guard viewModel.headerSubtitle != nil else {
+			return titleLabel.bottomAnchor
 		}
 
-		// Determine the last content view (features or hub steps)
-		let lastContentView: UIView
+		constraints.append(contentsOf: [
+			subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: LayoutConstants.titleToSubtitleSpacing),
+			subtitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.horizontalPadding),
+			subtitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstants.horizontalPadding)
+		])
+		return subtitleLabel.bottomAnchor
+	}
+
+	private func addContentConstraints(to constraints: inout [NSLayoutConstraint], topAnchor: NSLayoutYAxisAnchor) -> UIView {
 		if viewModel.hubSteps != nil {
 			constraints.append(contentsOf: [
-				hubStepsStackView.topAnchor.constraint(equalTo: topAnchorForContent, constant: LayoutConstants.subtitleToStepsSpacing),
+				hubStepsStackView.topAnchor.constraint(equalTo: topAnchor, constant: LayoutConstants.subtitleToStepsSpacing),
 				hubStepsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.horizontalPadding),
 				hubStepsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstants.horizontalPadding)
 			])
-			lastContentView = hubStepsStackView
+			return hubStepsStackView
 		} else {
 			constraints.append(contentsOf: [
-				featuresLabel.topAnchor.constraint(equalTo: topAnchorForContent, constant: LayoutConstants.titleToFeaturesSpacing),
+				featuresLabel.topAnchor.constraint(equalTo: topAnchor, constant: LayoutConstants.titleToFeaturesSpacing),
 				featuresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: LayoutConstants.horizontalPadding),
 				featuresLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -LayoutConstants.horizontalPadding)
 			])
-			lastContentView = featuresLabel
+			return featuresLabel
 		}
+	}
 
-		// Add footer constraints only if footer exists
+	private func addFooterConstraints(to constraints: inout [NSLayoutConstraint], lastContentView: UIView) {
 		if viewModel.footerText != nil {
 			constraints.append(contentsOf: [
 				footerTextView.topAnchor.constraint(equalTo: lastContentView.bottomAnchor, constant: LayoutConstants.largeSpacing),
@@ -300,8 +310,6 @@ class ShareVaultViewController: UIViewController {
 				lastContentView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -LayoutConstants.titleSpacing)
 			)
 		}
-
-		NSLayoutConstraint.activate(constraints)
 	}
 
 	private func createFooterAttributedText() -> NSAttributedString {
