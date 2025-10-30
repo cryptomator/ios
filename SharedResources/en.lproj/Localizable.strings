@@ -282,7 +282,21 @@
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
 "vaultDetail.button.renameVault" = "Rename";
+"vaultDetail.button.shareVault" = "Share Vault";
+"vaultDetail.shareVault.footer" = "Securely collaborate with your team using Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Select a strong password for your vault that only you know and keep it in a safe place.";
+
+"shareVault.title" = "Share Vault";
+"shareVault.header.title" = "The secure way to work in teams";
+"shareVault.header.features" = "Collaborate securely with your team. Grant and revoke access anytime without sharing passwords.";
+"shareVault.footer.text" = "For more information, check out the best practices suggestions in our";
+"shareVault.footer.link" = "docs";
+"shareVault.button.visitHub" = "Visit Cryptomator Hub";
+"shareVault.hub.header.title" = "How to share a Hub vault";
+"shareVault.hub.header.subtitle" = "In order to share the vault content with another team member, you have to perform two steps:";
+"shareVault.hub.step1" = "Share access of the encrypted vault folder via cloud storage.";
+"shareVault.hub.step2" = "Grant access to team member in Cryptomator Hub.";
+"shareVault.hub.button.openHub" = "Open Hub";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";
