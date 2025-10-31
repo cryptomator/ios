@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Απαιτείται σύνδεση στο διαδίκτυο για αυτήν τη λειτουργία.";
 
 "cloudProviderType.localFileSystem" = "Άλλος Πάροχος Αρχείων";
+"cloudProviderType.sharePoint.secondary" = "συμπεριλ. Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Καλώς ήρθατε";
 "fileProvider.onboarding.info" = "Ευχαριστούμε που επιλέξατε το Cryptomator για την προστασία των αρχείων σας. Για να ξεκινήσετε, μεταβείτε στην κύρια εφαρμογή και προσθέστε μια κρύπτη.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Η λειτουργία δεν μπορεί να εκτελεστεί επειδή άλλες λειτουργίες στο παρασκήνιο αυτής της κρύπτης πρέπει να τελειώσουν πρώτα. Παρακαλώ δοκιμάστε ξανά αργότερα.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Τα απαραίτητα δικαιώματα πρόσβασης στους πόρους δεν μπόρεσαν να αποκτηθούν. Παρακαλώ δοκιμάστε να χρησιμοποιήσετε διαφορετικό λογαριασμό.";
+
 "nameValidation.error.endsWithPeriod" = "Δεν μπορείτε να χρησιμοποιήσετε ένα όνομα που τελειώνει με τελεία. Επιλέξτε άλλο όνομα.";
 "nameValidation.error.endsWithSpace" = "Δεν μπορείτε να χρησιμοποιήσετε ένα όνομα που τελειώνει με κενό. Επιλέξτε άλλο όνομα.";
 "nameValidation.error.containsIllegalCharacter" = "Δεν μπορείτε να χρησιμοποιήσετε ένα όνομα που περιέχει το \"%@\". Παρακαλώ επιλέξτε ένα άλλο όνομα.";
@@ -210,6 +213,11 @@
 "settings.sendLogFile" = "Αποστολή Αρχείου Καταγραφής";
 "settings.shortcutsGuide" = "Οδηγός Συντομεύσεων";
 "settings.unlockFullVersion" = "Ξεκλείδωμα Πλήρους Έκδοσης";
+
+"sharePoint.enterURL.title" = "Εισάγετε το URL του SharePoint";
+"sharePoint.enterURL.placeholder" = "URL Ιστοσελίδας SharePoint";
+"sharePoint.enterURL.header.title" = "Χρήση αυτής της φόρμας URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "Αυτός ο σύνδεσμος δεν μπορεί να είναι άδειος.";
 
 "snapshots.fileprovider.file1" = "/Λογιστική.αριθμοί";
 "snapshots.fileprovider.file2" = "/Τελική Παρουσίαση.key";

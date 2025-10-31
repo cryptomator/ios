@@ -1,1 +1,1 @@
-- Fixed endless loading when calculating cache size in settings.
+- Fixed WebDAV account loading and vault deletion issues (#415).

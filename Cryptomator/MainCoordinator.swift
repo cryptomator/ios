@@ -78,7 +78,7 @@ class MainCoordinator: NSObject, Coordinator, UINavigationControllerDelegate {
 		rootViewController.showDetailViewController(detailNavigationController, sender: nil)
 	}
 
-	// Temporarily added for Summer 2025 Sale
+	// Temporarily added for Autumn 2025 Sale
 	func showPurchase() {
 		let modalNavigationController = BaseNavigationController()
 		let child = PurchaseCoordinator(navigationController: modalNavigationController)
@@ -124,7 +124,7 @@ extension MainCoordinator: StoreObserverDelegate {
 		switch transaction {
 		case .fullVersion, .yearlySubscription:
 			showFullVersionAlert()
-			// Temporarily added for Summer 2025 Sale
+			// Temporarily added for Autumn 2025 Sale
 			NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 		case let .freeTrial(expiresOn):
 			showTrialAlert(expirationDate: expiresOn)

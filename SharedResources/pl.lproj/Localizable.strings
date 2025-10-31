@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "Połączenie z Internetem jest wymagane do wykonania tej operacji.";
 
 "cloudProviderType.localFileSystem" = "Inny dostawca plików";
+"cloudProviderType.sharePoint.secondary" = "w tym Microsoft Teams";
 
 "fileProvider.onboarding.title" = "Witamy";
 "fileProvider.onboarding.info" = "Dziękujemy za wybranie programu Cryptomator do ochrony plików. Aby rozpocząć, przejdź do głównej aplikacji i dodaj sejf.";
@@ -154,6 +155,8 @@
 
 "maintenanceModeError.runningCloudTask" = "Operacja nie może być wykonana, ponieważ inne operacje działające w tle dla tego sejfu muszą zostać zakończone. Spróbuj ponownie później.";
 
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Nie można uzyskać niezbędnych uprawnień dostępu do zasobów. Spróbuj użyć innego konta.";
+
 "nameValidation.error.endsWithPeriod" = "Nazwa kończąca się kropką jest niedozwolona. Proszę wybrać inną nazwę.";
 "nameValidation.error.endsWithSpace" = "Nazwa kończąca się spacją jest niedozwolona. Proszę wybrać inną nazwę.";
 "nameValidation.error.containsIllegalCharacter" = "Nazwa zawierająca \"%@\" jest niedozwolona. Proszę wybrać inną nazwę.";
@@ -210,6 +213,15 @@
 "settings.sendLogFile" = "Wyślij plik logów";
 "settings.shortcutsGuide" = "Przewodnik po skrótach";
 "settings.unlockFullVersion" = "Odblokuj pełną wersję";
+
+"sharePoint.enterURL.title" = "Wprowadź adres URL witryny SharePoint";
+"sharePoint.enterURL.placeholder" = "Adres witryny SharePoint";
+"sharePoint.enterURL.header.title" = "Użyj następującego formatu URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "Adres URL nie może być pusty.";
+"sharePoint.urlValidation.error.invalidURL" = "Adres URL jest nieprawidłowy. Użyj następującego formatu: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Wybierz bibliotekę dokumentów";
+"sharePoint.selectDrive.header.title" = "Wybierz bibliotekę dokumentów SharePoint, z którą chcesz pracować.";
+"sharePoint.selectDrive.emptyList.footer" = "Brak dostępnych bibliotek dokumentów";
 
 "snapshots.fileprovider.file1" = "/Numery.Kont";
 "snapshots.fileprovider.file2" = "/Finalna Prezentacja.key";

@@ -1,32 +1,32 @@
-"common.failureReason" = "Причина помилки";
-"common.false" = "хибний";
+"common.failureReason" = "Причина збою";
+"common.false" = "ні";
 "common.folder" = "Папка";
-"common.true" = "вірний";
+"common.true" = "так";
 "common.vault" = "Сховище";
 
-"getFolderIntent.description" = "Повертає вміст папки для заданого шляху у вибраному сховищі.";
+"getFolderIntent.description" = "Повертає об'єкт папки для заданого шляху в обраному сховищі.";
 "getFolderIntent.path" = "Шлях";
-"getFolderIntent.text" = "Отримати папку, розташовану за ${path} в ${vault}";
+"getFolderIntent.text" = "Отримати папку за шляхом ${path} у сховищі ${vault}";
 "getFolderIntent.title" = "Отримати папку";
 
-"isUnlockedIntent.description" = "Інформує, чи обране сховище розблоковано.";
-"isUnlockedIntent.title" = "Розблоковано";
+"isUnlockedIntent.description" = "Повертає, чи розблоковано обране сховище.";
+"isUnlockedIntent.title" = "Чи розблоковано";
 
 "isVaultLockedIntent.title" = "Чи розблоковано сховище";
 "isVaultUnlockedIntent.text" = "Чи ${vault} розблоковано?";
 
-"lockVaultIntent.description" = "Заблокує вибране сховище.";
+"lockVaultIntent.description" = "Заблокує обране сховище.";
 "lockVaultIntent.text" = "Заблокувати ${vault}";
 "lockVaultIntent.title" = "Заблокувати сховище";
 
-"openVaultIntent.description" = "Відкриває вибране сховище у додатку \"Файли\".";
-"openVaultIntent.text" = "Відкрити ${vault} у додатку \"Файли\"";
+"openVaultIntent.description" = "Відкриває обране сховище у програмі «Файли».";
+"openVaultIntent.text" = "Відкрити ${vault} у програмі «Файли»";
 "openVaultIntent.title" = "Відкрити сховище";
 
 "saveFileIntent.description" = "Зберігає файл до сховища.";
 "saveFileIntent.file" = "Файл";
-"saveFileIntent.parameter.ignoreExisting" = "Ігнорувати існуючий файл з такою самою назвою";
-"saveFileIntent.text" = "Зберегти ${file} до ${folder}";
+"saveFileIntent.parameter.ignoreExisting" = "Ігнорувати наявний файл з такою ж назвою";
+"saveFileIntent.text" = "Зберегти ${file} у ${folder}";
 "saveFileIntent.title" = "Зберегти файл";
 
 "vaultFolder.displayName" = "Папка сховища";

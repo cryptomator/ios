@@ -2,7 +2,7 @@
 "common.false" = "salah";
 "common.folder" = "Folder";
 "common.true" = "benar";
-"common.vault" = "Brangkas";
+"common.vault" = "Brankas";
 
 "getFolderIntent.description" = "Mengembalikan objek folder dari path dan vault yang telah diberikan.";
 "getFolderIntent.path" = "Path";

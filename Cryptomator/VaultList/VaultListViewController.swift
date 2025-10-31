@@ -21,7 +21,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
 	#if !ALWAYS_PREMIUM
-	private var summer2025BannerView: UIView?
+	private var autumn2025BannerView: UIView?
 	private var fullVersionPurchasedObserver: NSObjectProtocol?
 	#endif
 
@@ -57,10 +57,10 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 
 		#if !ALWAYS_PREMIUM
 		fullVersionPurchasedObserver = NotificationCenter.default.addObserver(forName: .purchasedFullVersionNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.dismissSummer2025Banner()
+			self?.dismissAutumn2025Banner()
 		}
-		if SalePromo.shared.shouldShowSummer2025Banner() {
-			showSummer2025Banner()
+		if SalePromo.shared.shouldShowAutumn2025Banner() {
+			showAutumn2025Banner()
 		}
 		#endif
 	}
@@ -126,7 +126,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	// MARK: - Sale Promo Banner
 
 	#if !ALWAYS_PREMIUM
-	private func showSummer2025Banner() {
+	private func showAutumn2025Banner() {
 		let banner = UIView()
 		banner.backgroundColor = UIColor.cryptomatorPrimary
 		banner.translatesAutoresizingMaskIntoConstraints = false
@@ -134,13 +134,13 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		banner.layer.masksToBounds = true
 
 		let emojiLabel = UILabel()
-		emojiLabel.text = SalePromo.summer2025Emoji
+		emojiLabel.text = SalePromo.autumn2025Emoji
 		emojiLabel.translatesAutoresizingMaskIntoConstraints = false
 		emojiLabel.setContentHuggingPriority(.required, for: .horizontal)
 		emojiLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		let textLabel = UILabel()
-		textLabel.text = "Lifetime License is \(SalePromo.summer2025Discount)!"
+		textLabel.text = "Lifetime License is \(SalePromo.autumn2025Discount)!"
 		textLabel.textColor = .white
 		textLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
 		textLabel.adjustsFontSizeToFitWidth = true
@@ -149,7 +149,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
 
 		let dismissButton = UIButton(type: .close)
-		dismissButton.addTarget(self, action: #selector(dismissSummer2025Banner), for: .touchUpInside)
+		dismissButton.addTarget(self, action: #selector(dismissAutumn2025Banner), for: .touchUpInside)
 		dismissButton.translatesAutoresizingMaskIntoConstraints = false
 		dismissButton.setContentHuggingPriority(.required, for: .horizontal)
 		dismissButton.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -170,7 +170,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			dismissButton.centerYAnchor.constraint(equalTo: banner.centerYAnchor)
 		])
 
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(summer2025BannerTapped))
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(autumn2025BannerTapped))
 		banner.addGestureRecognizer(tapGestureRecognizer)
 
 		view.addSubview(banner)
@@ -183,20 +183,20 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			banner.heightAnchor.constraint(equalToConstant: 50)
 		])
 
-		summer2025BannerView = banner
+		autumn2025BannerView = banner
 	}
 
-	@objc private func dismissSummer2025Banner() {
+	@objc private func dismissAutumn2025Banner() {
 		UIView.animate(withDuration: 0.3, animations: {
-			self.summer2025BannerView?.alpha = 0
+			self.autumn2025BannerView?.alpha = 0
 		}, completion: { _ in
-			self.summer2025BannerView?.removeFromSuperview()
-			self.summer2025BannerView = nil
+			self.autumn2025BannerView?.removeFromSuperview()
+			self.autumn2025BannerView = nil
 		})
-		CryptomatorUserDefaults.shared.summer2025BannerDismissed = true
+		CryptomatorUserDefaults.shared.autumn2025BannerDismissed = true
 	}
 
-	@objc private func summer2025BannerTapped() {
+	@objc private func autumn2025BannerTapped() {
 		coordinator?.showPurchase()
 	}
 	#endif

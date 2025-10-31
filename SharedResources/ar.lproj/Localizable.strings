@@ -116,14 +116,17 @@
 "getFolderIntent.error.noVaultSelected" = "لم يتم تحديد أي خزانة.";
 
 "hubAuthentication.title" = "خزانة Hub";
+"hubAuthentication.accessNotGranted" = "ليس لديك الإذن للوصول إلى هذه الخزنة. اطلب من مالك الخزنة أن يأذن لك.";
 "hubAuthentication.licenseExceeded" = "نموذج المركز Cryptomator الخاص بك لديه ترخيص غير صالح. الرجاء إبلاغ مسؤول مركز لترقية أو تجديد الترخيص.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "اسم الجهاز";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "يبدو أن هذا هو الوصول الأول إلى Hub من هذا الجهاز. لتحديده لأغراض تفويض الوصول، تحتاج إلى تسمية هذا الجهاز.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "مفتاح الحساب الخاص بك مطلوب لتسجيل الدخول من تطبيقات أو متصفحات جديدة. يمكن العثور عليه في ملفك الشخصي.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "تم تسجيل الجهاز بنجاح";
+"hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "للوصول إلى الخزنة، يحتاج مالك الخزنة إلى منحك الإذن.";
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
+"hubAuthentication.vaultArchived" = "تم أرشفة هذه الخزنة، الرجاء طلب من مالك الخزنة إلغاء أرشفته.";
 
 "intents.saveFile.missingFile" = "الملف المقدم غير صالح.";
 "intents.saveFile.invalidFolder" = "المجلد المقدم غير صالح.";
@@ -150,6 +153,8 @@
 "localFileSystemAuthentication.info.footer" = "موفرو الملفات الذين يظهرون باللون الرمادي لا يدعمون \"اختيار المجلدات\". هذا ليس قيدًا من Cryptomator.";
 
 "maintenanceModeError.runningCloudTask" = "لا يمكن تنفيذ العملية لأن العمليات الخلفية الأخرى لهذه الخزانة يجب أن تنتهي أولاً. يرجى المحاولة مرة أخرى لاحقًا.";
+
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "لا يمكن الحصول على الأوذنات اللازمة للوصول إلى المورد. الرجاء محاولة استخدام حساب مختلف.";
 
 "nameValidation.error.endsWithPeriod" = "لا يمكنك استخدام اسم ينتهي بنقطة. يرجى اختيار اسم آخر.";
 "nameValidation.error.endsWithSpace" = "لا يمكنك استخدام اسم ينتهي بمسافة. يرجى اختيار اسم آخر.";
@@ -207,6 +212,15 @@
 "settings.sendLogFile" = "إرسال ملف السجل";
 "settings.shortcutsGuide" = "دليل الاختصارات";
 "settings.unlockFullVersion" = "فتح النسخة الكاملة";
+
+"sharePoint.enterURL.title" = "ادخل رابط SharePoint";
+"sharePoint.enterURL.placeholder" = "رابط موقع SharePoint";
+"sharePoint.enterURL.header.title" = "استخدم هذا الرابط:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.emptyURL" = "الرابط لا يمكن أن يكون فارغا.";
+"sharePoint.urlValidation.error.invalidURL" = "الرابط غير صالح. الرجاء استخدام هذا التنسيق: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "حدد مكتبة المستندات";
+"sharePoint.selectDrive.header.title" = "حدد مكتبة SharePoint التي تريد العمل معها.";
+"sharePoint.selectDrive.emptyList.footer" = "لا توجد مكاتب مستندات متوفرة حاليا";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
@@ -282,6 +296,7 @@
 "vaultDetail.removeVault.footer" = "سيؤدي هذا فقط إلى إزالة الخزانة من قائمة الخزائن ولن يحذف أي ملفات مشفرة.";
 "vaultDetail.renameVault.progress" = "إعادة تسمية…";
 "vaultDetail.unlocked.footer" = "خزانتك غير مقفلة حاليًا في تطبيق الملفات.";
+"vaultDetail.unlockVault.footer" = "أدخل كلمة المرور ل \"%1$@\" لتخزينها في 'سلسلة مفاتيح iOS' وتمكين %2$@.";
 
 "vaultList.header.title" = "المخازن";
 "vaultList.emptyList.message" = "انقر هنا لإضافة مخزن";

@@ -220,7 +220,6 @@ class AccountListViewModel: AccountListViewModelProtocol {
 		let removedAccountInfo = accountInfos.remove(at: index)
 		do {
 			try cloudAuthenticator.deauthenticate(account: removedAccountInfo.cloudProviderAccount)
-			try updateAccountListPositions()
 		} catch {
 			removedRow = false
 			throw error

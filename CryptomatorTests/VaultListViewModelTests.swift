@@ -78,9 +78,8 @@ class VaultListViewModelTests: XCTestCase {
 
 		try vaultListViewModel.removeRow(at: 0)
 
-		XCTAssertEqual(1, dbManagerMock.updatedPositions.count)
-		XCTAssertEqual("vault1", dbManagerMock.updatedPositions[0].vaultUID)
-		XCTAssertEqual(0, dbManagerMock.updatedPositions[0].position)
+		// No renumber on delete: positions may have gaps and we don't update here
+		XCTAssertEqual(0, dbManagerMock.updatedPositions.count)
 
 		XCTAssertEqual("vault2", vaultAccountManagerMock.removedVaultUIDs[0])
 		XCTAssertEqual(1, vaultManagerMock.removedFileProviderDomains.count)
