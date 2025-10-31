@@ -68,7 +68,7 @@ struct FocusModifier<T: CaseIterable & Hashable>: ViewModifier {
 	// swiftlint:disable:next weak_delegate
 	@State var delegate = TextFieldDelegate()
 
-	public func body(content: Content) -> some View {
+	func body(content: Content) -> some View {
 		content
 			.introspectTextField { textField in
 				if !(textField.delegate is TextFieldDelegate) {

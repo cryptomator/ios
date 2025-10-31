@@ -242,7 +242,7 @@ final class CloudProviderMock: CloudProvider {
 	var moveFileFromToReturnValue: Promise<Void>!
 	var moveFileFromToClosure: ((CloudPath, CloudPath) -> Promise<Void>)?
 
-	public func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
 		if let error = moveFileFromToThrowableError {
 			return Promise(error)
 		}

@@ -157,7 +157,7 @@ protocol UnlockMonitorTaskExecutorType: AnyObject {
 }
 
 class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType {
-	public var runningBiometricalUnlock: Bool = false {
+	var runningBiometricalUnlock: Bool = false {
 		didSet {
 			if runningBiometricalUnlock {
 				lock.unlock(withCondition: UnlockMonitorTaskExecutor.RUNNING_BIOMETRICAL_UNLOCK)
@@ -179,7 +179,7 @@ class UnlockMonitorTaskExecutor: UnlockMonitorTaskExecutorType {
 		lock.unlock(withCondition: UnlockMonitorTaskExecutor.NO_RUNNING_BIOMETRICAL_UNLOCK)
 	}
 
-	public func execute(_ work: @escaping () -> Void) {
+	func execute(_ work: @escaping () -> Void) {
 		queue.async { [weak self] in
 			self?.wait()
 			work()

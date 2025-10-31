@@ -13,7 +13,7 @@ import Foundation
 import GRDB
 
 class DatabaseManager {
-	public static var shared: DatabaseManager!
+	static var shared: DatabaseManager!
 
 	@Dependency(\.database) private var database
 

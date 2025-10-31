@@ -93,7 +93,7 @@ public enum BackportedSubmitLabel {
 struct BackportedSubmitLabelModifier: ViewModifier {
 	let label: BackportedSubmitLabel
 
-	public func body(content: Content) -> some View {
+	func body(content: Content) -> some View {
 		if #available(iOS 15, *) {
 			content
 				.submitLabel(label.submitLabel)

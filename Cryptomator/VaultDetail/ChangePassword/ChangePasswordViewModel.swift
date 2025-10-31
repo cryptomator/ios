@@ -28,7 +28,7 @@ enum ChangePasswordViewModelError: Error {
 }
 
 extension ChangePasswordViewModelError: LocalizedError {
-	public var errorDescription: String? {
+	var errorDescription: String? {
 		switch self {
 		case .emptyPassword:
 			return LocalizedString.getValue("addVault.createNewVault.password.error.emptyPassword")

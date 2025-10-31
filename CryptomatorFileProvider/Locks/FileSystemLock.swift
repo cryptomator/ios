@@ -18,18 +18,18 @@ class FileSystemLock {
 		self.startLockPromise = startLockPromise
 	}
 
-	public func lock() -> Promise<Void> {
+	func lock() -> Promise<Void> {
 		startLockPromise.fulfill(())
 		return lockPromise.then { _ in }
 	}
 
-	public func unlock() -> Promise<Void> {
+	func unlock() -> Promise<Void> {
 		return lockPromise.then { lockNode in
 			lockNode.unlock()
 		}
 	}
 
-	public static func lockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
+	static func lockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
 		guard let firstLock = locks.first else {
 			return Promise(())
 		}
@@ -39,7 +39,7 @@ class FileSystemLock {
 		}
 	}
 
-	public static func unlockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
+	static func unlockInOrder(_ locks: [FileSystemLock]) -> Promise<Void> {
 		guard let firstLock = locks.first else {
 			return Promise(())
 		}

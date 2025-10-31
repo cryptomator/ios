@@ -16,7 +16,7 @@ enum PurchaseError: LocalizedError {
 	case paymentCancelled
 	case unknown
 
-	public var errorDescription: String? {
+	var errorDescription: String? {
 		switch self {
 		case .unavailableProduct:
 			return nil // should never happen
