@@ -41,16 +41,6 @@ class ShareVaultCoordinator: Coordinator {
 			return nil
 		}
 
-		// Extract base Hub URL
-		let apiBaseURL: URL?
-		if let apiBaseUrl = hubConfig.apiBaseUrl {
-			apiBaseURL = URL(string: apiBaseUrl)
-		} else if let deviceResourceURL = URL(string: hubConfig.devicesResourceUrl) {
-			apiBaseURL = deviceResourceURL.deletingLastPathComponent()
-		} else {
-			apiBaseURL = nil
-		}
-
-		return apiBaseURL?.deletingLastPathComponent()
+		return hubConfig.getWebAppURL()
 	}
 }
