@@ -71,12 +71,21 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
-		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
+		var elements: [TableViewCellViewModel] = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
+
 		if cryptomatorSettings.hasRunningSubscription {
-			elements.append(.init(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
-			elements.append(.init(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
-		} else if !cryptomatorSettings.fullVersionUnlocked {
+			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
+			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
+		} else if cryptomatorSettings.fullVersionUnlocked {
+			let statusCell = BindableTableViewCellViewModel(
+				title: LocalizedString.getValue("settings.fullVersionStatus"),
+				selectionStyle: .none,
+				accessoryType: .checkmark
+			)
+			elements.append(statusCell)
+		} else {
 			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
+			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
 		}
 		return elements
 	}

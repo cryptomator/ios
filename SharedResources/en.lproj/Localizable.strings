@@ -213,6 +213,8 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
+"settings.fullVersionStatus" = "Full Version";
+"settings.fullVersionStatus.footer" = "You're using Cryptomator Full Version. Thank you for your support!";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
