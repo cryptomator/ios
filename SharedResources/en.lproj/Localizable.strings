@@ -297,6 +297,8 @@
 "shareVault.hub.step1" = "Share access of the encrypted vault folder via cloud storage.";
 "shareVault.hub.step2" = "Grant access to team member in Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Open Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Unable to Load Hub Information";
+"shareVault.error.hubURLExtraction.message" = "The vault's Hub configuration could not be loaded. Please check your vault settings or contact your Hub administrator.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";
 "vaultDetail.info.footer.accessVault" = "Access the vault via the Files app.";

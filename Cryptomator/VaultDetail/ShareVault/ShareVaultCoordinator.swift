@@ -23,14 +23,30 @@ class ShareVaultCoordinator: Coordinator {
 
 	func start() {
 		let viewModel: ShareVaultViewModel
-		if vaultInfo.vaultConfigType == .hub, let hubURL = extractHubVaultURL() {
+
+		if vaultInfo.vaultConfigType == .hub {
+			guard let hubURL = extractHubVaultURL() else {
+				showHubURLExtractionError()
+				return
+			}
 			viewModel = ShareVaultViewModel(type: .hub(hubURL))
 		} else {
 			viewModel = ShareVaultViewModel(type: .normal)
 		}
+
 		let shareVaultViewController = ShareVaultViewController(viewModel: viewModel)
 		shareVaultViewController.coordinator = self
 		navigationController.pushViewController(shareVaultViewController, animated: true)
+	}
+
+	private func showHubURLExtractionError() {
+		let alert = UIAlertController(
+			title: LocalizedString.getValue("shareVault.error.hubURLExtraction.title"),
+			message: LocalizedString.getValue("shareVault.error.hubURLExtraction.message"),
+			preferredStyle: .alert
+		)
+		alert.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default))
+		navigationController.present(alert, animated: true)
 	}
 
 	private func extractHubVaultURL() -> URL? {
