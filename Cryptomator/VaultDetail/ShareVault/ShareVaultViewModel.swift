@@ -28,7 +28,7 @@ protocol ShareVaultViewModelProtocol: AnyObject {
 	var forTeamsURL: URL? { get }
 }
 
-class ShareVaultViewModel: ShareVaultViewModelProtocol {
+class ShareVaultViewModel: ShareVaultViewModelProtocol, ObservableObject {
 	let title = LocalizedString.getValue("shareVault.title")
 	let logoImageName = "cryptomator-hub-logo"
 	let headerTitle: String
