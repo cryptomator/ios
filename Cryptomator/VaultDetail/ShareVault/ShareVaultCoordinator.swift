@@ -8,6 +8,7 @@
 
 import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
+import SafariServices
 import UIKit
 
 class ShareVaultCoordinator: Coordinator {
@@ -36,7 +37,23 @@ class ShareVaultCoordinator: Coordinator {
 
 		let shareVaultViewController = ShareVaultViewController(viewModel: viewModel)
 		shareVaultViewController.coordinator = self
+		shareVaultViewController.onOpenURL = { [weak self] url in
+			self?.openURL(url)
+		}
 		navigationController.pushViewController(shareVaultViewController, animated: true)
+	}
+
+	private func openURL(_ url: URL) {
+		if vaultInfo.vaultConfigType == .hub {
+			openInAppBrowser(url: url)
+		} else {
+			UIApplication.shared.open(url)
+		}
+	}
+
+	private func openInAppBrowser(url: URL) {
+		let safariViewController = SFSafariViewController(url: url)
+		navigationController.present(safariViewController, animated: true)
 	}
 
 	private func showHubURLExtractionError() {

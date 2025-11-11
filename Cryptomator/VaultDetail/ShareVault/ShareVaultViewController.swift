@@ -19,6 +19,7 @@ import UIKit
 class ShareVaultViewController: UIViewController {
 	weak var coordinator: ShareVaultCoordinator?
 	private let viewModel: ShareVaultViewModel
+	var onOpenURL: ((URL) -> Void)?
 
 	init(viewModel: ShareVaultViewModel) {
 		self.viewModel = viewModel
@@ -37,7 +38,7 @@ class ShareVaultViewController: UIViewController {
 	}
 
 	private func setupSwiftUIView() {
-		let child = UIHostingController(rootView: ShareVaultView(viewModel: viewModel))
+		let child = UIHostingController(rootView: ShareVaultView(viewModel: viewModel, onOpenURL: onOpenURL))
 		addChild(child)
 		view.addSubview(child.view)
 		child.didMove(toParent: self)
