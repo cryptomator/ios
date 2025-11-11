@@ -88,7 +88,7 @@ struct ShareVaultView: View {
 									.foregroundColor(.secondary) +
 									Text(" ") +
 									Text(docsButtonTitle)
-									.foregroundColor(.blue)
+									.foregroundColor(.cryptomatorPrimary)
 									.underline() +
 									Text(".")
 									.foregroundColor(.secondary))
@@ -128,5 +128,11 @@ struct ShareVaultView: View {
 				}
 			}
 		}
+	}
+}
+
+struct ShareVaultView_Previews: PreviewProvider {
+	static var previews: some View {
+		ShareVaultView(viewModel: ShareVaultViewModel(type: .normal))
 	}
 }
