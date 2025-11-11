@@ -75,7 +75,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 
 		if cryptomatorSettings.hasRunningSubscription {
 			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
-			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
 		} else if cryptomatorSettings.fullVersionUnlocked {
 			let statusCell = BindableTableViewCellViewModel(
 				title: LocalizedString.getValue("settings.fullVersionStatus"),
