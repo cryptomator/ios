@@ -12,7 +12,6 @@ import UIKit
 
 struct ShareVaultView: View {
 	@ObservedObject var viewModel: ShareVaultViewModel
-	var onOpenURL: ((URL) -> Void)?
 
 	var body: some View {
 		ZStack {
@@ -96,7 +95,7 @@ struct ShareVaultView: View {
 									.font(.footnote)
 									.multilineTextAlignment(.center)
 									.onTapGesture {
-										onOpenURL?(docsURL)
+										UIApplication.shared.open(docsURL)
 									}
 							}
 							.padding(.top, 32)
@@ -112,7 +111,7 @@ struct ShareVaultView: View {
 				if let url = viewModel.forTeamsURL {
 					Button(
 						action: {
-							onOpenURL?(url)
+							UIApplication.shared.open(url)
 						},
 						label: {
 							Text(viewModel.forTeamsButtonTitle)
