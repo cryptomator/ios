@@ -81,22 +81,13 @@ struct ShareVaultView: View {
 						}
 
 						if let footerText = viewModel.footerText,
-						   let docsButtonTitle = viewModel.docsButtonTitle,
 						   let docsURL = viewModel.docsURL {
 							VStack(spacing: 0) {
-								(Text(footerText)
-									.foregroundColor(.secondary) +
-									Text(" ") +
-									Text(docsButtonTitle)
-									.foregroundColor(.cryptomatorPrimary)
-									.underline() +
-									Text(".")
-									.foregroundColor(.secondary))
+								Text(LocalizedStringKey(String(format: footerText, docsURL.absoluteString)))
 									.font(.footnote)
+									.foregroundColor(.secondary)
+									.accentColor(.cryptomatorPrimary)
 									.multilineTextAlignment(.center)
-									.onTapGesture {
-										UIApplication.shared.open(docsURL)
-									}
 							}
 							.padding(.top, 32)
 							.padding(.horizontal, 32)
@@ -108,13 +99,13 @@ struct ShareVaultView: View {
 					}
 				}
 
-				if let url = viewModel.forTeamsURL {
+				if let url = viewModel.hubURL {
 					Button(
 						action: {
 							UIApplication.shared.open(url)
 						},
 						label: {
-							Text(viewModel.forTeamsButtonTitle)
+							Text(viewModel.hubButtonTitle)
 								.font(.headline)
 								.foregroundColor(.white)
 								.frame(maxWidth: .infinity)
