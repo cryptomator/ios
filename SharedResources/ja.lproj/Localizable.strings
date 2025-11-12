@@ -211,6 +211,13 @@
 "settings.shortcutsGuide" = "ショートカットのガイド";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 
+"shareVault.title" = "保管庫を共有する";
+"shareVault.normal.header.title" = "チームワークの安全な方法";
+"shareVault.normal.button.visitHub" = "Cryptomator Hubを訪問";
+"shareVault.hub.header.title" = "ハブ保管庫の共有方法";
+"shareVault.hub.header.subtitle" = "データ保管庫のコンテンツを他のチームメンバーと共有するには、2つの手順を実行する必要があります：";
+"shareVault.hub.button.openHub" = "Cryptomator Hubを開く";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -270,6 +277,7 @@
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "金庫のリストから削除";
 "vaultDetail.button.renameVault" = "名前を変更";
+"vaultDetail.button.shareVault" = "保管庫を共有する";
 "vaultDetail.changePassword.footer" = "安全な場所に保管しておくための強力なパスワードを選択してください。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@ を有効にすると、金庫のパスワードが iOS Keychain に保存されるようになります。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "金庫のパスワードは %@ の認証に失敗したときのみ必要になります。";
