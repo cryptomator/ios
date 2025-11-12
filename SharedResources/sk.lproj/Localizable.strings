@@ -224,6 +224,7 @@
 "sharePoint.selectDrive.emptyList.footer" = "Nie sú dostupné žiadne knižnice dokumentov";
 
 "shareVault.title" = "Zdielať trezor";
+"shareVault.normal.header.title" = "Bezpečný spôsob pracovať v teamoch";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
