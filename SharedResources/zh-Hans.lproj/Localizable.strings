@@ -222,6 +222,13 @@
 "sharePoint.selectDrive.header.title" = "选择要处理的 SharePoint 文档库";
 "sharePoint.selectDrive.emptyList.footer" = "无可用的文档库";
 
+"shareVault.title" = "共享保险库";
+"shareVault.normal.header.title" = "安全的团队合作方式";
+"shareVault.normal.button.visitHub" = "访问 Cryptomator Hub";
+"shareVault.hub.header.title" = "如何共享 Hub 保险库";
+"shareVault.hub.header.subtitle" = "为了与其他团队成员共享保险库内容，您必须执行以下两步：";
+"shareVault.hub.button.openHub" = "打开 Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/会计.numbers";
 "snapshots.fileprovider.file2" = "/最终报告.key";
 "snapshots.fileprovider.file3" = "/产品预告.mov";
@@ -281,6 +288,7 @@
 "vaultDetail.button.moveVault" = "移动";
 "vaultDetail.button.removeVault" = "从保险库列表中移除";
 "vaultDetail.button.renameVault" = "重命名";
+"vaultDetail.button.shareVault" = "共享保险库";
 "vaultDetail.changePassword.footer" = "为您的保险库选择一个强壮的密码，确保只有您知道并做妥善保管。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果启用 %@，您的保险库密码将存储在 iOS 密钥链中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "只有当 %@ 身份验证失败时才需要密码。";
