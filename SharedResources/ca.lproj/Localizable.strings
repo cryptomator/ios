@@ -218,6 +218,13 @@
 "sharePoint.selectDrive.header.title" = "Selecciona la biblioteca de documents de SharePoint amb la qual vols treballar.";
 "sharePoint.selectDrive.emptyList.footer" = "No hi ha biblioteques de documents disponibles";
 
+"shareVault.title" = "Comparteix la caixa forta";
+"shareVault.normal.header.title" = "La forma segura de treballar en equip";
+"shareVault.normal.button.visitHub" = "Visita Cryptomator Hub";
+"shareVault.hub.header.title" = "Com compartir una caixa forta al Hub";
+"shareVault.hub.header.subtitle" = "Per tal de compartir el contingut de la caixa forta amb un altre membre de l'equip, heu de seguir dos passos:";
+"shareVault.hub.button.openHub" = "Obre Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -277,6 +284,7 @@
 "vaultDetail.button.moveVault" = "Mou";
 "vaultDetail.button.removeVault" = "Elimina de la llista de caixes fortes";
 "vaultDetail.button.renameVault" = "Canvia el nom";
+"vaultDetail.button.shareVault" = "Comparteix la caixa forta";
 "vaultDetail.changePassword.footer" = "Trieu una contrasenya forta per a la caixa forta que no conegui ningú més i deseu-la en un lloc segur.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activeu %@, la contrasenya de la caixa forta serà desada al clauer de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Només es demanarà la contrasenya de la caixa forta is l'autenticació %@ falla.";
