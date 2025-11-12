@@ -220,6 +220,13 @@
 "sharePoint.urlValidation.error.emptyURL" = "La URL no puede estar vacío.";
 "sharePoint.urlValidation.error.invalidURL" = "La URL no es válida. Por favor utiliza este formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
+"shareVault.title" = "Compartir bóveda";
+"shareVault.normal.header.title" = "Una manera segura de trabajar en equipos";
+"shareVault.normal.button.visitHub" = "Visite Cryptomator Hub";
+"shareVault.hub.header.title" = "Cómo compartir una bóveda de Hub";
+"shareVault.hub.header.subtitle" = "Para compartir el contenido de la bóveda con otro miembro del equipo, tiene que realizar dos pasos:";
+"shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Números.contables";
 "snapshots.fileprovider.file2" = "/Presentación final.key";
 "snapshots.fileprovider.file3" = "/Trailer de producto.mov";
@@ -279,6 +286,7 @@
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
 "vaultDetail.button.renameVault" = "Renombrar";
+"vaultDetail.button.shareVault" = "Compartir bóveda";
 "vaultDetail.changePassword.footer" = "Seleccione una contraseña segura para su bóveda que solo conozca usted y manténgala en un lugar seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";
