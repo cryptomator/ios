@@ -68,9 +68,17 @@
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub:illasi ei ole voimassa olevaa lisenssiä. Ole hyvä ja ilmoita Hubin järjestelmänvalvojalle lisenssin päivittämiseksi tai sen uusimiseksi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Laitteen Nimi";
 
+"shareVault.title" = "Jaa holvi";
+"shareVault.normal.header.title" = "Turvallinen tapa työskennellä tiimeissä";
+"shareVault.normal.button.visitHub" = "Käy Cryptomator Hubissa";
+"shareVault.hub.header.title" = "Kuinka jakaa Hub -holvi";
+"shareVault.hub.header.subtitle" = "Jotta holvin sisältö voitaisiin jakaa toisen tiimin jäsenen kanssa, sinun on suoritettava kaksi vaihetta:";
+"shareVault.hub.button.openHub" = "Avaa Cryptomator Hub";
+
 "unlockVault.button.unlock" = "Avaa";
 "unlockVault.password.footer" = "Syötä holvin \"%@\" salasana.";
 
 "vaultDetail.button.changeVaultPassword" = "Vaihda salasana";
 "vaultDetail.button.moveVault" = "Siirrä";
 "vaultDetail.button.renameVault" = "Nimeä uudelleen";
+"vaultDetail.button.shareVault" = "Jaa holvi";
