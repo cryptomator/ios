@@ -12,6 +12,14 @@
 "hubAuthentication.licenseExceeded" = "سىزنىڭ Cryptomator Hub نۇسخىڭىزنىڭ ئىناۋەتسىز ئىجازەتنامىسى بار. Hub باشقۇرغۇچىسىغا ئىجازەتنامىنى يۇقىرى دەرىجىگە كۆتۈر.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "ئۈسكۈنە ئىسمى";
 
+"shareVault.title" = "ئامبارنى ھەمبەھىرلەش";
+"shareVault.normal.header.title" = "گۇرۇپپىا بىلەن بىخەتەر ھالدا ھەمكارلىشىش";
+"shareVault.normal.button.visitHub" = "Cryptomator Hub ئۇچۇرىنى زىيارەت قىلىڭ";
+"shareVault.hub.header.title" = "ئامبارنى قانداق ھەمبەھىرلەيمىز";
+"shareVault.hub.header.subtitle" = "ئامبار مەزمۇنىنى باشقا گۇرۇپپىنىڭ ئەزاسىغا ھەمبەھىرلەش ئۈچۈن تۆۋەندىكى ئىككى قەدەم بويچە ھەمبەھىرلەش كېرەك:";
+"shareVault.hub.button.openHub" = "Cryptomator Hub ئۇچۇرىنى ئېچىڭ";
+
 "unlockVault.button.unlock" = "قۇلۇپنى ئاچ";
 
 "vaultDetail.button.changeVaultPassword" = "پارولنى ئۆزگەرتىش";
+"vaultDetail.button.shareVault" = "ئامبارنى ھەمبەھىرلەش";
