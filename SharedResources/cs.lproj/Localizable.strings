@@ -206,6 +206,13 @@
 "settings.shortcutsGuide" = "Průvodce zkratkami";
 "settings.unlockFullVersion" = "Odemknout plnou verzi";
 
+"shareVault.title" = "Sdílet trezor";
+"shareVault.normal.header.title" = "Bezpečný způsob práce v týmech";
+"shareVault.normal.button.visitHub" = "Navštivte Cryptomator Hub";
+"shareVault.hub.header.title" = "Jak sdílet Hub trezor";
+"shareVault.hub.header.subtitle" = "Chcete-li sdílet obsah trezoru s jiným členem týmu, musíte provést dva kroky:";
+"shareVault.hub.button.openHub" = "Otevřít Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Účetnictví.numbers";
 "snapshots.fileprovider.file2" = "/Finální prezentace.key";
 "snapshots.fileprovider.file3" = "/Trailer produktu.mov";
@@ -265,6 +272,7 @@
 "vaultDetail.button.moveVault" = "Přesunout";
 "vaultDetail.button.removeVault" = "Odebrat ze seznamu trezorů";
 "vaultDetail.button.renameVault" = "Přejmenovat";
+"vaultDetail.button.shareVault" = "Sdílet trezor";
 "vaultDetail.changePassword.footer" = "Vyberte silné heslo pro váš trezor, které znáte jen vy a uchováváte na bezpečném místě.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Pokud povolíte %@, vaše heslo k trezoru bude uloženo v iOS klíčence.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše heslo k trezoru bude vyžadováno pouze v případě, že %@ ověření selže.";
