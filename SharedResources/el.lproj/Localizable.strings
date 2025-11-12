@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Επιλέξτε τη βιβλιοθήκη εγγράφων SharePoint με την οποία θέλετε να εργαστείτε.";
 "sharePoint.selectDrive.emptyList.footer" = "Δεν Υπάρχουν Διαθέσιμες Βιβλιοθήκες Εγγράφων";
 
+"shareVault.title" = "Κοινή χρήση Κρύπτης";
+"shareVault.normal.header.title" = "Ο ασφαλής τρόπος εργασίας σε ομάδες";
+"shareVault.normal.button.visitHub" = "Επισκεφτείτε το Cryptomator Hub";
+"shareVault.hub.header.title" = "Πώς να μοιραστείτε μια κρύπτη Hub";
+"shareVault.hub.header.subtitle" = "Για να μοιραστείτε το περιεχόμενο της κρύπτης με άλλο μέλος της ομάδας, πρέπει να εκτελέσετε δύο βήματα:";
+"shareVault.hub.button.openHub" = "Ανοίξτε το Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Λογιστική.αριθμοί";
 "snapshots.fileprovider.file2" = "/Τελική Παρουσίαση.key";
 "snapshots.fileprovider.file3" = "/Trailer προϊόντος.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Μετακίνηση";
 "vaultDetail.button.removeVault" = "Κατάργηση από την Λίστα Κρύπτης";
 "vaultDetail.button.renameVault" = "Μετονομασία";
+"vaultDetail.button.shareVault" = "Κοινή χρήση Κρύπτης";
 "vaultDetail.changePassword.footer" = "Επιλέξτε έναν ισχυρό κωδικό πρόσβασης για την κρύπτη σας που μόνο εσείς γνωρίζετε και φυλάξτε τον σε ασφαλές μέρος.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Εάν ενεργοποιήσετε το %@, ο κωδικός πρόσβασης της κρύπτη σας θα αποθηκευτεί στο iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ο κωδικός πρόσβασης του Vault σας θα απαιτείται μόνο εάν αποτύχει η ταυτοποίηση %@.";
