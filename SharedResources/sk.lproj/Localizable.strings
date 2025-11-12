@@ -223,6 +223,8 @@
 "sharePoint.selectDrive.header.title" = "Vyberte knižnicu dokumentov SharePoint, s ktorou chcete pracovať.";
 "sharePoint.selectDrive.emptyList.footer" = "Nie sú dostupné žiadne knižnice dokumentov";
 
+"shareVault.title" = "Zdielať trezor";
+
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
 "snapshots.fileprovider.file3" = "/Reklama produktu.mov";
@@ -282,6 +284,7 @@
 "vaultDetail.button.moveVault" = "Presunúť";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
 "vaultDetail.button.renameVault" = "Premenovať";
+"vaultDetail.button.shareVault" = "Zdielať trezor";
 "vaultDetail.changePassword.footer" = "Zvoľte silné heslo pre Váš trezor, také ktoré viete len Vy a uchovajte ho na bezpečnom mieste.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše trezorové heslo bude požadované iba ak %@ autentikácia zlyhá.";
