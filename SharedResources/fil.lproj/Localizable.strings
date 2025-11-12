@@ -207,6 +207,13 @@
 "settings.shortcutsGuide" = "Gabay sa Mga Shortcut";
 "settings.unlockFullVersion" = "I-unlock ang Buong Bersyon";
 
+"shareVault.title" = "Ibahagi ang Vault";
+"shareVault.normal.header.title" = "Ang ligtas na paraan upang magtrabaho sa mga koponan";
+"shareVault.normal.button.visitHub" = "Pagbisita ang Cryptomator Hub";
+"shareVault.hub.header.title" = "Paano ibahagi ang Hub vault";
+"shareVault.hub.header.subtitle" = "Upang maibahagi ang nilalaman ng vault sa isa pang miyembro ng koponan, kailangan mong magsagawa ng dalawang hakbang:";
+"shareVault.hub.button.openHub" = "Buksan ang Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Pangwakas na Presentasyon.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -266,6 +273,7 @@
 "vaultDetail.button.moveVault" = "Ilipat";
 "vaultDetail.button.removeVault" = "Alisin sa Listahan ng Vault";
 "vaultDetail.button.renameVault" = "Baguhin ang pangalan";
+"vaultDetail.button.shareVault" = "Ibahagi ang Vault";
 "vaultDetail.changePassword.footer" = "Pumili ng malakas na password para sa iyong vault na ikaw lang ang nakakaalam at itago ito sa isang ligtas na lugar.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Kung pinagana mo ang %@, maiimbak ang iyong password sa vault sa iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kakailanganin lang ang iyong password sa vault kung nabigo ang %@ authentication.";
