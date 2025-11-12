@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Selezionare la libreria dei documenti SharePoint con la quale vuoi lavorare.";
 "sharePoint.selectDrive.emptyList.footer" = "Nessuna libreria dei documenti disponibile";
 
+"shareVault.title" = "Condividi cassaforte";
+"shareVault.normal.header.title" = "Il modo sicuro di lavorare in gruppi";
+"shareVault.normal.button.visitHub" = "Visita Hub Cryptomator";
+"shareVault.hub.header.title" = "Come condividere una cassaforte Hub";
+"shareVault.hub.header.subtitle" = "Per condividere il contenuto della cassaforte con un altro membro del gruppo, è necessario eseguire due passaggi:";
+"shareVault.hub.button.openHub" = "Apri l'Hub Cryptomator";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Presentatione Finale.Key";
 "snapshots.fileprovider.file3" = "/Trailer Prodotto.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Sposta";
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
 "vaultDetail.button.renameVault" = "Rinomina";
+"vaultDetail.button.shareVault" = "Condividi cassaforte";
 "vaultDetail.changePassword.footer" = "Scegli una password sicura per la cassaforte e conservala in un posto sicuro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
