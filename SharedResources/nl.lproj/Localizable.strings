@@ -225,10 +225,16 @@
 
 "shareVault.title" = "Kluis delen";
 "shareVault.normal.header.title" = "De veilige manier om in teams te werken";
+"shareVault.normal.header.features" = "Werk veilig samen met uw team. Verleen toegang op elk gewenst moment en trek deze in zonder wachtwoorden te delen.";
+"shareVault.normal.footer.text" = "Kijk voor meer informatie naar de suggesties voor beste praktijken in onze [docs](%@).";
 "shareVault.normal.button.visitHub" = "Bezoek Cryptomator Hub";
 "shareVault.hub.header.title" = "Hoe een Hub kluis delen";
 "shareVault.hub.header.subtitle" = "Om de inhoud van de kluis te delen met een ander teamlid, moet u twee stappen uitvoeren:";
+"shareVault.hub.step1" = "Deel toegang van de versleutelde kluis map via de cloud opslag.";
+"shareVault.hub.step2" = "Geef teamlid toegang tot Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Open Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Kan Hub informatie niet laden";
+"shareVault.error.hubURLExtraction.message" = "De Hub configuratie van de kluis kon niet worden geladen. Controleer uw kluis instellingen of neem contact op met uw Hub beheerder.";
 
 "snapshots.fileprovider.file1" = "/Rekening.getallen";
 "snapshots.fileprovider.file2" = "/Laatste presentatie.key";
@@ -290,6 +296,7 @@
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
 "vaultDetail.button.renameVault" = "Naam wijzigen";
 "vaultDetail.button.shareVault" = "Kluis delen";
+"vaultDetail.shareVault.footer" = "Werk veilig samen met uw team met behulp van Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Selecteer een sterk wachtwoord voor uw kluis dat alleen u kent en bewaar het op een veilige plaats.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
