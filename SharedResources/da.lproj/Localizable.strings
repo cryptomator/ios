@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Vælg det SharePoint-dokumentbibliotek, du vil arbejde med.";
 "sharePoint.selectDrive.emptyList.footer" = "Ingen dokumentbiblioteker tilgængelige";
 
+"shareVault.title" = "Del Boks";
+"shareVault.normal.header.title" = "Den sikre måde at arbejde i hold";
+"shareVault.normal.button.visitHub" = "Besøg Kryptomator Hub";
+"shareVault.hub.header.title" = "Sådan deler du en Hub boks";
+"shareVault.hub.header.subtitle" = "For at dele indholdet i boksen med et andet holdmedlem skal du udføre to trin:";
+"shareVault.hub.button.openHub" = "Åben Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Bogholderi.numbers";
 "snapshots.fileprovider.file2" = "/Endelig præsentation.key";
 "snapshots.fileprovider.file3" = "/Produkt trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Flyt";
 "vaultDetail.button.removeVault" = "Fjern fra listen over bokse";
 "vaultDetail.button.renameVault" = "Omdøb";
+"vaultDetail.button.shareVault" = "Del Boks";
 "vaultDetail.changePassword.footer" = "Vælg en stærk adgangskode til din boks, som kun du kender og opbevar den på et sikkert sted.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Hvis du aktiverer %@, vil din boksadgangskode blive gemt i iOS-nøgleringen.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Din boksadgangskode skal kun angives, hvis %@-godkendelsen mislykkes.";
