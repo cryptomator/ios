@@ -225,10 +225,16 @@
 
 "shareVault.title" = "Поделиться хранилищем";
 "shareVault.normal.header.title" = "Безопасный способ работы в командах";
+"shareVault.normal.header.features" = "Сотрудничайте со своей командой безопасно. Предоставляйте и отменяйте доступ в любое время, не сообщая пароли.";
+"shareVault.normal.footer.text" = "Дополнительную информацию см. в нашей [документации](%@).";
 "shareVault.normal.button.visitHub" = "Посетить хаб Cryptomator";
 "shareVault.hub.header.title" = "Как поделиться хранилищем в хабе";
 "shareVault.hub.header.subtitle" = "Чтобы поделиться содержимым хранилища с другим членом команды, выполните два шага:";
+"shareVault.hub.step1" = "Делитесь доступом к зашифрованной папке хранилища через облако.";
+"shareVault.hub.step2" = "Предоставьте доступ члену команды в хабе Cryptomator.";
 "shareVault.hub.button.openHub" = "Открыть хаб Cryptomator";
+"shareVault.error.hubURLExtraction.title" = "Невозможно загрузить информацию о хабе";
+"shareVault.error.hubURLExtraction.message" = "Не удалось загрузить конфигурацию хаба хранилища. Проверьте настройки хранилища или обратитесь к администратору хаба.";
 
 "snapshots.fileprovider.file1" = "/Отчётность.numbers";
 "snapshots.fileprovider.file2" = "/Финальная презентация.key";
@@ -290,6 +296,7 @@
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
 "vaultDetail.button.renameVault" = "Переименовать";
 "vaultDetail.button.shareVault" = "Поделиться хранилищем";
+"vaultDetail.shareVault.footer" = "Безопасное сотрудничество с командой с помощью хаба Cryptomator.";
 "vaultDetail.changePassword.footer" = "Выберите надёжный пароль для хранилища, который знаете только вы. Храните его в безопасном месте.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
