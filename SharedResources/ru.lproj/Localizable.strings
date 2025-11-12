@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Выберите библиотеку документов SharePoint, с которой вы хотите работать.";
 "sharePoint.selectDrive.emptyList.footer" = "Библиотеки документов недоступны";
 
+"shareVault.title" = "Поделиться хранилищем";
+"shareVault.normal.header.title" = "Безопасный способ работы в командах";
+"shareVault.normal.button.visitHub" = "Посетить хаб Cryptomator";
+"shareVault.hub.header.title" = "Как поделиться хранилищем в хабе";
+"shareVault.hub.header.subtitle" = "Чтобы поделиться содержимым хранилища с другим членом команды, выполните два шага:";
+"shareVault.hub.button.openHub" = "Открыть хаб Cryptomator";
+
 "snapshots.fileprovider.file1" = "/Отчётность.numbers";
 "snapshots.fileprovider.file2" = "/Финальная презентация.key";
 "snapshots.fileprovider.file3" = "/Трейлер продукта.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Переместить";
 "vaultDetail.button.removeVault" = "Удалить из списка хранилищ";
 "vaultDetail.button.renameVault" = "Переименовать";
+"vaultDetail.button.shareVault" = "Поделиться хранилищем";
 "vaultDetail.changePassword.footer" = "Выберите надёжный пароль для хранилища, который знаете только вы. Храните его в безопасном месте.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Если вы включите %@, пароль для хранилища будет сохранён в Связке ключей iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Пароль для хранилища потребуется только при ошибке аутентификации %@.";
