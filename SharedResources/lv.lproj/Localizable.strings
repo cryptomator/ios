@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Atlasīt SharePoint dokumentu bibliotēku, ar kuru ir vēlme strādāt.";
 "sharePoint.selectDrive.emptyList.footer" = "Nav pieejama neviena dokumentu bibliotēka";
 
+"shareVault.title" = "Kopīgot glabātavu";
+"shareVault.normal.header.title" = "Drošs veids, kā darboties komandās";
+"shareVault.normal.button.visitHub" = "Apmeklēt Cryptomator Hub";
+"shareVault.hub.header.title" = "Kā kopīgot Hub glabātavu";
+"shareVault.hub.header.subtitle" = "Lai varētu kopīgot glabātavas saturu ar citu komandas dalībnieku, jāizpilda divi soļi:";
+"shareVault.hub.button.openHub" = "Atvērt Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
 "snapshots.fileprovider.file2" = "/Gala prezentācija.key";
 "snapshots.fileprovider.file3" = "/Preces reklāmrullītis.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.removeVault" = "Noņemt no glabātavu saraksta";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
+"vaultDetail.button.shareVault" = "Kopīgot glabātavu";
 "vaultDetail.changePassword.footer" = "Jāizvēlas tikai sev zināma stipra glabātavas parole un jātur tā drošā vietā.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ja iespējo %@, glabātavas parole tiks glabāta iOS atslēgu saišķī.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";
