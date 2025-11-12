@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Sélectionnez la bibliothèque de documents SharePoint avec laquelle vous voulez travailler.";
 "sharePoint.selectDrive.emptyList.footer" = "Aucune bibliothèque de documents disponible";
 
+"shareVault.title" = "Partager le coffre";
+"shareVault.normal.header.title" = "La façon sécurisée de travailler en équipe";
+"shareVault.normal.button.visitHub" = "Visiter le Hub Cryptomator";
+"shareVault.hub.header.title" = "Comment partager un coffre central";
+"shareVault.hub.header.subtitle" = "Afin de partager le contenu du coffre avec un autre membre de l'équipe, vous devez effectuer deux étapes :";
+"shareVault.hub.button.openHub" = "Ouvrir le Hub Cryptomator";
+
 "snapshots.fileprovider.file1" = "Compte.numéros";
 "snapshots.fileprovider.file2" = "Présentation Finale.key";
 "snapshots.fileprovider.file3" = "Présentation du produit.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Déplacer";
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
 "vaultDetail.button.renameVault" = "Renommer";
+"vaultDetail.button.shareVault" = "Partager le coffre";
 "vaultDetail.changePassword.footer" = "Sélectionnez un mot de passe fort pour votre coffre que vous seul connaissez et conservez-le dans un endroit sûr.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si vous activez %@, votre mot de passe de coffre sera stocké dans le trousseau iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Le mot de passe de votre coffre ne sera requis que si l'authentification de %@ échoue.";
