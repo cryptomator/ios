@@ -84,7 +84,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 			elements.append(statusCell)
 		} else {
 			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
-			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
 		}
 		return elements
 	}
