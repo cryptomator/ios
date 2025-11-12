@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Selecteer de SharePoint documentbibliotheek waarmee u wilt werken.";
 "sharePoint.selectDrive.emptyList.footer" = "Geen documentbibliotheken beschikbaar";
 
+"shareVault.title" = "Kluis delen";
+"shareVault.normal.header.title" = "De veilige manier om in teams te werken";
+"shareVault.normal.button.visitHub" = "Bezoek Cryptomator Hub";
+"shareVault.hub.header.title" = "Hoe een Hub kluis delen";
+"shareVault.hub.header.subtitle" = "Om de inhoud van de kluis te delen met een ander teamlid, moet u twee stappen uitvoeren:";
+"shareVault.hub.button.openHub" = "Open Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Rekening.getallen";
 "snapshots.fileprovider.file2" = "/Laatste presentatie.key";
 "snapshots.fileprovider.file3" = "/Product trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Verplaatsen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
 "vaultDetail.button.renameVault" = "Naam wijzigen";
+"vaultDetail.button.shareVault" = "Kluis delen";
 "vaultDetail.changePassword.footer" = "Selecteer een sterk wachtwoord voor uw kluis dat alleen u kent en bewaar het op een veilige plaats.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";
