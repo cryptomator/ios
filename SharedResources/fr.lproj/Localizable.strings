@@ -225,10 +225,15 @@
 
 "shareVault.title" = "Partager le coffre";
 "shareVault.normal.header.title" = "La façon sécurisée de travailler en équipe";
+"shareVault.normal.header.features" = "Collaborez en toute sécurité avec votre équipe. Accordez et révoquez des accès à tout moment sans partager de mot de passe.";
 "shareVault.normal.button.visitHub" = "Visiter le Hub Cryptomator";
 "shareVault.hub.header.title" = "Comment partager un coffre central";
 "shareVault.hub.header.subtitle" = "Afin de partager le contenu du coffre avec un autre membre de l'équipe, vous devez effectuer deux étapes :";
+"shareVault.hub.step1" = "Partagez l'accès du dossier de coffre chiffré via le stockage cloud.";
+"shareVault.hub.step2" = "Accorder l'accès au membre de l'équipe dans Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Ouvrir le Hub Cryptomator";
+"shareVault.error.hubURLExtraction.title" = "Impossible de charger les informations du Hub";
+"shareVault.error.hubURLExtraction.message" = "La configuration du Hub du coffre n'a pas pu être chargée. Veuillez vérifier les paramètres de votre coffre ou contacter votre administrateur Hub.";
 
 "snapshots.fileprovider.file1" = "Compte.numéros";
 "snapshots.fileprovider.file2" = "Présentation Finale.key";
@@ -290,6 +295,7 @@
 "vaultDetail.button.removeVault" = "Retirer de la Liste des Coffres";
 "vaultDetail.button.renameVault" = "Renommer";
 "vaultDetail.button.shareVault" = "Partager le coffre";
+"vaultDetail.shareVault.footer" = "Collaborez en toute sécurité avec votre équipe en utilisant Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Sélectionnez un mot de passe fort pour votre coffre que vous seul connaissez et conservez-le dans un endroit sûr.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si vous activez %@, votre mot de passe de coffre sera stocké dans le trousseau iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Le mot de passe de votre coffre ne sera requis que si l'authentification de %@ échoue.";
