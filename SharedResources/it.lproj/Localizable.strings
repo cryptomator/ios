@@ -225,10 +225,16 @@
 
 "shareVault.title" = "Condividi cassaforte";
 "shareVault.normal.header.title" = "Il modo sicuro di lavorare in gruppi";
+"shareVault.normal.header.features" = "Collabora in modo sicuro con il tuo team. Concedi e revoca l'accesso in qualsiasi momento senza condividere le password.";
+"shareVault.normal.footer.text" = "Per ulteriori informazioni, consulta i suggerimenti sulle migliori pratiche nella nostra [docs](%@).";
 "shareVault.normal.button.visitHub" = "Visita Hub Cryptomator";
 "shareVault.hub.header.title" = "Come condividere una cassaforte Hub";
 "shareVault.hub.header.subtitle" = "Per condividere il contenuto della cassaforte con un altro membro del gruppo, è necessario eseguire due passaggi:";
+"shareVault.hub.step1" = "Condividi l'accesso alla cartella della cassaforte tramite un archivio nel cloud.";
+"shareVault.hub.step2" = "Concedi al membro del team l'accesso a Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Apri l'Hub Cryptomator";
+"shareVault.error.hubURLExtraction.title" = "Impossibile caricare le informazioni dell'Hub";
+"shareVault.error.hubURLExtraction.message" = "Non è stato possibile caricare la configurazione dell'Hub. Controlla le impostazioni della cassaforte o contatta l'amministratore dell'Hub.";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Presentatione Finale.Key";
@@ -290,6 +296,7 @@
 "vaultDetail.button.removeVault" = "Rimuovi dalla Lista della Cassaforte";
 "vaultDetail.button.renameVault" = "Rinomina";
 "vaultDetail.button.shareVault" = "Condividi cassaforte";
+"vaultDetail.shareVault.footer" = "Collabora in modo sicuro con il tuo team utilizzando Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Scegli una password sicura per la cassaforte e conservala in un posto sicuro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se abiliti %@, la password della cassaforte sarà memorizzata nel portachiavi iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "La password della cassaforte sarà richiesta solo se l'autenticazione %@ non è riuscita.";
