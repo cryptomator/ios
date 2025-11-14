@@ -225,10 +225,16 @@
 
 "shareVault.title" = "Поділитися сховищем";
 "shareVault.normal.header.title" = "Надійний спосіб для командної роботи";
+"shareVault.normal.header.features" = "Співпрацюйте безпечно зі своєю командою. Надавайте та скасовуйте доступ у будь-який час, не розголошуючи паролі.";
+"shareVault.normal.footer.text" = "Для отримання додаткової інформації перегляньте поради щодо найкращих практик у нашій [документації](%@).";
 "shareVault.normal.button.visitHub" = "Відвідати Cryptomator Hub";
 "shareVault.hub.header.title" = "Як надати спільний доступ до сховища Hub";
 "shareVault.hub.header.subtitle" = "Щоб надати спільний доступ до вмісту сховища іншому учаснику команди, потрібно виконати два кроки:";
+"shareVault.hub.step1" = "Надайте спільний доступ до зашифрованої папки сховища через хмарне сховище.";
+"shareVault.hub.step2" = "Надайте доступ учаснику команди в Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Відкрити Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Не вдалося завантажити інформацію Hub";
+"shareVault.error.hubURLExtraction.message" = "Не вдалося завантажити конфігурацію Hub для сховища. Будь ласка, перевірте налаштування сховища або зв'яжіться з адміністратором Hub.";
 
 "snapshots.fileprovider.file1" = "/Розрахунки.numbers";
 "snapshots.fileprovider.file2" = "/Остаточна презентація.key";
@@ -290,6 +296,7 @@
 "vaultDetail.button.removeVault" = "Вилучити зі списку сховищ";
 "vaultDetail.button.renameVault" = "Перейменувати";
 "vaultDetail.button.shareVault" = "Поділитися сховищем";
+"vaultDetail.shareVault.footer" = "Співпрацюйте безпечно зі своєю командою, використовуючи Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Виберіть надійний пароль для свого сховища, який знатимете лише ви, і зберігайте його в безпечному місці.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Якщо ви ввімкнете «%@», пароль вашого сховища буде збережено у зв'язці ключів iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ваш пароль до сховища буде потрібен лише у випадку невдалої автентифікації за допомогою «%@».";
