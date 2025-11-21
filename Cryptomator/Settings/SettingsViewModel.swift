@@ -28,7 +28,8 @@ enum SettingsButtonAction: String {
 }
 
 enum SettingsSection: Int {
-	case cloudServiceSection = 0
+	case purchaseStatusSection = 0
+	case cloudServiceSection
 	case cacheSection
 	case aboutSection
 	case debugSection
@@ -49,7 +50,11 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	}
 
 	private var _sections: [Section<SettingsSection>] {
-		return [
+		var sections: [Section<SettingsSection>] = []
+		if !hasFullAccess {
+			sections.append(Section(id: .purchaseStatusSection, elements: [purchaseStatusCellViewModel]))
+		}
+		sections.append(contentsOf: [
 			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
 			]),
@@ -67,23 +72,25 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])
-		]
+		])
+		return sections
+	}
+
+	override func getFooterTitle(for section: Int) -> String? {
+		guard sections[section].id == .aboutSection, hasFullAccess else { return nil }
+		return LocalizedString.getValue("settings.fullVersion.footer")
+	}
+
+	private var hasFullAccess: Bool {
+		cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked
 	}
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
-		var elements: [TableViewCellViewModel] = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
-
+		var elements: [TableViewCellViewModel] = [
+			ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
+		]
 		if cryptomatorSettings.hasRunningSubscription {
-			elements.append(ButtonCellViewModel<SettingsButtonAction>(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
-		} else if cryptomatorSettings.fullVersionUnlocked {
-			let statusCell = BindableTableViewCellViewModel(
-				title: LocalizedString.getValue("settings.fullVersionStatus"),
-				selectionStyle: .none,
-				accessoryType: .checkmark
-			)
-			elements.append(statusCell)
-		} else {
-			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
+			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
 		}
 		return elements
 	}
@@ -92,6 +99,24 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
 
 	private var cryptomatorSettings: CryptomatorSettings
+
+	private var purchaseStatusCellViewModel: PurchaseStatusCellViewModel {
+		let subtitle: String
+		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
+			let dateFormatter = DateFormatter()
+			dateFormatter.dateStyle = .medium
+			dateFormatter.timeStyle = .none
+			subtitle = String(format: LocalizedString.getValue("settings.trial.expirationDate"), dateFormatter.string(from: trialExpirationDate))
+		} else {
+			subtitle = LocalizedString.getValue("settings.freeTier.subtitle")
+		}
+		return PurchaseStatusCellViewModel(
+			iconName: "checkmark.seal.fill",
+			title: LocalizedString.getValue("settings.unlockFullVersion"),
+			subtitle: subtitle
+		)
+	}
+
 	private lazy var debugModeViewModel: SwitchCellViewModel = {
 		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.debugMode"), isOn: cryptomatorSettings.debugModeEnabled)
 		bindDebugModeViewModel(viewModel)

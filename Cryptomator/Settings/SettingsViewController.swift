@@ -134,6 +134,11 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		case .none:
 			break
 		}
+
+		if dataSource?.itemIdentifier(for: indexPath) is PurchaseStatusCellViewModel {
+			tableView.deselectRow(at: indexPath, animated: true)
+			coordinator?.showUnlockFullVersion()
+		}
 	}
 
 	private func refreshRows() {

@@ -439,6 +439,8 @@
 		74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */; };
 		74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74F5DC1E26DD036D00AFE989 /* StoreManager.swift */; };
 		74FC576125ADED030003ED27 /* VaultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74FC576025ADED030003ED27 /* VaultCell.swift */; };
+		B32024D32ED0778800E82B07 /* PurchaseStatusCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32024D22ED0778800E82B07 /* PurchaseStatusCellViewModel.swift */; };
+		B32024D42ED0778800E82B07 /* PurchaseStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B32024D12ED0778800E82B07 /* PurchaseStatusCell.swift */; };
 		B330CB452CB5735300C21E03 /* UnauthorizedErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */; };
 		B34C53262D142B1000F30FE9 /* EnterSharePointURLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */; };
 		B34C53282D142B5800F30FE9 /* EnterSharePointURLViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */; };
@@ -1058,6 +1060,8 @@
 		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
+		B32024D12ED0778800E82B07 /* PurchaseStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseStatusCell.swift; sourceTree = "<group>"; };
+		B32024D22ED0778800E82B07 /* PurchaseStatusCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseStatusCellViewModel.swift; sourceTree = "<group>"; };
 		B330CB442CB5735000C21E03 /* UnauthorizedErrorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnauthorizedErrorViewController.swift; sourceTree = "<group>"; };
 		B34C53252D142B0700F30FE9 /* EnterSharePointURLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewController.swift; sourceTree = "<group>"; };
 		B34C53272D142B5400F30FE9 /* EnterSharePointURLViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterSharePointURLViewModel.swift; sourceTree = "<group>"; };
@@ -2037,6 +2041,8 @@
 				740D3683266A1B180058744D /* SettingsCoordinator.swift */,
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
+				B32024D12ED0778800E82B07 /* PurchaseStatusCell.swift */,
+				B32024D22ED0778800E82B07 /* PurchaseStatusCellViewModel.swift */,
 				7408E6CB26779BC200D7FAEA /* About */,
 			);
 			path = Settings;
@@ -2783,6 +2789,8 @@
 				4A644B57267C958F008CBB9A /* ChildCoordinator.swift in Sources */,
 				4A53CC15267CC33100853BB3 /* CreateNewVaultPasswordViewModel.swift in Sources */,
 				4AA22C1E261CA94700A17486 /* UsernameFieldCell.swift in Sources */,
+				B32024D32ED0778800E82B07 /* PurchaseStatusCellViewModel.swift in Sources */,
+				B32024D42ED0778800E82B07 /* PurchaseStatusCell.swift in Sources */,
 				4A136132276770BB0077EB7F /* SnapshotVaultListViewModel.swift in Sources */,
 				4AED9A79286B4DF500352951 /* S3Authenticating.swift in Sources */,
 				747C35172762A3F500E4CA28 /* AttributedTextHeaderFooterViewModel.swift in Sources */,

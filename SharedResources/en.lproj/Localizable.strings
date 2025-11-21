@@ -213,7 +213,9 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
-"settings.fullVersionStatus" = "Full Version";
+"settings.fullVersion.footer" = "You have unlocked the full version and gained write access to your vaults.";
+"settings.trial.expirationDate" = "Trial Expiration Date: %@";
+"settings.freeTier.subtitle" = "Gain write access to your vaults.";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
