@@ -97,6 +97,13 @@ class VaultDetailCoordinator: Coordinator {
 		changePasswordViewController.coordinator = self
 		navigationController.pushViewController(changePasswordViewController, animated: true)
 	}
+
+	func showShareVault() {
+		let child = ShareVaultCoordinator(vaultInfo: vaultInfo, navigationController: navigationController)
+		child.parentCoordinator = self
+		childCoordinators.append(child)
+		child.start()
+	}
 }
 
 extension VaultDetailCoordinator: VaultNaming {

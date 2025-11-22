@@ -42,11 +42,13 @@ enum VaultDetailButtonAction {
 	case showMoveVault
 	case showChangeVaultPassword
 	case showKeepUnlockedScreen(currentKeepUnlockedDuration: Bindable<KeepUnlockedDuration>)
+	case shareVault
 }
 
 private enum VaultDetailSection {
 	case vaultInfoSection
 	case lockingSection
+	case shareVaultSection
 	case removeVaultSection
 	case moveVaultSection
 	case changeVaultPasswordSection
@@ -85,7 +87,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private var subscribers = Set<AnyCancellable>()
 
 	private lazy var sections: [VaultDetailSection] = {
-		var sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection]
+		var sections: [VaultDetailSection] = [.vaultInfoSection, .lockingSection, .shareVaultSection]
 		if vaultIsEligibleToMove() {
 			sections.append(.moveVaultSection)
 		}
@@ -110,6 +112,9 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 				ButtonCellViewModel<VaultDetailButtonAction>(action: .openVaultInFilesApp, title: LocalizedString.getValue("common.cells.openInFilesApp"))
 			],
 			.lockingSection: lockSectionCells,
+			.shareVaultSection: [
+				ButtonCellViewModel<VaultDetailButtonAction>(action: .shareVault, title: LocalizedString.getValue("vaultDetail.button.shareVault"), titleTextColor: .label)
+			],
 			.moveVaultSection: vaultIsEligibleToMove() ? [
 				renameVaultCellViewModel,
 				moveVaultCellViewModel
@@ -144,6 +149,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 	private lazy var sectionFooter: [VaultDetailSection: HeaderFooterViewModel] = [.vaultInfoSection: VaultDetailInfoFooterViewModel(vault: vaultInfo),
 	                                                                               .changeVaultPasswordSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.changePassword.footer")),
 	                                                                               .lockingSection: unlockSectionFooterViewModel,
+	                                                                               .shareVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.shareVault.footer")),
 	                                                                               .removeVaultSection: BaseHeaderFooterViewModel(title: LocalizedString.getValue("vaultDetail.removeVault.footer"))]
 
 	private lazy var unlockSectionFooterViewModel = UnlockSectionFooterViewModel(vaultUnlocked: vaultInfo.vaultIsUnlocked.value, biometricalUnlockEnabled: biometricalUnlockEnabled, biometryTypeName: context.enrolledBiometricsAuthenticationName(), keepUnlockedDuration: currentKeepUnlockedDuration.value, vaultInfo: vaultInfo)
