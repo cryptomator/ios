@@ -17,6 +17,7 @@ class PurchaseStatusCell: UITableViewCell, ConfigurableTableViewCell {
 	lazy var subscribers = Set<AnyCancellable>()
 
 	func configure(with viewModel: TableViewCellViewModel) {
+		removeAllBindings()
 		guard let viewModel = viewModel as? PurchaseStatusCellViewModel else {
 			return
 		}
