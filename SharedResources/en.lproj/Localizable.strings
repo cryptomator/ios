@@ -202,6 +202,7 @@
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "You have unlocked the full version and gained write access to your vaults.";
 "settings.cacheSize" = "Cache Size";
 "settings.clearCache" = "Clear Cache";
 "settings.cloudServices" = "Cloud Services";
@@ -213,9 +214,8 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
-"settings.fullVersion.footer" = "You have unlocked the full version and gained write access to your vaults.";
-"settings.trial.expirationDate" = "Trial Expiration Date: %@";
-"settings.freeTier.subtitle" = "Gain write access to your vaults.";
+"settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
+"settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
