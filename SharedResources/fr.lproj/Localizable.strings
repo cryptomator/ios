@@ -226,6 +226,7 @@
 "shareVault.title" = "Partager le coffre";
 "shareVault.normal.header.title" = "La façon sécurisée de travailler en équipe";
 "shareVault.normal.header.features" = "Collaborez en toute sécurité avec votre équipe. Accordez et révoquez des accès à tout moment sans partager de mot de passe.";
+"shareVault.normal.footer.text" = "Pour plus d'informations, consultez les suggestions des meilleures pratiques dans notre documentation (%@).";
 "shareVault.normal.button.visitHub" = "Visiter le Hub Cryptomator";
 "shareVault.hub.header.title" = "Comment partager un coffre central";
 "shareVault.hub.header.subtitle" = "Afin de partager le contenu du coffre avec un autre membre de l'équipe, vous devez effectuer deux étapes :";
