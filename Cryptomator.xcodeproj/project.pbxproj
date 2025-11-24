@@ -2855,6 +2855,7 @@
 				4A5AC441275A5B3500342AA7 /* PurchaseAlert.swift in Sources */,
 				74C2BC5026E8FCC100BCAA03 /* PurchaseViewModel.swift in Sources */,
 				B3544E282EC1F564006B7BA9 /* ShareVaultView.swift in Sources */,
+				B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */,
 				B379DBBF2D27F595003B5849 /* SharePointDriveListViewController.swift in Sources */,
 				4A644B53267BAFDA008CBB9A /* CreateNewFolderViewModel.swift in Sources */,
 				4AB8539826BA881F00555F00 /* VaultDetailUnlockVaultViewModel.swift in Sources */,
