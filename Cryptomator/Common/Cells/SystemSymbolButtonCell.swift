@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SystemSymbolButtonCell: ButtonTableViewCell {
+class SystemSymbolButtonCell: TableViewCell {
 	override func configure(with viewModel: TableViewCellViewModel) {
 		super.configure(with: viewModel)
 		guard let viewModel = viewModel as? SystemSymbolNameProviding else {

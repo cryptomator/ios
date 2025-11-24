@@ -27,7 +27,7 @@ class StaticUITableViewController<SectionType: Hashable>: BaseUITableViewControl
 
 	func configureDataSource() {
 		dataSource = BaseDiffableDataSource<SectionType, TableViewCellViewModel>(viewModel: viewModel, tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
-			let cell = cellViewModel.type.init()
+			let cell = cellViewModel.type.init(style: cellViewModel.cellStyle, reuseIdentifier: nil)
 			cell.configure(with: cellViewModel)
 			return cell
 		}

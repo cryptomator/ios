@@ -45,8 +45,17 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return _sections
 	}
 
+	override func getFooterTitle(for section: Int) -> String? {
+		guard sections[section].id == .aboutSection, hasFullAccess else { return nil }
+		return LocalizedString.getValue("settings.fullVersion.footer")
+	}
+
 	var showDebugModeWarning: AnyPublisher<Void, Never> {
 		return showDebugModeWarningPublisher.eraseToAnyPublisher()
+	}
+
+	private var hasFullAccess: Bool {
+		cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked
 	}
 
 	private var _sections: [Section<SettingsSection>] {
@@ -76,15 +85,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return sections
 	}
 
-	override func getFooterTitle(for section: Int) -> String? {
-		guard sections[section].id == .aboutSection, hasFullAccess else { return nil }
-		return LocalizedString.getValue("settings.fullVersion.footer")
-	}
-
-	private var hasFullAccess: Bool {
-		cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked
-	}
-
 	private var aboutSectionElements: [TableViewCellViewModel] {
 		var elements: [TableViewCellViewModel] = [
 			ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
@@ -95,27 +95,24 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return elements
 	}
 
-	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
-	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
-
-	private var cryptomatorSettings: CryptomatorSettings
-
-	private var purchaseStatusCellViewModel: PurchaseStatusCellViewModel {
-		let subtitle: String
+	private var purchaseStatusCellViewModel: ButtonCellViewModel<SettingsButtonAction> {
+		let detailTitle: String
 		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
 			let dateFormatter = DateFormatter()
 			dateFormatter.dateStyle = .medium
 			dateFormatter.timeStyle = .none
-			subtitle = String(format: LocalizedString.getValue("settings.trial.expirationDate"), dateFormatter.string(from: trialExpirationDate))
+			detailTitle = String(format: LocalizedString.getValue("settings.trial.expirationDate"), dateFormatter.string(from: trialExpirationDate))
 		} else {
-			subtitle = LocalizedString.getValue("settings.freeTier.subtitle")
+			detailTitle = LocalizedString.getValue("settings.freeTier.subtitle")
 		}
-		return PurchaseStatusCellViewModel(
-			iconName: "checkmark.seal.fill",
-			title: LocalizedString.getValue("settings.unlockFullVersion"),
-			subtitle: subtitle
-		)
+		let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
+		return ButtonCellViewModel.createDisclosureButton(action: .showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion"), detailTitle: detailTitle, image: image, cellStyle: .subtitle)
 	}
+
+	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
+	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
+
+	private var cryptomatorSettings: CryptomatorSettings
 
 	private lazy var debugModeViewModel: SwitchCellViewModel = {
 		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.debugMode"), isOn: cryptomatorSettings.debugModeEnabled)

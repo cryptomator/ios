@@ -45,7 +45,7 @@ class OpenExistingVaultChooseFolderViewController: ChooseFolderViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		if viewModel.foundMasterkey {
-			let cell = addVaultButtonViewModel.type.init()
+			let cell = addVaultButtonViewModel.type.init(style: addVaultButtonViewModel.cellStyle, reuseIdentifier: nil)
 			cell.configure(with: addVaultButtonViewModel)
 			return cell
 		} else {
