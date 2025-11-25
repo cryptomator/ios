@@ -202,6 +202,7 @@
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
 "settings.aboutCryptomator.title" = "Versie %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Je hebt de volledige versie ontgrendeld en schrijftoegang tot je kluizen gekregen.";
 "settings.cacheSize" = "Cachegrootte";
 "settings.clearCache" = "Cache leegmaken";
 "settings.cloudServices" = "Clouddiensten";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.shortcutsGuide" = "Snelkoppelingen Gids";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
+"settings.unlockFullVersion.detail" = "Krijg schrijftoegang tot je kluizen.";
+"settings.unlockFullVersion.trialExpirationDate" = "Vervaldatum proefperiode: %@";
 
 "sharePoint.enterURL.title" = "Voer SharePoint URL in";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
