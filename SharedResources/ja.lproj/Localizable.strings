@@ -199,6 +199,7 @@
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
 "settings.aboutCryptomator.title" = "バージョン %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "フルバージョンのロックを解放し、金庫への書き込み権を得ました。";
 "settings.cacheSize" = "キャッシュのサイズ";
 "settings.clearCache" = "キャッシュを削除する";
 "settings.cloudServices" = "クラウド サービス";
@@ -210,6 +211,8 @@
 "settings.sendLogFile" = "ログ ファイルを送信";
 "settings.shortcutsGuide" = "ショートカットのガイド";
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
+"settings.unlockFullVersion.detail" = "金庫への書き込み権を得る。";
+"settings.unlockFullVersion.trialExpirationDate" = "試用期限: %@";
 
 "shareVault.title" = "保管庫を共有する";
 "shareVault.normal.header.title" = "チームワークの安全な方法";
