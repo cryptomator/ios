@@ -35,7 +35,7 @@ class CreateNewFolderViewController: SingleSectionStaticUITableViewController {
 
 	override func configureDataSource() {
 		dataSource = BaseDiffableDataSource<SingleSection, TableViewCellViewModel>(viewModel: viewModel, tableView: tableView) { _, _, cellViewModel -> UITableViewCell? in
-			let cell = cellViewModel.type.init()
+			let cell = cellViewModel.type.init(style: cellViewModel.cellStyle, reuseIdentifier: nil)
 			cell.configure(with: cellViewModel)
 			if let textFieldCell = cell as? TextFieldCell {
 				let imageConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .title2))

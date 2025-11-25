@@ -18,8 +18,7 @@ enum PurchaseAlert {
 	static func showForTrial(title: String, expirationDate: Date, on presentingViewController: UIViewController) -> Promise<Void> {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .short
-		let formattedExpireDate = formatter.string(for: expirationDate) ?? "Invalid Date"
-		let message = String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formattedExpireDate)
+		let message = String(format: LocalizedString.getValue("purchase.restorePurchase.validTrialFound.alert.message"), formatter.string(from: expirationDate))
 		return showAlert(title: title, message: message, on: presentingViewController)
 	}
 
