@@ -202,6 +202,7 @@
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Vous avez débloqué la version complète et obtenu un accès en écriture à vos coffres.";
 "settings.cacheSize" = "Taille du cache";
 "settings.clearCache" = "Vider le cache";
 "settings.cloudServices" = "Services de stockage en ligne";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Envoyer le fichier journal";
 "settings.shortcutsGuide" = "Guide des raccourcis";
 "settings.unlockFullVersion" = "Débloquer la version complète";
+"settings.unlockFullVersion.detail" = "Accédez en écriture à vos coffres.";
+"settings.unlockFullVersion.trialExpirationDate" = "Date d'expiration de l'essai : %@";
 
 "sharePoint.enterURL.title" = "Entrez l'URL SharePoint";
 "sharePoint.enterURL.placeholder" = "URL du site SharePoint";
