@@ -202,6 +202,7 @@
 "settings.title" = "Nastavenia";
 "settings.aboutCryptomator" = "O aplikácii Cryptomator";
 "settings.aboutCryptomator.title" = "Verzia %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Máte odomknutú plnú verziu a prístup k zápisu do Vašich trezorov.";
 "settings.cacheSize" = "Veľkosť vyrovnávacej pamäte";
 "settings.clearCache" = "Vyprázdniť vyrovnávaciu pamäť";
 "settings.cloudServices" = "Cloudové služby";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Zaslať Log súbor";
 "settings.shortcutsGuide" = "Sprievodca skratkami";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
+"settings.unlockFullVersion.detail" = "Získať prístup zápisu do Vášho trezora.";
+"settings.unlockFullVersion.trialExpirationDate" = "Skúšobný dátum expirovania: %@";
 
 "sharePoint.enterURL.title" = "Vložte SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint stránka URL";
