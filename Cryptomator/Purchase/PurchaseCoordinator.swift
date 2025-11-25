@@ -54,7 +54,7 @@ class PurchaseCoordinator: Coordinator {
 			}
 			self.unlockedPro()
 		}
-		// Temporarily added for Autumn 2025 Sale
+		// Temporarily added for Winter 2025 Sale
 		NotificationCenter.default.post(name: .purchasedFullVersionNotification, object: nil)
 	}
 
