@@ -202,7 +202,7 @@
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
-"settings.aboutCryptomator.hasFullVersion.footer" = "Você desbloqueou a versão completa e obteve acesso de escrita nos seus cofres.";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Desbloqueou a versão completa e obteve acesso de escrita aos seus cofres.";
 "settings.cacheSize" = "Tamanho da Cache";
 "settings.clearCache" = "Limpar Cache";
 "settings.cloudServices" = "Serviços Cloud";
@@ -215,7 +215,7 @@
 "settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloquear versão completa";
 "settings.unlockFullVersion.detail" = "Obtenha acesso de escrita nos seus cofres.";
-"settings.unlockFullVersion.trialExpirationDate" = "Data de expiração do período de avaliação: %@";
+"settings.unlockFullVersion.trialExpirationDate" = "Data de expiração do período de teste: %@";
 
 "sharePoint.enterURL.title" = "Introduza o URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";
