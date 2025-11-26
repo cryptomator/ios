@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Wybierz bibliotekę dokumentów SharePoint, z którą chcesz pracować.";
 "sharePoint.selectDrive.emptyList.footer" = "Brak dostępnych bibliotek dokumentów";
 
+"shareVault.title" = "Udostępnij sejf";
+"shareVault.normal.header.title" = "Bezpieczny sposób pracy w zespołach";
+"shareVault.normal.button.visitHub" = "Odwiedź Cryptomator Hub";
+"shareVault.hub.header.title" = "Jak udostępnić sejf Hub";
+"shareVault.hub.header.subtitle" = "Aby udostępnić zawartość sejfu innemu członkowi zespołu, musisz wykonać dwa kroki:";
+"shareVault.hub.button.openHub" = "Otwórz Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Numery.Kont";
 "snapshots.fileprovider.file2" = "/Finalna Prezentacja.key";
 "snapshots.fileprovider.file3" = "/Trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Przenieś";
 "vaultDetail.button.removeVault" = "Usuń z listy sejfów";
 "vaultDetail.button.renameVault" = "Zmień nazwę";
+"vaultDetail.button.shareVault" = "Udostępnij sejf";
 "vaultDetail.changePassword.footer" = "Wybierz silne hasło dla swojego sejfu, nikomu go nie podawaj i trzymaj je w bezpiecznym miejscu.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Jeśli włączysz %@, hasło sejfu będzie przechowywane w pęku kluczy iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Twoje hasło do sejfu będzie wymagane tylko gdy uwierzytelnienie %@ nie powiedzie się.";

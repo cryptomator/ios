@@ -51,7 +51,7 @@ class CustomCloudProviderMock: CloudProvider {
 
 	var everyOperationShouldFailWithError: Error?
 
-	public func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
+	func fetchItemMetadata(at cloudPath: CloudPath) -> Promise<CloudItemMetadata> {
 		if let error = everyOperationShouldFailWithError {
 			return Promise(error)
 		}
@@ -64,7 +64,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
+	func fetchItemList(forFolderAt cloudPath: CloudPath, withPageToken pageToken: String?) -> Promise<CloudItemList> {
 		switch cloudPath {
 		case CloudPath("/itemNotFound"):
 			return Promise(CloudProviderError.itemNotFound)
@@ -96,7 +96,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
+	func downloadFile(from cloudPath: CloudPath, to localURL: URL, onTaskCreation: ((URLSessionDownloadTask?) -> Void)?) -> Promise<Void> {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
 		if let data = files[cloudPath.path] {
@@ -111,7 +111,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
+	func uploadFile(from localURL: URL, to cloudPath: CloudPath, replaceExisting: Bool, onTaskCreation: ((URLSessionUploadTask?) -> Void)?) -> Promise<CloudItemMetadata> {
 		precondition(localURL.isFileURL)
 		precondition(!localURL.hasDirectoryPath)
 		switch cloudPath {
@@ -142,7 +142,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
+	func createFolder(at cloudPath: CloudPath) -> Promise<Void> {
 		switch cloudPath {
 		case CloudPath("/FolderAlreadyExists/"):
 			return Promise(CloudProviderError.itemAlreadyExists)
@@ -154,17 +154,17 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
+	func deleteFile(at cloudPath: CloudPath) -> Promise<Void> {
 		deletedFiles.append(cloudPath.path)
 		return Promise(())
 	}
 
-	public func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
+	func deleteFolder(at cloudPath: CloudPath) -> Promise<Void> {
 		deletedFolders.append(cloudPath.path)
 		return Promise(())
 	}
 
-	public func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+	func moveFile(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
 		switch targetCloudPath {
 		case CloudPath("/FileAlreadyExists.txt"):
 			return Promise(CloudProviderError.itemAlreadyExists)
@@ -176,7 +176,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
+	func moveFolder(from sourceCloudPath: CloudPath, to targetCloudPath: CloudPath) -> Promise<Void> {
 		switch targetCloudPath {
 		case CloudPath("/FolderAlreadyExists/"):
 			return Promise(CloudProviderError.itemAlreadyExists)
@@ -188,7 +188,7 @@ class CustomCloudProviderMock: CloudProvider {
 		}
 	}
 
-	public func setLastModifiedDate(_ date: Date?, for remoteURL: CloudPath) {
+	func setLastModifiedDate(_ date: Date?, for remoteURL: CloudPath) {
 		lastModifiedDate[remoteURL.path] = date
 	}
 }

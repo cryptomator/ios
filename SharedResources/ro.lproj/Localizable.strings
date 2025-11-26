@@ -207,6 +207,13 @@
 "settings.shortcutsGuide" = "Ghid comenzi rapide";
 "settings.unlockFullVersion" = "Deblochează versiunea completă";
 
+"shareVault.title" = "Partajare seif";
+"shareVault.normal.header.title" = "Modul securizat pentru a lucra în echipe";
+"shareVault.normal.button.visitHub" = "Vizitează Hub-ul Cryptomator";
+"shareVault.hub.header.title" = "Cum să partajezi un seif Hub";
+"shareVault.hub.header.subtitle" = "Pentru a partaja conținutul de seif cu un alt membru al echipei, trebuie să efectuați doi pași:";
+"shareVault.hub.button.openHub" = "Deschide Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Contabilizare.numere";
 "snapshots.fileprovider.file2" = "/Prezentare finală.key";
 "snapshots.fileprovider.file3" = "/Videoclip de prezentare.mov";
@@ -266,6 +273,7 @@
 "vaultDetail.button.moveVault" = "Mută";
 "vaultDetail.button.removeVault" = "Eliminați din lista de seifuri";
 "vaultDetail.button.renameVault" = "Redenumește";
+"vaultDetail.button.shareVault" = "Partajare seif";
 "vaultDetail.changePassword.footer" = "Alegeți o parolă puternică pentru seiful dvs., pe care doar dvs. o cunoașteți și păstrați-o într-un loc sigur.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Dacă activați %@, parola de seif va fi stocată în iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Parola dvs. de seif va fi necesară doar dacă autentificarea %@ eșuează.";

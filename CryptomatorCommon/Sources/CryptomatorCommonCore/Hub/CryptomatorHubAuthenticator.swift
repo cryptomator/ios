@@ -365,7 +365,7 @@ extension String {
 	}
 }
 
-extension HubConfig {
+public extension HubConfig {
 	func getAPIBaseURL() -> URL? {
 		if let apiBaseUrl {
 			return URL(string: apiBaseUrl)

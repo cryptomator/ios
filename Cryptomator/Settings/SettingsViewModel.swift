@@ -28,7 +28,8 @@ enum SettingsButtonAction: String {
 }
 
 enum SettingsSection: Int {
-	case cloudServiceSection = 0
+	case unlockFullVersionSection = 0
+	case cloudServiceSection
 	case cacheSection
 	case aboutSection
 	case debugSection
@@ -44,12 +45,25 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return _sections
 	}
 
+	override func getFooterTitle(for section: Int) -> String? {
+		guard sections[section].id == .aboutSection, hasFullVersion else { return nil }
+		return LocalizedString.getValue("settings.aboutCryptomator.hasFullVersion.footer")
+	}
+
 	var showDebugModeWarning: AnyPublisher<Void, Never> {
 		return showDebugModeWarningPublisher.eraseToAnyPublisher()
 	}
 
+	private var hasFullVersion: Bool {
+		cryptomatorSettings.hasRunningSubscription || cryptomatorSettings.fullVersionUnlocked
+	}
+
 	private var _sections: [Section<SettingsSection>] {
-		return [
+		var sections: [Section<SettingsSection>] = []
+		if !hasFullVersion {
+			sections.append(Section(id: .unlockFullVersionSection, elements: [unlockFullVersionCellViewModel]))
+		}
+		sections.append(contentsOf: [
 			Section(id: .cloudServiceSection, elements: [
 				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showCloudServices, title: LocalizedString.getValue("settings.cloudServices"))
 			]),
@@ -67,24 +81,37 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				ButtonCellViewModel(action: SettingsButtonAction.showContact, title: LocalizedString.getValue("settings.contact")),
 				ButtonCellViewModel(action: SettingsButtonAction.showRateApp, title: LocalizedString.getValue("settings.rateApp"))
 			])
-		]
+		])
+		return sections
 	}
 
 	private var aboutSectionElements: [TableViewCellViewModel] {
-		var elements = [ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))]
+		var elements: [TableViewCellViewModel] = [
+			ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showAbout, title: LocalizedString.getValue("settings.aboutCryptomator"))
+		]
 		if cryptomatorSettings.hasRunningSubscription {
-			elements.append(.init(action: .showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
-			elements.append(.init(action: .restorePurchase, title: LocalizedString.getValue("purchase.restorePurchase.button")))
-		} else if !cryptomatorSettings.fullVersionUnlocked {
-			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion")))
+			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
 		}
 		return elements
 	}
 
+	private var unlockFullVersionCellViewModel: ButtonCellViewModel<SettingsButtonAction> {
+		let detailTitle: String
+		if let trialExpirationDate = cryptomatorSettings.trialExpirationDate, trialExpirationDate > Date() {
+			let formatter = DateFormatter()
+			formatter.dateStyle = .short
+			detailTitle = String(format: LocalizedString.getValue("settings.unlockFullVersion.trialExpirationDate"), formatter.string(from: trialExpirationDate))
+		} else {
+			detailTitle = LocalizedString.getValue("settings.unlockFullVersion.detail")
+		}
+		let image = UIImage(systemName: "checkmark.seal.fill", withConfiguration: UIImage.SymbolConfiguration(pointSize: 22))
+		return ButtonCellViewModel.createDisclosureButton(action: .showUnlockFullVersion, title: LocalizedString.getValue("settings.unlockFullVersion"), detailTitle: detailTitle, image: image, cellStyle: .subtitle)
+	}
+
 	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
 	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
-
 	private var cryptomatorSettings: CryptomatorSettings
+
 	private lazy var debugModeViewModel: SwitchCellViewModel = {
 		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.debugMode"), isOn: cryptomatorSettings.debugModeEnabled)
 		bindDebugModeViewModel(viewModel)

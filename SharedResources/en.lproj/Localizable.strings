@@ -202,6 +202,7 @@
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "You have unlocked the full version and gained write access to your vaults.";
 "settings.cacheSize" = "Cache Size";
 "settings.clearCache" = "Clear Cache";
 "settings.cloudServices" = "Cloud Services";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Send Log File";
 "settings.shortcutsGuide" = "Shortcuts Guide";
 "settings.unlockFullVersion" = "Unlock Full Version";
+"settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
+"settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
@@ -222,6 +225,19 @@
 "sharePoint.selectDrive.title" = "Select Document Library";
 "sharePoint.selectDrive.header.title" = "Select the SharePoint document library you want to work with.";
 "sharePoint.selectDrive.emptyList.footer" = "No Document Libraries Available";
+
+"shareVault.title" = "Share Vault";
+"shareVault.normal.header.title" = "The secure way to work in teams";
+"shareVault.normal.header.features" = "Collaborate securely with your team. Grant and revoke access anytime without sharing passwords.";
+"shareVault.normal.footer.text" = "For more information, check out the best practices suggestions in our [docs](%@).";
+"shareVault.normal.button.visitHub" = "Visit Cryptomator Hub";
+"shareVault.hub.header.title" = "How to share a Hub vault";
+"shareVault.hub.header.subtitle" = "In order to share the vault content with another team member, you have to perform two steps:";
+"shareVault.hub.step1" = "Share access of the encrypted vault folder via cloud storage.";
+"shareVault.hub.step2" = "Grant access to team member in Cryptomator Hub.";
+"shareVault.hub.button.openHub" = "Open Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Unable to Load Hub Information";
+"shareVault.error.hubURLExtraction.message" = "The vault's Hub configuration could not be loaded. Please check your vault settings or contact your Hub administrator.";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
@@ -282,6 +298,8 @@
 "vaultDetail.button.moveVault" = "Move";
 "vaultDetail.button.removeVault" = "Remove from Vault List";
 "vaultDetail.button.renameVault" = "Rename";
+"vaultDetail.button.shareVault" = "Share Vault";
+"vaultDetail.shareVault.footer" = "Securely collaborate with your team using Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Select a strong password for your vault that only you know and keep it in a safe place.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "If you enable %@, your vault password will be stored in the iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Your vault password will only be required if %@ authentication fails.";

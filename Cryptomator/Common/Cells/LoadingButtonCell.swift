@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoadingButtonCell: ButtonTableViewCell {
+class LoadingButtonCell: TableViewCell {
 	private lazy var loadingIndicator: UIActivityIndicatorView = {
 		let loadingIndicator = UIActivityIndicatorView(style: .medium)
 		loadingIndicator.hidesWhenStopped = true

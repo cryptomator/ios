@@ -202,6 +202,7 @@
 "settings.title" = "Definições";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Desbloqueou a versão completa e obteve acesso de escrita aos seus cofres.";
 "settings.cacheSize" = "Tamanho da Cache";
 "settings.clearCache" = "Limpar Cache";
 "settings.cloudServices" = "Serviços Cloud";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Enviar ficheiro de registo";
 "settings.shortcutsGuide" = "Guia de Atalhos";
 "settings.unlockFullVersion" = "Desbloquear versão completa";
+"settings.unlockFullVersion.detail" = "Obtenha acesso de escrita nos seus cofres.";
+"settings.unlockFullVersion.trialExpirationDate" = "Data de expiração do período de teste: %@";
 
 "sharePoint.enterURL.title" = "Introduza o URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";
@@ -223,6 +226,19 @@ https://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.selectDrive.title" = "Selecionar biblioteca de documentos";
 "sharePoint.selectDrive.header.title" = "Selecione a biblioteca de documentos do SharePoint com que pretende trabalhar.";
 "sharePoint.selectDrive.emptyList.footer" = "Não há bibliotecas de documentos disponíveis";
+
+"shareVault.title" = "Partilhar cofre";
+"shareVault.normal.header.title" = "A maneira segura de trabalhar em equipas";
+"shareVault.normal.header.features" = "Colabore com a sua equipa de forma segura. Conceda e revogue o acesso a qualquer momento sem partilhar palavras-passe.";
+"shareVault.normal.footer.text" = "Para mais informações, consulte as sugestões de melhores práticas nos nossos [docs](%@).";
+"shareVault.normal.button.visitHub" = "Visitar o Hub Cryptomator";
+"shareVault.hub.header.title" = "Como partilhar um cofre do Hub";
+"shareVault.hub.header.subtitle" = "Para partilhar o conteúdo do cofre com outro membro da equipa, você tem que executar duas etapas:";
+"shareVault.hub.step1" = "Partilhe o acesso à pasta encriptada do cofre através do armazenamento na nuvem.";
+"shareVault.hub.step2" = "Conceda acesso ao membro da equipa no Cryptomator Hub.";
+"shareVault.hub.button.openHub" = "Abrir Hub do Cryptomator";
+"shareVault.error.hubURLExtraction.title" = "Não foi possível carregar as informações do Hub";
+"shareVault.error.hubURLExtraction.message" = "Não foi possível carregar a configuração do Hub do cofre. Por favor verifique as definições do seu cofre ou contacte o administrador do Hub.";
 
 "snapshots.fileprovider.file1" = "/Contabilidade.números";
 "snapshots.fileprovider.file2" = "/Apresentação Final.key";
@@ -283,6 +299,8 @@ https://{…}.sharepoint.com/{sites|teams}/{…}";
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
 "vaultDetail.button.renameVault" = "Renomear";
+"vaultDetail.button.shareVault" = "Partilhar cofre";
+"vaultDetail.shareVault.footer" = "Colabore com a sua equipa de forma segura utilizando o Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que só você conheça e mantenha-a em um local seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a palavra-passe do seu cofre será armazenada no Porta-chaves do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A palavra-passe do seu cofre só será necessária se a autenticação %@ falhar.";

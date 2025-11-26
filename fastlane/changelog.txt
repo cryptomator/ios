@@ -1,1 +1,2 @@
-- Fixed WebDAV account loading and vault deletion issues (#415).
+- Added "Share Vault" option to vault settings (#424).
+- Display full version status for lifetime license users in settings (#426).

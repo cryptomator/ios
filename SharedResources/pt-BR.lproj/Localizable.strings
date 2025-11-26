@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Selecione a biblioteca de documentos SharePoint com a qual você deseja trabalhar.";
 "sharePoint.selectDrive.emptyList.footer" = "Não há Bibliotecas de Documentos Disponíveis";
 
+"shareVault.title" = "Compartilhar Cofre";
+"shareVault.normal.header.title" = "A maneira segura de trabalhar em equipes";
+"shareVault.normal.button.visitHub" = "Visite o Cryptomator Hub";
+"shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
+"shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você precisa executar duas etapas:";
+"shareVault.hub.button.openHub" = "Abrir o Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Mover";
 "vaultDetail.button.removeVault" = "Remover da Lista de Cofres";
 "vaultDetail.button.renameVault" = "Renomear";
+"vaultDetail.button.shareVault" = "Compartilhar Cofre";
 "vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que somente você conhece e a mantenha em um lugar seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a senha do seu cofre será armazenada no keychain do iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "A sua senha do cofre só será obrigatória se a autenticação %@ falhar.";

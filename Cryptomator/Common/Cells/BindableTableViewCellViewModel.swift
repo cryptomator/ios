@@ -39,6 +39,10 @@ class TableViewCellViewModel: Hashable {
 		fatalError("not implemented")
 	}
 
+	var cellStyle: UITableViewCell.CellStyle {
+		return .default
+	}
+
 	private let identifier = UUID()
 
 	static func == (lhs: TableViewCellViewModel, rhs: TableViewCellViewModel) -> Bool {

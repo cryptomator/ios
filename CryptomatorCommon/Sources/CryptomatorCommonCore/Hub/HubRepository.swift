@@ -13,7 +13,7 @@ public struct HubVault: Equatable {
 }
 
 private struct HubVaultRow: Codable, Equatable, PersistableRecord, FetchableRecord {
-	public static let databaseTableName = "hubVaultAccount"
+	static let databaseTableName = "hubVaultAccount"
 
 	let vaultUID: String
 	let subscriptionState: HubSubscriptionState
@@ -31,7 +31,7 @@ private struct HubVaultRow: Codable, Equatable, PersistableRecord, FetchableReco
 		case vaultUID, subscriptionState
 	}
 
-	public func encode(to container: inout PersistenceContainer) throws {
+	func encode(to container: inout PersistenceContainer) throws {
 		container[Columns.vaultUID] = vaultUID
 		container[Columns.subscriptionState] = subscriptionState
 	}

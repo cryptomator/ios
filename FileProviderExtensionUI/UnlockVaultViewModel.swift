@@ -113,7 +113,7 @@ class UnlockVaultViewModel {
 	private let vaultCache: VaultCache
 	private let wrongBiometricalPassword: Bool
 
-	public convenience init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
+	convenience init(domain: NSFileProviderDomain, wrongBiometricalPassword: Bool) {
 		self.init(domain: domain,
 		          wrongBiometricalPassword: wrongBiometricalPassword,
 		          passwordManager: VaultPasswordKeychainManager(),

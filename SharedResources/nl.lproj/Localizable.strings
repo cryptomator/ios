@@ -121,7 +121,7 @@
 "hubAuthentication.licenseExceeded" = "Uw Cryptomator Hub installatie heeft een ongeldige licentie. Contacteer een Hub administrator om de licentie te upgraden of te verlengen.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Naam van toestel";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Dit lijkt de eerste Hub toegang te zijn vanaf dit toestel. Om dit toestel te autoriseren voor toegang, moet u dit toestel benoemen.";
-"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Uw accountsleutel is vereist om in te loggen vanuit nieuwe apps of browsers. Deze kan worden gevonden in uw profiel.";
+"hubAuthentication.deviceRegistration.accountKey.footer.title" = "Uw Account Key is vereist om in te loggen vanuit nieuwe apps of browsers. Het is te vinden in je profiel.";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Registratie van toestel gelukt";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Om toegang te krijgen tot de kluis, moet de eigenaar van de kluis je toestemming verlenen.";
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
@@ -202,6 +202,7 @@
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";
 "settings.aboutCryptomator.title" = "Versie %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Je hebt de volledige versie ontgrendeld en schrijftoegang tot je kluizen gekregen.";
 "settings.cacheSize" = "Cachegrootte";
 "settings.clearCache" = "Cache leegmaken";
 "settings.cloudServices" = "Clouddiensten";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Logbestand verzenden";
 "settings.shortcutsGuide" = "Snelkoppelingen Gids";
 "settings.unlockFullVersion" = "Volledige versie ontgrendelen";
+"settings.unlockFullVersion.detail" = "Krijg schrijftoegang tot je kluizen.";
+"settings.unlockFullVersion.trialExpirationDate" = "Vervaldatum proefperiode: %@";
 
 "sharePoint.enterURL.title" = "Voer SharePoint URL in";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
@@ -222,6 +225,19 @@
 "sharePoint.selectDrive.title" = "Selecteer documentbibliotheek";
 "sharePoint.selectDrive.header.title" = "Selecteer de SharePoint documentbibliotheek waarmee u wilt werken.";
 "sharePoint.selectDrive.emptyList.footer" = "Geen documentbibliotheken beschikbaar";
+
+"shareVault.title" = "Kluis delen";
+"shareVault.normal.header.title" = "De veilige manier om in teams te werken";
+"shareVault.normal.header.features" = "Werk veilig samen met uw team. Verleen toegang op elk gewenst moment en trek deze in zonder wachtwoorden te delen.";
+"shareVault.normal.footer.text" = "Kijk voor meer informatie naar de suggesties voor beste praktijken in onze [docs](%@).";
+"shareVault.normal.button.visitHub" = "Bezoek Cryptomator Hub";
+"shareVault.hub.header.title" = "Hoe een Hub kluis delen";
+"shareVault.hub.header.subtitle" = "Om de inhoud van de kluis te delen met een ander teamlid, moet u twee stappen uitvoeren:";
+"shareVault.hub.step1" = "Deel toegang van de versleutelde kluis map via de cloud opslag.";
+"shareVault.hub.step2" = "Geef teamlid toegang tot Cryptomator Hub.";
+"shareVault.hub.button.openHub" = "Open Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Kan Hub informatie niet laden";
+"shareVault.error.hubURLExtraction.message" = "De Hub configuratie van de kluis kon niet worden geladen. Controleer uw kluis instellingen of neem contact op met uw Hub beheerder.";
 
 "snapshots.fileprovider.file1" = "/Rekening.getallen";
 "snapshots.fileprovider.file2" = "/Laatste presentatie.key";
@@ -282,6 +298,8 @@
 "vaultDetail.button.moveVault" = "Verplaatsen";
 "vaultDetail.button.removeVault" = "Verwijder uit lijst";
 "vaultDetail.button.renameVault" = "Naam wijzigen";
+"vaultDetail.button.shareVault" = "Kluis delen";
+"vaultDetail.shareVault.footer" = "Werk veilig samen met uw team met behulp van Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Selecteer een sterk wachtwoord voor uw kluis dat alleen u kent en bewaar het op een veilige plaats.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Als je %@ inschakelt, word je kluiswachtwoord opgeslagen in de iOS-sleutelhanger.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Je kluiswachtwoord zal alleen vereist zijn als %@ authenticatie mislukt.";

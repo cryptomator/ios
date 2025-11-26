@@ -79,6 +79,8 @@ class VaultDetailViewController: BaseUITableViewController {
 			coordinator?.changeVaultPassword()
 		case let .showKeepUnlockedScreen(currentKeepUnlockedDuration):
 			coordinator?.showKeepUnlockedSettings(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
+		case .shareVault:
+			coordinator?.showShareVault()
 		}
 	}
 
@@ -104,7 +106,7 @@ class VaultDetailViewController: BaseUITableViewController {
 
 	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let cellViewModel = viewModel.cellViewModel(for: indexPath)
-		let cell = cellViewModel.type.init()
+		let cell = cellViewModel.type.init(style: cellViewModel.cellStyle, reuseIdentifier: nil)
 		cell.configure(with: cellViewModel)
 		return cell
 	}

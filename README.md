@@ -1,7 +1,8 @@
 # Cryptomator for iOS
 
 [![Build](https://github.com/cryptomator/ios/actions/workflows/build.yml/badge.svg)](https://github.com/cryptomator/ios/actions/workflows/build.yml)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/efc080db52a5449fac50ffde8d8fd6bc)](https://www.codacy.com/gh/cryptomator/ios/dashboard)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=cryptomator_ios&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=cryptomator_ios)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=cryptomator_ios&metric=coverage)](https://sonarcloud.io/summary/new_code?id=cryptomator_ios)
 [![Mastodon](https://img.shields.io/mastodon/follow/176112?domain=mastodon.online&style=flat)](https://mastodon.online/@cryptomator)
 [![Crowdin](https://badges.crowdin.net/cryptomator/localized.svg)](https://translate.cryptomator.org/)
 [![Community](https://img.shields.io/badge/help-Community-orange.svg)](https://community.cryptomator.org)

@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Välj det SharePoint dokumentbibliotek du vill arbeta med.";
 "sharePoint.selectDrive.emptyList.footer" = "Inga dokumentbibliotek tillgängliga";
 
+"shareVault.title" = "Dela valv";
+"shareVault.normal.header.title" = "Det säkra sättet att arbeta i grupper";
+"shareVault.normal.button.visitHub" = "Besök Cryptomatornavet";
+"shareVault.hub.header.title" = "Hur man delar ett navvalv";
+"shareVault.hub.header.subtitle" = "För att kunna dela valvinnehållet med en annan gruppmedlem måste du utföra två steg:";
+"shareVault.hub.button.openHub" = "Öppna kryptomatornav";
+
 "snapshots.fileprovider.file1" = "/Budget.numbers";
 "snapshots.fileprovider.file2" = "/Slutlig presentation.key";
 "snapshots.fileprovider.file3" = "/Produkt Trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Flytta";
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
 "vaultDetail.button.renameVault" = "Byt namn";
+"vaultDetail.button.shareVault" = "Dela valv";
 "vaultDetail.changePassword.footer" = "Välj ett starkt lösenord för ditt valv som bara du känner till och förvara det på ett säkert ställe.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Om du aktiverar %@lagras ditt valvlösenord i iOS-nyckelkedjan.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";

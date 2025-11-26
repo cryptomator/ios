@@ -146,6 +146,8 @@
 "settings.shortcutsGuide" = "คู่มือทางลัด";
 "settings.unlockFullVersion" = "ปลดล็อกเวอร์ชั่นเต็ม";
 
+"shareVault.title" = "แชร์ Vault";
+
 "snapshots.fileprovider.file1" = "/การบัญชี.numbers";
 "snapshots.fileprovider.file2" = "/การนำเสนอครั้งสุดท้าย.key";
 "snapshots.fileprovider.file3" = "/ตัวอย่างผลิตภัณฑ์.mov";
@@ -185,6 +187,7 @@
 "vaultDetail.button.moveVault" = "ย้าย";
 "vaultDetail.button.removeVault" = "ลบออกจากรายชื่อ Vault";
 "vaultDetail.button.renameVault" = "เปลี่ยนชื่อ";
+"vaultDetail.button.shareVault" = "แชร์ Vault";
 "vaultDetail.disabledBiometricalUnlock.footer" = "หากคุณเปิดใช้งาน %@ รหัสผ่าน vault ของคุณจะถูกเก็บไว้ในพวงกุญแจ iOS";
 "vaultDetail.info.footer.accountInfo" = "เข้าสู่ระบบในฐานะ %@ ผ่าน %@";
 "vaultDetail.keepUnlocked.title" = "ระยะเวลาในการปลดล็อก";

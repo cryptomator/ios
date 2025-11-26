@@ -1,1 +1,1 @@
-open,source,icloud,drive,dropbox,google,onedrive,pcloud,webdav,s3,aws,nextcloud,owncloud,boxcryptor
+nextcloud,pcloud,owncloud,onedrive,dropbox,icloud,google,drive,webdav,aes,rsa,file,folder,boxcryptor

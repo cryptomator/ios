@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "Pilih pustaka dokumen SharePoint yang Anda ingin pakai kerja.";
 "sharePoint.selectDrive.emptyList.footer" = "Tidak Ada Pustaka Dokumen Yang Tersedia";
 
+"shareVault.title" = "Bagikan Vault";
+"shareVault.normal.header.title" = "Cara aman untuk bekerja dalam tim";
+"shareVault.normal.button.visitHub" = "Kunjungi Cryptomator Hub";
+"shareVault.hub.header.title" = "Cara berbagi Hub vault";
+"shareVault.hub.header.subtitle" = "Untuk berbagi isi vault dengan anggota tim lain, Anda harus melakukan dua langkah:";
+"shareVault.hub.button.openHub" = "Buka Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Akuntansi.numbers";
 "snapshots.fileprovider.file2" = "/Presentasi Akhir.key";
 "snapshots.fileprovider.file3" = "/Cuplikan Produk.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "Pindah";
 "vaultDetail.button.removeVault" = "Hapus dari Daftar Vault";
 "vaultDetail.button.renameVault" = "Ganti nama";
+"vaultDetail.button.shareVault" = "Bagikan Vault";
 "vaultDetail.changePassword.footer" = "Pilih kata sandi vault yang kuat yang mana hanya Anda yang tahu dan simpan di tempat yang aman.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Jika diaktifkan %@, kata sandi vault akan di dimpan di iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kata Sandi vault hanya dibutuhkan jika otentikasi %@ gagal.";
