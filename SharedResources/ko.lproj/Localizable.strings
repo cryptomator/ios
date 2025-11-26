@@ -223,6 +223,13 @@
 "sharePoint.selectDrive.header.title" = "작업하고자 하는 SharePoint 문서 라이브러리를 선택하십시오";
 "sharePoint.selectDrive.emptyList.footer" = "문서 라이브러리 없음";
 
+"shareVault.title" = "Vault 공유";
+"shareVault.normal.header.title" = "팀에서 작업하는 안전한 방법";
+"shareVault.normal.button.visitHub" = "Cryptomator Hub 방문하기";
+"shareVault.hub.header.title" = "Hub Vault를 공유하는법";
+"shareVault.hub.header.subtitle" = "다른 팀 구성원과 Vault를 공유하기 위해서는 다음 단계를 따르십시오:";
+"shareVault.hub.button.openHub" = "Cryptomator Hub 열기";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -282,6 +289,7 @@
 "vaultDetail.button.moveVault" = "이동";
 "vaultDetail.button.removeVault" = "Vault 목록에서 제거하기";
 "vaultDetail.button.renameVault" = "이름 변경";
+"vaultDetail.button.shareVault" = "Vault 공유";
 "vaultDetail.changePassword.footer" = "Vault에 대해 자신만 아는 강력한 암호를 선택하고, 안전한 장소에 두십시오.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@을(를) 활성화하면, Vault 암호가 iOS 키체인에 저장될 것입니다.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vault 암호는 %@ 인증이 실패할 때에만 요구됩니다.";

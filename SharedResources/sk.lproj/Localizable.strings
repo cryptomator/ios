@@ -202,6 +202,7 @@
 "settings.title" = "Nastavenia";
 "settings.aboutCryptomator" = "O aplikácii Cryptomator";
 "settings.aboutCryptomator.title" = "Verzia %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Máte odomknutú plnú verziu a prístup k zápisu do Vašich trezorov.";
 "settings.cacheSize" = "Veľkosť vyrovnávacej pamäte";
 "settings.clearCache" = "Vyprázdniť vyrovnávaciu pamäť";
 "settings.cloudServices" = "Cloudové služby";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Zaslať Log súbor";
 "settings.shortcutsGuide" = "Sprievodca skratkami";
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
+"settings.unlockFullVersion.detail" = "Získať prístup zápisu do Vášho trezora.";
+"settings.unlockFullVersion.trialExpirationDate" = "Skúšobný dátum expirovania: %@";
 
 "sharePoint.enterURL.title" = "Vložte SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint stránka URL";
@@ -222,6 +225,9 @@
 "sharePoint.selectDrive.title" = "Vyberte Knižnicu dokumentov";
 "sharePoint.selectDrive.header.title" = "Vyberte knižnicu dokumentov SharePoint, s ktorou chcete pracovať.";
 "sharePoint.selectDrive.emptyList.footer" = "Nie sú dostupné žiadne knižnice dokumentov";
+
+"shareVault.title" = "Zdielať trezor";
+"shareVault.normal.header.title" = "Bezpečný spôsob pracovať v teamoch";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
@@ -282,6 +288,7 @@
 "vaultDetail.button.moveVault" = "Presunúť";
 "vaultDetail.button.removeVault" = "Odstrániť zo zoznamu trezora";
 "vaultDetail.button.renameVault" = "Premenovať";
+"vaultDetail.button.shareVault" = "Zdielať trezor";
 "vaultDetail.changePassword.footer" = "Zvoľte silné heslo pre Váš trezor, také ktoré viete len Vy a uchovajte ho na bezpečnom mieste.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ak povolíte %@, Vaše heslo trezorova bude uchované v iOS keychain.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Vaše trezorové heslo bude požadované iba ak %@ autentikácia zlyhá.";

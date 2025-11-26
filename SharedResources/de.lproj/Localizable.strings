@@ -202,6 +202,7 @@
 "settings.title" = "Einstellungen";
 "settings.aboutCryptomator" = "Über Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Du hast die Vollversion freigeschaltet und hast Schreibzugriff auf deine Tresore erhalten.";
 "settings.cacheSize" = "Cache-Größe";
 "settings.clearCache" = "Cache leeren";
 "settings.cloudServices" = "Cloud-Dienste";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Protokolldatei senden";
 "settings.shortcutsGuide" = "Leitfaden für Kurzbefehle";
 "settings.unlockFullVersion" = "Vollversion freischalten";
+"settings.unlockFullVersion.detail" = "Erhalte Schreibzugriff auf deine Tresore.";
+"settings.unlockFullVersion.trialExpirationDate" = "Trial-Ablaufdatum: %@";
 
 "sharePoint.enterURL.title" = "SharePoint-URL eingeben";
 "sharePoint.enterURL.placeholder" = "SharePoint-Site-URL";
@@ -222,6 +225,19 @@
 "sharePoint.selectDrive.title" = "Dokumentenbibliothek auswählen";
 "sharePoint.selectDrive.header.title" = "Wähle die SharePoint-Dokumentenbibliothek aus, mit der du arbeiten möchtest.";
 "sharePoint.selectDrive.emptyList.footer" = "Keine Dokumentenbibliotheken verfügbar";
+
+"shareVault.title" = "Tresor teilen";
+"shareVault.normal.header.title" = "Die sichere Art der Teamarbeit";
+"shareVault.normal.header.features" = "Arbeite sicher mit deinem Team zusammen. Gewähre und widerrufe jederzeit Zugriff, ohne Passwörter weiterzugeben.";
+"shareVault.normal.footer.text" = "Weitere Informationen findest du in den Best-Practice-Empfehlungen in unseren [Docs](%@).";
+"shareVault.normal.button.visitHub" = "Besuche Cryptomator Hub";
+"shareVault.hub.header.title" = "Teilen eines Hub-Tresors";
+"shareVault.hub.header.subtitle" = "Zur Freigabe des Tresorinhalts für ein anderes Teammitglied sind zwei Schritte erforderlich:";
+"shareVault.hub.step1" = "Teile den Zugriff auf den verschlüsselten Tresorordner über den Cloud-Speicher.";
+"shareVault.hub.step2" = "Gewähre Teammitgliedern Zugriff auf Cryptomator Hub.";
+"shareVault.hub.button.openHub" = "Cryptomator Hub öffnen";
+"shareVault.error.hubURLExtraction.title" = "Hub-Informationen können nicht geladen werden";
+"shareVault.error.hubURLExtraction.message" = "Die Hub-Konfiguration des Tresors konnte nicht geladen werden. Bitte überprüfe deine Tresoreinstellungen oder wende dich an deinen Hub-Administrator.";
 
 "snapshots.fileprovider.file1" = "/Buchhaltung.numbers";
 "snapshots.fileprovider.file2" = "/Abschlusspräsentation.key";
@@ -282,6 +298,8 @@
 "vaultDetail.button.moveVault" = "Verschieben";
 "vaultDetail.button.removeVault" = "Aus Tresorliste entfernen";
 "vaultDetail.button.renameVault" = "Umbenennen";
+"vaultDetail.button.shareVault" = "Tresor teilen";
+"vaultDetail.shareVault.footer" = "Arbeite mit Cryptomator Hub sicher mit deinem Team zusammen.";
 "vaultDetail.changePassword.footer" = "Wähle ein starkes Passwort für deinen Tresor, das nur du kennst, und bewahre es an einem sicheren Ort auf.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Wenn du %@ aktivierst, wird dein Tresor-Passwort im iOS-Schlüsselbund gespeichert.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Dein Tresor-Passwort wird nur benötigt, wenn die Authentifizierung durch %@ fehlschlägt.";

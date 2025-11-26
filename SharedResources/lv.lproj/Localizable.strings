@@ -178,7 +178,7 @@
 "purchase.product.lifetimeLicense.duration" = "vienreiz";
 "purchase.product.pricing.free" = "Bezmaksas";
 "purchase.product.trial" = "30 dienu izmēģinājuma versija";
-"purchase.product.trial.expirationDate" = "Beidzas: %@";
+"purchase.product.trial.expirationDate" = "Beigsies: %@";
 "purchase.product.trial.duration" = "30 dienas";
 "purchase.product.yearlySubscription" = "Gada abonements";
 "purchase.product.yearlySubscription.duration" = "ik gadu";
@@ -202,6 +202,7 @@
 "settings.title" = "Iestatījumi";
 "settings.aboutCryptomator" = "Par Cryptomator";
 "settings.aboutCryptomator.title" = "Versija %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Tu ieguvi piekļuvi pilnajai versijai un rakstīšanas piekļuvi savām glabātavām.";
 "settings.cacheSize" = "Kešatmiņas izmērs";
 "settings.clearCache" = "Notīrīt kešatmiņu";
 "settings.cloudServices" = "Mākoņpakalpojumi";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Nosūtīt žurnāla datni";
 "settings.shortcutsGuide" = "Saīšņu norādes";
 "settings.unlockFullVersion" = "Atslēgt pilno versiju";
+"settings.unlockFullVersion.detail" = "Iegūsti rakstīsānas piekļuvi savām glabātavām!";
+"settings.unlockFullVersion.trialExpirationDate" = "Izmēģinājuma beigu datums: %@";
 
 "sharePoint.enterURL.title" = "Jāievada SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint vietnes URL";
@@ -222,6 +225,19 @@
 "sharePoint.selectDrive.title" = "Atlasīt dokumentu bibliotēku";
 "sharePoint.selectDrive.header.title" = "Atlasīt SharePoint dokumentu bibliotēku, ar kuru ir vēlme strādāt.";
 "sharePoint.selectDrive.emptyList.footer" = "Nav pieejama neviena dokumentu bibliotēka";
+
+"shareVault.title" = "Kopīgot glabātavu";
+"shareVault.normal.header.title" = "Drošs veids, kā darboties komandās";
+"shareVault.normal.header.features" = "Sadarbojies ar savu komandu drošā veidā! Piekļuve ir piešķirama un atsaucama jebkurā brīdī bez paroļu kopīgošanas.";
+"shareVault.normal.footer.text" = "Lai uzzinātu vairāk, jāieskatās labās prakses ieteikumos mūsu [dokumentācijā](%@).";
+"shareVault.normal.button.visitHub" = "Apmeklēt Cryptomator Hub";
+"shareVault.hub.header.title" = "Kā kopīgot Hub glabātavu";
+"shareVault.hub.header.subtitle" = "Lai varētu kopīgot glabātavas saturu ar citu komandas dalībnieku, jāizpilda divi soļi:";
+"shareVault.hub.step1" = "Piekļuve šifrētajai glabātavas mapei ir kopīgojama caur mākoņkrātuvi.";
+"shareVault.hub.step2" = "Cryptomator Hub jānodrošina piekļuve komandas dalībniekam.";
+"shareVault.hub.button.openHub" = "Atvērt Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Nevarēja ielādēt Hub informāciju";
+"shareVault.error.hubURLExtraction.message" = "Nevarēja ielādēt glabātavas Hub konfigurāciju. Lūgums pārbaudīt glabātavas iestatījumus vai sazināties ar Hub pārvaldītāju.";
 
 "snapshots.fileprovider.file1" = "/Grāmatvedība.numbers";
 "snapshots.fileprovider.file2" = "/Gala prezentācija.key";
@@ -282,6 +298,8 @@
 "vaultDetail.button.moveVault" = "Pārvietot";
 "vaultDetail.button.removeVault" = "Noņemt no glabātavu saraksta";
 "vaultDetail.button.renameVault" = "Pārdēvēt";
+"vaultDetail.button.shareVault" = "Kopīgot glabātavu";
+"vaultDetail.shareVault.footer" = "Sadarbošanās ar savu komandu drošā veidā ar Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Jāizvēlas tikai sev zināma stipra glabātavas parole un jātur tā drošā vietā.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Ja iespējo %@, glabātavas parole tiks glabāta iOS atslēgu saišķī.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Glabātavas parole būs nepieciešama tikai tad, ja neizdosies %@ autentificēšana.";

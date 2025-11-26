@@ -193,6 +193,13 @@
 "sharePoint.selectDrive.header.title" = "Válassza ki a SharePoint dokumentumkönyvtárat, amellyel dolgozni szeretne.";
 "sharePoint.selectDrive.emptyList.footer" = "Nincsenek elérhető dokumentumkönyvtárak";
 
+"shareVault.title" = "Széf megosztása";
+"shareVault.normal.header.title" = "A biztonságos mód csapatokban való munkavégzéshez";
+"shareVault.normal.button.visitHub" = "Látogassa meg a Cryptomator Hubot";
+"shareVault.hub.header.title" = "Hogyan osszon meg egy Hub széfet";
+"shareVault.hub.header.subtitle" = "Ahhoz, hogy megossza a széf tartalmát egy másik csapattaggal, két lépést kell végrehajtania:";
+"shareVault.hub.button.openHub" = "Nyissa meg a Cryptomator Hubot";
+
 "snapshots.fileprovider.file1" = "/Könyevlés.numbers";
 "snapshots.fileprovider.file2" = "/Kész Előadás.key";
 "snapshots.fileprovider.file3" = "/Termék Filmelőzetes.mov";
@@ -239,6 +246,7 @@
 "vaultDetail.button.lock" = "Zárolás most";
 "vaultDetail.button.moveVault" = "Áthelyezés";
 "vaultDetail.button.renameVault" = "Átnevezés";
+"vaultDetail.button.shareVault" = "Széf megosztása";
 "vaultDetail.info.footer.accessVault" = "Elérheti a széfet a Fájlok appban.";
 "vaultDetail.info.footer.accountInfo" = "Bejelentkezve, mint %@ itt: %@.";
 "vaultDetail.keepUnlocked.title" = "Feloldás hossza";

@@ -219,6 +219,13 @@
 "sharePoint.urlValidation.error.emptyURL" = "URL boş olamaz.";
 "sharePoint.urlValidation.error.invalidURL" = "URL geçersiz. Lütfen bu formatı kullanın: https://{…}.sharepoint.com/{sites|teams}/{…}";
 
+"shareVault.title" = "Kasayı Paylaş";
+"shareVault.normal.header.title" = "Ekip halinde çalışmanın güvenli yolu";
+"shareVault.normal.button.visitHub" = "Cryptomator Hub'ı ziyaret et";
+"shareVault.hub.header.title" = "Hub kasası nasıl paylaşılır";
+"shareVault.hub.header.subtitle" = "Kasa içeriğini başka bir ekip üyesiyle paylaşmak için iki adım gerçekleştirmeniz gerekir:";
+"shareVault.hub.button.openHub" = "Cryptomator Hub'ı aç";
+
 "snapshots.fileprovider.file1" = "/Muhasebe.numbers";
 "snapshots.fileprovider.file2" = "/Son Sunum.key";
 "snapshots.fileprovider.file3" = "/Ürün Deneme.mov";
@@ -278,6 +285,7 @@
 "vaultDetail.button.moveVault" = "Taşı";
 "vaultDetail.button.removeVault" = "Kasa Listesinden Kaldır";
 "vaultDetail.button.renameVault" = "Yeniden Adlandır";
+"vaultDetail.button.shareVault" = "Kasayı Paylaş";
 "vaultDetail.changePassword.footer" = "Kasanız için sadece sizi bildiğiniz ve güvenli bir yerde sakladığınız güçlü bir parola seçin.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "%@'yi etkinleştirirseniz kasa parolanız iOS anahtar zincirinde saklanır.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Kasa parolanız yalnızca %@ kimlik doğrulaması başarısız olursa gerekli olacaktır.";

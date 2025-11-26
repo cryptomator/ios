@@ -135,6 +135,13 @@
 "settings.debugMode.alert.message" = "Ở chế độ này, dữ liệu nhạy cảm có thể được ghi vào tệp nhật ký trên thiết bị của bạn (ví dụ: tên tệp và đường dẫn). Mật khẩu, cookie, v.v. được loại trừ rõ ràng.\n\nHãy nhớ tắt chế độ gỡ lỗi càng sớm càng tốt.";
 "settings.rateApp" = "Đánh giá ứng dụng";
 "settings.unlockFullVersion" = "Mở khóa bản đầy đủ";
+
+"shareVault.title" = "Chia sẻ Vault";
+"shareVault.normal.header.title" = "Cách an toàn để làm việc theo nhóm";
+"shareVault.normal.button.visitHub" = "Truy cập Cryptomator Hub";
+"shareVault.hub.header.title" = "Hướng dẫn chia sẻ vault trên Hub";
+"shareVault.hub.header.subtitle" = "Để chia sẻ nội dung vault với thành viên nhóm khác, bạn cần thực hiện hai bước sau:";
+"shareVault.hub.button.openHub" = "Mở Cryptomator Hub";
 "snapshots.fileprovider.file3" = "/Trailer sản phẩm.mov";
 "snapshots.fileprovider.file5" = "/Báo cáo.pdf";
 "snapshots.fileprovider.folder3" = "/Dự án bí mật";
@@ -179,6 +186,7 @@
 "vaultDetail.button.moveVault" = "Di chuyển";
 "vaultDetail.button.removeVault" = "Xóa khỏi Danh sách Vault";
 "vaultDetail.button.renameVault" = "Đổi tên";
+"vaultDetail.button.shareVault" = "Chia sẻ Vault";
 "vaultDetail.info.footer.accessVault" = "Truy cập vault thông qua ứng dụng Tệp.";
 "vaultDetail.info.footer.accountInfo" = "Đăng nhập bằng %@ qua %@.";
 "vaultDetail.keepUnlocked.title" = "Thời lượng mở khóa";

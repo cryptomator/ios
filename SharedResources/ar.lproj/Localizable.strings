@@ -222,6 +222,13 @@
 "sharePoint.selectDrive.header.title" = "حدد مكتبة SharePoint التي تريد العمل معها.";
 "sharePoint.selectDrive.emptyList.footer" = "لا توجد مكاتب مستندات متوفرة حاليا";
 
+"shareVault.title" = "مشاركة الخزانة";
+"shareVault.normal.header.title" = "الطريقة الآمنة للعمل ضمن الفرق";
+"shareVault.normal.button.visitHub" = "زيارة Cryptomator Hub";
+"shareVault.hub.header.title" = "كيفية مشاركة خزانة Hub";
+"shareVault.hub.header.subtitle" = "لمشاركة محتوى الخزانة مع عضو آخر في الفريق، عليك القيام بخطوتين:";
+"shareVault.hub.button.openHub" = "زيارة Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Final Presentation.key";
 "snapshots.fileprovider.file3" = "/Product Trailer.mov";
@@ -281,6 +288,7 @@
 "vaultDetail.button.moveVault" = "نقل";
 "vaultDetail.button.removeVault" = "إزالة من قائمة المخازن";
 "vaultDetail.button.renameVault" = "إعادة تسمية";
+"vaultDetail.button.shareVault" = "مشاركة الخزانة";
 "vaultDetail.changePassword.footer" = "اختر كلمة مرور قوية لخزانتك يعرفها فقط أنت واحفظها في مكان آمن.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "إذا مكّنت %@، سيتم تخزين كلمة المرور الخاصة بك في سلسلة مفاتيح iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "ستكون كلمة مرور خزينتك مطلوبة فقط إذا فشلت مصادقة %@.";

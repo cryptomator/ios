@@ -207,6 +207,13 @@
 "settings.shortcutsGuide" = "Snarveisveiledning";
 "settings.unlockFullVersion" = "Lås opp fullversjonen";
 
+"shareVault.title" = "Del hvelv";
+"shareVault.normal.header.title" = "Den sikre måten å jobbe i et lag på";
+"shareVault.normal.button.visitHub" = "Besøk Cryptomator hub";
+"shareVault.hub.header.title" = "Hvordan dele et Hub-hvelv";
+"shareVault.hub.header.subtitle" = "For å dele hvelvets innhold med et annet lagmedlem må du utføre to trinn:";
+"shareVault.hub.button.openHub" = "Åpne Cryptomator hub";
+
 "snapshots.fileprovider.file1" = "/Regnskap.numbers";
 "snapshots.fileprovider.file2" = "/Endelig presentasjon.key";
 "snapshots.fileprovider.file3" = "/Produktvisning.mov";
@@ -266,6 +273,7 @@
 "vaultDetail.button.moveVault" = "Flytt";
 "vaultDetail.button.removeVault" = "Fjern fra listen over hvelv";
 "vaultDetail.button.renameVault" = "Endre navn";
+"vaultDetail.button.shareVault" = "Del hvelv";
 "vaultDetail.changePassword.footer" = "Velg et sterkt passord for hvelvet ditt, som bare du vet. Lagre det på et trygt sted.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Hvis du aktiverer %@ vil hvelvet ditt bli lagret i iOS-nøkkelringen.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Passordet til hvelvet ditt vil kun være nødvendig hvis %@-autentiseringen feiler.";

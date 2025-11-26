@@ -224,6 +224,13 @@
 "sharePoint.selectDrive.header.title" = "選擇您要使用的 SharePoint 文件庫。";
 "sharePoint.selectDrive.emptyList.footer" = "沒有可用的文件庫";
 
+"shareVault.title" = "與其他人共用加密檔案庫";
+"shareVault.normal.header.title" = "以安全的方式進行團隊合作";
+"shareVault.normal.button.visitHub" = "前往 Cryptomator Hub";
+"shareVault.hub.header.title" = "如何與其他人共用加密檔案庫";
+"shareVault.hub.header.subtitle" = "要與您的團隊成員共用加密檔案庫，您需要完成以下兩個步驟：";
+"shareVault.hub.button.openHub" = "打開 Cryptomator Hub";
+
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
 "snapshots.fileprovider.file3" = "/產品預告.mov";
@@ -283,6 +290,7 @@
 "vaultDetail.button.moveVault" = "移動";
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
+"vaultDetail.button.shareVault" = "與其他人共用加密檔案庫";
 "vaultDetail.changePassword.footer" = "為您的加密檔案庫選擇一個只有您知道的強密碼，並將其保管在安全的地方。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果您啟用 %@，您的加密檔案庫密碼便會儲存在 iOS 鑰匙圈中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "僅當 %@ 身份驗證失敗時才需要您的加密檔案庫密碼。";

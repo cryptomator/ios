@@ -169,6 +169,12 @@
 "settings.shortcutsGuide" = "ਸ਼ਾਰਟਕੱਟ ਗਾਈਡ";
 "settings.unlockFullVersion" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
 
+"shareVault.title" = "ਵਾਲਟ ਨੂੰ ਸਾਂਝਾ ਕਰੋ";
+"shareVault.normal.header.title" = "ਟੀਮਾਂ ਨਾਲ ਕੰਮ ਕਰਨ ਲਈ ਸੁਰੱਖਿਅਤ ਢੰਗ";
+"shareVault.normal.button.visitHub" = "Cryptomator Hub ਨੂੰ ਖੋਲ੍ਹੋ";
+"shareVault.hub.header.title" = "ਹੱਬ ਵਾਲਟ ਨੂੰ ਕਿਵੇਂ ਸਾਂਝਾ ਕਰ ਸਕਦੇ ਹਾਂ";
+"shareVault.hub.button.openHub" = "Cryptomator Hub ਨੂੰ ਖੋਲ੍ਹੋ";
+
 "s3Authentication.displayName" = "ਦਿਖਾਉਣ ਲਈ ਨਾਂ";
 "s3Authentication.accessKey" = "ਪਹੁੰਚ ਕੁੰਜੀ";
 "s3Authentication.secretKey" = "ਗੁਪਤ ਕੁੰਜੀ";
@@ -201,6 +207,7 @@
 "vaultDetail.button.moveVault" = "ਭੇਜੋ";
 "vaultDetail.button.removeVault" = "ਵਾਲਟ ਸੂਚੀ ਵਿੱਚੋਂ ਹਟਾਓ";
 "vaultDetail.button.renameVault" = "ਨਾਂ ਬਦਲੋ";
+"vaultDetail.button.shareVault" = "ਵਾਲਟ ਨੂੰ ਸਾਂਝਾ ਕਰੋ";
 "vaultDetail.info.footer.accountInfo" = "%@ ਰਾਹੀਂ %@ ਵਜੋਂ ਲਾਗਇਨ ਕੀਤਾ।";
 "vaultDetail.keepUnlocked.title" = "ਅਣ-ਲਾਕ ਦਾ ਅੰਤਰਾਲ";
 "vaultDetail.locked.footer" = "ਤੁਹਾਡਾ ਵਾਲਟ ਇਸ ਵੇਲੇ ਅਣ-ਲਾਕ ਹੈ।";
