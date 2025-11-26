@@ -1,1 +1,2 @@
-- Probleme beim Laden von WebDAV-Konten und beim Löschen von Tresoren behoben (#415).
+- „Tresor teilen"-Option in den Tresoreinstellungen hinzugefügt (#424).
+- Vollversions-Status für Nutzer mit lebenslanger Lizenz in den Einstellungen anzeigen (#426).
