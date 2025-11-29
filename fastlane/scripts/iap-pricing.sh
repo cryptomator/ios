@@ -166,10 +166,11 @@ find_price_point_id() {
 }
 
 # Add a price entry to the payload arrays
-# Arguments: price_point_id, start_date
+# Arguments: price_point_id, start_date, end_date
 add_price_entry() {
     local price_point_id="$1"
     local start_date="$2"
+    local end_date="$3"
 
     local price_id="\${price${PRICE_COUNTER}}"
     PRICE_COUNTER=$((PRICE_COUNTER + 1))
@@ -177,12 +178,16 @@ add_price_entry() {
     MANUAL_PRICES_DATA=$(echo "$MANUAL_PRICES_DATA" | jq --arg id "$price_id" \
         '. + [{"type": "inAppPurchasePrices", "id": $id}]')
 
-    # Build attributes object
+    # Build attributes object based on start_date and end_date
     local attributes
-    if [[ "$start_date" == "null" ]]; then
+    if [[ "$start_date" == "null" && -z "$end_date" ]]; then
         attributes='{"startDate": null}'
-    else
+    elif [[ "$start_date" == "null" && -n "$end_date" ]]; then
+        attributes=$(jq -n --arg end "$end_date" '{"startDate": null, "endDate": $end}')
+    elif [[ "$start_date" != "null" && -z "$end_date" ]]; then
         attributes=$(jq -n --arg start "$start_date" '{"startDate": $start}')
+    else
+        attributes=$(jq -n --arg start "$start_date" --arg end "$end_date" '{"startDate": $start, "endDate": $end}')
     fi
 
     INCLUDED_ARRAY=$(echo "$INCLUDED_ARRAY" | jq \
@@ -202,11 +207,12 @@ add_price_entry() {
 }
 
 # Process prices from a JSON object and add entries for each territory
-# Arguments: prices_json, start_date, label
+# Arguments: prices_json, start_date, end_date, label
 process_prices() {
     local prices_json="$1"
     local start_date="$2"
-    local label="$3"
+    local end_date="$3"
+    local label="$4"
     local count=0
 
     echo -e "\n${BLUE}Processing ${label}...${NC}"
@@ -219,7 +225,7 @@ process_prices() {
             exit 1
         fi
 
-        add_price_entry "$price_point_id" "$start_date"
+        add_price_entry "$price_point_id" "$start_date" "$end_date"
         count=$((count + 1))
     done
 
@@ -315,6 +321,7 @@ INCLUDED_ARRAY="[]"
 PRICE_COUNTER=0
 
 # Process each config file in order (already sorted by start_date)
+# Each interval's end_date is the next interval's start_date (except the last one)
 CONFIG_COUNT=$(echo "$CONFIGS_JSON" | jq 'length')
 for ((i=0; i<CONFIG_COUNT; i++)); do
     CONFIG=$(echo "$CONFIGS_JSON" | jq ".[$i]")
@@ -322,12 +329,26 @@ for ((i=0; i<CONFIG_COUNT; i++)); do
     START_DATE=$(echo "$CONFIG" | jq -r '._start_date // empty')
     PRICES=$(echo "$CONFIG" | jq '.prices')
 
+    # Get end_date from next config's start_date (empty for last config)
+    END_DATE=""
+    if [[ $((i + 1)) -lt $CONFIG_COUNT ]]; then
+        END_DATE=$(echo "$CONFIGS_JSON" | jq -r ".[$((i + 1))]._start_date // empty")
+    fi
+
     if [[ -n "$START_DATE" ]]; then
-        LABEL="$SOURCE_FILE (from $START_DATE)"
-        process_prices "$PRICES" "$START_DATE" "$LABEL"
+        if [[ -n "$END_DATE" ]]; then
+            LABEL="$SOURCE_FILE ($START_DATE to $END_DATE)"
+        else
+            LABEL="$SOURCE_FILE (from $START_DATE)"
+        fi
+        process_prices "$PRICES" "$START_DATE" "$END_DATE" "$LABEL"
     else
-        LABEL="$SOURCE_FILE (immediate)"
-        process_prices "$PRICES" "null" "$LABEL"
+        if [[ -n "$END_DATE" ]]; then
+            LABEL="$SOURCE_FILE (until $END_DATE)"
+        else
+            LABEL="$SOURCE_FILE (immediate)"
+        fi
+        process_prices "$PRICES" "null" "$END_DATE" "$LABEL"
     fi
 done
 
@@ -366,4 +387,3 @@ if echo "$RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
 fi
 
 echo -e "${GREEN}Success! Price schedule created.${NC}"
-echo "$RESPONSE" | jq '.'
