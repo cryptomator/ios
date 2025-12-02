@@ -202,6 +202,7 @@
 "settings.title" = "Налаштування";
 "settings.aboutCryptomator" = "Про Cryptomator";
 "settings.aboutCryptomator.title" = "Версія %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Ви розблокували повну версію та отримали доступ для запису до своїх сховищ.";
 "settings.cacheSize" = "Розмір кешу";
 "settings.clearCache" = "Очистити кеш";
 "settings.cloudServices" = "Хмарні сервіси";
@@ -213,6 +214,8 @@
 "settings.sendLogFile" = "Надіслати файл журналу";
 "settings.shortcutsGuide" = "Посібник із Команд";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
+"settings.unlockFullVersion.detail" = "Отримати доступ для запису до своїх сховищ.";
+"settings.unlockFullVersion.trialExpirationDate" = "Дата завершення пробного періоду: %@";
 
 "sharePoint.enterURL.title" = "Введіть URL-адресу SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адреса SharePoint";
