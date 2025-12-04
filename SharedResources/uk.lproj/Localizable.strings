@@ -210,7 +210,7 @@
 "settings.debugMode" = "Режим налагодження";
 "settings.debugMode.alert.message" = "У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.";
 "settings.manageSubscriptions" = "Керувати підпискою";
-"settings.rateApp" = "Оцінити застосунок";
+"settings.rateApp" = "Оцінити програму";
 "settings.sendLogFile" = "Надіслати файл журналу";
 "settings.shortcutsGuide" = "Посібник із Команд";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
