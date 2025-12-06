@@ -67,6 +67,9 @@
 "fileProvider.error.unlockButton" = "Avaa";
 "hubAuthentication.licenseExceeded" = "Cryptomator Hub:illasi ei ole voimassa olevaa lisenssiä. Ole hyvä ja ilmoita Hubin järjestelmänvalvojalle lisenssin päivittämiseksi tai sen uusimiseksi.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Laitteen Nimi";
+"purchase.retry.button" = "Yritä uudelleen";
+
+"settings.title" = "Asetukset";
 
 "shareVault.title" = "Jaa holvi";
 "shareVault.normal.header.title" = "Turvallinen tapa työskennellä tiimeissä";
