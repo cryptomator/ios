@@ -78,6 +78,10 @@
 "shareVault.hub.header.subtitle" = "Jotta holvin sisältö voitaisiin jakaa toisen tiimin jäsenen kanssa, sinun on suoritettava kaksi vaihetta:";
 "shareVault.hub.button.openHub" = "Avaa Cryptomator Hub";
 
+"s3Authentication.displayName" = "Nimi";
+"s3Authentication.accessKey" = "Pääsyavain";
+"s3Authentication.secretKey" = "Salainen avain";
+
 "unlockVault.button.unlock" = "Avaa";
 "unlockVault.password.footer" = "Syötä holvin \"%@\" salasana.";
 
