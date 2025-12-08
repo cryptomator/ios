@@ -14,6 +14,7 @@ import StoreKit
 enum PurchaseError: LocalizedError {
 	case unavailableProduct
 	case paymentCancelled
+	case paymentNotAllowed
 	case unknown
 
 	var errorDescription: String? {
@@ -22,6 +23,8 @@ enum PurchaseError: LocalizedError {
 			return nil // should never happen
 		case .paymentCancelled:
 			return nil // not needed since nothing should be shown
+		case .paymentNotAllowed:
+			return LocalizedString.getValue("purchase.error.paymentNotAllowed")
 		case .unknown:
 			return LocalizedString.getValue("purchase.error.unknown")
 		}
