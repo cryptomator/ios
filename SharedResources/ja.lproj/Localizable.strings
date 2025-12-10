@@ -143,11 +143,8 @@
 "keepUnlockedDuration.auto" = "iOSに委ねる";
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
-
-"localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
-"localFileSystemAuthentication.openExistingVault.header" = "次の画面で、既存の金庫の保存場所を選択してください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
 "localFileSystemAuthentication.info.footer" = "グレーアウトされたファイルプロバイダは「フォルダを選ぶ」をサポートしていません。これはCryptomatorの制限ではありません。";
