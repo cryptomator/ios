@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Automatisch durch iOS gesteuert";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Unbefristet";
-
-"localFileSystemAuthentication.createNewVault.header" = "Wähle im nächsten Schritt den Speicherort für deinen neuen Tresor aus.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An diesem Ort existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
-"localFileSystemAuthentication.openExistingVault.header" = "Wähle im nächsten Schritt den Ordner deines bestehenden Tresors aus.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es erneut mit einem anderen Ordner.";
 "localFileSystemAuthentication.info.footer" = "Speicher-Anbieter, die ausgegraut sind, unterstützen keine „Ordnerauswahl“. Dies ist keine Einschränkung von Cryptomator.";
