@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Lad iOS beslutte automatisk";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Altid";
-
-"localFileSystemAuthentication.createNewVault.header" = "Vælg placeringen til din nye boks på næste skærmbillede.";
 "localFileSystemAuthentication.createNewVault.button" = "Vælg placering";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Der findes allerede en boks på denne placering. Prøv igen med en anden placering.";
-"localFileSystemAuthentication.openExistingVault.header" = "Vælg mappen hvori din boks befinder sig, på det næste skærmbillede.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vælg mappen med boks-filerne";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappe er ikke en boks. Prøv venligst igen med en anden mappe.";
 "localFileSystemAuthentication.info.footer" = "Filudbydere, der er grå understøtter ikke \"mappe-vælger\". Dette er ikke en begrænsning i Cryptomator.";
