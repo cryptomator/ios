@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Låt iOS bestämma automatiskt";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Permanent";
-
-"localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ett valv finns redan på denna plats. Försök igen med en annan lagringsplats.";
-"localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
 "localFileSystemAuthentication.info.footer" = "Filleverantörer som är utgråade stöder inte mappar i iOS. Detta är inte en begränsning i Cryptomator.";
