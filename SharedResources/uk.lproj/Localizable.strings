@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Дозволити iOS вирішувати автоматично";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "keepUnlockedDuration.indefinite" = "Необмежено";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "На наступному екрані перейдіть до iCloud Drive, виберіть місце для зберігання, а потім натисніть «Відкрити».";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "На наступному екрані перейдіть до місця зберігання, виберіть його, а потім натисніть «Відкрити».";
 "localFileSystemAuthentication.createNewVault.button" = "Обрати місце зберігання";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "У цьому розташуванні вже існує сховище. Будь ласка, спробуйте ще раз, вибравши інше місце.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "На наступному екрані перейдіть до iCloud Drive, виберіть папку вашого сховища, а потім натисніть «Відкрити».";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "На наступному екрані перейдіть до папки вашого сховища, виберіть її, а потім натисніть «Відкрити».";
 "localFileSystemAuthentication.openExistingVault.button" = "Обрати папку сховища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Обрана папка не є сховищем. Будь ласка, спробуйте ще раз, вибравши іншу папку.";
 "localFileSystemAuthentication.info.footer" = "Файлові провайдери, які затінено, не підтримують «вибір папок». Це не є обмеженням Cryptomator.";
