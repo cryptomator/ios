@@ -143,11 +143,8 @@
 "keepUnlockedDuration.auto" = "由 iOS 自动决定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自动";
 "keepUnlockedDuration.indefinite" = "不限时";
-
-"localFileSystemAuthentication.createNewVault.header" = "请在下一屏幕中为您的新保险库选择存储路径。";
 "localFileSystemAuthentication.createNewVault.button" = "选择存储路径";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在保险库，请更改路径后重试。";
-"localFileSystemAuthentication.openExistingVault.header" = "请在下一屏幕中定位到现有保险库所在的文件夹。";
 "localFileSystemAuthentication.openExistingVault.button" = "选择保险库所在文件夹";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "所选文件夹不是保险库，请使用其他文件夹再试一次。";
 "localFileSystemAuthentication.info.footer" = "灰色显示的文件提供者不支持“选择文件夹”。 这并非是 Cryptomator 的限制。";
