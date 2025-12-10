@@ -15,7 +15,7 @@
 "isVaultLockedIntent.title" = "Vault 잠금 해제됨";
 "isVaultUnlockedIntent.text" = "${vault} 잠금 해제됨";
 
-"lockVaultIntent.description" = "해당 Vault를 잠급니다.";
+"lockVaultIntent.description" = "주어진 Vault를 잠급니다.";
 "lockVaultIntent.text" = "${vault} 잠금";
 "lockVaultIntent.title" = "Vault 잠그기";
 
@@ -27,7 +27,7 @@
 "saveFileIntent.file" = "파일";
 "saveFileIntent.parameter.ignoreExisting" = "같은 이름을 가진 기존 파일 무시하기";
 "saveFileIntent.text" = "${file}을 ${folder}에 저장";
-"saveFileIntent.title" = "파일 저장하기";
+"saveFileIntent.title" = "파일 저장";
 
 "vaultFolder.displayName" = "Vault 폴더";
 "vaultFolder.vaultIdentifier" = "Vault 식별자";
