@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "由 iOS 自動決定";
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
-
-"localFileSystemAuthentication.createNewVault.header" = "在下一個頁面，請選擇新加密庫的儲存位置。";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在加密檔案庫。 請以其他儲存位置重試。";
-"localFileSystemAuthentication.openExistingVault.header" = "在下一個頁面，請選擇已存在加密庫所在的文件夾。";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選擇的資料夾不是加密檔案庫。請以其他資料夾重試。";
 "localFileSystemAuthentication.info.footer" = "文件提供程式顯示為灰色的表示不支援「選擇資料夾」。這並非 Cryptomator 的限制。";
