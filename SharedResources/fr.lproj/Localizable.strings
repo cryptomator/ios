@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Laisser iOS décider automatiquement";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatiquement";
 "keepUnlockedDuration.indefinite" = "Indéfini";
-
-"localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
-"localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Le dossier sélectionné n'est pas un coffre. Veuillez réessayer avec un dossier différent.";
 "localFileSystemAuthentication.info.footer" = "Les fournisseurs de fichiers qui sont grisés ne permettent pas de sélectionner des dossiers en entier. Ce n'est pas une limitation de Cryptomator.";
