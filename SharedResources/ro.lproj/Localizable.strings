@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "Lăsați iOS-ul sa decidă automat";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinit";
-
-"localFileSystemAuthentication.createNewVault.header" = "În ecranul următor, alegeți locația de stocare pentru seiful dvs. nou.";
 "localFileSystemAuthentication.createNewVault.button" = "Selectați locația de stocare";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un seif există deja în această locație. Vă rugăm să încercați din nou cu o altă locație de stocare.";
-"localFileSystemAuthentication.openExistingVault.header" = "În ecranul următor, alegeți folderul seifului dvs. existent.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selectaţi dosarul cu seif";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Dosarul selectat nu este un seif. Vă rugăm să încercaţi din nou cu un alt dosar.";
 "localFileSystemAuthentication.info.footer" = "Locațiile/Serviciile care sunt gri nu pot fi alese. Aceasta nu este o limitare a Criyptomator.";
