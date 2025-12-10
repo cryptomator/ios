@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Оставить на усмотрение iOS";
 "keepUnlockedDuration.auto.shortDisplayName" = "Авто";
 "keepUnlockedDuration.indefinite" = "Не блокировать";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "На следующем экране перейдите в iCloud Drive, выберите место хранения и нажмите \"Открыть\".";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "На следующем экране перейдите к местоположению хранения, выберите его и нажмите \"Открыть\".";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "На следующем экране перейдите в iCloud Drive, выберите папку хранилища и нажмите \"Открыть\".";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "На следующем экране перейдите в папку с хранилищем, выберите его и нажмите \"Открыть\".";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Выбранная папка - не хранилище. Попробуйте снова в другой папке.";
 "localFileSystemAuthentication.info.footer" = "Провайдеры файлов, выделенные серым цветом, не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
