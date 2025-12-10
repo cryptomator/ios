@@ -204,6 +204,7 @@
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
 "settings.aboutCryptomator.title" = "版本號%@（%@）";
+"settings.aboutCryptomator.hasFullVersion.footer" = "您已解鎖完整版並獲得加密檔案庫的寫入權限。";
 "settings.cacheSize" = "緩存大小";
 "settings.clearCache" = "清除快取";
 "settings.cloudServices" = "雲端服務";
@@ -215,6 +216,8 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+"settings.unlockFullVersion.detail" = "取得對您加密檔案庫的寫入權限。";
+"settings.unlockFullVersion.trialExpirationDate" = "試用到期日： %@";
 
 "sharePoint.enterURL.title" = "輸入 SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint 網站 URL";
@@ -227,10 +230,16 @@
 
 "shareVault.title" = "與其他人共用加密檔案庫";
 "shareVault.normal.header.title" = "以安全的方式進行團隊合作";
+"shareVault.normal.header.features" = "與團隊安全協作。隨時授予或撤銷存取權限，無需共享密碼。";
+"shareVault.normal.footer.text" = "欲了解更多資訊，請參閱我們文件 (%@) 中的最佳實踐建議。";
 "shareVault.normal.button.visitHub" = "前往 Cryptomator Hub";
 "shareVault.hub.header.title" = "如何與其他人共用加密檔案庫";
 "shareVault.hub.header.subtitle" = "要與您的團隊成員共用加密檔案庫，您需要完成以下兩個步驟：";
+"shareVault.hub.step1" = "透過雲端儲存共享加密檔案庫資料夾的存取權限。";
+"shareVault.hub.step2" = "在 Cryptomator Hub 中授予團隊成員存取權限。";
 "shareVault.hub.button.openHub" = "打開 Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "無法讀取 Hub 資訊";
+"shareVault.error.hubURLExtraction.message" = "加密檔案庫的 Hub 配置無法載入。請檢查您的加密檔案庫設定或聯絡您的 Hub 管理員。";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
@@ -292,6 +301,7 @@
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
 "vaultDetail.button.shareVault" = "與其他人共用加密檔案庫";
+"vaultDetail.shareVault.footer" = "透過 Cryptomator Hub 與您的團隊安全協作。";
 "vaultDetail.changePassword.footer" = "為您的加密檔案庫選擇一個只有您知道的強密碼，並將其保管在安全的地方。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果您啟用 %@，您的加密檔案庫密碼便會儲存在 iOS 鑰匙圈中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "僅當 %@ 身份驗證失敗時才需要您的加密檔案庫密碼。";
