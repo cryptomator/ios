@@ -78,7 +78,7 @@
 "chooseFolder.emptyFolder.footer" = "폴더가 비었습니다";
 "chooseFolder.createNewFolder.header.title" = "폴더의 이름을 선택해주십시오.";
 "chooseFolder.createNewFolder.cells.name" = "폴더 이름";
-"chooseFolder.createNewFolder.error.emptyFolderName" = "폴더 이름이 비어 있어서는 안 됩니다.";
+"chooseFolder.createNewFolder.error.emptyFolderName" = "폴더 이름은 비워둘 수 없습니다.";
 "chooseFolder.createNewFolder.progress" = "폴더 생성 중...";
 
 "cloudProvider.error.itemNotFound" = "\"%@\"을(를) 찾을 수 없습니다.";
@@ -105,8 +105,8 @@
 "fileprovider.error.unauthorized.text" = "\"%@\"에 대한 접근이 거부되었습니다. 메인 앱을 열어 연결을 확인하고 필요시 재인증하십시오.";
 "fileProvider.error.unlockButton" = "잠금 해제";
 "fileProvider.clearFileFromCache.title" = "캐시에서 파일 지우기";
-"fileProvider.clearFileFromCache.message" = "이는 현재 기기에 있는 로컬 파일들만 지웁니다. 클라우드에 있는 데이터는 유지됩니다.";
-"fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator앱에서 정식 버전을 구입하세요.";
+"fileProvider.clearFileFromCache.message" = "이는 현재 기기에 있는 로컬 파일들만 삭제합니다. 클라우드에 있는 데이터는 유지됩니다.";
+"fileProvider.fileImporting.error.missingPremium" = "Vault에 쓰기 권한을 얻기 위해 Cryptomator 앱에서 정식 버전을 구입하세요.";
 "fileProvider.uploadProgress.connecting" = "연결 중...";
 "fileProvider.uploadProgress.message" = "현재 진행도: %@\n\n만약 업로드가 멈추었다면, 재시도할 수 있습니다.";
 "fileProvider.uploadProgress.missing" = "진행도가 인식되지 않습니다. 백그라운드에서 작동 중일 수 있습니다.";
@@ -145,8 +145,13 @@ i geumgoga sayong.";
 "keepUnlockedDuration.auto" = "iOS가 자동으로 잠그게 하기";
 "keepUnlockedDuration.auto.shortDisplayName" = "자동";
 "keepUnlockedDuration.indefinite" = "자동 잠금 해제";
-"localFileSystemAuthentication.createNewVault.button" = "저장 위치 선택";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "다음 화면에서 iCloud Drive로 이동하여 저장소 위치를 ​​선택한 다음 열기를 탭하세요.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "다음 화면에서 저장소 위치로 이동하여 선택한 다음 열기를 탭하세요.";
+"localFileSystemAuthentication.createNewVault.button" = "저장소 위치 선택";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "이 위치에 이미 Vault가 존재합니다. 다른 저장소 위치에서 다시 시도해 주십시오.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "다음 화면에서 iCloud Drive로 이동하여 Vault 폴더를 ​​선택한 다음 열기를 탭하세요.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "다음 화면에서 Vault 폴더로 이동하여 선택한 다음 열기를 탭하세요.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vault 폴더 선택";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "선택된 폴더는 Vault가 아닙니다. 다른 폴더에서 다시 시도해 주십시오.";
 "localFileSystemAuthentication.info.footer" = "회색 처리된 파일 제공자는 폴더 선택을 지원하지 않습니다. 이는 Cryptomator 자체의 제약 사항이 아닙니다.";
@@ -207,7 +212,7 @@ i geumgoga sayong.";
 "settings.cloudServices" = "클라우드 서비스";
 "settings.contact" = "문의하기";
 "settings.debugMode" = "디버그 모드";
-"settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 예외입니다.\n\n 가능한 디버그 모드를 빨리 비활성화하세요.";
+"settings.debugMode.alert.message" = "이 모드에서는 민감한 정보들이 로그 파일로 기기에 기록될 수 있습니다(파일명, 경로 등). 비밀번호, 쿠키 등의 정보는 제외됩니다.\n\n디버그 모드는 가능한 한 빨리 비활성화하세요.";
 "settings.manageSubscriptions" = "구독 관리";
 "settings.rateApp" = "앱 평가하기";
 "settings.sendLogFile" = "로그파일 전송하기";
@@ -218,9 +223,9 @@ i geumgoga sayong.";
 
 "sharePoint.enterURL.title" = "SharePoint URL 입력";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
-"sharePoint.enterURL.header.title" = "이 URL 형태를 따르십시오:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.enterURL.header.title" = "아래 URL 형태를 따르십시오:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "URL을 입력하십시오.";
-"sharePoint.urlValidation.error.invalidURL" = "URL이 유효하지 않습니다. 이 형태를 따르십시오: \nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.urlValidation.error.invalidURL" = "URL이 유효하지 않습니다. 아래 형태를 따르십시오: \nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.selectDrive.title" = "문서 라이브러리 선택하기";
 "sharePoint.selectDrive.header.title" = "작업하고자 하는 SharePoint 문서 라이브러리를 선택하십시오";
 "sharePoint.selectDrive.emptyList.footer" = "문서 라이브러리 없음";
@@ -232,7 +237,7 @@ i geumgoga sayong.";
 "shareVault.normal.button.visitHub" = "Cryptomator Hub 방문하기";
 "shareVault.hub.header.title" = "Hub Vault를 공유하는법";
 "shareVault.hub.header.subtitle" = "다른 팀 구성원과 Vault를 공유하기 위해서는 다음 단계를 따르십시오:";
-"shareVault.hub.step1" = "클라우드 스토리지를 통해 암호화된 Vault 폴더에 대한 접근 권한을 공유하세요.";
+"shareVault.hub.step1" = "클라우드 저장소를 통해 암호화된 Vault 폴더에 대한 접근 권한을 공유하세요.";
 "shareVault.hub.step2" = "팀 구성원에게 Cryptomator Hub 접근 권한을 부여하세요.";
 "shareVault.hub.button.openHub" = "Cryptomator Hub 열기";
 "shareVault.error.hubURLExtraction.title" = "Hub 정보를 불러올 수 없습니다";
@@ -329,8 +334,8 @@ i geumgoga sayong.";
 "webDAVAuthentication.httpConnection.change" = "HTTPS로 변경";
 "webDAVAuthentication.httpConnection.continue" = "HTTP 유지";
 
-"webDAVAuthenticator.error.unsupportedProtocol" = "서버가 WebDAV를 지원하지 않습니다. 올바른 URL을 사용하는지 확인하십시오.";
+"webDAVAuthenticator.error.unsupportedProtocol" = "서버가 WebDAV를 지원하지 않습니다. 올바른 URL을 사용했는지 확인하십시오.";
 "webDAVAuthenticator.error.untrustedCertificate" = "이 서버의 인증서를 신뢰할 수 없습니다. 이 WebDAV 연결을 다시 설정해야 할 수 있습니다.";
 
-"Retry Upload" = "업로드 다시 하기";
+"Retry Upload" = "업로드 재시도";
 "Clear from Cache" = "캐시에서 지우기";
