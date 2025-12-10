@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Ļaut iOS automātiski izlemt";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automātiski";
 "keepUnlockedDuration.indefinite" = "Nenoteikts";
-
-"localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
 "localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
-"localFileSystemAuthentication.openExistingVault.header" = "Nākamajā skatā jāizvēlas savas esošās glabātavas mape.";
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
