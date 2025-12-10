@@ -15,7 +15,13 @@ class OpenExistingLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, L
 	private let validator: OpenExistingLocalVaultValidationLogic
 	init(selectedLocalFileSystemType: LocalFileSystemType, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
 		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.button")
-		let headerText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.header")
+		let headerText: String
+		switch selectedLocalFileSystemType {
+		case .iCloudDrive:
+			headerText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.iCloudDrive.header")
+		case .custom:
+			headerText = LocalizedString.getValue("localFileSystemAuthentication.openExistingVault.otherFileProvider.header")
+		}
 		self.validator = OpenExistingLocalVaultValidationLogic()
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: validator, accountManager: accountManager)
 	}
