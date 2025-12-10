@@ -13,7 +13,6 @@ import Promises
 
 protocol LocalFileSystemAuthenticationViewModelProtocol: SingleSectionTableViewModel {
 	var headerText: String { get }
-	var documentPickerStartDirectoryURL: URL? { get }
 	func footerViewModel(for section: Int) -> HeaderFooterViewModel?
 	func userPicked(urls: [URL]) throws -> LocalFileSystemCredential
 }
@@ -31,16 +30,6 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		return [openDocumentPickerCellViewModel]
 	}
 
-	var documentPickerStartDirectoryURL: URL? {
-		switch selectedLocalFileSystemType {
-		case .iCloudDrive:
-			return LocalFileSystemAuthenticationViewModel.iCloudDriveRootDirectory
-		case .custom:
-			return nil
-		}
-	}
-
-	static let iCloudDriveRootDirectory = URL(fileURLWithPath: "\(iCloudDrivePrefix)com~apple~CloudDocs/")
 	private static let iCloudDrivePrefix = "/private/var/mobile/Library/Mobile Documents/"
 	let documentPickerButtonText: String
 	let headerText: String
