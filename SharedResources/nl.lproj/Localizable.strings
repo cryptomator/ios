@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Laat iOS automatisch beslissen";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatisch";
 "keepUnlockedDuration.indefinite" = "Voor onbepaalde tijd";
-
-"localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Er bestaat al een kluis op deze locatie. Probeer het opnieuw met een andere opslaglocatie.";
-"localFileSystemAuthentication.openExistingVault.header" = "Kies in het volgende scherm de map van uw bestaande kluis.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "De geselecteerde map is geen kluis. Probeer het opnieuw met een andere map.";
 "localFileSystemAuthentication.info.footer" = "Bestandsproviders die grijs zijn ondersteunen geen \"mappen kiezen\". Dit is geen beperking van Cryptomator.";
