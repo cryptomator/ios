@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Оставить на усмотрение iOS";
 "keepUnlockedDuration.auto.shortDisplayName" = "Авто";
 "keepUnlockedDuration.indefinite" = "Не блокировать";
-
-"localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
-"localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Выбранная папка - не хранилище. Попробуйте снова в другой папке.";
 "localFileSystemAuthentication.info.footer" = "Провайдеры файлов, выделенные серым цветом, не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
