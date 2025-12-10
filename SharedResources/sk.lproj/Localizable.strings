@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Nechať rozhodnúť iOS automaticky";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automaticky";
 "keepUnlockedDuration.indefinite" = "Bez časového obmedzenia";
-
-"localFileSystemAuthentication.createNewVault.header" = "V nasledujúcom okne, zvoľte umiestnenie úložiska pre Váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Trezor už existuje na tomto úložisku. Prosím skúste znovu s iným dátovým úložiskom.";
-"localFileSystemAuthentication.openExistingVault.header" = "V nasledujúcej obrazovke zvoľte adresár Vášho existujúceho trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Zvolený adresár nie je trezor. Prosím skúste znovu s iným adresárom.";
 "localFileSystemAuthentication.info.footer" = "Poskytovatelia súborov ktorí sú vyšedený nepodporujú \"zber adresárov\". Toto nie je limitácia Cryptomator-om.";
