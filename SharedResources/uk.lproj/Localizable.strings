@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Дозволити iOS вирішувати автоматично";
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "keepUnlockedDuration.indefinite" = "Необмежено";
-
-"localFileSystemAuthentication.createNewVault.header" = "На наступному екрані оберіть місце збереження для нового сховища.";
 "localFileSystemAuthentication.createNewVault.button" = "Обрати місце зберігання";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "У цьому розташуванні вже існує сховище. Будь ласка, спробуйте ще раз, вибравши інше місце.";
-"localFileSystemAuthentication.openExistingVault.header" = "На наступному екрані оберіть папку свого наявного сховища.";
 "localFileSystemAuthentication.openExistingVault.button" = "Обрати папку сховища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Обрана папка не є сховищем. Будь ласка, спробуйте ще раз, вибравши іншу папку.";
 "localFileSystemAuthentication.info.footer" = "Файлові провайдери, які затінено, не підтримують «вибір папок». Це не є обмеженням Cryptomator.";
@@ -197,6 +194,7 @@
 "purchase.title" = "Розблокувати повну версію";
 "purchase.unlockedFullVersion.message" = "Тепер ви можете використовувати повну версію Cryptomator. Вдалого шифрування!";
 "purchase.unlockedFullVersion.title" = "Дякуємо!";
+"purchase.error.paymentNotAllowed" = "Покупки в програмі на цьому пристрої заборонені. Щоб дозволити покупки, перевірте налаштування «Екранного часу» в розділі «Обмеження вмісту й приватності».";
 "purchase.error.unknown" = "Ця покупка недоступна в App Store з невідомої причини. Будь ласка, спробуйте пізніше.\n\nЯкщо помилка не зникне, спробуйте перезапустити пристрій або вийти зі свого Apple ID в налаштуваннях iOS і увійти знову.";
 
 "settings.title" = "Налаштування";
