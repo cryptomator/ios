@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Deixe o iOS decidir automaticamente";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinido";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "No ecrã seguinte, aceda ao iCloud Drive, selecione um local de armazenamento e toque em abrir.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "No ecrã seguinte, navegue até ao local de armazenamento, selecione-o e toque em abrir.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecionar Local de Armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesta localização. Por favor tente novamente com um local de armazenamento diferente.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "No ecrã seguinte, aceda ao iCloud Drive, selecione a pasta do seu cofre e toque em abrir.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "No ecrã seguinte, navegue até à pasta do seu cofre, selecione-a e toque em abrir.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecionar Pasta do Cofre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor tente novamente com uma pasta diferente.";
 "localFileSystemAuthentication.info.footer" = "Os fornecedores de arquivos que estão acinzentados não suportam \"escolher pastas\". Isso não é uma limitação do Cryptomator.";
