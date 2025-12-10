@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "iOS автоматик рәүештә ҡарар ҡабул итһен";
 "keepUnlockedDuration.auto.shortDisplayName" = "Авто";
 "keepUnlockedDuration.indefinite" = "Билдәһеҙ";
-
-"localFileSystemAuthentication.createNewVault.header" = "Киләһе экранда яңы һаҡлағысығыҙ өсөн урын һайлағыҙ.";
 "localFileSystemAuthentication.createNewVault.button" = "Һаҡлау урыны һайла";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Был урында һаҡлағыс бар инде. Башҡа һаҡлау урыны менән ҡабатлап ҡарағыҙ.";
-"localFileSystemAuthentication.openExistingVault.header" = "Киләһе экранда булған һаҡлағысығыҙ өсөн каталог һайлағыҙ.";
 "localFileSystemAuthentication.openExistingVault.button" = "Һаҡлағыс каталогы һайла";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Һайланған каталог һаҡлағыс түгел. Зинһар, икенсе каталог менән ҡабатлап ҡарағыҙ.";
 "localFileSystemAuthentication.info.footer" = "Һоро төҫтәге файл провайдерҙары «каталогтар йыйыуҙы» хупламай. Был Cryptomator сикләүе түгел.";
