@@ -217,7 +217,7 @@ i geumgoga sayong.";
 "settings.rateApp" = "앱 평가하기";
 "settings.sendLogFile" = "로그파일 전송하기";
 "settings.shortcutsGuide" = "단축어 도움말";
-"settings.unlockFullVersion" = "정식 버전 잠금 해제";
+"settings.unlockFullVersion" = "정식 버전 구입하기";
 "settings.unlockFullVersion.detail" = "귀하의 Vault에 대한 쓰기 권한을 얻으세요.";
 "settings.unlockFullVersion.trialExpirationDate" = "체험판 만료일: %@";
 
