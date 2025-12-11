@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Ļaut iOS automātiski izlemt";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automātiski";
 "keepUnlockedDuration.indefinite" = "Nenoteikts";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Nākamajā skatā jāpārvietojas uz iCloud Drive, jāatlasa krātuves atrašanās vieta, tad jāpiesit uz “Atvērt”.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Nākamajā skatā jāpārvietojas uz krātuves atrašanās vietu, jāatlasa tā, tad jāpiesit uz “Atvērt”.";
 "localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Nākamajā skatā jāpārvietojas uz iCloud Drive, jāatlasa glabātavas mape, tad jāpiesit uz “Atvērt”.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Nākamajā skatā jāpārvietojas uz glabātavas mapi, jāatlasa tā, tad jāpiesit uz “Atvērt”.";
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
