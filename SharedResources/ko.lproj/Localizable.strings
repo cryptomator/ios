@@ -85,7 +85,7 @@
 "cloudProvider.error.itemAlreadyExists" = "\"%@\"이(가) 이미 존재합니다.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\"의 파일 타입이 올바르지 않습니다.";
 "cloudProvider.error.parentFolderDoesNotExist" = "상위 폴더 \"%@\"이(가) 존재하지 않습니다.";
-"cloudProvider.error.pageTokenInvalid" = "디렉토리의 내용물을 불러올 수 없습니다.";
+"cloudProvider.error.pageTokenInvalid" = "디렉터리의 내용물을 불러올 수 없습니다.";
 "cloudProvider.error.quotaInsufficient" = "저장 공간이 부족합니다.";
 "cloudProvider.error.unauthorized" = "허가되지 않은 작업을 수행할 수 없습니다.";
 "cloudProvider.error.noInternetConnection" = "이 작업은 인터넷 연결이 필요합니다.";
