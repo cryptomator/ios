@@ -284,7 +284,7 @@ i geumgoga sayong.";
 "upgrade.title" = "업그레이드 제안";
 "upgrade.notEligible.alert.title" = "업그레이드 실패";
 "upgrade.notEligible.alert.message" = "Cryptomator가 이 기기에 설치된 구버전을 찾을 수 없습니다. 만약 과거 구매했다면, App Store에서 설치한 후 다시 시도해 주십시오.";
-"upgrade.info" = "Cryptomator를 첫 버전부터 믿고 사용해 주셔서 감사합니다. 감사한 마음으로, 당신에게 무료 업그레이드 혜택을 드립니다.";
+"upgrade.info" = "Cryptomator를 첫 버전부터 믿고 사용해 주셔서 감사합니다. 감사한 마음으로, 귀하에게 무료 업그레이드 혜택을 드립니다.";
 
 "urlSession.error.httpError.401" = "사용자 이름 또는 비밀번호가 잘못되었습니다.";
 "urlSession.error.httpError.403" = "요청한 자료에 대한 권한이 부족합니다.";
