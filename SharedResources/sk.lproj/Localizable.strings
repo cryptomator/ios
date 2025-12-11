@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Nechať rozhodnúť iOS automaticky";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automaticky";
 "keepUnlockedDuration.indefinite" = "Bez časového obmedzenia";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "V nasledujúcej obrazovke nasmerujte na iCloud Drive, vyberte umiestnenie a potom kliknite Otvoriť.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "V nasledujúcej obrazovke nasmerujte na Vaše úložisko, vyberte ho a potom kliknite Otvoriť.";
 "localFileSystemAuthentication.createNewVault.button" = "Zvoľte umiestnenie úložiska";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Trezor už existuje na tomto úložisku. Prosím skúste znovu s iným dátovým úložiskom.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "V nasledujúcej obrazovke nasmerujte na iCloud Drive, vyberte Váš adresár trezora a potom kliknite Otvoriť.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "V nasledujúcej obrazovke nasmerujte na Váš adresár trezora, vyberte ho a potom kliknite Otvoriť.";
 "localFileSystemAuthentication.openExistingVault.button" = "Zvoľte adresár trezora";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Zvolený adresár nie je trezor. Prosím skúste znovu s iným adresárom.";
 "localFileSystemAuthentication.info.footer" = "Poskytovatelia súborov ktorí sú vyšedený nepodporujú \"zber adresárov\". Toto nie je limitácia Cryptomator-om.";
@@ -225,6 +230,7 @@
 
 "shareVault.title" = "Zdielať trezor";
 "shareVault.normal.header.title" = "Bezpečný spôsob pracovať v teamoch";
+"shareVault.hub.button.openHub" = "Otvoriť Cryptomator Hub";
 
 "snapshots.fileprovider.file1" = "/zúčtovanie.čísla";
 "snapshots.fileprovider.file2" = "/Finálna prezentácia.key";
