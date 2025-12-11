@@ -9,14 +9,14 @@
 "getFolderIntent.text" = "${vault} 내부의 ${path}에 위치한 폴더 반환";
 "getFolderIntent.title" = "폴더 가져오기";
 
-"isUnlockedIntent.description" = "주어진 Vault가 잠금 해제되었는지 아닌지를 반환합니다.";
+"isUnlockedIntent.description" = "주어진 Vault가 잠금 해제되었는지 판단해 참 또는 거짓으로 반환합니다.";
 "isUnlockedIntent.title" = "잠금 해제됨";
 
-"isVaultLockedIntent.title" = "Vault 잠금 해제됨";
-"isVaultUnlockedIntent.text" = "${vault} 잠금 해제됨";
+"isVaultLockedIntent.title" = "Vault 잠금 상태 가져오기";
+"isVaultUnlockedIntent.text" = "${vault} 잠금 해제되었는가?";
 
 "lockVaultIntent.description" = "주어진 Vault를 잠급니다.";
-"lockVaultIntent.text" = "${vault} 잠금";
+"lockVaultIntent.text" = "${vault} 잠그기";
 "lockVaultIntent.title" = "Vault 잠그기";
 
 "openVaultIntent.description" = "파일 앱에서 해당 Vault를 엽니다.";
