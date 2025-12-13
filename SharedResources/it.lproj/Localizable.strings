@@ -149,6 +149,8 @@
 "localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Nella schermata successiva, vai alla posizione di archiviazione, selezionala, quindi tocca Apri.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una cassaforte esiste già in questa posizione. Riprova con un'altra posizione di archiviazione.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Nella schermata successiva, vai su iCloud Drive, seleziona la cartella della cassaforte, quindi tocca Apri.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Nella schermata successiva, vai alla cartella della cassaforte, selezionala, quindi tocca Apri.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La cartella selezionata non è una cassaforte. Riprova con una cartella diversa.";
 "localFileSystemAuthentication.info.footer" = "I fornitori di file ingrigiti non supportano le \"cartelle di selezione\". Questa non è una limitazione di Cryptomator.";
