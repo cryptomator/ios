@@ -144,6 +144,9 @@
 "keepUnlockedDuration.auto" = "Lascia decidere a iOS";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Sempre";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Nella schermata successiva, vai su iCloud Drive, seleziona una posizione di archiviazione, quindi tocca Apri.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Nella schermata successiva, vai alla posizione di archiviazione, selezionala, quindi tocca Apri.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una cassaforte esiste già in questa posizione. Riprova con un'altra posizione di archiviazione.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
