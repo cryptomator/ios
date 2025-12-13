@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Laisser iOS décider automatiquement";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatiquement";
 "keepUnlockedDuration.indefinite" = "Indéfini";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Dans l'écran suivant, accédez à iCloud Drive, sélectionnez un emplacement de stockage, puis appuyez sur Ouvrir.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Dans l'écran suivant, accédez à votre emplacement de stockage, sélectionnez-le, puis cliquez sur Ouvrir.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Dans l'écran suivant, accédez à iCloud Drive, sélectionnez votre dossier de coffre, puis appuyez sur Ouvrir.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Dans l'écran suivant, accédez au dossier de votre coffre, sélectionnez-le, puis appuyez sur Ouvrir.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Le dossier sélectionné n'est pas un coffre. Veuillez réessayer avec un dossier différent.";
 "localFileSystemAuthentication.info.footer" = "Les fournisseurs de fichiers qui sont grisés ne permettent pas de sélectionner des dossiers en entier. Ce n'est pas une limitation de Cryptomator.";
