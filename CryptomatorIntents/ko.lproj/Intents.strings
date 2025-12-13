@@ -13,7 +13,7 @@
 "isUnlockedIntent.title" = "잠금 해제됨";
 
 "isVaultLockedIntent.title" = "Vault 잠금 상태 가져오기";
-"isVaultUnlockedIntent.text" = "${vault} 잠금 해제되었는가?";
+"isVaultUnlockedIntent.text" = "${vault} 잠금 해제되었는지 가져오기";
 
 "lockVaultIntent.description" = "주어진 Vault를 잠급니다.";
 "lockVaultIntent.text" = "${vault} 잠금";
