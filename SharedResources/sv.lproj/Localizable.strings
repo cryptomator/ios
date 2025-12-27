@@ -144,8 +144,13 @@
 "keepUnlockedDuration.auto" = "Låt iOS bestämma automatiskt";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Permanent";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "I nästa bild, navigera till iCloud Drive, välj en lagringsplats och tryck sedan på Öppna.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "I nästa bild, navigera till din lagringsplats och tryck sedan på Öppna.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ett valv finns redan på denna plats. Försök igen med en annan lagringsplats.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "I nästa bild, navigera till iCloud Drive, välj din valvmapp och tryck sedan på Öppna.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "I nästa bild, navigera till din valvmapp och tryck sedan på Öppna.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
 "localFileSystemAuthentication.info.footer" = "Filleverantörer som är utgråade stöder inte mappar i iOS. Detta är inte en begränsning i Cryptomator.";
@@ -194,6 +199,7 @@
 "purchase.title" = "Lås upp fullversion";
 "purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
 "purchase.unlockedFullVersion.title" = "Tackar";
+"purchase.error.paymentNotAllowed" = "Köp-i-appen tillåts inte på den här enheten. Kontrollera dina skärmtidsinställningar under Innehåll och integritetsbegränsningar för att aktivera köp.";
 "purchase.error.unknown" = "Detta köp är inte tillgängligt i App Store av okänd anledning. Försök igen senare.\n\nOm felet kvarstår, försök att starta om enheten eller logga ut och in igen till ditt Apple-ID i iOS-inställningarna.";
 
 "settings.title" = "Inställningar";
