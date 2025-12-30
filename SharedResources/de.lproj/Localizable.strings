@@ -144,6 +144,8 @@
 "keepUnlockedDuration.auto" = "Automatisch durch iOS gesteuert";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Unbefristet";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Navigieren Sie auf dem nächsten Bildschirm zu iCloud Drive, wählen Sie einen Speicherort aus und tippen Sie dann auf Öffnen.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An diesem Ort existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
