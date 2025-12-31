@@ -145,9 +145,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Unbefristet";
 
-"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Navigieren Sie auf dem nächsten Bildschirm zu iCloud Drive, wählen Sie einen Speicherort aus und tippen Sie dann auf Öffnen.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Navigiere auf dem nächsten Bildschirm zu iCloud Drive, wähle einen Speicherort aus und tippe auf Öffnen.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Navigiere auf dem nächsten Bildschirm zu deinem Speicherort, wähle ihn aus und tippe dann auf Öffnen.";
 "localFileSystemAuthentication.createNewVault.button" = "Speicherort auswählen";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "An diesem Ort existiert bereits ein Tresor. Bitte versuche es erneut mit einem anderen Speicherort.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Navigiere auf dem nächsten Bildschirm zu iCloud Drive, wähle den Tresor Ordner aus und tippe auf Öffnen.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Navigiere auf dem nächsten Bildschirm zu deinem Tresor Ordner, wähle ihn aus und tippe dann auf Öffnen.";
 "localFileSystemAuthentication.openExistingVault.button" = "Tresorordner auswählen";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Der ausgewählte Ordner ist kein Tresor. Bitte versuche es erneut mit einem anderen Ordner.";
 "localFileSystemAuthentication.info.footer" = "Speicher-Anbieter, die ausgegraut sind, unterstützen keine „Ordnerauswahl“. Dies ist keine Einschränkung von Cryptomator.";
@@ -196,6 +199,7 @@
 "purchase.title" = "Vollversion freischalten";
 "purchase.unlockedFullVersion.message" = "Du kannst jetzt die Vollversion von Cryptomator verwenden. Viel Spaß beim Verschlüsseln!";
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
+"purchase.error.paymentNotAllowed" = "In-App Käufe sind auf diesem Gerät nicht erlaubt. Bitte prüfe die Bildschirmzeiteinstellungen unter Inhalt & Datenschutzeinschränkungen, um Käufe zu aktivieren.";
 "purchase.error.unknown" = "Dieser Kauf ist aus einem unbekannten Grund im App Store aktuell nicht möglich. Bitte versuche es später erneut.\n\nWenn dieser Fehler weiterhin besteht, versuche dein Gerät neu zu starten oder dich in den iOS-Einstellungen mit deiner Apple ID ab- und wieder anzumelden.";
 
 "settings.title" = "Einstellungen";
