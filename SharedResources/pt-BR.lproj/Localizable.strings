@@ -46,7 +46,7 @@
 "addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
 "addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos criptografados do seu cofre?";
-"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@já existe neste local. Escolha um nome ou local de um cofre diferente.";
+"addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" já existe neste local. Escolha um nome ou local de um cofre diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
 "addVault.createNewVault.password.enterPassword.header" = "Digite uma nova senha.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirme a nova senha.";
@@ -56,7 +56,7 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "As senhas não coincidem.";
 "addVault.createNewVault.password.error.tooShortPassword" = "A senha deve conter pelo menos 8 caracteres.";
 "addVault.createNewVault.progress" = "Criando Cofre…";
-"addVault.openExistingVault.title" = "Abrir Cofre Existente";
+"addVault.openExistingVault.title" = "Abrir cofre existente";
 "addVault.openExistingVault.chooseCloud.header" = "Onde o cofre está localizado?";
 "addVault.openExistingVault.detectedMasterkey.text" = "O Cryptomator detectou o cofre \"%@\".\nVocê gostaria de adicionar este cofre?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Adicionar Este Cofre";
