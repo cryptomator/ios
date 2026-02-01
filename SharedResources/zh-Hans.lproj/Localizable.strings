@@ -91,6 +91,7 @@
 "cloudProvider.error.noInternetConnection" = "此操作需要网络连接。";
 
 "cloudProviderType.localFileSystem" = "其他文件存储提供商";
+"cloudProviderType.sharePoint.secondary" = "包含 Microsoft Teams";
 
 "fileProvider.onboarding.title" = "欢迎使用";
 "fileProvider.onboarding.info" = "感谢您选择 Cryptomator 来保护您的文件。若要开始，请前往主应用程序并添加一个保险库。";
