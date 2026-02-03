@@ -117,7 +117,7 @@
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre foi selecionado.";
 
 "hubAuthentication.title" = "Cofre do Hub";
-"hubAuthentication.accessNotGranted" = "Você não tem permissão para acessar este cofre. Peça autorização ao proprietário do cofre.";
+"hubAuthentication.accessNotGranted" = "Você não tem permissão para acessar este cofre. Solicite o acesso ao proprietário dele.";
 "hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe um administrador do Hub para atualizar ou renovar a licença.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Parece ser o primeiro acesso do Hub a partir deste dispositivo. Para identificá-lo para autorização de acesso, você precisa nomear este dispositivo.";
@@ -125,9 +125,9 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Dispositivo registrado com sucesso";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar o cofre, o proprietário do cofre precisa lhe conceder permissão.";
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
-"hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, por favor preencha as etapas necessárias no seu perfil de usuário do Hub.";
+"hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ir para o perfil";
-"hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para desarquivá-lo.";
+"hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
 "intents.saveFile.invalidFolder" = "A pasta fornecida é inválida.";
@@ -136,7 +136,7 @@
 "intents.saveFile.selectedVaultNotFound" = "O cofre selecionado não foi encontrado.";
 
 "keepUnlocked.alert.title" = "Bloquear cofre?";
-"keepUnlocked.alert.message" = "Para que esta alteração tenha efeito é necessário que seu cofre esteja trancado.";
+"keepUnlocked.alert.message" = "O destravamento do cofre é necessário para que esta alteração tenha efeito.";
 "keepUnlocked.alert.confirm" = "Confirmar e bloquear";
 "keepUnlocked.header" = "Por quanto tempo este cofre pode permanecer destrancado quando inativo.";
 "keepUnlocked.footer.auto" = "Permitir que o iOS decida significa que o Cryptomator pode terminar a qualquer momento para liberar memória, o que tranca automaticamente o cofre.";
@@ -167,7 +167,7 @@
 "purchase.footer.privacyPolicy" = "Política de Privacidade";
 "purchase.footer.termsOfUse" = "Termos de Uso";
 "purchase.header.feature.familySharing" = "Compartilhamento familiar";
-"purchase.header.feature.openSource" = "Desenvolvimento de código aberto";
+"purchase.header.feature.openSource" = "Desenvolvimento em código aberto";
 "purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
 "purchase.product.donateAndUpgrade" = "Doar e melhorar";
 "purchase.product.freeUpgrade" = "Melhoria gratuita";
@@ -210,6 +210,7 @@
 "settings.sendLogFile" = "Enviar arquivo de registros";
 "settings.shortcutsGuide" = "Guia de atalhos";
 "settings.unlockFullVersion" = "Adquirir a versão completa";
+"settings.unlockFullVersion.detail" = "Obtenha acesso de escrita aos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
 
 "sharePoint.enterURL.title" = "Digite a URL do SharePoint";
@@ -248,7 +249,7 @@
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Região";
 "s3Authentication.error.invalidCredentials" = "Credenciais inválidas.";
-"s3Authentication.error.invalidEndpoint" = "O endpoint fornecido não coincide com o formato de uma URL.";
+"s3Authentication.error.invalidEndpoint" = "O endpoint fornecido é diferente do formato de uma URL.";
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirado";
@@ -257,7 +258,7 @@
 "unlockVault.button.unlockVia" = "Desbloquear por %@";
 "unlockVault.password.footer" = "Digite a senha para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Ativar %@";
-"unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com sua senha, você pode desbloqueá-lo via %@.";
+"unlockVault.enableBiometricalUnlock.footer" = "Você pode desbloquear o seu cofre via %@ ao invés de usar a sua senha.";
 "unlockVault.evaluatePolicy.reason" = "Desbloqueie seu cofre";
 "unlockVault.progress" = "Desbloqueando…";
 
@@ -269,7 +270,7 @@
 "upgrade.title" = "Promoção de melhoria";
 "upgrade.notEligible.alert.title" = "Falha ao melhorar";
 "upgrade.notEligible.alert.message" = "O Cryptomator não conseguiu detectar uma versão anterior instalada no seu dispositivo. Se você comprou, baixe-a novamente na App Store e tente novamente.";
-"upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um usuário leal, você esta apto a receber um \"upgrade\" gratuito.";
+"upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um usuário leal, você esta elegível a receber uma melhoria gratuita.";
 
 "urlSession.error.httpError.401" = "Nome de usuário e/ou senha inválidos.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para solicitar recursos.";
