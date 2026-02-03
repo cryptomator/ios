@@ -39,18 +39,18 @@
 "accountList.signOut.alert.title" = "Remover Cofres Associados?";
 "accountList.signOut.alert.message" = "Ao sair, todos os cofres associados serão removidos da lista de cofre. Nenhum dado criptografado será excluído. Você pode fazer login novamente e adicionar novamente os cofres depois.";
 
-"addVault.title" = "Adicionar Cofre";
+"addVault.title" = "Adicionar cofre";
 "addVault.createNewVault.title" = "Criar Um Novo Cofre";
 "addVault.createNewVault.purchase" = "Criar um cofre requer a versão completa do Cryptomator.";
 "addVault.createNewVault.setVaultName.header.title" = "Escolha um nome para o cofre.";
-"addVault.createNewVault.setVaultName.cells.name" = "Nome do Cofre";
+"addVault.createNewVault.setVaultName.cells.name" = "Nome do cofre";
 "addVault.createNewVault.setVaultName.error.emptyVaultName" = "O nome do cofre não pode estar vazio.";
 "addVault.createNewVault.chooseCloud.header" = "Onde o Cryptomator deve armazenar os arquivos criptografados do seu cofre?";
 "addVault.createNewVault.chooseFolder.error.vaultNameCollision" = "\"%@\" já existe neste local. Escolha um nome ou local de um cofre diferente.";
 "addVault.createNewVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara criar um novo cofre, por favor, volte e escolha uma pasta diferente.";
 "addVault.createNewVault.password.enterPassword.header" = "Digite uma nova senha.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirme a nova senha.";
-"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmar Senha?";
+"addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmar senha?";
 "addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.";
 "addVault.createNewVault.password.error.emptyPassword" = "A senha não pode estar vazia.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "As senhas não coincidem.";
@@ -69,7 +69,7 @@
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
 
-"changePassword.error.invalidOldPassword" = "Senha atual incorreta. Favor tentar novamente.";
+"changePassword.error.invalidOldPassword" = "Senha atual incorreta. Tente novamente.";
 "changePassword.header.currentPassword.title" = "Digite a senha atual.";
 "changePassword.header.newPassword.title" = "Digite uma nova senha.";
 "changePassword.header.newPasswordConfirmation.title" = "Confirme a nova senha.";
@@ -77,23 +77,23 @@
 
 "chooseFolder.emptyFolder.footer" = "A pasta está vazia";
 "chooseFolder.createNewFolder.header.title" = "Escolha um nome para a pasta.";
-"chooseFolder.createNewFolder.cells.name" = "Nome de Pasta";
+"chooseFolder.createNewFolder.cells.name" = "Nome da pasta";
 "chooseFolder.createNewFolder.error.emptyFolderName" = "O nome da pasta não pode estar vazio.";
-"chooseFolder.createNewFolder.progress" = "Criando pasta…";
+"chooseFolder.createNewFolder.progress" = "Criando a pasta…";
 
-"cloudProvider.error.itemNotFound" = "\"%@\" não pôde ser encontrado.";
+"cloudProvider.error.itemNotFound" = "\"%@\" não encontrado.";
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" já existe.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" tem um item de tipo incorreto.";
 "cloudProvider.error.parentFolderDoesNotExist" = "A pasta principal \"%@\" não existe.";
 "cloudProvider.error.pageTokenInvalid" = "Não foi possível continuar a busca no conteúdo do diretório.";
-"cloudProvider.error.quotaInsufficient" = "Você não tem espaço de armazenamento suficiente.";
+"cloudProvider.error.quotaInsufficient" = "Seu espaço de armazenamento é insuficiente.";
 "cloudProvider.error.unauthorized" = "Não é possível executar a operação não autorizada.";
-"cloudProvider.error.noInternetConnection" = "Conexão à Internet necessária para esta operação.";
+"cloudProvider.error.noInternetConnection" = "Requer conexão com a internet para esta operação.";
 
 "cloudProviderType.localFileSystem" = "Outro provedor de arquivos";
-"cloudProviderType.sharePoint.secondary" = "Incl. Equipes Microsoft";
+"cloudProviderType.sharePoint.secondary" = "incl. Microsoft Teams";
 
-"fileProvider.onboarding.title" = "Bem vindo";
+"fileProvider.onboarding.title" = "Bem-vindo(a)";
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueio cancelado";
@@ -158,7 +158,7 @@
 "nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termina com um espaço. Por favor, escolha outro nome.";
 "nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
 
-"onboarding.title" = "Bem vindo";
+"onboarding.title" = "Bem-vindo(a)";
 "onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos.\n\nCom o Cryptomator, a chave para os seus dados está em suas mãos. O Cryptomator criptografa seus dados de forma rápida e fácil.\n\nEste app está totalmente integrado ao app Arquivos. Certifique-se de ativar o Cryptomator no aplicativo Arquivos mais tarde, para poder ter acesso aos seus cofres.";
 "onboarding.button.continue" = "Continuar";
 
@@ -171,11 +171,11 @@
 "purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
 "purchase.product.donateAndUpgrade" = "Doe e faça um “upgrade”";
 "purchase.product.freeUpgrade" = "\"Upgrade\" Gratuito";
-"purchase.product.lifetimeLicense" = "Licença Vitalícia";
+"purchase.product.lifetimeLicense" = "Licença vitalícia";
 "purchase.product.lifetimeLicense.duration" = "doação única";
 "purchase.product.pricing.free" = "Gratuito";
-"purchase.product.trial" = "30 Dias de Teste Gratuito";
-"purchase.product.trial.expirationDate" = "Data de expiração: %@";
+"purchase.product.trial" = "Teste gratuito por 30 dias";
+"purchase.product.trial.expirationDate" = "Expira em: %@";
 "purchase.product.trial.duration" = "por 30 dias";
 "purchase.product.yearlySubscription" = "Assinatura anual";
 "purchase.product.yearlySubscription.duration" = "anualmente";
@@ -189,7 +189,7 @@
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma compra anterior da versão completa que poderia ser restaurada. Por favor, tente outra opção.";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Selecionado para Atualizar";
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar de uma versão muito antiga do Cryptomator. Nesse caso, selecione a opção “Oferta de atualização”.";
-"purchase.retry.button" = "Tentar Novamente";
+"purchase.retry.button" = "Tentar novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
 "purchase.title" = "Desbloqueie a Versão Completa";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
@@ -225,24 +225,24 @@
 "shareVault.normal.button.visitHub" = "Visite o Cryptomator Hub";
 "shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
 "shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você precisa executar duas etapas:";
-"shareVault.hub.button.openHub" = "Abrir o Cryptomator Hub";
+"shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
-"snapshots.fileprovider.file2" = "/Final Presentation.key";
-"snapshots.fileprovider.file3" = "/Product Trailer.mov";
+"snapshots.fileprovider.file2" = "/Apresentação final.key";
+"snapshots.fileprovider.file3" = "/Trailer do produto.mov";
 "snapshots.fileprovider.file4" = "/Proposal.docx";
-"snapshots.fileprovider.file5" = "/Report.pdf";
+"snapshots.fileprovider.file5" = "/Relatar.pdf";
 "snapshots.fileprovider.folder3" = "/Projeto Secreto";
 "snapshots.fileprovider.folder2" = "/Faturas";
 "snapshots.fileprovider.folder1" = "/Certificados";
 "snapshots.main.vault1" = "/Trabalho";
 "snapshots.main.vault2" = "/Família";
 "snapshots.main.vault3" = "/Documentos";
-"snapshots.main.vault4" = "/Viagem pra Califórnia";
+"snapshots.main.vault4" = "/Viagem à Califórnia";
 
-"s3Authentication.displayName" = "Nome de Exibição";
-"s3Authentication.accessKey" = "Chave de Acesso";
-"s3Authentication.secretKey" = "Chave Secreta";
+"s3Authentication.displayName" = "Nome de exibição";
+"s3Authentication.accessKey" = "Chave de acesso";
+"s3Authentication.secretKey" = "Chave secreta";
 "s3Authentication.existingBucket" = "Bucket existente";
 "s3Authentication.endpoint" = "Endpoint";
 "s3Authentication.region" = "Região";
@@ -253,14 +253,14 @@
 "trialStatus.expired" = "Expirado";
 
 "unlockVault.button.unlock" = "Desbloquear";
-"unlockVault.button.unlockVia" = "Desbloquear via %@";
+"unlockVault.button.unlockVia" = "Desbloquear por %@";
 "unlockVault.password.footer" = "Digite a senha para \"%@\".";
 "unlockVault.enableBiometricalUnlock.switch" = "Habilitar %@";
 "unlockVault.enableBiometricalUnlock.footer" = "Em vez de desbloquear o seu cofre com sua senha, você pode desbloqueá-lo via %@.";
 "unlockVault.evaluatePolicy.reason" = "Desbloqueie o seu cofre";
 "unlockVault.progress" = "Desbloqueando…";
 
-"untrustedTLSCertificate.title" = "Certificado TLS Inválido";
+"untrustedTLSCertificate.title" = "Certificado TLS inválido";
 "untrustedTLSCertificate.message" = "O certificado TLS de \"%@\" é inválido. Você quer confiar nele mesmo assim?\n\n SHA-256: %@";
 "untrustedTLSCertificate.add" = "Confiar";
 "untrustedTLSCertificate.dismiss" = "Não Confiar";
