@@ -97,23 +97,23 @@
 "fileProvider.onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos. Para começar, vá para o aplicativo principal e adicione um cofre.";
 "fileProvider.onboarding.button.openCryptomator" = "Abrir Cryptomator";
 "fileProvider.error.biometricalAuthCanceled.title" = "Desbloqueio cancelado";
-"fileProvider.error.biometricalAuthCanceled.message" = "O desbloqueio via %@ não foi bem-sucedido. Por favor, tente novamente.";
+"fileProvider.error.biometricalAuthCanceled.message" = "O desbloqueio via %@ malsucedido. Tente novamente.";
 "fileProvider.error.biometricalAuthWrongPassword.title" = "Senha incorreta";
-"fileProvider.error.biometricalAuthWrongPassword.message" = "A senha que foi salva para %@ está incorreta. Por favor, tente novamente e digite sua senha para reativar %@.";
+"fileProvider.error.biometricalAuthWrongPassword.message" = "A senha salva em %@ está incorreta. Tente novamente e digite sua senha para reativar %@.";
 "fileProvider.error.defaultLock.title" = "Desbloqueio necessário";
-"fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, ele precisa ser desbloqueado.";
-"fileprovider.error.unauthorized.text" = "O acesso ao seu cofre \"%@\" foi negado. Abra o aplicativo principal para verificar sua conexão e re-autenticar, se necessário.";
+"fileProvider.error.defaultLock.message" = "Para acessar e mostrar o conteúdo do seu cofre, é preciso desbloqueá-lo.";
+"fileprovider.error.unauthorized.text" = "O acesso ao seu cofre \"%@\" foi negado. Abra o aplicativo principal para verificar sua conexão e autenticar novamente, se necessário.";
 "fileProvider.error.unlockButton" = "Desbloquear";
 "fileProvider.clearFileFromCache.title" = "Limpar arquivos em cache";
-"fileProvider.clearFileFromCache.message" = "Isso apenas remove o arquivo do seu dispositivo local e não o exclui da nuvem.";
+"fileProvider.clearFileFromCache.message" = "Isso remove apenas o arquivo local do dispositivo e não apaga o arquivo na nuvem.";
 "fileProvider.fileImporting.error.missingPremium" = "Desbloqueie a versão completa no aplicativo Cryptomator para obter acesso de escrita aos seus cofres.";
 "fileProvider.uploadProgress.connecting" = "Conectando…";
-"fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nSe você notar que o progresso do upload está travado, pode tentar novamente o upload.";
-"fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso, que pode estar sendo executado em segundo plano.";
+"fileProvider.uploadProgress.message" = "Progresso atual: %@\n\nCaso perceba que o envio travou, você pode tentar reenviar os arquivos.";
+"fileProvider.uploadProgress.missing" = "Não foi possível determinar o progresso. Pode estar sendo executado em segundo plano.";
 "fileProvider.uploadProgress.title" = "Enviando…";
 "fileProvider.uploadProgress.missingDomainError" = "Não foi possível encontrar o domínio.";
 
-"getFolderIntent.error.missingPath" = "Nenhum caminho foi fornecido. Por favor, forneça um caminho válido para o qual a pasta deve ser retornada.";
+"getFolderIntent.error.missingPath" = "Caminho não especificado. Forneça um caminho válido para a recuperação da pasta correspondente.";
 "getFolderIntent.error.noVaultSelected" = "Nenhum cofre foi selecionado.";
 
 "hubAuthentication.title" = "Cofre do Hub";
@@ -191,7 +191,7 @@
 "purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar de uma versão muito antiga do Cryptomator. Nesse caso, selecione a opção “Oferta de atualização”.";
 "purchase.retry.button" = "Tentar novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
-"purchase.title" = "Desbloqueie a Versão Completa";
+"purchase.title" = "Desbloqueie a versão completa";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
 "purchase.unlockedFullVersion.title" = "Obrigado";
 "purchase.error.unknown" = "Esta compra não está disponível na loja de aplicativos por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer sair da conta e retornar ao seu Apple ID nas configurações do iOS.";
