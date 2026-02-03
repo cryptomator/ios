@@ -194,7 +194,7 @@
 "purchase.title" = "Desbloqueie a Versão Completa";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
 "purchase.unlockedFullVersion.title" = "Obrigado";
-"purchase.error.unknown" = "Esta compra não está disponível na App Store por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer logout e retornar ao seu Apple ID nas configurações do iOS.";
+"purchase.error.unknown" = "Esta compra não está disponível na loja de aplicativos por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer sair da conta e retornar ao seu Apple ID nas configurações do iOS.";
 
 "settings.title" = "Configurações";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
@@ -208,7 +208,7 @@
 "settings.manageSubscriptions" = "Gerenciar assinatura";
 "settings.rateApp" = "Avaliar o app";
 "settings.sendLogFile" = "Enviar arquivo de registros";
-"settings.shortcutsGuide" = "Guia de Atalhos";
+"settings.shortcutsGuide" = "Guia de atalhos";
 "settings.unlockFullVersion" = "Adquirir a versão completa";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
 
