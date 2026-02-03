@@ -19,8 +19,8 @@
 "lockVaultIntent.text" = "Bloquear ${vault}";
 "lockVaultIntent.title" = "Bloquear cofre";
 
-"openVaultIntent.description" = "Abre o cofre informado no Gerenciador de Arquivos.";
-"openVaultIntent.text" = "Abrir ${vault} no Gerenciador de Arquivos";
+"openVaultIntent.description" = "Abre o cofre informado no gerenciador de arquivos.";
+"openVaultIntent.text" = "Abrir ${vault} no gerenciador de arquivos";
 "openVaultIntent.title" = "Abrir cofre";
 
 "saveFileIntent.description" = "Salvar um arquivo para um cofre.";
