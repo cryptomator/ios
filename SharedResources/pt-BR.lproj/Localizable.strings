@@ -138,28 +138,33 @@
 "keepUnlocked.alert.title" = "Bloquear cofre?";
 "keepUnlocked.alert.message" = "O destravamento do cofre é necessário para que esta alteração tenha efeito.";
 "keepUnlocked.alert.confirm" = "Confirmar e bloquear";
-"keepUnlocked.header" = "Por quanto tempo este cofre pode permanecer destrancado quando inativo.";
-"keepUnlocked.footer.auto" = "Permitir que o iOS decida significa que o Cryptomator pode terminar a qualquer momento para liberar memória, o que tranca automaticamente o cofre.";
-"keepUnlocked.footer.on" = "Com essa opção, uma cópia da sua chave precisa ser armazenada no chaveiro do iOS, enquanto o cofre estiver destrancado.";
+"keepUnlocked.header" = "Especifique por quanto tempo este cofre deve permanecer desbloqueado enquanto estiver inativo.";
+"keepUnlocked.footer.auto" = "Permitir que o iOS decida significa que o Cryptomator poderá ser encerrado a qualquer momento para liberar memória, o que causará o bloqueio automático do cofre.";
+"keepUnlocked.footer.on" = "Ao escolher uma das opções, é necessário armazenar uma cópia da sua chave nas Chaves do iCloud durante o período em que o cofre permanecer desbloqueado.";
 "keepUnlockedDuration.auto" = "Deixar o iOS decidir auto.";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto.";
 "keepUnlockedDuration.indefinite" = "Indefinida";
+
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Na próxima tela, navegue até o iCloud Drive, selecione um local de armazenamento e toque em \"Abrir\".";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Na próxima tela, navegue até o seu local de armazenamento, selecione-o e toque em \"Abrir\".";
 "localFileSystemAuthentication.createNewVault.button" = "Selecione o local de armazenamento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Já existe um cofre nesse local. Tente novamente com um local de armazenamento diferente.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Na próxima tela, navegue até o iCloud Drive, selecione a pasta do seu cofre e toque em \"Abrir\".";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Na próxima tela, navegue até a pasta do seu cofre, selecione-a e toque em \"Abrir\".";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecione a pasta do cofre";
-"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Por favor, tente novamente com uma pasta diferente.";
-"localFileSystemAuthentication.info.footer" = "Provedores de arquivos em meio tom não tem o recurso \"escolher pastas\". Isso não é uma limitação do Cryptomator.";
+"localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "A pasta selecionada não é um cofre. Tente novamente com uma pasta diferente.";
+"localFileSystemAuthentication.info.footer" = "Os provedores de arquivos acinzentados não suportam a \"seleção de pastas\". Essa não é uma limitação do Cryptomator.";
 
-"maintenanceModeError.runningCloudTask" = "A operação não pode ser realizada porque outras operações em segundo plano para este cofre têm que terminar primeiro. Por favor, tente novamente mais tarde.";
+"maintenanceModeError.runningCloudTask" = "Não foi possível executar a operação. Aguarde a conclusão das tarefas em segundo plano deste cofre e tente novamente.";
 
-"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "As permissões necessárias para acessar os recursos não puderam ser obtidos. Por favor, tente utilizar uma conta diferente.";
+"microsoftGraphAuthenticator.error.serverDeclinedScopes" = "Não foi possível obter as permissões necessárias para acessar os recursos. Tente usar uma conta diferente.";
 
-"nameValidation.error.endsWithPeriod" = "Você não pode usar um nome que termine com um ponto. Por favor, escolha outro nome.";
-"nameValidation.error.endsWithSpace" = "Você não pode usar um nome que termina com um espaço. Por favor, escolha outro nome.";
-"nameValidation.error.containsIllegalCharacter" = "Você não pode usar um nome que contenha \"%@\". Por favor, escolha outro nome.";
+"nameValidation.error.endsWithPeriod" = "Não é possível usar um nome que termine com um ponto. Escolha outro nome.";
+"nameValidation.error.endsWithSpace" = "Não é possível utilizar um nome que termine com um espaço. Escolha outro nome.";
+"nameValidation.error.containsIllegalCharacter" = "Não é possível usar um nome que contenha \"%@\". Escolha outro nome.";
 
 "onboarding.title" = "Bem-vindo(a)";
-"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos.\n\nCom o Cryptomator, a chave para os seus dados está em suas mãos. O Cryptomator criptografa seus dados de forma rápida e fácil.\n\nEste app está totalmente integrado ao app Arquivos. Certifique-se de ativar o Cryptomator no aplicativo Arquivos mais tarde, para poder ter acesso aos seus cofres.";
+"onboarding.info" = "Obrigado por escolher o Cryptomator para proteger seus arquivos.\n\nCom o Cryptomator, a chave dos seus dados está em suas mãos. Ele criptografa seus dados de forma rápida e simples.\n\nEste aplicativo é totalmente integrado ao gerenciador de arquivos. Lembre-se de ativar o Cryptomator no gerenciador de arquivos para acessar seus cofres.";
 "onboarding.button.continue" = "Continuar";
 
 "purchase.beginFreeTrial.alert.title" = "Período de teste desbloqueado";
@@ -180,25 +185,27 @@
 "purchase.product.yearlySubscription" = "Assinatura anual";
 "purchase.product.yearlySubscription.duration" = "anualmente";
 "purchase.readOnlyMode.alert.title" = "Modo somente de leitura";
-"purchase.readOnlyMode.alert.message" = "Você pode liberar a versão completa do Cryptomator depois nas configurações ou usar ele no modo de somente leitura por agora.";
+"purchase.readOnlyMode.alert.message" = "A versão completa pode ser adquirida depois nas configurações. Você pode usar o aplicativo no modo de somente leitura.";
 "purchase.restorePurchase.button" = "Restaurar compra";
-"purchase.restorePurchase.validTrialFound.alert.title" = "Período de teste continuado";
+"purchase.restorePurchase.validTrialFound.alert.title" = "Período de teste retomado";
 "purchase.restorePurchase.validTrialFound.alert.message" = "Agora você pode usar a versão completa do Cryptomator por um tempo limitado. Seu período de teste expira em %@. Após isso, seus cofres ainda estarão acessíveis, mas somente para leitura.";
-"purchase.restorePurchase.fullVersionFound.alert.title" = "Restaurado com sucesso";
+"purchase.restorePurchase.fullVersionFound.alert.title" = "Restaurada com sucesso";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Adquira a versão completa";
-"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma compra anterior da versão completa que poderia ser restaurada. Por favor, tente outra opção.";
+"purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma versão completa adquirida anteriormente para ser restaurada. Tente outra opção.";
 "purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Elegível para melhoria";
-"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar de uma versão muito antiga do Cryptomator. Nesse caso, selecione a opção “Oferta de atualização”.";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar a partir de uma versão anterior do Cryptomator. Nesse caso, selecione a opção \"promoção de melhoria\".";
 "purchase.retry.button" = "Tentar novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
 "purchase.title" = "Desbloqueie a versão completa";
 "purchase.unlockedFullVersion.message" = "Agora você pode usar a versão completa do Cryptomator. Boa criptografia!";
 "purchase.unlockedFullVersion.title" = "Obrigado";
+"purchase.error.paymentNotAllowed" = "As compras no aplicativo não são permitidas neste dispositivo. Para ativá-las, verifique as configurações de tempo de uso em \"Restrições de Conteúdo e Privacidade\".";
 "purchase.error.unknown" = "Esta compra não está disponível na loja de aplicativos por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer sair da conta e retornar ao seu Apple ID nas configurações do iOS.";
 
 "settings.title" = "Configurações";
 "settings.aboutCryptomator" = "Sobre o Cryptomator";
 "settings.aboutCryptomator.title" = "Versão %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Versão completa desbloqueada. O acesso de escrita aos seus cofres foi ativado com sucesso.";
 "settings.cacheSize" = "Tamanho do cache";
 "settings.clearCache" = "Limpar cache";
 "settings.cloudServices" = "Serviços em nuvem";
@@ -219,14 +226,17 @@
 "sharePoint.urlValidation.error.emptyURL" = "A URL não pode estar vazia.";
 "sharePoint.urlValidation.error.invalidURL" = "A URL é inválida. Use este formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.selectDrive.title" = "Selecionar biblioteca de documentos";
-"sharePoint.selectDrive.header.title" = "Selecione a biblioteca de documentos SharePoint com a qual você deseja trabalhar.";
+"sharePoint.selectDrive.header.title" = "Selecione a biblioteca de documentos do SharePoint que deseja trabalhar.";
 "sharePoint.selectDrive.emptyList.footer" = "Nenhuma biblioteca de documentos disponível";
 
 "shareVault.title" = "Compartilhar cofre";
 "shareVault.normal.header.title" = "O caminho seguro para trabalhar em equipes";
+"shareVault.normal.header.features" = "Colabore com segurança com sua equipe. Conceda e revogue acessos a qualquer momento, sem compartilhar as senhas.";
+"shareVault.normal.footer.text" = "Para mais informações, consulte as sugestões de melhores práticas em nossa [documentação](%@).";
 "shareVault.normal.button.visitHub" = "Visite o Cryptomator Hub";
 "shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
 "shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você precisa executar duas etapas:";
+"shareVault.hub.step1" = "Compartilhe o acesso à pasta criptografada do cofre via armazenamento em nuvem.";
 "shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
