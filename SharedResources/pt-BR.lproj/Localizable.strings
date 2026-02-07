@@ -64,7 +64,7 @@
 "addVault.openExistingVault.password.footer" = "Digite a senha para \"%@\".";
 "addVault.openExistingVault.progress" = "Adicionando cofre…";
 "addVault.success.info" = "O cofre \"%@\" foi adicionado com sucesso.\nAcesse-o pelo gerenciador de arquivos.";
-"addVault.success.footer" = "Se você ainda não o fez, ative o Cryptomator no aplicativo Arquivos.";
+"addVault.success.footer" = "Ative o Cryptomator no gerenciador de arquivos, se ainda não o fez.";
 
 "biometryType.faceID" = "Face ID";
 "biometryType.touchID" = "Touch ID";
@@ -237,7 +237,10 @@
 "shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
 "shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você precisa executar duas etapas:";
 "shareVault.hub.step1" = "Compartilhe o acesso à pasta criptografada do cofre via armazenamento em nuvem.";
+"shareVault.hub.step2" = "Conceda acesso ao membro da equipe no Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Não foi possível carregar as informações do Hub";
+"shareVault.error.hubURLExtraction.message" = "Não foi possível carregar a configuração de Hub do cofre. Verifique suas configurações do cofre ou entre em contato com o administrador do seu Hub.";
 
 "snapshots.fileprovider.file1" = "/Accounting.numbers";
 "snapshots.fileprovider.file2" = "/Apresentação final.key";
@@ -279,17 +282,17 @@
 
 "upgrade.title" = "Promoção de melhoria";
 "upgrade.notEligible.alert.title" = "Falha ao melhorar";
-"upgrade.notEligible.alert.message" = "O Cryptomator não conseguiu detectar uma versão anterior instalada no seu dispositivo. Se você comprou, baixe-a novamente na App Store e tente novamente.";
+"upgrade.notEligible.alert.message" = "O Cryptomator não detectou uma versão anterior instalada em seu dispositivo. Caso a tenha adquirido, baixe-a novamente na loja de aplicativos e tente novamente.";
 "upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um usuário leal, você esta elegível a receber uma melhoria gratuita.";
 
 "urlSession.error.httpError.401" = "Nome de usuário e/ou senha inválidos.";
 "urlSession.error.httpError.403" = "Direitos insuficientes para solicitar recursos.";
 "urlSession.error.httpError.404" = "Recurso solicitado não encontrado.";
-"urlSession.error.httpError.405" = "Método de requisição não suportado pelo recurso de destino.";
-"urlSession.error.httpError.409" = "Solicitar conflito com o estado atual do recurso de destino.";
+"urlSession.error.httpError.405" = "O método de requisição não é suportado pelo recurso de destino.";
+"urlSession.error.httpError.409" = "A requisição conflita com o estado atual do recurso de destino.";
 "urlSession.error.httpError.412" = "Acesso ao recurso-alvo negado.";
 "urlSession.error.httpError.default" = "Falha na conexão de rede com o código de status %ld.";
-"urlSession.error.unexpectedResponse" = "Houve uma resposta inesperada à rede.";
+"urlSession.error.unexpectedResponse" = "Houve uma resposta inesperada da rede.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Você já adicionou este cofre.";
 
@@ -299,15 +302,16 @@
 "vaultDetail.button.removeVault" = "Remover da lista de cofres";
 "vaultDetail.button.renameVault" = "Renomear";
 "vaultDetail.button.shareVault" = "Compartilhar cofre";
-"vaultDetail.changePassword.footer" = "Selecione uma senha forte para o seu cofre que somente você conhece e a mantenha em um lugar seguro.";
-"vaultDetail.disabledBiometricalUnlock.footer" = "Se você ativar o %@, a senha do seu cofre será armazenada no keychain do iOS.";
-"vaultDetail.enabledBiometricalUnlock.footer" = "A sua senha do cofre só será obrigatória se a autenticação %@ falhar.";
+"vaultDetail.shareVault.footer" = "Colabore com segurança com sua equipe usando o Cryptomator Hub.";
+"vaultDetail.changePassword.footer" = "Escolha uma senha forte para o seu cofre que apenas você saiba dela e guarde-a em um local seguro.";
+"vaultDetail.disabledBiometricalUnlock.footer" = "Ao ativar o %@, a senha do seu cofre será armazenada nas Chaves do iCloud.";
+"vaultDetail.enabledBiometricalUnlock.footer" = "Sua senha do seu cofre só será solicitada se a autenticação por %@ falhar.";
 "vaultDetail.info.footer.accessVault" = "Acesse o cofre através do gerenciador de arquivos.";
 "vaultDetail.info.footer.accountInfo" = "Conectado como %@ (%@)";
 "vaultDetail.keepUnlocked.title" = "Duração de desbloqueio";
-"vaultDetail.keepUnlocked.footer.off" = "Sera necessário destrancar novamente quando Cryptomator for encerrado pelo app Arquivos.";
-"vaultDetail.keepUnlocked.footer.limitedDuration" = "Será necessário destrancar seu cofre se ele estiver ocioso por %@.";
-"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário destrancar a não ser que tenha sido trancado manualmente.";
+"vaultDetail.keepUnlocked.footer.off" = "O desbloqueio será obrigatório caso o Cryptomator seja encerrado pelo gerenciador de arquivos.";
+"vaultDetail.keepUnlocked.footer.limitedDuration" = "O desbloqueio será obrigatório quando seu cofre estiver inativo por %@.";
+"vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário desbloquear, a menos que o cofre seja bloqueado manualmente.";
 "vaultDetail.locked.footer" = "Seu cofre ainda está bloqueado.";
 "vaultDetail.moveVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.
 Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
