@@ -18,7 +18,7 @@
 "common.button.done" = "Concluído";
 "common.button.download" = "Baixar";
 "common.button.edit" = "Editar";
-"common.button.enable" = "Habilitar";
+"common.button.enable" = "Ativar";
 "common.button.next" = "Próximo";
 "common.button.ok" = "OK";
 "common.button.refresh" = "Atualizar";
@@ -30,7 +30,7 @@
 "common.cells.openInFilesApp" = "Abrir no gerenciador de arquivos";
 "common.cells.password" = "Senha";
 "common.cells.url" = "URL";
-"common.cells.username" = "Usuário";
+"common.cells.username" = "Nome de usuário";
 "common.footer.learnMore" = "Saiba mais.";
 "common.hud.authenticating" = "Autenticando…";
 
@@ -51,7 +51,7 @@
 "addVault.createNewVault.password.enterPassword.header" = "Digite uma nova senha.";
 "addVault.createNewVault.password.confirmPassword.header" = "Confirme a nova senha.";
 "addVault.createNewVault.password.confirmPassword.alert.title" = "Confirmar senha?";
-"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: Se você esquecer sua senha, não há como recuperar seus dados.";
+"addVault.createNewVault.password.confirmPassword.alert.message" = "IMPORTANTE: se você esquecer sua senha, não há como recuperar seus dados.";
 "addVault.createNewVault.password.error.emptyPassword" = "A senha não pode estar vazia.";
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "As senhas são diferentes.";
 "addVault.createNewVault.password.error.tooShortPassword" = "A senha deve conter pelo menos 8 caracteres.";
@@ -118,7 +118,7 @@
 
 "hubAuthentication.title" = "Cofre do Hub";
 "hubAuthentication.accessNotGranted" = "Você não tem permissão para acessar este cofre. Solicite o acesso ao proprietário dele.";
-"hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub possui uma licença inválida. Por favor, informe um administrador do Hub para atualizar ou renovar a licença.";
+"hubAuthentication.licenseExceeded" = "Sua instância do Cryptomator Hub tem uma licença inválida. Informe a um administrador do Hub para atualizar ou renová-la.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Nome do dispositivo";
 "hubAuthentication.deviceRegistration.deviceName.footer.title" = "Este parece ser o primeiro acesso ao Hub a partir deste dispositivo. Para identificá-lo no processo de autorização, é necessário nomear este aparelho.";
 "hubAuthentication.deviceRegistration.accountKey.footer.title" = "Sua chave de conta é necessária para realizar o acesso a partir de novos aplicativos ou navegadores. Ela pode ser encontrada em seu perfil.";
@@ -211,7 +211,7 @@
 "settings.cloudServices" = "Serviços em nuvem";
 "settings.contact" = "Contato";
 "settings.debugMode" = "Modo depuração";
-"settings.debugMode.alert.message" = "Neste modo, dados confidenciais podem ser gravados em um arquivo de log no seu dispositivo (por exemplo, nomes de arquivos e caminhos). Senhas, cookies, etc. são explicitamente excluídos.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
+"settings.debugMode.alert.message" = "Neste modo, os dados sensíveis podem ser gravados em um arquivo de registros no seu dispositivo (ex.: nomes de arquivos e caminhos). As senhas e os cookies, por exemplo, são explicitamente apagados.\n\nLembre-se de desativar o modo de depuração o mais rápido possível.";
 "settings.manageSubscriptions" = "Gerenciar assinatura";
 "settings.rateApp" = "Avaliar o app";
 "settings.sendLogFile" = "Enviar arquivo de registros";
@@ -235,7 +235,7 @@
 "shareVault.normal.footer.text" = "Para mais informações, consulte as sugestões de melhores práticas em nossa [documentação](%@).";
 "shareVault.normal.button.visitHub" = "Visite o Cryptomator Hub";
 "shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
-"shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você precisa executar duas etapas:";
+"shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você deve realizar duas etapas:";
 "shareVault.hub.step1" = "Compartilhe o acesso à pasta criptografada do cofre via armazenamento em nuvem.";
 "shareVault.hub.step2" = "Conceda acesso ao membro da equipe no Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
@@ -313,29 +313,28 @@
 "vaultDetail.keepUnlocked.footer.limitedDuration" = "O desbloqueio será obrigatório quando seu cofre estiver inativo por %@.";
 "vaultDetail.keepUnlocked.footer.unlimitedDuration" = "Não será necessário desbloquear, a menos que o cofre seja bloqueado manualmente.";
 "vaultDetail.locked.footer" = "Seu cofre ainda está bloqueado.";
-"vaultDetail.moveVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.
-Para mover o seu cofre, por favor, volte e escolha uma pasta diferente.";
+"vaultDetail.moveVault.detectedMasterkey.text" = "O Cryptomator detectou um cofre existente neste local.\nPara mover seu cofre, volte e escolha uma pasta diferente.";
 "vaultDetail.moveVault.progress" = "Movendo…";
-"vaultDetail.removeVault.footer" = "Isto só irá remover o cofre da lista de cofres e não excluir nenhum arquivo criptografado.";
+"vaultDetail.removeVault.footer" = "Isso apenas removerá o cofre da lista de cofres e não apagará nenhum arquivo criptografado.";
 "vaultDetail.renameVault.progress" = "Renomeando…";
-"vaultDetail.unlocked.footer" = "Seu cofre está atualmente desbloqueado no aplicativo Arquivos.";
-"vaultDetail.unlockVault.footer" = "Digite a senha para \"%1$@\" para armazená-lo no keychain do iOS e habilitar %2$@.";
+"vaultDetail.unlocked.footer" = "Seu cofre está atualmente desbloqueado no gerenciador de arquivos.";
+"vaultDetail.unlockVault.footer" = "Digite a senha para \"%1$@\" para armazená-la nas Chaves do iCloud e ativar %2$@.";
 
 "vaultList.header.title" = "Cofres";
 "vaultList.emptyList.message" = "Clique aqui para adicionar um cofre";
 "vaultList.remove.alert.title" = "Remover cofre?";
-"vaultList.remove.alert.message" = "Isso somente removerá o cofre da lista de cofres. Nenhum dado criptografado será excluído. Você pode adicionar novamente o cofre mais tarde.";
+"vaultList.remove.alert.message" = "Isso apenas removerá o cofre da lista. Nenhum dado criptografado será excluído e depois você poderá adicioná-lo novamente.";
 
-"vaultProviderFactory.error.unsupportedVaultConfig" = "A configuração do Cofre não é suportada. Por favor, certifique-se de estar executando a versão mais recente do Cryptomator.";
-"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão do Cofre %ld não é suportada. Este cofre foi criado com uma versão mais antiga ou mais recente do Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultConfig" = "A configuração do cofre é incompatível. Certifique-se de que você está executando a versão mais recente do Cryptomator.";
+"vaultProviderFactory.error.unsupportedVaultVersion" = "A versão %ld do cofre é incompatível. Este cofre foi criado com uma versão anterior ou mais recente do Cryptomator.";
 
 "webDAVAuthentication.httpConnection.alert.title" = "Usar HTTPS?";
-"webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP é inseguro. Recomendamos utilizar HTTPS. Se você conhecer os riscos, pode continuar com HTTP.";
+"webDAVAuthentication.httpConnection.alert.message" = "O uso de HTTP não é seguro. Recomendamos que use o HTTPS no lugar. Se você está ciente dos riscos, pode continuar com o HTTP.";
 "webDAVAuthentication.httpConnection.change" = "Mudar para HTTPS";
 "webDAVAuthentication.httpConnection.continue" = "Manter HTTP";
 
-"webDAVAuthenticator.error.unsupportedProtocol" = "O servidor não parece ser compatível com WebDAV. Por favor, verifique se você usou a URL correta.";
-"webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Você pode ter que adicionar novamente esta conexão WebDAV.";
+"webDAVAuthenticator.error.unsupportedProtocol" = "O servidor parece ser incompatível com WebDAV. Verifique se você usou a URL correta.";
+"webDAVAuthenticator.error.untrustedCertificate" = "O certificado deste servidor não é confiável. Pode ser necessário adicionar novamente esta conexão WebDAV.";
 
 "Retry Upload" = "Tentar reenviar";
 "Clear from Cache" = "Limpar do cache";
