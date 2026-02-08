@@ -232,7 +232,7 @@
 "shareVault.title" = "Compartilhar cofre";
 "shareVault.normal.header.title" = "O caminho seguro para trabalhar em equipes";
 "shareVault.normal.header.features" = "Colabore com segurança com sua equipe. Conceda e revogue acessos a qualquer momento, sem compartilhar as senhas.";
-"shareVault.normal.footer.text" = "Para mais informações, consulte as sugestões de melhores práticas em nossa [documentação](%@).";
+"shareVault.normal.footer.text" = "Para mais informações, consulte as sugestões de boas práticas em nossa [documentação](%@).";
 "shareVault.normal.button.visitHub" = "Visite o Cryptomator Hub";
 "shareVault.hub.header.title" = "Como compartilhar um cofre do Hub";
 "shareVault.hub.header.subtitle" = "Para compartilhar o conteúdo do cofre com outro membro da equipe, você deve realizar duas etapas:";
