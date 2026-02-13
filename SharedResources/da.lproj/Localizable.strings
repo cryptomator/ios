@@ -222,7 +222,7 @@
 
 "shareVault.title" = "Del Boks";
 "shareVault.normal.header.title" = "Den sikre måde at arbejde i hold";
-"shareVault.normal.button.visitHub" = "Besøg Kryptomator Hub";
+"shareVault.normal.button.visitHub" = "Besøg Cryptomator Hub";
 "shareVault.hub.header.title" = "Sådan deler du en Hub boks";
 "shareVault.hub.header.subtitle" = "For at dele indholdet i boksen med et andet holdmedlem skal du udføre to trin:";
 "shareVault.hub.button.openHub" = "Åben Cryptomator Hub";
