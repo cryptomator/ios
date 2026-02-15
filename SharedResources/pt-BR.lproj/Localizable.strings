@@ -174,8 +174,8 @@
 "purchase.header.feature.familySharing" = "Compartilhamento familiar";
 "purchase.header.feature.openSource" = "Desenvolvimento em código aberto";
 "purchase.header.feature.writeAccess" = "Acesso de escrita aos seus cofres";
-"purchase.product.donateAndUpgrade" = "Doar e melhorar";
-"purchase.product.freeUpgrade" = "Melhoria gratuita";
+"purchase.product.donateAndUpgrade" = "Doar e atualizar";
+"purchase.product.freeUpgrade" = "Atualização gratuita";
 "purchase.product.lifetimeLicense" = "Licença vitalícia";
 "purchase.product.lifetimeLicense.duration" = "uma vez";
 "purchase.product.pricing.free" = "Gratuito";
@@ -192,8 +192,8 @@
 "purchase.restorePurchase.fullVersionFound.alert.title" = "Restaurada com sucesso";
 "purchase.restorePurchase.fullVersionNotFound.alert.title" = "Adquira a versão completa";
 "purchase.restorePurchase.fullVersionNotFound.alert.message" = "Não foi possível encontrar uma versão completa adquirida anteriormente para ser restaurada. Tente outra opção.";
-"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Elegível para melhoria";
-"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar a partir de uma versão anterior do Cryptomator. Nesse caso, selecione a opção \"promoção de melhoria\".";
+"purchase.restorePurchase.eligibleForUpgrade.alert.title" = "Elegível para atualização";
+"purchase.restorePurchase.eligibleForUpgrade.alert.message" = "Parece que você está tentando atualizar a partir de uma versão anterior do Cryptomator. Nesse caso, selecione a opção \"promoção de atualização\".";
 "purchase.retry.button" = "Tentar novamente";
 "purchase.retry.footer" = "Não foi possível carregar os produtos disponíveis.";
 "purchase.title" = "Desbloqueie a versão completa";
@@ -280,8 +280,8 @@
 "untrustedTLSCertificate.add" = "Confio";
 "untrustedTLSCertificate.dismiss" = "Não confio";
 
-"upgrade.title" = "Promoção de melhoria";
-"upgrade.notEligible.alert.title" = "Falha ao melhorar";
+"upgrade.title" = "Promoção de Atualização";
+"upgrade.notEligible.alert.title" = "Falha ao atualizar";
 "upgrade.notEligible.alert.message" = "O Cryptomator não detectou uma versão anterior instalada em seu dispositivo. Caso a tenha adquirido, baixe-a novamente na loja de aplicativos e tente novamente.";
 "upgrade.info" = "Obrigado por confiar no Cryptomator desde a primeira versão. Como um usuário leal, você esta elegível a receber uma melhoria gratuita.";
 
