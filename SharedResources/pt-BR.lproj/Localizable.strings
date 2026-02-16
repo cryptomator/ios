@@ -126,7 +126,7 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.message" = "Para acessar o cofre, o proprietário do cofre precisa lhe conceder permissão.";
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.";
-"hubAuthentication.requireAccountInit.alert.actionButton" = "Ir para o perfil";
+"hubAuthentication.requireAccountInit.alert.actionButton" = "Acessar o perfil";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
@@ -291,7 +291,7 @@
 "urlSession.error.httpError.405" = "O método de requisição não é suportado pelo recurso de destino.";
 "urlSession.error.httpError.409" = "A requisição conflita com o estado atual do recurso de destino.";
 "urlSession.error.httpError.412" = "Acesso ao recurso-alvo negado.";
-"urlSession.error.httpError.default" = "Falha na conexão de rede com o código de status %ld.";
+"urlSession.error.httpError.default" = "Falha ao se conectar à rede com o código de status %ld.";
 "urlSession.error.unexpectedResponse" = "Houve uma resposta inesperada da rede.";
 
 "vaultAccountManager.error.vaultAccountAlreadyExists" = "Você já adicionou este cofre.";
