@@ -26,7 +26,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let mockedCloudDate = Date(timeIntervalSinceReferenceDate: 0)
 		cloudProviderMock.lastModifiedDate[itemMetadata.cloudPath.path] = mockedCloudDate
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
 			XCTAssertEqual(Data("TestContent".utf8), self.cloudProviderMock.createdFiles["/FileToBeUploaded"])
@@ -68,7 +68,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { _ in
@@ -99,7 +99,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: cloudProviderUploadInconsistencyMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		uploadTaskExecutor.execute(task: uploadTask).then { item in
@@ -143,7 +143,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let uploadTaskExecutor = UploadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, uploadTaskManager: uploadTaskManagerMock)
 
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+		let uploadTaskRecord = try UploadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: nil)
 		let uploadTask = UploadTask(taskRecord: uploadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let promise = uploadTaskExecutor.execute(task: uploadTask)

@@ -24,7 +24,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
 	}
 
-	func testStartProvidingItemNoLocalVersion() throws {
+	func testStartProvidingItemNoLocalVersion() {
 		let expectation = XCTestExpectation()
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 		adapter.startProvidingItem(at: url) { [self] error in
@@ -37,7 +37,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithUpToDateLocalVersion() throws {
+	func testStartProvidingItemWithUpToDateLocalVersion() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
@@ -51,7 +51,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithOlderLocalVersion() throws {
+	func testStartProvidingItemWithOlderLocalVersion() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 
@@ -83,7 +83,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		// Simulate a failed upload
 		let localCachedFileInfo = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(timeIntervalSince1970: 0), localURL: url)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = localCachedFileInfo
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
+		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
 		uploadTaskManagerMock.getTaskRecordForClosure = {
 			guard self.itemID == $0 else {
 				return nil
@@ -111,7 +111,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 
-	func testStartProvidingItemWithTagData() throws {
+	func testStartProvidingItemWithTagData() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 

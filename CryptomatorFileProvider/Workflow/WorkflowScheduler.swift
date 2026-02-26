@@ -6,6 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
+import CocoaLumberjackSwift
 import Foundation
 import Promises
 
@@ -30,14 +31,21 @@ class WorkflowScheduler {
 		let pendingPromise = Promise<Void>.pending()
 		let semaphore = getSemaphore(for: workflow.constraint)
 		let operationQueue = getOperationQueue(for: workflow.constraint)
+		var acquired = true
 		operationQueue.addOperation {
-			semaphore?.wait()
+			let result = semaphore?.wait(timeout: .now() + 300) ?? .success
+			if result == .timedOut {
+				DDLogError("WorkflowScheduler: Semaphore wait timed out")
+				acquired = false
+			}
 			pendingPromise.fulfill(())
 		}
 		return pendingPromise.then {
 			return workflow.middleware.execute(task: workflow.task)
 		}.always {
-			semaphore?.signal()
+			if acquired {
+				semaphore?.signal()
+			}
 		}
 	}
 

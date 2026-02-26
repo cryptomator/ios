@@ -194,7 +194,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  deletionTaskManager: deletionTaskManager,
 		                                  itemEnumerationTaskManager: itemEnumerationTaskManager,
 		                                  downloadTaskManager: downloadTaskManager,
-		                                  scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2),
+		                                  scheduler: WorkflowScheduler(maxParallelUploads: 2, maxParallelDownloads: 2),
 		                                  provider: cloudProvider,
 		                                  coordinator: fileCoordinator,
 		                                  notificator: notificator,
@@ -207,7 +207,15 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                            uploadTaskManager: uploadTaskManager,
 		                                            cachedFileManager: cachedFileManager)
 		workingSetObserver.startObservation()
-		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver)
+		adapter.recoverStuckUploads()
+		let watchdog = UploadWatchdog(uploadTaskManager: uploadTaskManager,
+		                              retryHandler: { [weak adapter] itemID in
+		                              	let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
+		                              	adapter?.retryUpload(for: itemIdentifier)
+		                              },
+		                              errorHandler: { _ in })
+		watchdog.start()
+		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver, uploadWatchdog: watchdog)
 	}
 
 	/**
@@ -238,6 +246,7 @@ struct AdapterCacheItem {
 	let adapter: FileProviderAdapterType
 	let maintenanceManager: MaintenanceManager
 	let workingSetObserver: WorkingSetObserving
+	let uploadWatchdog: UploadWatchdogType?
 }
 
 protocol FileProviderAdapterCacheType {

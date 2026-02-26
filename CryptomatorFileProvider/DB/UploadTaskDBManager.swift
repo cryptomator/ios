@@ -18,6 +18,8 @@ protocol UploadTaskManager {
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?]
 	func removeTaskRecord(for id: Int64) throws
 	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask
+	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord]
+	func getStaleUploadTaskRecords(staleSince: Date) throws -> [UploadTaskRecord]
 }
 
 extension UploadTaskManager {
@@ -62,17 +64,16 @@ class UploadTaskDBManager: UploadTaskManager {
 
 	func createNewTaskRecord(for itemMetadata: ItemMetadata) throws -> UploadTaskRecord {
 		return try database.write { db in
-			let task = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+			let task = UploadTaskRecord(correspondingItem: itemMetadata.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
 			try task.save(db)
 			return task
 		}
 	}
 
 	func getTaskRecord(for id: Int64) throws -> UploadTaskRecord? {
-		let uploadTask = try database.read { db in
+		return try database.read { db in
 			return try UploadTaskRecord.fetchOne(db, key: id)
 		}
-		return uploadTask
 	}
 
 	func updateTaskRecord(with id: Int64, lastFailedUploadDate: Date, uploadErrorCode: Int, uploadErrorDomain: String) throws {
@@ -98,7 +99,7 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func getCorrespondingTaskRecords(ids: [Int64]) throws -> [UploadTaskRecord?] {
-		let uploadTasks: [UploadTaskRecord?] = try database.read { db in
+		return try database.read { db in
 			var tasks = [UploadTaskRecord?]()
 			for id in ids {
 				let task = try UploadTaskRecord.fetchOne(db, key: id)
@@ -106,7 +107,6 @@ class UploadTaskDBManager: UploadTaskManager {
 			}
 			return tasks
 		}
-		return uploadTasks
 	}
 
 	func removeTaskRecord(for id: Int64) throws {
@@ -116,11 +116,28 @@ class UploadTaskDBManager: UploadTaskManager {
 	}
 
 	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask {
-		try database.read { db in
+		return try database.read { db in
 			guard let itemMetadata = try uploadTask.itemMetadata.fetchOne(db) else {
 				throw DBManagerError.missingItemMetadata
 			}
 			return UploadTask(taskRecord: uploadTask, itemMetadata: itemMetadata, onURLSessionTaskCreation: onURLSessionTaskCreation)
+		}
+	}
+
+	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord] {
+		return try database.read { db in
+			return try UploadTaskRecord
+				.filter(UploadTaskRecord.Columns.uploadErrorCode == nil)
+				.fetchAll(db)
+		}
+	}
+
+	func getStaleUploadTaskRecords(staleSince: Date) throws -> [UploadTaskRecord] {
+		return try database.read { db in
+			return try UploadTaskRecord
+				.filter(UploadTaskRecord.Columns.uploadErrorCode == nil)
+				.filter(UploadTaskRecord.Columns.uploadStartedAt < staleSince)
+				.fetchAll(db)
 		}
 	}
 }

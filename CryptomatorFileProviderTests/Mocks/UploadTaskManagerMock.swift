@@ -146,6 +146,48 @@ final class UploadTaskManagerMock: UploadTaskManager {
 		try removeTaskRecordForClosure?(id)
 	}
 
+	// MARK: - getActiveUploadTaskRecords
+
+	var getActiveUploadTaskRecordsThrowableError: Error?
+	var getActiveUploadTaskRecordsCallsCount = 0
+	var getActiveUploadTaskRecordsCalled: Bool {
+		getActiveUploadTaskRecordsCallsCount > 0
+	}
+
+	var getActiveUploadTaskRecordsReturnValue: [UploadTaskRecord] = []
+	var getActiveUploadTaskRecordsClosure: (() throws -> [UploadTaskRecord])?
+
+	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord] {
+		if let error = getActiveUploadTaskRecordsThrowableError {
+			throw error
+		}
+		getActiveUploadTaskRecordsCallsCount += 1
+		return try getActiveUploadTaskRecordsClosure.map({ try $0() }) ?? getActiveUploadTaskRecordsReturnValue
+	}
+
+	// MARK: - getStaleUploadTaskRecords
+
+	var getStaleUploadTaskRecordsStaleSinceThrowableError: Error?
+	var getStaleUploadTaskRecordsStaleSinceCallsCount = 0
+	var getStaleUploadTaskRecordsStaleSinceCalled: Bool {
+		getStaleUploadTaskRecordsStaleSinceCallsCount > 0
+	}
+
+	var getStaleUploadTaskRecordsStaleSinceReceivedStaleSince: Date?
+	var getStaleUploadTaskRecordsStaleSinceReceivedInvocations: [Date] = []
+	var getStaleUploadTaskRecordsStaleSinceReturnValue: [UploadTaskRecord] = []
+	var getStaleUploadTaskRecordsStaleSinceClosure: ((Date) throws -> [UploadTaskRecord])?
+
+	func getStaleUploadTaskRecords(staleSince: Date) throws -> [UploadTaskRecord] {
+		if let error = getStaleUploadTaskRecordsStaleSinceThrowableError {
+			throw error
+		}
+		getStaleUploadTaskRecordsStaleSinceCallsCount += 1
+		getStaleUploadTaskRecordsStaleSinceReceivedStaleSince = staleSince
+		getStaleUploadTaskRecordsStaleSinceReceivedInvocations.append(staleSince)
+		return try getStaleUploadTaskRecordsStaleSinceClosure.map({ try $0(staleSince) }) ?? getStaleUploadTaskRecordsStaleSinceReturnValue
+	}
+
 	// MARK: - getTask
 
 	var getTaskForOnURLSessionTaskCreationThrowableError: Error?

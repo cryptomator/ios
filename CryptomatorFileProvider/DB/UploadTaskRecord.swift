@@ -17,6 +17,7 @@ struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 	var lastFailedUploadDate: Date?
 	var uploadErrorCode: Int?
 	var uploadErrorDomain: String?
+	var uploadStartedAt: Date?
 	var failedWithError: Error? {
 		guard let errorCode = uploadErrorCode, let errorDomain = uploadErrorDomain else {
 			return nil
@@ -35,7 +36,7 @@ struct UploadTaskRecord: Decodable, FetchableRecord, TableRecord {
 	}
 
 	enum Columns: String, ColumnExpression {
-		case correspondingItem, lastFailedUploadDate, uploadErrorCode, uploadErrorDomain
+		case correspondingItem, lastFailedUploadDate, uploadErrorCode, uploadErrorDomain, uploadStartedAt
 	}
 }
 
@@ -45,6 +46,7 @@ extension UploadTaskRecord: PersistableRecord {
 		container[Columns.lastFailedUploadDate] = lastFailedUploadDate
 		container[Columns.uploadErrorCode] = uploadErrorCode
 		container[Columns.uploadErrorDomain] = uploadErrorDomain
+		container[Columns.uploadStartedAt] = uploadStartedAt
 	}
 }
 
