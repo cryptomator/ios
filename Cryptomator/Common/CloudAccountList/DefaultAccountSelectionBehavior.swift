@@ -17,7 +17,7 @@ protocol DefaultAccountSelectionBehavior {
 }
 
 extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListing {
-	func selectedAccont(_ account: AccountInfo) {
+	func selectedAccount(_ account: AccountInfo) {
 		switch account.cloudProviderType {
 		case .s3, .webDAV, .localFileSystem:
 			do {

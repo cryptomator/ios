@@ -98,7 +98,7 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		let accountInfo = viewModel.accountInfos[indexPath.row]
-		coordinator?.selectedAccont(accountInfo)
+		coordinator?.selectedAccount(accountInfo)
 	}
 
 	// MARK: - ASWebAuthenticationPresentationContextProviding
