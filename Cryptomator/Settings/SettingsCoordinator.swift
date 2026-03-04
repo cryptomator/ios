@@ -128,7 +128,7 @@ extension SettingsCoordinator: AccountListing, DefaultShowEditAccountBehavior {
 		}
 	}
 
-	func selectedAccont(_ account: AccountInfo) throws {}
+	func selectedAccont(_ account: AccountInfo) {}
 }
 
 private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoordinator {

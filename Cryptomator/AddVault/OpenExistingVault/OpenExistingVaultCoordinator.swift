@@ -15,7 +15,7 @@ import Foundation
 import Promises
 import UIKit
 
-class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
+class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, DefaultAccountSelectionBehavior, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: AddVaultCoordinator?
@@ -56,9 +56,8 @@ class OpenExistingVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEd
 		}
 	}
 
-	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+	func proceedWithValidatedAccount(provider: CloudProvider, account: CloudProviderAccount) {
+		startFolderChooser(with: provider, account: account)
 	}
 
 	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {
