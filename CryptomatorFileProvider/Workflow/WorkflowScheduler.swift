@@ -31,13 +31,19 @@ class WorkflowScheduler {
 		let pendingPromise = Promise<Void>.pending()
 		let semaphore = getSemaphore(for: workflow.constraint)
 		let operationQueue = getOperationQueue(for: workflow.constraint)
-		var acquired = true
+		var acquired = false
 		operationQueue.addOperation {
 			let result = semaphore?.wait(timeout: .now() + 300) ?? .success
 			if result == .timedOut {
 				DDLogError("WorkflowScheduler: Semaphore wait timed out")
-				acquired = false
+				pendingPromise.reject(NSError(
+					domain: "WorkflowScheduler",
+					code: 1,
+					userInfo: [NSLocalizedDescriptionKey: "Semaphore wait timed out"]
+				))
+				return
 			}
+			acquired = true
 			pendingPromise.fulfill(())
 		}
 		return pendingPromise.then {

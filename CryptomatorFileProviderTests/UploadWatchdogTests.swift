@@ -20,7 +20,9 @@ class UploadWatchdogTests: XCTestCase {
 
 	func testWatchdogCallsRetryHandlerForStaleUploads() {
 		let expectation = XCTestExpectation(description: "Retry handler called")
+		expectation.assertForOverFulfill = false
 		var retriedItemIDs = [Int64]()
+		var didFulfill = false
 
 		let staleRecord = UploadTaskRecord(correspondingItem: 42, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date().addingTimeInterval(-200))
 		uploadTaskManagerMock.getStaleUploadTaskRecordsStaleSinceReturnValue = [staleRecord]
@@ -29,6 +31,8 @@ class UploadWatchdogTests: XCTestCase {
 		                              timerInterval: 0.1,
 		                              staleThreshold: 120,
 		                              retryHandler: { itemID in
+		                              	guard !didFulfill else { return }
+		                              	didFulfill = true
 		                              	retriedItemIDs.append(itemID)
 		                              	expectation.fulfill()
 		                              },
