@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Não foi possível continuar a procurar o conteúdo do diretório.";
 "cloudProvider.error.quotaInsufficient" = "O seu armazenamento não tem espaço suficiente.";
 "cloudProvider.error.unauthorized" = "Não foi possível executar a operação não autorizada.";
+"cloudProvider.error.unauthorized.reauth.title" = "A sessão expirou";
+"cloudProvider.error.unauthorized.reauth.message" = "Por favor, inicie sessão em %@ novamente.";
+"cloudProvider.error.unauthorized.reauth.button" = "Iniciar sessão";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Iniciou sessão com uma conta diferente. Tente novamente e inicie sessão com a conta original %@.";
 "cloudProvider.error.noInternetConnection" = "Conexão à Internet é necessário para esta operação.";
 
 "cloudProviderType.localFileSystem" = "Outro Provedor de Ficheiros";
