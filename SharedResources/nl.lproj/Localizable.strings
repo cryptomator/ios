@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Ophalen van de inhoud van directory kon niet worden voortgezet.";
 "cloudProvider.error.quotaInsufficient" = "Uw opslag heeft onvoldoende ruimte beschikbaar.";
 "cloudProvider.error.unauthorized" = "Niet mogelijk om ongeautoriseerde bewerking uit te voeren.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sessie verlopen";
+"cloudProvider.error.unauthorized.reauth.message" = "Log opnieuw in bij %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Inloggen";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "U bent aangemeld met een andere account. Probeer het opnieuw en log in met het originele %@ account.";
 "cloudProvider.error.noInternetConnection" = "Internet verbinding nodig voor deze actie.";
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
