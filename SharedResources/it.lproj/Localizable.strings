@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Impossibile continuare il recupero dei contenuti della directory.";
 "cloudProvider.error.quotaInsufficient" = "Lo spazio di archiviazione dispone di spazio insufficiente.";
 "cloudProvider.error.unauthorized" = "Impossibile eseguire operazioni non autorizzate.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sessione Scaduta";
+"cloudProvider.error.unauthorized.reauth.message" = "Per favore accedi nuovamente a %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Accedi";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Hai effettuato l'accesso con un account diverso. Riprova e accedi con l'account %@ originale.";
 "cloudProvider.error.noInternetConnection" = "Connessione Internet necessaria per questa operazione.";
 
 "cloudProviderType.localFileSystem" = "Altro Fornitore di File";
