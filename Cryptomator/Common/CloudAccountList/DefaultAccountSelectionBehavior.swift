@@ -77,10 +77,26 @@ extension Coordinator where Self: DefaultAccountSelectionBehavior & AccountListi
 		navigationController.topViewController?.present(alert, animated: true)
 	}
 
+	private func showAccountMismatchAlert(for account: AccountInfo) {
+		let providerName = account.cloudProviderType.localizedString()
+		let alert = UIAlertController(
+			title: LocalizedString.getValue("common.alert.attention.title"),
+			message: String(format: LocalizedString.getValue("cloudProvider.error.unauthorized.reauth.accountMismatch"), providerName),
+			preferredStyle: .alert
+		)
+		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default)
+		alert.addAction(okAction)
+		navigationController.topViewController?.present(alert, animated: true)
+	}
+
 	private func reauthenticate(account: AccountInfo) {
 		guard let viewController = navigationController.topViewController else { return }
 		let authenticator = CloudAuthenticator(accountManager: CloudProviderAccountDBManager.shared)
 		authenticator.authenticate(account.cloudProviderType, from: viewController).then { reAuthAccount in
+			guard reAuthAccount.accountUID == account.accountUID else {
+				self.showAccountMismatchAlert(for: account)
+				return
+			}
 			CloudProviderDBManager.shared.providerShouldUpdate(with: reAuthAccount.accountUID)
 			let provider = try CloudProviderDBManager.shared.getProvider(with: reAuthAccount.accountUID)
 			self.proceedWithValidatedAccount(provider: provider, account: reAuthAccount)
