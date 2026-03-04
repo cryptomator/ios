@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "La récupération du contenu du répertoire n'a pas pu être poursuivie.";
 "cloudProvider.error.quotaInsufficient" = "Votre espace de stockage est insuffisant.";
 "cloudProvider.error.unauthorized" = "Impossible d'effectuer une opération non autorisée.";
+"cloudProvider.error.unauthorized.reauth.title" = "La session a expiré";
+"cloudProvider.error.unauthorized.reauth.message" = "Veuillez vous connecter à nouveau à %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Se connecter";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Vous vous êtes connecté avec un autre compte. Veuillez réessayer et vous connecter avec le compte %@ original.";
 "cloudProvider.error.noInternetConnection" = "Connexion Internet requise pour cette opération.";
 
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
