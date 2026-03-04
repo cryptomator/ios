@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.unauthorized.reauth.title" = "Session Expired";
+"cloudProvider.error.unauthorized.reauth.message" = "Please sign in to %@ again.";
+"cloudProvider.error.unauthorized.reauth.button" = "Sign In";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "You signed in with a different account. Please try again and sign in with the original %@ account.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "cloudProviderType.localFileSystem" = "Other File Provider";

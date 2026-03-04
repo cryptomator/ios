@@ -11,7 +11,7 @@ import CryptomatorCloudAccessCore
 import CryptomatorCommonCore
 import UIKit
 
-class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, Coordinator {
+class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditAccountBehavior, DefaultAccountSelectionBehavior, Coordinator {
 	var navigationController: UINavigationController
 	var childCoordinators = [Coordinator]()
 	weak var parentCoordinator: Coordinator?
@@ -55,9 +55,8 @@ class CreateNewVaultCoordinator: AccountListing, CloudChoosing, DefaultShowEditA
 		}
 	}
 
-	func selectedAccont(_ account: AccountInfo) throws {
-		let provider = try CloudProviderDBManager.shared.getProvider(with: account.accountUID)
-		startFolderChooser(with: provider, account: account.cloudProviderAccount)
+	func proceedWithValidatedAccount(provider: CloudProvider, account: CloudProviderAccount) {
+		startFolderChooser(with: provider, account: account)
 	}
 
 	private func startFolderChooser(with provider: CloudProvider, account: CloudProviderAccount) {

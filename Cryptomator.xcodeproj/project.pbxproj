@@ -216,6 +216,7 @@
 		4A85ECC4283D0DED00E23024 /* GetFolderIntentHandlerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */; };
 		4A88816427440CE300F7AA6E /* BaseUITableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */; };
 		4A8A6424286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8A6423286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift */; };
+		AA38700230040326001F5EB9 /* DefaultAccountSelectionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */; };
 		4A8CF8C127E906D7004CE880 /* FileProviderAdapterImportDirectoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8CF8C027E906D7004CE880 /* FileProviderAdapterImportDirectoryTests.swift */; };
 		4A8D05D625C5CBE10082C5F7 /* AddVaultSuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */; };
 		4A8D060525C82F1F0082C5F7 /* AddVaultSuccesing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */; };
@@ -765,6 +766,7 @@
 		4A85ECC3283D0DED00E23024 /* GetFolderIntentHandlerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFolderIntentHandlerError.swift; sourceTree = "<group>"; };
 		4A88816327440CE300F7AA6E /* BaseUITableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseUITableViewController.swift; sourceTree = "<group>"; };
 		4A8A6423286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultShowEditAccountBehavior.swift; sourceTree = "<group>"; };
+		AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountSelectionBehavior.swift; sourceTree = "<group>"; };
 		4A8CF8C027E906D7004CE880 /* FileProviderAdapterImportDirectoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterImportDirectoryTests.swift; sourceTree = "<group>"; };
 		4A8D05D525C5CBE10082C5F7 /* AddVaultSuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccessViewController.swift; sourceTree = "<group>"; };
 		4A8D060425C82F1F0082C5F7 /* AddVaultSuccesing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVaultSuccesing.swift; sourceTree = "<group>"; };
@@ -1471,6 +1473,7 @@
 				4A7B97DB25B6F80A0044B7FB /* AccountInfo.swift */,
 				4AFCE4D325B842830069C4FC /* AccountListing.swift */,
 				4A7B97E425B6F86E0044B7FB /* AccountListPosition.swift */,
+				AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */,
 				4A7B97C125B6F7200044B7FB /* AccountListViewController.swift */,
 				4A7B97D225B6F7520044B7FB /* AccountListViewModel.swift */,
 			);
@@ -2906,6 +2909,7 @@
 				4ADBD35827284BAB00B19B5C /* MoveVaultViewController.swift in Sources */,
 				7408E6CD26779BCC00D7FAEA /* AboutViewModel.swift in Sources */,
 				4A8A6424286CA72B001F5EB9 /* DefaultShowEditAccountBehavior.swift in Sources */,
+				AA38700230040326001F5EB9 /* DefaultAccountSelectionBehavior.swift in Sources */,
 				4AB1D4FF27D69C9A009060AB /* DisclosureCell.swift in Sources */,
 				4A7077FF278DC2ED00AEF4CE /* VaultKeepUnlockedViewController.swift in Sources */,
 				B34C532A2D142BA700F30FE9 /* SharePointAuthenticating.swift in Sources */,
