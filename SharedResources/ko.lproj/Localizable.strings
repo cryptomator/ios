@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "디렉터리의 내용물을 불러올 수 없습니다.";
 "cloudProvider.error.quotaInsufficient" = "저장 공간이 부족합니다.";
 "cloudProvider.error.unauthorized" = "허가되지 않은 작업을 수행할 수 없습니다.";
+"cloudProvider.error.unauthorized.reauth.title" = "세션 만료됨";
+"cloudProvider.error.unauthorized.reauth.message" = "%@에 다시 로그인해 주세요.";
+"cloudProvider.error.unauthorized.reauth.button" = "로그인";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "다른 계정으로 로그인하셨습니다. 기존의 %@ 계정으로 다시 로그인해 주세요.";
 "cloudProvider.error.noInternetConnection" = "이 작업은 인터넷 연결이 필요합니다.";
 
 "cloudProviderType.localFileSystem" = "다른 파일 제공자 선택하기";
