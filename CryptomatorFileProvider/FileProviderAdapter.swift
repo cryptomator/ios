@@ -767,9 +767,9 @@ public class FileProviderAdapter: FileProviderAdapterType {
 						DDLogError("Register URLSessionTask for identifier: \(identifier) failed with error: \(error)")
 					} else {
 						DDLogInfo("Successfully registered URLSessionTask for identifier: \(identifier)")
-						urlSessionTask.resume()
 					}
 				})
+				urlSessionTask.resume()
 			})
 		} catch {
 			return Promise(error)

@@ -450,9 +450,7 @@
 		B3C397FE2EB10FC0001280AC /* ShareVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */; };
 		B3C398002EB110F9001280AC /* ShareVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */; };
 		B3D19A442CB937C700CD18A5 /* FileProviderCoordinatorError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */; };
-		FBA2BB29F3B556D681666368 /* UploadWatchdog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A009FA28537BC0D59931A605 /* UploadWatchdog.swift */; };
 		FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */; };
-		975E9631CAC92EC1B5EB86C3 /* UploadWatchdogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000CB738D52BD79D939273B8 /* UploadWatchdogTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1076,9 +1074,7 @@
 		B3C397FC2EB10FC0001280AC /* ShareVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewController.swift; sourceTree = "<group>"; };
 		B3C397FF2EB110F9001280AC /* ShareVaultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultViewModel.swift; sourceTree = "<group>"; };
 		B3D19A432CB937BF00CD18A5 /* FileProviderCoordinatorError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderCoordinatorError.swift; sourceTree = "<group>"; };
-		A009FA28537BC0D59931A605 /* UploadWatchdog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadWatchdog.swift; sourceTree = "<group>"; };
 		153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterRecoverUploadsTests.swift; sourceTree = "<group>"; };
-		000CB738D52BD79D939273B8 /* UploadWatchdogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadWatchdogTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1253,7 +1249,6 @@
 				4AB1D4EF27D20420009060AB /* LocalURLProviderTests.swift */,
 				4A0AA12C2ABA277800CF24FD /* PermissionProviderImplTests.swift */,
 				4ADC66C427A7F6D6002E6CC7 /* UnlockMonitorTests.swift */,
-				000CB738D52BD79D939273B8 /* UploadWatchdogTests.swift */,
 				4A4F47F224B875070033328B /* URL+NameCollisionExtensionTests.swift */,
 				4AE5196427F48D6600BA6E4A /* WorkflowDependencyFactoryTests.swift */,
 				4AE5196627F495BF00BA6E4A /* WorkflowDependencyTasksCollectionMock.swift */,
@@ -1972,7 +1967,6 @@
 				4ADD233F26737CD400374E4E /* RootFileProviderItem.swift */,
 				4A7514A02937F777002E802E /* SessionTaskRegistrator.swift */,
 				4ADC66C027A7F426002E6CC7 /* UnlockMonitor.swift */,
-				A009FA28537BC0D59931A605 /* UploadWatchdog.swift */,
 				740375F52587AEB50023FF53 /* URL+NameCollisionExtension.swift */,
 				4A74DBAF2821312200A332C4 /* Actions */,
 				4AE0D8D82653D8F200DF5D22 /* CloudTask */,
@@ -2676,7 +2670,6 @@
 				4A231B84271EFC6100987492 /* DownloadTaskManagerTests.swift in Sources */,
 				4ADC66C527A7F6D6002E6CC7 /* UnlockMonitorTests.swift in Sources */,
 				FB6962AFC1C60F6728A7850E /* FileProviderAdapterRecoverUploadsTests.swift in Sources */,
-				975E9631CAC92EC1B5EB86C3 /* UploadWatchdogTests.swift in Sources */,
 				4ABC08D7250D1EB600E3CEDC /* DeletionTaskManagerTests.swift in Sources */,
 				4A511D45265EB13B000A0E01 /* ItemEnumerationTaskTests.swift in Sources */,
 				4A0AA12D2ABA277800CF24FD /* PermissionProviderImplTests.swift in Sources */,
@@ -3078,7 +3071,6 @@
 				4AEBE8BE2653F4280031487F /* UploadTaskExecutor.swift in Sources */,
 				4AE5196327F4702900BA6E4A /* WorkflowDependencyMiddleware.swift in Sources */,
 				4ADC66C127A7F426002E6CC7 /* UnlockMonitor.swift in Sources */,
-				FBA2BB29F3B556D681666368 /* UploadWatchdog.swift in Sources */,
 				4AE0D8D72653D5D500DF5D22 /* CloudTask.swift in Sources */,
 				747F2F2B2587BC260072FB30 /* DeletionTask.swift in Sources */,
 				4AE5196927F4A24D00BA6E4A /* WorkflowDependencyFactory.swift in Sources */,

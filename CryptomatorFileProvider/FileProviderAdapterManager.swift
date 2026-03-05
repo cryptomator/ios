@@ -208,14 +208,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                            cachedFileManager: cachedFileManager)
 		workingSetObserver.startObservation()
 		adapter.recoverStuckUploads()
-		let watchdog = UploadWatchdog(uploadTaskManager: uploadTaskManager,
-		                              retryHandler: { [weak adapter] itemID in
-		                              	let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: domainIdentifier, itemID: itemID)
-		                              	adapter?.retryUpload(for: itemIdentifier)
-		                              },
-		                              errorHandler: { _ in })
-		watchdog.start()
-		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver, uploadWatchdog: watchdog)
+		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver)
 	}
 
 	/**
@@ -246,7 +239,6 @@ struct AdapterCacheItem {
 	let adapter: FileProviderAdapterType
 	let maintenanceManager: MaintenanceManager
 	let workingSetObserver: WorkingSetObserving
-	let uploadWatchdog: UploadWatchdogType?
 }
 
 protocol FileProviderAdapterCacheType {

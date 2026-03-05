@@ -19,7 +19,6 @@ protocol UploadTaskManager {
 	func removeTaskRecord(for id: Int64) throws
 	func getTask(for uploadTask: UploadTaskRecord, onURLSessionTaskCreation: URLSessionTaskCreationClosure?) throws -> UploadTask
 	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord]
-	func getStaleUploadTaskRecords(staleSince: Date) throws -> [UploadTaskRecord]
 }
 
 extension UploadTaskManager {
@@ -128,15 +127,6 @@ class UploadTaskDBManager: UploadTaskManager {
 		return try database.read { db in
 			return try UploadTaskRecord
 				.filter(UploadTaskRecord.Columns.uploadErrorCode == nil)
-				.fetchAll(db)
-		}
-	}
-
-	func getStaleUploadTaskRecords(staleSince: Date) throws -> [UploadTaskRecord] {
-		return try database.read { db in
-			return try UploadTaskRecord
-				.filter(UploadTaskRecord.Columns.uploadErrorCode == nil)
-				.filter(UploadTaskRecord.Columns.uploadStartedAt < staleSince)
 				.fetchAll(db)
 		}
 	}

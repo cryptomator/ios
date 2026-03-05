@@ -119,7 +119,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testGetAdapterCachedNoAutoLock() throws {
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
-		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock, uploadWatchdog: nil)
+		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock)
 		let adapter = try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)
 		XCTAssert(adapter === fileProviderAdapterStub)
 		try assertLastUsedDateSet()
@@ -130,7 +130,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
-		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock, uploadWatchdog: nil)
+		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
@@ -145,7 +145,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		let fileProviderAdapterStub = FileProviderAdapterTypeMock()
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		maintenanceManagerMock.enableMaintenanceModeThrowableError = ErrorMock.test
-		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock, uploadWatchdog: nil)
+		adapterCacheMock.getItemIdentifierReturnValue = AdapterCacheItem(adapter: fileProviderAdapterStub, maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		XCTAssertThrowsError(try fileProviderAdapterManager.getAdapter(forDomain: domain, dbPath: dbPath, delegate: localURLProviderMock, notificator: fileProviderNotificatorMock, taskRegistrator: taskRegistratorMock)) { error in
 			XCTAssertEqual(.defaultLock, error as? UnlockMonitorError)
 		}
@@ -203,7 +203,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	}
 
 	func testVaultIsUnlockedAdapterCached() {
-		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock, uploadWatchdog: nil)
+		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock)
 		adapterCacheMock.getItemIdentifierReturnValue = adapterCacheItem
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		XCTAssert(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
@@ -214,7 +214,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 	func testVaultIsUnlockedAutoLocks() {
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		let maintenanceManagerMock = MaintenanceManagerMock()
-		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock, uploadWatchdog: nil)
+		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)
 		var cache = [NSFileProviderDomainIdentifier: AdapterCacheItem]()
 		cache[domain.identifier] = adapterCacheItem
 		adapterCacheMock.getItemIdentifierClosure = { return cache[$0] }
