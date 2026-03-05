@@ -547,7 +547,8 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		let name: String
 		if let newName = newName {
 			try validateItemName(newName)
-			name = newName
+			// Normalize to NFC — iOS URLs use NFD, and SQLite compares bytes, not Unicode equivalence.
+			name = newName.precomposedStringWithCanonicalMapping
 		} else {
 			name = itemMetadata.name
 		}
@@ -824,9 +825,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 		if typeFile == FileAttributeType.typeDirectory {
 			throw FileProviderAdapterError.folderUploadNotSupported
 		}
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: localURL.lastPathComponent, in: parentID, type: .file)
+		// Normalize to NFC so the collision check matches cloud-fetched (NFC) entries in the DB.
+		// iOS file URLs use NFD, and SQLite compares bytes — without this, non-ASCII names bypass the collision check.
+		let name = localURL.lastPathComponent.precomposedStringWithCanonicalMapping
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .file)
 		try checkLocalItemCollision(for: cloudPath)
-		let placeholderMetadata = ItemMetadata(name: localURL.lastPathComponent, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let placeholderMetadata = ItemMetadata(name: name, type: .file, size: size, parentID: parentID, lastModifiedDate: lastModifiedDate, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return placeholderMetadata
 	}
@@ -840,9 +844,12 @@ public class FileProviderAdapter: FileProviderAdapterType {
 	 */
 	func createPlaceholderItemForFolder(withName name: String, in parentIdentifier: NSFileProviderItemIdentifier) throws -> FileProviderItem {
 		let parentID = try convertFileProviderItemIdentifierToInt64(parentIdentifier)
-		let cloudPath = try getCloudPathForPlaceholderItem(withName: name, in: parentID, type: .folder)
+		// Normalize to NFC so the collision check matches cloud-fetched (NFC) entries in the DB.
+		// iOS file URLs use NFD, and SQLite compares bytes — without this, non-ASCII names bypass the collision check.
+		let normalizedName = name.precomposedStringWithCanonicalMapping
+		let cloudPath = try getCloudPathForPlaceholderItem(withName: normalizedName, in: parentID, type: .folder)
 		try checkLocalItemCollision(for: cloudPath)
-		let placeholderMetadata = ItemMetadata(name: name, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
+		let placeholderMetadata = ItemMetadata(name: normalizedName, type: .folder, size: nil, parentID: parentID, lastModifiedDate: nil, statusCode: .isUploading, cloudPath: cloudPath, isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(placeholderMetadata)
 		return FileProviderItem(metadata: placeholderMetadata, domainIdentifier: domainIdentifier, newestVersionLocallyCached: true)
 	}
