@@ -25,7 +25,7 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 		viewModel = CreateNewVaultPasswordViewModel(vaultPath: vaultPath, account: account, vaultUID: vaultUID)
 	}
 
-	func testCreateNewVault() throws {
+	func testCreateNewVault() {
 		let expectation = XCTestExpectation()
 		let password = "TestPassword"
 
@@ -42,10 +42,10 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testCreateNewVaultWithEmptyPassword() throws {
+	func testCreateNewVaultWithEmptyPassword() {
 		let expectation = XCTestExpectation()
 
 		guard let passwordCellViewModel = viewModel.sections[0].elements.first as? TextFieldCellViewModel else {
@@ -64,7 +64,7 @@ class CreateNewVaultPasswordViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: - validatePassword

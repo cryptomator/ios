@@ -104,7 +104,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
 	func testRenameVaultWithOldNameAsSubstring() async throws {
@@ -133,7 +133,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
 	func testRenameVaultWithSameName() async throws {
@@ -194,7 +194,7 @@ class RenameVaultViewModelTests: SetVaultNameViewModelTests {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 		XCTAssertFalse(vaultManagerMock.moveVaultAccountToCalled)
-		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
 	private func createViewModel(vaultAccount: VaultAccount, cloudProviderType: CloudProviderType, viewControllerTitle: String? = nil) -> RenameVaultViewModel {

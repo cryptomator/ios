@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "Hayaang Awtomatikong Magpasya ang iOS";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Walang katiyakan";
-
-"localFileSystemAuthentication.createNewVault.header" = "Sa susunod na screen, piliin ang lokasyon ng storage para sa iyong bagong vault.";
 "localFileSystemAuthentication.createNewVault.button" = "Piliin ang Lokasyon ng Storage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Mayroon nang vault sa lokasyong ito. Pakisubukang muli gamit ang ibang lokasyon ng storage.";
-"localFileSystemAuthentication.openExistingVault.header" = "Sa susunod na screen, piliin ang folder ng iyong kasalukuyang vault.";
 "localFileSystemAuthentication.openExistingVault.button" = "Piliin ang Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ang napiling folder ay hindi isang vault. Pakisubukang muli gamit ang ibang folder.";
 "localFileSystemAuthentication.info.footer" = "Hindi sinusuportahan ng mga file provider na naka-gray out ang \"pagpili ng mga folder.\" Ito ay hindi isang limitasyon ng Cryptomator.";

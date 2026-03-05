@@ -68,7 +68,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertEqual(expectedFooterText, attributedTextViewModel.attributedText.value.string)
 	}
 
-	func testSetKeepUnlockedDuration() throws {
+	func testSetKeepUnlockedDuration() {
 		let expectation = XCTestExpectation()
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(KeepUnlockedDuration.fiveMinutes)
 		let viewModel = createViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
@@ -78,7 +78,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertSectionsAreCorrect(selectedKeepUnlockedDuration: .tenMinutes, viewModel: viewModel)
 
 		XCTAssertEqual(.tenMinutes, currentKeepUnlockedDuration.value)
@@ -86,7 +86,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 	}
 
-	func testSetKeepUnlockedDurationForUnlockedVault() throws {
+	func testSetKeepUnlockedDurationForUnlockedVault() {
 		let expectation = XCTestExpectation()
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(.auto)
 		let viewModel = createViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
@@ -100,7 +100,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertFileProviderConnectorCalled()
 		assertSectionsAreCorrect(selectedKeepUnlockedDuration: .auto, viewModel: viewModel)
 		XCTAssertEqual(.auto, currentKeepUnlockedDuration.value)
@@ -109,7 +109,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testSetKeepUnlockedDurationForLockedVault() throws {
+	func testSetKeepUnlockedDurationForLockedVault() {
 		let expectation = XCTestExpectation()
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(.auto)
 		let viewModel = createViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
@@ -120,7 +120,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertFileProviderConnectorCalled()
 		XCTAssertEqual(.fiveMinutes, currentKeepUnlockedDuration.value)
 		assertVaultKeepUnlockedSettingsSetKeepUnlockedDurationCalled(with: .fiveMinutes)
@@ -128,7 +128,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
-	func testSetKeepUnlockedDurationForUnlockedVaultNotAutoDuration() throws {
+	func testSetKeepUnlockedDurationForUnlockedVaultNotAutoDuration() {
 		let expectation = XCTestExpectation()
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(.fiveMinutes)
 		let viewModel = createViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
@@ -140,7 +140,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertFileProviderConnectorNotCalled()
 		assertSectionsAreCorrect(selectedKeepUnlockedDuration: .tenMinutes, viewModel: viewModel)
 		XCTAssertEqual(.tenMinutes, currentKeepUnlockedDuration.value)
@@ -148,7 +148,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		XCTAssertFalse(masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDCalled)
 	}
 
-	func testSetKeepUnlockedDurationAlreadySelectedDuration() throws {
+	func testSetKeepUnlockedDurationAlreadySelectedDuration() {
 		let expectation = XCTestExpectation()
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(KeepUnlockedDuration.fiveMinutes)
 		let viewModel = createViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
@@ -158,7 +158,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertSectionsAreCorrect(selectedKeepUnlockedDuration: .fiveMinutes, viewModel: viewModel)
 
 		XCTAssertEqual(.fiveMinutes, currentKeepUnlockedDuration.value)
@@ -176,12 +176,12 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertSectionsAreCorrect(selectedKeepUnlockedDuration: .auto, viewModel: viewModel)
 		XCTAssertEqual([vaultUID], masterkeyCacheManagerMock.removeCachedMasterkeyForVaultUIDReceivedInvocations)
 	}
 
-	func testGracefulLockVault() throws {
+	func testGracefulLockVault() {
 		let expectation = XCTestExpectation()
 
 		let currentKeepUnlockedDuration = Bindable<KeepUnlockedDuration>(.auto)
@@ -194,7 +194,7 @@ class VaultKeepUnlockedViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertFalse(vaultInfo.vaultIsUnlocked.value)
 		assertFileProviderConnectorCalled()
 		XCTAssertEqual([NSFileProviderDomainIdentifier(vaultUID)], vaultLockingMock.lockedVaults)

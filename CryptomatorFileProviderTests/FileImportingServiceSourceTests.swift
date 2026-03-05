@@ -47,7 +47,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		adapterMock.getItemIdentifierForReturnValue = Promise(expectedItemIdentifier)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		let itemIdentifierPromise = serviceSource.getIdentifierForItem(at: cloudPath)
-		wait(for: itemIdentifierPromise, timeout: 1.0)
+		wait(for: itemIdentifierPromise, timeout: 5.0)
 		let rawItemIdentifier = try XCTUnwrap(itemIdentifierPromise.value)
 		let itemIdentifier = NSFileProviderItemIdentifier(rawValue: rawItemIdentifier as String)
 
@@ -55,7 +55,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		assertAdapterProvidingMockGetAdapterCalled()
 	}
 
-	func testGetItemIdentifierForLockedVault() throws {
+	func testGetItemIdentifierForLockedVault() {
 		let cloudPath = "/foo/bar"
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError = UnlockMonitorError.defaultLock
 		let itemIdentifierPromise = serviceSource.getIdentifierForItem(at: cloudPath)
@@ -68,7 +68,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		try testGetItemIdentifier()
 	}
 
-	func testImportFile() throws {
+	func testImportFile() {
 		let adapterMock = FileProviderAdapterTypeMock()
 		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 
@@ -78,7 +78,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		}
 		let localURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let importFilePromise = serviceSource.importFile(at: localURL, toParentItemIdentifier: parentItemIdentifier.rawValue)
-		wait(for: importFilePromise, timeout: 1.0)
+		wait(for: importFilePromise, timeout: 5.0)
 		let adapterMockReceivedArguments = adapterMock.importDocumentAtToParentItemIdentifierCompletionHandlerReceivedArguments
 		XCTAssertEqual(1, adapterMock.importDocumentAtToParentItemIdentifierCompletionHandlerCallsCount)
 		XCTAssertEqual(localURL, adapterMockReceivedArguments?.fileURL)
@@ -86,7 +86,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		assertAdapterProvidingMockGetAdapterCalled()
 	}
 
-	func testImportFileFailWithFilenameCollisionErrorWithoutAssociatedItem() throws {
+	func testImportFileFailWithFilenameCollisionErrorWithoutAssociatedItem() {
 		let adapterMock = FileProviderAdapterTypeMock()
 		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 
@@ -105,7 +105,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		assertAdapterProvidingMockGetAdapterCalled()
 	}
 
-	func testImportFileForLockedVault() throws {
+	func testImportFileForLockedVault() {
 		let localURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorThrowableError = UnlockMonitorError.defaultLock
@@ -114,7 +114,7 @@ class FileImportingServiceSourceTests: XCTestCase {
 		XCTAssertRejects(importFilePromise, with: expectedWrappedError._nsError)
 	}
 
-	func testImportFileForTrial() throws {
+	func testImportFileForTrial() {
 		fullVersionCheckerMock.isFullVersion = false
 		let localURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
 		let parentItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)

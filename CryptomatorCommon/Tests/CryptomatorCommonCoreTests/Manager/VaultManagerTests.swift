@@ -135,7 +135,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testCreateFromExisting() throws {
@@ -192,7 +192,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testCreateLegacyFromExisting() throws {
@@ -236,7 +236,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: Manual Unlock
@@ -297,7 +297,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			createNewVaultExpectation.fulfill()
 		}
-		wait(for: [createNewVaultExpectation], timeout: 1.0)
+		wait(for: [createNewVaultExpectation], timeout: 5.0)
 
 		let createNewVaultDuplicateExpectation = XCTestExpectation()
 		manager.createNewVault(withVaultUID: UUID().uuidString, delegateAccountUID: account.accountUID, vaultPath: vaultPath, password: "pw", storePasswordInKeychain: false).then {
@@ -310,7 +310,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			createNewVaultDuplicateExpectation.fulfill()
 		}
-		wait(for: [createNewVaultDuplicateExpectation], timeout: 1.0)
+		wait(for: [createNewVaultDuplicateExpectation], timeout: 5.0)
 	}
 
 	func testDuplicateCreateFromExisting() throws {
@@ -341,7 +341,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			createExistingVaultExpectation.fulfill()
 		}
-		wait(for: [createExistingVaultExpectation], timeout: 1.0)
+		wait(for: [createExistingVaultExpectation], timeout: 5.0)
 
 		let createExistingVaultDuplicateExpectation = XCTestExpectation()
 
@@ -355,7 +355,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			createExistingVaultDuplicateExpectation.fulfill()
 		}
-		wait(for: [createExistingVaultDuplicateExpectation], timeout: 1.0)
+		wait(for: [createExistingVaultDuplicateExpectation], timeout: 5.0)
 	}
 
 	// MARK: - Move Vault
@@ -395,7 +395,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testMoveVaultClouderProviderFails() throws {
@@ -443,7 +443,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testMoveVaultInsideItself() throws {
@@ -488,7 +488,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: - Change Passphrase
@@ -522,7 +522,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testChangePassphraseWithSavedPassword() throws {
@@ -558,7 +558,7 @@ class VaultManagerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: Helper

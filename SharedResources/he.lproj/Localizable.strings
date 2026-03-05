@@ -129,11 +129,8 @@
 "keepUnlockedDuration.auto" = "תן ל- iOS להחליט אוטומטית";
 "keepUnlockedDuration.auto.shortDisplayName" = "אוטומטי";
 "keepUnlockedDuration.indefinite" = "ללא הגבלה";
-
-"localFileSystemAuthentication.createNewVault.header" = "במסך הבא, בחר את המיקום לאחסנת הכספת החדשה שלך.";
 "localFileSystemAuthentication.createNewVault.button" = "בחר מקום אחסון";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "כספת כבר קיימת במיקום זה. נסה שוב עם מיקום אחסון שונה.";
-"localFileSystemAuthentication.openExistingVault.header" = "במסך הבא, בחר את התיקיה של הכספת הקיימת.";
 "localFileSystemAuthentication.openExistingVault.button" = "בחר את תיקיית הכספת";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "התיקיה שנבחרה אינה כספת. נסה שוב עם תיקיה אחרת.";
 "localFileSystemAuthentication.info.footer" = "ספקי קבצים אפורים אינם מאפשרים ״בחירת תיקיות״. זו אינה מגבלה של Cryptomator.";

@@ -98,11 +98,7 @@ class AccountListViewController: ListViewController<AccountCellContent>, ASWebAu
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		let accountInfo = viewModel.accountInfos[indexPath.row]
-		do {
-			try coordinator?.selectedAccont(accountInfo)
-		} catch {
-			coordinator?.handleError(error, for: self)
-		}
+		coordinator?.selectedAccount(accountInfo)
 	}
 
 	// MARK: - ASWebAuthenticationPresentationContextProviding
@@ -174,7 +170,10 @@ private class AccountListViewModelMock: AccountListViewModelProtocol {
 	let accountInfos = [AccountInfo]()
 	let title = "Google Drive"
 
-	func refreshItems() -> Promise<Void> { return Promise(()) }
+	func refreshItems() -> Promise<Void> {
+		return Promise(())
+	}
+
 	func moveRow(at sourceIndex: Int, to destinationIndex: Int) throws {}
 	func removeRow(at index: Int) throws {}
 	func startListenForChanges(onError: @escaping (Error) -> Void, onChange: @escaping () -> Void) {}

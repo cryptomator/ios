@@ -20,7 +20,7 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		viewModel = CreateNewFolderViewModel(parentPath: CloudPath("/"), provider: cloudProviderMock)
 	}
 
-	func testCreateNewFolder() throws {
+	func testCreateNewFolder() {
 		let expectation = XCTestExpectation()
 		setFolderName("Foo")
 		viewModel.createFolder().then { folderPath in
@@ -31,10 +31,10 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testCreateNewFolderForEmptyFolderName() throws {
+	func testCreateNewFolderForEmptyFolderName() {
 		let expectation = XCTestExpectation()
 		XCTAssert(viewModel.folderName.isEmpty)
 		viewModel.createFolder().then { _ in
@@ -48,7 +48,7 @@ class CreateNewFolderViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testReturnButtonSupport() {

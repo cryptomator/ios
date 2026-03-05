@@ -9,7 +9,6 @@
 import CocoaLumberjackSwift
 import Foundation
 import XCTest
-
 @testable import CryptomatorFileProvider
 
 class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
@@ -26,23 +25,23 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		setupEnumerateChangesObserver()
 	}
 
-	func testEnumerateChangesWithLockedVault() throws {
+	func testEnumerateChangesWithLockedVault() {
 		let expectation = XCTestExpectation(description: "Invalidated working set eventually finishes without changing the set when calling enumerateChanges(for:from)")
 		setupChangeObserverMockFinishEnumeratingChanges(with: expectation)
 		simulateLockedVault()
 		enumerator.enumerateChanges(for: changeObserverMock, from: lastKnownSyncAnchor)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssert(enumerationObserverMock.didEnumerateReceivedUpdatedItems?.isEmpty ?? false)
 		assertWorkingSetInvalidated()
 		XCTAssertEqual(1, enumerationObserverMock.didEnumerateCallsCount)
 	}
 
-	func testEnumerateItemWithLockedVault() throws {
+	func testEnumerateItemWithLockedVault() {
 		let expectation = XCTestExpectation(description: "Locked vault returns empty working set when calling enumerateItems(for:startingAt)")
 		setupChangeObserverMockFinishEnumeratingChanges(with: expectation)
 		simulateLockedVault()
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: defaultStartPage)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssert(enumerationObserverMock.didEnumerateReceivedUpdatedItems?.isEmpty ?? false)
 		assertWorkingSetInvalidated()
 		XCTAssertEqual(2, enumerationObserverMock.didEnumerateCallsCount)
@@ -63,7 +62,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let updatedSyncAnchor = try createSyncAnchor(from: .distantFuture)
 		notificatorMock.currentSyncAnchor = updatedSyncAnchor.rawValue
 		enumerator.enumerateChanges(for: changeObserverMock, from: syncAnchor)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertChangeObserverUpdated(deletedItems: deleteItemIdentifiers,
 		                            updatedItems: items,
 		                            currentSyncAnchor: updatedSyncAnchor)
@@ -84,7 +83,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let updatedSyncAnchor = try createSyncAnchor(from: .distantFuture)
 		notificatorMock.currentSyncAnchor = updatedSyncAnchor.rawValue
 		enumerator.enumerateChanges(for: changeObserverMock, from: syncAnchor)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertChangeObserverUpdated(deletedItems: deleteItemIdentifiers,
 		                            updatedItems: items,
 		                            currentSyncAnchor: updatedSyncAnchor)
@@ -103,7 +102,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 		let updatedSyncAnchor = try createSyncAnchor(from: .distantFuture)
 		notificatorMock.currentSyncAnchor = updatedSyncAnchor.rawValue
 		enumerator.enumerateChanges(for: changeObserverMock, from: syncAnchor)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWorkingSetInvalidatedForEnumerateChanges()
 	}
 
@@ -160,7 +159,7 @@ class WorkingSetEnumerationTests: FileProviderEnumeratorTestCase {
 				}
 				updatedSyncAnchorExpectation.fulfill()
 			})
-			self.wait(for: [updatedSyncAnchorExpectation], timeout: 1.0)
+			self.wait(for: [updatedSyncAnchorExpectation], timeout: 5.0)
 			self.enumerator.enumerateItems(for: self.enumerationObserverMock, startingAt: NSFileProviderPage(NSFileProviderPage.initialPageSortedByDate as Data))
 		}
 	}

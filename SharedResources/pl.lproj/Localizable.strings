@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Pozwól iOS decydować automatycznie";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Bez końca";
-
-"localFileSystemAuthentication.createNewVault.header" = "Na następnym ekranie wybierz lokalizację dla swojego nowego sejfu.";
 "localFileSystemAuthentication.createNewVault.button" = "Wybierz lokalizację sejfu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sejf już istnieje w tej lokalizacji. Spróbuj ponownie z inną lokalizacją.";
-"localFileSystemAuthentication.openExistingVault.header" = "Na następnym ekranie wybierz folder istniejącego sejfu.";
 "localFileSystemAuthentication.openExistingVault.button" = "Wybierz folder sejfu";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Wybrany folder nie jest sejfem. Spróbuj ponownie z innym katalogiem.";
 "localFileSystemAuthentication.info.footer" = "Serwisy na szaro nie wspierają \"wybierania katalogów\". To nie jest ograniczenie w Cryptomator.";

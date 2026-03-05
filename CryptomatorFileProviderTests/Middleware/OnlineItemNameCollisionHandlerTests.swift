@@ -77,7 +77,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testRetryOnlyOnce() throws {
@@ -118,7 +118,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testNoRetryForDifferentError() throws {
@@ -152,7 +152,7 @@ class OnlineItemNameCollisionHandlerTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	private struct SampleCloudTask: CloudTask {

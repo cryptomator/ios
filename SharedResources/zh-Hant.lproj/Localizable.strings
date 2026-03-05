@@ -145,10 +145,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
 
-"localFileSystemAuthentication.createNewVault.header" = "在下一個頁面，請選擇新加密庫的儲存位置。";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "在下一個畫面中，導航至 iCloud 雲端硬碟，選擇儲存位置，然後點選開啟。";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "在下一個畫面中，導航至儲存空間，選擇儲存位置，然後點選開啟。";
 "localFileSystemAuthentication.createNewVault.button" = "選取儲存位置";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "此位置已存在加密檔案庫。 請以其他儲存位置重試。";
-"localFileSystemAuthentication.openExistingVault.header" = "在下一個頁面，請選擇已存在加密庫所在的文件夾。";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "在下一個畫面中，導航至 iCloud 雲端硬碟，選擇加密檔案庫資料夾，然後點選開啟。";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "在下一個畫面中，導航至加密檔案庫資料夾，選取後點選開啟。";
 "localFileSystemAuthentication.openExistingVault.button" = "選取加密檔案庫的資料夾";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選擇的資料夾不是加密檔案庫。請以其他資料夾重試。";
 "localFileSystemAuthentication.info.footer" = "文件提供程式顯示為灰色的表示不支援「選擇資料夾」。這並非 Cryptomator 的限制。";
@@ -198,11 +200,13 @@
 "purchase.title" = "解鎖完整版";
 "purchase.unlockedFullVersion.message" = "您現在可以使用完整版的 Cryptomator。加密快樂！";
 "purchase.unlockedFullVersion.title" = "感謝";
+"purchase.error.paymentNotAllowed" = "這個裝置不允許 App 內購買。請至內容與隱私限制檢查您的螢幕時間設定以啟用購買功能。";
 "purchase.error.unknown" = "由於未知原因，無法在 App Store 中購買，請稍後再試。\n\n如果此錯誤仍然存在，請嘗試重新啟動您的設備、或在 iOS 設定中登出並重新登入您的 Apple ID。";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "關於 Cryptomator";
 "settings.aboutCryptomator.title" = "版本號%@（%@）";
+"settings.aboutCryptomator.hasFullVersion.footer" = "您已解鎖完整版並獲得加密檔案庫的寫入權限。";
 "settings.cacheSize" = "緩存大小";
 "settings.clearCache" = "清除快取";
 "settings.cloudServices" = "雲端服務";
@@ -214,6 +218,8 @@
 "settings.sendLogFile" = "傳送日誌檔案";
 "settings.shortcutsGuide" = "捷徑使用手冊";
 "settings.unlockFullVersion" = "解鎖完整版";
+"settings.unlockFullVersion.detail" = "取得對您加密檔案庫的寫入權限。";
+"settings.unlockFullVersion.trialExpirationDate" = "試用到期日： %@";
 
 "sharePoint.enterURL.title" = "輸入 SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint 網站 URL";
@@ -226,10 +232,16 @@
 
 "shareVault.title" = "與其他人共用加密檔案庫";
 "shareVault.normal.header.title" = "以安全的方式進行團隊合作";
+"shareVault.normal.header.features" = "與團隊安全協作。隨時授予或撤銷存取權限，無需共享密碼。";
+"shareVault.normal.footer.text" = "欲了解更多資訊，請參閱我們文件 (%@) 中的最佳實踐建議。";
 "shareVault.normal.button.visitHub" = "前往 Cryptomator Hub";
 "shareVault.hub.header.title" = "如何與其他人共用加密檔案庫";
 "shareVault.hub.header.subtitle" = "要與您的團隊成員共用加密檔案庫，您需要完成以下兩個步驟：";
+"shareVault.hub.step1" = "透過雲端儲存共享加密檔案庫資料夾的存取權限。";
+"shareVault.hub.step2" = "在 Cryptomator Hub 中授予團隊成員存取權限。";
 "shareVault.hub.button.openHub" = "打開 Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "無法讀取 Hub 資訊";
+"shareVault.error.hubURLExtraction.message" = "加密檔案庫的 Hub 配置無法載入。請檢查您的加密檔案庫設定或聯絡您的 Hub 管理員。";
 
 "snapshots.fileprovider.file1" = "/財務.numbers";
 "snapshots.fileprovider.file2" = "/最終演講.key";
@@ -291,6 +303,7 @@
 "vaultDetail.button.removeVault" = "從加密檔案庫列表中移除";
 "vaultDetail.button.renameVault" = "重新命名";
 "vaultDetail.button.shareVault" = "與其他人共用加密檔案庫";
+"vaultDetail.shareVault.footer" = "透過 Cryptomator Hub 與您的團隊安全協作。";
 "vaultDetail.changePassword.footer" = "為您的加密檔案庫選擇一個只有您知道的強密碼，並將其保管在安全的地方。";
 "vaultDetail.disabledBiometricalUnlock.footer" = "如果您啟用 %@，您的加密檔案庫密碼便會儲存在 iOS 鑰匙圈中。";
 "vaultDetail.enabledBiometricalUnlock.footer" = "僅當 %@ 身份驗證失敗時才需要您的加密檔案庫密碼。";

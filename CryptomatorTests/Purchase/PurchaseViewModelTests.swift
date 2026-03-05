@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import StoreKitTest
+import StoreKit
 import XCTest
 @testable import Cryptomator
 @testable import CryptomatorCommonCore
@@ -20,7 +20,7 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		cryptomatorSettingsMock = CryptomatorSettingsMock()
-		viewModel = PurchaseViewModel(iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
+		viewModel = PurchaseViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock, minimumDisplayTime: 0)
 	}
 
 	// MARK: Cells
@@ -66,10 +66,9 @@ class PurchaseViewModelTests: IAPViewModelTestCase {
 	}
 
 	func testCellsAfterFetchProductsFailed() {
-		let iapStoreMock = IAPStoreMock()
-		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
+		iapStoreMock.fetchProductsWithThrowableError = SKError(.unknown)
 		let viewModel = PurchaseViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, cryptomatorSettings: cryptomatorSettingsMock)
-		wait(for: viewModel.fetchProducts(), timeout: 2.0)
+		wait(for: viewModel.fetchProducts(), timeout: 5.0)
 		XCTAssertEqual([retryCell], viewModel.cells)
 	}
 

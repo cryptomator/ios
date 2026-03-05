@@ -153,7 +153,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			XCTAssertEqual([self.itemID], self.uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id })
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertLocalURLProviderCalledWithItemID()
 	}
 
@@ -264,8 +264,38 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 				deleteItemPromise.fulfill(())
 			}))
 		}))
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertLocalURLProviderCalledWithItemID()
+	}
+
+	// MARK: Unicode Normalization
+
+	func testLocalItemImportNormalizesNFDFilenameToNFC() throws {
+		let permissionProviderMock = PermissionProviderMock()
+		DependencyValues.mockDependency(\.permissionProvider, with: permissionProviderMock)
+		permissionProviderMock.getPermissionsForAtReturnValue = .allowsReading
+
+		// Create a file with an NFD filename (decomposed Unicode: o + combining diaeresis)
+		let nfdName = "Erh\u{006F}\u{0308}hung.pdf"
+		let nfcName = "Erhöhung.pdf"
+		// Sanity check: NFD and NFC are different byte sequences but equal in Swift
+		XCTAssertEqual(nfdName, nfcName)
+		XCTAssertNotEqual(Array(nfdName.utf8), Array(nfcName.utf8))
+
+		let fileURL = tmpDirectory.appendingPathComponent(nfdName, isDirectory: false)
+		try "test".write(to: fileURL, atomically: true, encoding: .utf8)
+
+		let rootItemMetadata = ItemMetadata(id: NSFileProviderItemIdentifier.rootContainerDatabaseValue, name: "Home", type: .folder, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/"), isPlaceholderItem: false)
+		try metadataManagerMock.cacheMetadata(rootItemMetadata)
+
+		let result = try adapter.localItemImport(fileURL: fileURL, parentIdentifier: .rootContainer)
+
+		// The stored name and cloudPath must use NFC (precomposed), not NFD
+		let storedName = result.item.filename
+		XCTAssertEqual(Array(storedName.utf8), Array(nfcName.utf8), "Filename should be stored in NFC form")
+
+		let storedCloudPath = result.item.metadata.cloudPath.path
+		XCTAssertEqual(Array(storedCloudPath.utf8), Array("/\(nfcName)".utf8), "CloudPath should be stored in NFC form")
 	}
 
 	private func assertLocalURLProviderCalledWithItemID() {

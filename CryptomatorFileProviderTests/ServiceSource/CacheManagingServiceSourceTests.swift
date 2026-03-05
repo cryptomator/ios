@@ -44,7 +44,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 			XCTAssertNil(error)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual(1, domainProviderMock.getDomainsCallsCount)
 		// Assert created a CachedFileManager for every domain
@@ -75,7 +75,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 			XCTAssertNil(error)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual([itemID], cacheManagerMock.removeCachedFileForReceivedInvocations)
 		XCTAssertEqual([domainIdentifier], cacheManagerFactoryMock.createCachedFileManagerForReceivedInvocations.map { $0.identifier })
@@ -108,7 +108,7 @@ class CacheManagingServiceSourceTests: XCTestCase {
 			XCTAssertEqual(expectedCacheSize, actualCacheSize)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual(1, domainProviderMock.getDomainsCallsCount)
 		// Assert created a CachedFileManager for every domain

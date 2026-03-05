@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "No se pudo continuar la búsqueda del contenido del directorio.";
 "cloudProvider.error.quotaInsufficient" = "Su almacenamiento no tiene espacio suficiente.";
 "cloudProvider.error.unauthorized" = "No se puede realizar la operación no autorizada.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sesión expirada";
+"cloudProvider.error.unauthorized.reauth.message" = "Por favor, inicie sesión en %@ otra vez.";
+"cloudProvider.error.unauthorized.reauth.button" = "Iniciar Sesión";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Ha iniciado sesión con una cuenta diferente. Por favor, vuelva a intentarlo e inicie sesión con la cuenta %@ original.";
 "cloudProvider.error.noInternetConnection" = "Se necesita conexión a Internet para esta operación.";
 
 "cloudProviderType.localFileSystem" = "Otro proveedor de archivos";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinido";
 
-"localFileSystemAuthentication.createNewVault.header" = "En la siguiente pantalla, elija la ubicación de almacenamiento para su bóveda nueva.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "En la siguiente pantalla, vaya a iCloud Drive, seleccione una ubicación de almacenamiento y luego pulse Abrir.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "En la siguiente pantalla, vaya a su ubicación de almacenamiento, selecciónela y luego pulse Abrir.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleccionar ubicación del almacenamiento";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ya existe una bóveda en esta ubicación. Intente de nuevo con una ubicación de almacenamiento diferente.";
-"localFileSystemAuthentication.openExistingVault.header" = "En la siguiente pantalla, elija la carpeta de su bóveda existente.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "En la siguiente pantalla, vaya a iCloud Drive, seleccione la carpeta de su bóveda y luego pulse Abrir.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "En la siguiente pantalla, vaya a la carpeta de su bóveda, selecciónela y luego pulse Abrir.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleccionar carpeta de la bóveda";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no es una bóveda. Intente de nuevo con una carpeta diferente.";
 "localFileSystemAuthentication.info.footer" = "Los proveedores de archivos que están en gris no admiten \"seleccionar carpetas\". Esto no es una limitación de Cryptomator.";
@@ -197,11 +203,13 @@
 "purchase.title" = "Desbloquear versión completa";
 "purchase.unlockedFullVersion.message" = "Ahora puede usar la versión completa de Cryptomator. ¡Feliz cifrado!";
 "purchase.unlockedFullVersion.title" = "Gracias";
+"purchase.error.paymentNotAllowed" = "Las compras dentro de la aplicación no están permitidas en este dispositivo. Por favor, compruebe la configuración de la hora de pantalla bajo las restricciones de contenido y privacidad para activar las compras.";
 "purchase.error.unknown" = "Esta compra no está disponible en la App Store por una razón desconocida. Intente de nuevo más tarde.\n\nSi este error persiste, intente reiniciar el dispositivo o cerrar sesión y volver a ingresar a su ID de Apple en la configuración de iOS.";
 
 "settings.title" = "Configuración";
 "settings.aboutCryptomator" = "Acerca de Cryptomator";
 "settings.aboutCryptomator.title" = "Versión %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Ha desbloqueado la versión completa y ha ganado acceso de escritura a sus bóvedas.";
 "settings.cacheSize" = "Tamaño de caché";
 "settings.clearCache" = "Vaciar la caché";
 "settings.cloudServices" = "Servicios en la nube";
@@ -213,19 +221,30 @@
 "settings.sendLogFile" = "Enviar archivo de registro";
 "settings.shortcutsGuide" = "Guía de accesos directos";
 "settings.unlockFullVersion" = "Desbloquear versión completa";
+"settings.unlockFullVersion.detail" = "Obtenga acceso de escritura a sus bóvedas.";
+"settings.unlockFullVersion.trialExpirationDate" = "Fecha de caducidad de la prueba: %@";
 
 "sharePoint.enterURL.title" = "Introduzca la URL de SharePoint";
 "sharePoint.enterURL.placeholder" = "URL del sitio SharePoint";
 "sharePoint.enterURL.header.title" = "Utilice este formato URL:\nhttps://{…}.sharepoint.com/{sites|teams}/{…}";
 "sharePoint.urlValidation.error.emptyURL" = "La URL no puede estar vacío.";
 "sharePoint.urlValidation.error.invalidURL" = "La URL no es válida. Por favor utiliza este formato: https://{…}.sharepoint.com/{sites|teams}/{…}";
+"sharePoint.selectDrive.title" = "Seleccionar biblioteca de documentos";
+"sharePoint.selectDrive.header.title" = "Seleccione la biblioteca de documentos de SharePoint con la que desea trabajar.";
+"sharePoint.selectDrive.emptyList.footer" = "No hay bibliotecas de documentos disponibles";
 
 "shareVault.title" = "Compartir bóveda";
 "shareVault.normal.header.title" = "Una manera segura de trabajar en equipos";
+"shareVault.normal.header.features" = "Colabore de forma segura con su equipo. Conceda y revoque el acceso en cualquier momento sin compartir contraseñas.";
+"shareVault.normal.footer.text" = "Para más información, consulte las sugerencias de buenas prácticas en nuestros [docs](%@).";
 "shareVault.normal.button.visitHub" = "Visite Cryptomator Hub";
 "shareVault.hub.header.title" = "Cómo compartir una bóveda de Hub";
 "shareVault.hub.header.subtitle" = "Para compartir el contenido de la bóveda con otro miembro del equipo, tiene que realizar dos pasos:";
+"shareVault.hub.step1" = "Compartir acceso a la carpeta de la bóveda cifrada a través de almacenamiento en la nube.";
+"shareVault.hub.step2" = "Conceder acceso a miembro del equipo en Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Abrir Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "No se puede cargar la información del Hub";
+"shareVault.error.hubURLExtraction.message" = "No se pudo cargar la configuración de Hub de la bóveda. Compruebe la configuración de su bóveda o póngase en contacto con su administrador del Hub.";
 
 "snapshots.fileprovider.file1" = "/Números.contables";
 "snapshots.fileprovider.file2" = "/Presentación final.key";
@@ -287,6 +306,7 @@
 "vaultDetail.button.removeVault" = "Eliminar de la lista de la bóveda";
 "vaultDetail.button.renameVault" = "Renombrar";
 "vaultDetail.button.shareVault" = "Compartir bóveda";
+"vaultDetail.shareVault.footer" = "Colabore de forma segura con su equipo usando Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Seleccione una contraseña segura para su bóveda que solo conozca usted y manténgala en un lugar seguro.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Si activa %@, su contraseña de la bóveda se almacenará en el llavero de iOS.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Su contraseña de la bóveda solo será requerida si la autenticación de %@ falla.";

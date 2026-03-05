@@ -107,11 +107,8 @@
 "keepUnlockedDuration.auto" = "iOS ই সিদ্ধান্ত নিবে";
 "keepUnlockedDuration.auto.shortDisplayName" = "স্বয়ংক্রিয়";
 "keepUnlockedDuration.indefinite" = "অনির্দিষ্ট";
-
-"localFileSystemAuthentication.createNewVault.header" = "পরবর্তী স্ক্রিনে, আপনার নতুন ভোল্টের জন্য স্টোরেজ ঠিকানা পছন্দ করুন.";
 "localFileSystemAuthentication.createNewVault.button" = "স্টোরেজ ঠিকানা নির্বাচন করুন";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "এই ঠিকানায় একটি ভোল্ট ইতিমধ্যে বিদ্যমান. ভিন্ন একটি স্টোরেজ ঠিকিনা দিয়ে আবার চেষ্টা করুন.";
-"localFileSystemAuthentication.openExistingVault.header" = "পরবর্তী স্ক্রিনে, আপনার বিদ্যমান ভোল্ট ফোল্ডারটি পছন্দ করুন.";
 "localFileSystemAuthentication.openExistingVault.button" = "ভোল্ট ফোল্ডার নির্বাচন করুন";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "নির্বাচিত ফোল্ডারটি কোনো ভোল্ট নয়. দয়া করে অন্য ফোল্ডার দিয়ে আবার চেষ্টা করুন.";
 

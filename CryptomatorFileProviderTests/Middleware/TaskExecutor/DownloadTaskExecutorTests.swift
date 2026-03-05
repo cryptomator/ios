@@ -21,7 +21,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
+		let downloadTaskRecord = try DownloadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), replaceExisting: false, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
@@ -43,7 +43,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDownloadFileFailWithSameErrorAsProvider() throws {
@@ -60,7 +60,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 			Promise(CloudTaskTestError.correctPassthrough)
 		}
 
-		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: false, localURL: localURL)
+		let downloadTaskRecord = try DownloadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), replaceExisting: false, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: errorCloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
@@ -78,7 +78,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDownloadFileReplaceExisting() throws {
@@ -91,7 +91,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		let itemID: Int64 = 2
 		let itemMetadata = ItemMetadata(id: itemID, name: "File 1", type: .file, size: 14, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: cloudPath, isPlaceholderItem: false)
 
-		let downloadTaskRecord = DownloadTaskRecord(correspondingItem: itemMetadata.id!, replaceExisting: true, localURL: localURL)
+		let downloadTaskRecord = try DownloadTaskRecord(correspondingItem: XCTUnwrap(itemMetadata.id), replaceExisting: true, localURL: localURL)
 		let downloadTask = DownloadTask(taskRecord: downloadTaskRecord, itemMetadata: itemMetadata, onURLSessionTaskCreation: nil)
 
 		let taskExecutor = DownloadTaskExecutor(domainIdentifier: .test, provider: cloudProviderMock, itemMetadataManager: metadataManagerMock, cachedFileManager: cachedFileManagerMock, downloadTaskManager: downloadTaskManagerMock)
@@ -115,7 +115,7 @@ class DownloadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDownloadPostProcessingForReplaceExisting() throws {

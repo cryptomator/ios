@@ -145,10 +145,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Automātiski";
 "keepUnlockedDuration.indefinite" = "Nenoteikts";
 
-"localFileSystemAuthentication.createNewVault.header" = "Nākamajā ekrānā jāizvēlas savas jaunās glabātavas glabāšanas vieta.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Nākamajā skatā jāpārvietojas uz iCloud Drive, jāatlasa krātuves atrašanās vieta, tad jāpiesit uz “Atvērt”.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Nākamajā skatā jāpārvietojas uz krātuves atrašanās vietu, jāatlasa tā, tad jāpiesit uz “Atvērt”.";
 "localFileSystemAuthentication.createNewVault.button" = "Atlasīt glabāšanas vietu";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Šajā atrašanās vietā jau pastāv glabātava. Lūgums mēģināt vēlreiz ar citu krātuves atrašanās vietu.";
-"localFileSystemAuthentication.openExistingVault.header" = "Nākamajā skatā jāizvēlas savas esošās glabātavas mape.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Nākamajā skatā jāpārvietojas uz iCloud Drive, jāatlasa glabātavas mape, tad jāpiesit uz “Atvērt”.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Nākamajā skatā jāpārvietojas uz glabātavas mapi, jāatlasa tā, tad jāpiesit uz “Atvērt”.";
 "localFileSystemAuthentication.openExistingVault.button" = "Atlasīt glabātavas mapi";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Atlasītā mape nav glabātava. Lūgums mēģināt vēlreiz ar citu mapi.";
 "localFileSystemAuthentication.info.footer" = "Datņu nodrošinātāji, kuri ir pelēki, nenodrošina mapju izvēlēšanos. Tas nav Cryptomator ierobežojums.";
@@ -197,6 +199,7 @@
 "purchase.title" = "Atslēgt pilno versiju";
 "purchase.unlockedFullVersion.message" = "Tagad var izmantot pilno Cryptomator versiju. Laimīgu šifrēšanu!";
 "purchase.unlockedFullVersion.title" = "Paldies!";
+"purchase.error.paymentNotAllowed" = "Šajā ierīcē pirkumi lietotnē nav atļauti. Lūgums pārbaudīt ekrāna laika iestatījumus sadaļā “Saturs un privātuma ierobežojumi”, lai iespējotu pirkumus.";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
 
 "settings.title" = "Iestatījumi";

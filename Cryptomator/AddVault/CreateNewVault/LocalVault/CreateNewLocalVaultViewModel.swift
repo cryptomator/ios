@@ -16,7 +16,13 @@ class CreateNewLocalVaultViewModel: LocalFileSystemAuthenticationViewModel, Loca
 
 	init(vaultName: String, selectedLocalFileSystemType: LocalFileSystemType, accountManager: CloudProviderAccountManager = CloudProviderAccountDBManager.shared) {
 		let documentPickerButtonText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.button")
-		let headerText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.header")
+		let headerText: String
+		switch selectedLocalFileSystemType {
+		case .iCloudDrive:
+			headerText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.iCloudDrive.header")
+		case .custom:
+			headerText = LocalizedString.getValue("localFileSystemAuthentication.createNewVault.otherFileProvider.header")
+		}
 		self.vaultName = vaultName
 		super.init(documentPickerButtonText: documentPickerButtonText, headerText: headerText, selectedLocalFileSystemType: selectedLocalFileSystemType, validationLogic: CreateNewLocalVaultValidationLogic(vaultName: vaultName), accountManager: accountManager)
 	}

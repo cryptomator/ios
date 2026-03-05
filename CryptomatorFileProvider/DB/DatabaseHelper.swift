@@ -188,6 +188,11 @@ public struct DatabaseHelper: DatabaseHelping {
 				table.add(column: "tagData", .blob)
 			})
 		}
+		migrator.registerMigration("v3") { db in
+			try db.alter(table: "uploadTasks") { table in
+				table.add(column: "uploadStartedAt", .date)
+			}
+		}
 		try migrator.migrate(dbWriter)
 	}
 

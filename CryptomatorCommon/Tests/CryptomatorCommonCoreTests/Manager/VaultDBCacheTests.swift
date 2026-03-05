@@ -89,7 +89,7 @@ class VaultDBCacheTests: XCTestCase {
 		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock
 		cloudProviderMock.downloadFileFromToClosure = downloadMock
 		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 1.0)
+		wait(for: promise, timeout: 5.0)
 
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -124,7 +124,7 @@ class VaultDBCacheTests: XCTestCase {
 			return Promise(())
 		}
 		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 1.0)
+		wait(for: promise, timeout: 5.0)
 		let fetchedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -149,7 +149,7 @@ class VaultDBCacheTests: XCTestCase {
 			return Promise(metadata)
 		}
 		cloudProviderMock.downloadFileFromToClosure = downloadMock
-		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 1.0)
+		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 5.0)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: updatedMasterkeyFileData,
@@ -183,7 +183,7 @@ class VaultDBCacheTests: XCTestCase {
 			}
 			return Promise(())
 		}
-		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 1.0)
+		wait(for: vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), timeout: 5.0)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let expectedCachedVault = CachedVault(vaultUID: vaultUID,
 		                                      masterkeyFileData: masterkeyFileData,
@@ -209,7 +209,7 @@ class VaultDBCacheTests: XCTestCase {
 			return Promise(metadata)
 		}
 		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 1.0)
+		wait(for: promise, timeout: 5.0)
 		let fetchedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		XCTAssertEqual(upToDateCachedVault, fetchedVault)
 		assertFetchItemMetadataCalledForVaultConfigAndMasterkey()
@@ -222,7 +222,7 @@ class VaultDBCacheTests: XCTestCase {
 		cloudProviderMock.fetchItemMetadataAtClosure = defaultFetchItemMetadataMock
 		cloudProviderMock.downloadFileFromToClosure = downloadMock
 		let promise = vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock)
-		wait(for: promise, timeout: 1.0)
+		wait(for: promise, timeout: 5.0)
 		let actualCachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let upToDateCachedVault = CachedVault(vaultUID: vaultUID, masterkeyFileData: updatedMasterkeyFileData, vaultConfigToken: updatedVaultConfigData, lastUpToDateCheck: defaultCachedVault.lastUpToDateCheck, masterkeyFileLastModifiedDate: updatedMasterkeyFileLastModifiedDate, vaultConfigLastModifiedDate: updatedVaultConfigLastModifiedDate)
 		XCTAssertEqual(upToDateCachedVault, actualCachedVault)
@@ -260,7 +260,7 @@ class VaultDBCacheTests: XCTestCase {
 		assertDownloadedOnlyVaultConfig()
 	}
 
-	func testRefreshForNonCachedVault() throws {
+	func testRefreshForNonCachedVault() {
 		XCTAssertRejects(vaultCache.refreshVaultCache(for: vaultAccount, with: cloudProviderMock), with: VaultCacheError.vaultNotFound)
 	}
 

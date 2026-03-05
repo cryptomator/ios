@@ -7,27 +7,27 @@
 "getFolderIntent.description" = "주어진 Vault 내부의 주어진 위치에 대한 폴더 객체를 반환합니다.";
 "getFolderIntent.path" = "경로";
 "getFolderIntent.text" = "${vault} 내부의 ${path}에 위치한 폴더 반환";
-"getFolderIntent.title" = "폴더 열기";
+"getFolderIntent.title" = "폴더 가져오기";
 
-"isUnlockedIntent.description" = "주어진 Vault가 잠금 해제되었는지 아닌지를 반환합니다.";
+"isUnlockedIntent.description" = "주어진 Vault가 잠금 해제되었는지 판단해 참 또는 거짓으로 반환합니다.";
 "isUnlockedIntent.title" = "잠금 해제됨";
 
-"isVaultLockedIntent.title" = "Vault 잠금 해제됨";
-"isVaultUnlockedIntent.text" = "${vault} 잠금 해제됨?";
+"isVaultLockedIntent.title" = "Vault 잠금 상태 가져오기";
+"isVaultUnlockedIntent.text" = "${vault} 잠금 해제되었는지 가져오기";
 
-"lockVaultIntent.description" = "해당 vault를 잠급니다.";
+"lockVaultIntent.description" = "주어진 Vault를 잠급니다.";
 "lockVaultIntent.text" = "${vault} 잠금";
-"lockVaultIntent.title" = "Vault 잠그기";
+"lockVaultIntent.title" = "Vault 잠금";
 
 "openVaultIntent.description" = "파일 앱에서 해당 Vault를 엽니다.";
 "openVaultIntent.text" = "파일 앱에서 ${vault} 열기";
 "openVaultIntent.title" = "Vault 열기";
 
-"saveFileIntent.description" = "파일을 vault에 저장합니다.";
+"saveFileIntent.description" = "파일을 Vault에 저장합니다.";
 "saveFileIntent.file" = "파일";
-"saveFileIntent.parameter.ignoreExisting" = "같은 이름을 가진 기존 파일 무시하기";
+"saveFileIntent.parameter.ignoreExisting" = "같은 이름을 가진 기존 파일 무시";
 "saveFileIntent.text" = "${file}을 ${folder}에 저장";
-"saveFileIntent.title" = "파일 저장하기";
+"saveFileIntent.title" = "파일 저장";
 
 "vaultFolder.displayName" = "Vault 폴더";
 "vaultFolder.vaultIdentifier" = "Vault 식별자";

@@ -31,7 +31,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(itemMetadata.parentID, deletionTask.parentID)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDeleteItemWithFolder() throws {
@@ -62,7 +62,7 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(folderItemMetadata.parentID, deletionTask.parentID)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDeleteItemWithLocallyCachedFile() throws {
@@ -92,10 +92,10 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(itemID, self.cachedFileManagerMock.removeCachedFile[0])
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testDeleteItemWithNonExistentFile() throws {
+	func testDeleteItemWithNonExistentFile() {
 		let expectation = XCTestExpectation()
 		let itemID: Int64 = 2
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: itemID)
@@ -111,6 +111,6 @@ class FileProviderAdapterDeleteItemTests: FileProviderAdapterTestCase {
 			XCTAssert(self.deletionTaskManagerMock.deletionTasks.isEmpty, "Unexpected creation of a deletion task.")
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }

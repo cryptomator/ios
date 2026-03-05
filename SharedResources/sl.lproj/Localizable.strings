@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "Naj iOS odloči samodejno";
 "keepUnlockedDuration.auto.shortDisplayName" = "Samodejno";
 "keepUnlockedDuration.indefinite" = "Neomejeno";
-
-"localFileSystemAuthentication.createNewVault.header" = "Na naslednjem zaslonu izberite lokacijo za shranjevanje vašega novega trezorja.";
 "localFileSystemAuthentication.createNewVault.button" = "Izberite lokacijo za shranjevanje";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Na tej lokaciji že obstaja trezor. Prosimo, poskusite ponovno z drugo lokacijo.";
-"localFileSystemAuthentication.openExistingVault.header" = "Na naslednjem zaslonu izberite mapo vašega obstoječega trezorja.";
 "localFileSystemAuthentication.openExistingVault.button" = "Izberite mapo s trezorjem";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Izbrana mapa ni trezor. Prosimo, poskusite ponovno z drugo mapo.";
 "localFileSystemAuthentication.info.footer" = "Ponudniki datotek, ki so osivljeni, ne podpirajo \"izbire map\". To ni omejitev Cryptomatorja.";

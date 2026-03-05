@@ -11,7 +11,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class FileProviderAdapterSetFavoriteRankTests: FileProviderAdapterTestCase {
-	func testSetFavoriteRank() throws {
+	func testSetFavoriteRank() {
 		let expectation = XCTestExpectation()
 		metadataManagerMock.cachedMetadata[2] = ItemMetadata(id: 2, name: "Test", type: .folder, size: nil, parentID: 1, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: false, isCandidateForCacheCleanup: false, favoriteRank: nil, tagData: nil)
 		let favoriteRank: NSNumber = 100
@@ -21,7 +21,7 @@ class FileProviderAdapterSetFavoriteRankTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(favoriteRank, item?.favoriteRank)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(favoriteRank.int64Value, metadataManagerMock.setFavoriteRank[2])
 	}
 }

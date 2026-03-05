@@ -1,4 +1,4 @@
-fastlane_version("2.228.0")
+fastlane_version("2.232.2")
 
 default_platform(:ios)
 
@@ -46,7 +46,7 @@ platform :ios do
   desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :beta do
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
+      env_vars: ['APP_GROUP', 'ASSETS_CAR_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -63,6 +63,20 @@ platform :ios do
         "Changes" => changelog
       }
     )
+  end
+
+  desc "Update IAP prices via App Store Connect API"
+  desc "Usage: bundle exec fastlane update_iap_price configs:'null:base.json 2025-12-01:sale.json' [dry_run:true]"
+  lane :update_iap_price do |options|
+    ensure_env_vars(
+      env_vars: ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_KEY_PATH', 'IAP_ID', 'IAP_BASE_TERRITORY']
+    )
+    configs = options[:configs]
+    if configs.nil? || configs.empty?
+      UI.user_error!("Config entries required. Usage: bundle exec fastlane update_iap_price configs:'null:config/base.json 2025-12-01:config/sale.json'")
+    end
+    dry_run_flag = options[:dry_run] ? "--dry-run" : ""
+    sh("./scripts/iap-pricing.sh #{dry_run_flag} #{configs}")
   end
 
   desc "Deploy a new freemium and premium version to the App Store"
@@ -84,7 +98,7 @@ platform :ios do
   private_lane :_app_store do |options|
     Dotenv.overload(options[:env_file])
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
+      env_vars: ['APP_GROUP', 'ASSETS_CAR_PATH', 'BUNDLE_IDENTIFIER', 'DISPLAY_NAME', 'ENCRYPTION_EXPORT_COMPLIANCE_CODE', 'KEYCHAIN_GROUP', 'METADATA_PATH']
     )
     apply_config
     scan
@@ -96,16 +110,14 @@ platform :ios do
   desc "Requires --env to be set to 'freemium' or 'premium'"
   lane :apply_config do
     ensure_env_vars(
-      env_vars: ['APP_GROUP', 'APP_ICON_DARK_FILE_PATH', 'APP_ICON_LIGHT_FILE_PATH', 'APP_ICON_TINTED_FILE_PATH', 'BUNDLE_IDENTIFIER', 'CONFIG_NAME', 'DISPLAY_NAME', 'KEYCHAIN_GROUP']
+      env_vars: ['APP_GROUP', 'ASSETS_CAR_PATH', 'BUNDLE_IDENTIFIER', 'CONFIG_NAME', 'DISPLAY_NAME', 'KEYCHAIN_GROUP']
     )
     config_name = ENV['CONFIG_NAME']
     bundle_identifier = ENV['BUNDLE_IDENTIFIER']
     display_name = ENV['DISPLAY_NAME']
     app_group = ENV['APP_GROUP']
     keychain_group = ENV['KEYCHAIN_GROUP']
-    app_icon_light_file_path = ENV['APP_ICON_LIGHT_FILE_PATH']
-    app_icon_dark_file_path = ENV['APP_ICON_DARK_FILE_PATH']
-    app_icon_tinted_file_path = ENV['APP_ICON_TINTED_FILE_PATH']
+    assets_car_path = ENV['ASSETS_CAR_PATH']
     encryption_export_compliance_code = ENV['ENCRYPTION_EXPORT_COMPLIANCE_CODE']
 
     # Update the app identifier
@@ -273,8 +285,8 @@ platform :ios do
     # Update the app constants file
     sh("./scripts/create-app-constants.sh #{bundle_identifier}")
 
-    # Update the app icon
-    sh("./scripts/create-app-icon.sh #{app_icon_light_file_path} #{app_icon_dark_file_path} #{app_icon_tinted_file_path}")
+    # Update the pre-compiled asset catalog
+    sh("./scripts/update-assets-car.sh #{assets_car_path}")
 
     # Update the cloud access secrets file
     sh("./scripts/create-cloud-access-secrets.sh #{config_name}")

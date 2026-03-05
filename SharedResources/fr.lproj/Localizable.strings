@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "La récupération du contenu du répertoire n'a pas pu être poursuivie.";
 "cloudProvider.error.quotaInsufficient" = "Votre espace de stockage est insuffisant.";
 "cloudProvider.error.unauthorized" = "Impossible d'effectuer une opération non autorisée.";
+"cloudProvider.error.unauthorized.reauth.title" = "La session a expiré";
+"cloudProvider.error.unauthorized.reauth.message" = "Veuillez vous connecter à nouveau à %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Se connecter";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Vous vous êtes connecté avec un autre compte. Veuillez réessayer et vous connecter avec le compte %@ original.";
 "cloudProvider.error.noInternetConnection" = "Connexion Internet requise pour cette opération.";
 
 "cloudProviderType.localFileSystem" = "Autre fournisseur de fichiers";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatiquement";
 "keepUnlockedDuration.indefinite" = "Indéfini";
 
-"localFileSystemAuthentication.createNewVault.header" = "Dans l'écran suivant, choisissez l'emplacement de stockage de votre nouveau coffre.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Dans l'écran suivant, accédez à iCloud Drive, sélectionnez un emplacement de stockage, puis appuyez sur Ouvrir.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Dans l'écran suivant, accédez à votre emplacement de stockage, sélectionnez-le, puis cliquez sur Ouvrir.";
 "localFileSystemAuthentication.createNewVault.button" = "Sélectionnez l'emplacement de stockage";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Un coffre existe déjà à cet emplacement. Veuillez réessayer avec un autre emplacement.";
-"localFileSystemAuthentication.openExistingVault.header" = "Dans l'écran suivant, choisissez le dossier de votre coffre existant.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Dans l'écran suivant, accédez à iCloud Drive, sélectionnez votre dossier de coffre, puis appuyez sur Ouvrir.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Dans l'écran suivant, accédez au dossier de votre coffre, sélectionnez-le, puis appuyez sur Ouvrir.";
 "localFileSystemAuthentication.openExistingVault.button" = "Sélectionnez le dossier du coffre";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Le dossier sélectionné n'est pas un coffre. Veuillez réessayer avec un dossier différent.";
 "localFileSystemAuthentication.info.footer" = "Les fournisseurs de fichiers qui sont grisés ne permettent pas de sélectionner des dossiers en entier. Ce n'est pas une limitation de Cryptomator.";
@@ -197,6 +203,7 @@
 "purchase.title" = "Débloquer la version complète";
 "purchase.unlockedFullVersion.message" = "Vous pouvez maintenant utiliser la version complète de Cryptomator. Bon chiffrement !";
 "purchase.unlockedFullVersion.title" = "Merci";
+"purchase.error.paymentNotAllowed" = "Les achats intégrés ne sont pas autorisés sur cet appareil. Veuillez vérifier les paramètres de Temps d'Écran dans la section Contenu et Confidentialité pour activer les achats.";
 "purchase.error.unknown" = "Cet achat n'est pas disponible dans l'App Store pour une raison inconnue. Veuillez réessayer plus tard.\n\nSi cette erreur persiste, essayez de redémarrer votre appareil ou de vous déconnecter et de revenir à votre identifiant Apple dans les paramètres iOS.";
 
 "settings.title" = "Paramètres";

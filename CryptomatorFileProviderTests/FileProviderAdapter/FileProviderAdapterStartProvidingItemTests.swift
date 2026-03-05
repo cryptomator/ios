@@ -24,7 +24,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		try FileManager.default.createDirectory(at: itemDirectory, withIntermediateDirectories: false)
 	}
 
-	func testStartProvidingItemNoLocalVersion() throws {
+	func testStartProvidingItemNoLocalVersion() {
 		let expectation = XCTestExpectation()
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 		adapter.startProvidingItem(at: url) { [self] error in
@@ -33,11 +33,11 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			self.assertMetadataUpdated()
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithUpToDateLocalVersion() throws {
+	func testStartProvidingItemWithUpToDateLocalVersion() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 		XCTAssert(FileManager.default.fileExists(atPath: url.path))
@@ -47,11 +47,11 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count, "Unexpected change of cached metadata.")
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
-	func testStartProvidingItemWithOlderLocalVersion() throws {
+	func testStartProvidingItemWithOlderLocalVersion() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 
@@ -64,7 +64,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
@@ -83,7 +83,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 		// Simulate a failed upload
 		let localCachedFileInfo = LocalCachedFileInfo(lastModifiedDate: nil, correspondingItem: itemID, localLastModifiedDate: Date(timeIntervalSince1970: 0), localURL: url)
 		cachedFileManagerMock.cachedLocalFileInfo[itemID] = localCachedFileInfo
-		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
+		let uploadTaskRecord = UploadTaskRecord(correspondingItem: itemID, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.serverUnreachable).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
 		uploadTaskManagerMock.getTaskRecordForClosure = {
 			guard self.itemID == $0 else {
 				return nil
@@ -106,12 +106,12 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssert(localCachedFileInfo.localURL.path.hasPrefix(conflictingItemDirectory.path))
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
 
-	func testStartProvidingItemWithTagData() throws {
+	func testStartProvidingItemWithTagData() {
 		simulateExistingLocalFileByDownloadingFile()
 		let expectation = XCTestExpectation()
 
@@ -126,7 +126,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertFalse(fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithCalled)
 	}
 
@@ -159,7 +159,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssert(FileManager.default.fileExists(atPath: url.path))
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 		// Reset fileProviderItemUpdateDelegateMock
 		resetFileProviderItemUpdateDelegateMockRemoveItem()

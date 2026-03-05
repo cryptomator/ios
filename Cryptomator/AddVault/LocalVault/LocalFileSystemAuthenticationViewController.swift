@@ -31,7 +31,6 @@ class LocalFileSystemAuthenticationViewController: SingleSectionStaticUITableVie
 		}
 		documentPicker.allowsMultipleSelection = false
 		documentPicker.delegate = self
-		documentPicker.directoryURL = viewModel.documentPickerStartDirectoryURL
 		present(documentPicker, animated: true)
 	}
 

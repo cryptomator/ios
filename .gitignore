@@ -44,3 +44,9 @@ fastlane/Preview.html
 fastlane/screenshots/screenshots.html
 fastlane/screenshots/*/*.png
 fastlane/test_output
+
+# App Store Connect API keys
+*.p8
+
+# IAP pricing configs (contain actual prices)
+fastlane/config/iap-*.json

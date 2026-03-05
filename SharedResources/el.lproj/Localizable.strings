@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Αφήστε το iOS να αποφασίζει αυτόματα";
 "keepUnlockedDuration.auto.shortDisplayName" = "Αυτόματο";
 "keepUnlockedDuration.indefinite" = "Αόριστο";
-
-"localFileSystemAuthentication.createNewVault.header" = "Στην επόμενη οθόνη, επιλέξτε τη θέση αποθήκευσης για τη νέα κρύπτη σας.";
 "localFileSystemAuthentication.createNewVault.button" = "Επιλογή Τοποθεσίας Αποθήκευσης Αρχείων";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Μια κρύπτη υπάρχει ήδη σε αυτή τη θέση. Παρακαλώ δοκιμάστε ξανά με μια διαφορετική θέση αποθήκευσης.";
-"localFileSystemAuthentication.openExistingVault.header" = "Στην επόμενη οθόνη, επιλέξτε το φάκελο της υπάρχοντος κρύπτη σας.";
 "localFileSystemAuthentication.openExistingVault.button" = "Επιλογή Φακέλου Κρύπτης";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Ο επιλεγμένος φάκελος δεν είναι κρύπτη. Παρακαλώ προσπαθήστε ξανά με διαφορετικό φάκελο.";
 "localFileSystemAuthentication.info.footer" = "Οι πάροχοι αρχείων που είναι γκριζαρισμένοι δεν υποστηρίζουν \"επιλογή φακέλων\". Αυτό δεν είναι περιορισμός του Cryptomator.";

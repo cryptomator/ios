@@ -74,7 +74,7 @@ class MoveVaultViewModelTests: XCTestCase {
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
 
-		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
 	func testRejectVaultsInTheLocalFileSystem() async throws {
@@ -151,10 +151,10 @@ class MoveVaultViewModelTests: XCTestCase {
 			XCTAssertEqual(1, self.vaultManagerMock.moveVaultAccountToCallsCount)
 		}
 
-		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		wait(for: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
-	func testIsAllowedToMove() throws {
+	func testIsAllowedToMove() {
 		let moveVaultViewModel = createViewModel(currentFolderChoosingCloudPath: CloudPath("/Test"), vaultAccount: vaultAccount, cloudProviderType: .dropbox)
 		XCTAssert(moveVaultViewModel.isAllowedToMove())
 

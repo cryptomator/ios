@@ -144,11 +144,8 @@
 "keepUnlockedDuration.auto" = "Biarkan iOS memutuskan secara otomatis";
 "keepUnlockedDuration.auto.shortDisplayName" = "Otomatis";
 "keepUnlockedDuration.indefinite" = "Tidak terbatas";
-
-"localFileSystemAuthentication.createNewVault.header" = "Di layar berikutnya, pilih lokasi penyimpanan untuk vault baru Anda.";
 "localFileSystemAuthentication.createNewVault.button" = "Pilih Lokasi Penyimpanan";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Sudah ada vault di lokasi ini. Coba lagi dengan lokasi penyimpanan yang berbeda.";
-"localFileSystemAuthentication.openExistingVault.header" = "Di layar berikutnya, pilih folder vault Anda yang ada.";
 "localFileSystemAuthentication.openExistingVault.button" = "Pilih Folder Vault";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Folder yang dipilih bukanlah sebuah vault. Silahkan coba lagi dengan folder berbeda.";
 "localFileSystemAuthentication.info.footer" = "Penyedia layanan file yang berwarna abu-abu tidak mendukung \"pilih folder\". Ini bukan merupakan limitasi dari Cryptomator.";

@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Fetching contents of directory could not be continued.";
 "cloudProvider.error.quotaInsufficient" = "Your storage has insufficient space.";
 "cloudProvider.error.unauthorized" = "Unable to perform unauthorized operation.";
+"cloudProvider.error.unauthorized.reauth.title" = "Session Expired";
+"cloudProvider.error.unauthorized.reauth.message" = "Please sign in to %@ again.";
+"cloudProvider.error.unauthorized.reauth.button" = "Sign In";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "You signed in with a different account. Please try again and sign in with the original %@ account.";
 "cloudProvider.error.noInternetConnection" = "Internet connection needed for this operation.";
 
 "cloudProviderType.localFileSystem" = "Other File Provider";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Indefinite";
 
-"localFileSystemAuthentication.createNewVault.header" = "In the next screen, choose the storage location for your new vault.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "In the next screen, navigate to iCloud Drive, select a storage location, then tap Open.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "In the next screen, navigate to your storage location, select it, then tap Open.";
 "localFileSystemAuthentication.createNewVault.button" = "Select Storage Location";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "A vault already exists at this location. Please try again with a different storage location.";
-"localFileSystemAuthentication.openExistingVault.header" = "In the next screen, choose the folder of your existing vault.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "In the next screen, navigate to iCloud Drive, select your vault folder, then tap Open.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "In the next screen, navigate to your vault folder, select it, then tap Open.";
 "localFileSystemAuthentication.openExistingVault.button" = "Select Vault Folder";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "The selected folder is not a vault. Please try again with a different folder.";
 "localFileSystemAuthentication.info.footer" = "File providers that are grayed out don't support \"picking folders\". This is not a limitation of Cryptomator.";
@@ -197,6 +203,7 @@
 "purchase.title" = "Unlock Full Version";
 "purchase.unlockedFullVersion.message" = "You can now use the full version of Cryptomator. Happy crypting!";
 "purchase.unlockedFullVersion.title" = "Thank You";
+"purchase.error.paymentNotAllowed" = "In-app purchases are not allowed on this device. Please check your Screen Time settings under Content & Privacy Restrictions to enable purchases.";
 "purchase.error.unknown" = "This purchase is unavailable in the App Store for an unknown reason. Please try again later.\n\nIf this error persists, try to restart your device or signing out and back in to your Apple ID in the iOS settings.";
 
 "settings.title" = "Settings";

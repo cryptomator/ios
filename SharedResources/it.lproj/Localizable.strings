@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Impossibile continuare il recupero dei contenuti della directory.";
 "cloudProvider.error.quotaInsufficient" = "Lo spazio di archiviazione dispone di spazio insufficiente.";
 "cloudProvider.error.unauthorized" = "Impossibile eseguire operazioni non autorizzate.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sessione Scaduta";
+"cloudProvider.error.unauthorized.reauth.message" = "Per favore accedi nuovamente a %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Accedi";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Hai effettuato l'accesso con un account diverso. Riprova e accedi con l'account %@ originale.";
 "cloudProvider.error.noInternetConnection" = "Connessione Internet necessaria per questa operazione.";
 
 "cloudProviderType.localFileSystem" = "Altro Fornitore di File";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Sempre";
 
-"localFileSystemAuthentication.createNewVault.header" = "Nella prossima schermata, scegli la posizione d'archiviazione per la tua nuova cassaforte.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "Nella schermata successiva, vai su iCloud Drive, seleziona una posizione di archiviazione, quindi tocca Apri.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Nella schermata successiva, vai alla posizione di archiviazione, selezionala, quindi tocca Apri.";
 "localFileSystemAuthentication.createNewVault.button" = "Seleziona Posizione d'Archiviazione";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una cassaforte esiste già in questa posizione. Riprova con un'altra posizione di archiviazione.";
-"localFileSystemAuthentication.openExistingVault.header" = "Nella prossima schermata, scegli la cartella della tua cassaforte esistente.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Nella schermata successiva, vai su iCloud Drive, seleziona la cartella della cassaforte, quindi tocca Apri.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Nella schermata successiva, vai alla cartella della cassaforte, selezionala, quindi tocca Apri.";
 "localFileSystemAuthentication.openExistingVault.button" = "Seleziona Cartella della Cassaforte";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La cartella selezionata non è una cassaforte. Riprova con una cartella diversa.";
 "localFileSystemAuthentication.info.footer" = "I fornitori di file ingrigiti non supportano le \"cartelle di selezione\". Questa non è una limitazione di Cryptomator.";
@@ -197,11 +203,13 @@
 "purchase.title" = "Sblocca la Versione Completa";
 "purchase.unlockedFullVersion.message" = "Puoi ora usare la versione completa di Cryptomator. Buona crittografazione!";
 "purchase.unlockedFullVersion.title" = "Grazie";
+"purchase.error.paymentNotAllowed" = "Gli acquisti in-app non sono consentiti da questo dispositivo. Controlla le impostazioni dell'ora dello schermo sotto Contenuti e Limitazioni della Privacy per abilitare gli acquisti.";
 "purchase.error.unknown" = "Questo acquisto non è disponibile nell'App Store per un motivo sconosciuto. Riprova più tardi.\n\nSe questo errore persiste, provare a riavviare il dispositivo o scollegare e ricollegare il tuo ID Apple nelle impostazioni di iOS.";
 
 "settings.title" = "Impostazioni";
 "settings.aboutCryptomator" = "Su Cryptomator";
 "settings.aboutCryptomator.title" = "Versione %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Hai sbloccato la versione completa ed hai ottenuto l'accesso in scrittura alle tue casseforti.";
 "settings.cacheSize" = "Dimensione cache";
 "settings.clearCache" = "Svuota Cache";
 "settings.cloudServices" = "Servizi cloud";
@@ -213,6 +221,8 @@
 "settings.sendLogFile" = "Invia File di Registro";
 "settings.shortcutsGuide" = "Guida alle scorciatoie";
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
+"settings.unlockFullVersion.detail" = "Ottieni l'accesso in scrittura alle tue casseforti.";
+"settings.unlockFullVersion.trialExpirationDate" = "Fine del periodo di prova: %@";
 
 "sharePoint.enterURL.title" = "Inserisci l'URL di SharePoint";
 "sharePoint.enterURL.placeholder" = "URL sito di SharePoint";

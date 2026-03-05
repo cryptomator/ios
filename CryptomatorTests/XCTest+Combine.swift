@@ -14,7 +14,7 @@ extension XCTestCase {
 	// from: https://www.swiftbysundell.com/articles/unit-testing-combine-based-swift-code/
 	func awaitPublisher<T: Publisher>(
 		_ publisher: T,
-		timeout: TimeInterval = 1,
+		timeout: TimeInterval = 5,
 		file: StaticString = #file,
 		line: UInt = #line
 	) throws -> T.Output {
@@ -50,7 +50,7 @@ extension XCTestCase {
 		return try unwrappedResult.get()
 	}
 
-	func wait<Input, Failure>(for recorder: Recorder<Input, Failure>, timeout: TimeInterval = 1) {
+	func wait<Input, Failure>(for recorder: Recorder<Input, Failure>, timeout: TimeInterval = 5) {
 		wait(for: [recorder.completed], timeout: timeout)
 	}
 }

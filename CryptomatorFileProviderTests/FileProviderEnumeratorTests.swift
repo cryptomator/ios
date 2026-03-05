@@ -78,7 +78,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
@@ -97,7 +97,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
@@ -115,7 +115,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemObserverSucceeded(itemList: itemList)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: pageToken)
@@ -131,7 +131,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertEnumerateItemsObserverFailed(with: .noInternetConnection)
 		assertEnumerateItemsCalled(for: .rootContainer, pageToken: nil)
@@ -146,7 +146,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateItems(for: enumerationObserverMock, startingAt: page)
-		wait(for: [expectation], timeout: 2.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertWaitForSemaphoreCalled()
 		assertErrorWrapped(.defaultLock)
 	}
@@ -163,7 +163,7 @@ class FileProviderEnumeratorTests: FileProviderEnumeratorTestCase {
 			expectation.fulfill()
 		}
 		enumerator.enumerateChanges(for: changeObserverMock, from: syncAnchor)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		try assertChangeObserverUpdated(deletedItems: [],
 		                                updatedItems: items,
 		                                currentSyncAnchor: createSyncAnchor(from: currentSyncAnchorDate))

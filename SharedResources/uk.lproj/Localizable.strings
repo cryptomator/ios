@@ -145,10 +145,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Автоматично";
 "keepUnlockedDuration.indefinite" = "Необмежено";
 
-"localFileSystemAuthentication.createNewVault.header" = "На наступному екрані оберіть місце збереження для нового сховища.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "На наступному екрані перейдіть до iCloud Drive, виберіть місце для зберігання, а потім натисніть «Відкрити».";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "На наступному екрані перейдіть до місця зберігання, виберіть його, а потім натисніть «Відкрити».";
 "localFileSystemAuthentication.createNewVault.button" = "Обрати місце зберігання";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "У цьому розташуванні вже існує сховище. Будь ласка, спробуйте ще раз, вибравши інше місце.";
-"localFileSystemAuthentication.openExistingVault.header" = "На наступному екрані оберіть папку свого наявного сховища.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "На наступному екрані перейдіть до iCloud Drive, виберіть папку вашого сховища, а потім натисніть «Відкрити».";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "На наступному екрані перейдіть до папки вашого сховища, виберіть її, а потім натисніть «Відкрити».";
 "localFileSystemAuthentication.openExistingVault.button" = "Обрати папку сховища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Обрана папка не є сховищем. Будь ласка, спробуйте ще раз, вибравши іншу папку.";
 "localFileSystemAuthentication.info.footer" = "Файлові провайдери, які затінено, не підтримують «вибір папок». Це не є обмеженням Cryptomator.";
@@ -197,11 +199,13 @@
 "purchase.title" = "Розблокувати повну версію";
 "purchase.unlockedFullVersion.message" = "Тепер ви можете використовувати повну версію Cryptomator. Вдалого шифрування!";
 "purchase.unlockedFullVersion.title" = "Дякуємо!";
+"purchase.error.paymentNotAllowed" = "Покупки в програмі на цьому пристрої заборонені. Щоб дозволити покупки, перевірте налаштування «Екранного часу» в розділі «Обмеження вмісту й приватності».";
 "purchase.error.unknown" = "Ця покупка недоступна в App Store з невідомої причини. Будь ласка, спробуйте пізніше.\n\nЯкщо помилка не зникне, спробуйте перезапустити пристрій або вийти зі свого Apple ID в налаштуваннях iOS і увійти знову.";
 
 "settings.title" = "Налаштування";
 "settings.aboutCryptomator" = "Про Cryptomator";
 "settings.aboutCryptomator.title" = "Версія %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Ви розблокували повну версію та отримали доступ для запису до своїх сховищ.";
 "settings.cacheSize" = "Розмір кешу";
 "settings.clearCache" = "Очистити кеш";
 "settings.cloudServices" = "Хмарні сервіси";
@@ -209,10 +213,12 @@
 "settings.debugMode" = "Режим налагодження";
 "settings.debugMode.alert.message" = "У цьому режимі конфіденційні дані (наприклад, імена та шляхи до файлів) можуть записуватися у файл журналу на вашому пристрої. Але це не стосується паролів, файлів cookie тощо.\n\nНе забудьте якнайшвидше вимкнути режим налагодження.";
 "settings.manageSubscriptions" = "Керувати підпискою";
-"settings.rateApp" = "Оцінити застосунок";
+"settings.rateApp" = "Оцінити програму";
 "settings.sendLogFile" = "Надіслати файл журналу";
 "settings.shortcutsGuide" = "Посібник із Команд";
 "settings.unlockFullVersion" = "Розблокувати повну версію";
+"settings.unlockFullVersion.detail" = "Отримати доступ для запису до своїх сховищ.";
+"settings.unlockFullVersion.trialExpirationDate" = "Дата завершення пробного періоду: %@";
 
 "sharePoint.enterURL.title" = "Введіть URL-адресу SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адреса SharePoint";

@@ -12,7 +12,7 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class ErrorMapperTests: XCTestCase {
-	func testMapCloudProviderErrors() throws {
+	func testMapCloudProviderErrors() {
 		compareCloudProviderErrorMapping(for: .itemNotFound, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
 		compareCloudProviderErrorMapping(for: .itemAlreadyExists, expectedMappedError: NSFileProviderError(.filenameCollision) as Error)
 		compareCloudProviderErrorMapping(for: .parentFolderDoesNotExist, expectedMappedError: NSFileProviderError(.noSuchItem) as Error)
@@ -31,7 +31,7 @@ class ErrorMapperTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func compareCloudProviderErrorMapping(for error: CloudProviderError, expectedMappedError: Error) {

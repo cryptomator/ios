@@ -138,11 +138,8 @@
 "keepUnlockedDuration.auto" = "Povolit iOS rozhodnout se automaticky";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Neurčito";
-
-"localFileSystemAuthentication.createNewVault.header" = "Na další obrazovce vyberte umístění úložiště pro váš nový trezor.";
 "localFileSystemAuthentication.createNewVault.button" = "Vyberte umístění úložiště";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "V tomto umístění již trezor existuje. Zkuste to prosím znovu s jiným umístěním.";
-"localFileSystemAuthentication.openExistingVault.header" = "Na další obrazovce vyberte složku vašeho existujícího trezoru.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vybrat složku trezoru";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Vybraná složka není trezor. Zkuste to prosím znovu s jinou složkou.";
 "localFileSystemAuthentication.info.footer" = "Poskytovatelé souborů, kteří jsou zobrazeni šedě, nepodporují \"vybírání složek\". Toto není omezení Cryptomatoru.";

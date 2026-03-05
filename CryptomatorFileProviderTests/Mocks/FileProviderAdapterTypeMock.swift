@@ -265,6 +265,20 @@ final class FileProviderAdapterTypeMock: FileProviderAdapterType {
 		setTagDataForItemIdentifierCompletionHandlerClosure?(tagData, itemIdentifier, completionHandler)
 	}
 
+	// MARK: - recoverStuckUploads
+
+	var recoverStuckUploadsCallsCount = 0
+	var recoverStuckUploadsCalled: Bool {
+		recoverStuckUploadsCallsCount > 0
+	}
+
+	var recoverStuckUploadsClosure: (() -> Void)?
+
+	func recoverStuckUploads() {
+		recoverStuckUploadsCallsCount += 1
+		recoverStuckUploadsClosure?()
+	}
+
 	// MARK: - retryUpload
 
 	var retryUploadForCallsCount = 0

@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "La iOS bestemme automatisk";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Uendelig";
-
-"localFileSystemAuthentication.createNewVault.header" = "På neste side velger du ønsket lagringssted for ditt nye hvelv.";
 "localFileSystemAuthentication.createNewVault.button" = "Velg lagringssted";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Det finnes allerede et hvelv på denne plasseringen. Prøv igjen på et annet lagringssted.";
-"localFileSystemAuthentication.openExistingVault.header" = "På neste side velger du mappen til det eksisterende hvelvet ditt.";
 "localFileSystemAuthentication.openExistingVault.button" = "Velg hvelvmappe";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappen er ikke et hvelv. Prøv igjen med en annen mappe.";
 "localFileSystemAuthentication.info.footer" = "Filleverandører som er grået ut støtter ikke \"picking folders\". Dette er ikke en begrensning fra Cryptomator sin side.";
