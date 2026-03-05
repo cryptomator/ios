@@ -35,7 +35,7 @@
 		4A1673EA270C77CC0075C724 /* DocumentStorageURLProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673E9270C77CC0075C724 /* DocumentStorageURLProvider.swift */; };
 		4A1673F1270E2E830075C724 /* SettingsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1673F0270E2E830075C724 /* SettingsViewModelTests.swift */; };
 		4A1A7AC528326554008EEC84 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 742679F926A56B33004C61BC /* Localizable.strings */; };
-		4A1A7AC628327419008EEC84 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
+		4A1A7AC628327419008EEC84 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = 74B874202F27F40000C9D244 /* Assets.car */; };
 		4A1C6D58274CE5BF00B41FFF /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D57274CE5BF00B41FFF /* LoadingCell.swift */; };
 		4A1C6D5A274D225500B41FFF /* PurchaseViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1C6D59274D225500B41FFF /* PurchaseViewModelTests.swift */; };
 		4A1C6D5C274D292200B41FFF /* Configuration.storekit in Resources */ = {isa = PBXBuildFile; fileRef = 74F5DC1726D928A100AFE989 /* Configuration.storekit */; };
@@ -180,8 +180,7 @@
 		4A6A5208268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5207268B2B75006F7368 /* AddLocalVaultViewModelTestCase.swift */; };
 		4A6A520B268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520A268B3710006F7368 /* CreateNewLocalVaultViewModelTests.swift */; };
 		4A6A520D268B5EF7006F7368 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A520C268B5EF7006F7368 /* RootViewController.swift */; };
-		4A6A5212268B6697006F7368 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
-		4A6A5213268B66AC006F7368 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
+		4A6A5212268B6697006F7368 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = 74B874202F27F40000C9D244 /* Assets.car */; };
 		4A6A5219268B6D32006F7368 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A5218268B6D31006F7368 /* OnboardingViewController.swift */; };
 		4A6A521B268B7147006F7368 /* FileProviderCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A521A268B7147006F7368 /* FileProviderCoordinator.swift */; };
 		4A6A521D268B7C8F006F7368 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A6A521C268B7C8F006F7368 /* BaseNavigationController.swift */; };
@@ -353,7 +352,6 @@
 		4AF4535F272066A600CF1919 /* RenameVaultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4535E272066A600CF1919 /* RenameVaultViewController.swift */; };
 		4AF91A0F2AC2F025002357BA /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 4AF91A0E2AC2F025002357BA /* Dependencies */; };
 		4AF91CBE25A63FD600ACF01E /* VaultListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */; };
-		4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF91CC625A6437000ACF01E /* Colors.xcassets */; };
 		4AF91CD025A71C5800ACF01E /* UIImage+CloudProviderType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */; };
 		4AF91CD925A722A600ACF01E /* VaultInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CD825A722A600ACF01E /* VaultInfo.swift */; };
 		4AF91CE225A7234500ACF01E /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF91CE125A7234500ACF01E /* DatabaseManager.swift */; };
@@ -397,7 +395,7 @@
 		74420BC52BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */; };
 		74420BC62BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */; };
 		7460FFEF26FCC6FC0018BCC4 /* OnboardingNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7460FFEE26FCC6FC0018BCC4 /* OnboardingNavigationController.swift */; };
-		746815462475605E00038679 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB324572E4A00452814 /* Assets.xcassets */; };
+		746815462475605E00038679 /* Assets.car in Resources */ = {isa = PBXBuildFile; fileRef = 74B874202F27F40000C9D244 /* Assets.car */; };
 		746815472475605E00038679 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AE97DB524572E4A00452814 /* LaunchScreen.storyboard */; };
 		7469AD9A266E26B0000DCD45 /* URL+Zip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7469AD99266E26B0000DCD45 /* URL+Zip.swift */; };
 		7478BA452D81800C00BD3250 /* OneDriveAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7478BA442D81800900BD3250 /* OneDriveAuthenticator.swift */; };
@@ -879,7 +877,6 @@
 		4AE7D79425826A0900C5E1D8 /* FileProviderValidationServiceSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FileProviderValidationServiceSource.m; sourceTree = "<group>"; };
 		4AE97DA824572E4900452814 /* Cryptomator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cryptomator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE97DAA24572E4900452814 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4AE97DB324572E4A00452814 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AE97DB624572E4A00452814 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4AE97DB824572E4A00452814 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4AE97DBD24572E4A00452814 /* CryptomatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CryptomatorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -913,7 +910,6 @@
 		4AF4535C27205F6200CF1919 /* VaultDetailCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultDetailCoordinator.swift; sourceTree = "<group>"; };
 		4AF4535E272066A600CF1919 /* RenameVaultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameVaultViewController.swift; sourceTree = "<group>"; };
 		4AF91CBD25A63FD600ACF01E /* VaultListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewModel.swift; sourceTree = "<group>"; };
-		4AF91CC625A6437000ACF01E /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		4AF91CCF25A71C5800ACF01E /* UIImage+CloudProviderType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+CloudProviderType.swift"; sourceTree = "<group>"; };
 		4AF91CD825A722A600ACF01E /* VaultInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultInfo.swift; sourceTree = "<group>"; };
 		4AF91CE125A7234500ACF01E /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -1047,6 +1043,7 @@
 		74AE94F127A0285400D71AEC /* id */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = id; path = id.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74B46E5529BB8629000C1CC0 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74B46E5629BB863C000C1CC0 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/Intents.strings; sourceTree = "<group>"; };
+		74B874202F27F40000C9D244 /* Assets.car */ = {isa = PBXFileReference; lastKnownFileType = file; path = Assets.car; sourceTree = "<group>"; };
 		74BDA62B26CE8AE1007FBD72 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		74C2BC4726E8E21D00BCAA03 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		74C2BC4926E8E24A00BCAA03 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
@@ -2089,8 +2086,7 @@
 		74D365BC268B965B005ECD69 /* SharedResources */ = {
 			isa = PBXGroup;
 			children = (
-				4AE97DB324572E4A00452814 /* Assets.xcassets */,
-				4AF91CC625A6437000ACF01E /* Colors.xcassets */,
+				74B874202F27F40000C9D244 /* Assets.car */,
 				74420BC22BD2449900E77F92 /* PrivacyInfo.xcprivacy */,
 				742679F926A56B33004C61BC /* Localizable.strings */,
 			);
@@ -2471,10 +2467,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A6A5213268B66AC006F7368 /* Colors.xcassets in Resources */,
 				742679FD26A56CFA004C61BC /* Localizable.strings in Resources */,
 				74420BC52BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */,
-				4A6A5212268B6697006F7368 /* Assets.xcassets in Resources */,
+				4A6A5212268B6697006F7368 /* Assets.car in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2483,7 +2478,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74420BC62BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */,
-				4A1A7AC628327419008EEC84 /* Assets.xcassets in Resources */,
+				4A1A7AC628327419008EEC84 /* Assets.car in Resources */,
 				4A1A7AC528326554008EEC84 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2492,14 +2487,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4AF91CC725A6437000ACF01E /* Colors.xcassets in Resources */,
+				746815462475605E00038679 /* Assets.car in Resources */,
 				7408E6C7267797B700D7FAEA /* style.css in Resources */,
 				746815472475605E00038679 /* LaunchScreen.storyboard in Resources */,
 				742679FC26A56CF9004C61BC /* Localizable.strings in Resources */,
 				7408E6C52677954000D7FAEA /* about.html in Resources */,
 				7408E6CA2677985800D7FAEA /* jquery-3.6.0.slim.min.js in Resources */,
 				74420BC32BD2449900E77F92 /* PrivacyInfo.xcprivacy in Resources */,
-				746815462475605E00038679 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3617,7 +3611,6 @@
 		4AE97DD024572E4A00452814 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -3636,7 +3629,6 @@
 		4AE97DD124572E4A00452814 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Cryptomator/Cryptomator.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
