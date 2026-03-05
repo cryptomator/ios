@@ -156,7 +156,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	// MARK: Lock Vault
 
-	func testLockVault() throws {
+	func testLockVault() {
 		let notificactorMock = FileProviderNotificatorTypeMock()
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = notificactorMock
 		fileProviderAdapterManager.forceLockVault(with: domain.identifier)
@@ -194,7 +194,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 
 	// MARK: Vault Lock Status
 
-	func testVaultIsUnlockedAdapterNotCached() throws {
+	func testVaultIsUnlockedAdapterNotCached() {
 		adapterCacheMock.getItemIdentifierReturnValue = nil
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
 		XCTAssertFalse(fileProviderAdapterManager.vaultIsUnlocked(domainIdentifier: domain.identifier))
@@ -202,7 +202,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReceivedInvocations)
 	}
 
-	func testVaultIsUnlockedAdapterCached() throws {
+	func testVaultIsUnlockedAdapterCached() {
 		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: MaintenanceManagerMock(), workingSetObserver: workingSetObservationMock)
 		adapterCacheMock.getItemIdentifierReturnValue = adapterCacheItem
 		vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReturnValue = false
@@ -211,7 +211,7 @@ class FileProviderAdapterManagerTests: XCTestCase {
 		XCTAssertEqual([vaultUID], vaultKeepUnlockedHelperMock.shouldAutoLockVaultWithVaultUIDReceivedInvocations)
 	}
 
-	func testVaultIsUnlockedAutoLocks() throws {
+	func testVaultIsUnlockedAutoLocks() {
 		notificatorManagerMock.getFileProviderNotificatorForReturnValue = fileProviderNotificatorMock
 		let maintenanceManagerMock = MaintenanceManagerMock()
 		let adapterCacheItem = AdapterCacheItem(adapter: FileProviderAdapterTypeMock(), maintenanceManager: maintenanceManagerMock, workingSetObserver: workingSetObservationMock)

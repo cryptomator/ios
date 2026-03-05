@@ -45,7 +45,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 		                              localURLProvider: localURLProviderMock,
 		                              taskRegistrator: taskRegistratorMock)
 		uploadTaskManagerMock.createNewTaskRecordForClosure = {
-			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil)
+			return UploadTaskRecord(correspondingItem: $0.id!, lastFailedUploadDate: nil, uploadErrorCode: nil, uploadErrorDomain: nil, uploadStartedAt: Date())
 		}
 		uploadTaskManagerMock.getTaskForOnURLSessionTaskCreationClosure = {
 			let id = $0.correspondingItem
@@ -71,7 +71,7 @@ class FileProviderAdapterTestCase: CloudTaskExecutorTestCase {
 
 extension UploadTaskRecord: Equatable {
 	public static func == (lhs: UploadTaskRecord, rhs: UploadTaskRecord) -> Bool {
-		lhs.correspondingItem == rhs.correspondingItem && lhs.lastFailedUploadDate == rhs.lastFailedUploadDate && lhs.uploadErrorCode == rhs.uploadErrorCode && lhs.uploadErrorDomain == rhs.uploadErrorDomain
+		lhs.correspondingItem == rhs.correspondingItem && lhs.lastFailedUploadDate == rhs.lastFailedUploadDate && lhs.uploadErrorCode == rhs.uploadErrorCode && lhs.uploadErrorDomain == rhs.uploadErrorDomain && lhs.uploadStartedAt == rhs.uploadStartedAt
 	}
 }
 

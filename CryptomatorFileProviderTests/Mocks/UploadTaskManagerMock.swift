@@ -146,6 +146,25 @@ final class UploadTaskManagerMock: UploadTaskManager {
 		try removeTaskRecordForClosure?(id)
 	}
 
+	// MARK: - getActiveUploadTaskRecords
+
+	var getActiveUploadTaskRecordsThrowableError: Error?
+	var getActiveUploadTaskRecordsCallsCount = 0
+	var getActiveUploadTaskRecordsCalled: Bool {
+		getActiveUploadTaskRecordsCallsCount > 0
+	}
+
+	var getActiveUploadTaskRecordsReturnValue: [UploadTaskRecord] = []
+	var getActiveUploadTaskRecordsClosure: (() throws -> [UploadTaskRecord])?
+
+	func getActiveUploadTaskRecords() throws -> [UploadTaskRecord] {
+		if let error = getActiveUploadTaskRecordsThrowableError {
+			throw error
+		}
+		getActiveUploadTaskRecordsCallsCount += 1
+		return try getActiveUploadTaskRecordsClosure.map({ try $0() }) ?? getActiveUploadTaskRecordsReturnValue
+	}
+
 	// MARK: - getTask
 
 	var getTaskForOnURLSessionTaskCreationThrowableError: Error?

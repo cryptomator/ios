@@ -57,7 +57,7 @@ class FileProviderItemTests: XCTestCase {
 		let cloudPath = CloudPath("/test.txt")
 		let metadata = ItemMetadata(id: 2, name: "test.txt", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: cloudPath, isPlaceholderItem: false)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
-		let failedUploadTask = UploadTaskRecord(correspondingItem: 2, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain)
+		let failedUploadTask = UploadTaskRecord(correspondingItem: 2, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: NSFileProviderError.insufficientQuota.rawValue, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
 		let item = FileProviderItem(metadata: metadata, domainIdentifier: .test, error: failedUploadTask.failedWithError)
 		XCTAssertEqual(NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2), item.itemIdentifier)
 		XCTAssertEqual(NSFileProviderItemIdentifier.rootContainer, item.parentItemIdentifier)

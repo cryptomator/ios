@@ -42,7 +42,7 @@ class FileProviderAdapterGetItemTests: FileProviderAdapterTestCase {
 		let itemMetadata = ItemMetadata(id: id, name: "TestItem", type: .file, size: 100, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .uploadError, cloudPath: CloudPath("/TestItem"), isPlaceholderItem: true)
 		metadataManagerMock.cachedMetadata[id] = itemMetadata
 
-		let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain)
+		let uploadTask = UploadTaskRecord(correspondingItem: id, lastFailedUploadDate: Date(), uploadErrorCode: NSFileProviderError(.insufficientQuota).errorCode, uploadErrorDomain: NSFileProviderErrorDomain, uploadStartedAt: nil)
 		uploadTaskManagerMock.getTaskRecordForClosure = {
 			guard id == $0 else {
 				return nil

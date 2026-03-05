@@ -194,7 +194,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                  deletionTaskManager: deletionTaskManager,
 		                                  itemEnumerationTaskManager: itemEnumerationTaskManager,
 		                                  downloadTaskManager: downloadTaskManager,
-		                                  scheduler: WorkflowScheduler(maxParallelUploads: 1, maxParallelDownloads: 2),
+		                                  scheduler: WorkflowScheduler(maxParallelUploads: 2, maxParallelDownloads: 2),
 		                                  provider: cloudProvider,
 		                                  coordinator: fileCoordinator,
 		                                  notificator: notificator,
@@ -207,6 +207,7 @@ public class FileProviderAdapterManager: FileProviderAdapterProviding {
 		                                            uploadTaskManager: uploadTaskManager,
 		                                            cachedFileManager: cachedFileManager)
 		workingSetObserver.startObservation()
+		adapter.recoverStuckUploads()
 		return AdapterCacheItem(adapter: adapter, maintenanceManager: maintenanceManager, workingSetObserver: workingSetObserver)
 	}
 
