@@ -139,11 +139,8 @@
 "keepUnlockedDuration.auto" = "Deixa que iOS decideixi automàticament";
 "keepUnlockedDuration.auto.shortDisplayName" = "Automàtic";
 "keepUnlockedDuration.indefinite" = "Indefinidament";
-
-"localFileSystemAuthentication.createNewVault.header" = "A la pròxima pantalla, escollir la localització de la nova caixa forta.";
 "localFileSystemAuthentication.createNewVault.button" = "Tria la localització de l'emmagatzematge";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Una caixa forta ja existeix en aquesta localització. Provi en una localització diferent si us plau.";
-"localFileSystemAuthentication.openExistingVault.header" = "A la pròxima pantalla, escollir la carpeta on es troba la caixa forta.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecciona la carpeta de la caixa forta";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "La carpeta seleccionada no és una caixa forta. Provi una carpeta diferent si us plau.";
 "localFileSystemAuthentication.info.footer" = "Els proveïdors d'arxius que estan atenuats no admeten la selecció de diverses carpetes a la vegada. Això no és una limitació de Cryptomator.";

@@ -129,11 +129,8 @@
 "keepUnlockedDuration.auto" = "Ruhusu iOS Iamue Kiotomatiki";
 "keepUnlockedDuration.auto.shortDisplayName" = "Otomatiki";
 "keepUnlockedDuration.indefinite" = "Isiyo na kikomo";
-
-"localFileSystemAuthentication.createNewVault.header" = "Katika skrini inayofuata, chagua eneo la kuhifadhi kwa kuba yako mpya.";
 "localFileSystemAuthentication.createNewVault.button" = "Teua Mahali pa Hifadhi";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Kuba tayari ipo katika mahali hapa. Tafadhali jaribu tena na mahali tofauti pa kuhifadhi.";
-"localFileSystemAuthentication.openExistingVault.header" = "Katika skrini inayofuata, chagua folda ya kuba yako iliyopo.";
 "localFileSystemAuthentication.openExistingVault.button" = "Teua Kabrasha la Kuba";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Kabrasha lililoteuliwa sio kuba. Tafadhali jaribu tena na kabrasha tofauti.";
 "localFileSystemAuthentication.info.footer" = "Watoa huduma wa faili ambao ni kijivu nje hawaungi mkono \"kuokota folda\" Hii sio kikomo cha Cryptomator.";

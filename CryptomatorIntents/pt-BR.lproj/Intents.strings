@@ -1,33 +1,33 @@
 "common.failureReason" = "Motivo da falha";
 "common.false" = "falso";
-"common.folder" = "Diretório";
+"common.folder" = "Pasta";
 "common.true" = "verdadeiro";
 "common.vault" = "Cofre";
 
 "getFolderIntent.description" = "Retorna um diretório para o caminho no cofre fornecido.";
 "getFolderIntent.path" = "Caminho";
-"getFolderIntent.text" = "Obter pasta localizada em ${path} em ${vault}";
-"getFolderIntent.title" = "Obter Diretório";
+"getFolderIntent.text" = "Obter pasta localizada em ${path} no ${vault}";
+"getFolderIntent.title" = "Obter pasta";
 
 "isUnlockedIntent.description" = "Retorna se o cofre informado está desbloqueado.";
 "isUnlockedIntent.title" = "Desbloqueado";
 
 "isVaultLockedIntent.title" = "Cofre bloqueado";
-"isVaultUnlockedIntent.text" = "O ${vault} está desbloqueado?";
+"isVaultUnlockedIntent.text" = "${vault} está desbloqueado?";
 
 "lockVaultIntent.description" = "Bloqueia o cofre fornecido.";
 "lockVaultIntent.text" = "Bloquear ${vault}";
-"lockVaultIntent.title" = "Bloquear Cofre";
+"lockVaultIntent.title" = "Bloquear cofre";
 
-"openVaultIntent.description" = "Abre o cofre informado no Gerenciador de Arquivos.";
-"openVaultIntent.text" = "Abrir ${vault} no Gerenciador de Arquivos";
-"openVaultIntent.title" = "Abrir Cofre";
+"openVaultIntent.description" = "Abre o cofre informado no gerenciador de arquivos.";
+"openVaultIntent.text" = "Abrir ${vault} no gerenciador de arquivos";
+"openVaultIntent.title" = "Abrir cofre";
 
-"saveFileIntent.description" = "Salvar um arquivo para o cofre.";
+"saveFileIntent.description" = "Salvar um arquivo para um cofre.";
 "saveFileIntent.file" = "Arquivo";
 "saveFileIntent.parameter.ignoreExisting" = "Ignorar arquivo existente com o mesmo nome";
 "saveFileIntent.text" = "Salvar ${file} em ${folder}";
-"saveFileIntent.title" = "Salvar Arquivo";
+"saveFileIntent.title" = "Salvar arquivo";
 
-"vaultFolder.displayName" = "Diretório do cofre";
-"vaultFolder.vaultIdentifier" = "Identificador do Cofre";
+"vaultFolder.displayName" = "Pasta do cofre";
+"vaultFolder.vaultIdentifier" = "Identificador do cofre";

@@ -4,11 +4,13 @@
 "common.button.close" = "ببند";
 "common.button.create" = "ایجاد";
 "common.button.done" = "انجام شده";
+"common.button.download" = "بارگیری";
 "common.button.edit" = "ویرایش";
 "common.button.next" = "بعدی";
 "common.button.refresh" = "نوسازی";
 "common.button.remove" = "حذف";
 "common.button.retry" = "تلاش مجدد";
+"common.button.signOut" = "خروج از حساب";
 "common.cells.url" = "آدرس اینترنتی";
 "common.cells.username" = "نام کاربری";
 

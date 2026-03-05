@@ -121,7 +121,6 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "ਆਟੋ";
 "localFileSystemAuthentication.createNewVault.button" = "ਸਟੋਰੇਜ਼ ਦਾ ਟਿਕਾਣਾ ਚੁਣੋ";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "ਇਸ ਟਿਕਾਣੇ ਉੱਤੇ ਵਾਲਟ ਪਹਿਲਾਂ ਹੀ ਮੌਜੂਦ ਹੈ। ਵੱਖਰੇ ਸਟੋਰੇਜ਼ ਟਿਕਾਣੇ ਨੂੰ ਚੁਣ ਕੇ ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
-"localFileSystemAuthentication.openExistingVault.header" = "ਅਗਲੀ ਸਕਰੀਨ ਉੱਤੇ ਆਪਣੇ ਮੌਜੂਦਾ ਵਾਲਟ ਦਾ ਫੋਲਡਰ ਚੁਣੋ।";
 "localFileSystemAuthentication.openExistingVault.button" = "ਵਾਲਟ ਫੋਲਡਰ ਚੁਣੋ";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "ਚੁਣਿਆ ਫੋਲਡਰ ਵਾਲਟ ਨਹੀਂ ਹੈ। ਵੱਖਰੇ ਫੋਲਡਰ ਨਾਲ ਫੇਰ ਕੋਸ਼ਿਸ਼ ਕਰੋ।";
 

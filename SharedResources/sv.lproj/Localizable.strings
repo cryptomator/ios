@@ -145,10 +145,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Permanent";
 
-"localFileSystemAuthentication.createNewVault.header" = "Välj lagringsplats för ditt nya valv i nästa skärm.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "I nästa bild, navigera till iCloud Drive, välj en lagringsplats och tryck sedan på Öppna.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "I nästa bild, navigera till din lagringsplats och tryck sedan på Öppna.";
 "localFileSystemAuthentication.createNewVault.button" = "Välj lagringsplats";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Ett valv finns redan på denna plats. Försök igen med en annan lagringsplats.";
-"localFileSystemAuthentication.openExistingVault.header" = "I nästa skärm, välj mappen för ditt befintliga valv.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "I nästa bild, navigera till iCloud Drive, välj din valvmapp och tryck sedan på Öppna.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "I nästa bild, navigera till din valvmapp och tryck sedan på Öppna.";
 "localFileSystemAuthentication.openExistingVault.button" = "Välj valvmapp";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valda mappen är inte ett valv. Försök igen med en annan mapp.";
 "localFileSystemAuthentication.info.footer" = "Filleverantörer som är utgråade stöder inte mappar i iOS. Detta är inte en begränsning i Cryptomator.";
@@ -197,11 +199,13 @@
 "purchase.title" = "Lås upp fullversion";
 "purchase.unlockedFullVersion.message" = "Du kan nu använda den fullständiga versionen av Cryptomator. Glad kryptering!";
 "purchase.unlockedFullVersion.title" = "Tackar";
+"purchase.error.paymentNotAllowed" = "Köp-i-appen tillåts inte på den här enheten. Kontrollera dina skärmtidsinställningar under Innehåll och integritetsbegränsningar för att aktivera köp.";
 "purchase.error.unknown" = "Detta köp är inte tillgängligt i App Store av okänd anledning. Försök igen senare.\n\nOm felet kvarstår, försök att starta om enheten eller logga ut och in igen till ditt Apple-ID i iOS-inställningarna.";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Du har låst upp den fullständiga versionen och fått skrivrättigheter till dina valv.";
 "settings.cacheSize" = "Cachestorlek";
 "settings.clearCache" = "Rensa cachen";
 "settings.cloudServices" = "Molntjänster";
@@ -213,6 +217,8 @@
 "settings.sendLogFile" = "Skicka loggfil";
 "settings.shortcutsGuide" = "Vägledning till genvägar";
 "settings.unlockFullVersion" = "Lås upp fullversion";
+"settings.unlockFullVersion.detail" = "Få skrivrättigheter till dina valv.";
+"settings.unlockFullVersion.trialExpirationDate" = "Utgångsdatum för provperiod: %@";
 
 "sharePoint.enterURL.title" = "Ange SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint URL";
@@ -225,10 +231,16 @@
 
 "shareVault.title" = "Dela valv";
 "shareVault.normal.header.title" = "Det säkra sättet att arbeta i grupper";
+"shareVault.normal.header.features" = "Samarbeta säkert med din grupp. Bevilja och återkalla åtkomst när som helst utan att dela lösenord.";
+"shareVault.normal.footer.text" = "För mer information, kolla in förslag för god sed i vår [dokumentation](%@).";
 "shareVault.normal.button.visitHub" = "Besök Cryptomatornavet";
 "shareVault.hub.header.title" = "Hur man delar ett navvalv";
 "shareVault.hub.header.subtitle" = "För att kunna dela valvinnehållet med en annan gruppmedlem måste du utföra två steg:";
+"shareVault.hub.step1" = "Dela åtkomst till den krypterade valvmappen via molnlagring.";
+"shareVault.hub.step2" = "Ge åtkomst till gruppmedlemmen i Cryptomatornavet.";
 "shareVault.hub.button.openHub" = "Öppna kryptomatornav";
+"shareVault.error.hubURLExtraction.title" = "Det går inte att läsa in navinformation";
+"shareVault.error.hubURLExtraction.message" = "Valvets nav-konfiguration kunde inte laddas. Kontrollera dina valvinställningar eller kontakta din nav-administratör.";
 
 "snapshots.fileprovider.file1" = "/Budget.numbers";
 "snapshots.fileprovider.file2" = "/Slutlig presentation.key";
@@ -290,6 +302,7 @@
 "vaultDetail.button.removeVault" = "Ta bort från valvlistan";
 "vaultDetail.button.renameVault" = "Byt namn";
 "vaultDetail.button.shareVault" = "Dela valv";
+"vaultDetail.shareVault.footer" = "Samarbeta säkert med din grupp genom att använda Cryptomator navet.";
 "vaultDetail.changePassword.footer" = "Välj ett starkt lösenord för ditt valv som bara du känner till och förvara det på ett säkert ställe.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Om du aktiverar %@lagras ditt valvlösenord i iOS-nyckelkedjan.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Ditt valvlösenord kommer endast att krävas om %@ autentisering misslyckas.";

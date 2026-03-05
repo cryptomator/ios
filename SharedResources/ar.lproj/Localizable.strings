@@ -143,11 +143,8 @@
 "keepUnlockedDuration.auto" = "السماح لنظام iOS بالتحديد تلقائيًا";
 "keepUnlockedDuration.auto.shortDisplayName" = "تلقائيًا";
 "keepUnlockedDuration.indefinite" = "دائم";
-
-"localFileSystemAuthentication.createNewVault.header" = "في الشاشة التالية، اختر موقع التخزين للمخزن الجديد الخاص بك.";
 "localFileSystemAuthentication.createNewVault.button" = "حدد موقع التخزين";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "يوجد مخزن بالفعل في هذا الموقع. الرجاء المحاولة مرة أخرى مع موقع تخزين مختلف.";
-"localFileSystemAuthentication.openExistingVault.header" = "في الشاشة التالية، اختر مجلد المخزن الموجود لديك.";
 "localFileSystemAuthentication.openExistingVault.button" = "حدد مجلد المخزن";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "المجلد المحدد ليس مخزن. الرجاء المحاولة مرة أخرى مع مجلد مختلف.";
 "localFileSystemAuthentication.info.footer" = "موفرو الملفات الذين يظهرون باللون الرمادي لا يدعمون \"اختيار المجلدات\". هذا ليس قيدًا من Cryptomator.";

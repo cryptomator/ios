@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Dizin içeriğini alma işlemine devam edilemedi.";
 "cloudProvider.error.quotaInsufficient" = "Depolama alanınız yetersiz.";
 "cloudProvider.error.unauthorized" = "Yetkisiz işlem gerçekleştirilemiyor.";
+"cloudProvider.error.unauthorized.reauth.title" = "Oturumun süresi doldu";
+"cloudProvider.error.unauthorized.reauth.message" = "Lütfen %@ hesabına tekrar giriş yapın.";
+"cloudProvider.error.unauthorized.reauth.button" = "Giriş";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Farklı bir hesapla giriş yaptınız. Lütfen tekrar deneyin ve asıl %@ hesabınızla giriş yapın.";
 "cloudProvider.error.noInternetConnection" = "Bu işlem için İnternet bağlantısı gerekiyor.";
 
 "cloudProviderType.localFileSystem" = "Diğer Dosya Sağlayıcı";
@@ -143,11 +147,8 @@
 "keepUnlockedDuration.auto" = "iOS'un otomatik olarak karar vermesine izin ver";
 "keepUnlockedDuration.auto.shortDisplayName" = "Otomatik";
 "keepUnlockedDuration.indefinite" = "Süresiz";
-
-"localFileSystemAuthentication.createNewVault.header" = "Bir sonraki ekranda, yeni kasanız için depolama konumunu seçin.";
 "localFileSystemAuthentication.createNewVault.button" = "Depolama Konumunu Seç";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Bu konumda zaten bir kasa mevcut. Lütfen farklı bir depolama konumuyla yeniden deneyin.";
-"localFileSystemAuthentication.openExistingVault.header" = "Bir sonraki ekranda, mevcut kasanızın bulunduğu klasörünü seçin.";
 "localFileSystemAuthentication.openExistingVault.button" = "Kasa Klasörünü Seç";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Seçilen klasör bir kasa değil. Lütfen farklı bir klasörle tekrar deneyin.";
 "localFileSystemAuthentication.info.footer" = "Silik görünen dosya sağlayıcıları \"klasör seçmeyi\" desteklemez. Bu, Cryptomator'ın bir sınırlaması değildir.";

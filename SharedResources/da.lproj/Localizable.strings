@@ -34,7 +34,7 @@
 "common.footer.learnMore" = "Læs mere.";
 "common.hud.authenticating" = "Godkender…";
 
-"accountList.header.title" = "Godkendere";
+"accountList.header.title" = "Godkendelser";
 "accountList.emptyList.message" = "Tryk her for at tilføje en konto";
 "accountList.signOut.alert.title" = "Fjern associerede bokse?";
 "accountList.signOut.alert.message" = "Ved at logge ud, vil alle tilknyttede bokse blive fjernet fra listen. Ingen krypterede data vil blive slettet. Du kan logge ind igen og tilføje boksene igen senere.";
@@ -56,9 +56,9 @@
 "addVault.createNewVault.password.error.nonMatchingPasswords" = "Adgangskoderne er ikke ens.";
 "addVault.createNewVault.password.error.tooShortPassword" = "Adgangskoden skal indeholde mindst 8 tegn.";
 "addVault.createNewVault.progress" = "Opretter boks…";
-"addVault.openExistingVault.title" = "Open eksisterende boks";
+"addVault.openExistingVault.title" = "Åben eksisterende boks";
 "addVault.openExistingVault.chooseCloud.header" = "Hvor er boksen placeret?";
-"addVault.openExistingVault.detectedMasterkey.text" = "Kryptomator fandt boksen \"%@\".\nVil du tilføje denne boks?";
+"addVault.openExistingVault.detectedMasterkey.text" = "Cryptomator fandt boksen \"%@\".\nVil du tilføje denne boks?";
 "addVault.openExistingVault.detectedMasterkey.add" = "Tilføj denne boks";
 "addVault.openExistingVault.downloadVault.progress" = "Downloader Boks…";
 "addVault.openExistingVault.password.footer" = "Indtast adgangskode for \"%@\".";
@@ -85,7 +85,7 @@
 "cloudProvider.error.itemAlreadyExists" = "\"%@\" findes allerede.";
 "cloudProvider.error.itemTypeMismatch" = "\"%@\" har en uventet type.";
 "cloudProvider.error.parentFolderDoesNotExist" = "Overordnet mappe \"%@\" eksisterer ikke.";
-"cloudProvider.error.pageTokenInvalid" = "Kunne ikke hentning mappens indhold.";
+"cloudProvider.error.pageTokenInvalid" = "Kunne ikke hente mappens indhold.";
 "cloudProvider.error.quotaInsufficient" = "Dit lager har ikke tilstrækkelig plads.";
 "cloudProvider.error.unauthorized" = "Kan ikke udføre uautoriseret operation.";
 "cloudProvider.error.noInternetConnection" = "Internetforbindelse er påkrævet for denne operation.";
@@ -140,15 +140,17 @@
 "keepUnlocked.alert.confirm" = "Bekræft & lås nu";
 "keepUnlocked.header" = "Angiv hvor længe du ønsker at denne boks skal forblive låst op, når den er inaktiv.";
 "keepUnlocked.footer.auto" = "Lad iOS beslutte, betyder, at Cryptomator kan lukkes når som helst for at frigøre hukommelse. Bokse låses automatisk.";
-"keepUnlocked.footer.on" = "Med den valgte indstilling, kræves det at en kopi af din nøgle gemmes i iOS-nøglenringen - så længe boksen er låst op.";
+"keepUnlocked.footer.on" = "Med den valgte indstilling, kræves det at en kopi af din nøgle gemmes i iOS-nøgleringen - så længe boksen er låst op.";
 "keepUnlockedDuration.auto" = "Lad iOS beslutte automatisk";
 "keepUnlockedDuration.auto.shortDisplayName" = "Auto";
 "keepUnlockedDuration.indefinite" = "Altid";
 
-"localFileSystemAuthentication.createNewVault.header" = "Vælg placeringen til din nye boks på næste skærmbillede.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "I det næste skærmbillede skal du navigere til iCloud-drevet, vælge en lagerplacering, og derefter trykke på Åbn.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "I den næste skærm skal du navigere til din lagerplacering, vælge den og tryk derefter på Åbn.";
 "localFileSystemAuthentication.createNewVault.button" = "Vælg placering";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Der findes allerede en boks på denne placering. Prøv igen med en anden placering.";
-"localFileSystemAuthentication.openExistingVault.header" = "Vælg mappen hvori din boks befinder sig, på det næste skærmbillede.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "I det næste skærmbillede skal du navigere til iCloud-drev, vælge din boksmappe, og derefter trykke på Åbn.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Gå til din boksmappe på den næste skærmbillede, vælg den og tryk derefter på Åbn.";
 "localFileSystemAuthentication.openExistingVault.button" = "Vælg mappen med boks-filerne";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Den valgte mappe er ikke en boks. Prøv venligst igen med en anden mappe.";
 "localFileSystemAuthentication.info.footer" = "Filudbydere, der er grå understøtter ikke \"mappe-vælger\". Dette er ikke en begrænsning i Cryptomator.";
@@ -170,7 +172,7 @@
 "purchase.footer.privacyPolicy" = "Privatlivspolitik";
 "purchase.footer.termsOfUse" = "Brugsvilkår";
 "purchase.header.feature.familySharing" = "Familiedeling";
-"purchase.header.feature.openSource" = "Open-source udvikling";
+"purchase.header.feature.openSource" = "Open source udvikling";
 "purchase.header.feature.writeAccess" = "Skriveadgang til dine bokse";
 "purchase.product.donateAndUpgrade" = "Donér & opgradér";
 "purchase.product.freeUpgrade" = "Gratis opgradering";
@@ -180,7 +182,7 @@
 "purchase.product.trial" = "30-dages prøveperiode";
 "purchase.product.trial.expirationDate" = "Udløbsdato: %@";
 "purchase.product.trial.duration" = "i 30 dage";
-"purchase.product.yearlySubscription" = "Årligt abbonnement";
+"purchase.product.yearlySubscription" = "Årligt abonnement";
 "purchase.product.yearlySubscription.duration" = "årligt beløb";
 "purchase.readOnlyMode.alert.title" = "Skrivebeskyttet tilstand";
 "purchase.readOnlyMode.alert.message" = "Du kan aktivere den fulde version af Cryptomator i indstillingerne senere, og bruge den i skrivebeskyttet tilstand for nu.";
@@ -197,11 +199,13 @@
 "purchase.title" = "Lås op for fuld version";
 "purchase.unlockedFullVersion.message" = "Du kan nu bruge den fulde version af Cryptomator. God fornøjelse!";
 "purchase.unlockedFullVersion.title" = "Tak";
+"purchase.error.paymentNotAllowed" = "In-app køb er ikke tilladt på denne enhed. Tjek venligst dine skærmtid-indstillinger under Indhold og Privatlivs-begrænsninger for at aktivere køb.";
 "purchase.error.unknown" = "Dette køb er ikke tilgængeligt i App Store af en ukendt årsag. Prøv igen senere.\n\nHvis denne fejl fortsætter, så prøv at genstarte din enhed eller logge ud og ind igen med dit Apple-id i iOS-indstillingerne.";
 
 "settings.title" = "Indstillinger";
 "settings.aboutCryptomator" = "Om Cryptomator";
 "settings.aboutCryptomator.title" = "Version %@ (%@)";
+"settings.aboutCryptomator.hasFullVersion.footer" = "Du har låst den fulde version op og fået skriveadgang til dine bokse.";
 "settings.cacheSize" = "Cachestørrelse";
 "settings.clearCache" = "Tøm cache";
 "settings.cloudServices" = "Tjenester i skyen";
@@ -213,6 +217,8 @@
 "settings.sendLogFile" = "Send logfil";
 "settings.shortcutsGuide" = "Guide til genveje";
 "settings.unlockFullVersion" = "Lås op for fuld version";
+"settings.unlockFullVersion.detail" = "Få skriveadgang til dine bokse.";
+"settings.unlockFullVersion.trialExpirationDate" = "Prøveversions udløbsdato: %@";
 
 "sharePoint.enterURL.title" = "Indtast SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Websted URL";
@@ -225,17 +231,23 @@
 
 "shareVault.title" = "Del Boks";
 "shareVault.normal.header.title" = "Den sikre måde at arbejde i hold";
-"shareVault.normal.button.visitHub" = "Besøg Kryptomator Hub";
+"shareVault.normal.header.features" = "Samarbejd sikkert med dit team. Giv og tilbagekald adgang når som helst, uden at dele adgangskoder.";
+"shareVault.normal.footer.text" = "For mere information, tjek best practices forslag i vores [docs](%@).";
+"shareVault.normal.button.visitHub" = "Besøg Cryptomator Hub";
 "shareVault.hub.header.title" = "Sådan deler du en Hub boks";
 "shareVault.hub.header.subtitle" = "For at dele indholdet i boksen med et andet holdmedlem skal du udføre to trin:";
+"shareVault.hub.step1" = "Del adgang til den krypterede boksmappe via cloudopbevaring.";
+"shareVault.hub.step2" = "Giv adgang til teammedlem i Cryptomator Hub.";
 "shareVault.hub.button.openHub" = "Åben Cryptomator Hub";
+"shareVault.error.hubURLExtraction.title" = "Kan ikke indlæse Hub information";
+"shareVault.error.hubURLExtraction.message" = "The boks' Hubkonfiguration kunne ikke indlæses. Tjek venligst dine boksindstillinger eller kontakt din Hub administrator.";
 
 "snapshots.fileprovider.file1" = "/Bogholderi.numbers";
-"snapshots.fileprovider.file2" = "/Endelig præsentation.key";
-"snapshots.fileprovider.file3" = "/Produkt trailer.mov";
+"snapshots.fileprovider.file2" = "/Endelig Presentation.key";
+"snapshots.fileprovider.file3" = "/Produkt Trailer.mov";
 "snapshots.fileprovider.file4" = "/Forslag.docx";
 "snapshots.fileprovider.file5" = "/Rapport.pdf";
-"snapshots.fileprovider.folder3" = "/Hemmeligs projekt";
+"snapshots.fileprovider.folder3" = "/Hemmeligt projekt";
 "snapshots.fileprovider.folder2" = "/Fakturaer";
 "snapshots.fileprovider.folder1" = "/Certifikater";
 "snapshots.main.vault1" = "/Arbejde";
@@ -271,7 +283,7 @@
 "upgrade.title" = "Tilbud på opgradering";
 "upgrade.notEligible.alert.title" = "Opgradering fejlede";
 "upgrade.notEligible.alert.message" = "Cryptomator kunne ikke finde en ældre version installeret på din enhed. Hvis du købte den, bedes du downloade den igen fra App Store og prøve igen.";
-"upgrade.info" = "Tak fordi du har stolet på Cryptomator siden version et. Du er berretiget til en gratis opgradering, fordi du er en loyal bruger.";
+"upgrade.info" = "Tak fordi du har stolet på Cryptomator siden version et. Du er berettiget til en gratis opgradering, fordi du er en loyal bruger.";
 
 "urlSession.error.httpError.401" = "Forkert brugernavn og/eller password.";
 "urlSession.error.httpError.403" = "Du har ikke tilladelse til at få adgang til ressourcen.";
@@ -290,6 +302,7 @@
 "vaultDetail.button.removeVault" = "Fjern fra listen over bokse";
 "vaultDetail.button.renameVault" = "Omdøb";
 "vaultDetail.button.shareVault" = "Del Boks";
+"vaultDetail.shareVault.footer" = "Samarbejd sikkert med dit team ved hjælp af Cryptomator Hub.";
 "vaultDetail.changePassword.footer" = "Vælg en stærk adgangskode til din boks, som kun du kender og opbevar den på et sikkert sted.";
 "vaultDetail.disabledBiometricalUnlock.footer" = "Hvis du aktiverer %@, vil din boksadgangskode blive gemt i iOS-nøgleringen.";
 "vaultDetail.enabledBiometricalUnlock.footer" = "Din boksadgangskode skal kun angives, hvis %@-godkendelsen mislykkes.";

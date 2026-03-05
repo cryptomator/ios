@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Не удалось продолжить загрузку содержимого папки.";
 "cloudProvider.error.quotaInsufficient" = "Недостаточно места на устройстве хранения данных.";
 "cloudProvider.error.unauthorized" = "Невозможно выполнить неавторизованную операцию.";
+"cloudProvider.error.unauthorized.reauth.title" = "Время сеанса истекло";
+"cloudProvider.error.unauthorized.reauth.message" = "Войдите в %@ снова.";
+"cloudProvider.error.unauthorized.reauth.button" = "Вход";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Вы вошли с помощью другой учётной записи. Попробуйте ещё раз, войдя с оригинальной учётной записью %@.";
 "cloudProvider.error.noInternetConnection" = "Для этой операции требуется подключение к Интернету.";
 
 "cloudProviderType.localFileSystem" = "Другой файловый провайдер";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Авто";
 "keepUnlockedDuration.indefinite" = "Не блокировать";
 
-"localFileSystemAuthentication.createNewVault.header" = "На следующем экране выберите расположение нового хранилища.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "На следующем экране перейдите в iCloud Drive, выберите место хранения и нажмите \"Открыть\".";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "На следующем экране перейдите к местоположению хранения, выберите его и нажмите \"Открыть\".";
 "localFileSystemAuthentication.createNewVault.button" = "Выберите расположение";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Здесь уже есть хранилище. Попробуйте снова, используя другое расположение.";
-"localFileSystemAuthentication.openExistingVault.header" = "На следующем экране выберите папку имеющегося хранилища.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "На следующем экране перейдите в iCloud Drive, выберите папку хранилища и нажмите \"Открыть\".";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "На следующем экране перейдите в папку с хранилищем, выберите его и нажмите \"Открыть\".";
 "localFileSystemAuthentication.openExistingVault.button" = "Выберите папку хранилища";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "Выбранная папка - не хранилище. Попробуйте снова в другой папке.";
 "localFileSystemAuthentication.info.footer" = "Провайдеры файлов, выделенные серым цветом, не поддерживают \"выбор папок\". Это ограничение не связано с Cryptomator.";
@@ -197,6 +203,7 @@
 "purchase.title" = "Получить полную версию";
 "purchase.unlockedFullVersion.message" = "Теперь у вас полная версия Cryptomator. Удачного шифрования!";
 "purchase.unlockedFullVersion.title" = "Спасибо!";
+"purchase.error.paymentNotAllowed" = "Покупки внутри приложения не разрешены на этом устройстве. Проверьте настройки экранного времени в разделе ограничений конфиденциальности и контента.";
 "purchase.error.unknown" = "Покупка в App Store недоступна по неизвестной причине. Повторите попытку позже.\n\nЕсли эта ошибка повторится, попробуйте перезапустить устройство или выйти и войти в аккаунт Apple ID в настройках iOS.";
 
 "settings.title" = "Настройки";

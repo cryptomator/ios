@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Ophalen van de inhoud van directory kon niet worden voortgezet.";
 "cloudProvider.error.quotaInsufficient" = "Uw opslag heeft onvoldoende ruimte beschikbaar.";
 "cloudProvider.error.unauthorized" = "Niet mogelijk om ongeautoriseerde bewerking uit te voeren.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sessie verlopen";
+"cloudProvider.error.unauthorized.reauth.message" = "Log opnieuw in bij %@.";
+"cloudProvider.error.unauthorized.reauth.button" = "Inloggen";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "U bent aangemeld met een andere account. Probeer het opnieuw en log in met het originele %@ account.";
 "cloudProvider.error.noInternetConnection" = "Internet verbinding nodig voor deze actie.";
 
 "cloudProviderType.localFileSystem" = "Andere File Provider";
@@ -145,10 +149,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "Automatisch";
 "keepUnlockedDuration.indefinite" = "Voor onbepaalde tijd";
 
-"localFileSystemAuthentication.createNewVault.header" = "Kies in het volgende scherm de opslaglocatie voor je nieuwe kluis.";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "In het volgende scherm, navigeer naar iCloud Drive, selecteer een opslaglocatie en tik op Open.";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "Navigeer in het volgende scherm naar je opslaglocatie, selecteer het en tik op Openen.";
 "localFileSystemAuthentication.createNewVault.button" = "Selecteer Bestandsopslaglocatie";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "Er bestaat al een kluis op deze locatie. Probeer het opnieuw met een andere opslaglocatie.";
-"localFileSystemAuthentication.openExistingVault.header" = "Kies in het volgende scherm de map van uw bestaande kluis.";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "Navigeer in het volgende scherm naar de iCloud Drive, selecteer de kluismap en tik op Open.";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "Navigeer in het volgende scherm naar je kluismap, selecteer deze en tik op Open.";
 "localFileSystemAuthentication.openExistingVault.button" = "Selecteer kluismap";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "De geselecteerde map is geen kluis. Probeer het opnieuw met een andere map.";
 "localFileSystemAuthentication.info.footer" = "Bestandsproviders die grijs zijn ondersteunen geen \"mappen kiezen\". Dit is geen beperking van Cryptomator.";
@@ -197,6 +203,7 @@
 "purchase.title" = "Volledige versie ontgrendelen";
 "purchase.unlockedFullVersion.message" = "U kunt nu de volledige versie van Cryptomator gebruiken. Veel plezier met encrypteren!";
 "purchase.unlockedFullVersion.title" = "Dank u";
+"purchase.error.paymentNotAllowed" = "In-app aankopen zijn niet toegestaan op dit apparaat. Controleer je scherminstellingen onder Content & Privacy beperkingen om aankopen in te schakelen.";
 "purchase.error.unknown" = "Deze aankoop is niet beschikbaar in de App Store om een onbekende reden. Probeer het later opnieuw.\n\nAls deze fout aanhoudt, probeer je apparaat opnieuw op te starten of meld je af en weer aan met je Apple ID in de iOS-instellingen.";
 
 "settings.title" = "Instellingen";

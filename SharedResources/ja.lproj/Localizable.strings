@@ -144,10 +144,12 @@
 "keepUnlockedDuration.auto.shortDisplayName" = "自動";
 "keepUnlockedDuration.indefinite" = "無期限";
 
-"localFileSystemAuthentication.createNewVault.header" = "次の画面で、新しい金庫の保存場所を選択してください。";
+"localFileSystemAuthentication.createNewVault.iCloudDrive.header" = "次の画面で iCloud Drive へ移動してストレージの場所を選択し「開く」をタップしてください。";
+"localFileSystemAuthentication.createNewVault.otherFileProvider.header" = "次の画面でストレージの場所へ移動して選択し、「開く」をタップしてください。";
 "localFileSystemAuthentication.createNewVault.button" = "ストレージの場所を選択";
 "localFileSystemAuthentication.createNewVault.error.detectedExistingVault" = "この場所には既に金庫が存在します。別の保存先でもう一度お試しください。";
-"localFileSystemAuthentication.openExistingVault.header" = "次の画面で、既存の金庫の保存場所を選択してください。";
+"localFileSystemAuthentication.openExistingVault.iCloudDrive.header" = "次の画面で iCloud Drive へ移動して金庫のフォルダーを選択し、「開く」をタップしてください。";
+"localFileSystemAuthentication.openExistingVault.otherFileProvider.header" = "次の画面で金庫のフォルダーの場所へ移動して選択し、「開く」をタップしてください。";
 "localFileSystemAuthentication.openExistingVault.button" = "金庫のフォルダーを選択";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "選択したフォルダは金庫ではありません。別のフォルダでもう一度やり直してください。";
 "localFileSystemAuthentication.info.footer" = "グレーアウトされたファイルプロバイダは「フォルダを選ぶ」をサポートしていません。これはCryptomatorの制限ではありません。";
