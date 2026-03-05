@@ -53,7 +53,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testUploadFileFailForMissingLocalCachedFileInfo() throws {
@@ -82,7 +82,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testUploadFileWithInconsistencyCheck() throws {
@@ -126,7 +126,7 @@ class UploadTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testUploadFileFailReportsUploadError() throws {

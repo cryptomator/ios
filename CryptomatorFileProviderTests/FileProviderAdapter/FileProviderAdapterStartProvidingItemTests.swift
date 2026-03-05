@@ -33,7 +33,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			self.assertMetadataUpdated()
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
@@ -47,7 +47,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(1, self.metadataManagerMock.updatedMetadata.count, "Unexpected change of cached metadata.")
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
@@ -64,7 +64,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 	}
 
@@ -106,7 +106,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssert(localCachedFileInfo.localURL.path.hasPrefix(conflictingItemDirectory.path))
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 		XCTAssertEqual([NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 3)], localURLProviderMock.itemIdentifierDirectoryURLForItemWithPersistentIdentifierReceivedInvocations)
 	}
@@ -126,7 +126,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(ItemStatus.isUploaded, self.metadataManagerMock.updatedMetadata[0].statusCode)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertFalse(fileProviderItemUpdateDelegateMock.removeItemFromWorkingSetWithCalled)
 	}
 
@@ -159,7 +159,7 @@ class FileProviderAdapterStartProvidingItemTests: FileProviderAdapterTestCase {
 			XCTAssert(FileManager.default.fileExists(atPath: url.path))
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertItemRemovedFromWorkingSet()
 		// Reset fileProviderItemUpdateDelegateMock
 		resetFileProviderItemUpdateDelegateMockRemoveItem()

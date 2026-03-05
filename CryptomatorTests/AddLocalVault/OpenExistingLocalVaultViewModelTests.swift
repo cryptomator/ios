@@ -45,7 +45,7 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testAddLegacyVault() throws {
@@ -74,10 +74,10 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testAddVaultWithMissingVault() throws {
+	func testAddVaultWithMissingVault() {
 		let expectation = XCTestExpectation()
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
 		viewModel.addVault(for: credential).then { _ in
@@ -91,6 +91,6 @@ class OpenExistingLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }

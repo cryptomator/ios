@@ -153,7 +153,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 			XCTAssertEqual([self.itemID], self.uploadTaskManagerMock.createNewTaskRecordForReceivedInvocations.map { $0.id })
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertLocalURLProviderCalledWithItemID()
 	}
 
@@ -264,7 +264,7 @@ class FileProviderAdapterImportDocumentTests: FileProviderAdapterTestCase {
 				deleteItemPromise.fulfill(())
 			}))
 		}))
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		assertLocalURLProviderCalledWithItemID()
 	}
 

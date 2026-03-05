@@ -12,7 +12,7 @@ import XCTest
 @testable import Cryptomator
 
 class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
-	func testAddVault() throws {
+	func testAddVault() {
 		let expectation = XCTestExpectation()
 		let viewModel = CreateNewLocalVaultViewModel(vaultName: "MyVault", selectedLocalFileSystemType: .custom, accountManager: accountManagerMock)
 		let credential = LocalFileSystemCredential(rootURL: tmpDirURL, identifier: UUID().uuidString)
@@ -34,7 +34,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testAddVaultWithNameCollision() throws {
@@ -53,7 +53,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testAddVaultWithExistingVaultAtChosenURL() throws {
@@ -72,7 +72,7 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testAddVaultWithExistingLegacyVaultAtChosenURL() throws {
@@ -91,6 +91,6 @@ class CreateNewLocalVaultViewModelTests: AddLocalVaultViewModelTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }

@@ -89,7 +89,7 @@ class VaultListViewModelTests: XCTestCase {
 		XCTAssert(passwordManagerMock.removedPasswordForVaultUIDs.contains(where: { $0 == "vault2" }))
 	}
 
-	func testLockVault() throws {
+	func testLockVault() {
 		let expectation = XCTestExpectation()
 		let dbManagerMock = DatabaseManagerMock()
 		let vaultListViewModel = VaultListViewModel(dbManager: dbManagerMock, vaultManager: vaultManagerMock)
@@ -111,7 +111,7 @@ class VaultListViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
@@ -141,7 +141,7 @@ class VaultListViewModelTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(2, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 }

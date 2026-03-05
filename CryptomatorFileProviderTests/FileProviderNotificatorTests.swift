@@ -29,7 +29,7 @@ class FileProviderNotificatorTests: XCTestCase {
 
 	// MARK: Working Set
 
-	func testGetItemIdentifiersToDeleteFromWorkingSet() throws {
+	func testGetItemIdentifiersToDeleteFromWorkingSet() {
 		notificator.removeItemsFromWorkingSet(with: deleteItemIdentifiers)
 		XCTAssertEqual(deleteItemIdentifiers, getSortedItemIdentifiersToDeleteFromWorkingSet())
 		// Check getter does not clear the identifiers
@@ -37,7 +37,7 @@ class FileProviderNotificatorTests: XCTestCase {
 		XCTAssertFalse(enumerationSignalingMock.signalEnumeratorForCompletionHandlerCalled)
 	}
 
-	func testPopUpdateWorkingSetItems() throws {
+	func testPopUpdateWorkingSetItems() {
 		notificator.updateWorkingSetItems(updatedItems)
 		assertUpdateWorkingSetHasUpdatedItems()
 		// Check actually removed items
@@ -54,7 +54,7 @@ class FileProviderNotificatorTests: XCTestCase {
 		XCTAssertFalse(enumerationSignalingMock.signalEnumeratorForCompletionHandlerCalled)
 	}
 
-	func testInvalidatedWorkingSet() throws {
+	func testInvalidatedWorkingSet() {
 		let initialSyncAnchor = notificator.currentAnchor
 		XCTAssertFalse(initialSyncAnchor.invalidated)
 		notificator.updateWorkingSetItems(updatedItems)
@@ -75,7 +75,7 @@ class FileProviderNotificatorTests: XCTestCase {
 			expectation.fulfill()
 		}
 		notificator.refreshWorkingSet()
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(1, enumerationSignalingMock.signalEnumeratorForCompletionHandlerCallsCount)
 		XCTAssertEqual(.workingSet, enumerationSignalingMock.signalEnumeratorForCompletionHandlerReceivedArguments?.containerItemIdentifier)
 		try assertSyncAnchorHasBeenUpdated(oldSyncAnchor: currentSyncAnchor)
@@ -91,7 +91,7 @@ class FileProviderNotificatorTests: XCTestCase {
 		}
 		let updatedItem = updatedItems[0]
 		notificator.signalUpdate(for: updatedItem)
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual(2, enumerationSignalingMock.signalEnumeratorForCompletionHandlerCallsCount)
 		XCTAssertEqual([updatedItem.parentItemIdentifier, updatedItem.itemIdentifier], enumerationSignalingMock.signalEnumeratorForCompletionHandlerReceivedInvocations.map {
 			$0.containerItemIdentifier

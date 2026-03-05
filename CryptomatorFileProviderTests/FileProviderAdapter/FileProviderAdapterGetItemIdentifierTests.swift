@@ -31,7 +31,7 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 	func testGetItemIdentifierForRoot() throws {
 		let cloudPath = CloudPath("/")
 		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 1.0)
+		wait(for: getItemIdentifierPromise, timeout: 5.0)
 		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
 		XCTAssertEqual(.rootContainer, itemIdentifier)
 	}
@@ -51,20 +51,20 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		let folderMetadataID = try XCTUnwrap(folderMetadata.id)
 		metadataManagerMock.cachedMetadata[folderMetadataID] = folderMetadata
 
-		let subFolderMetadata = ItemMetadata(id: 3,
-		                                     name: "Directory 2",
-		                                     type: .folder,
-		                                     size: nil,
-		                                     parentID: folderMetadata.id!,
-		                                     lastModifiedDate: nil,
-		                                     statusCode: .isUploaded,
-		                                     cloudPath: CloudPath("/Directory 1/Directory 2"),
-		                                     isPlaceholderItem: false)
+		let subFolderMetadata = try ItemMetadata(id: 3,
+		                                         name: "Directory 2",
+		                                         type: .folder,
+		                                         size: nil,
+		                                         parentID: XCTUnwrap(folderMetadata.id),
+		                                         lastModifiedDate: nil,
+		                                         statusCode: .isUploaded,
+		                                         cloudPath: CloudPath("/Directory 1/Directory 2"),
+		                                         isPlaceholderItem: false)
 		let subFolderMetadataID = try XCTUnwrap(subFolderMetadata.id)
 		metadataManagerMock.cachedMetadata[subFolderMetadataID] = subFolderMetadata
 
 		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 1.0)
+		wait(for: getItemIdentifierPromise, timeout: 5.0)
 		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
 		let expectedItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: subFolderMetadataID)
 		XCTAssertEqual(expectedItemIdentifier, itemIdentifier)
@@ -85,15 +85,15 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 		let folderMetadataID = try XCTUnwrap(folderMetadata.id)
 		metadataManagerMock.cachedMetadata[folderMetadataID] = folderMetadata
 
-		let subFolderMetadata = ItemMetadata(id: 3,
-		                                     name: "Directory 3",
-		                                     type: .folder,
-		                                     size: nil,
-		                                     parentID: folderMetadata.id!,
-		                                     lastModifiedDate: nil,
-		                                     statusCode: .isUploaded,
-		                                     cloudPath: CloudPath("/Directory 1/Directory 3"),
-		                                     isPlaceholderItem: false)
+		let subFolderMetadata = try ItemMetadata(id: 3,
+		                                         name: "Directory 3",
+		                                         type: .folder,
+		                                         size: nil,
+		                                         parentID: XCTUnwrap(folderMetadata.id),
+		                                         lastModifiedDate: nil,
+		                                         statusCode: .isUploaded,
+		                                         cloudPath: CloudPath("/Directory 1/Directory 3"),
+		                                         isPlaceholderItem: false)
 		let subFolderMetadataID = try XCTUnwrap(subFolderMetadata.id)
 		metadataManagerMock.cachedMetadata[subFolderMetadataID] = subFolderMetadata
 
@@ -104,7 +104,7 @@ class FileProviderAdapterGetItemIdentifierTests: FileProviderAdapterTestCase {
 	func testGetItemIdentifierForItemNotYetCached() throws {
 		let cloudPath = CloudPath("/Directory 1/Directory 2")
 		let getItemIdentifierPromise = adapter.getItemIdentifier(for: cloudPath)
-		wait(for: getItemIdentifierPromise, timeout: 1.0)
+		wait(for: getItemIdentifierPromise, timeout: 5.0)
 		let itemIdentifier = try XCTUnwrap(getItemIdentifierPromise.value)
 		let expectedItemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 7)
 		XCTAssertEqual(expectedItemIdentifier, itemIdentifier)

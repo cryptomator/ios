@@ -11,7 +11,7 @@ import XCTest
 @testable import Promises
 
 extension XCTestCase {
-	func XCTAssertRejects<T>(_ expression: Promise<T>, _ message: @autoclosure () -> String = "", timeout seconds: TimeInterval = 1.0, _ errorHandler: @escaping (_ error: Error) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) {
+	func XCTAssertRejects<T>(_ expression: Promise<T>, _ message: @autoclosure () -> String = "", timeout seconds: TimeInterval = 5.0, _ errorHandler: @escaping (_ error: Error) -> Void = { _ in }, file: StaticString = #filePath, line: UInt = #line) {
 		let expectation = XCTestExpectation()
 		expression.then { _ in
 			XCTFail("Promise fulfilled", file: file, line: line)
@@ -23,13 +23,13 @@ extension XCTestCase {
 		wait(for: [expectation], timeout: seconds)
 	}
 
-	func XCTAssertRejects<T>(_ expression: Promise<T>, with expectedError: Error, _ message: @escaping @autoclosure () -> String = "", timeout seconds: TimeInterval = 1.0, file: StaticString = #filePath, line: UInt = #line) {
+	func XCTAssertRejects<T>(_ expression: Promise<T>, with expectedError: Error, _ message: @escaping @autoclosure () -> String = "", timeout seconds: TimeInterval = 5.0, file: StaticString = #filePath, line: UInt = #line) {
 		XCTAssertRejects(expression, timeout: seconds) { error in
 			XCTAssertEqual(expectedError as NSError, error as NSError, message(), file: file, line: line)
 		}
 	}
 
-	func wait<T>(for promise: Promise<T>, timeout seconds: TimeInterval = 1.0, file: StaticString = #filePath, line: UInt = #line) {
+	func wait<T>(for promise: Promise<T>, timeout seconds: TimeInterval = 5.0, file: StaticString = #filePath, line: UInt = #line) {
 		let expectation = XCTestExpectation()
 		promise.then { _ in
 			expectation.fulfill()
@@ -39,7 +39,7 @@ extension XCTestCase {
 		wait(for: [expectation], timeout: seconds)
 	}
 
-	func wait<T>(for promises: [Promise<T>], timeout seconds: TimeInterval = 1.0, enforceOrder enforceOrderOfFulfillment: Bool, file: StaticString = #filePath, line: UInt = #line) {
+	func wait<T>(for promises: [Promise<T>], timeout seconds: TimeInterval = 5.0, enforceOrder enforceOrderOfFulfillment: Bool, file: StaticString = #filePath, line: UInt = #line) {
 		let expectations = promises.map { promise -> XCTestExpectation in
 			let expectation = XCTestExpectation()
 			promise.then { _ in

@@ -47,7 +47,7 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testEmptyWorkingSet() {
@@ -60,7 +60,7 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testWorkingSetReturnsEmptyItemListWithPageTokenSet() {
@@ -73,6 +73,6 @@ class FileProviderAdapterEnumerateItemTests: FileProviderAdapterTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }

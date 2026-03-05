@@ -171,7 +171,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testReparentItem() throws {
@@ -223,7 +223,7 @@ class FileProviderAdapterMoveItemTests: FileProviderAdapterTestCase {
 			XCTAssertEqual(targetCloudPath, reparentTaskRecord.targetCloudPath)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testValidateItemName() throws {

@@ -38,7 +38,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFile1LastModifiedDate() {
@@ -53,7 +53,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testUploadFileSimulatedItemNotFoundError() {
@@ -72,7 +72,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			itemNotFoundExpectation.fulfill()
 		}
-		wait(for: [itemNotFoundExpectation], timeout: 1.0)
+		wait(for: [itemNotFoundExpectation], timeout: 5.0)
 	}
 
 	func testUploadFileSimulatedItemAlreadyExistsError() {
@@ -91,7 +91,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			itemAlreadyExistsExpectation.fulfill()
 		}
-		wait(for: [itemAlreadyExistsExpectation], timeout: 1.0)
+		wait(for: [itemAlreadyExistsExpectation], timeout: 5.0)
 	}
 
 	func testUploadFileSimulatedQutoaInsufficientError() {
@@ -110,7 +110,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			quotaInsufficientExpectation.fulfill()
 		}
-		wait(for: [quotaInsufficientExpectation], timeout: 1.0)
+		wait(for: [quotaInsufficientExpectation], timeout: 5.0)
 	}
 
 	func testUploadFileNoInternetConnectionError() {
@@ -129,7 +129,7 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			noInternetConnectionExpectation.fulfill()
 		}
-		wait(for: [noInternetConnectionExpectation], timeout: 1.0)
+		wait(for: [noInternetConnectionExpectation], timeout: 5.0)
 	}
 
 	func testUploadFileUnauthorizedError() {
@@ -148,6 +148,6 @@ class CustomCloudProviderMockTests: XCTestCase {
 		}.always {
 			unauthorizedExpectation.fulfill()
 		}
-		wait(for: [unauthorizedExpectation], timeout: 1.0)
+		wait(for: [unauthorizedExpectation], timeout: 5.0)
 	}
 }

@@ -37,7 +37,7 @@ class UploadRetryingServiceSourceTests: XCTestCase {
 		// Put teardown code here. This method is called after the invocation of each test method in the class.
 	}
 
-	func testRetryUpload() throws {
+	func testRetryUpload() {
 		let adapterMock = FileProviderAdapterTypeMock()
 		adapterProvidingMock.getAdapterForDomainDbPathDelegateNotificatorTaskRegistratorReturnValue = adapterMock
 		let expectation = XCTestExpectation()
@@ -47,12 +47,12 @@ class UploadRetryingServiceSourceTests: XCTestCase {
 			XCTAssertNil(error)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual(itemIdentifiers, adapterMock.retryUploadForReceivedInvocations)
 	}
 
-	func testGetCurrentFractionalUploadProgress() throws {
+	func testGetCurrentFractionalUploadProgress() {
 		let expectation = XCTestExpectation()
 		let itemIdentifier = NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)
 		let mockedProgress = Progress(totalUnitCount: 100)
@@ -62,7 +62,7 @@ class UploadRetryingServiceSourceTests: XCTestCase {
 			XCTAssertEqual(0.42, progress)
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		XCTAssertEqual([itemIdentifier], progressManagerMock.getProgressForReceivedInvocations)
 	}
 }

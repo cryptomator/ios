@@ -6,7 +6,7 @@
 //  Copyright © 2021 Skymatic GmbH. All rights reserved.
 //
 
-import StoreKitTest
+import StoreKit
 import XCTest
 @testable import Cryptomator
 @testable import Promises
@@ -15,22 +15,35 @@ import XCTest
 class IAPViewModelTestCase: XCTestCase {
 	typealias Item = BaseIAPViewModel.Item
 	var iapManagerMock: IAPManagerMock!
-	var session: SKTestSession!
+	var iapStoreMock: IAPStoreMock!
 	var retryCell: Item {
 		return .retryButton
 	}
 
 	override func setUpWithError() throws {
-		session = try SKTestSession(configurationFileNamed: "Configuration")
-		session.resetToDefaultState()
-		session.disableDialogs = true
-		session.clearTransactions()
 		iapManagerMock = IAPManagerMock()
+		iapStoreMock = IAPStoreMock()
+		iapStoreMock.fetchProductsWithReturnValue = Promise(makeSKProductsResponse(products: [
+			makeSKProduct(identifier: .thirtyDayTrial, price: 0),
+			makeSKProduct(identifier: .fullVersion, price: 11.99),
+			makeSKProduct(identifier: .yearlySubscription, price: 5.99),
+			makeSKProduct(identifier: .paidUpgrade, price: 1.99),
+			makeSKProduct(identifier: .freeUpgrade, price: 0)
+		]))
 	}
 
-	override func tearDown() {
-		session.resetToDefaultState()
-		session.clearTransactions()
+	func makeSKProduct(identifier: ProductIdentifier, price: NSDecimalNumber, locale: Locale = Locale(identifier: "en_US")) -> SKProduct {
+		let product = SKProduct()
+		product.setValue(identifier.rawValue, forKey: "productIdentifier")
+		product.setValue(price, forKey: "price")
+		product.setValue(locale, forKey: "priceLocale")
+		return product
+	}
+
+	func makeSKProductsResponse(products: [SKProduct]) -> SKProductsResponse {
+		let response = SKProductsResponse()
+		response.setValue(products, forKey: "products")
+		return response
 	}
 
 	func assertCalledBuyProduct(with identifier: ProductIdentifier) {

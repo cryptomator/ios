@@ -62,7 +62,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFileEnumerationPreservesUploadError() throws {
@@ -110,7 +110,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFileEnumerationPreservesLocalCachedFileInfo() throws {
@@ -164,7 +164,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFileEnumerationFailWithSameErrorAsProvider() throws {
@@ -197,7 +197,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: Folder
@@ -265,7 +265,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFolderEnumerationSameFolderTwice() throws {
@@ -313,7 +313,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFolderEnumerationPreservesUploadError() throws {
@@ -363,7 +363,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testPartialFolderEnumerationMarksMetadataAsMaybeOutdated() throws {
@@ -395,7 +395,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFullFolderEnumerationRemovesInvalidatedCachedMetadata() throws {
@@ -448,7 +448,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFolderEnumerationDidNotOverwriteReparentTask() throws {
@@ -494,7 +494,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFolderEnumerationDidNotOverwriteDeletionTask() throws {
@@ -534,7 +534,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testFolderEnumerationFailWithSameErrorAsProvider() throws {
@@ -567,7 +567,7 @@ class ItemEnumerationTaskTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }
 

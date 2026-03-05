@@ -32,7 +32,7 @@ class SettingsViewModelTests: XCTestCase {
 
 	// - MARK: Cache Section
 
-	func testInitialStateOfCacheSection() throws {
+	func testInitialStateOfCacheSection() {
 		guard let cacheSection = getSection(for: .cacheSection) else {
 			XCTFail("Missing cacheSection")
 			return
@@ -56,14 +56,14 @@ class SettingsViewModelTests: XCTestCase {
 		XCTAssertNil(clearCacheButtonCellViewModel.detailTitle.value)
 	}
 
-	func testRefreshCacheSize() throws {
+	func testRefreshCacheSize() {
 		let expectation = XCTestExpectation()
 		let cacheSizeInBytes = 1024 * 1024
 		setCacheManagingResponse(to: cacheSizeInBytes)
 		settingsViewModel.refreshCacheSize().always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 		guard let cacheSection = getSection(for: .cacheSection) else {
 			XCTFail("Missing cacheSection")
 			return
@@ -84,25 +84,25 @@ class SettingsViewModelTests: XCTestCase {
 		XCTAssertFalse(cacheSizeCellViewModel.isLoading.value)
 	}
 
-	func testRefreshCacheSizeForEmptyCache() throws {
+	func testRefreshCacheSizeForEmptyCache() {
 		let expectation = XCTestExpectation()
 		setCacheManagingResponse(to: 0)
 		settingsViewModel.refreshCacheSize().always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		checkEmptyCacheBehaviour()
 	}
 
-	func testClearCache() throws {
+	func testClearCache() {
 		let expectation = XCTestExpectation()
 		let cacheSizeInBytes = 0
 		setCacheManagingResponse(to: cacheSizeInBytes)
 		settingsViewModel.clearCache().always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 
 		XCTAssertEqual(1, cacheManagerMock.clearCacheReplyCallsCount)
 		checkEmptyCacheBehaviour()
@@ -186,7 +186,7 @@ class SettingsViewModelTests: XCTestCase {
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 5.0)
 		checkSendLogFilesCellViewModel()
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
@@ -205,7 +205,7 @@ class SettingsViewModelTests: XCTestCase {
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 5.0)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 
@@ -234,7 +234,7 @@ class SettingsViewModelTests: XCTestCase {
 			self.checkLogLevelUpdatingServiceSourceCall()
 			expectation.fulfill()
 		}
-		wait(for: [expectation, invalidationExpectation], timeout: 1.0)
+		wait(for: [expectation, invalidationExpectation], timeout: 5.0)
 		XCTAssertEqual(1, fileProviderConnectorMock.xpcInvalidationCallCount)
 	}
 

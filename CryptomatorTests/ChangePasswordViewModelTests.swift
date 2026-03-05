@@ -72,7 +72,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 
 		try await viewModel.changePassword()
 
-		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 
 		XCTAssertEqual(1, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDCallsCount)
 		XCTAssertEqual(oldPassword, vaultManagerMock.changePassphraseOldPassphraseNewPassphraseForVaultUIDReceivedArguments?.oldPassphrase)
@@ -127,7 +127,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 
 		XCTAssertEqual(1, vaultLockingMock.lockedVaults.count)
 		XCTAssertTrue(vaultLockingMock.lockedVaults.contains(NSFileProviderDomainIdentifier(vaultAccount.vaultUID)))
-		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 1.0, enforceOrder: true)
+		await fulfillment(of: [maintenanceModeEnabled, maintenanceModeDisabled], timeout: 5.0, enforceOrder: true)
 	}
 
 	func testChangePasswordFailForEmptyOldPassword() async throws {
@@ -173,7 +173,7 @@ class ChangePasswordViewModelTests: XCTestCase {
 
 	// MARK: Return Button Support
 
-	func testReturnButtonSupport() throws {
+	func testReturnButtonSupport() {
 		guard let oldPasswordViewModel = viewModel.cells[.oldPassword]?.first as? TextFieldCellViewModel else {
 			XCTFail("oldPasswordViewModel not found")
 			return

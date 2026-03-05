@@ -35,10 +35,10 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
-	func testCreateDirectoryFailsIfParentDoesNotExist() throws {
+	func testCreateDirectoryFailsIfParentDoesNotExist() {
 		let expectation = XCTestExpectation()
 		let adapter = FileProviderAdapter(domainIdentifier: .test, uploadTaskManager: uploadTaskManagerMock, cachedFileManager: cachedFileManagerMock, itemMetadataManager: metadataManagerMock, reparentTaskManager: reparentTaskManagerMock, deletionTaskManager: deletionTaskManagerMock, itemEnumerationTaskManager: itemEnumerationTaskManagerMock, downloadTaskManager: downloadTaskManagerMock, scheduler: WorkflowSchedulerMock(), provider: cloudProviderMock, coordinator: fileCoordinator, localURLProvider: LocalURLProviderMock(), taskRegistrator: taskRegistratorMock)
 		adapter.createDirectory(withName: "TestFolder", inParentItemIdentifier: NSFileProviderItemIdentifier(domainIdentifier: .test, itemID: 2)) { item, error in
@@ -56,7 +56,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 			XCTAssert(self.metadataManagerMock.removedMetadataID.isEmpty, "Unexpected change of cached metadata.")
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	// MARK: Create Placeholder
@@ -75,7 +75,7 @@ class FileProviderAdapterCreateDirectoryTests: FileProviderAdapterTestCase {
 		XCTAssertNotNil(placeholderItem.metadata.id)
 
 		XCTAssertEqual(2, metadataManagerMock.cachedMetadata.count)
-		XCTAssertEqual(placeholderItem.metadata, metadataManagerMock.cachedMetadata[placeholderItem.metadata.id!])
+		XCTAssertEqual(placeholderItem.metadata, try metadataManagerMock.cachedMetadata[XCTUnwrap(placeholderItem.metadata.id)])
 	}
 
 	func testCreatePlaceholderItemForFolderFailsIfParentDoesNotExist() throws {

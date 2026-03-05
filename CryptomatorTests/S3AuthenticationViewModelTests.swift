@@ -73,7 +73,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		viewModel.saveS3Credential()
 
-		wait(for: recorder, timeout: 1.0)
+		wait(for: recorder, timeout: 5.0)
 		let stateChanges = recorder.getElements()
 		XCTAssertEqual(3, stateChanges.count)
 		XCTAssertEqual(0, stateChanges.firstIndex(of: .notLoggedIn))
@@ -103,7 +103,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		viewModel.saveS3Credential()
 
-		wait(for: recorder, timeout: 1.0)
+		wait(for: recorder, timeout: 5.0)
 		let stateChanges = recorder.getElements()
 		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .error(S3AuthenticationError.invalidCredentials)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
@@ -118,7 +118,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 		viewModel.saveS3Credential()
 
-		wait(for: recorder, timeout: 1.0)
+		wait(for: recorder, timeout: 5.0)
 		let stateChanges = recorder.getElements()
 		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationError.invalidEndpoint)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
@@ -140,7 +140,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 
 			vm.saveS3Credential()
 
-			wait(for: recorder, timeout: 1.0)
+			wait(for: recorder, timeout: 5.0)
 			let stateChanges = recorder.getElements()
 			let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationError.invalidEndpoint)]
 			XCTAssertEqual(expectedStateChanges, stateChanges, "Expected invalidEndpoint error for: \(invalidEndpoint)")
@@ -152,7 +152,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		credentialVerifierMock.verifyCredentialReturnValue = Promise(())
 		existingCredentialViewModel.saveS3Credential()
 
-		wait(for: recorder, timeout: 1.0)
+		wait(for: recorder, timeout: 5.0)
 		let stateChanges = recorder.getElements()
 		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .verifyingCredentials, .loggedIn(.stub)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)

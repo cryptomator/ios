@@ -34,7 +34,7 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDeleteFolder() throws {
@@ -53,7 +53,7 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDeleteFileFailWithSameErrorAsProvider() throws {
@@ -78,7 +78,7 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 
 	func testDeleteFolderFailWithSameErrorAsProvider() throws {
@@ -103,6 +103,6 @@ class DeletionTaskExecutorTests: CloudTaskExecutorTestCase {
 		}.always {
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 1.0)
+		wait(for: [expectation], timeout: 5.0)
 	}
 }

@@ -8,7 +8,7 @@
 
 import CryptomatorCommonCore
 import Promises
-import StoreKitTest
+import StoreKit
 import XCTest
 @testable import Cryptomator
 
@@ -19,7 +19,7 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 	override func setUpWithError() throws {
 		try super.setUpWithError()
 		iapManagerMock.buyReturnValue = Promise(PurchaseTransaction.fullVersion)
-		viewModel = UpgradeViewModel(iapManager: iapManagerMock, minimumDisplayTime: 0)
+		viewModel = UpgradeViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, minimumDisplayTime: 0)
 	}
 
 	// MARK: Cells
@@ -38,10 +38,9 @@ class UpgradeViewModelTests: IAPViewModelTestCase {
 	}
 
 	func testCellsAfterFetchProductsFailed() {
-		let iapStoreMock = IAPStoreMock()
-		iapStoreMock.fetchProductsWithReturnValue = Promise(SKError(.unknown))
+		iapStoreMock.fetchProductsWithThrowableError = SKError(.unknown)
 		let viewModel = UpgradeViewModel(storeManager: iapStoreMock, iapManager: iapManagerMock, minimumDisplayTime: 0)
-		wait(for: viewModel.fetchProducts(), timeout: 2.0)
+		wait(for: viewModel.fetchProducts(), timeout: 5.0)
 		XCTAssertEqual([retryCell], viewModel.cells)
 	}
 

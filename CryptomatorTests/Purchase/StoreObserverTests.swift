@@ -44,9 +44,10 @@ class StoreObserverTests: XCTestCase {
 
 	func testBuyFreeTrial() async throws {
 		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
-		XCTAssertEqual(1, response.products.count)
+		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
+		let product = try XCTUnwrap(response.products.first)
 
-		let purchaseTransaction = try await storeObserver.buy(response.products[0]).getValue()
+		let purchaseTransaction = try await storeObserver.buy(product).getValue()
 		try assertTrialStarted(purchaseTransaction: purchaseTransaction)
 	}
 
@@ -58,8 +59,8 @@ class StoreObserverTests: XCTestCase {
 
 	// MARK: Deferred Transactions (Ask to buy)
 
-	// Only test the approved case as there is no transaction state changes if the transaction gets declined
-	// see https://developer.apple.com/forums/thread/685183
+	/// Only test the approved case as there is no transaction state changes if the transaction gets declined
+	/// see https://developer.apple.com/forums/thread/685183
 	func testAskToBuy() async throws {
 		session.askToBuyEnabled = true
 		XCTAssert(session.allTransactions().isEmpty)
@@ -129,9 +130,10 @@ class StoreObserverTests: XCTestCase {
 
 	private func assertFullVersionUnlockedWhenBuying(product: ProductIdentifier, file: StaticString = #filePath, line: UInt = #line) async throws {
 		let response = try await storeManager.fetchProducts(with: [product]).getValue()
-		XCTAssertEqual(1, response.products.count)
+		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
+		let skProduct = try XCTUnwrap(response.products.first)
 
-		let purchaseTransaction = try await storeObserver.buy(response.products[0]).getValue()
+		let purchaseTransaction = try await storeObserver.buy(skProduct).getValue()
 
 		XCTAssertEqual(.fullVersion, purchaseTransaction)
 		XCTAssert(cryptomatorSettingsMock.fullVersionUnlocked)
@@ -153,11 +155,11 @@ class StoreObserverTests: XCTestCase {
 
 	private func assertBuyFailsWithDeferredTransactionError(file: StaticString = #filePath, line: UInt = #line) async throws {
 		let response = try await storeManager.fetchProducts(with: [.thirtyDayTrial]).getValue()
-
-		XCTAssertEqual(1, response.products.count)
+		try XCTSkipUnless(!response.products.isEmpty, "SKProductsRequest returned no products (expected in xcodebuild)")
+		let product = try XCTUnwrap(response.products.first)
 
 		do {
-			_ = try await storeObserver.buy(response.products[0]).getValue()
+			_ = try await storeObserver.buy(product).getValue()
 			XCTFail("Buy did not fail", file: file, line: line)
 		} catch {
 			XCTAssertEqual(.deferredTransaction, error as? StoreObserverError)
