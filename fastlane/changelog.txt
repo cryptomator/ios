@@ -1,2 +1,5 @@
-- Added "Share Vault" option to vault settings (#424).
-- Display full version status for lifetime license users in settings (#426).
+- Added Liquid Glass app icon for iOS 26 (#441).
+- Fixed uploads getting stuck in "waiting" status in the Files app (#272, #438).
+- Added re-authentication prompt when selecting a cloud account with an expired session (#387, #437).
+- Fixed a crash when saving an S3 vault with an invalid endpoint URL (#429, #440).
+- Added Latvian, Punjabi, Thai, and Vietnamese translations.
