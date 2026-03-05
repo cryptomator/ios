@@ -33,7 +33,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		existingCredentialViewModel = S3AuthenticationViewModel(displayName: existingDisplayName, credential: .stub, verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
 	}
 
-	func testInitialStateDefaultViewModel() throws {
+	func testInitialStateDefaultViewModel() {
 		XCTAssertEqual(.notLoggedIn, viewModel.loginState)
 		XCTAssert(viewModel.displayName.isEmpty)
 		XCTAssert(viewModel.accessKey.isEmpty)
@@ -43,7 +43,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		XCTAssert(viewModel.region.isEmpty)
 	}
 
-	func testInitialStateExistingCredentialViewModel() throws {
+	func testInitialStateExistingCredentialViewModel() {
 		XCTAssertEqual(.notLoggedIn, existingCredentialViewModel.loginState)
 		let existingCredential = S3Credential.stub
 		XCTAssertEqual(existingDisplayName, existingCredentialViewModel.displayName)
@@ -54,7 +54,7 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(existingCredential.region, existingCredentialViewModel.region)
 	}
 
-	func testSaveIsDisabled() throws {
+	func testSaveIsDisabled() {
 		let recorder = viewModel.saveDisabled.recordNext(7)
 		viewModel.displayName = "Cryptomator S3"
 		viewModel.accessKey = "My Access Key"
@@ -122,6 +122,29 @@ class S3AuthenticationViewModelTests: XCTestCase {
 		let stateChanges = recorder.getElements()
 		let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationError.invalidEndpoint)]
 		XCTAssertEqual(expectedStateChanges, stateChanges)
+	}
+
+	func testSaveS3CredentialFailIfEndpointHasNoSchemeOrHost() {
+		let invalidEndpoints = ["hello", "8", "ftp://example.com", "://missing-scheme.com"]
+		for invalidEndpoint in invalidEndpoints {
+			let vm = S3AuthenticationViewModel(verifier: credentialVerifierMock, credentialManager: credentialManagerMock)
+			vm.displayName = defaultDisplayName
+			vm.accessKey = defaultAccessKey
+			vm.secretKey = defaultSecretKey
+			vm.existingBucket = defaultExistingBucket
+			vm.endpoint = invalidEndpoint
+			vm.region = defaultRegion
+
+			let recorder = vm.$loginState.recordNext(2)
+			credentialVerifierMock.verifyCredentialReturnValue = Promise(())
+
+			vm.saveS3Credential()
+
+			wait(for: recorder, timeout: 1.0)
+			let stateChanges = recorder.getElements()
+			let expectedStateChanges: [S3LoginState] = [.notLoggedIn, .error(S3AuthenticationError.invalidEndpoint)]
+			XCTAssertEqual(expectedStateChanges, stateChanges, "Expected invalidEndpoint error for: \(invalidEndpoint)")
+		}
 	}
 
 	func testSaveS3CredentialForExistingCredential() {

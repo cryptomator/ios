@@ -55,7 +55,10 @@ class S3AuthenticationViewModel: ObservableObject {
 			loginState = .error(S3AuthenticationError.emptyField)
 			return
 		}
-		guard let url = URL(string: endpoint) else {
+		guard let url = URL(string: endpoint),
+		      let scheme = url.scheme?.lowercased(),
+		      scheme == "http" || scheme == "https",
+		      url.host != nil else {
 			loginState = .error(S3AuthenticationError.invalidEndpoint)
 			return
 		}
