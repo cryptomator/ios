@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Vyvolanie obsahu adresára nemôže pokračovať.";
 "cloudProvider.error.quotaInsufficient" = "Váše úložisko má nedostatok miesta.";
 "cloudProvider.error.unauthorized" = "Nie je možné vykonať neautorizovanú operáciu.";
+"cloudProvider.error.unauthorized.reauth.title" = "Relácia vypršala";
+"cloudProvider.error.unauthorized.reauth.message" = "Prosím prihláste sa do %@ znovu.";
+"cloudProvider.error.unauthorized.reauth.button" = "Prihlásiť sa";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Ste prihlásený iným účtom. Prosím skúste znovu s pôvodným %@ účtom.";
 "cloudProvider.error.noInternetConnection" = "Internetové pripojenie je potrebné k tejto operácii.";
 
 "cloudProviderType.localFileSystem" = "Iný súborový prehliadač";
