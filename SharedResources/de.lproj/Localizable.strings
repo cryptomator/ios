@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Abrufen von Verzeichnisinhalten konnte nicht fortgesetzt werden.";
 "cloudProvider.error.quotaInsufficient" = "Dein Speicher hat nicht genügend Platz.";
 "cloudProvider.error.unauthorized" = "Unautorisierte Operation kann nicht ausgeführt werden.";
+"cloudProvider.error.unauthorized.reauth.title" = "Sitzung abgelaufen";
+"cloudProvider.error.unauthorized.reauth.message" = "Bitte melde dich bei %@ erneut an.";
+"cloudProvider.error.unauthorized.reauth.button" = "Anmelden";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Du hast dich mit einem anderen Account angemeldet. Bitte versuche es erneut und melde dich mit dem ursprünglichen %@-Account an.";
 "cloudProvider.error.noInternetConnection" = "Für diesen Vorgang wird eine Internetverbindung benötigt.";
 
 "cloudProviderType.localFileSystem" = "Anderer Speicher-Anbieter";
