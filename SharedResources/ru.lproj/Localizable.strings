@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Не удалось продолжить загрузку содержимого папки.";
 "cloudProvider.error.quotaInsufficient" = "Недостаточно места на устройстве хранения данных.";
 "cloudProvider.error.unauthorized" = "Невозможно выполнить неавторизованную операцию.";
+"cloudProvider.error.unauthorized.reauth.title" = "Время сеанса истекло";
+"cloudProvider.error.unauthorized.reauth.message" = "Войдите в %@ снова.";
+"cloudProvider.error.unauthorized.reauth.button" = "Вход";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Вы вошли с помощью другой учётной записи. Попробуйте ещё раз, войдя с оригинальной учётной записью %@.";
 "cloudProvider.error.noInternetConnection" = "Для этой операции требуется подключение к Интернету.";
 
 "cloudProviderType.localFileSystem" = "Другой файловый провайдер";
