@@ -65,18 +65,20 @@ platform :ios do
     )
   end
 
-  desc "Update IAP prices via App Store Connect API"
-  desc "Usage: bundle exec fastlane update_iap_price configs:'null:base.json 2025-12-01:sale.json' [dry_run:true]"
-  lane :update_iap_price do |options|
+  desc "Update prices via App Store Connect API"
+  desc "Requires --env to be set to 'freemium' or 'premium'"
+  desc "Usage: bundle exec fastlane update_price --env freemium configs:'null:base.json 2025-12-01:sale.json' [dry_run:true]"
+  lane :update_price do |options|
+    env_mode = ENV['FASTLANE_ENV'] || UI.user_error!("--env must be set to 'freemium' or 'premium'")
     ensure_env_vars(
-      env_vars: ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_KEY_PATH', 'IAP_ID', 'IAP_BASE_TERRITORY']
+      env_vars: ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_KEY_PATH', 'BASE_TERRITORY']
     )
     configs = options[:configs]
     if configs.nil? || configs.empty?
-      UI.user_error!("Config entries required. Usage: bundle exec fastlane update_iap_price configs:'null:config/base.json 2025-12-01:config/sale.json'")
+      UI.user_error!("Config entries required. Usage: bundle exec fastlane update_price --env freemium configs:'null:config/base.json 2025-12-01:config/sale.json'")
     end
     dry_run_flag = options[:dry_run] ? "--dry-run" : ""
-    sh("./scripts/iap-pricing.sh #{dry_run_flag} #{configs}")
+    sh("./scripts/update-pricing.sh --env #{env_mode} #{dry_run_flag} #{configs}")
   end
 
   desc "Deploy a new freemium and premium version to the App Store"

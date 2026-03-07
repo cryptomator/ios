@@ -1,23 +1,26 @@
 #!/bin/bash
 #
-# iap-pricing.sh - Manage IAP prices via App Store Connect API
+# update-pricing.sh - Manage prices via App Store Connect API
+#
+# Supports both IAP pricing (freemium) and app pricing (premium).
 #
 # Usage:
-#   ./iap-pricing.sh [--dry-run] <start_date>:<config-file> [start_date:config-file] ...
+#   ./update-pricing.sh --env freemium|premium [--dry-run] <start_date>:<config-file> ...
 #
 # Multiple config files are merged into a single price schedule.
 # Entries are sorted by start_date (null first, then chronologically).
 # Use "null" as start_date for immediate pricing.
 #
 # Example:
-#   ./iap-pricing.sh --dry-run null:base.json 2025-12-01:sale.json 2026-01-01:normal.json
+#   ./update-pricing.sh --env freemium --dry-run null:base.json 2025-12-01:sale.json 2026-01-01:normal.json
 #
 # Environment variables required:
 #   ASC_KEY_ID         - App Store Connect API Key ID
 #   ASC_ISSUER_ID      - App Store Connect API Issuer ID
 #   ASC_KEY_PATH       - Path to the .p8 private key file
-#   IAP_ID             - In-App Purchase ID
-#   IAP_BASE_TERRITORY - Base territory code (e.g., DEU)
+#   BASE_TERRITORY     - Base territory code (e.g., DEU)
+#   FREEMIUM_IAP_ID    - In-App Purchase ID (when --env freemium)
+#   PREMIUM_APP_ID     - App Store Connect App ID (when --env premium)
 #
 
 set -e
@@ -34,6 +37,7 @@ API_BASE="https://api.appstoreconnect.apple.com"
 
 # Parse arguments
 DRY_RUN=false
+ENV_MODE=""
 CONFIG_ENTRIES=()
 
 while [[ $# -gt 0 ]]; do
@@ -42,6 +46,14 @@ while [[ $# -gt 0 ]]; do
             DRY_RUN=true
             shift
             ;;
+        --env)
+            if [[ -z "${2+x}" ]]; then
+                echo -e "${RED}Error: --env requires an argument${NC}"
+                exit 1
+            fi
+            ENV_MODE="$2"
+            shift 2
+            ;;
         *)
             CONFIG_ENTRIES+=("$1")
             shift
@@ -49,10 +61,49 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# Validate env mode
+if [[ "$ENV_MODE" != "freemium" && "$ENV_MODE" != "premium" ]]; then
+    echo -e "${RED}Error: --env must be 'freemium' or 'premium'${NC}"
+    echo "Usage: $0 --env freemium|premium [--dry-run] <start_date>:<config-file> ..."
+    exit 1
+fi
+
+# Set mode-specific variables
+if [[ "$ENV_MODE" == "freemium" ]]; then
+    PRODUCT_ID_VAR="FREEMIUM_IAP_ID"
+    PRODUCT_ID="$FREEMIUM_IAP_ID"
+    PRODUCT_LABEL="IAP ID"
+    PRICE_POINTS_URL_PREFIX="/v2/inAppPurchases"
+    PRICE_POINTS_URL_SUFFIX="pricePoints"
+    PRICE_TYPE="inAppPurchasePrices"
+    PRICE_POINT_TYPE="inAppPurchasePricePoints"
+    SCHEDULE_TYPE="inAppPurchasePriceSchedules"
+    PRODUCT_REL_KEY="inAppPurchase"
+    PRODUCT_REL_TYPE="inAppPurchases"
+    # IAP included entries need a back-reference to the IAP
+    INCLUDE_PRODUCT_REL=true
+    INCLUDE_PRODUCT_REL_KEY="inAppPurchaseV2"
+    INCLUDE_PRODUCT_REL_TYPE="inAppPurchases"
+    PRICE_POINT_REL_KEY="inAppPurchasePricePoint"
+else
+    PRODUCT_ID_VAR="PREMIUM_APP_ID"
+    PRODUCT_ID="$PREMIUM_APP_ID"
+    PRODUCT_LABEL="App ID"
+    PRICE_POINTS_URL_PREFIX="/v1/apps"
+    PRICE_POINTS_URL_SUFFIX="appPricePoints"
+    PRICE_TYPE="appPrices"
+    PRICE_POINT_TYPE="appPricePoints"
+    SCHEDULE_TYPE="appPriceSchedules"
+    PRODUCT_REL_KEY="app"
+    PRODUCT_REL_TYPE="apps"
+    INCLUDE_PRODUCT_REL=false
+    PRICE_POINT_REL_KEY="appPricePoint"
+fi
+
 if [[ ${#CONFIG_ENTRIES[@]} -eq 0 ]]; then
     echo -e "${RED}Error: At least one config entry is required${NC}"
-    echo "Usage: $0 [--dry-run] <start_date>:<config-file> [start_date:config-file] ..."
-    echo "Example: $0 --dry-run null:base.json 2025-12-01:sale.json"
+    echo "Usage: $0 --env $ENV_MODE [--dry-run] <start_date>:<config-file> ..."
+    echo "Example: $0 --env $ENV_MODE --dry-run null:base.json 2025-12-01:sale.json"
     exit 1
 fi
 
@@ -71,14 +122,14 @@ done
 
 # Check for required tools
 for cmd in jq curl ruby; do
-    if ! command -v $cmd &> /dev/null; then
+    if ! command -v "$cmd" &> /dev/null; then
         echo -e "${RED}Error: Required tool '$cmd' is not installed${NC}"
         exit 1
     fi
 done
 
 # Check for required environment variables
-for var in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH IAP_ID IAP_BASE_TERRITORY; do
+for var in ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH BASE_TERRITORY "$PRODUCT_ID_VAR"; do
     if [[ -z "${!var}" ]]; then
         echo -e "${RED}Error: Environment variable $var is not set${NC}"
         exit 1
@@ -175,8 +226,8 @@ add_price_entry() {
     local price_id="\${price${PRICE_COUNTER}}"
     PRICE_COUNTER=$((PRICE_COUNTER + 1))
 
-    MANUAL_PRICES_DATA=$(echo "$MANUAL_PRICES_DATA" | jq --arg id "$price_id" \
-        '. + [{"type": "inAppPurchasePrices", "id": $id}]')
+    MANUAL_PRICES_DATA=$(echo "$MANUAL_PRICES_DATA" | jq --arg id "$price_id" --arg type "$PRICE_TYPE" \
+        '. + [{"type": $type, "id": $id}]')
 
     # Build attributes object based on start_date and end_date
     local attributes
@@ -190,19 +241,32 @@ add_price_entry() {
         attributes=$(jq -n --arg start "$start_date" --arg end "$end_date" '{"startDate": $start, "endDate": $end}')
     fi
 
+    # Build relationships for the included entry
+    local relationships
+    relationships=$(jq -n \
+        --arg pp_key "$PRICE_POINT_REL_KEY" \
+        --arg pp_type "$PRICE_POINT_TYPE" \
+        --arg pp_id "$price_point_id" \
+        '{($pp_key): {"data": {"type": $pp_type, "id": $pp_id}}}')
+
+    if [[ "$INCLUDE_PRODUCT_REL" == "true" ]]; then
+        relationships=$(echo "$relationships" | jq \
+            --arg rel_key "$INCLUDE_PRODUCT_REL_KEY" \
+            --arg rel_type "$INCLUDE_PRODUCT_REL_TYPE" \
+            --arg rel_id "$PRODUCT_ID" \
+            '. + {($rel_key): {"data": {"type": $rel_type, "id": $rel_id}}}')
+    fi
+
     INCLUDED_ARRAY=$(echo "$INCLUDED_ARRAY" | jq \
         --arg id "$price_id" \
-        --arg iap_id "$IAP_ID" \
-        --arg pp_id "$price_point_id" \
+        --arg type "$PRICE_TYPE" \
         --argjson attrs "$attributes" \
+        --argjson rels "$relationships" \
         '. + [{
-            "type": "inAppPurchasePrices",
+            "type": $type,
             "id": $id,
             "attributes": $attrs,
-            "relationships": {
-                "inAppPurchaseV2": {"data": {"type": "inAppPurchases", "id": $iap_id}},
-                "inAppPurchasePricePoint": {"data": {"type": "inAppPurchasePricePoints", "id": $pp_id}}
-            }
+            "relationships": $rels
         }]')
 }
 
@@ -236,9 +300,9 @@ process_prices() {
 # Main Script
 # ============================================================================
 
-# Use environment variables for IAP config
-echo -e "${GREEN}IAP ID:${NC} $IAP_ID"
-echo -e "${GREEN}Base Territory:${NC} $IAP_BASE_TERRITORY"
+echo -e "${GREEN}Mode:${NC} $ENV_MODE"
+echo -e "${GREEN}${PRODUCT_LABEL}:${NC} $PRODUCT_ID"
+echo -e "${GREEN}Base Territory:${NC} $BASE_TERRITORY"
 
 # Read and parse all config entries
 echo -e "${BLUE}Reading ${#CONFIG_ENTRIES[@]} config file(s)...${NC}"
@@ -276,7 +340,7 @@ echo -e "${GREEN}Territories:${NC} $TERRITORY_COUNT total"
 # Fetch price points for all territories (with pagination)
 echo -e "\n${BLUE}Fetching price points from App Store Connect...${NC}"
 PRICE_POINTS_DATA="[]"
-NEXT_URL="/v2/inAppPurchases/${IAP_ID}/pricePoints?filter[territory]=${ALL_TERRITORIES}&include=territory&limit=8000"
+NEXT_URL="${PRICE_POINTS_URL_PREFIX}/${PRODUCT_ID}/${PRICE_POINTS_URL_SUFFIX}?filter[territory]=${ALL_TERRITORIES}&include=territory&limit=8000"
 PAGE=1
 
 while [[ -n "$NEXT_URL" ]]; do
@@ -354,15 +418,18 @@ done
 
 # Build the final request payload
 REQUEST_PAYLOAD=$(jq -n \
-    --arg iap_id "$IAP_ID" \
-    --arg base_territory "$IAP_BASE_TERRITORY" \
+    --arg schedule_type "$SCHEDULE_TYPE" \
+    --arg product_rel_key "$PRODUCT_REL_KEY" \
+    --arg product_rel_type "$PRODUCT_REL_TYPE" \
+    --arg product_id "$PRODUCT_ID" \
+    --arg base_territory "$BASE_TERRITORY" \
     --argjson manual_prices "$MANUAL_PRICES_DATA" \
     --argjson included "$INCLUDED_ARRAY" \
     '{
         "data": {
-            "type": "inAppPurchasePriceSchedules",
+            "type": $schedule_type,
             "relationships": {
-                "inAppPurchase": {"data": {"type": "inAppPurchases", "id": $iap_id}},
+                ($product_rel_key): {"data": {"type": $product_rel_type, "id": $product_id}},
                 "baseTerritory": {"data": {"type": "territories", "id": $base_territory}},
                 "manualPrices": {"data": $manual_prices}
             }
@@ -377,7 +444,7 @@ fi
 
 # Make the API request
 echo -e "\n${BLUE}Creating price schedule...${NC}"
-RESPONSE=$(api_request "POST" "/v1/inAppPurchasePriceSchedules" "$REQUEST_PAYLOAD")
+RESPONSE=$(api_request "POST" "/v1/${SCHEDULE_TYPE}" "$REQUEST_PAYLOAD")
 
 # Check for errors
 if echo "$RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
