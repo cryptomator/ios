@@ -76,6 +76,15 @@ class FileProviderCoordinator: Coordinator {
 		extensionContext.completeRequest()
 	}
 
+	func completeUnlock() {
+		guard SalePromo.shared.shouldShowTenthAnniversaryUnlockPromo() else {
+			done()
+			return
+		}
+		CryptomatorUserDefaults.shared.tenthAnniversaryUnlockPromoShown = true
+		showSalePromoAlert()
+	}
+
 	// MARK: - Onboarding
 
 	func showOnboarding() {
@@ -99,6 +108,23 @@ class FileProviderCoordinator: Coordinator {
 		}
 	}
 
+	func showSalePromoAlert() {
+		guard let hostViewController = hostViewController else {
+			done()
+			return
+		}
+		let title = "\(SalePromo.tenthAnniversaryEmoji) Cryptomator turns 10!"
+		let message = "Celebrate with us! Lifetime License is \(SalePromo.tenthAnniversaryDiscount)!"
+		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+		alertController.addAction(UIAlertAction(title: "Learn More", style: .default) { [weak self] _ in
+			self?.openCryptomatorApp()
+		})
+		alertController.addAction(UIAlertAction(title: "Not Now", style: .cancel) { [weak self] _ in
+			self?.done()
+		})
+		hostViewController.present(alertController, animated: true)
+	}
+
 	// MARK: - Vault Unlock
 
 	func startAuthentication(for domain: NSFileProviderDomain, unlockError: UnlockError) {
@@ -118,7 +144,7 @@ class FileProviderCoordinator: Coordinator {
 	 */
 	func performQuickUnlock(viewModel: UnlockVaultViewModel) {
 		viewModel.biometricalUnlock().then { [weak self] in
-			self?.done()
+			self?.completeUnlock()
 		}.catch { [weak self] error in
 			if case LAError.userFallback = error {
 				self?.showManualPasswordScreen(viewModel: viewModel)

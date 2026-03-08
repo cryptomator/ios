@@ -16,6 +16,7 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var hasRunningSubscription: Bool = false
 	#if !ALWAYS_PREMIUM
 	var tenthAnniversaryBannerDismissed: Bool = false
+	var tenthAnniversaryUnlockPromoShown: Bool = false
 	#endif
 }
 #endif

@@ -19,6 +19,10 @@ public protocol CryptomatorSettings {
 	var tenthAnniversaryBannerDismissed: Bool {
 		get set
 	}
+
+	var tenthAnniversaryUnlockPromoShown: Bool {
+		get set
+	}
 	#endif
 }
 
@@ -116,6 +120,11 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 
 	#if !ALWAYS_PREMIUM
 	public var tenthAnniversaryBannerDismissed: Bool {
+		get { read() ?? false }
+		set { write(value: newValue) }
+	}
+
+	public var tenthAnniversaryUnlockPromoShown: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
 	}

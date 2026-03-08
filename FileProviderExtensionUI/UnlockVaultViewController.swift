@@ -71,7 +71,7 @@ class UnlockVaultViewController: UITableViewController {
 
 	private func biometricalUnlock() {
 		viewModel.biometricalUnlock().then { [weak self] in
-			self?.coordinator?.done()
+			self?.coordinator?.completeUnlock()
 		}
 	}
 
@@ -83,7 +83,7 @@ class UnlockVaultViewController: UITableViewController {
 		viewModel.unlock(withPassword: passwordCell.textField.text ?? "", storePasswordInKeychain: enableBiometricalUnlockSwitch.isOn).then {
 			hud.transformToSelfDismissingSuccess()
 		}.then { [weak self] in
-			self?.coordinator?.done()
+			self?.coordinator?.completeUnlock()
 		}.catch { [weak self] error in
 			if case LAError.userFallback = error {
 				// Do not show the fallback action as an error
