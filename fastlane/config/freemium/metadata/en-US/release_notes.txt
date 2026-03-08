@@ -1,3 +1,5 @@
+Celebrating 10 Years of Cryptomator!
+
 - Added Liquid Glass app icon for iOS 26 (#441).
 - Fixed uploads getting stuck in "waiting" status in the Files app (#272, #438).
 - Added re-authentication prompt when selecting a cloud account with an expired session (#387, #437).
