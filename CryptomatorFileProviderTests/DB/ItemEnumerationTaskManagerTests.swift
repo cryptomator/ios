@@ -29,7 +29,7 @@ class ItemEnumerationTaskManagerTests: XCTestCase {
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let pageToken: String? = nil
 		let createdTask = try manager.createTask(for: itemMetadata, pageToken: pageToken)
-		let fetchedTask = try getTaskRecord(for: itemMetadata.id!)
+		let fetchedTask = try getTaskRecord(for: XCTUnwrap(itemMetadata.id))
 		XCTAssertEqual(fetchedTask, createdTask.taskRecord)
 		XCTAssertEqual(itemMetadata.id, fetchedTask.correspondingItem)
 		XCTAssertEqual(pageToken, fetchedTask.pageToken)

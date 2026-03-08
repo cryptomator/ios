@@ -35,8 +35,8 @@ class SetVaultNameViewModel: SingleSectionTableViewModel, SetVaultNameViewModelP
 
 	private lazy var subscribers = Set<AnyCancellable>()
 
-	// disallowed characters \ / : * ? " < > |
-	// cannot end with .
+	/// disallowed characters \ / : * ? " < > |
+	/// cannot end with .
 	func getValidatedVaultName() throws -> String {
 		guard !trimmedVaultName.isEmpty else {
 			throw SetVaultNameViewModelError.emptyVaultName

@@ -27,7 +27,7 @@ class Snapshots: XCTestCase {
 		}
 	}
 
-	func testSnapshots() throws {
+	func testSnapshots() {
 		enableBiometrics()
 		filesAppSnapshots()
 		mainAppSnapshots()

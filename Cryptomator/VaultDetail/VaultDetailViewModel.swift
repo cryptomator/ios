@@ -98,10 +98,7 @@ class VaultDetailViewModel: VaultDetailViewModelProtocol {
 		return sections
 	}()
 
-	private lazy var lockButton: ButtonCellViewModel<VaultDetailButtonAction> = {
-		let viewModel = ButtonCellViewModel<VaultDetailButtonAction>(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: vaultInfo.vaultIsUnlocked.value)
-		return viewModel
-	}()
+	private lazy var lockButton: ButtonCellViewModel<VaultDetailButtonAction> = .init(action: .lockVault, title: LocalizedString.getValue("vaultDetail.button.lock"), isEnabled: vaultInfo.vaultIsUnlocked.value)
 
 	private lazy var keepUnlockedCellViewModel = KeepUnlockedButtonCellViewModel(currentKeepUnlockedDuration: currentKeepUnlockedDuration)
 

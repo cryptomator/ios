@@ -120,8 +120,7 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 
 	func getReparentMetadata(for parentID: Int64) throws -> [ItemMetadata] {
 		let reparentTasks = try reparentTaskManager.getTaskRecordsForItemsWhichAreSoon(in: parentID)
-		let reparentMetadata = try itemMetadataManager.getCachedMetadata(forIDs: reparentTasks.map { $0.correspondingItem })
-		return reparentMetadata
+		return try itemMetadataManager.getCachedMetadata(forIDs: reparentTasks.map { $0.correspondingItem })
 	}
 
 	func filterOutWaitingReparentTasks(parentID: Int64, for itemMetadata: [ItemMetadata]) throws -> [ItemMetadata] {

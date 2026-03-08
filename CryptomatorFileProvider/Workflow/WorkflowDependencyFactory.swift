@@ -143,7 +143,7 @@ enum LockType {
 }
 
 struct WorkflowDependency {
-	// visible for testing
+	/// visible for testing
 	var workflowCompleted: Promise<Void> {
 		return unlock
 	}

@@ -19,7 +19,10 @@ protocol HeaderFooterViewModelConfiguring: UIView {
 }
 
 class BaseHeaderFooterViewModel: HeaderFooterViewModel {
-	var viewType: HeaderFooterViewModelConfiguring.Type { return BaseHeaderFooterView.self }
+	var viewType: HeaderFooterViewModelConfiguring.Type {
+		return BaseHeaderFooterView.self
+	}
+
 	let title: Bindable<String?>
 
 	init(title: String) {

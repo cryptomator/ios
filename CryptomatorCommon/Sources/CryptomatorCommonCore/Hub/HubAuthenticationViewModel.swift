@@ -41,7 +41,9 @@ public final class HubAuthenticationViewModel: ObservableObject {
 	}
 
 	private enum Constants {
-		static var subscriptionState: String { "hub-subscription-state" }
+		static var subscriptionState: String {
+			"hub-subscription-state"
+		}
 	}
 
 	@Published var authenticationFlowState: State?

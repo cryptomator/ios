@@ -25,10 +25,7 @@ class UnlockVaultViewController: UITableViewController {
 		return cell
 	}()
 
-	private lazy var button: UITableViewCell = {
-		let cell = UITableViewCell()
-		return cell
-	}()
+	private lazy var button: UITableViewCell = .init()
 
 	private lazy var enableBiometricalUnlockCell: UITableViewCell = {
 		let cell = UITableViewCell()

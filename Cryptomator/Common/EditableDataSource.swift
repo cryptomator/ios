@@ -9,7 +9,7 @@
 import UIKit
 
 // swiftlint:disable:next generic_type_name
-class EditableDataSource<SectionIdentifierType, ItemIdentifierType>: UITableViewDiffableDataSource<SectionIdentifierType, ItemIdentifierType> where SectionIdentifierType: Hashable, ItemIdentifierType: Hashable {
+class EditableDataSource<SectionIdentifierType: Hashable, ItemIdentifierType: Hashable>: UITableViewDiffableDataSource<SectionIdentifierType, ItemIdentifierType> {
 	var moveRowAction: ((UITableView, _ sourceIndexPath: IndexPath, _ destinationIndexPath: IndexPath) -> Void)?
 	var deleteRowAction: ((UITableView, UITableViewCell.EditingStyle, IndexPath) -> Void)?
 

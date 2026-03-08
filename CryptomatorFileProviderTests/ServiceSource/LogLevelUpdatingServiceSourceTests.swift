@@ -20,7 +20,7 @@ class LogLevelUpdatingServiceSourceTests: XCTestCase {
 		serviceSouce = LogLevelUpdatingServiceSource(cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
-	func testLogLevelUpdated() throws {
+	func testLogLevelUpdated() {
 		cryptomatorSettingsMock.debugModeEnabled = false
 		serviceSouce.logLevelUpdated()
 		XCTAssertEqual(.error, dynamicLogLevel)

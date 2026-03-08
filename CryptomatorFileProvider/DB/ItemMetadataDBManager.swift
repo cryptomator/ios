@@ -69,35 +69,31 @@ class ItemMetadataDBManager: ItemMetadataManager {
 	}
 
 	func getCachedMetadata(for cloudPath: CloudPath) throws -> ItemMetadata? {
-		let itemMetadata: ItemMetadata? = try database.read { db in
+		return try database.read { db in
 			return try ItemMetadata.filter(ItemMetadata.Columns.cloudPath.lowercased == cloudPath.path.lowercased()).fetchOne(db)
 		}
-		return itemMetadata
 	}
 
 	func getCachedMetadata(for identifier: Int64) throws -> ItemMetadata? {
-		let itemMetadata: ItemMetadata? = try database.read { db in
+		return try database.read { db in
 			return try getCachedMetadata(for: identifier, database: db)
 		}
-		return itemMetadata
 	}
 
 	func getPlaceholderMetadata(withParentID parentID: Int64) throws -> [ItemMetadata] {
-		let itemMetadata: [ItemMetadata] = try database.read { db in
+		return try database.read { db in
 			return try ItemMetadata
 				.filter(ItemMetadata.Columns.parentID == parentID && ItemMetadata.Columns.isPlaceholderItem && ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 				.fetchAll(db)
 		}
-		return itemMetadata
 	}
 
 	func getCachedMetadata(withParentID parentId: Int64) throws -> [ItemMetadata] {
-		let itemMetadata: [ItemMetadata] = try database.read { db in
+		return try database.read { db in
 			return try ItemMetadata
 				.filter(ItemMetadata.Columns.parentID == parentId && ItemMetadata.Columns.id != NSFileProviderItemIdentifier.rootContainerDatabaseValue)
 				.fetchAll(db)
 		}
-		return itemMetadata
 	}
 
 	// TODO: find a more meaningful name

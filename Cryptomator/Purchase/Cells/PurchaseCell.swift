@@ -106,7 +106,7 @@ class PurchaseButton: CapsuleButton {
 		}.store(in: &subscribers)
 	}
 
-	// Expand the buttons hit area to its superview bounds
+	/// Expand the buttons hit area to its superview bounds
 	override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
 		superview?.bounds.contains(point) ?? bounds.contains(point)
 	}

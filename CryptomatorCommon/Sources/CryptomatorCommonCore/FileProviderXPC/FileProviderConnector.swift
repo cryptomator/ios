@@ -48,7 +48,10 @@ public extension FileProviderConnector {
 }
 
 private enum FileProviderConnectorKey: DependencyKey {
-	static var liveValue: FileProviderConnector { FileProviderXPCConnector() }
+	static var liveValue: FileProviderConnector {
+		FileProviderXPCConnector()
+	}
+
 	#if DEBUG
 	static var testValue: FileProviderConnector = UnimplementedFileProviderConnector()
 	#endif

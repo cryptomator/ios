@@ -51,12 +51,11 @@ class DeletionTaskDBManager: DeletionTaskManager {
 	}
 
 	func getTaskRecordsForItemsWhichWere(in parentID: Int64) throws -> [DeletionTaskRecord] {
-		let tasks: [DeletionTaskRecord] = try database.read { db in
+		return try database.read { db in
 			return try DeletionTaskRecord
 				.filter(DeletionTaskRecord.Columns.parentID == parentID)
 				.fetchAll(db)
 		}
-		return tasks
 	}
 
 	func getTask(for taskRecord: DeletionTaskRecord) throws -> DeletionTask {

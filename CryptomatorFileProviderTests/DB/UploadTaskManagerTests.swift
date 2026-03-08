@@ -28,7 +28,7 @@ class UploadTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
-		guard let fetchedUploadTask = try manager.getTaskRecord(for: itemMetadata.id!) else {
+		guard let fetchedUploadTask = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id)) else {
 			XCTFail("UploadTask not found")
 			return
 		}
@@ -44,8 +44,8 @@ class UploadTaskManagerTests: XCTestCase {
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
 		let lastFailedUploadDate = Date(timeIntervalSinceReferenceDate: 0)
 		let error = NSFileProviderError(.serverUnreachable)
-		try manager.updateTaskRecord(with: itemMetadata.id!, lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
-		guard let fetchedUploadTask = try manager.getTaskRecord(for: itemMetadata.id!) else {
+		try manager.updateTaskRecord(with: XCTUnwrap(itemMetadata.id), lastFailedUploadDate: lastFailedUploadDate, uploadErrorCode: error.errorCode, uploadErrorDomain: NSFileProviderError.errorDomain)
+		guard let fetchedUploadTask = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id)) else {
 			XCTFail("UploadTask not found")
 			return
 		}
@@ -68,11 +68,11 @@ class UploadTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		_ = try manager.createNewTaskRecord(for: itemMetadata)
-		let taskBeforeRemoval = try manager.getTaskRecord(for: itemMetadata.id!)
+		let taskBeforeRemoval = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id))
 		XCTAssertNotNil(taskBeforeRemoval)
 		let itemManager = ItemMetadataDBManager(database: inMemoryDB)
-		try itemManager.removeItemMetadata(with: itemMetadata.id!)
-		let taskAfterRemoval = try manager.getTaskRecord(for: itemMetadata.id!)
+		try itemManager.removeItemMetadata(with: XCTUnwrap(itemMetadata.id))
+		let taskAfterRemoval = try manager.getTaskRecord(for: XCTUnwrap(itemMetadata.id))
 		XCTAssertNil(taskAfterRemoval)
 	}
 
@@ -80,7 +80,7 @@ class UploadTaskManagerTests: XCTestCase {
 		let itemMetadata = ItemMetadata(name: "Test", type: .file, size: nil, parentID: NSFileProviderItemIdentifier.rootContainerDatabaseValue, lastModifiedDate: nil, statusCode: .isUploaded, cloudPath: CloudPath("/Test"), isPlaceholderItem: true)
 		try itemMetadataManager.cacheMetadata(itemMetadata)
 		let savedTask = try manager.createNewTaskRecord(for: itemMetadata)
-		let ids = [itemMetadata.id! + 1, itemMetadata.id!, itemMetadata.id! - 1]
+		let ids = try [XCTUnwrap(itemMetadata.id) + 1, XCTUnwrap(itemMetadata.id), XCTUnwrap(itemMetadata.id) - 1]
 		let tasks = try manager.getCorrespondingTaskRecords(ids: ids)
 		XCTAssertEqual(3, tasks.count)
 		XCTAssertNil(tasks[0])

@@ -11,7 +11,7 @@ import UIKit
 
 extension UIView {
 	private struct Preview: UIViewRepresentable {
-		// this variable is used for injecting the current view
+		/// this variable is used for injecting the current view
 		let view: UIView
 
 		func makeUIView(context: Context) -> some UIView {

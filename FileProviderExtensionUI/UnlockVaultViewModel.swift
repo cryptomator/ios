@@ -302,8 +302,7 @@ class UnlockVaultViewModel {
 	private func getKEK(password: String) throws -> [UInt8] {
 		let cachedVault = try vaultCache.getCachedVault(withVaultUID: vaultUID)
 		let masterkeyFile = try MasterkeyFile.withContentFromData(data: cachedVault.masterkeyFileData)
-		let kek = try masterkeyFile.deriveKey(passphrase: password)
-		return kek
+		return try masterkeyFile.deriveKey(passphrase: password)
 	}
 
 	private func refreshVaultCache() -> Promise<Void> {

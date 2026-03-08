@@ -64,7 +64,7 @@ class AccountListViewModelTests: XCTestCase {
 		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
-		let baseURL = URL(string: "https://www.example.com")!
+		let baseURL = try XCTUnwrap(URL(string: "https://www.example.com"))
 		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
 		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
 		XCTAssertEqual("www.example.com", accountCellContent.mainLabelText)
@@ -76,7 +76,7 @@ class AccountListViewModelTests: XCTestCase {
 		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
-		let baseURL = URL(string: "https://www.example.com/path")!
+		let baseURL = try XCTUnwrap(URL(string: "https://www.example.com/path"))
 		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
 		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
 		XCTAssertEqual("www.example.com", accountCellContent.mainLabelText)
@@ -88,7 +88,7 @@ class AccountListViewModelTests: XCTestCase {
 		let accountManager = CloudProviderAccountDBManager()
 		let cloudAuthenticatorMock = CloudAuthenticatorMock(accountManager: accountManager)
 		let accountListViewModel = AccountListViewModel(with: .dropbox, dbManager: dbManagerMock, cloudAuthenticator: cloudAuthenticatorMock)
-		let baseURL = URL(string: "www")!
+		let baseURL = try XCTUnwrap(URL(string: "www"))
 		let webDAVCredential = WebDAVCredential(baseURL: baseURL, username: "Alice", password: "Bob", allowedCertificate: nil)
 		let accountCellContent = accountListViewModel.createAccountCellContent(for: webDAVCredential)
 		XCTAssertEqual("<unknown-host>", accountCellContent.mainLabelText)

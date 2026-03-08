@@ -11,7 +11,7 @@ import Promises
 import XCTest
 
 class Promise_AllIgnoringResultsTests: XCTestCase {
-	func testWaitForAll() throws {
+	func testWaitForAll() {
 		let pending = Promise<Void>.pending()
 		let fulfilled = Promise(())
 
@@ -21,7 +21,7 @@ class Promise_AllIgnoringResultsTests: XCTestCase {
 		wait(for: ignoringResultPromise)
 	}
 
-	func testWaitForAllWithRejectedPromise() throws {
+	func testWaitForAllWithRejectedPromise() {
 		let pending = Promise<Void>.pending()
 		let rejected: Promise<Void> = Promise(NSError(domain: "Test", code: -100))
 

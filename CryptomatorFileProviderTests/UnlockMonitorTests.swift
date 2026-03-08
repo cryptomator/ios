@@ -24,21 +24,21 @@ class UnlockMonitorTests: XCTestCase {
 		unlockMonitor.enrolledBiometricsAuthenticationName = { [weak self] in self?.defaultEnrolledBiometricsAuthenticationName }
 	}
 
-	func testStartBiometricalUnlock() throws {
+	func testStartBiometricalUnlock() {
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		XCTAssertEqual(.biometricalUnlockStarted, unlockMonitor.unlockStates[vaultUID])
 		XCTAssert(taskExecutorMock.runningBiometricalUnlock)
 		XCTAssertFalse(passwordManagerMock.removePasswordForVaultUIDCalled)
 	}
 
-	func testEndBiometricalUnlock() throws {
+	func testEndBiometricalUnlock() {
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		unlockMonitor.endBiometricalUnlock(forVaultUID: vaultUID)
 		XCTAssertFalse(taskExecutorMock.runningBiometricalUnlock)
 		XCTAssertFalse(passwordManagerMock.removePasswordForVaultUIDCalled)
 	}
 
-	func testWrongBiometricalPassword() throws {
+	func testWrongBiometricalPassword() {
 		let expectedError: UnlockMonitorError = .biometricalUnlockWrongPassword(biometryName: defaultEnrolledBiometricsAuthenticationName)
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		XCTAssertEqual(.biometricalUnlockStarted, unlockMonitor.unlockStates[vaultUID])
@@ -50,14 +50,14 @@ class UnlockMonitorTests: XCTestCase {
 		XCTAssert(passwordManagerMock.removePasswordForVaultUIDCalled)
 	}
 
-	func testBiometricalAuthCanceled() throws {
+	func testBiometricalAuthCanceled() {
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		unlockMonitor.endBiometricalUnlock(forVaultUID: vaultUID)
 		XCTAssertEqual(.biometricalUnlockCanceled(biometryName: defaultEnrolledBiometricsAuthenticationName), unlockMonitor.getUnlockError(forVaultUID: vaultUID))
 		XCTAssertFalse(passwordManagerMock.removePasswordForVaultUIDCalled)
 	}
 
-	func testBiometricalUnlockSucceeded() throws {
+	func testBiometricalUnlockSucceeded() {
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)
 		unlockMonitor.endBiometricalUnlock(forVaultUID: vaultUID)
@@ -65,7 +65,7 @@ class UnlockMonitorTests: XCTestCase {
 		XCTAssertFalse(passwordManagerMock.removePasswordForVaultUIDCalled)
 	}
 
-	func testUnlockSucceededResetsUnlockState() throws {
+	func testUnlockSucceededResetsUnlockState() {
 		unlockMonitor.startBiometricalUnlock(forVaultUID: vaultUID)
 		XCTAssertEqual(.biometricalUnlockStarted, unlockMonitor.unlockStates[vaultUID])
 		unlockMonitor.unlockSucceeded(forVaultUID: vaultUID)

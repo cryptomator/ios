@@ -11,7 +11,10 @@ import CryptomatorCommonCore
 import Foundation
 
 class UnlockSectionFooterViewModel: HeaderFooterViewModel {
-	var viewType: HeaderFooterViewModelConfiguring.Type { return BaseHeaderFooterView.self }
+	var viewType: HeaderFooterViewModelConfiguring.Type {
+		return BaseHeaderFooterView.self
+	}
+
 	let title: Bindable<String?>
 	var vaultUnlocked: Bool {
 		didSet {

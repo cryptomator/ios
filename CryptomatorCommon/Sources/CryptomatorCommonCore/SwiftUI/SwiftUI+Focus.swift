@@ -102,7 +102,7 @@ extension CaseIterable where Self: Equatable {
 	}
 }
 
-@propertyWrapper public struct FocusStateLegacy<Value>: DynamicProperty where Value: Hashable {
+@propertyWrapper public struct FocusStateLegacy<Value: Hashable>: DynamicProperty {
 	@State var form: Value?
 
 	public var projectedValue: Binding<Value?> {

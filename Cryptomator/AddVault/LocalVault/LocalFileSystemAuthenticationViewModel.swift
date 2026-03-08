@@ -60,8 +60,7 @@ class LocalFileSystemAuthenticationViewModel: SingleSectionTableViewModel, Local
 		guard let rootURL = urls.first else {
 			throw LocalFileSystemAuthenticationViewModelError.invalidURL
 		}
-		let credential = LocalFileSystemCredential(rootURL: rootURL, identifier: UUID().uuidString)
-		return credential
+		return LocalFileSystemCredential(rootURL: rootURL, identifier: UUID().uuidString)
 	}
 
 	func validateAndSave(credential: LocalFileSystemCredential) -> Promise<CloudProviderAccount> {

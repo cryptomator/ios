@@ -12,7 +12,7 @@ import Foundation
 class LockNode {
 	private let lock: RWLock
 	private let parent: LockNode?
-	// path only for debug / log
+	/// path only for debug / log
 	private let path: String
 
 	init(path: String, lock: RWLock, parent: LockNode? = nil) {

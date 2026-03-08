@@ -107,7 +107,7 @@ struct WorkflowFactory {
 	}
 }
 
-class MapTable<KeyType, ObjectType> where KeyType: AnyObject, ObjectType: AnyObject {
+class MapTable<KeyType: AnyObject, ObjectType: AnyObject> {
 	private let mapTable: NSMapTable<KeyType, ObjectType>
 
 	init(keyOptions: NSPointerFunctions.Options, valueOptions: NSPointerFunctions.Options) {
