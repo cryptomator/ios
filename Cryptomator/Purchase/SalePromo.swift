@@ -13,22 +13,23 @@ struct SalePromo {
 	@Dependency(\.cryptomatorSettings) private var cryptomatorSettings
 
 	static let shared = SalePromo()
-	static let winter2025Emoji = "❄️"
-	static let winter2025Discount = "50%* off until December 31"
+	static let tenthAnniversaryEmoji = "🎉"
+	static let tenthAnniversaryDiscount = "67%* off until March 18"
 
-	static func isWinter2025Active() -> Bool {
-		let saleStartComponents = DateComponents(year: 2025, month: 12, day: 1)
-		let saleEndComponents = DateComponents(year: 2025, month: 12, day: 31)
-		guard let saleStartDate = Calendar.current.date(from: saleStartComponents), let saleEndDate = Calendar.current.date(from: saleEndComponents) else {
+	static func isTenthAnniversaryActive() -> Bool {
+		let saleStartComponents = DateComponents(year: 2026, month: 3, day: 9)
+		let saleEndComponents = DateComponents(year: 2026, month: 3, day: 19)
+		let gregorian = Calendar(identifier: .gregorian)
+		guard let saleStartDate = gregorian.date(from: saleStartComponents), let saleEndDate = gregorian.date(from: saleEndComponents) else {
 			return false
 		}
 		let now = Date()
-		return now >= saleStartDate && now <= saleEndDate
+		return now >= saleStartDate && now < saleEndDate
 	}
 
-	func shouldShowWinter2025Banner() -> Bool {
+	func shouldShowTenthAnniversaryBanner() -> Bool {
 		#if !ALWAYS_PREMIUM
-		return SalePromo.isWinter2025Active() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.winter2025BannerDismissed
+		return SalePromo.isTenthAnniversaryActive() && !(cryptomatorSettings.fullVersionUnlocked || cryptomatorSettings.hasRunningSubscription) && !cryptomatorSettings.tenthAnniversaryBannerDismissed
 		#else
 		return false
 		#endif
