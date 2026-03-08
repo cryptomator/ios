@@ -69,7 +69,7 @@ platform :ios do
   desc "Requires --env to be set to 'freemium' or 'premium'"
   desc "Usage: bundle exec fastlane update_price --env freemium configs:'null:base.json 2025-12-01:sale.json' [dry_run:true]"
   lane :update_price do |options|
-    env_mode = ENV['FASTLANE_ENV'] || UI.user_error!("--env must be set to 'freemium' or 'premium'")
+    env_mode = lane_context[SharedValues::ENVIRONMENT] || UI.user_error!("--env must be set to 'freemium' or 'premium'")
     ensure_env_vars(
       env_vars: ['ASC_KEY_ID', 'ASC_ISSUER_ID', 'ASC_KEY_PATH', 'BASE_TERRITORY']
     )

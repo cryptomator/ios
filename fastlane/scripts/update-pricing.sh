@@ -337,47 +337,118 @@ ALL_TERRITORIES=$(echo "$CONFIGS_JSON" | jq -r '[.[].prices | keys] | add | uniq
 TERRITORY_COUNT=$(echo "$CONFIGS_JSON" | jq '[.[].prices | keys] | add | unique | length')
 echo -e "${GREEN}Territories:${NC} $TERRITORY_COUNT total"
 
-# Fetch price points for all territories (with pagination)
+# Fetch price points and build lookup index
 echo -e "\n${BLUE}Fetching price points from App Store Connect...${NC}"
 PRICE_POINTS_DATA="[]"
-NEXT_URL="${PRICE_POINTS_URL_PREFIX}/${PRODUCT_ID}/${PRICE_POINTS_URL_SUFFIX}?filter[territory]=${ALL_TERRITORIES}&include=territory&limit=8000"
-PAGE=1
+PRICE_LOOKUP_INDEX="{}"
 
-while [[ -n "$NEXT_URL" ]]; do
-    echo -e "  Fetching page $PAGE..."
-    PRICE_POINTS_RESPONSE=$(api_request "GET" "$NEXT_URL")
+# Helper: fetch paginated price points and append to PRICE_POINTS_DATA + PRICE_LOOKUP_INDEX
+fetch_price_points() {
+    local url="$1"
+    local label="$2"
+    local page=1
 
-    # Check for errors
-    if echo "$PRICE_POINTS_RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
-        echo -e "${RED}API Error:${NC}"
-        echo "$PRICE_POINTS_RESPONSE" | jq '.errors'
-        exit 1
+    while [[ -n "$url" ]]; do
+        echo -e "  ${label} page $page..."
+        local response=$(api_request "GET" "$url")
+
+        if echo "$response" | jq -e '.errors' > /dev/null 2>&1; then
+            echo -e "${RED}API Error:${NC}"
+            echo "$response" | jq '.errors'
+            exit 1
+        fi
+
+        local page_data=$(echo "$response" | jq '.data')
+        PRICE_POINTS_DATA=$(echo "$PRICE_POINTS_DATA $page_data" | jq -s 'add')
+        PRICE_LOOKUP_INDEX=$(echo "$PRICE_LOOKUP_INDEX" | jq --argjson pd "$page_data" '
+          reduce $pd[] as $item (.;
+            ($item.relationships.territory.data.id) as $territory |
+            ($item.attributes.customerPrice) as $price |
+            . + { ($territory + "_" + $price): $item.id }
+          )
+        ')
+
+        url=$(echo "$response" | jq -r '.links.next // empty')
+        [[ -n "$url" ]] && url=$(echo "$url" | sed "s|${API_BASE}||")
+        page=$((page + 1))
+    done
+}
+
+if [[ "$ENV_MODE" == "premium" ]]; then
+    # Hybrid fetch: base territory + equalizations + remaining territories
+    # This reduces API calls from ~590 to ~400 by using Apple's equalizations
+    # endpoint to resolve price point IDs for territories whose prices match
+    # the equalized values (i.e., territories without PPP adjustments).
+
+    # Phase 1: Fetch base territory price points
+    echo -e "${BLUE}Phase 1: Fetching base territory ($BASE_TERRITORY) price points...${NC}"
+    fetch_price_points \
+        "${PRICE_POINTS_URL_PREFIX}/${PRODUCT_ID}/${PRICE_POINTS_URL_SUFFIX}?filter[territory]=${BASE_TERRITORY}&include=territory&limit=200" \
+        "Base territory"
+    BASE_COUNT=$(echo "$PRICE_POINTS_DATA" | jq 'length')
+    echo -e "${GREEN}Found $BASE_COUNT base territory price points${NC}"
+
+    # Phase 2: Call equalizations for each unique base territory config price
+    UNIQUE_BASE_PRICES=$(echo "$CONFIGS_JSON" | jq -r --arg bt "$BASE_TERRITORY" \
+        '[.[].prices[$bt] // empty] | unique | .[]')
+
+    echo -e "\n${BLUE}Phase 2: Fetching equalizations...${NC}"
+    for base_price in $UNIQUE_BASE_PRICES; do
+        BASE_PRICE_ID=$(echo "$PRICE_LOOKUP_INDEX" | jq -r --arg key "${BASE_TERRITORY}_${base_price}" '.[$key] // empty')
+        if [[ -z "$BASE_PRICE_ID" ]]; then
+            echo -e "${YELLOW}Warning: Base territory price $base_price not found, skipping equalization${NC}"
+            continue
+        fi
+
+        echo -e "  Equalizations for $BASE_TERRITORY $base_price..."
+        EQ_URL="/v3/appPricePoints/${BASE_PRICE_ID}/equalizations?limit=200&include=territory"
+        EQ_RESPONSE=$(api_request "GET" "$EQ_URL")
+
+        if echo "$EQ_RESPONSE" | jq -e '.errors' > /dev/null 2>&1; then
+            echo -e "${YELLOW}Warning: Equalizations failed for $base_price, will fetch individually${NC}"
+            continue
+        fi
+
+        # Add equalization results to lookup (but not to PRICE_POINTS_DATA since
+        # these are summary entries — full data is fetched in Phase 3 if needed)
+        PRICE_LOOKUP_INDEX=$(echo "$PRICE_LOOKUP_INDEX" | jq --argjson eq "$(echo "$EQ_RESPONSE" | jq '.data')" '
+          reduce $eq[] as $item (.;
+            ($item.relationships.territory.data.id) as $territory |
+            ($item.attributes.customerPrice) as $price |
+            . + { ($territory + "_" + $price): $item.id }
+          )
+        ')
+
+        EQ_COUNT=$(echo "$EQ_RESPONSE" | jq '.data | length')
+        echo -e "    ${GREEN}$EQ_COUNT territories equalized${NC}"
+    done
+
+    # Phase 3: Determine which (territory, price) pairs are still missing
+    MISSING_TERRITORIES=$(echo "$CONFIGS_JSON" | jq -r --argjson lookup "$PRICE_LOOKUP_INDEX" '
+        [.[].prices | to_entries[] |
+         select(($lookup[(.key + "_" + .value)] // null) == null) |
+         .key] | unique | join(",")
+    ')
+
+    if [[ -n "$MISSING_TERRITORIES" ]]; then
+        MISSING_COUNT=$(echo "$MISSING_TERRITORIES" | tr ',' '\n' | wc -l | tr -d ' ')
+        echo -e "\n${BLUE}Phase 3: Fetching $MISSING_COUNT remaining territories...${NC}"
+        fetch_price_points \
+            "${PRICE_POINTS_URL_PREFIX}/${PRODUCT_ID}/${PRICE_POINTS_URL_SUFFIX}?filter[territory]=${MISSING_TERRITORIES}&include=territory&limit=200" \
+            "Remaining"
+    else
+        echo -e "\n${GREEN}All price points resolved via base territory + equalizations${NC}"
     fi
-
-    # Append data from this page
-    PAGE_DATA=$(echo "$PRICE_POINTS_RESPONSE" | jq '.data')
-    PRICE_POINTS_DATA=$(echo "$PRICE_POINTS_DATA $PAGE_DATA" | jq -s 'add')
-
-    # Check for next page
-    NEXT_URL=$(echo "$PRICE_POINTS_RESPONSE" | jq -r '.links.next // empty')
-    if [[ -n "$NEXT_URL" ]]; then
-        NEXT_URL=$(echo "$NEXT_URL" | sed 's|https://api.appstoreconnect.apple.com||')
-    fi
-    PAGE=$((PAGE + 1))
-done
+else
+    # Freemium: fetch all at once (fast with limit=8000)
+    fetch_price_points \
+        "${PRICE_POINTS_URL_PREFIX}/${PRODUCT_ID}/${PRICE_POINTS_URL_SUFFIX}?filter[territory]=${ALL_TERRITORIES}&include=territory&limit=8000" \
+        "Fetching"
+fi
 
 PRICE_POINTS_COUNT=$(echo "$PRICE_POINTS_DATA" | jq 'length')
-echo -e "${GREEN}Found $PRICE_POINTS_COUNT price points${NC}"
-
-# Build lookup index for O(1) price point lookups (exact match only)
-echo -e "${BLUE}Building price index...${NC}"
-PRICE_LOOKUP_INDEX=$(echo "$PRICE_POINTS_DATA" | jq '
-  reduce .[] as $item ({};
-    ($item.relationships.territory.data.id) as $territory |
-    ($item.attributes.customerPrice) as $price |
-    . + { ($territory + "_" + $price): $item.id }
-  )
-')
+LOOKUP_COUNT=$(echo "$PRICE_LOOKUP_INDEX" | jq 'length')
+echo -e "${GREEN}Total: $PRICE_POINTS_COUNT price points, $LOOKUP_COUNT lookup entries${NC}"
 
 # Initialize payload arrays
 MANUAL_PRICES_DATA="[]"
