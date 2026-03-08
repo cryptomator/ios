@@ -43,8 +43,8 @@ class CachedFileManagerTests: CacheTestCase {
 		let firstDateComp = DateComponents(year: 2020, month: 1, day: 2, hour: 0, minute: 0, second: 0, nanosecond: 0)
 		let secondDateComp = DateComponents(year: 2020, month: 1, day: 2, hour: 0, minute: 0, second: 0, nanosecond: 10_000_000)
 
-		let firstDate = calendar.date(from: firstDateComp)!
-		let secondDate = calendar.date(from: secondDateComp)!
+		let firstDate = try XCTUnwrap(calendar.date(from: firstDateComp))
+		let secondDate = try XCTUnwrap(calendar.date(from: secondDateComp))
 
 		let localURLForItem = URL(fileURLWithPath: "/foo")
 		try manager.cacheLocalFileInfo(for: NSFileProviderItemIdentifier.rootContainerDatabaseValue, localURL: localURLForItem, lastModifiedDate: firstDate)
@@ -55,7 +55,7 @@ class CachedFileManagerTests: CacheTestCase {
 		XCTAssertTrue(localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: secondDate))
 
 		let thirdDateComp = DateComponents(year: 2020, month: 1, day: 2, hour: 0, minute: 0, second: 1, nanosecond: 0)
-		let thirdDate = calendar.date(from: thirdDateComp)!
+		let thirdDate = try XCTUnwrap(calendar.date(from: thirdDateComp))
 		XCTAssertFalse(localCachedFileInfo.isCurrentVersion(lastModifiedDateInCloud: thirdDate))
 	}
 
@@ -67,8 +67,8 @@ class CachedFileManagerTests: CacheTestCase {
 
 		XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
 
-		try manager.removeCachedFile(for: metadata.id!)
-		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata.id!))
+		try manager.removeCachedFile(for: XCTUnwrap(metadata.id))
+		XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata.id)))
 		XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 	}
 
@@ -84,7 +84,7 @@ class CachedFileManagerTests: CacheTestCase {
 		let uploadManager = UploadTaskDBManager(database: inMemoryDB)
 		_ = try uploadManager.createNewTaskRecord(for: metadata)
 
-		XCTAssertThrowsError(try manager.removeCachedFile(for: metadata.id!)) { error in
+		XCTAssertThrowsError(try manager.removeCachedFile(for: XCTUnwrap(metadata.id))) { error in
 			guard case CachedFileManagerError.fileHasUnsyncedEdits = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
@@ -92,7 +92,7 @@ class CachedFileManagerTests: CacheTestCase {
 		}
 
 		XCTAssertTrue(FileManager.default.fileExists(atPath: url.path))
-		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: metadata.id!))
+		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata.id)))
 	}
 
 	func testRemoveCachedFileForMissingFile() throws {
@@ -102,8 +102,8 @@ class CachedFileManagerTests: CacheTestCase {
 		try createTestData(localURL: url, data: data, metadata: metadata)
 		try FileManager.default.removeItem(at: url)
 
-		try manager.removeCachedFile(for: metadata.id!)
-		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata.id!))
+		try manager.removeCachedFile(for: XCTUnwrap(metadata.id))
+		XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata.id)))
 	}
 
 	func testRemoveCachedFileForFailingFileRemoval() throws {
@@ -123,13 +123,13 @@ class CachedFileManagerTests: CacheTestCase {
 			throw CocoaError(.fileWriteNoPermission)
 		}
 
-		XCTAssertThrowsError(try manager.removeCachedFile(for: metadata.id!)) { error in
+		XCTAssertThrowsError(try manager.removeCachedFile(for: XCTUnwrap(metadata.id))) { error in
 			guard case CocoaError.fileWriteNoPermission = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return
 			}
 		}
-		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: metadata.id!))
+		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata.id)))
 		XCTAssertEqual([url], removedFiles)
 	}
 
@@ -176,7 +176,7 @@ class CachedFileManagerTests: CacheTestCase {
 		try manager.clearCache()
 
 		for (index, url) in urls.enumerated() {
-			XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata[index].id!))
+			XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata[index].id)))
 			XCTAssertFalse(FileManager.default.fileExists(atPath: url.path))
 		}
 	}
@@ -206,12 +206,12 @@ class CachedFileManagerTests: CacheTestCase {
 
 		try manager.clearCache()
 
-		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata[0].id!))
+		XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata[0].id)))
 		XCTAssert(removedFiles.contains(urls[0]))
-		XCTAssertNil(try manager.getLocalCachedFileInfo(for: metadata[2].id!))
+		XCTAssertNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata[2].id)))
 		XCTAssert(removedFiles.contains(urls[2]))
 
-		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: metadata[1].id!))
+		XCTAssertNotNil(try manager.getLocalCachedFileInfo(for: XCTUnwrap(metadata[1].id)))
 		XCTAssertFalse(removedFiles.contains(urls[1]))
 	}
 
@@ -245,8 +245,7 @@ class CacheTestCase: XCTestCase {
 
 	func getRandomData(sizeInBytes: Int) -> Data {
 		let bytes = [UInt32](repeating: 0, count: sizeInBytes).map { _ in UInt32.random(in: UInt32.min ... UInt32.max) }
-		let data = Data(bytes: bytes, count: sizeInBytes)
-		return data
+		return Data(bytes: bytes, count: sizeInBytes)
 	}
 }
 

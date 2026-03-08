@@ -91,7 +91,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 	}
 
 	func testUpdateAccount() throws {
-		let expectedUpdatedCredential = WebDAVCredential(baseURL: URL(string: "https://example.com")!, username: "user", password: "updatedPassword", allowedCertificate: nil)
+		let expectedUpdatedCredential = try WebDAVCredential(baseURL: XCTUnwrap(URL(string: "https://example.com")), username: "user", password: "updatedPassword", allowedCertificate: nil)
 		validationHelperMock.validateUrlReturnValue = Promise(trustedCertificate)
 		var verifyClientCallsCount = 0
 		viewModel.verifyClient = { _ in
@@ -133,7 +133,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		viewModel.saveAccount()
 
 		wait(for: stateRecorder)
-		XCTAssertEqual([.initial, .authenticating, .untrustedCertificate(certificate: untrustedCertificate, url: URL(string: "https://example.com")!)], stateRecorder.getElements())
+		XCTAssertEqual(try [.initial, .authenticating, .untrustedCertificate(certificate: untrustedCertificate, url: XCTUnwrap(URL(string: "https://example.com")))], stateRecorder.getElements())
 
 		XCTAssertEqual(0, verifyClientCallsCount)
 		XCTAssertEqual(1, validationHelperMock.validateUrlCallsCount)
@@ -149,7 +149,7 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		let stateRecorder = viewModel.$state.recordNext(2)
 		viewModel.showUntrustedCertificateError = false
 		wait(for: stateRecorder)
-		XCTAssertEqual([.untrustedCertificate(certificate: untrustedCertificate, url: URL(string: "https://example.com")!), .initial], stateRecorder.getElements())
+		XCTAssertEqual(try [.untrustedCertificate(certificate: untrustedCertificate, url: XCTUnwrap(URL(string: "https://example.com"))), .initial], stateRecorder.getElements())
 	}
 
 	func testSaveAccountWithAllowedUntrustedCertificate() throws {
@@ -159,9 +159,9 @@ class WebDAVAuthenticationViewModelTests: XCTestCase {
 		let stateRecorder = viewModel.$state.recordNext(3)
 		viewModel.saveAccountWithCertificate()
 		wait(for: stateRecorder)
-		let expectedStates: [WebDAVAuthenticationViewModel.State] = [.untrustedCertificate(certificate: untrustedCertificate, url: URL(string: "https://example.com")!),
-		                                                             .authenticating,
-		                                                             .authenticated(.mockWithAllowedCertificate)]
+		let expectedStates: [WebDAVAuthenticationViewModel.State] = try [.untrustedCertificate(certificate: untrustedCertificate, url: XCTUnwrap(URL(string: "https://example.com"))),
+		                                                                 .authenticating,
+		                                                                 .authenticated(.mockWithAllowedCertificate)]
 		XCTAssertEqual(expectedStates, stateRecorder.getElements())
 	}
 

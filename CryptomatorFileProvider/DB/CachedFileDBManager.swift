@@ -77,10 +77,9 @@ class CachedFileDBManager: CachedFileManager {
 	}
 
 	func getLocalCachedFileInfo(for id: Int64) throws -> LocalCachedFileInfo? {
-		let fetchedEntry = try database.read { db in
+		return try database.read { db in
 			return try LocalCachedFileInfo.fetchOne(db, key: id)
 		}
-		return fetchedEntry
 	}
 
 	func cacheLocalFileInfo(for id: Int64, localURL: URL, lastModifiedDate: Date?) throws {

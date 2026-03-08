@@ -20,8 +20,8 @@ class WebDAVKeychainTests: XCTestCase {
 		manager = WebDAVCredentialManager(keychain: keychain)
 	}
 
-	func testSaveCredentialToKeychain() {
-		let baseURL = URL(string: "www.testurl.com")!
+	func testSaveCredentialToKeychain() throws {
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let username = "user"
 		let password = "pass"
 		let certificate = Data("CertificateData".utf8)
@@ -44,7 +44,7 @@ class WebDAVKeychainTests: XCTestCase {
 	}
 
 	func testSaveCredentialDuplicatesToKeychain() throws {
-		let baseURL = URL(string: "www.testurl.com")!
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let username = "user"
 		let password = "pass"
 		let certificate = Data("CertificateData".utf8)
@@ -68,8 +68,8 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertNoThrow(try manager.removeCredentialFromKeychain(with: identifier))
 	}
 
-	func testRemoveCredentialFromKeychain() {
-		let baseURL = URL(string: "www.testurl.com")!
+	func testRemoveCredentialFromKeychain() throws {
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let username = "user"
 		let password = "pass"
 		let certificate = Data("CertificateData".utf8)
@@ -81,8 +81,8 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertNil(manager.getCredentialFromKeychain(with: identifier))
 	}
 
-	func testSaveUpdatesOverwritesCredentialInKeychain() {
-		let baseURL = URL(string: "www.testurl.com")!
+	func testSaveUpdatesOverwritesCredentialInKeychain() throws {
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let username = "user"
 		let password = "pass"
 		let certificate = Data("CertificateData".utf8)
@@ -90,7 +90,7 @@ class WebDAVKeychainTests: XCTestCase {
 		let credential = WebDAVCredential(baseURL: baseURL, username: username, password: password, allowedCertificate: certificate, identifier: identifier)
 		XCTAssertNoThrow(try manager.saveCredentialToKeychain(credential))
 
-		let updatedBaseURL = URL(string: "www.updated-testurl.com")!
+		let updatedBaseURL = try XCTUnwrap(URL(string: "www.updated-testurl.com"))
 		let updatedUsername = "updatedUser"
 		let updatedPassword = "updatedPass"
 		let updatedCredential = WebDAVCredential(baseURL: updatedBaseURL, username: updatedUsername, password: updatedPassword, allowedCertificate: nil, identifier: identifier)
@@ -108,8 +108,8 @@ class WebDAVKeychainTests: XCTestCase {
 		XCTAssertNoThrow(try manager.removeCredentialFromKeychain(with: identifier))
 	}
 
-	func testMultipleCredentialSupport() {
-		let baseURL = URL(string: "www.testurl.com")!
+	func testMultipleCredentialSupport() throws {
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let firstUsername = "user"
 		let firstPassword = "pass"
 		let certificate = Data("CertificateData".utf8)
@@ -148,7 +148,7 @@ class WebDAVKeychainTests: XCTestCase {
 	}
 
 	func testRemoveUnusedCredentialsFromKeychain() throws {
-		let baseURL = URL(string: "www.testurl.com")!
+		let baseURL = try XCTUnwrap(URL(string: "www.testurl.com"))
 		let firstUsername = "user"
 		let firstPassword = "pass"
 		let certificate = Data("CertificateData".utf8)

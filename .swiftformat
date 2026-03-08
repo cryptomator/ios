@@ -1,4 +1,4 @@
---minversion 0.58.3
+--minversion 0.60.1
 --exclude DerivedData
 
 # format options

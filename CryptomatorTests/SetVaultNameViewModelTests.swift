@@ -16,7 +16,7 @@ class SetVaultNameViewModelTests: XCTestCase {
 		viewModel = SetVaultNameViewModel()
 	}
 
-	func testAutoTrimWhitespaces() throws {
+	func testAutoTrimWhitespaces() {
 		setVaultName(" foo")
 		XCTAssertEqual("foo", viewModel.trimmedVaultName)
 		setVaultName("foo ")
@@ -35,12 +35,12 @@ class SetVaultNameViewModelTests: XCTestCase {
 		XCTAssertEqual("foo", validatedVaultName)
 	}
 
-	func testValidateInputForEmptyVaultName() throws {
+	func testValidateInputForEmptyVaultName() {
 		XCTAssert(viewModel.vaultNameCellViewModel.input.value.isEmpty)
 		getValidatedVaultNameThrowsEmptyVaultNameError()
 	}
 
-	func testValidateInputForDisallowedCharacters() throws {
+	func testValidateInputForDisallowedCharacters() {
 		// \ inside name
 		setVaultName("fo\\o")
 		getValidatedVaultNameThrowsError(ItemNameValidatorError.nameContainsIllegalCharacter("\\"))

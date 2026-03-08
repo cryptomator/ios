@@ -25,7 +25,7 @@ class WorkingSetObserverTests: XCTestCase {
 		observer = try WorkingSetObserver(domainIdentifier: .test, database: DatabaseQueue(), notificator: notificatorMock, uploadTaskManager: UploadTaskManagerMock(), cachedFileManager: CloudTaskExecutorTestCase.CachedFileManagerMock())
 	}
 
-	func testHandleNewWorkingSetUpdate() throws {
+	func testHandleNewWorkingSetUpdate() {
 		observer.handleWorkingSetUpdate(items: updatedItems)
 		XCTAssertFalse(notificatorMock.removeItemsFromWorkingSetWithCalled)
 		XCTAssertFalse(notificatorMock.removeItemFromWorkingSetWithCalled)
@@ -39,7 +39,7 @@ class WorkingSetObserverTests: XCTestCase {
 		XCTAssertEqual(1, notificatorMock.refreshWorkingSetCallsCount)
 	}
 
-	func testHandleWorkingSetUpdateRemoveItems() throws {
+	func testHandleWorkingSetUpdateRemoveItems() {
 		observer.handleWorkingSetUpdate(items: updatedItems)
 		observer.handleWorkingSetUpdate(items: [])
 		let actualRemovedItems = notificatorMock.removeItemsFromWorkingSetWithReceivedIdentifiers
@@ -47,7 +47,7 @@ class WorkingSetObserverTests: XCTestCase {
 		XCTAssertEqual(2, notificatorMock.refreshWorkingSetCallsCount)
 	}
 
-	func testHandleWorkingSetUpdatePartiallyRemoveItems() throws {
+	func testHandleWorkingSetUpdatePartiallyRemoveItems() {
 		observer.handleWorkingSetUpdate(items: updatedItems)
 		let removedItem = updatedItems.removeLast()
 		observer.handleWorkingSetUpdate(items: updatedItems)

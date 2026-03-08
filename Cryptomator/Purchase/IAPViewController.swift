@@ -194,8 +194,14 @@ protocol ProductFetching {
 class BaseIAPViewModel {
 	typealias Item = IAPViewController.Item
 
-	var title: String? { return nil }
-	var infoText: NSAttributedString? { return nil }
+	var title: String? {
+		return nil
+	}
+
+	var infoText: NSAttributedString? {
+		return nil
+	}
+
 	var cells = [Item.loadingCell]
 	var hasRunningTransaction: AnyPublisher<Bool, Never> {
 		return hasRunningTransactionPublisher.eraseToAnyPublisher()

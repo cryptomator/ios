@@ -49,7 +49,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual(keepUnlockedDurationKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}
 
-	func testGetKeepUnlockedDurationNotSet() throws {
+	func testGetKeepUnlockedDurationNotSet() {
 		cryptomatorKeychainMock.getAsDataReturnValue = nil
 		let retrievedKeepUnlockedDuration = vaultKeepUnlockedManager.getKeepUnlockedDuration(forVaultUID: vaultUID)
 
@@ -87,7 +87,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual(lastUsedDateKey, cryptomatorKeychainMock.getAsDataReceivedKey)
 	}
 
-	func testGetLastUsedDateNoEntry() throws {
+	func testGetLastUsedDateNoEntry() {
 		cryptomatorKeychainMock.getAsDataReturnValue = nil
 
 		let retrievedLastUsedDate = vaultKeepUnlockedManager.getLastUsedDate(forVaultUID: vaultUID)
@@ -98,7 +98,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 
 	// MARK: Should Auto-Lock Vault
 
-	func testShouldAutoLockVault() throws {
+	func testShouldAutoLockVault() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
@@ -116,7 +116,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual([keepUnlockedDurationKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
-	func testShouldAutoLockVaultNoLastUsedDateSet() throws {
+	func testShouldAutoLockVaultNoLastUsedDateSet() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
@@ -133,7 +133,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual([keepUnlockedDurationKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
-	func testShouldAutoLockVaultLastUsedDateDistantPast() throws {
+	func testShouldAutoLockVaultLastUsedDateDistantPast() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
@@ -151,7 +151,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual([keepUnlockedDurationKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
-	func testShouldAutoLockVaultLastUsedDateTooLate() throws {
+	func testShouldAutoLockVaultLastUsedDateTooLate() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
@@ -169,7 +169,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual([keepUnlockedDurationKey, lastUsedDateKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
-	func testShouldAutoLockVaultWithKeepUnlockedDurationNotSet() throws {
+	func testShouldAutoLockVaultWithKeepUnlockedDurationNotSet() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:
@@ -185,7 +185,7 @@ class VaultKeepUnlockedManagerTests: XCTestCase {
 		XCTAssertEqual([keepUnlockedDurationKey], cryptomatorKeychainMock.getAsDataReceivedInvocations)
 	}
 
-	func testShouldAutoLockVaultWithKeepUnlockedDurationNever() throws {
+	func testShouldAutoLockVaultWithKeepUnlockedDurationNever() {
 		cryptomatorKeychainMock.getAsDataClosure = { key in
 			switch key {
 			case self.keepUnlockedDurationKey:

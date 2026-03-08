@@ -14,7 +14,9 @@ import Foundation
 // swiftlint:disable all
 
 final class WebDAVCredentialManagerMock: WebDAVCredentialManaging {
-	var didUpdate: AnyPublisher<Void, Never> { didUpdatePublisher.eraseToAnyPublisher() }
+	var didUpdate: AnyPublisher<Void, Never> {
+		didUpdatePublisher.eraseToAnyPublisher()
+	}
 
 	var didUpdatePublisher = PassthroughSubject<Void, Never>()
 

@@ -35,7 +35,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 
 	// MARK: continueToAccessCheck
 
-	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKey() async throws {
+	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKey() async {
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToShowLoadingIndicatorCalled)
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToHideLoadingIndicatorCalled)
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
@@ -68,7 +68,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		await fulfillment(of: [calledShowLoadingIndicator, calledReceiveKey, calledHideLoadingIndicator], enforceOrder: true)
 	}
 
-	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKeyHidesIfFailed() async throws {
+	func testContinueToAccessCheck_showsLoadingSpinnerWhileReceivingKeyHidesIfFailed() async {
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToShowLoadingIndicatorCalled)
 		XCTAssertFalse(delegateMock.hubAuthenticationViewModelWantsToHideLoadingIndicatorCalled)
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
@@ -107,7 +107,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "ACTIVE"])
 
 		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = Data(base64Encoded: devicePrivKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
 
@@ -132,7 +132,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "INACTIVE"])
 
 		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
-		let data = Data(base64Encoded: devicePrivKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
 
@@ -169,7 +169,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssert(currentAuthenticationFlowState.isError)
 	}
 
-	func testContinueToAccessCheck_accessNotGranted() async throws {
+	func testContinueToAccessCheck_accessNotGranted() async {
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 
 		// GIVEN
@@ -185,7 +185,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.authenticationFlowState, .accessNotGranted)
 	}
 
-	func testContinueToAccessCheck_needsDeviceRegistration() async throws {
+	func testContinueToAccessCheck_needsDeviceRegistration() async {
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 
 		// GIVEN
@@ -201,7 +201,7 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		XCTAssertEqual(viewModel.authenticationFlowState, .deviceRegistration(.deviceName))
 	}
 
-	func testContinueToAccessCheck_licenseExceeded() async throws {
+	func testContinueToAccessCheck_licenseExceeded() async {
 		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
 
 		// GIVEN

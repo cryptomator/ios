@@ -22,7 +22,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 		                                    writeTasks: writeTasksCollectionMock)
 	}
 
-	func testSingleDependency() throws {
+	func testSingleDependency() {
 		let foo = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 
 		wait(for: foo.awaitPreconditions())
@@ -42,7 +42,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 
 	// MARK: Write / Write
 
-	func testWriteTaskDependentsOnExistingWriteTask() throws {
+	func testWriteTaskDependentsOnExistingWriteTask() {
 		let firstWriteTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .write)
 		let secondWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		// check if first tasks starts immediately (but isn't completed yet, blocking the second task)
@@ -82,7 +82,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 
 	// MARK: Read / Read
 
-	func testParallelReadTasks() throws {
+	func testParallelReadTasks() {
 		let firstReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let secondReadTask = factory.createDependencies(for: CloudPath("/a"), lockType: .read)
 		// check if both tasks start immediately (but aren't completed yet)
@@ -118,7 +118,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 
 	// MARK: Read / Write
 
-	func testWriteTaskDependentOnExistingReadTask() throws {
+	func testWriteTaskDependentOnExistingReadTask() {
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		// check if read tasks starts immediately (but isn't completed yet, blocking the write task)
@@ -158,7 +158,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 
 	// MARK: Write / Read
 
-	func testReadTaskDependentOnExistingWriteTask() throws {
+	func testReadTaskDependentOnExistingWriteTask() {
 		let dependenciesForWriteTask = factory.createDependencies(for: CloudPath("/a"), lockType: .write)
 		let dependenciesForReadTask = factory.createDependencies(for: CloudPath("/a/b"), lockType: .read)
 		// check if write tasks starts immediately (but isn't completed yet, blocking the read task)
@@ -198,7 +198,7 @@ class WorkflowDependencyFactoryTests: XCTestCase {
 
 	// MARK: Move Task
 
-	func testDependencyForMoveTask() throws {
+	func testDependencyForMoveTask() {
 		let sourceCloudPath = CloudPath("/a/b")
 		let targetCloudPath = CloudPath("/a/c")
 

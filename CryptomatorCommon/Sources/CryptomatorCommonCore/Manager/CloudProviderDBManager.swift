@@ -23,7 +23,9 @@ struct CachedProvider {
 	let accountUID: String
 	let provider: CloudProvider
 	let backgroundSessionIdentifier: String?
-	var isBackgroundSession: Bool { backgroundSessionIdentifier != nil }
+	var isBackgroundSession: Bool {
+		backgroundSessionIdentifier != nil
+	}
 }
 
 public class CloudProviderDBManager: CloudProviderManager, CloudProviderUpdating {

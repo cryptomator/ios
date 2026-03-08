@@ -10,31 +10,31 @@ import CryptomatorCloudAccessCore
 import XCTest
 
 class CloudPath_NameCollision: XCTestCase {
-	func testForFileWithoutPathExtension() throws {
+	func testForFileWithoutPathExtension() {
 		let cloudPath = CloudPath("/Test")
 		let expectedcloudPath = CloudPath("/Test (ABABA)")
 		XCTAssertEqual(expectedcloudPath, cloudPath.createCollisionCloudPath(conflictResolvingAddition: "ABABA"))
 	}
 
-	func testForFileWithPathExtension() throws {
+	func testForFileWithPathExtension() {
 		let cloudPath = CloudPath("/Test.txt")
 		let expectedcloudPath = CloudPath("/Test (2lUi1).txt")
 		XCTAssertEqual(expectedcloudPath, cloudPath.createCollisionCloudPath(conflictResolvingAddition: "2lUi1"))
 	}
 
-	func testForFileInSubfolder() throws {
+	func testForFileInSubfolder() {
 		let cloudPath = CloudPath("/SubFolder/Test.txt")
 		let expectedcloudPath = CloudPath("/SubFolder/Test (lalal).txt")
 		XCTAssertEqual(expectedcloudPath, cloudPath.createCollisionCloudPath(conflictResolvingAddition: "lalal"))
 	}
 
-	func testForFolder() throws {
+	func testForFolder() {
 		let cloudPath = CloudPath("/Test/")
 		let expectedcloudPath = CloudPath("/Test (12345)/")
 		XCTAssertEqual(expectedcloudPath, cloudPath.createCollisionCloudPath(conflictResolvingAddition: "12345"))
 	}
 
-	func testForFolderInSubFolder() throws {
+	func testForFolderInSubFolder() {
 		let cloudPath = CloudPath("/Sub Folder/Test/")
 		let expectedcloudPath = CloudPath("/Sub Folder/Test (AAAAA)/")
 		XCTAssertEqual(expectedcloudPath, cloudPath.createCollisionCloudPath(conflictResolvingAddition: "AAAAA"))

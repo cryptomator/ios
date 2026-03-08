@@ -11,7 +11,7 @@ import UIKit
 
 extension UIViewController {
 	private struct Preview: UIViewControllerRepresentable {
-		// this variable is used for injecting the current view controller
+		/// this variable is used for injecting the current view controller
 		let viewController: UIViewController
 
 		func makeUIViewController(context: Context) -> UIViewController {

@@ -10,7 +10,10 @@ import UIKit
 
 class ButtonCellViewModel<T>: BindableTableViewCellViewModel {
 	private let preferredCellStyle: UITableViewCell.CellStyle
-	override var cellStyle: UITableViewCell.CellStyle { preferredCellStyle }
+	override var cellStyle: UITableViewCell.CellStyle {
+		preferredCellStyle
+	}
+
 	let action: T
 	init(action: T, title: String, titleTextColor: UIColor? = .cryptomatorPrimary, detailTitle: String? = nil, image: UIImage? = nil, isEnabled: Bool = true, selectionStyle: UITableViewCell.SelectionStyle = .default, accessoryType: UITableViewCell.AccessoryType = .none, cellStyle: UITableViewCell.CellStyle = .value1) {
 		self.action = action

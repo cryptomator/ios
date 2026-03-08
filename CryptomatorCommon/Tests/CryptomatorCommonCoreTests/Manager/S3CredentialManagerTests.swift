@@ -46,7 +46,7 @@ class S3CredentialManagerTests: XCTestCase {
 	func testSaveDuplicateDisplayName() throws {
 		try manager.save(credential: .stub, displayName: displayName)
 		try assertCredentialSavedToKeychain(.stub)
-		let secondCredential = S3Credential(accessKey: "access-key-123", secretKey: "secret-key-345", url: URL(string: "https://example.com")!, bucket: "exampleBucket", region: "customRegion", identifier: "DifferentIdentifier")
+		let secondCredential = try S3Credential(accessKey: "access-key-123", secretKey: "secret-key-345", url: XCTUnwrap(URL(string: "https://example.com")), bucket: "exampleBucket", region: "customRegion", identifier: "DifferentIdentifier")
 		try manager.save(credential: secondCredential, displayName: displayName)
 		try assertCredentialSavedToKeychain(secondCredential)
 		XCTAssertEqual(2, cryptomatorKeychainMock.setValueCallsCount)

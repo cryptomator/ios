@@ -25,7 +25,7 @@ class DownloadTaskManagerTests: XCTestCase {
 
 	func testCreateAndGetTaskRecord() throws {
 		let createdTask = try createTestTask()
-		let fetchedTask = try getTaskRecord(for: createdTask.itemMetadata.id!)
+		let fetchedTask = try getTaskRecord(for: XCTUnwrap(createdTask.itemMetadata.id))
 		XCTAssertEqual(fetchedTask, createdTask.taskRecord)
 		XCTAssertEqual(createdTask.itemMetadata.id, fetchedTask.correspondingItem)
 		XCTAssertEqual(createdTask.taskRecord.localURL, fetchedTask.localURL)
@@ -35,7 +35,7 @@ class DownloadTaskManagerTests: XCTestCase {
 	func testRemoveTaskRecord() throws {
 		let createdTask = try createTestTask()
 		try manager.removeTaskRecord(createdTask.taskRecord)
-		XCTAssertThrowsError(try getTaskRecord(for: createdTask.itemMetadata.id!)) { error in
+		XCTAssertThrowsError(try getTaskRecord(for: XCTUnwrap(createdTask.itemMetadata.id))) { error in
 			guard case DBManagerError.taskNotFound = error else {
 				XCTFail("Throws the wrong error: \(error)")
 				return

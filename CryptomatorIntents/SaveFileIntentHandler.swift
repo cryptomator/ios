@@ -104,7 +104,9 @@ class SaveFileIntentHandler: NSObject, SaveFileIntentHandling {
 }
 
 extension SaveFileIntentResponse {
-	static var success: SaveFileIntentResponse { SaveFileIntentResponse(code: .success, userActivity: nil) }
+	static var success: SaveFileIntentResponse {
+		SaveFileIntentResponse(code: .success, userActivity: nil)
+	}
 
 	static func failure(_ error: Error) -> SaveFileIntentResponse {
 		return SaveFileIntentResponse(error: error)

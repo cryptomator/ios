@@ -36,9 +36,9 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		return LocalizedString.getValue("purchase.title")
 	}
 
-	// Temporarily added for Winter 2025 Sale
+	/// Temporarily added for 10th Anniversary Sale
 	override var infoText: NSAttributedString? {
-		if SalePromo.isWinter2025Active() {
+		if SalePromo.isTenthAnniversaryActive() {
 			return NSAttributedString(
 				string: "*Note: The discount amount may vary by region.",
 				attributes: [
@@ -94,8 +94,8 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 
 	private func addLifetimeLicenseItem() {
 		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
-			// Temporarily added for Winter 2025 Sale
-			let productDetail = SalePromo.isWinter2025Active() ? "\(SalePromo.winter2025Emoji) \(SalePromo.winter2025Discount)" : nil
+			// Temporarily added for 10th Anniversary Sale
+			let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
 			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
 			                                      productDetail: productDetail,
 			                                      price: localizedPrice,

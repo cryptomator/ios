@@ -9,7 +9,10 @@
 import Foundation
 
 class LoadingButtonCellViewModel<T>: ButtonCellViewModel<T>, LoadingIndicatorSupport {
-	override var type: ConfigurableTableViewCell.Type { LoadingButtonCell.self }
+	override var type: ConfigurableTableViewCell.Type {
+		LoadingButtonCell.self
+	}
+
 	let isLoading: Bindable<Bool>
 
 	init(action: T, title: String, isLoading: Bool = false) {

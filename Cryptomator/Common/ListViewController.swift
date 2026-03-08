@@ -120,8 +120,7 @@ class ListViewController<T: TableViewCellViewModel>: BaseUITableViewController {
 			})
 			self.present(alertController, animated: true, completion: nil)
 		}
-		let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
-		return configuration
+		return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
 
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

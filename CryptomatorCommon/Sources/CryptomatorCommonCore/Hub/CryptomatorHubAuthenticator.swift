@@ -295,24 +295,24 @@ public class CryptomatorHubAuthenticator: HubDeviceRegistering, HubKeyReceiving 
 	}
 
 	private enum RetrieveUserEncryptedPKResponse {
-		// 200
+		/// 200
 		case unlockedSucceeded(DeviceDto)
-		// 404
+		/// 404
 		case deviceSetup
 	}
 
 	private enum RetrieveVaultMasterkeyEncryptedForUserResponse {
-		// 200
+		/// 200
 		case success(encryptedVaultKey: String, header: [AnyHashable: Any])
-		// 403
+		/// 403
 		case accessNotGranted
-		// 402
+		/// 402
 		case licenseExceeded
-		// 449
+		/// 449
 		case requiresAccountInitialization(at: URL)
-		// 404
+		/// 404
 		case legacyHubVersion
-		// 410
+		/// 410
 		case vaultArchived
 	}
 
@@ -340,8 +340,13 @@ extension URLSession {
 }
 
 extension Digest {
-	var bytes: [UInt8] { Array(makeIterator()) }
-	var data: Data { Data(bytes) }
+	var bytes: [UInt8] {
+		Array(makeIterator())
+	}
+
+	var data: Data {
+		Data(bytes)
+	}
 }
 
 extension OIDAuthState {

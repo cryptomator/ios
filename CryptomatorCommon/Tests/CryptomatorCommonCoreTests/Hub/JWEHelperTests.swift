@@ -17,7 +17,7 @@ final class JWEHelperTests: XCTestCase {
 	private let userPrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDDCi4K1Ts3DgTz/ufkLX7EGMHjGpJv+WJmFgyzLwwaDFSfLpDw0Kgf3FKK+LAsV8r+hZANiAARLOtFebIjxVYUmDV09Q1sVxz2Nm+NkR8fu6UojVSRcCW13tEZatx8XGrIY9zC7oBCEdRqDc68PMSvS5RA0Pg9cdBNc/kgMZ1iEmEv5YsqOcaNADDSs0bLlXb35pX7Kx5Y="
 	private let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
 
-	// used for JWE generation in frontend: (jwe.spec.ts):
+	/// used for JWE generation in frontend: (jwe.spec.ts):
 	private let privKey = "ME8CAQAwEAYHKoZIzj0CAQYFK4EEACIEODA2AgEBBDEA6QybmBitf94veD5aCLr7nlkF5EZpaXHCfq1AXm57AKQyGOjTDAF9EQB28fMywTDQ"
 
 	override func setUpWithError() throws {}
@@ -36,7 +36,7 @@ final class JWEHelperTests: XCTestCase {
 		q2koh2NbQ
 		""")
 
-		let data = Data(base64Encoded: devicePrivKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 		let userKey = try JWEHelper.decryptUserKey(jwe: jwe, privateKey: privateKey)
 
@@ -44,8 +44,8 @@ final class JWEHelperTests: XCTestCase {
 		let y = userKey.x963Representation[49 ..< 97]
 		let k = userKey.x963Representation[97 ..< 145]
 
-		/// PKSCS #8: MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDDCi4K1Ts3DgTz/ufkLX7EGMHjGpJv+WJmFgyzLwwaDFSfLpDw0Kgf3FKK+LAsV8r+hZANiAARLOtFebIjxVYUmDV09Q1sVxz2Nm+NkR8fu6UojVSRcCW13tEZatx8XGrIY9zC7oBCEdRqDc68PMSvS5RA0Pg9cdBNc/kgMZ1iEmEv5YsqOcaNADDSs0bLlXb35pX7Kx5Y=
-		/// see: (crypto.spec.ts) in the Hub Frontend
+		// PKSCS #8: MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDDCi4K1Ts3DgTz/ufkLX7EGMHjGpJv+WJmFgyzLwwaDFSfLpDw0Kgf3FKK+LAsV8r+hZANiAARLOtFebIjxVYUmDV09Q1sVxz2Nm+NkR8fu6UojVSRcCW13tEZatx8XGrIY9zC7oBCEdRqDc68PMSvS5RA0Pg9cdBNc/kgMZ1iEmEv5YsqOcaNADDSs0bLlXb35pX7Kx5Y=
+		// see: (crypto.spec.ts) in the Hub Frontend
 		XCTAssertEqual(x.base64URLEncodedString(), "SzrRXmyI8VWFJg1dPUNbFcc9jZvjZEfH7ulKI1UkXAltd7RGWrcfFxqyGPcwu6AQ")
 		XCTAssertEqual(y.base64URLEncodedString(), "hHUag3OvDzEr0uUQND4PXHQTXP5IDGdYhJhL-WLKjnGjQAw0rNGy5V29-aV-yseW")
 		XCTAssertEqual(k.base64URLEncodedString(), "wouCtU7Nw4E8_7n5C1-xBjB4xqSb_liZhYMsy8MGgxUny6Q8NCoH9xSiviwLFfK_")
@@ -65,7 +65,7 @@ final class JWEHelperTests: XCTestCase {
 		q2koh2NbQ
 		""")
 
-		let data = Data(base64Encoded: userPrivKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: userPrivKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptUserKey(jwe: jwe, privateKey: privateKey)) { error in
@@ -92,8 +92,8 @@ final class JWEHelperTests: XCTestCase {
 		let y = userKey.x963Representation[49 ..< 97]
 		let k = userKey.x963Representation[97 ..< 145]
 
-		/// PKSCS #8: ME8CAQAwEAYHKoZIzj0CAQYFK4EEACIEODA2AgEBBDEA6QybmBitf94veD5aCLr7nlkF5EZpaXHCfq1AXm57AKQyGOjTDAF9EQB28fMywTDQ
-		/// see: (jwe.spec.ts) in the Hub Frontend
+		// PKSCS #8: ME8CAQAwEAYHKoZIzj0CAQYFK4EEACIEODA2AgEBBDEA6QybmBitf94veD5aCLr7nlkF5EZpaXHCfq1AXm57AKQyGOjTDAF9EQB28fMywTDQ
+		// see: (jwe.spec.ts) in the Hub Frontend
 		XCTAssertEqual(x.base64URLEncodedString(), "RxQR-NRN6Wga01370uBBzr2NHDbKIC56tPUEq2HX64RhITGhii8Zzbkb1HnRmdF0")
 		XCTAssertEqual(y.base64URLEncodedString(), "aq6uqmUy4jUhuxnKxsv59A6JeK7Unn-mpmm3pQAygjoGc9wrvoH4HWJSQYUlsXDu")
 		XCTAssertEqual(k.base64URLEncodedString(), "6QybmBitf94veD5aCLr7nlkF5EZpaXHCfq1AXm57AKQyGOjTDAF9EQB28fMywTDQ")
@@ -128,7 +128,7 @@ final class JWEHelperTests: XCTestCase {
 		U0NHJi2-iE.WDVI2kOk9Dy3PWHyIg8gKA
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 		let masterkey = try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)
 
@@ -144,7 +144,7 @@ final class JWEHelperTests: XCTestCase {
 		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImdodGR3VnNoUU8wRGFBdjVBOXBiZ1NCTW0yYzZKWVF4dkloR3p6RVdQTncxczZZcEFYeTRQTjBXRFJUWExtQ2wiLCJ5IjoiN3Rncm1Gd016NGl0ZmVQNzBndkpLcjRSaGdjdENCMEJHZjZjWE9WZ2M0bjVXMWQ4dFgxZ1RQakdrczNVSm1zUiJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..x6JWRGSojUJUJYpp.5BRuzcaV.lLIhGH7Wz0n_iTBAubDFZA
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
@@ -160,7 +160,7 @@ final class JWEHelperTests: XCTestCase {
 		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6IkM2bWhsNE5BTHhEdHMwUlFlNXlyZWxQVDQyOGhDVzJNeUNYS3EwdUI0TDFMdnpXRHhVaVk3YTdZcEhJakJXcVoiLCJ5IjoiakM2dWc1NE9tbmdpNE9jUk1hdkNrczJpcFpXQjdkUmotR3QzOFhPSDRwZ2tpQ0lybWNlUnFxTnU3Z0c3Qk1yOSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..HNJJghL-SvERFz2v.N0z8YwFg.rYw29iX4i8XujdM4P4KKWg
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
@@ -176,7 +176,7 @@ final class JWEHelperTests: XCTestCase {
 		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6InB3R05vcXRnY093MkJ6RDVmSnpBWDJvMzUwSWNsY3A5cFdVTHZ5VDRqRWVCRWdCc3hhTVJXQ1ZyNlJMVUVXVlMiLCJ5IjoiZ2lIVEE5MlF3VU5lbmg1OFV1bWFfb09BX3hnYmFDVWFXSlRnb3Z4WjU4R212TnN4eUlQRElLSm9WV1h5X0R6OSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..jDbzdI7d67_cUjGD.01BPnMq_tQ.aG_uFA6FYqoPS64QAJ4VBQ
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
@@ -192,7 +192,7 @@ final class JWEHelperTests: XCTestCase {
 		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6IkJyYm9UQkl5Y0NDUEdJQlBUekU2RjBnbTRzRjRCamZPN1I0a2x0aWlCaThKZkxxcVdXNVdUSVBLN01yMXV5QVUiLCJ5IjoiNUpGVUI0WVJiYjM2RUZpN2Y0TUxMcFFyZXd2UV9Tc3dKNHRVbFd1a2c1ZU04X1ZyM2pkeml2QXI2WThRczVYbSJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..QEq4Z2m6iwBx2ioS.IBo8TbKJTS4pug.61Z-agIIXgP8bX10O_yEMA
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in
@@ -208,7 +208,7 @@ final class JWEHelperTests: XCTestCase {
 		eyJhbGciOiJFQ0RILUVTIiwiZW5jIjoiQTI1NkdDTSIsImVwayI6eyJrdHkiOiJFQyIsImNydiI6IlAtMzg0Iiwia2V5X29wcyI6W10sImV4dCI6dHJ1ZSwieCI6ImNZdlVFZm9LYkJjenZySE5zQjUxOGpycUxPMGJDOW5lZjR4NzFFMUQ5dk95MXRqd1piZzV3cFI0OE5nU1RQdHgiLCJ5IjoiaWRJekhCWERzSzR2NTZEeU9yczJOcDZsSG1zb29fMXV0VTlzX3JNdVVkbkxuVXIzUXdLZkhYMWdaVXREM1RKayJ9LCJhcHUiOiIiLCJhcHYiOiIifQ..0VZqu5ei9U3blGtq.eDvhU6drw7mIwvXu6Q.f05QnhI7JWG3IYHvexwdFQ
 		""")
 
-		let data = Data(base64Encoded: privKey)!
+		let data = try XCTUnwrap(Data(base64Encoded: privKey))
 		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
 
 		XCTAssertThrowsError(try JWEHelper.decryptVaultKey(jwe: jwe, with: privateKey)) { error in

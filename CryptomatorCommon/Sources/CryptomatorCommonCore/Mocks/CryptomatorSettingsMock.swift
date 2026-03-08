@@ -15,7 +15,8 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var fullVersionUnlocked: Bool = false
 	var hasRunningSubscription: Bool = false
 	#if !ALWAYS_PREMIUM
-	var winter2025BannerDismissed: Bool = false
+	var tenthAnniversaryBannerDismissed: Bool = false
+	var tenthAnniversaryUnlockPromoShown: Bool = false
 	#endif
 }
 #endif

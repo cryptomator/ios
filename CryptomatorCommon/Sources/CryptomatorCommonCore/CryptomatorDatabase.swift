@@ -35,8 +35,13 @@ public extension DependencyValues {
 }
 
 private enum CryptomatorDatabaseLocationKey: DependencyKey {
-	static var liveValue: URL? { CryptomatorDatabase.sharedDBURL }
-	static var testValue: URL? { FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: false) }
+	static var liveValue: URL? {
+		CryptomatorDatabase.sharedDBURL
+	}
+
+	static var testValue: URL? {
+		FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString, isDirectory: false)
+	}
 }
 
 public extension DependencyValues {

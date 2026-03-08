@@ -16,7 +16,7 @@ class ItemNameValidatorTests: XCTestCase {
 		try assertThrowsItemNameValidatorError(ItemNameValidator.validateName("foo "), expectedError: .nameEndsWithSpace)
 	}
 
-	func testValidateItemNameIllegalCharacter() throws {
+	func testValidateItemNameIllegalCharacter() {
 		// \ inside name
 		assertThrowsIllegalCharacterErrorWhenValidating("fo\\o", illegalCharacter: "\\")
 

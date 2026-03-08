@@ -14,11 +14,6 @@ public struct AccountInfo: Decodable, FetchableRecord {
 	let cloudProviderAccount: CloudProviderAccount
 	private(set) var accountListPosition: AccountListPosition
 
-	init(cloudProviderAccount: CloudProviderAccount, accountListPosition: AccountListPosition) {
-		self.cloudProviderAccount = cloudProviderAccount
-		self.accountListPosition = accountListPosition
-	}
-
 	var cloudProviderType: CloudProviderType {
 		return cloudProviderAccount.cloudProviderType
 	}

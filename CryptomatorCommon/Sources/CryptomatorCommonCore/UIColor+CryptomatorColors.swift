@@ -24,7 +24,15 @@ public extension UIColor {
 }
 
 public extension Color {
-	static var cryptomatorPrimary: Color { Color(UIColor.cryptomatorPrimary) }
-	static var cryptomatorBackground: Color { Color(UIColor.cryptomatorBackground) }
-	static var cryptomatorYellow: Color { Color(UIColor.cryptomatorYellow) }
+	static var cryptomatorPrimary: Color {
+		Color(UIColor.cryptomatorPrimary)
+	}
+
+	static var cryptomatorBackground: Color {
+		Color(UIColor.cryptomatorBackground)
+	}
+
+	static var cryptomatorYellow: Color {
+		Color(UIColor.cryptomatorYellow)
+	}
 }

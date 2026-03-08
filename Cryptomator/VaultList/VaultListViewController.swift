@@ -21,7 +21,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	@Dependency(\.fullVersionChecker) private var fullVersionChecker
 
 	#if !ALWAYS_PREMIUM
-	private var winter2025BannerView: UIView?
+	private var tenthAnniversaryBannerView: UIView?
 	private var fullVersionPurchasedObserver: NSObjectProtocol?
 	#endif
 
@@ -57,10 +57,10 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 
 		#if !ALWAYS_PREMIUM
 		fullVersionPurchasedObserver = NotificationCenter.default.addObserver(forName: .purchasedFullVersionNotification, object: nil, queue: .main) { [weak self] _ in
-			self?.dismissWinter2025Banner()
+			self?.dismissTenthAnniversaryBanner()
 		}
-		if SalePromo.shared.shouldShowWinter2025Banner() {
-			showWinter2025Banner()
+		if SalePromo.shared.shouldShowTenthAnniversaryBanner() {
+			showTenthAnniversaryBanner()
 		}
 		#endif
 	}
@@ -126,7 +126,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 	// MARK: - Sale Promo Banner
 
 	#if !ALWAYS_PREMIUM
-	private func showWinter2025Banner() {
+	private func showTenthAnniversaryBanner() {
 		let banner = UIView()
 		banner.backgroundColor = UIColor.cryptomatorPrimary
 		banner.translatesAutoresizingMaskIntoConstraints = false
@@ -134,13 +134,13 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		banner.layer.masksToBounds = true
 
 		let emojiLabel = UILabel()
-		emojiLabel.text = SalePromo.winter2025Emoji
+		emojiLabel.text = SalePromo.tenthAnniversaryEmoji
 		emojiLabel.translatesAutoresizingMaskIntoConstraints = false
 		emojiLabel.setContentHuggingPriority(.required, for: .horizontal)
 		emojiLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
 
 		let textLabel = UILabel()
-		textLabel.text = "Lifetime License is \(SalePromo.winter2025Discount)!"
+		textLabel.text = "Lifetime License is \(SalePromo.tenthAnniversaryDiscount)!"
 		textLabel.textColor = .white
 		textLabel.font = UIFont.preferredFont(forTextStyle: .footnote)
 		textLabel.adjustsFontSizeToFitWidth = true
@@ -149,7 +149,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 		textLabel.translatesAutoresizingMaskIntoConstraints = false
 
 		let dismissButton = UIButton(type: .close)
-		dismissButton.addTarget(self, action: #selector(dismissWinter2025Banner), for: .touchUpInside)
+		dismissButton.addTarget(self, action: #selector(dismissTenthAnniversaryBanner), for: .touchUpInside)
 		dismissButton.translatesAutoresizingMaskIntoConstraints = false
 		dismissButton.setContentHuggingPriority(.required, for: .horizontal)
 		dismissButton.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -170,7 +170,7 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			dismissButton.centerYAnchor.constraint(equalTo: banner.centerYAnchor)
 		])
 
-		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(winter2025BannerTapped))
+		let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tenthAnniversaryBannerTapped))
 		banner.addGestureRecognizer(tapGestureRecognizer)
 
 		view.addSubview(banner)
@@ -183,20 +183,20 @@ class VaultListViewController: ListViewController<VaultCellViewModel> {
 			banner.heightAnchor.constraint(equalToConstant: 50)
 		])
 
-		winter2025BannerView = banner
+		tenthAnniversaryBannerView = banner
 	}
 
-	@objc private func dismissWinter2025Banner() {
+	@objc private func dismissTenthAnniversaryBanner() {
 		UIView.animate(withDuration: 0.3, animations: {
-			self.winter2025BannerView?.alpha = 0
+			self.tenthAnniversaryBannerView?.alpha = 0
 		}, completion: { _ in
-			self.winter2025BannerView?.removeFromSuperview()
-			self.winter2025BannerView = nil
+			self.tenthAnniversaryBannerView?.removeFromSuperview()
+			self.tenthAnniversaryBannerView = nil
 		})
-		CryptomatorUserDefaults.shared.winter2025BannerDismissed = true
+		CryptomatorUserDefaults.shared.tenthAnniversaryBannerDismissed = true
 	}
 
-	@objc private func winter2025BannerTapped() {
+	@objc private func tenthAnniversaryBannerTapped() {
 		coordinator?.showPurchase()
 	}
 	#endif

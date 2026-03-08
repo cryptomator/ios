@@ -66,8 +66,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func refreshDropboxItems() -> Promise<Void> {
 		return all(accountInfos
 			.map { DropboxCredential(tokenUID: $0.accountUID) }
-			.map { self.createAccountCellContent(for: $0) }
-		).then { accounts in
+			.map { self.createAccountCellContent(for: $0) }).then { accounts in
 			self.accounts = accounts
 		}
 	}
@@ -75,8 +74,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func refreshMicrosoftGraphItems() -> Promise<Void> {
 		return all(accountInfos
 			.compactMap { try? MicrosoftGraphAccountDBManager.shared.getAccount(for: $0.accountUID) }
-			.compactMap { try? self.createAccountCellContent(for: $0) }
-		).then { accounts in
+			.compactMap { try? self.createAccountCellContent(for: $0) }).then { accounts in
 			self.accounts = accounts
 		}
 	}
@@ -84,8 +82,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func refreshPCloudItems() -> Promise<Void> {
 		return all(accountInfos
 			.compactMap { try? PCloudCredential(userID: $0.accountUID) }
-			.map { self.createAccountCellContent(for: $0) }
-		).then { accounts in
+			.map { self.createAccountCellContent(for: $0) }).then { accounts in
 			self.accounts = accounts
 		}
 	}
@@ -93,8 +90,7 @@ class AccountListViewModel: AccountListViewModelProtocol {
 	func refreshBoxItems() -> Promise<Void> {
 		return all(accountInfos
 			.map { BoxCredential(tokenStorage: BoxTokenStorage(userID: $0.accountUID)) }
-			.map { self.createAccountCellContent(for: $0) }
-		).then { accounts in
+			.map { self.createAccountCellContent(for: $0) }).then { accounts in
 			self.accounts = accounts
 		}
 	}

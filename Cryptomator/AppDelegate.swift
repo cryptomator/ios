@@ -70,6 +70,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	func application(_: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+		if url.scheme == "cryptomator" {
+			if url.host == "purchase" {
+				coordinator?.showPurchase()
+			}
+			return true
+		}
 		if url.scheme == CloudAccessSecrets.dropboxURLScheme {
 			return DBClientsManager.handleRedirectURL(url) { authResult in
 				guard let authResult = authResult else {

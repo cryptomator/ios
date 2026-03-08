@@ -10,31 +10,31 @@ import XCTest
 @testable import CryptomatorFileProvider
 
 class URL_NameCollisionExtensionTests: XCTestCase {
-	func testForFileWithoutPathExtension() throws {
+	func testForFileWithoutPathExtension() {
 		let url = URL(fileURLWithPath: "/Test", isDirectory: false)
 		let expectedURL = URL(fileURLWithPath: "/Test (ABABA)", isDirectory: false)
 		XCTAssertEqual(expectedURL, url.createCollisionURL(conflictResolvingAddition: "ABABA"))
 	}
 
-	func testForFileWithPathExtension() throws {
+	func testForFileWithPathExtension() {
 		let url = URL(fileURLWithPath: "/Test.txt", isDirectory: false)
 		let expectedURL = URL(fileURLWithPath: "/Test (2lUi1).txt", isDirectory: false)
 		XCTAssertEqual(expectedURL, url.createCollisionURL(conflictResolvingAddition: "2lUi1"))
 	}
 
-	func testForFileInSubfolder() throws {
+	func testForFileInSubfolder() {
 		let url = URL(fileURLWithPath: "/SubFolder/Test.txt", isDirectory: false)
 		let expectedURL = URL(fileURLWithPath: "/SubFolder/Test (lalal).txt", isDirectory: false)
 		XCTAssertEqual(expectedURL, url.createCollisionURL(conflictResolvingAddition: "lalal"))
 	}
 
-	func testForFolder() throws {
+	func testForFolder() {
 		let url = URL(fileURLWithPath: "/Test/", isDirectory: true)
 		let expectedURL = URL(fileURLWithPath: "/Test (12345)/", isDirectory: true)
 		XCTAssertEqual(expectedURL, url.createCollisionURL(conflictResolvingAddition: "12345"))
 	}
 
-	func testForFolderInSubFolder() throws {
+	func testForFolderInSubFolder() {
 		let url = URL(fileURLWithPath: "/Sub Folder/Test/", isDirectory: true)
 		let expectedURL = URL(fileURLWithPath: "/Sub Folder/Test (AAAAA)/", isDirectory: true)
 		XCTAssertEqual(expectedURL, url.createCollisionURL(conflictResolvingAddition: "AAAAA"))

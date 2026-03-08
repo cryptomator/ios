@@ -9,8 +9,14 @@
 import Foundation
 
 class BindableAttributedTextHeaderFooterViewModel: HeaderFooterViewModel {
-	var viewType: HeaderFooterViewModelConfiguring.Type { return BindableAttributedTextHeaderFooterView.self }
-	var title: Bindable<String?> { return Bindable(nil) }
+	var viewType: HeaderFooterViewModelConfiguring.Type {
+		return BindableAttributedTextHeaderFooterView.self
+	}
+
+	var title: Bindable<String?> {
+		return Bindable(nil)
+	}
+
 	let attributedText: Bindable<NSAttributedString>
 
 	init(attributedText: NSAttributedString) {

@@ -48,5 +48,5 @@ fastlane/test_output
 # App Store Connect API keys
 *.p8
 
-# IAP pricing configs (contain actual prices)
-fastlane/config/iap-*.json
+# Pricing configs (contain actual prices)
+fastlane/config/*.json

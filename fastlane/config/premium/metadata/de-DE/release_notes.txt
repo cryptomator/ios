@@ -1,4 +1,5 @@
-- Liquid-Glass-App-Icon für iOS 26 hinzugefügt (#441).
+Wir feiern 10 Jahre Cryptomator!
+
 - Uploads, die im Wartestatus in der Dateien-App hängen blieben, behoben (#272, #438).
 - Aufforderung zur erneuten Anmeldung hinzugefügt, wenn ein Cloud-Konto mit abgelaufener Sitzung ausgewählt wird (#387, #437).
 - Absturz beim Speichern eines S3-Tresors mit ungültiger Endpunkt-URL behoben (#429, #440).
