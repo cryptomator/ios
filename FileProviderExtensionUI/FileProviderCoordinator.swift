@@ -77,12 +77,16 @@ class FileProviderCoordinator: Coordinator {
 	}
 
 	func completeUnlock() {
+		#if !ALWAYS_PREMIUM
 		guard SalePromo.shared.shouldShowTenthAnniversaryUnlockPromo() else {
 			done()
 			return
 		}
 		CryptomatorUserDefaults.shared.tenthAnniversaryUnlockPromoShown = true
 		showSalePromoAlert()
+		#else
+		done()
+		#endif
 	}
 
 	// MARK: - Onboarding
@@ -117,7 +121,13 @@ class FileProviderCoordinator: Coordinator {
 		let message = "Celebrate with us! Lifetime License is \(SalePromo.tenthAnniversaryDiscount)!"
 		let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
 		alertController.addAction(UIAlertAction(title: "Learn More", style: .default) { [weak self] _ in
-			self?.openCryptomatorApp()
+			guard let self = self else { return }
+			let url = URL(string: "cryptomator://purchase")!
+			self.extensionContext.open(url) { success in
+				if success {
+					self.userCancelled()
+				}
+			}
 		})
 		alertController.addAction(UIAlertAction(title: "Not Now", style: .cancel) { [weak self] _ in
 			self?.done()
