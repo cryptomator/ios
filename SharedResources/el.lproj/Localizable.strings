@@ -195,6 +195,7 @@
 "purchase.unlockedFullVersion.message" = "Τώρα μπορείτε να χρησιμοποιήσετε την πλήρη έκδοση του Cryptomator. Καλή κρυπτογράφηση!";
 "purchase.unlockedFullVersion.title" = "Σας Ευχαριστούμε";
 "purchase.error.unknown" = "Αυτή η αγορά δεν είναι διαθέσιμη στο App Store για άγνωστο λόγο. Δοκιμάστε ξανά αργότερα.\n\nΕάν αυτό το σφάλμα επιμένει, δοκιμάστε να επανεκκινήσετε τη συσκευή σας ή να αποσυνδεθείτε και να συνδεθείτε ξανά στο Apple ID σας στις ρυθμίσεις του iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Διαχείριση Συνδρομής";
 
 "settings.title" = "Ρυθμίσεις";
 "settings.aboutCryptomator" = "Σχετικά με το Cryptomator";
