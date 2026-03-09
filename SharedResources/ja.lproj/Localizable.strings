@@ -197,6 +197,7 @@
 "purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
 "purchase.unlockedFullVersion.title" = "ありがとうございます";
 "purchase.error.unknown" = "この購入は不明な理由によりApp Storeで利用できません。後でもう一度お試しください。\n\nこのエラーが解決しない場合、 デバイスを再起動するか、iOS の設定で Apple ID にサインアウトしてください。";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "サブスクリプションの管理";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";
