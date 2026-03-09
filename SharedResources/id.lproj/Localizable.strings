@@ -195,6 +195,7 @@
 "purchase.unlockedFullVersion.message" = "Sekarang Anda bisa menggunakan Cryptomator versi lengkap. Selamat berenkripsi ria!";
 "purchase.unlockedFullVersion.title" = "Terima Kasih";
 "purchase.error.unknown" = "Pembelian ini tidak tersedia di App Store untuk alasan yang tidak diketahui. Silakan coba lagi nanti.\n\nJika kesalahan ini berlanjut, coba mulai ulang perangkat Anda atau keluar dan masuk kembali ke ID Apple Anda di pengaturan iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Atur Langganan";
 
 "settings.title" = "Pengaturan";
 "settings.aboutCryptomator" = "Tentang Cryptomator";

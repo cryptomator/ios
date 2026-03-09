@@ -201,6 +201,7 @@
 "purchase.unlockedFullVersion.title" = "Tak";
 "purchase.error.paymentNotAllowed" = "In-app køb er ikke tilladt på denne enhed. Tjek venligst dine skærmtid-indstillinger under Indhold og Privatlivs-begrænsninger for at aktivere køb.";
 "purchase.error.unknown" = "Dette køb er ikke tilgængeligt i App Store af en ukendt årsag. Prøv igen senere.\n\nHvis denne fejl fortsætter, så prøv at genstarte din enhed eller logge ud og ind igen med dit Apple-id i iOS-indstillingerne.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Administrér abonnement";
 
 "settings.title" = "Indstillinger";
 "settings.aboutCryptomator" = "Om Cryptomator";

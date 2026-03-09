@@ -201,6 +201,7 @@
 "purchase.unlockedFullVersion.title" = "Paldies!";
 "purchase.error.paymentNotAllowed" = "Šajā ierīcē pirkumi lietotnē nav atļauti. Lūgums pārbaudīt ekrāna laika iestatījumus sadaļā “Saturs un privātuma ierobežojumi”, lai iespējotu pirkumus.";
 "purchase.error.unknown" = "Šis pirkums nav pieejams lietotņu veikalā nezināma iemesla dēļ. Lūgums vēlāk mēģināt vēlreiz.\n\nJa šī kļūda nepazūd, jāmēģina pārsāknēt sava ierīce vai atteikties un pieteikties savā Apple ID iOS iestatījumos.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Pārvaldīt abonementu";
 
 "settings.title" = "Iestatījumi";
 "settings.aboutCryptomator" = "Par Cryptomator";

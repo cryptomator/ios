@@ -142,8 +142,7 @@
 "keepUnlocked.alert.title" = "Vault를 잠그시겠습니까?";
 "keepUnlocked.alert.message" = "이 설정을 바꾸기 위해서는 Vault를 잠궈야 합니다.";
 "keepUnlocked.alert.confirm" = "지금 바로 잠그기";
-"keepUnlocked.header" = "이 Vault 사용되지 않을 때 잠금 해제된 상태를 유지할 시간을 지정하십시오.
-i geumgoga sayong.";
+"keepUnlocked.header" = "이 Vault 사용되지 않을 때 잠금 해제된 상태를 유지할 시간을 지정하십시오.";
 "keepUnlocked.footer.auto" = "iOS가 지정하게 한다면 메모리 확보를 위해 언제든 Cryptomator가 종료되어 자동으로 Vault를 잠글 수 있습니다.";
 "keepUnlocked.footer.on" = "이 설정을 사용하는 경우, Vault가 잠금 해제되어있는 동안 암호가 iOS 키체인에 저장됩니다.";
 "keepUnlockedDuration.auto" = "iOS가 자동으로 잠그게 하기";
@@ -206,6 +205,11 @@ i geumgoga sayong.";
 "purchase.unlockedFullVersion.title" = "감사합니다";
 "purchase.error.paymentNotAllowed" = "이 기기에서는 앱 내 구입이 허용되지 않습니다. 구매를 허용하려면 스크린 타임 설정의 콘텐츠 및 개인정보 보호 제한을 확인하세요.";
 "purchase.error.unknown" = "알 수 없는 이유로 App Store에서의 결제가 실패했습니다. 잠시 후 다시 시도해 주십시오.\n\n만약 이 오류가 지속된다면, 기기를 재시작하거나 iOS 설정에서 Apple 계정에 다시 로그인해 보십시오.";
+"purchase.lifetime.hasSubscription.alert.title" = "이미 활성 상태의 구독이 존재합니다.";
+"purchase.lifetime.hasSubscription.alert.message" = "평생 라이선스를 구매하신 후에는 연간 구독을 취소하셔야 두 서비스에 대한 요금이 모두 청구되는 것을 방지할 수 있습니다.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "평생 라이선스가 활성화되었습니다.";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "향후 중복된 구독료 청구를 방지하려면 연간 구독을 취소해 주세요.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "구독 관리";
 
 "settings.title" = "설정";
 "settings.aboutCryptomator" = "Cryptomator에 대해서";

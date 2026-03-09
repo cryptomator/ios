@@ -168,6 +168,7 @@
 "purchase.unlockedFullVersion.message" = "Mostmár használhatja a Cryptomator teljes verzióját. Örömteli titkosítást!";
 "purchase.unlockedFullVersion.title" = "Köszönjük";
 "purchase.error.unknown" = "A vásárlás ismeretlen ok miatt nem elérhető az App Storeban. Kérjük, próbálja újra később.\n\nHa ez a probléma fennállna, próbálja meg újraindítani a készülékét vagy ki- és bejelentkezni az Apple ID-ból az iOS beállításokban.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Előfizetés kezelése";
 
 "settings.title" = "Beállítások";
 "settings.aboutCryptomator" = "A Cryptomator névjegye";

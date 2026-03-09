@@ -197,6 +197,11 @@
 "purchase.unlockedFullVersion.message" = "これでCryptomatorのフルバージョンを使用できます。";
 "purchase.unlockedFullVersion.title" = "ありがとうございます";
 "purchase.error.unknown" = "この購入は不明な理由によりApp Storeで利用できません。後でもう一度お試しください。\n\nこのエラーが解決しない場合、 デバイスを再起動するか、iOS の設定で Apple ID にサインアウトしてください。";
+"purchase.lifetime.hasSubscription.alert.title" = "サブスクリプションを契約中です";
+"purchase.lifetime.hasSubscription.alert.message" = "永久ライセンスを購入後には、重複課金を避けるため年間サブスクリプションを解約する必要があります。";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "永久ライセンスが有効になりました";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "今後のサブスクリプションの課金を停止するには、年間サブスクリプションを解約してください。";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "サブスクリプションの管理";
 
 "settings.title" = "設定";
 "settings.aboutCryptomator" = "Cryptomator について";

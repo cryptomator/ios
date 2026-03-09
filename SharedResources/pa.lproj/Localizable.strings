@@ -153,6 +153,7 @@
 "purchase.retry.button" = "ਮੁੜ-ਕੋਸ਼ਿਸ਼";
 "purchase.title" = "ਪੂਰਾ ਵਰਜ਼ਨ ਅਣ-ਲਾਕ ਕਰੋ";
 "purchase.unlockedFullVersion.title" = "ਤੁਹਾਡਾ ਧੰਨਵਾਦ";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "ਮੈਂਬਰੀ ਦਾ ਇੰਤਜ਼ਾਮ ਕਰੋ";
 
 "settings.title" = "ਸੈਟਿੰਗਾਂ";
 "settings.aboutCryptomator" = "Cryptomator ਖੋਲ੍ਹੋ";

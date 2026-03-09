@@ -188,6 +188,7 @@
 "purchase.unlockedFullVersion.message" = "Du kan nå bruke fullversjonen av Cryptomator. God kryptering!";
 "purchase.unlockedFullVersion.title" = "Takk";
 "purchase.error.unknown" = "Dette kjøpet er utilgjengelig i App Store av en ukjent årsak. Prøv igjen senere.\n\nHvis denne feilen vedvarer kan du prøve å starte enheten på nytt, eventuelt logge av og på Apple-ID-en din i iOS-innstillingene.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Administrer abonnement";
 
 "settings.title" = "Innstillinger";
 "settings.aboutCryptomator" = "Om Cryptomator";

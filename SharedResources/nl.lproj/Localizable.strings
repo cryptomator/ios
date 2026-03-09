@@ -205,6 +205,7 @@
 "purchase.unlockedFullVersion.title" = "Dank u";
 "purchase.error.paymentNotAllowed" = "In-app aankopen zijn niet toegestaan op dit apparaat. Controleer je scherminstellingen onder Content & Privacy beperkingen om aankopen in te schakelen.";
 "purchase.error.unknown" = "Deze aankoop is niet beschikbaar in de App Store om een onbekende reden. Probeer het later opnieuw.\n\nAls deze fout aanhoudt, probeer je apparaat opnieuw op te starten of meld je af en weer aan met je Apple ID in de iOS-instellingen.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Abonnement beheren";
 
 "settings.title" = "Instellingen";
 "settings.aboutCryptomator" = "Over Cryptomator";

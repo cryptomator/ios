@@ -187,6 +187,7 @@
 "purchase.unlockedFullVersion.message" = "Nyní můžete použít plnou verzi Cryptomatoru. Šťastné šifrování!";
 "purchase.unlockedFullVersion.title" = "Děkuji";
 "purchase.error.unknown" = "Tento nákup není z neznámého důvodu v App Store dostupný. Opakujte, prosím, akci později.\n\nPokud tato chyba přetrvává, zkuste restartovat Vaše zařízení nebo se odhlásit a přihlásit znovu k Vašemu Apple ID v nastavení iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Spravovat předplatné";
 
 "settings.title" = "Nastavení";
 "settings.aboutCryptomator" = "O Cryptomatoru";
