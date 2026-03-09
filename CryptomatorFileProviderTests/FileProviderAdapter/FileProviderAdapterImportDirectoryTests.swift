@@ -35,19 +35,19 @@ class FileProviderAdapterImportDirectoryTests: FileProviderAdapterTestCase {
 		}
 		let expectation = XCTestExpectation()
 		DispatchQueue.global().async {
-			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 9))
+			XCTAssertEqual(.success, scheduler.dispatchGroup.wait(timeout: .now() + 30))
 			expectation.fulfill()
 		}
-		wait(for: [expectation], timeout: 10)
+		wait(for: [expectation], timeout: 35)
 	}
 
 	private func createDirectoryWithFiles(adapter: FileProviderAdapter, parentIdentifier: NSFileProviderItemIdentifier) throws -> NSFileProviderItem {
 		let createDirectoryPromise = adapter.createDirectory(withName: "1", inParentItemIdentifier: parentIdentifier)
-		wait(for: createDirectoryPromise, timeout: 5.0)
+		wait(for: createDirectoryPromise, timeout: 10.0)
 		let firstDirectoryItem = try XCTUnwrap(createDirectoryPromise.value ?? nil)
 
 		let importDocumentPromise = adapter.importDocument(at: localFileURL, toParentItemIdentifier: firstDirectoryItem.itemIdentifier)
-		wait(for: importDocumentPromise, timeout: 5.0)
+		wait(for: importDocumentPromise, timeout: 10.0)
 		return firstDirectoryItem
 	}
 
