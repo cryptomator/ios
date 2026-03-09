@@ -15,6 +15,17 @@ class LifetimeUpgradeViewModel: BaseIAPViewModel, ProductFetching {
 		return LocalizedString.getValue("purchase.product.lifetimeLicense")
 	}
 
+	override var infoText: NSAttributedString? {
+		if CryptomatorUserDefaults.shared.hasRunningSubscription {
+			return .textWithLeadingSystemImage("info.circle.fill",
+			                                   text: LocalizedString.getValue("purchase.lifetime.hasSubscription.hint"),
+			                                   font: .preferredFont(forTextStyle: .body),
+			                                   color: .secondaryLabel)
+		} else {
+			return nil
+		}
+	}
+
 	func fetchProducts() -> Promise<Void> {
 		return fetchProducts(with: [.fullVersion])
 	}
