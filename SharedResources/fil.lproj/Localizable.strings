@@ -188,6 +188,7 @@
 "purchase.unlockedFullVersion.message" = "Magagamit mo na ngayon ang buong bersyon ng Cryptomator. Maligayang pag-crypting!";
 "purchase.unlockedFullVersion.title" = "Salamat";
 "purchase.error.unknown" = "Hindi available ang pagbiling ito sa App Store sa hindi malamang dahilan. Pakisubukang muli sa ibang pagkakataon.\n\nKung magpapatuloy ang error na ito, subukang i-restart ang iyong device o mag-sign out at bumalik sa iyong Apple ID sa mga setting ng iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Pamahalaan ang Subscription";
 
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "Tungkol sa Cryptomator";
