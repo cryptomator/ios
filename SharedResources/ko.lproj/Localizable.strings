@@ -142,8 +142,7 @@
 "keepUnlocked.alert.title" = "Vault를 잠그시겠습니까?";
 "keepUnlocked.alert.message" = "이 설정을 바꾸기 위해서는 Vault를 잠궈야 합니다.";
 "keepUnlocked.alert.confirm" = "지금 바로 잠그기";
-"keepUnlocked.header" = "이 Vault 사용되지 않을 때 잠금 해제된 상태를 유지할 시간을 지정하십시오.
-i geumgoga sayong.";
+"keepUnlocked.header" = "이 Vault 사용되지 않을 때 잠금 해제된 상태를 유지할 시간을 지정하십시오.";
 "keepUnlocked.footer.auto" = "iOS가 지정하게 한다면 메모리 확보를 위해 언제든 Cryptomator가 종료되어 자동으로 Vault를 잠글 수 있습니다.";
 "keepUnlocked.footer.on" = "이 설정을 사용하는 경우, Vault가 잠금 해제되어있는 동안 암호가 iOS 키체인에 저장됩니다.";
 "keepUnlockedDuration.auto" = "iOS가 자동으로 잠그게 하기";
