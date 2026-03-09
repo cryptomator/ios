@@ -205,6 +205,7 @@
 "purchase.unlockedFullVersion.title" = "Merci";
 "purchase.error.paymentNotAllowed" = "Les achats intégrés ne sont pas autorisés sur cet appareil. Veuillez vérifier les paramètres de Temps d'Écran dans la section Contenu et Confidentialité pour activer les achats.";
 "purchase.error.unknown" = "Cet achat n'est pas disponible dans l'App Store pour une raison inconnue. Veuillez réessayer plus tard.\n\nSi cette erreur persiste, essayez de redémarrer votre appareil ou de vous déconnecter et de revenir à votre identifiant Apple dans les paramètres iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gérer l'abonnement";
 
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";
