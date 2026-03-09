@@ -166,6 +166,18 @@ class IAPViewController: BaseUITableViewController {
 	}
 
 	private func buyProduct(_ productIdentifier: ProductIdentifier) {
+		if [.fullVersion, .paidUpgrade, .freeUpgrade].contains(productIdentifier), CryptomatorUserDefaults.shared.hasRunningSubscription {
+			PurchaseAlert.showForSubscriptionWarning(on: self).then { shouldContinue in
+				if shouldContinue {
+					self.executePurchase(productIdentifier)
+				}
+			}
+		} else {
+			executePurchase(productIdentifier)
+		}
+	}
+
+	private func executePurchase(_ productIdentifier: ProductIdentifier) {
 		viewModel.buyProduct(productIdentifier).then { [weak self] transaction in
 			self?.successfulPurchase(transaction: transaction)
 		}.catch { [weak self] error in
@@ -176,11 +188,11 @@ class IAPViewController: BaseUITableViewController {
 	private func successfulPurchase(transaction: PurchaseTransaction) {
 		switch transaction {
 		case .fullVersion:
-			coordinator?.fullVersionPurchased()
+			coordinator?.fullVersionPurchased(transaction: .fullVersion)
 		case let .freeTrial(trialExpirationDate):
 			coordinator?.freeTrialStarted(expirationDate: trialExpirationDate)
 		case .yearlySubscription:
-			coordinator?.fullVersionPurchased()
+			coordinator?.fullVersionPurchased(transaction: .yearlySubscription)
 		case .unknown:
 			break
 		}

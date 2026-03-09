@@ -205,6 +205,11 @@
 "purchase.unlockedFullVersion.title" = "Thank You";
 "purchase.error.paymentNotAllowed" = "In-app purchases are not allowed on this device. Please check your Screen Time settings under Content & Privacy Restrictions to enable purchases.";
 "purchase.error.unknown" = "This purchase is unavailable in the App Store for an unknown reason. Please try again later.\n\nIf this error persists, try to restart your device or signing out and back in to your Apple ID in the iOS settings.";
+"purchase.lifetime.hasSubscription.alert.title" = "You Have an Active Subscription";
+"purchase.lifetime.hasSubscription.alert.message" = "After purchasing the lifetime license, you'll need to cancel your yearly subscription to avoid being charged for both.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Lifetime License Activated";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "To stop future subscription charges, please cancel your yearly subscription.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Manage Subscription";
 
 "settings.title" = "Settings";
 "settings.aboutCryptomator" = "About Cryptomator";
