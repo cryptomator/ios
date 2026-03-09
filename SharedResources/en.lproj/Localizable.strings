@@ -228,6 +228,7 @@
 "settings.unlockFullVersion" = "Unlock Full Version";
 "settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
 "settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
+"settings.upgradeToLifetime" = "Upgrade to Lifetime";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";

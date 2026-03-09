@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3BCBE843A35B7D9E16795451 /* LifetimeUpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4FC7AFEB4B45864C4FB10 /* LifetimeUpgradeViewModel.swift */; };
 		4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255D25A368BF00E63D7A /* MainCoordinator.swift */; };
 		4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03257725A36A6900E63D7A /* VaultListViewController.swift */; };
 		4A03258125A36B7D00E63D7A /* UIViewController+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */; };
@@ -1066,6 +1067,7 @@
 		74F5DC1B26DCD2FB00AFE989 /* StoreObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreObserver.swift; sourceTree = "<group>"; };
 		74F5DC1E26DD036D00AFE989 /* StoreManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreManager.swift; sourceTree = "<group>"; };
 		74FC576025ADED030003ED27 /* VaultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultCell.swift; sourceTree = "<group>"; };
+		7EA4FC7AFEB4B45864C4FB10 /* LifetimeUpgradeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifetimeUpgradeViewModel.swift; sourceTree = "<group>"; };
 		988E23D6223540118B002238 /* ShareVaultCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareVaultCoordinator.swift; sourceTree = "<group>"; };
 		A569CE6CACC0EA3E5CDB3353 /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
 		AA38700130040326001F5EB9 /* DefaultAccountSelectionBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAccountSelectionBehavior.swift; sourceTree = "<group>"; };
@@ -2113,6 +2115,7 @@
 			children = (
 				4AB1D4F727D68026009060AB /* IAPHeaderView.swift */,
 				4A4246F1275640C9005BE82D /* IAPViewController.swift */,
+				7EA4FC7AFEB4B45864C4FB10 /* LifetimeUpgradeViewModel.swift */,
 				4AC005F027C3D80B006FFE87 /* PremiumManager.swift */,
 				4A5AC440275A5B3500342AA7 /* PurchaseAlert.swift */,
 				74C2BC5126E8FCD000BCAA03 /* PurchaseCoordinator.swift */,
@@ -2883,6 +2886,7 @@
 				4AB8539626BA87A700555F00 /* VaultDetailUnlockVaultViewController.swift in Sources */,
 				4AB8539C26BA8A8200555F00 /* VaultPasswordVerifying.swift in Sources */,
 				4AFCE51625B880C90069C4FC /* AccountCell.swift in Sources */,
+				3BCBE843A35B7D9E16795451 /* LifetimeUpgradeViewModel.swift in Sources */,
 				74C2BC5626E9098500BCAA03 /* UpgradeViewModel.swift in Sources */,
 				4A3D65662680A842000DA764 /* LocalFileSystemAuthenticationViewModel.swift in Sources */,
 				4A447E2425BF0E3A00D9520D /* ChooseFolderViewModel.swift in Sources */,
