@@ -178,6 +178,7 @@
 "purchase.unlockedFullVersion.message" = "אתה יכול להשתמש בגרסה המלאה של Cryptomator. הצפנה נעימה!";
 "purchase.unlockedFullVersion.title" = "תודה";
 "purchase.error.unknown" = "הרגישה לא זמינה בחנות האפליקציות מסיבה לא ידועה. אנא נסה שוב מאוחר יותר.\n\nאם התקלה ממשיכה, נסה להפעיל מחדש את המכשיר או לצאת ולהכנס מחדש עם המשתמש אפל שלך באפליקצית ההגדרות של iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "ניהול מנוי";
 
 "settings.title" = "הגדרות";
 "settings.aboutCryptomator" = "אודות Cryptomator";
