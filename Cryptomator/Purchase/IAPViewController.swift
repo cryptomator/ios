@@ -287,6 +287,23 @@ class BaseIAPViewModel {
 	func fetchProductsSuccess() {}
 
 	/**
+	 Adds a lifetime license purchase cell to `cells`.
+	 Shared by subclasses that offer the full version product.
+	 */
+	func addLifetimeLicenseItem() {
+		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
+			// Temporarily added for 10th Anniversary Sale
+			let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
+			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
+			                                      productDetail: productDetail,
+			                                      price: localizedPrice,
+			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
+			                                      productIdentifier: .fullVersion)
+			cells.append(.purchaseCell(viewModel))
+		}
+	}
+
+	/**
 	 Called when `storeManager.fetchProducts(with:)` fails.
 	 You can implement this method in your subclass if you want to perform further actions in this case.
 	 */
