@@ -205,6 +205,10 @@
 "purchase.unlockedFullVersion.title" = "Vielen Dank";
 "purchase.error.paymentNotAllowed" = "In-App Käufe sind auf diesem Gerät nicht erlaubt. Bitte prüfe die Bildschirmzeiteinstellungen unter Inhalt & Datenschutzeinschränkungen, um Käufe zu aktivieren.";
 "purchase.error.unknown" = "Dieser Kauf ist aus einem unbekannten Grund im App Store aktuell nicht möglich. Bitte versuche es später erneut.\n\nWenn dieser Fehler weiterhin besteht, versuche dein Gerät neu zu starten oder dich in den iOS-Einstellungen mit deiner Apple ID ab- und wieder anzumelden.";
+"purchase.lifetime.hasSubscription.alert.title" = "Sie haben ein aktives Abonnement";
+"purchase.lifetime.hasSubscription.alert.message" = "Nach dem Kauf der lebenslangen Lizenz musst du dein Jahresabonnement kündigen, um zu vermeiden, dass dir beide in Rechnung gestellt werden.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Lebenslange Lizenz aktiviert";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Um zukünftige Abonnementgebühren zu vermeiden, kündige bitte dein Jahresabonnement.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Abonnement verwalten";
 
 "settings.title" = "Einstellungen";
