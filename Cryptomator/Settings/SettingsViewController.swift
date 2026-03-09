@@ -123,6 +123,8 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			showRateApp()
 		case .showUnlockFullVersion:
 			coordinator?.showUnlockFullVersion()
+		case .showUpgradeToLifetime:
+			coordinator?.showUpgradeToLifetime()
 		case .showManageSubscriptions:
 			coordinator?.showManageSubscriptions()
 		case .restorePurchase:

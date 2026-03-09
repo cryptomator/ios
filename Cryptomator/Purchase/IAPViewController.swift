@@ -166,6 +166,18 @@ class IAPViewController: BaseUITableViewController {
 	}
 
 	private func buyProduct(_ productIdentifier: ProductIdentifier) {
+		if [.fullVersion, .paidUpgrade, .freeUpgrade].contains(productIdentifier), CryptomatorUserDefaults.shared.hasRunningSubscription {
+			PurchaseAlert.showForSubscriptionWarning(on: self).then { shouldContinue in
+				if shouldContinue {
+					self.executePurchase(productIdentifier)
+				}
+			}
+		} else {
+			executePurchase(productIdentifier)
+		}
+	}
+
+	private func executePurchase(_ productIdentifier: ProductIdentifier) {
 		viewModel.buyProduct(productIdentifier).then { [weak self] transaction in
 			self?.successfulPurchase(transaction: transaction)
 		}.catch { [weak self] error in
@@ -176,11 +188,11 @@ class IAPViewController: BaseUITableViewController {
 	private func successfulPurchase(transaction: PurchaseTransaction) {
 		switch transaction {
 		case .fullVersion:
-			coordinator?.fullVersionPurchased()
+			coordinator?.fullVersionPurchased(transaction: .fullVersion)
 		case let .freeTrial(trialExpirationDate):
 			coordinator?.freeTrialStarted(expirationDate: trialExpirationDate)
 		case .yearlySubscription:
-			coordinator?.fullVersionPurchased()
+			coordinator?.fullVersionPurchased(transaction: .yearlySubscription)
 		case .unknown:
 			break
 		}
@@ -273,6 +285,23 @@ class BaseIAPViewModel {
 	 You can implement this method in your subclass if you want to perform further actions in this case.
 	 */
 	func fetchProductsSuccess() {}
+
+	/**
+	 Adds a lifetime license purchase cell to `cells`.
+	 Shared by subclasses that offer the full version product.
+	 */
+	func addLifetimeLicenseItem() {
+		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
+			// Temporarily added for 10th Anniversary Sale
+			let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
+			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
+			                                      productDetail: productDetail,
+			                                      price: localizedPrice,
+			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
+			                                      productIdentifier: .fullVersion)
+			cells.append(.purchaseCell(viewModel))
+		}
+	}
 
 	/**
 	 Called when `storeManager.fetchProducts(with:)` fails.

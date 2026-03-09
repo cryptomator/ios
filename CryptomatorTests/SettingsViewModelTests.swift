@@ -30,6 +30,63 @@ class SettingsViewModelTests: XCTestCase {
 		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
 	}
 
+	// - MARK: Unlock Full Version / Upgrade to Lifetime
+
+	func testNonPayingUserSeesUnlockFullVersion() {
+		cryptomatorSettingsMock.hasRunningSubscription = false
+		cryptomatorSettingsMock.fullVersionUnlocked = false
+		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		guard let section = getSection(for: .unlockFullVersionSection) else {
+			XCTFail("Missing unlockFullVersionSection")
+			return
+		}
+		guard let cellViewModel = section.elements[0] as? ButtonCellViewModel<SettingsButtonAction> else {
+			XCTFail("Missing cellViewModel")
+			return
+		}
+		XCTAssertEqual(.showUnlockFullVersion, cellViewModel.action)
+	}
+
+	func testSubscriberSeesUpgradeToLifetimeInAboutSection() {
+		cryptomatorSettingsMock.hasRunningSubscription = true
+		cryptomatorSettingsMock.fullVersionUnlocked = false
+		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		let unlockSection = getSection(for: .unlockFullVersionSection)
+		XCTAssertNil(unlockSection, "Subscriber should not see unlockFullVersionSection")
+		guard let aboutSection = getSection(for: .aboutSection) else {
+			XCTFail("Missing aboutSection")
+			return
+		}
+		let upgradeCell = aboutSection.elements.compactMap { $0 as? ButtonCellViewModel<SettingsButtonAction> }.first { $0.action == .showUpgradeToLifetime }
+		XCTAssertNotNil(upgradeCell)
+	}
+
+	func testLifetimeOwnerSeesNoUpgradeToLifetime() {
+		cryptomatorSettingsMock.hasRunningSubscription = false
+		cryptomatorSettingsMock.fullVersionUnlocked = true
+		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		let unlockSection = getSection(for: .unlockFullVersionSection)
+		XCTAssertNil(unlockSection)
+		guard let aboutSection = getSection(for: .aboutSection) else {
+			XCTFail("Missing aboutSection")
+			return
+		}
+		let upgradeCell = aboutSection.elements.compactMap { $0 as? ButtonCellViewModel<SettingsButtonAction> }.first { $0.action == .showUpgradeToLifetime }
+		XCTAssertNil(upgradeCell)
+	}
+
+	func testSubscriberWithLifetimeSeesNoUpgradeToLifetime() {
+		cryptomatorSettingsMock.hasRunningSubscription = true
+		cryptomatorSettingsMock.fullVersionUnlocked = true
+		settingsViewModel = SettingsViewModel(cryptomatorSettings: cryptomatorSettingsMock)
+		guard let aboutSection = getSection(for: .aboutSection) else {
+			XCTFail("Missing aboutSection")
+			return
+		}
+		let upgradeCell = aboutSection.elements.compactMap { $0 as? ButtonCellViewModel<SettingsButtonAction> }.first { $0.action == .showUpgradeToLifetime }
+		XCTAssertNil(upgradeCell)
+	}
+
 	// - MARK: Cache Section
 
 	func testInitialStateOfCacheSection() {

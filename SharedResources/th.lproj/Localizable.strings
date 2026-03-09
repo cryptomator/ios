@@ -131,6 +131,7 @@
 "purchase.retry.button" = "ลอง​ใหม่";
 "purchase.title" = "ปลดล็อกเวอร์ชั่นเต็ม";
 "purchase.unlockedFullVersion.title" = "ขอบคุณ";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "จัดการการสมัครสมาชิก";
 
 "settings.title" = "การตั้งค่า";
 "settings.aboutCryptomator" = "เกี่ยวกับ Cryptomator";

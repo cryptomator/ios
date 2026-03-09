@@ -47,11 +47,17 @@ class PurchaseCoordinator: Coordinator {
 		}
 	}
 
-	func fullVersionPurchased() {
+	func fullVersionPurchased(transaction: PurchaseTransaction = .unknown) {
 		PurchaseAlert.showForFullVersion(title: LocalizedString.getValue("purchase.unlockedFullVersion.title"), on: navigationController).then {
 			if let windowScene = self.navigationController.view.window?.windowScene {
 				SKStoreReviewController.requestReview(in: windowScene)
 			}
+			if transaction == .fullVersion, CryptomatorUserDefaults.shared.hasRunningSubscription {
+				return PurchaseAlert.showForSubscriptionCancelGuide(on: self.navigationController)
+			} else {
+				return Promise(())
+			}
+		}.then {
 			self.unlockedPro()
 		}
 		// Temporarily added for 10th Anniversary Sale

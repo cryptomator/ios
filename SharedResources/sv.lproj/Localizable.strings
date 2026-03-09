@@ -201,6 +201,7 @@
 "purchase.unlockedFullVersion.title" = "Tackar";
 "purchase.error.paymentNotAllowed" = "Köp-i-appen tillåts inte på den här enheten. Kontrollera dina skärmtidsinställningar under Innehåll och integritetsbegränsningar för att aktivera köp.";
 "purchase.error.unknown" = "Detta köp är inte tillgängligt i App Store av okänd anledning. Försök igen senare.\n\nOm felet kvarstår, försök att starta om enheten eller logga ut och in igen till ditt Apple-ID i iOS-inställningarna.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Hantera prenumeration";
 
 "settings.title" = "Inställningar";
 "settings.aboutCryptomator" = "Om Cryptomator";

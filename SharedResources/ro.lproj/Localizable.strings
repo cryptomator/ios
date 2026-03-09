@@ -188,6 +188,7 @@
 "purchase.unlockedFullVersion.message" = "Acum poți folosi versiunea completă a Criptomatorului. Criptare fericită!";
 "purchase.unlockedFullVersion.title" = "Vă mulțumim!";
 "purchase.error.unknown" = "Această achiziție nu este disponibilă în App Store dintr-un motiv necunoscut. Vă rugăm să încercați din nou mai târziu.\n\nDacă această eroare persistă, încercați să reporniți dispozitivul sau să vă re-conectați la contul dvs. Apple în setările iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Administrați-vă abonamentul";
 
 "settings.title" = "Setări";
 "settings.aboutCryptomator" = "Despre Cryptomator";

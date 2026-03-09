@@ -205,6 +205,11 @@
 "purchase.unlockedFullVersion.title" = "Merci";
 "purchase.error.paymentNotAllowed" = "Les achats intégrés ne sont pas autorisés sur cet appareil. Veuillez vérifier les paramètres de Temps d'Écran dans la section Contenu et Confidentialité pour activer les achats.";
 "purchase.error.unknown" = "Cet achat n'est pas disponible dans l'App Store pour une raison inconnue. Veuillez réessayer plus tard.\n\nSi cette erreur persiste, essayez de redémarrer votre appareil ou de vous déconnecter et de revenir à votre identifiant Apple dans les paramètres iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "Vous avez un abonnement actif";
+"purchase.lifetime.hasSubscription.alert.message" = "Après avoir acheté la licence à vie, vous devrez annuler votre abonnement annuel pour éviter d'être facturé pour les deux.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licence à vie activée";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Pour arrêter les frais d'abonnement futurs, veuillez annuler votre abonnement annuel.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gérer l'abonnement";
 
 "settings.title" = "Paramètres";
 "settings.aboutCryptomator" = "À propos de Cryptomator";

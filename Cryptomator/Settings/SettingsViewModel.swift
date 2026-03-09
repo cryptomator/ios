@@ -23,6 +23,7 @@ enum SettingsButtonAction: String {
 	case showRateApp
 	case showShortcutsGuide
 	case showUnlockFullVersion
+	case showUpgradeToLifetime
 	case showManageSubscriptions
 	case restorePurchase
 }
@@ -91,6 +92,9 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		]
 		if cryptomatorSettings.hasRunningSubscription {
 			elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showManageSubscriptions, title: LocalizedString.getValue("settings.manageSubscriptions")))
+			if !cryptomatorSettings.fullVersionUnlocked {
+				elements.append(ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showUpgradeToLifetime, title: LocalizedString.getValue("settings.upgradeToLifetime")))
+			}
 		}
 		return elements
 	}

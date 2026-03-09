@@ -92,19 +92,6 @@ class PurchaseViewModel: BaseIAPViewModel, ProductFetching {
 		}
 	}
 
-	private func addLifetimeLicenseItem() {
-		if let product = products[.fullVersion], let localizedPrice = product.localizedPrice {
-			// Temporarily added for 10th Anniversary Sale
-			let productDetail = SalePromo.isTenthAnniversaryActive() ? "\(SalePromo.tenthAnniversaryEmoji) \(SalePromo.tenthAnniversaryDiscount)" : nil
-			let viewModel = PurchaseCellViewModel(productName: LocalizedString.getValue("purchase.product.lifetimeLicense"),
-			                                      productDetail: productDetail,
-			                                      price: localizedPrice,
-			                                      purchaseDetail: LocalizedString.getValue("purchase.product.lifetimeLicense.duration"),
-			                                      productIdentifier: .fullVersion)
-			cells.append(.purchaseCell(viewModel))
-		}
-	}
-
 	private func addUpgradeOfferItem() {
 		cells.append(.showUpgradeOffer)
 	}

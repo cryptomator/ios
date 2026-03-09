@@ -201,6 +201,7 @@
 "purchase.unlockedFullVersion.title" = "Дякуємо!";
 "purchase.error.paymentNotAllowed" = "Покупки в програмі на цьому пристрої заборонені. Щоб дозволити покупки, перевірте налаштування «Екранного часу» в розділі «Обмеження вмісту й приватності».";
 "purchase.error.unknown" = "Ця покупка недоступна в App Store з невідомої причини. Будь ласка, спробуйте пізніше.\n\nЯкщо помилка не зникне, спробуйте перезапустити пристрій або вийти зі свого Apple ID в налаштуваннях iOS і увійти знову.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Керувати підпискою";
 
 "settings.title" = "Налаштування";
 "settings.aboutCryptomator" = "Про Cryptomator";

@@ -82,6 +82,12 @@ class SettingsCoordinator: Coordinator {
 		child.start()
 	}
 
+	func showUpgradeToLifetime() {
+		let child = SettingsLifetimeUpgradeCoordinator(navigationController: navigationController)
+		childCoordinators.append(child) // TODO: remove missing?
+		child.start()
+	}
+
 	func showManageSubscriptions() {
 		if #available(iOS 15.0, *), let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
 			Task {
@@ -149,5 +155,33 @@ private class SettingsPurchaseCoordinator: PurchaseCoordinator, PoppingCloseCoor
 
 	@objc override func doneButtonTapped() {
 		super.close()
+	}
+}
+
+private class SettingsLifetimeUpgradeCoordinator: PurchaseCoordinator, PoppingCloseCoordinator {
+	let oldTopViewController: UIViewController?
+
+	override init(navigationController: UINavigationController) {
+		self.oldTopViewController = navigationController.topViewController
+		super.init(navigationController: navigationController)
+	}
+
+	override func start() {
+		let viewController = IAPViewController(viewModel: LifetimeUpgradeViewModel())
+		viewController.coordinator = self
+		viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
+		navigationController.pushViewController(viewController, animated: true)
+	}
+
+	override func getUpgradeCoordinator() -> PurchaseCoordinator {
+		return self
+	}
+
+	override func close() {
+		popToOldTopViewController()
+	}
+
+	@objc override func doneButtonTapped() {
+		close()
 	}
 }

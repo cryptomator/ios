@@ -190,6 +190,7 @@
 "purchase.unlockedFullVersion.message" = "Ja podeu fer servir la versió completa de Cryptomator. Feliç encriptació!";
 "purchase.unlockedFullVersion.title" = "Gràcies";
 "purchase.error.unknown" = "Aquesta compra no està disponible a l'App Store per un motiu desconegut. Si us plau, torna-ho a provar més tard.\n\nSi aquest error persisteix, prova de reiniciar el dispositiu o tancar la sessió i tornar a iniciar amb el teu ID d'Apple a la configuració d'iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gestionar Subscripcions";
 
 "settings.title" = "Configuració";
 "settings.aboutCryptomator" = "Quant a Cryptomator";
