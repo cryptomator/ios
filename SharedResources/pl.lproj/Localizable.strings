@@ -195,6 +195,7 @@
 "purchase.unlockedFullVersion.message" = "Możesz teraz używać pełnej wersji Cryptomator. Szczęśliwego szyfrowania!";
 "purchase.unlockedFullVersion.title" = "Dziękujemy";
 "purchase.error.unknown" = "Opcja zakupu jest niedostępna w App Store z nieznanego powodu. Spróbuj ponownie później.\n\nJeśli ten błąd będzie się powtarzał, spróbuj zrestartować urządzenie lub wylogować i zalogować się swoim Apple ID w ustawieniach iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Zarządzaj subskrypcją";
 
 "settings.title" = "Ustawienia";
 "settings.aboutCryptomator" = "O Cryptomator";
