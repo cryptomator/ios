@@ -205,6 +205,11 @@
 "purchase.unlockedFullVersion.title" = "Gracias";
 "purchase.error.paymentNotAllowed" = "Las compras dentro de la aplicación no están permitidas en este dispositivo. Por favor, compruebe la configuración de la hora de pantalla bajo las restricciones de contenido y privacidad para activar las compras.";
 "purchase.error.unknown" = "Esta compra no está disponible en la App Store por una razón desconocida. Intente de nuevo más tarde.\n\nSi este error persiste, intente reiniciar el dispositivo o cerrar sesión y volver a ingresar a su ID de Apple en la configuración de iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "Tiene una suscripción activa";
+"purchase.lifetime.hasSubscription.alert.message" = "Después de comprar la licencia de por vida, tendrá que cancelar su suscripción anual para evitar que se le cobre por ambos.";
+"purchase.lifetime.hasSubscription.hint" = "Cancele su suscripción después de comprar para evitar gastos dobles.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licencia vitalicia activada";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Para detener futuros cargos de suscripción, por favor cancele su suscripción anual.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gestionar suscripción";
 
 "settings.title" = "Configuración";
@@ -224,6 +229,7 @@
 "settings.unlockFullVersion" = "Desbloquear versión completa";
 "settings.unlockFullVersion.detail" = "Obtenga acceso de escritura a sus bóvedas.";
 "settings.unlockFullVersion.trialExpirationDate" = "Fecha de caducidad de la prueba: %@";
+"settings.upgradeToLifetime" = "Actualice a una suscripción vitalicia";
 
 "sharePoint.enterURL.title" = "Introduzca la URL de SharePoint";
 "sharePoint.enterURL.placeholder" = "URL del sitio SharePoint";
