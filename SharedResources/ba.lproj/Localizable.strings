@@ -188,6 +188,7 @@
 "purchase.unlockedFullVersion.message" = "Хәҙер һеҙ Cryptomator-ҙың тулы версияһын ҡуллана алаһығыҙ. Хәйерле шифрлауҙар!";
 "purchase.unlockedFullVersion.title" = "Рәхмәт";
 "purchase.error.unknown" = "Был ҡушымта билдәһеҙ сәбәптәр арҡаһында App Store-ҙа юҡ. Зинһар, һуңыраҡ ҡабатлап ҡарағыҙ.\n\nӘгәр был хата ҡабатланһа, йыһазды яңынан эшләтеп ҡарағыҙ йәки iOS көйләүҙәрендә Apple ID-ғыҙҙан сығығыҙ һәм кире керегеҙ.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Яҙылыуҙар менән идара итеү";
 
 "settings.title" = "Көйләүҙәр";
 "settings.aboutCryptomator" = "Cryptomator тураһында";
