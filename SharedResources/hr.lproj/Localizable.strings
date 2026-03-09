@@ -175,6 +175,7 @@
 "purchase.unlockedFullVersion.message" = "Sada možete koristiti punu verziju Cryptomator-a. Sretno šifriranje!";
 "purchase.unlockedFullVersion.title" = "Hvala Vam";
 "purchase.error.unknown" = "Ova kupnja nije dostupna u App Store-u iz nepoznatog razloga. Pokušajte ponovno kasnije.\n\nAko se ova pogreška nastavi, pokušajte ponovno pokrenuti uređaj ili se odjaviti i ponovno prijaviti na svoj Apple ID u postavkama iOS-a.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Upravljaj pretplatom";
 
 "settings.title" = "Postavke";
 "settings.aboutCryptomator" = "O Cryptomator-u";
