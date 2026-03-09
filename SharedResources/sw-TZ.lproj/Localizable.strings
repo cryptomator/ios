@@ -178,6 +178,7 @@
 "purchase.unlockedFullVersion.message" = "Sasa unaweza kutumia toleo kamili la Cryptomator. Furaha kusimba!";
 "purchase.unlockedFullVersion.title" = "Asante";
 "purchase.error.unknown" = "Ununuzi huu haupatikani katika App Store kwa sababu isiyojulikana. Tafadhali jaribu tena baadaye.\n\nIf kosa hili linaendelea, jaribu kuanzisha upya kifaa chako au kuingia na kurudi kwenye Kitambulisho chako cha Apple katika mipangilio ya iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Simamia Usajili";
 
 "settings.title" = "Kipimo";
 "settings.aboutCryptomator" = "Kuhusu Cryptomator";
