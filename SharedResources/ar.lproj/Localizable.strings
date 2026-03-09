@@ -194,6 +194,7 @@
 "purchase.unlockedFullVersion.message" = "يمكنك الآن استخدام النسخة الكاملة من Cryptomter. تشفير سعيد!";
 "purchase.unlockedFullVersion.title" = "شكراً لك";
 "purchase.error.unknown" = "هذه الشراء غير متاح في متجر التطبيقات لسبب غير معروف. يرجى المحاولة مرة أخرى لاحقًا.\n\nإذا استمرت هذه المشكلة، حاول إعادة تشغيل جهازك أو تسجيل الخروج وتسجيل الدخول مرة أخرى إلى حساب Apple ID الخاص بك في إعدادات iOS.";
+"purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "إدارة الاشتراك";
 
 "settings.title" = "الإعدادات";
 "settings.aboutCryptomator" = "حول Cryptomator";
