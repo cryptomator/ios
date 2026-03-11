@@ -282,7 +282,7 @@
 "unlockVault.button.unlockVia" = "%@(으)로 잠금 해제";
 "unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시오.";
 "unlockVault.enableBiometricalUnlock.switch" = "%@ 활성화";
-"unlockVault.enableBiometricalUnlock.footer" = "비밀번호로 잠금 해제하는 대신 %@를 통해 잠금 해제 할 수 있습니다.";
+"unlockVault.enableBiometricalUnlock.footer" = "비밀번호 대신 %@를 통해 잠금 해제 할 수 있습니다.";
 "unlockVault.evaluatePolicy.reason" = "Vault 잠금 해제";
 "unlockVault.progress" = "잠금 해제 중...";
 
