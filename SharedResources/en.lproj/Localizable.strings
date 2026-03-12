@@ -136,6 +136,7 @@
 "hubAuthentication.trustHost.alert.trustButton" = "Trust";
 "hubAuthentication.trustHost.error.inconsistentAuthority" = "The vault configuration contains inconsistent server URLs. Please contact the vault owner.";
 "hubAuthentication.trustHost.error.httpNotAllowed" = "Insecure connection (HTTP) to \"%@\" is not allowed. Please use HTTPS.";
+"hubAuthentication.trustHost.error.unknownHostsNotAllowed" = "Unknown Hub hosts are not allowed. Enable \"Allow Unknown Hub Hosts\" in Settings to connect to new Hub servers.";
 "hubAuthentication.untrustedHost.alert.title" = "Host Not Trusted";
 "hubAuthentication.vaultArchived" = "This vault has been archived. Please ask the vault owner to unarchive it.";
 
@@ -236,6 +237,10 @@
 "settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
 "settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
 "settings.upgradeToLifetime" = "Upgrade to Lifetime";
+"settings.hub" = "Hub";
+"settings.hub.allowUnknownHosts" = "Allow Unknown Hub Hosts";
+"settings.hub.clearTrustedHosts" = "Clear Trusted Hub Hosts";
+"settings.hub.clearTrustedHosts.alert.message" = "All previously trusted Hub hosts will be removed. You will need to confirm trust again when connecting to Hub vaults.";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";

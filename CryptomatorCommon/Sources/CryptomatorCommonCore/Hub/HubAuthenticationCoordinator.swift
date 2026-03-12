@@ -87,10 +87,7 @@ public final class HubAuthenticationCoordinator: Coordinator {
 	private func checkHostTrust(hubConfig: HubConfig) async throws {
 		guard let vaultBaseURL = getVaultBaseURL() else {
 			DDLogError("Hub host trust check failed: unable to extract vault base URL from keyId")
-			await showUntrustedHostAlert(message: LocalizedString.getValue("hubAuthentication.trustHost.error.inconsistentAuthority"))
-			delegate?.userDismissedHubAuthenticationErrorMessage()
-			parent?.childDidFinish(self)
-			throw CancellationError()
+			try await rejectHostTrust(message: LocalizedString.getValue("hubAuthentication.trustHost.error.inconsistentAuthority"))
 		}
 		let settings = CryptomatorUserDefaults.shared
 		let result: HubHostTrustResult
@@ -98,15 +95,16 @@ public final class HubAuthenticationCoordinator: Coordinator {
 			result = try HubHostTrustValidator.validate(hubConfig: hubConfig, vaultBaseURL: vaultBaseURL, trustedAuthorities: settings.trustedHubAuthorities)
 		} catch {
 			DDLogError("Hub host trust validation failed: \(error)")
-			await showUntrustedHostAlert(message: error.localizedDescription)
-			delegate?.userDismissedHubAuthenticationErrorMessage()
-			parent?.childDidFinish(self)
-			throw CancellationError()
+			try await rejectHostTrust(message: error.localizedDescription)
 		}
 		switch result {
 		case .trusted:
 			return
 		case let .userConfirmationRequired(untrustedAuthorities):
+			guard settings.allowUnknownHubHosts else {
+				DDLogError("Hub host trust check failed: unknown hosts not allowed by user setting")
+				try await rejectHostTrust(message: LocalizedString.getValue("hubAuthentication.trustHost.error.unknownHostsNotAllowed"))
+			}
 			let approved = await showTrustHostAlert(untrustedAuthorities: untrustedAuthorities)
 			if approved {
 				var trusted = settings.trustedHubAuthorities
@@ -118,6 +116,14 @@ public final class HubAuthenticationCoordinator: Coordinator {
 				throw CancellationError()
 			}
 		}
+	}
+
+	@MainActor
+	private func rejectHostTrust(message: String) async throws -> Never {
+		await showUntrustedHostAlert(message: message)
+		delegate?.userDismissedHubAuthenticationErrorMessage()
+		parent?.childDidFinish(self)
+		throw CancellationError()
 	}
 
 	private static let hubSchemePrefix = "hub+"
