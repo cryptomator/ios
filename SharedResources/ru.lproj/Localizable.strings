@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Требуется действие";
 "hubAuthentication.requireAccountInit.alert.message" = "Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в профиль";
+"hubAuthentication.trustHost.alert.trustButton" = "Доверять";
 "hubAuthentication.vaultArchived" = "Это хранилище помещено в архив. Попросите владельца хранилища разархивировать его.";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
