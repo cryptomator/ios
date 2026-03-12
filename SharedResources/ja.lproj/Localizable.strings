@@ -126,6 +126,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
+"hubAuthentication.trustHost.alert.trustButton" = "信頼する";
 "hubAuthentication.vaultArchived" = "この金庫はアーカイブされています。金庫の所有者にアーカイブ解除を依頼してください。";
 
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
