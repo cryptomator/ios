@@ -90,6 +90,7 @@
 "hubAuthentication.licenseExceeded" = "Phiên bản Cryptomator Hub của bạn có giấy phép không hợp lệ. Vui lòng thông báo cho quản trị viên Hub để nâng cấp hoặc gia hạn giấy phép.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Tên thiết bị";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Xem hồ sơ";
+"hubAuthentication.trustHost.alert.trustButton" = "Tin tưởng";
 
 "keepUnlocked.alert.title" = "Khóa Vault?";
 "keepUnlocked.alert.confirm" = "Xác nhận & Khóa ngay";

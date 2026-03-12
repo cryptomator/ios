@@ -89,6 +89,7 @@
 "fileProvider.clearFileFromCache.title" = "कैशे से फ़ाइल साफ़ करें";
 "fileProvider.clearFileFromCache.message" = "यह केवल आपके डिवाइस से स्थानीय फ़ाइल को हटाता है और क्लाउड में फ़ाइल को नहीं हटाता";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "डिवाइस का नाम";
+"hubAuthentication.trustHost.alert.trustButton" = "भरोसा करे";
 "localFileSystemAuthentication.createNewVault.button" = "संग्रहण का स्थान चयन करें";
 "localFileSystemAuthentication.openExistingVault.button" = "कक्ष स्थान का चयन करें";
 "localFileSystemAuthentication.openExistingVault.error.noVaultFound" = "चयन किया फ़ोल्डर आपके कक्ष में उपलब्ध नहीं है। कृपया दूसरे फ़ोल्डर का चयन कीजिए।";

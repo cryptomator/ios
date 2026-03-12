@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "無法繼續取得目錄的內容。";
 "cloudProvider.error.quotaInsufficient" = "您的存儲已空間不足";
 "cloudProvider.error.unauthorized" = "無法執行未授權的操作";
+"cloudProvider.error.unauthorized.reauth.title" = "登入階段已逾時";
+"cloudProvider.error.unauthorized.reauth.message" = "請再次登入 %@ 。";
+"cloudProvider.error.unauthorized.reauth.button" = "登入";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "您登入的是不同的帳號。請用原本的 %@ 帳號再試一次。";
 "cloudProvider.error.noInternetConnection" = "此操作需要連線至互聯網。";
 
 "cloudProviderType.localFileSystem" = "其他儲存空間";
@@ -127,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "需進一步操作";
 "hubAuthentication.requireAccountInit.alert.message" = "請完成您使用者檔案中所需的步驟，以便繼續進行。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
+"hubAuthentication.trustHost.alert.trustButton" = "信任";
 "hubAuthentication.vaultArchived" = "這個加密檔案庫以被封存。請向加密檔案庫的所有者要求解封。";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
@@ -202,6 +207,11 @@
 "purchase.unlockedFullVersion.title" = "感謝";
 "purchase.error.paymentNotAllowed" = "這個裝置不允許 App 內購買。請至內容與隱私限制檢查您的螢幕時間設定以啟用購買功能。";
 "purchase.error.unknown" = "由於未知原因，無法在 App Store 中購買，請稍後再試。\n\n如果此錯誤仍然存在，請嘗試重新啟動您的設備、或在 iOS 設定中登出並重新登入您的 Apple ID。";
+"purchase.lifetime.hasSubscription.alert.title" = "您有一個有效的訂閱";
+"purchase.lifetime.hasSubscription.alert.message" = "在購買永久授權後，您必須取消原本的年繳方案以避免重複收費。";
+"purchase.lifetime.hasSubscription.hint" = "在購買之後取消您的訂閱方案以免重複收費。";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "永久授權已啟用";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "停止未來再次扣款，請取消您的年度訂閱。";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "管理訂閱";
 
 "settings.title" = "設定";
@@ -221,6 +231,7 @@
 "settings.unlockFullVersion" = "解鎖完整版";
 "settings.unlockFullVersion.detail" = "取得對您加密檔案庫的寫入權限。";
 "settings.unlockFullVersion.trialExpirationDate" = "試用到期日： %@";
+"settings.upgradeToLifetime" = "升級到永久方案";
 
 "sharePoint.enterURL.title" = "輸入 SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint 網站 URL";

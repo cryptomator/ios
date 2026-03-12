@@ -126,6 +126,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "إجراء مطلوب";
 "hubAuthentication.requireAccountInit.alert.message" = "للمتابعة، يرجى إكمال الخطوات المطلوبة في ملف المستخدم الخاص بك في Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "اذهب إلى الملف الشخصي";
+"hubAuthentication.trustHost.alert.trustButton" = "ثق";
 "hubAuthentication.vaultArchived" = "تم أرشفة هذه الخزنة، الرجاء طلب من مالك الخزنة إلغاء أرشفته.";
 
 "intents.saveFile.missingFile" = "الملف المقدم غير صالح.";

@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Action requise";
 "hubAuthentication.requireAccountInit.alert.message" = "Pour continuer, veuillez compléter les étapes requises dans votre profil d'utilisateur Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Aller au profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Approuver";
 "hubAuthentication.vaultArchived" = "Ce coffre a été archivé. Veuillez demander au propriétaire du coffre de le désarchiver.";
 
 "intents.saveFile.missingFile" = "Le fichier fourni n'est pas valide.";

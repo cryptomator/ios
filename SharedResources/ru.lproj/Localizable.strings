@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Требуется действие";
 "hubAuthentication.requireAccountInit.alert.message" = "Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в профиль";
+"hubAuthentication.trustHost.alert.trustButton" = "Доверять";
 "hubAuthentication.vaultArchived" = "Это хранилище помещено в архив. Попросите владельца хранилища разархивировать его.";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
@@ -205,6 +206,11 @@
 "purchase.unlockedFullVersion.title" = "Спасибо!";
 "purchase.error.paymentNotAllowed" = "Покупки внутри приложения не разрешены на этом устройстве. Проверьте настройки экранного времени в разделе ограничений конфиденциальности и контента.";
 "purchase.error.unknown" = "Покупка в App Store недоступна по неизвестной причине. Повторите попытку позже.\n\nЕсли эта ошибка повторится, попробуйте перезапустить устройство или выйти и войти в аккаунт Apple ID в настройках iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "У вас есть активная подписка";
+"purchase.lifetime.hasSubscription.alert.message" = "После покупки бессрочной лицензии отмените годовую подписку, чтобы не оплачивать их обе.";
+"purchase.lifetime.hasSubscription.hint" = "Отмените подписку после покупки, чтобы избежать двойных платежей.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Бессрочная лицензия активирована";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Чтобы больше ничего не оплачивать, отмените годовую подписку.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Управление подпиской";
 
 "settings.title" = "Настройки";
@@ -224,6 +230,7 @@
 "settings.unlockFullVersion" = "Получить полную версию";
 "settings.unlockFullVersion.detail" = "Получите доступ на запись в хранилища.";
 "settings.unlockFullVersion.trialExpirationDate" = "Истекает: %@";
+"settings.upgradeToLifetime" = "Обновить до бессрочной подписки";
 
 "sharePoint.enterURL.title" = "Введите URL-адрес SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адрес сайта SharePoint";

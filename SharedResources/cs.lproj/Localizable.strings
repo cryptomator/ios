@@ -122,6 +122,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Požadována akce";
 "hubAuthentication.requireAccountInit.alert.message" = "Chcete-li pokračovat, dokončete prosím požadované kroky ve vašem uživatelském profilu Hubu.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Jít na profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Důvěřovat";
 
 "intents.saveFile.missingFile" = "Zadaný soubor není platný.";
 "intents.saveFile.invalidFolder" = "Zadaná složka není platná.";

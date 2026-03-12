@@ -123,6 +123,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Operație necesară";
 "hubAuthentication.requireAccountInit.alert.message" = "Pentru a continua, vă rugăm să finalizaţi paşii necesari în profilul dumneavoastra din Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Mergi la profil";
+"hubAuthentication.trustHost.alert.trustButton" = "De încredere";
 
 "intents.saveFile.missingFile" = "Fișierul ales nu este valid.";
 "intents.saveFile.invalidFolder" = "Dosarul ales nu este valid.";

@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Nepieciešama darbība";
 "hubAuthentication.requireAccountInit.alert.message" = "Lai turpinātu, lūgums pabeigt nepieciešamos soļus savā Hub lietotāja profilā.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Doties uz profilu";
+"hubAuthentication.trustHost.alert.trustButton" = "Uzticēties";
 "hubAuthentication.vaultArchived" = "Šī glabātava tika arhivēta. Lūgums vaicāt tās īpašniekam atcelt tās arhivēšanu.";
 
 "intents.saveFile.missingFile" = "Sniegtā datne nav derīga.";

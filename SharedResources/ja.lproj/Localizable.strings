@@ -126,6 +126,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "要対応";
 "hubAuthentication.requireAccountInit.alert.message" = "続行するにはHubユーザープロフィールで必要な手順を完了してください。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "プロフィールへ移動";
+"hubAuthentication.trustHost.alert.trustButton" = "信頼する";
 "hubAuthentication.vaultArchived" = "この金庫はアーカイブされています。金庫の所有者にアーカイブ解除を依頼してください。";
 
 "intents.saveFile.missingFile" = "指定されたファイルはだめです。";
@@ -199,6 +200,7 @@
 "purchase.error.unknown" = "この購入は不明な理由によりApp Storeで利用できません。後でもう一度お試しください。\n\nこのエラーが解決しない場合、 デバイスを再起動するか、iOS の設定で Apple ID にサインアウトしてください。";
 "purchase.lifetime.hasSubscription.alert.title" = "サブスクリプションを契約中です";
 "purchase.lifetime.hasSubscription.alert.message" = "永久ライセンスを購入後には、重複課金を避けるため年間サブスクリプションを解約する必要があります。";
+"purchase.lifetime.hasSubscription.hint" = "二重課金を防ぐため、購入後にサブスクリプションをキャンセルしてください。";
 "purchase.lifetime.subscriptionCancelGuide.alert.title" = "永久ライセンスが有効になりました";
 "purchase.lifetime.subscriptionCancelGuide.alert.message" = "今後のサブスクリプションの課金を停止するには、年間サブスクリプションを解約してください。";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "サブスクリプションの管理";
@@ -220,6 +222,7 @@
 "settings.unlockFullVersion" = "フル バージョンのロックを解除";
 "settings.unlockFullVersion.detail" = "金庫への書き込み権を得る。";
 "settings.unlockFullVersion.trialExpirationDate" = "試用期限: %@";
+"settings.upgradeToLifetime" = "永久ライセンスにアップグレードする";
 
 "shareVault.title" = "保管庫を共有する";
 "shareVault.normal.header.title" = "チームワークの安全な方法";

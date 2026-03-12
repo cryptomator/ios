@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Azione richiesta";
 "hubAuthentication.requireAccountInit.alert.message" = "Per procedere, completa i passaggi richiesti nel tuo profilo dell'Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vai al profilo";
+"hubAuthentication.trustHost.alert.trustButton" = "Fidati";
 "hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
@@ -205,6 +206,11 @@
 "purchase.unlockedFullVersion.title" = "Grazie";
 "purchase.error.paymentNotAllowed" = "Gli acquisti in-app non sono consentiti da questo dispositivo. Controlla le impostazioni dell'ora dello schermo sotto Contenuti e Limitazioni della Privacy per abilitare gli acquisti.";
 "purchase.error.unknown" = "Questo acquisto non è disponibile nell'App Store per un motivo sconosciuto. Riprova più tardi.\n\nSe questo errore persiste, provare a riavviare il dispositivo o scollegare e ricollegare il tuo ID Apple nelle impostazioni di iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "Hai una sottoscrizione attiva";
+"purchase.lifetime.hasSubscription.alert.message" = "Dopo aver acquistato la licenza a vita, dovrai annullare la licenza annuale per evitare di pagare per entrambe.";
+"purchase.lifetime.hasSubscription.hint" = "Annulla la tua licenza dopo l'acquisto per evitare doppi costi.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licenza a Vita Attivata";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Per interrompere i futuri costi di licenza, annulla la licenza annuale.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gestisci Abbonamento";
 
 "settings.title" = "Impostazioni";
@@ -224,6 +230,7 @@
 "settings.unlockFullVersion" = "Sblocca la Versione Completa";
 "settings.unlockFullVersion.detail" = "Ottieni l'accesso in scrittura alle tue casseforti.";
 "settings.unlockFullVersion.trialExpirationDate" = "Fine del periodo di prova: %@";
+"settings.upgradeToLifetime" = "Aggiorna a Licenza a Vita";
 
 "sharePoint.enterURL.title" = "Inserisci l'URL di SharePoint";
 "sharePoint.enterURL.placeholder" = "URL sito di SharePoint";

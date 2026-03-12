@@ -123,6 +123,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Kinakailangan ang pagkilos";
 "hubAuthentication.requireAccountInit.alert.message" = "Upang magpatuloy, mangyaring kumpletuhin ang mga hakbang na kinakailangan sa iyong Hub user profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Pumunta sa Profile";
+"hubAuthentication.trustHost.alert.trustButton" = "Magtiwala";
 
 "intents.saveFile.missingFile" = "Ang ibinigay na file ay hindi wasto.";
 "intents.saveFile.invalidFolder" = "Ang ibinigay na folder ay hindi wasto.";

@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Wymagane działanie";
 "hubAuthentication.requireAccountInit.alert.message" = "Aby kontynuować, wykonaj kroki wymagane w profilu użytkownika Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Przejdź do profilu";
+"hubAuthentication.trustHost.alert.trustButton" = "Zaufany";
 "hubAuthentication.vaultArchived" = "Ten sejf został zarchiwizowany. Poproś właściciela o jego przywrócenie z archiwum.";
 
 "intents.saveFile.missingFile" = "Wskazany plik nie jest prawidłowy.";

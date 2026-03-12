@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Handling Påkrævet";
 "hubAuthentication.requireAccountInit.alert.message" = "For at fortsætte, skal du fuldføre de nødvendige trin i din Hub brugerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til Profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Acceptér";
 "hubAuthentication.vaultArchived" = "Denne boks er blevet arkiveret. Bed venligst ejeren af boksen om at fjerne arkiveringen.";
 
 "intents.saveFile.missingFile" = "Den angivne fil er ikke gyldig.";

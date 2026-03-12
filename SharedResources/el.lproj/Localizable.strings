@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Απαιτείται Ενέργεια";
 "hubAuthentication.requireAccountInit.alert.message" = "Για να συνεχίσετε, παρακαλούμε συμπληρώστε τα βήματα που απαιτούνται στο προφίλ χρήστη Hub σας.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Πηγαίνετε στο Προφίλ";
+"hubAuthentication.trustHost.alert.trustButton" = "Εμπιστευτείτε";
 "hubAuthentication.vaultArchived" = "Αυτή η κρύπτη έχει αρχειοθετηθεί. Ζητήστε από τον κάτοχο της κρύπτης να το αποαρχειοθετήσει.";
 
 "intents.saveFile.missingFile" = "Το παρεχόμενο αρχείο δεν είναι έγκυρο.";

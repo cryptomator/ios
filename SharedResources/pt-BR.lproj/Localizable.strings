@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para prosseguir, preencha as etapas necessárias no seu perfil de usuário do Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Acessar o perfil";
+"hubAuthentication.trustHost.alert.trustButton" = "Confio";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Solicite o desarquivamento ao proprietário dele.";
 
 "intents.saveFile.missingFile" = "O arquivo fornecido é inválido.";
@@ -205,6 +206,11 @@
 "purchase.unlockedFullVersion.title" = "Obrigado";
 "purchase.error.paymentNotAllowed" = "As compras no aplicativo não são permitidas neste dispositivo. Para ativá-las, verifique as configurações de tempo de uso em \"Restrições de Conteúdo e Privacidade\".";
 "purchase.error.unknown" = "Esta compra não está disponível na loja de aplicativos por um motivo desconhecido. Tente novamente mais tarde.\n\nSe este erro persistir, tente reiniciar seu dispositivo ou fazer sair da conta e retornar ao seu Apple ID nas configurações do iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "Você tem uma assinatura ativa";
+"purchase.lifetime.hasSubscription.alert.message" = "Após comprar uma licença vitalícia, você precisará cancelar a sua assinatura anual para evitar cobrança dupla.";
+"purchase.lifetime.hasSubscription.hint" = "Cancele a sua assinatura após a compra para evitar cobranças duplas.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licença vitalícia ativada";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Para interromper futuras cobranças de assinatura, cancele a sua assinatura anual.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gerenciar assinatura";
 
 "settings.title" = "Configurações";
@@ -224,6 +230,7 @@
 "settings.unlockFullVersion" = "Adquirir a versão completa";
 "settings.unlockFullVersion.detail" = "Obtenha acesso de escrita aos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Expira em: %@";
+"settings.upgradeToLifetime" = "Atualize para a vitalícia";
 
 "sharePoint.enterURL.title" = "Digite a URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";
