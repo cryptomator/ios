@@ -94,6 +94,7 @@
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "ลงทะเบียนอุปกรณ์สำเร็จ";
 "hubAuthentication.requireAccountInit.alert.title" = "โปรดดำเนินการ";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "ไปยังโปร์ไฟล์";
+"hubAuthentication.trustHost.alert.trustButton" = "เชื่อถือ";
 
 "keepUnlocked.alert.title" = "ล็อก Vault?";
 "keepUnlocked.alert.confirm" = "ยืนยันและล็อกทันที";
