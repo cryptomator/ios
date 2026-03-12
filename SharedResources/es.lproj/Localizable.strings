@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Acción requerida";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ir al Perfil";
+"hubAuthentication.trustHost.alert.trustButton" = "Confiar";
 "hubAuthentication.vaultArchived" = "Esta bóveda ha sido archivada. Por favor, pida al propietario de la bóveda que la desarchive.";
 
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
