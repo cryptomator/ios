@@ -1,4 +1,5 @@
 import AppAuthCore
+import CocoaLumberjackSwift
 import CryptomatorCloudAccessCore
 import Dependencies
 import SwiftUI
@@ -44,6 +45,12 @@ public final class HubAuthenticationCoordinator: Coordinator {
 			return
 		}
 		Task { @MainActor in
+			do {
+				try await checkHostTrust(hubConfig: hubConfig)
+			} catch {
+				// trust denied or validation failed — already handled in checkHostTrust()
+				return
+			}
 			let authenticator = HubUserAuthenticator(hubAuthenticator: hubAuthenticator, viewController: navigationController)
 			let authState: OIDAuthState
 			do {
@@ -73,6 +80,83 @@ public final class HubAuthenticationCoordinator: Coordinator {
 			navigationController.setNavigationBarHidden(false, animated: false)
 			let viewController = HubAuthenticationViewController(viewModel: viewModel)
 			navigationController.pushViewController(viewController, animated: true)
+		}
+	}
+
+	@MainActor
+	private func checkHostTrust(hubConfig: HubConfig) async throws {
+		guard let vaultBaseURL = getVaultBaseURL() else {
+			DDLogError("Hub host trust check failed: unable to extract vault base URL from keyId")
+			await showUntrustedHostAlert(message: LocalizedString.getValue("hubAuthentication.trustHost.error.inconsistentAuthority"))
+			delegate?.userDismissedHubAuthenticationErrorMessage()
+			parent?.childDidFinish(self)
+			throw CancellationError()
+		}
+		let settings = CryptomatorUserDefaults.shared
+		let result: HubHostTrustResult
+		do {
+			result = try HubHostTrustValidator.validate(hubConfig: hubConfig, vaultBaseURL: vaultBaseURL, trustedAuthorities: settings.trustedHubAuthorities)
+		} catch {
+			DDLogError("Hub host trust validation failed: \(error)")
+			await showUntrustedHostAlert(message: error.localizedDescription)
+			delegate?.userDismissedHubAuthenticationErrorMessage()
+			parent?.childDidFinish(self)
+			throw CancellationError()
+		}
+		switch result {
+		case .trusted:
+			return
+		case let .userConfirmationRequired(untrustedAuthorities):
+			let approved = await showTrustHostAlert(untrustedAuthorities: untrustedAuthorities)
+			if approved {
+				var trusted = settings.trustedHubAuthorities
+				trusted.formUnion(untrustedAuthorities)
+				settings.trustedHubAuthorities = trusted
+			} else {
+				delegate?.userDidCancelHubAuthentication()
+				parent?.childDidFinish(self)
+				throw CancellationError()
+			}
+		}
+	}
+
+	private static let hubSchemePrefix = "hub+"
+
+	private func getVaultBaseURL() -> URL? {
+		guard let keyId = vaultConfig.keyId, keyId.hasPrefix(Self.hubSchemePrefix) else {
+			return nil
+		}
+		let baseURLPath = keyId.deletingPrefix(Self.hubSchemePrefix)
+		return URL(string: baseURLPath)
+	}
+
+	@MainActor
+	private func showTrustHostAlert(untrustedAuthorities: Set<String>) async -> Bool {
+		await withCheckedContinuation { continuation in
+			let hostList = untrustedAuthorities.sorted().joined(separator: "\n")
+			let alertController = UIAlertController(title: LocalizedString.getValue("hubAuthentication.trustHost.alert.title"),
+			                                        message: String(format: LocalizedString.getValue("hubAuthentication.trustHost.alert.message"), hostList),
+			                                        preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel) { _ in
+				continuation.resume(returning: false)
+			})
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("hubAuthentication.trustHost.alert.trustButton"), style: .default) { _ in
+				continuation.resume(returning: true)
+			})
+			navigationController.present(alertController, animated: true)
+		}
+	}
+
+	@MainActor
+	private func showUntrustedHostAlert(message: String) async {
+		await withCheckedContinuation { continuation in
+			let alertController = UIAlertController(title: LocalizedString.getValue("hubAuthentication.untrustedHost.alert.title"),
+			                                        message: message,
+			                                        preferredStyle: .alert)
+			alertController.addAction(UIAlertAction(title: LocalizedString.getValue("common.button.ok"), style: .default) { _ in
+				continuation.resume()
+			})
+			navigationController.present(alertController, animated: true)
 		}
 	}
 
