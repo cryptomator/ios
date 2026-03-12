@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Azione richiesta";
 "hubAuthentication.requireAccountInit.alert.message" = "Per procedere, completa i passaggi richiesti nel tuo profilo dell'Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vai al profilo";
+"hubAuthentication.trustHost.alert.trustButton" = "Fidati";
 "hubAuthentication.vaultArchived" = "Questa cassaforte è stata archiviata. Si prega di chiedere al proprietario di renderla disponibile.";
 
 "intents.saveFile.missingFile" = "Il file fornito non è valido.";
