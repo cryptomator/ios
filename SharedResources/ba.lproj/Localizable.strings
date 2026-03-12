@@ -123,6 +123,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Кәрәкле эш-хәрәкәт";
 "hubAuthentication.requireAccountInit.alert.message" = "Артабан барыр өсөн, Hub ҡулланыусылар профилендә кәрәкле аҙымдарҙы тамамлағыҙ.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Профилгә күс";
+"hubAuthentication.trustHost.alert.trustButton" = "Ышан";
 
 "intents.saveFile.missingFile" = "Бирелгән файл ғәмәлдә түгел.";
 "intents.saveFile.invalidFolder" = "Бирелгән каталог ғәмәлдә түгел.";
