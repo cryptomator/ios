@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "조치가 필요함";
 "hubAuthentication.requireAccountInit.alert.message" = "진행하려면 Hub 사용자 프로필에서 필요한 조치를 완료하십시오.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "프로필로 가기";
+"hubAuthentication.trustHost.alert.trustButton" = "신뢰하기";
 "hubAuthentication.vaultArchived" = "이 Vault는 아카이브되었습니다. Vault 소유자에게 아카이브를 해제하도록 요청하십시오.";
 
 "intents.saveFile.missingFile" = "파일이 올바르지 않습니다.";
