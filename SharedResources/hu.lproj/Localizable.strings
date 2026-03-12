@@ -117,6 +117,7 @@
 "hubAuthentication.licenseExceeded" = "Az Ön Cryptomator Hub példánya érvénytelen licenccel rendelkezik. Kérem, értesítsen egy Hub rendszergazdát hogy frissítse vagy újítsa meg a licencet.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Készülék neve";
 "hubAuthentication.deviceRegistration.needsAuthorization.alert.title" = "Az eszköz regisztrációja sikeres";
+"hubAuthentication.trustHost.alert.trustButton" = "Megbízható";
 
 "intents.saveFile.missingFile" = "A megadott fájl érvénytelen.";
 "intents.saveFile.invalidFolder" = "A megadott mappa érvénytelen.";
