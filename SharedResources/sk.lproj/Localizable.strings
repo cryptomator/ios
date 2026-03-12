@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Vyžaduje sa akcia";
 "hubAuthentication.requireAccountInit.alert.message" = "Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Prejsť na profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Veriť";
 "hubAuthentication.vaultArchived" = "Tento trezor bol archivovaný. Prosím požiadajte vlastníka o odarchivovanie.";
 
 "intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";
