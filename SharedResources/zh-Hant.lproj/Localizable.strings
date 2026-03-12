@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "需進一步操作";
 "hubAuthentication.requireAccountInit.alert.message" = "請完成您使用者檔案中所需的步驟，以便繼續進行。";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "轉到個人資料";
+"hubAuthentication.trustHost.alert.trustButton" = "信任";
 "hubAuthentication.vaultArchived" = "這個加密檔案庫以被封存。請向加密檔案庫的所有者要求解封。";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
