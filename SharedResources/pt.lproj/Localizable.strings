@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
+"hubAuthentication.trustHost.alert.trustButton" = "Confiar";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para o desarquivar.";
 
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
