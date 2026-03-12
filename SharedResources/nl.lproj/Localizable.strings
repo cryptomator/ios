@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
 "hubAuthentication.requireAccountInit.alert.message" = "Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ga naar Profiel";
+"hubAuthentication.trustHost.alert.trustButton" = "Vertrouwen";
 "hubAuthentication.vaultArchived" = "Deze kluis is gearchiveerd. Vraag de eigenaar van de kluis om de kluis te dearchiveren.";
 
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
