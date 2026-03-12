@@ -110,6 +110,7 @@
 
 "getFolderIntent.error.missingPath" = "Putanja nije navedena. Navedite valjanu putanju za koju treba vratiti mapu.";
 "getFolderIntent.error.noVaultSelected" = "Niti jedan trezor nije odabran.";
+"hubAuthentication.trustHost.alert.trustButton" = "Vjeruj";
 
 "intents.saveFile.missingFile" = "Datoteka nije ispravna.";
 "intents.saveFile.invalidFolder" = "Mapa nije ispravna.";
