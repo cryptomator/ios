@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Diperlukan Tindakan";
 "hubAuthentication.requireAccountInit.alert.message" = "Untuk melanjutkan, silakan lengkapi langkah-langkah yang diperlukan di profil pengguna Hub Anda.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Buka Profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Percayai";
 "hubAuthentication.vaultArchived" = "Brankas ini telah diarsipkan. Mintalah ke pemilik brankas untuk membongkar arsip itu.";
 
 "intents.saveFile.missingFile" = "File yang disediakan tidak valid.";
