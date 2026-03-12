@@ -115,6 +115,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "ਕਾਰਵਾਈ ਦੀ ਲੋੜ ਹੈ";
 "hubAuthentication.requireAccountInit.alert.message" = "ਜਾਰੀ ਰੱਖਣ ਲਈ ਆਪਣੇ Hub ਵਰਤੋਂਕਾਰ ਪਰੋਫਾਇਲ ਵਿੱਚ ਲੋੜੀਂਦੇ ਪੜਾਅ ਪੂਰੇ ਕਰੋ।";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "ਪ੍ਰੋਫ਼ਾਈਲ ਤੇ ਜਾਓ";
+"hubAuthentication.trustHost.alert.trustButton" = "ਭਰੋਸਾ ਕਰੋ";
 
 "keepUnlocked.alert.title" = "ਵਾਲਟ ਲਾਕ ਕਰਨਾ ਹੈ?";
 "keepUnlocked.alert.confirm" = "ਤਸਦੀਕ ਅਤੇ ਹੁਣੇ ਲਾਕ ਕਰੋ";
