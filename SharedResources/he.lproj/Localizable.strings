@@ -113,6 +113,7 @@
 "getFolderIntent.error.noVaultSelected" = "לא נבחר קובץ vault.";
 "hubAuthentication.licenseExceeded" = "הרישיון שמותקן במופע ה- Cryptomator האב שלך אינו תקף. אנא ידע את מנהל ההאב שלך לשדרג או לחדש את הרישיון.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "שם מכשיר";
+"hubAuthentication.trustHost.alert.trustButton" = "סמוך";
 
 "intents.saveFile.missingFile" = "הקובץ שסופק אינו תקין.";
 "intents.saveFile.invalidFolder" = "התיקייה שנבחרה איננה תקינה.";
