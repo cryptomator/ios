@@ -279,6 +279,8 @@
 "trialStatus.active" = "활성화됨";
 "trialStatus.expired" = "만료됨";
 
+"trustedHubHosts.clearAll" = "전체 삭제";
+
 "unlockVault.button.unlock" = "잠금 해제";
 "unlockVault.button.unlockVia" = "%@(으)로 잠금 해제";
 "unlockVault.password.footer" = "\"%@\"의 비밀번호를 입력하십시오.";
