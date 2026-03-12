@@ -113,6 +113,7 @@
 "getFolderIntent.error.noVaultSelected" = "Hakuna kuba iliyochaguliwa.";
 "hubAuthentication.licenseExceeded" = "Mfano wako wa Cryptomator Hub una leseni batili. Tafadhali mjulishe msimamizi wa Hub ili kuboresha au kusasisha leseni.";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "Jina la Kifaa";
+"hubAuthentication.trustHost.alert.trustButton" = "Amini";
 
 "intents.saveFile.missingFile" = "Faili iliyotolewa si sahihi.";
 "intents.saveFile.invalidFolder" = "Faili iliyotolewa si sahihi.";
