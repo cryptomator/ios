@@ -48,11 +48,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		return _sections
 	}
 
-	override func getHeaderTitle(for section: Int) -> String? {
-		guard sections[section].id == .hubSection else { return nil }
-		return LocalizedString.getValue("settings.hub")
-	}
-
 	override func getFooterTitle(for section: Int) -> String? {
 		guard sections[section].id == .aboutSection, hasFullVersion else { return nil }
 		return LocalizedString.getValue("settings.aboutCryptomator.hasFullVersion.footer")

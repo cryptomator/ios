@@ -237,7 +237,6 @@
 "settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
 "settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
 "settings.upgradeToLifetime" = "Upgrade to Lifetime";
-"settings.hub" = "Hub";
 "settings.hub.allowUnknownHosts" = "Allow Unknown Hub Hosts";
 "settings.hub.clearTrustedHosts" = "Clear Trusted Hub Hosts";
 "settings.hub.clearTrustedHosts.alert.message" = "All previously trusted Hub hosts will be removed. You will need to confirm trust again when connecting to Hub vaults.";
