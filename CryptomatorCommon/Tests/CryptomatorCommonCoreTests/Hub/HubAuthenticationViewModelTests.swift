@@ -155,18 +155,46 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 		// GIVEN
 		// the hub key service returns success with an unknown Cryptomator Hub subscription state
 		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: ["hub-subscription-state": "foo"])
-		hubKeyProviderMock.getPrivateKeyReturnValue = P384.KeyAgreement.PrivateKey(compactRepresentable: false)
+
+		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
+		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
 
 		// WHEN
 		// continue the access check
 		await viewModel.continueToAccessCheck()
 
 		// THEN
-		// the unlock handler gets not informed about a successful remote unlock
-		XCTAssertFalse(unlockHandlerMock.didSuccessfullyRemoteUnlockCalled)
-		// the user gets informed about the error
-		let currentAuthenticationFlowState = try XCTUnwrap(viewModel.authenticationFlowState)
-		XCTAssert(currentAuthenticationFlowState.isError)
+		// the unlock handler gets informed about the successful remote unlock with an inactive Cryptomator Hub subscription state (unknown defaults to inactive)
+		let receivedResponse = unlockHandlerMock.didSuccessfullyRemoteUnlockReceivedResponse
+		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 1)
+		XCTAssertEqual(receivedResponse?.subscriptionState, .inactive)
+	}
+
+	func testContinueToAccessCheck_success_hubSubscriptionStateMissing() async throws {
+		DependencyValues.mockDependency(\.hubKeyService, with: hubKeyServiceMock)
+		let hubKeyProviderMock = CryptomatorHubKeyProviderMock()
+		DependencyValues.mockDependency(\.cryptomatorHubKeyProvider, with: hubKeyProviderMock)
+
+		// GIVEN
+		// the hub key service returns success without a Hub-Subscription-State header
+		hubKeyServiceMock.receiveKeyAuthStateVaultConfigReturnValue = try .successMock(header: [:])
+
+		let devicePrivKey = "MIG2AgEAMBAGByqGSM49AgEGBSuBBAAiBIGeMIGbAgEBBDB2bmFCWy2p+EbAn8NWS5Om+GA7c5LHhRZb8g2pSMSf0fsd7k7dZDVrnyHFiLdd/YGhZANiAAR6bsjTEdXKWIuu1Bvj6Y8wySlIROy7YpmVZTY128ItovCD8pcR4PnFljvAIb2MshCdr1alX4g6cgDOqcTeREiObcSfucOU9Ry1pJ/GnX6KA0eSljrk6rxjSDos8aiZ6Mg="
+		let data = try XCTUnwrap(Data(base64Encoded: devicePrivKey))
+		let privateKey = try P384.KeyAgreement.PrivateKey(pkcs8DerRepresentation: data)
+		hubKeyProviderMock.getPrivateKeyReturnValue = privateKey
+
+		// WHEN
+		// continue the access check
+		await viewModel.continueToAccessCheck()
+
+		// THEN
+		// the unlock handler gets informed about the successful remote unlock with an inactive Cryptomator Hub subscription state (missing defaults to inactive)
+		let receivedResponse = unlockHandlerMock.didSuccessfullyRemoteUnlockReceivedResponse
+		XCTAssertEqual(unlockHandlerMock.didSuccessfullyRemoteUnlockCallsCount, 1)
+		XCTAssertEqual(receivedResponse?.subscriptionState, .inactive)
 	}
 
 	func testContinueToAccessCheck_accessNotGranted() async {
@@ -253,17 +281,6 @@ final class HubAuthenticationViewModelTests: XCTestCase {
 private extension OIDAuthState {
 	static var stub: Self {
 		.init(authorizationResponse: .init(request: .init(configuration: .init(authorizationEndpoint: URL(string: "example.com")!, tokenEndpoint: URL(string: "example.com")!), clientId: "", scopes: nil, redirectURL: URL(string: "example.com")!, responseType: "code", additionalParameters: nil), parameters: [:]))
-	}
-}
-
-private extension HubAuthenticationViewModel.State {
-	var isError: Bool {
-		switch self {
-		case .error:
-			return true
-		default:
-			return false
-		}
 	}
 }
 

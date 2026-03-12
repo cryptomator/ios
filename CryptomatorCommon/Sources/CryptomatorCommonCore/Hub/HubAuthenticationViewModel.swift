@@ -11,8 +11,6 @@ import UIKit
 public enum HubAuthenticationViewModelError: Error {
 	case missingHubConfig
 	case missingAuthState
-	case missingSubscriptionHeader
-	case unexpectedSubscriptionHeader
 }
 
 public protocol HubAuthenticationViewModelDelegate: AnyObject {
@@ -122,7 +120,7 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		do {
 			let deviceKey = try cryptomatorHubKeyProvider.getPrivateKey()
 			userKey = try JWEHelper.decryptUserKey(jwe: flowResponse.encryptedUserKey, privateKey: deviceKey)
-			subscriptionState = try getSubscriptionState(from: flowResponse.header)
+			subscriptionState = getSubscriptionState(from: flowResponse.header)
 		} catch {
 			await setStateToErrorState(with: error)
 			return
@@ -145,10 +143,10 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		await setState(to: .error(description: error.localizedDescription))
 	}
 
-	private func getSubscriptionState(from header: [AnyHashable: Any]) throws -> HubSubscriptionState {
+	private func getSubscriptionState(from header: [AnyHashable: Any]) -> HubSubscriptionState {
 		guard let subscriptionStateValue = header[Constants.subscriptionState] as? String else {
-			DDLogError("Can't retrieve hub subscription state from header -> missing value")
-			throw HubAuthenticationViewModelError.missingSubscriptionHeader
+			DDLogInfo("Hub-Subscription-State header missing, defaulting to inactive")
+			return .inactive
 		}
 		switch subscriptionStateValue {
 		case "ACTIVE":
@@ -156,8 +154,8 @@ public final class HubAuthenticationViewModel: ObservableObject {
 		case "INACTIVE":
 			return .inactive
 		default:
-			DDLogError("Can't retrieve hub subscription state from header -> unexpected value")
-			throw HubAuthenticationViewModelError.unexpectedSubscriptionHeader
+			DDLogInfo("Unknown Hub-Subscription-State value: \(subscriptionStateValue), defaulting to inactive")
+			return .inactive
 		}
 	}
 }
