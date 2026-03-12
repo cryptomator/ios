@@ -14,7 +14,6 @@ class CryptomatorSettingsMock: CryptomatorSettings {
 	var debugModeEnabled: Bool = false
 	var fullVersionUnlocked: Bool = false
 	var hasRunningSubscription: Bool = false
-	var allowUnknownHubHosts: Bool = true
 	var trustedHubAuthorities: Set<String> = []
 	#if !ALWAYS_PREMIUM
 	var tenthAnniversaryBannerDismissed: Bool = false

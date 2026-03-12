@@ -101,10 +101,6 @@ public final class HubAuthenticationCoordinator: Coordinator {
 		case .trusted:
 			return
 		case let .userConfirmationRequired(untrustedAuthorities):
-			guard settings.allowUnknownHubHosts else {
-				DDLogError("Hub host trust check failed: unknown hosts not allowed by user setting")
-				try await rejectHostTrust(message: LocalizedString.getValue("hubAuthentication.trustHost.error.unknownHostsNotAllowed"))
-			}
 			let approved = await showTrustHostAlert(untrustedAuthorities: untrustedAuthorities)
 			if approved {
 				var trusted = settings.trustedHubAuthorities

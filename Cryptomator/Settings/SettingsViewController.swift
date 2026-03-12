@@ -83,17 +83,6 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 		coordinator?.openRateApp()
 	}
 
-	func showClearTrustedHubHostsAlert() {
-		let alertController = UIAlertController(title: nil, message: LocalizedString.getValue("settings.hub.clearTrustedHosts.alert.message"), preferredStyle: .alert)
-		let clearAction = UIAlertAction(title: LocalizedString.getValue("common.button.clear"), style: .destructive) { _ in
-			self.viewModel.clearTrustedHubHosts()
-		}
-		let cancelAction = UIAlertAction(title: LocalizedString.getValue("common.button.cancel"), style: .cancel)
-		alertController.addAction(clearAction)
-		alertController.addAction(cancelAction)
-		present(alertController, animated: true, completion: nil)
-	}
-
 	func showDebugModeAlert() {
 		let alertController = UIAlertController(title: LocalizedString.getValue("common.alert.attention.title"), message: LocalizedString.getValue("settings.debugMode.alert.message"), preferredStyle: .alert)
 		let okAction = UIAlertAction(title: LocalizedString.getValue("common.button.enable"), style: .default) { _ in
@@ -126,8 +115,8 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			sendLogFile(sender: cell)
 		case .clearCache:
 			clearCache()
-		case .clearTrustedHubHosts:
-			showClearTrustedHubHostsAlert()
+		case .showTrustedHubHosts:
+			coordinator?.showTrustedHubHosts()
 		case .showCloudServices:
 			showCloudServices()
 		case .showContact:

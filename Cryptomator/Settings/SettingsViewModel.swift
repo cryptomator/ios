@@ -18,7 +18,7 @@ enum SettingsButtonAction: String {
 	case showAbout
 	case sendLogFile
 	case clearCache
-	case clearTrustedHubHosts
+	case showTrustedHubHosts
 	case showCloudServices
 	case showContact
 	case showRateApp
@@ -75,8 +75,7 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 				clearCacheButtonCellViewModel
 			]),
 			Section(id: .hubSection, elements: [
-				allowUnknownHubHostsViewModel,
-				clearTrustedHubHostsViewModel
+				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showTrustedHubHosts, title: LocalizedString.getValue("settings.hub.trustedHosts"))
 			]),
 			Section(id: .aboutSection, elements: aboutSectionElements),
 			Section(id: .debugSection, elements: [
@@ -121,14 +120,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 	private let cacheSizeCellViewModel = LoadingWithLabelCellViewModel(title: LocalizedString.getValue("settings.cacheSize"))
 	private let clearCacheButtonCellViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearCache, title: LocalizedString.getValue("settings.clearCache"), isEnabled: false)
 	private var cryptomatorSettings: CryptomatorSettings
-
-	private lazy var allowUnknownHubHostsViewModel: SwitchCellViewModel = {
-		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.hub.allowUnknownHosts"), isOn: cryptomatorSettings.allowUnknownHubHosts)
-		bindAllowUnknownHubHostsViewModel(viewModel)
-		return viewModel
-	}()
-
-	private let clearTrustedHubHostsViewModel = ButtonCellViewModel<SettingsButtonAction>(action: .clearTrustedHubHosts, title: LocalizedString.getValue("settings.hub.clearTrustedHosts"))
 
 	private lazy var debugModeViewModel: SwitchCellViewModel = {
 		let viewModel = SwitchCellViewModel(title: LocalizedString.getValue("settings.debugMode"), isOn: cryptomatorSettings.debugModeEnabled)
@@ -192,16 +183,6 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 		cryptomatorSettings.debugModeEnabled = enabled
 		LoggerSetup.setDynamicLogLevel(debugModeEnabled: enabled)
 		notifyFileProviderAboutLogLevelUpdate()
-	}
-
-	private func bindAllowUnknownHubHostsViewModel(_ viewModel: SwitchCellViewModel) {
-		viewModel.isOnButtonPublisher.sink { [weak self] isOn in
-			self?.cryptomatorSettings.allowUnknownHubHosts = isOn
-		}.store(in: &subscribers)
-	}
-
-	func clearTrustedHubHosts() {
-		cryptomatorSettings.trustedHubAuthorities = []
 	}
 
 	private func bindDebugModeViewModel(_ viewModel: SwitchCellViewModel) {

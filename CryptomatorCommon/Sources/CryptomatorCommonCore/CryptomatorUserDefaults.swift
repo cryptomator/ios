@@ -15,7 +15,6 @@ public protocol CryptomatorSettings {
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
 	var hasRunningSubscription: Bool { get set }
-	var allowUnknownHubHosts: Bool { get set }
 	var trustedHubAuthorities: Set<String> { get set }
 	#if !ALWAYS_PREMIUM
 	var tenthAnniversaryBannerDismissed: Bool {
@@ -117,11 +116,6 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 
 	public var hasRunningSubscription: Bool {
 		get { read() ?? false }
-		set { write(value: newValue) }
-	}
-
-	public var allowUnknownHubHosts: Bool {
-		get { read() ?? true }
 		set { write(value: newValue) }
 	}
 
