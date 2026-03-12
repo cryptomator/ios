@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
+"hubAuthentication.trustHost.alert.trustButton" = "Confiar";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para o desarquivar.";
 
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
@@ -205,6 +206,11 @@
 "purchase.unlockedFullVersion.title" = "Obrigado";
 "purchase.error.paymentNotAllowed" = "As compras na aplicação não são permitidas neste dispositivo. Verifique as definições de Tempo de Utilização em Restrições de Conteúdo e Privacidade para ativar as compras.";
 "purchase.error.unknown" = "Esta compra não está disponível na App Store por uma razão desconhecida. Por favor, tente novamente mais tarde.\n\n Se o erro persistir, tente reiniciar o seu dispositivo ou sair e entrar novamente na sua Apple ID nas configurações do iOS.";
+"purchase.lifetime.hasSubscription.alert.title" = "Tem uma subscrição ativa";
+"purchase.lifetime.hasSubscription.alert.message" = "Após adquirir a licença vitalícia, terá de cancelar a sua subscrição anual para evitar a cobrança de ambas.";
+"purchase.lifetime.hasSubscription.hint" = "Cancele a sua subscrição após a compra para evitar cobranças duplicadas.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Licença vitalícia ativada";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Para interromper futuras cobranças, por favor cancele sua assinatura anual.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Gerir subscrição";
 
 "settings.title" = "Definições";
@@ -224,6 +230,7 @@
 "settings.unlockFullVersion" = "Desbloquear versão completa";
 "settings.unlockFullVersion.detail" = "Obtenha acesso de escrita nos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Data de expiração do período de teste: %@";
+"settings.upgradeToLifetime" = "Atualizar para licença vitalícia";
 
 "sharePoint.enterURL.title" = "Introduza o URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";

@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Åtgärd krävs";
 "hubAuthentication.requireAccountInit.alert.message" = "För att fortsätta, vänligen fyll i de steg som krävs i din Hub-användarprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå till profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Ange som betrott";
 "hubAuthentication.vaultArchived" = "Detta valv har arkiverats. Be valvägaren att avarkivera det.";
 
 "intents.saveFile.missingFile" = "Den angivna filen är inte giltig.";

@@ -88,6 +88,10 @@
 "cloudProvider.error.pageTokenInvalid" = "Не вдалося продовжити завантаження вмісту каталогу.";
 "cloudProvider.error.quotaInsufficient" = "Недостатньо місця у вашому сховищі даних.";
 "cloudProvider.error.unauthorized" = "Не вдалося виконати несанкціоновану операцію.";
+"cloudProvider.error.unauthorized.reauth.title" = "Термін дії сесії закінчився";
+"cloudProvider.error.unauthorized.reauth.message" = "Будь ласка, увійдіть у %@ знову.";
+"cloudProvider.error.unauthorized.reauth.button" = "Увійти";
+"cloudProvider.error.unauthorized.reauth.accountMismatch" = "Ви увійшли за допомогою іншого облікового запису. Спробуйте ще раз, використавши початковий обліковий запис %@.";
 "cloudProvider.error.noInternetConnection" = "Для цієї операції потрібне з’єднання з інтернетом.";
 
 "cloudProviderType.localFileSystem" = "Інший файловий сервіс";
@@ -127,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Необхідна дія";
 "hubAuthentication.requireAccountInit.alert.message" = "Щоб продовжити, будь ласка, виконайте необхідні кроки у вашому профілі користувача Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти до профілю";
+"hubAuthentication.trustHost.alert.trustButton" = "Довіряти";
 "hubAuthentication.vaultArchived" = "Це сховище було заархівовано. Будь ласка, попросіть власника сховища розархівувати його.";
 
 "intents.saveFile.missingFile" = "Наданий файл недійсний.";
@@ -201,6 +206,11 @@
 "purchase.unlockedFullVersion.title" = "Дякуємо!";
 "purchase.error.paymentNotAllowed" = "Покупки в програмі на цьому пристрої заборонені. Щоб дозволити покупки, перевірте налаштування «Екранного часу» в розділі «Обмеження вмісту й приватності».";
 "purchase.error.unknown" = "Ця покупка недоступна в App Store з невідомої причини. Будь ласка, спробуйте пізніше.\n\nЯкщо помилка не зникне, спробуйте перезапустити пристрій або вийти зі свого Apple ID в налаштуваннях iOS і увійти знову.";
+"purchase.lifetime.hasSubscription.alert.title" = "У вас є активна підписка";
+"purchase.lifetime.hasSubscription.alert.message" = "Після придбання безстрокової ліцензії вам потрібно буде скасувати річну підписку, щоб уникнути подвійного списання коштів.";
+"purchase.lifetime.hasSubscription.hint" = "Скасуйте підписку після купівлі, щоб уникнути подвійного списання.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Безстрокова ліцензія активована";
+"purchase.lifetime.subscriptionCancelGuide.alert.message" = "Щоб припинити подальше списання коштів, будь ласка, скасуйте свою річну підписку.";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Керувати підпискою";
 
 "settings.title" = "Налаштування";
@@ -220,6 +230,7 @@
 "settings.unlockFullVersion" = "Розблокувати повну версію";
 "settings.unlockFullVersion.detail" = "Отримати доступ для запису до своїх сховищ.";
 "settings.unlockFullVersion.trialExpirationDate" = "Дата завершення пробного періоду: %@";
+"settings.upgradeToLifetime" = "Перейти на безстрокову ліцензію";
 
 "sharePoint.enterURL.title" = "Введіть URL-адресу SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адреса SharePoint";

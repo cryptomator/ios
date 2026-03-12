@@ -131,6 +131,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Vyžaduje sa akcia";
 "hubAuthentication.requireAccountInit.alert.message" = "Pre pokračovanie, prosím splňte kroky požadované vo Vašom užívateľskom Hub profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Prejsť na profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Veriť";
 "hubAuthentication.vaultArchived" = "Tento trezor bol archivovaný. Prosím požiadajte vlastníka o odarchivovanie.";
 
 "intents.saveFile.missingFile" = "Poskytnutý súbor nie je platný.";
@@ -204,6 +205,9 @@
 "purchase.unlockedFullVersion.message" = "Teraz už môžte používať plnú verziu Cryptomator-a. Veselé kryptovanie!";
 "purchase.unlockedFullVersion.title" = "Ďakujeme";
 "purchase.error.unknown" = "Tento nákup nie je možný v App Store z neznámeho dôvodu. Prosím skúste neskôr. \n\nAk tento problém pretrváva, skúste zreštartovať Vaše zariadenie alebo sa odhlásiť a spätne prihlásiť do Vášho Apple ID v iOS nastaveniach.";
+"purchase.lifetime.hasSubscription.alert.title" = "Máte aktívne predplatné";
+"purchase.lifetime.hasSubscription.hint" = "Zrušiť vaše predplatné po zakúpení aby ste sa vyhli dvojitej platbe.";
+"purchase.lifetime.subscriptionCancelGuide.alert.title" = "Celoživotné predplatné je aktivované";
 "purchase.lifetime.subscriptionCancelGuide.alert.manageSubscriptions" = "Spravovať predplatné";
 
 "settings.title" = "Nastavenia";
@@ -223,6 +227,7 @@
 "settings.unlockFullVersion" = "Odomknúť plnú verziu";
 "settings.unlockFullVersion.detail" = "Získať prístup zápisu do Vášho trezora.";
 "settings.unlockFullVersion.trialExpirationDate" = "Skúšobný dátum expirovania: %@";
+"settings.upgradeToLifetime" = "Upgradovať na doživotné";
 
 "sharePoint.enterURL.title" = "Vložte SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint stránka URL";

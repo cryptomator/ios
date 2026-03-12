@@ -123,6 +123,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Acció necessària";
 "hubAuthentication.requireAccountInit.alert.message" = "Per a continuar, si us plau, seguiu els passos necessaris en el vostre perfil d'usuari de Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vés al perfil";
+"hubAuthentication.trustHost.alert.trustButton" = "Confia-hi";
 
 "intents.saveFile.missingFile" = "El fitxer proporcionat no és vàlid.";
 "intents.saveFile.invalidFolder" = "La carpeta proporcionada no és vàlida.";

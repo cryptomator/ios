@@ -130,6 +130,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Eylem Gerekiyor";
 "hubAuthentication.requireAccountInit.alert.message" = "Devam etmek için lütfen Hub kullanıcı profilinizde gerekli adımları tamamlayın.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Profile Git";
+"hubAuthentication.trustHost.alert.trustButton" = "Güven";
 "hubAuthentication.vaultArchived" = "Bu kasa arşivlendi. Lütfen kasa sahibinden onu açmasını isteyin.";
 
 "intents.saveFile.missingFile" = "Sağlanan dosya geçersiz.";

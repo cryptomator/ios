@@ -29,6 +29,7 @@
 "fileProvider.onboarding.info" = "Hvala što ste izabrali Cryptomator za zaštitu podataka. Za početak idite na glavnu aplikaciju i dodajte sef.";
 "fileProvider.onboarding.button.openCryptomator" = "Otvori Cryptomator";
 "fileProvider.error.unlockButton" = "Otključaj";
+"hubAuthentication.trustHost.alert.trustButton" = "Povjerenje";
 
 "onboarding.title" = "Dobrodošli,";
 

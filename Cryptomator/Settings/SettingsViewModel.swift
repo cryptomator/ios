@@ -18,6 +18,7 @@ enum SettingsButtonAction: String {
 	case showAbout
 	case sendLogFile
 	case clearCache
+	case showTrustedHubHosts
 	case showCloudServices
 	case showContact
 	case showRateApp
@@ -32,6 +33,7 @@ enum SettingsSection: Int {
 	case unlockFullVersionSection = 0
 	case cloudServiceSection
 	case cacheSection
+	case hubSection
 	case aboutSection
 	case debugSection
 	case miscSection
@@ -71,6 +73,9 @@ class SettingsViewModel: TableViewModel<SettingsSection> {
 			Section(id: .cacheSection, elements: [
 				cacheSizeCellViewModel,
 				clearCacheButtonCellViewModel
+			]),
+			Section(id: .hubSection, elements: [
+				ButtonCellViewModel.createDisclosureButton(action: SettingsButtonAction.showTrustedHubHosts, title: LocalizedString.getValue("settings.hub.trustedHosts"))
 			]),
 			Section(id: .aboutSection, elements: aboutSectionElements),
 			Section(id: .debugSection, elements: [

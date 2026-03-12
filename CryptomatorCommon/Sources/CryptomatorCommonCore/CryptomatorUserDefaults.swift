@@ -15,6 +15,7 @@ public protocol CryptomatorSettings {
 	var trialExpirationDate: Date? { get set }
 	var fullVersionUnlocked: Bool { get set }
 	var hasRunningSubscription: Bool { get set }
+	var trustedHubAuthorities: Set<String> { get set }
 	#if !ALWAYS_PREMIUM
 	var tenthAnniversaryBannerDismissed: Bool {
 		get set
@@ -116,6 +117,11 @@ extension CryptomatorUserDefaults: CryptomatorSettings {
 	public var hasRunningSubscription: Bool {
 		get { read() ?? false }
 		set { write(value: newValue) }
+	}
+
+	public var trustedHubAuthorities: Set<String> {
+		get { Set(read() as [String]? ?? []) }
+		set { write(value: Array(newValue).sorted()) }
 	}
 
 	#if !ALWAYS_PREMIUM

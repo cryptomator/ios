@@ -113,6 +113,7 @@
 "getFolderIntent.error.noVaultSelected" = "未選擇任何加密庫。";
 "hubAuthentication.licenseExceeded" = "此 Cryptomator Hub 實例授權無效，請聯繫管理員升級或續訂授權。";
 "hubAuthentication.deviceRegistration.deviceName.cells.name" = "設備名稱";
+"hubAuthentication.trustHost.alert.trustButton" = "信任";
 
 "intents.saveFile.missingFile" = "提供的檔案無效。";
 "intents.saveFile.invalidFolder" = "提供的資料夾無效。";

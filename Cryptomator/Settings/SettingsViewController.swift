@@ -115,6 +115,8 @@ class SettingsViewController: StaticUITableViewController<SettingsSection> {
 			sendLogFile(sender: cell)
 		case .clearCache:
 			clearCache()
+		case .showTrustedHubHosts:
+			coordinator?.showTrustedHubHosts()
 		case .showCloudServices:
 			showCloudServices()
 		case .showContact:

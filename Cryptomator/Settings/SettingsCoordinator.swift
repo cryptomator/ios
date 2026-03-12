@@ -49,6 +49,12 @@ class SettingsCoordinator: Coordinator {
 		navigationController.present(activityController, animated: true)
 	}
 
+	func showTrustedHubHosts() {
+		let viewModel = TrustedHubHostsViewModel()
+		let viewController = TrustedHubHostsViewController(viewModel: viewModel)
+		navigationController.pushViewController(viewController, animated: true)
+	}
+
 	func showCloudServices() {
 		let viewModel = ChooseCloudViewModel(clouds: [.dropbox, .googleDrive, .microsoftGraph(type: .oneDrive), .microsoftGraph(type: .sharePoint), .pCloud, .box, .webDAV(type: .custom), .s3(type: .custom)], headerTitle: "")
 		let chooseCloudVC = ChooseCloudViewController(viewModel: viewModel)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		11E84AE6F7F105AB9A0E2EAE /* TrustedHubHostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0964E7C048AC1D59105CF75C /* TrustedHubHostsViewController.swift */; };
 		3BCBE843A35B7D9E16795451 /* LifetimeUpgradeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EA4FC7AFEB4B45864C4FB10 /* LifetimeUpgradeViewModel.swift */; };
 		4A03255E25A368BF00E63D7A /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03255D25A368BF00E63D7A /* MainCoordinator.swift */; };
 		4A03257825A36A6900E63D7A /* VaultListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A03257725A36A6900E63D7A /* VaultListViewController.swift */; };
@@ -375,6 +376,7 @@
 		4AFD8C0F269304A700F77BA6 /* UnlockVaultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFD8C0E269304A700F77BA6 /* UnlockVaultViewModel.swift */; };
 		4AFE6AA82514B65800A4A315 /* CloudPath+NameCollision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFE6AA72514B65800A4A315 /* CloudPath+NameCollision.swift */; };
 		4AFF1BB1272C337A00F41E1B /* XCTest+Combine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFF1BB0272C337A00F41E1B /* XCTest+Combine.swift */; };
+		6436F6BD08894DAD03812751 /* TrustedHubHostsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46F99A7913E9584535D9F5FC /* TrustedHubHostsViewModel.swift */; };
 		740376292587AFF70023FF53 /* libCryptomatorFileProvider.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 740375D72587AE7A0023FF53 /* libCryptomatorFileProvider.a */; };
 		7408E6BF267783F100D7FAEA /* LocalWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6BE267783F100D7FAEA /* LocalWebViewController.swift */; };
 		7408E6C126778C7A00D7FAEA /* LocalWebViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7408E6C026778C7A00D7FAEA /* LocalWebViewModel.swift */; };
@@ -554,11 +556,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0964E7C048AC1D59105CF75C /* TrustedHubHostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedHubHostsViewController.swift; sourceTree = "<group>"; };
 		1493C4C38F17D56A5AFA11AF /* pa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pa; path = pa.lproj/Intents.strings; sourceTree = "<group>"; };
 		153B84C203850D7414DE2A66 /* FileProviderAdapterRecoverUploadsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileProviderAdapterRecoverUploadsTests.swift; sourceTree = "<group>"; };
 		1635F1C6B23AA6FBFF781706 /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2EF42299CA3BB5AF289540DA /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Intents.strings; sourceTree = "<group>"; };
 		3FFDCEC6A6895EC4F495A160 /* pa */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pa; path = pa.lproj/Localizable.strings; sourceTree = "<group>"; };
+		46F99A7913E9584535D9F5FC /* TrustedHubHostsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrustedHubHostsViewModel.swift; sourceTree = "<group>"; };
 		4A03255D25A368BF00E63D7A /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
 		4A03257725A36A6900E63D7A /* VaultListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaultListViewController.swift; sourceTree = "<group>"; };
 		4A03258025A36B7D00E63D7A /* UIViewController+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Preview.swift"; sourceTree = "<group>"; };
@@ -2058,8 +2062,18 @@
 				740D367D266A18DF0058744D /* SettingsViewController.swift */,
 				740D3681266A19150058744D /* SettingsViewModel.swift */,
 				7408E6CB26779BC200D7FAEA /* About */,
+				8DB472C9A9C7437C46DCAFD7 /* Hub */,
 			);
 			path = Settings;
+			sourceTree = "<group>";
+		};
+		8DB472C9A9C7437C46DCAFD7 /* Hub */ = {
+			isa = PBXGroup;
+			children = (
+				0964E7C048AC1D59105CF75C /* TrustedHubHostsViewController.swift */,
+				46F99A7913E9584535D9F5FC /* TrustedHubHostsViewModel.swift */,
+			);
+			path = Hub;
 			sourceTree = "<group>";
 		};
 		743D95FA2D76EE88002D73C3 /* MicrosoftGraph */ = {
@@ -2973,6 +2987,8 @@
 				74F5DC1F26DD036D00AFE989 /* StoreManager.swift in Sources */,
 				74F5DC1C26DCD2FB00AFE989 /* StoreObserver.swift in Sources */,
 				4A21B49626BC0270000D13DF /* VaultDetailInfoFooterViewModel.swift in Sources */,
+				11E84AE6F7F105AB9A0E2EAE /* TrustedHubHostsViewController.swift in Sources */,
+				6436F6BD08894DAD03812751 /* TrustedHubHostsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3422,7 +3438,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.8.2;
+				MARKETING_VERSION = 2.8.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -3484,7 +3500,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 2.8.2;
+				MARKETING_VERSION = 2.8.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=200 -Xfrontend -warn-long-function-bodies=200";

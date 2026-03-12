@@ -131,6 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Action Required";
 "hubAuthentication.requireAccountInit.alert.message" = "To proceed, please complete the steps required in your Hub user profile.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Go to Profile";
+"hubAuthentication.trustHost.alert.title" = "Trust This Server?";
+"hubAuthentication.trustHost.alert.message" = "This vault wants to connect to the following server(s):\n\n%@\n\nDo you trust this server?";
+"hubAuthentication.trustHost.alert.trustButton" = "Trust";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "The vault configuration contains inconsistent server URLs. Please contact the vault owner.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Insecure connection (HTTP) to \"%@\" is not allowed. Please use HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Host Not Trusted";
 "hubAuthentication.vaultArchived" = "This vault has been archived. Please ask the vault owner to unarchive it.";
 
 "intents.saveFile.missingFile" = "The provided file is not valid.";
@@ -230,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Gain write access to your vaults.";
 "settings.unlockFullVersion.trialExpirationDate" = "Trial Expiration Date: %@";
 "settings.upgradeToLifetime" = "Upgrade to Lifetime";
+"settings.hub.trustedHosts" = "Trusted Hub Hosts";
 
 "sharePoint.enterURL.title" = "Enter SharePoint URL";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
@@ -277,6 +284,10 @@
 
 "trialStatus.active" = "Active";
 "trialStatus.expired" = "Expired";
+
+"trustedHubHosts.clearAll" = "Clear All";
+"trustedHubHosts.clearAll.alert.message" = "All previously trusted Hub hosts will be removed. You will need to confirm trust again when connecting to Hub vaults.";
+"trustedHubHosts.emptyList.message" = "No trusted Hub hosts yet. Hosts are added when you connect to a Hub vault for the first time.";
 
 "unlockVault.button.unlock" = "Unlock";
 "unlockVault.button.unlockVia" = "Unlock via %@";

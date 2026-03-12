@@ -123,6 +123,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Påkrevd handling";
 "hubAuthentication.requireAccountInit.alert.message" = "For å fortsette, fullfør trinnene som kreves i din Hub-brukerprofil.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Gå til profil";
+"hubAuthentication.trustHost.alert.trustButton" = "Stol på";
 
 "intents.saveFile.missingFile" = "Den oppgitte filen er ugyldig.";
 "intents.saveFile.invalidFolder" = "Den oppgitte mappen er ugyldig.";
