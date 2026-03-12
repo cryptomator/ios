@@ -20,8 +20,26 @@ class TrustedHubHostsViewController: BaseUITableViewController {
 		case clearAll
 	}
 
+	private class DataSource: UITableViewDiffableDataSource<Section, Item> {
+		var deleteRowAction: ((UITableView, UITableViewCell.EditingStyle, IndexPath) -> Void)?
+
+		override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+			guard let item = itemIdentifier(for: indexPath) else { return false }
+			switch item {
+			case .host:
+				return true
+			case .clearAll:
+				return false
+			}
+		}
+
+		override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+			deleteRowAction?(tableView, editingStyle, indexPath)
+		}
+	}
+
 	private let viewModel: TrustedHubHostsViewModel
-	private var dataSource: UITableViewDiffableDataSource<Section, Item>?
+	private var dataSource: DataSource?
 	private lazy var emptyListMessage: UIView = {
 		let label = UILabel()
 		label.font = .preferredFont(forTextStyle: .body)
@@ -56,7 +74,7 @@ class TrustedHubHostsViewController: BaseUITableViewController {
 	}
 
 	private func configureDataSource() {
-		dataSource = UITableViewDiffableDataSource<Section, Item>(tableView: tableView) { tableView, indexPath, item in
+		dataSource = DataSource(tableView: tableView) { tableView, indexPath, item in
 			switch item {
 			case let .host(host):
 				let cell = tableView.dequeueReusableCell(withIdentifier: "HostCell", for: indexPath)
@@ -71,16 +89,28 @@ class TrustedHubHostsViewController: BaseUITableViewController {
 				return cell
 			}
 		}
+		dataSource?.deleteRowAction = { [weak self] _, editingStyle, indexPath in
+			guard editingStyle == .delete,
+			      let self,
+			      let item = self.dataSource?.itemIdentifier(for: indexPath),
+			      case let .host(host) = item else { return }
+			self.deleteHost(host)
+		}
 	}
 
 	private func applySnapshot() {
 		var snapshot = NSDiffableDataSourceSnapshot<Section, Item>()
 		let hosts = viewModel.hosts
 		if hosts.isEmpty {
+			if isEditing {
+				setEditing(false, animated: false)
+			}
+			navigationItem.rightBarButtonItem = nil
 			tableView.backgroundView = emptyListMessage
 			tableView.contentInsetAdjustmentBehavior = .never
 			tableView.separatorStyle = .none
 		} else {
+			navigationItem.rightBarButtonItem = editButtonItem
 			tableView.backgroundView = nil
 			tableView.contentInsetAdjustmentBehavior = .automatic
 			tableView.separatorStyle = .singleLine
@@ -109,14 +139,18 @@ class TrustedHubHostsViewController: BaseUITableViewController {
 			return nil
 		}
 		let deleteAction = UIContextualAction(style: .destructive, title: LocalizedString.getValue("common.button.remove")) { [weak self] _, _, completion in
-			self?.viewModel.removeHost(host)
-			self?.applySnapshot()
+			self?.deleteHost(host)
 			completion(true)
 		}
 		return UISwipeActionsConfiguration(actions: [deleteAction])
 	}
 
 	// MARK: - Private
+
+	private func deleteHost(_ host: String) {
+		viewModel.removeHost(host)
+		applySnapshot()
+	}
 
 	private func showClearAllAlert() {
 		let alertController = UIAlertController(title: nil, message: LocalizedString.getValue("trustedHubHosts.clearAll.alert.message"), preferredStyle: .alert)
