@@ -127,6 +127,7 @@
 "hubAuthentication.requireAccountInit.alert.title" = "需要操作";
 "hubAuthentication.requireAccountInit.alert.message" = "要继续，请完成 Hub 用户中心所需的步骤";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "前往个人中心";
+"hubAuthentication.trustHost.alert.trustButton" = "信任";
 "hubAuthentication.vaultArchived" = "此保险库已存档，请让其所有者取消存档";
 
 "intents.saveFile.missingFile" = "提供的文件无效。";
