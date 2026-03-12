@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Acción requerida";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, complete los pasos necesarios en su perfil de usuario de Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ir al Perfil";
+"hubAuthentication.trustHost.alert.title" = "¿Confiar en este servidor?";
+"hubAuthentication.trustHost.alert.message" = "Esta bóveda quiere conectarse a los siguientes servidor(es):\n\n%@\n\n¿Confias en este servidor?";
 "hubAuthentication.trustHost.alert.trustButton" = "Confiar";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "La configuración de la bóveda contiene URL inconsistentes del servidor. Por favor, póngase en contacto con el propietario de la bóveda.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Conexión insegura (HTTP) a \"%@\" no está permitida. Por favor, utilice HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Host no confiable";
 "hubAuthentication.vaultArchived" = "Esta bóveda ha sido archivada. Por favor, pida al propietario de la bóveda que la desarchive.";
 
 "intents.saveFile.missingFile" = "El archivo proporcionado es inválido.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Obtenga acceso de escritura a sus bóvedas.";
 "settings.unlockFullVersion.trialExpirationDate" = "Fecha de caducidad de la prueba: %@";
 "settings.upgradeToLifetime" = "Actualice a una suscripción vitalicia";
+"settings.hub.trustedHosts" = "Hosts de Hub de confianza";
 
 "sharePoint.enterURL.title" = "Introduzca la URL de SharePoint";
 "sharePoint.enterURL.placeholder" = "URL del sitio SharePoint";
@@ -278,6 +284,10 @@
 
 "trialStatus.active" = "Activa";
 "trialStatus.expired" = "Expirada";
+
+"trustedHubHosts.clearAll" = "Limpiar todo";
+"trustedHubHosts.clearAll.alert.message" = "Se eliminarán todos los hosts de Hub de confianza previos. Necesitará confirmar la confianza de nuevo cuando se conecte a las bóvedas de Hub.";
+"trustedHubHosts.emptyList.message" = "No hay hosts de Hub de confianza todavía. Los hosts se añaden cuando te conectas a una bóveda de Hub por primera vez.";
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear a través de %@";
