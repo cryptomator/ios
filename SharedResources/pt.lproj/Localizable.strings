@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Ação necessária";
 "hubAuthentication.requireAccountInit.alert.message" = "Para continuar, por favor conclua as etapas exigidas no seu perfil de utilizador no Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Vá para o Perfil";
+"hubAuthentication.trustHost.alert.title" = "Confiar neste servidor?";
+"hubAuthentication.trustHost.alert.message" = "Este cofre quer ligar-se aos seguintes servidor(s):\n\n%@\n\nVocê confia neste servidor?";
 "hubAuthentication.trustHost.alert.trustButton" = "Confiar";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "A configuração do cofre contém URLs de servidor inconsistentes. Entre em contato com o proprietário do cofre.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Ligação insegura (HTTP) para \"%@\" não é permitida. Por favor, use HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Anfitrião não é fiável";
 "hubAuthentication.vaultArchived" = "Este cofre foi arquivado. Por favor, peça ao proprietário do cofre para o desarquivar.";
 
 "intents.saveFile.missingFile" = "O ficheiro especificado não é válido.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Obtenha acesso de escrita nos seus cofres.";
 "settings.unlockFullVersion.trialExpirationDate" = "Data de expiração do período de teste: %@";
 "settings.upgradeToLifetime" = "Atualizar para licença vitalícia";
+"settings.hub.trustedHosts" = "Anfitriões de Hub confiáveis";
 
 "sharePoint.enterURL.title" = "Introduza o URL do SharePoint";
 "sharePoint.enterURL.placeholder" = "URL do site SharePoint";
@@ -279,6 +285,10 @@ https://{…}.sharepoint.com/{sites|teams}/{…}";
 
 "trialStatus.active" = "Ativo";
 "trialStatus.expired" = "Expirou";
+
+"trustedHubHosts.clearAll" = "Limpar tudo";
+"trustedHubHosts.clearAll.alert.message" = "Todos os anfitriões do Hub que eram fidedignos anteriormente serão removidos. Terá de confirmar a confiança novamente ao ligar-se aos cofres do Hub.";
+"trustedHubHosts.emptyList.message" = "Ainda não existem anfitriões fidedignos no Hub. Os anfitriões são adicionados quando se liga a um cofre do Hub pela primeira vez.";
 
 "unlockVault.button.unlock" = "Desbloquear";
 "unlockVault.button.unlockVia" = "Desbloquear via %@";
