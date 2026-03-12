@@ -286,6 +286,7 @@
 "trialStatus.expired" = "Expirado";
 
 "trustedHubHosts.clearAll" = "Limpar tudo";
+"trustedHubHosts.clearAll.alert.message" = "Todos os hosts do Hub confiáveis anteriores serão removidos. Você precisará confirmar a confiança novamente quando se conectar aos cofres do Hub.";
 "trustedHubHosts.emptyList.message" = "Ainda não há hosts do Hub confiáveis. Eles são adicionados quando você se conecta a um cofre do Hub pela primeira vez.";
 
 "unlockVault.button.unlock" = "Desbloquear";
