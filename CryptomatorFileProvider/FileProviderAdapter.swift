@@ -755,6 +755,11 @@ public class FileProviderAdapter: FileProviderAdapterType {
 			}
 			let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: itemMetadata)
 			return localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: lastModifiedDateInCloud) ?? false
+		}.recover { error -> Bool in
+			guard error.isNoInternetConnectionError else {
+				throw error
+			}
+			return true
 		}
 	}
 

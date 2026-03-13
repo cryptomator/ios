@@ -7,6 +7,7 @@
 //
 
 import CryptomatorCloudAccessCore
+import CryptomatorCommonCore
 import FileProvider
 import Foundation
 import Promises
@@ -43,6 +44,19 @@ class ErrorMapper<T>: WorkflowMiddleware {
 }
 
 extension Error {
+	var isNoInternetConnectionError: Bool {
+		if let cloudProviderError = self as? CloudProviderError, cloudProviderError == .noInternetConnection {
+			return true
+		}
+		if let localizedError = self as? LocalizedCloudProviderError, case .noInternetConnection = localizedError {
+			return true
+		}
+		if let fileProviderError = self as? NSFileProviderError, fileProviderError.code == .serverUnreachable {
+			return true
+		}
+		return false
+	}
+
 	func toPresentableError() -> Error {
 		guard let cloudProviderError = self as? CloudProviderError else {
 			return self
