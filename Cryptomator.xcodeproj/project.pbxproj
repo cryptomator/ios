@@ -2067,15 +2067,6 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
-		8DB472C9A9C7437C46DCAFD7 /* Hub */ = {
-			isa = PBXGroup;
-			children = (
-				0964E7C048AC1D59105CF75C /* TrustedHubHostsViewController.swift */,
-				46F99A7913E9584535D9F5FC /* TrustedHubHostsViewModel.swift */,
-			);
-			path = Hub;
-			sourceTree = "<group>";
-		};
 		743D95FA2D76EE88002D73C3 /* MicrosoftGraph */ = {
 			isa = PBXGroup;
 			children = (
@@ -2145,6 +2136,15 @@
 				4AB1D4FB27D69B98009060AB /* Cells */,
 			);
 			path = Purchase;
+			sourceTree = "<group>";
+		};
+		8DB472C9A9C7437C46DCAFD7 /* Hub */ = {
+			isa = PBXGroup;
+			children = (
+				0964E7C048AC1D59105CF75C /* TrustedHubHostsViewController.swift */,
+				46F99A7913E9584535D9F5FC /* TrustedHubHostsViewModel.swift */,
+			);
+			path = Hub;
 			sourceTree = "<group>";
 		};
 		B3C397FD2EB10FC0001280AC /* ShareVault */ = {

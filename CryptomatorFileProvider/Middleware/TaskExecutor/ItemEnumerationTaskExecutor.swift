@@ -115,6 +115,35 @@ class ItemEnumerationTaskExecutor: WorkflowMiddleware {
 			}
 			try self.cleanUpNoLongerInTheCloudExistingItems(insideParentID: folderMetadata.id!)
 			return FileProviderItemList(items: items, nextPageToken: nil)
+		}.recover { error -> Promise<FileProviderItemList> in
+			guard error.isNoInternetConnectionError else {
+				return Promise(error)
+			}
+			guard pageToken == nil else {
+				return Promise(error)
+			}
+			return self.buildOfflineItemList(folderMetadata: folderMetadata, originalError: error)
+		}
+	}
+
+	private func buildOfflineItemList(folderMetadata: ItemMetadata, originalError: Error) -> Promise<FileProviderItemList> {
+		do {
+			let cachedMetadata = try itemMetadataManager.getCachedMetadata(withParentID: folderMetadata.id!)
+			guard !cachedMetadata.isEmpty else {
+				return Promise(originalError)
+			}
+			let uploadTasks = try uploadTaskManager.getTaskRecords(for: cachedMetadata)
+			assert(cachedMetadata.count == uploadTasks.count)
+			let items = try cachedMetadata.enumerated().map { index, metadata -> FileProviderItem in
+				let localCachedFileInfo = try self.cachedFileManager.getLocalCachedFileInfo(for: metadata)
+				let newestVersionLocallyCached = localCachedFileInfo?.isCurrentVersion(lastModifiedDateInCloud: metadata.lastModifiedDate) ?? false
+				let localURL = localCachedFileInfo?.localURL
+				return FileProviderItem(metadata: metadata, domainIdentifier: self.domainIdentifier, newestVersionLocallyCached: newestVersionLocallyCached, localURL: localURL, error: uploadTasks[index]?.failedWithError)
+			}
+			DDLogInfo("Offline fallback: serving \(items.count) cached items for folder \(folderMetadata.cloudPath.path)")
+			return Promise(FileProviderItemList(items: items, nextPageToken: nil))
+		} catch {
+			return Promise(error)
 		}
 	}
 
