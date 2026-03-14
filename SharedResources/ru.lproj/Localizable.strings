@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Требуется действие";
 "hubAuthentication.requireAccountInit.alert.message" = "Для продолжения выполните необходимые шаги в вашем профиле пользователя Hub.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Перейти в профиль";
+"hubAuthentication.trustHost.alert.title" = "Доверять этому серверу?";
+"hubAuthentication.trustHost.alert.message" = "Это хранилище хочет подключиться к следующим серверам:\n\n%@\n\nВы им доверяете?";
 "hubAuthentication.trustHost.alert.trustButton" = "Доверять";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "Конфигурация хранилища содержит несогласованные URL-адреса серверов. Свяжитесь с владельцем хранилища.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Небезопасное (HTTP) соединение  с \"%@\" не разрешено. Используйте HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "Хост не доверенный";
 "hubAuthentication.vaultArchived" = "Это хранилище помещено в архив. Попросите владельца хранилища разархивировать его.";
 
 "intents.saveFile.missingFile" = "Выбран некорректный файл.";
@@ -231,6 +236,7 @@
 "settings.unlockFullVersion.detail" = "Получите доступ на запись в хранилища.";
 "settings.unlockFullVersion.trialExpirationDate" = "Истекает: %@";
 "settings.upgradeToLifetime" = "Обновить до бессрочной подписки";
+"settings.hub.trustedHosts" = "Доверенные хосты хаба";
 
 "sharePoint.enterURL.title" = "Введите URL-адрес SharePoint";
 "sharePoint.enterURL.placeholder" = "URL-адрес сайта SharePoint";
@@ -278,6 +284,10 @@
 
 "trialStatus.active" = "Активно";
 "trialStatus.expired" = "Истекло";
+
+"trustedHubHosts.clearAll" = "Очистить все";
+"trustedHubHosts.clearAll.alert.message" = "Все ранее доверенные хосты хаба будут удалены. При подключении к хранилищам хаба потребуется снова подтвердить доверие.";
+"trustedHubHosts.emptyList.message" = "Пока нет доверенных хостов хаба. Хосты добавляются при первом подключении к хранилищу хаба.";
 
 "unlockVault.button.unlock" = "Разблокировать";
 "unlockVault.button.unlockVia" = "Разблокировать через %@";

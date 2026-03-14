@@ -131,7 +131,12 @@
 "hubAuthentication.requireAccountInit.alert.title" = "Actie vereist";
 "hubAuthentication.requireAccountInit.alert.message" = "Om verder te gaan, gelieve de stappen te voltooien in uw Hub-gebruikersprofiel.";
 "hubAuthentication.requireAccountInit.alert.actionButton" = "Ga naar Profiel";
+"hubAuthentication.trustHost.alert.title" = "Deze server vertrouwen?";
+"hubAuthentication.trustHost.alert.message" = "Deze kluis wil verbinding maken met de volgende server(s):\n\n%@\n\nVertrouw je deze server?";
 "hubAuthentication.trustHost.alert.trustButton" = "Vertrouwen";
+"hubAuthentication.trustHost.error.inconsistentAuthority" = "De configuratie van de kluis bevat inconsistente server URL's. Neem contact op met de eigenaar van de kluis.";
+"hubAuthentication.trustHost.error.httpNotAllowed" = "Onveilige verbinding (HTTP) naar \"%@\" is niet toegestaan. Gebruik HTTPS.";
+"hubAuthentication.untrustedHost.alert.title" = "De host is niet vertrouwd";
 "hubAuthentication.vaultArchived" = "Deze kluis is gearchiveerd. Vraag de eigenaar van de kluis om de kluis te dearchiveren.";
 
 "intents.saveFile.missingFile" = "Het opgegeven bestand is niet geldig.";
@@ -228,6 +233,7 @@
 "settings.unlockFullVersion.detail" = "Krijg schrijftoegang tot je kluizen.";
 "settings.unlockFullVersion.trialExpirationDate" = "Vervaldatum proefperiode: %@";
 "settings.upgradeToLifetime" = "Upgrade naar Levenslang";
+"settings.hub.trustedHosts" = "Vertrouwde Hub Hosts";
 
 "sharePoint.enterURL.title" = "Voer SharePoint URL in";
 "sharePoint.enterURL.placeholder" = "SharePoint Site URL";
@@ -275,6 +281,10 @@
 
 "trialStatus.active" = "Actief";
 "trialStatus.expired" = "Verlopen";
+
+"trustedHubHosts.clearAll" = "Alles wissen";
+"trustedHubHosts.clearAll.alert.message" = "Alle eerder vertrouwde Hub hosts zullen worden verwijderd. U moet het vertrouwen opnieuw bevestigen bij het verbinden met Hub kluizen.";
+"trustedHubHosts.emptyList.message" = "Nog geen vertrouwde hub hosts. Hosts worden toegevoegd wanneer je voor het eerst verbinding maakt met een hub kluis.";
 
 "unlockVault.button.unlock" = "Ontgrendel";
 "unlockVault.button.unlockVia" = "Ontgrendel via %@";
